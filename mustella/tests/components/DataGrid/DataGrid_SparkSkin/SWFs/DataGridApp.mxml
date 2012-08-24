@@ -891,7 +891,7 @@
     
     <mx:ArrayCollection id="dataArray2">
         <fx:Object controlType="Button" info="A Button!" />
-        <fx:Object controlType="Image" info="assets/image1.jpg" />
+        <fx:Object controlType="Image" info="../../../../../Assets/Images/redrect.jpg" />
         <fx:Object controlType="TextArea" info="A TextArea!" />
         <fx:Object controlType="NumericStepper" info="4" />
         <fx:Object controlType="ComboBox" info="Item 1,Item2,Item3"  />

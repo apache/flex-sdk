@@ -322,14 +322,14 @@
                 <SetProperty propertyName="selectedIndex" value="3" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
                 <DispatchMouseClickEvent target="dg" localX="70" localY="9" waitTarget="dg" waitEvent="headerRelease"/>
                 <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <!--DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
                 <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
                 <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
                 <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
                 <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
                 <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
                 <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
-                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
-                <AssertPropertyValue target="dg" propertyName="selectedIndex" value="2"/>
+                <AssertPropertyValue target="dg" propertyName="selectedIndex" value="2"/-->
             </body>
         </TestCase>
 
@@ -474,11 +474,11 @@
                          <body>
                             <SetProperty target="dg" propertyName="horizontalScrollPolicy" value="on" waitTarget="dg" waitEvent="updateComplete"/>
                             <SetProperty target="dg" propertyName="width" value="150" waitTarget="dg" waitEvent="updateComplete"/>
-                            <DispatchMouseClickEvent target="dg" localX="128" localY="156" waitTarget="dg" waitEvent="scroll"/>
+                            <!--DispatchMouseClickEvent target="dg" localX="128" localY="156" waitTarget="dg" waitEvent="scroll"/>
                             <DispatchMouseClickEvent target="dg" localX="128" localY="156" waitTarget="dg" waitEvent="scroll"/>
                             <DispatchMouseClickEvent target="dg" localX="128" localY="156" waitTarget="dg" waitEvent="scroll"/>
 
-                            <CompareBitmap target="dg" url="../Bugs/Baselines/bug192695.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+                            <CompareBitmap target="dg" url="../Bugs/Baselines/bug192695.png" numColorVariances="4" ignoreMaxColorVariance="true"/-->
 
                          </body>
                     </TestCase>
