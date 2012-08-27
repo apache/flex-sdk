@@ -99,8 +99,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
@@ -118,8 +116,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ListStylePositionOutsideAutoPaddingEnforced.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
@@ -143,7 +139,7 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" /></setup>
+            </setup>
 			<body>
 
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
@@ -168,8 +164,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" />
-				
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
@@ -207,7 +201,6 @@
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 
@@ -234,9 +227,6 @@
 				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" />
-				
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
-
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
@@ -281,7 +271,6 @@
 				
 				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 
@@ -301,7 +290,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
@@ -320,7 +308,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
@@ -344,8 +331,7 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" />
-				
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" /></setup>
+            </setup>
 			<body>
 				
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
@@ -370,8 +356,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" />
-				
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
@@ -408,7 +392,6 @@
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -437,8 +420,6 @@
 				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" />
-				
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -484,7 +465,6 @@
 				
 				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				

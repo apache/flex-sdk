@@ -112,8 +112,6 @@
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -146,8 +144,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -194,7 +190,6 @@
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30">
@@ -228,8 +223,6 @@
 				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -335,8 +328,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 
@@ -369,7 +360,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 
@@ -414,8 +404,7 @@
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
-			</setup>
+		    </setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
 			</body>
@@ -446,8 +435,6 @@
 				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 
@@ -497,7 +484,6 @@
 				
 				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 
@@ -604,8 +590,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput"/>
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -638,7 +622,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -683,7 +666,6 @@
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
@@ -717,8 +699,6 @@
 				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -824,8 +804,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -858,7 +836,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -903,7 +880,6 @@
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
@@ -935,8 +911,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				
 				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -984,7 +958,6 @@
 				
 				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				

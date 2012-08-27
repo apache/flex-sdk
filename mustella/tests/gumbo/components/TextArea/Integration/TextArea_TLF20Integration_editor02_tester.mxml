@@ -73,8 +73,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEnd.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -90,8 +88,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeft.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -107,8 +103,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNone.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -124,8 +118,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRight.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -141,8 +133,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatStart.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -160,8 +150,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRightClearBoth.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -177,8 +165,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRightClearLeft.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -194,8 +180,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRightClearNone.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -211,8 +195,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRightClearRight.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -230,8 +212,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEndClearBoth.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -247,8 +227,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEndClearLeft.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -264,8 +242,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEndClearNone.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -281,8 +257,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEndClearRight.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -299,8 +273,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeftClearBoth.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -316,8 +288,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeftClearLeft.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -333,8 +303,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeftClearNone.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -350,8 +318,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeftClearRight.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -369,8 +335,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNoneClearBoth.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -386,8 +350,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNoneClearLeft.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -403,8 +365,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNoneClearNone.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -420,8 +380,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNoneClearRight.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
@@ -437,8 +395,6 @@
 				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatAndClearFloatsRuntime.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
-				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
