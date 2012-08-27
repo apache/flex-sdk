@@ -258,17 +258,15 @@ import spark.components.TextInput;
 
 				<DispatchMouseEvent type="mouseDown" localX="65" localY="5" target="textInput" waitEvent="mouseDown" waitTarget="textInput" />
 
-				<AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="10" />
+				<AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="11" />
 
-				<AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="10" />
+				<AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="11" />
 
 				<DispatchMouseEvent type="mouseMove" localX="20" localY="10" buttonDown="true" target="textInput" />
 
 				<DispatchMouseEvent type="mouseUp" localX="65" localY="5" target="textInput" waitEvent="mouseUp" waitTarget="textInput" />
 
-				<Pause timeout="10" />
-
-				<AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="10" />
+				<AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="11" />
 
 				<AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="2" />
 
