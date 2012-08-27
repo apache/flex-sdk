@@ -50,7 +50,7 @@
 				<SetProperty value="30" target="myNS3" propertyName="height" waitEvent="updateComplete" waitTarget="myNS3"/>
 				<AssertPropertyValue target="myNS3" propertyName="y" value="0" />        	
 				<SetStyle target="myNS3" styleName="baseline" value="50" waitTarget="myNS3" waitEvent="updateComplete"/>
-				<AssertPropertyValue target="myNS3" propertyName="y" value="35" />
+				<AssertPropertyValue target="myNS3" propertyName="y" value="34" />
 		    </body>
         </TestCase>
 		<TestCase testID="NumericStepper_styles_baseColor" keywords="[NumericStepper, Styles, baseColor]" description="Test NumericStepper baseColor Style">

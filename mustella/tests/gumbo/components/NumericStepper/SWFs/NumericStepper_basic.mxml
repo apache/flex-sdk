@@ -30,39 +30,41 @@
 		@namespace s "library://ns.adobe.com/flex/spark";
 		@namespace mx "library://ns.adobe.com/flex/mx";
 		@namespace c "comps.*";
-				
+
 		@font-face {
-			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
 			fontFamily: MyArial;
 			embedAsCFF: true;
 		}
 		
 		@font-face {
-			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
 			fontFamily: MyArial;
+			fontStyle: italic;
 			embedAsCFF: true;
 		}
 		
 		@font-face {
-			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
 			fontFamily: MyArial;
+			fontWeight: bold;
 			embedAsCFF: true;
 		}
 		
 		@font-face {
-			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
 			fontFamily: MyArialHalo;
 			embedAsCFF: false;
 		}
 		
 		@font-face {
-			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
 			fontFamily: MyArialHalo;			
 			embedAsCFF: false;
 		}
 		
 		@font-face {
-			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
 			fontFamily: MyArialHalo;			
 			embedAsCFF: false;
 		}	
