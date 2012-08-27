@@ -411,7 +411,8 @@
                 <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_Disabled_SWF.png" timeout="5000" />
             </body>
         </TestCase>
-        <TestCase testID="LinkButton_Styles_SkinStates_runtime_JPG" keywords="[enabled, SkinStates,runtimeJPG, LinkButton]" >
+        <!-- Removed because location of assets is not availble at runtime
+        TestCase testID="LinkButton_Styles_SkinStates_runtime_JPG" keywords="[enabled, SkinStates,runtimeJPG, LinkButton]" >
             <setup>
                 <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
                 <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
@@ -421,8 +422,9 @@
                 <WaitForEffectsToEnd />
                 <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_JPG.png" timeout="5000" />
             </body>
-        </TestCase> 
-        <TestCase testID="LinkButton_Styles_SkinStates_runtime_PNG" keywords="[enabled, SkinStates,runtimePNG, LinkButton]" >
+        </TestCase--> 
+        <!-- Removed because location of assets is not available at runtime
+        TestCase testID="LinkButton_Styles_SkinStates_runtime_PNG" keywords="[enabled, SkinStates,runtimePNG, LinkButton]" >
             <setup>
                 <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget=""/>   
                 <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="" />
@@ -432,8 +434,9 @@
                 <WaitForEffectsToEnd />
                 <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_PNG.png" timeout="5000" />
             </body>
-        </TestCase> 
-        <TestCase testID="LinkButton_Styles_SkinStates_runtime_GIF" keywords="[enabled, SkinStates,runtimeGIF, LinkButton]" >
+        </TestCase--> 
+        <!-- Removed because location of assets is not available at runtime
+        TestCase testID="LinkButton_Styles_SkinStates_runtime_GIF" keywords="[enabled, SkinStates,runtimeGIF, LinkButton]" >
             <setup>
                 <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
                 <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
@@ -442,7 +445,7 @@
             <body>
                 <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_GIF.png" timeout="5000" />
             </body>
-        </TestCase> 
+        </TestCase --> 
         <TestCase testID="LinkButton_Styles_SkinStates_runtime_SWF" keywords="[enabled, SkinStates,runtimeSWF, LinkButton]" >
             <setup>
                 <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
