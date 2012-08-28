@@ -105,6 +105,7 @@
                <DispatchMouseClickEvent target="dgSpecialHeader.mx_internal:rendererArray.0.0" localX="65" localY="20" waitEvent="updateComplete"
                    waitTarget="dgSpecialHeader" />
                <DispatchMouseEvent type="mouseOver" target="dgSpecialHeader.mx_internal:rendererArray.0.0" localX="65" localY="20" />
+			   <Pause timeout="100" />
                <CompareBitmap target="dgSpecialHeader.mx_internal:rendererArray.0.0" url="../baselines/headerRenderer_icon.png" timeout="2500" />
            </body>
         </TestCase>

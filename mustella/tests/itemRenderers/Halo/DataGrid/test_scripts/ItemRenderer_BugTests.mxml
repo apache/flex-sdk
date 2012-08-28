@@ -61,9 +61,9 @@
 			        waitEvent="mouseDown" waitTarget="dataGrid127773.mx_internal:rendererArray.1.0.getChildAt(5)"  />
 			    <DispatchMouseEvent type="mouseUp" target="dataGrid127773.mx_internal:rendererArray.1.0.getChildAt(5)"
 					localX="5" localY="4" />
-				<DispatchKeyEvent char="Brad Pitt" waitEvent="change" waitTarget="dataGrid127773.mx_internal:rendererArray.1.0.getChildAt(5)" />
+				<DispatchKeyEvent char="Bard Port" waitEvent="change" waitTarget="dataGrid127773.mx_internal:rendererArray.1.0.getChildAt(5)" />
 			    <DispatchMouseClickEvent target="dataGrid127773.mx_internal:rendererArray.2.0" waitEvent="itemEditEnd" waitTarget="dataGrid127773" />
-			    <AssertPropertyValue target="dataGrid127773.dataProvider.0" propertyName="name" value="Brad Pitt" />
+			    <AssertPropertyValue target="dataGrid127773.dataProvider.0" propertyName="name" value="Bard Port" />
 			    <DispatchMouseClickEvent target="" localX="4" localY="5" />
 			</body>
 		</TestCase>
