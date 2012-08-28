@@ -86,6 +86,7 @@
 			    <DispatchMouseClickEvent target="dataGrid192034.mx_internal:rendererArray.2.0" localX="5" localY="4" waitEvent="itemFocusIn" waitTarget="dataGrid192034" />
                 <DispatchMouseClickEvent target="dataGrid192034.itemEditorInstance" localX="25" localY="5" waitEvent="open" waitTarget="dataGrid192034.itemEditorInstance" />
                 <WaitForEffectsToEnd />
+				<Pause timeout="200" />
                 <DispatchMouseClickEvent target="dataGrid192034.itemEditorInstance.dropdown.getChildAt(7)" localX="5" localY="5" />
                 <!--DispatchMouseClickEvent target="dataGrid192034.itemEditorInstance.dropdown.getChildAt(2).getChildAt(12)" localX="13" localY="9" waitEvent="change"
                     waitTarget="dataGrid192034.itemEditorInstance" /-->
