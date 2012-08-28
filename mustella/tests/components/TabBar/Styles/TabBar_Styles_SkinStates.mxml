@@ -472,7 +472,7 @@
                 <RunCode code="addData(0);" />
                 <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
-                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tb" waitEvent="mouseDown" waitTarget="tb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="100" localY="9" target="tb" waitEvent="mouseDown" waitTarget="tb" /> 
                 <WaitForEffectsToEnd />
             </setup>
             <body>
