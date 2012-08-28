@@ -77,7 +77,7 @@
 	 			   <SetProperty target="list_basic" propertyName="editorDataField" value="selected"  />
 	 			   <RunCode code="application.list_basic.addEventListener('itemEditBegin', application.doTest)"   />
 	 			   <DispatchMouseClickEvent target="list_basic.mx_internal:rendererArray.1.0" localX="5" localY="5" waitEvent="updateComplete" waitTarget="list_basic" />
-	               <DispatchMouseClickEvent target="list_basic.itemEditorInstance" localX="5" localY="5" waitEvent="click" waitTarget="list_basic.itemEditorInstance" />
+	               <DispatchMouseClickEvent target="list_basic.itemEditorInstance" localX="10" localY="10" waitEvent="click" waitTarget="list_basic.itemEditorInstance" />
 	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="list_basic" />
 	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="list_basic" />
 				   <AssertPropertyValue target="list_basic.dataProvider.1" propertyName="Available" value="true" />

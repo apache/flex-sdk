@@ -115,7 +115,7 @@
 	 			   <SetProperty target="dataGrid_basic.columns.2" propertyName="editorDataField" value="selected"  />
 	 			   <RunCode code="application.dataGrid_basic.addEventListener('itemEditBegin', application.doTest)"   />
 	 			   <DispatchMouseClickEvent target="dataGrid_basic.mx_internal:rendererArray.1.2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="dataGrid_basic" />
-	               <DispatchMouseClickEvent target="dataGrid_basic.itemEditorInstance" localX="5" localY="5" waitEvent="click" waitTarget="dataGrid_basic.itemEditorInstance" />
+	               <DispatchMouseClickEvent target="dataGrid_basic.itemEditorInstance" localX="10" localY="10" waitEvent="click" waitTarget="dataGrid_basic.itemEditorInstance" />
 	 			   <DispatchMouseClickEvent target="" localX="5" localY="5" waitEvent="itemEditEnd" waitTarget="dataGrid_basic" />
 	               <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="dataGrid_basic" />
 				   <AssertPropertyValue target="dataGrid_basic.dataProvider.0" propertyName="Available" value="false" />
