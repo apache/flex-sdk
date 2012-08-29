@@ -38,7 +38,7 @@
 
     ]]>
     </mx:Script>
-    <mx:Style source="../../../../Assets/Fonts/myStyles.css" /> 
+    <mx:Style source="../../../../Assets/Fonts/VeraFontStyles.css" /> 
 
     <mx:Style>
         @font-face {
