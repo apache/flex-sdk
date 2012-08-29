@@ -29,7 +29,7 @@
 
 <mx:Style>
 
-	@namespace "library://ns.adobe.com/flex/mx";
+	@namespace mx "library://ns.adobe.com/flex/mx";
     .myStyle {
         paddingTop: 10;
     }
@@ -82,28 +82,8 @@
 			embedAsCFF: false;
 	}
 
-	@font-face {
-		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
-		fontFamily: EmbeddedVerdana;
-			embedAsCFF: false;
-	}
-
-	@font-face {
-	    src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
-		fontWeight: bold;
-		fontFamily: EmbeddedVerdana;
-			embedAsCFF: false;
-	}
-
-	@font-face {
-		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
-		fontStyle: italic;
-		fontFamily: EmbeddedVerdana;
-			embedAsCFF: false;
-	}
-
-    Accordion{
-      	fontFamily: EmbeddedVerdana;
+    mx|Accordion{
+      	fontFamily: MyVerdana;
        	fontAntiAliasType: normal;
     }
 

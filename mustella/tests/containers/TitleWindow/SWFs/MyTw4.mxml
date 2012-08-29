@@ -35,7 +35,7 @@
 		override protected function get closeButtonStyleFilters():Object
 		{
 			return customListStyles;
-	}
+	    }
 
 ]]>
 </mx:Script>

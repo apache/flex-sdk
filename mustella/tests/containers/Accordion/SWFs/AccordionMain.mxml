@@ -18,6 +18,7 @@
 
 -->
 <mx:Application backgroundColor="0xFFFFFF" backgroundImage="" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" width="600" height="600" >
+    <mx:Style source="Assets/myStyles.css" />
    	<mx:Style>
 	
 		@namespace s "library://ns.adobe.com/flex/spark";
@@ -43,30 +44,10 @@
 			embedAsCFF: false;
 		}
 
-		@font-face {
-			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
-			fontFamily: EmbeddedVerdana;
-			embedAsCFF: false;
-		}
-
-		@font-face {
-			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
-			fontWeight: bold;
-			fontFamily: EmbeddedVerdana;
-			embedAsCFF: false;
-		}
-
-		@font-face {
-			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
-			fontStyle: italic;
-			fontFamily: EmbeddedVerdana;
-			embedAsCFF: false;
-		}
-		
-        	mx|Accordion{
-        	    fontFamily: EmbeddedVerdana;
-        	    fontAntiAliasType: normal;
-        	}
+        mx|Accordion{
+            fontFamily: MyVerdana;
+            fontAntiAliasType: normal;
+        }
    	 </mx:Style>
 <AccordionComp id="mybox"  />   
 </mx:Application>

@@ -87,7 +87,7 @@
 		    
 		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4,'rtl')" />
 		    <Pause timeout="100"/>
-    		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
+    		<SetProperty propertyName="title" value="My Title4" target="tw4" />
 		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
@@ -101,7 +101,7 @@
 		    
 		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4.vbox1,'rtl')"/>
 		    <Pause timeout="100"/>
-    		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
+    		<SetProperty propertyName="title" value="My Title4" target="tw4" />
 		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
@@ -112,11 +112,9 @@
 		   
 		</setup>
 		<body>
-		    
 		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4.vbox2,'ltr')" />
 		    <Pause timeout="100"/>
-		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
-    		
+		    <SetProperty propertyName="title" value="My Title4" target="tw4" />    		
 		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
@@ -126,11 +124,9 @@
 		    <ResetComponent target="tw4" className="MyLayoutTestTW" waitEvent="updateComplete" waitTarget="tw4" />
 		</setup>
 		<body>
-		    
 		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4.vbox2,null)"/>
-    		   <Pause timeout="100"/>
-				    <SetProperty propertyName="title" value="My Title4" target="tw4" />
-    		
+    		<Pause timeout="100"/>
+			<SetProperty propertyName="title" value="My Title4" target="tw4" />
 		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
@@ -143,7 +139,7 @@
 		<body>
 		    
 		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4.vbox1,null)" />
-    		    <Pause timeout="100"/>
+    		<Pause timeout="100"/>
 		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
     		
 		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />

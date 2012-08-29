@@ -54,7 +54,7 @@
 			</setup>
 			<body>
 				<AssertPropertyValue target="tn.tabn" propertyName="visible" value="true"/>
-				<DispatchMouseClickEvent target="tn.tabn" localX="120" localY="13"/>
+				<DispatchMouseClickEvent target="tn.tabn" localX="100" localY="13"/>
 				<AssertPropertyValue target="tn.tabn" propertyName="selectedChild" valueExpression="value=application.tn.tabn.getChildAt(1)" />
 			</body>
 	</TestCase>
