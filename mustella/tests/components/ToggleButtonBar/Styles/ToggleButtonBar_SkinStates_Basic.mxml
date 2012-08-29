@@ -507,7 +507,7 @@
                 <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
                 <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
-                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="100" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
                 <WaitForEffectsToEnd />
             </setup>
             <body>
