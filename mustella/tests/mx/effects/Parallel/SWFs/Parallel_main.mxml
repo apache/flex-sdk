@@ -13,7 +13,7 @@
         {
         src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
         fontFamily: EmbeddedVerdana;
-        embedAsCFF:true;
+        embedAsCFF:false;
         }
 
         @font-face

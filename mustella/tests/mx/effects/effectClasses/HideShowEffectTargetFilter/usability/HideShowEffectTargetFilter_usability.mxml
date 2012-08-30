@@ -51,6 +51,21 @@
 
         <!-- Show -->
         <TestCase testID="HideShowEffectTargetFilter_show" keywords="[HideShowEffectTargetFilter, usability]" description="Test the showEffect.">
+			<setup>
+				<ResetComponent target="tlist0" className="mx.controls.TileList" />
+				<SetProperty target="tlist0" propertyName="width" value="400" />
+				<SetProperty target="tlist0" propertyName="height" value="400" />
+				<SetProperty target="tlist0" propertyName="columnCount" value="4" />
+				<SetProperty target="tlist0" propertyName="rowCount" value="4" />
+				<SetProperty target="tlist0" propertyName="direction" value="horizontal" />
+				<SetProperty target="tlist0" propertyName="allowMultipleSelection" value="true" />
+				<SetProperty target="tlist0" propertyName="offscreenExtraRowsOrColumns" value="4" />
+				<SetProperty target="tlist0" propertyName="dataProvider" valueExpression="value=application.myDP" />
+				<SetProperty target="tlist0" propertyName="visible" value="false" />
+				<SetStyle target="tlist0" styleName="fontSize" value="30" />
+				<SetStyle target="tlist0" styleName="hideEffect" value="myFade" />
+				<SetStyle target="tlist0" styleName="showEffect" value="myFade" waitEvent="updateComplete"/>
+			</setup>
             <body>
                 <RunCode code="FlexGlobals.topLevelApplication.tlist0.visible = true;" waitTarget="myFade" waitEvent="effectEnd"/>
                 <CompareBitmap target="tlist0" url="../usability/baseline/HideShowEffectTargetFilter_show.png" />

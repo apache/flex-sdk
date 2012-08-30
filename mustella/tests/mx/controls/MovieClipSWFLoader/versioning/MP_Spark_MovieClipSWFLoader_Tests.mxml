@@ -70,10 +70,9 @@
          </TestCase>
          <TestCase testID="MP_MovieClipSWFLoader_toolTip_compatibility" description="Test that you can see a tooltip for a Spark component in compatibility mode." keywords="[TextInput, Spark, Marshall Plan, ToolTip]">
              <setup>
-               <ResetComponent target="control1" className="spark.components.TextInput" waitTarget="control1"
-                   waitEvent="updateComplete" />
+               <ResetComponent target="control1" className="spark.components.TextInput" waitTarget="control1" waitEvent="updateComplete" />
                <SetProperty target="swf1" propertyName="autoLoad" value="true" />
-               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <SetProperty target="swf1" propertyName="source" value="../../../../../Assets/Images/smallbluerect.jpg" waitTarget="swf1" waitEvent="complete"/>
                <Pause timeout="100" />
                <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
@@ -88,20 +87,18 @@
          </TestCase>
          <TestCase testID="MP_MovieClipSWFLoader_toolTip_untrusted" description="Test that you can see a tooltip for a Spark component in untrusted mode." keywords="[TextInput, Spark, Marshall Plan, ToolTip]">
              <setup>
-               <ResetComponent target="control1" className="spark.components.TextInput" waitTarget="control1"
-                   waitEvent="updateComplete" />
+               <ResetComponent target="control1" className="spark.components.TextInput" waitTarget="control1" waitEvent="updateComplete" />
                <SetProperty target="swf1" propertyName="autoLoad" value="true" />
-               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <SetProperty target="swf1" propertyName="source" value="../../../../../Assets/Images/smallbluerect.jpg" waitTarget="swf1" waitEvent="complete"/>
                <Pause timeout="100" />
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
-               <SetProperty target="swf1" propertyName="source" value="http://localhost/mx/controls/MovieClipSWFLoader/SWFs/assets/MP_SparkControls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="source" value="assets/MP_SparkControls_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
                <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
             </setup>
             <body>
                 <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
-                <DispatchMouseEvent type="mouseOver" target="swf1.content.document.textinput1" localX="20" localY="8"
-                   waitEvent="toolTipShown" waitTarget="swf1.content.document.textinput1" />
+                <DispatchMouseEvent type="mouseOver" target="swf1.content.document.textinput1" localX="20" localY="8" waitEvent="toolTipShown" waitTarget="swf1.content.document.textinput1" />
                 <AssertEvent eventName="toolTipShown" eventClass="mx.events::ToolTipEvent" target="swf1.content.document.textinput1" />
             </body>
          </TestCase>

@@ -207,7 +207,7 @@
             </setup>
             <body>
                 <RunCode code="application.testEffect.play()" waitTarget="testEffect" waitEvent="tweenUpdate"/>
-                <AssertPixelValue target="testImage" x="40" y="40" value="0"/>
+	            <AssertPixelValue target="testImage" x="60" y="60" value="#3E48CC"/>
             </body>
         </TestCase>
 

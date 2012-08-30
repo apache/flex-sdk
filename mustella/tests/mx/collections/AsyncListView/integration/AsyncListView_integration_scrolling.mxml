@@ -69,7 +69,7 @@ Reminder:
 <TestCase testID="scrolling_test1" keywords="[AsyncListView]" description="Scroll down and view pending items." >
 	<setup>
 		<ResetComponent target="obj1" className="assets.PagedDataComp1" />
-		<SetProperty target="obj1.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<SetProperty target="obj1.theList" propertyName="height" value="60" waitEvent="updateComplete" />
 		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20,0,1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />	
 	</setup>
 	<body>
@@ -88,7 +88,7 @@ Reminder:
 <TestCase testID="scrolling_test2" keywords="[AsyncListView]" description="Scroll down and view a pending item, then watch it arrive." >
 	<setup>
 		<ResetComponent target="obj1" className="assets.PagedDataComp1" />
-		<SetProperty target="obj1.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<SetProperty target="obj1.theList" propertyName="height" value="60" waitEvent="updateComplete" />
 		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20,0,1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />	
 	</setup>
 	<body>
@@ -108,7 +108,7 @@ Reminder:
 <TestCase testID="scrolling_test3" keywords="[AsyncListView]" description="Scroll down and view a pending item, then watch it fail." >
 	<setup>
 		<ResetComponent target="obj1" className="assets.PagedDataComp1" />
-		<SetProperty target="obj1.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<SetProperty target="obj1.theList" propertyName="height" value="60" waitEvent="updateComplete" />
 		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20,0,1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />	
 	</setup>
 	<body>
@@ -128,7 +128,7 @@ Reminder:
 <TestCase testID="scrolling_test4" keywords="[AsyncListView]" description="Scroll down and view a pending item, scroll up, have it arrive, then scroll down and view it." >
 	<setup>
 		<ResetComponent target="obj1" className="assets.PagedDataComp1" />
-		<SetProperty target="obj1.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<SetProperty target="obj1.theList" propertyName="height" value="60" waitEvent="updateComplete" />
 		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20,0,1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />	
 	</setup>
 	<body>
@@ -150,7 +150,7 @@ Reminder:
 <TestCase testID="scrolling_test5" keywords="[AsyncListView]" description="Scroll down and view a pending item, scroll up, have it fail, then scroll down and view it." >
 	<setup>
 		<ResetComponent target="obj1" className="assets.PagedDataComp1" />
-		<SetProperty target="obj1.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<SetProperty target="obj1.theList" propertyName="height" value="60" waitEvent="updateComplete" />
 		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20,0,1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />	
 	</setup>
 	<body>
@@ -206,7 +206,6 @@ Reminder:
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(5)" value="null" />
 	</body>
 </TestCase>
-
 
 <TestCase testID="scrolling_virtualLayoutFalse_test1" keywords="[AsyncListView]" description="Scroll down and view pending items." >
 	<setup>

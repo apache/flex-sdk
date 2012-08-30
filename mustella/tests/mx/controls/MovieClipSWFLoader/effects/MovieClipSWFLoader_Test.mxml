@@ -34,7 +34,7 @@
            <setup>
                 <RunCode code="application.myMovie5.stop()" />
                 <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
-                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
            </setup>
             <body>
                 <SetProperty target="myMovie5" propertyName="autoStop" value="false" waitTarget="myMovie5" />
@@ -53,7 +53,7 @@
            <setup>
                 <RunCode code="application.myMovie5.stop()" />
                 <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
-                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
            </setup>
             <body>
                 <SetProperty target="myMovie5" propertyName="autoStop" value="true" waitTarget="myMovie5" />
@@ -72,7 +72,7 @@
            <setup>
                 <RunCode code="application.myMovie5.stop()" />
                 <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
-                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
            </setup>
             <body>
                 <SetProperty target="myMovie5" propertyName="autoStop" value="true" waitTarget="myMovie5" />
@@ -92,7 +92,7 @@
            <setup>
                 <RunCode code="application.myMovie5.stop()" />
                 <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
-                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
            </setup>
             <body>
                 <SetProperty target="myMovie5" propertyName="autoStop" value="true" waitTarget="myMovie5" />
@@ -113,7 +113,7 @@
            <setup>
                 <RunCode code="application.myMovie5.stop()" />
                 <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
-                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
            </setup>
             <body>
                 <SetProperty target="myMovie5" propertyName="autoStop" value="false" waitTarget="myMovie5" />
@@ -134,7 +134,7 @@
            <setup>
                 <RunCode code="application.myMovie5.stop()" />
                 <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
-                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
            </setup>
             <body>
                 <SetProperty target="myMovie5" propertyName="autoStop" value="false" waitTarget="myMovie5" />
@@ -154,7 +154,7 @@
            <setup>
                 <RunCode code="application.myMovie5.stop()" />
                 <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
-                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
            </setup>
             <body>
                 <SetProperty target="myMovie5" propertyName="autoStop" value="false" waitTarget="myMovie5" />
@@ -174,7 +174,7 @@
            <setup>
                 <RunCode code="application.myMovie5.stop()" />
                 <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
-                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
            </setup>
             <body>
                 <SetProperty target="myMovie5" propertyName="autoStop" value="false" waitTarget="myMovie5" />
@@ -193,7 +193,7 @@
            <setup>
                 <RunCode code="application.myMovie5.stop()" />
                 <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
-                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
            </setup>
             <body>
                 <SetProperty target="myMovie5" propertyName="autoStop" value="false" waitTarget="myMovie5" />
@@ -212,7 +212,7 @@
            <setup>
                 <RunCode code="application.myMovie5.stop()" />
                 <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
-                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
            </setup>
             <body>
                 <SetProperty target="myMovie5" propertyName="autoStop" value="true" waitTarget="myMovie5" />

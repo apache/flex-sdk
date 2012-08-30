@@ -97,6 +97,6 @@
     <mx:WipeUp id="testEffect" />
 
     <!-- UI Components -->
-    <mx:Image id="testImage" source="Assets/../../../../../../Assets/Images/bluerect.jpg"/>
+    <mx:Image id="testImage" source="../../../../../Assets/Images/bluerect.jpg"/>
 
 </mx:Application>
