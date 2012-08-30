@@ -74,7 +74,7 @@
  		<TestCase testID="NumericStepper_Styles_cornerRadius_spark" keywords="[NumericStepper, cornerRadius]" >
 			<setup>
 				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
- 				<SetStyle target="myNumericStepper" styleName="cornerRadius" value="5" />
+ 				<SetStyle target="myNumericStepper" styleName="cornerRadius" value="5" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
 			</setup>
 			<body>
 				<CompareBitmap target="" url="../Styles/baselines/cornerRadius_bc_spark.png" timeout="5000" />

@@ -611,7 +611,7 @@
 
 				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
 
- 				<SetStyle target="myNumericStepper" styleName="cornerRadius" value="5" />
+ 				<SetStyle target="myNumericStepper" styleName="cornerRadius" value="5" waitEvent="updateComplete" waitTarget="myNumericStepper" />
 
 
 
