@@ -55,10 +55,12 @@
 	
 	<mx:Style>
 	@namespace "library://ns.adobe.com/flex/mx";
+	    /* FIXME: need embedded font swf file
 	    @font-face {
-	        src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+	        src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.swf");
 	        fontFamily: "Vonnes-ThinCond";
 	    }
+	    */
 	    
 	    .myColorStyle {
 	        color: #FF0000;
@@ -415,6 +417,9 @@
 				    <CompareBitmap target="myText" url="../Styles/baselines/fontSharpness_0.png" timeout="5000" />
 				</body>
 		</TestCase>
+<!--
+FIXME: Vonnes-ThinCond relies on a font swf file which doesn't exist - for Apache we must use font2swf to generate one or create an AS file which uses the metadata Embed to embed the font
+       in the swf.
 
 		<TestCase testID="fontFamily_Style_embedded_Font" keywords="[styles, fontFamily, Text, embedded, Font]" description="Checking the fontFamily Style using the compare bit map feature of an embedded font" >
 			<setup>
@@ -462,6 +467,7 @@
 
 			</body>
 		</TestCase>
+-->
 
 	</testCases>
 </UnitTester>
