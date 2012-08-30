@@ -155,7 +155,7 @@
 
         <TestCase testID="OpenDuration_Zero_secondOpen" keywords="[Menu, openDuration]" description="Ensure that you can open a Menu and make a selection when the openDuration is set a second time.">
                 <setup>
-                    <RunCode code="application.menu1.hide()" />
+                    <RunCode code="if (application.menu1) application.menu1.hide()" />
                     <RunCode code="createAMenu()" />
                     <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                     <DispatchKeyEvent keys="['DOWN', 'RIGHT', 'RIGHT']"  />
@@ -171,7 +171,7 @@
         </TestCase>
         <TestCase testID="AlternatingItemColors_css" keywords="[Menu, alternatingItemColors]" description="alternatingItemColors is set in css for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu3()" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -182,7 +182,7 @@
         </TestCase>
         <TestCase testID="AlternatingItemColors_0x" keywords="[Menu, alternatingItemColors]" description="alternatingItemColors is set with 0x format.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu3()" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -194,7 +194,7 @@
         </TestCase>
         <TestCase testID="AlternatingItemColors_pound" keywords="[Menu, alternatingItemColors]" description="alternatingItemColors is set in # format for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu3()" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -205,7 +205,7 @@
         </TestCase>
         <TestCase testID="RollOverColor_css" keywords="[Menu, rollOverColor]" description="rollOverColor is set in css for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu3()" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -218,7 +218,7 @@
         </TestCase>
         <TestCase testID="RollOverColor_0x" keywords="[Menu, rollOverColor]" description="rollOverColor is set in 0x format for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu3()" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -232,7 +232,7 @@
         </TestCase>
         <TestCase testID="RollOverColor_pound" keywords="[Menu, rollOverColor]" description="rollOverColor is set in # format for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu3()" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -245,7 +245,7 @@
         </TestCase>
         <TestCase testID="SelectionColor_css" keywords="[Menu, selectionColor]" description="selectionColor is set in css for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <WaitForEffectsToEnd />
                 <RunCode code="createAMenu();"  />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
@@ -259,7 +259,7 @@
         </TestCase>
         <TestCase testID="SelectionColor_0x" keywords="[Menu, selectionColor]" description="selectionColor is set in 0x format for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu()"  />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -272,7 +272,7 @@
         </TestCase>
         <TestCase testID="SelectionColor_pound" keywords="[Menu, selectionColor]" description="selectionColor is set in # for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu()"  />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -286,7 +286,7 @@
 <!-- ******* branchDisabledIcon ****** -->
         <TestCase testID="branchDisabledIcon_static" keywords="[Menu, branchDisabledIcon]" description="branchDisabledIcon where data was disabled at startup for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="addObjData()" />
             </setup>
             <body>
@@ -298,18 +298,19 @@
         <!-- This test will fail because of bug #190399 -->
         <TestCase testID="branchDisabledIcon_runtimeChange" keywords="[Menu, branchDisabledIcon]" description="branchDisabledIcon where data was disabled through the dataDescriptor for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="addObjData()" />
             </setup>
             <body>
                 <SetStyle target="menu1" styleName="branchDisabledIcon" valueExpression="value=application.orangerect" />
-                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
                 <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/branchdisabledIcon_runtime.png" timeout="2500" />
             </body>
         </TestCase>
         <TestCase testID="branchDisabledIcon_css" keywords="[Menu, branchDisabledIcon]" description="branchDisabledIcon set in css for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="addObjData()" />
             </setup>
             <body>
@@ -321,30 +322,32 @@
 <!-- ******* branchIcon ****** -->
         <TestCase testID="branchIcon_static" keywords="[Menu, branchIcon]" description="branchIcon where data was disabled at startup for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="addObjData()" />
             </setup>
             <body>
                 <SetStyle target="menu1" styleName="branchIcon" valueExpression="value=application.orangerect" />
-                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <RunCode code="application.menu1.show()"  waitEvent="menuShow" waitTarget="menu1" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
                 <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/branchIcon_static.png" timeout="2500" />
             </body>
         </TestCase>
         <TestCase testID="branchIcon_css" keywords="[Menu, branchIcon]" description="branchIcon set in css for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="addObjData()" />
             </setup>
             <body>
                 <SetStyle target="menu1" styleName="styleName" value="dinosaurBranch" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
                 <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/branchIcon_css.png" timeout="2500" />
             </body>
         </TestCase>
 <!-- ******* checkIcon ****** -->
         <TestCase testID="checkIcon_static" keywords="[Menu, checkIcon]" description="checkIcon where data was disabled at startup for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -357,7 +360,7 @@
         </TestCase>
         <TestCase testID="checkIcon_css" keywords="[Menu, checkIcon]" description="checkIcon in css for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -371,7 +374,7 @@
  <!-- ******* checkDisabledIcon ****** -->
         <TestCase testID="checkDisabledIcon_static" keywords="[Menu, checkDisabledIcon]" description="checkDisabledIcon where data was disabled at startup for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -385,7 +388,7 @@
         </TestCase>
         <TestCase testID="checkDisabledIcon_css" keywords="[Menu, checkDisabledIcon]" description="checkDisabledIcon set in css for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -400,7 +403,7 @@
  <!-- ******* radioIcon ****** -->
         <TestCase testID="radioIcon_static" keywords="[Menu, radioIcon]" description="radioIcon set in AS for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -414,7 +417,7 @@
         </TestCase>
         <TestCase testID="radioIcon_css" keywords="[Menu, radioIcon]" description="radioIcon set in css for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -429,7 +432,7 @@
  <!-- ******* radioDisabledIcon ****** -->
         <TestCase testID="radioDisabledIcon_static" keywords="[Menu, radioDisabledIcon]" description="radioDisabledIcon where data was disabled at startup for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -444,7 +447,7 @@
         </TestCase>
         <TestCase testID="radioDisabledIcon_css" keywords="[Menu, radioDisabledIcon]" description="radioDisabledIcon in css for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -460,19 +463,20 @@
  <!-- ******* separatorSkin ****** -->
         <TestCase testID="separatorSkin_test" keywords="[Menu, separatorSkin]" description="separatorSkin where data was disabled at startup for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <RunCode code="addSeparator()" />
             </setup>
             <body>
                 <SetStyle target="menu1" styleName="separatorSkin" valueExpression="value=application.orangerect" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
                 <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/separatorSkin_test.png" timeout="2500" />
             </body>
         </TestCase>
         <TestCase testID="separatorSkin_css" keywords="[Menu, separatorSkin]" description="separatorSkin set in css for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <RunCode code="addSeparator()" />
             </setup>
@@ -485,7 +489,7 @@
 <!-- textSelectedColor  tests -->
         <TestCase testID="textSelectedColor_0x" description="Menu style textSelectedColor =0xff0000." keywords="[styles, textSelectedColor , Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -500,11 +504,11 @@
         </TestCase>
         <TestCase testID="textSelectedColor_pound" description="Menu style textSelectedColor =#0000ff." keywords="[styles, textSelectedColor , Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <SetStyle styleName="textSelectedColor" target="menu1" value="#0000FF" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                 <DispatchKeyEvent keys="[DOWN, RIGHT]" />
@@ -516,7 +520,7 @@
         </TestCase>
         <TestCase testID="textSelectedColor_red" description="Menu style textSelectedColor ='red'." keywords="[styles, textSelectedColor , Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -531,7 +535,7 @@
         </TestCase>
         <TestCase testID="textSelectedColor_css" description="Menu style textSelectedColor set in css to purple." keywords="[styles, textSelectedColor , Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -547,7 +551,7 @@
 
         <TestCase testID="contentBackgroundColor_0x" description="Menu style contentBackgroundColor=0xff0000." keywords="[styles, contentBackgroundColor, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="contentBackgroundColor" target="menu1" value="0xFF0000" />
             </setup>
@@ -559,7 +563,7 @@
         </TestCase>
         <TestCase testID="contentBackgroundColor_pound" description="Menu style contentBackgroundColor=#0000ff." keywords="[styles, contentBackgroundColor, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="contentBackgroundColor" target="menu1" value="#0000FF" />
             </setup>
@@ -571,7 +575,7 @@
         </TestCase>
         <TestCase testID="contentBackgroundColor_red" description="Menu style backGroundColor='red'" keywords="[styles, contentBackgroundColor, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="contentBackgroundColor" target="menu1" value="red" />
             </setup>
@@ -583,7 +587,7 @@
         </TestCase>
         <TestCase testID="color_0x" description="Menu style color=0xff0000." keywords="[styles, color, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="color" target="menu1" value="0xFF0000" />
             </setup>
@@ -594,7 +598,7 @@
         </TestCase>
         <TestCase testID="color_pound" description="Menu style color=#0000ff." keywords="[styles, color, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="color" target="menu1" value="#0000FF" />
             </setup>
@@ -605,7 +609,7 @@
         </TestCase>
         <TestCase testID="color_red" description="Menu style color='red'." keywords="[styles, color, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="color" target="menu1" value="red" />
             </setup>
@@ -616,7 +620,7 @@
         </TestCase>
         <TestCase testID="disabledColor_default" description="Menu style disabledColor=0xff0000." keywords="[styles, disabledColor, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -628,7 +632,7 @@
         </TestCase>
         <TestCase testID="disabledColor_0x" description="Menu style disabledColor=0xff0000." keywords="[styles, disabledColor, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="disabledColor" target="menu1" value="0xFF0000" />
             </setup>
@@ -641,7 +645,7 @@
        </TestCase>
         <TestCase testID="disabledColor_pound" description="Menu style disabledColor=#0000ff." keywords="[styles, disabledColor, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="disabledColor" target="menu1" value="#0000FF" />
             </setup>
@@ -654,7 +658,7 @@
        </TestCase>
         <TestCase testID="disabledColor_red" description="Menu style disabledColor='red'." keywords="[styles, disabledColor, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="disabledColor" target="menu1" value="red" />
             </setup>
@@ -667,7 +671,7 @@
         </TestCase>
         <TestCase testID="leftIconGap_rightIconGap_default" keywords="[icon, Menu, styles,leftIconGap]" description="Ensure that an icon and radio icon look correct together." >
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="addObjData()" />
             </setup>
             <body>
@@ -681,7 +685,7 @@
         </TestCase>
         <TestCase testID="leftIconGap_0" keywords="[icon, Menu, styles,leftIconGap]" description="Ensure that an icon and radio icon look correct together." >
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <WaitForEffectsToEnd />
                 <RunCode code="addObjData()" />
             </setup>
@@ -696,7 +700,7 @@
         </TestCase>
         <TestCase testID="leftIconGap_30" keywords="[icon, Menu, styles,leftIconGap]" description="Ensure that an icon and radio icon look correct together." >
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <WaitForEffectsToEnd />
                 <RunCode code="addObjData()" />
             </setup>
@@ -710,7 +714,7 @@
         </TestCase>
         <TestCase testID="rightIconGap_0" keywords="[icon, Menu, styles,leftIconGap]" description="Ensure that an icon and radio icon look correct together." >
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <WaitForEffectsToEnd />
                 <RunCode code="addObjData()" />
             </setup>
@@ -725,7 +729,7 @@
         </TestCase>
         <TestCase testID="rightIconGap_25" keywords="[icon, Menu, styles,leftIconGap]" description="Ensure that an icon and radio icon look correct together." >
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <WaitForEffectsToEnd />
                 <RunCode code="addObjData()" />
             </setup>

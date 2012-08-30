@@ -81,7 +81,7 @@
     ]]>
     </fx:Script>
     
-    <fx:Style source="../../../../../Assets/Fonts/myStyles.css" /> 
+    <fx:Style source="../../../../../Assets/Fonts/VeraFontStyles.css" /> 
     <fx:Style>
 
         @font-face {
@@ -89,10 +89,12 @@
             fontFamily: ComicSansMS;
             embedAsCFF: false;
         }
+        /* FIXME: need embedded font swf file
         @font-face {
-            src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+            src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.swf");
             fontFamily: Hancock;
         }
+        */
         
         .sparkEmbedStyle {
             fontFamily: MyVeraSpark;
