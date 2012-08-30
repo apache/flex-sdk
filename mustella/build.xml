@@ -1772,6 +1772,7 @@
             <arg value="VerboseMode"/>
             <arg value="WaitForEffectsToEnd"/>
             <arg value="WaitForEvent"/>
+            <arg value="WaitForLayoutManager"/>
             <arg value="WaitForSandboxApp"/>
             <arg value="WaitForWindow"/>
         </exec>
