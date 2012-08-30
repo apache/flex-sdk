@@ -25,7 +25,7 @@
 	creationComplete="init()"
 	>
 	
-	<fx:Style source="../../../../Assets/Fonts/myStyles.css" />
+	<fx:Style source="../../../../Assets/Fonts/VeraFontStyles.css" />
 	<fx:Style>
 		@namespace mx "library://ns.adobe.com/flex/mx";
 		@namespace s "library://ns.adobe.com/flex/spark";
