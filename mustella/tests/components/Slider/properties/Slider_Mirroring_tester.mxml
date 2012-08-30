@@ -98,7 +98,7 @@
                 <AssertEvent target="myVSlider" eventName="thumbPress" eventClass="mx.events::SliderEvent" />
                 <Pause timeout="500"  />
                 <AssertPropertyValue propertyName="x" target="myVSlider.mx_internal:dataTip" value="27" />
-                <AssertMethodValue method="value=Math.round(application.myVSlider.mx_internal::dataTip.y)" value="24" />
+                <AssertMethodValue method="value=Math.round(application.myVSlider.mx_internal::dataTip.y)" value="25" />
                 <DispatchMouseEvent target="myVSlider" localX="4" localY="18" type="mouseUp" waitEvent="thumbRelease" waitTarget="myVSlider"/> 
                  
             </body>
@@ -171,7 +171,7 @@
                 <DispatchMouseEvent target="myHSlider" localX="136" localY="4" type="mouseMove" waitEvent="mouseMove" waitTarget="myHSlider"/>
                 <DispatchMouseEvent target="myHSlider" localX="136" localY="4" type="mouseDown" waitEvent="thumbPress" waitTarget="myHSlider"/>
                 <AssertEvent target="myHSlider" eventName="thumbPress" eventClass="mx.events::SliderEvent" />
-                <Pause timeout="900" />
+                <Pause timeout="1000"/>
                 <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
                 <DispatchMouseEvent target="myHSlider" localX="136" localY="4" type="mouseUp" /> 
             </body>
