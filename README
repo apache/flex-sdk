@@ -51,7 +51,7 @@ Building Apache Flex 4.8
 Install Prerequisites
 ---------------------
 
-    Adobe Flex 4.6 was certified with AIR 3.1 and Flash Player 11.1.  Adobe Flex 4.8
+    Adobe Flex 4.6 was certified with AIR 3.1 and Flash Player 11.1.  Apache Flex 4.8
     will continue to use these.
 
     Before building Flex you must install the following software and set the
