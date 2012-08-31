@@ -120,6 +120,7 @@
 			</setup>
 			<body>
 			    <DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df" />
+			    <WaitForLayoutManager />
 				<CompareBitmap target="df.dropdown" url="../Styles/baselines/selectionColor_0x_toplevel_spark.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
