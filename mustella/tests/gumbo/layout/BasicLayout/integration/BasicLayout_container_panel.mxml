@@ -61,7 +61,7 @@ panel container
 	<AssertPropertyValue propertyName="height" value="300" target="panel1"/>
 	<AssertPropertyValue propertyName="width" value="70" target="childBtn"/>
 	<AssertPropertyValue propertyName="height" value="21" target="childBtn"/>
-	<AssertPropertyValue propertyName="width" value="70" target="parentGroup"/>
+	<AssertPropertyValue propertyName="width" value="85" target="parentGroup"/>
     </body>
 </TestCase>
 

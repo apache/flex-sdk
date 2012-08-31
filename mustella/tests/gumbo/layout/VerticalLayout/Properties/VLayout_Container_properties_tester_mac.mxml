@@ -955,7 +955,7 @@
 				<SetProperty propertyName="horizontalAlign" value="left" target="cont.vl" waitEvent="updateComplete" waitTarget="cont.skin.contentGroup"/>
 				<AssertPropertyValue propertyName="height" value="200" target="cont"/>
 				<AssertPropertyValue propertyName="width" value="200" target="cont"/>
-				<AssertPropertyValue propertyName="contentHeight" value="377" target="cont.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="cont.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="cont.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1042,7 +1042,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="cont"/>
 				<AssertPropertyValue propertyName="width" value="200" target="cont"/>
-				<AssertPropertyValue propertyName="contentHeight" value="261" target="cont.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="cont.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="cont.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1097,7 +1097,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="cont"/>
 				<AssertPropertyValue propertyName="width" value="200" target="cont"/>
-				<AssertPropertyValue propertyName="contentHeight" value="261" target="cont.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="cont.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="cont.contentGroup"/>
 			</body>
 		</TestCase>

@@ -129,7 +129,7 @@ add a child
         <RunCode code="addChild(application.parentGroup.childGroup,2);" waitTarget="parentGroup.childBtn" waitEvent="updateComplete" />
     </setup>
     <body>
-       <AssertPropertyValue propertyName="width" value="270" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="width" value="278" target="parentGroup.childGroup"/>
        <AssertPropertyValue propertyName="height" value="221" target="parentGroup.childGroup"/>
        <AssertPropertyValue propertyName="width" value="100" target="parentGroup.childBtn"/>
     </body>
@@ -143,7 +143,7 @@ add a child
     </setup>
     <body>
        <RunCode code="addChild(application.parentGroup.childGroup,1);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
-       <AssertPropertyValue propertyName="width" value="270" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="width" value="278" target="parentGroup.childGroup"/>
        <AssertPropertyValue propertyName="height" value="221" target="parentGroup.childGroup"/>
        <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
     </body>
@@ -157,11 +157,11 @@ add a child
         <RunCode code="addChild(application.parentGroup.childGroup,1);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
     </setup>
     <body>
-       <AssertPropertyValue propertyName="width" value="270" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="width" value="278" target="parentGroup.childGroup"/>
        <AssertPropertyValue propertyName="height" value="221" target="parentGroup.childGroup"/>
        <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
        <RunCode code="removeLastChild(application.parentGroup.childGroup);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
-       <AssertPropertyValue propertyName="width" value="270" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="width" value="278" target="parentGroup.childGroup"/>
        <AssertPropertyValue propertyName="height" value="221" target="parentGroup.childGroup"/>
        <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
     </body>
@@ -174,11 +174,11 @@ add a child
         <RunCode code="addChild(application.parentGroup.childGroup,2);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
     </setup>
     <body>
-       <AssertPropertyValue propertyName="width" value="270" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="width" value="278" target="parentGroup.childGroup"/>
        <AssertPropertyValue propertyName="height" value="221" target="parentGroup.childGroup"/>
        <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
        <RunCode code="removeLastChild(application.parentGroup.childGroup);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
-       <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="width" value="78" target="parentGroup.childGroup"/>
        <AssertPropertyValue propertyName="height" value="21" target="parentGroup.childGroup"/>
        <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
     </body>

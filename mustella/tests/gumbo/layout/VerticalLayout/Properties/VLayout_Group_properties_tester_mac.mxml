@@ -717,7 +717,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="652" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="710" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="100" target="grp"/>
 
 				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
@@ -745,7 +745,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="642" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="700" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
 				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
@@ -772,7 +772,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="354" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="355" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
 				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
@@ -803,7 +803,7 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="679" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="737" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="150" target="grp"/>
 
 
@@ -834,7 +834,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
 				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="30" maxColorVariance="15" target=""/>
@@ -896,7 +896,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="669" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="727" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -926,7 +926,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="179" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="180" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
 				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>
@@ -957,7 +957,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 		</body>
 		</TestCase>
@@ -1018,7 +1018,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1078,7 +1078,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="377" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1108,7 +1108,7 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="377" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
 			</body>
 		</TestCase>
@@ -1166,7 +1166,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="350" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="365" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="myScroll.grp"/>
 			</body>
 		</TestCase>
@@ -1196,7 +1196,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="261" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
 			</body>
 		</TestCase>
@@ -1225,7 +1225,7 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="377" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1255,7 +1255,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="261" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1283,7 +1283,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="567" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="582" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1311,7 +1311,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1339,7 +1339,7 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1367,7 +1367,7 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1395,7 +1395,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="391" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1424,7 +1424,7 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="391" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
 			</body>
 		</TestCase>
@@ -1454,7 +1454,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="276" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
 			</body>
 		</TestCase>
@@ -1483,7 +1483,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="391" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1513,7 +1513,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="276" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1541,7 +1541,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="581" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="582" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1569,7 +1569,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1597,7 +1597,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1625,7 +1625,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1653,7 +1653,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="679" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="737" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -1680,7 +1680,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="669" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="727" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
 				
@@ -1709,7 +1709,7 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 			</body>
 		</TestCase>
@@ -2594,9 +2594,9 @@
 				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 
-				<AssertPropertyValue propertyName="height" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="190" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>		
 			</body>
 		</TestCase>
@@ -2632,7 +2632,7 @@
 				<AssertPropertyValue propertyName="rowCount" value="3" target="myScroll.grp.vl"/>
 				<AssertPropertyValue propertyName="height" value="100" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="100" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
 
 				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>				
@@ -2674,9 +2674,9 @@
 				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(5)" value="80" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 				
 				<AssertPropertyValue propertyName="rowCount" value="4" target="myScroll.grp.vl"/>
-				<AssertPropertyValue propertyName="height" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="190" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="773" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="775" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>			
 			</body>
 		</TestCase>
@@ -2747,9 +2747,9 @@
 				
 				<AssertPropertyValue propertyName="rowCount" value="6" target="myScroll.grp.vl"/>
 				
-				<AssertPropertyValue propertyName="height" value="424" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="425" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="250" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="370" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="371" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="250" target="myScroll.grp"/>
 			</body>
 		</TestCase>
@@ -2821,9 +2821,9 @@
 				<AssertPropertyValue propertyName="rowCount" value="6" target="myScroll.grp.vl"/>
 				<AssertPropertyValue propertyName="label" value="6" target="rowCountBtn" />	
 
-				<AssertPropertyValue propertyName="height" value="424" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="425" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="250" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="370" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="371" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="250" target="myScroll.grp"/>				
 
 			</body>
@@ -2857,9 +2857,9 @@
 				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 
-				<AssertPropertyValue propertyName="height" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="190" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
 			</body>
 		</TestCase>
