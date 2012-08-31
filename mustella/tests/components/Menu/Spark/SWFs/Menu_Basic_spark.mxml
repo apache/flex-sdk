@@ -27,16 +27,16 @@
         import mx.controls.Menu;
         import mx.events.MenuEvent;
 
-        [Embed(source="../../../../../Assets/Images/greenrect.jpg")]
+        [Embed(source="../../../../../Assets/Images/tinygreenrect.jpg")]
         public var t1120:Class;
 
-        [Embed(source="../../../../../Assets/Images/purplerect.jpg")]
+        [Embed(source="../../../../../Assets/Images/tinypurplerect.jpg")]
         public var purplerect:Class;
 
-        [Embed(source="../../../../../Assets/Images/orangerect.jpg")]
+        [Embed(source="../../../../../Assets/Images/tinyorangerect.jpg")]
         public var orangerect:Class;
 
-        [Embed(source="../../../../../Assets/Images/bluerect.jpg")]
+        [Embed(source="../../../../../Assets/Images/tinybluerect.jpg")]
         public var blueback:Class;
 
         public var lengthValue:int;
@@ -81,7 +81,7 @@
     ]]>
     </fx:Script>
     
-    <fx:Style source="../../../../../Assets/Fonts/VeraFontStyles.css" /> 
+    <fx:Style source="../../../../../Assets/Fonts/myStyles.css" /> 
     <fx:Style>
 
         @font-face {
@@ -93,6 +93,7 @@
         @font-face {
             src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.swf");
             fontFamily: Hancock;
+            embedAsCFF: false;
         }
         */
         

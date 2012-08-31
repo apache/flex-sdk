@@ -33,37 +33,37 @@
 
 .dinosaurBranch
 {
-  branchIcon: Embed(source="../../../../../Assets/Images/purplerect.jpg");
+  branchIcon: Embed(source="../../../../../Assets/Images/tinypurplerect.jpg");
 }
 
 .dinosaurDisabledBranch
 {
-  branchDisabledIcon: Embed(source="../../../../../Assets/Images/purplerect.jpg");
+  branchDisabledIcon: Embed(source="../../../../../Assets/Images/tinypurplerect.jpg");
 }
 
 .bearCheck
 {
-  checkIcon: Embed(source="../../../../../Assets/Images/orangerect.jpg");
+  checkIcon: Embed(source="../../../../../Assets/Images/tinyorangerect.jpg");
 }
 
 .bearCheckD
 {
-  checkDisabledIcon: Embed(source="../../../../../Assets/Images/orangerect.jpg");
+  checkDisabledIcon: Embed(source="../../../../../Assets/Images/tinyorangerect.jpg");
 }
 
 .bearRadio
 {
-  radioIcon: Embed(source="../../../../../Assets/Images/orangerect.jpg");
+  radioIcon: Embed(source="../../../../../Assets/Images/tinyorangerect.jpg");
 }
 
 .bearRadioD
 {
-  radioDisabledIcon: Embed(source="../../../../../Assets/Images/orangerect.jpg");
+  radioDisabledIcon: Embed(source="../../../../../Assets/Images/tinyorangerect.jpg");
 }
 
 .bearSeparator
 {
-  separatorSkin: Embed(source="../../../../../Assets/Images/purplerect.jpg");
+  separatorSkin: Embed(source="../../../../../Assets/Images/orange_separator.png");
 }
 
 .greenRoll
