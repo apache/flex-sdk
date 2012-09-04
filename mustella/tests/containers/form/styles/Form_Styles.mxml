@@ -112,7 +112,7 @@
 		<TestCase testID="Form_styles_indicatorGap2" keywords="[indicatorGap, Form]">
 			<setup>
 				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-				<SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid"  />
+				<SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid"  waitEvent="updateComplete" />
  			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="indicatorGap" value="14" />
@@ -137,7 +137,7 @@
 			<setup>
 				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
 				<SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid"  />
- 				<SetStyle target="myCustomForm.myForm" styleName="borderThickness" value="4"  />
+ 				<SetStyle target="myCustomForm.myForm" styleName="borderThickness" value="4" waitEvent="updateComplete" />
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="borderThickness" value="4" />
@@ -149,7 +149,7 @@
 		<TestCase testID="Form_styles_color" keywords="[color, Form]">
 			<setup>
 				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-  				<SetStyle target="myCustomForm.myForm" styleName="color"  value="0x0000ff"  />
+  				<SetStyle target="myCustomForm.myForm" styleName="color"  value="0x0000ff" waitEvent="updateComplete" />
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="color"  value="0x0000ff" />
@@ -162,7 +162,7 @@
 		<TestCase testID="Form_styles_cornerRadius" keywords="[cornerRadius, Form]">
 			<setup>
 				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-  				<SetStyle target="myCustomForm.myForm" styleName="cornerRadius"  value="6"  />
+  				<SetStyle target="myCustomForm.myForm" styleName="cornerRadius"  value="6" waitEvent="updateComplete"/>
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="cornerRadius"  value="6" />
@@ -175,7 +175,7 @@
 			<setup>
 				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
 				<SetProperty target="myCustomForm.myForm" propertyName="enabled" value="false" />
-  				<SetStyle target="myCustomForm.myForm" styleName="disabledColor"  value="0x00ff00"   />
+  				<SetStyle target="myCustomForm.myForm" styleName="disabledColor" value="0x00ff00" waitEvent="updateComplete" />
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="disabledColor" value="0x00ff00"  />
@@ -200,7 +200,7 @@
 		<TestCase testID="Form_styles_fontsize" keywords="[fontSize, Form]">
 			<setup>
 				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-   				<SetStyle target="myCustomForm.myForm" styleName="fontSize"  value="14"   />
+   				<SetStyle target="myCustomForm.myForm" styleName="fontSize"  value="14" waitEvent="updateComplete"  />
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="fontSize" value="14"  />
@@ -212,7 +212,7 @@
 			<TestCase testID="Form_styles_fontweight" keywords="[fontWeight, Form]">
 			<setup>
 				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-   				<SetStyle target="myCustomForm.myForm" styleName="fontWeight"  value="bold"   />
+   				<SetStyle target="myCustomForm.myForm" styleName="fontWeight"  value="bold" waitEvent="updateComplete" />
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="fontWeight" value="bold"  />
@@ -225,7 +225,7 @@
 			<TestCase testID="Form_styles_horizontalGap" keywords="[horizontalGap, Form]">
 			<setup>
 				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-   				<SetStyle target="myCustomForm.myForm" styleName="horizontalGap"  value="20"   />
+   				<SetStyle target="myCustomForm.myForm" styleName="horizontalGap"  value="20"  waitEvent="updateComplete"  />
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="horizontalGap" value="20"  />
@@ -238,7 +238,7 @@
 			<TestCase testID="Form_styles_paddingBottom" keywords="[paddingBottom, Form]">
 			<setup>
 				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-   				<SetStyle target="myCustomForm.myForm" styleName="paddingBottom"  value="20"   />
+   				<SetStyle target="myCustomForm.myForm" styleName="paddingBottom"  value="20" waitEvent="updateComplete"   />
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="paddingBottom" value="20"  />
@@ -250,7 +250,7 @@
 		<TestCase testID="Form_styles_paddingLeft" keywords="[paddingLeft, Form]">
 			<setup>
 				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-   				<SetStyle target="myCustomForm.myForm" styleName="paddingLeft"  value="20"   />
+   				<SetStyle target="myCustomForm.myForm" styleName="paddingLeft"  value="20" waitEvent="updateComplete"   />
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="paddingLeft" value="20"  />
@@ -263,7 +263,7 @@
 		<TestCase testID="Form_styles_paddingRight" keywords="[paddingRight, Form]">
 			<setup>
 				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-   				<SetStyle target="myCustomForm.myForm" styleName="paddingRight"  value="20"   />
+   				<SetStyle target="myCustomForm.myForm" styleName="paddingRight"  value="20" waitEvent="updateComplete"   />
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="paddingRight" value="20"  />
@@ -275,7 +275,7 @@
 		<TestCase testID="Form_styles_paddingTop" keywords="[paddingTop, Form]">
 			<setup>
 				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-   				<SetStyle target="myCustomForm.myForm" styleName="paddingTop"  value="20"   />
+   				<SetStyle target="myCustomForm.myForm" styleName="paddingTop"  value="20" waitEvent="updateComplete"   />
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="paddingTop" value="20"  />
@@ -286,7 +286,7 @@
 		<TestCase testID="Form_styles_labelWidth" keywords="[labelWidth , Form]">
 			<setup>
 				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-   				<SetProperty target="myCustomForm.myForm" propertyName="label" value="Form Style Testing" />
+   				<SetProperty target="myCustomForm.myForm" propertyName="label" value="Form Style Testing" waitEvent="updateComplete" />
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="labelWidth" valueExpression="value=null"  />

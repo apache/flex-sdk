@@ -68,7 +68,7 @@
 	   <TestCase testID="TitleWindow_layout_default1" description="TitleWindow with default layoutDirection, has content with ltr layout" keywords="[TitleWindow, Mirroring]">
 		<setup>
 		    <ResetComponent target="tw4" className="MyLayoutTestTW" waitEvent="updateComplete" waitTarget="tw4" />
-		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
+		    <SetProperty propertyName="title" value="My Title4" target="tw4" waitEvent="updateComplete" waitTarget="tw4" />
 		</setup>
 		<body>
 		    <AssertPropertyValue target="tw4.chk1" propertyName="layoutDirection" value="ltr"/>
@@ -86,8 +86,7 @@
 		<body>
 		    
 		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4,'rtl')" />
-		    <Pause timeout="100"/>
-    		<SetProperty propertyName="title" value="My Title4" target="tw4" />
+    		<SetProperty propertyName="title" value="My Title4" target="tw4" waitEvent="updateComplete" waitTarget="tw4"/>
 		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
@@ -100,8 +99,7 @@
 		<body>
 		    
 		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4.vbox1,'rtl')"/>
-		    <Pause timeout="100"/>
-    		<SetProperty propertyName="title" value="My Title4" target="tw4" />
+    		<SetProperty propertyName="title" value="My Title4" target="tw4" waitEvent="updateComplete" waitTarget="tw4"/>
 		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
@@ -113,8 +111,7 @@
 		</setup>
 		<body>
 		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4.vbox2,'ltr')" />
-		    <Pause timeout="100"/>
-		    <SetProperty propertyName="title" value="My Title4" target="tw4" />    		
+		    <SetProperty propertyName="title" value="My Title4" target="tw4" waitEvent="updateComplete" waitTarget="tw4"/>    		
 		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
@@ -125,8 +122,7 @@
 		</setup>
 		<body>
 		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4.vbox2,null)"/>
-    		<Pause timeout="100"/>
-			<SetProperty propertyName="title" value="My Title4" target="tw4" />
+			<SetProperty propertyName="title" value="My Title4" target="tw4" waitEvent="updateComplete" waitTarget="tw4"/>
 		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
@@ -139,9 +135,7 @@
 		<body>
 		    
 		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4.vbox1,null)" />
-    		<Pause timeout="100"/>
-		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
-    		
+		    <SetProperty propertyName="title" value="My Title4" target="tw4" waitEvent="updateComplete" waitTarget="tw4"/>    		
 		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
@@ -185,7 +179,7 @@
 		</setup>
 		<body>
 		    <SetStyle target="tw4.vbox1" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
-		     <SetStyle target="tw4.vbox1" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+		    <SetStyle target="tw4.vbox1" styleName="direction" value="rtl" waitEvent="updateComplete"/>
 		    <AssertPropertyValue target="tw4.chk1" propertyName="layoutDirection" value="ltr"/>
 		    <!-- it doesn't get the value from setStyleName as it is inherited from application, once it is set, it will not be overrided -->
 		    <AssertPropertyValue target="tw4.chk2" propertyName="layoutDirection" value="rtl"/>

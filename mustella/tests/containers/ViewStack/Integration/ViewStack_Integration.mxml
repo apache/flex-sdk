@@ -55,6 +55,7 @@
 				<AssertPropertyValue target="vs.viewS" propertyName="selectedIndex" value="1"/>
 				<AssertPropertyValue target="vs.viewS" propertyName="selectedChild" valueExpression="value=application.vs.custInfo" />
 				<WaitForEffectsToEnd />
+				<WaitForLayoutManager/>
 				<CompareBitmap target="vs.viewS" url="../Integration/baselines/selectedIndex_1.png" timeout="5000" />
 			</body>
 		</TestCase>
@@ -68,6 +69,7 @@
 				<AssertPropertyValue target="vs.viewS" propertyName="selectedIndex" value="2"/>
 				<AssertPropertyValue target="vs.viewS" propertyName="selectedChild" valueExpression="value=application.vs.accountInfo" />
 				<WaitForEffectsToEnd />
+				<WaitForLayoutManager/>
 				<CompareBitmap target="vs.viewS" url="../Integration/baselines/selectedIndex_2.png" timeout="5000" />
 			</body>
 		</TestCase>		

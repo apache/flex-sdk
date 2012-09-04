@@ -217,6 +217,7 @@
 			<body>
 			    <DispatchKeyEvent key="TAB" waitTarget="tabnav_1" waitEvent="focusIn" />
 			    <WaitForEffectsToEnd />
+			    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
 				<CompareBitmap target="canvas1" url="../Styles/baselines/spark/focusThickness_8.png" timeout="5000" />
 			</body>
 			<cleanup>
@@ -235,6 +236,7 @@
 			<body>
 			    <DispatchKeyEvent key="TAB" waitTarget="tabnav_1" waitEvent="focusIn" />
 			    <WaitForEffectsToEnd />
+			    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/> 
 				<CompareBitmap target="canvas1" url="../Styles/baselines/spark/focusSkin_custom.png" timeout="5000" />
 			</body>
 			<cleanup>
@@ -254,6 +256,7 @@
 			<body>
 			    <DispatchKeyEvent key="TAB" waitTarget="tabnav_1" waitEvent="focusIn" />
 			    <WaitForEffectsToEnd />
+			    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/> 
 				<CompareBitmap target="canvas1" url="../Styles/baselines/spark/focusBlend_screen.png" timeout="5000" />
 			</body>
 			<cleanup>
@@ -273,6 +276,7 @@
 			<body>
 			    <DispatchKeyEvent key="TAB" waitTarget="tabnav_1" waitEvent="focusIn" />
 			    <WaitForEffectsToEnd />
+			    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/> 
 				<CompareBitmap target="canvas1" url="../Styles/baselines/spark/focusBlend_subtract.png" timeout="5000" />
 			</body>
 			<cleanup>

@@ -119,7 +119,7 @@
                 <ResetComponent target="myCustomCB" className="CustomCB"  waitEvent="updateComplete" waitTarget="myCustomCB"/>
                 <SetStyle target="myCustomCB.myCB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomCB.myCB" />
                 <SetProperty target="myCustomCB.myCB" propertyName="width" value="35" />
-                <SetProperty target="myCustomCB.myCB" propertyName="clipContent" value="true" />
+                <SetProperty target="myCustomCB.myCB" propertyName="clipContent" value="true" waitEvent="updateComplete"/>
             </setup>
             <body>
                 <AssertPropertyValue target="myCustomCB.myCB" propertyName="clipContent" value="true"/>

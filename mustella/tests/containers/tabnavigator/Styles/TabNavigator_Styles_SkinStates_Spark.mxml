@@ -415,6 +415,7 @@
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager/>
             </setup>
             <body>
                 <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab.png" timeout="5000" />
@@ -426,6 +427,7 @@
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager/>
             </setup>
             <body>
                 <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab.png" timeout="5000" />
@@ -438,6 +440,7 @@
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tn.tabn" waitEvent="mouseDown" waitTarget="tn.tabn" /> 
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager/>
             </setup>
             <body>
                 <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab.png" timeout="5000" />
@@ -450,6 +453,7 @@
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tn.tabn" waitEvent="mouseDown" waitTarget="tn.tabn" /> 
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager/>
             </setup>
             <body>
                 <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab.png" timeout="5000" />

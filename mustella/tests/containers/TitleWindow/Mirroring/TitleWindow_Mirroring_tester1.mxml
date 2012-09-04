@@ -72,7 +72,7 @@
 		<setup>
 		    <ResetComponent target="tw2" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw2" />
 		    <SetProperty propertyName="title" value="My Title" target="tw2" />
-		    <SetProperty propertyName="showCloseButton" value="false" target="tw2"/>
+		    <SetProperty propertyName="showCloseButton" value="false" target="tw2" waitEvent="updateComplete"/>
 		</setup>
 		<body>
 		    <CompareBitmap target="tw2" url="../Mirroring/baselines/$testID.png" timeout="2500" />
