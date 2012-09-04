@@ -154,9 +154,9 @@
             </setup>
             <body>  
                 <SetProperty target="vd" propertyName="autoPlay" value="false" />
-                <SetProperty target="vd" propertyName="source" value="../../../../../../../../Assets/Video/video/caltrain.flv" />
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/caltrain.flv" />
                 <RunCode code="application.vd.load()" />
-                <AssertEvent target="vd" eventName="progress" eventClass="flash.events::ProgressEvent" />
+                <AssertEvent target="vd" eventName="progress" eventClass="flash.events::ProgressEvent" timeout="6000" />
             </body>
         </TestCase>
         <TestCase testID="myTest_events_ready" keywords="[VideoDisplay, events, ready]">
