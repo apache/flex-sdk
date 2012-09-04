@@ -175,6 +175,7 @@
 				<AssertEvent target="swf1.content.document.myHSlider" eventName="change" eventClass="mx.events::SliderEvent" />
 			</body>
 		</TestCase>
+		<!-- FIXME: uses remote server
 		<TestCase testID="Checking_Change_Event_of_HSlider_untrusted" keywords="[Marshall Plan, HSlider, change, Event]" description="Ensure that change event gets triggered when a HSlider's track is clicked.">
 			<setup>
 			   <ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
@@ -193,8 +194,9 @@
 				<DispatchMouseClickEvent target="swf1.content.document.myHSlider" localX="100" localY="10" waitEvent="change" waitTarget="swf1.content.document.myHSlider"/>
 				<AssertEvent target="swf1.content.document.myHSlider" eventName="change" eventClass="mx.events::SliderEvent" />
 			</body>
-		</TestCase>
+		</TestCase> -->
 
+		<!-- FIXME: uses remote server
 		<TestCase testID="Checking_thumbPress_Event_of_HSlider_untrusted" keywords="[Marshall Plan, HSlider, thumbPress, Event]" description="Ensure that thumbPress event gets triggered when a HSlider's thumb is pressed">
 			<setup>
                <ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
@@ -215,7 +217,9 @@
 				<DispatchMouseEvent target="swf1.content.document.myHSlider" localX="10" localY="10" type="mouseDown" waitEvent="thumbPress" waitTarget="swf1.content.document.myHSlider"/>
 				<AssertEvent target="swf1.content.document.myHSlider" eventName="thumbPress" eventClass="mx.events::SliderEvent" />
 			</body>
-		</TestCase>
+		</TestCase> -->
+		
+		<!-- FIXME: uses remote server
 		<TestCase testID="Checking_thumbDrag_Event_of_HSlider_untrusted" keywords="[Marshall Plan, HSlider, change, Event]" description="Ensure that thumbDrag event gets triggered when a HSlider's thumb is dragged.">
 			<setup>
                <ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
@@ -235,6 +239,6 @@
 				<DispatchMouseEvent target="swf1.content.document.myHSlider" localX="10" localY="20" type="mouseMove" waitEvent="thumbDrag" waitTarget="swf1.content.document.myHSlider"/>
 				<AssertEvent target="swf1.content.document.myHSlider" eventName="thumbDrag" eventClass="mx.events::SliderEvent" />
 			</body>
-		</TestCase>
+		</TestCase> -->
 	</testCases>
 </UnitTester>

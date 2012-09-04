@@ -175,6 +175,7 @@
 				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="10" localY="20" type="mouseUp" />
 			</body>
 		</TestCase>
+		<!-- FIXME: uses remote server
 	    <TestCase testID="Checking_Change_Event_of_VSlider_untrusted" keywords="[VSlider, change, Event]" description="Ensure that change event gets triggered when a VSlider's track is clicked.">
 			<setup>
 			   <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
@@ -193,8 +194,9 @@
 				<DispatchMouseClickEvent target="swf1.content.document.myVSlider" localX="10" localY="100" waitEvent="change" waitTarget="swf1.content.document.myVSlider"/>
 				<AssertEvent target="swf1.content.document.myVSlider" eventName="change" eventClass="mx.events::SliderEvent" />
 			</body>
-		</TestCase>
+		</TestCase> -->
 
+		<!-- FIXME: uses remote server
 		<TestCase testID="Checking_thumbPress_Event_of_VSlider_untrusted" keywords="[VSlider, change, Event]" description="Ensure that thumbPress event gets triggered when a VSlider's thumb is pressed.">
 			<setup>
 			   <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
@@ -214,7 +216,9 @@
 				<AssertEvent target="swf1.content.document.myVSlider" eventName="thumbPress" eventClass="mx.events::SliderEvent" />
 				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseUp" waitEvent="thumbRelease" waitTarget="swf1.content.document.myVSlider"/>
 			</body>
-		</TestCase>
+		</TestCase> -->
+		
+		<!-- FIXME: uses remote server
 		<TestCase testID="Checking_thumbDrag_Event_of_VSlider_untrusted" keywords="[VSlider, change, Event]" description="Ensure that thumbDrag event gets triggered when a VSlider's thumb is dragged.">
 			<setup>
 			   <DispatchMouseEvent target="" localX="100" localY="10" type="mouseUp" />
@@ -235,6 +239,6 @@
 				<AssertEvent target="swf1.content.document.myVSlider" eventName="thumbDrag" eventClass="mx.events::SliderEvent" />
 				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="10" localY="20" type="mouseUp" />
 			</body>
-		</TestCase>
+		</TestCase> -->
 	</testCases>
 </UnitTester>
