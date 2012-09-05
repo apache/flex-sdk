@@ -55,8 +55,15 @@ public class WaitForLayoutManager extends TestStep
 		var actualTarget:Object = context.stringToObject(target);
 		if (actualTarget)
 		{
-			actualTarget.addEventListener(eventName, eventListener);
-			eventListenerListening = true;
+			if (actualTarget.isInvalid())
+			{
+				actualTarget.addEventListener(eventName, eventListener);
+				eventListenerListening = true;
+			}
+			else 
+			{
+				return true;
+			}
 		} 
 		
 
