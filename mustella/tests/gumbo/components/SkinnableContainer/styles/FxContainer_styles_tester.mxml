@@ -160,6 +160,7 @@
                 <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="numericstepper1" waitEvent="focusIn" />
+				<WaitForLayoutManager />
             </setup>
             <body>
                 <AssertStyleValue target="numericstepper1" styleName="chromeColor" value="0xFFCC99"/>
@@ -175,6 +176,7 @@
                 <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
                 <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+				<WaitForLayoutManager />
             </setup>
             <body>
                 <AssertStyleValue target="hslider1" styleName="chromeColor" value="0xFFCC99"/>
@@ -246,7 +248,6 @@
                 <RunCode code="application.defaultButton0.setFocus()" waitEvent="focusIn" waitTarget="defaultButton0" />
                 <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
                 <RunCode code="application.textarea1.selectRange(0,2)" waitTarget="textarea1" waitEvent="selectionChange" />
-                <Pause timeout="200" />
             </setup>
             <body>
                 <AssertStyleValue target="textarea1" styleName="chromeColor" value="0x9999FF"/>
@@ -358,6 +359,7 @@
                 <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="numericstepper1" waitEvent="focusIn" />
+				<WaitForLayoutManager />
             </setup>
             <body>
                 <AssertStyleValue target="numericstepper1" styleName="chromeColor" value="0x9999FF"/>
@@ -374,6 +376,7 @@
                 <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
                 <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+				<WaitForLayoutManager />
             </setup>
             <body>
                 <AssertStyleValue target="hslider1" styleName="chromeColor" value="0x9999FF"/>
