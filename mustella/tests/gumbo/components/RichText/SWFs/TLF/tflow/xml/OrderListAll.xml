@@ -22,8 +22,6 @@
 	  <list paddingRight="24" paddingLeft="24" listStyleType="hiraganaIroha"><li>hiraganaIroha item</li><li>another</li></list>
 	  <list paddingRight="24" paddingLeft="24" listStyleType="katakana"><li>katakana item</li><li>another</li></list>
 	  <list paddingRight="24" paddingLeft="24" listStyleType="katakanaIroha"><li>katakanaIroha item</li><li>another</li></list>
-	  <list paddingRight="24" paddingLeft="24" listStyleType="lowerGreek"><li>lowerGreek item</li><li>another</li></list>
 	  <list paddingRight="24" paddingLeft="24" listStyleType="lowerLatin"><li>lowerLatin item</li><li>another</li></list>
-	  <list paddingRight="24" paddingLeft="24" listStyleType="upperGreek"><li>upperGreek item</li><li>another</li></list>
 	  <list paddingRight="24" paddingLeft="24" listStyleType="upperLatin"><li>upperLatin item</li><li>another</li></list>
 	  <p>AFTER</p>
