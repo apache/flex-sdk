@@ -508,6 +508,7 @@ CAUTION: FCK Tests can be extremely fragile.
 			<DispatchMouseEvent target="customSkinGroup" localX="100" localY="70" type="rollOver" />	
 			<DispatchMouseEvent target="customSkinGroup" localX="100" localY="70" type="mouseOver" />
 			<DispatchMouseEvent target="customSkinGroup" localX="100" localY="70" type="mouseDown" />
+			<Pause timeout="1000" />
 			<CompareBitmap url="../integration/baselines/FCK_integration_skin_down.png" target="customSkinGroup" numColorVariances="5" ignoreMaxColorVariance="true"/>
 		</body>
 	</TestCase>
@@ -540,6 +541,7 @@ CAUTION: FCK Tests can be extremely fragile.
 	    </setup>
 		<body>
 			<RunCode code="application.itemRendererGroup.virtualDataGroup.verticalScrollPosition = 80000;" />
+			<Pause timeout="200" />
 			<CompareBitmap url="../integration/baselines/FCK_integration_itemRenderer_middle.png" target="itemRendererGroup" numColorVariances="5" ignoreMaxColorVariance="true"/>
 		</body>
 	</TestCase>	
@@ -550,6 +552,7 @@ CAUTION: FCK Tests can be extremely fragile.
 	    </setup>
 		<body>
 			<RunCode code="application.itemRendererGroup.virtualDataGroup.verticalScrollPosition = application.itemRendererGroup.virtualDataGroup.contentHeight;" />
+			<Pause timeout="200" />
 			<CompareBitmap url="../integration/baselines/FCK_integration_itemRenderer_end.png" target="itemRendererGroup" numColorVariances="5" ignoreMaxColorVariance="true"/>
 		</body>
 	</TestCase>	

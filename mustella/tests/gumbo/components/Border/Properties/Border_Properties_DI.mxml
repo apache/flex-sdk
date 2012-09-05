@@ -58,7 +58,7 @@
 		</setup>
 		<body>			
 			<CompareBitmap target="myBorderDInone" url="../Properties/Baselines/$testID_1.png" numColorVariances="5" maxColorVariance="10"/>
-			<RunCode code="application.myBorderDInone.createDeferredContent();" waitEvent="contentCreationComplete" waitTarget="myBorderDInone"/>
+			<RunCode code="application.myBorderDInone.createDeferredContent();" waitEvent="updateComplete" waitTarget="myBorderDInone"/>
 			<CompareBitmap target="myBorderDInone" url="../Properties/Baselines/$testID_2.png" numColorVariances="5" maxColorVariance="10"/>
 		</body>
 	</TestCase>	  		

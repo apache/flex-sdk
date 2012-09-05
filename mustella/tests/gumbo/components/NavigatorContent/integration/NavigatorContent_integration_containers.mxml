@@ -130,6 +130,7 @@
     </setup>
     <body>
 		<SetProperty target="acc1" propertyName="selectedIndex" value="1" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
 		<CompareBitmap target="acc1" url="../integration/baselines/$testID.png" />
     </body>
 </TestCase>
@@ -140,6 +141,7 @@
     </setup>
     <body>
 		<SetProperty target="acc1" propertyName="selectedIndex" value="2" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
 		<CompareBitmap target="acc1" url="../integration/baselines/$testID.png" />
     </body>
 </TestCase>

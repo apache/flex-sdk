@@ -267,7 +267,6 @@
 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="13" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<Pause timeout="100"/>
 		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="15"  waitEvent="dragDrop" />
 		<WaitForEffectsToEnd/>
@@ -294,7 +293,6 @@
 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="2" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="5"  waitEvent="dragDrop" />
 		<WaitForEffectsToEnd/>

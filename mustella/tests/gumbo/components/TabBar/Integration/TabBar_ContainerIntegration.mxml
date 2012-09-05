@@ -108,6 +108,7 @@ States
     <body>
         <RunCode code="FlexGlobals.topLevelApplication.showPopUp()" />
         <WaitForEffectsToEnd />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Integration/baselines/$testID.png" target="thePopUp" numColorVariances="5" maxColorVariance="10"/>
         <RunCode code="FlexGlobals.topLevelApplication.hidePopUp()" />
         <WaitForEffectsToEnd />

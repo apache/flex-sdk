@@ -142,7 +142,7 @@ import spark.layouts.*;
 
             <AssertPropertyValue target = "sc2.verticalScrollBar" propertyName="visible" value="true" />
 
-            <SetProperty    target="sc1" propertyName="height"  value="750" waitEvent="updateComplete"/>
+            <SetProperty    target="sc1" propertyName="height"  value="1000" waitEvent="updateComplete"/>
 
             <SetProperty    target="sc1" propertyName="width"  value="100" waitEvent="updateComplete"/>
 

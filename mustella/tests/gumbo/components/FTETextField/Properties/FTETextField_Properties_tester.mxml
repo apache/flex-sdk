@@ -2942,7 +2942,7 @@
 				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value='The quick brown\nfox jumps over the lazy dog';" waitTarget="can.fteTxt" waitEvent="enterFrame" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value='The quick brown\rfox jumps over the lazy dog';" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="43" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="167" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="154" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="30" />
 
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>

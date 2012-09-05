@@ -111,7 +111,7 @@
 			<Pause timeout="100" />
 			<RunCode code="application.addCustomRect(application.group1, 100, 25, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />		
 				
-			<CompareBitmap url="../properties/baselines/datagroup_property_autoLayout_no_movement_vertical.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_autoLayout_no_movement_vertical_virtual.png" target="group1" timeout="2000" />
 		</body>
     </TestCase>
 		
@@ -128,7 +128,7 @@
 			<RunCode code="application.group1.dataProvider.getItemAt(1).x = 40;" />
 			<Pause timeout="100" />
 			<RunCode code="application.addCustomRect(application.group1, 25, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
-			<CompareBitmap url="../properties/baselines/datagroup_property_autoLayout_no_movement_horizontal.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_autoLayout_no_movement_horizontal_virtual.png" target="group1" timeout="2000" />
 		</body>
     </TestCase>
 
@@ -154,7 +154,7 @@
 			
 	   	</setup>
     	<body>
-			<CompareBitmap url="../properties/baselines/datagroup_property_autoLayout_clipContent.png" target="" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_autoLayout_clipContent_virtual.png" target="" timeout="2000" />
 		</body>
     </TestCase>
 	
@@ -182,7 +182,7 @@
 			
 	   	</setup>
     	<body>
-			<CompareBitmap url="../properties/baselines/datagroup_property_autoLayout_switchTo_true.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_autoLayout_switchTo_true_virtual.png" target="group1" timeout="2000" />
 		</body>
     </TestCase>				
 			  
@@ -207,7 +207,7 @@
 		<!-- no event sent, need to pause -->
 		<Pause timeout="200" />
 		<AssertMethodValue method="value=(application.group1.filters[0] is DropShadowFilter)" valueExpression="value=true" />
-        <CompareBitmap url="../properties/baselines/datagroup_property_filters_data.png" target="group1" timeout="2000" />
+        <CompareBitmap url="../properties/baselines/datagroup_property_filters_data_virtual.png" target="group1" timeout="2000" />
       </body>
     </TestCase>
 	
@@ -231,7 +231,7 @@
 		<!-- no event sent, need to pause -->
 		<Pause timeout="200" />
 		<AssertMethodValue method="value=(application.group1.filters[0] is DropShadowFilter)" valueExpression="value=true" />
-        <CompareBitmap url="../properties/baselines/datagroup_property_filters_graphics.png" target="group1" timeout="2000" />
+        <CompareBitmap url="../properties/baselines/datagroup_property_filters_graphics_virtual.png" target="group1" timeout="2000" />
       </body>
     </TestCase>
 	
@@ -254,7 +254,7 @@
 		<!-- no event sent, need to pause -->
 		<Pause timeout="200" />
 		<AssertMethodValue method="value=(application.group1.filters[0] is DropShadowFilter)" valueExpression="value=true" />
-        <CompareBitmap url="../properties/baselines/datagroup_property_filters_mix.png" target="group1" timeout="2000" />
+        <CompareBitmap url="../properties/baselines/datagroup_property_filters_mix_virtual.png" target="group1" timeout="2000" />
       </body>
     </TestCase>
   
@@ -280,7 +280,7 @@
 		<Pause timeout="200" />
 		<AssertMethodValue method="value=(application.group1.filters[0] is DropShadowFilter)" valueExpression="value=true" />
 		<AssertMethodValue method="value=(application.group1.filters[1] is BlurFilter)" valueExpression="value=true" />
-        <CompareBitmap url="../properties/baselines/datagroup_property_filters_change.png" target="group1" timeout="2000" />
+        <CompareBitmap url="../properties/baselines/datagroup_property_filters_change_virtual.png" target="group1" timeout="2000" />
       </body>
     </TestCase>
 
@@ -300,11 +300,11 @@
 			
 		<SetProperty target="group1" propertyName="typicalItem" value="string" waitTarget="group1"  waitEvent="updateComplete" />
 		<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
-			
+		<WaitForLayoutManager />	
       </setup>
       <body>
         <AssertMethodValue method="value=application.group1.dataProvider.length" value="5" />
-		<CompareBitmap url="../properties/baselines/datagroup_property_dataProvider_null_items.png" target="group1" timeout="2000" />
+		<CompareBitmap url="../properties/baselines/datagroup_property_dataProvider_null_items_virtual.png" target="group1" timeout="2000" />
       </body>
     </TestCase>
 	
@@ -319,11 +319,12 @@
 		
 		<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
 		<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		<WaitForLayoutManager />	
 		
       </setup>
       <body>
         <AssertMethodValue method="value=application.group1.dataProvider.length" value="5" />
-		<CompareBitmap url="../properties/baselines/datagroup_property_dataProvider_null_items_function.png" target="group1" timeout="2000" />
+		<CompareBitmap url="../properties/baselines/datagroup_property_dataProvider_null_items_function_virtual.png" target="group1" timeout="2000" />
       </body>
     </TestCase>	
 	
@@ -339,7 +340,7 @@
 		</setup>
 		<body>
 			<AssertMethodValue method="value=application.graphicArray[0].label" value="1" />
-			<CompareBitmap url="../properties/baselines/datagroup_property_data_graphic.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_data_graphic_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>	
 	
@@ -355,7 +356,7 @@
 		</setup>
 		<body>
 			<AssertMethodValue method="value=application.graphicArray[0].label" value="1" />
-			<CompareBitmap url="../properties/baselines/datagroup_property_data_mix.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_data_mix_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>	
 	
@@ -374,7 +375,7 @@
 		<body>
 			
 			<AssertMethodValue method="value=application.dataArray[0]" value="10" />
-			<CompareBitmap url="../properties/baselines/datagroup_property_itemRenderer_data.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_itemRenderer_data_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>	
 	
@@ -392,7 +393,7 @@
 		<body>
 			
 			<AssertMethodValue method="value=application.mixArr[0].label" value="Green string" />
-			<CompareBitmap url="../properties/baselines/datagroup_property_itemRenderer_data_color.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_itemRenderer_data_color_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>	
 
@@ -407,7 +408,7 @@
 		</setup>
 		<body>
 			<AssertMethodValue method="value=application.dataArray[0]" value="10" />
-			<CompareBitmap url="../properties/baselines/datagroup_property_itemRenderer_data_skin.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_itemRenderer_data_skin_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>	
 	
@@ -427,7 +428,7 @@
 			
 		</setup>
 		<body>
-			<CompareBitmap url="../properties/baselines/datagroup_property_itemRendererFunction.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_itemRendererFunction_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>	
 	
@@ -448,7 +449,7 @@
 			
 		</setup>
 		<body>
-			<CompareBitmap url="../properties/baselines/datagroup_property_layout_vertical_data.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_layout_vertical_data_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>
 	
@@ -469,7 +470,7 @@
 			<AssertMethodValue method="value=application.group1.dataProvider.addItem('BBB')" valueExpression="value=null" />
 			<RunCode code="application.addCustomRect(application.group1, 15, 30, 0x123456, 30, 40)" waitEvent="updateComplete" waitTarget="group1"  />
 			<AssertPropertyValue target="group1" propertyName="height" value="276" />
-			<CompareBitmap url="../properties/baselines/datagroup_property_layout_vertical_mix.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_layout_vertical_mix_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>
 	
@@ -488,7 +489,7 @@
 			
 		</setup>
 		<body>
-			<CompareBitmap url="../properties/baselines/datagroup_property_layout_horizontal_data.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_layout_horizontal_data_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>
 	
@@ -508,7 +509,7 @@
 			<RunCode code="application.addCustomRect(application.group1, 15, 30, 0x123456, 30, 40)" waitEvent="updateComplete" waitTarget="group1"  />
 			<AssertMethodValue method="value=application.group1.dataProvider.addItem('BBB')" valueExpression="value=null" />
 			<RunCode code="application.addCustomRect(application.group1, 15, 30, 0x123456, 30, 40)" waitEvent="updateComplete" waitTarget="group1"  />
-			<CompareBitmap url="../properties/baselines/datagroup_property_layout_horizontal_mix.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_layout_horizontal_mix_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>
 		
@@ -529,7 +530,7 @@
 		</setup>
 		<body>  
 			<SetProperty    target="group1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="group1" />
-			<CompareBitmap url="../properties/baselines/datagroup_property_layout_switch.png" target="group1" timeout="2000" />			
+			<CompareBitmap url="../properties/baselines/datagroup_property_layout_switch_virtual.png" target="group1" timeout="2000" />			
 		</body>
 	</TestCase>
 	
@@ -553,7 +554,7 @@
 		<AssertPropertyValue target="group1" propertyName="maskType" value="alpha" />
 		<SetProperty target="group1" propertyName="maskType" value="clip" waitTarget="group1" waitEvent="updateComplete" />
 		<AssertPropertyValue target="group1" propertyName="maskType" value="clip" />
-		<CompareBitmap url="../properties/baselines/datagroup_property_mask_alpha_change.png" target="group1" timeout="2000" />
+		<CompareBitmap url="../properties/baselines/datagroup_property_mask_alpha_change_virtual.png" target="group1" timeout="2000" />
       </body>
     </TestCase>
   
@@ -585,7 +586,7 @@
       </setup>
       <body>
 
-		<CompareBitmap url="../properties/baselines/datagroup_property_content_mask.png" target="group1" timeout="2000" />
+		<CompareBitmap url="../properties/baselines/datagroup_property_content_mask_virtual.png" target="group1" timeout="2000" />
       </body>
     </TestCase>
 
@@ -617,7 +618,7 @@
 		<RunCode code="application.applyMask(application.group1)" waitTarget="group1" waitEvent="updateComplete" />	  	
 		<AssertMethodValue method="value=application.group1.mask.width" value="50" />
 		<AssertPropertyValue target="group1" propertyName="maskType" valueExpression="value=MaskType.CLIP" />
-		<CompareBitmap url="../properties/baselines/datagroup_property_mask_data.png" target="group1" timeout="2000" />
+		<CompareBitmap url="../properties/baselines/datagroup_property_mask_data_virtual.png" target="group1" timeout="2000" />
       </body>
     </TestCase>
 		
@@ -640,7 +641,7 @@
 		<RunCode code="application.applyMask(application.group1)" waitTarget="group1" waitEvent="updateComplete" />	  	
 		<AssertMethodValue method="value=application.group1.mask.width" value="50" />
 		<AssertPropertyValue target="group1" propertyName="maskType" valueExpression="value=MaskType.CLIP" />
-		<CompareBitmap url="../properties/baselines/datagroup_property_mask_mix.png" target="group1" timeout="2000" />
+		<CompareBitmap url="../properties/baselines/datagroup_property_mask_mix_virtual.png" target="group1" timeout="2000" />
       </body>
     </TestCase>	
 	
@@ -668,7 +669,7 @@
 		</setup>
 		<body>
 			<AssertMethodValue method="value=application.group1.transform.matrix.c" value="1" />
-			<CompareBitmap url="../properties/baselines/datagroup_property_transform_skew_mix.png" target="" timeout="2000" numColorVariances="5" maxColorVariance="20" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_transform_skew_mix_virtual.png" target="" timeout="2000" numColorVariances="5" maxColorVariance="20" />
 		</body>
 	</TestCase>
 
@@ -693,7 +694,7 @@
 		</setup>
 		<body>
 			<AssertMethodValue method="value=application.group1.transform.matrix.c" value="1" />
-			<CompareBitmap url="../properties/baselines/datagroup_property_transform_skew_data.png" target="" timeout="2000" numColorVariances="5" maxColorVariance="20" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_transform_skew_data_virtual.png" target="" timeout="2000" numColorVariances="5" maxColorVariance="20" />
 		</body>
 	</TestCase>
 	
@@ -720,7 +721,7 @@
 		<body>
 			<AssertMethodValue method="value=application.group1.transform.colorTransform.redOffset" value="100" />
 			<AssertMethodValue method="value=application.group1.transform.colorTransform.blueOffset" value="100" />
-			<CompareBitmap url="../properties/baselines/datagroup_property_transform_color_mix.png" target="group1" timeout="2000" numColorVariances="5" maxColorVariance="20" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_transform_color_mix_virtual.png" target="group1" timeout="2000" numColorVariances="5" maxColorVariance="20" />
 		</body>
 	</TestCase>
 	
@@ -746,7 +747,7 @@
 		<body>
 			<AssertMethodValue method="value=application.group1.transform.colorTransform.redOffset" value="100" />
 			<AssertMethodValue method="value=application.group1.transform.colorTransform.blueOffset" value="100" />
-			<CompareBitmap url="../properties/baselines/datagroup_property_transform_color_data.png" target="group1" timeout="2000" numColorVariances="5" maxColorVariance="20" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_transform_color_data_virtual.png" target="group1" timeout="2000" numColorVariances="5" maxColorVariance="20" />
 		</body>
 	</TestCase>
 	
@@ -770,7 +771,7 @@
 			
 		</setup>
 		<body>
-			<CompareBitmap url="../properties/baselines/datagroup_property_transform_rotate_data.png" target="" timeout="2000" numColorVariances="5" maxColorVariance="20" />		
+			<CompareBitmap url="../properties/baselines/datagroup_property_transform_rotate_data_virtual.png" target="" timeout="2000" numColorVariances="5" maxColorVariance="20" />		
 		</body>
 	</TestCase>
 	
@@ -797,7 +798,7 @@
 		</setup>
 		<body>
 			<AssertMethodValue method="value=application.group1.transform.matrix.c" value="1" />
-			<CompareBitmap url="../properties/baselines/datagroup_property_transform_direct.png" target="" timeout="2000" numColorVariances="5" maxColorVariance="20" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_transform_direct_virtual.png" target="" timeout="2000" numColorVariances="5" maxColorVariance="20" />
 		</body>
 	</TestCase>
 	
@@ -829,7 +830,7 @@ duplicate items
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1)" value="aaa" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2)" value="aaa" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(3)" value="aaa" />	
-			<CompareBitmap url="../properties/baselines/datagroup_property_duplicates_itemRenderer.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_duplicates_itemRenderer_virtual.png" target="group1" timeout="2000" />
 		</body>
     </TestCase>
 	
@@ -848,7 +849,7 @@ duplicate items
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1)" value="aaa" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2)" value="aaa" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(3)" value="aaa" />	
-			<CompareBitmap url="../properties/baselines/datagroup_property_duplicates_itemRendererFunction.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_duplicates_itemRendererFunction_virtual.png" target="group1" timeout="2000" />
 		</body>
     </TestCase>
 	
@@ -874,7 +875,7 @@ duplicate items
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(3)" value="bbb" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(4)" value="aaa" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(5)" value="bbb" />	
-			<CompareBitmap url="../properties/baselines/datagroup_property_duplicates_adding.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_duplicates_adding_virtual.png" target="group1" timeout="2000" />
 		</body>
     </TestCase>
 	
@@ -898,7 +899,7 @@ duplicate items
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1)" value="bbb" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2)" value="aaa" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(3)" value="bbb" />
-			<CompareBitmap url="../properties/baselines/datagroup_property_duplicates_removing.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_duplicates_removing_virtual.png" target="group1" timeout="2000" />
 		</body>
     </TestCase>	
 	
@@ -914,7 +915,7 @@ duplicate items
 
 	   	</setup>
     	<body>
-			<CompareBitmap url="../properties/baselines/dataGroup_property_dataProvider_zeroItem.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/dataGroup_property_dataProvider_zeroItem_virtual.png" target="group1" timeout="2000" />
 		</body>
     </TestCase>	
 	
@@ -927,7 +928,7 @@ duplicate items
 			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([new GroupButtonsComp()]);" waitTarget="group1" waitEvent="updateComplete" />
 	   	</setup>
     	<body>
-			<CompareBitmap url="../properties/baselines/dataGroup_property_itemRendererFunction_haloPanel.png" target="group1" />
+			<CompareBitmap url="../properties/baselines/dataGroup_property_itemRendererFunction_haloPanel_virtual.png" target="group1" />
 		</body>
     </TestCase>	
 	
@@ -940,7 +941,7 @@ duplicate items
 			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([new BasicRect()]);" waitTarget="group1" waitEvent="updateComplete" />
 	   	</setup>
     	<body>
-			<CompareBitmap url="../properties/baselines/dataGroup_property_dataProvider_graphicElement.png" target="group1" />
+			<CompareBitmap url="../properties/baselines/dataGroup_property_dataProvider_graphicElement_virtual.png" target="group1" />
 		</body>
     </TestCase>						
 	
@@ -955,7 +956,7 @@ duplicate items
 			<RunCode code="application.group1.dataProvider.removeItemAt(0);" waitTarget="group1" waitEvent="updateComplete" />
 	   	</setup>
     	<body>
-			<CompareBitmap url="../properties/baselines/DataGroup_property_itemIndex_binding.png" target="group1" />
+			<CompareBitmap url="../properties/baselines/DataGroup_property_itemIndex_binding_virtual.png" target="group1" />
 		</body>
     </TestCase>
 	
@@ -969,7 +970,7 @@ duplicate items
 			<RunCode code="application.group1.dataProvider.removeItemAt(0);" waitTarget="group1" waitEvent="updateComplete" />
 	   	</setup>
     	<body>
-			<CompareBitmap url="../properties/baselines/DataGroup_property_itemIndex_setData.png" target="group1" />
+			<CompareBitmap url="../properties/baselines/DataGroup_property_itemIndex_setData_virtual.png" target="group1" />
 		</body>
     </TestCase>
 	

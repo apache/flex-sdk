@@ -155,12 +155,12 @@ test FxRadioButtons can exist in one RadioButtonGroup but across multiple states
 			<CompareBitmap url="../states/baselines/fxradiobutton_SDK18468_state2.png" target="stateRBG" />
 
 			<!-- Select new in this state RadioButton -->
-			<DispatchMouseClickEvent target="stateRBG.s3" localX="3" localY="3" waitEvent="updateComplete" waitTarget="stateRBG.s3"/>
+			<DispatchMouseClickEvent target="stateRBG.s3" localX="4" localY="8" waitEvent="updateComplete" waitTarget="stateRBG.s3"/>
 			<AssertPropertyValue propertyName="selected" target="stateRBG.s3" value="true"/>
 			<CompareBitmap url="../states/baselines/fxradiobutton_SDK18468_selected_new.png" target="stateRBG" />
 			
 			<!--Select already existing RadioButton -->
-			<DispatchMouseClickEvent target="stateRBG.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="stateRBG.s3"/>
+			<DispatchMouseClickEvent target="stateRBG.s1" localX="4" localY="8" waitEvent="updateComplete" waitTarget="stateRBG.s3"/>
 			<AssertPropertyValue propertyName="selected" target="stateRBG.s1" value="true"/>
 			<AssertPropertyValue propertyName="selected" target="stateRBG.s3" value="false"/>
 			<AssertPropertyValue propertyName="selected" target="stateRBG.s2" value="false"/>
@@ -183,11 +183,11 @@ test FxRadioButtons can exist in one RadioButtonGroup but across multiple states
 			<AssertPropertyValue target="stateRBG" propertyName="currentState" value="state2" />
 
 			<!-- Select new in this state RadioButton -->
-			<DispatchMouseClickEvent target="stateRBG.s3" localX="3" localY="3" waitEvent="updateComplete" waitTarget="stateRBG.s3"/>
+			<DispatchMouseClickEvent target="stateRBG.s3" localX="4" localY="8" waitEvent="updateComplete" waitTarget="stateRBG.s3"/>
 			<AssertPropertyValue propertyName="selected" target="stateRBG.s3" value="true"/>
 			<AssertPropertyValue propertyName="selectedValue" target="stateRBG.sparkGrp" value="Spark 3"/>
 			<!--Select already existing RadioButton -->
-			<DispatchMouseClickEvent target="stateRBG.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="stateRBG.s3"/>
+			<DispatchMouseClickEvent target="stateRBG.s1" localX="4" localY="8" waitEvent="updateComplete" waitTarget="stateRBG.s3"/>
 			<AssertPropertyValue propertyName="selectedValue" target="stateRBG.sparkGrp" value="Spark 1"/>
 		</body>
 	</TestCase>
@@ -204,7 +204,7 @@ test FxRadioButtons can exist in one RadioButtonGroup but across multiple states
 			<AssertPropertyValue target="stateRBG" propertyName="currentState" value="state2" />
 
 			<!-- Select new in this state RadioButton -->
-			<DispatchMouseClickEvent target="stateRBG.s3" localX="3" localY="3" waitEvent="updateComplete" waitTarget="stateRBG.s3"/>
+			<DispatchMouseClickEvent target="stateRBG.s3" localX="4" localY="8" waitEvent="updateComplete" waitTarget="stateRBG.s3"/>
 			<AssertPropertyValue propertyName="selected" target="stateRBG.s3" value="true"/>
 			<AssertPropertyValue propertyName="selectedValue" target="stateRBG.sparkGrp" value="Spark 3"/>
 			<SetProperty target="stateRBG" propertyName="currentState" value="state1" />

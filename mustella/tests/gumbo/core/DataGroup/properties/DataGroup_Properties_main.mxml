@@ -329,6 +329,7 @@
 		<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
 		<RunCode code="application.group1.itemRenderer=new ClassFactory(comps.NullItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
         <SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([null, 'string', null, 3.1415, null])}" waitTarget="group1" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
       </setup>
       <body>
         <AssertMethodValue method="value=application.group1.dataProvider.length" value="5" />
@@ -342,6 +343,7 @@
 		<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.nullItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />		
 		<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
         <SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([null, 'string', null, 3.1415, null])}" waitTarget="group1" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
       </setup>
       <body>
         <AssertMethodValue method="value=application.group1.dataProvider.length" value="5" />
@@ -3138,7 +3140,7 @@ duplicate items
 		    <SetProperty propertyName="dataProvider" target="group1" valueExpression="value=application.richEditableTextCollection" waitEvent="updateComplete" waitTarget="group1" />
 		</setup>
 		<body>			
-		    <AssertMethodValue method="value=Math.round(application.group1.baselinePosition)" value="9" />
+		    <AssertMethodValue method="value=Math.round(application.group1.baselinePosition)" value="12" />
 		</body>
 	</TestCase>
       
@@ -3154,9 +3156,9 @@ duplicate items
             <SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />		
         </setup>
         <body>
-            <DispatchMouseClickEvent target="group1.getElementAt(0).rb1" localX="5" localY="5" waitEvent="click" />
-            <DispatchMouseClickEvent target="group1.getElementAt(1).rb2" localX="5" localY="5" waitEvent="click" />
-            <DispatchMouseClickEvent target="group1.getElementAt(2).rb3" localX="5" localY="5" waitEvent="click" />
+            <DispatchMouseClickEvent target="group1.getElementAt(0).rb1" localX="5" localY="8" waitEvent="click" />
+            <DispatchMouseClickEvent target="group1.getElementAt(1).rb2" localX="5" localY="8" waitEvent="click" />
+            <DispatchMouseClickEvent target="group1.getElementAt(2).rb3" localX="5" localY="8" waitEvent="click" />
             <CompareBitmap url="../properties/baselines/DataGroup_Properties_getCurrentRendererState.png" target="group1" />
         </body>
     </TestCase>

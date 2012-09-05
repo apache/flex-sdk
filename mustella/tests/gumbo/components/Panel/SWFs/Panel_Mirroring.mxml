@@ -34,7 +34,7 @@
 		
 		@font-face {
 			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
-			fontFamily: MyArial;
+			fontFamily: MyVera;
 			fontStyle: italic;
 			embedAsCFF: true;
 		}
@@ -66,6 +66,21 @@
 			embedAsCFF: false;
 		}		
 			
+		mx|Accordion,
+		mx|RadioButton,
+		mx|CheckBox,
+		mx|List,
+		mx|DataGrid,
+		mx|Button,
+		mx|Text,
+		mx|Label,
+		mx|NumericStepper,
+		mx|ToolTip{
+			fontAntiAliasType: "normal";
+			fontFamily: MyArialHalo;
+			fontSize: 12;
+		}
+
 		s|Panel{
 			fontAntiAliasType: "normal";
 			fontFamily: MyVera;

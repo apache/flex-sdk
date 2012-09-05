@@ -252,7 +252,7 @@ MXItemRenderer Testing - Tree - Integration tests
                    
                    <DispatchMouseClickEvent target="treeRoot.tree1" localX="228" localY="9" waitEvent="click" waitTarget="treeRoot.tree1"/>
                	<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)"  />
-       
+		<WaitForLayoutManager />
         <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
        
         
@@ -298,7 +298,7 @@ MXItemRenderer Testing - Tree - Integration tests
          	
            <RunCode code="addEmptyBranchDP()" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
    	   <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)"  />
-           <Pause timeout="50"/>
+		  <WaitForLayoutManager />
            <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
              	 
     </body>
@@ -315,7 +315,7 @@ MXItemRenderer Testing - Tree - Integration tests
          	
         <RunCode code="addEmptyBranchDD()" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
         <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)"  />
-        <Pause timeout="50"/>
+		<WaitForLayoutManager />
         <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
 
     </body>

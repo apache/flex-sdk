@@ -56,7 +56,8 @@
 			</setup>
 			<body>											
 				<CompareBitmap target="myPanel_DI" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
-				<RunCode code="FlexGlobals.topLevelApplication.myPanel_DI.createDeferredContent()" waitEvent="contentCreationComplete" waitTarget="myPanel_DI"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myPanel_DI.createDeferredContent()" waitEvent="contentCreationComplete" waitTarget="myPanel_DI"/>
+				<WaitForLayoutManager />
 				<CompareBitmap target="myPanel_DI" url="../Properties/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>			
 				<SetProperty target="myPanel_DI.myCB_DI" propertyName="selectedIndex" value="5" waitEvent="updateComplete" waitTarget="myPanel_DI.myCB_DI"/>
 				<AssertPropertyValue target="myPanel_DI.myCB_DI" propertyName="selectedItem" value="Product F"/>

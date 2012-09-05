@@ -151,9 +151,9 @@
 			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.grid.isCellVisible(5)" value="false" />
 
 			    <RunCode code="trace('cell 1,3 visiable?'+FlexGlobals.topLevelApplication.dataGrid5.grid.isCellVisible(1,3))"/>
-			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.grid.isCellVisible(1,3)" value="false" />
-			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.grid.isCellVisible(1,2)" value="true" />
-			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.grid.getColumnBounds(1).width" value="50"/>
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.grid.isCellVisible(1,2)" value="false" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.grid.isCellVisible(1,1)" value="true" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.grid.getColumnBounds(1).width" value="51"/>
 			    <!-- code coverage test below -->
 			    <SetProperty target="dataGrid5" propertyName="requestedMaxRowCount" value="10"/>
 			    <AssertPropertyValue target="dataGrid5" propertyName="requestedMaxRowCount" value="10"/>
@@ -190,7 +190,7 @@
 	  	    <RunCode code="trace('cell 1,3 visiable?'+FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(1,3))"/>
 	  	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(1,3)" value="false" />
 	  	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(1,2)" value="false" />
-	  	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.getColumnBounds(1).width" value="71"/>
+	  	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.getColumnBounds(1).width" value="76"/>
 				
 	  	    
 	  	</body>

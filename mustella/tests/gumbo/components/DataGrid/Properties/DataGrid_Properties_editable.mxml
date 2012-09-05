@@ -1254,6 +1254,7 @@
 		  <DispatchMouseClickEvent target="dataGrid2.columnHeaderGroup" localX="100" localY="10" waitEvent="click" waitTarget="dataGrid2"/>
 		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+			<WaitForLayoutManager />
 		  <CompareBitmap url="../Properties/baselines/$testID_sort_selection.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
 	      </body>
 	   </TestCase>  

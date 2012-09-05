@@ -130,7 +130,7 @@ enabled
         <RunCode code="application.setDataProvider(application.bb1, 1)" />
     </setup>
     <body>
-        <AssertPropertyValue target="bb1" propertyName="baselinePosition" value="14.8" />
+        <AssertPropertyValue target="bb1" propertyName="baselinePosition" value="14.6" />
     </body>
 </TestCase>
 <TestCase testID="ButtonBar_properties_baselinePosition_postValidation" keywords="[ButtonBar,baselinePosition]"
@@ -140,7 +140,7 @@ enabled
         <RunCode code="application.setDataProvider(application.bb1, 1)" waitEvent="updateComplete" waitTarget="bb1"/>
     </setup>
     <body>
-        <AssertPropertyValue target="bb1" propertyName="baselinePosition" value="14.8" />
+        <AssertPropertyValue target="bb1" propertyName="baselinePosition" value="14.6" />
     </body>
 </TestCase>
 </testCases>

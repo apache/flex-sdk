@@ -59,23 +59,23 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		
 			</setup>
 			<body>				
-				<AssertPropertyValue target="myComp_LTR.dataGrid1" propertyName="width" value="253"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(0).width" value="39"/>
+				<AssertPropertyValue target="myComp_LTR.dataGrid1" propertyName="width" value="250"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(2).width" value="46"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(3).width" value="33"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(4).width" value="46"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(5).width" value="27"/>								
-				<DispatchMouseEvent type="rollOver" target="myComp_LTR.dataGrid1" localX="177" localY="10" waitEvent="rollOver" /> 
-				<DispatchMouseEvent type="mouseDown" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="177" localY="10" waitEvent="separatorMouseDown" /> 
-				<DispatchMouseEvent type="mouseMove" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="203" localY="10" waitEvent="separatorMouseDrag" /> 
-				<DispatchMouseEvent type="mouseUp" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="203" localY="10" waitEvent="separatorMouseUp" /> 
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(0).width" value="40"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(1).width" value="39"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(2).width" value="62"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(3).width" value="60"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(4).width" value="43"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(5).width" value="30"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(5).width" value="29"/>								
+				<DispatchMouseEvent type="rollOver" target="myComp_LTR.dataGrid1" localX="132" localY="10" waitEvent="rollOver" /> 
+				<DispatchMouseEvent type="mouseDown" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="132" localY="10" waitEvent="separatorMouseDown" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="140" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseUp" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="140" localY="10" waitEvent="separatorMouseUp" /> 
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(2).width" value="53"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(3).width" value="24"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(5).width" value="29"/>						
 			</body>
 		</TestCase>			
 		
@@ -88,23 +88,23 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		
 			</setup>
 			<body>				
-				<AssertPropertyValue target="myComp_LTR.dataGrid1" propertyName="width" value="253"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(0).width" value="39"/>
+				<AssertPropertyValue target="myComp_LTR.dataGrid1" propertyName="width" value="250"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(2).width" value="46"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(3).width" value="33"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(4).width" value="46"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(5).width" value="27"/>												
-				<DispatchMouseEvent type="rollOver" target="myComp_LTR.dataGrid1" localX="246" localY="10" waitEvent="rollOver" /> 
-				<DispatchMouseEvent type="mouseDown" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="246" localY="10" waitEvent="separatorMouseDown" /> 
-				<DispatchMouseEvent type="mouseMove" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="255" localY="10" waitEvent="separatorMouseDrag" /> 
-				<DispatchMouseEvent type="mouseUp" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="255" localY="10" waitEvent="separatorMouseUp" /> 
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(0).width" value="40"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(1).width" value="39"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(2).width" value="62"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(3).width" value="34"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(4).width" value="78"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(5).width" value="21"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(5).width" value="29"/>												
+				<DispatchMouseEvent type="rollOver" target="myComp_LTR.dataGrid1" localX="209" localY="10" waitEvent="rollOver" /> 
+				<DispatchMouseEvent type="mouseDown" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="209" localY="10" waitEvent="separatorMouseDown" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="200" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseUp" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="200" localY="10" waitEvent="separatorMouseUp" />
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(4).width" value="35"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(5).width" value="38"/>						
 			</body>
 		</TestCase>			
 		

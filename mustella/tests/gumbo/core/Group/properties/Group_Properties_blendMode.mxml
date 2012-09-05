@@ -215,10 +215,10 @@
 			 <AssertPixelValue target="group1" x="29" y="48" valueExpression="value=NaN" />
 			 <AssertPixelValue target="group1" x="48" y="48" valueExpression="value=NaN" />
 
-			 <AssertPixelValue target="group1" x="28" y="28" value="0x333431" />
-			 <AssertPixelValue target="group1" x="49" y="28" value="0xE4CA4A" />
-			 <AssertPixelValue target="group1" x="28" y="49" value="0x719316" />
-			 <AssertPixelValue target="group1" x="49" y="49" value="0xE3C947" />
+			 <AssertPixelValue target="group1" x="28" y="28" value="0xFE0100" />
+			 <AssertPixelValue target="group1" x="61" y="28" value="0xFE0100" />
+			 <AssertPixelValue target="group1" x="29" y="69" value="0xFE0200" />
+			 <AssertPixelValue target="group1" x="29" y="79" value="0x00FF01" />
 		</body>
     </TestCase>
 
@@ -234,10 +234,10 @@
 			 <AssertPixelValue target="group1" x="29" y="48" valueExpression="value=NaN" />
 			 <AssertPixelValue target="group1" x="48" y="48" valueExpression="value=NaN" />
 
-			 <AssertPixelValue target="group1" x="28" y="28" value="0x333431" />
-			 <AssertPixelValue target="group1" x="49" y="28" value="0xE4CA4A" />
-			 <AssertPixelValue target="group1" x="28" y="49" value="0x719316" />
-			 <AssertPixelValue target="group1" x="49" y="49" value="0xE3C947" />
+			<AssertPixelValue target="group1" x="28" y="28" value="0xFE0100" />
+			<AssertPixelValue target="group1" x="61" y="28" value="0xFE0100" />
+			<AssertPixelValue target="group1" x="29" y="69" value="0xFE0200" />
+			<AssertPixelValue target="group1" x="29" y="79" value="0x00FF01" />
 		</body>
     </TestCase>
 

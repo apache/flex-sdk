@@ -175,7 +175,7 @@
                 <SetProperty target="myCustomPanel" propertyName="title" value="My Panel Title" />
             </setup>
             <body>
-            	<AssertPropertyValue target="myCustomPanel" propertyName="baselinePosition" value="19.85"/>
+            	<AssertPropertyValue target="myCustomPanel" propertyName="baselinePosition" value="20.1"/>
             </body>
         </TestCase>         
         <TestCase testID="Panel_Properties_baselinePosition_postValidation" keywords="[Panel, baselinePosition]" description="Test baselinePosition property of Panel">
@@ -184,7 +184,7 @@
                 <SetProperty target="myCustomPanel" propertyName="title" value="My Panel Title" waitEvent="propertyChange" waitTarget="myCustomPanel"/>
             </setup>
             <body>
-            	<AssertPropertyValue target="myCustomPanel" propertyName="baselinePosition" value="19.85"/>
+            	<AssertPropertyValue target="myCustomPanel" propertyName="baselinePosition" value="20.1"/>
             </body>
         </TestCase> 
     </testCases>

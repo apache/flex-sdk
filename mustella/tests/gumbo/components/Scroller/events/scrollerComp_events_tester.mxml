@@ -102,7 +102,7 @@ import spark.layouts.*;
 	    <Pause timeout="100"/>
             <AssertPropertyValue target="sc2.verticalScrollBar" propertyName="value"    value="250" />
 
-            <AssertPropertyValue target="sc2.verticalScrollBar" propertyName="maximum"    value="446" />
+            <AssertPropertyValue target="sc2.verticalScrollBar" propertyName="maximum"    value="576" />
 
            </body>
 
@@ -140,7 +140,7 @@ import spark.layouts.*;
             <Pause timeout="20"/>
             <DispatchMouseEvent type="mouseUp"   target="sc1.horizontalScrollBar.track" localX="3" localY="2" waitEvent="updateComplete"  />
 	    <Pause timeout="100"/>
-            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="2098" />
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="2154" />
 
            </body>
 
@@ -186,7 +186,7 @@ import spark.layouts.*;
 	    <Pause timeout="20"/>
             <DispatchMouseEvent type="mouseUp"   target="sc1.horizontalScrollBar.track" localX="3" localY="2" waitEvent="mouseUp" waitTarget="sc1.horizontalScrollBar"/>
 	    <Pause timeout="100"/>
-            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="1570" />
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="1614" />
 
            </body>
 
@@ -267,9 +267,9 @@ import spark.layouts.*;
 
             <DispatchMouseEvent type="mouseUp"   target="sc1.horizontalScrollBar.track" localX="15" localY="3" waitEvent="updateComplete"  />
 	    <Pause timeout="100"/>
-            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="138" />
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="135" />
 
-            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="maximum"  value="326" />
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="maximum"  value="321" />
 
             <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="pageSize" value="200" />
 
@@ -305,9 +305,9 @@ import spark.layouts.*;
 
             <DispatchMouseEvent type="mouseUp"   target="sc1.horizontalScrollBar.track" localX="150" localY="3" waitEvent="mouseUp" waitTarget="sc1.horizontalScrollBar" />
 	    <Pause timeout="100"/>
-            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="198" />
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="196" />
 
-            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="maximum"  value="326" />
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="maximum"  value="321" />
 
             <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="pageSize" value="200" />
 
@@ -339,9 +339,9 @@ import spark.layouts.*;
 
                 <RunCode code="application.sc1.horizontalScrollBar.changeValueByPage()" waitEvent="valueCommit" waitTarget="sc1.horizontalScrollBar"/>
 		<Pause timeout="100"/>
-                <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="198" />
+                <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="196" />
 
-            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="maximum"  value="326" />
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="maximum"  value="321" />
 
             <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="pageSize" value="200" />
 
@@ -375,11 +375,11 @@ import spark.layouts.*;
 
             <DispatchMouseEvent type="mouseUp"   target="sc1.horizontalScrollBar.incrementButton" localX="3" localY="3" waitEvent="mouseUp" waitTarget="sc1.horizontalScrollBar" />
 	    <Pause timeout="100"/>
-            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="198" />
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="196" />
 
             <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="stepSize"  value="1" />
 
-            <AssertPropertyValue target="sc1.viewport" propertyName="horizontalScrollPosition" value="198" />
+            <AssertPropertyValue target="sc1.viewport" propertyName="horizontalScrollPosition" value="196" />
 
            </body>
 
@@ -460,11 +460,11 @@ import spark.layouts.*;
 
             <DispatchKeyEvent key="RIGHT" />
 	    <Pause timeout="100"/>
-                    <AssertPropertyValue target="sc4.horizontalScrollBar" propertyName="value"    value="13" />
+                    <AssertPropertyValue target="sc4.horizontalScrollBar" propertyName="value"    value="10" />
 
             <AssertPropertyValue target="sc4.horizontalScrollBar" propertyName="stepSize"  value="1" />
 
-            <AssertPropertyValue target="sc4.viewport" propertyName="horizontalScrollPosition" value="13" />
+            <AssertPropertyValue target="sc4.viewport" propertyName="horizontalScrollPosition" value="10" />
 
            </body>
 
@@ -486,14 +486,14 @@ import spark.layouts.*;
              <DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="sc4.verticalScrollBar"/>
 
              <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="value"     value="250" />
-             <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="maximum"   value="446" />
+             <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="maximum"   value="576" />
              <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="stepSize"  value="1" />
              <DispatchKeyEvent key="END" waitEvent="updateComplete" waitTarget="sc4.verticalScrollBar"/>
 
-             <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="value"     value="446" />
+             <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="value"     value="576" />
              <DispatchKeyEvent key="UP" waitEvent="updateComplete" waitTarget="sc4.verticalScrollBar"/>
 
-             <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="value"     value="196" />
+             <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="value"     value="326" />
              <DispatchKeyEvent key="HOME" waitEvent="updateComplete" waitTarget="sc4.verticalScrollBar"/>
 
              <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="value"     value="0" />
@@ -591,7 +591,7 @@ import spark.layouts.*;
             <DispatchMouseEvent type="mouseWheel" target="sc1" localX="20" localY="10" delta="-1" waitEvent="mouseWheel" />
             <Pause timeout="100"/>
 
-            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="72" />
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="80" />
 
            </body>
 
@@ -619,7 +619,7 @@ import spark.layouts.*;
                 <DispatchMouseEvent type="mouseOver" target="sc7.verticalScrollBar" localX="5" localY="10"  waitEvent="mouseOver" />
                 <DispatchMouseEvent type="mouseWheel" target="sc7.verticalScrollBar" localX="5" localY="40" delta="-3" />
                 <Pause timeout="100"/>
-                <AssertPropertyValue target="sc7.verticalScrollBar" propertyName="value"    value="322" />
+                <AssertPropertyValue target="sc7.verticalScrollBar" propertyName="value"    value="353" />
 
            </body>
         </TestCase>
@@ -628,7 +628,7 @@ import spark.layouts.*;
                 <DispatchMouseEvent type="mouseOver" target="sc7" localX="95" localY="10"  waitEvent="mouseOver" />
                 <DispatchMouseEvent type="mouseWheel" target="sc7" localX="95" localY="40" delta="-5" />
                 <Pause timeout="100"/>
-                <AssertPropertyValue target="sc7.verticalScrollBar" propertyName="value"    value="862" />
+                <AssertPropertyValue target="sc7.verticalScrollBar" propertyName="value"    value="993" />
 
            </body>
         </TestCase>

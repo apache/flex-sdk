@@ -1101,7 +1101,7 @@
 			<RunCode code="application.addEllipseAt(application.group1, 2);" waitEvent="updateComplete" waitTarget="group1" />
 
 			<RunCode code="application.rotateTransform(application.group1, -45);"  />
-
+			<WaitForLayoutManager />
 		</setup>
 		<body>
 			<CompareBitmap url="../properties/baselines/group_property_transform_rotate_graphics.png" target="" timeout="2000" />
@@ -1387,7 +1387,8 @@
 			<AssertMethodValue method="application.group1.getElementAt(0).getElementAt(2).depth = 1;" waitTarget="group1" waitEvent="updateComplete"/>
 			<AssertMethodValue method="application.group1.getElementAt(0).getElementAt(3).depth = 0;" waitTarget="group1" waitEvent="updateComplete"/>
 			<AssertMethodValue method="application.group1.getElementAt(0).getElementAt(4).depth = -1;" waitTarget="group1" waitEvent="updateComplete"/>
-	   	</setup>
+			<WaitForLayoutManager />
+		</setup>
     	<body>
 			<AssertPropertyValue target="group1" propertyName="width" value="140" />
 			<CompareBitmap url="../properties/baselines/group_property_layer_basic.png" target="group1" timeout="2000" />
@@ -1569,14 +1570,14 @@
 			<RunCode code="application.group1.addElement(application.createButton());" waitTarget="group1" waitEvent="updateComplete" />
 			
 			<AssertMethodValue method="value=application.group1.width" value="70" />
-			<AssertMethodValue method="value=application.group1.height" value="21" />
+			<AssertMethodValue method="value=application.group1.height" value="23" />
 			
 			<RunCode code="application.group1.getElementAt(0).x += 100;" waitTarget="group1" waitEvent="updateComplete" />
 			<RunCode code="application.group1.getElementAt(0).y += 100;" waitTarget="group1" waitEvent="updateComplete" />
 	   	</setup>
 		<body>
 			<AssertMethodValue method="value=application.group1.width" value="170" />
-			<AssertMethodValue method="value=application.group1.height" value="121" />
+			<AssertMethodValue method="value=application.group1.height" value="123" />
 		</body>
     </TestCase>
     

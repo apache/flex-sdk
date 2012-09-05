@@ -207,6 +207,7 @@
 		<body>			
 			<CompareBitmap url="../Properties/Baselines/$testID_1.png" target="myBorderGrpState" numColorVariances="20" ignoreMaxColorVariance="true"/>
 			<SetProperty target="myBorderGrpState" propertyName="currentState" value="styleState2" waitEvent="currentStateChange"/>
+			<WaitForLayoutManager />
 			<CompareBitmap url="../Properties/Baselines/$testID_2.png" target="myBorderGrpState" numColorVariances="20" ignoreMaxColorVariance="true"/>
 		</body>
 	</TestCase>	

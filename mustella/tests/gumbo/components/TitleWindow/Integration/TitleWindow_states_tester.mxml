@@ -49,6 +49,7 @@
     	    </setup>
     	    <body>
     		<SetProperty target="twObject" propertyName="currentState" value="state02"/>
+				<WaitForLayoutManager />
 		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
             </body>
         </TestCase>       

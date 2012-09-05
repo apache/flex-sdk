@@ -364,7 +364,7 @@ xmlns="*" testSWF="ListBasic.mxml">
 				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="11" />
 				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
 				<DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
-				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="14" />
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="15" />
 			</body>
 		</TestCase>
 		
@@ -397,7 +397,7 @@ xmlns="*" testSWF="ListBasic.mxml">
 				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
 				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
 				<DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
-				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="3" />
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="4" />
 			</body>
 		</TestCase>
 		

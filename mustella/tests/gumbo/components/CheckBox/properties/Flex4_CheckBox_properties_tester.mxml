@@ -474,7 +474,7 @@
                 <SetProperty target="myCB" propertyName="label" value="CheckBox Label" />
             </setup>
             <body>
-                <AssertPropertyValue value="13.35" target="myCB" propertyName="baselinePosition"/>
+                <AssertPropertyValue value="17.5" target="myCB" propertyName="baselinePosition"/>
             </body>
         </TestCase>
         <TestCase testID="CheckBox_baselinePosition_postValidation" keywords="[CheckBox, baselinePosition]" description="CheckBox baselinePosition property">

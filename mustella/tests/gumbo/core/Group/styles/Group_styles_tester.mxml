@@ -49,6 +49,7 @@
 			    <!--DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" /-->
 			    <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<AssertStyleValue target="radiobutton1" styleName="chromeColor" value="0xFFCC99"/>
@@ -116,6 +117,7 @@
 			    <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<AssertStyleValue target="togglebutton1" styleName="chromeColor" value="0xFFCC99"/>
@@ -164,6 +166,7 @@
 			    <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="numericstepper1" waitEvent="focusIn" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<AssertStyleValue target="numericstepper1" styleName="chromeColor" value="0xFFCC99"/>
@@ -179,6 +182,7 @@
 			    <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
 			    <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<AssertStyleValue target="hslider1" styleName="chromeColor" value="0xFFCC99"/>
@@ -230,13 +234,9 @@
 				<CompareBitmap url="../styles/baselines/$testID.png" target="buttonbar_box"  numColorVariances="5" maxColorVariance="16" />
 			</body>
 		</TestCase>
-        <TestCase testID="GroupStyle_loadingCSS" keywords="[FxRadioButton]" description="This just loads the CSS">
-			<body>
-			    <RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
-			</body>
-		</TestCase>
         <TestCase testID="GroupStyle_FxRadioButton_runtimeCSS" keywords="[FxRadioButton]" description="Ensure that RadioButton looks correct when global styles are set.">
 			<setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
 			    <RunCode code="application.button000.setFocus()" waitEvent="focusIn" waitTarget="button000" />
 			    <!--DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" /-->
 			    <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
@@ -251,6 +251,7 @@
 		</TestCase>
 		<TestCase testID="GroupStyle_FxTextArea_runtimeCSS" keywords="[FxTextArea]" description="Ensure that TextArea looks correct when global styles are set.">
 			<setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
 			    <RunCode code="application.defaultButton0.setFocus()" waitEvent="focusIn" waitTarget="defaultButton0" />
 			    <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
 			    <RunCode code="application.textarea1.selectRange(0,3)" waitTarget="textarea1" waitEvent="selectionChange" />
@@ -266,6 +267,7 @@
 		</TestCase>
 		<TestCase testID="GroupStyle_FxTextInput_runtimeCSS" keywords="[FxTextInput]" description="Ensure that TextInput looks correct when global styles are set.">
 			<setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
 			    <RunCode code="application.defaultButton.setFocus()" waitEvent="focusIn" waitTarget="defaultButton" />
 			    <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
 			    <RunCode code="application.textinput1.selectRange(0,2)" waitTarget="textinput1" waitEvent="selectionChange" />
@@ -279,6 +281,7 @@
 		</TestCase>
 		<TestCase testID="GroupStyle_FxButton_runtimeCSS" keywords="[FxButton]" description="Ensure that Button looks correct when global styles are set.">
 			<setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
 			    <RunCode code="application.button000.setFocus()" waitEvent="focusIn" waitTarget="button000" />
 			    <!--DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" /-->
 			    <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
@@ -291,6 +294,7 @@
 		</TestCase>
 		<TestCase testID="GroupStyle_FxCheckBox_runtimeCSS" keywords="[FxCheckBox]" description="Ensure that CheckBox looks correct when global styles are set.">
 			<setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
 			    <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
 			    <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
 			</setup>
@@ -303,7 +307,9 @@
 		</TestCase>
 		<TestCase testID="GroupStyle_FxToggleButton_runtimeCSS_unselected" keywords="[FxToggleButton]" description="Ensure that ToggleButton looks correct when global styles are set.">
 			<setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
 			    <ResetComponent target="togglebutton1" className="spark.components.ToggleButton" waitTarget="togglebutton1" waitEvent="updateComplete" />
+				<SetProperty propertyName="label" target="togglebutton1" value="FxToggleButton" waitEvent="updateComplete" waitTarget="togglebutton1" />
 			    <RunCode code="application.button000.setFocus()" waitEvent="focusIn" waitTarget="button000" />
 			    <!--DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" /-->
 			    <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
@@ -319,11 +325,13 @@
 		</TestCase>
 		<TestCase testID="GroupStyle_FxToggleButton_runtimeCSS_selected" keywords="[FxToggleButton]" description="Ensure that ToggleButton looks correct when global styles are set.">
 			<setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
 			    <RunCode code="application.button000.setFocus()" waitEvent="focusIn" waitTarget="button000" />
 			    <!--DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" /-->
 			    <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+				<SetProperty propertyName="selected" target="togglebutton1" value="false" />
 			</setup>
 			<body>
 				<SetProperty propertyName="selected" target="togglebutton1" value="true" waitEvent="updateComplete" waitTarget="togglebutton1" />
@@ -334,6 +342,9 @@
 			</body>
 		</TestCase>
 		<TestCase testID="GroupStyle_FxVScrollBar_runtimeCSS" keywords="[FxVScrollBar]" description="Ensure that VScrollBar looks correct when global styles are set.">
+			<setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
+			</setup>
 			<body>
 				<AssertStyleValue target="vscrollbar1" styleName="chromeColor" value="0x9999FF"/>
 				<AssertStyleValue target="vscrollbar1" styleName="focusColor" value="0x009900"/>
@@ -342,6 +353,9 @@
 			</body>
 		</TestCase>
 		<TestCase testID="GroupStyle_FxHScrollBar_runtimeCSS" keywords="[FxHScrollBar]" description="Ensure that HScrollBar looks correct when global styles are set.">
+			<setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
+			</setup>
 			<body>
 				<AssertStyleValue target="hscrollbar1" styleName="chromeColor" value="0x9999FF"/>
 				<AssertStyleValue target="hscrollbar1" styleName="focusColor" value="0x009900"/>
@@ -351,12 +365,14 @@
 		</TestCase>
 		<TestCase testID="GroupStyle_FxNumericStepper_runtimeCSS" keywords="[FxNumericStepper]" description="Ensure that NumericStepper looks correct when global styles are set.">
 			<setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
 			    <RunCode code="application.button000.setFocus()" waitEvent="focusIn" waitTarget="button000" />
 			    <!--DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" /-->
 			    <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="numericstepper1" waitEvent="focusIn" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<AssertStyleValue target="numericstepper1" styleName="chromeColor" value="0x9999FF"/>
@@ -369,9 +385,11 @@
 		</TestCase>
 		<TestCase testID="GroupStyle_FxHSlider_runtimeCSS" keywords="[FxHSlider]" description="Ensure that HSlider looks correct when global styles are set.">
 			<setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
 			    <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
 			    <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<AssertStyleValue target="hslider1" styleName="chromeColor" value="0x9999FF"/>
@@ -381,6 +399,7 @@
 		</TestCase>
 		<TestCase testID="GroupStyle_FxVSlider_runtimeCSS" keywords="[FxVSlider]" description="Ensure that VSlider looks correct when global styles are set.">
 			<setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
 			    <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
 			    <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
@@ -394,6 +413,7 @@
 		</TestCase>
 		<TestCase testID="GroupStyle_FxList_runtimeCSS" keywords="[FxList]" description="Ensure that List looks correct when global styles are set.">
 			<setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
 			    <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
 			    <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
@@ -410,6 +430,7 @@
 		</TestCase>
         <TestCase testID="GroupStyle_FxButtonBar_runtimeCSS" keywords="[FxButtonBar]" description="Ensure that ButtonBar looks correct when global styles are set.">
 			<setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
 			    <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
 			    <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />

@@ -113,6 +113,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.mnBrView" waitTarget="can2" waitEvent="change" />
 				<SetProperty target="can2.mnBr" propertyName="width" value="200" waitTarget="can2.mnBr" waitEvent="resize" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
@@ -254,7 +255,8 @@
 			<setup>
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.mnBrView" waitTarget="can2" waitEvent="change" />
-				<SetProperty target="can2.mnBr" propertyName="styleName" value="leftAlign" waitTarget="can2.mnBr" waitEvent="enterFrame" />
+				<SetProperty target="can2.mnBr" propertyName="styleName" value="leftAlign" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
@@ -264,7 +266,8 @@
 			<setup>
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.mnBrView" waitTarget="can2" waitEvent="change" />
-				<SetProperty target="can2.mnBr" propertyName="styleName" value="centerAlign" waitTarget="can2.mnBr" waitEvent="enterFrame" />
+				<SetProperty target="can2.mnBr" propertyName="styleName" value="centerAlign" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
@@ -274,7 +277,8 @@
 			<setup>
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.mnBrView" waitTarget="can2" waitEvent="change" />
-				<SetProperty target="can2.mnBr" propertyName="styleName" value="rightAlign" waitTarget="can2.mnBr" waitEvent="enterFrame" />
+				<SetProperty target="can2.mnBr" propertyName="styleName" value="rightAlign" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
@@ -284,7 +288,8 @@
 			<setup>
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.mnBrView" waitTarget="can2" waitEvent="change" />
-				<SetProperty target="can2.mnBr" propertyName="styleName" value="startAlign" waitTarget="can2.mnBr" waitEvent="enterFrame" />
+				<SetProperty target="can2.mnBr" propertyName="styleName" value="startAlign" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
@@ -305,7 +310,8 @@
 			<setup>
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.mnBrView" waitTarget="can2" waitEvent="change" />
-				<SetProperty target="can2.mnBr" propertyName="styleName" value="endAlign" waitTarget="can2.mnBr" waitEvent="enterFrame" />
+				<SetProperty target="can2.mnBr" propertyName="styleName" value="endAlign" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>

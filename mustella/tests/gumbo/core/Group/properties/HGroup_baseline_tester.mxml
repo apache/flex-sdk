@@ -215,7 +215,7 @@
   		<Pause timeout="200"/>
     	</setup>
     	 <body>
-    	 	<AssertPropertyValue propertyName="baselinePosition" target="hg" value="44.5" />
+    	 	<AssertPropertyValue propertyName="baselinePosition" target="hg" value="46" />
     		<CompareBitmap url="../properties/baselines/$testID.png" target="" />
     	</body>
     </TestCase>
@@ -229,7 +229,7 @@
 		<SetProperty propertyName="verticalAlign" value="baseline" target="hg" waitEvent="updateComplete"/>
 	</setup>
 	 <body>
-		<AssertPropertyValue propertyName="baselinePosition" target="hg" value="44.5" />
+		<AssertPropertyValue propertyName="baselinePosition" target="hg" value="47.5" />
 		<CompareBitmap url="../properties/baselines/$testID.png" target="" />
 	</body>
     </TestCase>

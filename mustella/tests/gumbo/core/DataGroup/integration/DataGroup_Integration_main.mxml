@@ -55,6 +55,7 @@
 		<setup>
 			<RunCode code="application.openPopUp(true)" />
 			<WaitForEffectsToEnd />
+			<WaitForLayoutManager />
 		</setup>
 		<body>
 			<CompareBitmap url="../integration/baselines/datagroup_integration_PopUpManager.png" target="" timeout="2000" />

@@ -28,7 +28,7 @@
 		
 		@font-face {
 			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
-			fontFamily: MyArial;
+			fontFamily: MyVera;
 			fontStyle: italic;
 			embedAsCFF: true;
 		}

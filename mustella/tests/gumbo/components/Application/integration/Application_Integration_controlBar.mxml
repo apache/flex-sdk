@@ -377,7 +377,8 @@ Other:
                 <SetStyle styleName="chromeColor" valueExpression="value=0x0000FF" waitEvent="updateComplete" />
             </setup>
             <body>
-                <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray3" />				
+                <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray3" />	
+				<WaitForLayoutManager />
                 <CompareBitmap target="" url="../integration/baselines/$testID.png" numColorVariances="4" maxColorVariance="10" />
             </body>
         </TestCase> 

@@ -116,7 +116,7 @@
 		<DispatchMouseClickEvent target="stage" localX="124" localY="137" waitEvent="click"/>
 		<WaitForEffectsToEnd />
 		<WaitForEvent numExpectedEvents="2" eventName="enterFrame" target="stage"/>
-		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.getItemAt(3).firstName" value="MicFN"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.getItemAt(3).firstName" value="ProductD"/>
 		</body>
    </TestCase>
         

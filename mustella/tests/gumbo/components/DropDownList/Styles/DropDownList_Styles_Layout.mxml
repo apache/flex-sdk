@@ -239,7 +239,7 @@
 			<body>	
 				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos1"/>
 				<Pause timeout="100"/>
-				<AssertPropertyValue target="myLayoutComp.myDDL_pos1.dropDown" propertyName="height" value="122"/>
+				<AssertPropertyValue target="myLayoutComp.myDDL_pos1.dropDown" propertyName="height" value="146"/>
 			</body>
 		</TestCase>
 		<TestCase testID="DropDownList_requestedMaxRowCount_addItem_runtime" keywords="[DropDownList, VerticalLayout]" description="Set requestedMaxRowCount to the number of items in the dataProvider add an item at runtime verify the scrollbars now appear">

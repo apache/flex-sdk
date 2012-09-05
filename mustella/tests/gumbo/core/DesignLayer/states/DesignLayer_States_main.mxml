@@ -189,6 +189,7 @@ DesignLayer States Testing
 	</setup>
 	<body>
 		<SetProperty target="statesGroup" propertyName="currentState" value="includeInState" waitEvent="currentStateChange" />
+		<WaitForLayoutManager />
 		<CompareBitmap url="../states/baselines/$testID.png" target="statesGroup.changeIncludeIn" numColorVariances="5" ignoreMaxColorVariance="true"/>
 	</body>
 </TestCase>

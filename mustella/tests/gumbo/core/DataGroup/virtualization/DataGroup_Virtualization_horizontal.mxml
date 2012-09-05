@@ -138,6 +138,7 @@ Misc:
 			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.virtualizationItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
 			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(5, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
 			<AssertMethodValue method="application.group1.layout.requestedColumnCount = 2" waitTarget="group1" waitEvent="updateComplete" />
+			<WaitForLayoutManager />
 		</setup>
 		<body>
 			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_largerRequestedColumnCount.png" target="" timeout="2000" />
@@ -261,6 +262,7 @@ Misc:
 			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
 			<AssertMethodValue method="application.group1.width = NaN" waitTarget="group1" waitEvent="updateComplete" />
 			<AssertMethodValue method="application.group1.layout.requestedColumnCount = 0" waitTarget="group1" waitEvent="updateComplete" />
+			<WaitForLayoutManager />
 		</setup>
 		<body>
 			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_requestedColumnCountZero.png" target="" timeout="2000" />

@@ -91,7 +91,7 @@
             </setup>
             <body>
                 <AssertPropertyValue target="pr.im" propertyName="trustedSource" value="true" />
-                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="100"/>
             </body>
         </TestCase>
         <TestCase testID="Image_Load_trusted_twice" keywords="[Image, load, trusted]" description="Load trusted source twice">
@@ -102,11 +102,11 @@
             <body>
 
                 <AssertPropertyValue target="pr.im" propertyName="trustedSource" value="true" />
-                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="100"/>
                 <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="complete" waitTarget="pr.im" />
                 <AssertPropertyValue target="pr.im" propertyName="trustedSource" value="true" />
-                <AssertPropertyValue target="pr.im" propertyName="width" value="20"/>
-                <AssertPropertyValue target="pr.im" propertyName="height" value="20"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="100"/>
             </body>
         </TestCase>
         <TestCase testID="Image_Load_trusted_twice_resize" keywords="[Image, load, trusted]" description="Load trusted source twice, change size">
@@ -116,13 +116,13 @@
             </setup>
             <body>
                 <AssertPropertyValue target="pr.im" propertyName="trustedSource" value="true" />
-                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
-                <AssertPropertyValue target="pr.im" propertyName="sourceWidth" value="125"/>
-                <AssertPropertyValue target="pr.im" propertyName="sourceHeight" value="125"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="sourceWidth" value="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="sourceHeight" value="100"/>
                 <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="complete" waitTarget="pr.im" />
                 <AssertPropertyValue target="pr.im" propertyName="trustedSource" value="true" />
-                <AssertPropertyValue target="pr.im" propertyName="width" value="20"/>
-                <AssertPropertyValue target="pr.im" propertyName="height" value="20"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="100"/>
                  <Pause timeout="100"/>
 		<CompareBitmap target="pr.im" url="../properties/baselines/$testID.png"  />
             </body>
@@ -135,15 +135,15 @@
             <body>
                 <AssertPropertyValue target="pr.im" propertyName="trustedSource" value="true" />
                 <SetProperty target="pr.im" propertyName="enabled" value="false"/>
-                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
-                <SetProperty target="pr.im" propertyName="source" value="../../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />
+                <AssertPropertyValue target="pr.im" propertyName="width" value="100"/>
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="complete" waitTarget="pr.im" />
                 <AssertPropertyValue target="pr.im" propertyName="trustedSource" value="true" />
-                <AssertPropertyValue target="pr.im" propertyName="width" value="20"/>
-                <AssertPropertyValue target="pr.im" propertyName="height" value="20"/>
-                <AssertPropertyValue target="pr.im" propertyName="sourceWidth" value="20"/>
-                <AssertPropertyValue target="pr.im" propertyName="sourceHeight" value="20"/>
-                <AssertPropertyValue target="pr.im" propertyName="bytesLoaded" value="737"/>
-                <AssertPropertyValue target="pr.im" propertyName="bytesTotal" value="737"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="sourceWidth" value="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="sourceHeight" value="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="bytesLoaded" value="2146"/>
+                <AssertPropertyValue target="pr.im" propertyName="bytesTotal" value="2146"/>
                  <Pause timeout="100"/>
 		<CompareBitmap target="pr.im" url="../properties/baselines/$testID.png"  />
             </body>
@@ -183,8 +183,8 @@
                 <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />
             </setup>
             <body>
-                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
-                <AssertPropertyValue target="pr.im" propertyName="height" value="125"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="100"/>
                 <SetProperty target="pr.im" propertyName="source" value="{null}"  waitEvent="resize" waitTarget="pr.im"/>
 
                 <AssertPropertyValue target="pr.im" propertyName="width" value="0"/>
@@ -201,8 +201,8 @@
                 <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />
             </setup>
             <body>
-                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
-                <AssertPropertyValue target="pr.im" propertyName="height" value="125"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="100"/>
                 <SetProperty target="pr.im" propertyName="source" value="{null}"  waitEvent="resize" waitTarget="pr.im"/>
                 <AssertPropertyValue target="pr.im" propertyName="width" value="50"/>
                 <AssertPropertyValue target="pr.im" propertyName="height" value="50"/>
@@ -232,8 +232,8 @@
                 <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />
             </setup>
             <body>
-                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
-                <AssertPropertyValue target="pr.im" propertyName="height" value="125"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="100"/>
                 <CompareBitmap target="pr.im" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
             </body>
         </TestCase>
@@ -268,8 +268,8 @@
             <body>
                 <Pause timeout="100"/>
                 <AssertPropertyValue target="pr.im" propertyName="progressIndicator" value="{null}"/>
-                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
-                <AssertPropertyValue target="pr.im" propertyName="height" value="125"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="100"/>
             </body>
         </TestCase>
         <TestCase testID="Image_Load_ByteArray" keywords="[Image, load, ByteArray]" description="Load image from ByteArray">

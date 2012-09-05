@@ -64,7 +64,8 @@
 		<TestCase testID="DropDownList_Properties_errorString" keywords="[DropDownList, Property, errorString]" description="Test errorString on DropDownList">
 			<setup>
 				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>				
-				<SetProperty target="myDDL1" propertyName="errorString" value="WRONG!!!!"/>
+				<SetProperty target="myDDL1" propertyName="errorString" value="WRONG!!!!" waitEvent="updateComplete"/>
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<CompareBitmap target="focusBox" url="../Properties/Baselines/$testID_1.png" numColorVariances="18" ignoreMaxColorVariance="true"/>
@@ -77,7 +78,8 @@
 			<setup>
 				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>	
 				<SetProperty target="myDDL1" propertyName="toolTip" value="I am the toolTip"/>
-				<SetProperty target="myDDL1" propertyName="errorString" value="WRONG!!!!"/>
+				<SetProperty target="myDDL1" propertyName="errorString" value="WRONG!!!!" waitEvent="updateComplete"/>
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<CompareBitmap target="focusBox" url="../Properties/Baselines/$testID_1.png" numColorVariances="18" ignoreMaxColorVariance="true"/>
