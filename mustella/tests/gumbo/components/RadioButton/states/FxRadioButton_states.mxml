@@ -83,29 +83,6 @@ test FxRadioButtons can exist in one RadioButtonGroup but across multiple states
 				<CompareBitmap url="../states/baselines/fxradiobutton_states_persist_selection.png" target="rb1" />
 			</body>
 		</TestCase>
-
-	<TestCase testID="FxRadioButton_states_propertyChange_selected" keywords="[FxRadioButton, states, selected]" description="check that selected property can be toggled between states">
-		<setup>
-			<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1" />
-			<ResetComponent target="stateRBG" className="comps.StateRadioButtonGroup" waitEvent="updateComplete" waitTarget="stateRBG" />
-			
-			<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
-			<AssertMethodValue method="value=application.resetStatePropertyChange();" value="true" />
-			
-			<AssertMethodValue method="value=application.addStatePropertyChange('state1', 'rb1', 'selected', true);" value="1" />
-			<AssertMethodValue method="value=application.addStatePropertyChange('state2', 'rb1', 'selected', false);" value="1" />
-		</setup>
-		<body>
-			<SetProperty  propertyName="currentState" value="state1"  waitEvent="currentStateChange" />
-			<AssertPropertyValue  propertyName="currentState" value="state1" />
-			<AssertPropertyValue target="rb1" propertyName="selected" value="true" />
-		
-			<SetProperty  propertyName="currentState" value="state2"  waitEvent="currentStateChange" />
-			<AssertPropertyValue  propertyName="currentState" value="state2" />
-			<AssertPropertyValue target="rb1" propertyName="selected" value="false" />
-		</body>
-	</TestCase>
-
 	
 	<TestCase testID="FxRadioButton_states_includeExclude" keywords="[FxRadioButton, states, includeIn, excludeFrom]" description="check includeIn and excludeFrom work on a FxRadioButton">
 		<setup>
@@ -225,5 +202,27 @@ test FxRadioButtons can exist in one RadioButtonGroup but across multiple states
 		</body>
 	</TestCase>
 	
+	  <TestCase testID="FxRadioButton_states_propertyChange_selected" keywords="[FxRadioButton, states, selected]" description="check that selected property can be toggled between states">
+		  <setup>
+			  <ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1" />
+			  <ResetComponent target="stateRBG" className="comps.StateRadioButtonGroup" waitEvent="updateComplete" waitTarget="stateRBG" />
+			  
+			  <RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+			  <AssertMethodValue method="value=application.resetStatePropertyChange();" value="true" />
+			  
+			  <AssertMethodValue method="value=application.addStatePropertyChange('state1', 'rb1', 'selected', true);" value="1" />
+			  <AssertMethodValue method="value=application.addStatePropertyChange('state2', 'rb1', 'selected', false);" value="1" />
+		  </setup>
+		  <body>
+			  <SetProperty  propertyName="currentState" value="state1"  waitEvent="currentStateChange" />
+			  <AssertPropertyValue  propertyName="currentState" value="state1" />
+			  <AssertPropertyValue target="rb1" propertyName="selected" value="true" />
+			  
+			  <SetProperty  propertyName="currentState" value="state2"  waitEvent="currentStateChange" />
+			  <AssertPropertyValue  propertyName="currentState" value="state2" />
+			  <AssertPropertyValue target="rb1" propertyName="selected" value="false" />
+		  </body>
+	  </TestCase>
+
   </testCases>
 </UnitTester>
