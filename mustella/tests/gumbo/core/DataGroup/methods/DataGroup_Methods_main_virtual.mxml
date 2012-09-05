@@ -1491,7 +1491,7 @@
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1)" value="string 2" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2)" value="string 0" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(3)" value="string 1" />
-			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_data.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_data_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>
 
@@ -1516,7 +1516,7 @@
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0)" value="test2" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1)" value="test" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).width" value="100" />
-			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_mix.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_mix_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>
 
@@ -1543,7 +1543,7 @@
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1)" value="data string 3" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).label" value="halo button 1" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(3).label" value="halo button 2" />
-			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_buttons.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_buttons_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>
 
