@@ -125,7 +125,7 @@
 				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB" />
 				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB1" />
 				<AssertStyleValue target="myCB1" styleName="focusColor" value="0xFF0000"/>												
-				<AssertPixelValue target="stage" x="65" y="51" valueExpression="value=0x696969" />								
+				<AssertPixelValue target="stage" x="65" y="51" valueExpression="value=0xFF7D7D" />								
 			</body>
 		</TestCase>		
 		
