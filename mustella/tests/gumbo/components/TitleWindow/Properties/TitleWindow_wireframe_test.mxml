@@ -59,6 +59,7 @@
 	    <body>
 		<DispatchMouseEvent type="rollOver" target="defaultTW.closeButton" localX="2" localY="2" />
 		<WaitForEffectsToEnd />
+		<WaitForLayoutManager />
 		<CompareBitmap target="defaultTW.closeButton" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
   	    </body>
 	</TestCase>
