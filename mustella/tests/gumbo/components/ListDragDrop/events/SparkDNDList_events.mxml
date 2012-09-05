@@ -474,7 +474,6 @@
 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="50" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="l2" type="mouseUp" localX="50" localY="199"  waitTarget="l2" waitEvent="dragDrop" timeout="50"/>
 		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
 		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
