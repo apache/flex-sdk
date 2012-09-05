@@ -47,7 +47,7 @@
 
     <body>
         <SetProperty target="" propertyName="currentState" value="state1" waitTarget="" waitEvent="currentStateChange" />
-        <Pause timeout="200"/>
+        <WaitForEvent target="vg" eventName="updateComplete"/>
         <CompareBitmap url="../integration/baselines/$testID.png" target="vg" />
     </body>
 </TestCase>
