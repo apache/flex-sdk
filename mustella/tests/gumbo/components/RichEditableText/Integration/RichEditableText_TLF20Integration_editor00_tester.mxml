@@ -96,7 +96,6 @@
 
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor"/>
@@ -121,8 +120,7 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customRETEditor.editor" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customRETEditor.editor" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END]" waitTarget="customRETEditor.editor" />
-				<DispatchKeyEvent keys="[ENTER,ENTER]" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
+				<DispatchKeyEvent keys="[ENTER,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput"/>
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor"/>
@@ -159,8 +157,7 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customRETEditor.editor" />
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customRETEditor.editor" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customRETEditor.editor" />
-				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customRETEditor.editor" waitEvent="updateComplete"/>
 			</setup>
 			<body>
 
@@ -189,8 +186,7 @@
 				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customRETEditor.editor" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customRETEditor.editor" />
 				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customRETEditor.editor" />
-				<DispatchKeyEvent keys="[ENTER,ENTER,ENTER]" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
+				<DispatchKeyEvent keys="[ENTER,ENTER,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput"/>
 			</setup>
 			<body>
 
@@ -235,8 +231,7 @@
 				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END]" waitTarget="customRETEditor.editor" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customRETEditor.editor" />
 				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customRETEditor.editor" />
-				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END]" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 			</setup>
 			<body>
 
@@ -257,7 +252,6 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor"/>
@@ -285,8 +279,7 @@
 				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customRETEditor.editor" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customRETEditor.editor" />
 				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customRETEditor.editor" />
-				<DispatchKeyEvent keys="[ENTER,ENTER,ENTER]" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
+				<DispatchKeyEvent keys="[ENTER,ENTER,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput"/>
 			</setup>
 			<body>
 				
@@ -331,8 +324,7 @@
 				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END]" waitTarget="customRETEditor.editor" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customRETEditor.editor" />
 				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customRETEditor.editor" />
-				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END]" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END]" waitTarget="customRETEditor.editor" waitEvent="textInput"/>
 			</setup>
 			<body>
 				

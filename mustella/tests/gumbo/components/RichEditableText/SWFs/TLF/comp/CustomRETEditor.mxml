@@ -101,6 +101,4 @@
 						>
 		
 	</s:RichEditableText>		
-	<s:Button id="btnDummy" label="move focus from RET"/>
-	
 </s:Panel>

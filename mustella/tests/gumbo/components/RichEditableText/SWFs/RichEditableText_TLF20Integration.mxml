@@ -214,6 +214,5 @@
 			<tflow:TextFlowGroup id="TextFlowGroup" fontFamily="MeiryoEmbedded"/>
 		</fx:Array>
 	</fx:Declarations>
-	<s:Button id="btnDummy"/>
 	<comp:CustomRETEditor id="customRETEditor" title="s:RichEditableText"  />
 </s:Application>
