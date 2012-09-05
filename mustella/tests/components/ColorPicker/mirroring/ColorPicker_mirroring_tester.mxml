@@ -407,7 +407,7 @@
 	    <RunCode code="application.myColorPicker.open()" waitTarget="myColorPicker" waitEvent="open" />
 	    <WaitForEffectsToEnd />
 	    <RunCode code="application.myColorPicker.mx_internal::dropdown.mx_internal::textInput.text = '668912'" />
-	   
+	    <Pause timeout="200" />
 	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
 	    
 	    <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
@@ -427,6 +427,7 @@
 	    <SetStyle target="myColorPicker" styleName="direction" value="ltr" waitEvent="updateComplete"/>
 	     
 	    <RunCode code="application.myColorPicker.mx_internal::dropdown.mx_internal::textInput.text = '668912'" />
+	    <Pause timeout="200" />
 	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
 	    
 	    <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
