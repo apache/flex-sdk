@@ -61,13 +61,13 @@
 		
 		s|RichEditableText{
 			fontAntiAliasType: "normal";
-			fontFamily: myArial;
+			fontFamily: MyArial;
 			fontSize: 12;
 			fontLookup: "embeddedCFF";
 		}
 		s|CheckBox{
 			fontAntiAliasType: "normal";
-			fontFamily: myArial;
+			fontFamily: MyArial;
 			fontSize: 12;
 			fontLookup: "embeddedCFF";
 		}

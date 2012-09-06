@@ -474,6 +474,7 @@
 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="50" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="l2" type="mouseUp" localX="50" localY="199"  waitTarget="l2" waitEvent="dragDrop" timeout="50"/>
 		<WaitForEffectsToEnd/>
+		<WaitForLayoutManager />
 		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
@@ -789,7 +790,7 @@
 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="8" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="199"  waitTarget="l2" waitEvent="dragDrop" />
 		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
+		<WaitForLayoutManager />
 		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>

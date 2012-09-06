@@ -137,6 +137,7 @@
                 <AssertPropertyValue target = "fc" propertyName="numElements" value="4" />
                 <AssertMethodValue   method="value=application.fc.getElementAt(0).width" value="50" />
                 <AssertPropertyValue target = "fc.contentGroup" propertyName="contentWidth" value="258" />
+				<WaitForLayoutManager />
                 <CompareBitmap url="../integration/baselines/$testID.png" target="fc" />
             </body>
         </TestCase>

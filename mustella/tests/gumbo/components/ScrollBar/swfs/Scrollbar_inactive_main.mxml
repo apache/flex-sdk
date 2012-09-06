@@ -53,7 +53,7 @@
 
 		mx|DateChooser{
 			fontAntiAliasType: "normal";
-			fontFamily: myVerdana;
+			fontFamily: MyVerdana;
         }
         
 		global{

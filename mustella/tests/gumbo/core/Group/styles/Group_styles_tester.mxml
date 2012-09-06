@@ -117,6 +117,7 @@
 			    <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<AssertStyleValue target="togglebutton1" styleName="chromeColor" value="0xFFCC99"/>
