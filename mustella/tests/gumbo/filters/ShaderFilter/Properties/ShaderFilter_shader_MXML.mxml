@@ -59,6 +59,7 @@
         <AssertMethodValue method="value=application.imgEmbeddedInScript.filters[0].shader is Shader" value="true" />
         <AssertMethodValue method="value=application.imgEmbeddedInScript.filters[0].shader.data.name" value="FloatR" />
         <AssertMethodValue method="value=application.imgEmbeddedInScript.filters[0].theFloat" valueExpression="value='0.5'" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Properties/Baselines/$testID.png" target="imgEmbeddedInScript" />
     </body>
 </TestCase>
