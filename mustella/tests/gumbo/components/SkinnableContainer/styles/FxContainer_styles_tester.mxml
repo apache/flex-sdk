@@ -134,6 +134,7 @@
                 <AssertStyleValue target="togglebutton1" styleName="chromeColor" value="0xFFCC99"/>
                 <AssertStyleValue target="togglebutton1" styleName="focusColor" value="0xB80000"/>
                 <AssertStyleValue target="togglebutton1" styleName="symbolColor" value="0xFF0066"/>
+				<WaitForLayoutManager />
                 <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="togglebutton_box"/>
             </body>
         </TestCase>
@@ -301,6 +302,7 @@
             <setup>
 				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <ResetComponent target="togglebutton1" className="spark.components.ToggleButton" waitTarget="togglebutton1" waitEvent="updateComplete" />
+				<SetProperty propertyName="label" target="togglebutton1" value="FxToggleButton" waitEvent="updateComplete" waitTarget="togglebutton1" />
                 <RunCode code="application.buttona.setFocus()" waitEvent="focusIn" waitTarget="buttona" />
                 <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
@@ -316,6 +318,8 @@
         <TestCase testID="FxContainerStyle_FxToggleButton_runtimeCSS_selected" keywords="[FxToggleButton]" description="Ensure that ToggleButton looks correct when global styles are set.">
             <setup>
 				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
+				<ResetComponent target="togglebutton1" className="spark.components.ToggleButton" waitTarget="togglebutton1" waitEvent="updateComplete" />
+				<SetProperty propertyName="label" target="togglebutton1" value="FxToggleButton" waitEvent="updateComplete" waitTarget="togglebutton1" />
                 <RunCode code="application.buttona.setFocus()" waitEvent="focusIn" waitTarget="buttona" />
                 <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
@@ -326,6 +330,7 @@
                 <AssertStyleValue target="togglebutton1" styleName="chromeColor" value="0x9999FF"/>
                 <AssertStyleValue target="togglebutton1" styleName="focusColor" value="0x009900"/>
                 <AssertStyleValue target="togglebutton1" styleName="symbolColor" value="0x66FF00"/>
+				<WaitForLayoutManager />
                 <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="togglebutton_box"/>
             </body>
         </TestCase>
