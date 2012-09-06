@@ -67,6 +67,7 @@ Float
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloatTest1.filters[0].theFloat" value="0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest1" />
     </body>
 </TestCase>
@@ -78,6 +79,7 @@ Float
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloatTest2.filters[0].theFloat" value="0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest2" />
     </body>
 </TestCase>
@@ -89,6 +91,7 @@ Float
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloatTest3.filters[0].theFloat" valueExpression="value='0.5'" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest3" />
     </body>
 </TestCase>
@@ -100,6 +103,7 @@ Float
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloatTest4.filters[0].theFloat" valueExpression="value='0.5'" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest4" />
     </body>
 </TestCase>
@@ -111,6 +115,7 @@ Float
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloatTest5.filters[0].theFloat" value="1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest5" />
     </body>
 </TestCase>
@@ -122,6 +127,7 @@ Float
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloatTest6.filters[0].theFloat" value="1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest6" />
     </body>
 </TestCase>
@@ -133,6 +139,7 @@ Float
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloatTest7.filters[0].theFloat" value="2" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest2" />
     </body>
 </TestCase>
@@ -144,6 +151,7 @@ Float
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloatTest8.filters[0].theFloat" value="-1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest8" />
     </body>
 </TestCase>
@@ -155,6 +163,7 @@ Float
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloatTest9.filters[0].theFloat" valueExpression="value='0.3'" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest9" />
     </body>
 </TestCase>
@@ -166,6 +175,7 @@ Float
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloatTest10.filters[0].theFloat" valueExpression="value='0.3'" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest10" />
     </body>
 </TestCase>
@@ -181,6 +191,7 @@ Float2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat2Test1.filters[0].allFloats" value="0,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test1" />
     </body>
 </TestCase>
@@ -192,6 +203,7 @@ Float2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat2Test2.filters[0].allFloats" value="0,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test2" />
     </body>
 </TestCase>
@@ -203,6 +215,7 @@ Float2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat2Test3.filters[0].allFloats" value="0.3,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test3" />
     </body>
 </TestCase>
@@ -214,6 +227,7 @@ Float2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat2Test4.filters[0].allFloats" value="1,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test4" />
     </body>
 </TestCase>
@@ -225,6 +239,7 @@ Float2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat2Test5.filters[0].allFloats" value="0,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test5" />
     </body>
 </TestCase>
@@ -236,6 +251,7 @@ Float2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat2Test6.filters[0].allFloats" value="0,0.3" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test6" />
     </body>
 </TestCase>
@@ -247,6 +263,7 @@ Float2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat2Test7.filters[0].allFloats" value="0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test7" />
     </body>
 </TestCase>
@@ -258,6 +275,7 @@ Float2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat2Test8.filters[0].allFloats" value="1,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test8" />
     </body>
 </TestCase>
@@ -269,6 +287,7 @@ Float2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat2Test9.filters[0].allFloats" value="0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test9" />
     </body>
 </TestCase>
@@ -280,6 +299,7 @@ Float2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat2Test10.filters[0].allFloats" value="0,0.3" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test10" />
     </body>
 </TestCase>
@@ -291,6 +311,7 @@ Float2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat2Test11.filters[0].allFloats" value="0,0.3" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test11" />
     </body>
 </TestCase>
@@ -307,6 +328,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test1.filters[0].allFloats" value="0,0,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test1" />
     </body>
 </TestCase>
@@ -318,6 +340,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test2.filters[0].allFloats" value="0,0,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test2" />
     </body>
 </TestCase>
@@ -329,6 +352,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test3.filters[0].allFloats" value="0.5,0,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test3" />
     </body>
 </TestCase>
@@ -340,6 +364,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test4.filters[0].allFloats" value="1,0,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test4" />
     </body>
 </TestCase>
@@ -351,6 +376,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test5.filters[0].allFloats" value="0,0,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test5" />
     </body>
 </TestCase>
@@ -362,6 +388,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test6.filters[0].allFloats" value="0,0.5,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test6" />
     </body>
 </TestCase>
@@ -373,6 +400,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test7.filters[0].allFloats" value="0,1,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test7" />
     </body>
 </TestCase>
@@ -384,6 +412,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test8.filters[0].allFloats" value="0,0,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test8" />
     </body>
 </TestCase>
@@ -395,6 +424,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test9.filters[0].allFloats" value="0,0,0.5" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test9" />
     </body>
 </TestCase>
@@ -406,6 +436,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test10.filters[0].allFloats" value="0,0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test10" />
     </body>
 </TestCase>
@@ -417,6 +448,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test11.filters[0].allFloats" value="0,1,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test11" />
     </body>
 </TestCase>
@@ -428,6 +460,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test12.filters[0].allFloats" value="1,0,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test12" />
     </body>
 </TestCase>
@@ -439,6 +472,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test13.filters[0].allFloats" value="0,0.3,0.7" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test13" />
     </body>
 </TestCase>
@@ -450,6 +484,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test14.filters[0].allFloats" value="1,0,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test14" />
     </body>
 </TestCase>
@@ -461,6 +496,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test15.filters[0].allFloats" value="0,1,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test15" />
     </body>
 </TestCase>
@@ -472,6 +508,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test16.filters[0].allFloats" value="0,0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test16" />
     </body>
 </TestCase>
@@ -483,6 +520,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test17.filters[0].allFloats" value="0.3,0.5,0.7" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test17" />
     </body>
 </TestCase>
@@ -494,6 +532,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test18.filters[0].allFloats" value="0,0,0.3" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test18" />
     </body>
 </TestCase>
@@ -505,6 +544,7 @@ Float3
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat3Test19.filters[0].allFloats" value=",,0.3" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test19" />
     </body>
 </TestCase>
@@ -522,6 +562,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test1.filters[0].allFloats" value="0,0,0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test1" />
     </body>
 </TestCase>
@@ -533,6 +574,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test2.filters[0].allFloats" value="0.5,0,0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test2" />
     </body>
 </TestCase>
@@ -544,6 +586,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test3.filters[0].allFloats" value="1,0,0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test3" />
     </body>
 </TestCase>
@@ -555,6 +598,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test4.filters[0].allFloats" value="0,0,0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test4" />
     </body>
 </TestCase>
@@ -566,6 +610,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test5.filters[0].allFloats" value="0,0.5,0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test5" />
     </body>
 </TestCase>
@@ -577,6 +622,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test6.filters[0].allFloats" value="0,1,0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test6" />
     </body>
 </TestCase>
@@ -588,6 +634,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test7.filters[0].allFloats" value="0,0,0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test7" />
     </body>
 </TestCase>
@@ -599,6 +646,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test8.filters[0].allFloats" value="0,0,0.5,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test8" />
     </body>
 </TestCase>
@@ -610,6 +658,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test9.filters[0].allFloats" value="0,0,1,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test9" />
     </body>
 </TestCase>
@@ -621,6 +670,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test10.filters[0].allFloats" value="0,0,0,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test10" />
     </body>
 </TestCase>
@@ -632,6 +682,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test11.filters[0].allFloats" value="0,0,0,0.5" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test11" />
     </body>
 </TestCase>
@@ -643,6 +694,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test12.filters[0].allFloats" value="0,0,0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test12" />
     </body>
 </TestCase>
@@ -654,6 +706,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test13.filters[0].allFloats" value="0,1,0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test13" />
     </body>
 </TestCase>
@@ -665,6 +718,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test14.filters[0].allFloats" value="1,0,0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test14" />
     </body>
 </TestCase>
@@ -676,6 +730,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test15.filters[0].allFloats" value="1,0,0,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test15" />
     </body>
 </TestCase>
@@ -687,6 +742,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test16.filters[0].allFloats" value="0,0.3,0.7,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test16" />
     </body>
 </TestCase>
@@ -698,6 +754,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test17.filters[0].allFloats" value="0,0.3,0,0.7" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test17" />
     </body>
 </TestCase>
@@ -709,6 +766,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test18.filters[0].allFloats" value="0,0,1,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test18" />
     </body>
 </TestCase>
@@ -720,6 +778,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test19.filters[0].allFloats" value="1,0,0,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test19" />
     </body>
 </TestCase>
@@ -731,6 +790,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test20.filters[0].allFloats" value="0,1,0,0.5" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test20" />
     </body>
 </TestCase>
@@ -742,6 +802,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test21.filters[0].allFloats" value="0,0,1,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test21" />
     </body>
 </TestCase>
@@ -753,6 +814,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test22.filters[0].allFloats" value="0,1,1,0.5" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test22" />
     </body>
 </TestCase>
@@ -764,6 +826,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test23.filters[0].allFloats" value="0.2,0.5,1,0.8" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test23" />
     </body>
 </TestCase>
@@ -775,6 +838,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test24.filters[0].allFloats" value="1,1,1,1" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test24" />
     </body>
 </TestCase>
@@ -786,6 +850,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test25.filters[0].allFloats" value="0.3,0.3,0,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test25" />
     </body>
 </TestCase>
@@ -797,6 +862,7 @@ Float4
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgFloat4Test26.filters[0].allFloats" value="0.3,0.3" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test26" />
     </body>
 </TestCase>
@@ -813,6 +879,7 @@ Int
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgIntTest1.filters[0].theInt" value="0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgIntTest1" />
     </body>
 </TestCase>
@@ -824,7 +891,8 @@ Int
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgIntTest2.filters[0].theInt" value="5" />
-        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgIntTest2" />
+		<WaitForLayoutManager />
+		<CompareBitmap url="../Methods/Baselines/$testID.png" target="imgIntTest2" />
     </body>
 </TestCase>
 
@@ -835,6 +903,7 @@ Int
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgIntTest3.filters[0].theInt" value="7" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgIntTest3" />
     </body>
 </TestCase>
@@ -846,6 +915,7 @@ Int
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgIntTest4.filters[0].theInt" value="10" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgIntTest4" />
     </body>
 </TestCase>
@@ -857,6 +927,7 @@ Int
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgIntTest5.filters[0].theInt" value="7" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgIntTest5" />
     </body>
 </TestCase>
@@ -868,6 +939,7 @@ Int
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgIntTest6.filters[0].theInt" value="7" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgIntTest6" />
     </body>
 </TestCase>
@@ -884,6 +956,7 @@ Int2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgInt2Test1.filters[0].theInt" value="1,0" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt2Test1" />
     </body>
 </TestCase>
@@ -895,6 +968,7 @@ Int2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgInt2Test2.filters[0].theInt" value="0,2" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt2Test2" />
     </body>
 </TestCase>
@@ -906,6 +980,7 @@ Int2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgInt2Test3.filters[0].theInt" value="3,4" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt2Test3" />
     </body>
 </TestCase>
@@ -917,6 +992,7 @@ Int2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgInt2Test4.filters[0].theInt" value="3,4" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt2Test4" />
     </body>
 </TestCase>
@@ -928,6 +1004,7 @@ Int2
     </setup>
     <body>
         <AssertMethodValue method="value=application.imgInt2Test5.filters[0].theInt" value="3,4" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt2Test5" />
     </body>
 </TestCase>
