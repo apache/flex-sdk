@@ -102,15 +102,12 @@ Custom Skin tests
 	    </setup>
 	    <body>
 		<SetStyle target="vgroup1.TabBarSkin1" styleName="skinClass" valueExpression="value=Assets.MyTabBarStatesSkin" waitTarget="vgroup1.TabBarSkin1" waitEvent="updateComplete"/>
-		<DispatchMouseEvent target="vgroup1.TabBarSkin1" type="rollOver" localY="2" localX="2" />
+		<DispatchMouseEvent target="vgroup1.TabBarSkin1" type="rollOver" localY="2" localX="2" waitEvent="rollOver"/>
         	<CompareBitmap url="../Skins/baselines/$testID_rollOver.png" target="vgroup1.TabBarSkin1" numColorVariances="10" maxColorVariance="20" />
-        	<Pause timeout="20"/>
-	   	<DispatchMouseEvent target="vgroup1.TabBarSkin1" type="MouseOver" localY="2" localX="2"/>
+	   	<DispatchMouseEvent target="vgroup1.TabBarSkin1" type="mouseOver" localY="2" localX="2" waitEvent="mouseOver" />
         	<CompareBitmap url="../Skins/baselines/$testID.png" target="vgroup1.TabBarSkin1" numColorVariances="10" maxColorVariance="20" />
-        	<Pause timeout="20"/>
-        	<DispatchMouseEvent target="vgroup1.TabBarSkin1" type="MouseDown" localY="2" localX="2" />
-        	<Pause timeout="20"/>
-        	<CompareBitmap url="../Skins/baselines/$testID_mouseDown.png" target="vgroup1.TabBarSkin1" numColorVariances="10" maxColorVariance="20" />
+        	<DispatchMouseEvent target="vgroup1.TabBarSkin1" type="mouseDown" localY="2" localX="2" waitEvent="mouseDown"/>
+			<CompareBitmap url="../Skins/baselines/$testID_mouseDown.png" target="vgroup1.TabBarSkin1" numColorVariances="10" maxColorVariance="20" />
 	   </body>
 	</TestCase>
 	
