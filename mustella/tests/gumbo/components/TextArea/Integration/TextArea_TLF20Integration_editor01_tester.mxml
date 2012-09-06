@@ -189,7 +189,7 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30">
@@ -222,7 +222,7 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
 				
@@ -403,7 +403,7 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 		    </setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
@@ -434,7 +434,7 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
 
@@ -665,7 +665,7 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
@@ -698,7 +698,7 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
 				
@@ -863,26 +863,27 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				
-				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 03" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				
-				<DispatchKeyEvent char="NEW ITEM 04" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 03" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 04" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<DispatchKeyEvent keys="[DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 05" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 05" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor"></CompareBitmap>
+				<!--CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap-->
 			</body>
 		</TestCase>
 		
