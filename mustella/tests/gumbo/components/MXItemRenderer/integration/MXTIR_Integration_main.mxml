@@ -214,7 +214,7 @@ MXItemRenderer Testing - Tree - Integration tests
         <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
         <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_MixHaloSpark)}"  />
         <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
-        <DispatchMouseEvent target="treeRoot.tree1" type="mouseOver" localX="10" localY="5" />
+        <DispatchMouseEvent target="treeRoot.tree1" type="mouseOver" localX="10" localY="5" waitEvent="mouseOver"/>
 		<WaitForLayoutManager />
 	<CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
        
