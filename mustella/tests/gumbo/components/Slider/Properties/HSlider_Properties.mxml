@@ -986,7 +986,7 @@
         <TestCase testID="HSlider_disabled" keywords="[HSlider, Disabled]" description="Test HSlider when disabled">
 	    	<setup>
 				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
-				<SetProperty target="myHSlider" propertyName="enabled" value="false" />
+				<SetProperty target="myHSlider" propertyName="enabled" value="false" waitEvent="updateComplete"/>
 	    	</setup>
 	    	<body>
 	    	    <AssertPropertyValue target="myHSlider" propertyName="enabled" value="false" />	    
@@ -994,10 +994,10 @@
 				<DispatchMouseClickEvent target="myHSlider" localX="23.5" localY="4" />
 	    	    <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />		        
 	        
-	        	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
-	    	    <DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
-				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myHSlider" />						
-				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />	
+	        	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" />
+	    	    <DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown"  />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" />						
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" />	
 
 				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
 		
