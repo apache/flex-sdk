@@ -435,8 +435,7 @@
 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="50" localY="196" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="50" localY="197" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="l2" type="mouseUp" localX="50" localY="197"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
+		<Pause timeout="300" />
 		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
@@ -473,8 +472,7 @@
 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="50" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="50" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="l2" type="mouseUp" localX="50" localY="199"  waitTarget="l2" waitEvent="dragDrop" timeout="50"/>
-		<WaitForEffectsToEnd/>
-		<WaitForLayoutManager />
+		<Pause timeout="400" /><!-- drag scrolling seems to be continuing -->
 		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
@@ -748,8 +746,7 @@
 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="7" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="197"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
+		<Pause timeout="400" /><!-- drag scrolling seems to be continuing -->
 		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
@@ -789,8 +786,7 @@
 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="9" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="8" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="199"  waitTarget="l2" waitEvent="dragDrop" />
-		<WaitForEffectsToEnd/>
-		<WaitForLayoutManager />
+		<Pause timeout="400" /><!-- drag scrolling seems to be continuing -->
 		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
