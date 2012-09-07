@@ -22,16 +22,16 @@
 	<mx:Script>
 	<![CDATA[
 
-	    [Embed(source="../../../../../Assets/Images/greenrect.jpg")]
+	    [Embed(source="../../../../../Assets/Images/tinygreenrect.jpg")]
 		public var t1120:Class;
 
-		[Embed(source="../../../../../Assets/Images/purplerect.jpg")]
+		[Embed(source="../../../../../Assets/Images/tinypurplerect.jpg")]
 		public var dinosaur:Class;
 
-	    [Embed(source="../../../../../Assets/Images/orangerect.jpg")]
+	    [Embed(source="../../../../../Assets/Images/tinyorangerect.jpg")]
         public var justbear:Class;
 
-        [Embed(source="../../../../../Assets/Images/bluerect.jpg")]
+        [Embed(source="../../../../../Assets/Images/tinybluerect.jpg")]
         public var blueback:Class;
 
         public var lengthValue:int;
