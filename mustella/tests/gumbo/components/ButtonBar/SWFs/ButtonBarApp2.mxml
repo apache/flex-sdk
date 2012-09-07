@@ -32,6 +32,12 @@
 @namespace s "library://ns.adobe.com/flex/spark";
 @namespace mx "library://ns.adobe.com/flex/mx";
     @font-face {
+        src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+        fontFamily: EmbeddedCousine;
+        embedAsCFF: true;
+    }
+
+    @font-face {
         src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
         fontFamily: EmbeddedVerdana;
         embedAsCFF: true;
@@ -94,7 +100,7 @@
     }
 
     .fontFamily1{
-        fontFamily: EmbeddedArial;
+        fontFamily: EmbeddedCousine;
         fontLookup: embeddedCFF;
         fontAntiAliasType: normal;
     }
