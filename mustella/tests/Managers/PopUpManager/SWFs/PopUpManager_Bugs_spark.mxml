@@ -22,6 +22,41 @@
     <s:layout>
 	        <s:VerticalLayout />
     </s:layout>
+
+    <fx:Style source="Assets/myStyles.css" />
+
+    <fx:Style>
+	 		@namespace s "library://ns.adobe.com/flex/spark";
+	 		@namespace mx "library://ns.adobe.com/flex/mx";
+	 		
+	 		@font-face{
+	 			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+	 			fontFamily: myArial;
+	 			embedAsCFF: true;
+	 		}
+	 
+	 
+	 		@font-face{
+	 			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+	 			fontWeight: bold;
+	 			fontFamily: myArial;
+	 			embedAsCFF: true;
+	 		}
+	 
+	 		@font-face{
+	 			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+	 			fontStyle: italic;
+	 			fontFamily: myArial;
+	 			embedAsCFF: true;
+	 
+	 		}
+	 			 
+	 		s|RichEditableText, s|Label {
+	 			fontAntiAliasType: "normal";
+				fontFamily: MyArial;
+			}
+    </fx:Style>
+    
 <fx:Script>
     <![CDATA[
 
@@ -137,8 +172,6 @@
 
   ]]>
 </fx:Script>
-
-<fx:Style source="Assets/myStyles.css" />
 
 <mx:TextInput id="ta" />
 <mx:Panel id="pnl1" />

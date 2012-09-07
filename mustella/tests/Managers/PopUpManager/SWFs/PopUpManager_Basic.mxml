@@ -19,6 +19,9 @@
 -->
 <mx:Application backgroundColor="0xFFFFFF" backgroundImage="" xmlns:mx="http://www.adobe.com/2006/mxml" width="800" height="700"
     xmlns:comps="comps.*" >
+    
+    <mx:Style source="Assets/myStyles.css" />
+
 <mx:Script>
     <![CDATA[
 
