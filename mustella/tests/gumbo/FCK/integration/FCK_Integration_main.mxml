@@ -139,6 +139,7 @@ CAUTION: FCK Tests can be extremely fragile.
 			<RunCode code="application.expandingContainerGroup.expandingContainer.currentState = 'openState'" waitTarget="expandingContainerGroup" waitEvent="inOpenState" />
 			
 			<AssertMethodValue method="value=application.expandingContainerGroup.expandingContainer.currentState" value="openState" />
+			<WaitForEvent eventName="enterFrame" numExpectedEvents="2" />
 			<CompareBitmap url="../integration/baselines/FCK_integration_expandingContainer_openState.png" target="expandingContainerGroup" />
 	    </body>
 	</TestCase>	
@@ -330,6 +331,7 @@ CAUTION: FCK Tests can be extremely fragile.
 	    </setup>
 		<body>
 			<AssertMethodValue method="value=application.programmaticSizingGroup.resizeContentHolder(200, 200)" value="true" />
+			<WaitForLayoutManager />
 			<CompareBitmap url="../integration/baselines/FCK_integration_container_resizeContentHolder_larger.png" target="programmaticSizingGroup" />
 		</body>
 	</TestCase>
@@ -340,6 +342,7 @@ CAUTION: FCK Tests can be extremely fragile.
 	    </setup>
 		<body>
 			<AssertMethodValue method="value=application.programmaticSizingGroup.resizeContentHolder(100, 100)" value="true" />
+			<WaitForLayoutManager />
 			<CompareBitmap url="../integration/baselines/FCK_integration_container_resizeContentHolder_smaller.png" target="programmaticSizingGroup" />
 		</body>
 	</TestCase>
