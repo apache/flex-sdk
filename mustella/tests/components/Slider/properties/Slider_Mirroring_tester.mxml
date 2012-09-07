@@ -164,16 +164,16 @@
             <setup>
                 <ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
                 <SetProperty propertyName="layoutDirection" value="rtl" target="myHSlider" waitEvent="updateComplete"
-                    waitTarget="myHSlider" />                 
+                    waitTarget="myHSlider" />
+               <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
             </setup>
             <body>
                 <SetProperty propertyName="value" value="9" target="myHSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
                 <DispatchMouseEvent target="myHSlider" localX="136" localY="4" type="mouseMove" waitEvent="mouseMove" waitTarget="myHSlider"/>
                 <DispatchMouseEvent target="myHSlider" localX="136" localY="4" type="mouseDown" waitEvent="thumbPress" waitTarget="myHSlider"/>
                 <AssertEvent target="myHSlider" eventName="thumbPress" eventClass="mx.events::SliderEvent" />
-                <Pause timeout="1000"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
-                <DispatchMouseEvent target="myHSlider" localX="136" localY="4" type="mouseUp" /> 
+                <WaitForLayoutManager />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1" /> 
             </body>
         </TestCase> 
     </testCases>
