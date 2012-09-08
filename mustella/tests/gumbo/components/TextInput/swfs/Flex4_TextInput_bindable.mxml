@@ -52,7 +52,7 @@
 			embedAsCFF: true;
 		}
 		
-		.global{
+		global{
 		    fontFamily: ArialSpark;
             fontAntiAliasType: "normal";
         }
