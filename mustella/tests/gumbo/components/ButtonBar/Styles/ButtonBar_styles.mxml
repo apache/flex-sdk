@@ -83,7 +83,7 @@ fontFamily: Does not work; see bug SDK-18608
     </setup>
     <body>
         <SetStyle target="runtimeBB1" styleName="fontFamily" value="EmbeddedArial" waitEvent="updateComplete" />
-        <SetStyle target="runtimeBB1" styleName="fontFamily" value="EmbeddedArno" waitEvent="updateComplete" />
+        <SetStyle target="runtimeBB1" styleName="fontFamily" value="EmbeddedLobsterTwo" waitEvent="updateComplete" />
         <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
     </body>
 </TestCase>
