@@ -97,6 +97,30 @@
         embedAsCFF: true;
     }
 
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Hebrew/SILEOT.ttf");
+        fontWeight: normal;
+        fontStyle: normal;
+        fontFamily: EmbeddedArial;
+        embedAsCFF: true;
+    }
+    
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Hebrew/SILEOT.ttf");
+        fontWeight: bold;
+        fontStyle: normal;
+        fontFamily: EmbeddedArial;
+        embedAsCFF: true;
+    }
+    
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Hebrew/SILEOT.ttf");
+        fontWeight: normal;
+        fontStyle: italic;
+        fontFamily: EmbeddedArial;
+        embedAsCFF: true;
+    }
+
 	@font-face {
 		src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
 		fontFamily: EmbeddedArno;
