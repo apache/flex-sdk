@@ -32,6 +32,31 @@
 <fx:Style>
     @namespace s "library://ns.adobe.com/flex/spark";
     @namespace mx "library://ns.adobe.com/flex/mx";
+    
+    /* This font supports Hebrew. */
+    @font-face {
+        src: url("../../../../../Assets/Fonts/SILEOT/SILEOT.ttf");
+        fontWeight: normal;
+        fontStyle: normal;
+        fontFamily: EmbeddedSILEOT;
+        embedAsCFF: true;
+    }
+    
+    @font-face {
+        src: url("../../../../../Assets/Fonts/SILEOT/SILEOT.ttf");
+        fontWeight: bold;
+        fontStyle: normal;
+        fontFamily: EmbeddedSILEOT;
+        embedAsCFF: true;
+    }
+    
+    @font-face {
+        src: url("../../../../../Assets/Fonts/SILEOT/SILEOT.ttf");
+        fontWeight: normal;
+        fontStyle: italic;
+        fontFamily: EmbeddedSILEOT;
+        embedAsCFF: true;
+    }
         
     s|ButtonBar {
         fontFamily: EmbeddedVerdana;
@@ -46,7 +71,7 @@
     }
 
     .fontFamily1{
-        fontFamily: EmbeddedArial;
+        fontFamily: EmbeddedSILEOT;
         fontLookup: embeddedCFF;
         fontAntiAliasType: normal;
     }
@@ -55,6 +80,20 @@
         fontFamily: EmbeddedLobsterTwo;
         fontLookup: embeddedCFF;
         fontAntiAliasType: normal;
+    }
+
+    .hebrewLTR{
+        fontFamily: EmbeddedSILEOT;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+        direction: ltr;
+    }
+
+    .hebrewRTL{
+        fontFamily: EmbeddedSILEOT;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+        direction: rtl;
     }
 
     .fontSize1{
@@ -260,8 +299,8 @@
     </mx:ArrayCollection>
 
     <mx:ArrayCollection id="ac_hebrew">
-        <fx:String>שרה</fx:String>
-        <fx:String>אלפבית</fx:String>
+        <fx:String>שרה shalom</fx:String>
+        <fx:String>אלפבית alphabet</fx:String>
     </mx:ArrayCollection>
 </fx:Declarations>
 

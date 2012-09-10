@@ -97,27 +97,28 @@
         embedAsCFF: true;
     }
 
+    /* SILEOT includes a latin and a hebrew font. */
     @font-face {
-        src: url("../../../../../Assets/Fonts/Hebrew/SILEOT.ttf");
+        src: url("../../../../../Assets/Fonts/SILEOT/SILEOT.ttf");
         fontWeight: normal;
         fontStyle: normal;
-        fontFamily: EmbeddedArial;
+        fontFamily: EmbeddedSILEOT;
         embedAsCFF: true;
     }
     
     @font-face {
-        src: url("../../../../../Assets/Fonts/Hebrew/SILEOT.ttf");
+        src: url("../../../../../Assets/Fonts/SILEOT/SILEOT.ttf");
         fontWeight: bold;
         fontStyle: normal;
-        fontFamily: EmbeddedArial;
+        fontFamily: EmbeddedSILEOT;
         embedAsCFF: true;
     }
     
     @font-face {
-        src: url("../../../../../Assets/Fonts/Hebrew/SILEOT.ttf");
+        src: url("../../../../../Assets/Fonts/SILEOT/SILEOT.ttf");
         fontWeight: normal;
         fontStyle: italic;
-        fontFamily: EmbeddedArial;
+        fontFamily: EmbeddedSILEOT;
         embedAsCFF: true;
     }
 
@@ -143,8 +144,14 @@
         fontAntiAliasType: normal;
     }
 
-    .fontFamily1{
+    .fontFamilyArial{
         fontFamily: EmbeddedArial;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    .fontFamily1{
+        fontFamily: EmbeddedSILEOT;
         fontLookup: embeddedCFF;
         fontAntiAliasType: normal;
     }
@@ -153,6 +160,20 @@
         fontFamily: EmbeddedArno;
         fontLookup: embeddedCFF;
         fontAntiAliasType: normal;
+    }
+
+    .hebrewLTR{
+        fontFamily: EmbeddedSILEOT;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+        direction: ltr;
+    }
+
+    .hebrewRTL{
+        fontFamily: EmbeddedSILEOT;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+        direction: rtl;
     }
 
     .fontSize1{
@@ -390,8 +411,8 @@
     </mx:ArrayCollection>
 
     <mx:ArrayCollection id="ac_hebrew">
-        <fx:String>שרה</fx:String>
-        <fx:String>אלפבית</fx:String>
+        <fx:String>שרה shalom</fx:String>
+        <fx:String>אלפבית alphabet</fx:String>
     </mx:ArrayCollection>
 </fx:Declarations>
 
@@ -407,8 +428,8 @@
     <s:TabBar id="fontWeightTB1" dataProvider="{ac1}" fontWeight="bold" />
     <s:TabBar id="fontWeightTB2" dataProvider="{ac1}" fontWeight="normal" />
     <s:TabBar id="colorTB1" dataProvider="{ac1}" color="0xff0000" />
-    <s:TabBar id="directionTB1" dataProvider="{ac_hebrew}" textAlign="left" direction="rtl" styleName="fontFamily1" />
-    <s:TabBar id="directionTB2" dataProvider="{ac_hebrew}" textAlign="left" direction="ltr" styleName="fontFamily1" />
+    <s:TabBar id="directionTB1" dataProvider="{ac_hebrew}" textAlign="left" direction="rtl" styleName="fontFamily1" fontSize="24"/>
+    <s:TabBar id="directionTB2" dataProvider="{ac_hebrew}" textAlign="left" direction="ltr" styleName="fontFamily1" fontSize="24"/>
     <s:TabBar id="lineThroughTB1" dataProvider="{ac1}" lineThrough="true" />
     <s:TabBar id="lineThroughTB2" dataProvider="{ac1}" lineThrough="false" />
     <s:TabBar id="kerningTB1" dataProvider="{ac2}" kerning="on" />

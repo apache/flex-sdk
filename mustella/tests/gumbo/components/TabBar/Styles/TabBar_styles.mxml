@@ -95,7 +95,7 @@ fontFamily: Does not work; see bug SDK-18608
         <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
     </setup>
     <body>
-        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontFamily1" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontFamilyArial" waitEvent="updateComplete" />
         <CompareBitmap url="../Styles/baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"  target="runtimeTB1" />
     </body>
 </TestCase>
@@ -291,9 +291,9 @@ cornerRadius:
         <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
     </setup>
     <body>
-	 <SetStyle target="runtimeTB1" styleName="cornerRadius" value="10" waitEvent="updateComplete" waitTarget="runtimeTB1" />
+	    <SetStyle target="runtimeTB1" styleName="cornerRadius" value="10" waitEvent="updateComplete" waitTarget="runtimeTB1" />
         <AssertStyleValue target="runtimeTB1" styleName="cornerRadius" value="10" />
-        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="20" ignoreMaxColorVariance="true" />
     </body>
 </TestCase>
 
@@ -326,10 +326,10 @@ cornerRadius:
     <body>
         <SetStyle target="runtimeTB1" styleName="cornerRadius" value="20" waitEvent="updateComplete" waitTarget="runtimeTB1" />
         <SetStyle target="runtimeTB1" styleName="fontSize" value="20" waitEvent="updateComplete" waitTarget="runtimeTB1" />
-	<RunCode code="FlexGlobals.topLevelApplication.runtimeTB1.setFocus()"/>
-	<Pause timeout="40"/>
-	<DispatchKeyEvent key="RIGHT" waitEvent="keyUp" waitTarget="runtimeTB1" />
-        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+	    <RunCode code="FlexGlobals.topLevelApplication.runtimeTB1.setFocus()"/>
+	    <Pause timeout="40"/>
+	    <DispatchKeyEvent key="RIGHT" waitEvent="keyUp" waitTarget="runtimeTB1" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="20" ignoreMaxColorVariance="true" />
     </body>
 </TestCase>
 
@@ -384,7 +384,7 @@ direction:
         <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac_hebrew" />
     </setup>
     <body>
-        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontFamily1 direction1" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="hebrewRTL" waitEvent="updateComplete" />
         <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
     </body>
 </TestCase>
@@ -395,7 +395,7 @@ direction:
         <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac_hebrew" />
     </setup>
     <body>
-        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontFamily1 direction2" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="hebrewLTR" waitEvent="updateComplete" />
         <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
     </body>
 </TestCase>
