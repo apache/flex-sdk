@@ -2642,8 +2642,7 @@ config 5
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="90" localY="10" />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="80" localY="10" />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="70" localY="10" />
-                <!--DispatchMouseEvent type="mouseUp" target="dg1" localX="23" localY="70" waitTarget="dg1" waitEvent="updateComplete" /-->
-                <DispatchMouseEvent type="mouseUp" target="dg1" localX="23" localY="70" />
+                <DispatchMouseEvent type="mouseUp" target="dg1" localX="60" localY="70" waitTarget="dg1" waitEvent="updateComplete" />
                 <WaitForEffectsToEnd />
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedColumnCount_config5_resizeLockedColumns_between.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
             </body>

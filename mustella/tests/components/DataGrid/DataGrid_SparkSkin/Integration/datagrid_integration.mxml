@@ -128,7 +128,7 @@
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
                 <Pause timeout="100" /> <!-- This pause is needed because we already had to wait for the scroll, and there is no 'wait for event' step. -->
-                <AssertPixelValue target="dg1" x="15" y="35" value="0xEC1B27" />
+                <AssertPixelValue target="dg1" x="15" y="35" value="0xEFF3FA" />
             </body>
         </TestCase>
         
