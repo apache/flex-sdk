@@ -413,7 +413,7 @@
             <setup>
                 <ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
-                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tn.tabn" waitEvent="selectedOverImageLoaded" waitTarget="tn.tabn" /> 
                 <WaitForEffectsToEnd />
                 <WaitForLayoutManager/>
             </setup>
@@ -425,34 +425,36 @@
             <setup>
                 <ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
-                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tn.tabn" waitEvent="overImageLoaded" waitTarget="tn.tabn" /> 
                 <WaitForEffectsToEnd />
                 <WaitForLayoutManager/>
             </setup>
             <body>
                 <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab.png" timeout="5000" />
             </body>
-        </TestCase>     
+        </TestCase>  
+        <!-- TabBars select the tab on mouse down instead of click. -->
         <TestCase testID="TabNavigator_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab" keywords="[enabled, SkinStates,runtimeSWF, TabNavigator]" >
             <setup>
                 <ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
-                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tn.tabn" waitEvent="mouseDown" waitTarget="tn.tabn" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tn.tabn" waitEvent="selectedUpImageLoaded" waitTarget="tn.tabn" /> 
                 <WaitForEffectsToEnd />
                 <WaitForLayoutManager/>
             </setup>
             <body>
                 <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab.png" timeout="5000" />
             </body>
-        </TestCase>
-        <TestCase testID="TabNavigator_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWF, TabNavigator]" >
+        </TestCase>        
+        <!-- TabBars select the tab on mouse down instead of click. -->
+       <TestCase testID="TabNavigator_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWF, TabNavigator]" >
             <setup>
                 <ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
-                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tn.tabn" waitEvent="mouseDown" waitTarget="tn.tabn" /> 
-                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tn.tabn" waitEvent="selectedUpImageLoaded" waitTarget="tn.tabn" /> 
+               <WaitForEffectsToEnd />
                 <WaitForLayoutManager/>
             </setup>
             <body>
