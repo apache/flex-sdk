@@ -82,16 +82,16 @@
     </mx:Script>
 
     <testCases>
-        <TestCase testID="fontFamily_Arial" description="Menu style fontFamily=Arial." keywords="[styles, fontFamily, Menu]">
+        <TestCase testID="fontFamily_Verdana" description="Menu style fontFamily=Verdana." keywords="[styles, fontFamily, Menu]">
             <setup>
                 <RunCode code="createAMenu2()" />
-                <SetStyle styleName="fontFamily" target="menu1" value="Arial" />
+                <SetStyle styleName="fontFamily" target="menu1" value="MyVerdana" />
             </setup>
             <body>
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                 <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" waitTarget="menu1" waitEvent="menuShow" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.1.0" url="../Styles/baselines/menu_fontFamily_Arial.png" timeout="2500" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.1.0" url="../Styles/baselines/menu_fontFamily_Verdana.png" timeout="2500" />
             </body>
         </TestCase>
 <!--
@@ -111,12 +111,12 @@ FIXME: Hancock relies on a font swf file which doesn't exist - for Apache we mus
             </body>
         </TestCase>
 -->
-        <TestCase testID="fontFamily_emenu1edded" description="Menu style fontFamily=emenu1edded font Comic Sans." keywords="[styles, fontFamily, Menu]">
+        <TestCase testID="fontFamily_emenu1edded" description="Menu style fontFamily=emenu1edded font Cousine." keywords="[styles, fontFamily, Menu]">
             <setup>
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
-                <SetStyle styleName="fontFamily" value="ComicSansMS" target="menu1" />
+                <SetStyle styleName="fontFamily" value="Cousine" target="menu1" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                 <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" waitTarget="menu1" waitEvent="menuShow" />
                 <WaitForEffectsToEnd />

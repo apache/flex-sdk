@@ -86,7 +86,7 @@
 
         @font-face {
             src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
-            fontFamily: ComicSansMS;
+            fontFamily: Cousine;
             embedAsCFF: false;
         }
         /* FIXME: need embedded font swf file
