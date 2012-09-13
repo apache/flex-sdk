@@ -44,7 +44,7 @@
     </mx:Metadata>
 
     <testCases>
-       
+        <!-- FIXME: Needs FLA compiled to SWC 
 		<TestCase testID="MP_Spark_Component_DropDownList_compatible" description="Test that you can use a DropDownList in a trusted child." keywords="[DropDownList, Spark, Marshall Plan, ToolTip]">
              <setup>
               <ResetComponent target="text1" className="spark.components.TextInput" waitTarget="text1"
@@ -167,7 +167,7 @@
                 <Pause timeout="1000" />
            </body>
          </TestCase>    
-       
+         -->
          <!--TestCase testID="MP_Spark_Component_DropDownList_trusted" description="Test that you can use a DropDownList in a trusted child." keywords="[DropDownList, Spark, Marshall Plan, ToolTip]">
              <setup>
               <ResetComponent target="text1" className="spark.components.TextInput" waitTarget="text1"

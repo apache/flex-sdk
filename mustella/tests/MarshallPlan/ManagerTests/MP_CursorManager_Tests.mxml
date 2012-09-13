@@ -44,7 +44,7 @@
                 <RunCode code="application.cursorManager.setCursor(application.swf1.content.document.cursorPencil, CursorManagerPriority.HIGH, 0, 0);" />
                 <DispatchMouseEvent type="mouseMove" localX="0" localY="0" target="swf1.content.document.testPanel" waitTarget="swf1.content.document.testPanel" waitEvent="mouseMove" />
                 <Pause timeout="100" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="5" y="43" value="0x2A4A76" />
+                <AssertPixelValue target="swf1.content.document.testPanel" x="13" y="40" value="0xFFFFFF" />
             </body>
         </TestCase>
         <TestCase testID="MP_CursorManager_SetCursor_XOffset" keywords="[MarshallPlan, Managers, CursorManager, SetCursor]" description="Set the cursor to a custom image with an xOffset.">
@@ -64,7 +64,7 @@
                 <RunCode code="application.swf1.content.document.ResetCursorManager();" />
                 <RunCode code="application.cursorManager.setCursor(application.swf1.content.document.cursorPencil, CursorManagerPriority.HIGH, 30, 0);" />
                 <DispatchMouseEvent type="mouseMove" localX="0" localY="0" target="swf1.content.document.testPanel" waitTarget="swf1.content.document.testPanel" waitEvent="mouseMove" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="35" y="43" value="0x2A4A76" />
+                <AssertPixelValue target="swf1.content.document.testPanel" x="44" y="38" value="0xFFFFFF" />
             </body>
         </TestCase>
         <TestCase testID="MP_CursorManager_SetCursor_YOffset" keywords="[MarshallPlan, Managers, CursorManager, SetCursor]" description="Set the cursor to a custom image with an yOffset.">
@@ -84,7 +84,7 @@
                 <RunCode code="application.swf1.content.document.ResetCursorManager();" />
                 <RunCode code="application.cursorManager.setCursor(application.swf1.content.document.cursorPencil, CursorManagerPriority.HIGH, 0, 30);" />
                 <DispatchMouseEvent type="mouseMove" localX="0" localY="0" target="swf1.content.document.testPanel" waitTarget="swf1.content.document.testPanel" waitEvent="mouseMove" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="5" y="73" value="0x2A4A76" />
+                <AssertPixelValue target="swf1.content.document.testPanel" x="15" y="55" value="0xFFFFFF" />
             </body>
         </TestCase>
         <TestCase testID="MP_CursorManager_HideCursor" keywords="[MarshallPlan, Managers, CursorManager, HideCursor]" description="Hide a custom cursor.">
@@ -104,9 +104,11 @@
                 <RunCode code="application.swf1.content.document.ResetCursorManager();" />
                 <DispatchMouseEvent type="mouseMove" target="swf1.content.document.testPanel" localX="25" localY="25" />
                 <RunCode code="application.cursorManager.setCursor(application.swf1.content.document.cursorPencil, CursorManagerPriority.HIGH, 0, 0);" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="30" y="67" value="2700398" />
+				<WaitForEvent eventName="enterFrame" numExpectedEvents="2" />
+				<AssertPixelValue target="swf1.content.document.testPanel" x="50" y="50" value="0xFFFFFF" />
                 <RunCode code="application.cursorManager.hideCursor();" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="30" y="67" value="16777215" />
+				<WaitForEvent eventName="enterFrame" numExpectedEvents="2" />
+                <AssertPixelValue target="swf1.content.document.testPanel" x="50" y="50" value="0xFF00FF" />
             </body>
         </TestCase>
         <TestCase testID="MP_CursorManager_ShowCursor" keywords="[MarshallPlan, Managers, CursorManager, ShowCursor]" description="Show a custom cursor.">
@@ -127,9 +129,11 @@
                 <DispatchMouseEvent type="mouseMove" target="swf1.content.document.testPanel" localX="25" localY="25" />
                 <RunCode code="application.cursorManager.hideCursor();" />
                 <RunCode code="application.cursorManager.setCursor(application.swf1.content.document.cursorPencil, CursorManagerPriority.HIGH, 0, 0);" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="30" y="67" value="16777215" />
+				<WaitForEvent eventName="enterFrame" numExpectedEvents="2" />
+                <AssertPixelValue target="swf1.content.document.testPanel" x="50" y="50" value="0xFF00FF" />
                 <RunCode code="application.cursorManager.showCursor();" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="30" y="67" value="2700398" />
+				<WaitForEvent eventName="enterFrame" numExpectedEvents="2" />
+                <AssertPixelValue target="swf1.content.document.testPanel" x="50" y="50" value="0xFFFFFF" />
             </body>
         </TestCase>
         <TestCase testID="MP_CursorManager_RemoveAllCursors" keywords="[MarshallPlan, Managers, CursorManager, RemoveAllCursors]" description="Remove all custom cursors.">
@@ -149,9 +153,11 @@
                 <RunCode code="application.swf1.content.document.ResetCursorManager();" />
                 <DispatchMouseEvent type="mouseMove" target="swf1.content.document.testPanel" localX="25" localY="25" />
                 <RunCode code="application.cursorManager.setCursor(application.swf1.content.document.cursorPencil, CursorManagerPriority.HIGH, 0, 0);" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="30" y="67" value="2700398" />
+				<WaitForEvent eventName="enterFrame" numExpectedEvents="2" />
+                <AssertPixelValue target="swf1.content.document.testPanel" x="50" y="50" value="0xFFFFFF" />
                 <RunCode code="application.cursorManager.removeAllCursors();" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="30" y="67" value="16777215" />
+				<WaitForEvent eventName="enterFrame" numExpectedEvents="2" />
+                <AssertPixelValue target="swf1.content.document.testPanel" x="50" y="50" value="0xFF00FF" />
             </body>
         </TestCase>
         <TestCase testID="MP_CursorManager_RemoveCursor" keywords="[MarshallPlan, Managers, CursorManager, RemoveCursor]" description="Remove a custom cursor.">
@@ -171,9 +177,11 @@
                 <RunCode code="application.swf1.content.document.ResetCursorManager();" />
                 <DispatchMouseEvent type="mouseMove" target="swf1.content.document.testPanel" localX="25" localY="25" />
                 <RunCode code="application.cursorManager.setCursor(application.swf1.content.document.cursorPencil, CursorManagerPriority.HIGH, 0, 0);" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="30" y="67" value="2700398" />
+				<WaitForEvent eventName="enterFrame" numExpectedEvents="2" />
+                <AssertPixelValue target="swf1.content.document.testPanel" x="50" y="50" value="0xFFFFFF" />
                 <RunCode code="application.cursorManager.removeCursor(application.cursorManager.currentCursorID);" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="30" y="67" value="16777215" />
+				<WaitForEvent eventName="enterFrame" numExpectedEvents="2" />
+                <AssertPixelValue target="swf1.content.document.testPanel" x="50" y="50" value="0xFF00FF" />
             </body>
         </TestCase>
         <TestCase testID="MP_CursorManager_SetBusyCursor" keywords="[MarshallPlan, Managers, CursorManager, SetBusyCursor]" description="Activate the busy cursor.">
@@ -193,7 +201,8 @@
                 <RunCode code="application.swf1.content.document.ResetCursorManager();" />
                 <DispatchMouseEvent type="mouseMove" target="swf1.content.document.testPanel" localX="50" localY="50" />
                 <RunCode code="application.cursorManager.setBusyCursor();" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="50" y="50" value="4144959" />
+				<WaitForEvent eventName="enterFrame" numExpectedEvents="2" />
+                <AssertPixelValue target="swf1.content.document.testPanel" x="55" y="50" value="0xFFFFFF" />
             </body>
         </TestCase>
         <TestCase testID="MP_CursorManager_RemoveBusyCursor" keywords="[MarshallPlan, Managers, CursorManager, RemoveBusyCursor]" description="Remove the busy cursor.">
@@ -213,9 +222,11 @@
                 <RunCode code="application.swf1.content.document.ResetCursorManager();" />
                 <DispatchMouseEvent type="mouseMove" target="swf1.content.document.testPanel" localX="50" localY="50" />
                 <RunCode code="application.cursorManager.setBusyCursor();" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="50" y="50" value="4144959" />
+				<WaitForEvent eventName="enterFrame" numExpectedEvents="2" />
+                <AssertPixelValue target="swf1.content.document.testPanel" x="55" y="50" value="0xFFFFFF" />
                 <RunCode code="application.cursorManager.removeBusyCursor();" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="50" y="50" value="16777215" />
+				<WaitForEvent eventName="enterFrame" numExpectedEvents="2" />
+                <AssertPixelValue target="swf1.content.document.testPanel" x="55" y="50" value="0xFF00FF" />
             </body>
         </TestCase>
 
@@ -237,9 +248,9 @@
                 <DispatchMouseEvent type="mouseMove" target="swf1.content.document.testPanel" localX="25" localY="25" />
                 <RunCode code="application.swf1.content.document.cursorManager.setCursor(application.swf1.content.document.cursorPencil, CursorManagerPriority.HIGH, 0, 0);" />
                 <DispatchMouseEvent type="mouseMove" localX="0" localY="0" target="swf1.content.document.testPanel" waitTarget="swf1.content.document.testPanel" waitEvent="mouseMove" />
-                <AssertPixelValue target="swf1.content.document.testPanel" x="5" y="43" value="0x2A4A76" />
+                <AssertPixelValue target="swf1.content.document.testPanel" x="13" y="40" value="0xFFFFFF" />
                 <DispatchMouseEvent type="mouseMove" localX="0" localY="0" target="" waitTarget="" waitEvent="mouseMove" />
-                <AssertPixelValue target="" x="5" y="43" value="0x2A4A76" />
+                <AssertPixelValue target="" x="10" y="43" value="0" />
             </body>
         </TestCase>
       <TestCase testID="MP_CursorManager_SetCursor_InCompatibilitySubApp" keywords="[MarshallPlan, Managers, CursorManager, SetCursor]" description="Set the cursor to a custom image.">
@@ -260,9 +271,9 @@
               <DispatchMouseEvent type="mouseMove" target="swf1.content.document.testPanel" localX="25" localY="25" />
               <RunCode code="application.cursorManager.setCursor(application.swf1.content.document.cursorPencil, CursorManagerPriority.HIGH, 0, 0);" />
               <DispatchMouseEvent type="mouseMove" localX="0" localY="0" target="swf1.content.document.testPanel" waitTarget="swf1.content.document.testPanel" waitEvent="mouseMove" />
-              <AssertPixelValue target="swf1.content.document.testPanel" x="5" y="43" value="0x2A4A76" />
+              <AssertPixelValue target="swf1.content.document.testPanel" x="13" y="40" value="0xFFFFFF" />
               <DispatchMouseEvent type="mouseMove" localX="0" localY="0" target="" waitTarget="" waitEvent="mouseMove" />
-              <AssertPixelValue target="" x="5" y="43" value="0x2A4A76" />
+              <AssertPixelValue target="" x="10" y="43" value="0" />
           </body>
       </TestCase>
       <TestCase testID="MP_CursorManager_DividedBox_local" keywords="[DividedBox, MarshallPlan, Managers, CursorManager, SetCursor]" description="Set the cursor to a custom image.">

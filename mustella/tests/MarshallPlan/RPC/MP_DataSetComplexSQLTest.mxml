@@ -111,6 +111,7 @@
     </mx:Script>
 
 	<testCases>
+		<!-- FIXME: (aharui) requires WebService
         <TestCase testID="getCustomersAsComplexDS" description='test that value = "Number of rows: 91""Number of rows: 91"' keywords="[rpc]">
             <setup>
 		       <ResetComponent target="btn1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn1" />
@@ -149,6 +150,7 @@
 			     <AssertPropertyValue propertyName="text" target="swf22.content.document.txt" value='"Number of rows: 50"' />
 			</body>
 		</TestCase>
+		-->
 	</testCases>
 
 </UnitTester>
