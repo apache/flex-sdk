@@ -452,9 +452,10 @@
         <TestCase testID="Accordion_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab" keywords="[enabled, SkinStates,runtimeSWF, Accordion]" >
             <setup>
                 <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
-
+                 
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
-                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="selectedOverImageLoaded" waitTarget="accordion_1" />
+                <!--WaitForEvent eventName="selectedOverImageLoaded" target="accordion_1" numExpectedEvents="1"/-->
                 <WaitForEffectsToEnd />
             </setup>
             <body>
@@ -467,7 +468,8 @@
                 <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
 
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
-                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="overImageLoaded" waitTarget="accordion_1" />
+                <!--WaitForEvent eventName="overImageLoaded" target="accordion_1"/-->
                 <WaitForEffectsToEnd />
             </setup>
             <body>
@@ -481,7 +483,8 @@
 
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
-                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="selectedDownImageLoaded" waitTarget="accordion_1" />
+                <!--WaitForEvent eventName="selectedDownImageLoaded" target="accordion_1"/-->
                 <WaitForEffectsToEnd />
             </setup>
             <body>
@@ -495,7 +498,8 @@
 
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
                 <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
-                <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="downImageLoaded" waitTarget="accordion_1" />
+                <!--WaitForEvent eventName="downImageLoaded" target="accordion_1"/-->
                 <WaitForEffectsToEnd />
             </setup>
             <body>
