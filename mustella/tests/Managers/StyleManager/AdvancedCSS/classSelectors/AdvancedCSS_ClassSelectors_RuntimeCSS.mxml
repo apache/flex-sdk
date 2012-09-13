@@ -118,6 +118,7 @@
 		    <CompareBitmap url="../classSelectors/baselines/$testID.png" target="myDateField" numColorVariances="5" ignoreMaxColorVariance="true"/>
 		    <DispatchMouseClickEvent target="myDateField.getChildAt(1)" localX="5" localY="5" waitTarget="myDateField" waitEvent="open" />
 		    <WaitForEffectsToEnd />
+			<WaitForLayoutManager />
 		    <CompareBitmap url="../classSelectors/baselines/$testID_2.png" target="myDateField.dropdown" numColorVariances="5" ignoreMaxColorVariance="true"/>
 		    <AssertStyleValue target="myDateField" styleName="color" value="0xFF0000" />
 		</body>
@@ -131,6 +132,7 @@
 		    <CompareBitmap url="../classSelectors/baselines/$testID.png" target="myDateField2" numColorVariances="5" ignoreMaxColorVariance="true"/>
 		    <DispatchMouseClickEvent target="myDateField2.getChildAt(1)" localX="5" localY="5" waitTarget="myDateField2" waitEvent="open" />
 		    <WaitForEffectsToEnd />
+			<WaitForLayoutManager />
 		    <CompareBitmap url="../classSelectors/baselines/$testID_2.png" target="myDateField2.dropdown" numColorVariances="5" ignoreMaxColorVariance="true"/>
 		</body>
 	</TestCase>

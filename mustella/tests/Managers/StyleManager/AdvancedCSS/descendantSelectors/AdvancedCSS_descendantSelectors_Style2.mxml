@@ -46,6 +46,7 @@
 		    <CompareBitmap target="accordionComp2" url="../descendantSelectors/baselines/$testID.png" timeout="2500" />
 		    <SetProperty propertyName="selectedIndex" value="1" target="accordionComp2" waitEvent="updateComplete" />
 		    <WaitForEffectsToEnd />
+			<WaitForLayoutManager />
 		    <Pause timeout="50"/>
 		    <CompareBitmap target="accordionComp2" url="../descendantSelectors/baselines/$testID_2.png" timeout="2500" />
 		</body>
@@ -56,6 +57,7 @@
 		    <CompareBitmap target="accordionComp2" url="../descendantSelectors/baselines/$testID.png" timeout="2500" />
 		    <SetProperty propertyName="selectedIndex" value="1" target="accordionComp2" waitTarget="accordionComp2" waitEvent="updateComplete" />
 		    <WaitForEffectsToEnd />
+			<WaitForLayoutManager />
 		    <CompareBitmap target="accordionComp2" url="../descendantSelectors/baselines/$testID_2.png" timeout="2500" />
 		</body>
 	</TestCase>
@@ -69,7 +71,7 @@
 		    <CompareBitmap target="accordionComp2" url="../descendantSelectors/baselines/$testID.png" timeout="2500" />
 		    <SetProperty propertyName="selectedIndex" value="1" target="accordionComp2" waitTarget="accordionComp2" waitEvent="updateComplete" />
 		    <WaitForEffectsToEnd />
-		    <Pause timeout="500"/>
+			<WaitForLayoutManager />
 		    <CompareBitmap target="accordionComp2" url="../descendantSelectors/baselines/$testID_2.png" timeout="2500" />
 		</body>
 	</TestCase>

@@ -33,8 +33,16 @@
                         
 			public function loadCSS(): void
 			{
-				eventDispatcher = StyleManager.loadStyleDeclarations("assets/globalStyles2.swf");
-				eventDispatcher.addEventListener("complete", complete_handler);
+				if (!eventDispatcher)
+				{
+					eventDispatcher = StyleManager.loadStyleDeclarations("assets/globalStyles2.swf");
+					eventDispatcher.addEventListener("complete", complete_handler);
+				}
+				else
+				{
+					eventDispatcher.removeEventListener("complete", complete_handler);
+					eventDispatcher.dispatchEvent(new StyleEvent(Event.COMPLETE));
+				}
 			}
 			
 			public function complete_handler(event:StyleEvent): void

@@ -148,7 +148,7 @@
             <CompareBitmap numColorVariances="2" ignoreMaxColorVariance="true" url="../idSelectors/baselines/$testID_2.png" target="headerText2" />
         </body>
     </TestCase>
-    <TestCase testID="id_multipleTypeSelector_GumboComp_style" keywords="[CSS, id selector]"
+    <TestCase testID="id_multipleTypeSelector_GumboComp_style2" keywords="[CSS, id selector]"
         description="Ensure that the selector FxButton,DateField#redTheme matches any FxButton">
         <body>
             <CompareBitmap url="../idSelectors/baselines/$testID.png" target="redButton" />
