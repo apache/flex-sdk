@@ -1,2 +1,4 @@
 -locale=fr_FR,ja_JP,en_US
 -source-path+=Assets/bundles/custom/{locale}
+-source-path+=Assets/bundles/framework/{locale}
+-link-report=linkreport.xml

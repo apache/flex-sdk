@@ -123,31 +123,12 @@ The associated swf launches in the fr_FR locale.
             </body> 
         </TestCase> 
  
-        <!-- This checks a horizontal line through the French flag image. --> 
         <TestCase frequency="all" testID="RTL_ResourceBundleMetadata_Class_Bundle1_Property_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Class in a property." keywords="[Runtime Localization,ResourceBundleMetadata,Class]" > 
             <setup>
                 <ResetComponent target="img1" className="Components.CImageSourceGetClass" waitEvent="updateComplete" />
             </setup>
             <body>
-                <AssertPixelValue target="img1" x="14" y="25" value="0x000063" />
-                <AssertPixelValue target="img1" x="15" y="25" value="0x000063" />
-                <AssertPixelValue target="img1" x="17" y="25" value="0xFFFFFF" />
-                <AssertPixelValue target="img1" x="18" y="25" value="0xFFFFFF" />
-                <AssertPixelValue target="img1" x="19" y="25" value="0xFFFFFF" />
-                <AssertPixelValue target="img1" x="20" y="25" value="0xFFFFFF" />
-                <AssertPixelValue target="img1" x="21" y="25" value="0xFFFFFF" />
-                <AssertPixelValue target="img1" x="22" y="25" value="0xFFFFFF" />
-                <AssertPixelValue target="img1" x="23" y="25" value="0xFFFFFF" />
-                <AssertPixelValue target="img1" x="24" y="25" value="0xFFFFFF" />
-                <AssertPixelValue target="img1" x="25" y="25" value="0xFFFFFF" />
-                <AssertPixelValue target="img1" x="26" y="25" value="0xFFFFFF" />
-                <AssertPixelValue target="img1" x="27" y="25" value="0xFFFFFF" />
-                <AssertPixelValue target="img1" x="28" y="25" value="0xFFFFFF" />
-                <AssertPixelValue target="img1" x="29" y="25" value="0xFFFFFF" />
-                <AssertPixelValue target="img1" x="30" y="25" value="0xFFFFFF" />
-                <AssertPixelValue target="img1" x="32" y="25" value="0xD60818" />
-                <AssertPixelValue target="img1" x="33" y="25" value="0xD60818" />
-                <AssertPixelValue target="img1" x="34" y="25" value="0xD60818" />                
+                <AssertPixelValue target="img1" x="14" y="25" value="0x0000FF" />
             </body> 
         </TestCase> 
          

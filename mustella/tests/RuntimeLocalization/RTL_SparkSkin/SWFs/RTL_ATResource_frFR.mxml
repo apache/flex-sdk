@@ -17,7 +17,7 @@
   limitations under the License.
 
 -->
-<s:Application width="800" height="800" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:Components="Components.*" backgroundColor="0x008800" >
+<s:Application width="800" height="1200" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:Components="Components.*" backgroundColor="0x008800" >
 
 <!-- 
     This file uses @Resource instead of [ResourceBundle(...)] to cause the 

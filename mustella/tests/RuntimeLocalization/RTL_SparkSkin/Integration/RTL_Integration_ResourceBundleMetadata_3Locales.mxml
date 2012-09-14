@@ -163,7 +163,7 @@ The associated swf launches in the fr_FR locale.
                 <ResetComponent target="img1" className="Components.CImageSourceGetClass" waitEvent="updateComplete" />
             </setup>
             <body>
-                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" waitEvent="updateComplete" waitTarget="img1Container" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" waitEvent="updateComplete" waitTarget="img1" />
                 <CompareBitmap target="img1" url="../Integration/Baselines/$testID.png" />                
             </body> 
         </TestCase> 
@@ -415,7 +415,7 @@ Verify that things are correct when we switch to ja_JP.
                 <ResetComponent target="img1" className="Components.CImageSourceGetClass" waitEvent="updateComplete" />
             </setup>
             <body>
-                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','fr_FR','en_US']" waitEvent="updateComplete" waitTarget="img1Container" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','fr_FR','en_US']" waitEvent="updateComplete" waitTarget="img1" />
                 <CompareBitmap target="img1" url="../Integration/Baselines/$testID.png"  />
             </body> 
         </TestCase> 
@@ -667,7 +667,7 @@ Verify that things are right when we switch to en_US.
                 <ResetComponent target="img1" className="Components.CImageSourceGetClass" waitEvent="updateComplete" />
             </setup>
             <body> 
-                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','ja_JP','fr_FR']" waitEvent="updateComplete" waitTarget="img1Container" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','ja_JP','fr_FR']" waitEvent="updateComplete" waitTarget="img1" />
                 <CompareBitmap target="img1" url="../Integration/Baselines/$testID.png"  />              
             </body> 
         </TestCase> 
