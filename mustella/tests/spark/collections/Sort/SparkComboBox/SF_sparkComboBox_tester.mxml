@@ -471,7 +471,7 @@
 				<AssertMethodValue method="value=SFConstant.getArrayOfField('address',application.uiComboBoxComp.comboBoxDataProvider)" 
 								   valueExpression="value=application.uiComboBoxComp.revertArray(application.uiComboBoxComp.sparkSortedArray)"/>
 				<AssertMethodValue method="value=SFConstant.getArrayOfField('name',application.uiComboBoxComp.comboBoxDataProvider)" 
-								   value="cadbury,Bo,TJ,barmen,Izzy,Moe,Molly,Matisse,Bunny,Daisy,Imari,Umbra,Danny,Ted,Chumley"/>
+								   value="cadbury,barmen,Bo,Izzy,TJ,Moe,Molly,Matisse,Bunny,Daisy,Imari,Umbra,Danny,Ted,Chumley"/>
 			</body>
 		</TestCase>  
 		<TestCase testID="SortField_sparkComboBox_reverse_script_test16" description="reverse items sort order based on different descending setting of SortField"  keywords="[Sort, sparkComboBox]">
