@@ -413,9 +413,9 @@
             <setup>
                 <ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
-                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tn.tabn" waitEvent="selectedOverImageLoaded" waitTarget="tn.tabn" /> 
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
+                <WaitForEvent eventName="complete" target="tn.tabn.rawChildren.getChildAt(2).getChildAt(0).getChildAt(0).selectedOverImage" />                
                 <WaitForEffectsToEnd />
-                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tn.tabn" url="../Styles/baselines/TabNavigator_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab.png" timeout="5000" />
@@ -425,9 +425,9 @@
             <setup>
                 <ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
-                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tn.tabn" waitEvent="overImageLoaded" waitTarget="tn.tabn" /> 
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
+                <WaitForEvent eventName="complete" target="tn.tabn.rawChildren.getChildAt(2).getChildAt(1).getChildAt(0).overImage" />                
                 <WaitForEffectsToEnd />
-                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tn.tabn" url="../Styles/baselines/TabNavigator_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab.png" timeout="5000" />
@@ -439,9 +439,9 @@
                 <ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
-                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tn.tabn" waitEvent="selectedUpImageLoaded" waitTarget="tn.tabn" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tn.tabn" waitEvent="mouseDown" waitTarget="tn.tabn" /> 
+                <WaitForEvent eventName="complete" target="tn.tabn.rawChildren.getChildAt(2).getChildAt(0).getChildAt(0).selectedUpImage" />                
                 <WaitForEffectsToEnd />
-                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tn.tabn" url="../Styles/baselines/TabNavigator_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab.png" timeout="5000" />
@@ -453,9 +453,9 @@
                 <ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
-                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tn.tabn" waitEvent="selectedUpImageLoaded" waitTarget="tn.tabn" /> 
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tn.tabn" waitEvent="mouseDown" waitTarget="tn.tabn" /> 
+                <WaitForEvent eventName="complete" target="tn.tabn.rawChildren.getChildAt(2).getChildAt(1).getChildAt(0).selectedUpImage" />                
                 <WaitForEffectsToEnd />
-                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tn.tabn" url="../Styles/baselines/TabNavigator_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab.png" timeout="5000" />

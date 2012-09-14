@@ -17,70 +17,8 @@
   limitations under the License.
 
 -->
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" currentStateChange="currentStateChangeHandler(event)">	
-    <mx:Script>
-        <![CDATA[    	     
-            import flash.events.IEventDispatcher;
-
-            private function currentStateChangeHandler(event:Event):void
-            {
-                 checkIfImageLoaded();
-            }
- 
-            private function completeHandler(event:Event):void
-            {
-                checkIfImageLoaded();
-            }
-            
-            // For the runtime SWF tests we want also want to know the image is loaded even
-            // if it has already been loaded so we can wait on an event for every test.
-            private function checkIfImageLoaded():void
-            {
-                if (!parentApplication || !parentApplication.tn || !parentApplication.tn.tabn is IEventDispatcher)
-                    return;
-                
-                var loaded:Boolean = false;
-                
-                switch (currentState)
-                {
-                    case "over":
-                        if (overImage.bytesLoaded == overImage.bytesTotal)
-                            loaded = true;   
-                        break;
-                    case "selectedOver":
-                        if (selectedOverImage.bytesLoaded == selectedOverImage.bytesTotal)
-                            loaded = true;   
-                        break;
-                    case "down":
-                        if (downImage.bytesLoaded == downImage.bytesTotal)
-                            loaded = true;   
-                        break;
-                    case "selectedDown":
-                        if (selectedDownImage.bytesLoaded == selectedDownImage.bytesTotal)
-                            loaded = true;   
-                        break;
-                    case "up":
-                        if (baseButton.bytesLoaded == baseButton.bytesTotal)
-                            loaded = true;   
-                        break;
-                    case "selectedUp":
-                        if (selectedUpImage.bytesLoaded == selectedUpImage.bytesTotal)
-                            loaded = true;   
-                        break;
-                    default:
-                        trace("checkIfImageLoaded state not handled", "currentState", currentState);
-                }
-                
-                if (loaded)
-                {
-                    var tabn:IEventDispatcher = IEventDispatcher(parentApplication.tn.tabn);
-                    trace("dispatch", currentState + "ImageLoaded");
-                    tabn.dispatchEvent(new Event(currentState + "ImageLoaded")); 
-                }
-             }
-        ]]>   
-    </mx:Script>
-	<mx:states>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml">	
+ 	<mx:states>
 		<mx:State name="notBase">
 			<mx:RemoveChild target="{baseButton}"/>
 		</mx:State>
@@ -88,47 +26,47 @@
 		<mx:State name="over" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
 				<mx:Image id="overImage" source="../../../../Assets/Images/ButtonImages/buttonOver.swf" 
-                    complete="completeHandler(event)" maintainAspectRatio="false" width="100%" height="100%"/> 
+                          maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="down" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
 				<mx:Image id="downImage" source="../../../../Assets/Images/ButtonImages/buttonDown.swf" 
-                          complete="completeHandler(event)" maintainAspectRatio="false" width="100%" height="100%"/> 
+                          maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="disabled" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
 				<mx:Image id="disabledImage" source="../../../../Assets/Images/ButtonImages/buttonDisabled.swf" 
-                          complete="completeHandler(event)" maintainAspectRatio="false" width="100%" height="100%"/> 
+                          maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedUp" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
 				<mx:Image id="selectedUpImage" source="../../../../Assets/Images/ButtonImages/buttonSelectedUp.swf" 
-                          complete="completeHandler(event)" maintainAspectRatio="false" width="100%" height="100%"/> 
+                          maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedOver" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
 				<mx:Image id="selectedOverImage" source="../../../../Assets/Images/ButtonImages/buttonSelectedOver.swf" 
-                          complete="completeHandler(event)" maintainAspectRatio="false" width="100%" height="100%"/> 
+                          maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedDown" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
 				<mx:Image id="selectedDownImage" source="../../../../Assets/Images/ButtonImages/buttonSelectedDown.swf" 
-                          complete="completeHandler(event)" maintainAspectRatio="false" width="100%" height="100%"/> 
+                          maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedDisabled" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
 				<mx:Image id="selectedDisabledImage" source="../../../../Assets/Images/ButtonImages/buttonSelectedDown.swf" 
-                          complete="completeHandler(event)" maintainAspectRatio="false" width="100%" height="100%"/> 
+                          maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 	</mx:states>
 		
 	<mx:Image id="baseButton" source="../../../../Assets/Images/ButtonImages/buttonUp.swf" 
-              complete="completeHandler(event)" maintainAspectRatio="false"  width="100%" height="100%"/>
+              maintainAspectRatio="false" width="100%" height="100%"/>
 </mx:Canvas>
