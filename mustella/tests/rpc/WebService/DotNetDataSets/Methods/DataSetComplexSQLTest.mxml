@@ -113,6 +113,7 @@
     </mx:Script>
 
 	<testCases>
+	<!-- FIXME: requires server no longer available
         <TestCase testID="getCustomersAsComplexDS" description='test that value = "Number of rows: 91""Number of rows: 91"' keywords="[rpc]">
             <setup>
 			    <ResetComponent target="dg" className="mx.controls.DataGrid" waitTarget="dg" waitEvent="updateComplete" />
@@ -124,7 +125,7 @@
         	<body>
 			     <AssertPropertyValue propertyName="text" target="txt" value='"Number of rows: 50"' />
 			</body>
-		</TestCase>
+		</TestCase> -->
 	</testCases>
 
 </UnitTester>

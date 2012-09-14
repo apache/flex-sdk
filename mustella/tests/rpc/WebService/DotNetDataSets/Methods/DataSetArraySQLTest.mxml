@@ -113,6 +113,7 @@
     </mx:Script>
 
 	<testCases>
+	<!-- FIXME: requires server no longer available
         <TestCase testID="getDataSetArray" description="test that value = 25, 25 and 25 rows" keywords="[rpc]">
             <setup>
                 <ResetComponent target="dg" className="mx.controls.DataGrid" waitTarget="dg" waitEvent="updateComplete" />
@@ -124,6 +125,6 @@
         	<body>
         		<AssertMethodValue method="value=verifyResult(FlexGlobals.topLevelApplication.txt.text,expectVal)" value=""/>
 		</body>
-		</TestCase>
+		</TestCase> -->
 	</testCases>
 </UnitTester>
