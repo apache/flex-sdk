@@ -58,6 +58,7 @@
 			
 			<DispatchMouseClickEvent target="localButton" waitEvent="click" waitTarget="localButton" />
 			
+			<WaitForLayoutManager />
 			<CompareBitmap url="../api/baselines/$testID_after.png" target="hgroupContainer"/>	
 		    </body>
 		</TestCase>
