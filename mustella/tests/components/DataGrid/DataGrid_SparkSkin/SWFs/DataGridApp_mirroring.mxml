@@ -62,7 +62,7 @@
 	@font-face {
 		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
 		fontStyle: italic;
-		fontFamily: EmbeddedVerdana2;
+		fontFamily: EmbeddedVerdanaCFF;
 		embedAsCFF: true;
 	}
 
@@ -73,7 +73,7 @@
 	
 	mx|DataGrid
 	{
-		fontFamily: EmbeddedVerdana2;
+		fontFamily: EmbeddedVerdanaCFF;
 	}
 
 </fx:Style>
