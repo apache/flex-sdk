@@ -43,6 +43,11 @@
 	
     <mx:Style>
 		@namespace "library://ns.adobe.com/flex/mx";
+
+		global {
+			direction: rtl;
+			layoutDirection: rtl;
+		}
 	
         HorizontalList{
             fontFamily: MyVerdana;
