@@ -641,8 +641,18 @@ public class Runner {
 
 			// let's not bother with this one anymore
 
-			if (currentArg.endsWith (".swf"))
+			if (currentArg.endsWith (".swf")) {
+				if (server.inputHandler != null && server.inputHandler.inWaitLoop)
+				{
+					server.inputHandler.abortWaitLoop = true;
+					while (server.inputHandler.inWaitLoop)
+					{
+						Thread.sleep (10);
+					}					
+				}
+				startedCases.clear();
 				doexec (currentArg);
+			}
 			else {
 				System.out.println ("Skipping: " + currentArg);
 				continue;
@@ -1678,7 +1688,7 @@ public class Runner {
 	/**
 	 * Server object
 	 */
-	LocalListener server = null;
+	public LocalListener server = null;
 
 
 	public void cleanup() throws Exception {
@@ -1797,7 +1807,13 @@ public class Runner {
 		}
 
 		// System.out.println ("BA: started, excluded: " + startedCases.size() + " "+ excluded);
-
+		for (int i=0;i<startedCases.size();i++) {
+			try {
+				System.out.println((String)startedCases.get(i) + " not finished yet");
+			} catch (Exception e) {
+			}
+		}
+		
 
 
 		return (startedCases.size() - excluded);
@@ -2049,6 +2065,8 @@ public class Runner {
 		}
 
 
+		public InputHandler inputHandler;
+		
 		ServerSocket ss = null; /// 4/19 added moved to inst, was local to run
 
 		public void run () {
@@ -2065,8 +2083,9 @@ public class Runner {
 
 					try {
 
-					Socket s = ss.accept ();
-					new InputHandler (s).start();
+						Socket s = ss.accept ();
+						inputHandler = new InputHandler (s);
+						inputHandler.start();
 
 					} catch (Exception e) {
 						// System.out.println ("broke out of the socket loop");
@@ -2162,7 +2181,8 @@ public class Runner {
 		}
 
 
-
+		public boolean inWaitLoop = false;
+		public boolean abortWaitLoop = false;
 
 		public void handleDone (String line) {
 			currentExec.setDone();
@@ -2284,7 +2304,9 @@ public class Runner {
 				lastUpdate = System.currentTimeMillis();
 				handleStepTimeout(line);
 			} else if (line.indexOf (scriptDone) != -1) {
-				/// System.out.println ("SCRIPTDONE! " + sdf.format(new Date()));
+				String timeStamp = sdf.format(new Date());
+				System.out.println ("SCRIPTDONE! " + timeStamp);
+				System.out.println (line);
 				lastUpdate = System.currentTimeMillis();
 				killAllTimers ();
 				killMetaTimer();
@@ -2300,27 +2322,36 @@ public class Runner {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-
+					
 					// hack, just in case a result is still processing
 					// wait a little to check for other socket action:
 					int waiting = balanceAccounts(Integer.parseInt(s_tc_done));
 
+					System.out.println ("Before Wait loop " + timeStamp + " waiting = " + waiting);
+					
 					while (waiting > 0) {
+						inWaitLoop = true;
+						if (abortWaitLoop) {
+							abortWaitLoop = false;
+							break;
+						}
 						try { Thread.sleep (100); } catch (Exception e) { }
 						allowed++;
 						// System.out.println ("Current wait is: " + (allowed*100) + " vs timeout: " + timeout);
 						if ( (allowed*100) > timeout) {
 							if (waiting > 0)
-								System.out.println ("Bailing, waited too long for results");
+								System.out.println ("Bailing, waited too long for results " + timeStamp);
 							break;
 						}
 
 						waiting = balanceAccounts(Integer.parseInt(s_tc_done));
 
 						if (allowed%10==0)
-							System.out.println ("Waiting for results...");
+							System.out.println ("In wait loop " + timeStamp + ": Waiting for results...");
 					}
 					allowed = 0;
+					inWaitLoop = false;
+					System.out.println ("After Wait loop " + timeStamp + " waiting = " + waiting);
 
 
 					lastUpdate = System.currentTimeMillis();
