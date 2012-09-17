@@ -126,19 +126,12 @@
 	]]>
 	</mx:Script>
 	
-	<mx:Style>
-		global {
-			direction: rtl;
-			layoutDirection: rtl;
-		}
-	</mx:Style>
-
 	<testCases>
 			<TestCase testID="HorizontalList_Mirroring_rtl" description="HorizontalList dataProvider item is set to false test." keywords="[enabled, HorizontalList, Mirroring]">
 				<setup>
-				<ResetComponent target="hl" className="mx.controls.HorizontalList" waitEvent="creationComplete"/>
+				    <ResetComponent target="hl" className="mx.controls.HorizontalList" waitEvent="creationComplete"/>
 				    <RunCode code="addData(0);" />
-				    <Pause timeout="200" />
+				    <WaitForLayoutManager/>
 				</setup>
 				<body>
 				    <AssertPropertyValue target="hl" propertyName="selectedIndex" value="-1" />
@@ -163,7 +156,7 @@
 				<DispatchKeyEvent key="DOWN"/>
 				<DispatchKeyEvent key="DOWN" waitTarget="hl" waitEvent="keyUp" />
 				<Pause timeout="1000"/>
-			    <AssertPropertyValue target="hl" propertyName="selectedIndex" value="5" />
+			    <AssertPropertyValue target="hl" propertyName="selectedIndex" value="3" />
 			    <CompareBitmap target="hl" url="../Properties/baselines/$testID.png" numColorVariances="3" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
@@ -181,7 +174,7 @@
 			<body>
 				<DispatchKeyEvent keys="[RIGHT, RIGHT, RIGHT, RIGHT, RIGHT,RIGHT, RIGHT, RIGHT, RIGHT, RIGHT]" waitTarget="hl" waitEvent="change" />
 				<Pause timeout="1000"/>
-				<AssertPropertyValue target="hl" propertyName="selectedIndex" value="10" />
+				<AssertPropertyValue target="hl" propertyName="selectedIndex" value="0" />
 			    <CompareBitmap target="hl" url="../Properties/baselines/$testID.png" numColorVariances="3" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
