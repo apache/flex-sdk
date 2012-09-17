@@ -87,11 +87,10 @@
 		</TestCase>
 		<TestCase testID="TextInput_GlobalStyle_compileTime" keywords="[TextInput]" description="Ensure that TextInput looks correct when global styles are set.">
 			<setup>
+			    <RunCode code="application.textinput1.setSelection(0,1)" waitTarget="textinput1" waitEvent="updateComplete" />
 			    <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
 			    <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
-			    <RunCode code="application.textinput1.setSelection(0,1)" waitTarget="textinput1" waitEvent="updateComplete" />
-				<Pause timeout="200" /><!-- must use pause.  If you use enterframe listeners the player doesn't update the selection -->
 			</setup>
 			<body>
 				<AssertStyleValue target="textinput1" styleName="chromeColor" value="0xFFCC99"/>
