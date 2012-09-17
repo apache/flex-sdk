@@ -73,6 +73,8 @@
 		    <ResetComponent target="tw2" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw2" />
 		    <SetProperty propertyName="title" value="My Title" target="tw2" />
 		    <SetProperty propertyName="showCloseButton" value="false" target="tw2" waitEvent="updateComplete"/>
+		    <WaitForLayoutManager/>
+		    <WaitForLayoutManager/>
 		</setup>
 		<body>
 		    <CompareBitmap target="tw2" url="../Mirroring/baselines/$testID.png" timeout="2500" />
@@ -84,6 +86,8 @@
 		    <ResetComponent target="tw3" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw3" />
 		    <SetProperty propertyName="title" value="My Title3" target="tw3" />
 		    <SetProperty propertyName="showCloseButton" value="false" target="tw3" waitEvent="updateComplete" waitTarget="tw3"/>
+		    <WaitForLayoutManager/>
+		    <WaitForLayoutManager/>
 		</setup>
 		<body>
 		    <CompareBitmap target="tw3" url="../Mirroring/baselines/$testID.png" timeout="2500" />
@@ -94,13 +98,13 @@
 		<setup>
 		    <ResetComponent target="tw4" className="MyLayoutTestTW" waitEvent="updateComplete" waitTarget="tw4" />
 		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
-		    <Pause timeout="300"/>
+		    <WaitForLayoutManager/>
+		    <WaitForLayoutManager/>
 		</setup>
 		<body>
 		    <AssertPropertyValue target="chk1" propertyName="layoutDirection" value="rtl"/>
 		    <AssertPropertyValue target="chk2" propertyName="layoutDirection" value="ltr"/>
 		    <AssertPropertyValue target="chk31" propertyName="layoutDirection" value="rtl"/>
-		    <Pause timeout="200"/>
 		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
