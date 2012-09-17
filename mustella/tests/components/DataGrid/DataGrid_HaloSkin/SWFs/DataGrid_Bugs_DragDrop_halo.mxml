@@ -66,8 +66,14 @@
 			embedAsCFF: false;
 		}
 		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: EmbeddedVerdanaRegular;
+			embedAsCFF: false;
+		}
+		
         global{
-            fontFamily: EmbeddedVerdana;
+            fontFamily: EmbeddedVerdanaRegular;
             fontAntiAliasType: normal;
         }
     </mx:Style>
