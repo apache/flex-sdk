@@ -304,10 +304,10 @@
                 <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
             </setup>
             <body>
-                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Vivaldi.png">
+                <CompareBitmap target="ta1" url="../Styles/Baselines/$testID.png">
                     <ConditionalValue os="win"/>
                 </CompareBitmap>
-                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Vivaldi_mac.png">
+                <CompareBitmap target="ta1" url="../Styles/Baselines/$testID_mac.png">
                     <ConditionalValue os="mac"/>
                 </CompareBitmap>
             </body>
@@ -341,10 +341,10 @@
             <body>
                 <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Arial.png" />
                 <SetStyle target="ta1" styleName="fontFamily" value="Vivaldi" waitEvent="updateComplete" waitTarget="ta1" />
-                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Vivaldi.png">
+                <CompareBitmap target="ta1" url="../Styles/Baselines/$testID.png">
                     <ConditionalValue os="win"/>
                 </CompareBitmap>
-                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Vivaldi_mac.png">
+                <CompareBitmap target="ta1" url="../Styles/Baselines/$testID_mac.png">
                     <ConditionalValue os="mac"/>
                 </CompareBitmap>
             </body>
