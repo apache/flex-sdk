@@ -65,16 +65,10 @@
 			embedAsCFF: false;
 		}
 		
-		@font-face {
-			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
-			fontFamily: EmbeddedVerdanaRegular;
-			embedAsCFF: false;
+		global{
+			fontFamily: EmbeddedVerdana;
+			fontAntiAliasType: normal;
 		}
-		
-        global{
-            fontFamily: EmbeddedVerdanaRegular;
-            fontAntiAliasType: normal;
-        }
     </mx:Style>
 
     <mx:ArrayCollection id="dataArray1">
