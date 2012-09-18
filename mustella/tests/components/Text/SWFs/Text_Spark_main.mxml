@@ -22,12 +22,12 @@
                xmlns:mx="library://ns.adobe.com/flex/mx" 
                >
  
-    <fx:Style source="../../../../Assets/Fonts/myStyles.css" />
+    <fx:Style source="../../../../Assets/Fonts/VeraFontStyles.css" />
     <fx:Style>
         @namespace mx "library://ns.adobe.com/flex/mx";
 
         global {
-            fontFamily: MyVerdana;
+            fontFamily: MyVeraSpark;
         }
         
         mx|Box {

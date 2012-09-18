@@ -34,7 +34,7 @@
         @namespace comps "comps.*";
 
         global {
-            fontFamily: myVerdana;
+            fontFamily: MyVerdana;
         }
         
         .padding5 {

@@ -43,6 +43,27 @@
 	
     <mx:Style>
 		@namespace "library://ns.adobe.com/flex/mx";
+		@namespace s "library://ns.adobe.com/flex/spark";
+
+		@font-face {
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: EmbeddedVerdana;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: EmbeddedVerdana;
+			embedAsCFF: true;
+		}	
+		
+		@font-face {
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: EmbeddedVerdana;
+			embedAsCFF: true;
+		}
 
 		global {
 			direction: rtl;
@@ -50,7 +71,7 @@
 		}
 	
         HorizontalList{
-            fontFamily: MyVerdana;
+            fontFamily: EmbeddedVerdana;
         }
     </mx:Style>
 
