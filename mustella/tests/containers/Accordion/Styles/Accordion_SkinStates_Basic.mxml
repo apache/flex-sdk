@@ -390,7 +390,9 @@
 
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEvent eventName="complete" target="accordion_1.rawChildren.getChildAt(3).getChildAt(0).selectedOverImage" />
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
@@ -402,7 +404,9 @@
 
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
                 <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEvent eventName="complete" target="accordion_1.rawChildren.getChildAt(4).getChildAt(0).overImage" />
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
@@ -415,7 +419,9 @@
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEvent eventName="complete" target="accordion_1.rawChildren.getChildAt(3).getChildAt(0).selectedDownImage" />
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
@@ -428,7 +434,9 @@
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
                 <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEvent eventName="complete" target="accordion_1.rawChildren.getChildAt(4).getChildAt(0).downImage" />
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />

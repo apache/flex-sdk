@@ -37,13 +37,15 @@
     <mx:Script>
     <![CDATA[
 
-    import mx.containers.*
-    import mx.controls.*
-    import mx.styles.StyleManager;
-    import mx.managers.SystemManager;
-
-
-
+        import mx.containers.*
+        import mx.controls.*
+        import mx.styles.StyleManager;
+        import mx.managers.SystemManager;
+        
+        // an image in header1 is
+        //      accordion_1.rawChildren.getChildAt(3).getChildAt(0).overImage
+        // an image in header2 is
+        //      accordion_1.rawChildren.getChildAt(4).getChildAt(0).overImage        
     ]]>
     </mx:Script>
 <mx:Style>
@@ -444,6 +446,7 @@
                 <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
 
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <WaitForLayoutManager/>
             </setup>
             <body>
                 <CompareBitmap target="accordion_1" url="../Styles/baselines/spark/Accordion_Styles_SkinStates_runtime_SWF.png" numColorVariances="2" ignoreMaxColorVariance="true" timeout="5000" />
@@ -454,12 +457,12 @@
                 <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
                  
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
-                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="selectedOverImageLoaded" waitTarget="accordion_1" />
-                <!--WaitForEvent eventName="selectedOverImageLoaded" target="accordion_1" numExpectedEvents="1"/-->
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver"/>
+                <!--WaitForEvent eventName="complete" target="accordion_1.rawChildren.getChildAt(3).getChildAt(0).selectedOverImage" /-->
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager/>
             </setup>
             <body>
-                <WaitForLayoutManager/>
                 <CompareBitmap target="accordion_1" url="../Styles/baselines/spark/Accordion_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab.png" numColorVariances="2" ignoreMaxColorVariance="true" timeout="5000" />
             </body>
         </TestCase>
@@ -468,12 +471,12 @@
                 <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
 
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
-                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="overImageLoaded" waitTarget="accordion_1" />
-                <!--WaitForEvent eventName="overImageLoaded" target="accordion_1"/-->
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver"/>
+                <!--WaitForEvent eventName="complete" target="accordion_1.rawChildren.getChildAt(4).getChildAt(0).overImage" /-->
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager/>
             </setup>
             <body>
-                <WaitForLayoutManager/>
                 <CompareBitmap target="accordion_1" url="../Styles/baselines/spark/Accordion_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab.png" numColorVariances="2" ignoreMaxColorVariance="true" timeout="5000" />
             </body>
         </TestCase>
@@ -483,12 +486,12 @@
 
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
-                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="selectedDownImageLoaded" waitTarget="accordion_1" />
-                <!--WaitForEvent eventName="selectedDownImageLoaded" target="accordion_1"/-->
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1"/> 
+                <!--WaitForEvent eventName="complete" target="accordion_1.rawChildren.getChildAt(3).getChildAt(0).selectedDownImage"/-->
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager/>
             </setup>
             <body>
-                <WaitForLayoutManager/>
                 <CompareBitmap target="accordion_1" url="../Styles/baselines/spark/Accordion_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab.png" numColorVariances="2" ignoreMaxColorVariance="true" timeout="5000" />
             </body>
         </TestCase>
@@ -498,20 +501,18 @@
 
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
                 <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
-                <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="downImageLoaded" waitTarget="accordion_1" />
-                <!--WaitForEvent eventName="downImageLoaded" target="accordion_1"/-->
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown"/>
+                <WaitForEvent eventName="complete" target="accordion_1.rawChildren.getChildAt(4).getChildAt(0).downImage" />
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager/>
             </setup>
             <body>
-                <WaitForLayoutManager/>
                 <CompareBitmap target="accordion_1" url="../Styles/baselines/spark/Accordion_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab.png" numColorVariances="2" ignoreMaxColorVariance="true" timeout="5000" />
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPGIcon" keywords="[enabled, SkinStates,EmbedJPGIcon, Accordion]" >
             <setup>
                 <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
-
-
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPGIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
             </setup>
             <body>
