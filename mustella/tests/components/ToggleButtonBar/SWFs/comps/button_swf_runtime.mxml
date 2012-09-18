@@ -25,37 +25,37 @@
 		<mx:State name="up" />
 		<mx:State name="over" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image source="../../../../Assets/Images/ButtonImages/buttonOver.swf" maintainAspectRatio="false" width="100%" height="100%"/> 
+				<mx:Image source="../../../../Assets/Images/ButtonImages/buttonOver.swf" id="overImage" maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="down" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image source="../../../../Assets/Images/ButtonImages/buttonDown.swf" maintainAspectRatio="false" width="100%" height="100%"/> 
+				<mx:Image source="../../../../Assets/Images/ButtonImages/buttonDown.swf" id="downImage" maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="disabled" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image source="../../../../Assets/Images/ButtonImages/buttonDisabled.swf" maintainAspectRatio="false" width="100%" height="100%"/> 
+				<mx:Image source="../../../../Assets/Images/ButtonImages/buttonDisabled.swf" id="disabledImage" maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedUp" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image source="../../../../Assets/Images/ButtonImages/buttonSelectedUp.swf" maintainAspectRatio="false" width="100%" height="100%"/> 
+				<mx:Image source="../../../../Assets/Images/ButtonImages/buttonSelectedUp.swf" id="selectedUpImage" maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedOver" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image source="../../../../Assets/Images/ButtonImages/buttonSelectedOver.swf" maintainAspectRatio="false" width="100%" height="100%"/> 
+				<mx:Image source="../../../../Assets/Images/ButtonImages/buttonSelectedOver.swf" id="selectedOverImage" maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedDown" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image source="../../../../Assets/Images/ButtonImages/buttonSelectedDown.swf" maintainAspectRatio="false" width="100%" height="100%"/> 
+				<mx:Image source="../../../../Assets/Images/ButtonImages/buttonSelectedDown.swf" id="selectedDownImage" maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedDisabled" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image source="../../../../Assets/Images/ButtonImages/buttonSelectedDown.swf" maintainAspectRatio="false" width="100%" height="100%"/> 
+				<mx:Image source="../../../../Assets/Images/ButtonImages/buttonSelectedDown.swf" id="selectedDisabledImage" maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 	</mx:states>
