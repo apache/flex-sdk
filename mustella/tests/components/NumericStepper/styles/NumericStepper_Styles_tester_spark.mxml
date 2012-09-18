@@ -1712,7 +1712,7 @@
 
 				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
 
- 				<SetStyle target="myNumericStepper" styleName="fontFamily" value="EmbeddedArial" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+ 				<SetStyle target="myNumericStepper" styleName="fontFamily" value="EmbeddedCousine" waitEvent="updateComplete" waitTarget="myNumericStepper" />
 
 				<!--SetStyle target="myNumericStepper" styleName="fontAntiAliasType" value="normal" waitEvent="updateComplete" waitTarget="myNumericStepper" /-->
 
@@ -1728,7 +1728,7 @@
 
 				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/fontFamily_Arial_spark.png" timeout="5000" />
 
-				<AssertStyleValue target="myNumericStepper" styleName="fontFamily" value="EmbeddedArial" />
+				<AssertStyleValue target="myNumericStepper" styleName="fontFamily" value="EmbeddedCousine" />
 
  			</body>
 
@@ -1740,7 +1740,7 @@
 
 				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
 
- 				<SetStyle target="myNumericStepper" styleName="fontFamily" value="EmbeddedGeorgia" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+ 				<SetStyle target="myNumericStepper" styleName="fontFamily" value="EmbeddedLobsterTwo" waitEvent="updateComplete" waitTarget="myNumericStepper" />
 
 				<!--SetStyle target="myNumericStepper" styleName="fontAntiAliasType" value="normal" waitEvent="updateComplete" waitTarget="myNumericStepper" /-->
 
@@ -1756,7 +1756,7 @@
 
 				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/fontFamily_Georgia_spark.png" timeout="5000" />
 
-				<AssertStyleValue target="myNumericStepper" styleName="fontFamily" value="EmbeddedGeorgia" />
+				<AssertStyleValue target="myNumericStepper" styleName="fontFamily" value="EmbeddedLobsterTwo" />
 
  			</body>
 

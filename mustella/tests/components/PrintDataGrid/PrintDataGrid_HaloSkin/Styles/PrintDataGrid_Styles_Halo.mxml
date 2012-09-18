@@ -160,6 +160,7 @@
 				<ResetComponent target="myPrintDataGrid" className="mx.printing.PrintDataGrid" />
 				<RunCode code="setDP();" />
 				<WaitForEffectsToEnd />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<CompareBitmap url="../Styles/baselines/PDGDefaultStyle.png" target="myPrintDataGrid" />

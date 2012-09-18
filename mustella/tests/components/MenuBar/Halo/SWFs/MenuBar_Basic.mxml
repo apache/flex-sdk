@@ -43,7 +43,7 @@
 	@namespace "library://ns.adobe.com/flex/mx";
 		@font-face {
 			src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
-			fontFamily: ComicSansMS;
+			fontFamily: Cousine;
 			embedAsCFF: false;
 		}
 		@font-face {
@@ -98,7 +98,7 @@
 		 }
 
 		 .customFontFamily {
-		   fontFamily: "ComicSansMS";
+		   fontFamily: "Cousine";
 		 }
     </mx:Style>
 
