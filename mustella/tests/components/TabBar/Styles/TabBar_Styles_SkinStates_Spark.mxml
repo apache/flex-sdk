@@ -22,6 +22,10 @@
     <!-- this set of lines form a template that must be in each unit test -->
     <mx:Script>
     <![CDATA[
+    import flash.events.*;
+    import mx.controls.*;
+    import mx.core.*;
+    
     public static function init(o:DisplayObject):void
     {
     }       
@@ -30,6 +34,7 @@
     {
         application.tb.dataProvider = myDP;
     }   
+    
     [Bindable]
     private var myDP:Array=[{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"}];   
     ]]>
@@ -433,9 +438,11 @@
             <setup>
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
                 <RunCode code="addData(0);" />
-                <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
+                <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" />
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
+                <WaitForEvent eventName="complete" target="tb.getChildAt(0).getChildAt(0).overImage" timeout="10000"/> 
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tb" url="../Styles/baselines/spark/TabBar_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab.png" timeout="5000" />
@@ -446,26 +453,34 @@
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
                 <RunCode code="addData(0);" />
                 <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
+                <RunCode code="trace('THIS IS THE OTHER TEST!', application.tb.getChildAt(2).getChildAt(0).overImage)"/> 
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
+                <WaitForEvent eventName="complete" target="tb.getChildAt(2).getChildAt(0).overImage" /> 
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tb" url="../Styles/baselines/spark/TabBar_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab.png" timeout="5000" />
             </body>
         </TestCase>     
+        <!-- TabBars select the tab on mouse down instead of click. -->
         <TestCase testID="TabBar_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab" keywords="[enabled, SkinStates,runtimeSWF, TabBar]" >
             <setup>
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
                 <RunCode code="addData(0);" />
-                <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
+                <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" />
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
-                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tb" waitEvent="mouseDown" waitTarget="tb" /> 
+                <!-- don't wait for mouse up event so we don't miss the complete event -->
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tb" /> 
+                <WaitForEvent eventName="complete" target="tb.getChildAt(0).getChildAt(0).selectedUpImage" /> 
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tb" url="../Styles/baselines/spark/TabBar_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab.png" timeout="5000" />
             </body>
         </TestCase>
+        <!-- TabBars select the tab on mouse down instead of click. -->
         <TestCase testID="TabBar_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWF, TabBar]" >
             <setup>
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
@@ -474,7 +489,9 @@
 								 
                 <DispatchMouseEvent type="rollOver" localX="85" localY="7" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
                 <DispatchMouseEvent type="mouseDown" localX="85" localY="7" target="tb" waitEvent="mouseDown" waitTarget="tb" /> 
+                <WaitForEvent eventName="complete" target="tb.getChildAt(1).getChildAt(0).selectedUpImage" /> 
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tb" url="../Styles/baselines/spark/TabBar_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab.png" timeout="5000" />
@@ -485,8 +502,13 @@
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
                 <RunCode code="addData(0);" />
                 <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
-                <SetProperty target="tb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tb"/>
+                <RunCode code="trace('THIS IS THE TEST!', application.tb.getChildAt(0).getChildAt(0))"/> 
+                <!-- don't wait for the updateComplete event so we don't miss the complete event for the load of the first tab -->
+                <SetProperty target="tb" propertyName="enabled" value="false"/>
+                <WaitForEvent eventName="complete" target="tb.getChildAt(0).getChildAt(0).disabledImage" /> 
+                <!-- need to wait for all three tabs to load the disabledImage -->
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager /> 
             </setup>
             <body>
                 <CompareBitmap target="tb" url="../Styles/baselines/spark/TabBar_Styles_SkinStates_runtime_Disabled_SWF.png" timeout="5000" />
