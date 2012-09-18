@@ -111,8 +111,8 @@
 		</TestCase>
 		<TestCase testID="Form_styles_indicatorGap2" keywords="[indicatorGap, Form]">
 			<setup>
-				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-				<SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid"  waitEvent="updateComplete" />
+				<ResetComponent target="myCustomForm" className="CustomForm" />
+				<SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm"/>
  			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="indicatorGap" value="14" />
@@ -285,8 +285,8 @@
 		</TestCase>
 		<TestCase testID="Form_styles_labelWidth" keywords="[labelWidth , Form]">
 			<setup>
-				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-   				<SetProperty target="myCustomForm.myForm" propertyName="label" value="Form Style Testing" waitEvent="updateComplete" />
+				<ResetComponent target="myCustomForm" className="CustomForm" />
+   				<SetProperty target="myCustomForm.myForm" propertyName="label" value="Form Style Testing" waitEvent="updateComplete" waitTarget="myCustomForm" />
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="labelWidth" valueExpression="value=null"  />

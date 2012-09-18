@@ -28,48 +28,41 @@
 		@font-face {
 			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
 			fontFamily: EmbeddedArial;
-			embedAsCFF: false;
+			embedAsCFF: true;
 		}
 
 		@font-face {
 			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
 			fontWeight: bold;
 			fontFamily: EmbeddedArial;
-			embedAsCFF: false;
+			embedAsCFF: true;
 		}
 
 		@font-face {
 			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
 			fontStyle: italic;
 			fontFamily: EmbeddedArial;
-			embedAsCFF: false;
-		}
-
-		@font-face {
-			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
-			fontStyle: italic;			
-			fontFamily: EmbeddedArial;
-			embedAsCFF: false;
+			embedAsCFF: true;
 		}
 
 		@font-face {
 			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
 			fontFamily: EmbeddedVerdana;
-			embedAsCFF: false;
+			embedAsCFF: true;
 		}
 
 		@font-face {
 			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
 			fontWeight: bold;
 			fontFamily: EmbeddedVerdana;
-			embedAsCFF: false;
+			embedAsCFF: true;
 		}
 
 		@font-face {
 			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
 			fontStyle: italic;
 			fontFamily: EmbeddedVerdana;
-			embedAsCFF: false;
+			embedAsCFF: true;
 		}
 
 	Form{

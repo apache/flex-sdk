@@ -187,11 +187,11 @@
 		<TestCase testID="Form_styles_fontfamily_spark" keywords="[fontFamily, Form]">
 			<setup>
 				<ResetComponent target="myCustomForm" className="CustomForm_spark" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-   				<SetStyle target="myCustomForm.myForm" styleName="fontFamily"  value="EmbeddedGeorgia"   />
+   				<SetStyle target="myCustomForm.myForm" styleName="fontFamily"  value="EmbeddedArial"   />
    				<SetStyle target="myCustomForm.myForm" styleName="fontSize" value="30" waitTarget="myCustomForm" waitEvent="updateComplete"/>
 			</setup>
 			<body>
- 				<AssertStyleValue target="myCustomForm.myForm" styleName="fontFamily" value="EmbeddedGeorgia"  />
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="fontFamily" value="EmbeddedArial"  />
  				<WaitForEffectsToEnd />
  				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/fontFamily_spark.png" timeout="5000" />
  			</body>
@@ -285,8 +285,8 @@
 		</TestCase>
 		<TestCase testID="Form_styles_labelWidth_spark" keywords="[labelWidth , Form]">
 			<setup>
-				<ResetComponent target="myCustomForm" className="CustomForm_spark" waitEvent="updateComplete" waitTarget="myCustomForm"/>
-   				<SetProperty target="myCustomForm.myForm" propertyName="label" value="Form Style Testing" waitEvent="updateComplete"/>
+				<ResetComponent target="myCustomForm" className="CustomForm_spark" />
+   				<SetProperty target="myCustomForm.myForm" propertyName="label" value="Form Style Testing" waitEvent="updateComplete" waitTarget="myCustomForm"/>
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomForm.myForm" styleName="labelWidth" valueExpression="value=null"  />
