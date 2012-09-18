@@ -453,7 +453,6 @@
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
                 <RunCode code="addData(0);" />
                 <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
-                <RunCode code="trace('THIS IS THE OTHER TEST!', application.tb.getChildAt(2).getChildAt(0).overImage)"/> 
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
                 <WaitForEvent eventName="complete" target="tb.getChildAt(2).getChildAt(0).overImage" /> 
                 <WaitForEffectsToEnd />
@@ -502,7 +501,6 @@
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
                 <RunCode code="addData(0);" />
                 <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
-                <RunCode code="trace('THIS IS THE TEST!', application.tb.getChildAt(0).getChildAt(0))"/> 
                 <!-- don't wait for the updateComplete event so we don't miss the complete event for the load of the first tab -->
                 <SetProperty target="tb" propertyName="enabled" value="false"/>
                 <WaitForEvent eventName="complete" target="tb.getChildAt(0).getChildAt(0).disabledImage" /> 
