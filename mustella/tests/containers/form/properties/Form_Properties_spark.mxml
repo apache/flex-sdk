@@ -311,7 +311,7 @@
                 <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
             </setup>
             <body>
-                <AssertPropertyValue target="myCustomForm.myForm" propertyName="height" value="140"/>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="height" value="132"/>
             </body>
         </TestCase>
         <TestCase testID="Form_Property_height2_spark" keywords="[height, Form]">
@@ -713,7 +713,7 @@
                 <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
             </setup>
             <body>
-                <AssertPropertyValue target="myCustomForm.myForm" propertyName="minHeight" value="140"/>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="minHeight" value="132"/>
             </body>
         </TestCase>
         <TestCase testID="Form_Property_minHeight2_spark" keywords="[maxHeight, Form]">
