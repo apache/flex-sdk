@@ -98,7 +98,7 @@
                 <AssertEvent target="myVSlider" eventName="thumbPress" eventClass="mx.events::SliderEvent" />
                 <Pause timeout="500"  />
                 <AssertPropertyValue propertyName="x" target="myVSlider.mx_internal:dataTip" value="27" />
-                <AssertMethodValue method="value=Math.round(application.myVSlider.mx_internal::dataTip.y)" value="24" />
+                <AssertMethodValue method="value=Math.round(application.myVSlider.mx_internal::dataTip.y)" value="25" />
                 <DispatchMouseEvent target="myVSlider" localX="4" localY="18" type="mouseUp" waitEvent="thumbRelease" waitTarget="myVSlider"/> 
                  
             </body>

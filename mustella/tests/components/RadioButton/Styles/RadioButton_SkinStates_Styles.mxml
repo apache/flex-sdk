@@ -229,7 +229,7 @@
                 <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
             </setup>
             <body>
-                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_SWF.png" timeout="5000" />
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_SWF.png" timeout="5000" maxColorVariance="2" numColorVariances="5" />
             </body>
         </TestCase> 
         <TestCase testID="RadioButton_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedSWF, RadioButton]" >
@@ -265,7 +265,7 @@
                 <SetProperty target="rb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="rb"/>
             </setup>
             <body>
-                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_Disabled_SWF.png" timeout="5000" />
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_Disabled_SWF.png" timeout="5000" maxColorVariance="2" numColorVariances="10" />
             </body>
         </TestCase>
         <TestCase testID="RadioButton_Styles_SkinStates_runtime_JPG" keywords="[enabled, SkinStates,runtimeJPG, RadioButton]" >
@@ -354,7 +354,7 @@
                 <SetProperty target="rb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="rb"/>
             </setup>
             <body>
-                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_Disabled_SWF_air.png" timeout="5000" />
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_Disabled_SWF_air.png" timeout="5000" maxColorVariance="2" numColorVariances="10"  />
             </body>
         </TestCase>
     </testCases>

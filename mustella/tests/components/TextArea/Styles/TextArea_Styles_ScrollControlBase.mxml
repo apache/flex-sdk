@@ -296,6 +296,7 @@
             </body>
         </TestCase>
 
+		<!-- FIXME (aharui) no flashtype font swfs right now
         <TestCase frequency="all" testID="style_fontFamily_flash_vivaldi" keywords="[TextArea,styles,fontFamily]" description="Test setting fontFamily to Vivaldi (Flash type font).">
             <setup>
                 <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
@@ -368,7 +369,7 @@
                 <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Arial.png" />
             </body>
         </TestCase>
-
+		-->
         <TestCase frequency="all" testID="style_fontSize_default" keywords="[TextArea,styles,fontSize]" description="Test the default fontSize.">
             <setup>
                 <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
