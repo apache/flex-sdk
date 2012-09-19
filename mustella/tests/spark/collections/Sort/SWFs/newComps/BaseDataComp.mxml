@@ -122,7 +122,7 @@ for example, cote < côte < coté < côté instead of cote < coté < côte < cô
 				'cadbury', 
 				'Danny', 
 				'Umbra', 
-			]);
+			]); 
 			
 			public var sortByAgeAddressFrArr:ArrayCollection = new ArrayCollection([
 				'Imari', 
@@ -131,10 +131,10 @@ for example, cote < côte < coté < côté instead of cote < coté < côte < cô
 				'Matisse', 
 				'Molly', 
 				'Moe', 
-				'Izzy',
-				'barmen', 
-				'TJ', 
+				'TJ',
+				'Izzy', 
 				'Bo', 
+				'barmen', 
 				'Chumley', 
 				'Ted', 
 				'cadbury', 
@@ -172,10 +172,10 @@ for example, cote < côte < coté < côté instead of cote < coté < côte < cô
 				'Matisse', 
 				'Molly', 
 				'Moe', 
-				'Izzy', 
-				'barmen', 
 				'TJ', 
+				'Izzy', 
 				'Bo', 
+				'barmen', 
 			]);
 			
 			public var sortByIsTrueNameSwArr:ArrayCollection = new ArrayCollection([
