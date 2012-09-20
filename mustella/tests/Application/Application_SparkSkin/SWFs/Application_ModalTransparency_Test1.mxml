@@ -4,7 +4,7 @@
 	@font-face{
 		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
 		fontFamily: myVerdana;
-		embedAsCFF: false;
+		embedAsCFF: true;
 	}
 	
 	
@@ -12,7 +12,7 @@
 		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
 		fontWeight: bold;
 		fontFamily: myVerdana;
-		embedAsCFF: false;
+		embedAsCFF: true;
 	}
 	
 	@font-face{
@@ -23,7 +23,7 @@
 	}
 	
     global{
-        fontFamily: EmbeddedVerdana;
+        fontFamily: myVerdana;
         fontAntiAliasType: normal;
     }
 </mx:Style>
