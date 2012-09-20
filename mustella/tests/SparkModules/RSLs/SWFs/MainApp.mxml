@@ -35,6 +35,20 @@ backgroundColor="0xffffff" width="1200" height="1000"
 			}
 		]]>
 	</fx:Script>	
+	<fx:Style source="../../../../Assets/Fonts/VeraFontStyles.css" />
+	<fx:Style>    
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace s "library://ns.adobe.com/flex/spark";
+
+		global{
+		fontFamily: MyVeraHalo;
+		fontAntiAliasType: normal;
+		}
+		
+		s|Button {
+			fontFamily: MyVeraSpark;
+		}
+	</fx:Style>
 		
 	<s:Button label="Unload ComboModule" 
 		click="comboModule.unloadModule();" />
