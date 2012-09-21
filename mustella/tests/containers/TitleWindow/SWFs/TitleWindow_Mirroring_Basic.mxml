@@ -83,12 +83,12 @@
     <mx:Button id="btn" label="click" />
 </mx:TitleWindow>
 <mx:HBox>
-    <mx:TitleWindow id="tw2" showCloseButton="true" close="ta.text='close'" >
+    <mx:TitleWindow id="tw2" styleName="rtlStyle" showCloseButton="true" close="ta.text='close'" >
     	<mx:TextInput id="ta2" />
         <mx:CheckBox id="chk1" label="test checkBox"/>
     </mx:TitleWindow>
 
-    <mx:TitleWindow id="tw3" showCloseButton="true"  >
+    <mx:TitleWindow id="tw3" styleName="rtlStyle" showCloseButton="true"  >
     	<mx:CheckBox id="chk31" label="outter checkBox"/>
     	<mx:VBox id="vbox1" styleName="ltrStyle">
     	    <mx:TextInput id="ti1" text="this is a test"/>

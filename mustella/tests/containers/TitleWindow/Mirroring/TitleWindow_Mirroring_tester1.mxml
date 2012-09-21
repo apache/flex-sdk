@@ -42,6 +42,33 @@
 	<!-- end of set of lines that must be in each unit test -->
 
 	<testCases>
+	    <TestCase testID="TitleWindow_layout_rtl1" description="TitleWindow with layoutDirection=rtl " keywords="[TitleWindow, Mirroring]">
+		<setup>
+		    <ResetComponent target="tw2" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw2" />
+		    <SetProperty propertyName="title" value="My Title" target="tw2" />
+		    <SetProperty propertyName="showCloseButton" value="false" target="tw2" waitEvent="updateComplete"/>
+		    <WaitForLayoutManager/>
+		    <WaitForLayoutManager/>
+		</setup>
+		<body>
+		    <CompareBitmap target="tw2" url="../Mirroring/baselines/$testID.png" timeout="2500" />
+		</body>
+	    </TestCase>
+	   
+	   <TestCase testID="TitleWindow_layout_rtl2" description="TitleWindow with layoutDirection=rtl, has content with ltr layout" keywords="[TitleWindow, Mirroring]">
+		<setup>
+		    <ResetComponent target="tw3" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw3" />
+		    <SetProperty propertyName="title" value="My Title3" target="tw3" />
+		    <SetProperty propertyName="showCloseButton" value="false" target="tw3" waitEvent="updateComplete" waitTarget="tw3"/>
+		    <WaitForLayoutManager/>
+		    <WaitForLayoutManager/>
+		</setup>
+		<body>
+		    <CompareBitmap target="tw3" url="../Mirroring/baselines/$testID.png" timeout="2500" />
+		</body>
+	    </TestCase>
+
+
 	    <TestCase testID="TitleWindow_layout_closeButtonTrue1" description="TitleWindow showCloseButton=true, layoutDirection=rtl" keywords="[TitleWindow, Mirroring]">
 		<setup>
 		    <ResetComponent target="tw" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw" />
@@ -66,31 +93,6 @@
 		</setup>
 		<body>
 		    <CompareBitmap target="tw" url="../Mirroring/baselines/$testID.png" timeout="2500" />
-		</body>
-	    </TestCase>
-	    <TestCase testID="TitleWindow_layout_rtl1" description="TitleWindow with layoutDirection=rtl " keywords="[TitleWindow, Mirroring]">
-		<setup>
-		    <ResetComponent target="tw2" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw2" />
-		    <SetProperty propertyName="title" value="My Title" target="tw2" />
-		    <SetProperty propertyName="showCloseButton" value="false" target="tw2" waitEvent="updateComplete"/>
-		    <WaitForLayoutManager/>
-		    <WaitForLayoutManager/>
-		</setup>
-		<body>
-		    <CompareBitmap target="tw2" url="../Mirroring/baselines/$testID.png" timeout="2500" />
-		</body>
-	    </TestCase>
-	   
-	   <TestCase testID="TitleWindow_layout_rtl2" description="TitleWindow with layoutDirection=rtl, has content with ltr layout" keywords="[TitleWindow, Mirroring]">
-		<setup>
-		    <ResetComponent target="tw3" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw3" />
-		    <SetProperty propertyName="title" value="My Title3" target="tw3" />
-		    <SetProperty propertyName="showCloseButton" value="false" target="tw3" waitEvent="updateComplete" waitTarget="tw3"/>
-		    <WaitForLayoutManager/>
-		    <WaitForLayoutManager/>
-		</setup>
-		<body>
-		    <CompareBitmap target="tw3" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
 	    
