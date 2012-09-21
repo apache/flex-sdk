@@ -434,8 +434,8 @@
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
                 <RunCode code="addData(0);" />
                 <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
-                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
-                <WaitForEvent eventName="complete" target="tb.getChildAt(0).getChildAt(0).overImage" timeout="10000"/> 
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tb" /> 
+                <WaitForEvent eventName="complete" target="tb.getChildAt(0).currentSkin.overImage" timeout="10000"/> 
                 <WaitForEffectsToEnd />
                 <WaitForLayoutManager />
             </setup>
@@ -448,8 +448,8 @@
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
                 <RunCode code="addData(0);" />
                 <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
-                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tb" waitEvent="rollOver"/> 
-                <WaitForEvent eventName="complete" target="tb.getChildAt(1).getChildAt(0).overImage"/> 
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tb" /> 
+                <WaitForEvent eventName="complete" target="tb.getChildAt(1).currentSkin.overImage"/> 
                 <WaitForEffectsToEnd />
                 <WaitForLayoutManager />
             </setup>
@@ -466,7 +466,7 @@
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
                 <!-- don't wait for mouse up event so we don't miss the complete event -->
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tb"/> 
-                <WaitForEvent eventName="complete" target="tb.getChildAt(0).getChildAt(0).selectedUpImage" /> 
+                <WaitForEvent eventName="complete" target="tb.getChildAt(0).currentSkin.selectedUpImage" /> 
                 <WaitForEffectsToEnd />
                 <WaitForLayoutManager />
             </setup>
@@ -483,7 +483,7 @@
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
                 <!-- don't wait for mouse up event so we don't miss the complete event -->
                 <DispatchMouseEvent type="mouseDown" localX="100" localY="9" target="tb"/> 
-                <WaitForEvent eventName="complete" target="tb.getChildAt(1).getChildAt(0).selectedUpImage" /> 
+                <WaitForEvent eventName="complete" target="tb.getChildAt(1).currentSkin.selectedUpImage" /> 
                 <WaitForEffectsToEnd />
                 <WaitForLayoutManager />
             </setup>
