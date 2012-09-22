@@ -20,8 +20,8 @@
 <mx:Application 
     backgroundColor="0xFFFFFF" 
     backgroundImage="" 
-    height="500" 
-    width="700" 
+    height="800" 
+    width="1000" 
     xmlns:mx="http://www.adobe.com/2006/mxml" 
     xmlns="*" >
 
