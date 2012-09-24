@@ -1212,13 +1212,22 @@ public class UnitTester extends EventDispatcher
 	}
 	
 	public static var pendingOutput:int = 0;
+	public static var frameWaitCount:int = 0;
 	
-	private static function waitForOutput(event:Event):void
+	private static function waitForOutput():void
 	{
 		if (pendingOutput > 0)
 		{
-			trace("waiting on pending output", pendingOutput);
-			callback = waitForOutput;
+			if (frameWaitCount > 3) // wait about 3 frames to see if results come back
+			{
+				setTimeout(exit, UnitTester.coverageTimeout);				
+			}
+			else
+			{
+				trace("waiting on pending output", pendingOutput);
+				callback = waitForOutput;
+				frameWaitCount++;
+			}
 		}
 		else
 			setTimeout(exit, UnitTester.coverageTimeout);
