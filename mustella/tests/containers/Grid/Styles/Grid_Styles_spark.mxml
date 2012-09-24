@@ -95,6 +95,7 @@
 				<ResetComponent target="myCustomGrid" className="CustomGrid2" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
    				<SetProperty target="myCustomGrid.myGrid" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"/>
    				<SetStyle target="myCustomGrid.myGrid" styleName="horizontalGap"  value="80" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"  />
+   				<WaitForLayoutManager/>
 			</setup>
 			<body>
  				<AssertStyleValue target="myCustomGrid.myGrid" styleName="horizontalGap" value="80"  />
