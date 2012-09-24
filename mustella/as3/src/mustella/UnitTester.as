@@ -1207,8 +1207,21 @@ public class UnitTester extends EventDispatcher
 
 		if (exitWhenDone) 
 		{
-			setTimeout(exit, UnitTester.coverageTimeout);
+			callback = waitForOutput;
 		}
+	}
+	
+	public static var pendingOutput:int = 0;
+	
+	private static function waitForOutput(event:Event):void
+	{
+		if (pendingOutput > 0)
+		{
+			trace("waiting on pending output", pendingOutput);
+			callback = waitForOutput;
+		}
+		else
+			setTimeout(exit, UnitTester.coverageTimeout);
 	}
 
 	private static var frameCounter:int = 0;

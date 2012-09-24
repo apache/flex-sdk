@@ -136,6 +136,7 @@ public class SendResultsToRunner
 			sock.flush();
 			*/
 		
+			u.addEventListener("complete", completeHandler);
 			u.addEventListener("complete", httpEvents);
 			u.addEventListener("ioError", httpEvents);
 			u.addEventListener("open", httpEvents);
@@ -143,12 +144,16 @@ public class SendResultsToRunner
 			u.addEventListener("httpStatus", httpEvents);
 			u.addEventListener("securityError", httpEvents);
 			u.load (new URLRequest (baseURL + midURL + final));
+			UnitTester.pendingOutput++;
 		}
 
 		
 
 	}
 
+	public static function completeHandler (e:Event):void  {
+		UnitTester.pendingOutput--;
+	}
 
 	public static function httpEvents (e:Event):void  {
 		trace (e);
