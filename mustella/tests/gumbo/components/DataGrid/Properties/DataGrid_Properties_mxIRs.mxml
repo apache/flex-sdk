@@ -151,10 +151,10 @@
  	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	    </setup>
             <body>
-            	<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(6)"  />
-            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(2,1).hs.value" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.getItemAt(2).numberValue"/>
-         	 <CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid" />
+                <RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(6)"  />
+                <WaitForLayoutManager/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(2,1).hs.value" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.getItemAt(2).numberValue"/>
+                <CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid" />
            </body>
         </TestCase>
  
