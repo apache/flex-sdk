@@ -57,10 +57,16 @@
 				sortByAgeAddressFrArr[8] = final[2];
 				sortByAgeAddressFrArr[9] = final[3];
 				
+				sortByAddressAgeRevFrArr[1] = final[3];
+				sortByAddressAgeRevFrArr[2] = final[2];
+				sortByAddressAgeRevFrArr[3] = final[1];
+				sortByAddressAgeRevFrArr[4] = final[0];
+
 				sortByAgeAddressNumFrTrdArr[11] = final[0];
 				sortByAgeAddressNumFrTrdArr[12] = final[1];
 				sortByAgeAddressNumFrTrdArr[13] = final[2];
 				sortByAgeAddressNumFrTrdArr[14] = final[3];
+				
 				
 			}
 			
@@ -180,6 +186,24 @@ for example, cote < côte < coté < côté instead of cote < coté < côte < cô
 				'Umbra', 
 			]);
 			
+			public var sortByAddressAgeRevFrArr:ArrayCollection = new ArrayCollection([
+				'cadbury', 
+				'Bo', 
+				'TJ',
+				'barmen', 
+				'Izzy', 
+				'Moe', 
+				'Molly', 
+				'Matisse', 
+				'Bunny', 
+				'Daisy', 
+				'Imari', 
+				'Umbra', 
+				'Danny', 
+				'Ted', 
+				'Chumley', 
+			]);
+				
 			public var sortByAgeAddressNumTrdArr:ArrayCollection = new ArrayCollection([
 				'Chumley', 
 				'Ted', 
