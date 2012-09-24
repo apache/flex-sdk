@@ -425,7 +425,7 @@
                 <ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" />
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tn.tabn"/>
-                <WaitForEvent eventName="complete" target="tn.tabn.rawChildren.getChildAt(2).getChildAt(0).getChildAt(0).selectedOverImage" /> 
+                <WaitForEvent eventName="complete" target="tn.tabn.rawChildren.getChildAt(2).getChildAt(0).currentSkin.selectedOverImage" /> 
                 <WaitForEffectsToEnd />
              </setup>
             <body>
@@ -437,7 +437,7 @@
                 <ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tn.tabn"/>
-                <WaitForEvent eventName="complete" target="tn.tabn.rawChildren.getChildAt(2).getChildAt(1).getChildAt(0).overImage" /> 
+                <WaitForEvent eventName="complete" target="tn.tabn.rawChildren.getChildAt(2).getChildAt(1).currentSkin.overImage" /> 
                 <WaitForEffectsToEnd />
             </setup>
             <body>
@@ -464,7 +464,7 @@
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tn.tabn" waitEvent="mouseDown"/>
-                <WaitForEvent eventName="complete" target="tn.tabn.rawChildren.getChildAt(2).getChildAt(1).getChildAt(0).selectedUpImage" /> 
+                <WaitForEvent eventName="complete" target="tn.tabn.rawChildren.getChildAt(2).getChildAt(1).currentSkin.selectedUpImage" /> 
                 <WaitForEffectsToEnd />
             </setup>
             <body>
