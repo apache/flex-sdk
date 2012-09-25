@@ -20,6 +20,7 @@ package {
 
 import flash.display.DisplayObject;
 import flash.net.*;
+import flash.utils.*;
 import flash.events.Event;
 
 
@@ -145,14 +146,19 @@ public class SendResultsToRunner
 			u.addEventListener("securityError", httpEvents);
 			u.load (new URLRequest (baseURL + midURL + final));
 			UnitTester.pendingOutput++;
+			dict[u] = baseURL + midURL + final;
 		}
 
 		
 
 	}
+	
+	public static var dict:Dictionary = new Dictionary();
 
 	public static function completeHandler (e:Event):void  {
 		UnitTester.pendingOutput--;
+		//trace("received complete for", dict[e.target]);
+		delete dict[e.target];
 	}
 
 	public static function httpEvents (e:Event):void  {

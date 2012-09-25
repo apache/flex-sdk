@@ -1172,6 +1172,22 @@ public class UnitTester extends EventDispatcher
 	 */
 	private static function scriptsCompleteHandler(event:Event):void
 	{
+		cleanUpAndExit();
+	}
+	
+	private static function cleanUpAndExit():void
+	{
+		if (pendingOutput > 0)
+		{
+			if (frameWaitCount < 4) // wait about 3 frames to see if results come back
+			{
+				trace("waiting on pending output", pendingOutput);
+				callback = cleanUpAndExit;
+				frameWaitCount++;
+				return;
+			}
+		}
+
 		var allDone:Boolean = true;
 		var n:int = scripts.length;
 		for (var i:int = 0; i < n; i++)
@@ -1207,32 +1223,13 @@ public class UnitTester extends EventDispatcher
 
 		if (exitWhenDone) 
 		{
-			callback = waitForOutput;
+			setTimeout(exit, UnitTester.coverageTimeout);				
 		}
 	}
 	
 	public static var pendingOutput:int = 0;
 	public static var frameWaitCount:int = 0;
 	
-	private static function waitForOutput():void
-	{
-		if (pendingOutput > 0)
-		{
-			if (frameWaitCount > 3) // wait about 3 frames to see if results come back
-			{
-				setTimeout(exit, UnitTester.coverageTimeout);				
-			}
-			else
-			{
-				trace("waiting on pending output", pendingOutput);
-				callback = waitForOutput;
-				frameWaitCount++;
-			}
-		}
-		else
-			setTimeout(exit, UnitTester.coverageTimeout);
-	}
-
 	private static var frameCounter:int = 0;
 
 	/**
