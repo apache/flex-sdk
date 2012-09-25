@@ -1092,9 +1092,9 @@
 	<TestCase testID="TileListAbcDND1_dragComplete" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <SetProperty target="l1" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l2" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l1"/>
@@ -1103,171 +1103,170 @@
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
             	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+	    	    <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
 		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="7" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="7" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="197"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                <DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="7" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="7" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="197"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 
 	<TestCase testID="TileListAbcDND1_dragDrop" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <SetProperty target="l1" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l2" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l2"/>
-               <SetProperty target="l1" propertyName="selectedIndex" value="0" />
+                <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
-            	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="199"  waitTarget="l2" waitEvent="dragDrop" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+        
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="199"  waitTarget="l2" waitEvent="dragDrop" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 
 	<TestCase testID="TileListAbcDND1_dragExit" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <SetProperty target="l1" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l2" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l2"/>
-               <SetProperty target="l1" propertyName="selectedIndex" value="0" />
+                <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-		<SetProperty target="l1" propertyName="height" value="105" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
-            	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1" propertyName="height" value="105" />
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" localX="-2" localY="195"  waitTarget="l2" waitEvent="dragExit" />
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="-1" localY="190"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" localX="-2" localY="195"  waitTarget="l2" waitEvent="dragExit" />
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="-1" localY="190"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 
 	<TestCase testID="TileListAbcDND1_rejectDrop1" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <SetProperty target="l1" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l2" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l2"/>
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
                 <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
-             	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	     		<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="191"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+        
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+        
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="191"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
             </body>
         </TestCase>
+        
 	<TestCase testID="TileListColDefaultRenderer_dragComplete" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
                 <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
@@ -1276,36 +1275,36 @@
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
-            	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 	<TestCase testID="TileListColDefaultRenderer_dragExit" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
                 <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
@@ -1314,40 +1313,41 @@
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
-            	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
-		<Pause timeout="100"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="-10" localY="-10"  waitEvent="dragExit"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="-10" localY="-10"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
+                <Pause timeout="100"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="-10" localY="-10"  waitEvent="dragExit"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="-10" localY="-10"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
-	<TestCase testID="TileListColDefaultRenderer_dragDrop" keywords="[DragDrop, List]" description="">
+        
+	    <TestCase testID="TileListColDefaultRenderer_dragDrop" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
-
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
+                
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
                 <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
@@ -1356,39 +1356,39 @@
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
-            	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="15"  waitEvent="dragDrop" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                <DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="15"  waitEvent="dragDrop" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 
 	<TestCase testID="TileListColDefaultRenderer_rejectDrop1" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
-
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
+                
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
                 <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
@@ -1396,38 +1396,38 @@
                 <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
-             	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	     		<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="30"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                <DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="30"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 
 	<TestCase testID="TileListColDefaultRenderer_rejectDrop2" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
-
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
+                
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
                 <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
@@ -1435,26 +1435,26 @@
                 <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="false" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
-             	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	     		<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="15" waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                <DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="15" waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
 
             </body>
         </TestCase>
@@ -1463,12 +1463,12 @@
 	<TestCase testID="TileListColAbcDND1_dragComplete" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
-
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
+                
                 <SetProperty target="l1" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l2" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l1"/>
@@ -1477,169 +1477,169 @@
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
-            	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="7" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="7" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="197"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                <DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="7" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="7" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="197"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 
 	<TestCase testID="TileListColAbcDND1_dragDrop" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <SetProperty target="l1" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l2" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l2"/>
-               <SetProperty target="l1" propertyName="selectedIndex" value="0" />
+                <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
-
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
-            	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
+                
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="199"  waitTarget="l2" waitEvent="dragDrop" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="199"  waitTarget="l2" waitEvent="dragDrop" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 
 	<TestCase testID="TileListColAbcDND1_dragExit" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
-
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
+                
                 <SetProperty target="l1" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l2" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l2"/>
-               <SetProperty target="l1" propertyName="selectedIndex" value="0" />
+                <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-		<SetProperty target="l1" propertyName="height" value="105" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
-            	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1" propertyName="height" value="105" />
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" localX="-2" localY="195"  waitTarget="l2" waitEvent="dragExit" />
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="-1" localY="190"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" localX="-2" localY="195"  waitTarget="l2" waitEvent="dragExit" />
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="-1" localY="190"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 
 	<TestCase testID="TileListColAbcDND1_rejectDrop1" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
-
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="columns" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="columns" />
+                
                 <SetProperty target="l1" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l2" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l2"/>
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="200" waitEvent="updateComplete"/>
                 <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
-             	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	     		<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="191"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+        
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+        
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="199" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="198" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="191"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
 
             </body>
         </TestCase>
@@ -1647,11 +1647,11 @@
 	<TestCase testID="TileListRowsDefaultRenderer_dragComplete" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
                 <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
@@ -1660,36 +1660,36 @@
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
-            	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter" timeout="50"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter" timeout="50"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 	<TestCase testID="TileListRowsDefaultRenderer_dragExit" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
                 <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
@@ -1698,41 +1698,41 @@
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
-            	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
- 		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="-1" localY="-10"  waitEvent="dragExit"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+        
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="-1" localY="-10"  waitEvent="dragExit"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 	<TestCase testID="TileListRowsDefaultRenderer_dragDrop" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
-
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
+                
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
                 <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
@@ -1741,39 +1741,39 @@
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
-            	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="15"  waitEvent="dragDrop" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                <DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="15"  waitEvent="dragDrop" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 
 	<TestCase testID="TileListRowsDefaultRenderer_rejectDrop1" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
-
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
+                
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
                 <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
@@ -1781,38 +1781,38 @@
                 <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
-             	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	     		<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="30"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                <DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="30"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 
 	<TestCase testID="TileListRowsDefaultRenderer_rejectDrop2" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
-
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
+                
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
                 <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
@@ -1820,26 +1820,26 @@
                 <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="false" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
-             	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	     		<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="15" waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                <DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="15" waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
 
             </body>
         </TestCase>
@@ -1848,12 +1848,12 @@
 	<TestCase testID="TileListRowsAbcDND1_dragComplete" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
-
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
+                
                 <SetProperty target="l1" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l2" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l1"/>
@@ -1862,178 +1862,178 @@
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
-            	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="7" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="7" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="197"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                <DispatchMouseClickEvent target="l1"    localX="20" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="7" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="7" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="197"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 
 	<TestCase testID="TileListRowsAbcDND1_dragDrop" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <SetProperty target="l1" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l2" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l2"/>
-               <SetProperty target="l1" propertyName="selectedIndex" value="0" />
+                <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
-
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
+                
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
             	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
 	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="99"  waitTarget="l2" waitEvent="dragDrop" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+        
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="99"  waitTarget="l2" waitEvent="dragDrop" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 
 	<TestCase testID="TileListRowsAbcDND1_dragExit" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
-
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
+                
                 <SetProperty target="l1" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l2" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l2"/>
-               <SetProperty target="l1" propertyName="selectedIndex" value="0" />
+                <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-		<SetProperty target="l1" propertyName="height" value="105" />
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
-            	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1" propertyName="height" value="105" />
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-		<Pause timeout="20"/>
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<Pause timeout="20"/>
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
- 		<Pause timeout="20"/>
- 		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
-		<Pause timeout="20"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<Pause timeout="20"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<Pause timeout="20"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<Pause timeout="20"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<Pause timeout="20"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" localX="-2" localY="195"  waitTarget="l2" waitEvent="dragExit" />
-		<Pause timeout="20"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="-1" localY="90"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                <Pause timeout="20"/>
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <Pause timeout="20"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <Pause timeout="20"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="30"  waitEvent="dragOver"/>
+                <Pause timeout="20"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <Pause timeout="20"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <Pause timeout="20"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <Pause timeout="20"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <Pause timeout="20"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" localX="-2" localY="195"  waitTarget="l2" waitEvent="dragExit" />
+                <Pause timeout="20"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="-1" localY="90"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 
 	<TestCase testID="TileListRowsAbcDND1_rejectDrop1" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
-
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
+                
                 <SetProperty target="l1" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l2" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l2"/>
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
                 <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
-             	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	     		<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="91"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+        
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+        
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="145" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="145" localY="91"  waitTarget="l1" waitEvent="dragComplete" />
+                <WaitForEffectsToEnd/>
 
             </body>
         </TestCase>
@@ -2041,49 +2041,49 @@
 	<TestCase testID="TileListRowsAbcDND1_dragDropLeft" keywords="[DragDrop, List]" description="">
            <setup>
                 <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <ResetComponent target="l2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
+                <SetProperty    target="l2" propertyName="layout"  valueExpression="value=new TileLayout()" />
                 <SetProperty target="l1" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l2" propertyName="itemRenderer"  valueExpression ="value= new ClassFactory( comps.ItemWithBorder )"  />
                 <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l1"/>
                 <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createAbc()" waitEvent="updateComplete" waitTarget="l2"/>
-               <SetProperty target="l1" propertyName="selectedIndex" value="0" />
+                <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="true" />
-		<SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
-		<SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
-
-		<SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
-		<SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
-            	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
-	    	<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty    target="l1.layout" propertyName="orientation" value="rows" />
+                <SetProperty    target="l2.layout" propertyName="orientation" value="rows" />
+                
+                <SetProperty target="l1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l1" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="l2" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+                <SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" />
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="3" localY="30"  waitEvent="dragOver"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="3" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="1" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="2" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-		<Pause timeout="100" />
-		<DispatchMouseEvent target="l2" type="mouseUp" localX="2" localY="99"  waitTarget="l2" waitEvent="dragDrop" />
-		<WaitForEffectsToEnd/>
-		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
+                <RunCode code="DragManager.endDrag()" />
+                <DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+                
+                <DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+                <DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="145" localY="12" waitEvent="dragStart" />
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitEvent="dragEnter"/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="3" localY="30"  waitEvent="dragOver"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="3" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="1" localY="99" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="2" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <Pause timeout="100" />
+                <DispatchMouseEvent target="l2" type="mouseUp" localX="2" localY="99"  waitTarget="l2" waitEvent="dragDrop" />
+                <WaitForEffectsToEnd/>
+                <Pause timeout="100"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="hg" url="../events/baselines/$testID.png" />
             </body>
         </TestCase>
 
