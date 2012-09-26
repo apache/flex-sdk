@@ -253,7 +253,7 @@
         description="Prompt the user before downloading BlaseDS">
 
         <property name="blazeds.prompt.text" 
-            value="Apache Flex can optionally integrate with Adobe BlazeDS..
+            value="Apache Flex can optionally integrate with Adobe BlazeDS.
             ${line.separator}This feature requires flex-messaging-common.jar from the Adobe Flex SDK.
             ${line.separator}The Adobe SDK license agreement for Adobe Flex 4.6 applies to this jar.
             ${line.separator}This license is not compatible with the Apache v2 license.
