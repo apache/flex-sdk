@@ -1676,7 +1676,8 @@ public class Runner {
 
 			/// if we got here, it's done
 			running = false;
-
+			System.out.println ("Total Results so far: " + localResultStore.size());
+			
 		}
 
 	}
