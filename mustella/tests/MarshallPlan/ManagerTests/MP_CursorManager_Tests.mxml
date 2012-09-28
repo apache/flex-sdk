@@ -308,7 +308,7 @@
                <RunCode code="ResetCursorManager();" />
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
                <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
-               <SetProperty target="swf1" propertyName="source" value="http://localhost/MarshallPlan/SWFs/assets/MP_CursorManager_Child_WithControls.swf?300_4?300_4?300_4" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_CursorManager_Child_WithControls.swf?300_4?300_4?300_4" waitTarget="swf1" waitEvent="updateComplete"/>
                <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
             </setup>
             <body>

@@ -52,7 +52,7 @@
                <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
                <Pause timeout="100" />
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
-               <SetProperty target="swf1" propertyName="source" value="http://localhost/MarshallPlan/SWFs/assets/MP_SparkControls_Child.swf?227_40?227_40?227_40" />
+               <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_SparkControls_Child.swf?227_40?227_40?227_40" />
                <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
             </setup>
             <body>
@@ -94,7 +94,7 @@
                  <SetProperty target="swf2" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf2" waitEvent="updateComplete"/>
                  <Pause timeout="100" />
                  <SetProperty target="swf2" propertyName="autoLoad" value="false" />
-                 <SetProperty target="swf2" propertyName="source" value="http://localhost/MarshallPlan/SWFs/assets/MP_SparkControls_Child.swf?286_40?286_40?286_40" />
+                 <SetProperty target="swf2" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_SparkControls_Child.swf?286_40?286_40?286_40" />
                  <SetProperty target="swf2" propertyName="autoLoad" value="true" waitTarget="swf2" waitEvent="complete"/>
               </setup>
               <body>
