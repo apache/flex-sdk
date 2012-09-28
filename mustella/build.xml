@@ -1025,8 +1025,8 @@
     
         <condition property="apollo_excludes" value="apollo/**/*.mxml" >
             <istrue value="${use_browser}" />
-        </condition>
     
+        </condition>
         <fileset id="sdk.mustella.fileset" dir="${sdk.mustella.dir}" 
             includes="${sdk.mustella.includes}" 
             excludes="${sdk.mustella.excludes},**/baselines/,**/Baselines/,**/comps/*.mxml,**/Assets/**/*.swf,**/assets/**/*.swf, ${browser_excludes},${apollo_excludes},${other.mustella.excludes},${apollo_specific_excludes}" >
@@ -1749,6 +1749,7 @@
             <arg value="ExitWhenDone"/>
             <arg value="IncludeListTextFile" />
             <arg value="IncludeFileLocation" />
+            <arg value="Localhost8080" />
             <arg value="MustellaPNGEncoder"/>
             <arg value="Pause"/>
             <arg value="ResetComponent"/>
