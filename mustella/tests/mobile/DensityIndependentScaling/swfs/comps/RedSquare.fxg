@@ -1,1 +1,17 @@
-﻿<?xml version="1.0" encoding="UTF-8"?><Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"  viewHeight= "48" viewWidth= "251">	<Library>	</Library>	<Group d:type="layer" d:layerType="page" d:userLabel="Page_1" d:pageWidth="251" d:pageHeight="48">		<Group d:userLabel="Layer_1" d:type="layer">			<Group d:userLabel="Group_0">				<Path winding="evenOdd" data="M 0 12 C 0 5 5 0 12 0 C 12 0 239 0 239 0 C 246 0 251 5 251 12 C 251 12 251 36 251 36 C 251 43 246 48 239 48 C 239 48 12 48 12 48 C 5 48 0 43 0 36 C 0 36 0 12 0 12 Z " blendMode="normal" alpha="1">					<fill>						 <SolidColor color="#d90505"/>					</fill>				</Path>			</Group>		</Group>	</Group></Graphic>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"  viewHeight= "48" viewWidth= "251">
+	<Library>
+	</Library>
+
+	<Group d:type="layer" d:layerType="page" d:userLabel="Page_1" d:pageWidth="251" d:pageHeight="48">
+		<Group d:userLabel="Layer_1" d:type="layer">
+			<Group d:userLabel="Group_0">
+				<Path winding="evenOdd" data="M 0 12 C 0 5 5 0 12 0 C 12 0 239 0 239 0 C 246 0 251 5 251 12 C 251 12 251 36 251 36 C 251 43 246 48 239 48 C 239 48 12 48 12 48 C 5 48 0 43 0 36 C 0 36 0 12 0 12 Z " blendMode="normal" alpha="1">
+					<fill>
+						 <SolidColor color="#d90505"/>
+					</fill>
+				</Path>
+			</Group>
+		</Group>
+	</Group>
+</Graphic>

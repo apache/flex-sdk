@@ -1,4 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?><Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:fc="http://ns.adobe.com/flashcatalyst/2009">	<Path y="1" data="M 2 0 L 7 7 L 2 14 L 0 14 L 5 7 L 0 0 L 2 0 Z">		<fill>			<SolidColor color="#000000" alpha="0.6"/>		</fill>	</Path>	<Path data="M 2 0 L 7 7 L 2 14 L 0 14 L 5 7 L 0 0 L 2 0 Z">		<fill>			<SolidColor color="#ffffff"/>		</fill>	</Path></Graphic><!--
+<?xml version="1.0" encoding="UTF-8"?>
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:fc="http://ns.adobe.com/flashcatalyst/2009">
+	<Path y="1" data="M 2 0 L 7 7 L 2 14 L 0 14 L 5 7 L 0 0 L 2 0 Z">
+		<fill>
+			<SolidColor color="#000000" alpha="0.6"/>
+		</fill>
+	</Path>
+	<Path data="M 2 0 L 7 7 L 2 14 L 0 14 L 5 7 L 0 0 L 2 0 Z">
+		<fill>
+			<SolidColor color="#ffffff"/>
+		</fill>
+	</Path>
+</Graphic><!--
 
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
