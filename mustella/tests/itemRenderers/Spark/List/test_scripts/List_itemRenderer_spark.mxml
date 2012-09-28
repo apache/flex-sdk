@@ -214,7 +214,7 @@
                <RunCode code="createData(application.comboList);" waitTarget="comboList" waitEvent="updateComplete" />
             </setup>
             <body>
-               <CompareBitmap url="../baselines/comboBoxRenderer.png" target="comboList.mx_internal:rendererArray.2.0" />
+               <CompareBitmap url="../baselines/comboBoxRenderer.png" target="comboList.mx_internal:rendererArray.2.0" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
          <TestCase testID="itemRenderers_Bug160800" description="Test for Bug #160800" keywords="[ComboBox, Bugs, 160800, itemRenderers]">

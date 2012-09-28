@@ -210,7 +210,7 @@
 			<body>
 			   <DispatchMouseClickEvent target="comboList2.mx_internal:rendererArray.2.0" localX="4" localY="4" waitEvent="itemFocusIn" waitTarget="comboList2" />
 			   <WaitForEffectsToEnd />
-			   <CompareBitmap url="../baselines/comboBoxItemEditor.png" target="comboList2.mx_internal:rendererArray.2.0" />
+			   <CompareBitmap url="../baselines/comboBoxItemEditor.png" target="comboList2.mx_internal:rendererArray.2.0" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 	</testCases>

@@ -84,7 +84,7 @@
 			<body>
 			   <DispatchMouseClickEvent target="checkDataGrid2" localX="150" localY="60" waitEvent="itemFocusIn" waitTarget="checkDataGrid2" />
 			   <WaitForEffectsToEnd />
-			   <CompareBitmap url="../baselines/checkBoxItemEditor.png" target="checkDataGrid2.mx_internal:rendererArray.2.1" />
+			   <CompareBitmap url="../baselines/checkBoxItemEditor.png" target="checkDataGrid2.mx_internal:rendererArray.2.1" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
         <!--NumericStepper renderer-->
@@ -216,7 +216,7 @@
                <DispatchMouseClickEvent target="comboDataGrid2.mx_internal:rendererArray.2.1" localX="4" localY="4" waitEvent="itemFocusIn" waitTarget="comboDataGrid2" />
                <!--Pause timeout="200" /-->
                <WaitForEffectsToEnd />
-               <CompareBitmap url="../baselines/comboBoxItemEditor.png" target="comboDataGrid2.mx_internal:rendererArray.2.1" />
+               <CompareBitmap url="../baselines/comboBoxItemEditor.png" target="comboDataGrid2.mx_internal:rendererArray.2.1" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
 
