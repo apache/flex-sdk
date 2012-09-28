@@ -52,7 +52,7 @@
 				<SetProperty propertyName="text" value="1234567890" target="basicFrm.ti1" waitEvent="textChanged" waitTarget="basicFrm.ti1"/> 
 				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="focusIn"/>
 				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="invalid" />
-				<CompareBitmap url="../Events/baselines/$testID.png" target="basicFrm" />
+				<CompareBitmap url="../Events/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 				
 				<AssertMethodValue method="value=application.basicFrm.fi1.elementErrorStrings[0]" value="This string is longer than the maximum allowed length. This must be less than 8 characters long." />
 			</body>
@@ -65,9 +65,9 @@
 				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="focusIn"/>
 				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="invalid" />
 				<Pause timeout="200"/>
-				<CompareBitmap url="../Events/baselines/$testID_1.png" target="basicFrm" />
+				<CompareBitmap url="../Events/baselines/$testID_1.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 				<SetProperty propertyName="text" value="1234567" target="basicFrm.ti1" waitEvent="valid" waitTarget="basicFrm.ti1"/> 
-				<CompareBitmap url="../Events/baselines/$testID_2.png" target="basicFrm" />
+				<CompareBitmap url="../Events/baselines/$testID_2.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="FormItem_enter_event_defaultButton" keywords="[Form, Validator, event, invalid]" description="FormItem with a validator fires a valid event">
@@ -79,7 +79,7 @@
 				<DispatchKeyEvent keys="[ENTER]" waitEvent="propertyChange" waitTarget="basicFrm.fi4.skin"/>
 				<Pause timeout="200"/>
 				<AssertPropertyValue propertyName="text" target="basicFrm.newLbl" value="submitted" />
-				<CompareBitmap url="../Events/baselines/$testID.png" target="basicFrm" />
+				<CompareBitmap url="../Events/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 	</testCases>

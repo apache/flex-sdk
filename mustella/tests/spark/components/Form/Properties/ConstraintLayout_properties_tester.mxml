@@ -164,7 +164,7 @@
 				<AssertPropertyValue propertyName="height" target="basicGrp.row3" value="50"/>
 				<AssertPropertyValue propertyName="height" target="basicGrp.row4" value="120"/>
 				<AssertPropertyValue propertyName="height" target="basicGrp.row5" value="23"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="ConstraintLayout_ConstraintRow_height_larger_than_Group_height" keywords="[ConstraintLayout, ConstraintRow, fixed, width]" description="ConstraintLayout ConstraintRow takes up entire Group">
@@ -175,7 +175,7 @@
 				<SetProperty propertyName="height" target="basicGrp.row1" value="300"/>
 				<SetProperty propertyName="clipAndEnableScrolling" target="basicGrp" value="true"/>
 				<SetProperty propertyName="height" target="basicGrp" value="200" waitEvent="updateComplete" waitTarget="basicGrp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="ConstraintLayout_ConstraintColumn_wider_than_Group_height" keywords="[ConstraintLayout, ConstraintColumn, fixed, width]" description="ConstraintColumn takes up entire Group">
@@ -186,7 +186,7 @@
 				<SetProperty propertyName="width" target="basicGrp.col1" value="300"/>
 				<SetProperty propertyName="clipAndEnableScrolling" target="basicGrp" value="true"/>
 				<SetProperty propertyName="width" target="basicGrp" value="200" waitEvent="updateComplete" waitTarget="basicGrp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="Constraint_default_layout" keywords="[Constraint, layout]" description="default Constraint layout is VerticalLayout">
@@ -230,7 +230,7 @@
 			<body>
 				<SetProperty propertyName="x" target="basicGrp.btn1" value="30" />
 				<SetProperty propertyName="y" target="basicGrp.btn1" value="40" waitEvent="updateComplete" />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="ConstraintLayout_x_baseline_element" keywords="[ConstraintLayout, x, y]" description="Element with x and baseline set has correct x and y">
@@ -241,7 +241,7 @@
 				<SetProperty propertyName="x" target="basicGrp.btn1" value="30" />
 				<SetProperty propertyName="baseline" target="basicGrp.btn1" value="60" waitEvent="updateComplete"/>
 				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="45.4" />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="ConstraintLayout_left_parent" keywords="[ConstraintLayout, x, y]" description="Element with left set has correct x and y">
@@ -337,7 +337,7 @@
 				<SetProperty propertyName="left" target="basicGrp.btn1" value="20" waitEvent="updateComplete"/>
 				<AssertPropertyValue propertyName="x" target="basicGrp.btn1" value="20" />
 				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="15" />	
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="ConstraintLayout_bottom_right_element" keywords="[ConstraintLayout, x, y]" description="Element with bottom and right set has correct x and y">
@@ -423,7 +423,7 @@
 				<AssertPropertyValue propertyName="x" target="basicGrp.btn2" value="0" />
 				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="15.4" />	
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="ConstraintLayout_baseline_bottom_to_parent" keywords="[ConstraintLayout, x, y]" description="top and bottom size element baseline aligns element">
@@ -480,7 +480,7 @@
 				<SetProperty propertyName="top" target="basicGrp.btn2" value="row2:100" waitEvent="updateComplete"/>
 				<AssertPropertyValue propertyName="x" target="basicGrp.btn2" value="0" />
 				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="115" />	
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="ConstraintLayout_top_baseline_bottom_to_ConstraintRow_element" keywords="[ConstraintLayout, x, y]" description="Element with top bottom and baseline constrained to ConstraintRow has correct x and y">
@@ -495,7 +495,7 @@
 				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="165" />	
 				<AssertPropertyValue propertyName="height" target="basicGrp.btn2" value="21" />
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="ConstraintLayout_left_right_parent" keywords="[ConstraintLayout, x, y]" description="left and right determine width">
@@ -629,7 +629,7 @@
 				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="50.4"/>
 				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="70.4"/>
 				<AssertPropertyValue propertyName="y" target="basicGrp.ti" value="49.8"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="ConstraintLayout_baselineConstraintRow_top_offset" keywords="[ConstraintLayout, rowBaseline]" description="Set rowBaseline make sure all elements line up">
@@ -650,7 +650,7 @@
 				
 				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="125.4"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="ConstraintLayout_baselineConstraintRow_negative_offset" keywords="[ConstraintLayout, rowBaseline]" description="Set rowBaseline make sure all elements line up">
@@ -675,7 +675,7 @@
 				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="50.4"/>
 				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="30.4"/>
 				<AssertPropertyValue propertyName="y" target="basicGrp.ti" value="49.8"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp" numColorVariances="5" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 	</testCases>	

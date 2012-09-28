@@ -86,7 +86,7 @@
 			</setup>
 			<body>
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.sparkPnl"/>
-				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di" numColorVariances="10" maxColorVariance="1" />
 			</body>
 		</TestCase>
 
@@ -97,7 +97,7 @@
 			</setup>
 			<body>
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.haloPnl"/>
-				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di" numColorVariances="10" maxColorVariance="1" />
 			</body>
 		</TestCase>
 
@@ -108,7 +108,7 @@
 			</setup>
 			<body>
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.haloTW"/>
-				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di" numColorVariances="10" maxColorVariance="1" />
 			</body>
 		</TestCase>
 
@@ -121,7 +121,7 @@
 			</setup>
 			<body>
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.myMenu"/>	
-				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di" numColorVariances="10" maxColorVariance="1" />
 			</body>
 		</TestCase>
 
@@ -133,7 +133,7 @@
 			</setup>
 			<body>
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.sparkDDL"/>
-				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di" numColorVariances="10" maxColorVariance="1" />
 			</body>
 		</TestCase>
 
@@ -145,7 +145,7 @@
 			</setup>
 			<body>
 				<AssertStyleValue styleName="dropDownStyleName" value="showShadow" target="di.haloCB"/>
-				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di" numColorVariances="10" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -166,7 +166,7 @@
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="diMXML.haloPnl"/>
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="diMXML.haloTW"/>
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="diMXML.sparkDDL"/>
-				<CompareBitmap url="../local/baselines/$testID.png" target="diMXML"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="diMXML" numColorVariances="10" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -180,7 +180,7 @@
 			<body>
 				<RunCode code="application.diMXML.sparkDDL.openDropDown()" waitEvent="open" waitTarget="diMXML.sparkDDL"/>
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="diMXML.sparkDDL"/>
-				<CompareBitmap url="../local/baselines/$testID.png" target="diMXML"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="diMXML" numColorVariances="10" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -193,7 +193,7 @@
 				<ResetComponent target="diMXML" className="comps.dropShadowItemsMXML" waitEvent="updateComplete"/>
 				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
 				<SetProperty target="diMXML" propertyName="visible" value="false"/>
-				<CompareBitmap url="../local/baselines/$testID_1.png" target="di"/>
+				<CompareBitmap url="../local/baselines/$testID_1.png" target="di" numColorVariances="10" maxColorVariance="1"/>
 				<SetProperty propertyName="currentState" value="state1" target="di" waitEvent="currentStateChange"/>
 			</setup>
 			<body>
@@ -201,7 +201,7 @@
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.haloPnl"/>
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.haloTW"/>
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.sparkDDL"/>
-				<CompareBitmap url="../local/baselines/$testID_2.png" target="di"/>
+				<CompareBitmap url="../local/baselines/$testID_2.png" target="di" numColorVariances="10" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -218,7 +218,7 @@
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.haloTW"/>
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.sparkDDL"/>
 				<AssertStyleValue styleName="dropDownStyleName" value="showShadow" target="di.haloCB"/>
-				<CompareBitmap url="../local/baselines/$testID_1.png" target="di"/>
+				<CompareBitmap url="../local/baselines/$testID_1.png" target="di" numColorVariances="10" maxColorVariance="1"/>
 				
 				<SetProperty propertyName="currentState" value="defaultState" target="di" waitEvent="currentStateChange"/>
 				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.sparkPnl"/>
@@ -226,7 +226,7 @@
 				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.haloTW"/>
 				<AssertStyleValue styleName="dropShadowVisible" value="true" target="di.sparkDDL"/>
 				<AssertStyleValue styleName="dropDownStyleName" value="noShadow" target="di.haloCB"/>
-				<CompareBitmap url="../local/baselines/$testID_2.png" target="di"/>
+				<CompareBitmap url="../local/baselines/$testID_2.png" target="di" numColorVariances="10" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -240,7 +240,7 @@
 			</setup>
 			<body>
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.sparkDDL"/>
-				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di" numColorVariances="10" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -254,7 +254,7 @@
 			</setup>
 			<body>
 				<AssertStyleValue styleName="dropDownStyleName" value="showShadow" target="di.haloCB"/>
-				<CompareBitmap url="../local/baselines/$testID.png" target="di"/>
+				<CompareBitmap url="../local/baselines/$testID.png" target="di" numColorVariances="10" maxColorVariance="1"/>
 			</body>
 		</TestCase>
     </testCases>

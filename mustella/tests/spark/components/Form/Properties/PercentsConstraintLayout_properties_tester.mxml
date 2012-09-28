@@ -573,7 +573,7 @@
 				<AssertPropertyValue propertyName="width" target="contentPer.ti" value="115"/>
 				<AssertPropertyValue propertyName="width" target="contentPer.cb" value="145"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="PercentColumn_contentSized_and_percentSized_maxWidth" keywords="[ConstraintLayout, percent, column]" description="ConstraintLayout respects maxWidth">

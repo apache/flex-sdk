@@ -36,10 +36,10 @@
   				<DispatchMouseEvent target="ci.haloLnkBar" localX="20" localY="20" type="mouseOver" waitEvent="updateComplete" waitTarget="ci.haloLnkBar.getChildAt(0)"/>
 			</setup>
  			<body>
-  				<CompareBitmap url="../local/baselines/$testID.png" target="ci" numColorVariances="5" ignoreMaxColorVariance="true"/>
+  				<CompareBitmap url="../local/baselines/$testID.png" target="ci" numColorVariances="15" ignoreMaxColorVariance="true"/>
   				<DispatchMouseEvent target="ci.haloLnkBtn" localX="20" localY="20" type="rollOver" />
 				<DispatchMouseEvent target="ci.haloLnkBtn" localX="20" localY="20" type="mouseOver" waitEvent="updateComplete" waitTarget="ci.haloLnkBtn"/>
-				<CompareBitmap url="../local/baselines/$testID_haloLnkBtn.png" target="ci.haloLnkBtn" numColorVariances="5" ignoreMaxColorVariance="true"/>
+				<CompareBitmap url="../local/baselines/$testID_haloLnkBtn.png" target="ci.haloLnkBtn" numColorVariances="15" ignoreMaxColorVariance="true"/>
   			</body>
   		</TestCase>
   		<TestCase testID="cornerRadius_mxml_sparkButton" keywords="[cornerRadius, Button]" description="cornerRadius set with mxml applies to Spark Button">
