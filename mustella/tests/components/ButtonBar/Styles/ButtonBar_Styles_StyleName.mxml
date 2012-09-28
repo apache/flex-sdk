@@ -145,7 +145,7 @@
                 <DispatchKeyEvent key="TAB"  />
                 <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
                 <AssertStyleValue target="bb" styleName="firstButtonStyleName" value="fontSizeCustom underLineStyle"/>
-                <CompareBitmap target="bb.getChildAt(0)" url="../Styles/baselines/$testID.png" timeout="5000" />
+                <CompareBitmap target="bb.getChildAt(0)" url="../Styles/baselines/$testID.png" timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true" />
             </body>
         </TestCase>
         
@@ -188,7 +188,7 @@
                 <DispatchKeyEvent key="TAB"  />
                 <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
                 <AssertStyleValue target="bb" styleName="buttonStyleName" value="fontSizeCustom underLineStyle"/>
-                <CompareBitmap target="bb.getChildAt(1)" url="../Styles/baselines/$testID.png" timeout="5000" />
+                <CompareBitmap target="bb.getChildAt(1)" url="../Styles/baselines/$testID.png" timeout="5000" numColorVariances="8" ignoreMaxColorVariance="true" />
             </body>
         </TestCase>
 

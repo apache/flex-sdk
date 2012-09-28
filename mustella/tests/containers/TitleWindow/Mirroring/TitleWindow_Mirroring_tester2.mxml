@@ -153,7 +153,7 @@
 		    <AssertPropertyValue target="tw4.chk2" propertyName="layoutDirection" value="ltr"/>
 		    <AssertPropertyValue target="tw4.chk3" propertyName="layoutDirection" value="rtl"/> 
     		
-		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
+		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" numColorVariances="2" maxColorVariance="5" />
 		</body>
 	    </TestCase>
 	   
