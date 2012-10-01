@@ -74,7 +74,7 @@
 			<WaitForEffectsToEnd />
 		</setup>
 		<body>
-			<CompareBitmap url="../integration/baselines/datagroup_integration_PopUpButton_data.png" target="" timeout="2000" />
+			<CompareBitmap url="../integration/baselines/datagroup_integration_PopUpButton_data.png" target="" timeout="2000" numColorVariances="5" maxColorVariance="1" />
 			<SetProperty target="popUpButton" propertyName="visible"  value="false"  />
 			<RunCode code="application.popUpButton.close()" />
 			<WaitForEffectsToEnd />
@@ -89,7 +89,7 @@
 			<WaitForEffectsToEnd />
 		</setup>
 		<body>
-			<CompareBitmap url="../integration/baselines/datagroup_integration_PopUpButton_subgroups.png" target="" timeout="2000" />
+			<CompareBitmap url="../integration/baselines/datagroup_integration_PopUpButton_subgroups.png" target="" timeout="2000" numColorVariances="5" maxColorVariance="1" />
 			<SetProperty target="popUpButton" propertyName="visible"  value="false"  />
 			<RunCode code="application.popUpButton.close()" />
 			<WaitForEffectsToEnd />
@@ -107,7 +107,7 @@
 		</setup>
 		<body>
 			<Pause timeout="100" />
-			<CompareBitmap url="../integration/baselines/datagroup_integration_PopUpButton_data_virtual.png" target="" timeout="2000" />
+			<CompareBitmap url="../integration/baselines/datagroup_integration_PopUpButton_data_virtual.png" target="" timeout="2000" numColorVariances="5" maxColorVariance="1" />
 			<SetProperty target="popUpButton" propertyName="visible"  value="false"  />
 			<RunCode code="application.popUpButton.close()" />
 			<WaitForEffectsToEnd />

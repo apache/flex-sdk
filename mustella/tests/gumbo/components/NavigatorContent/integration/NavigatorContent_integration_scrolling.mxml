@@ -59,7 +59,7 @@
     </setup>
     <body>
 		<SetProperty target="tn1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" />
-		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" numColorVariances="15" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -70,7 +70,7 @@
     <body>
 		<SetProperty target="tn1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" />
 		<SetProperty target="tn1.grp1" propertyName="horizontalScrollPosition" value="147" waitTarget="tn1.scroller1.horizontalScrollBar" waitEvent="updateComplete" />
-		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" numColorVariances="15" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -81,7 +81,7 @@
     <body>
 		<SetProperty target="tn1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" />
 		<SetProperty target="tn1.grp1" propertyName="verticalScrollPosition" value="166" waitTarget="tn1.scroller1.verticalScrollBar" waitEvent="updateComplete" />
-		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" numColorVariances="15" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -93,7 +93,7 @@
 		<SetProperty target="tn1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" />
 		<SetProperty target="tn1.grp1" propertyName="verticalScrollPosition" value="166" waitTarget="tn1.scroller1.verticalScrollBar" waitEvent="updateComplete" />
 		<SetProperty target="tn1.grp1" propertyName="horizontalScrollPosition" value="147" waitTarget="tn1.scroller1.horizontalScrollBar" waitEvent="updateComplete" />
-		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" numColorVariances="15" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -106,7 +106,7 @@
 		<SetProperty target="tn1" propertyName="height" valueExpression="value = FlexGlobals.topLevelApplication.tn1.height + 20" />
 		<SetProperty target="tn1" propertyName="width" valueExpression="value = FlexGlobals.topLevelApplication.tn1.width + 20" waitEvent="updateComplete" />
 		<SetProperty target="tn1.grp1" propertyName="horizontalScrollPosition" value="127" waitTarget="tn1.scroller1.horizontalScrollBar" waitEvent="updateComplete" />
-		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" numColorVariances="15" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -119,7 +119,7 @@
 		<SetProperty target="tn1" propertyName="height" valueExpression="value = FlexGlobals.topLevelApplication.tn1.height + 20" />
 		<SetProperty target="tn1" propertyName="width" valueExpression="value = FlexGlobals.topLevelApplication.tn1.width + 20" waitEvent="updateComplete" />
 		<SetProperty target="tn1.grp1" propertyName="verticalScrollPosition" value="146" waitTarget="tn1.scroller1.verticalScrollBar" waitEvent="updateComplete" />
-		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" numColorVariances="15" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -133,7 +133,7 @@
 		<SetProperty target="tn1" propertyName="width" valueExpression="value = FlexGlobals.topLevelApplication.tn1.width + 20" waitEvent="updateComplete" />
 		<SetProperty target="tn1.grp1" propertyName="horizontalScrollPosition" value="127" waitTarget="tn1.scroller1.horizontalScrollBar" waitEvent="updateComplete" />
 		<SetProperty target="tn1.grp1" propertyName="verticalScrollPosition" value="146" waitTarget="tn1.scroller1.verticalScrollBar" waitEvent="updateComplete" />
-		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" numColorVariances="15" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -146,7 +146,7 @@
 		<SetProperty target="tn1" propertyName="height" valueExpression="value = FlexGlobals.topLevelApplication.tn1.height - 20" />
 		<SetProperty target="tn1" propertyName="width" valueExpression="value = FlexGlobals.topLevelApplication.tn1.width - 20" waitEvent="updateComplete" />
 		<SetProperty target="tn1.grp1" propertyName="horizontalScrollPosition" value="167" waitTarget="tn1.scroller1.horizontalScrollBar" waitEvent="updateComplete" />
-		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" numColorVariances="15" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -159,7 +159,7 @@
 		<SetProperty target="tn1" propertyName="height" valueExpression="value = FlexGlobals.topLevelApplication.tn1.height - 20" />
 		<SetProperty target="tn1" propertyName="width" valueExpression="value = FlexGlobals.topLevelApplication.tn1.width - 20" waitEvent="updateComplete" />
 		<SetProperty target="tn1.grp1" propertyName="verticalScrollPosition" value="186" waitTarget="tn1.scroller1.verticalScrollBar" waitEvent="updateComplete" />
-		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" numColorVariances="15" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -173,7 +173,7 @@
 		<SetProperty target="tn1" propertyName="width" valueExpression="value = FlexGlobals.topLevelApplication.tn1.width - 20" waitEvent="updateComplete" />
 		<SetProperty target="tn1.grp1" propertyName="horizontalScrollPosition" value="167" waitTarget="tn1.scroller1.horizontalScrollBar" waitEvent="updateComplete" />
 		<SetProperty target="tn1.grp1" propertyName="verticalScrollPosition" value="186" waitTarget="tn1.scroller1.verticalScrollBar" waitEvent="updateComplete" />
-		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" numColorVariances="15" maxColorVariance="1" />
     </body>
 </TestCase>
 

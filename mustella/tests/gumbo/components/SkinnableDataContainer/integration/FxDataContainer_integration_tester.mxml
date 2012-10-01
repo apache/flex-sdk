@@ -58,7 +58,7 @@
                 <SetProperty target="dc" propertyName="dataProvider" valueExpression="value=application.ellipseAC" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
                 <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
                 <AssertPropertyValue target = "dc.dataProvider" propertyName="length" value="7" />
-                <CompareBitmap url="../integration/baselines/$testID.png" target="dc" />
+                <CompareBitmap url="../integration/baselines/$testID.png" target="dc" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="SkDataContainer_integration_changeSkin_Bug22703" keywords="[SkinnableDataContainer, integration]" description="">

@@ -192,7 +192,7 @@ Test setting horizontalGap to various values.
         <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -210,7 +210,7 @@ Test setting horizontalGap to various values.
         <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -230,7 +230,7 @@ Test setting horizontalGap to various values.
         <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -254,7 +254,7 @@ Test setting horizontalGap to various values.
         <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -281,7 +281,7 @@ Test setting horizontalGap to various values.
         <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 

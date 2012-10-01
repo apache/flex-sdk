@@ -377,7 +377,7 @@
             <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
             <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb"/>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
     <TestCase testID="HScrollBar_event_event_thumbDrag2" keywords="[HScrollBar]" description="Test dragging thumb">
@@ -398,7 +398,7 @@
             <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
             <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb"/>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
     <TestCase testID="HScrollBar_event_thumbDrag2" keywords="[HScrollBar]" description="Test dragging thumb">
@@ -420,7 +420,7 @@
             <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
             <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb"/>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="HScrollBar_event_thumbDrag3" keywords="[HScrollBar]" description="Test dragging thumb">
@@ -443,7 +443,7 @@
             <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
             <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb"/>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
 
@@ -468,7 +468,7 @@
             <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
             <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb"/>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="HScrollBar_event_thumbDrag5" keywords="[HScrollBar]" description="Test dragging thumb">
@@ -492,7 +492,7 @@
             <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
             <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb"/>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="HScrollBar_event_thumbDrag6" keywords="[HScrollBar]" description="Test dragging thumb">
@@ -516,7 +516,7 @@
             <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
             <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb"/>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="HScrollBar_properties_layoutDirection_RTL" keywords="[HScrollBar,property,Mirroring]" description="Ensure that thumb is positioned far right when layoutDirection=RTL">

@@ -147,7 +147,7 @@
 		<DispatchMouseEvent target="l2" type="mouseUp" localX="50" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
 		<WaitForEffectsToEnd/>
 		<Pause timeout="100"/>
-		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkHaloDND/baselines/$testID.png" />
+		<CompareBitmap numColorVariances="35" maxColorVariance="1" target="hg" url="../SparkHaloDND/baselines/$testID.png" />
             </body>
         </TestCase>
 	<TestCase testID="SparkToHaloListDND1_rejectDrop2" keywords="[DragDrop, List]" description="">

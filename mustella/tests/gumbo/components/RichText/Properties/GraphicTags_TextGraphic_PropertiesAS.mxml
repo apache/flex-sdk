@@ -113,7 +113,7 @@
             </setup>
             <body>
                 <SetProperty target="graphic2.textGraphic1" propertyName="width" value="0" waitTarget="graphic2.textGraphic1" waitEvent="updateComplete" />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic2" timeout="2000"/>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic2" timeout="2000" numColorVariances="10" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="GraphicTags_TextGraphic_height_zero" description="TextGraphic height set to 0" keywords="[TextGraphic, height, Graphic]">
@@ -122,7 +122,7 @@
             </setup>
             <body>
                 <SetProperty target="graphic2.textGraphic1" propertyName="height" value="0" waitTarget="graphic2.textGraphic1" waitEvent="updateComplete" />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic2" timeout="2000"/>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic2" timeout="2000" numColorVariances="5" maxColorVariance="1"/>
            </body>
         </TestCase>
         <TestCase testID="GraphicTags_TextGraphic_height_positive" description="TextGraphic height set to a positive int causing wrapping" keywords="[TextGraphic, height, Graphic]">

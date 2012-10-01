@@ -52,7 +52,7 @@
         <RunCode code="application.sc.verticalScrollBar.changeValueByPage();" waitEvent="valueCommit" waitTarget="sc.verticalScrollBar"/>
         <SetProperty target="" propertyName="currentState" value="state2" waitTarget="" waitEvent="currentStateChange" />
         <SetProperty target="" propertyName="currentState" value="state1" waitTarget="" waitEvent="currentStateChange" />
-        <CompareBitmap url="../integration/baselines/$testID.png" target="vg" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -69,7 +69,7 @@
         <RunCode code="application.sc.verticalScrollBar.changeValueByStep();" waitEvent="updateComplete" waitTarget="sc.verticalScrollBar"/>
         <SetProperty target="" propertyName="currentState" value="state2" waitTarget="" waitEvent="currentStateChange" />
         <SetProperty target="" propertyName="currentState" value="defaultState" waitTarget="" waitEvent="currentStateChange" />
-        <CompareBitmap url="../integration/baselines/$testID.png" target="vg" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -83,7 +83,7 @@
         <SetProperty target="" propertyName="currentState" value="state1" waitTarget="" waitEvent="currentStateChange" />
         <SetProperty target="" propertyName="currentState" value="state2" waitTarget="" waitEvent="currentStateChange" />
 
-        <CompareBitmap url="../integration/baselines/$testID.png" target="vg" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 

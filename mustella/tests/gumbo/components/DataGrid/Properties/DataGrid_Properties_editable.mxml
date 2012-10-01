@@ -1539,7 +1539,7 @@
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	     		  <DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN]"  waitEvent="enterFrame" waitTarget="stage" />
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-	     		  <CompareBitmap url="../Properties/baselines/$testID_index3.png" numColorVariances="20" maxColorVariance="20" target="dataGrid7.itemEditorInstance.comboBox.dropDown"/>
+	     		  <CompareBitmap url="../Properties/baselines/$testID_index3.png" numColorVariances="30" maxColorVariance="1" target="dataGrid7.itemEditorInstance.comboBox.dropDown"/>
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
 	     		  <DispatchKeyEvent keys="[ENTER]"  waitEvent="enterFrame" waitTarget="stage"   />
 	     		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid7.dataProvider.getItemAt(0).state" value="Arkansas"/>

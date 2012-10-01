@@ -107,6 +107,10 @@
         }
         
         global{
+			fontAntiAliasType: "normal";
+			fontFamily: myArial;
+			fontSize: 12;
+			fontLookup: "embeddedCFF";
             kerning: "off";
         }
 	</fx:Style>

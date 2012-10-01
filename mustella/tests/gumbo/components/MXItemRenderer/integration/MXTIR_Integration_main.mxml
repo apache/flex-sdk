@@ -153,7 +153,7 @@ MXItemRenderer Testing - Tree - Integration tests
         <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_DropDownList)}"  />
         <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
 	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
-        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="50" maxColorVariance="1" />
         
     </body>
 </TestCase>
@@ -172,7 +172,7 @@ MXItemRenderer Testing - Tree - Integration tests
 	select dropdown list, verify value is updated?
 	
 	-->
-        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="50" maxColorVariance="1" />
         
     </body>
 </TestCase>

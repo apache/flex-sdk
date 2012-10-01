@@ -276,7 +276,7 @@
                 <DispatchMouseEvent type="mouseDown" target="vsb.track" localX="5" localY="110" waitEvent="buttonDown"/>
                 <DispatchMouseEvent type="mouseUp"   target="vsb.track" localX="5" localY="110" waitEvent="updateComplete" />
         <Pause timeout="100" />
-                <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="vsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="VScrollBar_properties_incrementButton_click" keywords="[VScrollBar,property,incrementButton,step]" description="Checking Default Values">
@@ -303,7 +303,7 @@
                 <DispatchMouseEvent type="mouseDown" target="vsb.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
                 <DispatchMouseEvent type="mouseUp"   target="vsb.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
 
-                <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="vsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="VScrollBar_properties_decrementButton_click_negativeStep_bitmap" keywords="[VScrollBar,property,decrementButton,step]" description="Checking Default Values">
@@ -331,7 +331,7 @@
                 <DispatchMouseEvent type="mouseDown" target="vsb.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
                 <DispatchMouseEvent type="mouseUp"   target="vsb.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
 
-                <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="vsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="VScrollBar_properties_decrementButton_click_positiveStep_bitmap" keywords="[VScrollBar,property,decrementButton,step]" description="Checking Default Values">
@@ -350,7 +350,7 @@
                 <DispatchMouseEvent type="mouseDown" target="vsb.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
                 <DispatchMouseEvent type="mouseUp"   target="vsb.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
 
-                <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="vsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
 
@@ -371,7 +371,7 @@
             <DispatchMouseEvent target="vsb" localX="7" localY="20" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="vsb" />
             <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
             <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
-            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
     <TestCase testID="VScrollBar_thumbDrag11" keywords="[VScrollBar]" description="Test dragging thumb">
@@ -392,7 +392,7 @@
             <DispatchMouseEvent target="vsb.thumb" localX="7" localY="15" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
             <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
     <TestCase testID="VScrollBar_thumbDrag12" keywords="[VScrollBar]" description="Test dragging thumb">
@@ -414,7 +414,7 @@
             <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
             <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="VScrollBar_thumbDrag13" keywords="[VScrollBar]" description="Test dragging thumb">
@@ -437,7 +437,7 @@
             <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
             <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
 
@@ -462,7 +462,7 @@
             <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
             <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
             <AssertPropertyValue target="vsb" propertyName="value" value="0" />
-            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="VScrollBar_thumbDrag15" keywords="[VScrollBar]" description="Test dragging thumb">
@@ -486,7 +486,7 @@
             <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
             <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="VScrollBar_properties_layoutDirection_RTL" keywords="[HScrollBar,property,Mirroring]" description="Ensure that thumb is positioned at the bottom when layoutDirection=RTL">

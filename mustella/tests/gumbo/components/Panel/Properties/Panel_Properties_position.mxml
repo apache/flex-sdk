@@ -99,7 +99,7 @@
                 <SetProperty target="myCustomPanelPosition" propertyName="rotationY" value="45" waitTarget="myCustomPanelPosition" waitEvent="updateComplete"/>
             </setup>
             <body>
-            	<CompareBitmap target="myBrdGrp" url="../Properties/Baselines/$testID.png" numColorVariances="30" maxColorVariance="10"/>
+            	<CompareBitmap target="myBrdGrp" url="../Properties/Baselines/$testID.png" numColorVariances="60" maxColorVariance="1"/>
             </body>
         </TestCase>       
 

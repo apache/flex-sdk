@@ -91,16 +91,12 @@
 		    </setup>
 
 		    <body>
-			<CompareBitmap url="../Bugs/baselines/" target="gr5" numColorVariances="10" ignoreMaxColorVariance="true">
-			    <ConditionalValue os="mac" />
-			</CompareBitmap>
+			<CompareBitmap url="../Bugs/baselines/$testID@mac.png" target="gr5" numColorVariances="10" ignoreMaxColorVariance="true" />
 		    </body>
 		</TestCase>
 		<TestCase testID="textGraphicWithFormatting_defaultFont" keywords="[RichText, format]" description="RichText format" >
 		    <body>
-			<CompareBitmap url="../Bugs/baselines/" target="gr6" numColorVariances="10" ignoreMaxColorVariance="true">
-			    <ConditionalValue os="mac" />
-			</CompareBitmap>
+			<CompareBitmap url="../Bugs/baselines/$testID@mac.png" target="gr6" numColorVariances="10" ignoreMaxColorVariance="true">
 		    </body>
 		</TestCase>
 		<TestCase testID="textGraphicWithFormatting_defaultFontOutsideEmbeddedInside" keywords="[RichText, format]" description="RichText format" >

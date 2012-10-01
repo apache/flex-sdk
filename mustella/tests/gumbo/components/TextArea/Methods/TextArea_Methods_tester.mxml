@@ -662,9 +662,7 @@
 				<RunCode code="scrollToRange1(application.textArea)" />
 				<Pause timeout="500"/>
 				<AssertPropertyValue target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="97.464453" />
-				<CompareBitmap   url="../Methods/baselines/" target="textArea">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap   url="../Methods/baselines/$testID@mac.png" target="textArea" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 
@@ -676,9 +674,7 @@
 			<body>
 				<RunCode code="application.textArea.scrollToRange(application.textArea.text.length, application.textArea.text.length);" waitTarget="textArea" waitEvent="enterFrame" />
 				<AssertPropertyValue target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="1062.264453" />
-				<CompareBitmap   url="../Methods/baselines/" target="textArea">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap   url="../Methods/baselines/$testID@mac.png" target="textArea" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 
@@ -691,9 +687,7 @@
 				<SetProperty target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="500" waitTarget="textArea" waitEvent="enterFrame" />
 				<RunCode code="application.textArea.scrollToRange(0, 0);" waitTarget="textArea.scroller.verticalScrollBar" waitEvent="valueCommit" />
 				<AssertPropertyValue target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="5" />
-				<CompareBitmap   url="../Methods/baselines/" target="textArea">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap   url="../Methods/baselines/$testID@mac.png" target="textArea" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 

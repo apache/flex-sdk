@@ -389,7 +389,7 @@
         <body>
 
             <RunCode code="application.fc.setElementIndex(application.fc.getElementAt(0),1)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
-            <CompareBitmap url="../methods/baselines/$testID.png" target="fc" />
+            <CompareBitmap url="../methods/baselines/$testID.png" target="fc" numColorVariances="25" maxColorVariance="1" />
         </body>
     </TestCase>
     <TestCase testID="FxContainer_method_setItemIndex_component_graphics_0_1" keywords="[FxContainer, method, setItemIndex]" description="">
@@ -403,7 +403,7 @@
         <body>
 
             <RunCode code="application.fc.setElementIndex(application.fc.getElementAt(0),1)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
-            <CompareBitmap url="../methods/baselines/$testID.png" target="fc" />
+            <CompareBitmap url="../methods/baselines/$testID.png" target="fc" numColorVariances="25" maxColorVariance="1" />
         </body>
     </TestCase>
     <TestCase testID="FxContainer_method_setItemIndex_component_graphics_2_0" keywords="[FxContainer, method, setItemIndex]" description="">
@@ -417,7 +417,7 @@
         <body>
 
             <RunCode code="application.fc.setElementIndex(application.fc.getElementAt(2),0)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
-            <CompareBitmap url="../methods/baselines/$testID.png" target="fc" />
+            <CompareBitmap url="../methods/baselines/$testID.png" target="fc" numColorVariances="25" maxColorVariance="1" />
         </body>
     </TestCase>
 <!-- swapItems - graphics -->

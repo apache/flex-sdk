@@ -53,7 +53,7 @@ States
         <ResetComponent target="box2" className="Assets::CustomFxButtonBar8" waitEvent="updateComplete" />
     </setup>
     <body>
-        <CompareBitmap url="../Integration/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../Integration/baselines/$testID.png" target="box1" numColorVariances="10" maxColorVariance="1"/>
     </body>
 </TestCase>
 

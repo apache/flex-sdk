@@ -205,7 +205,7 @@
  		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="10"  waitEvent="dragEnter"/>
  		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="25" localY="20"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 
-		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkDND/baselines/$testID.png" />
+		<CompareBitmap numColorVariances="25" maxColorVariance="1" target="hg" url="../SparkDND/baselines/$testID.png" />
 		<DispatchMouseEvent target="hg" type="mouseUp" localX="250" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
 		<WaitForEffectsToEnd/>
 

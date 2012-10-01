@@ -214,7 +214,7 @@ import spark.layouts.*;
 
                 <SetProperty    target="sc3" propertyName="width"   value="100" waitEvent="updateComplete"/>
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" numColorVariances="5" maxColorVariance="1" />
 
            </body>
 
@@ -250,7 +250,7 @@ import spark.layouts.*;
 
                 <SetProperty    target="sc3" propertyName="width"   value="100" waitEvent="updateComplete"/>
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" numColorVariances="5" maxColorVariance="1" />
 
            </body>
 

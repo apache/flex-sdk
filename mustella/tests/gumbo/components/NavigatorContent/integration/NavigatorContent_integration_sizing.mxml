@@ -197,7 +197,7 @@
     <body>
 		<SetProperty target="tn2" propertyName="resizeToContent" value="false" />
 		<SetProperty target="tn2" propertyName="selectedIndex" value="4" waitEvent="updateComplete" />
-		<CompareBitmap target="tn2" url="../integration/baselines/$testID.png" />
+		<CompareBitmap target="tn2" url="../integration/baselines/$testID.png" numColorVariances="5" maxColorVariance="1"/>
     </body>
 </TestCase>
 

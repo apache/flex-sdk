@@ -126,7 +126,7 @@ xmlns="*" testSWF="Layout3DBasic.mxml">
                 <RunCode code="application.rg.r3.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
                 <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
                 <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
                
@@ -192,7 +192,7 @@ xmlns="*" testSWF="Layout3DBasic.mxml">
                 <RunCode code="application.rg.r3.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
                 <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
                 <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
 

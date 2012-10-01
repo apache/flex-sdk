@@ -72,7 +72,7 @@
                 <AssertPropertyValue target="hsb" propertyName="pageSize" value="20" />
                 <AssertPropertyValue target="hsb" propertyName="stepSize" value="1" />
                 <AssertPropertyValue target="hsb" propertyName="value"    value="1" />
-                <CompareBitmap url="../methods/baselines/$testID.png" target="hsb" />
+                <CompareBitmap url="../methods/baselines/$testID.png" target="hsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="HScrollBar_method_default_page" keywords="[HScrollBar,method,default,page]" description="Checking Default Values">
@@ -89,7 +89,7 @@
                 <AssertPropertyValue target="hsb" propertyName="pageSize" value="20" />
                 <AssertPropertyValue target="hsb" propertyName="stepSize" value="1" />
                 <AssertPropertyValue target="hsb" propertyName="value"    value="20" />
-                <CompareBitmap url="../methods/baselines/$testID.png" target="hsb" />
+                <CompareBitmap url="../methods/baselines/$testID.png" target="hsb" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="HScrollBar_method_step_back" keywords="[HScrollBar,method,default,step]" description="Checking Default Values">

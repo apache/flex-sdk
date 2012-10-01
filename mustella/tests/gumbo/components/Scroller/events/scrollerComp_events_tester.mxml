@@ -523,7 +523,7 @@ import spark.layouts.*;
                 <DispatchKeyEvent keys="[RIGHT]" waitEvent="updateComplete" waitTarget="sc4.horizontalScrollBar" />
                 <DispatchKeyEvent keys="[RIGHT,LEFT,HOME,END,PAGE_DOWN,PAGE_UP,END]" waitEvent="updateComplete" waitTarget="sc4.horizontalScrollBar" />
                 <Pause timeout="100"/>
-                <CompareBitmap url="../events/baselines/$testID.png" target="sc4" />
+                <CompareBitmap url="../events/baselines/$testID.png" target="sc4" numColorVariances="5" maxColorVariance="1" />
 
            </body>
         </TestCase>
@@ -543,7 +543,7 @@ import spark.layouts.*;
                 <DispatchMouseEvent type="mouseOver" target="sc4" localX="20" localY="10"  waitEvent="mouseOver" waitTarget="sc4"/>
                 <DispatchMouseEvent type="mouseWheel" target="sc4" localX="20" localY="40" delta="-3" waitEvent="change" waitTarget="sc4.verticalScrollBar"/>
                 <Pause timeout="100"/>
-                <CompareBitmap url="../events/baselines/$testID.png" target="sc4" />
+                <CompareBitmap url="../events/baselines/$testID.png" target="sc4" numColorVariances="5" maxColorVariance="1" />
 
            </body>
         </TestCase>
@@ -564,7 +564,7 @@ import spark.layouts.*;
                 <DispatchMouseClickEvent  target="sc4" localX="20" localY="5"  />
                 <DispatchMouseEvent type="mouseWheel" target="sc4" localX="20" localY="10" delta="-1" waitEvent="mouseWheel" waitTarget="sc4"/>
                 <Pause timeout="100"/>
-                <CompareBitmap url="../events/baselines/$testID.png" target="sc4" />
+                <CompareBitmap url="../events/baselines/$testID.png" target="sc4" numColorVariances="5" maxColorVariance="1" />
 
            </body>
         </TestCase>

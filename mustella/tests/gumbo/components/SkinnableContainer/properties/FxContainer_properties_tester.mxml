@@ -134,7 +134,7 @@
                 <RunCode code="application.fc.removeElementAt(1)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
 
                 <AssertPropertyValue target = "fc" propertyName="numElements" value="1" />
-                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="FxContainer_property_comp_layout_change" keywords="[SkinnableContainer, property, layout]" description="">
@@ -147,7 +147,7 @@
                 <RunCode code="application.fc.addElement(new comps.ScrollerGroupComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
                 <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
                 <SetProperty target="fc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="FxContainer_property_verticalScrollPosition" keywords="[SkinnableContainer, property, FxContainer_property_verticalScrollPosition]" description="">
@@ -243,7 +243,7 @@
                 <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc"/>
                 <RunCode code="application.fc.addElement(new comps.ScrollerGroupComp)" waitEvent="updateComplete" waitTarget="fc"/>
                 <AssertPropertyValue target = "fc" propertyName="creationPolicy" value="all" />
-                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="FxContainer_property_creationPolicy_none" keywords="[SkinnableContainer, property, creationPolicy]" description="">
@@ -256,7 +256,7 @@
                 <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc"/>
                 <RunCode code="application.fc.addElement(new comps.ScrollerGroupComp)" waitEvent="updateComplete" waitTarget="fc"/>
                 <AssertPropertyValue target = "fc" propertyName="creationPolicy" value="none" />
-                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="FxContainer_property_get_numElements_remove0" keywords="[SkinnableContainer, property, numElements]" description="">
@@ -301,7 +301,7 @@
                 <RunCode code="application.addRectAt(application.fc,1,0xFF0000);"  waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
                 <SetProperty target = "fc" propertyName="autoLayout" value="false" />
                 <SetProperty target = "fc.getElementAt(0)" propertyName="height" value="100" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
 
@@ -324,7 +324,7 @@
                 <SetProperty target = "fc.getElementAt(1)" propertyName="height" value="120" waitEvent="updateComplete"/>
                 <SetProperty target = "fc.getElementAt(1)" propertyName="width" value="120" waitEvent="updateComplete"/>
                 <AssertPropertyValue target = "fc" propertyName="autoLayout" value="false" />
-                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
        <TestCase testID="SkinnableContainer_property_ac_newContainer" keywords="[SkinnableContainer, property, clipAndEnableScrolling]" description="">

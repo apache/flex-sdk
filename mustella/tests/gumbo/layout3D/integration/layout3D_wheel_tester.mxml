@@ -135,7 +135,7 @@ xmlns="*" testSWF="Layout3D_wheel.mxml">
                 <Pause timeout="300"/>
                 <SetProperty target="wc" propertyName="x" value="5" waitEvent="updateComplete"/>
                 <SetProperty target="wc" propertyName="y" value="5" waitEvent="updateComplete"/>
-                <CompareBitmap url="../integration/baselines/$testID.png" target="wc" />
+                <CompareBitmap url="../integration/baselines/$testID.png" target="wc" numColorVariances="15" maxColorVariance="1" />
             </body>
         </TestCase>
     </testCases>

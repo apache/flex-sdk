@@ -86,7 +86,7 @@
 			<body>
 				<SetProperty    target="fixedThumbSize_hscrollbar" propertyName="maximum"  value="9999"  waitEvent="updateComplete" />
 				<SetProperty    target="fixedThumbSize_hscrollbar" propertyName="width"  value="200"  waitEvent="updateComplete" />
-				<CompareBitmap url="../styles/baselines/$testID.png" target="fixedThumbSize_hscrollbar"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="fixedThumbSize_hscrollbar" numColorVariances="5" maxColorVariance="1" />
 
 			</body>
 		</TestCase>
@@ -99,7 +99,7 @@
 			<body>
 				<SetProperty    target="fixedThumbSize_hscrollbar" propertyName="minimum"  value="-9999"  waitEvent="updateComplete" />
 				<SetProperty    target="fixedThumbSize_hscrollbar" propertyName="width"  value="300"  waitEvent="updateComplete" />
-				<CompareBitmap url="../styles/baselines/$testID.png" target="fixedThumbSize_vscrollbar"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="fixedThumbSize_vscrollbar" numColorVariances="5" maxColorVariance="1" />
 
 			</body>
 		</TestCase>
@@ -111,7 +111,7 @@
 			<body>
 				<SetProperty    target="fixedThumbSize_hscrollbar" propertyName="maximum"  value="20"  waitEvent="updateComplete" />
 				<SetProperty    target="fixedThumbSize_hscrollbar" propertyName="width"  value="200"  waitEvent="updateComplete" />
-				<CompareBitmap url="../styles/baselines/$testID.png" target="fixedThumbSize_hscrollbar"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="fixedThumbSize_hscrollbar" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="VScrollBar_fixedThumbSize_change_size1" keywords="[VScrollBar,fixedThumbSize]" description="">
@@ -122,7 +122,7 @@
 			<body>
 				<SetProperty    target="fixedThumbSize_vscrollbar" propertyName="minimum"  value="-30"  waitEvent="updateComplete" />
 				<SetProperty    target="fixedThumbSize_vscrollbar" propertyName="width"  value="200"  waitEvent="updateComplete" />
-				<CompareBitmap url="../styles/baselines/$testID.png" target="fixedThumbSize_vscrollbar"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="fixedThumbSize_vscrollbar" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 

@@ -123,7 +123,7 @@ xmlns="*" testSWF="ListBasic.mxml">
 				<DispatchMouseEvent type="mouseUp" target="list1.scroller.verticalScrollBar.thumb"  localX="3" localY="3" waitEvent="mouseUp" />
 				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=new ArrayList([1,2,3,4,5,6,7,8,9])" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
 				<SetProperty target="list1" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="list1"/>
-				<CompareBitmap url="../properties/baselines/$testID.png" target="list1" />
+				<CompareBitmap url="../properties/baselines/$testID.png" target="list1" numColorVariances="5" maxColorVariance="1"/>
             </body>
         </TestCase>
 
@@ -210,7 +210,7 @@ xmlns="*" testSWF="ListBasic.mxml">
 				<DispatchMouseEvent type="mouseUp" target="list1.scroller.verticalScrollBar.thumb"  localX="3" localY="3" waitEvent="mouseUp" />
 				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=new ArrayList([1,2,3,4,5,6,7,8,9])" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
 				<SetProperty target="list1" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="list1"/>
-				<CompareBitmap url="../properties/baselines/$testID.png" target="list1" />
+				<CompareBitmap url="../properties/baselines/$testID.png" target="list1" numColorVariances="5" maxColorVariance="1"/>
             </body>
         </TestCase>
 

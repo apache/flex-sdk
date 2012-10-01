@@ -54,7 +54,7 @@
 				<DispatchKeyEvent keys="[RIGHT]" waitEvent="change" waitTarget="myList"/>
 				<DispatchKeyEvent keys="[RIGHT]" waitEvent="change" waitTarget="myList"/>
 				<DispatchKeyEvent keys="[LEFT]" waitEvent="change" waitTarget="myList"/>
-				<CompareBitmap target="myList" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myList" url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="1"/>
 			</body>
 		</TestCase>
     </testCases>

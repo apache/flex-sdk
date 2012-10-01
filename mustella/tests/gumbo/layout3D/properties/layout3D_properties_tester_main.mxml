@@ -179,7 +179,7 @@ xmlns="*" testSWF="Layout3DMain.mxml">
                 <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="scaleZ" value="3" />
                 <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
                 <SetProperty target="eg" propertyName="width" value="180" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         
@@ -225,7 +225,7 @@ xmlns="*" testSWF="Layout3DMain.mxml">
                 <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="scaleZ" value="1.5" />
                 <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
                 <SetProperty target="eg" propertyName="width" value="180" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" numColorVariances="25" maxColorVariance="1" />
             </body>
         </TestCase>
 
@@ -337,7 +337,7 @@ xmlns="*" testSWF="Layout3DMain.mxml">
                 <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="z" value="1" />
                 <SetProperty target="eg" propertyName="height" value="100" waitEvent="updateComplete"/>
                 <SetProperty target="eg" propertyName="width" value="140" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
 
@@ -373,9 +373,9 @@ xmlns="*" testSWF="Layout3DMain.mxml">
                 <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="rotationZ" value="9" />
                 <SetProperty target="eg" propertyName="height" value="140" waitEvent="updateComplete"/>
                 <SetProperty target="eg" propertyName="width" value="140" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" numColorVariances="15" maxColorVariance="1" />
                 <RunCode code="setGroupMatrix()" />
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" numColorVariances="15" maxColorVariance="1" />
             </body>
         </TestCase>
         
@@ -502,9 +502,9 @@ xmlns="*" testSWF="Layout3DMain.mxml">
                 <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="scaleZ" value="1.7" />
                 <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
                 <SetProperty target="eg" propertyName="width" value="180" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" numColorVariances="5" maxColorVariance="1" />
                 <RunCode code="setGroupMatrix()" />
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
 
@@ -530,9 +530,9 @@ xmlns="*" testSWF="Layout3DMain.mxml">
                 <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="scaleZ" value="1.7" />
                 <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
                 <SetProperty target="eg" propertyName="width" value="180" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" numColorVariances="5" maxColorVariance="1" />
                 <RunCode code="setGroupMatrix()" />
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
 

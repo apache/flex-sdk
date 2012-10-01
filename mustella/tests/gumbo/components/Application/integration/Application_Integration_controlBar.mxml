@@ -229,7 +229,7 @@ Scrolling:
             </setup>
             <body>
                 <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray2" waitEvent="updateComplete" />
-			    <CompareBitmap target="" url="../integration/baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+			    <CompareBitmap target="" url="../integration/baselines/$testID.png" numColorVariances="10" maxColorVariance="1" />
             </body>
         </TestCase>  
         
@@ -344,7 +344,7 @@ Other:
             </setup>
             <body>
                 <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray2" waitEvent="updateComplete" />
-                <CompareBitmap target="" url="../integration/baselines/$testID.png" numColorVariances="2" maxColorVariance="10"  />
+                <CompareBitmap target="" url="../integration/baselines/$testID.png" numColorVariances="10" maxColorVariance="1"  />
             </body>
         </TestCase>  
         

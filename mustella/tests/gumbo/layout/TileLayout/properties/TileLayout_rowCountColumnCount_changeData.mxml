@@ -354,7 +354,7 @@ adding and removing data.
         <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="5" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
     </body>
@@ -392,7 +392,7 @@ adding and removing data.
         <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="4" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="4" />
     </body>
@@ -550,7 +550,7 @@ adding and removing data.
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 48)" waitTarget="box1.group1" waitEvent="updateComplete" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
     </body>
@@ -700,7 +700,7 @@ adding and removing data.
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 48)" waitTarget="box1.group1" waitEvent="updateComplete" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
     </body>

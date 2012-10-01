@@ -67,7 +67,7 @@
 			<body>
 				<AssertMethodValue method="application.scrollTextArea.appendText('The\nQuick\nBrown\nFox\nJumps\nOver\nThe\nLazy\nDog:END');"/>
 				<Pause timeout="20"/>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="scrollTextArea" numColorVariances="0" maxColorVariance="0"/>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="scrollTextArea" numColorVariances="5" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 	</testCases>

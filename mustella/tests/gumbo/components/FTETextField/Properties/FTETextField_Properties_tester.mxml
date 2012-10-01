@@ -2872,9 +2872,7 @@
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="99" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="64" />
-				<CompareBitmap url="../Properties/baselines/" target="can.fteTxt">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap url="../Properties/baselines/$testID@mac.png" target="can.fteTxt" />
 			</body>
 		</TestCase>
 		<TestCase testID="textWidth6" description="Test textWidth/textHeight getter on a UIFTETextField" keywords="[FTETextField, textWidth, textHeight, property]">
@@ -2887,9 +2885,7 @@
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="99" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="64" />
-				<CompareBitmap url="../Properties/baselines/" target="can.fteTxt">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap url="../Properties/baselines/$testID@mac.png" target="can.fteTxt" />
 				
 			</body>
 		</TestCase>
@@ -2903,9 +2899,7 @@
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="2" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="204" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="34" />
-				<CompareBitmap url="../Properties/baselines/" target="can.fteTxt">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap url="../Properties/baselines/$testID@mac.png" target="can.fteTxt" />
 			</body>
 		</TestCase>
 

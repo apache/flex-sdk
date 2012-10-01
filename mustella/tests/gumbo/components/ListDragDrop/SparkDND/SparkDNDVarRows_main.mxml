@@ -403,7 +403,7 @@
  		<DispatchMouseEvent target="slv2" type="mouseMove" buttonDown="true" localX="15" localY="270" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
 		<DispatchMouseEvent target="slv2" type="mouseMove" buttonDown="true" localX="50" localY="270" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 		<WaitForEffectsToEnd/>
-		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkDND/baselines/$testID.png" />
+		<CompareBitmap numColorVariances="25" maxColorVariance="1" target="hg" url="../SparkDND/baselines/$testID.png" />
 		<DispatchMouseEvent target="slv2" type="mouseUp" localX="50" localY="270"  waitTarget="slv1" />
 		<WaitForEffectsToEnd/>
 

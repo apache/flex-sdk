@@ -147,7 +147,7 @@
 				<AssertStyleValue target="vscrollbar1" styleName="chromeColor" value="0xFFCC99"/>
 				<AssertStyleValue target="vscrollbar1" styleName="focusColor" value="0xB80000"/>
 				<AssertStyleValue target="vscrollbar1" styleName="symbolColor" value="0xFF0066"/>
-				<CompareBitmap url="../styles/baselines/$testID.png" target="vscrollbar1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="vscrollbar1" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="GroupStyle_FxHScrollBar_compileTime" keywords="[FxHScrollBar]" description="Ensure that HScrollBar looks correct when global styles are set.">
@@ -155,7 +155,7 @@
 				<AssertStyleValue target="hscrollbar1" styleName="chromeColor" value="0xFFCC99"/>
 				<AssertStyleValue target="hscrollbar1" styleName="focusColor" value="0xB80000"/>
 				<AssertStyleValue target="hscrollbar1" styleName="symbolColor" value="0xFF0066"/>
-				<CompareBitmap url="../styles/baselines/$testID.png" target="hscrollbar1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="hscrollbar1" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="GroupStyle_FxNumericStepper_compileTime" keywords="[FxNumericStepper]" description="Ensure that NumericStepper looks correct when global styles are set.">
@@ -349,7 +349,7 @@
 				<AssertStyleValue target="vscrollbar1" styleName="chromeColor" value="0x9999FF"/>
 				<AssertStyleValue target="vscrollbar1" styleName="focusColor" value="0x009900"/>
 				<AssertStyleValue target="vscrollbar1" styleName="symbolColor" value="0x66FF00"/>
-				<CompareBitmap url="../styles/baselines/$testID.png" target="vscrollbar1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="vscrollbar1" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="GroupStyle_FxHScrollBar_runtimeCSS" keywords="[FxHScrollBar]" description="Ensure that HScrollBar looks correct when global styles are set.">
@@ -360,7 +360,7 @@
 				<AssertStyleValue target="hscrollbar1" styleName="chromeColor" value="0x9999FF"/>
 				<AssertStyleValue target="hscrollbar1" styleName="focusColor" value="0x009900"/>
 				<AssertStyleValue target="hscrollbar1" styleName="symbolColor" value="0x66FF00"/>
-				<CompareBitmap url="../styles/baselines/$testID.png" target="hscrollbar1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="hscrollbar1" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="GroupStyle_FxNumericStepper_runtimeCSS" keywords="[FxNumericStepper]" description="Ensure that NumericStepper looks correct when global styles are set.">
@@ -535,7 +535,7 @@
 			</setup>
 			<body>
 				<AssertStyleValue target="vscrollbar1" styleName="symbolColor" value="0xFF0000"/>
-				<CompareBitmap url="../styles/baselines/$testID.png" target="vscrollbar1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="vscrollbar1" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="SymbolColor_changeComponentStyleAtRuntime" keywords="[FxVScrollBar]" description="Ensure that VScrollBar looks correct when global styles are set at runtime.">
@@ -548,7 +548,7 @@
 			</setup>
 			<body>
 				<AssertStyleValue target="vscrollbar1" styleName="symbolColor" value="0x3366CC"/>
-				<CompareBitmap url="../styles/baselines/$testID.png" target="vscrollbar1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="vscrollbar1" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="FocusColor_changeContainerAtRuntime" keywords="[FxCheckBox]" description="Ensure that CheckBox looks correct when global styles are set at runtime.">
