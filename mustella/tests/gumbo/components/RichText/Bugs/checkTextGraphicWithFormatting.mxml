@@ -96,7 +96,7 @@
 		</TestCase>
 		<TestCase testID="textGraphicWithFormatting_defaultFont" keywords="[RichText, format]" description="RichText format" >
 		    <body>
-			<CompareBitmap url="../Bugs/baselines/$testID@mac.png" target="gr6" numColorVariances="10" ignoreMaxColorVariance="true">
+			<CompareBitmap url="../Bugs/baselines/$testID@mac.png" target="gr6" numColorVariances="10" ignoreMaxColorVariance="true"/>
 		    </body>
 		</TestCase>
 		<TestCase testID="textGraphicWithFormatting_defaultFontOutsideEmbeddedInside" keywords="[RichText, format]" description="RichText format" >
