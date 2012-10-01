@@ -624,7 +624,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="679" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="737" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="100" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -651,7 +651,7 @@
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
 
-				<AssertPropertyValue propertyName="contentHeight" value="669" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="727" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -677,7 +677,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -704,7 +704,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="679" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="737" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="149" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -732,7 +732,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -790,7 +790,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="669" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="727" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -820,7 +820,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="179" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="180" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -849,7 +849,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -908,7 +908,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -965,7 +965,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="377" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -994,7 +994,7 @@
 				<SetProperty propertyName="horizontalAlign" value="left" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="377" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1022,7 +1022,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="myScroll.scrollPnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="myScroll.scrollPnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="364" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="379" target="myScroll.scrollPnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="183" target="myScroll.scrollPnl.contentGroup"/>
 
 			</body>
@@ -1054,7 +1054,7 @@
 				<SetProperty propertyName="horizontalAlign" value="left" target="myScroll.scrollPnl.vl" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				<AssertPropertyValue propertyName="height" value="200" target="myScroll.scrollPnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="myScroll.scrollPnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="364" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="379" target="myScroll.scrollPnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="myScroll.scrollPnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1084,7 +1084,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="261" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1112,7 +1112,7 @@
 				<SetProperty propertyName="horizontalAlign" value="right" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="377" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1142,7 +1142,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="261" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1169,7 +1169,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="567" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="582" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1196,7 +1196,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1223,7 +1223,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1250,7 +1250,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1277,7 +1277,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="391" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1305,7 +1305,7 @@
 				<SetProperty propertyName="horizontalAlign" value="left" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="391" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1335,7 +1335,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="276" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1363,7 +1363,7 @@
 				<SetProperty propertyName="horizontalAlign" value="right" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="391" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1393,7 +1393,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="276" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1420,7 +1420,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="581" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="582" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1447,7 +1447,7 @@
 					<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 					<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1474,7 +1474,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1501,7 +1501,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1528,7 +1528,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="679" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="737" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1554,7 +1554,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="669" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="727" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1580,7 +1580,7 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
 				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
@@ -2333,9 +2333,9 @@
 				<RunCode code="application.addRect(application.myScroll.scrollPnl)"/>
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
-				<AssertPropertyValue propertyName="height" value="463" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="height" value="464" target="myScroll.scrollPnl"/>
 				<AssertPropertyValue propertyName="width" value="192" target="myScroll.scrollPnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="430" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="431" target="myScroll.scrollPnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.scrollPnl.contentGroup"/>
 		
 			</body>
@@ -2409,9 +2409,9 @@
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(5)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(5)" value="80" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
-				<AssertPropertyValue propertyName="height" value="463" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="height" value="464" target="myScroll.scrollPnl"/>
 				<AssertPropertyValue propertyName="width" value="207" target="myScroll.scrollPnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="773" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="775" target="myScroll.scrollPnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.scrollPnl.contentGroup"/>
 				
 			</body>
@@ -2478,9 +2478,9 @@
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(5)" value="80" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				
 				<AssertPropertyValue propertyName="rowCount" value="6" target="myScroll.scrollPnl.vl"/>
-				<AssertPropertyValue propertyName="height" value="457" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="height" value="458" target="myScroll.scrollPnl"/>
 				<AssertPropertyValue propertyName="width" value="252" target="myScroll.scrollPnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="370" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="371" target="myScroll.scrollPnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="250" target="myScroll.scrollPnl.contentGroup"/>
 				
 			</body>
@@ -2583,9 +2583,9 @@
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
-				<AssertPropertyValue propertyName="height" value="463" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="height" value="464" target="myScroll.scrollPnl"/>
 				<AssertPropertyValue propertyName="width" value="192" target="myScroll.scrollPnl"/>
-				<AssertPropertyValue propertyName="contentHeight" value="430" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="431" target="myScroll.scrollPnl.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.scrollPnl.contentGroup"/>
 				
 			</body>
