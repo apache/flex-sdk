@@ -500,7 +500,7 @@
 			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/textDecoration_underline_css_submenu.png" timeout="2500" />
 			</body>
 		</TestCase>
-
+		<!-- FIXME: rename since this test works on both platforms despite the name  -->
 		<TestCase testID="textDecoration_underline_submenu_mac" description="MenuBar style textDecoration=underline." keywords="[styles, textDecoration, MenuBar]">
 			<setup>
 			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
@@ -511,9 +511,10 @@
 			    <DispatchMouseClickEvent target="mb2" localX="7" localY="10" />
 			    <DispatchKeyEvent keys="[RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
 			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/$testID.png" timeout="2500" />
+			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/$testID.png" timeout="2500" numColorVariances="10" ignoreMaxColorVariance="true" />
 			</body>
 		</TestCase>
+		<!-- FIXME: rename since this test works on both platforms despite the name  -->
 		<TestCase testID="textDecoration_css_submenu_mac" description="MenuBar style textDecoration=underline." keywords="[styles, textDecoration, MenuBar]">
 			<setup>
 			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
@@ -524,7 +525,7 @@
 			    <DispatchMouseClickEvent target="mb2" localX="7" localY="10" />
 			    <DispatchKeyEvent keys="[RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
 			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/$testID.png" timeout="2500" />
+			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/$testID.png" timeout="2500" numColorVariances="10" ignoreMaxColorVariance="true" />
 			</body>
 		</TestCase>
 
