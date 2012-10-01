@@ -44,7 +44,7 @@
 			<RunCode code="application.loadFonts();" waitEvent="complete" waitTarget="eventDispatcher" />
 		
 			<Pause timeout="1000" />	
-			<CompareBitmap url="../BasicTests/baselines/$testID.png" target="mod_loader"  />	
+			<CompareBitmap url="../BasicTests/baselines/$testID.png" target="mod_loader" numColorVariances="5" maxColorVariance="1" />	
 
 		    </body>
 		</TestCase>
