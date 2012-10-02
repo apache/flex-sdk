@@ -187,7 +187,7 @@
 		</body>
 	</TestCase>
 
-	<TestCase testID="constraintRows_percentage_changeRow2AtRuntime_mac" keywords="[Button, percentage sized, Canvas, constraintRow]"
+	<TestCase testID="constraintRows_percentage_changeRow2AtRuntime" keywords="[Button, percentage sized, Canvas, constraintRow]"
 	    description="ConstraintRows with percentage height set at runtime">
 		<setup>
 		    <RunCode code="arr = []" />
@@ -213,9 +213,7 @@
 		</setup>
 		<body>
 			<SetProperty target="constraintRows.1" propertyName="percentHeight" value="30" waitEvent="updateComplete" waitTarget=""/>
-			<AssertPropertyValue target="getChildAt(1)" propertyName="height" value="140" >
-				<ConditionalValue os="win" value="148"/>
-			</AssertPropertyValue>
+			<AssertPropertyValue target="getChildAt(1)" propertyName="height" value="140" />
 			<AssertPropertyValue target="getChildAt(1)" propertyName="y" value="10" />
 		</body>
 	</TestCase>
@@ -312,7 +310,7 @@
 		</setup>
 		<body>
 			<SetStyle target="getChildAt(1)" styleName="top" value="row1:45" waitEvent="updateComplete" waitTarget="getChildAt(1)"/>
-			<AssertPropertyValue target="getChildAt(1)" propertyName="height" value="150" />
+			<AssertPropertyValue target="getChildAt(1)" propertyName="height" value="164" />
 			<AssertPropertyValue target="getChildAt(1)" propertyName="y" value="45" />
 		</body>
 	</TestCase>
