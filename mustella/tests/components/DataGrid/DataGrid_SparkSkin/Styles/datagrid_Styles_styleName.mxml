@@ -77,6 +77,7 @@
 			</body>
          </TestCase>
 
+	<!-- FIXME: rename since this works on both platforms  -->
         <TestCase testID="styleName_multiple_precedence_mac" description="Test multiple styleNames for DataGrid. This test will only work with Flex 4 and newer."
             keywords="[DataGrid, styleName, CSS]" >
             <setup>
@@ -88,8 +89,8 @@
             </setup>
             <body>
                  <SetStyle target="gridInCanvas" value="redText italicText boldBig" styleName="styleName" waitEvent="updateComplete" waitTarget="gridInCanvas" />
-                 <CompareBitmap target="gridInCanvas.getChildAt(0).mx_internal:rendererArray.1.0" url="../Styles/Baselines/$testID.png" timeout="5000" />
-			</body>
+                 <CompareBitmap target="gridInCanvas.getChildAt(0).mx_internal:rendererArray.1.0" url="../Styles/Baselines/$testID.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true" />
+	    </body>
          </TestCase>
 
         <TestCase testID="styleName_multiple_setStyle" description="Test multiple styleNames for DataGrid used with setStyle. This test will only work with Flex 4 and newer."

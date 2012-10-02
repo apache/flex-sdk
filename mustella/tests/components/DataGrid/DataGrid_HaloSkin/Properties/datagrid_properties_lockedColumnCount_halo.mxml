@@ -3040,7 +3040,7 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <CompareBitmap target="dg1" url="../Properties/Baselines/"  numColorVariances="4" ignoreMaxColorVariance="true">
                 	<ConditionalValue os="mac"/>
                 </CompareBitmap>
-            </body>
+        </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
             </cleanup>

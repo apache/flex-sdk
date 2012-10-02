@@ -345,7 +345,7 @@
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="105" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="115" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="125" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-        <WaitForEffectsToEnd />
+        		<WaitForEffectsToEnd />
                 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/">
                 	<ConditionalValue os="mac"/>
                 </CompareBitmap>

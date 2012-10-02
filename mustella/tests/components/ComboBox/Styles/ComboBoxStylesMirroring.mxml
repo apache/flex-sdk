@@ -259,7 +259,7 @@
 				<SetProperty target="cb_m1" propertyName="selectedItem" value="Product F" waitEvent="updateComplete"/>
 				<AssertPropertyValue target="cb_m1" propertyName="selectedItem" value="Product F"/>
 				<AssertPropertyValue target="cb_m1" propertyName="selectedIndex" value="5"/>
-				<CompareBitmap target="cb_m1" url="../Styles/Baselines/$testID_1.png" numColorVariances="3" maxColorVariance="20"/>
+				<CompareBitmap target="cb_m1" url="../Styles/Baselines/$testID_1.png" numColorVariances="5" maxColorVariance="20"/>
 				<RunCode code="FlexGlobals.topLevelApplication.cb_m1.open()" waitEvent="open" waitTarget="cb_m1"/>
 				<CompareBitmap target="cb_m1.dropdown" url="../Styles/Baselines/$testID_2.png" numColorVariances="3" maxColorVariance="20"/>
 				<RunCode code="FlexGlobals.topLevelApplication.cb_m1.close()" waitEvent="close" waitTarget="cb_m1"/>
@@ -272,7 +272,7 @@
 				<AssertStyleValue target="cb_m1" styleName="chromeColor" value="0xDD0000"/>
 				<AssertPropertyValue target="cb_m1" propertyName="selectedItem" value="Product F"/>
 				<AssertPropertyValue target="cb_m1" propertyName="selectedIndex" value="5"/>
-				<CompareBitmap target="cb_m1" url="../Styles/Baselines/$testID_3.png" numColorVariances="3" maxColorVariance="20"/>
+				<CompareBitmap target="cb_m1" url="../Styles/Baselines/$testID_3.png" numColorVariances="5" maxColorVariance="20"/>
 			</body>
 		</TestCase>
 

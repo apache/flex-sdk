@@ -2957,6 +2957,7 @@ do its cleanup, the next test case that runs will fail because the app.
 is still in "drag mode".  It's a known Mustella issue.  Be aware!
 ================================================================================
 -->
+	<!--FIXME: rename bitmap since test works on both platforms -->
         <TestCase testID="lockedColumnCount_config8_dragDropInLockedColumnArea_inProgress" keywords="[DataGrid,properties,lockedColumnCount]">
             <setup>
                 <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />

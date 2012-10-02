@@ -151,7 +151,7 @@
 			<body>								
 				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="rtl"/>								
 				<CompareBitmap target="myPanel3" url="../Styles/baselines/" numColorVariances="8" ignoreMaxColorVariance="true">
-				     <ConditionalValue os="mac" />
+					<ConditionalValue os="mac"/>
 				</CompareBitmap>
 			</body>		
 		</TestCase>	
@@ -166,7 +166,7 @@
 				<SetStyle target="myPanel3" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>				
 				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="ltr"/>
 				<CompareBitmap target="myPanel3" url="../Styles/baselines/" numColorVariances="8" ignoreMaxColorVariance="true">
-				    <ConditionalValue os="mac" />
+					<ConditionalValue os="mac"/>
 				</CompareBitmap>
 			</body>		
 		</TestCase>	
