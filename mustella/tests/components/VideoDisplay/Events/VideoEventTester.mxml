@@ -89,7 +89,7 @@
                 <ResetComponent target="vd" className="mx.controls.VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
                 <SetProperty propertyName="autoPlay" value="false" target="vd" />
                 <SetProperty propertyName="cuePointManagerClass" valueExpression="value=mx.controls.videoClasses.CuePointManager" target="vd" />
-                <SetProperty propertyName="source" target="vd" value="../../../../Assets/Video/video.flv" />
+                <SetProperty propertyName="source" target="vd" value="assets/video.flv" />
                 <SetProperty target="vd" propertyName="cuePoints" valueExpression="value=ASCuePoints" />
             </setup>
             <body>
@@ -104,7 +104,7 @@
                 <ResetComponent target="vd" className="mx.controls.VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
                 <SetProperty propertyName="cuePointManagerClass" valueExpression="value=mx.controls.videoClasses.CuePointManager" target="vd" />
                 <SetProperty propertyName="autoPlay" value="false" target="vd" />
-                <SetProperty propertyName="source" target="vd" value="../../../../Assets/Video/video.flv" />
+                <SetProperty propertyName="source" target="vd" value="assets/video.flv" />
                 <SetProperty target="vd" propertyName="cuePoints" valueExpression="value=ASCuePoints" />
             </setup>
             <body>
@@ -130,7 +130,7 @@
         <TestCase testID="myTest_events_complete" keywords="[VideoDisplay, events, complete]">
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd"/>
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/short.flv" waitEvent="ready" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="assets/short.flv" waitEvent="ready" waitTarget="vd" />
             </setup>
             <body>  
                 <AssertEvent target="vd" eventName="complete" eventClass="mx.events::VideoEvent" timeout="6000"/>
@@ -140,7 +140,7 @@
         <TestCase testID="myTest_events_playheadUpdate" keywords="[VideoDisplay, events, playheadUpdate]">
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay"  waitEvent="updateComplete" waitTarget="vd"/>
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" waitEvent="ready" waitTarget="vd" />
             </setup>
             <body>  
                 <SetProperty target="vd" propertyName="playheadTime" value="2" />
@@ -154,7 +154,7 @@
             </setup>
             <body>  
                 <SetProperty target="vd" propertyName="autoPlay" value="false" />
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/caltrain.flv" />
+                <SetProperty target="vd" propertyName="source" value="assets/caltrain.flv" />
                 <RunCode code="application.vd.load()" />
                 <AssertEvent target="vd" eventName="progress" eventClass="flash.events::ProgressEvent" timeout="6000" />
             </body>
@@ -163,7 +163,7 @@
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay"  waitEvent="updateComplete" waitTarget="vd"/>
                 <SetProperty target="vd" propertyName="autoPlay" value="false" />
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" />
             </setup>
             <body>
                 <RunCode code="application.vd.load()" waitEvent="ready" waitTarget="vd" />
@@ -173,7 +173,7 @@
         <TestCase testID="myTest_events_stateChange" keywords="[VideoDisplay, events, stateChange]">
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay"  waitEvent="updateComplete" waitTarget="vd"/>
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="updateComplete" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" waitEvent="updateComplete" waitTarget="vd" />
             </setup>
             <body>
                 <RunCode code="application.vd.pause()" waitEvent="stateChange" waitTarget="vd" />
@@ -183,7 +183,7 @@
         <TestCase testID="myTest_events_autoRewind" keywords="[VideoDisplay, events, autoRewind]">
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay"  waitEvent="updateComplete" waitTarget="vd"/>
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/short.flv" waitEvent="ready" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="assets/short.flv" waitEvent="ready" waitTarget="vd" />
             </setup>
             <body>
                 <AssertEvent target="vd" eventName="rewind" eventClass="mx.events::VideoEvent" timeout="6000"/>
