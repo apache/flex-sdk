@@ -213,7 +213,9 @@
 		</setup>
 		<body>
 			<SetProperty target="constraintRows.1" propertyName="percentHeight" value="30" waitEvent="updateComplete" waitTarget=""/>
-			<AssertPropertyValue target="getChildAt(1)" propertyName="height" value="140" />
+			<AssertPropertyValue target="getChildAt(1)" propertyName="height" value="140" >
+				<ConditionalValue os="win" value="148"/>
+			</AssertPropertyValue>
 			<AssertPropertyValue target="getChildAt(1)" propertyName="y" value="10" />
 		</body>
 	</TestCase>
