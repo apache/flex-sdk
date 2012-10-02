@@ -81,6 +81,10 @@
 	}
 </fx:Style>
 
+	<mx:HBox>
+		<comps:ScaleGraphic id="graphic2" />
+		<comps:ScaleGraphicNested id="graphic3" />		
+	</mx:HBox>
     <mx:HBox>
     	<comps:GroupGraphicBasic id="graphic1" />
         <comps:GraphicSimple id="graphic5" />
@@ -90,11 +94,5 @@
   	    <comps:EmptyGroupComp id="graphic_empty_group" />
 	    <comps:ScaleGraphicSimple id="graphic4" />
     </mx:HBox>
-	<mx:HBox>
-		<comps:ScaleGraphic id="graphic2" />
-
-		<comps:ScaleGraphicNested id="graphic3" />
-
-	</mx:HBox>
 
 </mx:Application>
