@@ -125,9 +125,7 @@ xmlns="*" testSWF="Layout3DListIcons.mxml">
             <body>
                 <RunCode code="application.icons.transformAround(new Vector3D(10,10,10),new Vector3D(1,1.2,2),new Vector3D(30,30,30))" />
                 <SetProperty target="icons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/" target="vg" numColorVariances="25" maxColorVariance="5">
-                    <ConditionalValue os="mac" />
-                </CompareBitmap>
+                <CompareBitmap url="../methods/baselines/$testID@mac.png" target="vg" numColorVariances="100" maxColorVariance="1"/>
             </body>
         </TestCase>
 
@@ -181,10 +179,7 @@ xmlns="*" testSWF="Layout3DListIcons.mxml">
                 <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationZ" value="9" />
                 <RunCode code="application.icons.transformAround(new Vector3D(10,10,10),new Vector3D(1.2,1.2,1.2),new Vector3D(10,10,30))" />
                 <SetProperty target="icons" propertyName="selectedIndex" value="4" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/" target="vg" numColorVariances="10" maxColorVariance="5">
-                    <ConditionalValue os="mac" />
-                </CompareBitmap>
-
+                <CompareBitmap url="../methods/baselines/$testID@mac.png" target="vg" numColorVariances="10" maxColorVariance="1"/>
             </body>
         </TestCase>
         <TestCase testID="Layout3D_method_transformAround_icons2_offsets_rotation" keywords="[Layout3D,method,transformAround]" description="">
