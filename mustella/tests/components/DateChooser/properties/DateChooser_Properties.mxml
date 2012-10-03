@@ -545,7 +545,7 @@
 			<body>
 				<DispatchKeyEvent key="TAB" />
 				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
-				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="71" ctrlKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="80" ctrlKey="true"/>
 				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,5), rangeEnd: new Date(2005,2,6)},{rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
 			</body>
 		</TestCase>
@@ -560,7 +560,7 @@
 			<body>
 				<DispatchKeyEvent key="TAB" />
 				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
-				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="71" ctrlKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="80" ctrlKey="true"/>
 				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
 			</body>
 		</TestCase>
@@ -574,7 +574,7 @@
 			<body>
 				<DispatchKeyEvent key="TAB" />
 				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
-				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="71" ctrlKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="80" ctrlKey="true"/>
 				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
 			</body>
 		</TestCase>
@@ -588,20 +588,6 @@
 				<AssertPropertyValue target="dcc.dc" propertyName="width" value="172"/>
 			</body>
 		</TestCase>
-		
-		<!-- FIXME: rename since this test works on both platforms despite the name  -->
-		<TestCase testID="DateChooser_Property_width_Default_macOnly" keywords="[width, DateChooser]">
-			<setup>
-				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
-				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
-			</setup>
-			<body>
-				<AssertPropertyValue target="dcc.dc" propertyName="width" value="172">
-					<ConditionalValue os="mac" value="172"/>
-					<ConditionalValue os="win" value="174"/>
-				</AssertPropertyValue>
-			</body>
-		</TestCase>		
 		<TestCase testID="DateChooser_Property_width1" keywords="[width, DateChooser]">
 			<setup>
 				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
@@ -640,7 +626,7 @@
 				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
 			</setup>
 			<body>
-				<AssertPropertyValue target="dcc.dc" propertyName="height" value="187"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="height" value="194"/>
 			</body>
 		</TestCase>
 		<TestCase testID="DateChooser_Property_height1" keywords="[height, DateChooser]">
@@ -844,7 +830,7 @@
 				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
 			</setup>
 			<body>
-				<AssertPropertyValue target="dcc.dc" propertyName="minHeight" value="133"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="minHeight" value="140"/>
 			</body>
 		</TestCase>
 		<TestCase testID="DateChooser_Property_minHeight_Valid" keywords="[minHeight, DateChooser]">
@@ -922,7 +908,7 @@
 			<body>
 				<DispatchKeyEvent key="TAB" />
 				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
-				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="71" ctrlKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="80" ctrlKey="true"/>
 				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,5), rangeEnd: new Date(2005,2,6)},{rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
 			</body>
 		</TestCase>
@@ -937,7 +923,7 @@
 			<body>
 				<DispatchKeyEvent key="TAB" />
 				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
-				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="71" ctrlKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="80" ctrlKey="true"/>
 				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
 			</body>
 		</TestCase>
@@ -951,7 +937,7 @@
 			<body>
 				<DispatchKeyEvent key="TAB" />
 				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
-				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="71" ctrlKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="80" ctrlKey="true"/>
 				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
 			</body>
 		</TestCase>
@@ -980,7 +966,7 @@
 				<DispatchKeyEvent key="TAB" />
 				<DispatchKeyEvent key="TAB" />
 				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
-				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="71" ctrlKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="80" ctrlKey="true"/>
 				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,5), rangeEnd: new Date(2005,2,6)},{rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
 			</body>
 		</TestCase>
@@ -995,7 +981,7 @@
 			<body>
 				<DispatchKeyEvent key="TAB" />
 				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
-				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="71" ctrlKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="80" ctrlKey="true"/>
 				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
 			</body>
 		</TestCase>
@@ -1009,7 +995,7 @@
 			<body>
 				<DispatchKeyEvent key="TAB" />
 				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
-				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="71" ctrlKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="80" ctrlKey="true"/>
 				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
 			</body>
 		</TestCase>
@@ -1131,7 +1117,7 @@
 				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
 			</setup>
 			<body>
-				<DispatchMouseEvent target="dcc.dc" type="mouseOver" localX="36" localY="71"/>
+				<DispatchMouseEvent target="dcc.dc" type="mouseOver" localX="36" localY="80"/>
 				<AssertNoEvent target="dcc.dc" eventName="toolTipShow"/>
 			</body>
 		</TestCase>
@@ -1142,7 +1128,7 @@
 				<SetProperty target="dcc.dc" propertyName="monthNames" value="['Ja','Fe','Ma','Ap','Ma','Ju','Ju','Au','Se','Oc','No','De']" waitEvent="updateComplete" waitTarget="dcc.dc"/>
 			</setup>
 			<body>
-				<AssertPropertyValue target="dcc.dc" propertyName="width" value="147"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="width" value="140"/>
 			</body>
 		</TestCase>
         <TestCase testID="DateChooser_BugNumber_142901b" keywords="[yearNavigationEnabled, DateChooser]">

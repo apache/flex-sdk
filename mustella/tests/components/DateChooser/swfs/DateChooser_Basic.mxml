@@ -30,7 +30,7 @@
 	]]>
 	</mx:Script>
 
-    <mx:Style source="../../../../../Assets/Fonts/myStyles.css" />
+    <mx:Style source="../../../../Assets/Fonts/myStyles.css" />
 
 	<mx:Style>
 	@namespace "library://ns.adobe.com/flex/mx";
