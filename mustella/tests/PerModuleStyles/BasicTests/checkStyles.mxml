@@ -53,7 +53,7 @@
 			<Pause timeout="1000" />
 			
 			<CompareBitmap url="../BasicTests/baselines/$testID_mod_loader.png" target="mod_loader" numColorVariances="8" ignoreMaxColorVariance="true"/>
-			<CompareBitmap url="../BasicTests/baselines/$testID_mod_loader2.png" target="mod_loader2" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			<CompareBitmap url="../BasicTests/baselines/$testID_mod_loader2.png" target="mod_loader2" numColorVariances="10" ignoreMaxColorVariance="true"/>
 			<AssertStyleValue styleName="openDuration" target="mod_loader.child.cb" value="1000"/>
 			<AssertStyleValue styleName="color" target="mod_loader.child.cb" value="0x0000FF"/>
 			<AssertStyleValue styleName="openDuration" target="mod_loader2.child.cb" value="1000"/>

@@ -19,8 +19,8 @@
 ################################################################################
 echo "Compiling sub application SWFs..."
 cd ../SWFs/assets
-rm ModuleAppFive.swf
-rm ModuleAppSix.swf
+rm -f ModuleAppFive.swf
+rm -f ModuleAppSix.swf
 if (! [ -e ModuleAppFive.swf ])
 then
    $SDK_DIR/bin/mxmlc -static-rsls=true ModuleAppFive.mxml

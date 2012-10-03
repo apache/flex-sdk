@@ -57,7 +57,7 @@
 			
 		        <Pause timeout="2000" />
 			
-	<CompareBitmap url="../merging/baselines/" target="mod_loader"  numColorVariances="12" ignoreMaxColorVariance="true">
+				<CompareBitmap url="../merging/baselines/" target="mod_loader"  numColorVariances="12" ignoreMaxColorVariance="true">
 			        <ConditionalValue os="mac" />
 			    </CompareBitmap>
 		    
