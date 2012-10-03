@@ -50,12 +50,15 @@ if [ $ret != 0 ]
 fi
 
 
-if [ -f $file ] && [ "$file" != "" ]
-	then
-	echo "next: $file $i"
-	./$file > ${file}.${i}.log 2>&1 &
-else
-	echo "skipping $file not found"
+if [ "$file" != ""  ]
+then
+    if [ -f $file ]
+    then
+    	echo "next: $file $i"
+    	./$file > ${file}.${i}.log 2>&1 &
+    else
+    	echo "skipping $file not found"
+    fi
 fi
 	
 
