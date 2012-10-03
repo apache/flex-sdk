@@ -256,7 +256,8 @@
                 <RunCode code="setItemRenderer()"/>          
             </setup>
             <body>
-                <Pause timeout="100"/>
+                <WaitForEffectsToEnd />
+                <WaitForLayoutManager />
                 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_itemrenderer.png" numColorVariances="8" ignoreMaxColorVariance="true"/>        
             </body>
         </TestCase>
@@ -268,7 +269,8 @@
                 <RunCode code="setLabelFunction()"/>          
             </setup>
             <body>
-                <Pause timeout="100"/>
+                <WaitForEffectsToEnd />
+                <WaitForLayoutManager />
                 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_labelfunc.png" numColorVariances="8" ignoreMaxColorVariance="true"/>        
             </body>
         </TestCase>

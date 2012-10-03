@@ -188,7 +188,8 @@
                 <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="112" localY="14"/>
                 <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="87" localY="14"/>
                 <DispatchMouseEvent target="mydatagrid" type="mouseUp" buttonDown="true" localX="87" localY="14"/>
-                <Pause timeout="100"/>
+                <WaitForEffectsToEnd/>
+                <WaitForLayoutManager/>
                 <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"  target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_state2.png"/>
             </body>
         </TestCase>
@@ -206,7 +207,8 @@
                 <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="112" localY="14"/>
                 <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="87" localY="14"/>
                 <DispatchMouseEvent target="mydatagrid" type="mouseUp" buttonDown="true" localX="87" localY="14"/>
-                <Pause timeout="100"/>
+                <WaitForEffectsToEnd/>
+                <WaitForLayoutManager/>
                 <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"  target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_false_state2.png"/>
             </body>
         </TestCase>

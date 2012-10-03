@@ -571,7 +571,7 @@ multiple drags and scrolling
                 <SetProperty target="dg3" propertyName="width" value="600" />
                 <SetProperty target="dg3" propertyName="height" value="250" waitEvent="updateComplete" />
 
-                <Pause timeout="1000" />
+                <WaitForLayoutManager />
 
             </setup>
             <body>

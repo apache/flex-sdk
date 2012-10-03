@@ -179,7 +179,7 @@
 		</setup>
 		<body>
 			<DispatchMouseClickEvent target="container1.dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" waitTarget="container1.dg1" waitEvent="itemEditBegin" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<DispatchKeyEvent char="hello" waitTarget="container1.dg1.itemEditorInstance" waitEvent="change" />
 			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="itemEditEnd" />
 			<Pause timeout="1" />
@@ -200,7 +200,7 @@
 			<DispatchMouseClickEvent target="container1.dg1.mx_internal:rendererArray.1.2" localX="2" localY="2" waitTarget="container1.dg1" waitEvent="itemEditBegin" />
 			<DispatchKeyEvent char="hello" waitTarget="container1.dg1.itemEditorInstance" waitEvent="change" />
 			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="itemEditEnd" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<AssertPropertyValue target="container1.dg1.mx_internal:rendererArray.1.2" propertyName="text" value="hello"/>
 			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
 		</body>
@@ -216,7 +216,7 @@
 		</setup>
 		<body>
 			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="itemEditBegin" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
 		</body>
 	</TestCase>
@@ -233,7 +233,7 @@
 			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="itemEditBegin" />
 			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="itemEditBegin" />
 			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="itemEditBegin" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<Pause timeout="1" />
 			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
 		</body>
@@ -250,9 +250,9 @@
 		<body>
 			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="focusIn" />
 			<DispatchKeyEvent keys="[DOWN]" waitTarget="container1.dg1" waitEvent="change" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<DispatchKeyEvent keys="[DOWN]" waitTarget="container1.dg1" waitEvent="change" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
 		</body>
 	</TestCase>
@@ -267,15 +267,15 @@
 		<body>
 			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="focusIn" />
 			<DispatchKeyEvent keys="[DOWN]" waitTarget="container1.dg1" waitEvent="change" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<DispatchKeyEvent keys="[DOWN]" waitTarget="container1.dg1" waitEvent="change" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<DispatchKeyEvent keys="[DOWN]" waitTarget="container1.dg1" waitEvent="change" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<DispatchKeyEvent keys="[UP]" waitTarget="container1.dg1" waitEvent="change" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<DispatchKeyEvent keys="[UP]" waitTarget="container1.dg1" waitEvent="change" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
 		</body>
 	</TestCase>
@@ -384,7 +384,7 @@
 		</setup>
 		<body>
 			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="5" localY="2" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="60" localY="2" />
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="50" localY="2" />
@@ -415,7 +415,7 @@
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="0" localY="2" />
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseUp" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="90" localY="2" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<Pause timeout="1" />
 			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
 		</body>
@@ -431,7 +431,7 @@
 		</setup>
 		<body>
 			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="0" localY="2" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="60" localY="2" />
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="50" localY="2" />
@@ -439,7 +439,7 @@
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="40" localY="2" />
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseUp" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="40" localY="2" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<Pause timeout="1" />
 			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
 		</body>
@@ -456,7 +456,7 @@
 		</setup>
 		<body>
 			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="5" localY="2" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="60" localY="2" />
 			<Pause timeout="1" />
@@ -479,7 +479,7 @@
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="40" localY="2" />
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseUp" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="40" localY="2" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<Pause timeout="1" />
 			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
 		</body>
@@ -496,7 +496,7 @@
 		</setup>
 		<body>
 			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="55" localY="2" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="0" localY="2" />
 			<Pause timeout="1" />
@@ -514,7 +514,7 @@
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseUp" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="60" localY="2" />
 			<Pause timeout="1" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
 		</body>
 	</TestCase>
@@ -591,7 +591,7 @@
 		</setup>
 		<body>
 			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="10" />
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="20" />
@@ -641,7 +641,7 @@
 		</setup>
 		<body>
 			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="10" />
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="20" />
@@ -673,8 +673,8 @@
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="50" />
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseUp" target="container1.dg2" localX="5" localY="50" />
-			<Pause timeout="100" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForLayoutManager />
+			<WaitForEffectsToEnd />
 			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1" url="../Styles/Baselines/$testID.png"  />
 		</body>
 	</TestCase>
@@ -694,7 +694,7 @@
 		</setup>
 		<body>
 			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="10" />
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="20" />
@@ -726,7 +726,7 @@
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="50" />
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseUp" target="container1.dg2" localX="5" localY="50" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1" url="../Styles/Baselines/$testID.png"  />
 		</body>
 	</TestCase>
@@ -746,7 +746,7 @@
 		</setup>
 		<body>
 			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="10" />
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="20" />
@@ -778,7 +778,7 @@
 			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="50" />
 			<Pause timeout="1" />
 			<DispatchMouseEvent type="mouseUp" target="container1.dg2" localX="5" localY="50" />
-			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<WaitForEffectsToEnd /><WaitForLayoutManager />
 			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1" url="../Styles/Baselines/$testID.png"  />
 		</body>
 	</TestCase>

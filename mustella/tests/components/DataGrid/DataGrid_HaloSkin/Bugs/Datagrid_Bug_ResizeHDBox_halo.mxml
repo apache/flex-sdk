@@ -91,7 +91,8 @@
 				<DispatchMouseEvent target="HDBox" type="mouseMove" stageX="280" stageY="160" waitEvent="mouseMove" waitTarget="HDBox"/>
 				<DispatchMouseEvent target="HDBox" type="mouseUp" stageX="280" stageY="160" />
 				<DispatchMouseClickEvent target="HDBox" localX="280" localY="160" />
-				<Pause timeout="200"/>
+                <WaitForEffectsToEnd/>
+                <WaitForLayoutManager/>
 				<CompareBitmap target="HDBox" url="../Bugs/baselines/Bug_144334_ResizeHDBox_Sort.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
 		        </body>
 	        </TestCase>
