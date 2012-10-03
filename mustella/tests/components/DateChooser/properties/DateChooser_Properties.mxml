@@ -94,30 +94,30 @@
 	public function setY():void{
 		application.dc_position.y=200;
 	}
-      	public function setWidth():void{
-		application.dcc.dc.width=200;
-      	}
-      	public function setHeight():void{
-		application.dcc.dc.height=200;
-      	}
-      	public function setPercentWidth():void{
-		application.dcc.dc.percentWidth=200;
-      	}
-      	public function setPercentHeight():void{
-		application.dcc.dc.percentHeight=200;
-      	}
-      	public function setMaxHeight():void{
-      		application.dcc.dc.maxHeight=50;
-      	}
-      	public function setMaxWidth():void{
-      		application.dcc.dc.maxWidth=50;
-      	}
-      	public function setMinYear():void{
-      		application.dcc.dc.minYear=1900;
-      	}
-      	public function setMaxYear():void{
-      		application.dcc.dc.maxYear=2100;
-      	}
+  	public function setWidth():void{
+	application.dcc.dc.width=200;
+  	}
+  	public function setHeight():void{
+	application.dcc.dc.height=200;
+  	}
+  	public function setPercentWidth():void{
+	application.dcc.dc.percentWidth=200;
+  	}
+  	public function setPercentHeight():void{
+	application.dcc.dc.percentHeight=200;
+  	}
+  	public function setMaxHeight():void{
+  		application.dcc.dc.maxHeight=50;
+  	}
+  	public function setMaxWidth():void{
+  		application.dcc.dc.maxWidth=50;
+  	}
+  	public function setMinYear():void{
+  		application.dcc.dc.minYear=1900;
+  	}
+  	public function setMaxYear():void{
+  		application.dcc.dc.maxYear=2100;
+  	}
 	public function setToolTip():void
 	{
 		application.dcc.dc.toolTip="My DateChooser";
@@ -640,7 +640,7 @@
 				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
 			</setup>
 			<body>
-				<AssertPropertyValue target="dcc.dc" propertyName="height" value="180"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="height" value="187"/>
 			</body>
 		</TestCase>
 		<TestCase testID="DateChooser_Property_height1" keywords="[height, DateChooser]">
@@ -844,7 +844,7 @@
 				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
 			</setup>
 			<body>
-				<AssertPropertyValue target="dcc.dc" propertyName="minHeight" value="126"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="minHeight" value="133"/>
 			</body>
 		</TestCase>
 		<TestCase testID="DateChooser_Property_minHeight_Valid" keywords="[minHeight, DateChooser]">
@@ -868,27 +868,13 @@
 				<AssertPropertyValue target="dcc.dc" propertyName="minHeight" value="26.5"/>
 			</body>
 		</TestCase>
-
 		<TestCase testID="DateChooser_Property_minWidth_Default" keywords="[minWidth, DateChooser]">
 			<setup>
 				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
 				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
 			</setup>
 			<body>
-				<AssertPropertyValue target="dcc.dc" propertyName="minWidth" value="84"/>
-			</body>
-		</TestCase>
-		<!-- FIXME: rename since this test works on both platforms despite the name  -->
-		<TestCase testID="DateChooser_Property_minWidth_Default_macOnly" keywords="[minWidth, DateChooser]">
-			<setup>
-				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
-				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
-			</setup>
-			<body>
-				<AssertPropertyValue target="dcc.dc" propertyName="minWidth" value="84">
-					<ConditionalValue os="mac" value="84"/>
-					<ConditionalValue os="win" value="98"/>
-				</AssertPropertyValue>
+				<AssertPropertyValue target="dcc.dc" propertyName="minWidth" value="91"/>
 			</body>
 		</TestCase>		
 		<TestCase testID="DateChooser_Property_minWidth1" keywords="[minWidth, DateChooser]">
@@ -1149,31 +1135,17 @@
 				<AssertNoEvent target="dcc.dc" eventName="toolTipShow"/>
 			</body>
 		</TestCase>
-		<TestCase testID="DateChooser_BugNumber_142901" keywords="[monthNames, width, DateChooser]">
+		<TestCase testID="DateChooser_BugNumber_142901a" keywords="[monthNames, width, DateChooser]">
 			<setup>
 				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
 				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
 				<SetProperty target="dcc.dc" propertyName="monthNames" value="['Ja','Fe','Ma','Ap','Ma','Ju','Ju','Au','Se','Oc','No','De']" waitEvent="updateComplete" waitTarget="dcc.dc"/>
 			</setup>
 			<body>
-				<AssertPropertyValue target="dcc.dc" propertyName="width" value="140"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="width" value="147"/>
 			</body>
 		</TestCase>
-		<!-- FIXME: rename since this test works on both platforms despite the name  -->
-		<TestCase testID="DateChooser_BugNumber_142901_macOnly" keywords="[monthNames, width, DateChooser]">
-			<setup>
-				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
-				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
-				<SetProperty target="dcc.dc" propertyName="monthNames" value="['Ja','Fe','Ma','Ap','Ma','Ju','Ju','Au','Se','Oc','No','De']" waitEvent="updateComplete" waitTarget="dcc.dc"/>
-			</setup>
-			<body>
-				<AssertPropertyValue target="dcc.dc" propertyName="width" value="140">
-					<ConditionalValue os="mac" value="140"/>
-					<ConditionalValue os="win" value="154"/>
-				</AssertPropertyValue>
-			</body>
-		</TestCase>		
-<TestCase testID="DateChooser_BugNumber_142901a" keywords="[yearNavigationEnabled, DateChooser]">
+        <TestCase testID="DateChooser_BugNumber_142901b" keywords="[yearNavigationEnabled, DateChooser]">
 			<setup>
 				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
 				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
@@ -1186,7 +1158,7 @@
 			</body>
 		</TestCase>
 
-<TestCase testID="Checking_the_selectedDate_property_by_selecting_mouse" keywords="[yearNavigationEnabled, DateChooser]">
+        <TestCase testID="Checking_the_selectedDate_property_by_selecting_mouse" keywords="[yearNavigationEnabled, DateChooser]">
 			<setup>
 				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
 				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
