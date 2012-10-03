@@ -20,6 +20,8 @@
    <mx:Application backgroundColor="0xFFFFFF" xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300" layout="absolute"
        xmlns:comps="comps.*" >
 
+	   <mx:Style source="../../../../Assets/Fonts/myStyles.css" />
+
 		<mx:constraintColumns>
 			<mx:ConstraintColumn id="col1" width="30%"  />
 			<mx:ConstraintColumn id="col2" width="50%"  />
