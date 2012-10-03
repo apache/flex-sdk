@@ -138,7 +138,7 @@
                 <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.showAlert_button"
                     waitTarget="swf1.content.document.jPop" waitEvent="creationComplete"/>
                 <WaitForEffectsToEnd />
-                <Pause timeout="150" />
+                <WaitForLayoutManager />
                 <CompareBitmap target="box_container" url="../Versioning/baselines/mp_alert_mask_compatible.png" timeout="2500" />
             </body>
          </TestCase>
@@ -148,7 +148,7 @@
                    waitEvent="updateComplete" />
                <SetProperty target="swf1" propertyName="autoLoad" value="true" />
                <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
-               <Pause timeout="100" />
+               <WaitForLayoutManager />
                <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
                <SetProperty target="swf1" propertyName="source" valueExpression="value=returnRemoteURL('components/Alert/SWFs/Assets/child_swfs/MP_Alert_Child.swf')" waitTarget="swf1" waitEvent="updateComplete"/>
@@ -240,7 +240,7 @@
                 <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
                 <RunCode code="application.swf1.content.document.showPopupWithParent(application.swf1.content)" waitTarget="swf1.content.document.jPop" waitEvent="creationComplete"/>
                 <WaitForEffectsToEnd />
-                <Pause timeout="200" />
+                <WaitForLayoutManager />
                 <AssertPropertyValue propertyName="x" value="429" target="swf1.content.document.jPop" />
                 <AssertPropertyValue propertyName="y" value="232" target="swf1.content.document.jPop" />
            </body>
@@ -262,7 +262,7 @@
                 <Pause timeout="2000" />
                 <RunCode code="application.swf1.content.document.popUpFromCompatible()" waitTarget="swf1.content.document.jPop" waitEvent="creationComplete"/>
                 <WaitForEffectsToEnd />
-                <Pause timeout="200" />
+                <WaitForLayoutManager />
                 <AssertPropertyValue propertyName="x" value="278" target="swf1.content.document.jPop" />
                 <AssertPropertyValue propertyName="y" value="170" target="swf1.content.document.jPop" />
            </body>

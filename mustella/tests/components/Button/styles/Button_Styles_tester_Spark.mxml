@@ -616,7 +616,7 @@
 				<DispatchKeyEvent key="TAB" />
 				<DispatchKeyEvent key="TAB" />
 				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="outButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 			<body>
 				<CompareBitmap url="../styles/baselines/Checking_focusThickness_neg5_style_of_Button_spark.png" target="outButton"/>
@@ -1289,7 +1289,7 @@
 				<SetProperty target="myButton" propertyName="y" value="50"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 
 			<body>
@@ -1315,7 +1315,7 @@
 				<SetProperty target="myButton" propertyName="y" value="50"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 
 			<body>
@@ -1341,7 +1341,7 @@
 				<SetProperty target="myButton" propertyName="y" value="50"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 
 			<body>
@@ -1367,7 +1367,7 @@
 				<SetStyle target="myButton" styleName="focusRoundedCorners" value="br"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 
 			<body>
@@ -1393,7 +1393,7 @@
 				<SetStyle target="myButton" styleName="focusRoundedCorners" value="br bl"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 
 			<body>
@@ -1419,7 +1419,7 @@
 				<SetStyle target="myButton" styleName="focusRoundedCorners" value="br tr"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 
 			<body>
@@ -1445,7 +1445,7 @@
 				<SetStyle target="myButton" styleName="focusRoundedCorners" value="br tl"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>	
 
 			<body>
@@ -1471,7 +1471,7 @@
 				<SetStyle target="myButton" styleName="focusRoundedCorners" value="tr tl"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 
 			<body>
@@ -1497,7 +1497,7 @@
 				<SetStyle target="myButton" styleName="focusRoundedCorners" value="tr bl"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 
 			<body>
@@ -1523,7 +1523,7 @@
 				<SetStyle target="myButton" styleName="focusRoundedCorners" value="tl bl"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 
 			<body>
@@ -1549,7 +1549,7 @@
 				<SetStyle target="myButton" styleName="focusRoundedCorners" value="br tr tl"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 
 			<body>
@@ -1575,7 +1575,7 @@
 				<SetStyle target="myButton" styleName="focusRoundedCorners" value="br tr bl"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 
 			<body>
@@ -1615,7 +1615,7 @@
 				<SetProperty target="myButton" propertyName="y" value="50"/>
 				<SetStyle target="myButton" styleName="focusRoundedCorners" value="tr tl bl"/>
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 			<body>
 				<CompareBitmap  url="../styles/baselines/Checking_focusRoundedCorners_tr_tl_bl_Style_of_Button_spark.png" target="panel1"/>
@@ -1664,7 +1664,7 @@
 				<SetStyle target="myButton" styleName="focusThickness" value="5"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 
 			<body>
@@ -1687,7 +1687,7 @@
 				<SetStyle target="myButton" styleName="focusThickness" value="5.5"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 
 			<body>
@@ -1709,7 +1709,7 @@
 				<SetStyle target="myButton" styleName="focusThickness" value="10"/>
 
 				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 
 			<body>

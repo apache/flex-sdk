@@ -604,7 +604,7 @@
 				<ResetComponent target="myButton" className="mx.controls.Button" waitEvent="updateComplete"  waitTarget="panel1"/>
 				<SetStyle target="myButton" styleName="focusSkin" value="{RedU}"/>
 				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 			<body>
 				<CompareBitmap url="../styles/baselines/Checking_focusSkin_style_of_Button.png" target="panel1"/>
@@ -617,7 +617,7 @@
 				<DispatchKeyEvent key="TAB" />
 				<DispatchKeyEvent key="TAB" />
 				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="outButton"/>
-				<Pause timeout="1000"/>
+				<WaitForLayoutManager/>
 			</setup>
 			<body>
 				<CompareBitmap url="../styles/baselines/Checking_focusThickness_neg5_style_of_Button.png" target="myButton"/>

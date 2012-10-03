@@ -36,12 +36,10 @@
 				<ResetComponent target="cb_m1" className="comps.Custom_CB_M" waitEvent="updateComplete"/>
 			</setup>
 			<body>
-				<RunCode code="FlexGlobals.topLevelApplication.setLdRTL()" />
-				<Pause timeout="20"/>
+				<RunCode code="FlexGlobals.topLevelApplication.setLdRTL()" waitTarget="cb_m1" waitEvent="layoutDirectionChanged"/>
 				<AssertStyleValue target="cb_m1" styleName="layoutDirection" value="rtl"/>
 				<CompareBitmap target="cb_m1" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
-				<RunCode code="FlexGlobals.topLevelApplication.setDRTL()" />
-				<Pause timeout="20"/>
+				<RunCode code="FlexGlobals.topLevelApplication.setDRTL()" waitTarget="cb_m1" waitEvent="directionChanged"/>
 				<AssertStyleValue target="cb_m1" styleName="direction" value="rtl"/>
 				<CompareBitmap target="cb_m1" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
 				<RunCode code="FlexGlobals.topLevelApplication.cb_m1.open()" waitEvent="open" waitTarget="cb_m1"/>
@@ -62,7 +60,6 @@
 				<AssertStyleValue target="cb_m1" styleName="direction" value="ltr"/>
 				<CompareBitmap target="cb_m1" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
 				<SetStyle target="cb_m1" styleName="direction" value="rtl" waitEvent="updateComplete"/>
-				<Pause timeout="20"/>
 				<AssertStyleValue target="cb_m1" styleName="direction" value="rtl"/>
 				<AssertStyleValue target="cb_m1" styleName="layoutDirection" value="rtl"/>
 				<CompareBitmap target="cb_m1" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
@@ -107,11 +104,11 @@
 			<body>
 				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="cb_m1"/>
 				<RunCode code="FlexGlobals.topLevelApplication.cb_m1.open()" waitEvent="open" waitTarget="cb_m1"/>
-				<Pause timeout="100"/>
+				<WaitForLayoutManager/>
 				<DispatchKeyEvent keys="[DOWN]" />
-				<Pause timeout="100"/>
+                <WaitForLayoutManager/>
 				<DispatchKeyEvent keys="[DOWN]" />
-				<Pause timeout="100"/>
+                <WaitForLayoutManager/>
 				<AssertPropertyValue target="cb_m1" propertyName="selectedIndex" value="2"/>
 				<DispatchKeyEvent keys="[ENTER]" waitEvent="close" waitTarget="cb_m1"/>
 				<AssertPropertyValue target="cb_m1" propertyName="selectedIndex" value="2"/>
@@ -128,11 +125,11 @@
 			<body>
 				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="cb_m1"/>
 				<RunCode code="FlexGlobals.topLevelApplication.cb_m1.open()" waitEvent="open" waitTarget="cb_m1"/>
-				<Pause timeout="100"/>
+                <WaitForLayoutManager/>
 				<DispatchKeyEvent keys="[UP]" />
-				<Pause timeout="100"/>
+                <WaitForLayoutManager/>
 				<DispatchKeyEvent keys="[UP]" />
-				<Pause timeout="100"/>
+                <WaitForLayoutManager/>
 				<AssertPropertyValue target="cb_m1" propertyName="selectedIndex" value="2"/>
 				<DispatchKeyEvent keys="[ENTER]" waitEvent="close" waitTarget="cb_m1"/>
 				<AssertPropertyValue target="cb_m1" propertyName="selectedIndex" value="2"/>

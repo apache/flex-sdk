@@ -363,13 +363,15 @@
 	     </setup>
 	    <body>
 		    <SetStyle styleName="fontFamily" value="MyVerdana" target="mybox.myCB"/>
-		    <Pause timeout="20"/>
+		    <WaitForLayoutManager/>
 		    <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
             <WaitForEffectsToEnd />
+            <WaitForLayoutManager/>
 		    <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="mybox.myCB" url="../Styles/Baselines/cb_styles_fontFamily.png"  />
 		    <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_fontFamily_dropdown.png"  />
 		    <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
             <WaitForEffectsToEnd />
+            <WaitForLayoutManager/>
 	     </body>
 	 </TestCase>
 	 <TestCase testID="combobox_styles_fontFamily_throughStyleName" keywords="[comboBox, styles, fontFamily]">
@@ -378,7 +380,7 @@
 	     </setup>
 	    <body>
 		    <SetStyle styleName="fontFamily" value="MyVerdana" target="mybox.myCB"/>
-		    <Pause timeout="20"/>
+		    <WaitForLayoutManager/>
 		    <SetStyle styleName="dropDownStyleName" value="customFontFamily" target="mybox.myCB" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
 		    <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
             <WaitForEffectsToEnd />

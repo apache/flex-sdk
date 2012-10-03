@@ -357,9 +357,10 @@
          </setup>
         <body>
             <SetStyle styleName="fontFamily" value="MyVerdana" target="mybox.myCB" />
-            <Pause timeout="20"/>
+            <WaitForLayoutManager/>
             <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
             <WaitForEffectsToEnd />
+            <WaitForLayoutManager/>
             <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB" url="../Styles/Baselines/cb_styles_fontFamily_spark.png"  />
             <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_fontFamily_dropdown_spark.png"  />
             <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
@@ -372,14 +373,15 @@
          </setup>
         <body>
             <SetStyle styleName="fontFamily" value="MyVerdana" target="mybox.myCB"/>
-            <Pause timeout="20"/>
+            <WaitForLayoutManager/>
             <SetStyle styleName="dropDownStyleName" value="customFontFamily" target="mybox.myCB" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
             <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
             <WaitForEffectsToEnd />
             <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_fontFamily_stylename_spark.png"  />
             <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
             <WaitForEffectsToEnd />
-         </body>
+            <WaitForLayoutManager/>
+        </body>
      </TestCase>
      <TestCase testID="Spark_combobox_styles_fontSize_default" keywords="[comboBox, styles, fontSize]">
          <setup>

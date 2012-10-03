@@ -62,7 +62,7 @@
                 <ResetComponent target="componentComboBoxPaddingBasic" className="component_ComboBox_Padding_Basic" waitTarget="updateComplete" />
             </setup>
             <body>
-                <Pause timeout="200"/>
+                <WaitForLayoutManager/>
                     <CompareBitmap target="" url="../Styles/Baselines/ComboBox_Padding1_spark.png" numColorVariances="18" ignoreMaxColorVariance="true" />
             </body>
         </TestCase>
@@ -73,7 +73,7 @@
 
             </setup>
             <body>
-                <Pause timeout="200"/>
+                <WaitForLayoutManager/>
                     <CompareBitmap target="" url="../Styles/Baselines/ComboBox_Padding2_spark.png" numColorVariances="18" ignoreMaxColorVariance="true" />
             </body>
         </TestCase>
@@ -85,7 +85,7 @@
 
             </setup>
             <body>
-                <Pause timeout="200"/>
+                <WaitForLayoutManager/>
                     <CompareBitmap target="" url="../Styles/Baselines/ComboBox_Padding3_spark.png" numColorVariances="18" ignoreMaxColorVariance="true"/>
             </body>
         </TestCase>
@@ -97,7 +97,7 @@
 
             </setup>
             <body>
-                <Pause timeout="200"/>
+                <WaitForLayoutManager/>
                     <CompareBitmap target="" url="../Styles/Baselines/ComboBox_Padding4_spark.png" numColorVariances="18" ignoreMaxColorVariance="true"/>
             </body>
         </TestCase>
@@ -108,7 +108,7 @@
 
             </setup>
             <body>
-                <Pause timeout="200"/>
+                <WaitForLayoutManager/>
                     <CompareBitmap target="" url="../Styles/Baselines/ComboBox_Padding5_spark.png" numColorVariances="18" ignoreMaxColorVariance="true"/>
             </body>
         </TestCase>
