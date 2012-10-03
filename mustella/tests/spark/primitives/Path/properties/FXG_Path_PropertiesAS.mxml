@@ -91,7 +91,7 @@
             </setup>
             <body>
                 <SetProperty target="graphic1.path1" propertyName="data" value="M 40 140 L 160 -40 C 70 0 10 80 75 90 Q -10 150 190 1150" waitTarget="graphic1.getChildAt(0)" waitEvent="updateComplete" />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" numColorVariances="2" maxColorVariance="1"/>
             </body>
         </TestCase>
     <!-- MoveSegment x,y -->

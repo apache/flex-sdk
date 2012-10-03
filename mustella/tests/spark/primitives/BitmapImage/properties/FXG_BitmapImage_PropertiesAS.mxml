@@ -484,7 +484,7 @@
                 <SetProperty target="graphic1.bitmapGraphic1" propertyName="y" value="0" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
 
                 <AssertPropertyValue propertyName="smooth" value="false" target="graphic1.bitmapGraphic1"/>
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1"/>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1" numColorVariances="2" maxColorVariance="1"/>
             </body>
         </TestCase>
 
@@ -501,7 +501,7 @@
                 <SetProperty target="graphic1.bitmapGraphic1" propertyName="y" value="0" waitTarget="graphic1.bitmapGraphic1" waitEvent="updateComplete" />
 
                 <AssertPropertyValue propertyName="smooth" value="true" target="graphic1.bitmapGraphic1"/>
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1"/>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1" numColorVariances="2" maxColorVariance="1"/>
             </body>
         </TestCase>
 

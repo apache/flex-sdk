@@ -338,7 +338,7 @@
                 <SetProperty value="25" propertyName="rotationY" target="graphic2.getChildAt(0).getElementAt(0)" />
                 <Pause timeout="200" />
                 <Pause timeout="300" />
-                <CompareBitmap numColorVariances="2" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic2.getChildAt(0)" timeout="2000" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic2.getChildAt(0)" timeout="2000" />
             </body>
         </TestCase>
         <TestCase testID="GraphicTags_Group_rotationYNeg" description="Test -25 degree rotationY of a Group" keywords="[rotationY, Group, Graphic]">
@@ -349,7 +349,7 @@
                 <SetProperty value="-25" propertyName="rotationY" target="graphic2.getChildAt(0).getElementAt(0)" waitEvent="updateComplete"
                     waitTarget="graphic2.getChildAt(0)"/>
                 <Pause timeout="300" />
-                <CompareBitmap numColorVariances="2" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic2.getChildAt(0)" timeout="2000" />
+                <CompareBitmap numColorVariances="25" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic2.getChildAt(0)" timeout="2000" />
             </body>
         </TestCase>
         <TestCase testID="GraphicTags_Group_rotationXY" description="Test 20 degree rotationY and rotationY of a Group" keywords="[rotationX, rotationY, Group, Graphic]">
@@ -374,7 +374,7 @@
                 <SetProperty value="100" propertyName="height" target="graphic3.getChildAt(0)"
                     waitEvent="updateComplete" waitTarget="graphic3.getChildAt(0)"/>
                 <Pause timeout="300" />
-                <CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic3" timeout="2000" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic3" timeout="2000" />
             </body>
         </TestCase>
         <TestCase testID="GraphicTags_NestedGroup_rotationXY" description="Test 20 degree rotationY  and rotationX of a Group" keywords="[rotationY, rotationX, Group, Graphic]">
