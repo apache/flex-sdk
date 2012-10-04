@@ -324,10 +324,9 @@
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="mydatagrid" localX="250" localY="95" />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="mydatagrid" localX="250" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/" numColorVariances="8" ignoreMaxColorVariance="true">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
-            </body>
+                <WaitForLayoutManager/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/$testID.png" numColorVariances="8" maxColorVariance="1"/>
+             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
             </cleanup>
@@ -352,9 +351,8 @@
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="115" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="125" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
      		    <WaitForEffectsToEnd />
-                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/" numColorVariances="8" ignoreMaxColorVariance="true">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
+                <WaitForLayoutManager/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/$testID.png" numColorVariances="8" maxColorVariance="1"/>
             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
@@ -381,37 +379,38 @@
                 <WaitForEffectsToEnd />
                 <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager/>
                 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_dragenabled_dropenabled_dropcomplete.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
             </body>
         </TestCase>
 
-    <TestCase testID="property_dragMoveEnabled_DragInProgress" keywords="[DataGrid,properties,dragMoveEnabled]">
-        <setup>
+        <TestCase testID="property_dragMoveEnabled_DragInProgress" keywords="[DataGrid,properties,dragMoveEnabled]">
+            <setup>
                 <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
-        <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>        
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>        
                 <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
-        <SetProperty propertyName="dragEnabled" value="true" target="mydatagrid" />
-        <SetProperty propertyName="dragMoveEnabled" value="true" target="mydatagrid"/>
-        <SetProperty propertyName="dropEnabled" value="true" target="mydatagrid"/>
-        </setup>
-        <body>
-        <DispatchMouseEvent type="mouseDown" stageX="150" stageY="55"/>
-        <WaitForEffectsToEnd />
-        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="60" />
-        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="65" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="75" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="85" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="95" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="105" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="115" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="125" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-        <WaitForEffectsToEnd />
-        <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_dragmoveenabled_draginprogress.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
-        </body>
+                <SetProperty propertyName="dragEnabled" value="true" target="mydatagrid" />
+                <SetProperty propertyName="dragMoveEnabled" value="true" target="mydatagrid"/>
+                <SetProperty propertyName="dropEnabled" value="true" target="mydatagrid"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" stageX="150" stageY="55"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="60" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="65" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="75" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="85" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="95" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="105" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="115" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="125" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_dragmoveenabled_draginprogress.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
             </cleanup>
-    </TestCase>
+        </TestCase>
 
 
         <TestCase testID="property_dragMoveEnabled_DragComplete" keywords="[DataGrid,properties,dragMoveEnabled]">

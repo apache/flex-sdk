@@ -88,10 +88,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
                 <WaitForLayoutManager/>
-                <CompareBitmap target="dg1" url="../Properties/Baselines/" numColorVariances="5" ignoreMaxColorVariance="true">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
-            </body>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="1"/>
+             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
             </cleanup>
@@ -155,9 +153,7 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
                 <WaitForLayoutManager/>
-                <CompareBitmap target="dg1" url="../Properties/Baselines/">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="1"/>
             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
@@ -310,10 +306,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
                 <Pause timeout="1" />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/" numColorVariances="5" ignoreMaxColorVariance="true">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
-            </body>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="1"/>
+             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
             </cleanup>
@@ -379,10 +373,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
                 <Pause timeout="1" />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
-            </body>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="1"/>
+             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
             </cleanup>
