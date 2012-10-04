@@ -150,9 +150,7 @@
 			</setup>
 			<body>								
 				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="rtl"/>								
-				<CompareBitmap target="myPanel3" url="../Styles/baselines/" numColorVariances="8" ignoreMaxColorVariance="true">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap target="myPanel3" url="../Styles/baselines/$testID.png" numColorVariances="8" maxColorVariance="1"/>
 			</body>		
 		</TestCase>	
 		
@@ -165,9 +163,7 @@
 				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="rtl"/>
 				<SetStyle target="myPanel3" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>				
 				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="ltr"/>
-				<CompareBitmap target="myPanel3" url="../Styles/baselines/" numColorVariances="8" ignoreMaxColorVariance="true">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap target="myPanel3" url="../Styles/baselines/$testID.png" numColorVariances="8" maxColorVariance="1"/>
 			</body>		
 		</TestCase>	
 		
@@ -178,9 +174,7 @@
 			</setup>
 			<body>								
 				<AssertStyleValue target="myPanel3" styleName="direction" value="rtl"/>
-				<CompareBitmap target="myPanel3" url="../Styles/baselines/" numColorVariances="8" ignoreMaxColorVariance="true">
-				    <ConditionalValue os="mac" />
-				</CompareBitmap>
+				<CompareBitmap target="myPanel3" url="../Styles/baselines/$testID.png" numColorVariances="8" maxColorVariance="1"/>
 			</body>		
 		</TestCase>	
 		<TestCase testID="NumericStepper_Styles_Mirroring_parentContainer2_1" keywords="[NumericStepper, Mirroring, rtl]" description="Test setting direction rtl on parentContainer of NumericStepper">
@@ -192,9 +186,7 @@
 				<AssertStyleValue target="myPanel3" styleName="direction" value="rtl"/>
 				<SetStyle target="myPanel3" styleName="direction" value="ltr" waitEvent="updateComplete"/>
 				<AssertStyleValue target="myPanel3" styleName="direction" value="ltr"/>
-				<CompareBitmap target="myPanel3" url="../Styles/baselines/" numColorVariances="8" ignoreMaxColorVariance="true">
-				    <ConditionalValue os="mac" />
-				</CompareBitmap>
+				<CompareBitmap target="myPanel3" url="../Styles/baselines/$testID.png" numColorVariances="8" maxColorVariance="1"/>
 			</body>		
 		</TestCase>	
 		<TestCase testID="NumericStepper_Styles_Mirroring_parentContainer3" keywords="[NumericStepper, Mirroring, rtl]" description="Test setting layoutDirection and direction rtl on parentContainer of NumericStepper">
@@ -206,9 +198,7 @@
 			<body>								
 				<AssertStyleValue target="myPanel3" styleName="direction" value="rtl"/>
 				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="rtl"/>
-				<CompareBitmap target="myPanel3" url="../Styles/baselines/" numColorVariances="8" ignoreMaxColorVariance="true">	
-				    <ConditionalValue os="mac" />
-				</CompareBitmap>
+				<CompareBitmap target="myPanel3" url="../Styles/baselines/$testID.png" numColorVariances="8" maxColorVariance="1"/>	
 			</body>		
 		</TestCase>		
 		
