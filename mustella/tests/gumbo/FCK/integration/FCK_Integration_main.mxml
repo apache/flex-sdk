@@ -487,7 +487,9 @@ CAUTION: FCK Tests can be extremely fragile.
 			<ResetComponent target="customSkinGroup" className="comps.CustomSkinGroup" waitTarget="customSkinGroup" waitEvent="updateComplete" />
 	    </setup>
 		<body>
-			<CompareBitmap url="../integration/baselines/FCK_integration_skin_up.png" target="customSkinGroup" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			<CompareBitmap url="../integration/baselines/" target="customSkinGroup" numColorVariances="5" ignoreMaxColorVariance="true">
+				<ConditionalValue os="win"/>
+			</CompareBitmap>
 		</body>
 	</TestCase>		
 	
@@ -499,9 +501,11 @@ CAUTION: FCK Tests can be extremely fragile.
 			<DispatchMouseEvent target="customSkinGroup" localX="100" localY="70" type="rollOver" />	
 			<DispatchMouseEvent target="customSkinGroup" localX="100" localY="70" type="mouseOver" />
 			<Pause timeout="1000" />
-			<CompareBitmap url="../integration/baselines/FCK_integration_skin_over.png" target="customSkinGroup" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			<CompareBitmap url="../integration/baselines/" target="customSkinGroup" numColorVariances="5" ignoreMaxColorVariance="true">
+				<ConditionalValue os="win"/>
+			</CompareBitmap>
 		</body>
-	</TestCase>			
+	</TestCase>
 	
 	<TestCase testID="FCK_integration_skin_down" keywords="[FCK, integration, skin]" description="check down state of a halo button with custom flash skin">
 		<setup>
@@ -510,9 +514,11 @@ CAUTION: FCK Tests can be extremely fragile.
 		<body>
 			<DispatchMouseEvent target="customSkinGroup" localX="100" localY="70" type="rollOver" />	
 			<DispatchMouseEvent target="customSkinGroup" localX="100" localY="70" type="mouseOver" />
-			<DispatchMouseEvent target="customSkinGroup" localX="100" localY="70" type="mouseDown" />
+			<DispatchMouseEvent target="customSkinGroup" localX="100" localY="70" type="mouseDown"/>
 			<Pause timeout="1000" />
-			<CompareBitmap url="../integration/baselines/FCK_integration_skin_down.png" target="customSkinGroup" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			<CompareBitmap url="../integration/baselines/" target="customSkinGroup" numColorVariances="5" ignoreMaxColorVariance="true">
+				<ConditionalValue os="win"/>
+			</CompareBitmap>
 		</body>
 	</TestCase>
 
