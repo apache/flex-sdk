@@ -248,7 +248,9 @@
 			<Pause timeout="100" />
 	   	</setup>
     	<body>
-			<CompareBitmap url="../properties/baselines/group_property_blendMode_overlay.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/" target="group1" timeout="2000">
+				<ConditionalValue os="win"/>
+			</CompareBitmap>
 		</body>
     </TestCase>
 
@@ -259,7 +261,9 @@
 			<Pause timeout="100" />
 	   	</setup>
     	<body>
-			<CompareBitmap url="../properties/baselines/group_property_blendMode_hardlight.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../properties/baselines/" target="group1" timeout="2000">
+				<ConditionalValue os="win"/>
+			</CompareBitmap>
 		</body>
     </TestCase>
 
