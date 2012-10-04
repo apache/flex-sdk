@@ -15,24 +15,24 @@
 			
                <SetProperty target="sl1" propertyName="autoLoad" value="true" />
                <SetProperty target="sl1" propertyName="source" value="assets/baconplacemat.jpg" waitTarget="sl1" waitEvent="updateComplete"/>
-               <Pause timeout="100" />
+			   <Pause timeout="100"/>			   
 
                <SetProperty target="sl1" propertyName="autoLoad" value="false" />
                <SetProperty target="sl1" propertyName="source" value="assets/SubApp.swf" waitTarget="sl1" waitEvent="updateComplete"/>
-               <SetProperty target="sl1" propertyName="autoLoad" value="true" waitTarget="sl1" waitEvent="complete"/>
+               <SetProperty target="sl1" propertyName="autoLoad" value="true" waitTarget="sl1" waitEvent="complete" timeout="10000"/>
 			   
                <SetProperty target="sl2" propertyName="autoLoad" value="true" />
                <SetProperty target="sl2" propertyName="source" value="assets/baconplacemat.jpg" waitTarget="sl2" waitEvent="updateComplete"/>
-               <Pause timeout="100" />
+			   <Pause timeout="100"/>			   
 
                <SetProperty target="sl2" propertyName="autoLoad" value="false" />
                <SetProperty target="sl2" propertyName="source" value="http://127.0.0.1:{portNumber}/MarshallPlan/SWFs/assets/UntrustedApp.swf" waitTarget="sl2" waitEvent="updateComplete"/>
-               <SetProperty target="sl2" propertyName="autoLoad" value="true" waitTarget="sl2" waitEvent="complete"/>
-			   <Pause timeout="100" />			   
+               <SetProperty target="sl2" propertyName="autoLoad" value="true" waitTarget="sl2" waitEvent="complete" timeout="10000"/>
+			   <Pause timeout="100"/>			   
 			</setup>
 			<body>
 
-                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl2.content" waitEvent="added"/>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="sl2.content" waitEvent="added" timeout="15000"/>
                 
 			    <DispatchMouseClickEvent target="sl2.content.document.runBtn" waitEvent="click" waitTarget="sl2.content.document.runBtn" />
 				<AssertPropertyValue target="sl2.content.document" propertyName="flag" value="true" />
