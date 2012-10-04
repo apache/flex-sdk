@@ -43,7 +43,11 @@
             
             protected function img_progressHandler(evt:ProgressEvent):void
             {
-                debug.appendText(evt.type + " " + evt.bytesLoaded + " of " + evt.bytesTotal );
+				// Only append first and last progress message.  Depending on load time there
+				// can be differing number of progress messages and it wouldn't possible to
+				// do an AssertPropertyValue on debug.text and have it always pass.
+				if (evt.bytesLoaded==0 || evt.bytesLoaded == evt.bytesTotal)
+                	debug.appendText(evt.type + " " + evt.bytesLoaded + " of " + evt.bytesTotal );
             }
             
             

@@ -24,26 +24,34 @@
 			testDir="gumbo/components/Image/events/"
 			testSWF="ImageMain.mxml">
 
-	<fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	<fx:Script><![CDATA[ 
+		[Bindable]
+		private var loadTimeout:int = 5000;
+		
+		public static function init(o:DisplayObject):void { } 
+		
+	]]></fx:Script>
 	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
 
 	<testCases>
 		<TestCase testID="Image_Load_trusted_events" keywords="[Image, events, trusted]" description="Verify events">
 			<setup>
 				<ResetComponent target="et" className="comps.EventsTesterComp" waitEvent="updateComplete" />
-                		<SetProperty target="et.img" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="et.img" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready" timeout="{loadTimeout}" />
 			</setup>
 			<body>
-				<AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2253progress 1024 of 2253progress 2048 of 2253progress 2253 of 2253httpStatus_0_complete_resize" />
+				<!--AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2253progress 1024 of 2253progress 2048 of 2253progress 2253 of 2253httpStatus_0_complete_resize" /-->
+				<AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2253progress 2253 of 2253httpStatus_0_complete_resize" />
 			</body>
 		</TestCase>
         	<TestCase testID="Image_Load_local_events" keywords="[Image, events, trusted]" description="Verify events">
             <setup>
                 <ResetComponent target="et" className="comps.EventsTesterComp" waitEvent="updateComplete" />
-                <SetProperty target="et.img" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="ready"  />
+                <SetProperty target="et.img" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="ready" timeout="{loadTimeout}" />
             </setup>
             <body>
-                <AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2146progress 1024 of 2146progress 2048 of 2146progress 2146 of 2146httpStatus_0_complete_resize" />
+				<!--AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2146progress 1024 of 2146progress 2048 of 2146progress 2146 of 2146httpStatus_0_complete_resize" /-->
+				<AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2146progress 2146 of 2146httpStatus_0_complete_resize" />
             </body>
         </TestCase>
 
@@ -51,20 +59,22 @@
         <TestCase testID="BitmapImage_Load_trusted_events" keywords="[BitmapImage, events, trusted]" description="Verify events">
             <setup>
                 <ResetComponent target="et" className="comps.EventsTesterComp" waitEvent="updateComplete" />
-                <SetProperty target="et.bi" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="et.bi" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  timeout="{loadTimeout}"/>
             </setup>
             <body>
-                <AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2253progress 1024 of 2253progress 2048 of 2253progress 2253 of 2253httpStatus_0_complete_" />
+				<!--AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2253progress 1024 of 2253progress 2048 of 2253progress 2253 of 2253httpStatus_0_complete_" /-->
+				<AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2253progress 2253 of 2253httpStatus_0_complete_" />
             </body>
         </TestCase>
 
         <TestCase testID="BitmapImage_Load_local_events" keywords="[BitmapImage, events, trusted]" description="Verify events">
             <setup>
                 <ResetComponent target="et" className="comps.EventsTesterComp" waitEvent="updateComplete" />
-                <SetProperty target="et.bi" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="et.bi" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready" timeout="{loadTimeout}" />
             </setup>
             <body>
-                <AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2253progress 1024 of 2253progress 2048 of 2253progress 2253 of 2253httpStatus_0_complete_" />
+				<!--AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2253progress 1024 of 2253progress 2048 of 2253progress 2253 of 2253httpStatus_0_complete_" /-->
+				<AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2253progress 2253 of 2253httpStatus_0_complete_" />
             </body>
         </TestCase>
 	</testCases>
