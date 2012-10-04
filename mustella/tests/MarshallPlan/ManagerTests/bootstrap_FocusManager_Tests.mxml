@@ -170,7 +170,7 @@
 			    <SetProperty target="swf1" propertyName="autoLoad" value="false" />
 				<SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/simpleForms.swf?153_13?153_13?153_13" />
 				<SetProperty target="swf1" propertyName="autoLoad" value="true"
-					waitTarget="swf1" waitEvent="complete"/>
+					waitTarget="swf1" waitEvent="complete" timeout="5000" />
 			</setup>
 			<body>
 			    <WaitForSandboxApp target="swf1" />
@@ -198,7 +198,7 @@
 			    <SetProperty target="swf1" propertyName="autoLoad" value="false" />
 				<SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/simpleForms.swf?181_13?181_13?181_13" waitTarget="swf1" waitEvent="updateComplete"/>
 				<SetProperty target="swf1" propertyName="autoLoad" value="true"
-					waitTarget="swf1" waitEvent="complete"/>
+					waitTarget="swf1" waitEvent="complete" timeout="5000" />
 			</setup>
 			<body>
 			    <WaitForSandboxApp target="swf1" />
@@ -334,7 +334,7 @@
 			    <SetProperty target="swf1" propertyName="autoLoad" value="false" />
 		   	    <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/simpleForms.swf?317_13?317_13?317_13" />
 				<SetProperty target="swf1" propertyName="autoLoad" value="true"
-					waitTarget="swf1" waitEvent="complete"/>
+					waitTarget="swf1" waitEvent="complete" timeout="5000" />
 			</setup>
 			<body>
 			    <WaitForSandboxApp target="swf1" />
@@ -362,7 +362,7 @@
 			    <SetProperty target="swf1" propertyName="autoLoad" value="false" />
 				<SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/simpleForms.swf?345_13?345_13?345_13" waitTarget="swf1" waitEvent="updateComplete"/>
 				<SetProperty target="swf1" propertyName="autoLoad" value="true"
-					waitTarget="swf1" waitEvent="complete"/>
+					waitTarget="swf1" waitEvent="complete" timeout="5000" />
 			</setup>
 			<body>
 			    <WaitForSandboxApp target="swf1" />

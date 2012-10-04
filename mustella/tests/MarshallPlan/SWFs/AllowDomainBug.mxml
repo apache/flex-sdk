@@ -30,11 +30,13 @@
             import mx.events.FlexEvent;
             import mx.events.RSLEvent;
             
+			
             protected function application1_applicationCompleteHandler(event:FlexEvent):void
             {
                 systemManager.allowDomain("127.0.0.1");
             }
 
+			private var myUtils:MyUtils;
         ]]>
     </fx:Script>
     

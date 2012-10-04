@@ -9,7 +9,7 @@
     <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
     <testCases>
 
-		<TestCase testID="allowDomain_rsl" description="Test loading of untursted sub app which depends upon rsl loaded in trusted domain."
+		<TestCase testID="allowDomain_rsl" description="Test loading of untursted sub app which depends upon class loaded in trusted domain."
 		  keywords="[RSL]">
 			<setup>
 			
