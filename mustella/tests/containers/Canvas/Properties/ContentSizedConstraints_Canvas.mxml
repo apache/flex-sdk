@@ -82,7 +82,7 @@
         description="Verify the constraintRows has the right height when its children have no explicit height set in mxml">
         <body>
             <AssertPropertyValue target="canvas2.constraintRows.2" propertyName="height" valueExpression="value=application.canvas2.getChildAt(3).height + 20" />
-            <AssertPropertyValue target="canvas2.getChildAt(3)" propertyName="height" value="180" />
+            <AssertPropertyValue target="canvas2.getChildAt(3)" propertyName="height" value="194" />
             <AssertPropertyValue target="canvas2.getChildAt(3)" propertyName="x" value="0" />
             <AssertPropertyValue target="canvas2.getChildAt(3)" propertyName="y" valueExpression="value=application.canvas2.constraintRows[0].height + application.canvas2.constraintRows[1].height + 10" />
         </body>
@@ -91,7 +91,7 @@
         description="Verify the constraintRows has the right height when its children have no explicit height set in mxml">
         <body>
             <AssertPropertyValue target="canvas2.constraintColumns.2" propertyName="width" valueExpression="value=application.canvas2.getChildAt(4).width + 20" />
-            <AssertPropertyValue target="canvas2.getChildAt(4)" propertyName="width" value="95" />
+            <AssertPropertyValue target="canvas2.getChildAt(4)" propertyName="width" value="87" />
             <AssertPropertyValue target="canvas2.getChildAt(4)" propertyName="y" value="0" />
             <AssertPropertyValue target="canvas2.getChildAt(4)" propertyName="x" valueExpression="value=application.canvas2.constraintColumns[0].width + application.canvas2.constraintColumns[1].width + 10" />
         </body>
@@ -462,7 +462,7 @@
             <SetStyle styleName="baseline" valueExpression="value='row1:40'" target="script:newButton"  />
             <SetStyle styleName="bottom" valueExpression="value='row1:10'" target="script:newButton"  />
             <RunCode code="application.emptyCanvas.addChild(newButton)"  waitEvent="childAdd" waitTarget="emptyCanvas"/>
-            <AssertPropertyValue target="emptyCanvas.constraintRows.0" propertyName="height" value="62" />
+            <AssertPropertyValue target="emptyCanvas.constraintRows.0" propertyName="height" value="64" />
             <AssertPropertyValue target="emptyCanvas.getChildAt(0)" propertyName="y" value="30" />
        </body>
     </TestCase>
@@ -639,7 +639,7 @@
             <RunCode code="application.emptyCanvas.addChild(newButton)"  waitEvent="childAdd" waitTarget="emptyCanvas"/>
             
             <AssertPropertyValue target="emptyCanvas.constraintColumns.0" propertyName="width" value="40" />
-            <AssertPropertyValue target="emptyCanvas.constraintColumns.1" propertyName="width" value="72" />
+            <AssertPropertyValue target="emptyCanvas.constraintColumns.1" propertyName="width" value="68" />
        </body>
     </TestCase>    
     

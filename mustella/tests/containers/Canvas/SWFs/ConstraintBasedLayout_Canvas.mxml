@@ -20,26 +20,28 @@
    <mx:Application backgroundColor="0xFFFFFF" backgroundImage="" xmlns:mx="http://www.adobe.com/2006/mxml" width="900" height="800"
        xmlns:comps="comps.*" >
 
-      <comps:PercentageRowColumnCanvasComp id="canvas1" />
-
-      <comps:ContentRowColumnCanvasComp id="canvas2" />
-
-      <mx:Canvas id="emptyCanvas" />
+	<mx:Style source="../../../../Assets/Fonts/myStyles.css" />
+	
+	<comps:PercentageRowColumnCanvasComp id="canvas1" />
+	
+	<comps:ContentRowColumnCanvasComp id="canvas2" />
+	
+	<mx:Canvas id="emptyCanvas" />
       
-    <mx:Canvas width="100%" height="100%">
-        <mx:constraintColumns>
-            <mx:ConstraintColumn id="col1" width="250"/>
-            <mx:ConstraintColumn id="col2" width="100"/>
-        </mx:constraintColumns>
-        <mx:constraintRows>
-            <mx:ConstraintRow id="row1"/>
-            <mx:ConstraintRow id="row2"/>
-            <mx:ConstraintRow id="row3"/>
-            <mx:ConstraintRow id="row4"/>
-            <mx:ConstraintRow id="row5"/>
-            <mx:ConstraintRow id="row6"/>
-            <mx:ConstraintRow id="row7"/>
-        </mx:constraintRows>
+	<mx:Canvas width="100%" height="100%">
+	<mx:constraintColumns>
+	    <mx:ConstraintColumn id="col1" width="250"/>
+	    <mx:ConstraintColumn id="col2" width="100"/>
+	</mx:constraintColumns>
+	<mx:constraintRows>
+	    <mx:ConstraintRow id="row1"/>
+	    <mx:ConstraintRow id="row2"/>
+	    <mx:ConstraintRow id="row3"/>
+	    <mx:ConstraintRow id="row4"/>
+	    <mx:ConstraintRow id="row5"/>
+	    <mx:ConstraintRow id="row6"/>
+	    <mx:ConstraintRow id="row7"/>
+	</mx:constraintRows>
         
         <mx:Text width="100%" left="col1:0" top="row1:0">
             <mx:htmlText>
