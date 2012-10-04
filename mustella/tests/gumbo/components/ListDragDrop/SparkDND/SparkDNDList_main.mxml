@@ -192,23 +192,22 @@
                 <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="false" />
-             		<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+             	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
 	     		<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" /><WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" waitEvent="click" waitTarget="l1"/>
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" waitEvent="dragStart"/>
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="10"  waitEvent="dragEnter"/>
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="25" localY="20"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-
-		<CompareBitmap numColorVariances="25" maxColorVariance="1" target="hg" url="../SparkDND/baselines/$testID.png" />
-		<DispatchMouseEvent target="hg" type="mouseUp" localX="250" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
-
+				<RunCode code="DragManager.endDrag()" /><WaitForEffectsToEnd/>
+				<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+				<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+				<DispatchMouseClickEvent target="l1"    localX="20" localY="10" waitEvent="click" waitTarget="l1"/>
+		 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+		 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" waitEvent="dragStart"/>
+		 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="10"  waitEvent="dragEnter"/>
+		 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="25" localY="20"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		
+				<CompareBitmap numColorVariances="25" maxColorVariance="1" target="hg" url="../SparkDND/baselines/$testID.png"/>
+				<DispatchMouseEvent target="hg" type="mouseUp" localX="250" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
+				<WaitForEffectsToEnd/>
             </body>
         </TestCase>
 	<TestCase testID="SparkListDefaultRenderer_dragProxy" keywords="[DragDrop, List]" description="">
@@ -777,22 +776,22 @@
                 <SetProperty target="l1" propertyName="selectedIndex" value="0" />
                 <SetProperty target="l1" propertyName="dragEnabled" value="true" />
                 <SetProperty target="l2" propertyName="dropEnabled" value="false" />
-             		<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
+             	<SetProperty target="l1.layout" propertyName="dragScrollInitialDelay" value="0" />
 	     		<SetProperty target="l2.layout" propertyName="dragScrollInitialDelay" value="0" />
             </setup>
             <body>
-		<RunCode code="DragManager.endDrag()" /><WaitForEffectsToEnd/>
-		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
-		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" waitEvent="click" waitTarget="l1"/>
- 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
- 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" />
- 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
-		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="10" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-
-		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkDND/baselines/$testID.png" />
-		<DispatchMouseEvent target="hg" type="mouseUp" localX="250" localY="8"  waitTarget="l1" waitEvent="dragComplete" />
-		<WaitForEffectsToEnd/>
+				<RunCode code="DragManager.endDrag()" /><WaitForEffectsToEnd/>
+				<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+				<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+				<DispatchMouseClickEvent target="l1"    localX="20" localY="10" waitEvent="click" waitTarget="l1"/>
+		 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+		 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" />
+		 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="5" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+				<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="10" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		
+				<CompareBitmap numColorVariances="10" maxColorVariance="2" target="hg" url="../SparkDND/baselines/$testID.png" />
+				<DispatchMouseEvent target="hg" type="mouseUp" localX="250" localY="8"  waitTarget="l1" waitEvent="dragComplete" />
+				<WaitForEffectsToEnd/>
 
             </body>
         </TestCase>
