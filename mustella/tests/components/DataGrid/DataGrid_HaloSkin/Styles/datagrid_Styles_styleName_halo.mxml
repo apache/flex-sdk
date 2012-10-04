@@ -72,7 +72,7 @@
             </setup>
             <body>
                  <SetStyle target="gridInCanvas" value="redText italicText boldBig" styleName="styleName" waitEvent="updateComplete" waitTarget="gridInCanvas" />
-                 <CompareBitmap target="gridInCanvas.getChildAt(0).mx_internal:rendererArray.1.0" url="../Styles/baselines/$testID.png" timeout="5000"/>
+                 <CompareBitmap target="gridInCanvas.getChildAt(0).mx_internal:rendererArray.1.0" url="../Styles/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
  			</body>
          </TestCase>
 

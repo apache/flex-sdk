@@ -2977,8 +2977,7 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedColumns.listItems.1.0" localX="2" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedColumns.listItems.1.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
-                <WaitForLayoutManager/>
-                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png"/>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="30" maxColorVariance="1"/>
              </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
@@ -3013,7 +3012,7 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedColumns.listItems.3.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:dataGridLockedColumns.listItems.3.0" localX="2" localY="30" />
                 <Pause timeout="500" />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/lockedColumnCount_config8_dragDropInLockedColumnArea_dropComplete.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/lockedColumnCount_config8_dragDropInLockedColumnArea_dropComplete.png" numColorVariances="20" maxColorVariance="1"/>
             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
@@ -3040,9 +3039,7 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true">
-                	<!--ConditionalValue os="mac"/-->
-                </CompareBitmap>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
@@ -3147,9 +3144,7 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedColumns.listItems.0.1" localX="10" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:dataGridLockedColumns.listItems.0.1" localX="2" localY="2" />
                 <Pause timeout="500" />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true">
-                	<!--ConditionalValue os="mac"/-->
-                </CompareBitmap>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
@@ -3190,10 +3185,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedColumns.listItems.0.1" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedColumns.listItems.1.1" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
 				<Pause timeout="250" />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true">
-                	<!--ConditionalValue os="mac"/-->
-                </CompareBitmap>
-            </body>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="25" maxColorVariance="1"/>
+             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
             </cleanup>
