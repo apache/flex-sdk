@@ -386,7 +386,9 @@
                 <SetProperty value="20" propertyName="rotationX" target="graphic3.getChildAt(0).getElementAt(0).getElementAt(2)" />
                 <Pause timeout="200" />
                 <Pause timeout="300" />
-                 <CompareBitmap numColorVariances="8" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic3" timeout="2000" />
+                 <CompareBitmap url="../Properties/baselines/" target="graphic3" timeout="2000">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="FXG_Properties_visible_lastElement" description="Make the last element in a Graphic visible or invisible."
