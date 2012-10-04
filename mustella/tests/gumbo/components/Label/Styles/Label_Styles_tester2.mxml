@@ -200,7 +200,9 @@
 			</setup>
 			<body>
 				<AssertStyleValue target="textBoxComp.textBox" styleName="baselineShift" value="subscript" />
-				<CompareBitmap  url="../Styles/baselines/$testID@mac.png" target="container" />
+				<CompareBitmap  url="../Styles/baselines/" target="container">
+					<ConditionalValue os="mac"/>
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -212,7 +214,9 @@
 			</setup>
 			<body>
 				<AssertStyleValue target="textBoxComp.textBox" styleName="baselineShift" value="superscript" />
-				<CompareBitmap url="../Styles/baselines/$testID@mac.png" target="container" />
+				<CompareBitmap url="../Styles/baselines/" target="container">
+					<ConditionalValue os="mac"/>
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
