@@ -338,7 +338,9 @@
 				<ResetComponent target="ellipse_radialGradientStroke" className="comps.EllipseRadialGradientStroke" waitTarget="ellipse_radialGradientStroke" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="2500" />
+				<CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="2500">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 	    </TestCase>
 		<TestCase testID="FXG_Ellipse_RadialGradientStroke_xy_20_0" description="Ellipse with a RadialGradientStroke and and (x,y)=(20,0)" keywords="[Line, RadialGradientStroke, caps]">
@@ -347,7 +349,9 @@
 			</setup>
 			<body>
 				<SetProperty target="ellipse_radialGradientStroke.ellipse1" propertyName="x" value="20" waitTarget="ellipse_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="2500" />
+				<CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="2500" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 	    </TestCase>
 		<TestCase testID="FXG_Ellipse_RadialGradientStroke_xy_0_20" description="Ellipse with a RadialGradientStroke and and (x,y)=(0,20)" keywords="[Line, RadialGradientStroke, x, y]">
@@ -356,7 +360,9 @@
 			</setup>
 			<body>
 				<SetProperty target="ellipse_radialGradientStroke.ellipse1" propertyName="y" value="20" waitTarget="ellipse_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="2500" />
+				<CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="2500">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 	    </TestCase>
 	    <TestCase testID="FXG_Ellipse_RadialGradientStroke_xy_strokeRotation" description="Ellipse with a RadialGradientStroke and (x,y)=(20,0), rotation=45" keywords="[Line, RadialGradientStroke, rotation]">
@@ -365,7 +371,9 @@
 			</setup>
 			<body>
 				<SetProperty target="ellipse_radialGradientStroke.ellipse1.stroke" propertyName="rotation" value="45" waitTarget="ellipse_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="2500" />
+				<CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="2500">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 	    </TestCase>
 	    <TestCase testID="FXG_Ellipse_RadialGradientStroke_xy_fillRotation" description="Ellipse with a RadialGradientStroke and (x,y)=(0,0)" keywords="[Line, LinearGradientStroke, caps]">
@@ -374,7 +382,9 @@
 			</setup>
 			<body>
 				<SetProperty target="ellipse_radialGradientStroke.ellipse1.fill" propertyName="rotation" value="45" waitTarget="ellipse_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="2500" />
+				<CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="2500">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 	    </TestCase>
 		<TestCase testID="FXG_Ellipse_RadialGradientStroke_fillX" description="Ellipse with a RadialGradientStroke and and (x,y)=(20,0)" keywords="[Line, RadialGradientStroke, caps]">
@@ -383,7 +393,9 @@
 			</setup>
 			<body>
 				<SetProperty target="ellipse_radialGradientStroke.ellipse1.fill" propertyName="x" value="50" waitTarget="ellipse_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="2500" />
+				<CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="2500">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 	    </TestCase>
 		<TestCase testID="FXG_Ellipse_RadialGradientStroke_fillY" description="Ellipse with a RadialGradientStroke and and (x,y)=(0,20)" keywords="[Line, RadialGradientStroke, x, y]">
@@ -392,7 +404,9 @@
 			</setup>
 			<body>
 				<SetProperty target="ellipse_radialGradientStroke.ellipse1.fill" propertyName="y" value="30" waitTarget="ellipse_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="2500" />
+				<CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="2500">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 	    </TestCase>
 		<TestCase testID="FXG_Ellipse_RadialGradientStroke_strokeX" description="Ellipse with a RadialGradientStroke and and (x,y)=(20,0)" keywords="[Line, RadialGradientStroke, caps]">
@@ -401,7 +415,9 @@
 			</setup>
 			<body>
 				<SetProperty target="ellipse_radialGradientStroke.ellipse1.stroke" propertyName="x" value="10" waitTarget="ellipse_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete" />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="2500" />
+				<CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="2500">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 	    </TestCase>
 		<TestCase testID="FXG_Ellipse_RadialGradientStroke_strokeY" description="Ellipse with a RadialGradientStroke and and (x,y)=(0,20)" keywords="[Line, RadialGradientStroke, x, y]">
@@ -410,7 +426,9 @@
 			</setup>
 			<body>
 				<SetProperty target="ellipse_radialGradientStroke.ellipse1.stroke" propertyName="y" value="30" waitTarget="ellipse_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="2500" />
+				<CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="2500">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 	    </TestCase>
 <!-- using matrix -->
@@ -651,7 +669,9 @@
 		            waitTarget="ellipse_radialGradientStroke.ellipse1" waitEvent="updateComplete" />
 		    </setup>
             <body>
-		        <CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="5000" />
+		        <CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="5000">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 	    <TestCase testID="FXG_Ellipse_XY_matrix_onRadialGradient_fill" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
@@ -665,7 +685,9 @@
 		            waitTarget="ellipse_radialGradientStroke.ellipse1" waitEvent="updateComplete" />
 		    </setup>
             <body>
-		        <CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="5000" />
+		        <CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="5000">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 	    <TestCase testID="FXG_Ellipse_Rotation_matrix_onRadialGradient_stroke" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
@@ -679,7 +701,9 @@
 		            waitTarget="ellipse_radialGradientStroke.ellipse1" waitEvent="updateComplete" />
 		    </setup>
             <body>
-		        <CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="5000" />
+		        <CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="5000">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 	    <TestCase testID="FXG_Ellipse_XY_matrix_onRadialGradient_stroke" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
@@ -693,7 +717,9 @@
 		            waitTarget="ellipse_radialGradientStroke.ellipse1" waitEvent="updateComplete" />
 		    </setup>
             <body>
-		        <CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="5000" />
+		        <CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="5000">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
     </testCases>
