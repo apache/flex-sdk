@@ -343,6 +343,7 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" localX="2" localY="0" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" localX="2" localY="30" />
+				<WaitForEffectsToEnd />
                 <WaitForLayoutManager />
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config2_dragDropInLockedRowArea_dropComplete.png" numColorVariances="4" ignoreMaxColorVariance="true" />
             </body>
@@ -411,6 +412,7 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="0" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="0" />
+				<WaitForEffectsToEnd />
                 <WaitForLayoutManager />
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config2_dragDropInUnlockedRowArea_dropComplete.png" />
             </body>
@@ -450,6 +452,7 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="0" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="0" />
+				<WaitForEffectsToEnd />
                 <WaitForLayoutManager />
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config2_dragDropLockedToUnlockedRow.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
             </body>
@@ -491,6 +494,7 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" localX="2" localY="0" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" localX="2" localY="2" />
+				<WaitForEffectsToEnd />
                 <WaitForLayoutManager />
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config2_dragDropUnlockedToLockedRowArea.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
             </body>
