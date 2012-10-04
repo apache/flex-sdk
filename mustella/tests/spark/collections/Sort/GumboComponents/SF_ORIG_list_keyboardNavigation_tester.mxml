@@ -157,20 +157,20 @@ xmlns="*" testSWF="SF_ORIG_ListBasic.mxml">
             <setup>
                 <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
                 <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
-		<SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+				<SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
             </setup>
             <body>
                 <RunCode code="application.list1.itemRenderer=new ClassFactory(comps.PlayerRenderer);"  />
                 <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.sortAC();" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
 
-		<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
                 <DispatchKeyEvent keys="[DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
                 <RunCode code="application.ac.addItemAt(application.newPlayer, 0);" waitEvent="updateComplete"  waitTarget="list1.dataGroup" />
                 <DispatchKeyEvent keys="[DOWN]"  ctrlKey="true" />
                 <SetProperty target="list1" propertyName="width" value="100" />
                 <DispatchKeyEvent keys="[DOWN]"  ctrlKey="true" />
- 		<SetProperty target="list1" propertyName="height" value="115" waitEvent="updateComplete" />
-		<CompareBitmap url="../GumboComponents/baselines/$testID.png" target="list1" />
+ 				<SetProperty target="list1" propertyName="height" value="115" waitEvent="updateComplete" />
+				<CompareBitmap url="../GumboComponents/baselines/$testID.png" target="list1" numColorVariances="4"/>
             </body>
         </TestCase>
        <TestCase testID="List_keyboardNavigation8" keywords="[List, method,arrayCollection,binding, dataProvider.addItemAt]" description="">
