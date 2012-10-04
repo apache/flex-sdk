@@ -910,6 +910,9 @@ public class Runner {
 
 			System.out.println ("TROUBLE on the log copy.");
 
+			if (e.getLocalizedMessage() != null)
+				System.out.println(e.getLocalizedMessage());
+			
 			/// if we're depending on the log, note that we're bailing here
 			if (getResultsFromLog)
 				unpackResult (sourceName, "Missing Results");
@@ -1030,6 +1033,7 @@ public class Runner {
 
 
 	private static final String winDir = "Application Data";
+	private static final String win7Dir = "AppData/Roaming";
 	private static final String macEnd = "Library/Preferences/Macromedia/Flash Player/Logs/flashlog.txt";
 	private static final String linuxEnd = ".macromedia/Flash_Player/Logs/flashlog.txt";
 	private static final String winEnd = "Macromedia/Flash Player/Logs/flashlog.txt";
@@ -1038,16 +1042,22 @@ public class Runner {
 
 	private static String getLogSource() {
 
-
 		String start= System.getProperties ().getProperty ("user.home");
 		String ret = null;
 
 		String tmp = null;
 		String os = System.getProperties ().getProperty ("os.name");
 
-
 		/// need testing of the mac & Linux parts of this.
-		if (os.indexOf ("Windows") !=  -1) {
+		// Just guessing that "Windows Vista" is the correct string for Vista.
+
+		// On Windows 7 the value of user.home is the registry key
+		// "[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\Desktop]"
+		// with the last directory stripped.
+
+		if (os.indexOf ("Windows 7") != -1 || os.indexOf ("Windows Vista") != -1) {
+			ret = start + File.separator + win7Dir + File.separator + winEnd;
+		} else if (os.indexOf ("Windows") !=  -1) {
 			ret = start + File.separator + winDir + File.separator + winEnd;
 		} else if (os.indexOf ("Linux") !=  -1) {
 			ret = start + File.separator + linuxEnd;
