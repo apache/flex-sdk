@@ -46,6 +46,9 @@
 	public var styleDecl:Object;
 	public var styleObj:Object;
 
+	[Bindable]
+	private var loadTimeout:int = 6000;
+		
 	]]>
 	</mx:Script>
 	<testCases>
@@ -58,7 +61,7 @@
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
 		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
 		   	   <SetProperty target="swf1" propertyName="source" value="assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
-			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete" timeout="{loadTimeout}"/>
 			</setup>
 			<body>
 			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
@@ -79,7 +82,7 @@
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
 		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
 		   	   <SetProperty target="swf1" propertyName="source" value="assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
-			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete" timeout="{loadTimeout}"/>
 			</setup>
 			<body>
 			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
@@ -100,7 +103,7 @@
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
 		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
 		   	   <SetProperty target="swf1" propertyName="source" value="assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
-			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete" timeout="{loadTimeout}"/>
 			</setup>
 			<body>
 			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
@@ -121,7 +124,7 @@
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
 		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
 		   	   <SetProperty target="swf1" propertyName="source" value="assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
-			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete" timeout="{loadTimeout}"/>
 			</setup>
 			<body>
 			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
@@ -142,7 +145,7 @@
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
 		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
 		   	   <SetProperty target="swf1" propertyName="source" value="assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
-			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete" timeout="{loadTimeout}"/>
 			</setup>
 			<body>
 			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
@@ -163,7 +166,7 @@
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
 		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
 		   	   <SetProperty target="swf1" propertyName="source" value="assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
-			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete" timeout="{loadTimeout}"/>
 			</setup>
 			<body>
 			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
@@ -184,7 +187,7 @@
 			   <Pause timeout="100" />
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
 		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/components/Slider/SWFs/assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
-			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete" timeout="{loadTimeout}"/>
 			</setup>
 			<body>
 			  	<WaitForSandboxApp target="swf1" />
@@ -206,7 +209,7 @@
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
 		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
 		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/components/Slider/SWFs/assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
-			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete" timeout="{loadTimeout}"/>
 			</setup>
 			<body>
 			    <WaitForSandboxApp target="swf1" />
@@ -229,7 +232,7 @@
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
 		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
 		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/components/Slider/SWFs/assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
-			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete" timeout="{loadTimeout}"/>
 			</setup>
 			<body>
 			  	<WaitForSandboxApp target="swf1" />
