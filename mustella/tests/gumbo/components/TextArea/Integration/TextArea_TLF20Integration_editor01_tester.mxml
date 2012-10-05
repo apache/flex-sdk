@@ -85,8 +85,8 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
-			</body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
+ 			</body>
 		</TestCase>
 		
 		<TestCase testID="TA_01_LSP_OUTSIDE_last_position" keywords="[TextArea, ordered, list, last item, listStyleType]" 
@@ -115,7 +115,7 @@
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -147,9 +147,7 @@
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -192,9 +190,7 @@
 				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -226,9 +222,7 @@
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -254,7 +248,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -275,9 +269,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" >
-				    <ConditionalValue os="mac" />
-				</CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -301,7 +293,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -331,7 +323,7 @@
 			</setup>
 			<body>
 
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -363,7 +355,7 @@
 			</setup>
 			<body>
 
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -406,7 +398,7 @@
 				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 		    </setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -438,7 +430,7 @@
 			</setup>
 			<body>
 
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -487,7 +479,7 @@
 			</setup>
 			<body>
 
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 			
@@ -514,7 +506,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -538,9 +530,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" >
-				    <ConditionalValue os="mac" />
-				</CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -564,7 +554,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -593,7 +583,7 @@
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -625,7 +615,7 @@
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -668,7 +658,7 @@
 				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -702,7 +692,7 @@
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -728,7 +718,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -751,9 +741,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" >
-				    <ConditionalValue os="mac" />
-				</CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -777,7 +765,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -807,7 +795,7 @@
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -839,7 +827,7 @@
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -883,7 +871,7 @@
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor"></CompareBitmap>
-				<!--CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap-->
+				<!--CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"-->
 			</body>
 		</TestCase>
 		
@@ -915,7 +903,7 @@
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -962,7 +950,7 @@
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
