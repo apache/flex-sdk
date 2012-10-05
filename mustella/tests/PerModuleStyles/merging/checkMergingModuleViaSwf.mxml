@@ -55,13 +55,9 @@
 			
 		        <RunCode code="application.iniit2();"  waitTarget="mod_loader" waitEvent="ready" />
 
-			<Pause timeout="2000" />
+			    <Pause timeout="2000" />
 			
-				<CompareBitmap url="../merging/baselines/" target="mod_loader" numColorVariances="6" ignoreMaxColorVariance="true">
-
-			        <ConditionalValue os="mac" />
-			    </CompareBitmap>
-		    
+				<CompareBitmap url="../merging/baselines/$testID.png" target="mod_loader" numColorVariances="6" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
 

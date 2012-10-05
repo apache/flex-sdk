@@ -68,11 +68,7 @@
 		    <Pause timeout="1000" />
 			
 
-		    <CompareBitmap url="../merging/baselines/$testID.png" target="appPanel" numColorVariances="4" ignoreMaxColorVariance="true" >
-
-		        <ConditionalValue os="mac" />
-
-		    </CompareBitmap>
+		    <CompareBitmap url="../merging/baselines/$testID.png" target="appPanel" numColorVariances="4" ignoreMaxColorVariance="true" />
 
 		    </body>
 
@@ -97,12 +93,7 @@
 		    <body>		
 			
 
-		        <CompareBitmap url="../merging/baselines/$testID.png" target="swf_loader" numColorVariances="4"  ignoreMaxColorVariance="true">
-
-
-		            <ConditionalValue os="mac" />
-
-		        </CompareBitmap>
+		        <CompareBitmap url="../merging/baselines/$testID.png" target="swf_loader" numColorVariances="4"  ignoreMaxColorVariance="true"/>
 
 		    </body>
 
