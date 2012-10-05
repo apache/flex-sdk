@@ -433,21 +433,24 @@
 	<s:layout>
 		<s:VerticalLayout/>
 	</s:layout>
+	<s:states>
+		<s:State name="setOne" />
+		<s:State name="setTwo" />
+	</s:states>
 	
-	
-	<s:HGroup id="hg1">
+	<s:HGroup id="hg1" includeIn="setOne">
 		
 		<!-- default one, editable is turned off -->
 		<comps:DataGrid_comp1	id="dataGrid" />
 		<comps:DataGrid_editable_comp1	id="dataGrid2" />
 		<comps:DataGrid_editable_size   id="dataGrid3" />
 	</s:HGroup>
-	<s:HGroup id="hg2">
+	<s:HGroup id="hg2" includeIn="setOne">
 		<comps:DataGrid_editable_comp2	id="dataGrid4" />
 		<comps:DataGrid_editable_comp3	id="dataGrid5" />
 	</s:HGroup>
 	 
-	<comps:DataGrid_multiline_lineBreakStyle id="dataGrid6" />
-	<comps:DataGrid_ComboBoxEditor id="dataGrid7" />
+	<comps:DataGrid_multiline_lineBreakStyle id="dataGrid6" includeIn="setOne"/>
+	<comps:DataGrid_ComboBoxEditor id="dataGrid7" includeIn="setTwo" />
 	
 </s:Application>
