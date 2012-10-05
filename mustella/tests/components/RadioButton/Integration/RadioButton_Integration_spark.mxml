@@ -61,7 +61,7 @@
 		<body>
 			<DispatchKeyEvent keys="[TAB, TAB, RIGHT, RIGHT, RIGHT ]" waitEvent="focusIn" waitTarget="tn.rb7"/>
 			<AssertPropertyValue target="tn.rb7" propertyName="selected" value="true" />
-			<CompareBitmap target="tn.int2" url="../Integration/baselines/layout_integration_spark.png" timeout="5000" numColorVariances="1"/>  
+			<CompareBitmap target="tn.int2" url="../Integration/baselines/layout_integration_spark.png" numColorVariances="1" maxColorVariance="1"/>  
 		</body>
 	</TestCase>	
 

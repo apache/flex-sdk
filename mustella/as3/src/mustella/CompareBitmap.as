@@ -858,7 +858,8 @@ public class CompareBitmap extends Assert
 	private function compareWithVariances(bm:BitmapData):Object
 	{
 
-		var allowed:int = numColorVariances * UnitTester.pixelToleranceMultiplier;
+		var totalAllowed:int = numColorVariances * UnitTester.pixelToleranceMultiplier;
+		var allowed:int = totalAllowed;
 		var n:int = bm.height;
 		var m:int = bm.width;
 
@@ -884,17 +885,22 @@ public class CompareBitmap extends Assert
 							blue > maxColorVariance ||
 							green > maxColorVariance)
 						{
+							var max:int = Math.max(Math.max(red, blue), green);
+							trace("CompareBitmap: exceeded maxColorVariance=" + maxColorVariance + " max(red,green,blue)=" + max);
 							return bm;
 						}
 					}
 					allowed--;
 					if (allowed < 0)
 					{
+						trace("CompareBitmap: exceeded numColorVariances=" + numColorVariances);
 						return bm;
 					}
 				}
 			}
 		}
+		
+		trace("CompareBitmap: numColorVariances seen=" + String(totalAllowed - allowed));
 		return 0;
 	}
 
