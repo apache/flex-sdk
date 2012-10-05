@@ -483,7 +483,7 @@ Verify that things are correct when we switch to ja_JP.
                 <ResetComponent target="lbl4" className="Components.CLabelFontStyleGetStringRight" waitEvent="updateComplete" /> 
            </setup>
             <body>
-                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','fr_FR','en_US']" waitEvent="updateComplete" waitTarget="lbl1" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','fr_FR','en_US']" waitEvent="updateComplete" waitTarget="lbl4" />
                 <AssertStyleValue target="lbl4" styleName="fontStyle" value="italic" />               
             </body>
         </TestCase> 
