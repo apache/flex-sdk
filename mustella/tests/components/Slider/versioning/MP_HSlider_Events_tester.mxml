@@ -47,7 +47,7 @@
 	public var styleObj:Object;
 
 	[Bindable]
-	private var loadTimeout:int = 6000;
+	private var loadTimeout:int = 8000;
 		
 	]]>
 	</mx:Script>

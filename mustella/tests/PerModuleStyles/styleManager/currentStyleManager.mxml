@@ -44,7 +44,7 @@
 
 		<TestCase testID="checkModuleStyleManager" keywords="[Styles,Module]" description="Test to make sure getStyleDeclaration return local only styles" >
 		    <body>	
-			<RunCode code="application.iniit();"  waitTarget="mod_loader" waitEvent="ready" />	
+			<RunCode code="application.iniit();"  waitTarget="mod_loader" waitEvent="ready" timeout="8000"/>	
 			<Pause timeout="1000" />		
 			
 			<AssertMethodValue method="value=application.findModuleStyleManager();" valueExpression="value=application.mod_loader.child.moduleList.styleManager" />
