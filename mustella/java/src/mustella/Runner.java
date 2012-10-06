@@ -1589,7 +1589,18 @@ public class Runner {
 
 		public void clobberProcess (boolean timedOut) {
 
-			System.out.println ("clobberProcess");
+			System.out.println ("clobberProcess " + timedOut);
+			if (!timedOut)
+			{
+				int wait = 0;
+				while (wait < 5000 && p != null)
+				{
+					try { Thread.sleep (100);
+					}catch (Exception e)  {}
+					wait += 100;
+				}
+				System.out.println ("waited " + wait);
+			}
 			if (p != null) {
 
 				if (coverage_timeout > 0) {
@@ -1600,6 +1611,7 @@ public class Runner {
 				}
 
 				try {
+					System.out.println ("ClobberProcess, destroying process");
 					p.destroy();
 				} catch (Exception e)
 					{ System.out.println("attempt to destroy process failed, but could be natural ending"); e.printStackTrace();
@@ -1684,6 +1696,8 @@ public class Runner {
 				e.printStackTrace();
 			}
 
+			p = null;
+			
 			/// if we got here, it's done
 			running = false;
 			System.out.println ("Total Results so far: " + localResultStore.size());
