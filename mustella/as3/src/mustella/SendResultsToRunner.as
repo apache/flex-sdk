@@ -49,7 +49,7 @@ public class SendResultsToRunner
 
 	public static var regExp5:RegExp = /%3D/g;
 
-	public static var u:URLLoader;
+
 
 	/**
   	 * the way out for the result data
@@ -128,19 +128,7 @@ public class SendResultsToRunner
 		if (!noSend) { 
 			trace ("sending: " + baseURL + midURL + final + " at: " + new Date());
 			// var u:String= baseURL + midURL + final;
-			if (u == null)
-			{
-				u = new URLLoader();
-				u.addEventListener("complete", completeHandler);
-				u.addEventListener("complete", httpEvents);
-				u.addEventListener("ioError", httpEvents);
-				u.addEventListener("open", httpEvents);
-				u.addEventListener("progress", httpEvents);
-				u.addEventListener("httpStatus", httpEvents);
-				u.addEventListener("securityError", httpEvents);
-			}
-			UnitTester.pendingOutput++;
-			u.load (new URLRequest (baseURL + midURL + final));
+			var u:URLLoader = new URLLoader (new URLRequest (baseURL + midURL + final));
 
 			/*	
 			var sock:Socket = new Socket ("localhost",  UnitTester.runnerPort);
@@ -149,14 +137,28 @@ public class SendResultsToRunner
 			sock.flush();
 			*/
 		
+			u.addEventListener("complete", completeHandler);
+			u.addEventListener("complete", httpEvents);
+			u.addEventListener("ioError", httpEvents);
+			u.addEventListener("open", httpEvents);
+			u.addEventListener("progress", httpEvents);
+			u.addEventListener("httpStatus", httpEvents);
+			u.addEventListener("securityError", httpEvents);
+			u.load (new URLRequest (baseURL + midURL + final));
+			UnitTester.pendingOutput++;
+			dict[u] = baseURL + midURL + final;
 		}
 
 		
 
 	}
 	
+	public static var dict:Dictionary = new Dictionary();
+
 	public static function completeHandler (e:Event):void  {
 		UnitTester.pendingOutput--;
+		//trace("received complete for", dict[e.target]);
+		delete dict[e.target];
 	}
 
 	public static function httpEvents (e:Event):void  {
