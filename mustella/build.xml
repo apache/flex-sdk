@@ -561,6 +561,7 @@
             </filtermapper>
             <map from="${mustella.dir}/" to="" />
         </pathconvert>
+        <echo>shell_file_mxml_equivs is ${shell_file_mxml_equivs}</echo>
         
         <!-- this does likewise for the excluded ones -->
         <pathconvert property="shell_file_mxml_excludes" pathsep="," dirsep="/" >
@@ -574,6 +575,7 @@
         <!-- build the fileset -->
         <fileset id="mxml_equiv_shells" dir="${sdk.mustella.dir}" includes="${shell_file_mxml_equivs}" excludes="${shell_file_mxml_excludes}">
         </fileset>
+        <echo>mxml_equiv_shells is ${mxml_equiv_shells}</echo>
               
         <property name="showx0" refid="mxml_equiv_shells" />
         
@@ -589,6 +591,7 @@
         it seemed unreachable -->
         <taskdef name="getSiblingSwfs" classname="mustella.CousinPreCompile" classpathref="flex.test.classpath"/>
         <getSiblingSwfs files="${tmp111}${path.separator}${tmp111a}" root="${sdk.mustella.dir}" property="tmp.sdk.mustella.scripts2"  />
+        <echo>tmp.sdk.mustella.scripts2 is ${tmp.sdk.mustella.scripts2}</echo>
 
      </target>
 
@@ -602,7 +605,7 @@
         </pathconvert>
         <exec  executable="${shell}" failonerror="${exit_on_compile_error}">
             <arg value="${sdk.mustella.dir}/../scripts/shellrunner.sh" />
-            <arg value="${sdk.mustella.scripts2}" />
+            <env key="MUSTELLA_SCRIPTS2" value="${sdk.mustella.scripts2}" />
             <env key="SDK_DIR" value="${sdk.dir}" />
             <env key="MUSTELLA_DIR" value="${mustella.dir}" />
             <env key="USE_APOLLO" value="${use_apollo}" />

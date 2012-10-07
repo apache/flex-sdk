@@ -25,7 +25,7 @@ max=${NUMBER_OF_PROCESSORS:=1}
 j=0
 i=0
 
-list=($*)
+list=($MUSTELLA_SCRIPTS2)
 
 len=${#list[*]}
 
