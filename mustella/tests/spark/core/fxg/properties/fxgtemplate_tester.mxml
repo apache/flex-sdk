@@ -1712,20 +1712,11 @@
                     <RunCode code="application.grp.addElement(new moveto_path)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="38" ignoreMaxColorVariance="true"  target="grp" />
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="38" ignoreMaxColorVariance="true"  target="grp">
+                        <ConditionalValue os="mac" url="../properties/baselines/$testID_mac.png"/>
+                    </CompareBitmap>
                 </body>
             </TestCase>
-            <TestCase testID="paths_moveto_path_mac" keywords="[fxg]">
-                <setup>
-                    <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>
-                    <RunCode code="application.grp.addElement(new moveto_path)" waitEvent="updateComplete" waitTarget="grp"/>
-                </setup>
-                <body>
-                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="24" ignoreMaxColorVariance="true"  target="grp" />
-                </body>
-            </TestCase>     
-        
-        
             <TestCase testID="paths_quadbezier_path" keywords="[fxg]">
                 <setup>
                     <ResetComponent target="grp" className="comps.MyComp" waitEvent="updateComplete" waitTarget="grp"/>

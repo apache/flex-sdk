@@ -34,20 +34,6 @@
 		    </setup>
 		    <body>	
 				<SetProperty value="30" target="myNS3" propertyName="height" waitEvent="updateComplete" waitTarget="myNS3"/>
-				<AssertPropertyValue target="myNS3" propertyName="y" value="0" />        					
-				<!--CompareBitmap target="myPanel" url="../Styles/Baselines/$testID_1.png"/-->
-				<SetStyle target="myNS3" styleName="baseline" value="50" waitTarget="myNS3" waitEvent="updateComplete"/>
-				<!--CompareBitmap numColorVariances="4" maxColorVariance="7" target="myPanel" url="../Styles/Baselines/$testID_2.png"/-->
-				<AssertPropertyValue target="myNS3" propertyName="y" value="35" />
-		    </body>
-        </TestCase>  
-		<TestCase testID="NumericStepper_styles_baseline_Mac" keywords="[NumericStepper, Styles, baseline]" description="Test baseline style on Spark NumericStepper">
-		    <setup>
-		        <ResetComponent target="myNS3" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS3"/>				        				
-		        <SetProperty target="myNS3" propertyName="x" value="100" waitEvent="updateComplete" waitTarget="myNS3"/>
-		    </setup>
-		    <body>	
-				<SetProperty value="30" target="myNS3" propertyName="height" waitEvent="updateComplete" waitTarget="myNS3"/>
 				<AssertPropertyValue target="myNS3" propertyName="y" value="0" />        	
 				<SetStyle target="myNS3" styleName="baseline" value="50" waitTarget="myNS3" waitEvent="updateComplete"/>
 				<AssertPropertyValue target="myNS3" propertyName="y" value="34" />

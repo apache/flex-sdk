@@ -580,68 +580,8 @@
             <RunCode code="application.emptyCanvas.addChild(newButton)"  waitEvent="childAdd" waitTarget="emptyCanvas"/>
             
             <AssertPropertyValue target="emptyCanvas.constraintColumns.0" propertyName="width" value="40" />
-            <AssertPropertyValue target="emptyCanvas.constraintColumns.1" propertyName="width" value="72" />
-       </body>
-    </TestCase>
- 	<TestCase testID="contentSizedColumn_bugSDK12056_mac" keywords="[ConstraintRows, Canvas, SDK-12056, Bug]"
-        description="Coverage for bug SDK-12056" >
-        <setup>
-            <ResetComponent target="emptyCanvas" className="mx.containers.Canvas" waitTarget="emptyCanvas" waitEvent="updateComplete" />
-            <RunCode code="newRows=[];newColumns=[]" />
-        </setup>
-        <body>
-            <RunCode code="newConstraintRow = new ConstraintRow()" />
-            <SetProperty target="script:newConstraintRow" propertyName="id" value="row1" />
-            <SetProperty target="script:newConstraintRow" propertyName="maxHeight" value="100" />
-            <RunCode code="newRows.push(newConstraintRow)" />
-            <RunCode code="newConstraintRow2 = new ConstraintRow()" />
-            <SetProperty target="script:newConstraintRow2" propertyName="id" value="row2" />
-            <SetProperty target="script:newConstraintRow2" propertyName="maxHeight" value="100" />
-            <RunCode code="newRows.push(newConstraintRow2)" />
-            <SetProperty target="emptyCanvas" propertyName="constraintRows" valueExpression="value=newRows" waitEvent="updateComplete" waitTarget="emptyCanvas" />
-            <RunCode code="newConstraintColumn = new ConstraintColumn()" />
-            <SetProperty target="script:newConstraintColumn" propertyName="id" value="col1" />
-            <SetProperty target="script:newConstraintColumn" propertyName="maxWidth" value="100" />
-            <RunCode code="newColumns.push(newConstraintColumn)" />
-            <RunCode code="newConstraintColumn2 = new ConstraintColumn()" />
-            <SetProperty target="script:newConstraintColumn2" propertyName="id" value="col2" />
-            <SetProperty target="script:newConstraintColumn2" propertyName="maxWidth" value="100" />
-            <RunCode code="newColumns.push(newConstraintColumn2)" />
-            <SetProperty target="emptyCanvas" propertyName="constraintColumns" valueExpression="value=newColumns" waitEvent="updateComplete" waitTarget="emptyCanvas" />
-            
-            <RunCode code="newButton = new Button()" />
-            <SetStyle styleName="top" valueExpression="value='row1:0'" target="script:newButton"  />
-            <SetStyle styleName="bottom" valueExpression="value='row1:0'" target="script:newButton"  />
-            <SetStyle styleName="left" valueExpression="value='col1:0'" target="script:newButton"  />
-            <SetStyle styleName="right" valueExpression="value='col1:0'" target="script:newButton"  />
-            <RunCode code="application.emptyCanvas.addChild(newButton)"  waitEvent="childAdd" waitTarget="emptyCanvas"/>
-            
-            <RunCode code="newButton = new Button()" />
-            <SetStyle styleName="top" valueExpression="value='row1:0'" target="script:newButton"  />
-            <SetStyle styleName="bottom" valueExpression="value='row1:0'" target="script:newButton"  />
-            <SetStyle styleName="left" valueExpression="value='col2:0'" target="script:newButton"  />
-            <SetStyle styleName="right" valueExpression="value='col2:0'" target="script:newButton"  />
-            <SetProperty propertyName="label" target="script:newButton" value="test test" />
-            <RunCode code="application.emptyCanvas.addChild(newButton)"  waitEvent="childAdd" waitTarget="emptyCanvas"/>
-            
-            <RunCode code="newButton = new Button()" />
-            <SetStyle styleName="top" valueExpression="value='row2:0'" target="script:newButton"  />
-            <SetStyle styleName="bottom" valueExpression="value='row2:0'" target="script:newButton"  />
-            <SetStyle styleName="left" valueExpression="value='col1:0'" target="script:newButton"  />
-            <SetStyle styleName="right" valueExpression="value='col1:0'" target="script:newButton"  />
-            <RunCode code="application.emptyCanvas.addChild(newButton)"  waitEvent="childAdd" waitTarget="emptyCanvas"/>
-            
-            <RunCode code="newButton = new Button()" />
-            <SetStyle styleName="top" valueExpression="value='row2:0'" target="script:newButton"  />
-            <SetStyle styleName="bottom" valueExpression="value='row2:0'" target="script:newButton"  />
-            <SetStyle styleName="left" valueExpression="value='col2:0'" target="script:newButton"  />
-            <SetStyle styleName="right" valueExpression="value='col2:0'" target="script:newButton"  />
-            <RunCode code="application.emptyCanvas.addChild(newButton)"  waitEvent="childAdd" waitTarget="emptyCanvas"/>
-            
-            <AssertPropertyValue target="emptyCanvas.constraintColumns.0" propertyName="width" value="40" />
             <AssertPropertyValue target="emptyCanvas.constraintColumns.1" propertyName="width" value="68" />
        </body>
     </TestCase>    
-    
     </testCases>
 </UnitTester>

@@ -151,21 +151,6 @@ MXItemRenderer Testing - Tree - Properties related tests
 	 <SetProperty target="treeRoot.tree1" propertyName="height" value="250" waitEvent="updateComplete" />
         <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandChildrenOf(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
         <AssertPropertyValue target="treeRoot.tree1" propertyName="rowHeight" value="133" />  
-        <CompareBitmap url="../properties/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
-    </body>
-</TestCase>
-
-<TestCase testID="MXTIR_layout_haloContent_001_mac" keywords="[Tree, mxTreeItemRenderer,content]" description="render has halo contents, verify layout is expected " >
-    <setup>
-        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
-    </setup>
-    <body>
-        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
-        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_HaloContent)}"  />
-	<SetProperty target="treeRoot.tree1" propertyName="editable" value="true" />
-	 <SetProperty target="treeRoot.tree1" propertyName="height" value="250" waitEvent="updateComplete" />
-        <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandChildrenOf(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
-        <AssertPropertyValue target="treeRoot.tree1" propertyName="rowHeight" value="133" />  
         <CompareBitmap url="../properties/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="15" ignoreMaxColorVariance="true" />
     </body>
 </TestCase>
