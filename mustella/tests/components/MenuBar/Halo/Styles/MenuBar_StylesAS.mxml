@@ -500,8 +500,7 @@
 			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/textDecoration_underline_css_submenu.png" timeout="2500" />
 			</body>
 		</TestCase>
-		<!-- FIXME: rename since this test works on both platforms despite the name  -->
-		<TestCase testID="textDecoration_underline_submenu_mac" description="MenuBar style textDecoration=underline." keywords="[styles, textDecoration, MenuBar]">
+		<TestCase testID="textDecoration_underline_submenu" description="MenuBar style textDecoration=underline." keywords="[styles, textDecoration, MenuBar]">
 			<setup>
 			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
 			    <RunCode code="application.mb2.setFocus()" waitTarget="mb2" waitEvent="focusIn" />
@@ -514,8 +513,7 @@
 			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/$testID.png" timeout="2500" numColorVariances="10" ignoreMaxColorVariance="true" />
 			</body>
 		</TestCase>
-		<!-- FIXME: rename since this test works on both platforms despite the name  -->
-		<TestCase testID="textDecoration_css_submenu_mac" description="MenuBar style textDecoration=underline." keywords="[styles, textDecoration, MenuBar]">
+		<TestCase testID="textDecoration_css_submenu" description="MenuBar style textDecoration=underline." keywords="[styles, textDecoration, MenuBar]">
 			<setup>
 			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
 			    <RunCode code="application.mb2.setFocus()" waitTarget="mb2" waitEvent="focusIn" />
@@ -529,7 +527,7 @@
 			</body>
 		</TestCase>
 
-<!-- backgroundSkin -->
+        <!-- backgroundSkin -->
 		<TestCase testID="backgroundSkin_AS" description="MenuBar style backgroundSkin=myUpSkin." keywords="[styles, backgroundSkin, MenuBar]">
 			<setup>
 			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
