@@ -695,33 +695,6 @@
 	     </body>
 	  </TestCase>
 
-	    <TestCase testID="combobox_styles_textDecoration_mac" keywords="[comboBox, styles, textDecoration]">
-	      <setup>
-		      <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
-	      </setup>
-	      <body>
-		      <RunCode code="application.mybox.myCB.open()"  waitEvent="open" waitTarget="mybox.myCB"/>
-		      <WaitForEffectsToEnd />
-		      <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_open_default_mac.png"  />
-		      <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB"/>
-		      <WaitForEffectsToEnd />
-		      <SetStyle target="mybox.myCB" styleName="textDecoration" value="underline" waitEvent="updateComplete" waitTarget="mybox.myCB" />
-		      <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customTextDecoration" waitEvent="updateComplete" waitTarget="mybox.myCB" />
-		      <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
-		      <WaitForEffectsToEnd />
-		      <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_textDecoration_underline_mac.png"  />
-		      <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
-		      <WaitForEffectsToEnd />
-		      <SetStyle target="mybox.myCB" styleName="textDecoration" value="normal" waitEvent="updateComplete" waitTarget="mybox.myCB" />
-		      <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customTextDecoration2" waitEvent="updateComplete" waitTarget="mybox.myCB" />
-		      <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
-		      <WaitForEffectsToEnd />
-		      <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_textDecoration_normal_mac.png"  />
-		      <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
-		      <WaitForEffectsToEnd />
-	     </body>
-	  </TestCase>
-
 	  <TestCase testID="combobox_styles_highlightAlphas_default" keywords="[comboBox, styles, highlightAlphas, default]">
 	      <setup>
 		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
