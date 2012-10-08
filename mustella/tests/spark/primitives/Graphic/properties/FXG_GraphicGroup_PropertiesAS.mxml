@@ -1,411 +1,409 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 
-  Licensed to the Apache Software Foundation (ASF) under one or more
-  contributor license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  You may obtain a copy of the License at
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 -->
 <UnitTester testDir="spark/primitives/Graphic/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FXG_GroupGraphic.mxml">
-
-    <mx:Script>
-    <![CDATA[
-
-       import comps.GroupGraphicBasic;
-       import mx.graphics.*;
-       import spark.primitives.*;
-       import spark.components.Group;
-
-       public static function init(o:DisplayObject):void
-        {
-
-        }
-
-       public function addElementToGraphic(graphicObject:Graphic):void
-        {
-            var myLine:Line = new Line();
-            myLine.xFrom = 0;
-            myLine.yFrom = 0;
-            myLine.xTo=20;
-            myLine.yTo=15;
-            var mySolidColorStroke:SolidColorStroke = new SolidColorStroke();
-            mySolidColorStroke.color = 0xFF0000;
-            myLine.stroke = mySolidColorStroke;
-            graphicObject.addElement(myLine);
-        }
-
-       public function removeElementToGraphic(graphicObject:Graphic):void
-        {
-            graphicObject.removeElement(graphicObject.getElementAt(0));
-        }
-
-       public function addElementToGraphic2(groupObject:Group):void
-        {
-            var myLine:Line = new Line();
-            myLine.xFrom = 0; myLine.yFrom = 0;
-            myLine.xTo=20; myLine.yTo=45;
-            var mySolidColorStroke:SolidColorStroke = new SolidColorStroke();
-            mySolidColorStroke.color = 0x0000FF;
-            myLine.stroke = mySolidColorStroke;
-            groupObject.addElement(myLine);
-        }
-
-       public function addRectToGraphic2(groupObject:Group):void
-       {
-            var myRect:Rect = new Rect();
-            myRect.x = 0;
-            myRect.y = 0;
-            myRect.width=120;
-            myRect.height=105;
-            var myFill:SolidColor = new SolidColor();
-            myFill.color = 0xFF6666;
-            myRect.fill = myFill;
-            groupObject.addElement(myRect);
-       }
-
-       public function removeElementToGraphic2(groupObject:Group):void
-        {
-            groupObject.removeElement(groupObject.getElementAt(0));
-        }
-
-    ]]>
-    </mx:Script>
-
-    <mx:Metadata>
-    <![CDATA[
-        [Mixin]
-    ]]>
-    </mx:Metadata>
-
-    <testCases>
-        <TestCase testID="GraphicTags_Graphic_elements" description="Verify the lenghth of the Graphic elements array" keywords="[elements, Graphic]">
-            <setup>
-                <ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <AssertPropertyValue value="2" propertyName="numElements" target="graphic1.getChildAt(0)" />
-            </body>
-        </TestCase>
-
-        <TestCase testID="GraphicTags_Graphic_elements_afterRemove" description="Verify the lenghth of the Graphic elements array" keywords="[elements, Graphic]">
-            <setup>
-                <ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
-                <RunCode code="removeElementToGraphic(application.graphic1.getChildAt(0))" />
-            </setup>
-            <body>
-                <AssertPropertyValue value="1" propertyName="numElements" target="graphic1.getChildAt(0)" />
-            </body>
-        </TestCase>
-
-
-        <TestCase testID="GraphicTags_Graphic_elements_afterAdd" description="Verify the lenghth of the Graphic elements array" keywords="[elements, Graphic]">
-            <setup>
-                <ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
-                <RunCode code="addElementToGraphic(application.graphic1.getChildAt(0))" />
-            </setup>
-            <body>
-                <AssertPropertyValue value="3" propertyName="numElements" target="graphic1.getChildAt(0)" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_elements" description="Verify the lenghth of the Group elements array" keywords="[elements, Group, Graphic]">
-            <setup>
-                <ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <AssertPropertyValue value="2" propertyName="numElements" target="graphic1.group1" />
-            </body>
-        </TestCase>
-
-
-        <TestCase testID="GraphicTags_Group_elements_afterRemove" description="Verify the lenghth of the Group elements array" keywords="[elements, Group, Graphic]">
-            <setup>
-                <ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
-                <RunCode code="removeElementToGraphic2(application.graphic1.getChildAt(0).getElementAt(1))" />
-            </setup>
-            <body>
-                <AssertPropertyValue value="1" propertyName="numElements" target="graphic1.group1" />
-            </body>
-        </TestCase>
-
-
-        <TestCase testID="GraphicTags_Group_elements_afterAdd" description="Verify the length of the Group elements array" keywords="[elements, Group, Graphic]">
-            <setup>
-                <ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
-                <RunCode code="addElementToGraphic2(application.graphic1.getChildAt(0).getElementAt(1))" />
-            </setup>
-            <body>
-                <AssertPropertyValue value="3" propertyName="numElements" target="graphic1.group1" />
-            </body>
-        </TestCase>
-
-        <TestCase testID="GraphicTags_Group_scaleGridProperties_scaleUp" description="Verify the scaleGridBottom/Top/Left/Right work when you scale up the size of a Graphic"
-             keywords="[scaleGridBottom, scaleGridTop, scaleGridRight, scaleGridLeft, Graphic]">
-            <setup>
-                <ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty propertyName="scaleGridBottom" value="90" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridTop" value="10" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridLeft" value="10" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridRight" value="90" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleX" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <SetProperty propertyName="scaleY" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_scaleGridProperties_scaleDown" description="Verify the scaleGridBottom/Top/Left/Right work when you scale down the size of a Graphic"
-             keywords="[scaleGridBottom, scaleGridTop, scaleGridRight, scaleGridLeft, Graphic]">
-            <setup>
-                <ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty propertyName="scaleGridBottom" value="90" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridTop" value="10" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridLeft" value="10" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridRight" value="90" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleX" value="0.5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <SetProperty propertyName="scaleY" value="0.5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
-            </body>
-        </TestCase>
-
-
-        <TestCase testID="GraphicTags_Group_scaleLine_scaleUp" description="Verify the scaleGrid properties work for a Line" keywords="[Line, scaleGridBottom, scaleGridLeft, scaleGridRight, Graphic]">
-            <setup>
-                <ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty propertyName="visible" target="graphic4.line1" value="true" waitTarget="graphic4.line1" waitEvent="updateComplete"/>
-                <SetProperty propertyName="scaleGridBottom" value="90" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridTop" value="10" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridLeft" value="10" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridRight" value="90" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleY" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <SetProperty propertyName="scaleX" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_scaleLine_scaleDown" description="Verify the scaleGrid properties work for a Line" keywords="[Line, scaleGridBottom, scaleGridLeft, scaleGridRight, Graphic]">
-            <setup>
-                <ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty propertyName="visible" target="graphic4.line1" value="true" waitTarget="graphic4.line1" waitEvent="updateComplete"/>
-                <SetProperty propertyName="scaleGridBottom" value="90" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridTop" value="10" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridLeft" value="10" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridRight" value="90" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleY" value=".5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <SetProperty propertyName="scaleX" value=".5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_scaleLine_scaleUp_middleRight" description="Verify the scaleGrid properties work for a Line when the line is in the left middle part of the grid" keywords="[Line, scaleGridBottom, scaleGridLeft, scaleGridRight, Graphic]">
-            <setup>
-                <ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty propertyName="visible" target="graphic4.line1" value="true" waitTarget="graphic4.line1" waitEvent="updateComplete"/>
-                <SetProperty propertyName="xTo" target="graphic4.line1" value="8" waitTarget="graphic4.line1" waitEvent="updateComplete"/>
-                <SetProperty propertyName="yTo" target="graphic4.line1" value="70" waitTarget="graphic4.line1" waitEvent="updateComplete"/>
-                <SetProperty propertyName="xFrom" target="graphic4.line1" value="8" waitTarget="graphic4.line1" waitEvent="updateComplete"/>
-                <SetProperty propertyName="yFrom" target="graphic4.line1" value="12" waitTarget="graphic4.line1" waitEvent="updateComplete"/>
-                <SetProperty propertyName="scaleGridBottom" value="90" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridTop" value="10" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridLeft" value="10" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridRight" value="90" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleY" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <SetProperty propertyName="scaleX" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_scaleEllipse_scaleUp" description="Verify the scaleGrid properties work for a Ellipse" keywords="[Line, scaleGridBottom, scaleGridLeft, scaleGridRight, Graphic]">
-            <setup>
-                <ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty propertyName="visible" target="graphic4.ellipse1" value="true" waitTarget="graphic4.ellipse1" waitEvent="updateComplete"/>
-                <SetProperty propertyName="scaleGridBottom" value="85" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridTop" value="15" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridLeft" value="15" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridRight" value="85" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleY" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <SetProperty propertyName="scaleX" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_scaleEllipse_scaleDown" description="Verify the scaleGrid properties work for a Ellipse" keywords="[Line, scaleGridBottom, scaleGridLeft, scaleGridRight, Graphic]">
-            <setup>
-                <ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty propertyName="visible" target="graphic4.ellipse1" value="true" waitTarget="graphic4.ellipse1" waitEvent="updateComplete"/>
-                <SetProperty propertyName="scaleGridBottom" value="85" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridTop" value="15" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridLeft" value="15" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridRight" value="85" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleY" value=".5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <SetProperty propertyName="scaleX" value=".5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_scalePath_scaleUp" description="Verify the scaleGrid properties work for a Path" keywords="[Line, scaleGridBottom, scaleGridLeft, scaleGridRight, Graphic]">
-            <setup>
-                <ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty propertyName="visible" target="graphic4.path1" value="true" waitTarget="graphic4.path1" waitEvent="updateComplete"/>
-                <SetProperty propertyName="scaleGridBottom" value="80" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridTop" value="20" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridLeft" value="20" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridRight" value="80" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleY" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <SetProperty propertyName="scaleX" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_scalePath_scaleDown" description="Verify the scaleGrid properties work for a Path" keywords="[Line, scaleGridBottom, scaleGridLeft, scaleGridRight, Graphic]">
-            <setup>
-                <ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty propertyName="visible" target="graphic4.path1" value="true" waitTarget="graphic4.path1" waitEvent="updateComplete"/>
-                <SetProperty propertyName="scaleGridBottom" value="80" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridTop" value="20" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridLeft" value="20" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleGridRight" value="80" target="graphic4.getChildAt(0)"  />
-                <SetProperty propertyName="scaleY" value=".5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <SetProperty propertyName="scaleX" value=".5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_rotation340" description="Test 340 degree rotation of a Group" keywords="[rotation, Group, Graphic]">
-            <setup>
-                <ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty value="340" propertyName="rotation" target="graphic1.group1" waitTarget="graphic1.group1" waitEvent="updateComplete"/>
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" timeout="2000" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_rotationNeg45" description="Test -45 degree rotation of a Group" keywords="[rotation, Group, Graphic]">
-            <setup>
-                <ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty value="-45" propertyName="rotation" target="graphic1.group1" waitTarget="graphic1.group1" waitEvent="updateComplete"/>
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" timeout="2000" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_rotation0" description="Test 0 degree rotation of a Group" keywords="[rotation, Group, Graphic]">
-            <setup>
-                <ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty value="0" propertyName="rotation" target="graphic1.group1" />
-                <Pause timeout="300" />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1" timeout="2000" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_rotationX" description="Test 15 degree rotationX of a Group" keywords="[rotationX, Group, Graphic]">
-            <setup>
-                <ResetComponent target="graphic2" className="comps.ScaleGraphic" waitTarget="graphic2" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty value="15" propertyName="rotationX" target="graphic2.getChildAt(0).getElementAt(0)" />
-                <SetProperty value="100" propertyName="width" target="graphic2.getChildAt(0)" />
-                <SetProperty value="100" propertyName="height" target="graphic2.getChildAt(0)" waitTarget="graphic2.getChildAt(0)" waitEvent="updateComplete" />
-                <Pause timeout="300" />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic2.getChildAt(0)" timeout="2000" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_rotationY" description="Test 25 degree rotationY of a Group" keywords="[rotationY, Group, Graphic]">
-            <setup>
-                <ResetComponent target="graphic2" className="comps.ScaleGraphic" waitTarget="graphic2" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty value="25" propertyName="rotationY" target="graphic2.getChildAt(0).getElementAt(0)" />
-                <Pause timeout="200" />
-                <Pause timeout="300" />
-                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic2.getChildAt(0)" timeout="2000" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_rotationYNeg" description="Test -25 degree rotationY of a Group" keywords="[rotationY, Group, Graphic]">
-            <setup>
-                <ResetComponent target="graphic2" className="comps.ScaleGraphic" waitTarget="graphic2" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty value="-25" propertyName="rotationY" target="graphic2.getChildAt(0).getElementAt(0)" waitEvent="updateComplete"
-                    waitTarget="graphic2.getChildAt(0)"/>
-                <Pause timeout="300" />
-                <CompareBitmap numColorVariances="25" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic2.getChildAt(0)" timeout="2000" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_Group_rotationXY" description="Test 20 degree rotationY and rotationY of a Group" keywords="[rotationX, rotationY, Group, Graphic]">
-            <setup>
-                <ResetComponent target="graphic2" className="comps.ScaleGraphic" waitTarget="graphic2" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty value="20" propertyName="rotationY" target="graphic2.getChildAt(0).getElementAt(0)" />
-                <SetProperty value="20" propertyName="rotationX" target="graphic2.getChildAt(0).getElementAt(0)"
-                    waitEvent="updateComplete" waitTarget="graphic2.getChildAt(0)" />
-                <Pause timeout="300" />
-                <CompareBitmap numColorVariances="2" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic3" timeout="2000" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_NestedGroup_rotationY" description="Test 18 degree rotationY of a Group" keywords="[rotationY, Group, Graphic]">
-            <setup>
-                <ResetComponent target="graphic3" className="comps.ScaleGraphicNested" waitTarget="graphic3" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty value="18" propertyName="rotationY" target="graphic3.getChildAt(0).getElementAt(0).getElementAt(2)" />
-                <SetProperty value="100" propertyName="width" target="graphic3.getChildAt(0)" />
-                <SetProperty value="100" propertyName="height" target="graphic3.getChildAt(0)"
-                    waitEvent="updateComplete" waitTarget="graphic3.getChildAt(0)"/>
-                <Pause timeout="300" />
-                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic3" timeout="2000" />
-            </body>
-        </TestCase>
-        <TestCase testID="GraphicTags_NestedGroup_rotationXY" description="Test 20 degree rotationY  and rotationX of a Group" keywords="[rotationY, rotationX, Group, Graphic]">
-            <setup>
-                <ResetComponent target="graphic3" className="comps.ScaleGraphicNested" waitTarget="graphic3" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty value="20" propertyName="rotationY" target="graphic3.getChildAt(0).getElementAt(0).getElementAt(2)" />
-                <SetProperty value="20" propertyName="rotationX" target="graphic3.getChildAt(0).getElementAt(0).getElementAt(2)" />
-                <Pause timeout="200" />
-                <Pause timeout="300" />
-                 <CompareBitmap url="../Properties/baselines/" target="graphic3" timeout="2000">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import comps.GroupGraphicBasic;
+			import mx.graphics.*;
+			import spark.primitives.*;
+			import spark.components.Group;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+			public function addElementToGraphic(graphicObject:Graphic):void
+			{
+				var myLine:Line = new Line();
+				myLine.xFrom = 0;
+				myLine.yFrom = 0;
+				myLine.xTo=20;
+				myLine.yTo=15;
+				var mySolidColorStroke:SolidColorStroke = new SolidColorStroke();
+				mySolidColorStroke.color = 0xFF0000;
+				myLine.stroke = mySolidColorStroke;
+				graphicObject.addElement(myLine);
+			}
+			
+			public function removeElementToGraphic(graphicObject:Graphic):void
+			{
+				graphicObject.removeElement(graphicObject.getElementAt(0));
+			}
+			
+			public function addElementToGraphic2(groupObject:Group):void
+			{
+				var myLine:Line = new Line();
+				myLine.xFrom = 0; myLine.yFrom = 0;
+				myLine.xTo=20; myLine.yTo=45;
+				var mySolidColorStroke:SolidColorStroke = new SolidColorStroke();
+				mySolidColorStroke.color = 0x0000FF;
+				myLine.stroke = mySolidColorStroke;
+				groupObject.addElement(myLine);
+			}
+			
+			public function addRectToGraphic2(groupObject:Group):void
+			{
+				var myRect:Rect = new Rect();
+				myRect.x = 0;
+				myRect.y = 0;
+				myRect.width=120;
+				myRect.height=105;
+				var myFill:SolidColor = new SolidColor();
+				myFill.color = 0xFF6666;
+				myRect.fill = myFill;
+				groupObject.addElement(myRect);
+			}
+			
+			public function removeElementToGraphic2(groupObject:Group):void
+			{
+				groupObject.removeElement(groupObject.getElementAt(0));
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<TestCase testID="GraphicTags_Graphic_elements" description="Verify the lenghth of the Graphic elements array" keywords="[elements, Graphic]">
+			<setup>
+				<ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue value="2" propertyName="numElements" target="graphic1.getChildAt(0)" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="GraphicTags_Graphic_elements_afterRemove" description="Verify the lenghth of the Graphic elements array" keywords="[elements, Graphic]">
+			<setup>
+				<ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+				<RunCode code="removeElementToGraphic(application.graphic1.getChildAt(0))" />
+			</setup>
+			<body>
+				<AssertPropertyValue value="1" propertyName="numElements" target="graphic1.getChildAt(0)" />
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="GraphicTags_Graphic_elements_afterAdd" description="Verify the lenghth of the Graphic elements array" keywords="[elements, Graphic]">
+			<setup>
+				<ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+				<RunCode code="addElementToGraphic(application.graphic1.getChildAt(0))" />
+			</setup>
+			<body>
+				<AssertPropertyValue value="3" propertyName="numElements" target="graphic1.getChildAt(0)" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_elements" description="Verify the lenghth of the Group elements array" keywords="[elements, Group, Graphic]">
+			<setup>
+				<ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue value="2" propertyName="numElements" target="graphic1.group1" />
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="GraphicTags_Group_elements_afterRemove" description="Verify the lenghth of the Group elements array" keywords="[elements, Group, Graphic]">
+			<setup>
+				<ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+				<RunCode code="removeElementToGraphic2(application.graphic1.getChildAt(0).getElementAt(1))" />
+			</setup>
+			<body>
+				<AssertPropertyValue value="1" propertyName="numElements" target="graphic1.group1" />
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="GraphicTags_Group_elements_afterAdd" description="Verify the length of the Group elements array" keywords="[elements, Group, Graphic]">
+			<setup>
+				<ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+				<RunCode code="addElementToGraphic2(application.graphic1.getChildAt(0).getElementAt(1))" />
+			</setup>
+			<body>
+				<AssertPropertyValue value="3" propertyName="numElements" target="graphic1.group1" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="GraphicTags_Group_scaleGridProperties_scaleUp" description="Verify the scaleGridBottom/Top/Left/Right work when you scale up the size of a Graphic"
+			keywords="[scaleGridBottom, scaleGridTop, scaleGridRight, scaleGridLeft, Graphic]">
+			<setup>
+				<ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="scaleGridBottom" value="90" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridTop" value="10" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridLeft" value="10" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridRight" value="90" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleX" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<SetProperty propertyName="scaleY" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_scaleGridProperties_scaleDown" description="Verify the scaleGridBottom/Top/Left/Right work when you scale down the size of a Graphic"
+			keywords="[scaleGridBottom, scaleGridTop, scaleGridRight, scaleGridLeft, Graphic]">
+			<setup>
+				<ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="scaleGridBottom" value="90" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridTop" value="10" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridLeft" value="10" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridRight" value="90" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleX" value="0.5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<SetProperty propertyName="scaleY" value="0.5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="GraphicTags_Group_scaleLine_scaleUp" description="Verify the scaleGrid properties work for a Line" keywords="[Line, scaleGridBottom, scaleGridLeft, scaleGridRight, Graphic]">
+			<setup>
+				<ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="visible" target="graphic4.line1" value="true" waitTarget="graphic4.line1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="scaleGridBottom" value="90" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridTop" value="10" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridLeft" value="10" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridRight" value="90" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleY" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<SetProperty propertyName="scaleX" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_scaleLine_scaleDown" description="Verify the scaleGrid properties work for a Line" keywords="[Line, scaleGridBottom, scaleGridLeft, scaleGridRight, Graphic]">
+			<setup>
+				<ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="visible" target="graphic4.line1" value="true" waitTarget="graphic4.line1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="scaleGridBottom" value="90" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridTop" value="10" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridLeft" value="10" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridRight" value="90" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleY" value=".5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<SetProperty propertyName="scaleX" value=".5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_scaleLine_scaleUp_middleRight" description="Verify the scaleGrid properties work for a Line when the line is in the left middle part of the grid" keywords="[Line, scaleGridBottom, scaleGridLeft, scaleGridRight, Graphic]">
+			<setup>
+				<ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="visible" target="graphic4.line1" value="true" waitTarget="graphic4.line1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="xTo" target="graphic4.line1" value="8" waitTarget="graphic4.line1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="yTo" target="graphic4.line1" value="70" waitTarget="graphic4.line1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="xFrom" target="graphic4.line1" value="8" waitTarget="graphic4.line1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="yFrom" target="graphic4.line1" value="12" waitTarget="graphic4.line1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="scaleGridBottom" value="90" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridTop" value="10" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridLeft" value="10" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridRight" value="90" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleY" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<SetProperty propertyName="scaleX" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_scaleEllipse_scaleUp" description="Verify the scaleGrid properties work for a Ellipse" keywords="[Line, scaleGridBottom, scaleGridLeft, scaleGridRight, Graphic]">
+			<setup>
+				<ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="visible" target="graphic4.ellipse1" value="true" waitTarget="graphic4.ellipse1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="scaleGridBottom" value="85" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridTop" value="15" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridLeft" value="15" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridRight" value="85" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleY" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<SetProperty propertyName="scaleX" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_scaleEllipse_scaleDown" description="Verify the scaleGrid properties work for a Ellipse" keywords="[Line, scaleGridBottom, scaleGridLeft, scaleGridRight, Graphic]">
+			<setup>
+				<ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="visible" target="graphic4.ellipse1" value="true" waitTarget="graphic4.ellipse1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="scaleGridBottom" value="85" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridTop" value="15" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridLeft" value="15" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridRight" value="85" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleY" value=".5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<SetProperty propertyName="scaleX" value=".5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_scalePath_scaleUp" description="Verify the scaleGrid properties work for a Path" keywords="[Line, scaleGridBottom, scaleGridLeft, scaleGridRight, Graphic]">
+			<setup>
+				<ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="visible" target="graphic4.path1" value="true" waitTarget="graphic4.path1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="scaleGridBottom" value="80" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridTop" value="20" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridLeft" value="20" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridRight" value="80" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleY" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<SetProperty propertyName="scaleX" value="2" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_scalePath_scaleDown" description="Verify the scaleGrid properties work for a Path" keywords="[Line, scaleGridBottom, scaleGridLeft, scaleGridRight, Graphic]">
+			<setup>
+				<ResetComponent target="graphic4" className="comps.ScaleGraphicSimple" waitTarget="graphic4" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="visible" target="graphic4.path1" value="true" waitTarget="graphic4.path1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="scaleGridBottom" value="80" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridTop" value="20" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridLeft" value="20" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleGridRight" value="80" target="graphic4.getChildAt(0)"  />
+				<SetProperty propertyName="scaleY" value=".5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<SetProperty propertyName="scaleX" value=".5" target="graphic4.getChildAt(0)" waitTarget="graphic4.getChildAt(0)" waitEvent="updateComplete"  />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic4" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_rotation340" description="Test 340 degree rotation of a Group" keywords="[rotation, Group, Graphic]">
+			<setup>
+				<ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty value="340" propertyName="rotation" target="graphic1.group1" waitTarget="graphic1.group1" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" timeout="2000" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_rotationNeg45" description="Test -45 degree rotation of a Group" keywords="[rotation, Group, Graphic]">
+			<setup>
+				<ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty value="-45" propertyName="rotation" target="graphic1.group1" waitTarget="graphic1.group1" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1.getChildAt(0)" timeout="2000" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_rotation0" description="Test 0 degree rotation of a Group" keywords="[rotation, Group, Graphic]">
+			<setup>
+				<ResetComponent target="graphic1" className="comps.GroupGraphicBasic" waitTarget="graphic1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty value="0" propertyName="rotation" target="graphic1.group1" />
+				<WaitForLayoutManager/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic1" timeout="2000" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_rotationX" description="Test 15 degree rotationX of a Group" keywords="[rotationX, Group, Graphic]">
+			<setup>
+				<ResetComponent target="graphic2" className="comps.ScaleGraphic" waitTarget="graphic2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty value="15" propertyName="rotationX" target="graphic2.getChildAt(0).getElementAt(0)" />
+				<SetProperty value="100" propertyName="width" target="graphic2.getChildAt(0)" />
+				<SetProperty value="100" propertyName="height" target="graphic2.getChildAt(0)" waitTarget="graphic2.getChildAt(0)" waitEvent="updateComplete" />
+				<WaitForLayoutManager/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic2.getChildAt(0)" timeout="2000" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_rotationY" description="Test 25 degree rotationY of a Group" keywords="[rotationY, Group, Graphic]">
+			<setup>
+				<ResetComponent target="graphic2" className="comps.ScaleGraphic" waitTarget="graphic2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty value="25" propertyName="rotationY" target="graphic2.getChildAt(0).getElementAt(0)" />
+				<WaitForLayoutManager/>
+				<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic2.getChildAt(0)" timeout="2000" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_rotationYNeg" description="Test -25 degree rotationY of a Group" keywords="[rotationY, Group, Graphic]">
+			<setup>
+				<ResetComponent target="graphic2" className="comps.ScaleGraphic" waitTarget="graphic2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty value="-25" propertyName="rotationY" target="graphic2.getChildAt(0).getElementAt(0)" waitEvent="updateComplete"
+					waitTarget="graphic2.getChildAt(0)"/>
+				<WaitForLayoutManager/>
+				<CompareBitmap numColorVariances="25" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic2.getChildAt(0)" timeout="2000" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_Group_rotationXY" description="Test 20 degree rotationY and rotationY of a Group" keywords="[rotationX, rotationY, Group, Graphic]">
+			<setup>
+				<ResetComponent target="graphic2" className="comps.ScaleGraphic" waitTarget="graphic2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty value="20" propertyName="rotationY" target="graphic2.getChildAt(0).getElementAt(0)" />
+				<SetProperty value="20" propertyName="rotationX" target="graphic2.getChildAt(0).getElementAt(0)"
+					waitEvent="updateComplete" waitTarget="graphic2.getChildAt(0)" />
+				<WaitForLayoutManager/>
+				<CompareBitmap numColorVariances="2" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic3" timeout="2000" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_NestedGroup_rotationY" description="Test 18 degree rotationY of a Group" keywords="[rotationY, Group, Graphic]">
+			<setup>
+				<ResetComponent target="graphic3" className="comps.ScaleGraphicNested" waitTarget="graphic3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty value="18" propertyName="rotationY" target="graphic3.getChildAt(0).getElementAt(0).getElementAt(2)" />
+				<SetProperty value="100" propertyName="width" target="graphic3.getChildAt(0)" />
+				<SetProperty value="100" propertyName="height" target="graphic3.getChildAt(0)"
+					waitEvent="updateComplete" waitTarget="graphic3.getChildAt(0)"/>
+				<WaitForLayoutManager/>
+				<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic3" timeout="2000" />
+			</body>
+		</TestCase>
+		<TestCase testID="GraphicTags_NestedGroup_rotationXY" description="Test 20 degree rotationY  and rotationX of a Group" keywords="[rotationY, rotationX, Group, Graphic]">
+			<setup>
+				<ResetComponent target="graphic3" className="comps.ScaleGraphicNested" waitTarget="graphic3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty value="20" propertyName="rotationY" target="graphic3.getChildAt(0).getElementAt(0).getElementAt(2)" />
+				<SetProperty value="20" propertyName="rotationX" target="graphic3.getChildAt(0).getElementAt(0).getElementAt(2)" />
+				<WaitForLayoutManager/>
+				<CompareBitmap url="../Properties/baselines/" target="graphic3" numColorVariances="10" maxColorVariance="5">
 					<ConditionalValue os="win" />
 				</CompareBitmap>
-            </body>
-        </TestCase>
-        <TestCase testID="FXG_Properties_visible_lastElement" description="Make the last element in a Graphic visible or invisible."
-             keywords="[Graphic, visible]">
-             <!--bugs>
-                 <Bug bugID="SDK-17552" />
-             </bugs -->
-            <setup>
-                <ResetComponent target="graphic5" className="comps.GraphicSimple" waitTarget="graphic5" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty propertyName="visible" target="graphic5.getElementAt(0).getElementAt(2)"  value="false"
-                    waitTarget="graphic5.getElementAt(0).getElementAt(2)" waitEvent="updateComplete" />
-                <CompareBitmap url="../Properties/baselines/$testID.png" target="graphic5" />
-            </body>
-        </TestCase>
-
-</testCases>
-
+			</body>
+		</TestCase>
+		<TestCase testID="FXG_Properties_visible_lastElement" description="Make the last element in a Graphic visible or invisible."
+			keywords="[Graphic, visible]">
+			<!--bugs>
+			    <Bug bugID="SDK-17552" />
+			</bugs -->
+			<setup>
+				<ResetComponent target="graphic5" className="comps.GraphicSimple" waitTarget="graphic5" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="visible" target="graphic5.getElementAt(0).getElementAt(2)"  value="false"
+					waitTarget="graphic5.getElementAt(0).getElementAt(2)" waitEvent="updateComplete" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="graphic5" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+	
 </UnitTester>

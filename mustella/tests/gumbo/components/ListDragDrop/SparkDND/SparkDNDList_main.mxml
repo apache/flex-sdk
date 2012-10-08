@@ -17,7 +17,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<UnitTester testDir="gumbo/components/ListDragDrop/SparkDND/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="SparkDNDListBasic.mxml">
+<UnitTester testDir="gumbo/components/ListDragDrop/SparkDND/" xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  
+			xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" 
+			testSWF="SparkDNDListBasic.mxml">
 	<!-- this set of lines form a template that must be in each unit test -->
 	<fx:Script>
 		<![CDATA[
@@ -1250,7 +1253,7 @@ limitations under the License.
 				<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" />
 				<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
 				<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-				<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkDND/baselines/$testID.png" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="1" target="hg" url="../SparkDND/baselines/$testID.png" />
 				<DispatchMouseEvent target="l2" type="mouseUp" localX="50" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
 				<WaitForEffectsToEnd/>
 				
@@ -1355,7 +1358,7 @@ limitations under the License.
 				<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" />
 				<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
 				<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-				<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkDND/baselines/$testID.png" />
+				<CompareBitmap numColorVariances="15" maxColorVariance="10" target="hg" url="../SparkDND/baselines/$testID.png" />
 				<DispatchMouseEvent target="l2" type="mouseUp" localX="50" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
 				<WaitForEffectsToEnd/>
 				
