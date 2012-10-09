@@ -61,10 +61,10 @@
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 	
 				<RunCode code="application.addRect(application.pnl)"/>
-				<SetProperty propertyName="height" target="pnl.getElementAt(0)" value="200" />
+				<SetProperty propertyName="height" target="pnl.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<SetProperty propertyName="width" target="pnl.getElementAt(0)" value="150" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -79,10 +79,10 @@
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 
 				<RunCode code="application.addRect(application.pnl)"/>
-				<SetProperty propertyName="height" target="pnl.getElementAt(0)" value="250" />
+				<SetProperty propertyName="height" target="pnl.getElementAt(0)" value="250" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<SetProperty propertyName="width" target="pnl.getElementAt(0)" value="250" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -93,17 +93,17 @@
 				<SetProperty propertyName="visible" value="false" target="pnl"/>
 		    </setup>
 		    <body>
-				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="myScroll.scrollPnl.contentGroup"/>
 
 				<RunCode code="application.addRect(application.myScroll.scrollPnl)"/>
-				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(0)" value="300" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl"/>
-				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(0)" value="300" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl"/>
+				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(0)" value="300" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(0)" value="300" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 				<SetProperty propertyName="width" value="200" target="myScroll.scrollPnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="200" target="myScroll.scrollPnl" waitEvent="updateComplete"/>
 				<!-- The layout seems to pass through a second time -->
 				<Pause timeout="1000"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
         
@@ -114,14 +114,14 @@
 				<SetProperty propertyName="visible" value="false" target="myScroll"/>
 		    </setup>
 		    <body>
-
+	
 				<RunCode code="application.addRect(application.pnl)"/>
-				<SetProperty propertyName="height" target="pnl.getElementAt(0)" value="600" waitEvent="updateComplete" waitTarget="pnl"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(0)" value="600" waitEvent="updateComplete" waitTarget="pnl"/>
+				<SetProperty propertyName="height" target="pnl.getElementAt(0)" value="600" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(0)" value="600" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<SetProperty propertyName="width" value="550" target="pnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="550" target="pnl" waitEvent="updateComplete"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
         
@@ -132,14 +132,14 @@
 				<SetProperty propertyName="visible" value="false" target="pnl"/>
 		    </setup>
 		    <body>
-		
+			
 				<RunCode code="application.addRect(application.myScroll.scrollPnl)"/>
-				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl"/>
-				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl"/>
+				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 				<SetProperty propertyName="width" value="100" target="myScroll.scrollPnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="100" target="myScroll.scrollPnl" waitEvent="updateComplete"/>
 				<Pause timeout="1000"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -150,7 +150,7 @@
 				<SetProperty propertyName="visible" value="false" target="pnl"/>
 		    </setup>
 		    <body>
-				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="myScroll.scrollPnl.skin.contentGroup"/>			
+				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="myScroll.scrollPnl.contentGroup"/>			
 				<RunCode code="application.addRect(application.myScroll.scrollPnl)"/>
 				<RunCode code="application.addSparkBtn(application.myScroll.scrollPnl)"/>
 				<SetProperty propertyName="percentWidth" target="myScroll.scrollPnl.getElementAt(0)" value="50" />
@@ -160,7 +160,7 @@
 				<SetProperty propertyName="width" value="400" target="myScroll.scrollPnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="400" target="myScroll.scrollPnl" waitEvent="updateComplete"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -171,7 +171,7 @@
 				<SetProperty propertyName="visible" value="false" target="pnl"/>
 		    </setup>
 		    <body>
-				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="myScroll.scrollPnl.skin.contentGroup"/>			
+				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="myScroll.scrollPnl.contentGroup"/>			
 				<RunCode code="application.addRect(application.myScroll.scrollPnl)"/>
 				<RunCode code="application.addSparkBtn(application.myScroll.scrollPnl)"/>
 				<SetProperty propertyName="percentWidth" target="myScroll.scrollPnl.getElementAt(0)" value="110" />
@@ -181,7 +181,7 @@
 				<SetProperty propertyName="width" value="400" target="myScroll.scrollPnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="400" target="myScroll.scrollPnl" waitEvent="updateComplete"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -552,9 +552,9 @@
 		    	<RunCode code="application.addSparkBtn(application.pnl)"/>
 		    	<RunCode code="application.addRect(application.pnl)"/>
 				<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
+				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -571,7 +571,7 @@
 				<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -586,10 +586,10 @@
 				<RunCode code="application.addSparkBtn(application.pnl)"/>
 				<RunCode code="application.addRect(application.pnl)"/>
 				<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl"/>
 				<SetProperty propertyName="gap" value="50" target="pnl.layout" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -621,8 +621,12 @@
 				<SetProperty propertyName="width" value="200" target="pnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete"/>
 
-				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
+                
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="737" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="100" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -645,7 +649,12 @@
 				<SetProperty propertyName="height" value="200" target="pnl" />
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+ 
+                <AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+
+				<AssertPropertyValue propertyName="contentHeight" value="727" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="200" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -668,7 +677,10 @@
 				<SetProperty propertyName="height" value="200" target="pnl" />
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -687,12 +699,15 @@
 				<RunCode code="application.addSimpleText(application.pnl)"/>
 				<SetStyle styleName="textAlign" target="pnl.getElementAt(2)" value="center"/>
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" value="200" target="pnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="737" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="149" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -717,7 +732,10 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="left" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -731,19 +749,22 @@
 				<SetProperty propertyName="horizontalAlign" value="center" target="pnl.layout"/>
 				<RunCode code="application.addSparkBtn(application.pnl)"/>
 				<RunCode code="application.addRect(application.pnl)"/>
-				<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.getElementAt(1)"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.getElementAt(1)"/>
+				<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<RunCode code="application.addSimpleText(application.pnl)"/>
-				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.getElementAt(2)"/>
+				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="percentWidth" target="pnl.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" value="200" target="pnl" />
 				<SetProperty propertyName="height" value="200" target="pnl" />
 
-				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl"/>
 				<SetProperty propertyName="horizontalAlign" value="left" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
-				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="pnl.getElementAt(2)"/>
+				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="151" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -769,7 +790,10 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="right" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="727" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -796,7 +820,10 @@
 				<SetProperty propertyName="horizontalAlign" value="right" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="pnl.getElementAt(2)"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="180" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -822,7 +849,10 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="contentJustify" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -849,7 +879,10 @@
 				<SetProperty propertyName="horizontalAlign" value="contentJustify" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="pnl.getElementAt(2)"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="151" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -875,7 +908,10 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="justify" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -902,7 +938,10 @@
 				<SetProperty propertyName="horizontalAlign" value="justify" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="pnl.getElementAt(2)"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="151" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -921,12 +960,15 @@
 				<RunCode code="application.addSimpleText(application.pnl)"/>
 				<SetStyle styleName="textAlign" target="pnl.getElementAt(2)" value="justify" />
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" value="200" target="pnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -946,13 +988,16 @@
 				<RunCode code="application.addSimpleText(application.pnl)"/>
 				<SetStyle styleName="textAlign" target="pnl.getElementAt(2)" value="justify" />
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" value="200" target="pnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="left" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="80" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -977,8 +1022,11 @@
 				<SetProperty propertyName="width" value="200" target="myScroll.scrollPnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="200" target="myScroll.scrollPnl" waitEvent="updateComplete"/>
 
-				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="379" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="183" target="myScroll.scrollPnl.contentGroup"/>
+
 			</body>
 		</TestCase>
 		
@@ -1006,7 +1054,10 @@
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="left" target="myScroll.scrollPnl.vl" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="379" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="80" target="myScroll.scrollPnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -1025,7 +1076,7 @@
 				<RunCode code="application.addSimpleText(application.pnl)"/>
 				<SetStyle styleName="textAlign" target="pnl.getElementAt(2)" value="justify" />
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" value="200" target="pnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete"/>
 
@@ -1033,7 +1084,10 @@
 				<SetProperty propertyName="horizontalAlign" value="left" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="pnl.getElementAt(2)"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="80" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -1052,13 +1106,16 @@
 				<RunCode code="application.addSimpleText(application.pnl)"/>
 				<SetStyle styleName="textAlign" target="pnl.getElementAt(2)" value="justify" />
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" value="200" target="pnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="right" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -1077,7 +1134,7 @@
 				<RunCode code="application.addSimpleText(application.pnl)"/>
 				<SetStyle styleName="textAlign" target="pnl.getElementAt(2)" value="justify" />
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" value="200" target="pnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete"/>
 
@@ -1085,7 +1142,10 @@
 				<SetProperty propertyName="horizontalAlign" value="right" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="pnl.getElementAt(2)"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -1109,7 +1169,10 @@
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="582" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -1133,7 +1196,10 @@
 				<SetProperty propertyName="height" value="200" target="pnl" />
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -1157,7 +1223,10 @@
 				<SetProperty propertyName="height" value="200" target="pnl" />
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -1181,7 +1250,10 @@
 				<SetProperty propertyName="height" value="200" target="pnl" />
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -1205,7 +1277,10 @@
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -1224,13 +1299,16 @@
 				<RunCode code="application.addSimpleText(application.pnl)"/>
 				<SetStyle styleName="textAlign" target="pnl.getElementAt(2)" value="contentJustify" />
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" value="200" target="pnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="left" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="80" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -1249,7 +1327,7 @@
 				<RunCode code="application.addSimpleText(application.pnl)"/>
 				<SetStyle styleName="textAlign" target="pnl.getElementAt(2)" value="contentJustify" />
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" value="200" target="pnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete"/>
 
@@ -1257,7 +1335,10 @@
 				<SetProperty propertyName="horizontalAlign" value="left" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="pnl.getElementAt(2)"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="80" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -1276,13 +1357,16 @@
 				<RunCode code="application.addSimpleText(application.pnl)"/>
 				<SetStyle styleName="textAlign" target="pnl.getElementAt(2)" value="contentJustify" />
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" value="200" target="pnl" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="right" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -1308,8 +1392,12 @@
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="right" target="pnl.vl" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="pnl.getElementAt(2)"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+                <WaitForLayoutManager/>
+                
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -1333,7 +1421,12 @@
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+                <WaitForLayoutManager/>
+                
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="582" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -1357,8 +1450,13 @@
 					<SetProperty propertyName="height" value="200" target="pnl" />
 
 					<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-					<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
-				</body>
+                    <WaitForLayoutManager/>
+
+					<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				    <AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				    <AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
+				    <AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
+			</body>
 		</TestCase>
 		
 		<TestCase testID="VLayout_panel_horizontalAlign_contentJustify_text_percent_50" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify all children text percentage width">
@@ -1371,17 +1469,20 @@
 				<SetProperty propertyName="horizontalAlign" value="contentJustify" target="pnl.layout"/>
 				<RunCode code="application.addSparkBtn(application.pnl)"/>
 				<RunCode code="application.addRect(application.pnl)"/>
-				<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.getElementAt(1)"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.getElementAt(1)"/>
+				<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<RunCode code="application.addSimpleText(application.pnl)"/>
 				<SetStyle styleName="textAlign" target="pnl.getElementAt(2)" value="justify" />
-				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.getElementAt(2)"/>
+				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="percentWidth" target="pnl.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" value="200" target="pnl" />
 				<SetProperty propertyName="height" value="200" target="pnl" />
 
-				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -1395,17 +1496,20 @@
 				<SetProperty propertyName="horizontalAlign" value="contentJustify" target="pnl.layout"/>
 				<RunCode code="application.addSparkBtn(application.pnl)"/>
 				<RunCode code="application.addRect(application.pnl)"/>
-				<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.getElementAt(1)"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.getElementAt(1)"/>
+				<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<RunCode code="application.addSimpleText(application.pnl)"/>
 				<SetStyle styleName="textAlign" target="pnl.getElementAt(2)" value="justify" />
-				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.getElementAt(2)"/>
+				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="percentWidth" target="pnl.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" value="200" target="pnl" />
 				<SetProperty propertyName="height" value="200" target="pnl" />
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -1429,7 +1533,10 @@
 				<SetProperty propertyName="height" value="200" target="pnl" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="737" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -1452,7 +1559,10 @@
 				<SetProperty propertyName="height" value="200" target="pnl" />
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="727" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 
@@ -1466,16 +1576,19 @@
 				<SetProperty propertyName="horizontalAlign" value="right" target="pnl.layout"/>
 				<RunCode code="application.addSparkBtn(application.pnl)"/>
 				<RunCode code="application.addRect(application.pnl)"/>
-				<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.getElementAt(1)"/>
-				<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.getElementAt(1)"/>
+				<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
+				<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<RunCode code="application.addSimpleText(application.pnl)"/>
-				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.getElementAt(2)"/>
+				<SetProperty propertyName="text" target="pnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="percentWidth" target="pnl.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="pnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" value="200" target="pnl" />
 				<SetProperty propertyName="height" value="200" target="pnl" />
 
 				<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+				<AssertPropertyValue propertyName="height" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="width" value="200" target="pnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="198" target="pnl.contentGroup"/>
 			</body>
 		</TestCase>
 		
@@ -1505,7 +1618,7 @@
 			</body>
 		</TestCase>
 		
-
+		
 		<TestCase testID="VLayout_panel_lastIndexInView_default" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView -1 at start up">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyScroller" waitEvent="updateComplete" />
@@ -1909,7 +2022,7 @@
 			<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -1926,7 +2039,7 @@
 			<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -1943,7 +2056,7 @@
 			<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 				
@@ -1960,7 +2073,7 @@
 			<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -1977,7 +2090,7 @@
 			<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -1994,7 +2107,7 @@
 			<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2011,7 +2124,7 @@
 			<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2028,7 +2141,7 @@
 			<SetProperty propertyName="height" target="pnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<SetProperty propertyName="width" target="pnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="pnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.pnl)" waitEvent="updateComplete" waitTarget="pnl"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -2048,7 +2161,7 @@
 			<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.scrollPnl)" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2068,7 +2181,7 @@
 			<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.scrollPnl)" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2088,7 +2201,7 @@
 			<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.scrollPnl)" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2108,7 +2221,7 @@
 			<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.scrollPnl)" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2128,7 +2241,7 @@
 			<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.scrollPnl)" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2148,7 +2261,7 @@
 			<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.scrollPnl)" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2168,7 +2281,7 @@
 			<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.scrollPnl)" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2188,7 +2301,7 @@
 			<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.scrollPnl)" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -2216,18 +2329,22 @@
 				<RunCode code="application.addSparkBtn(application.myScroll.scrollPnl)"/>
 
 				<RunCode code="application.addRect(application.myScroll.scrollPnl)"/>
-				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
-				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="140" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
+				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="140" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
 				<RunCode code="application.addSimpleText(application.myScroll.scrollPnl)"/>
 				<SetStyle styleName="textAlign" target="myScroll.scrollPnl.getElementAt(2)" value="justify" />
-				<SetProperty propertyName="text" target="myScroll.scrollPnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
-				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(2)" value="190" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="text" target="myScroll.scrollPnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
+				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(2)" value="190" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
 				<RunCode code="application.addRect(application.myScroll.scrollPnl)"/>
-				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>				
+				<AssertPropertyValue propertyName="height" value="464" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="width" value="192" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="431" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.scrollPnl.contentGroup"/>
+		
 			</body>
 		</TestCase>
 		
@@ -2261,7 +2378,7 @@
 				
 				<AssertPropertyValue propertyName="rowCount" value="2" target="myScroll.scrollPnl.vl"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>				
 			</body>
 		</TestCase>
 		
@@ -2293,13 +2410,17 @@
 				<RunCode code="application.addSimpleText(application.myScroll.scrollPnl)"/>
 				<SetStyle styleName="textAlign" target="myScroll.scrollPnl.getElementAt(4)" value="justify" />
 				<SetProperty propertyName="text" target="myScroll.scrollPnl.getElementAt(4)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
-				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(4)" value="190" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
+				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(4)" value="190" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 
 				<RunCode code="application.addRect(application.myScroll.scrollPnl)"/>
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(5)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(5)" value="80" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>				
+				<AssertPropertyValue propertyName="height" value="464" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="width" value="207" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="775" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.scrollPnl.contentGroup"/>
+				
 			</body>
 		</TestCase>
 		
@@ -2321,7 +2442,7 @@
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="60" />
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="140" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 			
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="5"  target=""/>				
 			</body>
 		</TestCase>
 		
@@ -2338,33 +2459,37 @@
 				<RunCode code="application.addSparkBtn(application.myScroll.scrollPnl)"/>
 
 				<RunCode code="application.addRect(application.myScroll.scrollPnl)"/>
-				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="30" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
-				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="140" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="30" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
+				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="140" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
 				<RunCode code="application.addSimpleText(application.myScroll.scrollPnl)"/>
 				<SetStyle styleName="textAlign" target="myScroll.scrollPnl.getElementAt(2)" value="justify" />
-				<SetProperty propertyName="text" target="myScroll.scrollPnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="text" target="myScroll.scrollPnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(2)" value="30"/>
-				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(2)" value="190" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(2)" value="190" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
 				<RunCode code="application.addRect(application.myScroll.scrollPnl)"/>
-				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(3)" value="20" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(3)" value="20" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
 				<RunCode code="application.addSimpleText(application.myScroll.scrollPnl)"/>
 				<SetStyle styleName="textAlign" target="myScroll.scrollPnl.getElementAt(4)" value="justify" />
-				<SetProperty propertyName="text" target="myScroll.scrollPnl.getElementAt(4)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="text" target="myScroll.scrollPnl.getElementAt(4)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(2)" value="30"/>
-				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(4)" value="250" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(4)" value="250" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
 				<SetProperty propertyName="requestedRowCount" value="8" target="myScroll.scrollPnl.vl"/>
 
 				<RunCode code="application.addRect(application.myScroll.scrollPnl)"/>
-				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(5)" value="40" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(5)" value="40" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(5)" value="80" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				
 				<AssertPropertyValue propertyName="rowCount" value="6" target="myScroll.scrollPnl.vl"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>				
+				<AssertPropertyValue propertyName="height" value="458" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="width" value="252" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="371" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="250" target="myScroll.scrollPnl.contentGroup"/>
+				
 			</body>
 		</TestCase>
 		
@@ -2404,17 +2529,17 @@
 				<RunCode code="application.addSparkBtn(application.myScroll.scrollPnl)"/>
 
 				<RunCode code="application.addRect(application.myScroll.scrollPnl)"/>
-				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="30" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
-				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="140" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(1)" value="30" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
+				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(1)" value="140" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
 				<RunCode code="application.addSimpleText(application.myScroll.scrollPnl)"/>
 				<SetStyle styleName="textAlign" target="myScroll.scrollPnl.getElementAt(2)" value="justify" />
-				<SetProperty propertyName="text" target="myScroll.scrollPnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="text" target="myScroll.scrollPnl.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(2)" value="30"/>
-				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(2)" value="190" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(2)" value="190" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
 				<RunCode code="application.addRect(application.myScroll.scrollPnl)"/>
-				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(3)" value="20" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(3)" value="20" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				
 				<AssertPropertyValue propertyName="rowCount" value="4" target="myScroll.scrollPnl.vl"/>
@@ -2422,14 +2547,14 @@
 				
 				<RunCode code="application.addSimpleText(application.myScroll.scrollPnl)"/>
 				<SetStyle styleName="textAlign" target="myScroll.scrollPnl.getElementAt(4)" value="justify" />
-				<SetProperty propertyName="text" target="myScroll.scrollPnl.getElementAt(4)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="text" target="myScroll.scrollPnl.getElementAt(4)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(2)" value="30"/>
-				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(4)" value="250" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(4)" value="250" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
 				<SetProperty propertyName="requestedRowCount" value="8" target="myScroll.scrollPnl.vl"/>
 
 				<RunCode code="application.addRect(application.myScroll.scrollPnl)"/>
-				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(5)" value="40" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
+				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(5)" value="40" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(5)" value="80" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
 				<AssertPropertyValue propertyName="rowCount" value="6" target="myScroll.scrollPnl.vl"/>
@@ -2465,7 +2590,11 @@
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>				
+				<AssertPropertyValue propertyName="height" value="464" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="width" value="192" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="431" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.scrollPnl.contentGroup"/>
+				
 			</body>
 		</TestCase>
 
@@ -2497,7 +2626,11 @@
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>				
+				<AssertPropertyValue propertyName="height" value="451" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="width" value="192" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="418" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.scrollPnl.contentGroup"/>
+				
 			</body>
 		</TestCase>
 		
@@ -2528,7 +2661,11 @@
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>				
+				<AssertPropertyValue propertyName="height" value="135" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="width" value="192" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="102" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.scrollPnl.contentGroup"/>
+				
 			</body>
 		</TestCase>
 		
@@ -2570,7 +2707,11 @@
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>				
+				<AssertPropertyValue propertyName="height" value="291" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="width" value="192" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="258" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.scrollPnl.contentGroup"/>
+						
 			</body>
 		</TestCase>
 		<TestCase testID="VLayout_panel_rowHeight_typicalLayoutElement_UIComponent" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
@@ -2606,7 +2747,11 @@
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(4)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(4)" value="100" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>				
+				<AssertPropertyValue propertyName="height" value="162" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="width" value="192" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="129" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.scrollPnl.contentGroup"/>
+				
 			</body>
 		</TestCase>
 
@@ -2643,7 +2788,11 @@
 				<SetProperty propertyName="height" target="myScroll.scrollPnl.getElementAt(4)" value="60" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin"/>
 				<SetProperty propertyName="width" target="myScroll.scrollPnl.getElementAt(4)" value="100" waitEvent="updateComplete" waitTarget="myScroll.scrollPnl.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true"  target=""/>				
+				<AssertPropertyValue propertyName="height" value="357" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="width" value="192" target="myScroll.scrollPnl"/>
+				<AssertPropertyValue propertyName="contentHeight" value="324" target="myScroll.scrollPnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.scrollPnl.contentGroup"/>
+				
 			</body>
 		</TestCase>
 		

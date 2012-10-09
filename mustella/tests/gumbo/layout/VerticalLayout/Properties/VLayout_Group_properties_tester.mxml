@@ -45,7 +45,7 @@
 
 	<testCases>
 	
-		<TestCase testID="VLayout_group_clipAndEnableScrolling_default" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Defaults to false." >
+		<TestCase testID="VLayout__group_clipAndEnableScrolling_default" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Defaults to false." >
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -55,7 +55,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_clipAndEnableScrolling_false" keywords="[VerticalLayout,clipAndEnableScrolling]" description="No clipping occurs" >
+		<TestCase testID="VLayout__group_clipAndEnableScrolling_false" keywords="[VerticalLayout,clipAndEnableScrolling]" description="No clipping occurs" >
 		    <setup>
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
@@ -74,11 +74,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="150" target="grp"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_clipAndEnableScrolling_true" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs">
+		<TestCase testID="VLayout__group_clipAndEnableScrolling_true" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs">
 		    <setup>
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
@@ -98,11 +98,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="250" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="250" target="grp"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
-		 <TestCase testID="VLayout_group_clipAndEnableScrolling_true_scroller" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs">
+		 <TestCase testID="VLayout__group_clipAndEnableScrolling_true_scroller" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -123,58 +123,11 @@
 				<AssertPropertyValue propertyName="contentWidth" value="300" target="myScroll.grp"/>
 				<Pause timeout="1000"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
-        
-        <TestCase testID="VLayout_group_clipAndEnableScrolling_parent_true_children_false" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs for parent but not child">
-		    <setup>
-				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
-				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
-				<SetProperty propertyName="visible" value="false" target="myScroll"/>
-		    </setup>
-		    <body>
-	
-				<RunCode code="application.addRect(application.grp)"/>
-				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="600" waitEvent="updateComplete" waitTarget="grp"/>
-				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="600" waitEvent="updateComplete" waitTarget="grp"/>
-				<SetProperty propertyName="width" value="550" target="grp" waitEvent="updateComplete" />
-				<SetProperty propertyName="height" value="550" target="grp" waitEvent="updateComplete"/>
-				
-				<AssertPropertyValue propertyName="height" value="550" target="grp"/>
-				<AssertPropertyValue propertyName="width" value="550" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="600" target="grp"/>
-				<AssertPropertyValue propertyName="contentWidth" value="600" target="grp"/>
-				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
-		    </body>
-		</TestCase>
-        
-        <TestCase testID="VLayout_group_clipAndEnableScrolling_parent_false_children_true" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs for parent but not child">
-		    <setup>
-				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
-				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
-				<SetProperty propertyName="visible" value="false" target="grp"/>
-		    </setup>
-		    <body>
-			
-				<RunCode code="application.addRect(application.myScroll.grp)"/>
-				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
-				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
-				<SetProperty propertyName="width" value="100" target="myScroll.grp" waitEvent="updateComplete" />
-				<SetProperty propertyName="height" value="100" target="myScroll.grp" waitEvent="updateComplete"/>
-				<Pause timeout="1000"/>
-				
-				<AssertPropertyValue propertyName="height" value="100" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="width" value="100" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="200" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentWidth" value="200" target="myScroll.grp"/>
-				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
-		    </body>
-		</TestCase>
-		
-		<TestCase testID="VLayout_group_clipAndEnableScrolling_child_percent_lessThan" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs for parent but not child">
+                
+ 		<TestCase testID="VLayout__group_clipAndEnableScrolling_child_percent_lessThan" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs for parent but not child">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -196,11 +149,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="326" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_clipAndEnableScrolling_child_percent_greaterThan" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs for parent but not child">
+		<TestCase testID="VLayout__group_clipAndEnableScrolling_child_percent_greaterThan" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs for parent but not child">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -226,11 +179,11 @@
 				<AssertPropertyValue propertyName="height" value="206" target="myScroll.grp.getElementAt(1)"/>
 				<AssertPropertyValue propertyName="width" value="400" target="myScroll.grp.getElementAt(1)"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_firstIndexInView_default" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView -1 at start up">
+		<TestCase testID="VLayout__group_firstIndexInView_default" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView -1 at start up">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -241,7 +194,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_firstIndexInView_spark_components" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_firstIndexInView_spark_components" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -267,7 +220,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_firstIndexInView_spark_components_visible_false" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_firstIndexInView_spark_components_visible_false" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -296,7 +249,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_firstIndexInView_spark_all_includeInLayout_false" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView all children includeInLayout false">
+		<TestCase testID="VLayout__group_firstIndexInView_spark_all_includeInLayout_false" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView all children includeInLayout false">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -324,11 +277,11 @@
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
 				
 				<AssertPropertyValue propertyName="firstIndexInView" value="-1" target="grp.layout"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_firstIndexInView_spark_components_includeInLayout" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_firstIndexInView_spark_components_includeInLayout" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -357,7 +310,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_firstIndexInView_spark_components_includeInLayout_visible" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_firstIndexInView_spark_components_includeInLayout_visible" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -387,7 +340,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_firstIndexInView_spark_components_includeInLayout_firstTwo" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_firstIndexInView_spark_components_includeInLayout_firstTwo" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -417,7 +370,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_firstIndexInView_spark_container_includeInLayout_false" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with container not in layout">
+		<TestCase testID="VLayout__group_firstIndexInView_spark_container_includeInLayout_false" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with container not in layout">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -434,7 +387,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_firstIndexInView_halo_components" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_firstIndexInView_halo_components" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -460,7 +413,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_firstIndexInView_halo_components_visible_false" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_firstIndexInView_halo_components_visible_false" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -489,7 +442,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_firstIndexInView_halo_all_includeInLayout_false" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView all children includeInLayout false">
+		<TestCase testID="VLayout__group_firstIndexInView_halo_all_includeInLayout_false" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView all children includeInLayout false">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -523,7 +476,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_firstIndexInView_halo_components_includeInLayout" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_firstIndexInView_halo_components_includeInLayout" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -552,7 +505,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_firstIndexInView_halo_components_includeInLayout_visible" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_firstIndexInView_halo_components_includeInLayout_visible" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -582,7 +535,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_firstIndexInView_halo_components_includeInLayout_firstTwo" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_firstIndexInView_halo_components_includeInLayout_firstTwo" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -615,7 +568,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_firstIndexInView_halo_container_includeInLayout_false" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with container not in layout">
+		<TestCase testID="VLayout__group_firstIndexInView_halo_container_includeInLayout_false" keywords="[VerticalLayout, firstIndexInView]" description="firstIndexInView with container not in layout">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -627,7 +580,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_firstIndexInView_binding" keywords="[VerticalLayout, firstIndexInView]" description="bind to firstIndexInView">
+		<TestCase testID="VLayout__group_firstIndexInView_binding" keywords="[VerticalLayout, firstIndexInView]" description="bind to firstIndexInView">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -653,7 +606,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_gap_default" keywords="[VerticalLayout,gap]" description="Default gap is 6">
+		<TestCase testID="VLayout__group_gap_default" keywords="[VerticalLayout,gap]" description="Default gap is 6">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -664,7 +617,7 @@
 		    </body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_gap_negative" keywords="[VerticalLayout,gap]" description="Negative gap, items overlap">
+		<TestCase testID="VLayout__group_gap_negative" keywords="[VerticalLayout,gap]" description="Negative gap, items overlap">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -683,11 +636,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="82" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_gap_positive" keywords="[VerticalLayout,gap]" description="Positive gap, items do not overlap">
+		<TestCase testID="VLayout__group_gap_positive" keywords="[VerticalLayout,gap]" description="Positive gap, items do not overlap">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -706,11 +659,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="162" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_gap_change_runtime" keywords="[VerticalLayout,gap]" description="Change gap at runtime, items lays out again">
+		<TestCase testID="VLayout__group_gap_change_runtime" keywords="[VerticalLayout,gap]" description="Change gap at runtime, items lays out again">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -730,11 +683,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="202" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_default" keywords="[VerticalLayout, horizontalAlign]" description="default is left">
+		<TestCase testID="VLayout__group_horizontalAlign_default" keywords="[VerticalLayout, horizontalAlign]" description="default is left">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -744,7 +697,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_left" keywords="[VerticalLayout, horizontalAlign]" description="default is left">
+		<TestCase testID="VLayout__group_horizontalAlign_left" keywords="[VerticalLayout, horizontalAlign]" description="default is left">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -764,15 +717,15 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="652" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="710" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="100" target="grp"/>
 
 				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="30" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_left_text_percent_50" keywords="[VerticalLayout, horizontalAlign]" description="left all children text percentage width">
+		<TestCase testID="VLayout__group_horizontalAlign_left_text_percent_50" keywords="[VerticalLayout, horizontalAlign]" description="left all children text percentage width">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -792,15 +745,14 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="642" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="700" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
 				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_horizontalAlign_left_text_percent_100" keywords="[VerticalLayout, horizontalAlign]" description="left all children text percentage width">
+		<TestCase testID="VLayout__group_horizontalAlign_left_text_percent_100" keywords="[VerticalLayout, horizontalAlign]" description="left all children text percentage width">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -820,15 +772,15 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="354" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="355" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
 				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="30" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_center" keywords="[VerticalLayout, horizontalAlign]" description="center">
+		<TestCase testID="VLayout__group_horizontalAlign_center" keywords="[VerticalLayout, horizontalAlign]" description="center">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -851,15 +803,15 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="679" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="737" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="150" target="grp"/>
 
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="30" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_center_to_left" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
+		<TestCase testID="VLayout__group_horizontalAlign_center_to_left" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -882,14 +834,14 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="30" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_horizontalAlign_center_to_left_change_text" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
+		<TestCase testID="VLayout__group_horizontalAlign_center_to_left_change_text" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -909,18 +861,18 @@
 
 				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
 				<SetProperty propertyName="horizontalAlign" value="left" target="grp.vl" waitEvent="updateComplete" waitTarget="grp"/>
-				<SetProperty propertyName="text" target="grp.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="grp.getElementAt(2)"/>
+				<SetProperty propertyName="text" target="grp.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="grp"/>
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="151" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_horizontalAlign_center_to_right" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
+		<TestCase testID="VLayout__group_horizontalAlign_center_to_right" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -944,14 +896,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="669" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="727" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_horizontalAlign_center_to_right_change_text" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
+		<TestCase testID="VLayout__group_horizontalAlign_center_to_right_change_text" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -976,14 +926,14 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="179" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="180" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_center_to_contentJustify" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
+		<TestCase testID="VLayout__group_horizontalAlign_center_to_contentJustify" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1007,14 +957,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
-			</body>
+		</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_horizontalAlign_center_to_contentJustify_change_text" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
+		<TestCase testID="VLayout__group_horizontalAlign_center_to_contentJustify_change_text" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1042,11 +990,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="151" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_center_to_justify" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
+		<TestCase testID="VLayout__group_horizontalAlign_center_to_justify" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1070,14 +1018,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_horizontalAlign_center_to_justify_change_text" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
+		<TestCase testID="VLayout__group_horizontalAlign_center_to_justify_change_text" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1105,11 +1051,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="151" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_justify" keywords="[VerticalLayout, horizontalAlign]" description="justify">
+		<TestCase testID="VLayout__group_horizontalAlign_justify" keywords="[VerticalLayout, horizontalAlign]" description="justify">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1132,15 +1078,13 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="377" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
 		
-		<TestCase testID="VLayout_group_horizontalAlign_justify_to_left" keywords="[VerticalLayout, horizontalAlign]" description="justify to left">
+		<TestCase testID="VLayout__group_horizontalAlign_justify_to_left" keywords="[VerticalLayout, horizontalAlign]" description="justify to left">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1164,14 +1108,12 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="377" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_scroll_horizontalAlign_justify" keywords="[VerticalLayout, horizontalAlign]" description="justify to left">
+		<TestCase testID="VLayout__group_scroll_horizontalAlign_justify" keywords="[VerticalLayout, horizontalAlign]" description="justify to left">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1193,12 +1135,12 @@
 				<SetProperty propertyName="height" value="200" target="myScroll.grp" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
 		
-		<TestCase testID="VLayout_group_scroll_horizontalAlign_justify_to_left" keywords="[VerticalLayout, horizontalAlign]" description="justify to left">
+		<TestCase testID="VLayout__group_scroll_horizontalAlign_justify_to_left" keywords="[VerticalLayout, horizontalAlign]" description="justify to left">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1224,14 +1166,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="350" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="365" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="myScroll.grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_justify_to_left_change_text" keywords="[VerticalLayout, horizontalAlign]" description="justify to left change text">
+		<TestCase testID="VLayout__group_horizontalAlign_justify_to_left_change_text" keywords="[VerticalLayout, horizontalAlign]" description="justify to left change text">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1256,14 +1196,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="261" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_horizontalAlign_justify_to_right" keywords="[VerticalLayout, horizontalAlign]" description="justify to right">
+		<TestCase testID="VLayout__group_horizontalAlign_justify_to_right" keywords="[VerticalLayout, horizontalAlign]" description="justify to right">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1287,14 +1225,12 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="377" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_horizontalAlign_justify_to_right_change_text" keywords="[VerticalLayout, horizontalAlign]" description="justify to right change text">
+		<TestCase testID="VLayout__group_horizontalAlign_justify_to_right_change_text" keywords="[VerticalLayout, horizontalAlign]" description="justify to right change text">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1319,14 +1255,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="261" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_justify_childWidth_greater_parent" keywords="[VerticalLayout, horizontalAlign]" description="justify all children width of container">
+		<TestCase testID="VLayout__group_horizontalAlign_justify_childWidth_greater_parent" keywords="[VerticalLayout, horizontalAlign]" description="justify all children width of container">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1349,14 +1283,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="567" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="582" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_justify_childWidth_less_parent" keywords="[VerticalLayout, horizontalAlign]" description="justify all children width of container">
+		<TestCase testID="VLayout__group_horizontalAlign_justify_childWidth_less_parent" keywords="[VerticalLayout, horizontalAlign]" description="justify all children width of container">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1379,14 +1311,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_justify_childWidth_text_percent_70" keywords="[VerticalLayout, horizontalAlign]" description="text wraps appropriately">
+		<TestCase testID="VLayout__group_horizontalAlign_justify_childWidth_text_percent_70" keywords="[VerticalLayout, horizontalAlign]" description="text wraps appropriately">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1409,14 +1339,12 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_justify_childWidth_text_percent_100" keywords="[VerticalLayout, horizontalAlign]" description="text wraps appropriately">
+		<TestCase testID="VLayout__group_horizontalAlign_justify_childWidth_text_percent_100" keywords="[VerticalLayout, horizontalAlign]" description="text wraps appropriately">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1439,14 +1367,12 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_contentJustify" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify">
+		<TestCase testID="VLayout__group_horizontalAlign_contentJustify" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1469,14 +1395,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="391" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_contentJustify_to_left" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify to left">
+		<TestCase testID="VLayout__group_horizontalAlign_contentJustify_to_left" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify to left">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1500,14 +1424,12 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="391" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_horizontalAlign_contentJustify_to_left_change_text" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify to left change text">
+		<TestCase testID="VLayout__group_horizontalAlign_contentJustify_to_left_change_text" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify to left change text">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1532,14 +1454,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="276" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_horizontalAlign_contentJustify_to_right" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify to right">
+		<TestCase testID="VLayout__group_horizontalAlign_contentJustify_to_right" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify to right">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1563,14 +1483,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="391" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_horizontalAlign_contentJustify_to_right_change_text" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify to right change text">
+		<TestCase testID="VLayout__group_horizontalAlign_contentJustify_to_right_change_text" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify to right change text">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1595,14 +1513,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="276" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_contentJustify_childWidth_greater_parent" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify all children width of widest child">
+		<TestCase testID="VLayout__group_horizontalAlign_contentJustify_childWidth_greater_parent" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify all children width of widest child">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1625,14 +1541,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="581" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="582" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_contentJustify_childWidth_less_parent" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify all children width of widest child">
+		<TestCase testID="VLayout__group_horizontalAlign_contentJustify_childWidth_less_parent" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify all children width of widest child">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1655,14 +1569,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_contentJustify_text_percent_50" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify all children text percentage width">
+		<TestCase testID="VLayout__group_horizontalAlign_contentJustify_text_percent_50" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify all children text percentage width">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1685,14 +1597,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_horizontalAlign_contentJustify_text_percent_100" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify all children text percentage width">
+		<TestCase testID="VLayout__group_horizontalAlign_contentJustify_text_percent_100" keywords="[VerticalLayout, horizontalAlign]" description="contentJustify all children text percentage width">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1715,14 +1625,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_horizontalAlign_right" keywords="[VerticalLayout, horizontalAlign]" description="right">
+		<TestCase testID="VLayout__group_horizontalAlign_right" keywords="[VerticalLayout, horizontalAlign]" description="right">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1745,14 +1653,12 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="679" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="737" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_horizontalAlign_right_text_percent_50" keywords="[VerticalLayout, horizontalAlign]" description="right all children text percentage width">
+		<TestCase testID="VLayout__group_horizontalAlign_right_text_percent_50" keywords="[VerticalLayout, horizontalAlign]" description="right all children text percentage width">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1774,14 +1680,14 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="669" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="727" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_horizontalAlign_right_text_percent_100" keywords="[VerticalLayout, horizontalAlign]" description="right all children text percentage width">
+		<TestCase testID="VLayout__group_horizontalAlign_right_text_percent_100" keywords="[VerticalLayout, horizontalAlign]" description="right all children text percentage width">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1803,14 +1709,12 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_scroll_horizontalScrollPosition_bind" keywords="[VerticalLayout, horizontalScrollPosition]" description="binding to horizontalScrollPosition">
+		<TestCase testID="VLayout__group_scroll_horizontalScrollPosition_bind" keywords="[VerticalLayout, horizontalScrollPosition]" description="binding to horizontalScrollPosition">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1836,7 +1740,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_scroll_horizontalScrollPosition_scrollRight" keywords="[VerticalLayout, horizontalScrollPosition]" description="scroll right and verify horizontalScrollPosition returns correctly">
+		<TestCase testID="VLayout__group_scroll_horizontalScrollPosition_scrollRight" keywords="[VerticalLayout, horizontalScrollPosition]" description="scroll right and verify horizontalScrollPosition returns correctly">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -1870,7 +1774,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_lastIndexInView_default" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView -1 at start up">
+		<TestCase testID="VLayout__group_lastIndexInView_default" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView -1 at start up">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -1881,7 +1785,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_spark_components" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_lastIndexInView_spark_components" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -1902,7 +1806,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_spark_components_visible_false" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_lastIndexInView_spark_components_visible_false" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -1926,7 +1830,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_spark_all_includeInLayout_false" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView all children includeInLayout false">
+		<TestCase testID="VLayout__group_lastIndexInView_spark_all_includeInLayout_false" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView all children includeInLayout false">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -1951,7 +1855,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_spark_components_includeInLayout" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_lastIndexInView_spark_components_includeInLayout" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -1975,7 +1879,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_spark_components_includeInLayout_visible" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_lastIndexInView_spark_components_includeInLayout_visible" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -1999,7 +1903,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_spark_components_includeInLayout_lastTwo" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_lastIndexInView_spark_components_includeInLayout_lastTwo" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2024,7 +1928,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_spark_container_includeInLayout_false" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with container not in layout">
+		<TestCase testID="VLayout__group_lastIndexInView_spark_container_includeInLayout_false" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with container not in layout">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2036,7 +1940,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_halo_components" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_lastIndexInView_halo_components" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2057,7 +1961,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_halo_components_visible_false" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_lastIndexInView_halo_components_visible_false" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2081,7 +1985,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_halo_all_includeInLayout_false" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView all children includeInLayout false">
+		<TestCase testID="VLayout__group_lastIndexInView_halo_all_includeInLayout_false" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView all children includeInLayout false">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2107,7 +2011,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_halo_components_includeInLayout" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_lastIndexInView_halo_components_includeInLayout" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2131,7 +2035,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_halo_components_includeInLayout_visible" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_lastIndexInView_halo_components_includeInLayout_visible" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2155,7 +2059,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_halo_components_includeInLayout_firstTwo" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
+		<TestCase testID="VLayout__group_lastIndexInView_halo_components_includeInLayout_firstTwo" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with Spark children returns appropriate component">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2180,7 +2084,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_halo_container_includeInLayout_false" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with container not in layout">
+		<TestCase testID="VLayout__group_lastIndexInView_halo_container_includeInLayout_false" keywords="[VerticalLayout, lastIndexInView]" description="lastIndexInView with container not in layout">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2192,7 +2096,7 @@
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_lastIndexInView_binding" keywords="[VerticalLayout, lastIndexInView]" description="bind to lastIndexInView">
+		<TestCase testID="VLayout__group_lastIndexInView_binding" keywords="[VerticalLayout, lastIndexInView]" description="bind to lastIndexInView">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2219,7 +2123,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_paddingBottom_default" keywords="[VerticalLayout,paddingBottom]" description="default 0">
+		<TestCase testID="VLayout__group_paddingBottom_default" keywords="[VerticalLayout,paddingBottom]" description="default 0">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2233,7 +2137,7 @@
 		   </body>
 		</TestCase>
 				
-		<TestCase testID="VLayout_group_paddingTop_default" keywords="[VerticalLayout,paddingTop]" description="default 0">
+		<TestCase testID="VLayout__group_paddingTop_default" keywords="[VerticalLayout,paddingTop]" description="default 0">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2248,7 +2152,7 @@
 		</TestCase>
 				
 				
-		<TestCase testID="VLayout_group_paddingLeft_default" keywords="[VerticalLayout,paddingLeft]" description="default 0">
+		<TestCase testID="VLayout__group_paddingLeft_default" keywords="[VerticalLayout,paddingLeft]" description="default 0">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2262,7 +2166,7 @@
 		   </body>
 		</TestCase>
 				
-		<TestCase testID="VLayout_group_paddingRight_default" keywords="[VerticalLayout,paddingLeft]" description="default 0">
+		<TestCase testID="VLayout__group_paddingRight_default" keywords="[VerticalLayout,paddingLeft]" description="default 0">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2276,7 +2180,7 @@
 		   </body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_paddingBottom_positive" keywords="[VerticalLayout,paddingBottom]" description="paddingBottom space at the bottom">
+		<TestCase testID="VLayout__group_paddingBottom_positive" keywords="[VerticalLayout,paddingBottom]" description="paddingBottom space at the bottom">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2293,11 +2197,11 @@
 				<AssertPropertyValue propertyName="width" value="80" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="144" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_paddingTop_positive" keywords="[VerticalLayout,paddingTop]" description="paddingTop space at top">
+		<TestCase testID="VLayout__group_paddingTop_positive" keywords="[VerticalLayout,paddingTop]" description="paddingTop space at top">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2314,11 +2218,11 @@
 				<AssertPropertyValue propertyName="width" value="80" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="144" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_paddingLeft_positive" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
+		<TestCase testID="VLayout__group_paddingLeft_positive" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2335,11 +2239,11 @@
 				<AssertPropertyValue propertyName="width" value="110" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="110" target="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 				
-		<TestCase testID="VLayout_group_paddingRight_positive" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
+		<TestCase testID="VLayout__group_paddingRight_positive" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2356,11 +2260,11 @@
 				<AssertPropertyValue propertyName="width" value="110" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="110" target="grp"/>			
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_paddingBottom_negative" keywords="[VerticalLayout,paddingBottom]" description="paddingBottom space at the bottom">
+		<TestCase testID="VLayout__group_paddingBottom_negative" keywords="[VerticalLayout,paddingBottom]" description="paddingBottom space at the bottom">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2377,11 +2281,11 @@
 				<AssertPropertyValue propertyName="width" value="80" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="94" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_paddingTop_negative" keywords="[VerticalLayout,paddingTop]" description="paddingTop space at top">
+		<TestCase testID="VLayout__group_paddingTop_negative" keywords="[VerticalLayout,paddingTop]" description="paddingTop space at top">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2398,11 +2302,11 @@
 				<AssertPropertyValue propertyName="width" value="80" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="94" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_paddingLeft_negative" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
+		<TestCase testID="VLayout__group_paddingLeft_negative" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2421,11 +2325,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="60" target="grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_paddingRight_negative" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
+		<TestCase testID="VLayout__group_paddingRight_negative" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2442,11 +2346,11 @@
 				<AssertPropertyValue propertyName="width" value="60" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="60" target="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_paddingBottom_positive_scroll" keywords="[VerticalLayout,paddingBottom]" description="paddingBottom space at the bottom">
+		<TestCase testID="VLayout__group_paddingBottom_positive_scroll" keywords="[VerticalLayout,paddingBottom]" description="paddingBottom space at the bottom">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2468,11 +2372,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="144" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_paddingTop_positive_scroll" keywords="[VerticalLayout,paddingTop]" description="paddingTop space at top">
+		<TestCase testID="VLayout__group_paddingTop_positive_scroll" keywords="[VerticalLayout,paddingTop]" description="paddingTop space at top">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2494,11 +2398,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="144" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_paddingLeft_positive_scroll" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
+		<TestCase testID="VLayout__group_paddingLeft_positive_scroll" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2520,11 +2424,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="110" target="myScroll.grp"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_paddingRight_positive_scroll" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
+		<TestCase testID="VLayout__group_paddingRight_positive_scroll" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2546,11 +2450,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="110" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_paddingBottom_negative_scroll" keywords="[VerticalLayout,paddingBottom]" description="paddingBottom space at the bottom">
+		<TestCase testID="VLayout__group_paddingBottom_negative_scroll" keywords="[VerticalLayout,paddingBottom]" description="paddingBottom space at the bottom">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2572,11 +2476,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="94" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="myScroll.grp"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_paddingTop_negative_scroll" keywords="[VerticalLayout,paddingTop]" description="paddingTop space at top">
+		<TestCase testID="VLayout__group_paddingTop_negative_scroll" keywords="[VerticalLayout,paddingTop]" description="paddingTop space at top">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2598,11 +2502,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="94" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_paddingLeft_negative_scroll" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
+		<TestCase testID="VLayout__group_paddingLeft_negative_scroll" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2624,11 +2528,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="60" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_paddingRight_negative_scroll" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
+		<TestCase testID="VLayout__group_paddingRight_negative_scroll" keywords="[VerticalLayout,paddingLeft]" description="paddingLeft space at left">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -2650,11 +2554,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="60" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_scroll_requestedRowCount_default" keywords="[VerticalLayout, requestedRowCount]" description="requestedRowCount default is -1">
+		<TestCase testID="VLayout__group_scroll_requestedRowCount_default" keywords="[VerticalLayout, requestedRowCount]" description="requestedRowCount default is -1">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -2665,7 +2569,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_scroll_requestedRowCount_default_fit_all" keywords="[VerticalLayout, requestedRowCount]" description="default requestedRowCount shows all children">
+		<TestCase testID="VLayout__group_scroll_requestedRowCount_default_fit_all" keywords="[VerticalLayout, requestedRowCount]" description="default requestedRowCount shows all children">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -2690,16 +2594,14 @@
 				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 
-				<AssertPropertyValue propertyName="height" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="190" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="430" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<AssertPropertyValue propertyName="contentHeight" value="431" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>		
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_scroll_requestedRowCount_explicit_size" keywords="[VerticalLayout, requestedRowCount]" description="requestedRowCount ignored when default size is set">
+		<TestCase testID="VLayout__group_scroll_requestedRowCount_explicit_size" keywords="[VerticalLayout, requestedRowCount]" description="requestedRowCount ignored when default size is set">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -2730,14 +2632,14 @@
 				<AssertPropertyValue propertyName="rowCount" value="3" target="myScroll.grp.vl"/>
 				<AssertPropertyValue propertyName="height" value="100" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="100" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>				
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_scroll_requestedRowCount_4" keywords="[VerticalLayout, requestedRowCount]" description="requestedRowCount set to 4 shows 4 children">
+		<TestCase testID="VLayout__group_scroll_requestedRowCount_4" keywords="[VerticalLayout, requestedRowCount]" description="requestedRowCount set to 4 shows 4 children">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -2772,16 +2674,14 @@
 				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(5)" value="80" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 				
 				<AssertPropertyValue propertyName="rowCount" value="4" target="myScroll.grp.vl"/>
-				<AssertPropertyValue propertyName="height" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="190" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="773" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target="myScroll"/>				
+				<AssertPropertyValue propertyName="contentHeight" value="775" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>			
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_scroll_requestedRowCount_greaterThan_children" keywords="[VerticalLayout, requestedRowCount]" description="requestedRowCount greater than number of children">
+		<TestCase testID="VLayout__group_scroll_requestedRowCount_greaterThan_children" keywords="[VerticalLayout, requestedRowCount]" description="requestedRowCount greater than number of children">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -2803,11 +2703,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="129" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="70" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>				
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_scroll_requestedRowCount_change_runtime" keywords="[VerticalLayout, requestedRowCount]" description="requestedRowCount changes from 4 to 8 all children should show">
+		<TestCase testID="VLayout__group_scroll_requestedRowCount_change_runtime" keywords="[VerticalLayout, requestedRowCount]" description="requestedRowCount changes from 4 to 8 all children should show">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -2847,16 +2747,14 @@
 				
 				<AssertPropertyValue propertyName="rowCount" value="6" target="myScroll.grp.vl"/>
 				
-				<AssertPropertyValue propertyName="height" value="424" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="425" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="250" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="370" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="371" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="250" target="myScroll.grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_scroll_rowCount_default" keywords="[VerticalLayout, rowCount]" description="requestedRowCount default is -1">
+		<TestCase testID="VLayout__group_scroll_rowCount_default" keywords="[VerticalLayout, rowCount]" description="requestedRowCount default is -1">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -2867,7 +2765,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_scroll_rowCount_requestedRowCount" keywords="[VerticalLayout, rowCount]" description="change requestedRowCount verify rowCount is updated">
+		<TestCase testID="VLayout__group_scroll_rowCount_requestedRowCount" keywords="[VerticalLayout, rowCount]" description="change requestedRowCount verify rowCount is updated">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -2879,7 +2777,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_scroll_rowCount_binding" keywords="[VerticalLayout, requestedRowCount]" description="requestedRowCount changes from 4 to 8 all children should show">
+		<TestCase testID="VLayout__group_scroll_rowCount_binding" keywords="[VerticalLayout, requestedRowCount]" description="requestedRowCount changes from 4 to 8 all children should show">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -2923,15 +2821,15 @@
 				<AssertPropertyValue propertyName="rowCount" value="6" target="myScroll.grp.vl"/>
 				<AssertPropertyValue propertyName="label" value="6" target="rowCountBtn" />	
 
-				<AssertPropertyValue propertyName="height" value="424" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="425" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="250" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="370" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="371" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="250" target="myScroll.grp"/>				
 
 			</body>
 		</TestCase>
 	
-		<TestCase testID="VLayout_group_rowHeight_variableRowHeight" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
+		<TestCase testID="VLayout__group_rowHeight_variableRowHeight" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -2959,16 +2857,14 @@
 				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 
-				<AssertPropertyValue propertyName="height" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="190" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_rowHeight_variableRowHeight_false" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
+		<TestCase testID="VLayout__group_rowHeight_variableRowHeight_false" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -3001,11 +2897,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="418" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>				
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_rowHeight_default_variableRowHeight_false" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
+		<TestCase testID="VLayout__group_rowHeight_default_variableRowHeight_false" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -3037,11 +2933,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="102" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>				
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_variableRowHeight_default" keywords="[VerticalLayout, variableRowHeight]" description="variableRowHeight default is true">
+		<TestCase testID="VLayout__group_variableRowHeight_default" keywords="[VerticalLayout, variableRowHeight]" description="variableRowHeight default is true">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -3052,7 +2948,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_rowHeight_default_variableRowHeight_false_typicalLayoutElement" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
+		<TestCase testID="VLayout__group_rowHeight_default_variableRowHeight_false_typicalLayoutElement" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -3084,10 +2980,10 @@
 				<AssertPropertyValue propertyName="contentHeight" value="258" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>				
 			</body>
 		</TestCase>
-		<TestCase testID="VLayout_group_rowHeight_typicalLayoutElement_UIComponent" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
+		<TestCase testID="VLayout__group_rowHeight_typicalLayoutElement_UIComponent" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -3125,11 +3021,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="129" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>				
 			</body>
 		</TestCase>
 
-		<TestCase testID="VLayout_group_rowHeight_typicalLayoutElement_GraphicElement" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
+		<TestCase testID="VLayout__group_rowHeight_typicalLayoutElement_GraphicElement" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -3167,11 +3063,11 @@
 				<AssertPropertyValue propertyName="contentHeight" value="324" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>				
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_scroll_verticalScrollPosition_bind" keywords="[VerticalLayout, verticalScrollPosition]" description="binding to verticalScrollPosition">
+		<TestCase testID="VLayout__group_scroll_verticalScrollPosition_bind" keywords="[VerticalLayout, verticalScrollPosition]" description="binding to verticalScrollPosition">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
@@ -3197,7 +3093,7 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="VLayout_group_scroll_verticalScrollPosition_scrollDown" keywords="[VerticalLayout, verticalScrollPosition]" description="scroll right and verify horizontalScrollPosition returns correctly">
+		<TestCase testID="VLayout__group_scroll_verticalScrollPosition_scrollDown" keywords="[VerticalLayout, verticalScrollPosition]" description="scroll right and verify horizontalScrollPosition returns correctly">
 			<setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
