@@ -109,22 +109,7 @@ xmlns="*" testSWF="Layout3DList.mxml">
             </body>
         </TestCase>
 
-        <TestCase testID="List_Layout3D_property_offsets_xyz_rotation_xyz" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
-            <setup>
-                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty target="icons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
-                <RunCode code="renderer=application.getSelectedItemRenderer(application.icons);renderer.postLayoutTransformOffsets = new TransformOffsets();
-                renderer.postLayoutTransformOffsets.scaleX=1.2;renderer.depth=-2;renderer.postLayoutTransformOffsets.scaleY=1.2;renderer.postLayoutTransformOffsets.scaleZ=1.2;
-                renderer.postLayoutTransformOffsets.rotationX=30;renderer.postLayoutTransformOffsets.rotationY=30;renderer.postLayoutTransformOffsets.rotationZ=30; "/>
-                <SetProperty target="icons" propertyName="height" value="140" waitEvent="updateComplete"/>
-                <SetProperty target="icons" propertyName="width" value="240" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="icons" numColorVariances="10" maxColorVariance="5" />
-            </body>
-        </TestCase>
-
-		  <TestCase testID="List_Layout3D_property_offsets_xyz_rotation_xyz_mac" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+		  <TestCase testID="List_Layout3D_property_offsets_xyz_rotation_xyz" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
             <setup>
                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
             </setup>
@@ -263,6 +248,7 @@ xmlns="*" testSWF="Layout3DList.mxml">
                 <CompareBitmap url="../properties/baselines/$testID.png" target="icons" numColorVariances="10" maxColorVariance="5"/>
             </body>
         </TestCase>
+        
         <TestCase testID="ListIcons_Layout3D_property_offsets_x" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
             <setup>
                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
@@ -279,23 +265,7 @@ xmlns="*" testSWF="Layout3DList.mxml">
             </body>
         </TestCase>
         
-        <TestCase testID="ListIcons_Layout3D_property_offsets_x_mac" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
-            <setup>
-                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
-                <RunCode code="application.icons.postLayoutTransformOffsets=new TransformOffsets()" />
-            </setup>
-            <body>
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="x" value="20" />
-                <SetProperty target="icons" propertyName="selectedIndex" value="2" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationX" value="45" />
-                <SetProperty target="icons" propertyName="scaleX" value="0.8" waitEvent="updateComplete"/>
-                <SetProperty target="iBox" propertyName="width" value="200" waitEvent="updateComplete"/>
-                <SetProperty target="iBox" propertyName="height" value="100" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="iBox" numColorVariances="5" maxColorVariance="5"/>
-            </body>
-        </TestCase>
-        
-        <TestCase testID="ListIcons_Layout3D_property_offsets_xy" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+		 <TestCase testID="ListIcons_Layout3D_property_offsets_xy" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
             <setup>
                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
                 <RunCode code="application.icons.postLayoutTransformOffsets=new TransformOffsets()" />
@@ -315,50 +285,8 @@ xmlns="*" testSWF="Layout3DList.mxml">
             </body>
         </TestCase>
 
-		 <TestCase testID="ListIcons_Layout3D_property_offsets_xy_mac" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
-            <setup>
-                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
-                <RunCode code="application.icons.postLayoutTransformOffsets=new TransformOffsets()" />
-            </setup>
-            <body>
-                <SetProperty target="icons" propertyName="selectedIndex" value="0" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="x" value="50" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationX" value="15" />
-                <SetProperty target="icons" propertyName="scaleX" value="1.2" waitEvent="updateComplete"/>
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="y" value="10" />
-                <SetProperty target="icons" propertyName="y" value="60" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationY" value="45" />
-                <SetProperty target="icons" propertyName="scaleY" value="1.2" waitEvent="updateComplete"/>
-                <SetProperty target="iBox" propertyName="width" value="250" waitEvent="updateComplete"/>
-                <SetProperty target="iBox" propertyName="height" value="150" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="iBox" numColorVariances="5" maxColorVariance="5"/>
-            </body>
-        </TestCase>
-
-        <TestCase testID="ListIcons_Layout3D_property_offsets_xyz" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
-            <setup>
-                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
-                <RunCode code="application.icons.postLayoutTransformOffsets=new TransformOffsets()" />
-            </setup>
-            <body>
-                <SetProperty target="icons" propertyName="selectedIndex" value="1" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="x" value="10" />
-                <SetProperty target="icons" propertyName="x" value="50" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationX" value="15" />
-                <SetProperty target="icons" propertyName="scaleX" value="0.6" waitEvent="updateComplete"/>
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="y" value="10" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationY" value="15" />
-                <SetProperty target="icons" propertyName="scaleY" value="1.2" waitEvent="updateComplete"/>
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="z" value="10" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationZ" value="45" />
-                <SetProperty target="icons" propertyName="scaleZ" value="0.5" waitEvent="updateComplete"/>
-                <SetProperty target="iBox" propertyName="width" value="220" waitEvent="updateComplete"/>
-                <SetProperty target="iBox" propertyName="height" value="120" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="iBox" numColorVariances="15" maxColorVariance="5"/>
-            </body>
-        </TestCase>
 	
-	<TestCase testID="ListIcons_Layout3D_property_offsets_xyz_mac" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+	    <TestCase testID="ListIcons_Layout3D_property_offsets_xyz" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
             <setup>
                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
                 <RunCode code="application.icons.postLayoutTransformOffsets=new TransformOffsets()" />

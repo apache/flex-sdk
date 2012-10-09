@@ -143,27 +143,7 @@ xmlns="*" testSWF="Layout3DMain.mxml">
             </body>
         </TestCase>
 
-        <TestCase testID="Layout3D_property_offsets_xyz_rotation_scale_xyz" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
-            <setup>
-                <ResetComponent target="eg" className="comps.EllipseDataGroup" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty target="eg.e1.postLayoutTransformOffsets" propertyName="x" value="10" />
-                <SetProperty target="eg.e2.postLayoutTransformOffsets" propertyName="y" value="10" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="z" value="10" />
-                <SetProperty target="eg.e1.postLayoutTransformOffsets" propertyName="rotationX" value="90" />
-                <SetProperty target="eg.e2.postLayoutTransformOffsets" propertyName="rotationY" value="90" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="rotationZ" value="90" />
-                <SetProperty target="eg.e1.postLayoutTransformOffsets" propertyName="scaleX" value="1.5" />
-                <SetProperty target="eg.e2.postLayoutTransformOffsets" propertyName="scaleY" value="2.5" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="scaleZ" value="3" />
-                <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
-                <SetProperty target="eg" propertyName="width" value="180" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" />
-            </body>
-        </TestCase>
-		
-		<TestCase testID="Layout3D_property_offsets_xyz_rotation_scale_xyz_mac" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+		<TestCase testID="Layout3D_property_offsets_xyz_rotation_scale_xyz" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
             <setup>
                 <ResetComponent target="eg" className="comps.EllipseDataGroup" waitEvent="updateComplete" />
             </setup>
@@ -184,29 +164,6 @@ xmlns="*" testSWF="Layout3DMain.mxml">
         </TestCase>
         
         <TestCase testID="Layout3D_property_offsets_rotation_scale_xyz" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
-            <setup>
-                <ResetComponent target="eg" className="comps.EllipseDataGroup" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty target="eg.e1" propertyName="x" value="20" />
-                <SetProperty target="eg.e2" propertyName="y" value="20" />
-                <SetProperty target="eg.e3" propertyName="z" value="20" />
-                <SetProperty target="eg.e1.postLayoutTransformOffsets" propertyName="x" value="10" />
-                <SetProperty target="eg.e2.postLayoutTransformOffsets" propertyName="y" value="10" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="z" value="10" />
-                <SetProperty target="eg.e1.postLayoutTransformOffsets" propertyName="rotationX" value="-90" />
-                <SetProperty target="eg.e2.postLayoutTransformOffsets" propertyName="rotationY" value="-90" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="rotationZ" value="-90" />
-                <SetProperty target="eg.e1.postLayoutTransformOffsets" propertyName="scaleX" value="1.5" />
-                <SetProperty target="eg.e2.postLayoutTransformOffsets" propertyName="scaleY" value="2.5" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="scaleZ" value="1.5" />
-                <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
-                <SetProperty target="eg" propertyName="width" value="180" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" />
-            </body>
-        </TestCase>
-
-		 <TestCase testID="Layout3D_property_offsets_rotation_scale_xyz_mac" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
             <setup>
                 <ResetComponent target="eg" className="comps.EllipseDataGroup" waitEvent="updateComplete" />
             </setup>
@@ -341,26 +298,7 @@ xmlns="*" testSWF="Layout3DMain.mxml">
             </body>
         </TestCase>
 
-        <TestCase testID="Layout3D_property_offsets_xyz_rotation_xyz_layoutMatrix3D" keywords="[Layout3D,property,layoutMatrix3D]" description="">
-            <setup>
-                <ResetComponent target="eg" className="comps.EllipseDataGroup" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty target="eg.e1.postLayoutTransformOffsets" propertyName="x" value="1" />
-                <SetProperty target="eg.e2.postLayoutTransformOffsets" propertyName="y" value="1" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="z" value="1" />
-                <SetProperty target="eg.e1.postLayoutTransformOffsets" propertyName="rotationX" value="9" />
-                <SetProperty target="eg.e2.postLayoutTransformOffsets" propertyName="rotationY" value="9" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="rotationZ" value="9" />
-                <SetProperty target="eg" propertyName="height" value="140" waitEvent="updateComplete"/>
-                <SetProperty target="eg" propertyName="width" value="140" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" />
-                <RunCode code="setGroupMatrix()" />
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" />
-            </body>
-        </TestCase>
-
-		<TestCase testID="Layout3D_property_offsets_xyz_rotation_xyz_layoutMatrix3D_mac" keywords="[Layout3D,property,layoutMatrix3D]" description="">
+		<TestCase testID="Layout3D_property_offsets_xyz_rotation_xyz_layoutMatrix3D" keywords="[Layout3D,property,layoutMatrix3D]" description="">
             <setup>
                 <ResetComponent target="eg" className="comps.EllipseDataGroup" waitEvent="updateComplete" />
             </setup>
@@ -480,35 +418,8 @@ xmlns="*" testSWF="Layout3DMain.mxml">
                 <CompareBitmap url="../properties/baselines/$testID.png" target="eg" />
             </body>
         </TestCase>
-        <TestCase testID="Layout3D_property_offsets_rotation_scale_transform_e3_layoutMatrix3D" keywords="[Layout3D,property,layoutMatrix3D]" description="">
-            <setup>
-                <ResetComponent target="eg" className="comps.EllipseDataGroup" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <SetProperty target="eg.e3" propertyName="x" value="19" />
-                <SetProperty target="eg.e3" propertyName="y" value="19" />
-                <SetProperty target="eg.e3" propertyName="z" value="19" />
-                <SetProperty target="eg.e3" propertyName="transformX" value="11" />
-                <SetProperty target="eg.e3" propertyName="transformY" value="-13" />
-                <SetProperty target="eg.e3" propertyName="transformZ" value="-17" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="x" value="13" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="y" value="13" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="z" value="13" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="rotationX" value="-90" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="rotationY" value="-90" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="rotationZ" value="90" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="scaleX" value="1.7" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="scaleY" value="2.7" />
-                <SetProperty target="eg.e3.postLayoutTransformOffsets" propertyName="scaleZ" value="1.7" />
-                <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
-                <SetProperty target="eg" propertyName="width" value="180" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" numColorVariances="5" maxColorVariance="1" />
-                <RunCode code="setGroupMatrix()" />
-                <CompareBitmap url="../properties/baselines/$testID.png" target="eg" numColorVariances="5" maxColorVariance="1" />
-            </body>
-        </TestCase>
 
-		 <TestCase testID="Layout3D_property_offsets_rotation_scale_transform_e3_layoutMatrix3D_mac" keywords="[Layout3D,property,layoutMatrix3D]" description="">
+		 <TestCase testID="Layout3D_property_offsets_rotation_scale_transform_e3_layoutMatrix3D" keywords="[Layout3D,property,layoutMatrix3D]" description="">
             <setup>
                 <ResetComponent target="eg" className="comps.EllipseDataGroup" waitEvent="updateComplete" />
             </setup>

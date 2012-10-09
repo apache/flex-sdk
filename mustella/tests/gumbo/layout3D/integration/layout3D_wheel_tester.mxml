@@ -99,27 +99,7 @@ xmlns="*" testSWF="Layout3D_wheel.mxml">
                  <CompareBitmap url="../integration/baselines/$testID.png" target="wc" numColorVariances="20" ignoreMaxColorVariance="true"/>
             </body>
         </TestCase>
-        <TestCase testID="Layout3D_wheel_page_right2" keywords="[Layout3D]" description="">
-            <setup>
-                <ResetComponent target="wc" className="WheelComp" waitEvent="updateComplete" />
-                <SetProperty target="vg" propertyName="x" value="5" waitEvent="updateComplete"/>
-                <SetProperty target="vg" propertyName="y" value="5" waitEvent="updateComplete"/>
-              </setup>
-            <body>
-                <RunCode code="application.wc.horizontalScrollBar.changeValueByPage()" />
-                <Pause timeout="300"/>
-                <SetProperty target="vg" propertyName="x" value="15" waitEvent="updateComplete"/>
-                <SetProperty target="vg" propertyName="y" value="15" waitEvent="updateComplete"/>
-
-                <RunCode code="application.wc.horizontalScrollBar.changeValueByPage()" />
-                <Pause timeout="300"/>
-                <SetProperty target="wc" propertyName="x" value="5" waitEvent="updateComplete"/>
-                <SetProperty target="wc" propertyName="y" value="5" waitEvent="updateComplete"/>
-                <CompareBitmap url="../integration/baselines/$testID.png" target="wc" />
-            </body>
-        </TestCase>
-
-		<TestCase testID="Layout3D_wheel_page_right2_mac" keywords="[Layout3D]" description="">
+		<TestCase testID="Layout3D_wheel_page_right2" keywords="[Layout3D]" description="">
             <setup>
                 <ResetComponent target="wc" className="WheelComp" waitEvent="updateComplete" />
                 <SetProperty target="vg" propertyName="x" value="5" waitEvent="updateComplete"/>

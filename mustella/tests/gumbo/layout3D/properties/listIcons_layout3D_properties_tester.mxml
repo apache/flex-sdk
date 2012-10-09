@@ -291,26 +291,8 @@ xmlns="*" testSWF="Layout3DListIcons.mxml">
 
             </body>
         </TestCase>
-        <TestCase testID="Layout3D_property_itemRenderer_offsets_rotation_1_layoutMatrix3D" keywords="[Layout3D,property, layoutMatrix3D]" description="">
-            <setup>
-                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
-             </setup>
-            <body>
-                <RunCode code="iRenderer=application.getItemRenderer(0);iRenderer.postLayoutTransformOffsets=new TransformOffsets()" />
-                <SetProperty target="script:iRenderer.postLayoutTransformOffsets" propertyName="x" value="5" />
-                <SetProperty target="script:iRenderer.postLayoutTransformOffsets" propertyName="y" value="5" />
-                <SetProperty target="script:iRenderer.postLayoutTransformOffsets" propertyName="z" value="5" />
-                <SetProperty target="script:iRenderer.postLayoutTransformOffsets" propertyName="rotationX" value="-10" />
-                <SetProperty target="script:iRenderer.postLayoutTransformOffsets" propertyName="rotationY" value="-10" />
-                <SetProperty target="script:iRenderer.postLayoutTransformOffsets" propertyName="rotationZ" value="20" />
-                <SetProperty target="icons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="icons" numColorVariances="5" maxColorVariance="1" />
-                <RunCode code="setObjectMatrix()" />
-                <CompareBitmap url="../properties/baselines/$testID.png" target="icons" numColorVariances="5" maxColorVariance="1" />
-            </body>
-        </TestCase>
-
-		<TestCase testID="Layout3D_property_itemRenderer_offsets_rotation_1_layoutMatrix3D_mac" keywords="[Layout3D,property, layoutMatrix3D]" description="">
+ 
+		<TestCase testID="Layout3D_property_itemRenderer_offsets_rotation_1_layoutMatrix3D" keywords="[Layout3D,property, layoutMatrix3D]" description="">
             <setup>
                  <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
              </setup>
@@ -369,26 +351,8 @@ xmlns="*" testSWF="Layout3DListIcons.mxml">
                 <CompareBitmap url="../properties/baselines/$testID.png" target="icons" numColorVariances="8" maxColorVariance="10"/>
             </body>
         </TestCase>
-        <TestCase testID="Layout3D_property_itemRenderer_icon_rotation_1_layoutMatrix3D" keywords="[Layout3D,property, layoutMatrix3D]" description="">
-            <setup>
-                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
-             </setup>
-            <body>
-                <RunCode code="iRenderer=application.getItemRenderer(0);iRenderer.postLayoutTransformOffsets=new TransformOffsets()" />
-                <SetProperty target="script:iRenderer" propertyName="x" value="5" />
-                <SetProperty target="script:iRenderer" propertyName="y" value="5" />
-                <SetProperty target="script:iRenderer" propertyName="z" value="5" />
-                <SetProperty target="script:iRenderer" propertyName="rotationX" value="-10" />
-                <SetProperty target="script:iRenderer" propertyName="rotationY" value="-10" />
-                <SetProperty target="script:iRenderer" propertyName="rotationZ" value="20" />
-                <SetProperty target="icons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
-                <CompareBitmap url="../properties/baselines/$testID.png" target="icons" />
-                <RunCode code="setObjectMatrix()" />
-                <CompareBitmap url="../properties/baselines/$testID.png" target="icons" />
-            </body>
-        </TestCase>
 
-        <TestCase testID="Layout3D_property_itemRenderer_icon_rotation_1_layoutMatrix3D_mac" keywords="[Layout3D,property, layoutMatrix3D]" description="">
+        <TestCase testID="Layout3D_property_itemRenderer_icon_rotation_1_layoutMatrix3D" keywords="[Layout3D,property, layoutMatrix3D]" description="">
             <setup>
                  <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
              </setup>
