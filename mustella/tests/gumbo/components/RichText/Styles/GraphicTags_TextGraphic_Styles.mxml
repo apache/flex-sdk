@@ -428,7 +428,7 @@
             </setup>
             <body>
                 <AssertStyleValue target="textGraphicComp.textGraphic" styleName="cffHinting" value="none" />
-                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../Styles/baselines/$testID@mac.png" target="container" />
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../Styles/baselines/$testID.png" target="container" />
             </body>
         </TestCase>
 
