@@ -78,11 +78,11 @@ testSWF="SubModuleTest_basic3.mxml">
 
 		        <RunCode code="FlexGlobals.topLevelApplication.loadContent('assets/SubApp1.swf');"  waitTarget="" waitEvent="SWFLoaded" />
 
-		        <Pause timeout="200"/>
+		        <WaitForLayoutManager />
 
 		    	<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.resetModuleLoader()" />
 
-		    	<Pause timeout="100"/>
+		    	<WaitForLayoutManager />
 
 		    	<SetProperty target="subAppRef.document.dg" propertyName="selectedIndex"  value="0" />
 
@@ -90,19 +90,19 @@ testSWF="SubModuleTest_basic3.mxml">
 
 		    <body>
 
-		    	<Pause timeout="100"/>
+				<WaitForLayoutManager />
 
-		    	<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.loadModule('assets/Module1.swf')"/>
+		    	<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.loadModule('assets/Module1.swf')" 
+						 waitEvent="ready" waitTarget="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.subAppRef.document.moduleLoader1" />
 
-		        <Pause timeout="200"/>
+		        <WaitForLayoutManager />
 
-		        <RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.moduleLoader1.child.loadModule1()"/>
+		        <RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.moduleLoader1.child.loadModule1()"
+						 waitEvent="ready" waitTarget="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.subAppRef.document.moduleLoader1.child.subModuleLoader1" />
 
-		       <Pause timeout="200"/>
+		        <WaitForLayoutManager />
 
 		        <AssertPropertyValue propertyName="text" target="subAppRef.document.moduleLoader1.child.subModuleLoader1.child.label1" value="SubModuleWithLabel loaded"/>
-
-		    	<Pause timeout="100"/>
 
 		    	<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.unloadModule()"/>
 
@@ -122,11 +122,11 @@ testSWF="SubModuleTest_basic3.mxml">
 
 		    	<RunCode code="FlexGlobals.topLevelApplication.loadContent('assets/SubApp1.swf');"  waitTarget="" waitEvent="SWFLoaded" />
 
-		        <Pause timeout="200"/>
+		        <WaitForLayoutManager />
 
 		    	<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.resetModuleLoader()" />
 
-		    	<Pause timeout="100"/>
+		  	    <WaitForLayoutManager />
 
 		    	<SetProperty target="subAppRef.document.dg" propertyName="selectedIndex"  value="1" />
 
@@ -134,29 +134,25 @@ testSWF="SubModuleTest_basic3.mxml">
 
 		    <body>
 
-		        <Pause timeout="100"/>
+		        <WaitForLayoutManager />
 
-			<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.loadModule('assets/Module6.swf')"/>
+    			<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.loadModule('assets/Module6.swf')"
+						 waitEvent="ready" waitTarget="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.subAppRef.document.moduleLoader1" />
 
-		        <Pause timeout="300"/>
+		        <WaitForLayoutManager />
 
-		        <RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.moduleLoader1.child.loadModule1()"/>
+		        <RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.moduleLoader1.child.loadModule1()"
+						 waitEvent="moduleLoaded" waitTarget="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.subAppRef.document.moduleLoader1.child" />
 
-		        <Pause timeout="700"/>
-
-		        
+				<WaitForEvent eventName="moduleLoaded" target="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.subAppRef.document.moduleLoader1.child.subModuleLoader1.child" />
+				
+		        <WaitForLayoutManager />
 
 		        <RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.moduleLoader1.child.subModuleLoader1.child.addNumbers(5,7)"/>
 
-		        
-
-		        <Pause timeout="200"/>
+		        <WaitForLayoutManager />
 
 		        <AssertPropertyValue propertyName="text" target="subAppRef.document.moduleLoader1.child.subModuleLoader1.child.label1" value="12"/>
-
-		        
-
-		        <Pause timeout="100"/>
 
 		    	<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.unloadModule()"/>
 
@@ -176,13 +172,13 @@ testSWF="SubModuleTest_basic3.mxml">
 
 		        <RunCode code="FlexGlobals.topLevelApplication.resetModuleLoader()"/>
 
-			<RunCode code="FlexGlobals.topLevelApplication.loadContent('assets/SubApp1.swf');"  waitTarget="" waitEvent="SWFLoaded" />
+			    <RunCode code="FlexGlobals.topLevelApplication.loadContent('assets/SubApp1.swf');"  waitTarget="" waitEvent="SWFLoaded" />
 
-			<Pause timeout="200"/>
+			    <WaitForLayoutManager />
 
-			<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.resetModuleLoader()" />
+		    	<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.resetModuleLoader()" />
 
-			<Pause timeout="100"/>
+	    		<WaitForLayoutManager />
 
 		    	<SetProperty target="subAppRef.document.dg" propertyName="selectedIndex"  value="2" />
 
@@ -190,17 +186,16 @@ testSWF="SubModuleTest_basic3.mxml">
 
 		    <body>
 
-		        <Pause timeout="100"/>
+		        <WaitForLayoutManager />
 
-			<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.loadModule('assets/Module4.swf')"/>
+				<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.loadModule('assets/Module4.swf')"
+						 waitEvent="moduleLoaded" waitTarget="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.subAppRef.document" />
 
-		        <Pause timeout="500"/>
-
-		        
+				<WaitForEvent eventName="moduleLoaded" target="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.subAppRef.document.moduleLoader1.child" />
+				
+		        <WaitForLayoutManager />
 
 		        <AssertPropertyValue propertyName="text" target="subAppRef.document.moduleLoader1.child.ccm.label1" value="SubModuleWithLabel loaded"/>
-
-		    	<Pause timeout="100"/>
 
 		    	<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.unloadModule()"/>
 
@@ -208,11 +203,6 @@ testSWF="SubModuleTest_basic3.mxml">
 
 		</TestCase>
 
-		
-
-
-
-		
 
 		<TestCase testID="subAppWithSubModule_test4" keywords="[SubApplication, SubModule, ModuleLoader]" description="swfLoader=>subApp=>moduleLoader=>Module1(Modulemanager)=>subModule(ModuleManager):load a sub application which loads module created in moduleManager, subModule is loaded by using ModuleLoader" >
 
@@ -222,11 +212,11 @@ testSWF="SubModuleTest_basic3.mxml">
 
 		    	<RunCode code="FlexGlobals.topLevelApplication.loadContent('assets/SubApp1.swf');"  waitTarget="" waitEvent="SWFLoaded" />
 
-			<Pause timeout="200"/>
+    			<WaitForLayoutManager />
 
-			<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.resetModuleLoader()" />
+	    		<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.resetModuleLoader()" />
 
-			<Pause timeout="100"/>
+		    	<WaitForLayoutManager />
 
 		    	<SetProperty target="subAppRef.document.dg" propertyName="selectedIndex"  value="3" />
 
@@ -234,23 +224,16 @@ testSWF="SubModuleTest_basic3.mxml">
 
 		    <body>
 
-		       
+    			<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.loadModule('assets/Module5.swf')"
+					 waitEvent="ready" waitTarget="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.subAppRef.document.moduleLoader1"/>
 
-			<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.loadModule('assets/Module5.swf')"/>
-
-			<Pause timeout="1000"/>
+	    		<WaitForLayoutManager />
 
 		        <RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.moduleLoader1.child.vg.getChildAt(0).addNumbers(5,7)"/>
 
-					        
+    			<WaitForLayoutManager />
 
-			<Pause timeout="300"/>
-
-			<AssertPropertyValue propertyName="text" target="subAppRef.document.moduleLoader1.child.vg.getChildAt(0).label1" value="12"/>
-
-
-
-			<Pause timeout="100"/>
+    			<AssertPropertyValue propertyName="text" target="subAppRef.document.moduleLoader1.child.vg.getChildAt(0).label1" value="12"/>
 
 		    	<RunCode code="FlexGlobals.topLevelApplication.subAppRef.document.unloadModule()"/>
 
@@ -270,19 +253,15 @@ testSWF="SubModuleTest_basic3.mxml">
 
 		    	<RunCode code="FlexGlobals.topLevelApplication.loadModule('assets/ModuleLoadSubApp3.swf');"  waitTarget="" waitEvent="moduleLoaded" />
 
-		   </setup>
+				<WaitForEvent eventName="SWFLoaded" target="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.moduleLoader1.child" />
+
+			</setup>
 
 		    <body>
 
-		        <Pause timeout="1000"/>
+		        <WaitForLayoutManager />
 
-		     
-
-		        <AssertPropertyValue propertyName="text" target="moduleLoader1.child.subAppRef.document.moduleLoader1.child.label1" value="SubModuleWithLabel loaded"/>
-
-		        
-
-		        <Pause timeout="100"/>
+				<AssertPropertyValue propertyName="text" target="moduleLoader1.child.subAppRef.document.moduleLoader1.child.label1" value="SubModuleWithLabel loaded"/>
 
 		    	<RunCode code="FlexGlobals.topLevelApplication.moduleLoader1.unloadModule()"/>
 
@@ -298,31 +277,22 @@ testSWF="SubModuleTest_basic3.mxml">
 
 		    	<RunCode code="FlexGlobals.topLevelApplication.resetModuleLoader()"/>
 
-		    	
-
 		    	<RunCode code="FlexGlobals.topLevelApplication.loadModule('assets/ModuleLoadSubApp2.swf');"  waitTarget="" waitEvent="moduleLoaded" />
-
 		
+				<WaitForEvent eventName="SWFLoaded" target="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.moduleLoader1.child" />
 
 		   </setup>
 
 		    <body>
 
-		        <Pause timeout="600"/>
+		        <WaitForLayoutManager />
 
-		
+		        <RunCode code="FlexGlobals.topLevelApplication.moduleLoader1.child.subAppRef.document.loadModule('assets/TitleWindowModule.swf')"
+						 waitEvent="moduleLoaded" waitTarget="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.moduleLoader1.child.subAppRef.document" />
 
-		        <RunCode code="FlexGlobals.topLevelApplication.moduleLoader1.child.subAppRef.document.loadModule('assets/TitleWindowModule.swf')"/>
+    			<WaitForLayoutManager />
 
-								        
-
-			<Pause timeout="400"/>
-
-			<AssertPropertyValue propertyName="text" target="moduleLoader1.child.subAppRef.document.moduleLoader1.child.tw.label1" value="SimpleTitleWindow loaded"/>
-
-
-
-			<Pause timeout="100"/>
+    			<AssertPropertyValue propertyName="text" target="moduleLoader1.child.subAppRef.document.moduleLoader1.child.tw.label1" value="SimpleTitleWindow loaded"/>
 
 		    	<RunCode code="FlexGlobals.topLevelApplication.moduleLoader1.unloadModule()"/>
 
@@ -338,35 +308,27 @@ testSWF="SubModuleTest_basic3.mxml">
 
 		        <RunCode code="FlexGlobals.topLevelApplication.resetModuleLoader()"/>
 
-		    	
-
 		    	<RunCode code="FlexGlobals.topLevelApplication.loadModule('assets/ModuleLoadSubApp2.swf');"  waitTarget="" waitEvent="moduleLoaded" />
 
-		
-
+				<WaitForEvent eventName="SWFLoaded" target="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.moduleLoader1.child" />
 		   </setup>
 
 		    <body>
 
-		        <Pause timeout="600"/>
+		        <WaitForLayoutManager />
 
-		
+		        <RunCode code="FlexGlobals.topLevelApplication.moduleLoader1.child.subAppRef.document.loadModule('assets/SimpleASModuleTest.swf')"
+						 waitEvent="moduleLoaded" waitTarget="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.moduleLoader1.child.subAppRef.document" />
 
-		        <RunCode code="FlexGlobals.topLevelApplication.moduleLoader1.child.subAppRef.document.loadModule('assets/SimpleASModuleTest.swf')"/>
+				<WaitForEvent eventName="moduleLoaded" target="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.moduleLoader1.child.subAppRef.document.moduleLoader1.child" />
 
-			<Pause timeout="400"/>				        
+				<WaitForLayoutManager />				        
 
-			<RunCode code="FlexGlobals.topLevelApplication.moduleLoader1.child.subAppRef.document.moduleLoader1.child.addNumbers(5,7)"/>
+			    <RunCode code="FlexGlobals.topLevelApplication.moduleLoader1.child.subAppRef.document.moduleLoader1.child.addNumbers(5,7)"/>
+				        
+				<WaitForLayoutManager />
 
-								        
-
-			<Pause timeout="200"/>
-
-			<AssertPropertyValue propertyName="text" target="moduleLoader1.child.subAppRef.document.moduleLoader1.child.label1" value="12"/>
-
-
-
-			<Pause timeout="100"/>
+    			<AssertPropertyValue propertyName="text" target="moduleLoader1.child.subAppRef.document.moduleLoader1.child.label1" value="12"/>
 
 		    	<RunCode code="FlexGlobals.topLevelApplication.moduleLoader1.unloadModule()"/>
 

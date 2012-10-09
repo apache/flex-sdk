@@ -50,14 +50,15 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import mx.events.ModuleEvent;	
-			import mx.events.FlexEvent;	
 			import flash.events.Event;
-			import mx.controls.Alert;	
+			
 			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.core.IUIComponent;
+			import mx.events.FlexEvent;
+			import mx.events.ModuleEvent;
 			import mx.managers.PopUpManager;
 			import mx.managers.SystemManager;
-			import mx.core.IUIComponent;
 			
 			PopUpManager;
 			private var moduleErrorMsg:String="";
@@ -66,12 +67,18 @@
 			public function handleSWFLoaded(e:Event):void
 			{
 				e.currentTarget.removeEventListener("complete", handleSWFLoaded);
-				dispatchEvent(new FlexEvent("SWFLoaded")); 
 				subAppRef=(contentLoader.content as SystemManager);
+				subAppRef.addEventListener(FlexEvent.APPLICATION_COMPLETE, handleSWFLoadedAndReady);
 				trace("subAppRef="+subAppRef);
 				
 				
 			}
+			public function handleSWFLoadedAndReady(e:Event):void
+			{
+				subAppRef.removeEventListener(FlexEvent.APPLICATION_COMPLETE, handleSWFLoadedAndReady);
+				dispatchEvent(new FlexEvent("SWFLoaded")); 	
+			}
+			
 			public function handleSWFLoadedError(e:Event):void
 			{
 				e.currentTarget.removeEventListener("error", handleSWFLoaded);

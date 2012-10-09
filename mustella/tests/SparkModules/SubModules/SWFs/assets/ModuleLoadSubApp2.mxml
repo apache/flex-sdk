@@ -53,17 +53,18 @@
 			public var subAppRef:SystemManager;
 
 			public function handleSWFLoaded(e:Event):void
-
 			{
-
 				e.currentTarget.removeEventListener("complete", handleSWFLoaded);
-
-				dispatchEvent(new FlexEvent("SWFLoaded"));
-
 				subAppRef=(contentLoader.content as SystemManager);
-
-				trace("###swf loaded");
-
+				subAppRef.addEventListener(FlexEvent.APPLICATION_COMPLETE, handleSWFLoadedAndReady);
+				trace("subAppRef="+subAppRef);
+				
+				
+			}
+			public function handleSWFLoadedAndReady(e:Event):void
+			{
+				subAppRef.removeEventListener(FlexEvent.APPLICATION_COMPLETE, handleSWFLoadedAndReady);
+				dispatchEvent(new FlexEvent("SWFLoaded")); 	
 			}
 
 			public function handleSWFLoadedError(e:Event):void
