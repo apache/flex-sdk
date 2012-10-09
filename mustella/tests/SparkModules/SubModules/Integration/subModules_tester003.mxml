@@ -294,7 +294,9 @@ testSWF="SubModuleTest_basic3.mxml">
 
     			<AssertPropertyValue propertyName="text" target="moduleLoader1.child.subAppRef.document.moduleLoader1.child.tw.label1" value="SimpleTitleWindow loaded"/>
 
-		    	<RunCode code="FlexGlobals.topLevelApplication.moduleLoader1.unloadModule()"/>
+				<RunCode code="FlexGlobals.topLevelApplication.moduleLoader1.child.subAppRef.document.moduleLoader1.unloadModule()"/>
+
+				<RunCode code="FlexGlobals.topLevelApplication.moduleLoader1.unloadModule()"/>
 
 		    </body>
 
@@ -318,9 +320,7 @@ testSWF="SubModuleTest_basic3.mxml">
 		        <WaitForLayoutManager />
 
 		        <RunCode code="FlexGlobals.topLevelApplication.moduleLoader1.child.subAppRef.document.loadModule('assets/SimpleASModuleTest.swf')"
-						 waitEvent="moduleLoaded" waitTarget="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.moduleLoader1.child.subAppRef.document" />
-
-				<WaitForEvent eventName="moduleLoaded" target="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.moduleLoader1.child.subAppRef.document.moduleLoader1.child" />
+						 waitEvent="ready" waitTarget="systemManager.info().currentDomain.getDefinition(mx.core.FlexGlobals).topLevelApplication.moduleLoader1.child.subAppRef.document.moduleLoader1" />
 
 				<WaitForLayoutManager />				        
 
