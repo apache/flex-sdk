@@ -19,861 +19,835 @@
 -->
 <UnitTester testDir="components/MenuBar/Halo/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MenuBar_Basic.mxml">
 
-	<!-- this set of lines form a template that must be in each unit test -->
-	<mx:Script>
-	<![CDATA[
-	public static function init(o:DisplayObject):void
-	{
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
 
-	}
+    }
 
-	public function addData():void
-	{
-	    application.mb.dataProvider = myDP;
-	  	application.mb.showRoot = false;
-	  	application.mb.labelField = "@label";
-	}
+    public function addData():void
+    {
+        application.mb.dataProvider = myDP;
+          application.mb.showRoot = false;
+          application.mb.labelField = "@label";
+    }
 
-	]]>
-	</mx:Script>
-	<mx:Metadata>
-	<![CDATA[
-		[Mixin]
-	]]>
-	</mx:Metadata>
-	<!-- end of set of lines that must be in each unit test -->
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
 
-	<mx:Script>
-	<![CDATA[
-	import mx.controls.MenuBar;
-	import mx.styles.StyleManager;
-	import mx.managers.SystemManager;
-	import mx.events.MenuEvent;
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.MenuBar;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.events.MenuEvent;
 
 
     [Bindable]
     private var myDP:XML =
     <topnode>
-		<node label="Europe" enabled="false" data="EUROPE">
-			<nodeitem type="check" label="Italy" enabled="false" data="ITALY" />
-			<nodeitem type="check" label="England" data="ENGLAND" toggled="true"/>
-			<nodeitem type="check" label="Slovenia" data="SLOVENIA" />
-		</node>
-		<node label="Asia" enabled="true" data="ASIA">
-		    <nodeitem type="radio" groupName="group1" label="Phillipines" enabled="false" data="PHILIPPINES"/>
-		    <nodeitem type="radio" groupName="group1" label="Japan" data="JAPAN"/>
-		    <nodeitem type="radio" groupName="group1" label="China" data="CHINA"/>
-		</node>
-		<node label="Africa" data="AFRICA">
-			<nodeitem label="Uganda" enabled="false" data="UGANDA"/>
-			<nodeitem label="South Africa" data="SOUTH AFRICA"/>
-			<nodeitem label="Nigeria" data="NIGERIA"/>
-		</node>
-	</topnode>;
-	]]>
-	</mx:Script>
+        <node label="Europe" enabled="false" data="EUROPE">
+            <nodeitem type="check" label="Italy" enabled="false" data="ITALY" />
+            <nodeitem type="check" label="England" data="ENGLAND" toggled="true"/>
+            <nodeitem type="check" label="Slovenia" data="SLOVENIA" />
+        </node>
+        <node label="Asia" enabled="true" data="ASIA">
+            <nodeitem type="radio" groupName="group1" label="Phillipines" enabled="false" data="PHILIPPINES"/>
+            <nodeitem type="radio" groupName="group1" label="Japan" data="JAPAN"/>
+            <nodeitem type="radio" groupName="group1" label="China" data="CHINA"/>
+        </node>
+        <node label="Africa" data="AFRICA">
+            <nodeitem label="Uganda" enabled="false" data="UGANDA"/>
+            <nodeitem label="South Africa" data="SOUTH AFRICA"/>
+            <nodeitem label="Nigeria" data="NIGERIA"/>
+        </node>
+    </topnode>;
+    ]]>
+    </mx:Script>
 
-	<testCases>
-		<TestCase testID="backgroundAlpha_0" description="MenuBar style backGroundAlpha=0 and backgroundColor=0xff0000." keywords="[styles, backGroundAlpha, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="menuStyleName" target="mb" value="customBackgroundAlpha" waitEvent="updateComplete" waitTarget="mb" />
-			    </setup>
-			<body>
-			    <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT, RIGHT]" />
-			    <AssertEvent target="mb.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-				<AssertPixelValue x="94" y="1" target="mb.menus.1" value="0" />
-			</body>
-		</TestCase>
-		<TestCase testID="backgroundAlpha_1" description="MenuBar style backGroundAlpha=1 and backgroundColor=0xff0000." keywords="[styles, backGroundAlpha, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="menuStyleName" target="mb" value="customBackgroundAlpha2" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-			    <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT, RIGHT]"  />
-				<AssertEvent target="mb.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-				<AssertPixelValue x="94" y="1" target="mb.menus.2" value="0xFF0000" />
-			</body>
-		</TestCase>
-		<!-- backgroundColor -->
-		<TestCase testID="backgroundColor_pound" description="MenuBar style backgroundColor=#0000ff." keywords="[styles, backgroundColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="menuStyleName" target="mb" value="customBackgroundColor" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-			    <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT, RIGHT]"  />
-				<AssertEvent target="mb.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-				<AssertPixelValue x="94" y="1" target="mb.menus.2" value="0x0000FF" />
-			</body>
-		</TestCase>
-		<!-- color tests -->
-		<TestCase testID="color_0x" description="MenuBar style color=0xf6f6f6." keywords="[styles, color, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="color" target="mb" value="0xF6F6F6" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<AssertPixelValue x="85" y="7" target="mb" value="0xF6F6F6" />
-			</body>
-		</TestCase>
-		<TestCase testID="color_pound" description="MenuBar style color=#f6f6f6." keywords="[styles, color, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="color" target="mb" value="#F6F6F6" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<AssertPixelValue x="85" y="7" target="mb" value="0xF6F6F6" />
-			</body>
-		</TestCase>
-		<TestCase testID="color_red" description="MenuBar style color='red'." keywords="[styles, color, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="color" target="mb" value="red" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<AssertPixelValue x="85" y="7" target="mb" value="0xF6F6F6" />
-			</body>
-		</TestCase>
-		<TestCase testID="color_css_submenu" description="MenuBar style color='red'." keywords="[styles, color, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="menuStyleName" target="mb" value="customColor" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-			    <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
-			    <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb.menus.1" url="../Styles/baselines/color_menuStyleName_submenu.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<!-- borderColor tests -->
-		<TestCase testID="borderColor_0x" description="MenuBar style borderColor=0xff0000." keywords="[styles, borderColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="borderColor" target="mb" value="0xFF0000" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<AssertPixelValue x="0" y="0" target="mb" value="0xFF0000" />
-			</body>
-		</TestCase>
-		<TestCase testID="borderColor_pound" description="MenuBar style borderColor=#0000ff." keywords="[styles, borderColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="borderColor" target="mb" value="#0000FF" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<AssertPixelValue x="0" y="0" target="mb" value="0x0000FF" />
-			</body>
-		</TestCase>
-		<TestCase testID="borderColor_red" description="MenuBar style borderColor='green'." keywords="[styles, borderColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="borderColor" target="mb" value="red" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<AssertPixelValue x="0" y="0" target="mb" value="0xFF0000" />
-			</body>
-		</TestCase>
-	<!-- disabledColor tests -->
-		<TestCase testID="disabledColor_default" description="MenuBar style disabledColor=0xff0000." keywords="[styles, disabledColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			</setup>
-			<body>
-				<SetProperty propertyName="enabled" target="mb" value="false" waitEvent="updateComplete" waitTarget="mb" />
-			    <AssertPixelValue x="85" y="7" target="mb" value="0xF6F6F6" />
-			</body>
-		</TestCase>
-		<TestCase testID="disabledColor_0x" description="MenuBar style disabledColor=0xf6f6f6." keywords="[styles, disabledColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="disabledColor" target="mb" value="0xF6F6F6" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-			    <SetProperty propertyName="enabled" target="mb" value="false" waitEvent="updateComplete" waitTarget="mb" />
-			    <AssertPixelValue x="85" y="7" target="mb" value="0xF6F6F6" />
-			</body>
-		</TestCase>
-		<TestCase testID="disabledColor_pound" description="MenuBar style disabledColor=#f6f6f6." keywords="[styles, disabledColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="disabledColor" target="mb" value="#f6f6f6" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<SetProperty propertyName="enabled" target="mb" value="false" waitEvent="updateComplete" waitTarget="mb" />
-			    <AssertPixelValue x="85" y="7" target="mb" value="0xF6F6F6" />
-			</body>
-		</TestCase>
-		<TestCase testID="disabledColor_red" description="MenuBar style disabledColor='green'." keywords="[styles, disabledColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="disabledColor" target="mb" value="red" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<SetProperty propertyName="enabled" target="mb" value="false" waitEvent="updateComplete" waitTarget="mb" />
-			    <AssertPixelValue x="85" y="7" target="mb" value="0xF6F6F6" />
-			</body>
-		</TestCase>
-		<TestCase testID="disabledColor_css_submenu" description="MenuBar style disabledColor='green'." keywords="[styles, disabledColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			</setup>
-			<body>
-			    <SetStyle styleName="menuStyleName" target="mb" value="customDisabledColor" waitEvent="updateComplete" waitTarget="mb" />
-			    <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
-				<AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-				<SetProperty propertyName="enabled" target="mb" value="false" waitEvent="updateComplete" waitTarget="mb" />
-				<CompareBitmap target="mb.menus.1" url="../Styles/baselines/disabledColor_menuStyleName_submenu.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<!-- fontSize -->
-		<TestCase testID="fontSize_25" description="MenuBar style fontSize=25." keywords="[styles, fontSize, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    </setup>
-			<body>
-			    <SetStyle styleName="fontSize" target="mb" value="25" waitEvent="updateComplete" waitTarget="mb" />
-				<AssertPropertyValue propertyName="height" target="mb" value="40" />
-			</body>
-		</TestCase>
-		<TestCase testID="fontSize_9" description="MenuBar style fontSize=9." keywords="[styles, fontSize, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			</setup>
-			<body>
-			    <SetStyle styleName="fontSize" target="mb" value="9" waitEvent="updateComplete" waitTarget="mb" />
-				<AssertPropertyValue propertyName="height" target="mb" value="22" />
-			</body>
-		</TestCase>
-		<TestCase testID="fontSize_80" description="MenuBar style fontSize=80." keywords="[styles, fontSize, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			</setup>
-			<body>
-			    <SetStyle styleName="fontSize" target="mb" value="80" waitEvent="updateComplete" waitTarget="mb" />
-				<AssertPropertyValue propertyName="height" target="mb" value="114" />
-			</body>
-		</TestCase>
-		<TestCase testID="fontSize_css_submenu" description="MenuBar style fontSize=80." keywords="[styles, fontSize, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			</setup>
-			<body>
-			    <SetStyle styleName="menuStyleName" target="mb" value="customFontSize" waitEvent="updateComplete" waitTarget="mb" />
-				<DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
-				<AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-				<AssertPropertyValue propertyName="height" target="mb.menus.1" value="86" />
-			</body>
-		</TestCase>
-		<!-- rollOverColor tests -->
-		<TestCase testID="rollOverColor_css_submenu" description="MenuBar style rollOverColor=0xff0000." keywords="[styles, rollOverColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="menuStyleName" target="mb" value="customRollOverColor" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
-			    <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <DispatchMouseEvent type="mouseOver" localX="55" localY="30" target="mb.menus.1" waitEvent="itemRollOver" waitTarget="mb" />
-				<AssertPixelValue x="85" y="30" target="mb.menus.1" value="0xFF0000" />
-			</body>
-		</TestCase>
-		<TestCase testID="rollOverColor_pound" description="MenuBar style rollOverColor=#0000ff." keywords="[styles, rollOverColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="rollOverColor" target="mb" value="#0000FF" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
-			    <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <DispatchMouseEvent type="mouseOver" localX="55" localY="30" target="mb.menus.1" waitEvent="itemRollOver" waitTarget="mb" />
-				<AssertPixelValue x="85" y="30" target="mb.menus.1" value="0x0000FF" />
-			</body>
-		</TestCase>
-		<TestCase testID="rollOverColor_red" description="MenuBar style rollOverColor='red'." keywords="[styles, rollOverColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="rollOverColor" target="mb" value="red" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-			    <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
-			    <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <DispatchMouseEvent type="mouseOver" localX="55" localY="30" target="mb.menus.1" waitEvent="itemRollOver" waitTarget="mb" />
-				<AssertPixelValue x="87" y="30" target="mb.menus.1" value="0xFF0000" />
-			</body>
-		</TestCase>
-	    <TestCase testID="selectionColor_0x" description="MenuBar style selectionColor=0xff0000." keywords="[styles, selectionColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="selectionColor" target="mb" value="0xFF0000" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
-			    <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="mb.menus.1" waitTarget="mb.menus.1" waitEvent="mouseDown"/>
-				<WaitForEffectsToEnd />
-				<AssertPixelValue x="5" y="30" target="mb.menus.1" value="0xFF0000" />
-			</body>
-		</TestCase>
-		<TestCase testID="selectionColor_pound" description="MenuBar style selectionColor=#0000ff." keywords="[styles, selectionColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="selectionColor" target="mb" value="#0000FF" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
-			    <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="mb.menus.1"  waitTarget="mb.menus.1" waitEvent="mouseDown" />
-				<WaitForEffectsToEnd />
-				<AssertPixelValue x="5" y="30" target="mb.menus.1" value="0x0000FF" />
-			</body>
-		</TestCase>
-		<TestCase testID="selectionColor_red" description="MenuBar style selectionColor='red'." keywords="[styles, selectionColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="selectionColor" target="mb" value="red" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-			    <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
-			    <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="mb.menus.1" waitTarget="mb.menus.1" waitEvent="mouseDown"   />
-				<WaitForEffectsToEnd />
-				<AssertPixelValue x="5" y="30" target="mb.menus.1" value="0xFF0000" />
-			</body>
-		</TestCase>
-		<TestCase testID="selectionColor_css_submenu" description="MenuBar style selectionColor=#0000ff." keywords="[styles, selectionColor, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="menuStyleName" target="mb" value="customSelectionColor" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
-			    <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="mb.menus.1"  waitTarget="mb.menus.1" waitEvent="mouseDown" />
-				<WaitForEffectsToEnd />
-				<AssertPixelValue x="5" y="30" target="mb.menus.1" value="0x0000FF" />
-			</body>
-		</TestCase>
+    <testCases>
+        <TestCase testID="backgroundAlpha_0" description="MenuBar style backGroundAlpha=0 and backgroundColor=0xff0000." keywords="[styles, backGroundAlpha, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="menuStyleName" target="mb" value="customBackgroundAlpha" waitEvent="updateComplete" waitTarget="mb" />
+                </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT, RIGHT]" />
+                <AssertEvent target="mb.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <AssertPixelValue x="94" y="1" target="mb.menus.1" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="backgroundAlpha_1" description="MenuBar style backGroundAlpha=1 and backgroundColor=0xff0000." keywords="[styles, backGroundAlpha, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="menuStyleName" target="mb" value="customBackgroundAlpha2" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT, RIGHT]"  />
+                <AssertEvent target="mb.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <AssertPixelValue x="94" y="1" target="mb.menus.2" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <!-- backgroundColor -->
+        <TestCase testID="backgroundColor_pound" description="MenuBar style backgroundColor=#0000ff." keywords="[styles, backgroundColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="menuStyleName" target="mb" value="customBackgroundColor" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT, RIGHT]"  />
+                <AssertEvent target="mb.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <AssertPixelValue x="94" y="1" target="mb.menus.2" value="0x0000FF" />
+            </body>
+        </TestCase>
+        <!-- color tests -->
+        <TestCase testID="color_0x" description="MenuBar style color=0xf6f6f6." keywords="[styles, color, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="color" target="mb" value="0xF6F6F6" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <AssertPixelValue x="85" y="7" target="mb" value="0xF6F6F6" />
+            </body>
+        </TestCase>
+        <TestCase testID="color_pound" description="MenuBar style color=#f6f6f6." keywords="[styles, color, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="color" target="mb" value="#F6F6F6" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <AssertPixelValue x="85" y="7" target="mb" value="0xF6F6F6" />
+            </body>
+        </TestCase>
+        <TestCase testID="color_red" description="MenuBar style color='red'." keywords="[styles, color, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="color" target="mb" value="red" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <AssertPixelValue x="85" y="7" target="mb" value="0xF6F6F6" />
+            </body>
+        </TestCase>
+        <TestCase testID="color_css_submenu" description="MenuBar style color='red'." keywords="[styles, color, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="menuStyleName" target="mb" value="customColor" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
+                <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <CompareBitmap target="mb.menus.1" url="../Styles/baselines/color_menuStyleName_submenu.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <!-- borderColor tests -->
+        <TestCase testID="borderColor_0x" description="MenuBar style borderColor=0xff0000." keywords="[styles, borderColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="borderColor" target="mb" value="0xFF0000" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <AssertPixelValue x="0" y="0" target="mb" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="borderColor_pound" description="MenuBar style borderColor=#0000ff." keywords="[styles, borderColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="borderColor" target="mb" value="#0000FF" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <AssertPixelValue x="0" y="0" target="mb" value="0x0000FF" />
+            </body>
+        </TestCase>
+        <TestCase testID="borderColor_red" description="MenuBar style borderColor='green'." keywords="[styles, borderColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="borderColor" target="mb" value="red" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <AssertPixelValue x="0" y="0" target="mb" value="0xFF0000" />
+            </body>
+        </TestCase>
+    <!-- disabledColor tests -->
+        <TestCase testID="disabledColor_default" description="MenuBar style disabledColor=0xff0000." keywords="[styles, disabledColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="enabled" target="mb" value="false" waitEvent="updateComplete" waitTarget="mb" />
+                <AssertPixelValue x="85" y="7" target="mb" value="0xF6F6F6" />
+            </body>
+        </TestCase>
+        <TestCase testID="disabledColor_0x" description="MenuBar style disabledColor=0xf6f6f6." keywords="[styles, disabledColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="disabledColor" target="mb" value="0xF6F6F6" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <SetProperty propertyName="enabled" target="mb" value="false" waitEvent="updateComplete" waitTarget="mb" />
+                <AssertPixelValue x="85" y="7" target="mb" value="0xF6F6F6" />
+            </body>
+        </TestCase>
+        <TestCase testID="disabledColor_pound" description="MenuBar style disabledColor=#f6f6f6." keywords="[styles, disabledColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="disabledColor" target="mb" value="#f6f6f6" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <SetProperty propertyName="enabled" target="mb" value="false" waitEvent="updateComplete" waitTarget="mb" />
+                <AssertPixelValue x="85" y="7" target="mb" value="0xF6F6F6" />
+            </body>
+        </TestCase>
+        <TestCase testID="disabledColor_red" description="MenuBar style disabledColor='green'." keywords="[styles, disabledColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="disabledColor" target="mb" value="red" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <SetProperty propertyName="enabled" target="mb" value="false" waitEvent="updateComplete" waitTarget="mb" />
+                <AssertPixelValue x="85" y="7" target="mb" value="0xF6F6F6" />
+            </body>
+        </TestCase>
+        <TestCase testID="disabledColor_css_submenu" description="MenuBar style disabledColor='green'." keywords="[styles, disabledColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle styleName="menuStyleName" target="mb" value="customDisabledColor" waitEvent="updateComplete" waitTarget="mb" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
+                <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <SetProperty propertyName="enabled" target="mb" value="false" waitEvent="updateComplete" waitTarget="mb" />
+                <CompareBitmap target="mb.menus.1" url="../Styles/baselines/disabledColor_menuStyleName_submenu.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <!-- fontSize -->
+        <TestCase testID="fontSize_25" description="MenuBar style fontSize=25." keywords="[styles, fontSize, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                </setup>
+            <body>
+                <SetStyle styleName="fontSize" target="mb" value="25" waitEvent="updateComplete" waitTarget="mb" />
+                <AssertPropertyValue propertyName="height" target="mb" value="40" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontSize_9" description="MenuBar style fontSize=9." keywords="[styles, fontSize, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle styleName="fontSize" target="mb" value="9" waitEvent="updateComplete" waitTarget="mb" />
+                <AssertPropertyValue propertyName="height" target="mb" value="22" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontSize_80" description="MenuBar style fontSize=80." keywords="[styles, fontSize, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle styleName="fontSize" target="mb" value="80" waitEvent="updateComplete" waitTarget="mb" />
+                <AssertPropertyValue propertyName="height" target="mb" value="114" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontSize_css_submenu" description="MenuBar style fontSize=80." keywords="[styles, fontSize, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle styleName="menuStyleName" target="mb" value="customFontSize" waitEvent="updateComplete" waitTarget="mb" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
+                <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <AssertPropertyValue propertyName="height" target="mb.menus.1" value="86" />
+            </body>
+        </TestCase>
+        <!-- rollOverColor tests -->
+        <TestCase testID="rollOverColor_css_submenu" description="MenuBar style rollOverColor=0xff0000." keywords="[styles, rollOverColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="menuStyleName" target="mb" value="customRollOverColor" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
+                <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <DispatchMouseEvent type="mouseOver" localX="55" localY="30" target="mb.menus.1" waitEvent="itemRollOver" waitTarget="mb" />
+                <AssertPixelValue x="85" y="30" target="mb.menus.1" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="rollOverColor_pound" description="MenuBar style rollOverColor=#0000ff." keywords="[styles, rollOverColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="rollOverColor" target="mb" value="#0000FF" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
+                <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <DispatchMouseEvent type="mouseOver" localX="55" localY="30" target="mb.menus.1" waitEvent="itemRollOver" waitTarget="mb" />
+                <AssertPixelValue x="85" y="30" target="mb.menus.1" value="0x0000FF" />
+            </body>
+        </TestCase>
+        <TestCase testID="rollOverColor_red" description="MenuBar style rollOverColor='red'." keywords="[styles, rollOverColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="rollOverColor" target="mb" value="red" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
+                <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <DispatchMouseEvent type="mouseOver" localX="55" localY="30" target="mb.menus.1" waitEvent="itemRollOver" waitTarget="mb" />
+                <AssertPixelValue x="87" y="30" target="mb.menus.1" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="selectionColor_0x" description="MenuBar style selectionColor=0xff0000." keywords="[styles, selectionColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="selectionColor" target="mb" value="0xFF0000" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
+                <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="mb.menus.1" waitTarget="mb.menus.1" waitEvent="mouseDown"/>
+                <WaitForEffectsToEnd />
+                <AssertPixelValue x="5" y="30" target="mb.menus.1" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="selectionColor_pound" description="MenuBar style selectionColor=#0000ff." keywords="[styles, selectionColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="selectionColor" target="mb" value="#0000FF" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
+                <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="mb.menus.1"  waitTarget="mb.menus.1" waitEvent="mouseDown" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue x="5" y="30" target="mb.menus.1" value="0x0000FF" />
+            </body>
+        </TestCase>
+        <TestCase testID="selectionColor_red" description="MenuBar style selectionColor='red'." keywords="[styles, selectionColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="selectionColor" target="mb" value="red" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
+                <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="mb.menus.1" waitTarget="mb.menus.1" waitEvent="mouseDown"   />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue x="5" y="30" target="mb.menus.1" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="selectionColor_css_submenu" description="MenuBar style selectionColor=#0000ff." keywords="[styles, selectionColor, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="menuStyleName" target="mb" value="customSelectionColor" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
+                <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="mb.menus.1"  waitTarget="mb.menus.1" waitEvent="mouseDown" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue x="5" y="30" target="mb.menus.1" value="0x0000FF" />
+            </body>
+        </TestCase>
         <!-- textDecoration tests -->
-		<TestCase testID="textDecoration_none" description="MenuBar style textDecoration=none." keywords="[styles, textDecoration, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="textDecoration" target="mb" value="underline" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetStyle styleName="textDecoration" target="mb" value="none" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<CompareBitmap target="mb.menuBarItems.1" url="../Styles/baselines/textDecoration_none_menuBarItem.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="textDecoration_none_submenu" description="MenuBar style textDecoration=none." keywords="[styles, textDecoration, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="textDecoration" target="mb" value="underline" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetStyle styleName="textDecoration" target="mb" value="none" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
-			    <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb.menus.1" url="../Styles/baselines/textDecoration_none_submenu.png" timeout="2500" />
-			</body>
-		</TestCase>
+        <TestCase testID="textDecoration_none" description="MenuBar style textDecoration=none." keywords="[styles, textDecoration, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="textDecoration" target="mb" value="underline" waitEvent="updateComplete" waitTarget="mb" />
+                <SetStyle styleName="textDecoration" target="mb" value="none" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <CompareBitmap target="mb.menuBarItems.1" url="../Styles/baselines/textDecoration_none_menuBarItem.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="textDecoration_none_submenu" description="MenuBar style textDecoration=none." keywords="[styles, textDecoration, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="textDecoration" target="mb" value="underline" waitEvent="updateComplete" waitTarget="mb" />
+                <SetStyle styleName="textDecoration" target="mb" value="none" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb" />
+                <AssertEvent target="mb.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <CompareBitmap target="mb.menus.1" url="../Styles/baselines/textDecoration_none_submenu.png" timeout="2500" />
+            </body>
+        </TestCase>
         <!--TestCase testID="textDecoration_underline" description="MenuBar style textDecoration=0xff0000." keywords="[styles, textDecoration, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-			    <SetProperty propertyName="labelField" value="@label" target="mb" />
-			    <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-			    <SetStyle styleName="textDecoration" target="mb" value="underline" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<CompareBitmap target="mb.menuBarItems.1" url="../Styles/baselines/textDecoration_underline_menuBarItem.png" timeout="2500" />
-			</body>
-		</TestCase-->
-		<TestCase testID="textDecoration_underline_submenu" description="MenuBar style textDecoration=underline." keywords="[styles, textDecoration, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <RunCode code="application.mb2.setFocus()" waitTarget="mb2" waitEvent="focusIn" />
-			</setup>
-			<body>
-				<SetStyle styleName="textDecoration" target="mb2" value="underline" waitEvent="updateComplete" waitTarget="mb2" />
-			    <DispatchMouseClickEvent target="mb2" localX="7" localY="10" />
-			    <DispatchKeyEvent keys="[RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
-			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/textDecoration_underline_submenu.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="textDecoration_css_submenu" description="MenuBar style textDecoration=underline." keywords="[styles, textDecoration, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <RunCode code="application.mb2.setFocus()" waitTarget="mb2" waitEvent="focusIn" />
-			</setup>
-			<body>
-				<SetStyle styleName="menuStyleName" target="mb2" value="customTextDecoration" waitEvent="updateComplete" waitTarget="mb2" />
-			    <DispatchMouseClickEvent target="mb2" localX="7" localY="10" />
-			    <DispatchKeyEvent keys="[RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
-			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/textDecoration_underline_css_submenu.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="textDecoration_underline_submenu" description="MenuBar style textDecoration=underline." keywords="[styles, textDecoration, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <RunCode code="application.mb2.setFocus()" waitTarget="mb2" waitEvent="focusIn" />
-			</setup>
-			<body>
-				<SetStyle styleName="textDecoration" target="mb2" value="underline" waitEvent="updateComplete" waitTarget="mb2" />
-			    <DispatchMouseClickEvent target="mb2" localX="7" localY="10" />
-			    <DispatchKeyEvent keys="[RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
-			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/$testID.png" timeout="2500" numColorVariances="10" ignoreMaxColorVariance="true" />
-			</body>
-		</TestCase>
-		<TestCase testID="textDecoration_css_submenu" description="MenuBar style textDecoration=underline." keywords="[styles, textDecoration, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <RunCode code="application.mb2.setFocus()" waitTarget="mb2" waitEvent="focusIn" />
-			</setup>
-			<body>
-				<SetStyle styleName="menuStyleName" target="mb2" value="customTextDecoration" waitEvent="updateComplete" waitTarget="mb2" />
-			    <DispatchMouseClickEvent target="mb2" localX="7" localY="10" />
-			    <DispatchKeyEvent keys="[RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
-			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/$testID.png" timeout="2500" numColorVariances="10" ignoreMaxColorVariance="true" />
-			</body>
-		</TestCase>
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle styleName="textDecoration" target="mb" value="underline" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <CompareBitmap target="mb.menuBarItems.1" url="../Styles/baselines/textDecoration_underline_menuBarItem.png" timeout="2500" />
+            </body>
+        </TestCase-->
+        <TestCase testID="textDecoration_underline_submenu" description="MenuBar style textDecoration=underline." keywords="[styles, textDecoration, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <RunCode code="application.mb2.setFocus()" waitTarget="mb2" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <SetStyle styleName="textDecoration" target="mb2" value="underline" waitEvent="updateComplete" waitTarget="mb2" />
+                <DispatchMouseClickEvent target="mb2" localX="7" localY="10" />
+                <DispatchKeyEvent keys="[RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+                <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/$testID.png" timeout="2500" numColorVariances="10" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="textDecoration_underline_css_submenu" description="MenuBar style textDecoration=underline." keywords="[styles, textDecoration, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <RunCode code="application.mb2.setFocus()" waitTarget="mb2" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <SetStyle styleName="menuStyleName" target="mb2" value="customTextDecoration" waitEvent="updateComplete" waitTarget="mb2" />
+                <DispatchMouseClickEvent target="mb2" localX="7" localY="10" />
+                <DispatchKeyEvent keys="[RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+                <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/$testID.png" timeout="2500" numColorVariances="10" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
 
         <!-- backgroundSkin -->
-		<TestCase testID="backgroundSkin_AS" description="MenuBar style backgroundSkin=myUpSkin." keywords="[styles, backgroundSkin, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<SetStyle styleName="backgroundSkin" target="mb2" valueExpression="value=application.blueback" waitEvent="updateComplete" waitTarget="mb2" />
-			    <CompareBitmap target="mb2" url="../Styles/baselines/backgroundSkin_AS.png" timeout="2500" />
-			</body>
-		</TestCase>
+        <TestCase testID="backgroundSkin_AS" description="MenuBar style backgroundSkin=myUpSkin." keywords="[styles, backgroundSkin, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <SetStyle styleName="backgroundSkin" target="mb2" valueExpression="value=application.blueback" waitEvent="updateComplete" waitTarget="mb2" />
+                <CompareBitmap target="mb2" url="../Styles/baselines/backgroundSkin_AS.png" timeout="2500" />
+            </body>
+        </TestCase>
 <!-- fontWeight tests -->
-		<TestCase testID="fontWeight_normal" description="MenuBar style fontWeight=bold." keywords="[styles, fontWeight, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fontWeight" target="mb" value="bold" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetStyle styleName="fontWeight" target="mb" value="normal" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-				<CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fontWeight_normal_menuBarItem.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="fontWeight_normal_submenu" description="MenuBar style fontWeight=bold." keywords="[styles, fontWeight, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fontWeight" target="mb" value="bold" waitEvent="updateComplete" waitTarget="mb" />
-			    <SetStyle styleName="fontWeight" target="mb" value="normal" waitEvent="updateComplete" waitTarget="mb" />
-			</setup>
-			<body>
-			    <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
-			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontWeight_normal_submenu.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="fontWeight_bold" description="MenuBar style fontWeight=bold." keywords="[styles, fontWeight, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fontWeight" target="mb2" value="bold" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fontWeight_bold_menuBarItem.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="fontWeight_bold_submenu" description="MenuBar style fontWeight=bold." keywords="[styles, fontWeight, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fontWeight" target="mb2" value="bold" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
-			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontWeight_bold_submenu.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="fontWeight_bold_css_submenu" description="MenuBar style fontWeight=bold." keywords="[styles, fontWeight, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="menuStyleName" target="mb2" value="customFontWeight" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
-			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontWeight_bold_css_submenu.png" timeout="2500" />
-			</body>
-		</TestCase>
+        <TestCase testID="fontWeight_normal" description="MenuBar style fontWeight=bold." keywords="[styles, fontWeight, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fontWeight" target="mb" value="bold" waitEvent="updateComplete" waitTarget="mb" />
+                <SetStyle styleName="fontWeight" target="mb" value="normal" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fontWeight_normal_menuBarItem.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontWeight_normal_submenu" description="MenuBar style fontWeight=bold." keywords="[styles, fontWeight, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fontWeight" target="mb" value="bold" waitEvent="updateComplete" waitTarget="mb" />
+                <SetStyle styleName="fontWeight" target="mb" value="normal" waitEvent="updateComplete" waitTarget="mb" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+                <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontWeight_normal_submenu.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontWeight_bold" description="MenuBar style fontWeight=bold." keywords="[styles, fontWeight, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fontWeight" target="mb2" value="bold" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fontWeight_bold_menuBarItem.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontWeight_bold_submenu" description="MenuBar style fontWeight=bold." keywords="[styles, fontWeight, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fontWeight" target="mb2" value="bold" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+                <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontWeight_bold_submenu.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontWeight_bold_css_submenu" description="MenuBar style fontWeight=bold." keywords="[styles, fontWeight, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="menuStyleName" target="mb2" value="customFontWeight" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+                <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontWeight_bold_css_submenu.png" timeout="2500" />
+            </body>
+        </TestCase>
 <!-- fontStyle tests -->
-		<TestCase testID="fontStyle_normal" description="MenuBar style fontStyle=normal." keywords="[styles, fontStyle, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fontStyle" target="mb2" value="italic" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fontStyle" target="mb2" value="normal" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fontStyle_normal_menuBarItem.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="fontStyle_normal_submenu" description="MenuBar style fontStyle=normal." keywords="[styles, fontStyle, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fontStyle" target="mb2" value="italic" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fontStyle" target="mb2" value="normal" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
-			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontStyle__normal_submenu.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="fontStyle_italics" description="MenuBar style fontStyle=italics." keywords="[styles, fontStyle, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fontStyle" target="mb2" value="italic" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fontStyle_italic_menuBarItem.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="fontStyle_italics_submenu" description="MenuBar style fontStyle=italics." keywords="[styles, fontStyle, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fontStyle" target="mb2" value="italic" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
-			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontStyle_italic_submenu.png" timeout="2500" numColorVariances="4" ignoreMaxColorVariance="true"/>
-			</body>
-		</TestCase>
-		<TestCase testID="fontStyle_italics_css_submenu" description="MenuBar style fontStyle=italics." keywords="[styles, fontStyle, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="menuStyleName" target="mb2" value="customFontStyle" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
-			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontStyle_italic_css_submenu.png" timeout="2500" numColorVariances="4" ignoreMaxColorVariance="true"/>
-			</body>
-		</TestCase>
+        <TestCase testID="fontStyle_normal" description="MenuBar style fontStyle=normal." keywords="[styles, fontStyle, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fontStyle" target="mb2" value="italic" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fontStyle" target="mb2" value="normal" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fontStyle_normal_menuBarItem.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontStyle_normal_submenu" description="MenuBar style fontStyle=normal." keywords="[styles, fontStyle, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fontStyle" target="mb2" value="italic" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fontStyle" target="mb2" value="normal" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+                <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontStyle__normal_submenu.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontStyle_italics" description="MenuBar style fontStyle=italics." keywords="[styles, fontStyle, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fontStyle" target="mb2" value="italic" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fontStyle_italic_menuBarItem.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontStyle_italics_submenu" description="MenuBar style fontStyle=italics." keywords="[styles, fontStyle, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fontStyle" target="mb2" value="italic" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+                <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontStyle_italic_submenu.png" timeout="2500" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="fontStyle_italics_css_submenu" description="MenuBar style fontStyle=italics." keywords="[styles, fontStyle, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="menuStyleName" target="mb2" value="customFontStyle" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+                <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontStyle_italic_css_submenu.png" timeout="2500" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
 <!-- fillAlphas and fillColor tests -->
-		<TestCase testID="fillColorAlpha_0x" description="MenuBar style fillColors=[0xFFFF00, 0x0000FF] fillAlphas=[0.1,0.9]." keywords="[styles, fillAlphas, fillColors, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fillAlphas" target="mb2" value="[0.1, 0.9]"  />
-			    <SetStyle styleName="fillColors" target="mb2" value="[0xFFFF00, 0x0000FF]" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fillColorsAlpha_0x.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="fillColorAlpha_pound" description="MenuBar style fillColors=[#660099, #99FFFF] fillAlphas=[0.6, 0.4]." keywords="[styles, fontWeight, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fillAlphas" target="mb2" value="[0.6, 0.4]"  />
-			    <SetStyle styleName="fillColors" target="mb2" value="[#660099, #99FFFF]" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fillColorsAlpha_pound.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="fillColorAlpha_solid" description="MenuBar style fillColors=[0x0033FF, 0x99FFFF] fillAlphas=[1, 0]." keywords="[styles, fontWeight, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fillAlphas" target="mb2" value="[1, 0]"  />
-			    <SetStyle styleName="fillColors" target="mb2" value="[0x0033FF, 0x99FFFF]" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fillColorsAlpha_solid.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<!-- cornerRadius tests -->
+        <TestCase testID="fillColorAlpha_0x" description="MenuBar style fillColors=[0xFFFF00, 0x0000FF] fillAlphas=[0.1,0.9]." keywords="[styles, fillAlphas, fillColors, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fillAlphas" target="mb2" value="[0.1, 0.9]"  />
+                <SetStyle styleName="fillColors" target="mb2" value="[0xFFFF00, 0x0000FF]" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fillColorsAlpha_0x.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fillColorAlpha_pound" description="MenuBar style fillColors=[#660099, #99FFFF] fillAlphas=[0.6, 0.4]." keywords="[styles, fontWeight, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fillAlphas" target="mb2" value="[0.6, 0.4]"  />
+                <SetStyle styleName="fillColors" target="mb2" value="[#660099, #99FFFF]" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fillColorsAlpha_pound.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fillColorAlpha_solid" description="MenuBar style fillColors=[0x0033FF, 0x99FFFF] fillAlphas=[1, 0]." keywords="[styles, fontWeight, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fillAlphas" target="mb2" value="[1, 0]"  />
+                <SetStyle styleName="fillColors" target="mb2" value="[0x0033FF, 0x99FFFF]" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fillColorsAlpha_solid.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <!-- cornerRadius tests -->
 
-		<TestCase testID="cornerRadius_0" description="MenuBar style cornerRadius=1." keywords="[styles, cornerRadius, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="cornerRadius" target="mb2" value="1"  waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<CompareBitmap target="mb2" numColorVariances="5" ignoreMaxColorVariance="true" url="../Styles/baselines/cornerRadius_1.png" timeout="2500" />
-			</body>
-		</TestCase>
+        <TestCase testID="cornerRadius_0" description="MenuBar style cornerRadius=1." keywords="[styles, cornerRadius, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="cornerRadius" target="mb2" value="1"  waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <CompareBitmap target="mb2" numColorVariances="5" ignoreMaxColorVariance="true" url="../Styles/baselines/cornerRadius_1.png" timeout="2500" />
+            </body>
+        </TestCase>
        <!-- focusAlpha tests -->
-		<TestCase testID="focusAlpha_02" description="MenuBar style focusAlpha=.2" keywords="[styles, focusAlpha, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="focusAlpha" target="mb2" value="0.2" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="mb2" />
-				<CompareBitmap target="menuBarParent2" url="../Styles/baselines/focusAlpha_02.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="focusAlpha_04" description="MenuBar style focusAlpha=1." keywords="[styles, focusAlpha, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="focusAlpha" target="mb2" value="1"  waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="mb2" />
-				<CompareBitmap target="menuBarParent2" url="../Styles/baselines/focusAlpha_1.png" timeout="2500" />
-			</body>
-		</TestCase>
+        <TestCase testID="focusAlpha_02" description="MenuBar style focusAlpha=.2" keywords="[styles, focusAlpha, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="focusAlpha" target="mb2" value="0.2" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="mb2" />
+                <CompareBitmap target="menuBarParent2" url="../Styles/baselines/focusAlpha_02.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="focusAlpha_04" description="MenuBar style focusAlpha=1." keywords="[styles, focusAlpha, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="focusAlpha" target="mb2" value="1"  waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="mb2" />
+                <CompareBitmap target="menuBarParent2" url="../Styles/baselines/focusAlpha_1.png" timeout="2500" />
+            </body>
+        </TestCase>
 
-		<!-- itemDownSkin -->
-		<TestCase testID="itemDownSkin_AS" description="MenuBar style itemDownSkin=myUpSkin." keywords="[styles, itemDownSkin, MenuBar]">
-			<setup>
-			   <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<RunCode code="application.mb2.setStyle('itemDownSkin', application.blueback)" waitEvent="updateComplete" waitTarget="mb2" />
-			    <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
-			    <CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/itemDownSkin_AS.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<!-- itemUpSkin -->
-		<TestCase testID="itemUpSkin_AS" description="MenuBar style itemUpSkin=myUpSkin." keywords="[styles, itemUpSkin, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
-				<SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
-				<SetProperty propertyName="labelField" value="@label" target="mb" />
-				<SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
-		   </setup>
-			<body>
-				<SetStyle styleName="itemUpSkin" valueExpression="value=application.blueback" target="mb" waitEvent="updateComplete" waitTarget="mb" />
-			    <CompareBitmap target="mb.menuBarItems.1" url="../Styles/baselines/itemUpSkin_AS.png" timeout="2500" />
-			</body>
-		</TestCase>
+        <!-- itemDownSkin -->
+        <TestCase testID="itemDownSkin_AS" description="MenuBar style itemDownSkin=myUpSkin." keywords="[styles, itemDownSkin, MenuBar]">
+            <setup>
+               <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <RunCode code="application.mb2.setStyle('itemDownSkin', application.blueback)" waitEvent="updateComplete" waitTarget="mb2" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+                <CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/itemDownSkin_AS.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <!-- itemUpSkin -->
+        <TestCase testID="itemUpSkin_AS" description="MenuBar style itemUpSkin=myUpSkin." keywords="[styles, itemUpSkin, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitEvent="updateComplete" waitTarget="mb" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=myDP" target="mb" />
+                <SetProperty propertyName="labelField" value="@label" target="mb" />
+                <SetProperty propertyName="showRoot" value="false" target="mb" waitTarget="mb" waitEvent="updateComplete" />
+           </setup>
+            <body>
+                <SetStyle styleName="itemUpSkin" valueExpression="value=application.blueback" target="mb" waitEvent="updateComplete" waitTarget="mb" />
+                <CompareBitmap target="mb.menuBarItems.1" url="../Styles/baselines/itemUpSkin_AS.png" timeout="2500" />
+            </body>
+        </TestCase>
 <!-- fontFamily -->
-		<TestCase testID="fontFamily_Arial" description="MenuBar style fontFamily=Arial (local)." keywords="[styles, fontFamily, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    </setup>
-			<body>
-				<SetStyle styleName="fontFamily" value="Arial" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
-			    <AssertStyleValue styleName="fontFamily" target="mb2.menuBarItems.1.getLabel()" value="Arial"/>
-			</body>
-		</TestCase>
-		<TestCase testID="fontFamily_Symbol" description="MenuBar style fontFamily = Symbol." keywords="[styles, fontFamily, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    </setup>
-			<body>
-				<SetStyle styleName="fontFamily" value="Symbol" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
-			    <AssertStyleValue styleName="fontFamily" target="mb2.menuBarItems.1.getLabel()" value="Symbol"/>
-			</body>
-		</TestCase>
-		<TestCase testID="fontFamily_embedded" description="MenuBar style fontFamily=embedded font Cousine." keywords="[styles, fontFamily, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    </setup>
-			<body>
-				<SetStyle styleName="fontFamily" value="Cousine" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
-			    <CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fontFamily_embedded.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="fontFamily_embedded_submenus" description="MenuBar style fontFamily=embedded font Cousine (test of submenus)." keywords="[styles, fontFamily, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    </setup>
-			<body>
-				<SetStyle styleName="fontFamily" value="Cousine" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
-			    <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
-				<AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontFamily_embedded_submenu.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<TestCase testID="fontFamily_embedded_css_submenus" description="MenuBar style fontFamily=embedded font Cousine (test of submenus)." keywords="[styles, fontFamily, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    </setup>
-			<body>
-				<SetStyle styleName="menuStyleName" value="customFontFamily" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
-			    <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
-				<AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
-			    <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontFamily_embedded_css_submenu.png" timeout="2500" />
-			</body>
-		</TestCase>
-		<!-- fontThickness -->
-		<TestCase testID="fontThickness_200" description="Tests setting the fontThickness of Label to 200" keywords="[fontThickness, MenuBar, Styles]">
-			<setup>
-				<ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fontAntiAliasType" target="mb2" value="advanced"/>
-				<SetStyle styleName="fontThickness" value="200" target="mb2" waitTarget="mb2" waitEvent="updateComplete"/>
-			</setup>
-			<body>
-				<AssertStyleValue styleName="fontThickness" target="mb2.menuBarItems.1.getLabel()" value="200"/>
-			</body>
-		</TestCase>
-		<TestCase testID="fontThickness_10" description="Tests setting the fontThickness of Label to 10" keywords="[fontThickness, MenuBar, Styles]">
-			<setup>
-				<ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fontAntiAliasType" target="mb2" value="advanced"/>
-				<SetStyle styleName="fontThickness" value="10" target="mb2" waitTarget="mb2" waitEvent="updateComplete"/>
-			</setup>
-			<body>
-				<AssertStyleValue styleName="fontThickness" target="mb2.menuBarItems.1.getLabel()" value="10"/>
-			</body>
-		</TestCase>
-		<TestCase testID="fontThickness_Negative200" description="Tests setting the fontThickness of Label to -200" keywords="[fontThickness, MenuBar, Styles]">
-			<setup>
-				<ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			    <SetStyle styleName="fontAntiAliasType" target="mb2" value="advanced"/>
-				<SetStyle styleName="fontThickness" value="-200" target="mb2" waitTarget="mb2" waitEvent="updateComplete"/>
-			</setup>
-			<body>
-				<AssertStyleValue styleName="fontThickness" target="mb2.menuBarItems.1.getLabel()" value="-200"/>
-			</body>
-		</TestCase>
-		<!-- fontAntiAliasType  -->
-		<TestCase testID="fontAntiAliasType_advanced" description="MenuBar style fontAntiAliasType = advanced. flashtype font Hancock." keywords="[styles, fontAntiAliasType, MenuBar]">
-			<setup>
-			     <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<SetStyle styleName="fontFamily" value="Hancock" target="mb2" />
-			    <SetStyle styleName="fontAntiAliasType" value="normal" target="mb2" />
-			    <SetStyle styleName="fontAntiAliasType" value="advanced" target="mb2" />
-			    <SetStyle styleName="fontThickness" value="200" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
-			    <AssertStyleValue styleName="fontAntiAliasType" target="mb2.menuBarItems.1.getLabel()" value="advanced"/>
-			</body>
-		</TestCase>
-		<TestCase testID="fontAntiAliasType_normal" description="MenuBar style fontAntiAliasType = normal. flashtype font Hancock." keywords="[styles, fontAntiAliasType, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-		    </setup>
-			<body>
-				<SetStyle styleName="fontFamily" value="Hancock" target="mb2" />
-			    <SetStyle styleName="fontAntiAliasType" value="normal" target="mb2" />
-			    <SetStyle styleName="fontThickness" value="200" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
-			    <AssertStyleValue styleName="fontAntiAliasType" target="mb2.menuBarItems.1.getLabel()" value="normal"/>
-			</body>
-		</TestCase>
-		<!-- fontSharpness -->
-		<TestCase testID="fontSharpness_400" description="MenuBar style fontSharpness = 400. flashtype font Hancock." keywords="[styles, fontSharpness, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-	        </setup>
-			<body>
-				<SetStyle styleName="fontFamily" value="Hancock" target="mb2" />
-				<SetStyle styleName="fontSize" value="30" target="mb2" />
-			    <SetStyle styleName="fontAntiAliasType" value="advanced" target="mb2" />
-			    <SetStyle styleName="fontSharpness" value="400" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
-			    <AssertStyleValue styleName="fontSharpness" target="mb2.menuBarItems.1.getLabel()" value="400"/>
-			</body>
-		</TestCase>
-		<TestCase testID="fontSharpness_0" description="MenuBar style fontSharpness = 0. flashtype font Hancock." keywords="[styles, fontSharpness, MenuBar]">
-			<setup>
-			   <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<SetStyle styleName="fontFamily" value="Hancock" target="mb2" />
-				<SetStyle styleName="fontSize" value="30" target="mb2" />
-			    <SetStyle styleName="fontAntiAliasType" value="advanced" target="mb2" />
-			    <SetStyle styleName="fontSharpness" value="0" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
-			    <AssertStyleValue styleName="fontSharpness" target="mb2.menuBarItems.1.getLabel()" value="0"/>
-			</body>
-		</TestCase>
-		<TestCase testID="fontSharpness_Neg400" description="MenuBar style fontSharpness = -400. flashtype font Hancock." keywords="[styles, fontSharpness, MenuBar]">
-			<setup>
-			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
-			</setup>
-			<body>
-				<SetStyle styleName="fontFamily" value="Hancock" target="mb2" />
-				<SetStyle styleName="fontSize" value="30" target="mb2" />
-			    <SetStyle styleName="fontAntiAliasType" value="advanced" target="mb2" />
-			    <SetStyle styleName="fontSharpness" value="-400" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
-			    <AssertStyleValue styleName="fontSharpness" target="mb2.menuBarItems.1.getLabel()" value="-400"/>
-			</body>
-		</TestCase>
-	</testCases>
+        <TestCase testID="fontFamily_Arial" description="MenuBar style fontFamily=Arial (local)." keywords="[styles, fontFamily, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                </setup>
+            <body>
+                <SetStyle styleName="fontFamily" value="Arial" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
+                <AssertStyleValue styleName="fontFamily" target="mb2.menuBarItems.1.getLabel()" value="Arial"/>
+            </body>
+        </TestCase>
+        <TestCase testID="fontFamily_Symbol" description="MenuBar style fontFamily = Symbol." keywords="[styles, fontFamily, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                </setup>
+            <body>
+                <SetStyle styleName="fontFamily" value="Symbol" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
+                <AssertStyleValue styleName="fontFamily" target="mb2.menuBarItems.1.getLabel()" value="Symbol"/>
+            </body>
+        </TestCase>
+        <TestCase testID="fontFamily_embedded" description="MenuBar style fontFamily=embedded font Cousine." keywords="[styles, fontFamily, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                </setup>
+            <body>
+                <SetStyle styleName="fontFamily" value="Cousine" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
+                <CompareBitmap target="mb2.menuBarItems.1" url="../Styles/baselines/fontFamily_embedded.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontFamily_embedded_submenus" description="MenuBar style fontFamily=embedded font Cousine (test of submenus)." keywords="[styles, fontFamily, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                </setup>
+            <body>
+                <SetStyle styleName="fontFamily" value="Cousine" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+                <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontFamily_embedded_submenu.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontFamily_embedded_css_submenus" description="MenuBar style fontFamily=embedded font Cousine (test of submenus)." keywords="[styles, fontFamily, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                </setup>
+            <body>
+                <SetStyle styleName="menuStyleName" value="customFontFamily" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+                <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <CompareBitmap target="mb2.menus.1" url="../Styles/baselines/fontFamily_embedded_css_submenu.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <!-- fontThickness -->
+        <TestCase testID="fontThickness_200" description="Tests setting the fontThickness of Label to 200" keywords="[fontThickness, MenuBar, Styles]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fontAntiAliasType" target="mb2" value="advanced"/>
+                <SetStyle styleName="fontThickness" value="200" target="mb2" waitTarget="mb2" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertStyleValue styleName="fontThickness" target="mb2.menuBarItems.1.getLabel()" value="200"/>
+            </body>
+        </TestCase>
+        <TestCase testID="fontThickness_10" description="Tests setting the fontThickness of Label to 10" keywords="[fontThickness, MenuBar, Styles]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fontAntiAliasType" target="mb2" value="advanced"/>
+                <SetStyle styleName="fontThickness" value="10" target="mb2" waitTarget="mb2" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertStyleValue styleName="fontThickness" target="mb2.menuBarItems.1.getLabel()" value="10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="fontThickness_Negative200" description="Tests setting the fontThickness of Label to -200" keywords="[fontThickness, MenuBar, Styles]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+                <SetStyle styleName="fontAntiAliasType" target="mb2" value="advanced"/>
+                <SetStyle styleName="fontThickness" value="-200" target="mb2" waitTarget="mb2" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertStyleValue styleName="fontThickness" target="mb2.menuBarItems.1.getLabel()" value="-200"/>
+            </body>
+        </TestCase>
+        <!-- fontAntiAliasType  -->
+        <TestCase testID="fontAntiAliasType_advanced" description="MenuBar style fontAntiAliasType = advanced. flashtype font Hancock." keywords="[styles, fontAntiAliasType, MenuBar]">
+            <setup>
+                 <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <SetStyle styleName="fontFamily" value="Hancock" target="mb2" />
+                <SetStyle styleName="fontAntiAliasType" value="normal" target="mb2" />
+                <SetStyle styleName="fontAntiAliasType" value="advanced" target="mb2" />
+                <SetStyle styleName="fontThickness" value="200" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
+                <AssertStyleValue styleName="fontAntiAliasType" target="mb2.menuBarItems.1.getLabel()" value="advanced"/>
+            </body>
+        </TestCase>
+        <TestCase testID="fontAntiAliasType_normal" description="MenuBar style fontAntiAliasType = normal. flashtype font Hancock." keywords="[styles, fontAntiAliasType, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <SetStyle styleName="fontFamily" value="Hancock" target="mb2" />
+                <SetStyle styleName="fontAntiAliasType" value="normal" target="mb2" />
+                <SetStyle styleName="fontThickness" value="200" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
+                <AssertStyleValue styleName="fontAntiAliasType" target="mb2.menuBarItems.1.getLabel()" value="normal"/>
+            </body>
+        </TestCase>
+        <!-- fontSharpness -->
+        <TestCase testID="fontSharpness_400" description="MenuBar style fontSharpness = 400. flashtype font Hancock." keywords="[styles, fontSharpness, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <SetStyle styleName="fontFamily" value="Hancock" target="mb2" />
+                <SetStyle styleName="fontSize" value="30" target="mb2" />
+                <SetStyle styleName="fontAntiAliasType" value="advanced" target="mb2" />
+                <SetStyle styleName="fontSharpness" value="400" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
+                <AssertStyleValue styleName="fontSharpness" target="mb2.menuBarItems.1.getLabel()" value="400"/>
+            </body>
+        </TestCase>
+        <TestCase testID="fontSharpness_0" description="MenuBar style fontSharpness = 0. flashtype font Hancock." keywords="[styles, fontSharpness, MenuBar]">
+            <setup>
+               <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <SetStyle styleName="fontFamily" value="Hancock" target="mb2" />
+                <SetStyle styleName="fontSize" value="30" target="mb2" />
+                <SetStyle styleName="fontAntiAliasType" value="advanced" target="mb2" />
+                <SetStyle styleName="fontSharpness" value="0" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
+                <AssertStyleValue styleName="fontSharpness" target="mb2.menuBarItems.1.getLabel()" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="fontSharpness_Neg400" description="MenuBar style fontSharpness = -400. flashtype font Hancock." keywords="[styles, fontSharpness, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <SetStyle styleName="fontFamily" value="Hancock" target="mb2" />
+                <SetStyle styleName="fontSize" value="30" target="mb2" />
+                <SetStyle styleName="fontAntiAliasType" value="advanced" target="mb2" />
+                <SetStyle styleName="fontSharpness" value="-400" target="mb2" waitEvent="updateComplete" waitTarget="mb2" />
+                <AssertStyleValue styleName="fontSharpness" target="mb2.menuBarItems.1.getLabel()" value="-400"/>
+            </body>
+        </TestCase>
+    </testCases>
 </UnitTester>
