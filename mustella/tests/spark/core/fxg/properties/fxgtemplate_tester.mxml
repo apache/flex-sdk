@@ -1712,8 +1712,8 @@
                     <RunCode code="application.grp.addElement(new moveto_path)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="38" ignoreMaxColorVariance="true"  target="grp">
-                        <ConditionalValue os="mac" url="../properties/baselines/$testID_mac.png"/>
+                    <CompareBitmap url="../properties/baselines/"  numColorVariances="38" ignoreMaxColorVariance="true"  target="grp">
+                        <ConditionalValue os="mac"/>
                     </CompareBitmap>
                 </body>
             </TestCase>

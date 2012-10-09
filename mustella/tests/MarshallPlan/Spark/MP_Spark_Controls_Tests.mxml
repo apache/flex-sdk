@@ -102,28 +102,7 @@
                 <AssertEvent eventName="toolTipShown" eventClass="mx.events::ToolTipEvent" target="swf1.content.document.textinput1" />
             </body>
          </TestCase>
-      <TestCase testID="MP_Spark_Component_TextAreaScrolling_compatible" description="Test that you can use a ScrollBar on a spark TextArea." keywords="[TextArea, ScrollBar, Spark, Marshall Plan, ToolTip]">
-             <setup>
-               <ResetComponent target="control1" className="spark.components.TextInput" waitTarget="control1"
-                   waitEvent="updateComplete" />
-               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
-               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
-               <Pause timeout="100" />
-               <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
-               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
-               <SetProperty target="swf1" propertyName="source" value="assets/MP_SparkControls_Child.swf" />
-               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
-            </setup>
-            <body>
-                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
-                <DispatchMouseEvent type="rollOver"  target="swf1.content.document.textarea1.scroller.verticalScrollBar.track" localX="5" localY="30"  />
-                <DispatchMouseEvent type="mouseDown" target="swf1.content.document.textarea1.scroller.verticalScrollBar.track" localX="5" localY="30" />
-                <WaitForEffectsToEnd />
-                <DispatchMouseEvent type="mouseUp"   target="swf1.content.document.textarea1" localX="5" localY="30" />
-                <AssertEvent target="swf1.content.document.textarea1.scroller.verticalScrollBar" eventName="change" eventClass="flash.events::Event" />
-           </body>
-         </TestCase>
-         <TestCase testID="MP_Spark_Component_TextAreaScrolling_compatible_Mac" description="Test that you can use a ScrollBar on a spark TextArea." keywords="[TextArea, ScrollBar, Spark, Marshall Plan, ToolTip]">
+         <TestCase testID="MP_Spark_Component_TextAreaScrolling_compatible" description="Test that you can use a ScrollBar on a spark TextArea." keywords="[TextArea, ScrollBar, Spark, Marshall Plan, ToolTip]">
              <setup>
                <ResetComponent target="control1" className="spark.components.TextInput" waitTarget="control1"
                    waitEvent="updateComplete" />
