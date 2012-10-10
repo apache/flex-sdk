@@ -793,7 +793,6 @@
             </fileset>
         </copy>
 
-
         <!-- frameworks/libs -->
         <copy todir="${basedir}/temp/frameworks/libs">
             <fileset dir="${basedir}/frameworks/libs">
@@ -812,8 +811,8 @@
                 <include name="charts.swc"/>
                 <include name="advancedgrids.swc"/>
                 <include name="spark_dmv.swc"/>
+            	<include name="textLayout.swc"/>
                 <exclude name="osmf.swc"/>
-            	<exclude name="textLayout.swc"/>
             	<exclude name="apache.swc"/>
                 <exclude name="experimental.swc"/>
             </fileset>

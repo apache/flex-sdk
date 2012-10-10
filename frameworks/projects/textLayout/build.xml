@@ -24,14 +24,18 @@
     <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 
+    <property name="tlf.version" value="2.0.232"/>
+    
+    <property name="source.dir" value="${basedir}/${tlf.version}"/>
 	<property name="output.file" value="${FLEX_HOME}/frameworks/libs/textLayout.swc"/>
 	<property name="output.docs" value="${FLEX_HOME}/tempDoc"/>
 	<property name="flexTasks.location" value="${FLEX_HOME}/lib/flexTasks.jar"/>
 	<property name="project.uri" value="library://ns.adobe.com/flashx/textLayout"/>
 
-        <!-- We use abbreviated token names here as, the 'release' 
-             and 'debug' tokens conflict with those specified in 
-             build.properties -->
+    <!-- We use abbreviated token names here as, the 'release' 
+         and 'debug' tokens conflict with those specified in 
+         build.properties 
+    -->
 	<property name="dbg" value="false"/>
 	<property name="rel" value="true"/>
 	
@@ -100,11 +104,15 @@
 	</macrodef>
 		
 				
-	<target name="main" depends="clean" description="Clean build of automation_dmv.swc and en_US">
-		<bundle locale="${locale}"/>
+	<target name="main" depends="clean,compile" description="Clean build of textLayout.swc">
+		<!--bundle locale="${locale}"/-->
 	</target>
 	
-	<target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
+	<target name="other.locales" description="Build other locale SWCs">
+	    <echo message="There are no locales for textLayout."/>
+	</target>
+	
+	<!--target name="other.locales" depends="bundles" description="Build other locale SWCs"/-->
 	
 	<!-- This is a private target for building automation_rb.swc for various locales. -->
 	<!-- The targets below set the 'locale' parameter  -->
@@ -187,10 +195,10 @@
 			<jvmarg line="${compc.jvm.args}"/>
 			<keep-as3-metadata>IMXMLObject</keep-as3-metadata>
 			<include-namespaces uri="${project.uri}"/>
-			<namespace uri="${project.uri}" manifest="manifest.xml"/>
-			<source-path path-element="src"/>
+			<namespace uri="${project.uri}" manifest="${source.dir}/manifest.xml"/>
+			<source-path path-element="${source.dir}/src"/>
 			<library-path/>
-			<include-file name="manifest.xml" path="${basedir}/manifest.xml"/>
+			<include-file name="manifest.xml" path="${source.dir}/manifest.xml"/>
 			<static-link-runtime-shared-libraries/>
 			<define name="CONFIG::debug" value="${dbg}"/>
 			<define name="CONFIG::release" value="${rel}"/>

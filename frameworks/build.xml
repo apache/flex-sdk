@@ -83,6 +83,7 @@
     -->
     
     <target name="compile" description="Builds all SWCs but not their resource bundles" depends="flex-config">
+        <antcall target="textLayout"/>
         <antcall target="framework"/>
         <antcall target="mx"/>
         <antcall target="rpc"/>
@@ -157,6 +158,7 @@
     </target>
     
     <target name="other.locales" description ="Builds resource SWCs for all locales">
+        <ant dir="${basedir}/projects/textLayout" target="other.locales"/>
         <ant dir="${basedir}/projects/framework" target="other.locales"/>
         <ant dir="${basedir}/projects/mx" target="other.locales"/>
         <ant dir="${basedir}/projects/airframework" target="other.locales"/>
@@ -166,7 +168,6 @@
         <ant dir="${basedir}/projects/advancedgrids" target="other.locales"/>
         <ant dir="${basedir}/projects/spark" target="other.locales"/>
         <ant dir="${basedir}/projects/mobilecomponents" target="other.locales" />
-        <!--ant dir="${basedir}/projects/textLayout" target="other.locales"/-->
         <ant dir="${basedir}/projects/playerglobal" target="other.locales" />
         <ant dir="${basedir}/projects/flash-integration" target="other.locales"/>
         <ant dir="${basedir}/projects/automation" target="other.locales"/>
@@ -178,6 +179,7 @@
     </target>
     
     <target name="doc" >
+        <ant dir="${basedir}/projects/textLayout" target="doc" />
         <ant dir="${basedir}/projects/framework" target="doc" />
         <ant dir="${basedir}/projects/mx" target="doc" />
         <ant dir="${basedir}/projects/rpc" target="doc" />
@@ -214,6 +216,7 @@
     
     <target name="clean" depends="automation-clean,airsdk-clean" description="Cleans all SWCs and their resource bundles">
         <!-- Delete output from SWC projects -->
+        <ant dir="${basedir}/projects/textLayout" target="clean"/>
         <ant dir="${basedir}/projects/framework" target="clean"/>
         <ant dir="${basedir}/projects/mx" target="clean"/>
         <ant dir="${basedir}/projects/airframework" target="clean"/>
@@ -365,8 +368,7 @@
         <ant dir="${basedir}/projects/rpc"/>
     </target>
 
-    <!-- For debugging only.  For release, we distribute the swc built by the TLF team. -->
-    <target name="tlf" description="Clean build of textLayout.swc">
+    <target name="textLayout" description="Clean build of textLayout.swc">
         <ant dir="${basedir}/projects/textLayout"/>
     </target>
     
