@@ -467,12 +467,11 @@
             <setup>
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
                 <RunCode code="addData(0);" />
-                <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" />
+				<SetProperty target="tb" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="tb" />
+                <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" />
+				<WaitForEvent eventName="complete" target="tb.getChildAt(0).currentSkin.selectedUpImage" timeout="5000" /> 
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
-                <!-- don't wait for mouse up event so we don't miss the complete event -->
-                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tb" /> 
-                <WaitForEvent eventName="complete" target="tb.getChildAt(0).currentSkin.selectedUpImage" /> 
-                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tb" waitEvent="mouseDown" waitTarget="tb" /> 
                 <WaitForLayoutManager />
             </setup>
             <body>
@@ -487,9 +486,8 @@
                 <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
 								 
                 <DispatchMouseEvent type="rollOver" localX="85" localY="7" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
-                <DispatchMouseEvent type="mouseDown" localX="85" localY="7" target="tb" waitEvent="mouseDown" waitTarget="tb" /> 
-                <WaitForEvent eventName="complete" target="tb.getChildAt(1).currentSkin.selectedUpImage" /> 
-                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseDown" localX="85" localY="7" target="tb" /> 
+                <WaitForEvent eventName="complete" target="tb.getChildAt(1).currentSkin.selectedUpImage" timeout="5000" /> 
                 <WaitForLayoutManager />
             </setup>
             <body>

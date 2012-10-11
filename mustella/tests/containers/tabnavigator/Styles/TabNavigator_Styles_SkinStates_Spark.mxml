@@ -449,7 +449,7 @@
             <setup>
                 <ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime"/> 
-				<WaitForEvent eventName="complete" target="tn.tabn.rawChildren.getChildAt(2).getChildAt(0).currentSkin.selectedUpImage" /> 
+				<WaitForEvent eventName="complete" target="tn.tabn.rawChildren.getChildAt(2).getChildAt(0).currentSkin.selectedUpImage" timeout="5000" /> 
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tn.tabn" waitEvent="mouseDown"/>
             </setup>
@@ -463,9 +463,9 @@
                 <ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorSWFRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
-                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tn.tabn" waitEvent="mouseDown"/>
-                <WaitForEvent eventName="complete" target="tn.tabn.rawChildren.getChildAt(2).getChildAt(1).currentSkin.selectedUpImage" /> 
-                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tn.tabn" />
+                <WaitForEvent eventName="complete" target="tn.tabn.rawChildren.getChildAt(2).getChildAt(1).currentSkin.selectedUpImage" timeout="5000"/> 
+                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab.png" timeout="5000" />
