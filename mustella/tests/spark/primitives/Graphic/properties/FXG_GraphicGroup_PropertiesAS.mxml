@@ -382,7 +382,7 @@ limitations under the License.
 			</setup>
 			<body>
 				<SetProperty value="20" propertyName="rotationY" target="graphic3.getChildAt(0).getElementAt(0).getElementAt(2)" />
-				<SetProperty value="20" propertyName="rotationX" target="graphic3.getChildAt(0).getElementAt(0).getElementAt(2)" />
+				<SetProperty value="20" propertyName="rotationX" target="graphic3.getChildAt(0).getElementAt(0).getElementAt(2)" waitEvent="updateComplete"/>
 				<WaitForLayoutManager/>
 				<CompareBitmap url="../Properties/baselines/" target="graphic3" numColorVariances="10" maxColorVariance="10">
 					<ConditionalValue os="win" />
