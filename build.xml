@@ -1274,9 +1274,9 @@
     <target name="airmobile-basictests-mustella" depends="mustella-setup,airmobile-basictests"/>
 
     <target name="mustella-setup" depends="runtime-setup" description="compile mustella java file">
-        <!-- delete and rebuild mustella.swc -->
-        <ant dir="${basedir}/mustella" target="cleanmustellaswc"/>
-        <ant dir="${basedir}/mustella" target="makemustellaswc"/>
+        <ant dir="${basedir}/mustella" target="makemustellaswc">
+            <property name="use_mustella_framework_dir" value="false"/>
+        </ant>
         <property name="moreCompilerArgs" value=""/>
         <!-- compile the results parser -->
         <javac srcdir="mustella" includes="MustellaResultsParser.java"/>
