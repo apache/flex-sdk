@@ -25,6 +25,6 @@
   </includeClasses>
   <includeResources/>
   <namespaceManifests>
-    <namespaceManifestEntry manifest="../manifest.xml" namespace="library://ns.adobe.com/flashx/textLayout"/>
+    <namespaceManifestEntry manifest="../3.0.33/manifest.xml" namespace="library://ns.adobe.com/flashx/textLayout"/>
   </namespaceManifests>
 </flexLibProperties>

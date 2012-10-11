@@ -402,6 +402,8 @@
     </macrodef>
 
 	<target name="frameworks-rsls" description="Build signed framework RSLs">
+		<!-- textLayout RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="textLayout" build-number="${release.version}.${build.number}"/>
 		<!-- framework RSL -->
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="framework" build-number="${release.version}.${build.number}"/>
 		<!-- mx RSL -->

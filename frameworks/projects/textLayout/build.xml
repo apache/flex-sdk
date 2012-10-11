@@ -24,7 +24,8 @@
     <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 
-    <property name="tlf.version" value="2.0.232"/>
+    <!--property name="tlf.version" value="2.0.232"/-->
+    <property name="tlf.version" value="3.0.33"/>
     
     <property name="source.dir" value="${basedir}/${tlf.version}"/>
 	<property name="output.file" value="${FLEX_HOME}/frameworks/libs/textLayout.swc"/>
@@ -190,6 +191,7 @@
 		<taskdef resource="flexTasks.tasks" classpath="${flexTasks.location}"/>
 		<compc fork="true"
 			   output="${output.file}"
+			   show-actionscript-warnings="false"
 			   compute-digest="true"
 			   include-classes="flashx.textLayout.CoreClasses flashx.textLayout.EditClasses flashx.textLayout.ConversionClasses">
 			<jvmarg line="${compc.jvm.args}"/>
