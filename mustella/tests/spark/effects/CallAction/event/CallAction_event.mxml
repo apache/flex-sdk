@@ -3,7 +3,7 @@
     testDir="spark/effects/CallAction/event/"  
     xmlns:mx="http://www.adobe.com/2006/mxml" 
     xmlns="*"
-    testSWF="../SWFs/CallAction_Main.mxml">
+    testSWF="../SWFs/CallAction_main.mxml">
     
     
     <!-- this set of lines form a template that must be in each unit test -->
