@@ -52,7 +52,7 @@
 		    <CompareBitmap url="../descendantSelectors/baselines/$testID_2_runtimecss.png" target="panel2.button1" />
 		</body>
 	</TestCase>
-	<TestCase testID="descendantSelector_basic_noMatch_style" keywords="[CSS, descendant selector]"
+	<TestCase testID="descendantSelector_basic_noMatch_style_runtimecss" keywords="[CSS, descendant selector]"
 	    description="Be sure that the style doesn't apply to other types that aren't descendants.">
 	    <setup>
 	        <ResetComponent target="panel1" className="comps.PanelComp" waitTarget="panel1" waitEvent="updateComplete" />
