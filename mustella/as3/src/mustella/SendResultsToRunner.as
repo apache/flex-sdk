@@ -49,8 +49,10 @@ public class SendResultsToRunner
 
 	public static var regExp5:RegExp = /%3D/g;
 
+	public static var msgQueue:Array = [];
 
-
+	public static var u:URLLoader;
+	
 	/**
   	 * the way out for the result data
 	 */
@@ -126,39 +128,52 @@ public class SendResultsToRunner
 		 * about the response, but for now, for debugging, using it
 		 */
 		if (!noSend) { 
-			trace ("sending: " + baseURL + midURL + final + " at: " + new Date());
 			// var u:String= baseURL + midURL + final;
-			var u:URLLoader = new URLLoader (new URLRequest (baseURL + midURL + final));
+			if (!u)
+			{
+				u = new URLLoader ();
 
-			/*	
-			var sock:Socket = new Socket ("localhost",  UnitTester.runnerPort);
-			sock.writeUTFBytes(u);
-			sock.flush();
-			sock.flush();
-			*/
-		
-			u.addEventListener("complete", completeHandler);
-			u.addEventListener("complete", httpEvents);
-			u.addEventListener("ioError", httpEvents);
-			u.addEventListener("open", httpEvents);
-			u.addEventListener("progress", httpEvents);
-			u.addEventListener("httpStatus", httpEvents);
-			u.addEventListener("securityError", httpEvents);
-			u.load (new URLRequest (baseURL + midURL + final));
+				/*	
+				var sock:Socket = new Socket ("localhost",  UnitTester.runnerPort);
+				sock.writeUTFBytes(u);
+				sock.flush();
+				sock.flush();
+				*/
+			
+				u.addEventListener("complete", completeHandler);
+				u.addEventListener("complete", httpEvents);
+				u.addEventListener("ioError", httpEvents);
+				u.addEventListener("open", httpEvents);
+				u.addEventListener("progress", httpEvents);
+				u.addEventListener("httpStatus", httpEvents);
+				u.addEventListener("securityError", httpEvents);
+			}
+			queueMsg(baseURL + midURL + final);
 			UnitTester.pendingOutput++;
-			dict[u] = baseURL + midURL + final;
 		}
+	}
 
-		
-
+	public static function queueMsg(s:String):void
+	{
+		msgQueue.push(s);
+		if (msgQueue.length == 1)
+		{
+			trace ("sending: " + s + " at: " + new Date());
+			u.load (new URLRequest (s));
+		}
+		else
+			trace ("queuing: " + s + " at: " + new Date());
 	}
 	
-	public static var dict:Dictionary = new Dictionary();
-
 	public static function completeHandler (e:Event):void  {
 		UnitTester.pendingOutput--;
-		//trace("received complete for", dict[e.target]);
-		delete dict[e.target];
+		msgQueue.shift();
+		if (msgQueue.length > 0)
+		{
+			var s:String = msgQueue[0];
+			u.load (new URLRequest (s));
+			trace ("sending: " + s + " at: " + new Date());
+		}
 	}
 
 	public static function httpEvents (e:Event):void  {

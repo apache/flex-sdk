@@ -1179,11 +1179,23 @@ public class UnitTester extends EventDispatcher
 	{
 		if (pendingOutput > 0)
 		{
-			if (frameWaitCount < 4) // wait about 3 frames to see if results come back
+			if (lastPendingOutput == 0)
+				lastPendingOutput = pendingOutput;
+			if (pendingOutput == lastPendingOutput)
 			{
-				trace("waiting on pending output", pendingOutput);
+				if (frameWaitCount < 4) // wait about 3 frames to see if results come back
+				{
+					trace("waiting on pending output", pendingOutput);
+					frameWaitCount++;
+					callback = cleanUpAndExit;
+					return;
+				}
+			}
+			else
+			{
+				lastPendingOutput = pendingOutput;
+				frameWaitCount = 0;
 				callback = cleanUpAndExit;
-				frameWaitCount++;
 				return;
 			}
 		}
@@ -1228,6 +1240,7 @@ public class UnitTester extends EventDispatcher
 	}
 	
 	public static var pendingOutput:int = 0;
+	public static var lastPendingOutput:int = 0;
 	public static var frameWaitCount:int = 0;
 	
 	private static var frameCounter:int = 0;
