@@ -34,10 +34,11 @@ Getting the latest sources via Subversion
 
     For further information visit http://incubator.apache.org/flex/source.html
     
-Building Apache Flex 4.8
+Building Apache Flex 4.9
 ========================
 
-    Apache Flex 4.8 is a parity release from Apache of Adobe Flex 4.6.
+    Apache Flex 4.9 is a follow up release to Apache Flex 4.8.  Apache Flex 4.8 which was 
+    a parity release from Apache of Adobe Flex 4.6.
     
     Apache Flex is a large project. It requires some build tools which must be installed
     prior to building Flex and it depends on some external software which
@@ -51,8 +52,9 @@ Building Apache Flex 4.8
 Install Prerequisites
 ---------------------
 
-    Adobe Flex 4.6 was certified with AIR 3.1 and Flash Player 11.1.  Apache Flex 4.8
-    will continue to use these.
+    Adobe Flex 4.6 was certified with AIR 3.1 and Flash Player 11.1.  Apache Flex 4.9
+    will continue to use these.  Apache Flex 4.9 has been upgraded to use Text Layout
+    Format (TLF) 3.0.33 which is now part of Apache Flex.
 
     Before building Flex you must install the following software and set the
     corresponding environment variables using absolute file paths.  Relative file paths
@@ -206,18 +208,7 @@ Software Dependencies
             
             This software is released under the Mozilla Public License Version 1.1:
             <http://www.mozilla.org/MPL/>
-        
-        textLayout.swc
-            framework/libs
-            
-            Text Layout Format v2.0 used for text in Spark components
-        
-            This file is extracted from:
-            http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip/download
-    
-            This software is released under the Mozilla Public License Version 1.1:
-            <http://www.mozilla.org/MPL/>
-            
+                    
     The following dependencies have licenses which Apache considers to be not compatible 
     with the Apache License Version 2.0. You will be prompted to read and agree to the 
     license terms of the dependency before the software can be downloaded to your system.  
