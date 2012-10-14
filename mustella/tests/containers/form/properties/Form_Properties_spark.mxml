@@ -1056,7 +1056,7 @@
                 <AssertPropertyValue target="myCustomForm.myForm" propertyName="toolTip" value="???????????????" />
             </body>
         </TestCase>
-        <TestCase testID=" Form_Property_toolTip5_spark" keywords="[toolTip, Form]">
+        <TestCase testID="Form_Property_toolTip5_spark" keywords="[toolTip, Form]">
             <setup>
             <ResetComponent target="myCustomForm" className="CustomForm_spark" waitEvent="updateComplete"/>
             <RunCode code="setToolTipAS()" />           

@@ -311,7 +311,7 @@
            <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_useRollOver_false_spark.png"  />
          </body>
       </TestCase>
-      <TestCase testID="Spark_list_listbase_styles_verticalAlign " keywords="[listbase, styles, verticalAlign]">
+      <TestCase testID="Spark_list_listbase_styles_verticalAlign" keywords="[listbase, styles, verticalAlign]">
           <setup>
            <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
          </setup>

@@ -121,7 +121,7 @@
                 <AssertEvent target="hsb" eventName="updateComplete" numExpectedEvents="-1" eventClass="mx.events::FlexEvent"/>
             </body>
         </TestCase>
-        <TestCase testID="HScrollBar_events_animatePaging " keywords="[HScrollBar,event,animatePaging ]" description="">
+        <TestCase testID="HScrollBar_events_animatePaging" keywords="[HScrollBar,event,animatePaging ]" description="">
             <setup>
                 <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
             </setup>
@@ -139,7 +139,7 @@
 
             </body>
         </TestCase>
-        <TestCase testID="VScrollBar_events_animatePaging " keywords="[VScrollBar,event,animatePaging ]" description="">
+        <TestCase testID="VScrollBar_events_animatePaging" keywords="[VScrollBar,event,animatePaging ]" description="">
             <setup>
                 <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
             </setup>

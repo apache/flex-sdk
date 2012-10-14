@@ -1631,7 +1631,7 @@
             <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3" />
         </body>
     </TestCase>
-    <TestCase testID="DataGroup_method_clearFreeRenderers " keywords="[DataGroup, method, clearFreeRenderers ]" description="call clearFreeRenderers ">
+    <TestCase testID="DataGroup_method_clearFreeRenderers" keywords="[DataGroup, method, clearFreeRenderers ]" description="call clearFreeRenderers ">
         <setup>
             <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
             <SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" />

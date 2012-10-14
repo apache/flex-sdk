@@ -199,7 +199,7 @@
 				<AssertEvent target="control1" eventName="focusIn" eventClass="flash.events::FocusEvent" />
 		    </body>
 		</TestCase>
-        <TestCase testID="" description="Test tabbing through the main app and sub app"
+        <TestCase testID="NestedSWF_FocusManager_Tab_fromLocalhostFocusManager" description="Test tabbing through the main app and sub app"
 		    keywords="[Marshall Plan, NestedSWF_FocusManager_Tab_fromLocalhostFocusManager, TAB]">
             <setup>
 			   <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1" waitEvent="updateComplete" />

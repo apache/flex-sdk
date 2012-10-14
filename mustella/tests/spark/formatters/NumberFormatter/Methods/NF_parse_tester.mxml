@@ -813,7 +813,7 @@
 	</TestCase>
 	
 	<!--test Parse the special string with "+" sign -->
-	<TestCase testID="NF_method_parse_string_with'+'sign_test38" 
+	<TestCase testID="NF_method_parse_string_with_plus_sign_test38" 
 			  description="test Parse the special string with '+' sign" keywords="[NumberFormatter, parse]">
 		<setup>
 			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 
@@ -833,7 +833,7 @@
 	</TestCase>
 	
 	<!--test Parse the special string with "+" sign -->
-	<TestCase testID="NF_method_parse_string_with'+'sign_test39" 
+	<TestCase testID="NF_method_parse_string_with_plus_sign_test39" 
 			  description="test Parse the special string with '+' sign" keywords="[NumberFormatter, parse]">
 		<setup>
 			<ResetComponent target="nf" className="spark.formatters.NumberFormatter"/> 

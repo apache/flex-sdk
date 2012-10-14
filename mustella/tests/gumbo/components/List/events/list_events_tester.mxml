@@ -417,7 +417,7 @@
 
             </body>
         </TestCase>
-        <TestCase testID="List_event_hasFocusableChildren " keywords="[List, event,hasFocusableChildren ]" description="">
+        <TestCase testID="List_event_hasFocusableChildren" keywords="[List, event,hasFocusableChildren ]" description="">
             <setup>
                 <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
                 <SetProperty target="list1" propertyName="hasFocusableChildren"  value="true"  />
