@@ -213,7 +213,6 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *  <pre>
  *  &lt;s:RichText
  *    <strong>Properties</strong>
- *    fontContext="<i>IFlexModuleFactory</i>"
  *    luminosityClip="false"
  *    luminosityInvert="false"
  *    maskType="MaskType.CLIP"
