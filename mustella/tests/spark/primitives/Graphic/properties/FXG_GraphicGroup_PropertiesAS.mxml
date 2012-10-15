@@ -348,7 +348,9 @@ limitations under the License.
 				<SetProperty value="-25" propertyName="rotationY" target="graphic2.getChildAt(0).getElementAt(0)" waitEvent="updateComplete"
 					waitTarget="graphic2.getChildAt(0)"/>
 				<WaitForLayoutManager/>
-				<CompareBitmap numColorVariances="25" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic2.getChildAt(0)" timeout="2000" />
+				<CompareBitmap numColorVariances="25" ignoreMaxColorVariance="true" url="../Properties/baselines/" target="graphic2.getChildAt(0)" timeout="2000">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 		<TestCase testID="GraphicTags_Group_rotationXY" description="Test 20 degree rotationY and rotationY of a Group" keywords="[rotationX, rotationY, Group, Graphic]">
@@ -360,7 +362,9 @@ limitations under the License.
 				<SetProperty value="20" propertyName="rotationX" target="graphic2.getChildAt(0).getElementAt(0)"
 					waitEvent="updateComplete" waitTarget="graphic2.getChildAt(0)" />
 				<WaitForLayoutManager/>
-				<CompareBitmap numColorVariances="2" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic3" timeout="2000" />
+				<CompareBitmap numColorVariances="2" ignoreMaxColorVariance="true" url="../Properties/baselines/" target="graphic3" timeout="2000">
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 		<TestCase testID="GraphicTags_NestedGroup_rotationY" description="Test 18 degree rotationY of a Group" keywords="[rotationY, Group, Graphic]">
