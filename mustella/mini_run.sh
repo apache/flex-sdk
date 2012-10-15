@@ -859,7 +859,7 @@ elif [ "$failed_only" = "1" ]
 
 
     list_of_files=`awk '{if (NF > 1) {print $1}}' $input | sort -u`
-
+    list_of_failed_swfs=`awk '{if (NF == 1) {print $1}}' $input | sort -u | awk -F 'mustella/tests/' '{print $2}'`
 
     for i in $list_of_files
     do
@@ -869,28 +869,43 @@ elif [ "$failed_only" = "1" ]
     derived_swf=`dirname $derived_swf`
 
     ## create the ant fileset type includes
-
-    tmp0list="$tmp0list,${i}.mxml"
-
-
+    testfile="${i}.mxml";
+	
+	echo $testfile
+	
+    tmp0list="$tmp0list,$testfile"
+    
+	## split on the word testSWF, then split on the quotes, take the middle and replace .mxml with .swf
+	swfname=`grep 'testSWF=' tests/$testfile | awk -F 'testSWF' '{print $2}' | awk -F '"' '{print $2}' | sed 's/\.mxml/\.swf/'`
+    swfname=`echo $swfname | sed 's_\.\.\/SWFs\/__'`
+    swfname=`echo $swfname | sed 's_\.\.\/swfs\/__'`
+	
+    echo $swfname
+	
     if [ -d "tests/${derived_swf}/SWFs" ] 
         then
         ## backflips for windows because it will match either:
         f_lower=`ls "tests/${derived_swf}" | egrep "swfs"`
-        [ $? = 0 ] &&  swf0list="$swf0list,$derived_swf/swfs/*.swf" || swf0list="$swf0list,$derived_swf/SWFs/*.swf"
+        [ $? = 0 ] &&  swf0list="$swf0list,$derived_swf/swfs/$swfname" || swf0list="$swf0list,$derived_swf/SWFs/$swfname"
 
 
     ## on unix(mac) the guess is that it would actually match correctly
     elif [ -d "tests/${derived_swf}/swfs" ] 
         then
         echo "Matched lower"
-        swf0list="$swf0list,$derived_swf/swfs/*.swf"
+        swf0list="$swf0list,$derived_swf/swfs/$swfname"
 
 
     fi
 
     done
 
+    for i in $list_of_failed_swfs
+    do
+	
+	swf0list="$swf0list,${i}"
+	done
+	
     ## write properties file
     echo "sdk.mustella.includes=${tmp0list}" >> $propfile
     # echo "sdk.mustella.swfs=**/*.swf" >> $propfile
