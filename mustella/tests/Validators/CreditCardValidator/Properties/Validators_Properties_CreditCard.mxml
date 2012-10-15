@@ -59,7 +59,7 @@
 				<AssertNoEvent target="myCustomCCV.myCCV" eventName="invalid" />
 			</body>
 		</TestCase>
-		<TestCase testID="CreditCardValidator_allowedFormatChars_%"  keywords="[allowedFormatChars, CreditCardValidator]">
+		<TestCase testID="CreditCardValidator_allowedFormatChars_percentsign"  keywords="[allowedFormatChars, CreditCardValidator]">
 			<setup>
 				<ResetComponent target="myCustomCCV" className="CustomCCV"  waitEvent="updateComplete" waitTarget="myCustomCCV"/> 
 				<SetProperty target="myCustomCCV.myCCV" propertyName="allowedFormatChars" value="%" />
