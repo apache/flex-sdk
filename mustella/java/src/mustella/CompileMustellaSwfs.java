@@ -599,7 +599,7 @@ public class CompileMustellaSwfs extends Thread {
 			 for (int i=0;i<threads.size();i++) { 
 				try { 
 					t = (Thread) threads.get(i);
-					t.join (180000);
+					t.join (360000); // six minutes to finish a compile before we give up
 
 				} catch (Exception ee) {
 					ee.printStackTrace();
