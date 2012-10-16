@@ -337,7 +337,7 @@ limitations under the License.
 			<body>
 				<SetProperty value="25" propertyName="rotationY" target="graphic2.getChildAt(0).getElementAt(0)" />
 				<WaitForLayoutManager/>
-				<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="graphic2.getChildAt(0)" timeout="2000" >
+				<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../Properties/baselines/" target="graphic2.getChildAt(0)" timeout="2000" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
 			</body>
