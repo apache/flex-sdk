@@ -81,7 +81,7 @@
 	}
 </fx:Style>
 
-	<mx:HBox>
+	<mx:HBox horizontalGap="10">
 		<comps:ScaleGraphic id="graphic2" />
 		<comps:ScaleGraphicNested id="graphic3" />		
 	</mx:HBox>
