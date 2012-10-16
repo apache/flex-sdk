@@ -56,6 +56,7 @@
     <property name="spark.dir" value="${projects.dir}/spark"/>
     <property name="sparkskin.dir" value="${projects.dir}/sparkskins"/>
     <property name="spark_dmv.dir" value="${projects.dir}/spark_dmv"/>
+    <property name="textLayout.dir" value="${projects.dir}/textLayout/3.0.33"/>
 
     <!-- automation -->
     <property name="automation.dir" value="${projects.dir}/automation"/>
@@ -75,9 +76,9 @@
 
     <property name="compc.jvm.args" value="-Xmx384m" />
     
-    <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+    <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar;${FLEX_HOME}/lib/flexTasks.jar"/>
 
-    <target name="main" depends="check-compile-env,clean,thirdparty-downloads,prepare,framework,mx,spark,airframework,airspark,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,automation-swcs,bundles,themes,sparkskins,spark_dmv"/>
+    <target name="main" depends="check-compile-env,clean,thirdparty-downloads,prepare,textLayout,framework,mx,spark,airframework,airspark,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,automation-swcs,bundles,themes,sparkskins,spark_dmv"/>
 
     <target name="bundles" depends="framework_rb,mx_rb,spark_rb,airframework_rb,airspark_rb,mobilecomponents_rb,rpc_rb,charts_rb,advancedgrids_rb,automation-rbs"/>
     
@@ -858,6 +859,25 @@
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
     </target>
+	
+	<target name="textLayout" description="Builds the textLayout.swc">
+		<compc fork="true"
+			   output="${basedir}/libs/textLayout.swc"
+			   show-actionscript-warnings="false"
+			   compute-digest="true"
+			   include-classes="flashx.textLayout.CoreClasses flashx.textLayout.EditClasses flashx.textLayout.ConversionClasses">
+			<jvmarg line="${compc.jvm.args}"/>
+			<keep-as3-metadata>IMXMLObject</keep-as3-metadata>
+			<include-namespaces uri="library://ns.adobe.com/flashx/textLayout"/>
+			<namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${textLayout.dir}/manifest.xml"/>
+			<source-path path-element="${textLayout.dir}/src"/>
+			<library-path/>
+			<include-file name="manifest.xml" path="${textLayout.dir}/manifest.xml"/>
+			<static-link-runtime-shared-libraries/>
+			<define name="CONFIG::debug" value="false"/>
+			<define name="CONFIG::release" value="true"/>
+		</compc>
+     </target>
 
     <target name="tool_air" description="Builds the tool_air.swc">
         <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
@@ -987,6 +1007,7 @@
                 <include name="rpc.swc"/>
                 <include name="sparkskins.swc"/>
                 <include name="spark.swc"/>
+                <include name="textLayout.swc"/>
                 <include name="authoringsupport.swc"/>
                 <include name="flash-integration.swc"/>
             </fileset>
