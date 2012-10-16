@@ -1183,7 +1183,7 @@ public class UnitTester extends EventDispatcher
 				lastPendingOutput = pendingOutput;
 			if (pendingOutput == lastPendingOutput)
 			{
-				if (frameWaitCount < 10) // wait about 10 frames to see if results come back
+				if (frameWaitCount < 30) // wait about 30 frames to see if results come back
 				{
 					trace("waiting on pending output", pendingOutput);
 					frameWaitCount++;
