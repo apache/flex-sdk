@@ -1376,7 +1376,7 @@ public class GridSelection
     private function dataProviderCollectionMove(event:CollectionEvent):void
     {
         const oldRowIndex:int = event.oldLocation;
-        const newRowIndex:int = event.location;
+        var newRowIndex:int = event.location;
         
         handleRowRemove(oldRowIndex);
         
@@ -1636,7 +1636,7 @@ public class GridSelection
             return;
 
         const oldColumnIndex:int = event.oldLocation;
-        const newColumnIndex:int = event.location;
+        var newColumnIndex:int = event.location;
         
         handleColumnRemove(oldColumnIndex);
         
