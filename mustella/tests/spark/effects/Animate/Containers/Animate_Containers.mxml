@@ -23,7 +23,7 @@
 -->
 <UnitTester 
     testDir="spark/effects/Animate/Containers/"  
-    testSWF="../SWFs/Animate_main.mxml"
+    testSWF="../SWFs/Animate_Main.mxml"
     xmlns:mx="http://www.adobe.com/2006/mxml"
     xmlns="*">
 
