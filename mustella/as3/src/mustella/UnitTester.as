@@ -1618,6 +1618,10 @@ public class UnitTester extends EventDispatcher
 					{
 						obj = obj.getTextFormat();
 					}
+					else if (s is String && s == "getInstance()")
+					{
+						obj = obj.getInstance();
+					}
                     else if (s is String && s == "info()")
                     {
                         obj = obj.info();
