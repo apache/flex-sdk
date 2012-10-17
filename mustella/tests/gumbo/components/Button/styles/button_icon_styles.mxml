@@ -76,7 +76,7 @@
 <TestCase testID="button_icon_http" keywords="[Button]" description="Load icon from the internet">
 	<setup>
 		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
-		<SetStyle target="btn1" styleName="icon" value="http://localhost/gumbo/components/Button/swfs/Assets/logo.png?avoidThe304_0" waitEvent="updateComplete" />
+		<SetStyle target="btn1" styleName="icon" value="http://localhost:{portNumber}/gumbo/components/Button/swfs/Assets/logo.png?avoidThe304_0" waitEvent="updateComplete" />
 		<Pause timeout="2500" />
 	</setup>
 	<body>
@@ -87,7 +87,7 @@
 <TestCase testID="button_icon_http_404" keywords="[Button]" description="Load icon from the internet which is not available">
 	<setup>
 		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
-		<SetStyle target="btn1" styleName="icon" value="http://localhost/gumbo/components/Button/swfs/Assets/logo.pngss" />
+		<SetStyle target="btn1" styleName="icon" value="http://localhost:{portNumber}/gumbo/components/Button/swfs/Assets/logo.pngss" />
 		<Pause timeout="1000" />
 	</setup>
 	<body>
