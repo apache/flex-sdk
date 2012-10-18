@@ -136,7 +136,8 @@ public class Base64Encoder
      * 
      * @param data The String to encode.
      * @param offset The character position from which to start encoding.
-     * @param length The number of characters to encode from the offset.
+     * @param length The number of characters to encode from the offset, or
+     * all the characters if the length is 0.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -201,7 +202,8 @@ public class Base64Encoder
      * 
      * @param data The ByteArray to encode.
      * @param offset The index from which to start encoding.
-     * @param length The number of bytes to encode from the offset.
+     * @param length The number of bytes to encode from the offset, or all
+     * the bytes if the length is 0.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
