@@ -30,6 +30,7 @@ import java.util.StringTokenizer;
  */
 public class CompileMxmlUtils {
     private String swf;
+	private String linkReport;
     private String fileBasedArgs;
     private String mxmlc;
     private String dir;
@@ -66,7 +67,8 @@ public class CompileMxmlUtils {
         }
 
         swf=mxml.substring(0,mxml.length()-4)+"swf";
-
+		linkReport=mxml.substring(0,mxml.length()-4)+"lnk.xml";
+		
         String newArgs=null;
 
         //if cmdLineArgs property exists used it for mxmlc args
@@ -152,11 +154,19 @@ public class CompileMxmlUtils {
             basedir=FileUtils.normalizeDir(basedir);
         }
 
+		boolean hasLinkReport = false;
+		
         List execArgsList=new Vector();
         execArgsList.add(mxmlc);
         for (int i=0;i<optionalArgs.length;i++) {
+			if (optionalArgs[i].indexOf("-link-report") != -1)
+				hasLinkReport = true;
             execArgsList.add(optionalArgs[i]);
         }
+		if (!hasLinkReport)
+		{
+			execArgsList.add("-link-report=" + linkReport);
+		}
         execArgsList.add(mxml);
         execArgs=(String[])execArgsList.toArray(new String[]{});
 
