@@ -19,6 +19,7 @@
 package mustella; 
 import utils.*;
 import utils.FileUtils;
+import utils.ArgumentParser;
 
 import java.io.File;
 import java.util.regex.*;
@@ -55,8 +56,7 @@ public class CompileMustellaSwfs extends Thread {
 
     public static int hostId = 0;
 
-
-    private String[] defaultArgs;
+    private ArrayList defaultArgs;
 
 	private static String mobileConfigArg = null;
 	
@@ -991,7 +991,7 @@ public class CompileMustellaSwfs extends Thread {
 
 	args = checkAndAddUserArgs (mxml, args);
 
-	System.out.println ("ARGS: " + args);
+//	System.out.println ("ARGS: " + args);
 
 
 	/**
@@ -1003,8 +1003,15 @@ public class CompileMustellaSwfs extends Thread {
 		args = ApolloAppToWindow.doAll (args, apollo_transform_prefix, apollo_transform_prefix2, mxml, apollo_transform_template, dir);
 		mxml = ApolloAppToWindow.getNewMxmlName (dir, mxml, apollo_transform_prefix);
 	}
-
-    defaultArgs=StringUtils.StringToArray(args);
+	
+	// ------- ArgumentParser -------------
+	ArgumentParser parser = new ArgumentParser(args);
+	defaultArgs = parser.parseArguments();
+	if( debugDump ) {
+		for(int i=0; i < defaultArgs.size(); i++) {
+			System.out.println("ARG "+i+": "+defaultArgs.get(i));
+		}
+	}
 
 	try {
 		// writeTag(mxml, "status=started");
@@ -1020,7 +1027,8 @@ public class CompileMustellaSwfs extends Thread {
 		String rsl = System.getProperty("rsl");
 		if (rsl != null && !rsl.equals("")) {
 			rsl(mxml);
-			defaultArgs = StringUtils.StringToArray(StringUtils.arrayToString(defaultArgs) + " +frameworks-dir " + frameworks);
+			defaultArgs.add("+frameworks-dir");
+			defaultArgs.add(frameworks);
 		}
 
 		System.out.println ("okey doke, going to compile " + mxml);
@@ -1383,8 +1391,8 @@ public class CompileMustellaSwfs extends Thread {
         }
     }
 
-    public static String[] compc(String mxml, String[] mxmlArgs) throws Exception {
-        //System.out.println(">>>>> compc if necessary >>>>>>> " + mxml);
+    public static ArrayList compc(String mxml, ArrayList mxmlArgs) throws Exception {
+        System.out.println(">>>>> compc if necessary >>>>>>> " + mxml);
         CompcUtils compc = new CompcUtils();
         //compc.setPrintOut(true);
         File argFile = null;

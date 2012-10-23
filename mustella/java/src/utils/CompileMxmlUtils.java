@@ -19,6 +19,7 @@
 package utils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -38,10 +39,12 @@ public class CompileMxmlUtils {
     private RuntimeExecHelper reh;
     private String execArgs[];
     boolean printOut=false;
+    
     public void compile(String mxml) throws Exception {
-        compile(mxml,new String[]{});
+    	compile(mxml,new ArrayList());
     }
-    public void compile(String mxml,String[] optionalArgs) throws Exception {
+
+    public void compile(String mxml,ArrayList optionalArgs) throws Exception {
         boolean debug=false;
         debug=System.getProperty("debug")!=null && System.getProperty("debug").equals("true");
         String mxmlcdir=System.getProperty("mxmlcdir");
@@ -117,17 +120,9 @@ public class CompileMxmlUtils {
             }
         }
 
-
-        if (newArgs != null){
-            StringTokenizer stok = new StringTokenizer(newArgs, " ");
-            stok.countTokens();
-            String[] tmp = new String[stok.countTokens()];
-            int count=0;
-            while (stok.hasMoreTokens()) {
-                tmp[count]=stok.nextToken();
-                count++;
-            }
-            optionalArgs=tmp;
+        if( newArgs != null ) {
+        	ArgumentParser parser = new ArgumentParser(newArgs);
+        	optionalArgs = parser.parseArguments();
         }
 
         //String mxmldir=FileUtils.getDirectory(mxml);
@@ -155,24 +150,20 @@ public class CompileMxmlUtils {
         }
 
 		boolean hasLinkReport = false;
-		
-        List execArgsList=new Vector();
-        execArgsList.add(mxmlc);
-        for (int i=0;i<optionalArgs.length;i++) {
-			if (optionalArgs[i].indexOf("-link-report") != -1)
-				hasLinkReport = true;
-            execArgsList.add(optionalArgs[i]);
+        optionalArgs.add(0, mxmlc);
+        for (int i=0; i < optionalArgs.size(); i++) {
+        	String a = (String)optionalArgs.get(i);
+        	if( a.indexOf("-link-report") != -1 ) hasLinkReport = true;
         }
-		if (!hasLinkReport)
-		{
-			execArgsList.add("-link-report=" + linkReport);
-		}
-        execArgsList.add(mxml);
-        execArgs=(String[])execArgsList.toArray(new String[]{});
+        if( !hasLinkReport ) {
+        	optionalArgs.add("-link-report=" + linkReport);
+        }
+        optionalArgs.add(mxml);
+        execArgs = ArgumentParser.toArray(optionalArgs);
 
         if (debug) {
         	System.out.println("cd "+dir);
-        	System.out.println(StringUtils.arrayToString(execArgs));
+            System.out.println("CompileMxmlUtils.compile: "+StringUtils.arrayToString(execArgs));
         }
 
         int timeout=300;
@@ -187,6 +178,7 @@ public class CompileMxmlUtils {
         reh.run();
         lastRunTime=System.currentTimeMillis()-startTime;
     }
+    
     public String getSwf() { return swf; }
     public long getLastRunTime() { return lastRunTime; }
     public RuntimeExecHelper getRuntimeExecHelper() { return reh; }

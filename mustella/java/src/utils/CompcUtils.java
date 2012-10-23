@@ -24,6 +24,7 @@ import java.util.StringTokenizer;
 import java.util.List;
 import java.util.Vector;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 import utils.FileUtils;
 import org.xml.sax.SAXException;
@@ -61,21 +62,15 @@ public class CompcUtils {
 
 
     public void compile(String args) throws Exception {
-        if (!args.equals("")) {
-            String[] aArgs;
-            StringTokenizer stok = new StringTokenizer(args, " ");
-            String[] tmp = new String[stok.countTokens()];
-            int count = 0;
-            while (stok.hasMoreTokens()) {
-                tmp[count] = stok.nextToken();
-                count++;
-            }
-            aArgs = tmp;
-            compile(aArgs);
-        } else {
-            throw new Exception("compc args are empty!");
-        }
-
+    	if( !args.equals("")) {
+    		ArgumentParser parser = new ArgumentParser(args);
+    		ArrayList result = parser.parseArguments();
+    		String a[] = new String[result.size()];
+        	for(int i=0; i < result.size(); i++) a[i] = (String)result.get(i);
+        	compc(a);
+    	} else {
+    		throw new Exception("compc args are empty!");
+    	}
     }
 
     //read args from file
@@ -313,34 +308,35 @@ public class CompcUtils {
 
 
 //    todo: I think this is the correct thing do to when compc will really be working?? - kq
-    public String[] addSwcToClassPath(String[] mxmlArgs) {
+    public ArrayList addSwcToClassPath(ArrayList mxmlArgs) {
         //tack the swc onto the end of the --library-path
 
-        debug(">>>>>> original mxmlArgs >>> " + StringUtils.arrayToString(mxmlArgs));
+        //debug(">>>>>> original mxmlArgs >>> " + StringUtils.arrayToString(mxmlArgs));
 
         validateSwcs();
 
         boolean bFound = false;
         String sep = " ";
         int insertPos = 0;
-        List l = new Vector();
-        for (int i = 0; i < mxmlArgs.length; i++) {
-            if (mxmlArgs[i].trim().toLowerCase().indexOf("--library-path") > 0 || mxmlArgs[i].trim().toLowerCase().indexOf("-library-path") > 0) {
+        ArrayList l = new ArrayList();
+        for (int i = 0; i < mxmlArgs.size(); i++) {
+        	String anArg = (String)mxmlArgs.get(i);
+            if (anArg.trim().toLowerCase().indexOf("--library-path") > 0 || anArg.trim().toLowerCase().indexOf("-library-path") > 0) {
                 bFound = true;
                 insertPos = i;
                 debug("found library-path");
             }
             if (bFound) {
-                if ((mxmlArgs[i].startsWith("-") || mxmlArgs[i].startsWith("+")) && insertPos != i) {
+                if ((anArg.startsWith("-") || anArg.startsWith("+")) && insertPos != i) {
                     insertPos = i;
                     bFound = false;
                 }
-                if (mxmlArgs[i].indexOf("=") > 0) {
+                if (anArg.indexOf("=") > 0) {
                     sep = ",";
                     debug(">>> sepaprator is ',' ");
                 }
             }
-            l.add(mxmlArgs[i]);
+            l.add(anArg);
 
         }
         if (insertPos != 0) {
@@ -385,9 +381,7 @@ public class CompcUtils {
             }
         }
 
-        mxmlArgs = (String[]) l.toArray(new String[]{});
-        debug(">>>>>> new mxmlArgs >>> " + StringUtils.arrayToString(mxmlArgs));
-        return mxmlArgs;
+        return l;
 
     }
 
