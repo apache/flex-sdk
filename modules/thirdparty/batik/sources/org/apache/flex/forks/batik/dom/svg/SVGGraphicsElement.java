@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,24 +18,69 @@
  */
 package org.apache.flex.forks.batik.dom.svg;
 
+import java.awt.geom.AffineTransform;
+
+import org.apache.flex.forks.batik.anim.values.AnimatableMotionPointValue;
+import org.apache.flex.forks.batik.anim.values.AnimatableValue;
 import org.apache.flex.forks.batik.dom.AbstractDocument;
 import org.apache.flex.forks.batik.dom.util.XMLSupport;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedBoolean;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedTransformList;
-import org.w3c.flex.forks.dom.svg.SVGElement;
-import org.w3c.flex.forks.dom.svg.SVGException;
-import org.w3c.flex.forks.dom.svg.SVGMatrix;
-import org.w3c.flex.forks.dom.svg.SVGRect;
-import org.w3c.flex.forks.dom.svg.SVGStringList;
+import org.apache.flex.forks.batik.util.DoublyIndexedTable;
+import org.apache.flex.forks.batik.util.SVGTypes;
+
+import org.w3c.dom.svg.SVGAnimatedBoolean;
+import org.w3c.dom.svg.SVGAnimatedTransformList;
+import org.w3c.dom.svg.SVGElement;
+import org.w3c.dom.svg.SVGException;
+import org.w3c.dom.svg.SVGMatrix;
+import org.w3c.dom.svg.SVGRect;
+import org.w3c.dom.svg.SVGStringList;
 
 /**
  * This class provides a common superclass for all graphics elements.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGGraphicsElement.java,v 1.13 2004/08/18 07:13:14 vhardy Exp $
+ * @version $Id: SVGGraphicsElement.java 592621 2007-11-07 05:58:12Z cam $
  */
-public abstract class SVGGraphicsElement extends SVGStylableElement {
-    
+public abstract class SVGGraphicsElement
+        extends SVGStylableElement
+        implements SVGMotionAnimatableElement {
+
+    /**
+     * Table mapping XML attribute names to TraitInformation objects.
+     */
+    protected static DoublyIndexedTable xmlTraitInformation;
+    static {
+        DoublyIndexedTable t =
+            new DoublyIndexedTable(SVGStylableElement.xmlTraitInformation);
+        t.put(null, SVG_TRANSFORM_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_TRANSFORM_LIST));
+        t.put(null, SVG_EXTERNAL_RESOURCES_REQUIRED_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_BOOLEAN));
+//         t.put(null, SVG_REQUIRED_EXTENSIONS_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_URI_LIST));
+//         t.put(null, SVG_REQUIRED_FEATURES_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_URI_LIST));
+//         t.put(null, SVG_SYSTEM_LANGUAGE_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_LANG_LIST));
+        xmlTraitInformation = t;
+
+    }
+
+    /**
+     * The 'transform' attribute value.
+     */
+    protected SVGOMAnimatedTransformList transform;
+
+    /**
+     * The 'externalResourcesRequired' attribute value.
+     */
+    protected SVGOMAnimatedBoolean externalResourcesRequired;
+
+    /**
+     * Supplemental transformation due to motion animation.
+     */
+    protected AffineTransform motionTransform;
+
     /**
      * Creates a new SVGGraphicsElement.
      */
@@ -48,83 +94,108 @@ public abstract class SVGGraphicsElement extends SVGStylableElement {
      */
     protected SVGGraphicsElement(String prefix, AbstractDocument owner) {
         super(prefix, owner);
+        initializeLiveAttributes();
+    }
 
+    /**
+     * Initializes all live attributes for this element.
+     */
+    protected void initializeAllLiveAttributes() {
+        super.initializeAllLiveAttributes();
+        initializeLiveAttributes();
+    }
+
+    /**
+     * Initializes the live attribute values of this element.
+     */
+    private void initializeLiveAttributes() {
+        transform =
+            createLiveAnimatedTransformList(null, SVG_TRANSFORM_ATTRIBUTE, "");
+        externalResourcesRequired =
+            createLiveAnimatedBoolean
+                (null, SVG_EXTERNAL_RESOURCES_REQUIRED_ATTRIBUTE, false);
+    }
+
+    /**
+     * Returns the table of TraitInformation objects for this element.
+     */
+    protected DoublyIndexedTable getTraitInformationTable() {
+        return xmlTraitInformation;
     }
 
     // SVGLocatable support /////////////////////////////////////////////
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGLocatable#getNearestViewportElement()}.
+     * org.w3c.dom.svg.SVGLocatable#getNearestViewportElement()}.
      */
     public SVGElement getNearestViewportElement() {
-	return SVGLocatableSupport.getNearestViewportElement(this);
+        return SVGLocatableSupport.getNearestViewportElement(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGLocatable#getFarthestViewportElement()}.
+     * org.w3c.dom.svg.SVGLocatable#getFarthestViewportElement()}.
      */
     public SVGElement getFarthestViewportElement() {
-	return SVGLocatableSupport.getFarthestViewportElement(this);
+        return SVGLocatableSupport.getFarthestViewportElement(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGLocatable#getBBox()}.
+     * org.w3c.dom.svg.SVGLocatable#getBBox()}.
      */
     public SVGRect getBBox() {
-	return SVGLocatableSupport.getBBox(this);
+        return SVGLocatableSupport.getBBox(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGLocatable#getCTM()}.
+     * org.w3c.dom.svg.SVGLocatable#getCTM()}.
      */
     public SVGMatrix getCTM() {
-	return SVGLocatableSupport.getCTM(this);
+        return SVGLocatableSupport.getCTM(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGLocatable#getScreenCTM()}.
+     * org.w3c.dom.svg.SVGLocatable#getScreenCTM()}.
      */
     public SVGMatrix getScreenCTM() {
-	return SVGLocatableSupport.getScreenCTM(this);
+        return SVGLocatableSupport.getScreenCTM(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGLocatable#getTransformToElement(SVGElement)}.
+     * org.w3c.dom.svg.SVGLocatable#getTransformToElement(SVGElement)}.
      */
     public SVGMatrix getTransformToElement(SVGElement element)
-	throws SVGException {
-	return SVGLocatableSupport.getTransformToElement(this, element);
+        throws SVGException {
+        return SVGLocatableSupport.getTransformToElement(this, element);
     }
 
     // SVGTransformable support //////////////////////////////////////////////
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGTransformable#getTransform()}.
+     * org.w3c.dom.svg.SVGTransformable#getTransform()}.
      */
     public SVGAnimatedTransformList getTransform() {
-	return SVGTransformableSupport.getTransform(this);
+        return transform;
     }
 
     // SVGExternalResourcesRequired support /////////////////////////////
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGExternalResourcesRequired#getExternalResourcesRequired()}.
+     * org.w3c.dom.svg.SVGExternalResourcesRequired#getExternalResourcesRequired()}.
      */
     public SVGAnimatedBoolean getExternalResourcesRequired() {
-	return SVGExternalResourcesRequiredSupport.
-            getExternalResourcesRequired(this);
+        return externalResourcesRequired;
     }
 
     // SVGLangSpace support //////////////////////////////////////////////////
-    
+
     /**
      * <b>DOM</b>: Returns the xml:lang attribute value.
      */
@@ -136,11 +207,9 @@ public abstract class SVGGraphicsElement extends SVGStylableElement {
      * <b>DOM</b>: Sets the xml:lang attribute value.
      */
     public void setXMLlang(String lang) {
-        setAttributeNS(XMLSupport.XML_NAMESPACE_URI,
-                       XMLSupport.XML_LANG_ATTRIBUTE,
-                       lang);
+        setAttributeNS(XML_NAMESPACE_URI, XML_LANG_QNAME, lang);
     }
-    
+
     /**
      * <b>DOM</b>: Returns the xml:space attribute value.
      */
@@ -152,42 +221,74 @@ public abstract class SVGGraphicsElement extends SVGStylableElement {
      * <b>DOM</b>: Sets the xml:space attribute value.
      */
     public void setXMLspace(String space) {
-        setAttributeNS(XMLSupport.XML_NAMESPACE_URI,
-                       XMLSupport.XML_SPACE_ATTRIBUTE,
-                       space);
+        setAttributeNS(XML_NAMESPACE_URI, XML_SPACE_QNAME, space);
     }
 
     // SVGTests support ///////////////////////////////////////////////////
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGTests#getRequiredFeatures()}.
+     * org.w3c.dom.svg.SVGTests#getRequiredFeatures()}.
      */
     public SVGStringList getRequiredFeatures() {
-	return SVGTestsSupport.getRequiredFeatures(this);
+        return SVGTestsSupport.getRequiredFeatures(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGTests#getRequiredExtensions()}.
+     * org.w3c.dom.svg.SVGTests#getRequiredExtensions()}.
      */
     public SVGStringList getRequiredExtensions() {
-	return SVGTestsSupport.getRequiredExtensions(this);
+        return SVGTestsSupport.getRequiredExtensions(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGTests#getSystemLanguage()}.
+     * org.w3c.dom.svg.SVGTests#getSystemLanguage()}.
      */
     public SVGStringList getSystemLanguage() {
-	return SVGTestsSupport.getSystemLanguage(this);
+        return SVGTestsSupport.getSystemLanguage(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGTests#hasExtension(String)}.
+     * org.w3c.dom.svg.SVGTests#hasExtension(String)}.
      */
     public boolean hasExtension(String extension) {
-	return SVGTestsSupport.hasExtension(this, extension);
+        return SVGTestsSupport.hasExtension(this, extension);
+    }
+
+    // SVGMotionAnimatableElement ////////////////////////////////////////////
+
+    /**
+     * Returns the {@link AffineTransform} representing the current motion
+     * animation for this element.
+     */
+    public AffineTransform getMotionTransform() {
+        return motionTransform;
+    }
+
+    // AnimationTarget ///////////////////////////////////////////////////////
+
+    /**
+     * Updates a 'other' animation value in this target.
+     */
+    public void updateOtherValue(String type, AnimatableValue val) {
+        if (type.equals("motion")) {
+            if (motionTransform == null) {
+                motionTransform = new AffineTransform();
+            }
+            if (val == null) {
+                motionTransform.setToIdentity();
+            } else {
+                AnimatableMotionPointValue p = (AnimatableMotionPointValue) val;
+                motionTransform.setToTranslation(p.getX(), p.getY());
+                motionTransform.rotate(p.getAngle());
+            }
+            SVGOMDocument d = (SVGOMDocument) ownerDocument;
+            d.getAnimatedAttributeListener().otherAnimationChanged(this, type);
+        } else {
+            super.updateOtherValue(type, val);
+        }
     }
 }

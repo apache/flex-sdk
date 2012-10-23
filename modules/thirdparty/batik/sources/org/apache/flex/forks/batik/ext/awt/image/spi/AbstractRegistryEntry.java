@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,14 +22,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractRegistryEntry 
+/**
+ *
+ * @version $Id: AbstractRegistryEntry.java 501094 2007-01-29 16:35:37Z deweese $
+ */
+public abstract class AbstractRegistryEntry
     implements RegistryEntry, ErrorConstants {
 
     String name;
     float  priority;
     List   exts;
     List   mimeTypes;
-    
+
     public AbstractRegistryEntry(String    name,
                                  float     priority,
                                  String [] exts,
@@ -46,7 +51,7 @@ public abstract class AbstractRegistryEntry
             this.mimeTypes.add(mimeTypes[i]);
         this.mimeTypes = Collections.unmodifiableList(this.mimeTypes);
     }
-			    
+
     public AbstractRegistryEntry(String name,
                                  float  priority,
                                  String ext,
@@ -62,7 +67,7 @@ public abstract class AbstractRegistryEntry
         this.mimeTypes.add(mimeType);
         this.mimeTypes = Collections.unmodifiableList(mimeTypes);
     }
-			    
+
 
     public String getFormatName() {
         return name;

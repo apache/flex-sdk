@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -43,10 +44,10 @@ import org.w3c.dom.Node;
  * Bridge class for the &lt;pattern> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGPatternElementBridge.java,v 1.27 2004/08/18 07:12:35 vhardy Exp $
+ * @version $Id: SVGPatternElementBridge.java 475477 2006-11-15 22:44:28Z cam $
  */
-public class SVGPatternElementBridge extends AbstractSVGBridge
-    implements PaintBridge, ErrorConstants {
+public class SVGPatternElementBridge extends AnimatableGenericSVGBridge
+        implements PaintBridge, ErrorConstants {
 
     /**
      * Constructs a new SVGPatternElementBridge.
@@ -102,7 +103,7 @@ public class SVGPatternElementBridge extends AbstractSVGBridge
             (patternElement, null, SVG_PATTERN_TRANSFORM_ATTRIBUTE, ctx);
         if (s.length() != 0) {
             patternTransform = SVGUtilities.convertTransform
-                (patternElement, SVG_PATTERN_TRANSFORM_ATTRIBUTE, s);
+                (patternElement, SVG_PATTERN_TRANSFORM_ATTRIBUTE, s, ctx);
         } else {
             patternTransform = new AffineTransform();
         }
@@ -118,7 +119,7 @@ public class SVGPatternElementBridge extends AbstractSVGBridge
             contentCoordSystem = SVGUtilities.USER_SPACE_ON_USE;
         } else {
             contentCoordSystem = SVGUtilities.parseCoordinateSystem
-                (patternElement, SVG_PATTERN_CONTENT_UNITS_ATTRIBUTE, s);
+                (patternElement, SVG_PATTERN_CONTENT_UNITS_ATTRIBUTE, s, ctx);
         }
 
         // Compute a transform according to viewBox,  preserveAspectRatio
@@ -171,7 +172,7 @@ public class SVGPatternElementBridge extends AbstractSVGBridge
             float h = (float)patternRegion.getHeight();
             AffineTransform preserveAspectRatioTransform
                 = ViewBox.getPreserveAspectRatioTransform
-                (patternElement, viewBoxStr, aspectRatioStr, w, h);
+                (patternElement, viewBoxStr, aspectRatioStr, w, h, ctx);
 
             patternContentTransform.concatenate(preserveAspectRatioTransform);
         } else {
@@ -238,7 +239,7 @@ public class SVGPatternElementBridge extends AbstractSVGBridge
      */
     protected static
         RootGraphicsNode extractPatternContent(Element patternElement,
-                                                    BridgeContext ctx) {
+                                               BridgeContext ctx) {
 
         List refs = new LinkedList();
         for (;;) {
@@ -256,12 +257,12 @@ public class SVGPatternElementBridge extends AbstractSVGBridge
                 (SVGOMDocument)patternElement.getOwnerDocument();
             ParsedURL purl = new ParsedURL(doc.getURL(), uri);
             if (!purl.complete())
-                throw new BridgeException(patternElement,
+                throw new BridgeException(ctx, patternElement,
                                           ERR_URI_MALFORMED,
                                           new Object[] {uri});
 
             if (contains(refs, purl)) {
-                throw new BridgeException(patternElement,
+                throw new BridgeException(ctx, patternElement,
                                           ERR_XLINK_HREF_CIRCULAR_DEPENDENCIES,
                                           new Object[] {uri});
             }
@@ -360,6 +361,4 @@ public class SVGPatternElementBridge extends AbstractSVGBridge
         }
 
     }
-
 }
-

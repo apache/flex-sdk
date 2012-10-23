@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,20 +18,20 @@
  */
 package org.apache.flex.forks.batik.css.engine;
 
-import org.w3c.flex.forks.css.sac.SelectorList;
+import org.w3c.css.sac.SelectorList;
 
 /**
  * This class represents a style rule.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: StyleRule.java,v 1.3 2004/08/18 07:12:48 vhardy Exp $
+ * @version $Id: StyleRule.java 476924 2006-11-19 21:13:26Z dvholten $
  */
 public class StyleRule implements Rule {
-    
+
     /**
      * The type constant.
      */
-    public final static short TYPE = (short)0;
+    public static final short TYPE = (short)0;
 
     /**
      * The selector list.

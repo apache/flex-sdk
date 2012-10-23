@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,17 +22,20 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
+import org.apache.flex.forks.batik.dom.svg.SVGContext;
 import org.apache.flex.forks.batik.ext.awt.MultipleGradientPaint;
 import org.apache.flex.forks.batik.ext.awt.RadialGradientPaint;
 import org.apache.flex.forks.batik.gvt.GraphicsNode;
+
 import org.w3c.dom.Element;
 
 /**
  * Bridge class for the &lt;radialGradient> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGRadialGradientElementBridge.java,v 1.11 2004/08/18 07:12:35 vhardy Exp $
+ * @version $Id: SVGRadialGradientElementBridge.java 594776 2007-11-14 05:34:02Z cam $
  */
 public class SVGRadialGradientElementBridge
     extends AbstractSVGGradientElementBridge {
@@ -116,7 +120,21 @@ public class SVGRadialGradientElementBridge
             coordSystemType = SVGUtilities.OBJECT_BOUNDING_BOX;
         } else {
             coordSystemType = SVGUtilities.parseCoordinateSystem
-                (paintElement, SVG_GRADIENT_UNITS_ATTRIBUTE, s);
+                (paintElement, SVG_GRADIENT_UNITS_ATTRIBUTE, s, ctx);
+        }
+
+        // The last paragraph of section 7.11 in SVG 1.1 states that objects
+        // with zero width or height bounding boxes that use gradients with
+        // gradientUnits="objectBoundingBox" must not use the gradient.
+        SVGContext bridge = BridgeContext.getSVGContext(paintedElement);
+        if (coordSystemType == SVGUtilities.OBJECT_BOUNDING_BOX
+                && bridge instanceof AbstractGraphicsNodeBridge) {
+            // XXX Make this work for non-AbstractGraphicsNodeBridges, like
+            // the various text child bridges.
+            Rectangle2D bbox = ((AbstractGraphicsNodeBridge) bridge).getBBox();
+            if (bbox != null && bbox.getWidth() == 0 || bbox.getHeight() == 0) {
+                return null;
+            }
         }
 
         // additional transform to move to objectBoundingBox coordinate system
@@ -131,8 +149,8 @@ public class SVGRadialGradientElementBridge
                                              SVG_R_ATTRIBUTE,
                                              coordSystemType,
                                              uctx);
-	// A value of zero will cause the area to be painted as a single color
-	// using the color and opacity of the last gradient stop.
+        // A value of zero will cause the area to be painted as a single color
+        // using the color and opacity of the last gradient stop.
         if (r == 0) {
             return colors[colors.length-1];
         } else {

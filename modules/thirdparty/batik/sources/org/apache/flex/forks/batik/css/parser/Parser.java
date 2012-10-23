@@ -15,11 +15,6 @@
    limitations under the License.
 
  */
- 
-/**
- *  Modified by Adobe Flex.
- */
-
 package org.apache.flex.forks.batik.css.parser;
 
 import java.io.IOException;
@@ -35,32 +30,32 @@ import org.apache.flex.forks.batik.i18n.Localizable;
 import org.apache.flex.forks.batik.i18n.LocalizableSupport;
 import org.apache.flex.forks.batik.util.CSSConstants;
 import org.apache.flex.forks.batik.util.ParsedURL;
-import org.w3c.flex.forks.css.sac.CSSException;
-import org.w3c.flex.forks.css.sac.CSSParseException;
-import org.w3c.flex.forks.css.sac.Condition;
-import org.w3c.flex.forks.css.sac.ConditionFactory;
-import org.w3c.flex.forks.css.sac.DocumentHandler;
-import org.w3c.flex.forks.css.sac.ErrorHandler;
-import org.w3c.flex.forks.css.sac.InputSource;
-import org.w3c.flex.forks.css.sac.LexicalUnit;
-import org.w3c.flex.forks.css.sac.SACMediaList;
-import org.w3c.flex.forks.css.sac.Selector;
-import org.w3c.flex.forks.css.sac.SelectorFactory;
-import org.w3c.flex.forks.css.sac.SelectorList;
-import org.w3c.flex.forks.css.sac.SimpleSelector;
+import org.w3c.css.sac.CSSException;
+import org.w3c.css.sac.CSSParseException;
+import org.w3c.css.sac.Condition;
+import org.w3c.css.sac.ConditionFactory;
+import org.w3c.css.sac.DocumentHandler;
+import org.w3c.css.sac.ErrorHandler;
+import org.w3c.css.sac.InputSource;
+import org.w3c.css.sac.LexicalUnit;
+import org.w3c.css.sac.SACMediaList;
+import org.w3c.css.sac.Selector;
+import org.w3c.css.sac.SelectorFactory;
+import org.w3c.css.sac.SelectorList;
+import org.w3c.css.sac.SimpleSelector;
 
 /**
- * This class implements the {@link org.w3c.flex.forks.css.sac.Parser} interface.
+ * This class implements the {@link org.w3c.css.sac.Parser} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: Parser.java,v 1.28 2005/03/27 08:58:31 cam Exp $
+ * @version $Id: Parser.java 569967 2007-08-27 02:54:20Z cam $
  */
 public class Parser implements ExtendedParser, Localizable {
 
     /**
      * The default resource bundle base name.
      */
-    public final static String BUNDLE_CLASSNAME =
+    public static final String BUNDLE_CLASSNAME =
         "org.apache.flex.forks.batik.css.parser.resources.Messages";
 
     /**
@@ -130,7 +125,7 @@ public class Parser implements ExtendedParser, Localizable {
     
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.Parser#getParserVersion()}.
+     * org.w3c.css.sac.Parser#getParserVersion()}.
      * @return "http://www.w3.org/TR/REC-CSS2".
      */
     public String getParserVersion() {
@@ -138,7 +133,7 @@ public class Parser implements ExtendedParser, Localizable {
     }
     
     /**
-     * <b>SAC</b>: Implements {@link org.w3c.flex.forks.css.sac.Parser#setLocale(Locale)}.
+     * <b>SAC</b>: Implements {@link org.w3c.css.sac.Parser#setLocale(Locale)}.
      */
     public void setLocale(Locale locale) throws CSSException {
         localizableSupport.setLocale(locale);
@@ -162,7 +157,7 @@ public class Parser implements ExtendedParser, Localizable {
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.Parser#setDocumentHandler(DocumentHandler)}.
+     * org.w3c.css.sac.Parser#setDocumentHandler(DocumentHandler)}.
      */
     public void setDocumentHandler(DocumentHandler handler) {
         documentHandler = handler;
@@ -170,7 +165,7 @@ public class Parser implements ExtendedParser, Localizable {
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.Parser#setSelectorFactory(SelectorFactory)}.
+     * org.w3c.css.sac.Parser#setSelectorFactory(SelectorFactory)}.
      */
     public void setSelectorFactory(SelectorFactory factory) {
         selectorFactory = factory;
@@ -178,7 +173,7 @@ public class Parser implements ExtendedParser, Localizable {
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.Parser#setConditionFactory(ConditionFactory)}.
+     * org.w3c.css.sac.Parser#setConditionFactory(ConditionFactory)}.
      */
     public void setConditionFactory(ConditionFactory factory) {
         conditionFactory = factory;
@@ -186,7 +181,7 @@ public class Parser implements ExtendedParser, Localizable {
     
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.Parser#setErrorHandler(ErrorHandler)}.
+     * org.w3c.css.sac.Parser#setErrorHandler(ErrorHandler)}.
      */
     public void setErrorHandler(ErrorHandler handler) {
         errorHandler = handler;
@@ -194,7 +189,7 @@ public class Parser implements ExtendedParser, Localizable {
     
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.Parser#parseStyleSheet(InputSource)}.
+     * org.w3c.css.sac.Parser#parseStyleSheet(InputSource)}.
      */
     public void parseStyleSheet(InputSource source) 
         throws CSSException, IOException {
@@ -267,7 +262,7 @@ public class Parser implements ExtendedParser, Localizable {
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.Parser#parseStyleSheet(String)}.
+     * org.w3c.css.sac.Parser#parseStyleSheet(String)}.
      */
     public void parseStyleSheet(String uri) throws CSSException, IOException {
         parseStyleSheet(new InputSource(uri));
@@ -275,7 +270,7 @@ public class Parser implements ExtendedParser, Localizable {
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.Parser#parseStyleDeclaration(InputSource)}.
+     * org.w3c.css.sac.Parser#parseStyleDeclaration(InputSource)}.
      */
     public void parseStyleDeclaration(InputSource source) 
         throws CSSException, IOException {
@@ -344,7 +339,7 @@ public class Parser implements ExtendedParser, Localizable {
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.Parser#parseRule(InputSource)}.
+     * org.w3c.css.sac.Parser#parseRule(InputSource)}.
      */
     public void parseRule(InputSource source) 
 	throws CSSException, IOException {
@@ -363,7 +358,7 @@ public class Parser implements ExtendedParser, Localizable {
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.Parser#parseSelectors(InputSource)}.
+     * org.w3c.css.sac.Parser#parseSelectors(InputSource)}.
      */    
     public SelectorList parseSelectors(InputSource source)
         throws CSSException, IOException {
@@ -384,7 +379,7 @@ public class Parser implements ExtendedParser, Localizable {
 
     /**
      * <b>SAC</b>: Implements
-     * {@link org.w3c.flex.forks.css.sac.Parser#parsePropertyValue(InputSource)}.
+     * {@link org.w3c.css.sac.Parser#parsePropertyValue(InputSource)}.
      */    
     public LexicalUnit parsePropertyValue(InputSource source)
         throws CSSException, IOException {
@@ -422,7 +417,7 @@ public class Parser implements ExtendedParser, Localizable {
     
     /**
      * <b>SAC</b>: Implements
-     * {@link org.w3c.flex.forks.css.sac.Parser#parsePriority(InputSource)}.
+     * {@link org.w3c.css.sac.Parser#parsePriority(InputSource)}.
      */    
     public boolean parsePriority(InputSource source)
         throws CSSException, IOException {
@@ -825,10 +820,8 @@ public class Parser implements ExtendedParser, Localizable {
      * Parses a selector.
      */
     protected Selector parseSelector() {
-        SimpleSelector ss = parseSimpleSelector();
-        Selector result = ss;
-
         pseudoElement = null;
+        Selector result = parseSimpleSelector();
 
         loop: for (;;) {
             switch (current) {
@@ -840,6 +833,9 @@ public class Parser implements ExtendedParser, Localizable {
             case LexicalUnits.DOT:
             case LexicalUnits.LEFT_BRACKET:
             case LexicalUnits.COLON:
+                if (pseudoElement != null) {
+                    throw createCSSParseException("pseudo.element.position");
+                }
                 int currentLine = getLineNumber();
 
                 result = selectorFactory.createDescendantSelector
@@ -854,6 +850,9 @@ public class Parser implements ExtendedParser, Localizable {
 
                 break;
             case LexicalUnits.PLUS:
+                if (pseudoElement != null) {
+                    throw createCSSParseException("pseudo.element.position");
+                }
                 nextIgnoreSpaces();
                 result = selectorFactory.createDirectAdjacentSelector
                     ((short)1,
@@ -861,6 +860,9 @@ public class Parser implements ExtendedParser, Localizable {
                      parseSimpleSelector());
                 break;
             case LexicalUnits.PRECEDE:
+                if (pseudoElement != null) {
+                    throw createCSSParseException("pseudo.element.position");
+                }
                 nextIgnoreSpaces();
                 result = selectorFactory.createChildSelector
                     (result, 
@@ -873,7 +875,6 @@ public class Parser implements ExtendedParser, Localizable {
                  selectorFactory.createPseudoElementSelector
                  (null, pseudoElement));
         }
-
         return result;
     }
 
@@ -1186,10 +1187,18 @@ public class Parser implements ExtendedParser, Localizable {
             case LexicalUnits.INTEGER:
                 String sval = scanner.getStringValue();
                 if (!plus) sval = "-"+sval;
-                int val = Integer.parseInt(sval);
-                line = getLineNumber();
-                nextIgnoreSpaces();
-                return CSSLexicalUnit.createInteger(val, prev, line);
+
+                long lVal = Long.parseLong( sval );      // fix #41288
+                if ( lVal >= Integer.MIN_VALUE && lVal <= Integer.MAX_VALUE ){
+                    // we can safely convert to int
+                    int iVal = (int) lVal;
+                    line = getLineNumber();
+                    nextIgnoreSpaces();                
+                    return CSSLexicalUnit.createInteger( iVal, prev, line);
+                }
+
+                // we are too large for an int: convert to float
+                // we can just fall-through to the float-handling ...
             case LexicalUnits.REAL:
                 return CSSLexicalUnit.createFloat(LexicalUnit.SAC_REAL,
                                                   number(plus), prev, getLineNumber());

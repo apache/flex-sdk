@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -32,18 +33,18 @@ import java.util.zip.InflaterInputStream;
 import java.util.zip.ZipException;
 
 /**
- * Holds the data for more URL's
+ * Holds the data for more URLs.
  *
  * @author <a href="mailto:deweese@apache.org">Thomas DeWeese</a>
- * @version $Id: ParsedURLData.java,v 1.16 2005/03/27 08:58:36 cam Exp $ 
+ * @version $Id: ParsedURLData.java 501495 2007-01-30 18:00:36Z dvholten $
  */
 public class ParsedURLData {
-    
-    String HTTP_USER_AGENT_HEADER      = "User-Agent";
 
-    String HTTP_ACCEPT_HEADER          = "Accept";
-    String HTTP_ACCEPT_LANGUAGE_HEADER = "Accept-Language";
-    String HTTP_ACCEPT_ENCODING_HEADER = "Accept-Encoding";
+    protected static final String HTTP_USER_AGENT_HEADER      = "User-Agent";
+
+    protected static final String HTTP_ACCEPT_HEADER          = "Accept";
+    protected static final String HTTP_ACCEPT_LANGUAGE_HEADER = "Accept-Language";
+    protected static final String HTTP_ACCEPT_ENCODING_HEADER = "Accept-Encoding";
 
     protected static List acceptedEncodings = new LinkedList();
     static {
@@ -54,7 +55,7 @@ public class ParsedURLData {
      * GZIP header magic number bytes, like found in a gzipped
      * files, which are encoded in Intel format (i&#x2e;e&#x2e; little indian).
      */
-    public final static byte GZIP_MAGIC[] = {(byte)0x1f, (byte)0x8b};
+    public static final byte[] GZIP_MAGIC = {(byte)0x1f, (byte)0x8b};
 
     /**
      * This is a utility function others can call that checks if
@@ -63,12 +64,12 @@ public class ParsedURLData {
      * buffered version of is) untouched.
      * @param is Stream that may potentially be a GZIP stream.
      */
-    public static InputStream checkGZIP(InputStream is) 
+    public static InputStream checkGZIP(InputStream is)
         throws IOException {
 
             if (!is.markSupported())
                 is = new BufferedInputStream(is);
-            byte data[] = new byte[2];
+            byte[] data = new byte[2];
             try {
                 is.mark(2);
                 is.read(data);
@@ -83,7 +84,7 @@ public class ParsedURLData {
 
         if (((data[0]&0x0F)  == 8) &&
             ((data[0]>>>4)   <= 7)) {
-            // Check for a zlib (deflate) stream 
+            // Check for a zlib (deflate) stream
             int chk = ((((int)data[0])&0xFF)*256+
                        (((int)data[1])&0xFF));
             if ((chk %31)  == 0) {
@@ -106,7 +107,7 @@ public class ParsedURLData {
                 }
             }
         }
-        
+
         return is;
     }
 
@@ -125,7 +126,17 @@ public class ParsedURLData {
     public String contentEncoding = null;
 
     public InputStream stream     = null;
-    public boolean     hasBeenOpened  = false;
+    public boolean hasBeenOpened  = false;
+
+    /**
+     * The extracted type/subtype from the Content-Type header.
+     */
+    protected String contentTypeMediaType;
+
+    /**
+     * The extracted charset parameter from the Content-Type header.
+     */
+    protected String contentTypeCharset;
 
     /**
      * Void constructor
@@ -138,21 +149,21 @@ public class ParsedURLData {
      */
     public ParsedURLData(URL url) {
         protocol = url.getProtocol();
-        if ((protocol != null) && (protocol.length() == 0)) 
+        if ((protocol != null) && (protocol.length() == 0))
             protocol = null;
 
         host = url.getHost();
-        if ((host != null) && (host.length() == 0)) 
+        if ((host != null) && (host.length() == 0))
             host = null;
 
         port     = url.getPort();
 
         path     = url.getFile();
-        if ((path != null) && (path.length() == 0)) 
+        if ((path != null) && (path.length() == 0))
             path = null;
 
         ref      = url.getRef();
-        if ((ref != null) && (ref.length() == 0))  
+        if ((ref != null) && (ref.length() == 0))
             ref = null;
     }
 
@@ -165,12 +176,12 @@ public class ParsedURLData {
         // System.out.println("File: " + file);
         // if (ref != null)
         //     file += "#" + ref;
-        // System.err.println("Building: " + protocol + " - " + 
+        // System.err.println("Building: " + protocol + " - " +
         //                     host + " - " + path);
 
         if ((protocol != null) && (host != null)) {
             String file = "";
-            if (path != null) 
+            if (path != null)
                 file = path;
             if (port == -1)
                 return new URL(protocol, host, file);
@@ -178,7 +189,6 @@ public class ParsedURLData {
             return new URL(protocol, host, port, file);
         }
 
-        // System.err.println("toString: " + toString());
         return new URL(toString());
     }
 
@@ -187,12 +197,12 @@ public class ParsedURLData {
      */
     public int hashCode() {
         int hc = port;
-        if (protocol != null) 
+        if (protocol != null)
             hc ^= protocol.hashCode();
         if (host != null)
             hc ^= host.hashCode();
 
-        // For some URLS path and ref can get fairly long
+        // For some URLs path and ref can get fairly long
         // and the most unique part is towards the end
         // so we grab that part for HC purposes
         if (path != null) {
@@ -218,13 +228,13 @@ public class ParsedURLData {
      */
     public boolean equals(Object obj) {
         if (obj == null) return false;
-        if (! (obj instanceof ParsedURLData)) 
+        if (! (obj instanceof ParsedURLData))
             return false;
 
         ParsedURLData ud = (ParsedURLData)obj;
         if (ud.port != port)
             return false;
-            
+
         if (ud.protocol==null) {
             if (protocol != null)
                 return false;
@@ -278,6 +288,144 @@ public class ParsedURLData {
     }
 
     /**
+     * Returns the content type's type/subtype, if available.  This is
+     * only available for some protocols.
+     */
+    public String getContentTypeMediaType(String userAgent) {
+        if (contentTypeMediaType != null) {
+            return contentTypeMediaType;
+        }
+
+        extractContentTypeParts(userAgent);
+
+        return contentTypeMediaType;
+    }
+
+    /**
+     * Returns the content type's charset parameter, if available.  This is
+     * only available for some protocols.
+     */
+    public String getContentTypeCharset(String userAgent) {
+        if (contentTypeMediaType != null) {
+            return contentTypeCharset;
+        }
+
+        extractContentTypeParts(userAgent);
+
+        return contentTypeCharset;
+    }
+
+    /**
+     * Returns whether the Content-Type header has the given parameter.
+     */
+    public boolean hasContentTypeParameter(String userAgent, String param) {
+        getContentType(userAgent);
+        if (contentType == null) {
+            return false;
+        }
+        int i = 0;
+        int len = contentType.length();
+        int plen = param.length();
+loop1:  while (i < len) {
+            switch (contentType.charAt(i)) {
+                case ' ':
+                case ';':
+                    break loop1;
+            }
+            i++;
+        }
+        if (i == len) {
+            contentTypeMediaType = contentType;
+        } else {
+            contentTypeMediaType = contentType.substring(0, i);
+        }
+loop2:  for (;;) {
+            while (i < len && contentType.charAt(i) != ';') {
+                i++;
+            }
+            if (i == len) {
+                return false;
+            }
+            i++;
+            while (i < len && contentType.charAt(i) == ' ') {
+                i++;
+            }
+            if (i >= len - plen - 1) {
+                return false;
+            }
+            for (int j = 0; j < plen; j++) {
+                if (!(contentType.charAt(i++) == param.charAt(j))) {
+                    continue loop2;
+                }
+            }
+            if (contentType.charAt(i) == '=') {
+                return true;
+            }
+        }
+    }
+
+    /**
+     * Extracts the type/subtype and charset parameter from the Content-Type
+     * header.
+     */
+    protected void extractContentTypeParts(String userAgent) {
+        getContentType(userAgent);
+        if (contentType == null) {
+            return;
+        }
+        int i = 0;
+        int len = contentType.length();
+loop1:  while (i < len) {
+            switch (contentType.charAt(i)) {
+                case ' ':
+                case ';':
+                    break loop1;
+            }
+            i++;
+        }
+        if (i == len) {
+            contentTypeMediaType = contentType;
+        } else {
+            contentTypeMediaType = contentType.substring(0, i);
+        }
+        for (;;) {
+            while (i < len && contentType.charAt(i) != ';') {
+                i++;
+            }
+            if (i == len) {
+                return;
+            }
+            i++;
+            while (i < len && contentType.charAt(i) == ' ') {
+                i++;
+            }
+            if (i >= len - 8) {
+                return;
+            }
+            if (contentType.charAt(i++) == 'c') {
+                if (contentType.charAt(i++) != 'h') continue;
+                if (contentType.charAt(i++) != 'a') continue;
+                if (contentType.charAt(i++) != 'r') continue;
+                if (contentType.charAt(i++) != 's') continue;
+                if (contentType.charAt(i++) != 'e') continue;
+                if (contentType.charAt(i++) != 't') continue;
+                if (contentType.charAt(i++) != '=') continue;
+                int j = i;
+loop2:          while (i < len) {
+                    switch (contentType.charAt(i)) {
+                        case ' ':
+                        case ';':
+                            break loop2;
+                    }
+                    i++;
+                }
+                contentTypeCharset = contentType.substring(j, i);
+                return;
+            }
+        }
+    }
+
+    /**
      * Returns the content encoding if available.  This is only available
      * for some protocols.
      */
@@ -313,19 +461,19 @@ public class ParsedURLData {
      * the stream is found to be compressed with a standard
      * compression type it is automatically decompressed.
      * @param userAgent The user agent opening the stream (may be null).
-     * @param mimeTypes The expected mime types of the content 
+     * @param mimeTypes The expected mime types of the content
      *        in the returned InputStream (mapped to Http accept
      *        header among other possability).  The elements of
      *        the iterator must be strings (may be null)
      */
-    public InputStream openStream(String userAgent, Iterator mimeTypes) 
+    public InputStream openStream(String userAgent, Iterator mimeTypes)
         throws IOException {
-        InputStream raw = openStreamInternal(userAgent, mimeTypes, 
+        InputStream raw = openStreamInternal(userAgent, mimeTypes,
                                              acceptedEncodings.iterator());
         if (raw == null)
             return null;
         stream = null;
-                
+
         return checkGZIP(raw);
     }
 
@@ -333,14 +481,14 @@ public class ParsedURLData {
      * Open the stream and returns it.  No checks are made to see
      * if the stream is compressed or encoded in any way.
      * @param userAgent The user agent opening the stream (may be null).
-     * @param mimeTypes The expected mime types of the content 
+     * @param mimeTypes The expected mime types of the content
      *        in the returned InputStream (mapped to Http accept
      *        header among other possability).  The elements of
      *        the iterator must be strings (may be null)
      */
-    public InputStream openStreamRaw(String userAgent, Iterator mimeTypes) 
+    public InputStream openStreamRaw(String userAgent, Iterator mimeTypes)
         throws IOException {
-        
+
         InputStream ret = openStreamInternal(userAgent, mimeTypes, null);
         stream = null;
         return ret;
@@ -348,11 +496,11 @@ public class ParsedURLData {
 
     protected InputStream openStreamInternal(String userAgent,
                                              Iterator mimeTypes,
-                                             Iterator encodingTypes) 
+                                             Iterator encodingTypes)
         throws IOException {
         if (stream != null)
             return stream;
-        
+
         hasBeenOpened = true;
 
         URL url = null;
@@ -388,7 +536,7 @@ public class ParsedURLData {
                     if (encodingTypes.hasNext())
                         encodingHeader += ",";
                 }
-                urlC.setRequestProperty(HTTP_ACCEPT_ENCODING_HEADER, 
+                urlC.setRequestProperty(HTTP_ACCEPT_ENCODING_HEADER,
                                         encodingHeader);
             }
 
@@ -423,11 +571,11 @@ public class ParsedURLData {
         // Check if the rest of the two PURLs matche other than
         // the 'ref'
         if ((port      == other.port) &&
-            ((path     == other.path) 
+            ((path     == other.path)
              || ((path!=null) && path.equals(other.path))) &&
-            ((host     == other.host) 
+            ((host     == other.host)
              || ((host!=null) && host.equals(other.host))) &&
-            ((protocol == other.protocol) 
+            ((protocol == other.protocol)
              || ((protocol!=null) && protocol.equals(other.protocol))))
             return true;
 
@@ -443,7 +591,7 @@ public class ParsedURLData {
         if (path != null)
             ret += path;
 
-        if (ref != null) 
+        if (ref != null)
             ret += "#" + ref;
 
         return ret;

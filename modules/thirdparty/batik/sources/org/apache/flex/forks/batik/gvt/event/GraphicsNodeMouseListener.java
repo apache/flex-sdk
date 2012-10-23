@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,7 +24,7 @@ import java.util.EventListener;
  * The listener interface for receiving graphics node mouse events.
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: GraphicsNodeMouseListener.java,v 1.5 2005/02/22 09:13:02 cam Exp $
+ * @version $Id: GraphicsNodeMouseListener.java 475477 2006-11-15 22:44:28Z cam $
  */
 public interface GraphicsNodeMouseListener extends EventListener {
 
@@ -68,6 +69,5 @@ public interface GraphicsNodeMouseListener extends EventListener {
      * Invoked when the mouse button has been moved on a node.
      * @param evt the graphics node mouse event
      */
-     void mouseMoved(GraphicsNodeMouseEvent evt);
-
+    void mouseMoved(GraphicsNodeMouseEvent evt);
 }

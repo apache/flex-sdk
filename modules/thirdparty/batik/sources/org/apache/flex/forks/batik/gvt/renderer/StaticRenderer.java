@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -32,10 +33,10 @@ import java.awt.image.SampleModel;
 import java.awt.image.WritableRaster;
 import java.awt.image.renderable.RenderContext;
 import java.lang.ref.SoftReference;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Collection;
+import java.util.Iterator;
 
+import org.apache.flex.forks.batik.ext.awt.geom.RectListManager;
 import org.apache.flex.forks.batik.ext.awt.image.GraphicsUtil;
 import org.apache.flex.forks.batik.ext.awt.image.PadMode;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.Filter;
@@ -43,7 +44,6 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.CachableRed;
 import org.apache.flex.forks.batik.ext.awt.image.rendered.PadRed;
 import org.apache.flex.forks.batik.ext.awt.image.rendered.TileCacheRed;
 import org.apache.flex.forks.batik.ext.awt.image.rendered.TranslateRed;
-import org.apache.flex.forks.batik.ext.awt.geom.RectListManager;
 import org.apache.flex.forks.batik.gvt.GraphicsNode;
 import org.apache.flex.forks.batik.util.HaltingThread;
 
@@ -52,16 +52,9 @@ import org.apache.flex.forks.batik.util.HaltingThread;
  * rendering in an offscreen buffer image.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: StaticRenderer.java,v 1.31 2005/03/27 08:58:34 cam Exp $
+ * @version $Id: StaticRenderer.java 504819 2007-02-08 08:23:19Z dvholten $
  */
 public class StaticRenderer implements ImageRenderer {
-    /**
-     * Error messages
-     */
-    private static final String ILLEGAL_ARGUMENT_NULL_OFFSCREEN =
-        "offScreen should not be null";
-    private static final String ILLEGAL_ARGUMENT_ZERO_WIDTH_OR_HEIGHT =
-        "offScreen should have positive width/height";
 
     /**
      * Tree this Renderer paints.
@@ -113,7 +106,8 @@ public class StaticRenderer implements ImageRenderer {
      */
     public StaticRenderer(RenderingHints rh,
                           AffineTransform at){
-        renderingHints = new RenderingHints(rh);
+        renderingHints = new RenderingHints(null);
+        renderingHints.add(rh);
         usr2dev = new AffineTransform(at);
     }
 
@@ -121,7 +115,8 @@ public class StaticRenderer implements ImageRenderer {
      * Creates a new StaticRenderer object.
      */
     public StaticRenderer(){
-        renderingHints = new RenderingHints(defaultRenderingHints);
+        renderingHints = new RenderingHints(null);
+        renderingHints.add(defaultRenderingHints);
         usr2dev = new AffineTransform();
     }
 
@@ -133,7 +128,7 @@ public class StaticRenderer implements ImageRenderer {
         rootGN     = null;
         rootFilter = null;
         rootCR     = null;
-        
+
         workingOffScreen = null;
         workingBaseRaster = null;
         workingRaster = null;
@@ -143,6 +138,8 @@ public class StaticRenderer implements ImageRenderer {
         currentRaster = null;
 
         renderingHints = null;
+        lastCache = null;
+        lastCR = null;
     }
 
     /**
@@ -175,7 +172,8 @@ public class StaticRenderer implements ImageRenderer {
      * @param rh Set of rendering hints to use for future renderings
      */
     public void setRenderingHints(RenderingHints rh) {
-        renderingHints = new RenderingHints(rh);
+        renderingHints = new RenderingHints(null);
+        renderingHints.add(rh);
 
         rootFilter = null;
         rootCR     = null;
@@ -189,7 +187,7 @@ public class StaticRenderer implements ImageRenderer {
 
     /**
      * @return the RenderingHints which the Renderer is using for its
-     *         rendering 
+     *         rendering
      */
     public RenderingHints getRenderingHints() {
         return renderingHints;
@@ -215,9 +213,8 @@ public class StaticRenderer implements ImageRenderer {
     }
 
     /**
-     * Returns a copy of the transform from the current user space (as
-     * defined by the top node of the GVT tree) to the device space (1
-     * unit = 1/72nd of an inch / 1 pixel, roughly speaking
+     * Returns the transform from the current user space (as defined
+     * by the top node of the GVT tree) to the device space.
      */
     public AffineTransform getTransform(){
         return usr2dev;
@@ -226,7 +223,7 @@ public class StaticRenderer implements ImageRenderer {
     /**
      * Returns true if the Renderer is currently doubleBuffering is
      * rendering requests.  If it is then getOffscreen will only
-     * return completed renderings (or null if nothing is available).  
+     * return completed renderings (or null if nothing is available).
      */
     public boolean isDoubleBuffered(){
         return isDoubleBuffered;
@@ -263,7 +260,7 @@ public class StaticRenderer implements ImageRenderer {
      * Note that this change will not be reflected by calls to
      * getOffscreen until either clearOffScreen has completed (when
      * isDoubleBuffered is false) or reapint has completed (when
-     * isDoubleBuffered is true).  
+     * isDoubleBuffered is true).
      *
      */
     public void updateOffScreen(int width, int height) {
@@ -273,7 +270,7 @@ public class StaticRenderer implements ImageRenderer {
 
     /**
      * Returns the current offscreen image.
-     * 
+     *
      * The exact symantics of this vary base on the value of
      * isDoubleBuffered.  If isDoubleBuffered is false this will
      * return the image currently being worked on as soon as it is
@@ -298,20 +295,20 @@ public class StaticRenderer implements ImageRenderer {
      *
      * When double buffering this call can effectively be skipped,
      * since getOffscreen will only refect the new rendering after
-     * repaint completes.  
+     * repaint completes.
      */
     public void clearOffScreen() {
 
         // No need to clear in double buffer case people will
         // only see it when it is done...
-        if (isDoubleBuffered) 
+        if (isDoubleBuffered)
             return;
 
         updateWorkingBuffers();
         if ((rootCR == null)           ||
             (workingBaseRaster == null))
             return;
-        
+
         ColorModel     cm         = rootCR.getColorModel();
         WritableRaster syncRaster = workingBaseRaster;
 
@@ -329,7 +326,7 @@ public class StaticRenderer implements ImageRenderer {
 
     /**
      * Repaints the associated GVT tree under <tt>area</tt>.
-     * 
+     *
      * If double buffered is true and this method completes cleanly it
      * will set the result of the repaint as the image returned by
      * getOffscreen otherwise the old image will still be returned.
@@ -338,7 +335,7 @@ public class StaticRenderer implements ImageRenderer {
      * by getOffscreen.
      *
      * @param area region to be repainted, in the current user space
-     * coordinate system.  
+     * coordinate system.
      */
     public void repaint(Shape area) {
         if (area == null) return;
@@ -349,7 +346,7 @@ public class StaticRenderer implements ImageRenderer {
 
     /**
      * Repaints the associated GVT tree under the list of <tt>areas</tt>.
-     * 
+     *
      * If double buffered is true and this method completes cleanly it
      * will set the result of the repaint as the image returned by
      * getOffscreen otherwise the old image will still be returned.
@@ -358,7 +355,7 @@ public class StaticRenderer implements ImageRenderer {
      * by getOffscreen.
      *
      * @param areas a List of regions to be repainted, in the current
-     * user space coordinate system.  
+     * user space coordinate system.
      */
     public void repaint(RectListManager areas) {
 
@@ -420,7 +417,7 @@ public class StaticRenderer implements ImageRenderer {
         if (lastCache == null) return;
         Object o = lastCache.get();
         if (o == null) return;
-        
+
         TileCacheRed tcr = (TileCacheRed)o;
         tcr.flushCache(tcr.getBounds());
     }
@@ -480,7 +477,7 @@ public class StaticRenderer implements ImageRenderer {
                                    0, 0);
 
         RenderContext rc = new RenderContext(rcAT, null, renderingHints);
-            
+
         RenderedImage ri = rootFilter.createRendering(rc);
         if (ri == null)
             return null;
@@ -488,7 +485,7 @@ public class StaticRenderer implements ImageRenderer {
         CachableRed ret;
         ret = GraphicsUtil.wrap(ri);
         ret = setupCache(ret);
-        
+
         int dx = Math.round((float)at.getTranslateX());
         int dy = Math.round((float)at.getTranslateY());
         ret = new TranslateRed(ret, ret.getMinX()+dx, ret.getMinY()+dy);
@@ -500,7 +497,7 @@ public class StaticRenderer implements ImageRenderer {
 
     /**
      * Internal method used to synchronize local state in response to
-     * various set methods.  
+     * various set methods.
      */
     protected void updateWorkingBuffers() {
         if (rootFilter == null) {
@@ -514,7 +511,7 @@ public class StaticRenderer implements ImageRenderer {
             workingRaster = null;
             workingOffScreen = null;
             workingBaseRaster = null;
-            
+
             currentOffScreen = null;
             currentBaseRaster = null;
             currentRaster = null;
@@ -535,8 +532,8 @@ public class StaticRenderer implements ImageRenderer {
             (workingBaseRaster.getHeight() < h)) {
 
             sm = sm.createCompatibleSampleModel(w, h);
-            
-            workingBaseRaster 
+
+            workingBaseRaster
                 = Raster.createWritableRaster(sm, new Point(0,0));
         }
 
@@ -550,9 +547,9 @@ public class StaticRenderer implements ImageRenderer {
 
         int xloc = xt*tw - tgx;
         int yloc = yt*th - tgy;
-        
-        // System.out.println("Info: [" + 
-        //                    xloc + "," + yloc + "] [" + 
+
+        // System.out.println("Info: [" +
+        //                    xloc + "," + yloc + "] [" +
         //                    tgx  + "," + tgy  + "] [" +
         //                    xt   + "," + yt   + "] [" +
         //                    tw   + "," + th   + "]");
@@ -561,7 +558,7 @@ public class StaticRenderer implements ImageRenderer {
           (0, 0, w, h, xloc, yloc, null);
 
         workingOffScreen =  new BufferedImage
-          (rootCR.getColorModel(), 
+          (rootCR.getColorModel(),
            workingRaster.createWritableChild (0, 0, offScreenWidth,
                                            offScreenHeight, 0, 0, null),
            rootCR.getColorModel().isAlphaPremultiplied(), null);

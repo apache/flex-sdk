@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -36,7 +37,7 @@ import java.util.Enumeration;
  * the document referencing them.
  *
  * @author <a mailto="vincent.hardy@sun.com">Vincent Hardy</a>
- * @version $Id: DocumentJarClassLoader.java,v 1.5 2004/10/30 16:54:53 deweese Exp $
+ * @version $Id: DocumentJarClassLoader.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class DocumentJarClassLoader extends URLClassLoader {
     /**
@@ -77,12 +78,12 @@ public class DocumentJarClassLoader extends URLClassLoader {
     {
         // First, get the permissions which may be granted 
         // through the policy file(s)
-	Policy p = Policy.getPolicy();
+        Policy p = Policy.getPolicy();
 
-	PermissionCollection pc = null;
-	if (p != null) {
-	    pc = p.getPermissions(codesource);
-	}
+        PermissionCollection pc = null;
+        if (p != null) {
+            pc = p.getPermissions(codesource);
+        }
 
         // Now, add permissions if the documentCodeSource is not null
         if (documentCodeSource != null){
@@ -99,6 +100,6 @@ public class DocumentJarClassLoader extends URLClassLoader {
             }
         }
 
-	return pc;
+        return pc;
     }
 }

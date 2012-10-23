@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,70 +18,61 @@
  */
 package org.apache.flex.forks.batik.dom.svg;
 
+import org.apache.flex.forks.batik.anim.values.AnimatableBooleanValue;
+import org.apache.flex.forks.batik.anim.values.AnimatableValue;
+import org.apache.flex.forks.batik.dom.anim.AnimationTarget;
+
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedBoolean;
+import org.w3c.dom.svg.SVGAnimatedBoolean;
 
 /**
  * This class implements the {@link SVGAnimatedBoolean} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGOMAnimatedBoolean.java,v 1.5 2004/08/18 07:13:14 vhardy Exp $
+ * @version $Id: SVGOMAnimatedBoolean.java 490655 2006-12-28 05:19:44Z cam $
  */
 public class SVGOMAnimatedBoolean
-    implements SVGAnimatedBoolean,
-               LiveAttributeValue {
+        extends    AbstractSVGAnimatedValue
+        implements SVGAnimatedBoolean {
 
     /**
-     * The associated element.
+     * The default value.
      */
-    protected AbstractElement element;
+    protected boolean defaultValue;
 
     /**
-     * The attribute's namespace URI.
+     * Whether the base value is valid.
      */
-    protected String namespaceURI;
+    protected boolean valid;
 
     /**
-     * The attribute's local name.
-     */
-    protected String localName;
-
-    /**
-     * The actual boolean value.
+     * The current base value.
      */
     protected boolean baseVal;
 
     /**
-     * The default's attribute value.
+     * The current animated value.
      */
-    protected String defaultValue;
+    protected boolean animVal;
 
     /**
-     * Whether the mutation comes from this object.
+     * Whether the value is changing.
      */
-    protected boolean mutate;
+    protected boolean changing;
 
     /**
      * Creates a new SVGOMAnimatedBoolean.
      * @param elt The associated element.
      * @param ns The attribute's namespace URI.
      * @param ln The attribute's local name.
-     * @param attr The attribute node, if any.
-     * @param val The default attribute value, if missing.
+     * @param val The default value, if the attribute is not specified.
      */
     public SVGOMAnimatedBoolean(AbstractElement elt,
                                 String ns,
                                 String ln,
-                                Attr attr,
-                                String val) {
-        element = elt;
-        namespaceURI = ns;
-        localName = ln;
-        if (attr != null) {
-            String s = attr.getValue();
-            baseVal = "true".equals(s);
-        }
+                                boolean val) {
+        super(elt, ns, ln);
         defaultValue = val;
     }
 
@@ -88,19 +80,37 @@ public class SVGOMAnimatedBoolean
      * <b>DOM</b>: Implements {@link SVGAnimatedBoolean#getBaseVal()}.
      */
     public boolean getBaseVal() {
+        if (!valid) {
+            update();
+        }
         return baseVal;
+    }
+
+    /**
+     * Updates the base value from the attribute.
+     */
+    protected void update() {
+        Attr attr = element.getAttributeNodeNS(namespaceURI, localName);
+        if (attr == null) {
+            baseVal = defaultValue;
+        } else {
+            baseVal = attr.getValue().equals("true");
+        }
+        valid = true;
     }
 
     /**
      * <b>DOM</b>: Implements {@link SVGAnimatedBoolean#setBaseVal(boolean)}.
      */
     public void setBaseVal(boolean baseVal) throws DOMException {
-        if (this.baseVal != baseVal) {
-            mutate = true;
+        try {
             this.baseVal = baseVal;
+            valid = true;
+            changing = true;
             element.setAttributeNS(namespaceURI, localName,
-                                   (baseVal) ? "true" : "false");
-            mutate = false;
+                                   String.valueOf(baseVal));
+        } finally {
+            changing = false;
         }
     }
 
@@ -108,15 +118,54 @@ public class SVGOMAnimatedBoolean
      * <b>DOM</b>: Implements {@link SVGAnimatedBoolean#getAnimVal()}.
      */
     public boolean getAnimVal() {
-        throw new RuntimeException("!!! TODO: getAnimVal()");
+        if (hasAnimVal) {
+            return animVal;
+        }
+        if (!valid) {
+            update();
+        }
+        return baseVal;
+    }
+
+    /**
+     * Sets the animated value.
+     */
+    public void setAnimatedValue(boolean animVal) {
+        hasAnimVal = true;
+        this.animVal = animVal;
+        fireAnimatedAttributeListeners();
+    }
+
+    /**
+     * Updates the animated value with the given {@link AnimatableValue}.
+     */
+    protected void updateAnimatedValue(AnimatableValue val) {
+        if (val == null) {
+            hasAnimVal = false;
+        } else {
+            hasAnimVal = true;
+            this.animVal = ((AnimatableBooleanValue) val).getValue();
+        }
+        fireAnimatedAttributeListeners();
+    }
+
+    /**
+     * Returns the base value of the attribute as an {@link AnimatableValue}.
+     */
+    public AnimatableValue getUnderlyingValue(AnimationTarget target) {
+        return new AnimatableBooleanValue(target, getBaseVal());
     }
 
     /**
      * Called when an Attr node has been added.
      */
     public void attrAdded(Attr node, String newv) {
-        if (!mutate) {
-            baseVal = "true".equals(newv);
+        if (!changing) {
+            valid = false;
+        }
+        fireBaseAttributeListeners();
+        if (!hasAnimVal) {
+            fireAnimatedAttributeListeners();
         }
     }
 
@@ -124,8 +173,12 @@ public class SVGOMAnimatedBoolean
      * Called when an Attr node has been modified.
      */
     public void attrModified(Attr node, String oldv, String newv) {
-        if (!mutate) {
-            baseVal = "true".equals(newv);
+        if (!changing) {
+            valid = false;
+        }
+        fireBaseAttributeListeners();
+        if (!hasAnimVal) {
+            fireAnimatedAttributeListeners();
         }
     }
 
@@ -133,8 +186,12 @@ public class SVGOMAnimatedBoolean
      * Called when an Attr node has been removed.
      */
     public void attrRemoved(Attr node, String oldv) {
-        if (!mutate) {
-            baseVal = "true".equals(defaultValue);
+        if (!changing) {
+            valid = false;
+        }
+        fireBaseAttributeListeners();
+        if (!hasAnimVal) {
+            fireAnimatedAttributeListeners();
         }
     }
 }

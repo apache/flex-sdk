@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -29,7 +30,7 @@ import org.apache.flex.forks.batik.ext.awt.image.GraphicsUtil;
 /**
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: ColorMatrixRed.java,v 1.7 2004/08/18 07:14:08 vhardy Exp $
+ * @version $Id: ColorMatrixRed.java 479564 2006-11-27 09:56:57Z dvholten $
  */
 public class ColorMatrixRed extends AbstractRed{
     /**
@@ -54,7 +55,7 @@ public class ColorMatrixRed extends AbstractRed{
 
         for(int i=0; i<4; i++){
             if(tmp[i].length != 5){
-                throw new IllegalArgumentException("" + i + " : " + tmp[i].length);
+                throw new IllegalArgumentException( String.valueOf( i ) + " : " + tmp[i].length);
             }
         }
         this.matrix = matrix;
@@ -108,7 +109,7 @@ public class ColorMatrixRed extends AbstractRed{
         //
         // First, get source data
         //
-        CachableRed src = (CachableRed)getSources().elementAt(0);
+        CachableRed src = (CachableRed)getSources().get(0);
         // System.out.println("Hello");
         // System.out.println("src class : " + src.getClass().getName());
         // System.out.println("this : " + this);
@@ -145,9 +146,7 @@ public class ColorMatrixRed extends AbstractRed{
             .getScanlineStride();
         final int adjust = scanStride - w;
         int p = offset;
-        int r=0, g=0, b=0, a=0, dr=0, dg=0, db=0, da=0;
         int i=0, j=0;
-        int pel = 0;
 
         final float a00=matrix[0][0]/255f, a01=matrix[0][1]/255f, a02=matrix[0][2]/255f, a03=matrix[0][3]/255f, a04=matrix[0][4]/255f;
         final float a10=matrix[1][0]/255f, a11=matrix[1][1]/255f, a12=matrix[1][2]/255f, a13=matrix[1][3]/255f, a14=matrix[1][4]/255f;
@@ -156,17 +155,17 @@ public class ColorMatrixRed extends AbstractRed{
 
         for(i=0; i<h; i++){
             for(j=0; j<w; j++){
-                pel = pixels[p];
+                int pel = pixels[p];
 
-                a = pel >>> 24;
-                r = (pel >> 16) & 0xff;
-                g = (pel >> 8 ) & 0xff;
-                b =  pel        & 0xff;
+                int a = pel >>> 24;
+                int r = (pel >> 16) & 0xff;
+                int g = (pel >> 8 ) & 0xff;
+                int b =  pel        & 0xff;
 
-                dr = (int)((a00*r + a01*g + a02*b + a03*a + a04)*255);
-                dg = (int)((a10*r + a11*g + a12*b + a13*a + a14)*255);
-                db = (int)((a20*r + a21*g + a22*b + a23*a + a24)*255);
-                da = (int)((a30*r + a31*g + a32*b + a33*a + a34)*255);
+                int dr = (int)((a00*r + a01*g + a02*b + a03*a + a04)*255.0f);
+                int dg = (int)((a10*r + a11*g + a12*b + a13*a + a14)*255.0f);
+                int db = (int)((a20*r + a21*g + a22*b + a23*a + a24)*255.0f);
+                int da = (int)((a30*r + a31*g + a32*b + a33*a + a34)*255.0f);
 
                 /*dr = dr > 255 ? 255 : dr < 0 ? 0 : dr;
                 dg = dg > 255 ? 255 : dg < 0 ? 0 : dg;

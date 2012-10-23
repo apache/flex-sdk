@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,15 +22,17 @@ package org.apache.flex.forks.batik.ext.awt.image.rendered;
 import java.awt.Rectangle;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
+
 /**
  * This is a special case of an Affine that only contains integer
  * translations, this allows it to do it's work by simply changing
  * the coordinate system of the tiles.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: TranslateRed.java,v 1.5 2004/08/18 07:14:09 vhardy Exp $ */
+ * @version $Id: TranslateRed.java 478363 2006-11-22 23:01:13Z dvholten $
+ */
 public class TranslateRed extends AbstractRed {
-    
+
     protected int deltaX;
     protected int deltaY;
 
@@ -41,14 +44,14 @@ public class TranslateRed extends AbstractRed {
     public TranslateRed(CachableRed cr, int xloc, int yloc) {
         super(cr, new Rectangle(xloc,  yloc,
                                 cr.getWidth(), cr.getHeight()),
-              cr.getColorModel(), cr.getSampleModel(), 
-              cr.getTileGridXOffset()+xloc-cr.getMinX(), 
-              cr.getTileGridYOffset()+yloc-cr.getMinY(), 
+              cr.getColorModel(), cr.getSampleModel(),
+              cr.getTileGridXOffset()+xloc-cr.getMinX(),
+              cr.getTileGridYOffset()+yloc-cr.getMinY(),
               null);
         deltaX = xloc-cr.getMinX();
         deltaY = yloc-cr.getMinY();
     }
-    
+
     /**
      * The delata translation in x (absolute loc is available from getMinX())
      */
@@ -76,7 +79,7 @@ public class TranslateRed extends AbstractRed {
 
     public Raster getTile(int tileX, int tileY) {
         Raster r = getSource().getTile(tileX, tileY);
-        
+
         return r.createTranslatedChild(r.getMinX()+deltaX,
                                        r.getMinY()+deltaY);
     }

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,7 +26,7 @@ import org.w3c.dom.DOMException;
  * This class implements a simple method for handling the node 'prefix'.
  *
  * @author <a href="mailto:thomas.deweese@kodak.com">Thomas Deweese</a>
- * @version $Id: PrefixableStylableExtensionElement.java,v 1.4 2004/08/18 07:14:19 vhardy Exp $
+ * @version $Id: PrefixableStylableExtensionElement.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public abstract class PrefixableStylableExtensionElement
     extends StylableExtensionElement {
@@ -46,7 +47,7 @@ public abstract class PrefixableStylableExtensionElement
      * @param prefix The namespace prefix.
      * @param owner The owner document.
      */
-    public PrefixableStylableExtensionElement(String prefix, 
+    public PrefixableStylableExtensionElement(String prefix,
                                               AbstractDocument owner) {
         super(prefix, owner);
         setPrefix(prefix);
@@ -57,7 +58,7 @@ public abstract class PrefixableStylableExtensionElement
      */
     public String getNodeName() {
         return (prefix == null || prefix.equals(""))
-            ? getLocalName() : prefix + ":" + getLocalName();
+            ? getLocalName() : prefix + ':' + getLocalName();
     }
 
     /**
@@ -75,7 +76,7 @@ public abstract class PrefixableStylableExtensionElement
             !DOMUtilities.isValidName(prefix)) {
             throw createDOMException
                 (DOMException.INVALID_CHARACTER_ERR, "prefix",
-                 new Object[] { new Integer(getNodeType()), 
+                 new Object[] { new Integer(getNodeType()),
                                 getNodeName(),
                                 prefix });
         }

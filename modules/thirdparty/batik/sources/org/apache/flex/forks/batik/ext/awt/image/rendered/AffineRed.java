@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -43,7 +44,7 @@ import org.apache.flex.forks.batik.ext.awt.image.GraphicsUtil;
  * to do the work.  Eventually this may move to be more tiled in nature.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: AffineRed.java,v 1.12 2004/08/18 07:14:07 vhardy Exp $ */
+ * @version $Id: AffineRed.java 478276 2006-11-22 18:33:37Z dvholten $ */
 public class AffineRed extends AbstractRed {
 
     RenderingHints  hints;
@@ -91,7 +92,7 @@ public class AffineRed extends AbstractRed {
         Point2D pt = new Point2D.Float(src.getTileGridXOffset(),
                                        src.getTileGridYOffset());
         pt = src2me.transform(pt, null);
-        
+
         // Finish initializing our base class...
         init(src, myBounds, cm, sm,
              (int)pt.getX(), (int)pt.getY(), null);
@@ -103,7 +104,7 @@ public class AffineRed extends AbstractRed {
 
         // copyToRaster(wr);
         PadRed.ZeroRecter zr = PadRed.ZeroRecter.getZeroRecter(wr);
-        zr.zeroRect(new Rectangle(wr.getMinX(), wr.getMinY(), 
+        zr.zeroRect(new Rectangle(wr.getMinX(), wr.getMinY(),
                                   wr.getWidth(), wr.getHeight()));
         genRect(wr);
         return wr;
@@ -118,7 +119,7 @@ public class AffineRed extends AbstractRed {
         Point pt = new Point(tx, ty);
         WritableRaster wr = Raster.createWritableRaster(sm, pt);
         genRect(wr);
-        
+
         return wr;
     }
 
@@ -126,7 +127,7 @@ public class AffineRed extends AbstractRed {
         if (me2src == null)
             return;
 
-        Rectangle srcR 
+        Rectangle srcR
             = me2src.createTransformedShape(wr.getBounds()).getBounds();
 
         // System.out.println("Affine wrR: " + wr.getBounds());
@@ -140,7 +141,7 @@ public class AffineRed extends AbstractRed {
 
         // Raster srcRas = src.getData(srcR);
 
-        if (srcR.intersects(src.getBounds()) == false)
+        if ( ! srcR.intersects(src.getBounds()) )
             return;
         Raster srcRas = src.getData(srcR.intersection(src.getBounds()));
 
@@ -159,7 +160,7 @@ public class AffineRed extends AbstractRed {
         Point2D srcPt = new Point2D.Float(wr.getMinX(), wr.getMinY());
         srcPt         = me2src.transform(srcPt, null);
 
-        Point2D destPt = new Point2D.Double(srcPt.getX()-srcRas.getMinX(), 
+        Point2D destPt = new Point2D.Double(srcPt.getX()-srcRas.getMinX(),
                                             srcPt.getY()-srcRas.getMinY());
 
         destPt = aff.transform(destPt, null);
@@ -214,11 +215,11 @@ public class AffineRed extends AbstractRed {
         int b = src.getSampleModel().getNumBands()+1;
         if (b == 4) {
             int [] masks = new int[4];
-            for (int i=0; i < b-1; i++) 
+            for (int i=0; i < b-1; i++)
                 masks[i] = 0xFF0000 >> (8*i);
             masks[3] = 0xFF << (8*(b-1));
 
-            return new DirectColorModel(cs, 8*b, masks[0], masks[1], 
+            return new DirectColorModel(cs, 8*b, masks[0], masks[1],
                                         masks[2], masks[3],
                                         true, DataBuffer.TYPE_INT);
         }
@@ -226,10 +227,10 @@ public class AffineRed extends AbstractRed {
         int [] bits = new int[b];
         for (int i=0; i<b; i++)
             bits[i] = 8;
-        return new ComponentColorModel(cs, bits, true, true, 
+        return new ComponentColorModel(cs, bits, true, true,
                                        Transparency.TRANSLUCENT,
                                        DataBuffer.TYPE_INT);
-        
+
     }
 
     /**

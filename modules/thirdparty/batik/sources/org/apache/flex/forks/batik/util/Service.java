@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -31,15 +32,16 @@ import java.util.List;
 
 /**
  * This class handles looking up service providers on the class path.
- * it implements the system described in:
+ * It implements the system described in:
  *
- * <a href='http://java.sun.com/j2se/1.3/docs/guide/jar/jar.html#Service Provider'> JAR
+ * <a href='http://java.sun.com/j2se/1.3/docs/guide/jar/jar.html#Service Provider'>JAR
  * File Specification Under Service Provider</a>. Note that this
  * interface is very similar to the one they describe which seems to
  * be missing in the JDK.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: Service.java,v 1.7 2004/08/27 00:42:07 deweese Exp $ */
+ * @version $Id: Service.java 522271 2007-03-25 14:42:45Z dvholten $
+ */
 public class Service {
 
     // Remember providers we have looked up before.
@@ -49,7 +51,7 @@ public class Service {
      * Returns an iterator where each element should implement the
      * interface (or subclass the baseclass) described by cls.  The
      * Classes are found by searching the classpath for service files
-     * named: 'META-INF/services/<fully qualified classname> that list
+     * named: 'META-INF/services/&lt;fully qualified classname&gt; that list
      * fully qualifted classnames of classes that implement the
      * service files classes interface.  These classes must have
      * default constructors.
@@ -88,13 +90,16 @@ public class Service {
         }
 
         while (e.hasMoreElements()) {
+            InputStream    is = null;
+            Reader         r  = null;
+            BufferedReader br = null;
             try {
                 URL u = (URL)e.nextElement();
                 // System.out.println("URL: " + u);
 
-                InputStream    is = u.openStream();
-                Reader         r  = new InputStreamReader(is, "UTF-8");
-                BufferedReader br = new BufferedReader(r);
+                is = u.openStream();
+                r  = new InputStreamReader(is, "UTF-8");
+                br = new BufferedReader(r);
 
                 String line = br.readLine();
                 while (line != null) {
@@ -114,7 +119,7 @@ public class Service {
                         }
                         // System.out.println("Line: " + line);
 
-                        // Try and load the class 
+                        // Try and load the class
                         Object obj = cl.loadClass(line).newInstance();
                         // stick it into our vector...
                         l.add(obj);
@@ -125,6 +130,28 @@ public class Service {
                 }
             } catch (Exception ex) {
                 // Just try the next file...
+            } catch (LinkageError le) {
+                // Just try the next file...
+            } finally {
+                // close and release all io-resources to avoid leaks
+                if ( is != null ){
+                    try {
+                        is.close();
+                    } catch ( IOException ignored ){}
+                    is = null;
+                }
+                if ( r != null ){
+                    try{
+                        r.close();
+                    } catch ( IOException ignored ){}
+                    r = null;
+                }
+                if ( br == null ){
+                    try{
+                        br.close();
+                    } catch ( IOException ignored ){}
+                    br = null;
+                }
             }
         }
         return l.iterator();

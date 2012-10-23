@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,9 +27,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.flex.forks.batik.transcoder.Transcoder;
 import org.apache.flex.forks.batik.transcoder.TranscoderInput;
@@ -36,24 +39,25 @@ import org.apache.flex.forks.batik.transcoder.TranscoderOutput;
 import org.apache.flex.forks.batik.transcoder.image.ImageTranscoder;
 import org.apache.flex.forks.batik.transcoder.image.JPEGTranscoder;
 import org.apache.flex.forks.batik.transcoder.image.PNGTranscoder;
+import org.apache.flex.forks.batik.util.ParsedURL;
 
 /**
  * This application can be used to convert SVG images to raster images.
  * <br />
- * Possible result raster image formats are PNG, JPEG, TIFF, and PDF. 
- * The Batik Transcoder API is used to execute the conversion. FOP is 
+ * Possible result raster image formats are PNG, JPEG, TIFF, and PDF.
+ * The Batik Transcoder API is used to execute the conversion. FOP is
  * needed to be able to transcode to the PDF format<br />
  *
- * The source has to be list of files or URL (set by the <tt>setSources</tt> 
+ * The source has to be list of files or URL (set by the <tt>setSources</tt>
  * method). <br />
  *
  * The destination can be:<br /><ul>
- * <li><b>unspecified</b>. In that case, only file sources can be converted and 
+ * <li><b>unspecified</b>. In that case, only file sources can be converted and
  * a file in the same directory as the source will be created.</li>
  * <li><b>a directory</b>, set by the <tt>setDst</tt> method. In that case,
  * the output files are created in that destination directory</li>
- * <li><b>a file</b>. In case there is a <i>single 
- * source</i>, the destination can be a single named file 
+ * <li><b>a file</b>. In case there is a <i>single
+ * source</i>, the destination can be a single named file
  * (set with the <tt>setDst</tt> method.</li>)<br />
  * </ul>
  *
@@ -61,39 +65,39 @@ import org.apache.flex.forks.batik.transcoder.image.PNGTranscoder;
  *
  * There are a number of options which control the way the image is
  * converted to the destination format:<br /><ul>
- * <li>destinationType: controls the type of conversion which should be done. 
+ * <li>destinationType: controls the type of conversion which should be done.
  *     see the {@link DestinationType} documentation.</li>
  * <li>width/height: they control the desired width and height, in user space,
  *     for the output image.</li>
- * <li>maxWidth/maxHeight: control the maximum width and height, 
+ * <li>maxWidth/maxHeight: control the maximum width and height,
  *     in user space, of the output image.</li>
- * <li>area: controls the specific sub-area of the image which should be 
+ * <li>area: controls the specific sub-area of the image which should be
  *     rendered.</li>
- * <li>backgroundColor: controls the color which is used to fill the 
+ * <li>backgroundColor: controls the color which is used to fill the
  *     background before rendering the image</li>
- * <li>quality: relevant only for JPEG destinations, this controls the 
+ * <li>quality: relevant only for JPEG destinations, this controls the
  *     encoding quality.</li>
  * <li>indexed: relevant only for PNG, controls the number of bits
  *              used in writting of a palletized files.</li>
- * <li>mediaType: controls the CSS media, or list of media, for which the 
+ * <li>mediaType: controls the CSS media, or list of media, for which the
  *     image should be rendered.</li>
- * <li>alternate: controls the alternate CSS stylesheet to activate, 
+ * <li>alternate: controls the alternate CSS stylesheet to activate,
  *     if any.</li>
- * <li>language: controls the user language with which the SVG document 
+ * <li>language: controls the user language with which the SVG document
  *     should be converted.</li>
- * <li>userStylesheet: defines the user stylesheet to apply to SVG documents 
- *     in addition to other stylesheets referenced by or embedded in the 
+ * <li>userStylesheet: defines the user stylesheet to apply to SVG documents
+ *     in addition to other stylesheets referenced by or embedded in the
  *     SVG documents.</li>
- * <li>pixelUnitToMillimeter: defines the size of a pixel in millimeters 
+ * <li>pixelUnitToMillimeter: defines the size of a pixel in millimeters
  *     to use when processing the SVG documents.</li>
  * </ul>
  *
- * @version $Id: SVGConverter.java,v 1.22 2005/03/27 08:58:29 cam Exp $
+ * @version $Id: SVGConverter.java 579992 2007-09-27 12:44:00Z cam $
  * @author <a href="mailto:Henri.Ruini@nokia.com">Henri Ruini</a>
  * @author <a href="mailto:vhardy@apache.org">Vincent Hardy</a>
  */
 public class SVGConverter {
-    // 
+    //
     // Error codes reported by the SVGConverter
     //
 
@@ -112,7 +116,7 @@ public class SVGConverter {
         = "SVGConverter.error.cannot.compute.destination";
 
     //
-    // Reported when the dst is a file and there are multiple 
+    // Reported when the dst is a file and there are multiple
     // sources.
     //
     public static final String ERROR_CANNOT_USE_DST_FILE
@@ -122,7 +126,7 @@ public class SVGConverter {
     // Reported when the <tt>Transcoder</tt> for the requested
     // <tt>destinationType</tt> cannot be found.
     //
-    public static final String ERROR_CANNOT_ACCESS_TRANSCODER 
+    public static final String ERROR_CANNOT_ACCESS_TRANSCODER
         = "SVGConverter.error.cannot.access.transcoder";
 
     //
@@ -147,7 +151,7 @@ public class SVGConverter {
         = "SVGConverter.error.cannot.open.source";
 
     //
-    // Reported if the output is not writeable. This may 
+    // Reported if the output is not writeable. This may
     // happen if the output file already exists and does not
     // have write permission.
     //
@@ -162,36 +166,36 @@ public class SVGConverter {
         = "SVGConverter.error.cannot.open.output.file";
 
     //
-    // Reported when the converter was not able to create 
+    // Reported when the converter was not able to create
     // the destination directory for the files.
     //
     public static final String ERROR_UNABLE_TO_CREATE_OUTPUT_DIR
         = "SVGConverter.error.unable.to.create.output.dir";
 
     //
-    // Reported when an error occurs while convertion the 
+    // Reported when an error occurs while convertion the
     // source file.
     //
     public static final String ERROR_WHILE_RASTERIZING_FILE
         = "SVGConverter.error.while.rasterizing.file";
 
     //
-    // Class variables and constants 
+    // Class variables and constants
     //
 
     /** SVG file extension */
     protected static final String SVG_EXTENSION = ".svg";
 
     /** Default quality value.  A value of -1 means disabled. */
-    protected static final float DEFAULT_QUALITY 
-        = -1f;
+    protected static final float DEFAULT_QUALITY
+        = -1.0f;
 
     /** Maximum quality value */
     protected static final float MAXIMUM_QUALITY
         = .99F;
 
     /** Default result type */
-    protected static final DestinationType DEFAULT_RESULT_TYPE 
+    protected static final DestinationType DEFAULT_RESULT_TYPE
         = DestinationType.PNG;
 
     /** Default width */
@@ -231,7 +235,7 @@ public class SVGConverter {
     protected String userStylesheet = null;
 
     /** Millimeters Per Pixel */
-    protected float pixelUnitToMillimeter = -1f;
+    protected float pixelUnitToMillimeter = -1.0f;
 
     /** Validation flag */
     protected boolean validate = false;
@@ -239,10 +243,13 @@ public class SVGConverter {
     /** Execute the 'onload' scripts flag */
     protected boolean executeOnload = false;
 
+    /** Document time to seek to. */
+    protected float snapshotTime = Float.NaN;
+
     /** Set of allowed script types. */
     protected String allowedScriptTypes = null;
 
-    /** Controls whether scripts can only have the same origin as 
+    /** Controls whether scripts can only have the same origin as
         the document which references them. */
     protected boolean constrainScriptOrigin = true;
 
@@ -250,11 +257,11 @@ public class SVGConverter {
     protected boolean securityOff = false;
 
     /** Sources files or URLs */
-    protected Vector sources = null;
+    protected List sources = null;
 
-    /** 
+    /**
      * Destination image path. Can be a file (for single source) or
-     *  a directory 
+     *  a directory
      */
     protected File dst;
 
@@ -271,7 +278,7 @@ public class SVGConverter {
     protected String alternateStylesheet = null;
 
     /** Contents of <tt>fileset</tt> elements. */
-    protected Vector files = new Vector();
+    protected List files = new ArrayList();
 
     /**
      * Controls some aspects of the converter's operation,
@@ -298,12 +305,12 @@ public class SVGConverter {
         this.controller = controller;
     }
 
-    // 
-    // Property get/set methods 
-    // 
+    //
+    // Property get/set methods
+    //
 
     /**
-     * Sets the <tt>destinationType</tt> attribute value. 
+     * Sets the <tt>destinationType</tt> attribute value.
      * Should not be null.
      */
     public void setDestinationType(DestinationType destinationType) {
@@ -344,8 +351,8 @@ public class SVGConverter {
     }
 
     /**
-     * If less than or equal to zero, the maximum height 
-     * does not have any effect on the output image. 
+     * If less than or equal to zero, the maximum height
+     * does not have any effect on the output image.
      * The maximum height is in user space.
      */
     public void setMaxHeight(float height) {
@@ -357,8 +364,8 @@ public class SVGConverter {
     }
 
     /**
-     * If less than or equal to zero, the maximum width 
-     * does not have any effect on the output image. 
+     * If less than or equal to zero, the maximum width
+     * does not have any effect on the output image.
      * The maximum width is in user space.
      */
     public void setMaxWidth(float width) {
@@ -399,7 +406,7 @@ public class SVGConverter {
     }
 
     /**
-     * Sets the user language. If the value is null, then the default (see 
+     * Sets the user language. If the value is null, then the default (see
      * {@link org.apache.flex.forks.batik.bridge.UserAgent#getLanguages})
      * is used.
      */
@@ -424,7 +431,7 @@ public class SVGConverter {
 
     /**
      * Sets the millimeters per pixel constant. A negative
-     * value will cause the default value 
+     * value will cause the default value
      * (see {@link org.apache.flex.forks.batik.bridge.UserAgent#getPixelUnitToMillimeter})
      * to be used.
      */
@@ -438,7 +445,7 @@ public class SVGConverter {
 
     /**
      * Sets the <tt>area</tt> as a Rectangle. This value can
-     * be null in which case the whole image will be rendered. If the 
+     * be null in which case the whole image will be rendered. If the
      * area is not null, then only the portion of the image it
      * defines will be rendered.
      */
@@ -451,10 +458,10 @@ public class SVGConverter {
     }
 
     /**
-     * Sets the list of individual SVG sources. The strings 
+     * Sets the list of individual SVG sources. The strings
      * can be either URLs or file names. Note that invalid
      * sources (e.g., read-protected files or invalid URLs)
-     * will cause <tt>SVGConverterExceptions</tt> to be 
+     * will cause <tt>SVGConverterExceptions</tt> to be
      * thrown during the transcoding process (see {@link #execute});
      */
     public void setSources(String[] sources) {
@@ -462,10 +469,10 @@ public class SVGConverter {
             this.sources = null;
         }
         else{
-            this.sources = new Vector();
+            this.sources = new ArrayList();
             for (int i=0; i<sources.length; i++){
                 if (sources[i] != null){
-                    this.sources.addElement(sources[i]);
+                    this.sources.add(sources[i]);
                 }
             }
 
@@ -475,7 +482,7 @@ public class SVGConverter {
         }
     }
 
-    public Vector getSources(){
+    public List getSources(){
         return sources;
     }
 
@@ -493,7 +500,7 @@ public class SVGConverter {
 
     /**
      * Sets the <tt>backgroundColor</tt> value. This can be
-     * null in which case no color will be used to fill the 
+     * null in which case no color will be used to fill the
      * background before rendering this SVG image.
      */
     public void setBackgroundColor(Color backgroundColor){
@@ -506,7 +513,7 @@ public class SVGConverter {
 
     /**
      * Sets the <tt>mediaType</tt> value. This value controls
-     * the CSS media for which the image should be rendered. It 
+     * the CSS media for which the image should be rendered. It
      * can be null, in which case no specific media selectors will
      * apply. If it is not null, it can contain space separated values
      * of the medias for which the image should be rendered. For example,
@@ -535,7 +542,7 @@ public class SVGConverter {
 
     /**
      * Sets the <tt>alternateStyleSheet</tt> value. This value
-     * controls the CSS alternate stylesheet to select in the 
+     * controls the CSS alternate stylesheet to select in the
      * rendered SVG file(s). It may be null, in which case no alternate
      * stylesheet will be selected.
      */
@@ -577,7 +584,23 @@ public class SVGConverter {
     public boolean getExecuteOnload(){
         return executeOnload;
     }
-    
+
+    /**
+     * Sets the document time to seek to before rasterizing.
+     *
+     * @param t the document time, in seconds
+     */
+    public void setSnapshotTime(float t) {
+        snapshotTime = t;
+    }
+
+    /**
+     * Returns the document to to seek to before rasterizing.
+     */
+    public float getSnapshotTime() {
+        return snapshotTime;
+    }
+
     /**
      * Sets the set of allowed script types (i.e., the set of possible
      * values for the type attribute in the &lt;script&gt; element),
@@ -651,13 +674,13 @@ public class SVGConverter {
         // Compute the set of SVGConverterSource from the source properties
         // (srcDir and srcFile);
         // This throws an exception if there is not at least one src file.
-        Vector sources = computeSources();
+        List sources = computeSources();
 
         // Compute the destination files from dest
-        Vector dstFiles = null;
+        List dstFiles = null;
         if(sources.size() == 1 && dst != null && isFile(dst)){
-            dstFiles = new Vector();
-            dstFiles.addElement(dst);
+            dstFiles = new ArrayList();
+            dstFiles.add(dst);
         }
         else{
             dstFiles = computeDstFiles(sources);
@@ -686,23 +709,23 @@ public class SVGConverter {
         // Convert files one by one
         for(int i = 0 ; i < sources.size() ; i++) {
             // Get the file from the vector.
-            SVGConverterSource currentFile 
-                = (SVGConverterSource)sources.elementAt(i);
-            File outputFile  = (File)dstFiles.elementAt(i);
+            SVGConverterSource currentFile
+                = (SVGConverterSource)sources.get(i);
+            File outputFile  = (File)dstFiles.get(i);
 
             createOutputDir(outputFile);
             transcode(currentFile, outputFile, transcoder);
         }
     }
-    
+
     /**
      * Populates a vector with destination files names
      * computed from the names of the files in the sources vector
      * and the value of the dst property
      */
-    protected Vector computeDstFiles(Vector sources) 
+    protected List computeDstFiles(List sources)
     throws SVGConverterException {
-        Vector dstFiles = new Vector();
+        List dstFiles = new ArrayList();
         if (dst != null) {
             if (dst.exists() && dst.isFile()) {
                 throw new SVGConverterException(ERROR_CANNOT_USE_DST_FILE);
@@ -714,22 +737,22 @@ public class SVGConverter {
             //
             int n = sources.size();
             for(int i=0; i<n; i++){
-                SVGConverterSource src = (SVGConverterSource)sources.elementAt(i);
+                SVGConverterSource src = (SVGConverterSource)sources.get(i);
                 // Generate output filename from input filename.
-                File outputName = new File(dst.getPath(), 
+                File outputName = new File(dst.getPath(),
                                            getDestinationFile(src.getName()));
-                dstFiles.addElement(outputName);
-                
+                dstFiles.add(outputName);
+
             }
         } else {
             //
             // No destination directory has been specified.
-            // Try and create files in the same directory as the 
+            // Try and create files in the same directory as the
             // sources. This only work if sources are files.
             //
             int n = sources.size();
             for(int i=0; i<n; i++){
-                SVGConverterSource src = (SVGConverterSource)sources.elementAt(i);
+                SVGConverterSource src = (SVGConverterSource)sources.get(i);
                 if (!(src instanceof SVGConverterFileSource)) {
                     throw new SVGConverterException(ERROR_CANNOT_COMPUTE_DESTINATION,
                                                      new Object[]{src});
@@ -739,21 +762,21 @@ public class SVGConverter {
                 SVGConverterFileSource fs = (SVGConverterFileSource)src;
                 File outputName = new File(fs.getFile().getParent(),
                                            getDestinationFile(src.getName()));
-                dstFiles.addElement(outputName);
+                dstFiles.add(outputName);
             }
-            
+
         }
 
         return dstFiles;
     }
 
     /**
-     * Populates a vector with the set of SVG files from the 
+     * Populates a vector with the set of SVG files from the
      * srcDir if it is not null and with the sources (files or URLs)
      * if any.
      */
-    protected Vector computeSources() throws SVGConverterException{
-        Vector sources = new Vector();
+    protected List computeSources() throws SVGConverterException{
+        List sources = new ArrayList();
 
         // Check that at least one source has been specified.
         if (this.sources == null){
@@ -762,26 +785,26 @@ public class SVGConverter {
 
         int n = this.sources.size();
         for (int i=0; i<n; i++){
-            String sourceString = (String)(this.sources.elementAt(i));
+            String sourceString = (String)(this.sources.get(i));
             File file = new File(sourceString);
             if (file.exists()) {
-                sources.addElement(new SVGConverterFileSource(file));
+                sources.add(new SVGConverterFileSource(file));
             } else {
                 String[] fileNRef = getFileNRef(sourceString);
                 file = new File(fileNRef[0]);
                 if (file.exists()){
-                    sources.addElement(new SVGConverterFileSource(file, fileNRef[1]));
+                    sources.add(new SVGConverterFileSource(file, fileNRef[1]));
                 } else{
-                    sources.addElement(new SVGConverterURLSource(sourceString));
+                    sources.add(new SVGConverterURLSource(sourceString));
                 }
             }
         }
-        
+
         return sources;
     }
 
     public String[] getFileNRef(String fileName){
-        int n = fileName.lastIndexOf("#");
+        int n = fileName.lastIndexOf('#');
         String[] result = {fileName, ""};
         if (n > -1){
             result[0] = fileName.substring(0, n);
@@ -801,22 +824,22 @@ public class SVGConverter {
      * Computes the set of transcoding hints to use for the operation
      */
     protected Map computeTranscodingHints(){
-        HashMap map = new HashMap();
+        Map map = new HashMap();
 
         // Set AOI. ----------------------------------------------------------
         if (area != null) {
-            map.put(ImageTranscoder.KEY_AOI, area);           
+            map.put(ImageTranscoder.KEY_AOI, area);
         }
 
         // Set image quality. ------------------------------------------------
         if (quality > 0) {
             map.put(JPEGTranscoder.KEY_QUALITY, new Float(this.quality));
-        } 
+        }
 
         // Set image indexed. ------------------------------------------------
         if (indexed != -1) {
             map.put(PNGTranscoder.KEY_INDEXED, new Integer(indexed));
-        } 
+        }
 
         // Set image background color -----------------------------------------
         if (backgroundColor != null){
@@ -855,8 +878,15 @@ public class SVGConverter {
         }
 
         // Set user stylesheet
-        if (userStylesheet != null){
-            map.put(ImageTranscoder.KEY_USER_STYLESHEET_URI, userStylesheet);
+        if (userStylesheet != null) {
+            String userStylesheetURL;
+            try {
+                URL userDir = new File(System.getProperty("user.dir")).toURL();
+                userStylesheetURL = new ParsedURL(userDir, userStylesheet).toString();
+            } catch (Exception e) {
+                userStylesheetURL = userStylesheet;
+            }
+            map.put(ImageTranscoder.KEY_USER_STYLESHEET_URI, userStylesheetURL);
         }
 
         // Set the user language
@@ -866,21 +896,25 @@ public class SVGConverter {
 
         // Sets the millimeters per pixel
         if (pixelUnitToMillimeter > 0){
-            map.put(ImageTranscoder.KEY_PIXEL_UNIT_TO_MILLIMETER, 
+            map.put(ImageTranscoder.KEY_PIXEL_UNIT_TO_MILLIMETER,
                     new Float(pixelUnitToMillimeter));
         }
 
         // Set validation
         if (validate){
-            map.put(ImageTranscoder.KEY_XML_PARSER_VALIDATING,
-                    new Boolean(validate));
+            map.put(ImageTranscoder.KEY_XML_PARSER_VALIDATING, Boolean.TRUE);
         }
 
         // Set onload
         if (executeOnload) {
-            map.put(ImageTranscoder.KEY_EXECUTE_ONLOAD, new Boolean(executeOnload));
+            map.put(ImageTranscoder.KEY_EXECUTE_ONLOAD, Boolean.TRUE);
         }
-        
+
+        // Set snapshot time
+        if (!Float.isNaN(snapshotTime)) {
+            map.put(ImageTranscoder.KEY_SNAPSHOT_TIME, new Float(snapshotTime));
+        }
+
         // Set allowed scripts
         if (allowedScriptTypes != null) {
             map.put(ImageTranscoder.KEY_ALLOWED_SCRIPT_TYPES, allowedScriptTypes);
@@ -888,8 +922,7 @@ public class SVGConverter {
 
         // Set constrain script origin
         if (!constrainScriptOrigin) {
-            map.put(ImageTranscoder.KEY_CONSTRAIN_SCRIPT_ORIGIN, 
-                    new Boolean(constrainScriptOrigin));
+            map.put(ImageTranscoder.KEY_CONSTRAIN_SCRIPT_ORIGIN, Boolean.FALSE);
         }
 
         return map;
@@ -897,13 +930,13 @@ public class SVGConverter {
 
     /**
      * Converts the input image to the result image.
-     * with the given transcoder. If a failure happens, the 
+     * with the given transcoder. If a failure happens, the
      * controller is notified and decides whether to proceed
      * or not. If it decides to proceed, the converter will
      * continue processing other files. Otherwise, it will
      * throw an exception.
      */
-    protected void transcode(SVGConverterSource inputFile, 
+    protected void transcode(SVGConverterSource inputFile,
                              File outputFile,
                              Transcoder transcoder)
         throws SVGConverterException {
@@ -911,7 +944,7 @@ public class SVGConverter {
         TranscoderOutput output = null;
         OutputStream outputStream = null;
 
-        if (!controller.proceedWithSourceTranscoding(inputFile, 
+        if (!controller.proceedWithSourceTranscoding(inputFile,
                                                      outputFile)){
             return;
         }
@@ -921,7 +954,7 @@ public class SVGConverter {
                 throw new SVGConverterException(ERROR_SOURCE_SAME_AS_DESTINATION,
                                                  true /* fatal error */);
             }
-            
+
             // Compute transcoder input.
             if (!inputFile.isReadable()) {
                 throw new SVGConverterException(ERROR_CANNOT_READ_SOURCE,
@@ -935,8 +968,8 @@ public class SVGConverter {
                 throw new SVGConverterException(ERROR_CANNOT_OPEN_SOURCE,
                                                  new Object[] {inputFile.getName(),
                                                                ioe.toString()});
-                                                               } 
-            
+                                                               }
+
             input = new TranscoderInput(inputFile.getURI());
 
             // Compute transcoder output.
@@ -950,7 +983,7 @@ public class SVGConverter {
                 throw new SVGConverterException(ERROR_CANNOT_OPEN_OUTPUT_FILE,
                                                  new Object[] {outputFile.getName()});
             }
-            
+
             output = new TranscoderOutput(outputStream);
         } catch(SVGConverterException e){
             boolean proceed = controller.proceedOnSourceTranscodingFailure
@@ -973,7 +1006,7 @@ public class SVGConverter {
                 outputStream.flush();
                 outputStream.close();
             } catch(IOException ioe) {}
-            
+
             // Report error to the controller. If controller decides
             // to stop, throw an exception
             boolean proceed = controller.proceedOnSourceTranscodingFailure
@@ -1002,17 +1035,17 @@ public class SVGConverter {
     /**
      * Get the name of the result image file.
      *
-     * <P>This method modifies the result filename, it changes the existing 
-     * suffix to correspong the result file type. It also adds the suffix 
+     * <P>This method modifies the result filename, it changes the existing
+     * suffix to correspong the result file type. It also adds the suffix
      * if the file doesn't have one.</P>
      *
      * @param file Result file name as a String object.
      *
-     * @return Name of the file. The directory of the file is not returned. 
+     * @return Name of the file. The directory of the file is not returned.
      *         The returned string is empty if the parameter is not a file.
      */
     protected String getDestinationFile(String file) {
-        int suffixStart;            // Location of the first char of 
+        int suffixStart;            // Location of the first char of
                                     // the suffix in a String.
         String oldName;             // Existing filename.
         String newSuffix = destinationType.getExtension();
@@ -1020,14 +1053,14 @@ public class SVGConverter {
 
         oldName = file;
         // Find the first char of the suffix.
-        suffixStart = oldName.lastIndexOf(".");
+        suffixStart = oldName.lastIndexOf( '.' );
         String dest = null;
         if (suffixStart != -1) {
             // Replace existing suffix.
-            dest = new String(oldName.substring(0, suffixStart) + newSuffix);
+            dest = oldName.substring(0, suffixStart) + newSuffix;
         } else {
             // Add new suffix.
-            dest = new String(oldName + newSuffix);
+            dest = oldName + newSuffix;
         }
 
         return dest;
@@ -1044,7 +1077,7 @@ public class SVGConverter {
         throws SVGConverterException {
 
         File outputDir;             // Output directory object.
-        boolean success = true;     // false if the output directory 
+        boolean success = true;     // false if the output directory
                                     // doesn't exist and it can't be created
                                     // true otherwise
 
@@ -1053,11 +1086,11 @@ public class SVGConverter {
         String parentDir = output.getParent();
         if (parentDir != null){
             outputDir = new File(output.getParent());
-            if (outputDir.exists() == false) {
+            if ( ! outputDir.exists() ) {
                 // Output directory doesn't exist, so create it.
                 success = outputDir.mkdirs();
             } else {
-                if (outputDir.isDirectory() == false) {
+                if ( ! outputDir.isDirectory() ) {
                     // File, which have a same name as the output directory, exists.
                     // Create output directory.
                     success = outputDir.mkdirs();
@@ -1085,7 +1118,7 @@ public class SVGConverter {
             }
         } else {
             // Check the file that doesn't exist yet.
-            // Create a new file. The file is writeable if 
+            // Create a new file. The file is writeable if
             // the creation succeeds.
             try {
                 file.createNewFile();
@@ -1105,12 +1138,12 @@ public class SVGConverter {
      */
     public static class SVGFileFilter implements FileFilter {
         public static final String SVG_EXTENSION = ".svg";
-        
+
         public boolean accept(File file){
             if (file != null && file.getName().toLowerCase().endsWith(SVG_EXTENSION)){
                 return true;
             }
-            
+
             return false;
         }
     }

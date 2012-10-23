@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,13 +20,19 @@ package org.apache.flex.forks.batik.swing.gvt;
 
 import java.awt.event.ComponentEvent;
 
+/**
+ * An interface for listeners of {@link JGVTComponent} events.
+ *
+ * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
+ * @version $Id: JGVTComponentListener.java 478176 2006-11-22 14:50:50Z dvholten $
+ */
 public interface JGVTComponentListener {
-    public static int COMPONENT_TRANSFORM_CHANGED =
+    int COMPONENT_TRANSFORM_CHANGED =
         ComponentEvent.COMPONENT_LAST+1234;
     /**
      * Called when the rendering transform
      * changes on the JGVTComponentListener
      */
-    public void componentTransformChanged
+    void componentTransformChanged
         (ComponentEvent event);
 }

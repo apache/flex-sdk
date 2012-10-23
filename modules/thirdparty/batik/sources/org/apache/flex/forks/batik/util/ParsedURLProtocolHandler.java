@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,6 +20,9 @@ package org.apache.flex.forks.batik.util;
 
 /**
  * Provider interface for new url protocols, used by the ParsedURL class.
+ *
+ * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
+ * @version $Id: ParsedURLProtocolHandler.java 478169 2006-11-22 14:23:24Z dvholten $
  */
 public interface ParsedURLProtocolHandler {
     /**
@@ -26,14 +30,14 @@ public interface ParsedURLProtocolHandler {
      * The protocol must _always_ be the part of the URL before the
      * first ':'.
      */
-    public String getProtocolHandled();
+    String getProtocolHandled();
     /**
      * Parse an absolute url string.
      */
-    public ParsedURLData parseURL(String urlStr);
+    ParsedURLData parseURL(String urlStr);
     /**
      * Parse a relative url string of this protocol.
      */
-    public ParsedURLData parseURL(ParsedURL basepurl, String urlStr);
+    ParsedURLData parseURL(ParsedURL basepurl, String urlStr);
 }
 

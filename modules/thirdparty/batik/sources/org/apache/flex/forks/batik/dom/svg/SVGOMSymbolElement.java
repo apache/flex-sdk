@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,26 +20,50 @@ package org.apache.flex.forks.batik.dom.svg;
 
 import org.apache.flex.forks.batik.dom.AbstractDocument;
 import org.apache.flex.forks.batik.dom.util.XMLSupport;
+import org.apache.flex.forks.batik.util.DoublyIndexedTable;
+import org.apache.flex.forks.batik.util.SVGTypes;
+
 import org.w3c.dom.Node;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedBoolean;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedPreserveAspectRatio;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedRect;
-import org.w3c.flex.forks.dom.svg.SVGSymbolElement;
+import org.w3c.dom.svg.SVGAnimatedBoolean;
+import org.w3c.dom.svg.SVGAnimatedPreserveAspectRatio;
+import org.w3c.dom.svg.SVGAnimatedRect;
+import org.w3c.dom.svg.SVGSymbolElement;
 
 /**
  * This class implements {@link SVGSymbolElement}.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGOMSymbolElement.java,v 1.13 2004/09/01 09:35:23 deweese Exp $
+ * @version $Id: SVGOMSymbolElement.java 592621 2007-11-07 05:58:12Z cam $
  */
 public class SVGOMSymbolElement
     extends    SVGStylableElement
     implements SVGSymbolElement {
 
     /**
+     * Table mapping XML attribute names to TraitInformation objects.
+     */
+    protected static DoublyIndexedTable xmlTraitInformation;
+    static {
+        DoublyIndexedTable t =
+            new DoublyIndexedTable(SVGStylableElement.xmlTraitInformation);
+        t.put(null, SVG_EXTERNAL_RESOURCES_REQUIRED_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_BOOLEAN));
+        t.put(null, SVG_PRESERVE_ASPECT_RATIO_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_PRESERVE_ASPECT_RATIO_VALUE));
+        t.put(null, SVG_VIEW_BOX_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_NUMBER_LIST));
+        xmlTraitInformation = t;
+    }
+
+    /**
+     * The 'preserveAspectRatio' attribute value.
+     */
+    protected SVGOMAnimatedPreserveAspectRatio preserveAspectRatio;
+
+    /**
      * The attribute initializer.
      */
-    protected final static AttributeInitializer attributeInitializer;
+    protected static final AttributeInitializer attributeInitializer;
     static {
         attributeInitializer = new AttributeInitializer(1);
         attributeInitializer.addAttribute(null,
@@ -46,6 +71,11 @@ public class SVGOMSymbolElement
                                           SVG_PRESERVE_ASPECT_RATIO_ATTRIBUTE,
                                           "xMidYMid meet");
     }
+
+    /**
+     * The 'externalResourcesRequired' attribute value.
+     */
+    protected SVGOMAnimatedBoolean externalResourcesRequired;
 
     /**
      * Creates a new SVGOMSymbolElement object.
@@ -60,7 +90,22 @@ public class SVGOMSymbolElement
      */
     public SVGOMSymbolElement(String prefix, AbstractDocument owner) {
         super(prefix, owner);
+        initializeLiveAttributes();
+    }
 
+    /**
+     * Initializes all live attributes for this element.
+     */
+    protected void initializeAllLiveAttributes() {
+        super.initializeAllLiveAttributes();
+        initializeLiveAttributes();
+    }
+
+    /**
+     * Initializes the live attribute values of this element.
+     */
+    private void initializeLiveAttributes() {
+        preserveAspectRatio = createLiveAnimatedPreserveAspectRatio();
     }
 
     /**
@@ -71,7 +116,7 @@ public class SVGOMSymbolElement
     }
 
     // SVGLangSpace support //////////////////////////////////////////////////
-    
+
     /**
      * <b>DOM</b>: Returns the xml:lang attribute value.
      */
@@ -83,11 +128,9 @@ public class SVGOMSymbolElement
      * <b>DOM</b>: Sets the xml:lang attribute value.
      */
     public void setXMLlang(String lang) {
-        setAttributeNS(XMLSupport.XML_NAMESPACE_URI,
-                       XMLSupport.XML_LANG_ATTRIBUTE,
-                       lang);
+        setAttributeNS(XML_NAMESPACE_URI, XML_LANG_QNAME, lang);
     }
-    
+
     /**
      * <b>DOM</b>: Returns the xml:space attribute value.
      */
@@ -99,55 +142,53 @@ public class SVGOMSymbolElement
      * <b>DOM</b>: Sets the xml:space attribute value.
      */
     public void setXMLspace(String space) {
-        setAttributeNS(XMLSupport.XML_NAMESPACE_URI,
-                       XMLSupport.XML_SPACE_ATTRIBUTE,
-                       space);
+        setAttributeNS(XML_NAMESPACE_URI, XML_SPACE_QNAME, space);
     }
 
     // SVGZoomAndPan support ///////////////////////////////////////////////
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGZoomAndPan#getZoomAndPan()}.
+     * org.w3c.dom.svg.SVGZoomAndPan#getZoomAndPan()}.
      */
     public short getZoomAndPan() {
-	return SVGZoomAndPanSupport.getZoomAndPan(this);
+        return SVGZoomAndPanSupport.getZoomAndPan(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGZoomAndPan#getZoomAndPan()}.
+     * org.w3c.dom.svg.SVGZoomAndPan#getZoomAndPan()}.
      */
     public void setZoomAndPan(short val) {
-	SVGZoomAndPanSupport.setZoomAndPan(this, val);
+        SVGZoomAndPanSupport.setZoomAndPan(this, val);
     }
 
     // SVGFitToViewBox support ////////////////////////////////////////////
 
     /**
-     * <b>DOM</b>: Implements {@link org.w3c.flex.forks.dom.svg.SVGFitToViewBox#getViewBox()}.
+     * <b>DOM</b>: Implements {@link org.w3c.dom.svg.SVGFitToViewBox#getViewBox()}.
      */
     public SVGAnimatedRect getViewBox() {
-	throw new RuntimeException(" !!! TODO: getViewBox()");
+        throw new UnsupportedOperationException
+            ("SVGFitToViewBox.getViewBox is not implemented"); // XXX
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGFitToViewBox#getPreserveAspectRatio()}.
+     * org.w3c.dom.svg.SVGFitToViewBox#getPreserveAspectRatio()}.
      */
     public SVGAnimatedPreserveAspectRatio getPreserveAspectRatio() {
-        return SVGPreserveAspectRatioSupport.getPreserveAspectRatio(this);
+        return preserveAspectRatio;
     }
 
     // SVGExternalResourcesRequired support /////////////////////////////
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGExternalResourcesRequired}.
+     * org.w3c.dom.svg.SVGExternalResourcesRequired}.
      */
     public SVGAnimatedBoolean getExternalResourcesRequired() {
-	return SVGExternalResourcesRequiredSupport.
-            getExternalResourcesRequired(this);
+        return externalResourcesRequired;
     }
 
     /**
@@ -163,5 +204,12 @@ public class SVGOMSymbolElement
      */
     protected Node newNode() {
         return new SVGOMSymbolElement();
+    }
+
+    /**
+     * Returns the table of TraitInformation objects for this element.
+     */
+    protected DoublyIndexedTable getTraitInformationTable() {
+        return xmlTraitInformation;
     }
 }

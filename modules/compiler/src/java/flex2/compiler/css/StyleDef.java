@@ -46,7 +46,7 @@ import java.util.Map.Entry;
 
 import macromedia.asc.util.ContextStatics;
 
-import org.w3c.flex.forks.css.sac.LexicalUnit;
+import org.w3c.css.sac.LexicalUnit;
 
 /**
  * A helper class to aggregate style declarations for a particular subject

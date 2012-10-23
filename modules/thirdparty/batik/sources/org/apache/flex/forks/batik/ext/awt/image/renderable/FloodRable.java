@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,7 +25,7 @@ import java.awt.geom.Rectangle2D;
  * Fills the input image with a given paint
  *
  * @author <a href="mailto:dean@w3.org">Dean Jackson</a>
- * @version $Id: FloodRable.java,v 1.3 2004/08/18 07:13:59 vhardy Exp $
+ * @version $Id: FloodRable.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 
 public interface FloodRable extends Filter {
@@ -32,24 +33,24 @@ public interface FloodRable extends Filter {
      * Set the flood paint.
      * @param paint the flood paint to use when filling
      */
-    public void setFloodPaint(Paint paint);
+    void setFloodPaint(Paint paint);
 
     /**
      * Get the flood paint.
      * @return The current flood paint for the filter
      */
-    public Paint getFloodPaint();
+    Paint getFloodPaint();
 
     /**
      * Sets the flood region
      * @param floodRegion region to flood with floodPaint
      */
-    public void setFloodRegion(Rectangle2D floodRegion);
-    
+    void setFloodRegion(Rectangle2D floodRegion);
+
     /**
      * Get the flood region
      */
-     public Rectangle2D getFloodRegion();
+    Rectangle2D getFloodRegion();
 }
 
 

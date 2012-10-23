@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -28,7 +29,7 @@ import java.util.Iterator;
  * http://www.ietf.org/rfc/rfc2397.txt
  *
  * @author <a href="mailto:deweese@apache.org">Thomas DeWeese</a>
- * @version $Id: ParsedURLDataProtocolHandler.java,v 1.8 2004/08/18 07:15:48 vhardy Exp $ 
+ * @version $Id: ParsedURLDataProtocolHandler.java 578680 2007-09-24 07:20:03Z cam $ 
  */
 public class ParsedURLDataProtocolHandler 
     extends AbstractParsedURLProtocolHandler {
@@ -50,6 +51,19 @@ public class ParsedURLDataProtocolHandler
         DataParsedURLData ret = new DataParsedURLData();
 
         int pidx=0, idx;
+        int len = urlStr.length();
+
+        // Pull fragment id off first...
+        idx = urlStr.indexOf('#');
+        ret.ref = null;
+        if (idx != -1) {
+            if (idx + 1 < len) {
+                ret.ref = urlStr.substring(idx + 1);
+            }
+            urlStr = urlStr.substring(0, idx);
+            len = urlStr.length();
+        }
+
         idx = urlStr.indexOf(':');
         if (idx != -1) {
             // May have a protocol spec...
@@ -101,8 +115,9 @@ public class ParsedURLDataProtocolHandler
             }
         }
         
-        if (pidx != urlStr.length()) 
+        if (pidx < urlStr.length()) {
             ret.path = urlStr.substring(pidx);
+        }
 
         return ret;
     }
@@ -111,22 +126,30 @@ public class ParsedURLDataProtocolHandler
      * Overrides some of the methods to support data protocol weirdness
      */
     static class DataParsedURLData extends ParsedURLData {
-        String charset= null;
+
+        String charset;
 
         public boolean complete() {
-            return (path != null);
+            return path != null;
         }
 
         public String getPortStr() {
-            String portStr ="data:";
-            if (host != null) portStr += host;
+            String portStr = "data:";
+            if (host != null) {
+                portStr += host;
+            }
             portStr += ",";
             return portStr;
         }
                 
         public String toString() {
             String ret = getPortStr();
-            if (path != null) ret += path;
+            if (path != null) {
+                ret += path;
+            }
+            if (ref != null) {
+                ret += '#' + ref;
+            }
             return ret;
         }
 
@@ -149,12 +172,9 @@ public class ParsedURLDataProtocolHandler
         protected InputStream openStreamInternal
             (String userAgent, Iterator mimeTypes, Iterator encodingTypes)
             throws IOException {
+            stream = decode(path);
             if (BASE64.equals(contentEncoding)) {
-                byte [] data = path.getBytes();
-                stream = new ByteArrayInputStream(data);
                 stream = new Base64DecodeStream(stream);
-            } else {
-                stream = decode(path);
             }
             return stream;
         }

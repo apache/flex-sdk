@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -20,12 +21,13 @@ package org.apache.flex.forks.batik.script;
 /**
  * An exception that will be thrown when a problem is encountered in the
  * script by an <code>Interpreter</code> interface implementation.
+ *
  * @author <a href="mailto:cjolif@ilog.fr">Christophe Jolif</a>
- * @version $Id: InterpreterException.java,v 1.6 2005/03/27 08:58:35 cam Exp $
+ * @version $Id: InterpreterException.java 475477 2006-11-15 22:44:28Z cam $
  */
-public class InterpreterException extends Exception {
-    private int line = -1; // -1 when unknow
-    private int column = -1; // -1 when unknow
+public class InterpreterException extends RuntimeException {
+    private int line = -1; // -1 when unknown
+    private int column = -1; // -1 when unknown
     private Exception embedded = null; // null when unknown
 
     /**

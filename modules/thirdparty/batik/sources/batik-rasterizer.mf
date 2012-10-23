@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Main-Class: org.apache.flex.forks.batik.apps.rasterizer.Main
+Main-Class: org.apache.batik.apps.rasterizer.Main
 Class-Path: lib/batik-ext.jar \
             lib/batik-dom.jar \
             lib/batik-css.jar \
@@ -8,11 +8,15 @@ Class-Path: lib/batik-ext.jar \
             lib/batik-parser.jar \
             lib/batik-script.jar \
             lib/batik-bridge.jar \
+            lib/batik-anim.jar \
             lib/batik-transcoder.jar \
             lib/batik-awt-util.jar \
+            lib/batik-codec.jar \
             lib/batik-util.jar \
             lib/batik-xml.jar \
             lib/xerces_2_5_0.jar \
+            lib/xalan-2.6.0.jar \
             lib/xml-apis.jar \
+            lib/xml-apis-ext.jar \
             lib/pdf-transcoder.jar \
             lib/js.jar

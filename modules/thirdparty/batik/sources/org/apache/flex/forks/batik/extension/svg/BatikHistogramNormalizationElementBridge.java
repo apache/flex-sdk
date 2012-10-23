@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -35,9 +36,10 @@ import org.w3c.dom.Element;
  * Bridge class for a histogram normalization element.
  *
  * @author <a href="mailto:thomas.deweese@kodak.com">Thomas Deweese</a>
+ * @version $Id: BatikHistogramNormalizationElementBridge.java 501922 2007-01-31 17:47:47Z dvholten $
  */
-public class BatikHistogramNormalizationElementBridge 
-    extends AbstractSVGFilterPrimitiveElementBridge  
+public class BatikHistogramNormalizationElementBridge
+    extends AbstractSVGFilterPrimitiveElementBridge
     implements BatikExtConstants {
 
     /**
@@ -129,9 +131,9 @@ public class BatikHistogramNormalizationElementBridge
         if (s.length() != 0) {
             try {
                 trim = SVGUtilities.convertSVGNumber(s);
-            } catch (NumberFormatException ex) {
+            } catch (NumberFormatException nfEx ) {
                 throw new BridgeException
-                    (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                    (ctx, filterElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
                      new Object[] {BATIK_EXT_TRIM_ATTRIBUTE, s});
             }
         }
@@ -141,7 +143,7 @@ public class BatikHistogramNormalizationElementBridge
 
         Filter filter = in;
         filter = new BatikHistogramNormalizationFilter8Bit(filter, trim/100);
-        
+
         filter = new PadRable8Bit(filter, primitiveRegion, PadMode.ZERO_PAD);
 
         // update the filter Map
@@ -162,10 +164,12 @@ public class BatikHistogramNormalizationElementBridge
      * @param filterElement the filter primitive element
      * @param attrName the name of the attribute
      * @param defaultValue the default value of the attribute
+     * @param ctx the BridgeContext to use for error information
      */
     protected static int convertSides(Element filterElement,
-                                        String attrName,
-                                        int defaultValue) {
+                                      String attrName,
+                                      int defaultValue,
+                                      BridgeContext ctx) {
         String s = filterElement.getAttributeNS(null, attrName);
         if (s.length() == 0) {
             return defaultValue;
@@ -173,15 +177,15 @@ public class BatikHistogramNormalizationElementBridge
             int ret = 0;
             try {
                 ret = SVGUtilities.convertSVGInteger(s);
-            } catch (NumberFormatException ex) {
+            } catch (NumberFormatException nfEx ) {
                 throw new BridgeException
-                    (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                    (ctx, filterElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
                      new Object[] {attrName, s});
             }
 
-            if (ret <3) 
+            if (ret <3)
                 throw new BridgeException
-                    (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                    (ctx, filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
                      new Object[] {attrName, s});
             return ret;
         }

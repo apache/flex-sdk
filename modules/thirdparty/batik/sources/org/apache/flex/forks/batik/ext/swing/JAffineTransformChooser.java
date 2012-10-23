@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -14,7 +15,8 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
- */package org.apache.flex.forks.batik.ext.swing;
+ */
+package org.apache.flex.forks.batik.ext.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -45,11 +47,11 @@ import javax.swing.text.Document;
 
 /**
  * The <tt>JAffineTransformChooser</tt> is a pane that contains
- * controls to let a user select the various components that 
+ * controls to let a user select the various components that
  * make up an <tt>AffineTransform</tt>
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: JAffineTransformChooser.java,v 1.7 2004/08/18 07:14:18 vhardy Exp $
+ * @version $Id: JAffineTransformChooser.java 501495 2007-01-30 18:00:36Z dvholten $
  */
 public class JAffineTransformChooser extends JGridBagPanel{
     public static final String LABEL_ANGLE
@@ -82,13 +84,13 @@ public class JAffineTransformChooser extends JGridBagPanel{
     public static final String LABEL_TRANSLATE
         = "JAffineTransformChooser.label.translate";
 
-    public static final String LABEL_TX 
+    public static final String LABEL_TX
         = "JAffineTransformChooser.label.tx";
 
     public static final String LABEL_TY
         = "JAffineTransformChooser.label.ty";
-    
-    public static final String CONFIG_TEXT_FIELD_WIDTH 
+
+    public static final String CONFIG_TEXT_FIELD_WIDTH
         = "JAffineTransformChooser.config.text.field.width";
 
     public static final String CONFIG_TOP_PAD
@@ -104,7 +106,7 @@ public class JAffineTransformChooser extends JGridBagPanel{
         = "JAffineTransformChooser.config.right.pad";
 
     /**
-     * The <tt>AffineTransform</tt> value represented by the 
+     * The <tt>AffineTransform</tt> value represented by the
      * chooser
      */
     protected AffineTransform txf;
@@ -118,7 +120,7 @@ public class JAffineTransformChooser extends JGridBagPanel{
      * The Model for the y-axis translate component
      */
     protected DoubleDocument tyModel = new DoubleDocument();
-    
+
     /**
      * The Model for the x-axis scale component
      */
@@ -154,7 +156,7 @@ public class JAffineTransformChooser extends JGridBagPanel{
         build();
         setAffineTransform(new AffineTransform());
     }
-      
+
     /**
      * Adds the control components into this panel.
      */
@@ -167,7 +169,7 @@ public class JAffineTransformChooser extends JGridBagPanel{
                                       "",
                                       "",
                                       true);
-        
+
         Component sxyCmp = buildPanel(Resources.getString(LABEL_SCALE),
                                       Resources.getString(LABEL_SX),
                                       sxModel,
@@ -178,7 +180,7 @@ public class JAffineTransformChooser extends JGridBagPanel{
                                       true);
 
         Component rCmp = buildRotatePanel();
-                                 
+
         add(txyCmp,  0, 0, 1, 1, CENTER, BOTH, 1, 1);
         add(sxyCmp,  1, 0, 1, 1, CENTER, BOTH, 1, 1);
         add(rCmp,    0, 1, 2, 1, CENTER, BOTH, 1, 1);
@@ -222,7 +224,7 @@ public class JAffineTransformChooser extends JGridBagPanel{
                                    String tfBSuffix,
                                    boolean setBorder){
         JGridBagPanel panel = new JGridBagPanel();
-        
+
         addToPanelAtRow(tfALabel, tfAModel, tfASuffix, panel, 0);
         if(tfBLabel != null){
             addToPanelAtRow(tfBLabel, tfBModel, tfBSuffix, panel, 1);
@@ -238,7 +240,7 @@ public class JAffineTransformChooser extends JGridBagPanel{
     }
 
     public void setPanelBorder(JComponent panel, String panelName){
-        Border border 
+        Border border
             = BorderFactory.createTitledBorder
             (BorderFactory.createEtchedBorder(), panelName);
 
@@ -247,10 +249,10 @@ public class JAffineTransformChooser extends JGridBagPanel{
         int bottomPad = Resources.getInteger(CONFIG_BOTTOM_PAD);
         int rightPad = Resources.getInteger(CONFIG_RIGHT_PAD);
 
-        border 
+        border
             = BorderFactory.createCompoundBorder
             (border,
-             BorderFactory.createEmptyBorder(topPad, leftPad, 
+             BorderFactory.createEmptyBorder(topPad, leftPad,
                                              bottomPad, rightPad));
 
         panel.setBorder(border);
@@ -279,12 +281,15 @@ public class JAffineTransformChooser extends JGridBagPanel{
 
         double[] m = new double[6];
 
-        m[0] = sx*Math.cos(theta);
-        m[1] = sx*Math.sin(theta);
-        m[2] = -sy*Math.sin(theta);
-        m[3] = sy*Math.cos(theta);
-        m[4] = tx + rx - rx*Math.cos(theta) + ry*Math.sin(theta);
-        m[5] = ty + ry - rx*Math.sin(theta) - ry*Math.cos(theta);
+        final double SIN_THETA = Math.sin( theta );
+        final double COS_THETA = Math.cos( theta );
+
+        m[0] =  sx * COS_THETA;
+        m[1] =  sx * SIN_THETA;
+        m[2] = -sy * SIN_THETA;
+        m[3] =  sy * COS_THETA;
+        m[4] =  tx + rx - rx * COS_THETA + ry * SIN_THETA;
+        m[5] =  ty + ry - rx * SIN_THETA - ry * COS_THETA;
 
         txf = new AffineTransform(m);
 
@@ -297,34 +302,34 @@ public class JAffineTransformChooser extends JGridBagPanel{
         }
 
         this.txf = txf;
-        
+
         /**
          * Now, update model
          */
         double[] m = new double[6];
         txf.getMatrix(m);
-        
+
         // Translation
         txModel.setValue(m[4]);
         tyModel.setValue(m[5]);
-        
+
         // Scale, in percentages
         double sx = Math.sqrt(m[0]*m[0] + m[1]*m[1]);
         double sy = Math.sqrt(m[2]*m[2] + m[3]*m[3]);
         sxModel.setValue(100*sx);
         syModel.setValue(100*sy);
-        
+
         // Rotation
         double theta = 0;
         if(m[0] > 0){
             theta = Math.atan2(m[1], m[0]);
         }
-        
+
         // Rotate
         rotateModel.setValue(RAD_TO_DEG*theta);
         rxModel.setValue(0);
         ryModel.setValue(0);
-    }        
+    }
 
     /**
      * Displays the panel in a modal dialog box.
@@ -336,7 +341,7 @@ public class JAffineTransformChooser extends JGridBagPanel{
      */
     public static AffineTransform showDialog(Component cmp,
                                              String title){
-        final JAffineTransformChooser pane 
+        final JAffineTransformChooser pane
             = new JAffineTransformChooser();
 
         AffineTransformTracker tracker = new AffineTransformTracker(pane);
@@ -344,13 +349,13 @@ public class JAffineTransformChooser extends JGridBagPanel{
         dialog.addWindowListener(new Closer());
         dialog.addComponentListener(new DisposeOnClose());
 
-        dialog.show(); // blocks until user brings dialog down...
+        dialog.setVisible(true); // blocks until user brings dialog down...
 
         return tracker.getAffineTransform();
     }
-    
+
     /**
-     * Creates a new modal dialog box that can be used to 
+     * Creates a new modal dialog box that can be used to
      * configure an <tt>AffineTransform</tt>
      *
      * @param cmp the dialog's parent component
@@ -359,9 +364,9 @@ public class JAffineTransformChooser extends JGridBagPanel{
      */
     public static Dialog createDialog(Component cmp,
                                       String title){
-        final JAffineTransformChooser pane 
+        final JAffineTransformChooser pane
             = new JAffineTransformChooser();
-        
+
         AffineTransformTracker tracker = new AffineTransformTracker(pane);
         Dialog dialog = new Dialog(cmp, title, true, pane, tracker, null);
         dialog.addWindowListener(new Closer());
@@ -369,12 +374,12 @@ public class JAffineTransformChooser extends JGridBagPanel{
 
         return dialog;
     }
-    
 
-    public static void main(String args[]){
+
+    public static void main(String[] args){
         AffineTransform t = showDialog(null, "Hello");
         // AffineTransform.getScaleInstance(.25, .25));
-        // new AffineTransform()); 
+        // new AffineTransform());
         // AffineTransform.getShearInstance(1, 1));
         if(t == null){
             System.out.println("Cancelled");
@@ -394,10 +399,10 @@ public class JAffineTransformChooser extends JGridBagPanel{
         private JAffineTransformChooser chooserPane;
         private AffineTransformTracker tracker;
 
-        public static final String LABEL_OK 
+        public static final String LABEL_OK
             = "JAffineTransformChooser.label.ok";
 
-        public static final String LABEL_CANCEL 
+        public static final String LABEL_CANCEL
             = "JAffineTransformChooser.label.cancel";
 
         public static final String LABEL_RESET
@@ -406,7 +411,7 @@ public class JAffineTransformChooser extends JGridBagPanel{
         public static final String ACTION_COMMAND_OK
             = "OK";
 
-        public static final String ACTION_COMMAND_CANCEL 
+        public static final String ACTION_COMMAND_CANCEL
             = "cancel";
 
 
@@ -414,7 +419,7 @@ public class JAffineTransformChooser extends JGridBagPanel{
                       JAffineTransformChooser chooserPane,
                       AffineTransformTracker okListener, ActionListener cancelListener) {
             super(JOptionPane.getFrameForComponent(c), title, modal);
-        
+
             this.chooserPane = chooserPane;
             this.tracker = okListener;
 
@@ -439,7 +444,7 @@ public class JAffineTransformChooser extends JGridBagPanel{
             }
             okButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        hide();
+                        setVisible(false);
                     }
                 });
             buttonPane.add(okButton);
@@ -449,17 +454,17 @@ public class JAffineTransformChooser extends JGridBagPanel{
             addKeyListener(new KeyAdapter(){
                     public void keyPressed(KeyEvent evt){
                         if(evt.getKeyCode() == KeyEvent.VK_ESCAPE){
-                            hide();
+                            setVisible(false);
                         }
                     }
                 });
-            
+
             cancelButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        hide();
+                        setVisible(false);
                     }
                 });
-            
+
             buttonPane.add(cancelButton);
 
             JButton resetButton = new JButton(resetString);
@@ -475,13 +480,13 @@ public class JAffineTransformChooser extends JGridBagPanel{
             setLocationRelativeTo(c);
         }
 
-        public void show() {
-            tracker.reset();
-            super.show();
+        public void setVisible(boolean b) {
+            if (b) tracker.reset();
+            super.setVisible(b);
         }
 
         public AffineTransform showDialog(){
-            this.show();
+            this.setVisible(true);
             return tracker.getAffineTransform();
         }
 
@@ -504,17 +509,17 @@ public class JAffineTransformChooser extends JGridBagPanel{
     static class Closer extends WindowAdapter implements Serializable{
         public void windowClosing(WindowEvent e) {
             Window w = e.getWindow();
-            w.hide();
+            w.setVisible(false);
         }
     }
-    
+
     static class DisposeOnClose extends ComponentAdapter implements Serializable{
         public void componentHidden(ComponentEvent e) {
             Window w = (Window)e.getComponent();
             w.dispose();
         }
     }
-    
+
 }
 
 

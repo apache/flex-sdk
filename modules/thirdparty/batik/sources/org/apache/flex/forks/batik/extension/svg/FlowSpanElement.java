@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,27 +19,28 @@
 package org.apache.flex.forks.batik.extension.svg;
 
 import org.apache.flex.forks.batik.dom.AbstractDocument;
-import org.apache.flex.forks.batik.extension.PrefixableStylableExtensionElement;
+import org.apache.flex.forks.batik.dom.svg.SVGOMTextPositioningElement;
 import org.w3c.dom.Node;
 
 /**
  * This class implements a regular polygon extension to SVG
  *
  * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
- * @version $Id: FlowSpanElement.java,v 1.5 2004/10/29 01:08:33 deweese Exp $
+ * @version $Id: FlowSpanElement.java 495198 2007-01-11 11:26:54Z deweese $
  */
 public class FlowSpanElement
-    extends    PrefixableStylableExtensionElement 
-    implements BatikExtConstants {
+    extends    SVGOMTextPositioningElement
+    implements BatikExtConstants
+ {
 
     /**
-     * Creates a new BatikRegularPolygonElement object.
+     * Creates a new Batik Flow Span element.
      */
     protected FlowSpanElement() {
     }
 
     /**
-     * Creates a new BatikRegularPolygonElement object.
+     * Creates a new Batik Flow Span Element.
      * @param prefix The namespace prefix.
      * @param owner The owner document.
      */

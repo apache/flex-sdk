@@ -17,10 +17,6 @@
 
 */
 
-/**
- *  Modified by Adobe Flex.
- */
-
 package org.apache.flex.forks.batik.css.parser;
 
 /**

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,20 +23,19 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.apache.flex.forks.batik.ext.awt.image.spi.ImageWriter;
+import org.apache.flex.forks.batik.ext.awt.image.spi.ImageWriterParams;
+import org.apache.flex.forks.batik.ext.awt.image.spi.ImageWriterRegistry;
 import org.apache.flex.forks.batik.transcoder.TranscoderException;
 import org.apache.flex.forks.batik.transcoder.TranscoderOutput;
 import org.apache.flex.forks.batik.transcoder.TranscodingHints;
 import org.apache.flex.forks.batik.transcoder.image.resources.Messages;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGEncodeParam;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
-
 /**
  * This class is an <tt>ImageTranscoder</tt> that produces a JPEG image.
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: JPEGTranscoder.java,v 1.11 2005/03/27 08:58:36 cam Exp $
+ * @version $Id: JPEGTranscoder.java 498740 2007-01-22 18:35:57Z dvholten $
  */
 public class JPEGTranscoder extends ImageTranscoder {
 
@@ -83,21 +83,17 @@ public class JPEGTranscoder extends ImageTranscoder {
                 te = new TranscoderException
                     (Messages.formatMessage("jpeg.unspecifiedQuality", null));
                 handler.error(te);
-                quality = .75f;
+                quality = 0.75f;
             }
 
-            JPEGImageEncoder jpegEncoder;
-            JPEGEncodeParam params;
-            jpegEncoder = JPEGCodec.createJPEGEncoder(ostream);
-            params      = JPEGCodec.getDefaultJPEGEncodeParam(img);
-            params.setQuality(quality, true);
-
+            ImageWriter writer = ImageWriterRegistry.getInstance()
+                .getWriterFor("image/jpeg");
+            ImageWriterParams params = new ImageWriterParams();
+            params.setJPEGQuality(quality, true);
             float PixSzMM = userAgent.getPixelUnitToMillimeter();
-            int PixSzInch = (int)(25.4/PixSzMM+0.5);
-            params.setDensityUnit(JPEGEncodeParam.DENSITY_UNIT_DOTS_INCH);
-            params.setXDensity(PixSzInch);
-            params.setYDensity(PixSzInch);
-            jpegEncoder.encode(img, params);
+            int PixSzInch = (int)(25.4 / PixSzMM + 0.5);
+            params.setResolution(PixSzInch);
+            writer.writeImage(img, ostream, params);
             ostream.flush();
         } catch (IOException ex) {
             throw new TranscoderException(ex);
@@ -138,7 +134,7 @@ public class JPEGTranscoder extends ImageTranscoder {
         public boolean isCompatibleValue(Object v) {
             if (v instanceof Float) {
                 float q = ((Float)v).floatValue();
-                return (q > 0 && q <= 1f);
+                return (q > 0 && q <= 1.0f);
             } else {
                 return false;
             }
@@ -160,8 +156,8 @@ public class JPEGTranscoder extends ImageTranscoder {
             this.os = os;
         }
 
-        public void close() throws IOException { 
-            if (os == null) return; 
+        public void close() throws IOException {
+            if (os == null) return;
             try {
                 os.close();
             } catch (IOException ioe) {
@@ -169,8 +165,8 @@ public class JPEGTranscoder extends ImageTranscoder {
             }
         }
 
-        public void flush() throws IOException { 
-            if (os == null) return; 
+        public void flush() throws IOException {
+            if (os == null) return;
             try {
                 os.flush();
             } catch (IOException ioe) {
@@ -178,26 +174,26 @@ public class JPEGTranscoder extends ImageTranscoder {
             }
         }
 
-        public void write(byte[] b) throws IOException { 
-            if (os == null) return; 
+        public void write(byte[] b) throws IOException {
+            if (os == null) return;
             try {
                 os.write(b);
             } catch (IOException ioe) {
                 os = null;
             }
         }
-        
-        public void write(byte[] b, int off, int len) throws IOException { 
-            if (os == null) return; 
+
+        public void write(byte[] b, int off, int len) throws IOException {
+            if (os == null) return;
             try {
                 os.write(b, off, len);
             } catch (IOException ioe) {
                 os = null;
             }
         }
-        
-        public void write(int b)  throws IOException { 
-            if (os == null) return; 
+
+        public void write(int b)  throws IOException {
+            if (os == null) return;
             try {
                 os.write(b);
             } catch (IOException ioe) {

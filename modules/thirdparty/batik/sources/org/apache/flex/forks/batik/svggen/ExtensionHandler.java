@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -28,7 +29,7 @@ import java.awt.image.BufferedImageOp;
  * Paints, Composites or BufferedImageOp filters).
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: ExtensionHandler.java,v 1.7 2004/08/18 07:14:59 vhardy Exp $
+ * @version $Id: ExtensionHandler.java 478176 2006-11-22 14:50:50Z dvholten $
  */
 public interface ExtensionHandler {
     /**
@@ -36,7 +37,7 @@ public interface ExtensionHandler {
      * @param generatorContext allows the handler to build DOM objects as needed.
      * @return an SVGPaintDescriptor
      */
-    public SVGPaintDescriptor handlePaint(Paint paint,
+    SVGPaintDescriptor handlePaint(Paint paint,
                                           SVGGeneratorContext generatorContext);
 
     /**
@@ -46,7 +47,7 @@ public interface ExtensionHandler {
      * or null if the composite cannot be handled
      *
      */
-    public SVGCompositeDescriptor handleComposite(Composite composite,
+    SVGCompositeDescriptor handleComposite(Composite composite,
                                                   SVGGeneratorContext generatorContext);
 
 /**
@@ -58,7 +59,7 @@ public interface ExtensionHandler {
      * @return an SVGFilterDescriptor which contains a valid SVG filter,
      * or null if the composite cannot be handled
      */
-    public SVGFilterDescriptor handleFilter(BufferedImageOp filter,
+SVGFilterDescriptor handleFilter(BufferedImageOp filter,
                                             Rectangle filterRect,
                                             SVGGeneratorContext generatorContext);
 }

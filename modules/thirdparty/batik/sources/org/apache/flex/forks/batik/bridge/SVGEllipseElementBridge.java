@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -20,16 +21,20 @@ package org.apache.flex.forks.batik.bridge;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
+import org.apache.flex.forks.batik.dom.svg.AbstractSVGAnimatedLength;
+import org.apache.flex.forks.batik.dom.svg.AnimatedLiveAttributeValue;
+import org.apache.flex.forks.batik.dom.svg.LiveAttributeException;
+import org.apache.flex.forks.batik.dom.svg.SVGOMEllipseElement;
 import org.apache.flex.forks.batik.gvt.ShapeNode;
 import org.apache.flex.forks.batik.gvt.ShapePainter;
+
 import org.w3c.dom.Element;
-import org.w3c.dom.events.MutationEvent;
 
 /**
  * Bridge class for the &lt;ellipse> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGEllipseElementBridge.java,v 1.15 2004/08/18 07:12:33 vhardy Exp $
+ * @version $Id: SVGEllipseElementBridge.java 527382 2007-04-11 04:31:58Z cam $
  */
 public class SVGEllipseElementBridge extends SVGShapeElementBridge {
 
@@ -62,68 +67,55 @@ public class SVGEllipseElementBridge extends SVGShapeElementBridge {
     protected void buildShape(BridgeContext ctx,
                               Element e,
                               ShapeNode shapeNode) {
+        try {
+            SVGOMEllipseElement ee = (SVGOMEllipseElement) e;
 
-        UnitProcessor.Context uctx = UnitProcessor.createContext(ctx, e);
-        String s;
+            // 'cx' attribute - default is 0
+            AbstractSVGAnimatedLength _cx =
+                (AbstractSVGAnimatedLength) ee.getCx();
+            float cx = _cx.getCheckedValue();
 
-        // 'cx' attribute - default is 0
-        s = e.getAttributeNS(null, SVG_CX_ATTRIBUTE);
-        float cx = 0;
-        if (s.length() != 0) {
-            cx = UnitProcessor.svgHorizontalCoordinateToUserSpace
-                (s, SVG_CX_ATTRIBUTE, uctx);
+            // 'cy' attribute - default is 0
+            AbstractSVGAnimatedLength _cy =
+                (AbstractSVGAnimatedLength) ee.getCy();
+            float cy = _cy.getCheckedValue();
+
+            // 'rx' attribute - required
+            AbstractSVGAnimatedLength _rx =
+                (AbstractSVGAnimatedLength) ee.getRx();
+            float rx = _rx.getCheckedValue();
+
+            // 'ry' attribute - required
+            AbstractSVGAnimatedLength _ry =
+                (AbstractSVGAnimatedLength) ee.getRy();
+            float ry = _ry.getCheckedValue();
+
+            shapeNode.setShape(new Ellipse2D.Float(cx - rx, cy - ry,
+                                                   rx * 2, ry * 2));
+        } catch (LiveAttributeException ex) {
+            throw new BridgeException(ctx, ex);
         }
-
-        // 'cy' attribute - default is 0
-        s = e.getAttributeNS(null, SVG_CY_ATTRIBUTE);
-        float cy = 0;
-        if (s.length() != 0) {
-            cy = UnitProcessor.svgVerticalCoordinateToUserSpace
-                (s, SVG_CY_ATTRIBUTE, uctx);
-        }
-
-        // 'rx' attribute - required
-        s = e.getAttributeNS(null, SVG_RX_ATTRIBUTE);
-        float rx;
-        if (s.length() != 0) {
-            rx = UnitProcessor.svgHorizontalLengthToUserSpace
-                (s, SVG_RX_ATTRIBUTE, uctx);
-        } else {
-            throw new BridgeException(e, ERR_ATTRIBUTE_MISSING,
-                                      new Object[] {SVG_RX_ATTRIBUTE, s});
-        }
-
-        // 'ry' attribute - required
-        s = e.getAttributeNS(null, SVG_RY_ATTRIBUTE);
-        float ry;
-        if (s.length() != 0) {
-            ry = UnitProcessor.svgVerticalLengthToUserSpace
-                (s, SVG_RY_ATTRIBUTE, uctx);
-        } else {
-            throw new BridgeException(e, ERR_ATTRIBUTE_MISSING,
-                                      new Object[] {SVG_RY_ATTRIBUTE, s});
-        }
-
-        shapeNode.setShape(new Ellipse2D.Float(cx-rx, cy-ry, rx*2, ry*2));
     }
 
     // BridgeUpdateHandler implementation //////////////////////////////////
 
     /**
-     * Invoked when an MutationEvent of type 'DOMAttrModified' is fired.
+     * Invoked when the animated value of an animatable attribute has changed.
      */
-    public void handleDOMAttrModifiedEvent(MutationEvent evt) {
-        String attrName = evt.getAttrName();
-        if (attrName.equals(SVG_CX_ATTRIBUTE) ||
-            attrName.equals(SVG_CY_ATTRIBUTE) ||
-            attrName.equals(SVG_RX_ATTRIBUTE) ||
-            attrName.equals(SVG_RY_ATTRIBUTE)) {
-
-            buildShape(ctx, e, (ShapeNode)node);
-            handleGeometryChanged();
-        } else {
-            super.handleDOMAttrModifiedEvent(evt);
+    public void handleAnimatedAttributeChanged
+            (AnimatedLiveAttributeValue alav) {
+        if (alav.getNamespaceURI() == null) {
+            String ln = alav.getLocalName();
+            if (ln.equals(SVG_CX_ATTRIBUTE)
+                    || ln.equals(SVG_CY_ATTRIBUTE)
+                    || ln.equals(SVG_RX_ATTRIBUTE)
+                    || ln.equals(SVG_RY_ATTRIBUTE)) {
+                buildShape(ctx, e, (ShapeNode)node);
+                handleGeometryChanged();
+                return;
+            }
         }
+        super.handleAnimatedAttributeChanged(alav);
     }
 
     protected ShapePainter createShapePainter(BridgeContext ctx,

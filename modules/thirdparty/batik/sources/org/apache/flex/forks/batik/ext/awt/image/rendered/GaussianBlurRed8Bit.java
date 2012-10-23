@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -38,7 +39,7 @@ import org.apache.flex.forks.batik.ext.awt.image.GraphicsUtil;
  * GraphicsNode on demand for tiles.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: GaussianBlurRed8Bit.java,v 1.8 2004/08/18 07:14:08 vhardy Exp $
+ * @version $Id: GaussianBlurRed8Bit.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public class GaussianBlurRed8Bit extends AbstractRed {
 
@@ -55,8 +56,8 @@ public class GaussianBlurRed8Bit extends AbstractRed {
      * @param stdDev The Standard Deviation of the Gaussian kernel.
      * @param rh     Rendering hints.
      */
-    public GaussianBlurRed8Bit(CachableRed    src, 
-                               double         stdDev, 
+    public GaussianBlurRed8Bit(CachableRed    src,
+                               double         stdDev,
                                RenderingHints rh) {
         this(src, stdDev, stdDev, rh);
     }
@@ -69,7 +70,7 @@ public class GaussianBlurRed8Bit extends AbstractRed {
      * @param stdDevY The Standard Deviation of the Gaussian kernel in Y
      * @param rh     Rendering hints.
      */
-    public GaussianBlurRed8Bit(CachableRed src, 
+    public GaussianBlurRed8Bit(CachableRed src,
                                double stdDevX, double stdDevY,
                                RenderingHints rh) {
         super(); // Remember to call super.init()
@@ -100,7 +101,7 @@ public class GaussianBlurRed8Bit extends AbstractRed {
         if (th > myBounds.height) th = myBounds.height;
         sm = cm.createCompatibleSampleModel(tw, th);
 
-        init(src, myBounds, cm, sm, 
+        init(src, myBounds, cm, sm,
              src.getTileGridXOffset()+xinset,
              src.getTileGridYOffset()+yinset, null);
 
@@ -146,15 +147,15 @@ public class GaussianBlurRed8Bit extends AbstractRed {
     /**
      * Calculate the number of surround pixels required for a given
      * standard Deviation.  Also takes into account rendering quality
-     * hint.  
-     */ 
+     * hint.
+     */
     public static int surroundPixels(double stdDev, RenderingHints hints) {
         boolean highQuality = ((hints != null) &&
                                RenderingHints.VALUE_RENDER_QUALITY.equals
                                (hints.get(RenderingHints.KEY_RENDERING)));
 
         if ((stdDev < 2) || highQuality) {
-            // Start with 1/2 the zero box enery.   
+            // Start with 1/2 the zero box enery.
             float areaSum = (float)(0.5/(stdDev*SQRT2PI));
             int i=0;
             while (areaSum < precision) {
@@ -168,7 +169,7 @@ public class GaussianBlurRed8Bit extends AbstractRed {
 
         //compute d
         int diam = (int)Math.floor(DSQRT2PI*stdDev+0.5f);
-        if (diam%2 == 0) 
+        if (diam%2 == 0)
             return diam-1 + diam/2; // even case
         else
             return diam-2 + diam/2;   // Odd case
@@ -181,8 +182,8 @@ public class GaussianBlurRed8Bit extends AbstractRed {
      * @param radius stdDeviationX or stdDeviationY.
      * @see #makeQualityKernels */
     private float [] computeQualityKernelData(int len, double stdDev){
-        final float kernelData[] = new float [len];
-        
+        final float[] kernelData = new float [len];
+
         int mid = len/2;
         float sum = 0; // Used to normalise the kernel
         for(int i=0; i<len; i++){
@@ -212,7 +213,7 @@ public class GaussianBlurRed8Bit extends AbstractRed {
         CachableRed src = (CachableRed)getSources().get(0);
 
         Rectangle r = wr.getBounds();
-        r.x      -=   xinset; 
+        r.x      -=   xinset;
         r.y      -=   yinset;
         r.width  += 2*xinset;
         r.height += 2*yinset;
@@ -230,7 +231,7 @@ public class GaussianBlurRed8Bit extends AbstractRed {
             fill = tmpR1.createWritableTranslatedChild(r.x, r.y);
             src.copyData(fill);
         }
-        if (srcCM.hasAlpha() && !srcCM.isAlphaPremultiplied()) 
+        if (srcCM.hasAlpha() && !srcCM.isAlphaPremultiplied())
             GraphicsUtil.coerceData(tmpR1, srcCM, true);
 
         // For the blur box approx we can use dest as our intermediate
@@ -240,7 +241,7 @@ public class GaussianBlurRed8Bit extends AbstractRed {
         // this lets the Vertical conv know how much is junk, so it
         // doesn't bother to convolve the top and bottom edges
         int skipX;
-	// long t1 = System.currentTimeMillis();
+        // long t1 = System.currentTimeMillis();
         if (xinset == 0) {
             skipX = 0;
         } else if (convOp[0] != null) {
@@ -288,14 +289,14 @@ public class GaussianBlurRed8Bit extends AbstractRed {
             }
             tmpR2 = tmpR1;
         }
-	// long t2 = System.currentTimeMillis();
-	// System.out.println("Time: " + (t2-t1) +
-	// 		      (((convOp[0] != null) || (convOp[1] != null))?
-	// 		       " ConvOp":""));
+        // long t2 = System.currentTimeMillis();
+        // System.out.println("Time: " + (t2-t1) +
+        //                       (((convOp[0] != null) || (convOp[1] != null))?
+        //                        " ConvOp":""));
         // System.out.println("Rasters  WR :" + wr.getBounds());
         // System.out.println("         tmp:" + tmpR2.getBounds());
         // System.out.println("      bounds:" + getBounds());
-        // System.out.println("       skipX:" + skipX + 
+        // System.out.println("       skipX:" + skipX +
         //                    " dx:" + dX + " Dy: " + dY);
         tmpR2 = tmpR2.createWritableTranslatedChild(r.x, r.y);
         GraphicsUtil.copyData(tmpR2, wr);
@@ -304,7 +305,7 @@ public class GaussianBlurRed8Bit extends AbstractRed {
     }
 
     private WritableRaster boxFilterH(Raster src, WritableRaster dest,
-                                      int skipX, int skipY, 
+                                      int skipX, int skipY,
                                       int boxSz, int loc) {
 
         final int w = src.getWidth();
@@ -314,12 +315,12 @@ public class GaussianBlurRed8Bit extends AbstractRed {
         if (w < (2*skipX)+boxSz) return dest;
         if (h < (2*skipY))       return dest;
 
-        final SinglePixelPackedSampleModel srcSPPSM = 
+        final SinglePixelPackedSampleModel srcSPPSM =
             (SinglePixelPackedSampleModel)src.getSampleModel();
 
-        final SinglePixelPackedSampleModel dstSPPSM = 
+        final SinglePixelPackedSampleModel dstSPPSM =
             (SinglePixelPackedSampleModel)dest.getSampleModel();
-        
+
         // Stride is the distance between two consecutive column elements,
         // in the one-dimention dataBuffer
         final int srcScanStride = srcSPPSM.getScanlineStride();
@@ -330,29 +331,29 @@ public class GaussianBlurRed8Bit extends AbstractRed {
         DataBufferInt dstDB = (DataBufferInt)dest.getDataBuffer();
 
         // Offset defines where in the stack the real data begin
-        final int srcOff 
-            = (srcDB.getOffset() + 
+        final int srcOff
+            = (srcDB.getOffset() +
                srcSPPSM.getOffset
                (src.getMinX()-src.getSampleModelTranslateX(),
                 src.getMinY()-src.getSampleModelTranslateY()));
-        final int dstOff 
+        final int dstOff
             = (dstDB.getOffset() +
                dstSPPSM.getOffset
                (dest.getMinX()-dest.getSampleModelTranslateX(),
                 dest.getMinY()-dest.getSampleModelTranslateY()));
 
         // Access the pixel value array
-        final int srcPixels [] = srcDB.getBankData()[0];
-        final int destPixels[] = dstDB.getBankData()[0];
+        final int[] srcPixels  = srcDB.getBankData()[0];
+        final int[] destPixels = dstDB.getBankData()[0];
 
         final int [] buffer = new int [boxSz];
-	int curr, prev;
+        int curr, prev;
 
           // Fixed point normalization factor (8.24)
         int scale = (1<<24)/boxSz;
-        
+
         /*
-         * System.out.println("Info: srcOff: " + srcOff + 
+         * System.out.println("Info: srcOff: " + srcOff +
          *                    " x: " + skipX +
          *                    " y: " + skipY +
          *                    " w: " + w +
@@ -380,39 +381,39 @@ public class GaussianBlurRed8Bit extends AbstractRed {
                 sumA += (curr>>> 24);
                 sumR += (curr >> 16)&0xFF;
                 sumG += (curr >>  8)&0xFF;
-                sumB += (curr	   )&0xFF;
+                sumB += (curr      )&0xFF;
                 k++;
                 sp++;
             }
 
             dp += skipX + loc;
             prev = destPixels[dp] = (( (sumA*scale)&0xFF000000)       |
-				     (((sumR*scale)&0xFF000000)>>>8)  |
-				     (((sumG*scale)&0xFF000000)>>>16) |
-				     (((sumB*scale)&0xFF000000)>>>24));
+                                     (((sumR*scale)&0xFF000000)>>>8)  |
+                                     (((sumG*scale)&0xFF000000)>>>16) |
+                                     (((sumB*scale)&0xFF000000)>>>24));
             dp++;
             k=0;
             while (sp < rowEnd) {
-		curr = buffer[k];
-		if (curr == srcPixels[sp]) {
-		    destPixels[dp] = prev;
-		} else {
-		    sumA -= (curr>>> 24);
-		    sumR -= (curr >> 16)&0xFF;
-		    sumG -= (curr >>  8)&0xFF;
-		    sumB -= (curr      )&0xFF;
+                curr = buffer[k];
+                if (curr == srcPixels[sp]) {
+                    destPixels[dp] = prev;
+                } else {
+                    sumA -= (curr>>> 24);
+                    sumR -= (curr >> 16)&0xFF;
+                    sumG -= (curr >>  8)&0xFF;
+                    sumB -= (curr      )&0xFF;
 
-		    curr = buffer[k] = srcPixels[sp];
+                    curr = buffer[k] = srcPixels[sp];
 
-		    sumA += (curr>>> 24);
-		    sumR += (curr >> 16)&0xFF;
-		    sumG += (curr >>  8)&0xFF;
-		    sumB += (curr      )&0xFF;
-		    prev = destPixels[dp] = (( (sumA*scale)&0xFF000000)       |
-					     (((sumR*scale)&0xFF000000)>>>8)  |
-					     (((sumG*scale)&0xFF000000)>>>16) |
-					     (((sumB*scale)&0xFF000000)>>>24));
-		}
+                    sumA += (curr>>> 24);
+                    sumR += (curr >> 16)&0xFF;
+                    sumG += (curr >>  8)&0xFF;
+                    sumB += (curr      )&0xFF;
+                    prev = destPixels[dp] = (( (sumA*scale)&0xFF000000)       |
+                                             (((sumR*scale)&0xFF000000)>>>8)  |
+                                             (((sumG*scale)&0xFF000000)>>>16) |
+                                             (((sumB*scale)&0xFF000000)>>>24));
+                }
                 k = (k+1)%boxSz;
                 sp++;
                 dp++;
@@ -422,7 +423,7 @@ public class GaussianBlurRed8Bit extends AbstractRed {
     }
 
     private WritableRaster boxFilterV(Raster src, WritableRaster dest,
-                                      int skipX, int skipY, 
+                                      int skipX, int skipY,
                                       int boxSz, int loc) {
 
         final int w = src.getWidth();
@@ -432,12 +433,12 @@ public class GaussianBlurRed8Bit extends AbstractRed {
         if (w < (2*skipX))       return dest;
         if (h < (2*skipY)+boxSz) return dest;
 
-        final SinglePixelPackedSampleModel srcSPPSM = 
+        final SinglePixelPackedSampleModel srcSPPSM =
             (SinglePixelPackedSampleModel)src.getSampleModel();
 
-        final SinglePixelPackedSampleModel dstSPPSM = 
+        final SinglePixelPackedSampleModel dstSPPSM =
             (SinglePixelPackedSampleModel)dest.getSampleModel();
-        
+
         // Stride is the distance between two consecutive column elements,
         // in the one-dimention dataBuffer
         final int srcScanStride = srcSPPSM.getScanlineStride();
@@ -448,12 +449,12 @@ public class GaussianBlurRed8Bit extends AbstractRed {
         DataBufferInt dstDB = (DataBufferInt)dest.getDataBuffer();
 
         // Offset defines where in the stack the real data begin
-        final int srcOff 
-            = (srcDB.getOffset() + 
+        final int srcOff
+            = (srcDB.getOffset() +
                srcSPPSM.getOffset
                (src.getMinX()-src.getSampleModelTranslateX(),
                 src.getMinY()-src.getSampleModelTranslateY()));
-        final int dstOff 
+        final int dstOff
             = (dstDB.getOffset() +
                dstSPPSM.getOffset
                (dest.getMinX()-dest.getSampleModelTranslateX(),
@@ -461,17 +462,17 @@ public class GaussianBlurRed8Bit extends AbstractRed {
 
 
         // Access the pixel value array
-        final int srcPixels [] = srcDB.getBankData()[0];
-        final int destPixels[] = dstDB.getBankData()[0];
+        final int[] srcPixels  = srcDB.getBankData()[0];
+        final int[] destPixels = dstDB.getBankData()[0];
 
         final int [] buffer = new int [boxSz];
-	int curr, prev;
+        int curr, prev;
 
           // Fixed point normalization factor (8.24)
         final int scale = (1<<24)/boxSz;
 
         /*
-         * System.out.println("Info: srcOff: " + srcOff + 
+         * System.out.println("Info: srcOff: " + srcOff +
          *                    " x: " + skipX +
          *                    " y: " + skipY +
          *                    " w: " + w +
@@ -499,7 +500,7 @@ public class GaussianBlurRed8Bit extends AbstractRed {
                 sumA += (curr>>> 24);
                 sumR += (curr >> 16)&0xFF;
                 sumG += (curr >>  8)&0xFF;
-                sumB += (curr 	   )&0xFF;
+                sumB += (curr      )&0xFF;
                 k++;
                 sp+=srcScanStride;
             }
@@ -507,32 +508,32 @@ public class GaussianBlurRed8Bit extends AbstractRed {
 
             dp += (skipY + loc)*dstScanStride;
             prev = destPixels[dp] = (( (sumA*scale)&0xFF000000)       |
-				     (((sumR*scale)&0xFF000000)>>>8)  |
-				     (((sumG*scale)&0xFF000000)>>>16) |
-				     (((sumB*scale)&0xFF000000)>>>24));
+                                     (((sumR*scale)&0xFF000000)>>>8)  |
+                                     (((sumG*scale)&0xFF000000)>>>16) |
+                                     (((sumB*scale)&0xFF000000)>>>24));
             dp+=dstScanStride;
             k=0;
             while (sp < colEnd) {
-		curr = buffer[k];
-		if (curr == srcPixels[sp]) {
-		    destPixels[dp] = prev;
-		} else {
-		    sumA -= (curr>>> 24);
-		    sumR -= (curr >> 16)&0xFF;
-		    sumG -= (curr >>  8)&0xFF;
-		    sumB -= (curr      )&0xFF;
+                curr = buffer[k];
+                if (curr == srcPixels[sp]) {
+                    destPixels[dp] = prev;
+                } else {
+                    sumA -= (curr>>> 24);
+                    sumR -= (curr >> 16)&0xFF;
+                    sumG -= (curr >>  8)&0xFF;
+                    sumB -= (curr      )&0xFF;
 
-		    curr = buffer[k] = srcPixels[sp];
+                    curr = buffer[k] = srcPixels[sp];
 
-		    sumA += (curr>>> 24);
-		    sumR += (curr >> 16)&0xFF;
-		    sumG += (curr >>  8)&0xFF;
-		    sumB += (curr      )&0xFF;
-		    prev = destPixels[dp] = (( (sumA*scale)&0xFF000000)       |
-					     (((sumR*scale)&0xFF000000)>>>8)  |
-					     (((sumG*scale)&0xFF000000)>>>16) |
-					     (((sumB*scale)&0xFF000000)>>>24));
-		}
+                    sumA += (curr>>> 24);
+                    sumR += (curr >> 16)&0xFF;
+                    sumG += (curr >>  8)&0xFF;
+                    sumB += (curr      )&0xFF;
+                    prev = destPixels[dp] = (( (sumA*scale)&0xFF000000)       |
+                                             (((sumR*scale)&0xFF000000)>>>8)  |
+                                             (((sumG*scale)&0xFF000000)>>>16) |
+                                             (((sumB*scale)&0xFF000000)>>>24));
+                }
                 k = (k+1)%boxSz;
                 sp+=srcScanStride;
                 dp+=dstScanStride;
@@ -570,7 +571,7 @@ public class GaussianBlurRed8Bit extends AbstractRed {
                 ("GaussianBlurRed8Bit only supports one to four band images");
         }
         ColorSpace cs = cm.getColorSpace();
-        return new DirectColorModel(cs, 8*b, masks[0], masks[1], 
+        return new DirectColorModel(cs, 8*b, masks[0], masks[1],
                                     masks[2], masks[3],
                                     true, DataBuffer.TYPE_INT);
     }

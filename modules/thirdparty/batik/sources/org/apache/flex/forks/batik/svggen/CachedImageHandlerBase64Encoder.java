@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,8 +23,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.apache.flex.forks.batik.ext.awt.image.codec.ImageEncoder;
-import org.apache.flex.forks.batik.ext.awt.image.codec.PNGImageEncoder;
+import org.apache.flex.forks.batik.ext.awt.image.spi.ImageWriter;
+import org.apache.flex.forks.batik.ext.awt.image.spi.ImageWriterRegistry;
 import org.apache.flex.forks.batik.util.Base64EncoderStream;
 import org.w3c.dom.Element;
 
@@ -34,7 +35,7 @@ import org.w3c.dom.Element;
  * encoder.
  *
  * @author <a href="mailto:paul_evenblij@compuware.com">Paul Evenblij</a>
- * @version $Id: CachedImageHandlerBase64Encoder.java,v 1.7 2004/08/18 07:14:58 vhardy Exp $
+ * @version $Id: CachedImageHandlerBase64Encoder.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class CachedImageHandlerBase64Encoder extends DefaultCachedImageHandler {
     /**
@@ -104,8 +105,9 @@ public class CachedImageHandlerBase64Encoder extends DefaultCachedImageHandler {
     public void encodeImage(BufferedImage buf, OutputStream os)
             throws IOException {
         Base64EncoderStream b64Encoder = new Base64EncoderStream(os);
-        ImageEncoder encoder = new PNGImageEncoder(b64Encoder, null);
-        encoder.encode(buf);
+        ImageWriter writer = ImageWriterRegistry.getInstance()
+            .getWriterFor("image/png");
+        writer.writeImage(buf, b64Encoder);
         b64Encoder.close();
     }
 

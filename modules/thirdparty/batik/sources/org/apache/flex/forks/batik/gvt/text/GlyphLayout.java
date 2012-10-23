@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -29,10 +30,10 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Line2D;
 import java.text.AttributedCharacterIterator;
 import java.text.CharacterIterator;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.flex.forks.batik.gvt.font.AWTGVTFont;
@@ -41,35 +42,24 @@ import org.apache.flex.forks.batik.gvt.font.GVTFont;
 import org.apache.flex.forks.batik.gvt.font.GVTGlyphMetrics;
 import org.apache.flex.forks.batik.gvt.font.GVTGlyphVector;
 import org.apache.flex.forks.batik.gvt.font.GVTLineMetrics;
-import org.apache.flex.forks.batik.gvt.TextNode;
-import org.apache.flex.forks.batik.gvt.text.GVTAttributedCharacterIterator;
-import org.apache.flex.forks.batik.gvt.text.TextHit;
-import org.apache.flex.forks.batik.gvt.text.TextSpanLayout;
 
 /**
  * Implementation of TextSpanLayout which uses java.awt.font.GlyphVector.
  * @see org.apache.flex.forks.batik.gvt.text.TextSpanLayout
  *
  * @author <a href="mailto:bill.haneman@ireland.sun.com">Bill Haneman</a>
- * @version $Id: GlyphLayout.java,v 1.63 2005/03/27 08:58:35 cam Exp $
+ * @version $Id: GlyphLayout.java 588550 2007-10-26 07:52:41Z dvholten $
  */
 public class GlyphLayout implements TextSpanLayout {
-
-    public static final char SOFT_HYPHEN       = 0x00AD;
-    public static final char ZERO_WIDTH_SPACE  = 0x200B;
-    public static final char ZERO_WIDTH_JOINER = 0x200D;
-    public static final char SPACE             = ' ';
 
     private GVTGlyphVector gv;
     private GVTFont font;
     private GVTLineMetrics metrics;
     private AttributedCharacterIterator aci;
-    private FontRenderContext frc;
     private Point2D advance;
     private Point2D offset;
     private float   xScale=1;
     private float   yScale=1;
-    private Point2D prevCharPosition;
     private TextPath textPath;
     private Point2D textPathAdvance;
     private int []  charMap;
@@ -99,29 +89,25 @@ public class GlyphLayout implements TextSpanLayout {
     public static final AttributedCharacterIterator.Attribute FLOW_LINE_BREAK
         = GVTAttributedCharacterIterator.TextAttribute.FLOW_LINE_BREAK;
 
-    public static final AttributedCharacterIterator.Attribute FLOW_PARAGRAPH 
+    public static final AttributedCharacterIterator.Attribute FLOW_PARAGRAPH
         = GVTAttributedCharacterIterator.TextAttribute.FLOW_PARAGRAPH;
 
-    public static final AttributedCharacterIterator.Attribute 
-        FLOW_EMPTY_PARAGRAPH 
+    public static final AttributedCharacterIterator.Attribute
+        FLOW_EMPTY_PARAGRAPH
         = GVTAttributedCharacterIterator.TextAttribute.FLOW_EMPTY_PARAGRAPH;
 
     public static final AttributedCharacterIterator.Attribute LINE_HEIGHT
         = GVTAttributedCharacterIterator.TextAttribute.LINE_HEIGHT;
 
-    public static final AttributedCharacterIterator.Attribute 
-        TEXT_COMPOUND_DELIMITER 
-        = GVTAttributedCharacterIterator.TextAttribute.TEXT_COMPOUND_DELIMITER;
-
-    public static final AttributedCharacterIterator.Attribute 
-        VERTICAL_ORIENTATION 
+    public static final AttributedCharacterIterator.Attribute
+        VERTICAL_ORIENTATION
         = GVTAttributedCharacterIterator.TextAttribute.VERTICAL_ORIENTATION;
 
-    public static final 
+    public static final
         AttributedCharacterIterator.Attribute VERTICAL_ORIENTATION_ANGLE =
        GVTAttributedCharacterIterator.TextAttribute.VERTICAL_ORIENTATION_ANGLE;
 
-    public static final 
+    public static final
         AttributedCharacterIterator.Attribute HORIZONTAL_ORIENTATION_ANGLE =
      GVTAttributedCharacterIterator.TextAttribute.HORIZONTAL_ORIENTATION_ANGLE;
 
@@ -155,7 +141,7 @@ public class GlyphLayout implements TextSpanLayout {
     public static final AttributedCharacterIterator.Attribute GVT_FONT
         = GVTAttributedCharacterIterator.TextAttribute.GVT_FONT;
 
-    static protected Set runAtts = new HashSet();
+    protected static Set runAtts = new HashSet();
 
     static {
         runAtts.add(X);
@@ -166,7 +152,7 @@ public class GlyphLayout implements TextSpanLayout {
         runAtts.add(BASELINE_SHIFT);
     }
 
-    static protected Set szAtts = new HashSet();
+    protected static Set szAtts = new HashSet();
 
     static {
         szAtts.add(TextAttribute.SIZE);
@@ -192,7 +178,6 @@ public class GlyphLayout implements TextSpanLayout {
                        FontRenderContext frc) {
 
         this.aci = aci;
-        this.frc = frc;
         this.offset = offset;
         this.font = getFont();
         this.charMap = charMap;
@@ -207,7 +192,7 @@ public class GlyphLayout implements TextSpanLayout {
         this.textPath =  (TextPath) aci.getAttribute
             (GVTAttributedCharacterIterator.TextAttribute.TEXTPATH);
 
-        AltGlyphHandler altGlyphHandler 
+        AltGlyphHandler altGlyphHandler
             = (AltGlyphHandler)this.aci.getAttribute
             (GVTAttributedCharacterIterator.TextAttribute.ALT_GLYPH_HANDLER);
         if (altGlyphHandler != null) {
@@ -250,7 +235,7 @@ public class GlyphLayout implements TextSpanLayout {
      * ).
      * @param xScale Scale factor to apply in X direction.
      * @param yScale Scale factor to apply in Y direction.
-     * @param adjSpacing True if only spaces should be adjusted.  
+     * @param adjSpacing True if only spaces should be adjusted.
      */
     public void setScale(float xScale, float yScale, boolean adjSpacing) {
         // Fix the off axis scale factor.
@@ -318,6 +303,10 @@ public class GlyphLayout implements TextSpanLayout {
         return gv.getGlyphMetrics(glyphIndex);
     }
 
+    public GVTLineMetrics getLineMetrics() {
+        return metrics;
+    }
+
     /**
      * Returns true if the advance direction of this text is vertical.
      */
@@ -359,7 +348,7 @@ public class GlyphLayout implements TextSpanLayout {
      */
     public boolean isLeftToRight() {
         aci.first();
-        int bidiLevel = 
+        int bidiLevel =
             ((Integer)aci.getAttribute
              (GVTAttributedCharacterIterator.TextAttribute.BIDI_LEVEL))
             .intValue();
@@ -371,7 +360,7 @@ public class GlyphLayout implements TextSpanLayout {
 
 
     /**
-     * This method makes certain that the layout has been 
+     * This method makes certain that the layout has been
      * completed at this point (much of the layout is done lazily).
      */
     private final void syncLayout() {
@@ -427,7 +416,7 @@ public class GlyphLayout implements TextSpanLayout {
 
         float start = glyphPos[off];
         for (int i=0; i<numGlyphs+1; i++) {
-            glyphAdvances[i] = glyphPos[i+i+off]-start;
+            glyphAdvances[i] = glyphPos[2*i+off]-start;
         }
         return glyphAdvances;
     }
@@ -589,7 +578,7 @@ public class GlyphLayout implements TextSpanLayout {
             if ((glyphCharIndex >= beginCharIndex) &&
                 (glyphCharIndex <= endCharIndex) &&
                 gv.isGlyphVisible(i)) {
-                    
+
                 Shape gbounds = gv.getGlyphLogicalBounds(i);
                 if (gbounds != null) {
                     // We got something...
@@ -668,7 +657,8 @@ public class GlyphLayout implements TextSpanLayout {
         return shape;
     }
 
-    public static final float eps = 0.00001f;
+    public static final double eps = 0.00001;
+
     public static boolean epsEQ(double a, double b) {
         return ((a+eps > b) && (a-eps < b));
     }
@@ -790,9 +780,8 @@ public class GlyphLayout implements TextSpanLayout {
             nTopPts--;
         }
 
-        int i=0;
-        for (; i<nTopPts; i++)
-            pts[i] = topList[i];
+        System.arraycopy( topList, 0, pts, 0, nTopPts );
+        int i= nTopPts;
 
         // We always include the 'last' point as it is always on convex hull.
         pts[i++] = pts[numPts-1];
@@ -983,9 +972,9 @@ public class GlyphLayout implements TextSpanLayout {
      */
     protected GVTFont getFont() {
         aci.first();
-        GVTFont gvtFont = (GVTFont)aci.getAttributes().get(GVT_FONT);
+        GVTFont gvtFont = (GVTFont)aci.getAttribute(GVT_FONT);
 
-        if (gvtFont != null) 
+        if (gvtFont != null)
             return gvtFont;
 
         // shouldn't get here
@@ -1014,13 +1003,13 @@ public class GlyphLayout implements TextSpanLayout {
         Rectangle2D logicalBounds = gv.getLogicalBounds();
 
         return overlineStroke.createStrokedShape(
-                           new java.awt.geom.Line2D.Double(
+                           new Line2D.Double(
                            logicalBounds.getMinX() + overlineThickness/2.0, offset.getY()+y,
                            logicalBounds.getMaxX() - overlineThickness/2.0, offset.getY()+y));
     }
 
     /**
-     * Returns a shape describing the strikethrough line for a given ACI.
+     * Returns a shape describing the undeline decoration for a given ACI.
      */
     protected Shape getUnderlineShape() {
 
@@ -1043,7 +1032,7 @@ public class GlyphLayout implements TextSpanLayout {
         Rectangle2D logicalBounds = gv.getLogicalBounds();
 
         return underlineStroke.createStrokedShape(
-                           new java.awt.geom.Line2D.Double(
+                           new Line2D.Double(
                            logicalBounds.getMinX() + underlineThickness/2.0, offset.getY()+y,
                            logicalBounds.getMaxX() - underlineThickness/2.0, offset.getY()+y));
     }
@@ -1066,7 +1055,7 @@ public class GlyphLayout implements TextSpanLayout {
 
         Rectangle2D logicalBounds = gv.getLogicalBounds();
         return strikethroughStroke.createStrokedShape(
-                           new java.awt.geom.Line2D.Double(
+                           new Line2D.Double(
                            logicalBounds.getMinX() + strikethroughThickness/2.0, offset.getY()+y,
                            logicalBounds.getMaxX() - strikethroughThickness/2.0, offset.getY()+y));
     }
@@ -1081,7 +1070,7 @@ public class GlyphLayout implements TextSpanLayout {
 
         this.gv.performDefaultLayout();
 
-        float baselineAscent 
+        float baselineAscent
             = vertical ?
             (float) gv.getLogicalBounds().getWidth() :
             (metrics.getAscent() + Math.abs(metrics.getDescent()));
@@ -1129,47 +1118,49 @@ public class GlyphLayout implements TextSpanLayout {
 
             GVTGlyphMetrics gm = gv.getGlyphMetrics(i);
 
-            if (textPath == null) {
-                // Don't adjust the location of the first
-                // glyph when doing layout on a text path.
-                if (i==0) {
-                    if (isVertical()) {
-                        if (glyphOrientationAuto) {
-                            if (isLatinChar(ch)) {
-                                // it will be rotated 90
-                                verticalFirstOffset = 0f;
-                            } else {
-                                // it won't be rotated
-                                verticalFirstOffset = 
-                                    (float)gm.getBounds2D().getHeight();
-                            }
+            if (i==0) {
+                if (isVertical()) {
+                    if (glyphOrientationAuto) {
+                        if (isLatinChar(ch)) {
+                            // it will be rotated 90
+                            verticalFirstOffset = 0f;
                         } else {
-                            if (glyphOrientationAngle == 0) {
-                                verticalFirstOffset = 
-                                    (float)gm.getBounds2D().getHeight();
-                            } else {
-                                // 90, 180, 270
-                                verticalFirstOffset = 0f;
-                            }
+                            // it won't be rotated
+                            float advY = gm.getVerticalAdvance();
+                            float asc  = metrics.getAscent();
+                            float dsc  = metrics.getDescent();
+                            verticalFirstOffset =  asc+(advY-(asc+dsc))/2;
                         }
                     } else {
-                        if ((glyphOrientationAngle == 270)) {
-                            horizontalFirstOffset = 
-                                (float)gm.getBounds2D().getHeight();
+                        if (glyphOrientationAngle == 0) {
+                            float advY = gm.getVerticalAdvance();
+                            float asc  = metrics.getAscent();
+                            float dsc  = metrics.getDescent();
+                            verticalFirstOffset =  asc+(advY-(asc+dsc))/2;
                         } else {
-                            // 0, 90, 180
-                            horizontalFirstOffset = 0;
+                            // 90, 180, 270
+                            verticalFirstOffset = 0f;
                         }
                     }
-                } else {
-                    if (glyphOrientationAuto && 
-                        (verticalFirstOffset == 0f)
-                        && !isLatinChar(ch)) {
-                        verticalFirstOffset = 
+                } else {  // not vertical
+                    if ((glyphOrientationAngle == 270)) {
+                        horizontalFirstOffset =
                             (float)gm.getBounds2D().getHeight();
+                    } else {
+                        // 0, 90, 180
+                        horizontalFirstOffset = 0;
                     }
                 }
+            } else {  // not the first char
+                if (glyphOrientationAuto        &&
+                    (verticalFirstOffset == 0f) && !isLatinChar(ch)) {
+                    float advY = gm.getVerticalAdvance();
+                    float asc  = metrics.getAscent();
+                    float dsc  = metrics.getDescent();
+                    verticalFirstOffset =  asc + (advY - (asc+dsc))/2;
+                }
             }
+
             // ox and oy are origin adjustments for each glyph,
             // computed on the basis of baseline-shifts, etc.
             float ox = 0f;
@@ -1212,19 +1203,19 @@ public class GlyphLayout implements TextSpanLayout {
                 }
 
                 if ((x != null) && !x.isNaN()) {
-                    if (i == 0)  
+                    if (i == 0)
                         shift_x_pos = (float)(x.floatValue()-offset.getX());
                     curr_x_pos = x.floatValue()-shift_x_pos;
-                } 
+                }
                 if (dx != null && !dx.isNaN()) {
                     curr_x_pos += dx.floatValue();
                 }
 
                 if ((y != null) && !y.isNaN()) {
-                    if (i == 0)  
+                    if (i == 0)
                         shift_y_pos = (float)(y.floatValue()-offset.getY());
                     curr_y_pos = y.floatValue()-shift_y_pos;
-                } 
+                }
                 if (dy != null && !dy.isNaN()) {
                     curr_y_pos += dy.floatValue();
                 } else if (i > 0) {
@@ -1257,20 +1248,20 @@ public class GlyphLayout implements TextSpanLayout {
                         if (isLatinChar(ch)) {
                             ox += metrics.getStrikethroughOffset();
                         } else {
-                            Rectangle2D glyphBounds 
+                            Rectangle2D glyphBounds
                                 = gv.getGlyphVisualBounds(i).getBounds2D();
-                            ox -= (float)((glyphBounds.getMaxX() - gp[2*i]) - 
+                            ox -= (float)((glyphBounds.getMaxX() - gp[2*i]) -
                                           glyphBounds.getWidth()/2);
                         }
                     } else {
                         // center the character if it's not auto orient
-                        Rectangle2D glyphBounds 
+                        Rectangle2D glyphBounds
                             = gv.getGlyphVisualBounds(i).getBounds2D();
                         if (glyphOrientationAngle == 0) {
-                            ox -= (float)((glyphBounds.getMaxX() - gp[2*i]) - 
+                            ox -= (float)((glyphBounds.getMaxX() - gp[2*i]) -
                                           glyphBounds.getWidth()/2);
                         } else if (glyphOrientationAngle == 180) {
-                            ox += (float)((glyphBounds.getMaxX() - gp[2*i]) - 
+                            ox += (float)((glyphBounds.getMaxX() - gp[2*i]) -
                                           glyphBounds.getWidth()/2);
                         } else if (glyphOrientationAngle == 90) {
                             ox += metrics.getStrikethroughOffset();
@@ -1293,7 +1284,7 @@ public class GlyphLayout implements TextSpanLayout {
             pos.y = curr_y_pos+oy;
             gv.setGlyphPosition(i, pos);
 
-            // calculte the position of the next glyph
+            // calculate the position of the next glyph
             if (ArabicTextHandler.arabicCharTransparent(ch)) {
                 hasArabicTransparent = true;
             } else {
@@ -1374,7 +1365,7 @@ public class GlyphLayout implements TextSpanLayout {
         pos.y = curr_y_pos;
         gv.setGlyphPosition(i, pos);
 
-        advance = new Point2D.Float((float)(curr_x_pos - offset.getX()), 
+        advance = new Point2D.Float((float)(curr_x_pos - offset.getX()),
                                     (float)(curr_y_pos - offset.getY()));
 
 
@@ -1392,10 +1383,10 @@ public class GlyphLayout implements TextSpanLayout {
                     if (transparentStart != -1) {
                         Point2D         loc   = gv.getGlyphPosition(i);
                         GVTGlyphMetrics gm    = gv.getGlyphMetrics(i);
-                        int tyS=0, txS=0;
+                        int tyS=0, txS=0;      // these never changed ??     todo
                         float advX=0, advY=0;
                         if (vertical) {
-                            if (glyphOrientationAuto || 
+                            if (glyphOrientationAuto ||
                                 (glyphOrientationAngle == 90))
                                 advY = gm.getHorizontalAdvance();
                             else if (glyphOrientationAngle == 270)
@@ -1424,7 +1415,7 @@ public class GlyphLayout implements TextSpanLayout {
                             float           tx=0, ty=0;
                             float           advT = gmT.getHorizontalAdvance();
                             if (vertical) {
-                                if (glyphOrientationAuto || 
+                                if (glyphOrientationAuto ||
                                     (glyphOrientationAngle == 90))
                                     locY = baseY-advT;
                                 else if (glyphOrientationAngle == 270)
@@ -1443,11 +1434,11 @@ public class GlyphLayout implements TextSpanLayout {
                                 else // 270
                                     locY = baseY+advT;
                             }
-                            
+
                             locT = new Point2D.Double(locX, locY);
                             gv.setGlyphPosition(j, locT);
-                            if ((txS != 0) || (tyS != 0)) {
-                                AffineTransform at;
+                            if ((txS != 0) || (tyS != 0)) {        // because txS, tyS are set to 0 and not
+                                AffineTransform at;                // changed, this path is never used  todo
                                 at = AffineTransform.getTranslateInstance
                                     (tx,ty);
                                 at.concatenate(gv.getGlyphTransform(i));
@@ -1463,7 +1454,7 @@ public class GlyphLayout implements TextSpanLayout {
                 ch = aci.setIndex(aciIndex+aciStart);
                 i++;
             }
-            
+
         }
 
 
@@ -1478,7 +1469,7 @@ public class GlyphLayout implements TextSpanLayout {
      */
     protected void adjustTextSpacing() {
 
-        if (spacingApplied) 
+        if (spacingApplied)
             // Nothing to do...
             return;
 
@@ -1544,7 +1535,7 @@ public class GlyphLayout implements TextSpanLayout {
 
         float dx = 0f;
         float dy = 0f;
-        Point2D newPositions[] = new Point2D[numGlyphs+1];
+        Point2D[] newPositions = new Point2D[numGlyphs+1];
         Point2D prevPos = gv.getGlyphPosition(0);
         int prevCode    = gv.getGlyphCode(0);
         float x = (float) prevPos.getX();
@@ -1572,12 +1563,12 @@ public class GlyphLayout implements TextSpanLayout {
                         // removing any auto-kern values
                         if (vertical) {
                             float vKern = 0;
-                            if (currCode != -1) 
+                            if (currCode != -1)
                                 vKern = font.getVKern(prevCode, currCode);
                             dy += kernVal - vKern + letterSpacingVal;
                         } else {
                             float hKern = 0;
-                            if (currCode != -1) 
+                            if (currCode != -1)
                                 hKern = font.getHKern(prevCode, currCode);
                             dx += kernVal - hKern + letterSpacingVal;
                         }
@@ -1603,7 +1594,7 @@ public class GlyphLayout implements TextSpanLayout {
                      lastCharAdvance.getY() + kernVal + letterSpacingVal);
             } else {
                 lastCharAdvance.setLocation
-                    (lastCharAdvance.getX() + kernVal + letterSpacingVal, 
+                    (lastCharAdvance.getX() + kernVal + letterSpacingVal,
                      lastCharAdvance.getY());
             }
 
@@ -1696,10 +1687,10 @@ public class GlyphLayout implements TextSpanLayout {
      *                      each glyphs transform.
      */
     protected void applyStretchTransform(boolean stretchGlyphs) {
-        if ((xScale == 1) && (yScale==1)) 
+        if ((xScale == 1) && (yScale==1))
             return;
 
-        AffineTransform scaleAT = 
+        AffineTransform scaleAT =
             AffineTransform.getScaleInstance(xScale, yScale);
 
         int numGlyphs = gv.getNumGlyphs();
@@ -1707,12 +1698,10 @@ public class GlyphLayout implements TextSpanLayout {
 
         float initX   = gp[0];
         float initY   = gp[1];
-        float dx = 0f;
-        float dy = 0f;
         Point2D.Float pos = new Point2D.Float();
         for (int i = 0; i <= numGlyphs; i++) {
-            dx = gp[2*i]  -initX;
-            dy = gp[2*i+1]-initY;
+            float dx = gp[2*i]  -initX;
+            float dy = gp[2*i+1]-initY;
             pos.x = initX+dx*xScale;
             pos.y = initY+dy*yScale;
             gv.setGlyphPosition(i, pos);
@@ -1737,10 +1726,10 @@ public class GlyphLayout implements TextSpanLayout {
 
     /**
      * If this layout is on a text path, positions the characters
-     * along the path.  
+     * along the path.
      */
     protected void doPathLayout() {
-        if (pathApplied) 
+        if (pathApplied)
             return;
 
         if (!spacingApplied)
@@ -1816,81 +1805,57 @@ public class GlyphLayout implements TextSpanLayout {
         // iterate through the GlyphVector placing each glyph
         for (int i = 0; i < numGlyphs; i++) {
 
-            Point2D currentGlyphPosition = gv.getGlyphPosition(i);
+            Point2D currentGlyphPos = gv.getGlyphPosition(i);
 
             // calculate the advance and offset for the next glyph, do it
             // now before we modify the current glyph position
 
             float glyphAdvance = 0;  // along path
             float nextGlyphOffset = 0;  // perpendicular to path eg dy or dx
-            if (i < gv.getNumGlyphs()-1) {
-
-                Point2D nextGlyphPosition = gv.getGlyphPosition(i+1);
-                if (horizontal) {
-                    glyphAdvance    = (float)(nextGlyphPosition.getX() -
-                                              currentGlyphPosition.getX());
-                    nextGlyphOffset = (float)(nextGlyphPosition.getY() -
-                                              currentGlyphPosition.getY());
-                } else {
-                    glyphAdvance    = (float)(nextGlyphPosition.getY() -
-                                              currentGlyphPosition.getY());
-                    nextGlyphOffset = (float)(nextGlyphPosition.getX() -
-                                              currentGlyphPosition.getX());
-                }
+            Point2D nextGlyphPosition = gv.getGlyphPosition(i+1);
+            if (horizontal) {
+                glyphAdvance    = (float)(nextGlyphPosition.getX() -
+                                          currentGlyphPos.getX());
+                nextGlyphOffset = (float)(nextGlyphPosition.getY() -
+                                          currentGlyphPos.getY());
             } else {
-                // last glyph, use the glyph metrics
-                GVTGlyphMetrics gm           = gv.getGlyphMetrics(i);
-                if (horizontal) {
-                    if ((glyphOrientationAngle == 0) ||
-                        (glyphOrientationAngle == 180)) {
-                        glyphAdvance = gm.getHorizontalAdvance();
-                    } else { // 90 || 270
-                        glyphAdvance = gm.getVerticalAdvance();
-                    }
-                } else {
-                    if (glyphOrientationAuto) {
-                        if (isLatinChar(ch)) {
-                            glyphAdvance = gm.getHorizontalAdvance();
-                        } else {
-                            glyphAdvance = gm.getVerticalAdvance();
-                        }
-                    } else {
-                        if ((glyphOrientationAngle == 0) ||
-                            (glyphOrientationAngle == 180)) {
-                            glyphAdvance = gm.getVerticalAdvance();
-                        } else { // 90 || 270
-                            glyphAdvance = gm.getHorizontalAdvance();
-                        }
-                    }
-                }
+                glyphAdvance    = (float)(nextGlyphPosition.getY() -
+                                          currentGlyphPos.getY());
+                nextGlyphOffset = (float)(nextGlyphPosition.getX() -
+                                          currentGlyphPos.getX());
             }
 
             // calculate the center line position for the glyph
             Rectangle2D glyphBounds = gv.getGlyphOutline(i).getBounds2D();
             float glyphWidth = (float) glyphBounds.getWidth();
             float glyphHeight = (float) glyphBounds.getHeight();
+            float glyphMidX = 0;
+            if (glyphWidth > 0) {
+                glyphMidX  = (float)(glyphBounds.getX()+glyphWidth/2f);
+                glyphMidX -= (float)currentGlyphPos.getX();
+            }
+
+            float glyphMidY=0;
+            if (glyphHeight > 0) {
+                glyphMidY  = (float)(glyphBounds.getY()+glyphHeight/2f);
+                glyphMidY -= (float)currentGlyphPos.getY();
+            }
+
+            // System.err.println("GMX: " + glyphMidX +
+            //                    " W2: " + (glyphWidth/2) +
+            //                    " PosX: " + currentGlyphPos.getX() +
+            //                    " BX: "   + glyphBounds.getX());
+            //
+            // System.err.println("GMY: " + glyphMidY +
+            //                    " H2: " + (glyphHeight/2) +
+            //                    " PosY: " + currentGlyphPos.getY() +
+            //                    " BY: "   + glyphBounds.getY());
 
             float charMidPos;
             if (horizontal) {
-                charMidPos = currentPosition + glyphWidth / 2f;
+                charMidPos = currentPosition + glyphMidX;
             } else {
-                charMidPos = currentPosition + glyphHeight / 2f;
-                /*
-                if (glyphOrientationAuto) {
-                    if (isLatinChar(ch)) {
-                        charMidPos = currentPosition + glyphWidth / 2f;
-                    } else {
-                        charMidPos = currentPosition + glyphHeight / 2f;
-                    }
-                } else {
-                    if ((glyphOrientationAngle ==   0) ||
-                        (glyphOrientationAngle == 180)) {
-                        charMidPos = currentPosition + glyphHeight / 2f;
-                    } else  {
-                        charMidPos = currentPosition + glyphWidth / 2f;
-                    }
-                }
-                */
+                charMidPos = currentPosition + glyphMidY;
             }
 
             // Calculate the actual point to place the glyph around
@@ -1922,27 +1887,9 @@ public class GlyphLayout implements TextSpanLayout {
                 // translate glyph backwards so we rotate about the
                 // center of the glyph
                 if (horizontal) {
-                    if (glyphOrientationAngle ==  270) {
-                        glyphPathTransform.translate(glyphWidth / 2f, 0f);
-                    } else {
-                        // 0 || 90 || 180
-                        glyphPathTransform.translate(-glyphWidth / 2f, 0f);
-                    } 
+                    glyphPathTransform.translate(-glyphMidX, 0f);
                 } else {
-                    if (glyphOrientationAuto) {
-                        if (isLatinChar(ch)) {
-                           glyphPathTransform.translate(0f, -glyphHeight/2f);
-                        } else {
-                            glyphPathTransform.translate(0f, glyphHeight/2f);
-                        }
-                    } else {
-                        if (glyphOrientationAngle ==   0) {
-                            glyphPathTransform.translate(0, glyphHeight / 2f);
-                        } else {
-                            // 90 || 180 || 270
-                            glyphPathTransform.translate(0, -glyphHeight / 2f);
-                        }
-                    }
+                    glyphPathTransform.translate(0f, -glyphMidY);
                 }
 
                 // set the new glyph position and transform
@@ -1992,7 +1939,7 @@ public class GlyphLayout implements TextSpanLayout {
         layoutApplied  = false;
         // The spacing stuff is junk now.
         spacingApplied = false;
-        pathApplied    = true;   
+        pathApplied    = true;
     }
 
     /**
@@ -2004,6 +1951,11 @@ public class GlyphLayout implements TextSpanLayout {
      * @return True if c is latin.
      */
     protected boolean isLatinChar(char c) {
+
+        if ( c < 255 && Character.isLetterOrDigit( c )){
+            // cheap quick check, should catch most lation-chars
+            return true;
+        }
 
         Character.UnicodeBlock block = Character.UnicodeBlock.of(c);
 
@@ -2055,8 +2007,8 @@ public class GlyphLayout implements TextSpanLayout {
         }
 
         // if not one of 0, 90, 180 or 270, round to nearest value
-        if ((glyphOrientationAngle !=   0) || (glyphOrientationAngle !=  90) ||
-            (glyphOrientationAngle != 180) || (glyphOrientationAngle != 270)) {
+        if ((glyphOrientationAngle !=   0) || (glyphOrientationAngle !=  90) ||       // todo - this logic expression
+            (glyphOrientationAngle != 180) || (glyphOrientationAngle != 270)) {       // is true for all values.....
 
             while (glyphOrientationAngle < 0) {
                 glyphOrientationAngle += 360;
@@ -2066,13 +2018,13 @@ public class GlyphLayout implements TextSpanLayout {
                 glyphOrientationAngle -= 360;
             }
 
-            if ((glyphOrientationAngle <= 45) || 
+            if ((glyphOrientationAngle <= 45) ||
                 (glyphOrientationAngle > 315)) {
                 glyphOrientationAngle = 0;
-            } else if ((glyphOrientationAngle > 45) && 
+            } else if ((glyphOrientationAngle > 45) &&
                        (glyphOrientationAngle <= 135)) {
                 glyphOrientationAngle = 90;
-            } else if ((glyphOrientationAngle > 135) && 
+            } else if ((glyphOrientationAngle > 135) &&
                        (glyphOrientationAngle <= 225)) {
                 glyphOrientationAngle = 180;
             } else {
@@ -2083,7 +2035,7 @@ public class GlyphLayout implements TextSpanLayout {
     }
 
     /**
-     * Return true is the character index is represented by glyphs 
+     * Return true is the character index is represented by glyphs
      * in this layout.
      *
      * @param index index of the character in the ACI.

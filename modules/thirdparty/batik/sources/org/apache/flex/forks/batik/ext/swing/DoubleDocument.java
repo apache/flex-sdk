@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,18 +24,18 @@ import javax.swing.text.PlainDocument;
 
 /**
  * Helper class. Only allows an Double value in the document.
- * 
+ *
  * @author <a href="mailto:vhardy@apache.org">Vincent Hardy</a>
- * @version $Id: DoubleDocument.java,v 1.4 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: DoubleDocument.java 504084 2007-02-06 11:24:46Z dvholten $
  */
 public class DoubleDocument extends PlainDocument {
 
-    /** 
+    /**
      * Strip all non digit characters.  The first character must be '-' or '+'.
      * Only one '.' is allowed.
      */
     public void insertString(int offs, String str, AttributeSet a)
-            throws BadLocationException { 
+            throws BadLocationException {
 
         if (str == null) {
             return;
@@ -42,7 +43,7 @@ public class DoubleDocument extends PlainDocument {
 
         // Get current value
         String curVal = getText(0, getLength());
-        boolean hasDot = curVal.indexOf(".")!=-1;
+        boolean hasDot = curVal.indexOf('.') != -1;
 
         // Strip non digit characters
         char[] buffer = str.toCharArray();
@@ -66,10 +67,11 @@ public class DoubleDocument extends PlainDocument {
         try{
             StringBuffer val = new StringBuffer(curVal);
             val.insert(offs, added);
-            if(val.toString().equals(".") || val.toString().equals("-") || val.toString().equals("-."))
+            String valStr = val.toString();
+            if( valStr.equals(".") || valStr.equals("-") || valStr.equals("-."))
                 super.insertString(offs, added, a);
             else{
-                Double.valueOf(val.toString());
+                Double.valueOf( valStr );
                 super.insertString(offs, added, a);
             }
         }catch(NumberFormatException e){
@@ -80,7 +82,7 @@ public class DoubleDocument extends PlainDocument {
     public void setValue(double d){
         try{
             remove(0, getLength());
-            insertString(0, (new Double(d)).toString(), null);
+            insertString(0, String.valueOf( d ), null);
         }catch(BadLocationException e){
             // Will not happen because we are sure
             // we use the proper range
@@ -99,7 +101,7 @@ public class DoubleDocument extends PlainDocument {
         }catch(BadLocationException e){
             // Will not happen because we are sure
             // we use the proper range
-            throw new Error();
+            throw new Error( e.getMessage() );
         }
     }
 }

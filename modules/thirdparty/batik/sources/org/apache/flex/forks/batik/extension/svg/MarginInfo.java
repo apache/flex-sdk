@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,11 +18,15 @@
  */
 package org.apache.flex.forks.batik.extension.svg;
 
+/**
+ *
+ * @version $Id: MarginInfo.java 498740 2007-01-22 18:35:57Z dvholten $
+ */
 public class MarginInfo {
-    public final static int JUSTIFY_START  = 0;
-    public final static int JUSTIFY_MIDDLE = 1;
-    public final static int JUSTIFY_END    = 2;
-    public final static int JUSTIFY_FULL   = 3;
+    public static final int JUSTIFY_START  = 0;
+    public static final int JUSTIFY_MIDDLE = 1;
+    public static final int JUSTIFY_END    = 2;
+    public static final int JUSTIFY_FULL   = 3;
 
     protected float   top;
     protected float   right;
@@ -35,7 +40,7 @@ public class MarginInfo {
 
 
     public MarginInfo(float top, float right, float bottom, float left,
-                      float indent, int justification, 
+                      float indent, int justification,
                       boolean flowRegionBreak) {
         this.top    = top;
         this.right  = right;

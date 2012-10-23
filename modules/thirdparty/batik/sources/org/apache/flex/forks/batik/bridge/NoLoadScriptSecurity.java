@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,7 +23,7 @@ package org.apache.flex.forks.batik.bridge;
  * does not allow scripts to be loaded.
  *
  * @author <a href="mailto:vhardy@apache.org">Vincent Hardy</a>
- * @version $Id: NoLoadScriptSecurity.java,v 1.6 2005/03/27 08:58:30 cam Exp $
+ * @version $Id: NoLoadScriptSecurity.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class NoLoadScriptSecurity implements ScriptSecurity {
 

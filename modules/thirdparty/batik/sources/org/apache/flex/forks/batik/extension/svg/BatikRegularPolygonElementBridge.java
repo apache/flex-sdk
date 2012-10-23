@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -32,9 +33,10 @@ import org.w3c.dom.Element;
  * Bridge class for a regular polygon element.
  *
  * @author <a href="mailto:thomas.deweese@kodak.com">Thomas Deweese</a>
+ * @version $Id: BatikRegularPolygonElementBridge.java 501922 2007-01-31 17:47:47Z dvholten $
  */
-public class BatikRegularPolygonElementBridge 
-    extends SVGDecoratedShapeElementBridge  
+public class BatikRegularPolygonElementBridge
+    extends SVGDecoratedShapeElementBridge
     implements BatikExtConstants {
 
     /**
@@ -100,13 +102,13 @@ public class BatikRegularPolygonElementBridge
             r = UnitProcessor.svgOtherLengthToUserSpace
                 (s, SVG_R_ATTRIBUTE, uctx);
         } else {
-            throw new BridgeException(e, ERR_ATTRIBUTE_MISSING,
+            throw new BridgeException(ctx, e, ERR_ATTRIBUTE_MISSING,
                                       new Object[] {SVG_R_ATTRIBUTE, s});
         }
 
         // 'sides' attribute - default is 3
-        int sides = convertSides(e, BATIK_EXT_SIDES_ATTRIBUTE, 3);
-        
+        int sides = convertSides(e, BATIK_EXT_SIDES_ATTRIBUTE, 3, ctx);
+
         GeneralPath gp = new GeneralPath();
         for (int i=0; i<sides; i++) {
             double angle    = (i+0.5)*(2*Math.PI/sides) - (Math.PI/2);
@@ -131,10 +133,12 @@ public class BatikRegularPolygonElementBridge
      * @param filterElement the filter primitive element
      * @param attrName the name of the attribute
      * @param defaultValue the default value of the attribute
+     * @param ctx the BridgeContext to use for error information
      */
     protected static int convertSides(Element filterElement,
-                                        String attrName,
-                                        int defaultValue) {
+                                      String attrName,
+                                      int defaultValue,
+                                      BridgeContext ctx) {
         String s = filterElement.getAttributeNS(null, attrName);
         if (s.length() == 0) {
             return defaultValue;
@@ -142,15 +146,15 @@ public class BatikRegularPolygonElementBridge
             int ret = 0;
             try {
                 ret = SVGUtilities.convertSVGInteger(s);
-            } catch (NumberFormatException ex) {
+            } catch (NumberFormatException nfEx ) {
                 throw new BridgeException
-                    (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                    (ctx, filterElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
                      new Object[] {attrName, s});
             }
 
-            if (ret <3) 
+            if (ret <3)
                 throw new BridgeException
-                    (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                    (ctx, filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
                      new Object[] {attrName, s});
             return ret;
         }

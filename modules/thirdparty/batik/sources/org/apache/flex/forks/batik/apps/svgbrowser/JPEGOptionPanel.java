@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -34,7 +35,7 @@ import org.apache.flex.forks.batik.util.gui.ExtendedGridBagConstraints;
  * This class represents a panel to control jpeg encoding quality.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: JPEGOptionPanel.java,v 1.5 2004/08/18 07:12:27 vhardy Exp $
+ * @version $Id: JPEGOptionPanel.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class JPEGOptionPanel extends OptionPanel {
     /**
@@ -46,50 +47,50 @@ public class JPEGOptionPanel extends OptionPanel {
      * Creates a new panel.
      */
     public JPEGOptionPanel() {
-	super(new GridBagLayout());
+        super(new GridBagLayout());
 
-	ExtendedGridBagConstraints constraints = 
-	    new ExtendedGridBagConstraints();
+        ExtendedGridBagConstraints constraints = 
+            new ExtendedGridBagConstraints();
 
-	
-	constraints.insets = new Insets(5, 5, 5, 5);
+        
+        constraints.insets = new Insets(5, 5, 5, 5);
 
-	constraints.weightx = 0;
-	constraints.weighty = 0;
-	constraints.fill = GridBagConstraints.NONE;
-	constraints.setGridBounds(0, 0, 1, 1);
-	add(new JLabel(resources.getString("JPEGOptionPanel.label")), 
-	    constraints);
+        constraints.weightx = 0;
+        constraints.weighty = 0;
+        constraints.fill = GridBagConstraints.NONE;
+        constraints.setGridBounds(0, 0, 1, 1);
+        add(new JLabel(resources.getString("JPEGOptionPanel.label")), 
+            constraints);
 
-	quality = new JSlider();
-	quality.setMinimum(0);
-	quality.setMaximum(100);
-	quality.setMajorTickSpacing(10);
-	quality.setMinorTickSpacing(5);
-	quality.setPaintTicks(true);
-	quality.setPaintLabels(true);
-	quality.setBorder(BorderFactory.createEmptyBorder(0,0,10,0));
-	Hashtable labels = new Hashtable();
-	for (int i=0; i < 100; i+=10) {
-	    labels.put(new Integer(i), new JLabel("0."+i/10));
-	}
-	labels.put(new Integer(100), new JLabel("1"));
-	quality.setLabelTable(labels);
+        quality = new JSlider();
+        quality.setMinimum(0);
+        quality.setMaximum(100);
+        quality.setMajorTickSpacing(10);
+        quality.setMinorTickSpacing(5);
+        quality.setPaintTicks(true);
+        quality.setPaintLabels(true);
+        quality.setBorder(BorderFactory.createEmptyBorder(0,0,10,0));
+        Hashtable labels = new Hashtable();
+        for (int i=0; i < 100; i+=10) {
+            labels.put(new Integer(i), new JLabel("0."+i/10));
+        }
+        labels.put(new Integer(100), new JLabel("1"));
+        quality.setLabelTable(labels);
 
-	Dimension dim = quality.getPreferredSize();
-	quality.setPreferredSize(new Dimension(350, dim.height));
+        Dimension dim = quality.getPreferredSize();
+        quality.setPreferredSize(new Dimension(350, dim.height));
 
-	constraints.weightx = 1.0;
-	constraints.fill = GridBagConstraints.HORIZONTAL;
-	constraints.setGridBounds(1, 0, 1, 1);
-	add(quality, constraints);
+        constraints.weightx = 1.0;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.setGridBounds(1, 0, 1, 1);
+        add(quality, constraints);
     }
 
     /**
      * Returns the jpeg quality.
      */
     public float getQuality() {
-	return quality.getValue()/100f;
+        return quality.getValue()/100f;
     }
 
     /**
@@ -99,9 +100,9 @@ public class JPEGOptionPanel extends OptionPanel {
     public static float showDialog(Component parent) {
         String title = resources.getString("JPEGOptionPanel.dialog.title");
         JPEGOptionPanel panel = new JPEGOptionPanel();
-	Dialog dialog = new Dialog(parent, title, panel);
-	dialog.pack();
-	dialog.show();
-	return panel.getQuality();
+        Dialog dialog = new Dialog(parent, title, panel);
+        dialog.pack();
+        dialog.setVisible(true);
+        return panel.getQuality();
     }
 }

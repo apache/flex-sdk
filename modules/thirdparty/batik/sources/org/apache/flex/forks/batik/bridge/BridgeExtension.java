@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,6 +25,9 @@ import org.w3c.dom.Element;
 /**
  * This is a Service interface for classes that want to extend the
  * functionality of the Bridge, to support new tags in the rendering tree.
+ *
+ * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
+ * @version $Id: BridgeExtension.java 478160 2006-11-22 13:35:06Z dvholten $
  */
 public interface BridgeExtension {
 
@@ -31,9 +35,9 @@ public interface BridgeExtension {
      * Return the priority of this Extension.  Extensions are
      * registered from lowest to highest priority.  So if for some
      * reason you need to come before/after another existing extension
-     * make sure your priority is lower/higher than theirs.  
+     * make sure your priority is lower/higher than theirs.
      */
-    public float getPriority();
+    float getPriority();
 
     /**
      * This should return the list of extensions implemented
@@ -43,31 +47,31 @@ public interface BridgeExtension {
      * @return An iterator containing strings one for each implemented
      *         extension.
      */
-     public Iterator getImplementedExtensions();
+    Iterator getImplementedExtensions();
 
     /**
      * This should return the individual or company name responsible
      * for the this implementation of the extension.
      */
-    public String getAuthor();
+    String getAuthor();
 
     /**
      * This should return a contact address (usually an e-mail address).
      */
-    public String getContactAddress();
+    String getContactAddress();
 
     /**
      * This should return a URL where information can be obtained on
      * this extension.
      */
-    public String getURL();
+    String getURL();
 
     /**
      * Human readable description of the extension.
      * Perhaps that should be a resource for internationalization?
      * (although I suppose it could be done internally)
      */
-    public String getDescription();
+    String getDescription();
 
     /**
      * This method should update the BridgeContext with support
@@ -77,7 +81,7 @@ public interface BridgeExtension {
      *
      * @param ctx The BridgeContext instance to be updated
      */
-    public void registerTags(BridgeContext ctx);
+    void registerTags(BridgeContext ctx);
 
     /**
      * Whether the presence of the specified element should cause
@@ -86,5 +90,5 @@ public interface BridgeExtension {
      *
      * @param e The element to check.
      */
-    public boolean isDynamicElement(Element e);
+    boolean isDynamicElement(Element e);
 }

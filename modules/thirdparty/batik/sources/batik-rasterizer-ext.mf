@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 Class-Path: ../batik-rasterizer.jar \
             ../lib/batik-extension.jar
-Main-Class: org.apache.flex.forks.batik.apps.rasterizer.Main
+Main-Class: org.apache.batik.apps.rasterizer.Main

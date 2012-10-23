@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,7 +18,6 @@
  */
 package org.apache.flex.forks.batik.dom;
 
-import java.net.URL;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,24 +31,19 @@ import org.apache.flex.forks.batik.css.engine.value.ShorthandManager;
 import org.apache.flex.forks.batik.css.engine.value.ValueManager;
 import org.apache.flex.forks.batik.css.parser.ExtendedParser;
 import org.apache.flex.forks.batik.css.parser.ExtendedParserWrapper;
-import org.apache.flex.forks.batik.dom.AbstractDocument;
-import org.apache.flex.forks.batik.dom.GenericElement;
-import org.apache.flex.forks.batik.dom.GenericElementNS;
 import org.apache.flex.forks.batik.dom.util.DOMUtilities;
-import org.apache.flex.forks.batik.dom.util.DoublyIndexedTable;
 import org.apache.flex.forks.batik.i18n.Localizable;
 import org.apache.flex.forks.batik.i18n.LocalizableSupport;
+import org.apache.flex.forks.batik.util.DoublyIndexedTable;
 import org.apache.flex.forks.batik.util.Service;
 import org.apache.flex.forks.batik.util.XMLResourceDescriptor;
 
-import org.w3c.flex.forks.css.sac.InputSource;
-import org.w3c.flex.forks.css.sac.Parser;
+import org.w3c.css.sac.Parser;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.css.DOMImplementationCSS;
 import org.w3c.dom.css.ViewCSS;
-import org.w3c.dom.Document;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Element;
 
 /**
  * This class implements the {@link org.w3c.dom.DOMImplementation} interface.
@@ -57,14 +52,14 @@ import org.w3c.dom.Element;
  * {@link org.apache.flex.forks.batik.util.Service}).
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: ExtensibleDOMImplementation.java,v 1.1 2004/11/18 01:46:56 deweese Exp $
+ * @version $Id: ExtensibleDOMImplementation.java 592621 2007-11-07 05:58:12Z cam $
  */
-public abstract class ExtensibleDOMImplementation 
+public abstract class ExtensibleDOMImplementation
     extends AbstractDOMImplementation
     implements DOMImplementationCSS,
                StyleSheetFactory,
                Localizable {
-    
+
     /**
      * The custom elements factories.
      */
@@ -83,7 +78,7 @@ public abstract class ExtensibleDOMImplementation
     /**
      * The error messages bundle class name.
      */
-    protected final static String RESOURCES =
+    protected static final String RESOURCES =
         "org.apache.flex.forks.batik.dom.resources.Messages";
 
     /**
@@ -111,7 +106,7 @@ public abstract class ExtensibleDOMImplementation
      * Implements {@link Localizable#setLocale(Locale)}.
      */
     public void setLocale(Locale l) {
-	localizableSupport.setLocale(l);
+        localizableSupport.setLocale(l);
     }
 
     /**
@@ -169,7 +164,7 @@ public abstract class ExtensibleDOMImplementation
     /**
      * Creates new CSSEngine and attach it to the document.
      */
-    public CSSEngine createCSSEngine(AbstractStylableDocument doc, 
+    public CSSEngine createCSSEngine(AbstractStylableDocument doc,
                                      CSSContext ctx) {
         String pn = XMLResourceDescriptor.getCSSParserClassName();
         Parser p;
@@ -219,10 +214,10 @@ public abstract class ExtensibleDOMImplementation
         return result;
     }
 
-    public abstract CSSEngine createCSSEngine(AbstractStylableDocument doc,  
+    public abstract CSSEngine createCSSEngine(AbstractStylableDocument doc,
                                               CSSContext               ctx,
                                               ExtendedParser           ep,
-                                              ValueManager     []      vms, 
+                                              ValueManager     []      vms,
                                               ShorthandManager []      sms);
 
     /**
@@ -237,6 +232,9 @@ public abstract class ExtensibleDOMImplementation
     public Element createElementNS(AbstractDocument document,
                                    String           namespaceURI,
                                    String           qualifiedName) {
+        if (namespaceURI != null && namespaceURI.length() == 0) {
+            namespaceURI = null;
+        }
         if (namespaceURI == null)
             return new GenericElement(qualifiedName.intern(), document);
 
@@ -270,7 +268,7 @@ public abstract class ExtensibleDOMImplementation
 
     protected static List extensions = null;
 
-    protected synchronized static List getDomExtensions() {
+    protected static synchronized List getDomExtensions() {
         if (extensions != null)
             return extensions;
 
@@ -298,5 +296,4 @@ public abstract class ExtensibleDOMImplementation
 
         return extensions;
     }
-
 }

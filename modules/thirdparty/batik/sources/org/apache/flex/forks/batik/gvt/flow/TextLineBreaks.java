@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,14 +26,18 @@ import java.util.Set;
 
 import org.apache.flex.forks.batik.gvt.text.GVTAttributedCharacterIterator;
 
+/**
+ *
+ * @version $Id: TextLineBreaks.java 498740 2007-01-22 18:35:57Z dvholten $
+ */
 public class TextLineBreaks {
     public static final AttributedCharacterIterator.Attribute WORD_LIMIT =
             new GVTAttributedCharacterIterator.TextAttribute("WORD_LIMIT");
 
-    public static final AttributedCharacterIterator.Attribute FLOW_PARAGRAPH 
+    public static final AttributedCharacterIterator.Attribute FLOW_PARAGRAPH
         = GVTAttributedCharacterIterator.TextAttribute.FLOW_PARAGRAPH;
 
-    public static final AttributedCharacterIterator.Attribute FLOW_LINE_BREAK 
+    public static final AttributedCharacterIterator.Attribute FLOW_LINE_BREAK
         = GVTAttributedCharacterIterator.TextAttribute.FLOW_LINE_BREAK;
 
     static Set lineBrks = new HashSet();
@@ -49,11 +54,11 @@ public class TextLineBreaks {
         for(char ch = aci.current();
             ch == AttributedCharacterIterator.DONE;
             ch = aci.next(), cnt++) {
- 
+
             // .. do complex break analysis here Right now we aren't
             // do any, we just find the end of the run of
             // CHAR_CLASS_SA.
- 
+
             if (getCharCharClass(ch) != CHAR_CLASS_SA)
                 break;
         }
@@ -64,10 +69,11 @@ public class TextLineBreaks {
     // as - Attributed string to attribute with Word extents.
     public static void findLineBrk(AttributedString as) {
         AttributedCharacterIterator aci = as.getIterator();
-        if (aci.getEndIndex() == 0) 
+        if (aci.getEndIndex() == 0)
             return;
         char ch = aci.current(), prevCh = (char)-1;
         byte         cls = getCharCharClass(ch);
+        if (cls == CHAR_CLASS_LF) cls = CHAR_CLASS_BK;
         byte      curCls = cls;
         byte     prevCls = cls;
         byte prevPrevCls = -1;
@@ -77,11 +83,12 @@ public class TextLineBreaks {
         int ich = wordBegin+1;
         int lineEnd = aci.getRunLimit(lineBrks);
 
+        // handle case where input starts with an LF
         if (cls >= CHAR_CLASS_CM) cls = CHAR_CLASS_AL;
 
         for (ch = aci.next();
              ch != AttributedCharacterIterator.DONE;
-             ich++, prevCh = ch, ch = aci.next(), 
+             ich++, prevCh = ch, ch = aci.next(),
              prevPrevCls = prevCls, prevCls = curCls) {
 
             if (ich == lineEnd) {
@@ -97,13 +104,14 @@ public class TextLineBreaks {
                 lineEnd = aci.getRunLimit(lineBrks);
                 continue;
             }
-              // handle spaces
+
+            // handle spaces
             curCls = getCharCharClass(ch);
             if (curCls == CHAR_CLASS_SP) {
                 // pbrk[ich-1] = BREAK_ACTION_PROHIBITED;
                 continue;
             }
- 
+
             // handle complex scripts
             if (curCls == CHAR_CLASS_SA) {
                 ich += findComplexBreak(aci);
@@ -121,24 +129,47 @@ public class TextLineBreaks {
             if ((ch == CHAR_ZERO_WIDTH_JOINER) ||
                 (prevCh == CHAR_ZERO_WIDTH_JOINER))
                 continue; // Don't allow break around JOINER.
- 
+
+            if ((curCls == CHAR_CLASS_BK) || (curCls == CHAR_CLASS_LF)) {
+                as.addAttribute(WORD_LIMIT, new Integer(wordCnt++),
+                                wordBegin, ich);
+                wordBegin = ich;
+                cls = CHAR_CLASS_BK;
+                continue;
+            }
+            if (prevCls == CHAR_CLASS_CR) {
+                as.addAttribute(WORD_LIMIT, new Integer(wordCnt++),
+                                wordBegin, ich-1);
+                wordBegin = ich-1;
+                cls = CHAR_CLASS_BK;
+                continue;
+            }
+            if (curCls == CHAR_CLASS_CR) {
+                continue;
+            }
+
             // handle combining marks
             if (curCls == CHAR_CLASS_CM) {
                 if (prevCls == CHAR_CLASS_SP) {
                     cls = CHAR_CLASS_ID;
                     if (prevPrevCls != -1) {
-                        if (brkPairs[prevPrevCls][CHAR_CLASS_ID] == 
+                        if (brkPairs[prevPrevCls][CHAR_CLASS_ID] ==
                             BREAK_ACTION_DIRECT) {
                             as.addAttribute(WORD_LIMIT, new Integer(wordCnt++),
                                             wordBegin, ich-1);
                             wordBegin = ich-1;
                             // pbrk[ich-2] = BREAK_ACTION_DIRECT;
-                        } else { 
+                        } else {
                             // pbrk[ich-2] = BREAK_ACTION_PROHIBITED;
                         }
                     }
                 }
                 // pbrk[ich-1] = BREAK_ACTION_PROHIBITED;
+                continue;
+            }
+
+            if (cls == CHAR_CLASS_BK) {
+                cls = curCls;
                 continue;
             }
 
@@ -156,8 +187,8 @@ public class TextLineBreaks {
                                     wordBegin, ich);
                     wordBegin = ich;
                 }
-                // pbrk[ich-1] = ((prevCls == CHAR_CLASS_SP) ? 
-                //                BREAK_ACTION_INDIRECT : 
+                // pbrk[ich-1] = ((prevCls == CHAR_CLASS_SP) ?
+                //                BREAK_ACTION_INDIRECT :
                 //                BREAK_ACTION_PROHIBITED);
             }
             cls = curCls;
@@ -168,7 +199,7 @@ public class TextLineBreaks {
                         wordBegin, ich);
         wordBegin = ich;
         // pbrk[ich-1] = BREAK_ACTION_DIRECT;
- 
+
         return;
    }
 
@@ -201,9 +232,9 @@ public class TextLineBreaks {
         return raw_classes[entry];
     }
 
-    public final static char CHAR_ZERO_WIDTH_JOINER = 0x200D;
+    public static final char CHAR_ZERO_WIDTH_JOINER = 0x200D;
 
-    protected final static int QUICK_LUT_SIZE = 256;
+    protected static final int QUICK_LUT_SIZE = 256;
 
     protected static void buildQuickLut() {
         int entry = 0;
@@ -222,52 +253,52 @@ public class TextLineBreaks {
     }
 
     // direct break     (blank in table)
-    final public static byte BREAK_ACTION_DIRECT     = 0;
+    public static final byte BREAK_ACTION_DIRECT     = 0;
     // indirect break   (% in table)
-    final public static byte BREAK_ACTION_INDIRECT   = 1;
-    // prohibited break (^ in table)    
-    final public static byte BREAK_ACTION_PROHIBITED = 2;
+    public static final byte BREAK_ACTION_INDIRECT   = 1;
+    // prohibited break (^ in table)
+    public static final byte BREAK_ACTION_PROHIBITED = 2;
 
-    final public static String [] brkStrs = { "DB", "IB", "PB" };
+    public static final String [] brkStrs = { "DB", "IB", "PB" };
 
-    // 
-    final public static byte CHAR_CLASS_OP =  0;
-    final public static byte CHAR_CLASS_CL =  1;
-    final public static byte CHAR_CLASS_QU =  2;
-    final public static byte CHAR_CLASS_GL =  3;
-    final public static byte CHAR_CLASS_NS =  4;
-    final public static byte CHAR_CLASS_EX =  5;
-    final public static byte CHAR_CLASS_SY =  6;
-    final public static byte CHAR_CLASS_IS =  7;
-    final public static byte CHAR_CLASS_PR =  8;
-    final public static byte CHAR_CLASS_PO =  9;
-    final public static byte CHAR_CLASS_NU = 10;
-    final public static byte CHAR_CLASS_AL = 11;
-    final public static byte CHAR_CLASS_ID = 12;
-    final public static byte CHAR_CLASS_IN = 13;
-    final public static byte CHAR_CLASS_HY = 14;
-    final public static byte CHAR_CLASS_BA = 15;
-    final public static byte CHAR_CLASS_BB = 16;
-    final public static byte CHAR_CLASS_B2 = 17;
-    final public static byte CHAR_CLASS_ZW = 18;
-    final public static byte CHAR_CLASS_CM = 19;
- 
-    final public static byte CHAR_CLASS_SA = 20;
-    final public static byte CHAR_CLASS_SP = 21;
-    final public static byte CHAR_CLASS_BK = 22;
-    final public static byte CHAR_CLASS_AI = 23;
-    final public static byte CHAR_CLASS_CR = 24;
-    final public static byte CHAR_CLASS_LF = 25;
-    final public static byte CHAR_CLASS_SG = 26;
-    final public static byte CHAR_CLASS_XX = 27;
-    final public static byte CHAR_CLASS_CB = 28;
+    //
+    public static final byte CHAR_CLASS_OP =  0;
+    public static final byte CHAR_CLASS_CL =  1;
+    public static final byte CHAR_CLASS_QU =  2;
+    public static final byte CHAR_CLASS_GL =  3;
+    public static final byte CHAR_CLASS_NS =  4;
+    public static final byte CHAR_CLASS_EX =  5;
+    public static final byte CHAR_CLASS_SY =  6;
+    public static final byte CHAR_CLASS_IS =  7;
+    public static final byte CHAR_CLASS_PR =  8;
+    public static final byte CHAR_CLASS_PO =  9;
+    public static final byte CHAR_CLASS_NU = 10;
+    public static final byte CHAR_CLASS_AL = 11;
+    public static final byte CHAR_CLASS_ID = 12;
+    public static final byte CHAR_CLASS_IN = 13;
+    public static final byte CHAR_CLASS_HY = 14;
+    public static final byte CHAR_CLASS_BA = 15;
+    public static final byte CHAR_CLASS_BB = 16;
+    public static final byte CHAR_CLASS_B2 = 17;
+    public static final byte CHAR_CLASS_ZW = 18;
+    public static final byte CHAR_CLASS_CM = 19;
 
-    final public static String [] clsStrs = {
-        "OP", "CL", "QU", "GL", "NS", "EX", "SY", "IS", "PR", "PO", 
-        "NU", "AL", "ID", "IN", "HY", "BA", "BB", "B2", "ZW", "CM", 
+    public static final byte CHAR_CLASS_SA = 20;
+    public static final byte CHAR_CLASS_SP = 21;
+    public static final byte CHAR_CLASS_BK = 22;
+    public static final byte CHAR_CLASS_AI = CHAR_CLASS_AL; // 23;
+    public static final byte CHAR_CLASS_CR = 24; // Can't occur (space res)
+    public static final byte CHAR_CLASS_LF = 25; // Can't occur (space res)
+    public static final byte CHAR_CLASS_SG = CHAR_CLASS_AL; // 26;
+    public static final byte CHAR_CLASS_XX = CHAR_CLASS_AL; // 27;
+    public static final byte CHAR_CLASS_CB = 28;
+
+    public static final String [] clsStrs = {
+        "OP", "CL", "QU", "GL", "NS", "EX", "SY", "IS", "PR", "PO",
+        "NU", "AL", "ID", "IN", "HY", "BA", "BB", "B2", "ZW", "CM",
         "SA", "SP", "BK", "AI", "CR", "LF", "SG", "XX", "CB" };
 
-    static byte [][]brkPairs = 
+    static byte [][]brkPairs =
         // ^, ^, ^, ^, ^, ^, ^, ^, ^, ^, ^, ^, ^, ^, ^, ^, ^, ^, ^, %
     {   {  2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1 }, //  0
 
@@ -331,8 +362,8 @@ public class TextLineBreaks {
 
     static byte [] quickLut = null;
 
-    final static char [] raw_data = {
-        0x0000, 0x0008, 
+    static final char [] raw_data = {
+        0x0000, 0x0008,
         0x0009, 0x0009,
         0x000A, 0x000A,
         0x000B, 0x000B,
@@ -1120,7 +1151,7 @@ public class TextLineBreaks {
         0xFFFC, 0xFFFC,
         0xFFFD, 0xFFFF,
     };
-    final static byte [] raw_classes = {
+    static final byte [] raw_classes = {
         CHAR_CLASS_CM,
         CHAR_CLASS_BA,
         CHAR_CLASS_LF,

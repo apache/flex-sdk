@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,7 +26,7 @@ import org.apache.flex.forks.batik.gvt.GraphicsNode;
  * The root event class for all graphics node-level input events.
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: GraphicsNodeInputEvent.java,v 1.6 2005/02/22 09:13:02 cam Exp $
+ * @version $Id: GraphicsNodeInputEvent.java 575202 2007-09-13 07:45:18Z cam $
  */
 public abstract class GraphicsNodeInputEvent extends GraphicsNodeEvent {
 
@@ -57,17 +58,37 @@ public abstract class GraphicsNodeInputEvent extends GraphicsNodeEvent {
     /**
      * The mouse button1 modifier constant.
      */
-    public static final int BUTTON1_MASK = InputEvent.BUTTON1_MASK;
+    public static final int BUTTON1_MASK = 1 << 10; // BUTTON1_DOWN_MASK
 
     /**
      * The mouse button2 modifier constant.
      */
-    public static final int BUTTON2_MASK = InputEvent.ALT_MASK;
+    public static final int BUTTON2_MASK = 1 << 11; // BUTTON2_DOWN_MASK
 
     /**
      * The mouse button3 modifier constant.
      */
-    public static final int BUTTON3_MASK = InputEvent.META_MASK;
+    public static final int BUTTON3_MASK = 1 << 12; // BUTTON3_DOWN_MASK
+
+    /**
+     * The caps lock constant.
+     */
+    public static final int CAPS_LOCK_MASK = 0x01;
+
+    /**
+     * The num lock constant.
+     */
+    public static final int NUM_LOCK_MASK = 0x02;
+
+    /**
+     * The scroll lock constant.
+     */
+    public static final int SCROLL_LOCK_MASK = 0x04;
+
+    /**
+     * The kana lock constant.
+     */
+    public static final int KANA_LOCK_MASK = 0x08;
 
     /**
      * The graphics node input events Time stamp. The time stamp is in
@@ -77,10 +98,16 @@ public abstract class GraphicsNodeInputEvent extends GraphicsNodeEvent {
     long when;
 
     /**
-     * The state of the modifier key at the time the graphics node
+     * The state of the modifier keys at the time the graphics node
      * input event was fired.
      */
     int modifiers;
+
+    /**
+     * The state of the key locks at the time the graphics node input
+     * event was fired.
+     */
+    int lockState;
 
     /**
      * Constructs a new graphics node input event.
@@ -90,10 +117,11 @@ public abstract class GraphicsNodeInputEvent extends GraphicsNodeEvent {
      * @param modifiers the modifier keys down while event occurred
      */
     protected GraphicsNodeInputEvent(GraphicsNode source, int id,
-                                     long when, int modifiers) {
+                                     long when, int modifiers, int lockState) {
         super(source, id);
         this.when = when;
         this.modifiers = modifiers;
+        this.lockState = lockState;
     }
 
     /**
@@ -101,10 +129,13 @@ public abstract class GraphicsNodeInputEvent extends GraphicsNodeEvent {
      * @param source the graphics node where the event originated
      * @param evt the AWT InputEvent triggering this event's creation
      */
-    protected GraphicsNodeInputEvent(GraphicsNode source, InputEvent evt) {
+    protected GraphicsNodeInputEvent(GraphicsNode source,
+                                     InputEvent evt,
+                                     int lockState) {
         super(source, evt.getID());
         this.when = evt.getWhen();
         this.modifiers = evt.getModifiers();
+        this.lockState = lockState;
     }
 
     /**
@@ -125,7 +156,7 @@ public abstract class GraphicsNodeInputEvent extends GraphicsNodeEvent {
      * Returns whether or not the Meta modifier is down on this event.
      */
     public boolean isMetaDown() {
-        return (modifiers & META_MASK) != 0;
+        return AWTEventDispatcher.isMetaDown(modifiers);
     }
 
     /**
@@ -154,5 +185,12 @@ public abstract class GraphicsNodeInputEvent extends GraphicsNodeEvent {
      */
     public int getModifiers() {
         return modifiers;
+    }
+
+    /**
+     * Returns the lock state flags for this event.
+     */
+    public int getLockState() {
+        return lockState;
     }
 }

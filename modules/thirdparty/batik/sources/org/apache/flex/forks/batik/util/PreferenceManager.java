@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -68,7 +69,7 @@ import java.util.StringTokenizer;
  * </pre></blockquote>
  * <p>
  * @author <a href="mailto:cjolif@ilog.fr">Christophe Jolif</a>
- * @version $Id: PreferenceManager.java,v 1.8 2004/08/18 07:15:49 vhardy Exp $
+ * @version $Id: PreferenceManager.java 478169 2006-11-22 14:23:24Z dvholten $
  */
 public class PreferenceManager
 {
@@ -77,14 +78,14 @@ public class PreferenceManager
     protected String prefFileName = null;
     protected String fullName = null;
 
-    protected final static String USER_HOME = getSystemProperty("user.home");
-    protected final static String USER_DIR  = getSystemProperty("user.dir");
-    protected final static String FILE_SEP  = getSystemProperty("file.separator");
+    protected static final String USER_HOME = getSystemProperty("user.home");
+    protected static final String USER_DIR  = getSystemProperty("user.dir");
+    protected static final String FILE_SEP  = getSystemProperty("file.separator");
 
     private static String PREF_DIR = null;
 
     /**
-     * Gets a System property if accessible. Returns an empty string 
+     * Gets a System property if accessible. Returns an empty string
      * otherwise
      */
     protected static String getSystemProperty(String prop){
@@ -633,8 +634,7 @@ public class PreferenceManager
     public boolean getBoolean(String key)
     {
         if (internal.getProperty(key) != null)
-            return (internal.getProperty(key).equals("true"))?
-                true:false;
+            return internal.getProperty(key).equals("true");
         else
             if (getDefault(key) != null)
                 return ((Boolean)getDefault(key)).booleanValue();
@@ -649,7 +649,7 @@ public class PreferenceManager
     {
         if (value != null && !value.equals(getDefault(key)))
             internal.setProperty(key, value.x+" "+value.y+" "+
-                                 value.width+" "+value.height);
+                                 value.width+ ' ' +value.height);
         else
             internal.remove(key);
     }
@@ -841,8 +841,8 @@ public class PreferenceManager
         if (getDefault(key) != null &&
             ((Boolean)getDefault(key)).booleanValue() != value) {
             internal.setProperty(key, value?"true":"false");
-	} else {
+        } else {
             internal.remove(key);
-	}
+        }
     }
 }

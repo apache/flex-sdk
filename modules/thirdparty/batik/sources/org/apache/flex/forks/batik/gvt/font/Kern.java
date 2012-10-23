@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,7 +26,7 @@ import java.util.Arrays;
  * by side. It may be used for either horizontal or vertical kerning.
  *
  * @author <a href="mailto:dean.jackson@cmis.csiro.au">Dean Jackson</a>
- * @version $Id: Kern.java,v 1.6 2004/09/01 09:35:23 deweese Exp $
+ * @version $Id: Kern.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class Kern {
 
@@ -53,7 +54,7 @@ public class Kern {
      * between glyphs should decrease).  
      */
     public Kern(int[] firstGlyphCodes, 
-		int[] secondGlyphCodes,
+                int[] secondGlyphCodes,
                 UnicodeRange[] firstUnicodeRanges,
                 UnicodeRange[] secondUnicodeRanges,
                 float adjustValue) {

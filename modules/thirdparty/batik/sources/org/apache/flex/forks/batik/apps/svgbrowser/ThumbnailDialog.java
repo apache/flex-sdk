@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -53,24 +54,25 @@ import org.apache.flex.forks.batik.swing.gvt.JGVTComponent;
 import org.apache.flex.forks.batik.swing.gvt.Overlay;
 import org.apache.flex.forks.batik.swing.svg.SVGDocumentLoaderAdapter;
 import org.apache.flex.forks.batik.swing.svg.SVGDocumentLoaderEvent;
-import org.apache.flex.forks.batik.util.gui.resource.ResourceManager;
+import org.apache.flex.forks.batik.util.resources.ResourceManager;
 import org.apache.flex.forks.batik.util.SVGConstants;
-import org.w3c.flex.forks.dom.svg.SVGDocument;
-import org.w3c.flex.forks.dom.svg.SVGSVGElement;
+
+import org.w3c.dom.svg.SVGDocument;
+import org.w3c.dom.svg.SVGSVGElement;
 
 /**
  * This class represents a Dialog that displays a Thumbnail of the current SVG
  * document.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: ThumbnailDialog.java,v 1.15 2005/03/27 08:58:30 cam Exp $
+ * @version $Id: ThumbnailDialog.java 592619 2007-11-07 05:47:24Z cam $
  */
 public class ThumbnailDialog extends JDialog {
 
     /**
      * The resource file name
      */
-    protected final static String RESOURCES =
+    protected static final String RESOURCES =
         "org.apache.flex.forks.batik.apps.svgbrowser.resources.ThumbnailDialog";
 
     /**
@@ -119,7 +121,7 @@ public class ThumbnailDialog extends JDialog {
         // register listeners to maintain consistency
         this.svgCanvas = svgCanvas;
         svgCanvas.addGVTTreeRendererListener(new ThumbnailGVTListener());
-        svgCanvas.addSVGDocumentLoaderListener(new ThumbnailDocumentListener());        
+        svgCanvas.addSVGDocumentLoaderListener(new ThumbnailDocumentListener());
         svgCanvas.addComponentListener(new ThumbnailCanvasComponentListener());
 
         // create the thumbnail
@@ -163,7 +165,7 @@ public class ThumbnailDialog extends JDialog {
             return null;
         CompositeGraphicsNode cgn = (CompositeGraphicsNode)gn;
         List children = cgn.getChildren();
-        if (children.size() == 0) 
+        if (children.size() == 0)
             return null;
         gn = (GraphicsNode)cgn.getChildren().get(0);
         if (!(gn instanceof CanvasGraphicsNode))
@@ -180,6 +182,8 @@ public class ThumbnailDialog extends JDialog {
             SVGSVGElement elt = svgDocument.getRootElement();
             Dimension dim = svgThumbnailCanvas.getSize();
 
+            // XXX Update this to use the animated values of 'viewBox'
+            //     and 'preserveAspectRatio'.
             String viewBox = elt.getAttributeNS
                 (null, SVGConstants.SVG_VIEW_BOX_ATTRIBUTE);
 
@@ -188,8 +192,8 @@ public class ThumbnailDialog extends JDialog {
                 String aspectRatio = elt.getAttributeNS
                     (null, SVGConstants.SVG_PRESERVE_ASPECT_RATIO_ATTRIBUTE);
                 Tx = ViewBox.getPreserveAspectRatioTransform
-                    (elt, viewBox, aspectRatio, dim.width, dim.height);
-            }else {
+                    (elt, viewBox, aspectRatio, dim.width, dim.height, null);
+            } else {
                 // no viewBox has been specified, create a scale transform
                 Dimension2D docSize = svgCanvas.getSVGDocumentSize();
                 double sx = dim.width / docSize.getWidth();
@@ -293,18 +297,18 @@ public class ThumbnailDialog extends JDialog {
         }
 
         public void gvtRenderingCancelled(GVTTreeRendererEvent e) {
-	    if (documentChanged) {
-		svgThumbnailCanvas.setGraphicsNode(null);
-		svgThumbnailCanvas.setRenderingTransform(new AffineTransform());
-	    }
+            if (documentChanged) {
+                svgThumbnailCanvas.setGraphicsNode(null);
+                svgThumbnailCanvas.setRenderingTransform(new AffineTransform());
+            }
         }
 
         public void gvtRenderingFailed(GVTTreeRendererEvent e) {
-	    if (documentChanged) {
-		svgThumbnailCanvas.setGraphicsNode(null);
-		svgThumbnailCanvas.setRenderingTransform(new AffineTransform());
-	    }
-	}
+            if (documentChanged) {
+                svgThumbnailCanvas.setGraphicsNode(null);
+                svgThumbnailCanvas.setRenderingTransform(new AffineTransform());
+            }
+        }
     }
 
     /**
@@ -370,8 +374,8 @@ public class ThumbnailDialog extends JDialog {
             Dimension dim = svgCanvas.getSize();
             s = new Rectangle2D.Float(0, 0, dim.width, dim.height);
             try {
-		at = svgCanvas.getRenderingTransform().createInverse();
-		at.preConcatenate(svgThumbnailCanvas.getRenderingTransform());
+                at = svgCanvas.getRenderingTransform().createInverse();
+                at.preConcatenate(svgThumbnailCanvas.getRenderingTransform());
                 s = at.createTransformedShape(s);
             } catch (NoninvertibleTransformException ex) {
                 dim = svgThumbnailCanvas.getSize();

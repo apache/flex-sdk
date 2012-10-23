@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,13 +25,13 @@ import java.util.Locale;
  * have a shared default locale.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: LocaleGroup.java,v 1.3 2004/08/18 07:14:44 vhardy Exp $
+ * @version $Id: LocaleGroup.java 478188 2006-11-22 15:19:17Z dvholten $
  */
 public class LocaleGroup {
     /**
      * The default group.
      */
-    public final static LocaleGroup DEFAULT = new LocaleGroup();
+    public static final LocaleGroup DEFAULT = new LocaleGroup();
 
     /**
      * The shared Locale.
@@ -39,7 +40,7 @@ public class LocaleGroup {
 
     /**
      * Sets the default locale for all the instances of ExtendedLocalizable
-     * in this group. 
+     * in this group.
      */
     public void setLocale(Locale l) {
         locale = l;

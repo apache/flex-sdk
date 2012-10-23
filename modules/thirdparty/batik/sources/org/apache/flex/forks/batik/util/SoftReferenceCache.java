@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,34 +20,48 @@ package org.apache.flex.forks.batik.util;
 
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class manages a cache of soft references to objects that may
- * take some time to load or create, such as images loaded from the 
+ * take some time to load or create, such as images loaded from the
  * network.
  *
- * Adding an object is two fold: <br />
- * + First you add the key, this lets the cache know that someone is
- *   working on that key.  <br />
- * + Then when the completed object is ready you put it into the cache.<P>
+ * <p>Adding an object is two fold:</p>
+ * <ul>
+ *   <li>
+ *     First you add the key, this lets the cache know that someone is
+ *     working on that key.
+ *   </li>
+ *   <li>
+ *     Then when the completed object is ready you put it into the cache.
+ *   </li>
+ * </ul>
+ * <p>
+ *   If someone requests a key after it has been added but before it has
+ *   been put they will be blocked until the put.
+ * </p>
  *
- * If someone requests a key after it has been added but before it has
- * been put they will be blocked until the put.
+ * @author <a href="mailto:vhardy@apache.org">Vincent Hardy</a>
+ * @version $Id: SoftReferenceCache.java 588550 2007-10-26 07:52:41Z dvholten $
  */
-
 public class SoftReferenceCache {
-    HashMap map = new HashMap();
 
     /**
-     * Let people create there own caches.
+     * The map of cached objects. Must not change after creation,
+     * so it's final.
+     */
+    protected final Map map = new HashMap();
+
+    /**
+     * Let people create their own caches.
      */
     protected SoftReferenceCache() { }
-
 
     /**
      * Let people flush the cache (remove any cached data).  Pending
      * requests will be treated as though clear() was called on the
-     * key, this should cause them to go and re-read the data.  
+     * key, this should cause them to go and re-read the data.
      */
     public synchronized void flush() {
         map.clear();
@@ -59,14 +74,14 @@ public class SoftReferenceCache {
      * that this will return true but between this call and the call
      * to request the soft-reference will be cleared.  So it
      * is still possible for request to return NULL, just much less
-     * likely (you can always call 'clear' in that case). 
+     * likely (you can always call 'clear' in that case).
      */
     protected final synchronized boolean isPresentImpl(Object key) {
         if (!map.containsKey(key))
             return false;
 
         Object o = map.get(key);
-        if (o == null)  
+        if (o == null)
             // It's been requested but hasn't been 'put' yet.
             return true;
 
@@ -104,7 +119,8 @@ public class SoftReferenceCache {
     /**
      * If this returns null then you are now 'on the hook'.
      * to put the Object associated with key into the
-     * cache.  */
+     * cache.
+     */
     protected final synchronized Object requestImpl(Object key) {
         if (map.containsKey(key)) {
 
@@ -140,7 +156,7 @@ public class SoftReferenceCache {
     /**
      * Clear the entry for key.
      * This is the easiest way to 'get off the hook'.
-     * if you didn't indend to get on it.
+     * if you didn't intend to get on it.
      */
     protected final synchronized void clearImpl(Object key) {
         map.remove(key);
@@ -173,17 +189,19 @@ public class SoftReferenceCache {
             SoftReferenceCache cache = SoftReferenceCache.this;
             if (cache == null) return; // Can't really happen.
             synchronized (cache) {
+                if (!cache.map.containsKey(key))
+                    return;
                 Object o = cache.map.remove(key);
                 if (this == o) {
                     // Notify other threads that they may have
                     // to provide this resource now.
-                    cache.notifyAll(); 
+                    cache.notifyAll();
                 } else {
                     // Must not have been ours put it back...
                     // Can happen if a clear is done.
                     cache.map.put(key, o);
                 }
- 
+
             }
         }
     }

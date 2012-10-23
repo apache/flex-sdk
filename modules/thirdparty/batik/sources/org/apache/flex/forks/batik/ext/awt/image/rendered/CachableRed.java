@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,7 +27,7 @@ import java.awt.image.RenderedImage;
  * better analyse the dependencies between nodes in a render graph.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: CachableRed.java,v 1.4 2004/08/18 07:14:08 vhardy Exp $
+ * @version $Id: CachableRed.java 478276 2006-11-22 18:33:37Z dvholten $
 */
 public interface CachableRed extends RenderedImage {
 
@@ -34,7 +35,7 @@ public interface CachableRed extends RenderedImage {
      * Returns the bounds of the current image.
      * This should be 'in sync' with getMinX, getMinY, getWidth, getHeight
      */
-    public Rectangle getBounds();
+    Rectangle getBounds();
 
     /**
      * Returns the region of input data is is required to generate
@@ -46,7 +47,7 @@ public interface CachableRed extends RenderedImage {
      * @return The region of input required.  This is in the output pixel
      * coordinate system for the source indicated by srcIndex.
      */
-    public Shape getDependencyRegion(int srcIndex, Rectangle outputRgn);
+    Shape getDependencyRegion(int srcIndex, Rectangle outputRgn);
 
     /**
      * This calculates the region of output that is affected by a change
@@ -59,6 +60,6 @@ public interface CachableRed extends RenderedImage {
      *  a change to inputRgn of the source selected by srcIndex.
      *  this is in the output pixel coordinate system of this node.
      */
-    public Shape getDirtyRegion(int srcIndex, Rectangle inputRgn);
+    Shape getDirtyRegion(int srcIndex, Rectangle inputRgn);
 }
 

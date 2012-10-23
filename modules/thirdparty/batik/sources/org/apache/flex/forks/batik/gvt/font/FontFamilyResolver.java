@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,31 +24,32 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * The is a utility class that is used for resolving UnresolvedFontFamilies.
  *
  * @author <a href="mailto:bella.robinson@cmis.csiro.au">Bella Robinson</a>
- * @version $Id: FontFamilyResolver.java,v 1.14 2005/03/27 08:58:34 cam Exp $
+ * @version $Id: FontFamilyResolver.java 582434 2007-10-06 02:11:51Z cam $
  */
 public class FontFamilyResolver {
 
     /**
      * The default font. This will be used when no font families can
-     * be resolved for a particular text chunck/run.
+     * be resolved for a particular text chunk/run.
      */
-    public final static AWTFontFamily defaultFont = 
+    public static final AWTFontFamily defaultFont =
         new AWTFontFamily("SansSerif");
 
     /**
      * List of all available fonts on the current system, plus a few common
      * alternatives.
      */
-    protected final static Map fonts = new HashMap();
+    protected static final Map fonts = new HashMap();
 
-    protected final static Vector awtFontFamilies = new Vector();
-    protected final static Vector awtFonts = new Vector();
+    protected static final List awtFontFamilies = new ArrayList();
+    protected static final List awtFonts = new ArrayList();
 
     /**
      * This sets up the list of available fonts.
@@ -69,7 +71,7 @@ public class FontFamilyResolver {
 
         GraphicsEnvironment env;
         env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        String fontNames[] = env.getAvailableFontFamilyNames();
+        String[] fontNames = env.getAvailableFontFamilyNames();
 
         int nFonts = fontNames != null ? fontNames.length : 0;
         for(int i=0; i<nFonts; i++){
@@ -110,7 +112,7 @@ public class FontFamilyResolver {
      * This keeps track of all the resolved font families. This is to hopefully
      * reduce the number of font family objects used.
      */
-    protected static Map resolvedFontFamilies;
+    protected static final Map resolvedFontFamilies = new HashMap();
 
     /**
      * Looks up a font family name and returns the platform name
@@ -134,30 +136,29 @@ public class FontFamilyResolver {
      * be resolved.
      */
     public static GVTFontFamily resolve(String familyName) {
-        if (resolvedFontFamilies == null) {
-            resolvedFontFamilies = new HashMap();
-        }
+
+        familyName = familyName.toLowerCase();
 
         // first see if this font family has already been resolved
-        GVTFontFamily resolvedFF = 
-            (GVTFontFamily)resolvedFontFamilies.get(familyName.toLowerCase());
+        GVTFontFamily resolvedFF =
+            (GVTFontFamily)resolvedFontFamilies.get(familyName);
 
         if (resolvedFF == null) { // hasn't been resolved yet
             // try to find a matching family name in the list of
             // available fonts
-            String awtFamilyName = (String)fonts.get(familyName.toLowerCase());
+            String awtFamilyName = (String)fonts.get(familyName);
             if (awtFamilyName != null) {
                 resolvedFF = new AWTFontFamily(awtFamilyName);
             }
 
-            resolvedFontFamilies.put(familyName.toLowerCase(), resolvedFF);
+            resolvedFontFamilies.put(familyName, resolvedFF);
         }
 
         //  if (resolvedFF != null) {
-        //      System.out.println("resolved " + fontFamily.getFamilyName() + 
+        //      System.out.println("resolved " + fontFamily.getFamilyName() +
         //                         " to " + resolvedFF.getFamilyName());
         //  } else {
-        //      System.out.println("could not resolve " + 
+        //      System.out.println("could not resolve " +
         //                         fontFamily.getFamilyName());
         //  }
         return resolvedFF;

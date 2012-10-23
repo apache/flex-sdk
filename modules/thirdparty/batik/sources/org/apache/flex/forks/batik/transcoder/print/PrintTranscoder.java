@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -15,7 +16,6 @@
    limitations under the License.
 
 */
-
 package org.apache.flex.forks.batik.transcoder.print;
 
 import java.awt.Graphics;
@@ -31,12 +31,12 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.util.StringTokenizer;
-import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.flex.forks.batik.bridge.BridgeContext;
 import org.apache.flex.forks.batik.ext.awt.RenderingHintsKeyExt;
 import org.apache.flex.forks.batik.transcoder.SVGAbstractTranscoder;
-import org.apache.flex.forks.batik.transcoder.XMLAbstractTranscoder;
 import org.apache.flex.forks.batik.transcoder.Transcoder;
 import org.apache.flex.forks.batik.transcoder.TranscoderException;
 import org.apache.flex.forks.batik.transcoder.TranscoderInput;
@@ -74,7 +74,7 @@ import org.w3c.dom.Document;
  * </ul>
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: PrintTranscoder.java,v 1.30 2004/10/30 18:38:06 deweese Exp $
+ * @version $Id: PrintTranscoder.java 489226 2006-12-21 00:05:36Z cam $
  */
 public class PrintTranscoder extends SVGAbstractTranscoder
     implements Printable {
@@ -103,15 +103,17 @@ public class PrintTranscoder extends SVGAbstractTranscoder
 
     /**
      * Set of inputs this transcoder has been requested to
-     * transcode so far
+     * transcode so far.
+     * Purpose is not really clear: some data is added, and it is copied into
+     * printedInputs. But it is never read or cleared...
      */
-    private Vector inputs = new Vector();
+    private List inputs = new ArrayList();
 
     /**
      * Currently printing set of pages. This vector is
      * created as a clone of inputs when the first page is printed.
      */
-    private Vector printedInputs = null;
+    private List printedInputs = null;
 
     /**
      * Index of the page corresponding to root
@@ -138,7 +140,7 @@ public class PrintTranscoder extends SVGAbstractTranscoder
     public void transcode(TranscoderInput in,
                           TranscoderOutput out){
         if(in != null){
-            inputs.addElement(in);
+            inputs.add(in);
         }
     }
 
@@ -170,11 +172,8 @@ public class PrintTranscoder extends SVGAbstractTranscoder
         // Now, request the transcoder to actually perform the
         // printing job.
         //
-        PrinterJob printerJob =
-            PrinterJob.getPrinterJob();
-
-        PageFormat pageFormat =
-            printerJob.defaultPage();
+        PrinterJob printerJob = PrinterJob.getPrinterJob();
+        PageFormat pageFormat = printerJob.defaultPage();
 
         //
         // Set the page parameters from the hints
@@ -193,19 +192,20 @@ public class PrintTranscoder extends SVGAbstractTranscoder
         }
 
         float x=0, y=0;
-        float width=(float)paper.getWidth(), height=(float)paper.getHeight();
+        float width =(float)paper.getWidth();
+        float height=(float)paper.getHeight();
 
-        Float leftMargin = (Float)hints.get(KEY_MARGIN_LEFT);
-        Float topMargin = (Float)hints.get(KEY_MARGIN_TOP);
-        Float rightMargin = (Float)hints.get(KEY_MARGIN_RIGHT);
+        Float leftMargin   = (Float)hints.get(KEY_MARGIN_LEFT);
+        Float topMargin    = (Float)hints.get(KEY_MARGIN_TOP);
+        Float rightMargin  = (Float)hints.get(KEY_MARGIN_RIGHT);
         Float bottomMargin = (Float)hints.get(KEY_MARGIN_BOTTOM);
 
         if(leftMargin != null){
-            x = leftMargin.floatValue();
+            x      = leftMargin.floatValue();
             width -= leftMargin.floatValue();
         }
         if(topMargin != null){
-            y = topMargin.floatValue();
+            y       = topMargin.floatValue();
             height -= topMargin.floatValue();
         }
         if(rightMargin != null){
@@ -235,7 +235,7 @@ public class PrintTranscoder extends SVGAbstractTranscoder
         // If required, pop up a dialog to adjust the page format
         //
         Boolean showPageFormat = (Boolean)hints.get(KEY_SHOW_PAGE_DIALOG);
-        if(showPageFormat != null && showPageFormat.booleanValue()){
+        if ((showPageFormat != null) && (showPageFormat.booleanValue())) {
             PageFormat tmpPageFormat = printerJob.pageDialog(pageFormat);
             if(tmpPageFormat == pageFormat){
                 // Dialog was cancelled, meaning that the print process should
@@ -246,10 +246,15 @@ public class PrintTranscoder extends SVGAbstractTranscoder
             pageFormat = tmpPageFormat;
         }
 
+        // Set printable before showing printer dialog so
+        // it can update the pageFormat if it wishes...
+        printerJob.setPrintable(this, pageFormat);
+
         //
         // If required, pop up a dialog to select the printer
         //
-        Boolean showPrinterDialog = (Boolean)hints.get(KEY_SHOW_PRINTER_DIALOG);
+        Boolean showPrinterDialog;
+        showPrinterDialog = (Boolean)hints.get(KEY_SHOW_PRINTER_DIALOG);
         if(showPrinterDialog != null && showPrinterDialog.booleanValue()){
             if(!printerJob.printDialog()){
                 // Dialog was cancelled, meaning that the print process
@@ -259,7 +264,6 @@ public class PrintTranscoder extends SVGAbstractTranscoder
         }
 
         // Print now
-        printerJob.setPrintable(this, pageFormat);
         printerJob.print();
 
     }
@@ -273,7 +277,7 @@ public class PrintTranscoder extends SVGAbstractTranscoder
         // TranscodeInputs.
         //
         if(printedInputs == null){
-            printedInputs = (Vector)inputs.clone();
+            printedInputs = new ArrayList( inputs );
         }
 
         //
@@ -281,7 +285,7 @@ public class PrintTranscoder extends SVGAbstractTranscoder
         //
         if(pageIndex >= printedInputs.size()){
             curIndex = -1;
-            if (theCtx != null) 
+            if (theCtx != null)
                 theCtx.dispose();
             userAgent.displayMessage("Done");
             return NO_SUCH_PAGE;
@@ -291,17 +295,17 @@ public class PrintTranscoder extends SVGAbstractTranscoder
         // Load a new document now if we are printing a new page
         //
         if(curIndex != pageIndex){
-            if (theCtx != null) 
+            if (theCtx != null)
                 theCtx.dispose();
 
             // The following call will invoke this class' transcode
             // method which takes a document as an input. That method
             // builds the GVT root tree.{
             try{
-                width  = (int)(pageFormat.getImageableWidth()+0.5);
-                height = (int)(pageFormat.getImageableHeight()+0.5);
+                width  = (int)pageFormat.getImageableWidth();
+                height = (int)pageFormat.getImageableHeight();
                 super.transcode
-                    ((TranscoderInput)printedInputs.elementAt(pageIndex),null);
+                    ((TranscoderInput)printedInputs.get(pageIndex),null);
                 curIndex = pageIndex;
             }catch(TranscoderException e){
                 drawError(_g, e);
@@ -324,6 +328,14 @@ public class PrintTranscoder extends SVGAbstractTranscoder
         AffineTransform t = g.getTransform();
         Shape clip = g.getClip();
 
+        // System.err.println("X/Y: " + pageFormat.getImageableX() + ", " +
+        //                    pageFormat.getImageableY());
+        // System.err.println("W/H: " + width + ", " + height);
+        // System.err.println("Clip: " + clip.getBounds2D());
+
+        // Offset 0,0 to the start of the imageable Area.
+        g.translate(pageFormat.getImageableX(),
+                    pageFormat.getImageableY());
         //
         // Append transform to selected area
         //
@@ -621,7 +633,7 @@ public class PrintTranscoder extends SVGAbstractTranscoder
 
     public static final String USAGE = "java org.apache.flex.forks.batik.transcoder.print.PrintTranscoder <svgFileToPrint>";
 
-    public static void main(String args[]) throws Exception{
+    public static void main(String[] args) throws Exception{
         if(args.length < 1){
             System.err.println(USAGE);
             System.exit(0);
@@ -773,7 +785,7 @@ public class PrintTranscoder extends SVGAbstractTranscoder
                                                 TranscodingHints.Key key){
         String str = System.getProperty(property);
         if(str != null){
-            Boolean value = new Boolean("true".equalsIgnoreCase(str));
+            Boolean value = "true".equalsIgnoreCase(str) ? Boolean.TRUE : Boolean.FALSE;
             transcoder.addTranscodingHint(key, value);
         }
     }

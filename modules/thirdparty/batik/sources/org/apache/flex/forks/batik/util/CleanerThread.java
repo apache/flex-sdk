@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -29,20 +30,22 @@ import java.lang.ref.PhantomReference;
  * Complete Class Desc
  *
  * @author <a href="mailto:deweese@apache.org">l449433</a>
- * @version $Id: CleanerThread.java,v 1.7 2005/03/27 08:58:36 cam Exp $
+ * @version $Id: CleanerThread.java 591551 2007-11-03 04:52:47Z cam $
  */
 public class CleanerThread extends Thread {
 
-    static ReferenceQueue queue = null;
+    static volatile ReferenceQueue queue = null;
     static CleanerThread  thread = null;
 
-    public static ReferenceQueue getReferenceQueue() { 
-        if (queue != null) 
-            return queue;
-        
-        queue = new ReferenceQueue();
-        thread = new CleanerThread();
-        return queue; 
+    public static ReferenceQueue getReferenceQueue() {
+
+        if ( queue == null ) {
+            synchronized (CleanerThread.class) {
+                queue = new ReferenceQueue();
+                thread = new CleanerThread();
+            }
+        }
+        return queue;
     }
 
     /**
@@ -52,14 +55,14 @@ public class CleanerThread extends Thread {
      */
     public static interface ReferenceCleared {
         /* Called when the reference is cleared */
-        public void cleared();
+        void cleared();
     }
 
     /**
-     * A SoftReference subclass that automatically registers with 
+     * A SoftReference subclass that automatically registers with
      * the cleaner ReferenceQueue.
      */
-    public static abstract class SoftReferenceCleared extends SoftReference 
+    public abstract static class SoftReferenceCleared extends SoftReference
       implements ReferenceCleared {
         public SoftReferenceCleared(Object o) {
             super (o, CleanerThread.getReferenceQueue());
@@ -67,10 +70,10 @@ public class CleanerThread extends Thread {
     }
 
     /**
-     * A WeakReference subclass that automatically registers with 
+     * A WeakReference subclass that automatically registers with
      * the cleaner ReferenceQueue.
      */
-    public static abstract class WeakReferenceCleared extends WeakReference 
+    public abstract static class WeakReferenceCleared extends WeakReference
       implements ReferenceCleared {
         public WeakReferenceCleared(Object o) {
             super (o, CleanerThread.getReferenceQueue());
@@ -78,18 +81,19 @@ public class CleanerThread extends Thread {
     }
 
     /**
-     * A PhantomReference subclass that automatically registers with 
+     * A PhantomReference subclass that automatically registers with
      * the cleaner ReferenceQueue.
      */
-    public static abstract class PhantomReferenceCleared 
-        extends PhantomReference 
+    public abstract static class PhantomReferenceCleared
+        extends PhantomReference
         implements ReferenceCleared {
         public PhantomReferenceCleared(Object o) {
             super (o, CleanerThread.getReferenceQueue());
         }
     }
-            
+
     protected CleanerThread() {
+        super("Batik CleanerThread");
         setDaemon(true);
         start();
     }

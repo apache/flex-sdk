@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,34 +18,27 @@
  */
 package org.apache.flex.forks.batik.dom.svg;
 
+import org.apache.flex.forks.batik.anim.values.AnimatableStringValue;
+import org.apache.flex.forks.batik.anim.values.AnimatableValue;
+import org.apache.flex.forks.batik.dom.anim.AnimationTarget;
+
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedString;
+import org.w3c.dom.svg.SVGAnimatedString;
 
 /**
  * This class implements the {@link SVGAnimatedString} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGOMAnimatedString.java,v 1.7 2004/08/18 07:13:14 vhardy Exp $
+ * @version $Id: SVGOMAnimatedString.java 490655 2006-12-28 05:19:44Z cam $
  */
-public class SVGOMAnimatedString
-    implements SVGAnimatedString,
-               LiveAttributeValue {
+public class SVGOMAnimatedString extends AbstractSVGAnimatedValue
+                                 implements SVGAnimatedString {
 
     /**
-     * The associated element.
+     * The current animated value.
      */
-    protected AbstractElement element;
-
-    /**
-     * The attribute's namespace URI.
-     */
-    protected String namespaceURI;
-
-    /**
-     * The attribute's local name.
-     */
-    protected String localName;
+    protected String animVal;
 
     /**
      * Creates a new SVGOMAnimatedString.
@@ -55,9 +49,7 @@ public class SVGOMAnimatedString
     public SVGOMAnimatedString(AbstractElement elt,
                                String ns,
                                String ln) {
-        element = elt;
-        namespaceURI = ns;
-        localName = ln;
+        super(elt, ns, ln);
     }
 
     /**
@@ -78,24 +70,59 @@ public class SVGOMAnimatedString
      * <b>DOM</b>: Implements {@link SVGAnimatedString#getAnimVal()}.
      */
     public String getAnimVal() {
-        throw new RuntimeException("!!! TODO: getAnimVal()");
+        if (hasAnimVal) {
+            return animVal;
+        }
+        return element.getAttributeNS(namespaceURI, localName);
+    }
+
+    /**
+     * Returns the base value of the attribute as an {@link AnimatableValue}.
+     */
+    public AnimatableValue getUnderlyingValue(AnimationTarget target) {
+        return new AnimatableStringValue(target, getBaseVal());
+    }
+
+    /**
+     * Updates the animated value with the given {@link AnimatableValue}.
+     */
+    protected void updateAnimatedValue(AnimatableValue val) {
+        if (val == null) {
+            hasAnimVal = false;
+        } else {
+            hasAnimVal = true;
+            this.animVal = ((AnimatableStringValue) val).getString();
+        }
+        fireAnimatedAttributeListeners();
     }
 
     /**
      * Called when an Attr node has been added.
      */
     public void attrAdded(Attr node, String newv) {
+        fireBaseAttributeListeners();
+        if (!hasAnimVal) {
+            fireAnimatedAttributeListeners();
+        }
     }
 
     /**
      * Called when an Attr node has been modified.
      */
     public void attrModified(Attr node, String oldv, String newv) {
+        fireBaseAttributeListeners();
+        if (!hasAnimVal) {
+            fireAnimatedAttributeListeners();
+        }
     }
 
     /**
      * Called when an Attr node has been removed.
      */
     public void attrRemoved(Attr node, String oldv) {
+        fireBaseAttributeListeners();
+        if (!hasAnimVal) {
+            fireAnimatedAttributeListeners();
+        }
     }
 }

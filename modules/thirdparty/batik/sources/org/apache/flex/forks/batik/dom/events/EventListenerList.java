@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2002  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,113 +18,221 @@
  */
 package org.apache.flex.forks.batik.dom.events;
 
+import org.apache.flex.forks.batik.dom.util.IntTable;
+import org.apache.flex.forks.batik.dom.util.HashTable;
+
 import org.w3c.dom.events.EventListener;
 
 /**
- * A simple list of EventListener. Listeners are always added at the
- * head of the list.
+ * Class to manager event listeners for one event type.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
+ * @author <a href="mailto:cam%40mcc%2eid%2eau">Cameron McCormack</a>
+ * @version $Id: EventListenerList.java 579851 2007-09-26 23:49:35Z cam $
  */
 public class EventListenerList {
 
     /**
-     * Current number of entries in list.
+     * Total number of event listners.
      */
-    protected int              n         = 0;
-    /**
-     * Simple Linked list of listeners.
-     */
-    protected Entry            first     = null;
-    /**
-     * Array of listeners retained between calls to getEventListeners if the
-     * list of listeners doesn't change.  This needs to be a copy so if the
-     * list of listeners changes during event dispatch it doesn't effect
-     * the inprogress dispatch.
-     */
-    protected EventListener [] listeners = null;
+    protected int n;
 
     /**
-     * Returns an array of the event listeners of this list, or null if any.
+     * Linked list of entries.
      */
-    public EventListener [] getEventListeners() {
-	if (first == null)     return null;
-        if (listeners != null) return listeners;
+    protected Entry head;
 
-	listeners = new EventListener[n];
-	Entry current = first;
-	for (int i=0; i < n; ++i, current = current.next) {
-	    listeners[i] = current.listener;
-	}
-	return listeners;
+    /**
+     * Counts of listener entries with a given namespace URI.
+     */
+    protected IntTable counts = new IntTable();
+
+    /**
+     * Cache of listeners with any namespace URI.
+     */
+    protected Entry[] listeners;
+
+    /**
+     * Caches of listeners with a given namespace URI.
+     */
+    protected HashTable listenersNS = new HashTable();
+
+    /**
+     * Adds a listener.
+     */
+    public void addListener(String namespaceURI,
+                            Object group,
+                            EventListener listener) {
+        for (Entry e = head; e != null; e = e.next) {
+            if ((namespaceURI != null && namespaceURI.equals(e.namespaceURI)
+                        || namespaceURI == null && e.namespaceURI == null)
+                    && e.listener == listener) {
+                // Listener is already in the list, so do nothing.
+                return;
+            }
+        }
+        head = new Entry(listener, namespaceURI, group, head);
+        counts.inc(namespaceURI);
+        n++;
+        listeners = null;
+        listenersNS.remove(namespaceURI);
     }
 
     /**
-     * Adds the specified event listener.
-     * @param listener the event listener to add
+     * Removes a listener.
      */
-    public void add(EventListener listener) {
-	first = new Entry(listener, first);
-        listeners = null; // Clear current listener list.
-	n++;
-    }
-
-    /**
-     * Removes the specified event listener.
-     * @param listener the event listener to remove
-     */
-    public void remove(EventListener listener) {
-	if (first == null) return;
-
-
-        if (first.listener == listener) {
-	    first = first.next;
-            listeners = null; // Clear current listener list.
-	    --n;
-	} else {
-	    Entry prev = first;
-	    Entry e = first.next;
-	    while (e != null) {
-                if (e.listener == listener) {
+    public void removeListener(String namespaceURI,
+                               EventListener listener) {
+        if (head == null) {
+            return;
+        } else if (head != null
+                && (namespaceURI != null && namespaceURI.equals(head.namespaceURI)
+                    || namespaceURI == null && head.namespaceURI == null)
+                && listener == head.listener) {
+            head = head.next;
+        } else {
+            Entry e;
+            Entry prev = head;
+            for (e = head.next; e != null; e = e.next) {
+                if ((namespaceURI != null && namespaceURI.equals(e.namespaceURI)
+                            || namespaceURI == null && e.namespaceURI == null)
+                        && e.listener == listener) {
                     prev.next = e.next;
-                    listeners = null; // Clear current listener list.
-                    --n;
                     break;
                 }
-		prev = e;
-		e = e.next;
-	    }
-	}
+                prev = e;
+            }
+            if (e == null) {
+                // Listener not present.
+                return;
+            }
+        }
+        counts.dec(namespaceURI);
+        n--;
+        listeners = null;
+        listenersNS.remove(namespaceURI);
     }
 
     /**
-     * Returns true of the specified event listener has already been
-     * added to this list, false otherwise.
-     * @param listener the listener th check
+     * Returns an array containing all event listener entries.
      */
-    public boolean contains(EventListener listener) {
-	for (Entry e=first; e != null; e = e.next) {
-	    if (listener == e.listener)
-		return true;
-	}
-	return false;
+    public Entry[] getEventListeners() {
+        if (listeners != null) {
+            return listeners;
+        }
+        listeners = new Entry[n];
+        int i = 0;
+        for (Entry e = head; e != null; e = e.next) {
+            listeners[i++] = e;
+        }
+        return listeners;
     }
 
     /**
-     * Returns the number of listeners in the list.
+     * Returns an array of EventListeners that match the given namespace URI.
+     */
+    public Entry[] getEventListeners(String namespaceURI) {
+        if (namespaceURI == null) {
+            return getEventListeners();
+        }
+        Entry[] ls = (Entry[]) listenersNS.get(namespaceURI);
+        if (ls != null) {
+            return ls;
+        }
+        int count = counts.get(namespaceURI);
+        if (count == 0) {
+            return null;
+        }
+        ls = new Entry[count];
+        listenersNS.put(namespaceURI, ls);
+        int i = 0;
+        for (Entry e = head; i < count; e = e.next) {
+            if (namespaceURI.equals(e.namespaceURI)) {
+                ls[i++] = e;
+            }
+        }
+        return ls;
+    }
+
+    /**
+     * Returns whether there is an event listener for the given namespace URI.
+     */
+    public boolean hasEventListener(String namespaceURI) {
+        if (namespaceURI == null) {
+            return n != 0;
+        }
+        return counts.get(namespaceURI) != 0;
+    }
+
+    /**
+     * Returns the number of event listeners stored in this object.
      */
     public int size() {
         return n;
     }
 
-    // simple entry for the list
-    protected static class Entry {
-	EventListener listener;
-	Entry         next;
+    /**
+     * EventListenerTable entry class.
+     */
+    public class Entry {
+        
+        /**
+         * The event listener.
+         */
+        protected EventListener listener;
 
-	public Entry(EventListener listener, Entry next) {
-	    this.listener = listener;
-	    this.next = next;
-	}
+        /**
+         * The namespace URI of the event the listener is listening for.
+         */
+        protected String namespaceURI;
+
+        /**
+         * The event group.
+         */
+        protected Object group;
+
+        /**
+         * Flag used by getListeners.
+         */
+        protected boolean mark;
+
+        /**
+         * The next Entry in the list.
+         */
+        protected Entry next;
+
+        /**
+         * Creates a new Entry object.
+         */
+        public Entry(EventListener listener,
+                     String namespaceURI,
+                     Object group,
+                     Entry next) {
+            this.listener = listener;
+            this.namespaceURI = namespaceURI;
+            this.group = group;
+            this.next = next;
+        }
+
+        /**
+         * Returns the event listener.
+         */
+        public EventListener getListener() {
+            return listener;
+        }
+
+        /**
+         * Returns the event group.
+         */
+        public Object getGroup() {
+            return group;
+        }
+
+        /**
+         * Returns the event namespace URI.
+         */
+        public String getNamespaceURI() {
+            return namespaceURI;
+        }
     }
 }

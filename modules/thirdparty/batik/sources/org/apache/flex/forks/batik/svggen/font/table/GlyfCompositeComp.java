@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -20,7 +21,7 @@ package org.apache.flex.forks.batik.svggen.font.table;
 import java.io.ByteArrayInputStream;
 
 /**
- * @version $Id: GlyfCompositeComp.java,v 1.4 2004/08/18 07:15:20 vhardy Exp $
+ * @version $Id: GlyfCompositeComp.java 475477 2006-11-15 22:44:28Z cam $
  * @author <a href="mailto:david@steadystate.co.uk">David Schweinsberg</a>
  */
 public class GlyfCompositeComp {
@@ -40,7 +41,7 @@ public class GlyfCompositeComp {
     private short argument1;
     private short argument2;
     private short flags;
-    private short glyphIndex;
+    private int    glyphIndex;
     private double xscale = 1.0;
     private double yscale = 1.0;
     private double scale01 = 0.0;
@@ -50,11 +51,9 @@ public class GlyfCompositeComp {
     private int point1 = 0;
     private int point2 = 0;
 
-    protected GlyfCompositeComp(int firstIndex, int firstContour, ByteArrayInputStream bais) {
-        this.firstIndex = firstIndex;
-        this.firstContour = firstContour;
-        flags = (short)(bais.read()<<8 | bais.read());
-        glyphIndex = (short)(bais.read()<<8 | bais.read());
+    protected GlyfCompositeComp(ByteArrayInputStream bais) {
+        flags      = (short)((bais.read()<<8) | bais.read());
+        glyphIndex =        ((bais.read()<<8) | bais.read());
 
         // Get the arguments as just their raw values
         if ((flags & ARG_1_AND_2_ARE_WORDS) != 0) {
@@ -95,10 +94,17 @@ public class GlyfCompositeComp {
         }
     }
 
+    public void setFirstIndex(int idx) {
+        firstIndex = idx;
+    }
+
     public int getFirstIndex() {
         return firstIndex;
     }
 
+    public void setFirstContour(int idx) {
+        firstContour = idx;
+    }
     public int getFirstContour() {
         return firstContour;
     }
@@ -115,7 +121,7 @@ public class GlyfCompositeComp {
         return flags;
     }
 
-    public short getGlyphIndex() {
+    public int getGlyphIndex() {
         return glyphIndex;
     }
 

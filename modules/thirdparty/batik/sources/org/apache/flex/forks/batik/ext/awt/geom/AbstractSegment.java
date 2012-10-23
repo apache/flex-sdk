@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003 The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,21 +18,15 @@
  */
 package org.apache.flex.forks.batik.ext.awt.geom;
 
-import java.util.Arrays;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-
-import java.io.PrintStream;
-import java.io.FileOutputStream;
+import java.util.Arrays;
 
 /**
  * An abstract class for path segments.
  *
- * @version $Id: AbstractSegment.java,v 1.3 2005/04/02 14:26:09 deweese Exp $
+ * @version $Id: AbstractSegment.java 478249 2006-11-22 17:29:37Z dvholten $
  */
 public abstract class AbstractSegment implements Segment {
-
-    private static final double rt3 = 1.7320508075689;
 
     protected abstract int findRoots(double y, double [] roots);
 
@@ -54,7 +49,7 @@ public abstract class AbstractSegment implements Segment {
         segs[numSegments++] = 1.0;
 
         if (numSegments == 2) return null;
-        // System.err.println("Y: " + y + "#Seg: " + numSegments + 
+        // System.err.println("Y: " + y + "#Seg: " + numSegments +
         //                    " Seg: " + this);
 
         Segment [] parts = new Segment[numSegments];
@@ -66,17 +61,17 @@ public abstract class AbstractSegment implements Segment {
             parts[pIdx] = getSegment(segs[i-1], segs[i]);
             Point2D.Double pt = parts[pIdx].eval(0.5);
             // System.err.println("Pt: " + pt);
-            if (pIdx == 0) { 
-                pIdx++; 
+            if (pIdx == 0) {
+                pIdx++;
                 firstAbove = prevAbove = (pt.y < y);
-                continue; 
+                continue;
             }
             boolean above = (pt.y < y);
             if (prevAbove == above) {
                 // Merge segments
                 parts[pIdx-1] = getSegment(pT, segs[i]);
             } else {
-                pIdx++; 
+                pIdx++;
                 pT=segs[i-1];
                 prevAbove = above;
             }
@@ -100,25 +95,25 @@ public abstract class AbstractSegment implements Segment {
     }
 
     public Segment splitBefore(double t) {
-        return getSegment(0.0, t); 
+        return getSegment(0.0, t);
     }
 
-    public Segment splitAfter(double t) { 
-        return getSegment(t, 1.0); 
+    public Segment splitAfter(double t) {
+        return getSegment(t, 1.0);
     }
 
     // Doubles have 48bit precision
-    static final double eps = 1/(double)(1l<<48); 
+    static final double eps = 1/(double)(1L<<48);
     static final double tol = 4.0*eps;
 
     public static int solveLine(double a, double b,
                                  double [] roots) {
         if (a == 0) {
-            if (b != 0) 
+            if (b != 0)
                 // No intersection.
                 return 0;
             // All pts intersect just return 0.
-            roots[0] = 0; 
+            roots[0] = 0;
             return 1;
         }
 
@@ -139,11 +134,11 @@ public abstract class AbstractSegment implements Segment {
 
         if (Math.abs(det) <= tol*b*b) {
             // one real root (det doesn't contain any useful info)
-            roots[0] =  -b/(2*a); 
+            roots[0] =  -b/(2*a);
             return 1;
         }
 
-        if (det < 0) 
+        if (det < 0)
             return 0; // No real roots
 
         // Two real roots
@@ -261,21 +256,21 @@ public abstract class AbstractSegment implements Segment {
         Segment [] below = sr.getBelow();
         for (int i=0; i<above.length; i++) {
             ps.println("<path fill=\"none\" stroke=\"blue\" " +
-                       " stroke-width=\"2.5\" " + 
+                       " stroke-width=\"2.5\" " +
                        " d=\"" + above[i] + "\"/>");
         }
         for (int i=0; i<below.length; i++) {
             ps.println("<path fill=\"none\" stroke=\"red\" " +
-                       " stroke-width=\"2\" " + 
+                       " stroke-width=\"2\" " +
                        "d=\"" + below[i] + "\"/>");
         }
     }
     public static void main(String [] args) {
         PrintStream ps;
         double [] roots = { 0, 0, 0 };
-        int n = solveCubic (-0.10000991821289062, 9.600013732910156, 
+        int n = solveCubic (-0.10000991821289062, 9.600013732910156,
                             -35.70000457763672, 58.0, roots);
-        for (int i=0; i<n; i++) 
+        for (int i=0; i<n; i++)
             System.err.println("Root: " + roots[i]);
         Cubic c;
         c = new Cubic(new Point2D.Double(153.6999969482422,5.099999904632568),

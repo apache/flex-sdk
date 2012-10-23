@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+"http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+  <head>
+    <title></title>
+  </head>
+
+  <body>
+    Contains all of the interfaces for transcoding WMF Metafiles to SVG. The
+base class to perform the trasncoding is the 
+{@link org.apache.batik.transcoder.wmf.tosvg.WMFTranscoder} class. The 
+{@link org.apache.batik.transcoder.wmf.tosvg.WMFHeaderProperties} class can be
+used to get size informations from a WMF Metafile without converting it.
+    <h1>Examples</h1>
+    <ul>
+    <li>Simple transcoding : the dimensions of the SVG output will be the same
+(in pixels) as the viewport dimensions of the Metafile</li>
+    <pre>
+        TranscoderInput input = new TranscoderInput(inputFile.toURI().toString());
+        OutputStream stream = new FileOutputStream(outputFile);
+        TranscoderOutput output = new TranscoderOutput(stream);
+        WMFTranscoder transcoder = new WMFTranscoder();
+        transcoder.transcode(input,output);
+    </pre>
+    <li>Setting the dimensions to a particular width or height : the image
+dimensions modification will be proportional</li>
+    <pre>
+        TranscoderInput input = new TranscoderInput(inputFile.toURI().toString());
+        OutputStream stream = new FileOutputStream(outputFile);
+        TranscoderOutput output = new TranscoderOutput(stream);
+        WMFTranscoder transcoder = new WMFTranscoder();
+        transcoder.addTranscodingHint(WMFTranscoder.KEY_WIDTH, new Float(outputWidth));
+        transcoder.transcode(input,output);
+    </pre>
+    <li>Getting only the bounds of the figures in the Metafile : the SVG viewbox
+will be defined by the bounds of the figures in the Metafile, regardless of its viewport</li>
+    <pre>
+        WMFHeaderProperties prop = new WMFHeaderProperties(inputFile);
+        TranscoderInput input = new TranscoderInput(inputFile.toURI().toString());
+        OutputStream stream = new FileOutputStream(outputFile);
+        TranscoderOutput output = new TranscoderOutput(stream);
+        WMFTranscoder transcoder = new WMFTranscoder();
+        transcoder.addTranscodingHint(WMFTranscoder.KEY_INPUT_WIDTH, new Integer(prop.getWidthBoundsPixels()));
+        transcoder.addTranscodingHint(WMFTranscoder.KEY_INPUT_HEIGHT, new Integer(prop.getHeightBoundsPixels()));
+        transcoder.addTranscodingHint(WMFTranscoder.KEY_XOFFSET, new Integer(prop.getXOffset()));
+        transcoder.addTranscodingHint(WMFTranscoder.KEY_YOFFSET, new Integer(prop.getYOffset())); 
+        transcoder.transcode(input,output);
+    </pre>
+    </ul>
+  </body>
+</html>

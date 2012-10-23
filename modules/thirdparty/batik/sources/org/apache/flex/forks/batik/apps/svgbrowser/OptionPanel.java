@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -31,20 +32,20 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import org.apache.flex.forks.batik.util.gui.resource.ResourceManager;
+import org.apache.flex.forks.batik.util.resources.ResourceManager;
 
 /**
  * This class represents a panel to present users with options.
  *
  * @author <a href="mailto:deweese@apache.org">Thomas DeWeese</a>
- * @version $Id: OptionPanel.java,v 1.4 2004/08/18 07:12:27 vhardy Exp $
+ * @version $Id: OptionPanel.java 592619 2007-11-07 05:47:24Z cam $
  */
 public class OptionPanel extends JPanel {
 
     /**
      * The gui resources file name
      */
-    public final static String RESOURCES =
+    public static final String RESOURCES =
         "org.apache.flex.forks.batik.apps.svgbrowser.resources.GUI";
 
     /**
@@ -66,7 +67,7 @@ public class OptionPanel extends JPanel {
      * Creates a new panel.
      */
     public OptionPanel(LayoutManager layout) {
-	super(layout);
+        super(layout);
     }
 
     /**
@@ -74,44 +75,44 @@ public class OptionPanel extends JPanel {
      */
     public static class Dialog extends JDialog {
 
-	/**
-	 * The 'ok' button.
-	 */
-	protected JButton ok;
+        /**
+         * The 'ok' button.
+         */
+        protected JButton ok;
 
-	/**
-	 * The 'ok' button.
-	 */
-	protected JPanel panel;
+        /**
+         * The 'ok' button.
+         */
+        protected JPanel panel;
 
-	public Dialog(Component parent, String title, JPanel panel) {
-	    super(JOptionPane.getFrameForComponent(parent), title);
-	    setModal(true);
-	    this.panel = panel;
-	    getContentPane().add(panel, BorderLayout.CENTER);
-	    getContentPane().add(createButtonPanel(), BorderLayout.SOUTH);
-	}
+        public Dialog(Component parent, String title, JPanel panel) {
+            super(JOptionPane.getFrameForComponent(parent), title);
+            setModal(true);
+            this.panel = panel;
+            getContentPane().add(panel, BorderLayout.CENTER);
+            getContentPane().add(createButtonPanel(), BorderLayout.SOUTH);
+        }
 
-	/**
-	 * Creates the button panel.
-	 */
-	protected JPanel createButtonPanel() {
-	    JPanel panel = new JPanel(new FlowLayout());
-	    ok = new JButton(resources.getString("OKButton.text"));
-	    ok.addActionListener(new OKButtonAction());
-	    panel.add(ok);
-	    return panel;
-	}
+        /**
+         * Creates the button panel.
+         */
+        protected JPanel createButtonPanel() {
+            JPanel panel = new JPanel(new FlowLayout());
+            ok = new JButton(resources.getString("OKButton.text"));
+            ok.addActionListener(new OKButtonAction());
+            panel.add(ok);
+            return panel;
+        }
 
-	/**
-	 * The action associated to the 'ok' button.
-	 */
-	protected class OKButtonAction extends AbstractAction {
+        /**
+         * The action associated to the 'ok' button.
+         */
+        protected class OKButtonAction extends AbstractAction {
 
-	    public void actionPerformed(ActionEvent evt) {
-		dispose();
-	    }
-	}
+            public void actionPerformed(ActionEvent evt) {
+                dispose();
+            }
+        }
     }
 }
 

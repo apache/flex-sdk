@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,37 +24,38 @@ import org.apache.flex.forks.batik.css.engine.value.Value;
  * This class represents objects which contains property/value mappings.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: StyleMap.java,v 1.4 2004/08/20 19:29:47 deweese Exp $
+ * @version $Id: StyleMap.java 498515 2007-01-22 03:19:02Z cam $
  */
 public class StyleMap {
-    
+
     //
     // The masks, still have 2 free bits: 0x0800, & 0x1000, could also
     // go to int if needed.
-    // 
-    public final static short IMPORTANT_MASK             = 0x0001;
-    public final static short COMPUTED_MASK              = 0x0002;
-    public final static short NULL_CASCADED_MASK         = 0x0004;
-    public final static short INHERITED_MASK             = 0x0008;
+    //
+    public static final short IMPORTANT_MASK             = 0x0001;
+    public static final short COMPUTED_MASK              = 0x0002;
+    public static final short NULL_CASCADED_MASK         = 0x0004;
+    public static final short INHERITED_MASK             = 0x0008;
 
-    public final static short LINE_HEIGHT_RELATIVE_MASK  = 0x0010;
-    public final static short FONT_SIZE_RELATIVE_MASK    = 0x0020;
-    public final static short COLOR_RELATIVE_MASK        = 0x0040;
-    public final static short PARENT_RELATIVE_MASK       = 0x0080;
-    public final static short BLOCK_WIDTH_RELATIVE_MASK  = 0x0100;
-    public final static short BLOCK_HEIGHT_RELATIVE_MASK = 0x0200;
-    public final static short BOX_RELATIVE_MASK          = 0x0400;
-    
-    public final static short ORIGIN_MASK = (short)0xE000; // 3 last bits
+    public static final short LINE_HEIGHT_RELATIVE_MASK  = 0x0010;
+    public static final short FONT_SIZE_RELATIVE_MASK    = 0x0020;
+    public static final short COLOR_RELATIVE_MASK        = 0x0040;
+    public static final short PARENT_RELATIVE_MASK       = 0x0080;
+    public static final short BLOCK_WIDTH_RELATIVE_MASK  = 0x0100;
+    public static final short BLOCK_HEIGHT_RELATIVE_MASK = 0x0200;
+    public static final short BOX_RELATIVE_MASK          = 0x0400;
+
+    public static final short ORIGIN_MASK = (short)0xE000; // 3 last bits
 
     //
     // The origin values.
     //
-    public final static short USER_AGENT_ORIGIN    = 0;
-    public final static short USER_ORIGIN          = 0x2000; // 0010
-    public final static short NON_CSS_ORIGIN       = 0x4000; // 0100
-    public final static short AUTHOR_ORIGIN        = 0x6000; // 0110
-    public final static short INLINE_AUTHOR_ORIGIN = (short)0x8000; // 1000
+    public static final short USER_AGENT_ORIGIN    = 0;
+    public static final short USER_ORIGIN          = 0x2000; // 0010
+    public static final short NON_CSS_ORIGIN       = 0x4000; // 0100
+    public static final short AUTHOR_ORIGIN        = 0x6000; // 0110
+    public static final short INLINE_AUTHOR_ORIGIN = (short)0x8000; // 1000
+    public static final short OVERRIDE_ORIGIN      = (short)0xA000; // 1010
 
     /**
      * The values.
@@ -298,8 +300,12 @@ public class StyleMap {
      * Returns a printable representation of this style map.
      */
     public String toString(CSSEngine eng) {
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < values.length; i++) {
+        // Note that values.length should always be equal to
+        // eng.getNumberOfProperties() for StyleMaps that were created
+        // by that CSSEngine.
+        int nSlots = values.length;
+        StringBuffer sb = new StringBuffer(nSlots * 8);
+        for (int i = 0; i < nSlots; i++) {
             Value v = values[i];
             if (v == null) continue;
 

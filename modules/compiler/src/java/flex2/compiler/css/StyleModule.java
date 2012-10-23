@@ -46,15 +46,15 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.flex.forks.batik.css.parser.AbstractSelector;
-import org.w3c.flex.forks.css.sac.AttributeCondition;
-import org.w3c.flex.forks.css.sac.CombinatorCondition;
-import org.w3c.flex.forks.css.sac.Condition;
-import org.w3c.flex.forks.css.sac.ConditionalSelector;
-import org.w3c.flex.forks.css.sac.DescendantSelector;
-import org.w3c.flex.forks.css.sac.ElementSelector;
-import org.w3c.flex.forks.css.sac.Selector;
-import org.w3c.flex.forks.css.sac.SelectorList;
-import org.w3c.flex.forks.css.sac.SimpleSelector;
+import org.w3c.css.sac.AttributeCondition;
+import org.w3c.css.sac.CombinatorCondition;
+import org.w3c.css.sac.Condition;
+import org.w3c.css.sac.ConditionalSelector;
+import org.w3c.css.sac.DescendantSelector;
+import org.w3c.css.sac.ElementSelector;
+import org.w3c.css.sac.Selector;
+import org.w3c.css.sac.SelectorList;
+import org.w3c.css.sac.SimpleSelector;
 
 import macromedia.asc.util.ContextStatics;
 

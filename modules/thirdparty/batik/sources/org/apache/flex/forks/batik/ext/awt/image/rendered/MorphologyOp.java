@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -42,7 +43,7 @@ import org.apache.flex.forks.batik.ext.awt.image.GraphicsUtil;
  * of the SVG specification.
  *
  * @author <a href="mailto:sheng.pei@sun.com">Sheng Pei</a>
- * @version $Id: MorphologyOp.java,v 1.6 2004/08/18 07:14:08 vhardy Exp $
+ * @version $Id: MorphologyOp.java 489226 2006-12-21 00:05:36Z cam $
  */
 public class MorphologyOp implements BufferedImageOp, RasterOp {
     /**
@@ -91,7 +92,7 @@ public class MorphologyOp implements BufferedImageOp, RasterOp {
      */
     public MorphologyOp (int radiusX, int radiusY, boolean doDilation){
         if (radiusX<=0 || radiusY<=0){
-            throw new IllegalArgumentException(new String("The radius of X-axis or Y-axis should not be Zero or Negatives."));
+            throw new IllegalArgumentException( "The radius of X-axis or Y-axis should not be Zero or Negatives." );
         }
         else {
             this.radiusX = radiusX;
@@ -148,7 +149,7 @@ public class MorphologyOp implements BufferedImageOp, RasterOp {
     }
 
     private boolean isCompatible(ColorModel colorModel,
-				 SampleModel sampleModel){
+                                 SampleModel sampleModel){
         ColorSpace cs = colorModel.getColorSpace();
         // Check that model is sRGB or linear RGB
         if((cs != ColorSpace.getInstance(ColorSpace.CS_sRGB))
@@ -181,7 +182,7 @@ public class MorphologyOp implements BufferedImageOp, RasterOp {
         // Check model is ok: should be SinglePixelPackedSampleModel
         if(!(model instanceof SinglePixelPackedSampleModel))
             throw new IllegalArgumentException
-                ("MorphologyOp only works with Rasters " + 
+                ("MorphologyOp only works with Rasters " +
                  "using SinglePixelPackedSampleModels");
         // Check number of bands
         int nBands = model.getNumBands();
@@ -194,7 +195,7 @@ public class MorphologyOp implements BufferedImageOp, RasterOp {
                 ("MorphologyOp only works with Rasters using DataBufferInt");
 
         // Check bit masks
-        int bitOffsets[]=((SinglePixelPackedSampleModel)model).getBitOffsets();
+        int[] bitOffsets=((SinglePixelPackedSampleModel)model).getBitOffsets();
         for(int i=0; i<bitOffsets.length; i++){
             if(bitOffsets[i]%8 != 0)
                 throw new IllegalArgumentException
@@ -213,7 +214,7 @@ public class MorphologyOp implements BufferedImageOp, RasterOp {
         return src.createCompatibleWritableRaster();
     }
 
-    public BufferedImage createCompatibleDestImage(BufferedImage src, 
+    public BufferedImage createCompatibleDestImage(BufferedImage src,
                                                    ColorModel destCM){
         BufferedImage dest = null;
         if(destCM==null)
@@ -224,7 +225,7 @@ public class MorphologyOp implements BufferedImageOp, RasterOp {
                                                    src.getHeight());
         checkCompatible(destCM, wr.getSampleModel());
 
-        dest = new BufferedImage(destCM, wr, 
+        dest = new BufferedImage(destCM, wr,
                                  destCM.isAlphaPremultiplied(), null);
         return dest;
     }
@@ -273,8 +274,8 @@ public class MorphologyOp implements BufferedImageOp, RasterOp {
         final int dstScanStride = ((SinglePixelPackedSampleModel)dest.getSampleModel()).getScanlineStride();
 
         // Access the pixel value array
-        final int srcPixels[] = srcDB.getBankData()[0];
-        final int destPixels[] = dstDB.getBankData()[0];
+        final int[] srcPixels = srcDB.getBankData()[0];
+        final int[] destPixels = dstDB.getBankData()[0];
 
         // The pointer of src and dest indicating where the pixel values are
         int sp, dp;
@@ -315,7 +316,7 @@ public class MorphologyOp implements BufferedImageOp, RasterOp {
                     r1 = currentPixel&0xff0000;
                     g1 = currentPixel&0xff00;
                     b1 = currentPixel&0xff;
-                    
+
                     if (isBetter(a1, a, doDilation)){
                         a = a1;
                     }
@@ -551,7 +552,7 @@ public class MorphologyOp implements BufferedImageOp, RasterOp {
         final int dstScanStride = ((SinglePixelPackedSampleModel)dest.getSampleModel()).getScanlineStride();
 
         // Access the pixel value array
-        final int destPixels[] = dstDB.getBankData()[0];
+        final int[] destPixels = dstDB.getBankData()[0];
 
         // The pointer of src and dest indicating where the pixel values are
         int dp, cp;
@@ -862,8 +863,8 @@ public class MorphologyOp implements BufferedImageOp, RasterOp {
         final int dstScanStride = ((SinglePixelPackedSampleModel)dest.getSampleModel()).getScanlineStride();
 
         // Access the pixel value array
-        final int srcPixels[] = srcDB.getBankData()[0];
-        final int destPixels[] = dstDB.getBankData()[0];
+        final int[] srcPixels = srcDB.getBankData()[0];
+        final int[] destPixels = dstDB.getBankData()[0];
 
         // The pointer of src and dest indicating where the pixel values are
         int sp, dp, cp;
@@ -1551,7 +1552,7 @@ public class MorphologyOp implements BufferedImageOp, RasterOp {
 
             src = new BufferedImage(srcCMPre, src.getRaster(),
                                     true, null);
-            
+
             GraphicsUtil.copyData(origSrc, src);
         }
 
@@ -1614,7 +1615,7 @@ public class MorphologyOp implements BufferedImageOp, RasterOp {
             srcCMUnpre = GraphicsUtil.coerceColorModel(srcCM, false);
             src = new BufferedImage(srcCMUnpre, src.getRaster(),
                                     false, null);
-            
+
             GraphicsUtil.copyData(origSrc, src);
         }
 
@@ -1649,13 +1650,13 @@ public class MorphologyOp implements BufferedImageOp, RasterOp {
             (dest.isAlphaPremultiplied() != finalDest.isAlphaPremultiplied())){
             // Coerce our source back the way it was...
             System.out.println("Dest: " + dest.isAlphaPremultiplied() +
-                               " finalDest: " + 
+                               " finalDest: " +
                                finalDest.isAlphaPremultiplied());
-            
+
             GraphicsUtil.copyData(dest, finalDest);
         }
         return finalDest;
-    } 
+    }
       */
 }
 

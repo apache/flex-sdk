@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,7 +28,7 @@ import java.awt.geom.Point2D;
  * A shape painter that can be used to fill a shape.
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: FillShapePainter.java,v 1.15 2004/08/18 07:14:25 vhardy Exp $
+ * @version $Id: FillShapePainter.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class FillShapePainter implements ShapePainter {
 
@@ -65,11 +66,18 @@ public class FillShapePainter implements ShapePainter {
     }
 
     /**
+     * Gets the paint used to draw the outline of the shape.
+     */
+    public Paint getPaint() {
+        return paint;
+    }
+
+    /**
      * Paints the specified shape using the specified Graphics2D.
      *
      * @param g2d the Graphics2D to use
      */
-     public void paint(Graphics2D g2d) {
+    public void paint(Graphics2D g2d) {
         if (paint != null) {
             g2d.setPaint(paint);
             g2d.fill(shape);
@@ -92,7 +100,7 @@ public class FillShapePainter implements ShapePainter {
         if ((paint == null) || (shape == null))
             return  null;
 
-	    return shape.getBounds2D();
+            return shape.getBounds2D();
     }
 
     /**

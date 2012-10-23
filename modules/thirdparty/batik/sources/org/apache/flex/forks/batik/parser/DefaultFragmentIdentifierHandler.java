@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,7 +22,7 @@ package org.apache.flex.forks.batik.parser;
  * This class provides an adapter for FragmentIdentifierHandler.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: DefaultFragmentIdentifierHandler.java,v 1.5 2005/03/27 08:58:35 cam Exp $
+ * @version $Id: DefaultFragmentIdentifierHandler.java 478188 2006-11-22 15:19:17Z dvholten $
  */
 public class DefaultFragmentIdentifierHandler
     extends DefaultPreserveAspectRatioHandler
@@ -30,7 +31,7 @@ public class DefaultFragmentIdentifierHandler
     /**
      * The only instance of this class.
      */
-    public final static FragmentIdentifierHandler INSTANCE
+    public static final FragmentIdentifierHandler INSTANCE
         = new DefaultFragmentIdentifierHandler();
 
     /**
@@ -103,7 +104,7 @@ public class DefaultFragmentIdentifierHandler
      * TransformListHandler#matrix(float,float,float,float,float,float)}.
      */
     public void matrix(float a, float b, float c, float d, float e, float f)
-	throws ParseException {
+        throws ParseException {
     }
 
     /**

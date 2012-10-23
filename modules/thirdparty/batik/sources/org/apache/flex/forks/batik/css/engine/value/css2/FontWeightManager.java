@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,7 +28,9 @@ import org.apache.flex.forks.batik.css.engine.value.Value;
 import org.apache.flex.forks.batik.css.engine.value.ValueConstants;
 import org.apache.flex.forks.batik.css.engine.value.ValueManager;
 import org.apache.flex.forks.batik.util.CSSConstants;
-import org.w3c.flex.forks.css.sac.LexicalUnit;
+import org.apache.flex.forks.batik.util.SVGTypes;
+
+import org.w3c.css.sac.LexicalUnit;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.css.CSSPrimitiveValue;
 
@@ -35,24 +38,24 @@ import org.w3c.dom.css.CSSPrimitiveValue;
  * This class provides a manager for the 'font-weight' property values.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: FontWeightManager.java,v 1.7 2005/03/27 08:58:31 cam Exp $
+ * @version $Id: FontWeightManager.java 478160 2006-11-22 13:35:06Z dvholten $
  */
 public class FontWeightManager extends IdentifierManager {
-    
+
     /**
      * The identifier values.
      */
-    protected final static StringMap values = new StringMap();
+    protected static final StringMap values = new StringMap();
     static {
-	values.put(CSSConstants.CSS_ALL_VALUE,
+        values.put(CSSConstants.CSS_ALL_VALUE,
                    ValueConstants.ALL_VALUE);
-	values.put(CSSConstants.CSS_BOLD_VALUE,
+        values.put(CSSConstants.CSS_BOLD_VALUE,
                    ValueConstants.BOLD_VALUE);
-	values.put(CSSConstants.CSS_BOLDER_VALUE,
+        values.put(CSSConstants.CSS_BOLDER_VALUE,
                    ValueConstants.BOLDER_VALUE);
-	values.put(CSSConstants.CSS_LIGHTER_VALUE,
+        values.put(CSSConstants.CSS_LIGHTER_VALUE,
                    ValueConstants.LIGHTER_VALUE);
-	values.put(CSSConstants.CSS_NORMAL_VALUE,
+        values.put(CSSConstants.CSS_NORMAL_VALUE,
                    ValueConstants.NORMAL_VALUE);
     }
 
@@ -60,16 +63,37 @@ public class FontWeightManager extends IdentifierManager {
      * Implements {@link ValueManager#isInheritedProperty()}.
      */
     public boolean isInheritedProperty() {
-	return true;
+        return true;
+    }
+
+    /**
+     * Implements {@link ValueManager#isAnimatableProperty()}.
+     */
+    public boolean isAnimatableProperty() {
+        return true;
+    }
+
+    /**
+     * Implements {@link ValueManager#isAdditiveProperty()}.
+     */
+    public boolean isAdditiveProperty() {
+        return false;
+    }
+
+    /**
+     * Implements {@link ValueManager#getPropertyType()}.
+     */
+    public int getPropertyType() {
+        return SVGTypes.TYPE_FONT_WEIGHT_VALUE;
     }
 
     /**
      * Implements {@link ValueManager#getPropertyName()}.
      */
     public String getPropertyName() {
-	return CSSConstants.CSS_FONT_WEIGHT_PROPERTY;
+        return CSSConstants.CSS_FONT_WEIGHT_PROPERTY;
     }
-    
+
     /**
      * Implements {@link ValueManager#getDefaultValue()}.
      */
@@ -82,28 +106,28 @@ public class FontWeightManager extends IdentifierManager {
      */
     public Value createValue(LexicalUnit lu, CSSEngine engine)
         throws DOMException {
-	if (lu.getLexicalUnitType() == LexicalUnit.SAC_INTEGER) {
-	    int i = lu.getIntegerValue();
-	    switch (i) {
-	    case 100:
-		return ValueConstants.NUMBER_100;
-	    case 200:
-		return ValueConstants.NUMBER_200;
-	    case 300:
-		return ValueConstants.NUMBER_300;
-	    case 400:
-		return ValueConstants.NUMBER_400;
-	    case 500:
-		return ValueConstants.NUMBER_500;
-	    case 600:
-		return ValueConstants.NUMBER_600;
-	    case 700:
-		return ValueConstants.NUMBER_700;
-	    case 800:
-		return ValueConstants.NUMBER_800;
-	    case 900:
-		return ValueConstants.NUMBER_900;
-	    }
+        if (lu.getLexicalUnitType() == LexicalUnit.SAC_INTEGER) {
+            int i = lu.getIntegerValue();
+            switch (i) {
+            case 100:
+                return ValueConstants.NUMBER_100;
+            case 200:
+                return ValueConstants.NUMBER_200;
+            case 300:
+                return ValueConstants.NUMBER_300;
+            case 400:
+                return ValueConstants.NUMBER_400;
+            case 500:
+                return ValueConstants.NUMBER_500;
+            case 600:
+                return ValueConstants.NUMBER_600;
+            case 700:
+                return ValueConstants.NUMBER_700;
+            case 800:
+                return ValueConstants.NUMBER_800;
+            case 900:
+                return ValueConstants.NUMBER_900;
+            }
             throw createInvalidFloatValueDOMException(i);
         }
         return super.createValue(lu, engine);
@@ -114,10 +138,10 @@ public class FontWeightManager extends IdentifierManager {
      */
     public Value createFloatValue(short type, float floatValue)
         throws DOMException {
-	if (type == CSSPrimitiveValue.CSS_NUMBER) {
-	    int i = (int)floatValue;
-	    if (floatValue == i) {
-		switch (i) {
+        if (type == CSSPrimitiveValue.CSS_NUMBER) {
+            int i = (int)floatValue;
+            if (floatValue == i) {
+                switch (i) {
                 case 100:
                     return ValueConstants.NUMBER_100;
                 case 200:
@@ -136,9 +160,9 @@ public class FontWeightManager extends IdentifierManager {
                     return ValueConstants.NUMBER_800;
                 case 900:
                     return ValueConstants.NUMBER_900;
-		}
-	    }
-	}
+                }
+            }
+        }
         throw createInvalidFloatValueDOMException(floatValue);
     }
 

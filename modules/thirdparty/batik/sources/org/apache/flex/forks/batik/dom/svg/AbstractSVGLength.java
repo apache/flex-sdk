@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,13 +23,13 @@ import org.apache.flex.forks.batik.parser.ParseException;
 import org.apache.flex.forks.batik.parser.UnitProcessor;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
-import org.w3c.flex.forks.dom.svg.SVGLength;
+import org.w3c.dom.svg.SVGLength;
 
 /**
  * Default implementation for SVGLength.
  *
  * This implementation provides the basic
- * functionalities of SVGLength. To have 
+ * functionalities of SVGLength. To have
  * a complete implementation, an element is
  * required to resolve the units.
  *
@@ -40,36 +41,36 @@ import org.w3c.flex.forks.dom.svg.SVGLength;
  * <code>revalidate()</code> method is being called
  * to insure the validity of the value and unit type
  * held by this object.
- * 
+ *
  * @author nicolas.socheleau@bitflash.com
- * @version $Id: AbstractSVGLength.java,v 1.7 2005/03/29 02:26:36 cam Exp $
+ * @version $Id: AbstractSVGLength.java 527382 2007-04-11 04:31:58Z cam $
  */
-public abstract class AbstractSVGLength 
+public abstract class AbstractSVGLength
     implements SVGLength {
 
     /**
      * This constant represents horizontal lengths.
      */
-    public final static short HORIZONTAL_LENGTH =
+    public static final short HORIZONTAL_LENGTH =
         UnitProcessor.HORIZONTAL_LENGTH;
 
     /**
      * This constant represents vertical lengths.
      */
-    public final static short VERTICAL_LENGTH =
+    public static final short VERTICAL_LENGTH =
         UnitProcessor.VERTICAL_LENGTH;
 
     /**
      * This constant represents other lengths.
      */
-    public final static short OTHER_LENGTH =
+    public static final short OTHER_LENGTH =
         UnitProcessor.OTHER_LENGTH;
 
     /**
      * The type of this length.
      */
     protected short unitType;
-    
+
     /**
      * The value of this length.
      */
@@ -84,11 +85,11 @@ public abstract class AbstractSVGLength
      * The context used to resolve the units.
      */
     protected UnitProcessor.Context context;
-    
+
     /**
      * The unit string representations.
      */
-    protected final static String[] UNITS = {
+    protected static final String[] UNITS = {
         "", "", "%", "em", "ex", "px", "cm", "mm", "in", "pt", "pc"
     };
 
@@ -96,7 +97,6 @@ public abstract class AbstractSVGLength
      * Return the SVGElement associated to this length.
      */
     protected abstract SVGOMElement getAssociatedElement();
-
 
     /**
      * Creates a new AbstractSVGLength.
@@ -115,26 +115,31 @@ public abstract class AbstractSVGLength
         revalidate();
         return unitType;
     }
-    
+
     /**
      * <b>DOM</b>: Implements {@link SVGLength#getValue()}.
      */
     public float getValue() {
         revalidate();
-        return UnitProcessor.svgToUserSpace(value, unitType,
-                                            direction, context);
+        try {
+            return UnitProcessor.svgToUserSpace(value, unitType,
+                                                direction, context);
+        } catch (IllegalArgumentException ex) {
+            // XXX Should we throw an exception here when the length
+            //     type is unknown?
+            return 0f;
+        }
     }
 
     /**
      * <b>DOM</b>: Implements {@link SVGLength#setValue(float)}.
      */
     public void setValue(float value) throws DOMException {
-        revalidate();
         this.value = UnitProcessor.userSpaceToSVG(value, unitType,
                                                   direction, context);
         reset();
     }
-    
+
     /**
      * <b>DOM</b>: Implements {@link SVGLength#getValueInSpecifiedUnits()}.
      */
@@ -142,7 +147,7 @@ public abstract class AbstractSVGLength
         revalidate();
         return value;
     }
-    
+
     /**
      * <b>DOM</b>: Implements {@link
      * SVGLength#setValueInSpecifiedUnits(float)}.
@@ -152,15 +157,18 @@ public abstract class AbstractSVGLength
         this.value = value;
         reset();
     }
-    
+
     /**
      * <b>DOM</b>: Implements {@link SVGLength#getValueAsString()}.
      */
     public String getValueAsString() {
         revalidate();
-        return Float.toString(value)+UNITS[unitType];
+        if (unitType == SVGLength.SVG_LENGTHTYPE_UNKNOWN) {
+            return "";
+        }
+        return Float.toString(value) + UNITS[unitType];
     }
-    
+
     /**
      * <b>DOM</b>: Implements {@link SVGLength#setValueAsString(String)}.
      */
@@ -168,7 +176,7 @@ public abstract class AbstractSVGLength
         parse(value);
         reset();
     }
-        
+
     /**
      * <b>DOM</b>: Implements {@link
      * SVGLength#newValueSpecifiedUnits(short,float)}.
@@ -178,7 +186,7 @@ public abstract class AbstractSVGLength
         this.value = value;
         reset();
     }
-    
+
     /**
      * <b>DOM</b>: Implements {@link
      * SVGLength#convertToSpecifiedUnits(short)}.
@@ -188,7 +196,7 @@ public abstract class AbstractSVGLength
         unitType = unit;
         setValue(v);
     }
-    
+
     /**
      * Callback method after changes
      * made to this length.
@@ -209,12 +217,12 @@ public abstract class AbstractSVGLength
 
     /**
      * Parse a String value as a SVGLength.
-     * 
+     *
      * Initialize this length with the result
      * of the parsing of this value.
      * @param s String representation of a SVGlength.
      */
-    protected void parse(String s){
+    protected void parse(String s) {
         try {
             LengthParser lengthParser = new LengthParser();
             UnitProcessor.UnitResolver ur =
@@ -233,22 +241,22 @@ public abstract class AbstractSVGLength
      * To resolve the units.
      */
     protected class DefaultContext implements UnitProcessor.Context {
-        
+
         /**
          * Returns the element.
          */
         public Element getElement() {
             return getAssociatedElement();
         }
-        
+
         /**
          * Returns the size of a px CSS unit in millimeters.
          */
         public float getPixelUnitToMillimeter() {
-            SVGContext ctx = getAssociatedElement().getSVGContext();
-            return ctx.getPixelUnitToMillimeter();
+            return getAssociatedElement().getSVGContext()
+                .getPixelUnitToMillimeter();
         }
-        
+
         /**
          * Returns the size of a px CSS unit in millimeters.
          * This will be removed after next release.
@@ -257,35 +265,33 @@ public abstract class AbstractSVGLength
         public float getPixelToMM() {
             return getPixelUnitToMillimeter();
         }
-        
+
         /**
          * Returns the font-size value.
          */
         public float getFontSize() {
             return getAssociatedElement().getSVGContext().getFontSize();
         }
-        
+
         /**
          * Returns the x-height value.
          */
         public float getXHeight() {
             return 0.5f;
         }
-        
+
         /**
          * Returns the viewport width used to compute units.
          */
         public float getViewportWidth() {
-            return getAssociatedElement().getSVGContext().
-                getViewportWidth();
+            return getAssociatedElement().getSVGContext().getViewportWidth();
         }
-        
+
         /**
          * Returns the viewport height used to compute units.
          */
         public float getViewportHeight() {
-            return getAssociatedElement().getSVGContext().
-                getViewportHeight();
+            return getAssociatedElement().getSVGContext().getViewportHeight();
         }
-    }   
+    }
 }

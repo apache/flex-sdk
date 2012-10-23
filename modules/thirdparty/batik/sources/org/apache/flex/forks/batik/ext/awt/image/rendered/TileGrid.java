@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,11 +26,12 @@ import org.apache.flex.forks.batik.util.HaltingThread;
  * This is a Grid based implementation of the TileStore.
  * This makes it pretty quick, but it can use a fair amount of
  * memory for large tile grids.
+ *
+ * @version $Id: TileGrid.java 498740 2007-01-22 18:35:57Z dvholten $
  */
-
 public class TileGrid implements TileStore {
     private static final boolean DEBUG = false;
-    private static final boolean COUNT = false;		
+    private static final boolean COUNT = false;
 
     private int xSz, ySz;
     private int minTileX, minTileY;
@@ -38,7 +40,7 @@ public class TileGrid implements TileStore {
     private LRUCache      cache = null;
 
     public TileGrid(int minTileX, int minTileY,
-                    int xSz, int ySz, 
+                    int xSz, int ySz,
                     TileGenerator source,
                     LRUCache cache) {
         this.cache    = cache;
@@ -69,7 +71,7 @@ public class TileGrid implements TileStore {
             cache.remove(item);
             return;
         }
-		
+
         if (row != null) {
             item = row[x];
             if (item == null) {
@@ -81,16 +83,16 @@ public class TileGrid implements TileStore {
             item = new TileLRUMember();
             row[x] = item;
             rasters[y] = row;
-        } 
+        }
         item.setRaster(ras);
-		
+
         cache.add(item);
 
-        if (DEBUG) System.out.println("Setting: (" + (x+minTileX) + ", " + 
+        if (DEBUG) System.out.println("Setting: (" + (x+minTileX) + ", " +
                                       (y+minTileY) + ")");
     }
 
-    // Returns Raster if the tile is _currently_ in the cache.  
+    // Returns Raster if the tile is _currently_ in the cache.
     // If it is not currently in the cache it returns null.
     public Raster getTileNoCompute(int x, int y) {
         x-=minTileX;
@@ -116,7 +118,7 @@ public class TileGrid implements TileStore {
         if ((x<0) || (x>=xSz)) return null;
         if ((y<0) || (y>=ySz)) return null;
 
-        if (DEBUG) System.out.println("Fetching: (" + (x+minTileX) + ", " + 
+        if (DEBUG) System.out.println("Fetching: (" + (x+minTileX) + ", " +
                                       (y+minTileY) + ")");
         if (COUNT) synchronized (TileGrid.class) { requests++; }
 

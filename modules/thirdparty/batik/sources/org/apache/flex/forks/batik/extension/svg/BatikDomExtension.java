@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,30 +18,31 @@
  */
 package org.apache.flex.forks.batik.extension.svg;
 
-import org.apache.flex.forks.batik.css.engine.value.LengthManager;
-import org.apache.flex.forks.batik.css.engine.value.svg.OpacityManager;
-import org.apache.flex.forks.batik.css.engine.value.svg.SVGColorManager;
 import org.apache.flex.forks.batik.dom.AbstractDocument;
 import org.apache.flex.forks.batik.dom.DomExtension;
 import org.apache.flex.forks.batik.dom.ExtensibleDOMImplementation;
 import org.apache.flex.forks.batik.dom.svg.SVGDOMImplementation;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
  * This is a Service interface for classes that want to extend the
  * functionality of the Dom, to support new tags in the rendering tree.
+ *
+ * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
+ * @version $Id: BatikDomExtension.java 498740 2007-01-22 18:35:57Z dvholten $
  */
-public class BatikDomExtension 
+public class BatikDomExtension
     implements DomExtension, BatikExtConstants {
 
     /**
      * Return the priority of this Extension.  Extensions are
      * registered from lowest to highest priority.  So if for some
      * reason you need to come before/after another existing extension
-     * make sure your priority is lower/higher than theirs.  
+     * make sure your priority is lower/higher than theirs.
      */
-    public float getPriority() { return 1f; }
+    public float getPriority() { return 1.0f; }
 
     /**
      * This should return the individual or company name responsible
@@ -143,7 +145,7 @@ public class BatikDomExtension
     /**
      * To create a 'regularPolygon' element.
      */
-    protected static class BatikRegularPolygonElementFactory 
+    protected static class BatikRegularPolygonElementFactory
         implements ExtensibleDOMImplementation.ElementFactory {
         public BatikRegularPolygonElementFactory() {}
         /**
@@ -159,7 +161,7 @@ public class BatikDomExtension
     /**
      * To create a 'star' element.
      */
-    protected static class BatikStarElementFactory 
+    protected static class BatikStarElementFactory
         implements ExtensibleDOMImplementation.ElementFactory {
         public BatikStarElementFactory() {}
         /**
@@ -173,7 +175,7 @@ public class BatikDomExtension
     /**
      * To create a 'histogramNormalization' element.
      */
-    protected static class BatikHistogramNormalizationElementFactory 
+    protected static class BatikHistogramNormalizationElementFactory
         implements ExtensibleDOMImplementation.ElementFactory {
         public BatikHistogramNormalizationElementFactory() {}
         /**
@@ -188,7 +190,7 @@ public class BatikDomExtension
     /**
      * To create a 'colorSwitch' element.
      */
-    protected static class ColorSwitchElementFactory 
+    protected static class ColorSwitchElementFactory
         implements ExtensibleDOMImplementation.ElementFactory {
         public ColorSwitchElementFactory() {
         }
@@ -203,7 +205,7 @@ public class BatikDomExtension
     /**
      * To create a 'flowText' element.
      */
-    protected static class FlowTextElementFactory 
+    protected static class FlowTextElementFactory
         implements SVGDOMImplementation.ElementFactory {
         public FlowTextElementFactory() {
         }
@@ -218,7 +220,7 @@ public class BatikDomExtension
     /**
      * To create a 'flowDiv' element.
      */
-    protected static class FlowDivElementFactory 
+    protected static class FlowDivElementFactory
         implements SVGDOMImplementation.ElementFactory {
         public FlowDivElementFactory() {
         }
@@ -233,7 +235,7 @@ public class BatikDomExtension
     /**
      * To create a 'flowPara' element.
      */
-    protected static class FlowParaElementFactory 
+    protected static class FlowParaElementFactory
         implements SVGDOMImplementation.ElementFactory {
         public FlowParaElementFactory() {
         }
@@ -248,7 +250,7 @@ public class BatikDomExtension
     /**
      * To create a 'flowRegionBreak' element.
      */
-    protected static class FlowRegionBreakElementFactory 
+    protected static class FlowRegionBreakElementFactory
         implements SVGDOMImplementation.ElementFactory {
         public FlowRegionBreakElementFactory() {
         }
@@ -263,7 +265,7 @@ public class BatikDomExtension
     /**
      * To create a 'flowRegion' element.
      */
-    protected static class FlowRegionElementFactory 
+    protected static class FlowRegionElementFactory
         implements SVGDOMImplementation.ElementFactory {
         public FlowRegionElementFactory() {
         }
@@ -274,11 +276,11 @@ public class BatikDomExtension
             return new FlowRegionElement(prefix, (AbstractDocument)doc);
         }
      }
- 
+
     /**
      * To create a 'flowLine' element.
      */
-    protected static class FlowLineElementFactory 
+    protected static class FlowLineElementFactory
         implements SVGDOMImplementation.ElementFactory {
         public FlowLineElementFactory() {
         }
@@ -289,11 +291,11 @@ public class BatikDomExtension
             return new FlowLineElement(prefix, (AbstractDocument)doc);
         }
     }
- 
+
     /**
      * To create a 'flowSpan' element.
      */
-    protected static class FlowSpanElementFactory 
+    protected static class FlowSpanElementFactory
         implements SVGDOMImplementation.ElementFactory {
         public FlowSpanElementFactory() {
         }

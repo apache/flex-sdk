@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -28,7 +29,7 @@ import java.awt.geom.Point2D;
  * A shape painter that can be used to draw the outline of a shape.
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: StrokeShapePainter.java,v 1.15 2004/08/18 07:14:27 vhardy Exp $
+ * @version $Id: StrokeShapePainter.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class StrokeShapePainter implements ShapePainter {
 
@@ -77,12 +78,26 @@ public class StrokeShapePainter implements ShapePainter {
     }
 
     /**
+     * Gets the stroke used to draw the outline of the shape.
+     */
+    public Stroke getStroke() {
+        return stroke;
+    }
+
+    /**
      * Sets the paint used to fill a shape.
      *
      * @param newPaint the paint object used to draw the shape
      */
     public void setPaint(Paint newPaint) {
         this.paint = newPaint;
+    }
+
+    /**
+     * Gets the paint used to draw the outline of the shape.
+     */
+    public Paint getPaint() {
+        return paint;
     }
 
     /**

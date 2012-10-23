@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,40 +23,40 @@ package org.apache.flex.forks.batik.ext.awt.image.renderable;
  * defined by standard deviations along the x and y axis.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: GaussianBlurRable.java,v 1.6 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: GaussianBlurRable.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public interface GaussianBlurRable extends FilterColorInterpolation {
 
     /**
      * Returns the source to be Blurred
      */
-    public Filter getSource();
+    Filter getSource();
 
     /**
      * Sets the source to be blurred.
      * @param src image to blurred.
      */
-    public void setSource(Filter src);
+    void setSource(Filter src);
 
     /**
      * The deviation along the x axis, in user space.
      * @param stdDeviationX should be greater than zero.
      */
-    public void setStdDeviationX(double stdDeviationX);
+    void setStdDeviationX(double stdDeviationX);
 
     /**
      * The deviation along the y axis, in user space.
      * @param stdDeviationY should be greater than zero
      */
-    public void setStdDeviationY(double stdDeviationY);
+    void setStdDeviationY(double stdDeviationY);
 
     /**
      * Returns the deviation along the x-axis, in user space.
      */
-    public double getStdDeviationX();
+    double getStdDeviationX();
 
     /**
      * Returns the deviation along the y-axis, in user space.
      */
-    public double getStdDeviationY();
+    double getStdDeviationY();
 }

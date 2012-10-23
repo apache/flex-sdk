@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2004 The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,8 +19,6 @@
 
 package org.apache.flex.forks.batik.extension.svg;
 
-import java.util.List;
-
 import org.apache.flex.forks.batik.gvt.TextNode;
 import org.apache.flex.forks.batik.gvt.TextPainter;
 
@@ -30,7 +29,7 @@ import org.apache.flex.forks.batik.gvt.TextPainter;
  * Complete Class Desc
  *
  * @author <a href="mailto:deweese@apache.org">deweese</a>
- * @version $Id: FlowExtTextNode.java,v 1.2 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: FlowExtTextNode.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public class FlowExtTextNode extends TextNode{
 
@@ -45,4 +44,4 @@ public class FlowExtTextNode extends TextNode{
             this.textPainter = textPainter;
     }
 
-};
+}

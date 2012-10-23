@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,18 +20,47 @@ package org.apache.flex.forks.batik.dom.svg;
 
 import org.apache.flex.forks.batik.dom.AbstractDocument;
 import org.w3c.dom.Node;
-import org.w3c.flex.forks.dom.svg.SVGGlyphElement;
+import org.w3c.dom.svg.SVGGlyphElement;
 
 /**
  * This class implements {@link SVGGlyphElement}.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGOMGlyphElement.java,v 1.4 2004/08/18 07:13:17 vhardy Exp $
+ * @version $Id: SVGOMGlyphElement.java 489964 2006-12-24 01:30:23Z cam $
  */
 public class SVGOMGlyphElement
     extends    SVGStylableElement
     implements SVGGlyphElement {
     
+//     /**
+//      * Table mapping XML attribute names to TraitInformation objects.
+//      */
+//     protected static DoublyIndexedTable xmlTraitInformation;
+//     static {
+//         DoublyIndexedTable t = new DoublyIndexedTable(SVGStylableElement.xmlTraitInformation);
+//         t.put(null, SVG_UNICODE_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_CDATA));
+//         t.put(null, SVG_GLYPH_NAME_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_CDATA));
+//         t.put(null, SVG_D_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_PATH_DATA));
+//         t.put(null, SVG_ORIENTATION_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_IDENT));
+//         t.put(null, SVG_ARABIC_FORM_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_IDENT));
+//         t.put(null, SVG_LANG_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_LANG_LIST));
+//         t.put(null, SVG_HORIZ_ADV_X_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_NUMBER));
+//         t.put(null, SVG_VERT_ORIGIN_X_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_NUMBER));
+//         t.put(null, SVG_VERT_ORIGIN_Y_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_NUMBER));
+//         t.put(null, SVG_VERT_ADV_Y_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_NUMBER));
+//         xmlTraitInformation = t;
+//     }
+
     /**
      * Creates a new SVGOMGlyphElement object.
      */
@@ -59,4 +89,11 @@ public class SVGOMGlyphElement
     protected Node newNode() {
         return new SVGOMGlyphElement();
     }
+
+//     /**
+//      * Returns the table of TraitInformation objects for this element.
+//      */
+//     protected DoublyIndexedTable getTraitInformationTable() {
+//         return xmlTraitInformation;
+//     }
 }

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,7 +22,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import org.apache.flex.forks.batik.ext.awt.g2d.GraphicContext;
 import org.w3c.dom.Comment;
@@ -57,9 +59,10 @@ import org.w3c.dom.NodeList;
  *
  * @author <a href="mailto:cjolif">Christophe Jolif</a>
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: DOMTreeManager.java,v 1.21 2005/04/02 12:58:17 deweese Exp $
+ * @version $Id: DOMTreeManager.java 522302 2007-03-25 17:04:48Z dvholten $
  */
 public class DOMTreeManager implements SVGSyntax, ErrorConstants {
+
     /**
      * Maximum of Graphic Context attributes overrides
      * in children of the current group.
@@ -68,9 +71,10 @@ public class DOMTreeManager implements SVGSyntax, ErrorConstants {
 
     /**
      * Set of group managers that build groups for
-     * this manager
+     * this manager.
+     * The synchronizedList is part of the fix for bug #40686
      */
-    protected Vector groupManagers = new Vector();
+    protected final List groupManagers = Collections.synchronizedList( new ArrayList() );
 
     /**
      * Set of definitions that are to be placed at the top of the
@@ -147,7 +151,7 @@ public class DOMTreeManager implements SVGSyntax, ErrorConstants {
      */
     public void addGroupManager(DOMGroupManager groupManager){
         if(groupManager != null)
-            groupManagers.addElement(groupManager);
+            groupManagers.add(groupManager);
     }
 
     /**
@@ -156,7 +160,7 @@ public class DOMTreeManager implements SVGSyntax, ErrorConstants {
      */
     public void removeGroupManager(DOMGroupManager groupManager){
         if(groupManager != null)
-            groupManagers.removeElement(groupManager);
+            groupManagers.remove( groupManager );
     }
 
     /**
@@ -169,11 +173,16 @@ public class DOMTreeManager implements SVGSyntax, ErrorConstants {
      */
     public void appendGroup(Element group, DOMGroupManager groupManager){
         topLevelGroup.appendChild(group);
-        int nManagers = groupManagers.size();
-        for(int i=0; i<nManagers; i++){
-            DOMGroupManager gm = (DOMGroupManager)groupManagers.elementAt(i);
-            if( gm != groupManager )
-                gm.recycleCurrentGroup();
+        synchronized( groupManagers ){
+            // we want to prevent that the groupManagers-list changes while
+            // we iterate over it. If that would happen, we might skip entries
+            // within the list or ignore new entries at the end. Fix #40686
+            int nManagers = groupManagers.size();
+            for(int i=0; i<nManagers; i++){
+                DOMGroupManager gm = (DOMGroupManager)groupManagers.get(i);
+                if( gm != groupManager )
+                    gm.recycleCurrentGroup();
+            }
         }
     }
 
@@ -190,10 +199,15 @@ public class DOMTreeManager implements SVGSyntax, ErrorConstants {
      */
     protected void recycleTopLevelGroup(boolean recycleConverters){
         // First, recycle group managers
-        int nManagers = groupManagers.size();
-        for(int i=0; i<nManagers; i++){
-            DOMGroupManager gm = (DOMGroupManager)groupManagers.elementAt(i);
-            gm.recycleCurrentGroup();
+        synchronized( groupManagers ){
+            // we want to prevent that the groupManagers-list changes while
+            // we iterate over it. If that would happen, we might skip entries
+            // within the list or ignore new entries at the end. Fix #40686
+            int nManagers = groupManagers.size();
+            for(int i=0; i<nManagers; i++){
+                DOMGroupManager gm = (DOMGroupManager)groupManagers.get(i);
+                gm.recycleCurrentGroup();
+            }
         }
 
         // Create top level group node
@@ -243,7 +257,7 @@ public class DOMTreeManager implements SVGSyntax, ErrorConstants {
         if (svg == null) {
             svg = generatorContext.domFactory.
                 createElementNS(SVG_NAMESPACE_URI, SVG_SVG_TAG);
-        } 
+        }
 
         // Enable background if required by AlphaComposite convertion
         if (gcConverter.getCompositeConverter().
@@ -286,7 +300,7 @@ public class DOMTreeManager implements SVGSyntax, ErrorConstants {
             genericDefs.appendChild((Element)iter.next());
         }
 
-        genericDefs.setAttributeNS(null, ATTR_ID, ID_PREFIX_GENERIC_DEFS);
+        genericDefs.setAttributeNS(null, SVG_ID_ATTRIBUTE, ID_PREFIX_GENERIC_DEFS);
         return genericDefs;
     }
 
@@ -387,7 +401,7 @@ public class DOMTreeManager implements SVGSyntax, ErrorConstants {
                         createElementNS(SVG_NAMESPACE_URI,
                                         SVG_DEFS_TAG);
                     defElement.
-                        setAttributeNS(null, ATTR_ID,
+                        setAttributeNS(null, SVG_ID_ATTRIBUTE,
                                        generatorContext.idGenerator.
                                        generateID(ID_PREFIX_DEFS));
                     topLevelGroup.insertBefore(defElement,

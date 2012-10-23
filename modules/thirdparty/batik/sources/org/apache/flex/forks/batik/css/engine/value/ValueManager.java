@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,7 +22,7 @@ package org.apache.flex.forks.batik.css.engine.value;
 import org.apache.flex.forks.batik.css.engine.CSSEngine;
 import org.apache.flex.forks.batik.css.engine.CSSStylableElement;
 import org.apache.flex.forks.batik.css.engine.StyleMap;
-import org.w3c.flex.forks.css.sac.LexicalUnit;
+import org.w3c.css.sac.LexicalUnit;
 import org.w3c.dom.DOMException;
 
 /**
@@ -29,7 +30,7 @@ import org.w3c.dom.DOMException;
  * with a property.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: ValueManager.java,v 1.5 2005/03/27 08:58:31 cam Exp $
+ * @version $Id: ValueManager.java 475685 2006-11-16 11:16:05Z cam $
  */
 public interface ValueManager {
 
@@ -42,6 +43,23 @@ public interface ValueManager {
      * Whether the handled property is inherited or not.
      */
     boolean isInheritedProperty();
+
+    /**
+     * Whether the handled property can be animated.
+     */
+    boolean isAnimatableProperty();
+
+    /**
+     * Whether the handled property can be additively animated.
+     */
+    boolean isAdditiveProperty();
+
+    /**
+     * Returns the type of value this manager handles.  This should be
+     * one of the TYPE_* constants defined in
+     * {@link org.apache.flex.forks.batik.util.SVGTypes}.
+     */
+    int getPropertyType();
 
     /**
      * Returns the default value for the handled property.
@@ -62,7 +80,7 @@ public interface ValueManager {
      * @param floatValue  The new float value. 
      */
     Value createFloatValue(short unitType, float floatValue)
-	throws DOMException;
+        throws DOMException;
 
     /**
      * Creates and returns a new string value.

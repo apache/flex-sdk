@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
-Main-Class: org.apache.flex.forks.batik.apps.ttf2svg.Main
+Main-Class: org.apache.batik.apps.ttf2svg.Main
 Class-Path: lib/batik-svggen.jar \
             lib/batik-util.jar

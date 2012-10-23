@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,7 +26,9 @@ import org.apache.flex.forks.batik.css.engine.value.URIValue;
 import org.apache.flex.forks.batik.css.engine.value.Value;
 import org.apache.flex.forks.batik.css.engine.value.ValueManager;
 import org.apache.flex.forks.batik.util.CSSConstants;
-import org.w3c.flex.forks.css.sac.LexicalUnit;
+import org.apache.flex.forks.batik.util.SVGTypes;
+
+import org.w3c.css.sac.LexicalUnit;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSValue;
 import org.w3c.dom.DOMException;
@@ -34,7 +37,7 @@ import org.w3c.dom.DOMException;
  * This class provides a manager for the SVGPaint property values.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGPaintManager.java,v 1.7 2005/03/27 08:58:31 cam Exp $
+ * @version $Id: SVGPaintManager.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class SVGPaintManager extends SVGColorManager {
     
@@ -58,7 +61,28 @@ public class SVGPaintManager extends SVGColorManager {
      * Implements {@link ValueManager#isInheritedProperty()}.
      */
     public boolean isInheritedProperty() {
-	return true;
+        return true;
+    }
+
+    /**
+     * Implements {@link ValueManager#isAnimatableProperty()}.
+     */
+    public boolean isAnimatableProperty() {
+        return true;
+    }
+
+    /**
+     * Implements {@link ValueManager#isAdditiveProperty()}.
+     */
+    public boolean isAdditiveProperty() {
+        return true;
+    }
+
+    /**
+     * Implements {@link ValueManager#getPropertyType()}.
+     */
+    public int getPropertyType() {
+        return SVGTypes.TYPE_PAINT;
     }
 
     /**
@@ -66,7 +90,7 @@ public class SVGPaintManager extends SVGColorManager {
      */
     public Value createValue(LexicalUnit lu, CSSEngine engine)
         throws DOMException {
-	switch (lu.getLexicalUnitType()) {
+        switch (lu.getLexicalUnitType()) {
         case LexicalUnit.SAC_IDENT:
             if (lu.getStringValue().equalsIgnoreCase
                 (CSSConstants.CSS_NONE_VALUE)) {
@@ -87,7 +111,7 @@ public class SVGPaintManager extends SVGColorManager {
         ListValue result = new ListValue(' ');
         result.append(new URIValue(value, uri));
 
-	if (lu.getLexicalUnitType() == LexicalUnit.SAC_IDENT) {
+        if (lu.getLexicalUnitType() == LexicalUnit.SAC_IDENT) {
             if (lu.getStringValue().equalsIgnoreCase
                 (CSSConstants.CSS_NONE_VALUE)) {
                 result.append(SVGValueConstants.NONE_VALUE);

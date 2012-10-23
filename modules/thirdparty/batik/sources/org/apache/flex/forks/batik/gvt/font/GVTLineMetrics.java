@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2002  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,7 +24,7 @@ import java.awt.font.LineMetrics;
  * GVTLineMetrics is a GVT version of java.awt.font.LineMetrics.
  *
  * @author <a href="mailto:bella.robinson@cmis.csiro.au">Bella Robinson</a>
- * @version $Id: GVTLineMetrics.java,v 1.7 2004/08/18 07:14:35 vhardy Exp $
+ * @version $Id: GVTLineMetrics.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class GVTLineMetrics {
 
@@ -84,12 +85,12 @@ public class GVTLineMetrics {
         this.leading = lineMetrics.getLeading();
         this.numChars = lineMetrics.getNumChars();
         this.strikethroughOffset = 
-	    lineMetrics.getStrikethroughOffset() * scaleFactor;
+            lineMetrics.getStrikethroughOffset() * scaleFactor;
         this.strikethroughThickness = 
-	    lineMetrics.getStrikethroughThickness() * scaleFactor;
+            lineMetrics.getStrikethroughThickness() * scaleFactor;
         this.underlineOffset = lineMetrics.getUnderlineOffset() * scaleFactor;
         this.underlineThickness = 
-	    lineMetrics.getUnderlineThickness() * scaleFactor;
+            lineMetrics.getUnderlineThickness() * scaleFactor;
         this.overlineOffset = -this.ascent;
         this.overlineThickness = this.underlineThickness;
     }
@@ -99,17 +100,17 @@ public class GVTLineMetrics {
      * Constructs a GVTLineMetrics object with the specified attributes.
      */
     public GVTLineMetrics(float ascent, 
-			  int baselineIndex, 
-			  float[] baselineOffsets,
+                          int baselineIndex, 
+                          float[] baselineOffsets,
                           float descent, 
-			  float height, 
-			  float leading, int numChars,
+                          float height, 
+                          float leading, int numChars,
                           float strikethroughOffset, 
-			  float strikethroughThickness,
+                          float strikethroughThickness,
                           float underlineOffset, 
-			  float underlineThickness,
+                          float underlineThickness,
                           float overlineOffset, 
-			  float overlineThickness) {
+                          float overlineThickness) {
 
         this.ascent = ascent;
         this.baselineIndex = baselineIndex;

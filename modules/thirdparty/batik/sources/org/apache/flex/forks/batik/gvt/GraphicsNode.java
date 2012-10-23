@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -38,7 +39,7 @@ import org.apache.flex.forks.batik.gvt.filter.Mask;
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
  * @author <a href="mailto:etissandier@ilog.fr">Emmanuel Tissandier</a>
- * @version $Id: GraphicsNode.java,v 1.39 2005/03/27 08:58:34 cam Exp $
+ * @version $Id: GraphicsNode.java 478188 2006-11-22 15:19:17Z dvholten $
  */
 public interface GraphicsNode {
 
@@ -46,59 +47,59 @@ public interface GraphicsNode {
      * Indicates that this graphics node can be the target for events when it
      * is visible and when the mouse is over the "painted" area.
      */
-    public static final int VISIBLE_PAINTED = 0;
+    int VISIBLE_PAINTED = 0;
 
     /**
      * Indicates that this graphics node can be the target for events when it
      * is visible and when the mouse is over the filled area if any.
      */
-    public static final int VISIBLE_FILL = 1;
+    int VISIBLE_FILL = 1;
 
     /**
      * Indicates that this graphics node can be the target for events when it
      * is visible and when the mouse is over the stroked area if any.
      */
-    public static final int VISIBLE_STROKE = 2;
+    int VISIBLE_STROKE = 2;
 
     /**
      * Indicates that this graphics node can be the target for events when it
      * is visible and whatever is the filled and stroked area.
      */
-    public static final int VISIBLE = 3;
+    int VISIBLE = 3;
 
     /**
      * Indicates that this graphics node can be the target for events when the
      * mouse is over the painted area whatever or not it is the visible.
      */
-    public static final int PAINTED = 4;
+    int PAINTED = 4;
 
     /**
      * Indicates that this graphics node can be the target for events when the
      * mouse is over the filled area whatever or not it is the visible.
      */
-    public static final int FILL = 5;
+    int FILL = 5;
 
     /**
      * Indicates that this graphics node can be the target for events when the
      * mouse is over the stroked area whatever or not it is the visible.
      */
-    public static final int STROKE = 6;
+    int STROKE = 6;
 
     /**
      * Indicates that this graphics node can be the target for events if any
      * cases.
      */
-    public static final int ALL = 7;
+    int ALL = 7;
 
     /**
      * Indicates that this graphics node can not be the target for events.
      */
-    public static final int NONE = 8;
+    int NONE = 8;
 
     /**
      * The identity affine transform matrix used to draw renderable images.
      */
-    public static final AffineTransform IDENTITY = new AffineTransform();
+    AffineTransform IDENTITY = new AffineTransform();
 
     /**
      * Returns a canonical WeakReference to this GraphicsNode.
@@ -242,14 +243,14 @@ public interface GraphicsNode {
     /**
      * Returns the GraphicsNodeRable for this node.  This
      * GraphicsNodeRable is the Renderable (Filter) before any of the
-     * filter operations have been applied.  
+     * filter operations have been applied.
      */
     Filter getGraphicsNodeRable(boolean createIfNeeded);
 
     /**
      * Returns the GraphicsNodeRable for this node.  This
      * GraphicsNodeRable is the Renderable (Filter) after all of the
-     * filter operations have been applied.  
+     * filter operations have been applied.
      */
     Filter getEnableBackgroundGraphicsNodeRable(boolean createIfNeeded);
 

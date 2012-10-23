@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -39,7 +40,7 @@ import org.w3c.dom.NodeList;
  *
  * @author <a href="mailto:cjolif@ilog.fr">Christophe Jolif</a>
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: SVGFont.java,v 1.19 2004/08/18 07:15:00 vhardy Exp $
+ * @version $Id: SVGFont.java 501495 2007-01-30 18:00:36Z dvholten $
  */
 public class SVGFont extends AbstractSVGConverter {
     public static final float EXTRA_LIGHT =
@@ -76,14 +77,14 @@ public class SVGFont extends AbstractSVGConverter {
      * of that interval.
      * @see #styleToSVG
      */
-    static final float fontStyles[] = {
+    static final float[] fontStyles = {
         POSTURE_REGULAR + (POSTURE_OBLIQUE - POSTURE_REGULAR)/2
     };
 
     /**
      * SVG Styles corresponding to the fontStyles
      */
-    static final String svgStyles[] = {
+    static final String[] svgStyles = {
         /*POSTURE_REGULAR*/   SVG_NORMAL_VALUE,
         /*POSTURE_OBLIQUE*/   SVG_ITALIC_VALUE
     };
@@ -94,7 +95,7 @@ public class SVGFont extends AbstractSVGConverter {
      * of the interval.
      * @see #weightToSVG
      */
-    static final float fontWeights[] = { EXTRA_LIGHT + (LIGHT - EXTRA_LIGHT)/2f,
+    static final float[] fontWeights = { EXTRA_LIGHT + (LIGHT - EXTRA_LIGHT)/2f,
                                          LIGHT + (DEMILIGHT - LIGHT)/2f,
                                          DEMILIGHT + (REGULAR - DEMILIGHT)/2f,
                                          REGULAR + (SEMIBOLD - REGULAR)/2f,
@@ -109,7 +110,7 @@ public class SVGFont extends AbstractSVGConverter {
     /**
      * SVG Weights corresponding to the fontWeights
      */
-    static final String svgWeights[] = {
+    static final String[] svgWeights = {
         /*EXTRA_LIGHT*/ SVG_100_VALUE,
         /*LIGHT*/       SVG_200_VALUE,
         /*DEMILIGHT*/   SVG_300_VALUE,
@@ -144,9 +145,9 @@ public class SVGFont extends AbstractSVGConverter {
 
     /**
      * Used to keep track of which characters have been rendered by each font
-     * used.
+     * used. MapKey is the fontKey, mapValue is a sorted array of used characters.
      */
-    Map fontStringMap = new HashMap();
+    final Map fontStringMap = new HashMap();
 
     /**
      * @param generatorContext used to build Elements
@@ -162,22 +163,35 @@ public class SVGFont extends AbstractSVGConverter {
      */
     public void recordFontUsage(String string, Font font) {
 
-        Font commonSizeFont = createCommonSizeFont(font);
-        String fontKey = commonSizeFont.getFamily() + commonSizeFont.getStyle();
-        String textUsingFont = (String)fontStringMap.get(fontKey);
-        if (textUsingFont == null) {
-            // font has not been used before
-            textUsingFont = "";
+        Font   commonSizeFont = createCommonSizeFont(font);
+        String fontKey        = (commonSizeFont.getFamily() +
+                                 commonSizeFont.getStyle());
+
+//        String textUsingFont = (String)fontStringMap.get(fontKey);
+//        if (textUsingFont == null) {
+//            // font has not been used before
+//            textUsingFont = "";
+//        }
+//
+//        // append any new characters to textUsingFont
+//        // FIXX: This is horribly inefficent, consider binary tree, Set, etc.
+//        for (int i = 0; i < string.length(); i++) {
+//            char ch = string.charAt(i);
+//            if (textUsingFont.indexOf(ch) == -1) {
+//                textUsingFont += ch;
+//            }
+//        }
+        CharListHelper chl = (CharListHelper) fontStringMap.get( fontKey );
+        if ( chl == null ){
+            // was not in use before, so we need to create a fresh one
+            chl = new CharListHelper();
         }
-        // append any new characters to textUsingFont
-        char ch;
         for (int i = 0; i < string.length(); i++) {
-            ch = string.charAt(i);
-            if (textUsingFont.indexOf(ch) == -1) {
-                textUsingFont += ch;
-            }
+            char ch = string.charAt(i);    // todo take care of surrogate chars here...
+            chl.add( ch );
         }
-        fontStringMap.put(fontKey, textUsingFont);
+
+        fontStringMap.put(fontKey, chl );
     }
 
     /**
@@ -186,8 +200,10 @@ public class SVGFont extends AbstractSVGConverter {
      * only its size attribute modified.
      */
     private static Font createCommonSizeFont(Font font) {
-        HashMap attributes = new HashMap(font.getAttributes());
+        Map attributes = new HashMap(font.getAttributes());
         attributes.put(TextAttribute.SIZE, new Float(COMMON_FONT_SIZE));
+        // Remove Transform from font otherwise it will be applied twice.
+        attributes.remove(TextAttribute.TRANSFORM);
         return new Font(attributes);
     }
 
@@ -213,6 +229,11 @@ public class SVGFont extends AbstractSVGConverter {
      * @return description of attribute values that describe the font
      */
     public SVGFontDescriptor toSVG(Font font, FontRenderContext frc) {
+        // Remove affine from FRC otherwise it will be applied twice.
+        FontRenderContext localFRC;
+        localFRC = new FontRenderContext(new AffineTransform(),
+                                         frc.isAntiAliased(),
+                                         frc.usesFractionalMetrics());
 
         String fontSize = "" + doubleString(font.getSize2D());
         String fontWeight = weightToSVG(font);
@@ -220,11 +241,12 @@ public class SVGFont extends AbstractSVGConverter {
         String fontFamilyStr = familyToSVG(font);
 
         Font commonSizeFont = createCommonSizeFont(font);
-        String fontKey = commonSizeFont.getFamily() + commonSizeFont.getStyle();
+        String fontKey = (commonSizeFont.getFamily() +
+                          commonSizeFont.getStyle());
 
-        String textUsingFont = (String)fontStringMap.get(fontKey);
+        CharListHelper clh = (CharListHelper)fontStringMap.get(fontKey);
 
-        if (textUsingFont == null) {
+        if (clh == null) {
             // this font hasn't been used by any text yet,
             // so don't create an SVG Font element for it
             return new SVGFontDescriptor(fontSize, fontWeight,
@@ -257,7 +279,8 @@ public class SVGFont extends AbstractSVGConverter {
             Element fontFace = domFactory.createElementNS(SVG_NAMESPACE_URI,
                                                           SVG_FONT_FACE_TAG);
             String svgFontFamilyString = fontFamilyStr;
-            if (fontFamilyStr.startsWith("'") && fontFamilyStr.endsWith("'")) {
+            if (fontFamilyStr.startsWith("'") &&
+                fontFamilyStr.endsWith("'")) {
                 // get rid of the quotes
                 svgFontFamilyString
                     = fontFamilyStr.substring(1, fontFamilyStr.length()-1);
@@ -279,9 +302,10 @@ public class SVGFont extends AbstractSVGConverter {
                 = domFactory.createElementNS(SVG_NAMESPACE_URI,
                                              SVG_MISSING_GLYPH_TAG);
 
-            int missingGlyphCode[] = new int[1];
+            int[] missingGlyphCode = new int[1];
             missingGlyphCode[0] = commonSizeFont.getMissingGlyphCode();
-            GlyphVector gv = commonSizeFont.createGlyphVector(frc, missingGlyphCode);
+            GlyphVector gv;
+            gv = commonSizeFont.createGlyphVector(localFRC, missingGlyphCode);
             Shape missingGlyphShape = gv.getGlyphOutline(0);
             GlyphMetrics gm = gv.getGlyphMetrics(0);
 
@@ -292,42 +316,41 @@ public class SVGFont extends AbstractSVGConverter {
 
             missingGlyphElement.setAttributeNS(null, SVG_D_ATTRIBUTE,
                                     SVGPath.toSVGPathData(missingGlyphShape, generatorContext));
-            missingGlyphElement.setAttributeNS(null, SVG_HORIZ_ADV_X_ATTRIBUTE,
-                                               "" + gm.getAdvance());
+            missingGlyphElement.setAttributeNS(null, SVG_HORIZ_ADV_X_ATTRIBUTE, String.valueOf( gm.getAdvance() ) );
             fontDef.appendChild(missingGlyphElement);
 
             // set the font's default horizontal advance to be the same as
             // the missing glyph
-            fontDef.setAttributeNS(null, SVG_HORIZ_ADV_X_ATTRIBUTE,  "" + gm.getAdvance());
+            fontDef.setAttributeNS(null, SVG_HORIZ_ADV_X_ATTRIBUTE, String.valueOf( gm.getAdvance() ) );
 
             // set the ascent and descent attributes
-            LineMetrics lm = commonSizeFont.getLineMetrics("By", frc);
-            fontFace.setAttributeNS(null, SVG_ASCENT_ATTRIBUTE, "" + lm.getAscent());
-            fontFace.setAttributeNS(null, SVG_DESCENT_ATTRIBUTE, "" + lm.getDescent());
+            LineMetrics lm = commonSizeFont.getLineMetrics("By", localFRC);
+            fontFace.setAttributeNS(null, SVG_ASCENT_ATTRIBUTE,  String.valueOf( lm.getAscent() ) );
+            fontFace.setAttributeNS(null, SVG_DESCENT_ATTRIBUTE, String.valueOf( lm.getDescent() ) );
 
             //
             // Font ID
             //
-            fontDef.setAttributeNS(null, ATTR_ID,
-                                   generatorContext.idGenerator.
-                                   generateID(ID_PREFIX_FONT));
+            fontDef.setAttributeNS(null, SVG_ID_ATTRIBUTE,  generatorContext.idGenerator.generateID(ID_PREFIX_FONT));
         }
 
         //
         // add any new glyphs to the fontDef here
         //
+        String textUsingFont = clh.getNewChars();
+        clh.clearNewChars();
 
         // process the characters in textUsingFont backwards since the new chars
         // are at the end, can stop when find a char that already has a glyph
         for (int i = textUsingFont.length()-1; i >= 0; i--) {
             char c = textUsingFont.charAt(i);
+            String searchStr = String.valueOf( c );
             boolean foundGlyph = false;
             NodeList fontChildren = fontDef.getChildNodes();
             for (int j = 0; j < fontChildren.getLength(); j++) {
                 if (fontChildren.item(j) instanceof Element) {
                     Element childElement = (Element)fontChildren.item(j);
-                    if (childElement.getAttributeNS(null,
-                            SVG_UNICODE_ATTRIBUTE).equals(""+c)) {
+                    if (childElement.getAttributeNS(null, SVG_UNICODE_ATTRIBUTE).equals( searchStr )) {
                         foundGlyph = true;
                         break;
                     }
@@ -339,7 +362,8 @@ public class SVGFont extends AbstractSVGConverter {
                     = domFactory.createElementNS(SVG_NAMESPACE_URI,
                                                  SVG_GLYPH_TAG);
 
-                GlyphVector gv = commonSizeFont.createGlyphVector(frc, ""+c);
+                GlyphVector gv;
+                gv = commonSizeFont.createGlyphVector(localFRC, ""+c);
                 Shape glyphShape = gv.getGlyphOutline(0);
                 GlyphMetrics gm = gv.getGlyphMetrics(0);
 
@@ -350,10 +374,8 @@ public class SVGFont extends AbstractSVGConverter {
 
                 glyphElement.setAttributeNS(null, SVG_D_ATTRIBUTE,
                                             SVGPath.toSVGPathData(glyphShape, generatorContext));
-                glyphElement.setAttributeNS(null, SVG_HORIZ_ADV_X_ATTRIBUTE,
-                                            "" + gm.getAdvance());
-                glyphElement.setAttributeNS(null, SVG_UNICODE_ATTRIBUTE,
-                                            "" + c);
+                glyphElement.setAttributeNS(null, SVG_HORIZ_ADV_X_ATTRIBUTE, String.valueOf( gm.getAdvance() ) );
+                glyphElement.setAttributeNS(null, SVG_UNICODE_ATTRIBUTE,     String.valueOf( c ) );
 
                 fontDef.appendChild(glyphElement);
             } else {
@@ -393,10 +415,8 @@ public class SVGFont extends AbstractSVGConverter {
         if (logicalFontFamily != null)
             fontFamilyStr = logicalFontFamily;
         else {
-            StringBuffer fontFamily = new StringBuffer("'");
-            fontFamily.append(fontFamilyStr);
-            fontFamily.append("'");
-            fontFamilyStr = fontFamily.toString();
+            final char QUOTE = '\'';
+            fontFamilyStr = QUOTE + fontFamilyStr + QUOTE;
         }
         return fontFamilyStr;
     }
@@ -452,4 +472,113 @@ public class SVGFont extends AbstractSVGConverter {
 
         return svgWeights[i];
     }
+
+    /**
+     * this helper-class implements a set of characters. it stores all used characters
+     * in a font.
+     *
+     * <br>implementation: we keep a sorted list of integers. This allows to use binary search
+     * for lookup and insert. The use of <code>int</code> instead of <code>char</code> allows us to
+     * handle surrogate characters as well.
+     */
+    private static class CharListHelper {
+
+        /**
+         * the number of slots actually used.
+         * must always be 0 &lt;= nUsed &lt;= charList.length
+         */
+        private int nUsed = 0;
+
+        /**
+         * keeps added characters, is kept sorted for efficient search.
+         */
+        private int[] charList = new int[ 40 ];
+
+        /**
+         * this keeps all added characters in order. It can be cleared from toSVG()
+         * when glyphs are created for some characters.
+         */
+        private StringBuffer freshChars = new StringBuffer( 40 );
+
+        CharListHelper() {
+
+        }
+
+        /**
+         * get a string of all characters added since last call to clearNewChars().
+         * @return a string of all recently added characters
+         */
+        String getNewChars(){
+            return freshChars.toString();
+        }
+
+        /**
+         * reset the string of recently added characters - used after glyphs were created for them.
+         */
+        void clearNewChars(){
+            freshChars = new StringBuffer( 40 );
+        }
+
+        /**
+         * test, if the character is contained in the charList.
+         * If not, insert c into charList.
+         * charList is kept sorted for efficient search.
+         * @param c
+         * @return true, when fresh inserted
+         */
+        boolean add( int c ){
+            int pos = binSearch( charList, nUsed, c );
+            if ( pos >= 0 ){
+                // was in list: no activity needed
+                return false;
+            }
+            // insert new char into array, grow if necessary
+            if ( nUsed == charList.length ){
+                // full, allocate some more slots - moderately...
+                int[] t = new int[ nUsed + 20 ];
+                System.arraycopy( charList, 0, t, 0, nUsed );
+                charList = t;
+            }
+            // now we can insert the new character
+            pos = -pos -1;
+            System.arraycopy( charList, pos, charList, pos+1, nUsed - pos );
+            charList[ pos ] = c;
+            freshChars.append( (char)c );    // todo if necessary split surrogates here
+            nUsed++;
+
+            return true;
+        }
+
+        /**
+         * unfortunatly, Arrays.binarySearch() does not support search in a
+         * part of the array (not in jdk1.3 and jdk1.4). - so we have do provide our own
+         * implementation.
+         * @param list to search within
+         * @param nUsed the last used index, can be &lt; list.length
+         * @param chr the character to lookup
+         * @return the index when found, or the negative insert position.
+         */
+        static int binSearch( int[] list, int nUsed, int chr ){
+
+            int low = 0;
+            int high = nUsed -1;
+
+            while ( low <= high ) {
+                int mid = ( low + high ) >>> 1;  // we're not sun - we know how to binSearch...
+                int midVal = list[ mid ];
+
+                if ( midVal < chr ) {
+                    low = mid + 1;
+                } else if ( midVal > chr ) {
+                    high = mid - 1;
+                } else {
+                    return mid; // char found
+                }
+            }
+            return -( low + 1 );  // char not found, should be inserted at -pos -1
+        }
+
+
+    }
+
 }

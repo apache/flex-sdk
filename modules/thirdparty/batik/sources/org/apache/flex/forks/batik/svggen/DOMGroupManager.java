@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -55,11 +56,11 @@ import org.w3c.dom.Element;
  *
  * @author <a href="mailto:cjolif@ilog.fr">Christophe Jolif</a>
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: DOMGroupManager.java,v 1.14 2005/04/02 12:58:17 deweese Exp $
+ * @version $Id: DOMGroupManager.java 478176 2006-11-22 14:50:50Z dvholten $
  */
 public class DOMGroupManager implements SVGSyntax, ErrorConstants {
-    public final static short DRAW = 0x01;
-    public final static short FILL = 0x10;
+    public static final short DRAW = 0x01;
+    public static final short FILL = 0x10;
 
     /**
      * Reference to the GraphicContext this manager will use to
@@ -248,7 +249,7 @@ public class DOMGroupManager implements SVGSyntax, ErrorConstants {
      * given transform stack
      */
     protected void setTransform(Element element,
-                              TransformStackElement transformStack[]) {
+                              TransformStackElement[] transformStack) {
         String transform = domTreeManager.gcConverter.
             toSVG(transformStack).trim();
         if (transform.length() > 0)
@@ -260,16 +261,16 @@ public class DOMGroupManager implements SVGSyntax, ErrorConstants {
      * in gc that are different from the values in referenceGc will be
      * present in the delta. Other values will no.
      */
-    protected SVGGraphicContext processDeltaGC(SVGGraphicContext gc,
-                                             SVGGraphicContext referenceGc) {
+    static SVGGraphicContext processDeltaGC(SVGGraphicContext gc,
+                                            SVGGraphicContext referenceGc) {
         Map groupDelta = processDeltaMap(gc.getGroupContext(),
                                          referenceGc.getGroupContext());
         Map graphicElementDelta = gc.getGraphicElementContext();
 
-        TransformStackElement gcTransformStack[] = gc.getTransformStack();
-        TransformStackElement referenceStack[] = referenceGc.getTransformStack();
+        TransformStackElement[] gcTransformStack = gc.getTransformStack();
+        TransformStackElement[] referenceStack = referenceGc.getTransformStack();
         int deltaStackLength = gcTransformStack.length - referenceStack.length;
-        TransformStackElement deltaTransformStack[] =
+        TransformStackElement[] deltaTransformStack =
             new TransformStackElement[deltaStackLength];
 
         System.arraycopy(gcTransformStack, referenceStack.length,
@@ -311,7 +312,7 @@ public class DOMGroupManager implements SVGSyntax, ErrorConstants {
      * are different from values in referenceMap are place in the
      * returned delta Map.
      */
-    protected Map processDeltaMap(Map map, Map referenceMap) {
+    static Map processDeltaMap(Map map, Map referenceMap) {
         // no need to be synch => HashMap
         Map mapDelta = new HashMap();
         Iterator iter = map.keySet().iterator();

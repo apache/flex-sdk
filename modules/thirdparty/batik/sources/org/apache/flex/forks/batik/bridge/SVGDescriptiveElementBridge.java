@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2005 The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,16 +26,17 @@ import org.w3c.dom.Element;
 import org.w3c.dom.events.MutationEvent;
 
 import org.apache.flex.forks.batik.css.engine.CSSEngineEvent;
+import org.apache.flex.forks.batik.dom.svg.AnimatedLiveAttributeValue;
 import org.apache.flex.forks.batik.dom.svg.SVGContext;
 import org.apache.flex.forks.batik.dom.svg.SVGOMElement;
 
 /**
  * Base class for 'descriptive' elements, mostly title and desc.
  *
- * @author <a href="mailto:deweese@apache.org">deweese</a>
- * @version $Id: SVGDescriptiveElementBridge.java,v 1.2 2005/03/27 08:58:30 cam Exp $
+ * @author <a href="mailto:deweese@apache.org">Thomas DeWeese</a>
+ * @version $Id: SVGDescriptiveElementBridge.java 478160 2006-11-22 13:35:06Z dvholten $
  */
-public abstract class SVGDescriptiveElementBridge extends AbstractSVGBridge 
+public abstract class SVGDescriptiveElementBridge extends AbstractSVGBridge
     implements GenericBridge,  BridgeUpdateHandler, SVGContext {
 
     Element theElt;
@@ -51,12 +53,12 @@ public abstract class SVGDescriptiveElementBridge extends AbstractSVGBridge
      * <tt>SVGDescElementBridge</tt>.
      *
      * @param ctx the bridge context to use
-     * @param e the element that describes the graphics node to build
+     * @param e the element to be handled
      */
     public void handleElement(BridgeContext ctx, Element e){
         UserAgent ua = ctx.getUserAgent();
         ua.handleElement(e, Boolean.TRUE);
-        
+
         if (ctx.isDynamic()) {
             SVGDescriptiveElementBridge b;
             b = (SVGDescriptiveElementBridge)getInstance();
@@ -77,21 +79,25 @@ public abstract class SVGDescriptiveElementBridge extends AbstractSVGBridge
         theElt = null;
         parent = null;
     }
-    public void handleDOMNodeInsertedEvent(MutationEvent evt) { 
+    public void handleDOMNodeInsertedEvent(MutationEvent evt) {
         UserAgent ua = theCtx.getUserAgent();
         ua.handleElement(theElt, Boolean.TRUE);
     }
-    public void handleDOMCharacterDataModified(MutationEvent evt) { 
+    public void handleDOMCharacterDataModified(MutationEvent evt) {
         UserAgent ua = theCtx.getUserAgent();
         ua.handleElement(theElt, Boolean.TRUE);
     }
 
-    public void handleDOMNodeRemovedEvent (MutationEvent evt) { 
+    public void handleDOMNodeRemovedEvent (MutationEvent evt) {
         dispose();
     }
 
     public void handleDOMAttrModifiedEvent(MutationEvent evt) { }
     public void handleCSSEngineEvent(CSSEngineEvent evt) { }
+    public void handleAnimatedAttributeChanged
+        (AnimatedLiveAttributeValue alav) { }
+    public void handleOtherAnimationChanged(String type) { }
+
 
     // SVGContext implementation ///////////////////////////////////////////
 
@@ -109,14 +115,14 @@ public abstract class SVGDescriptiveElementBridge extends AbstractSVGBridge
      */
     public float getPixelToMM() {
         return getPixelUnitToMillimeter();
-            
+
     }
 
     public Rectangle2D getBBox() { return null; }
-    public AffineTransform getScreenTransform() { 
+    public AffineTransform getScreenTransform() {
         return theCtx.getUserAgent().getTransform();
     }
-    public void setScreenTransform(AffineTransform at) { 
+    public void setScreenTransform(AffineTransform at) {
         theCtx.getUserAgent().setTransform(at);
     }
     public AffineTransform getCTM() { return null; }
@@ -128,4 +134,4 @@ public abstract class SVGDescriptiveElementBridge extends AbstractSVGBridge
         return theCtx.getBlockHeight(theElt);
     }
     public float getFontSize() { return 0; }
-};
+}

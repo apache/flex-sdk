@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -39,15 +40,13 @@ import org.w3c.dom.Element;
  * that reflects the Swing composite structure (container/components).
  *
  * @author Vincent Hardy
- * @version $Id: SwingSVGPrettyPrint.java,v 1.9 2005/03/27 08:58:35 cam Exp $
+ * @version $Id: SwingSVGPrettyPrint.java 478176 2006-11-22 14:50:50Z dvholten $
  */
 public abstract class SwingSVGPrettyPrint implements SVGSyntax {
 
     /**
      * @param cmp Swing component to be converted to SVG
      * @param svgGen SVGraphics2D to use to paint Swing components
-     * @return an SVG fragment containing an SVG equivalent of the Swing
-     *         component tree.
      */
     public static void print(JComponent cmp, SVGGraphics2D svgGen) {
         if ((cmp instanceof JComboBox) || (cmp instanceof JScrollBar)) {
@@ -162,16 +161,14 @@ public abstract class SwingSVGPrettyPrint implements SVGSyntax {
 
     private static void paintChildren(JComponent cmp, SVGGraphics2D svgGen){
         int i = cmp.getComponentCount() - 1;
-        boolean isJComponent = false;
         Rectangle tmpRect = new Rectangle();
 
         for(; i>=0; i--){
             Component comp = cmp.getComponent(i);
 
-            if(comp != null && JComponent.isLightweightComponent(comp) &&
-               (comp.isVisible() == true)) {
+            if( comp != null && JComponent.isLightweightComponent(comp) && comp.isVisible() ) {
                 Rectangle cr = null;
-                isJComponent = (comp instanceof JComponent);
+                boolean isJComponent = (comp instanceof JComponent);
 
                 if(isJComponent) {
                     cr = tmpRect;

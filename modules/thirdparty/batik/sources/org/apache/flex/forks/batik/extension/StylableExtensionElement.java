@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -15,21 +16,19 @@
    limitations under the License.
 
 */
-
 package org.apache.flex.forks.batik.extension;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.apache.flex.forks.batik.css.engine.CSSStylableElement;
+import org.apache.flex.forks.batik.css.engine.StyleDeclarationProvider;
 import org.apache.flex.forks.batik.css.engine.StyleMap;
 import org.apache.flex.forks.batik.dom.AbstractDocument;
-import org.apache.flex.forks.batik.dom.svg.XMLBaseSupport;
+import org.apache.flex.forks.batik.util.ParsedURL;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.css.CSSValue;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedString;
-import org.w3c.flex.forks.dom.svg.SVGStylable;
+import org.w3c.dom.svg.SVGAnimatedString;
+import org.w3c.dom.svg.SVGStylable;
 
 /**
  * This class implements the basic features an element must have in
@@ -38,7 +37,7 @@ import org.w3c.flex.forks.dom.svg.SVGStylable;
  * attributes (ie: fill="red", ...).
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: StylableExtensionElement.java,v 1.7 2005/02/22 09:13:02 cam Exp $
+ * @version $Id: StylableExtensionElement.java 579230 2007-09-25 12:52:48Z cam $
  */
 public abstract class StylableExtensionElement
     extends ExtensionElement
@@ -48,7 +47,7 @@ public abstract class StylableExtensionElement
     /**
      * The base URL.
      */
-    protected URL cssBase;
+    protected ParsedURL cssBase;
 
     /**
      * The computed style map.
@@ -71,7 +70,7 @@ public abstract class StylableExtensionElement
     }
 
     // CSSStylableElement //////////////////////////////////////////
-    
+
     /**
      * Returns the computed style of this element/pseudo-element.
      */
@@ -103,19 +102,13 @@ public abstract class StylableExtensionElement
     /**
      * Returns the CSS base URL of this element.
      */
-    public URL getCSSBase() {
+    public ParsedURL getCSSBase() {
         if (cssBase == null) {
-            try {
-                String bu = XMLBaseSupport.getCascadedXMLBase(this);
-                if (bu == null) {
-                    return null;
-                }
-                cssBase = new URL(XMLBaseSupport.getCascadedXMLBase(this));
-            } catch (MalformedURLException e) {
-                // !!! TODO
-                e.printStackTrace();
-                throw new InternalError();
+            String bu = getBaseURI();
+            if (bu == null) {
+                return null;
             }
+            cssBase = new ParsedURL(bu);
         }
         return cssBase;
     }
@@ -135,28 +128,37 @@ public abstract class StylableExtensionElement
         return false;
     }
 
+    /**
+     * Returns the object that gives access to the underlying
+     * {@link org.apache.flex.forks.batik.css.engine.StyleDeclaration} for the override
+     * style of this element.
+     */
+    public StyleDeclarationProvider getOverrideStyleDeclarationProvider() {
+        return null;
+    }
+
     // SVGStylable //////////////////////////////////////////////////
 
     /**
-     * <b>DOM</b>: Implements {@link org.w3c.flex.forks.dom.svg.SVGStylable#getStyle()}.
+     * <b>DOM</b>: Implements {@link org.w3c.dom.svg.SVGStylable#getStyle()}.
      */
     public CSSStyleDeclaration getStyle() {
-        throw new InternalError("Not implemented");
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGStylable#getPresentationAttribute(String)}.
+     * org.w3c.dom.svg.SVGStylable#getPresentationAttribute(String)}.
      */
     public CSSValue getPresentationAttribute(String name) {
-        throw new InternalError("Not implemented");
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGStylable#getClassName()}.
+     * org.w3c.dom.svg.SVGStylable#getClassName()}.
      */
     public SVGAnimatedString getClassName() {
-        throw new InternalError("Not implemented");
+        throw new UnsupportedOperationException("Not implemented");
     }
 }

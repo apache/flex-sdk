@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,7 +28,7 @@ import javax.swing.JCheckBox;
  * This class represents a panel to control svg encoding options.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGOptionPanel.java,v 1.2 2005/03/29 10:48:02 deweese Exp $
+ * @version $Id: SVGOptionPanel.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class SVGOptionPanel extends OptionPanel {
     /**
@@ -40,9 +41,9 @@ public class SVGOptionPanel extends OptionPanel {
      * Creates a new panel.
      */
     public SVGOptionPanel() {
-	super(new BorderLayout());
-	add(new JLabel(resources.getString("SVGOptionPanel.label")), 
-	    BorderLayout.NORTH);
+        super(new BorderLayout());
+        add(new JLabel(resources.getString("SVGOptionPanel.label")), 
+            BorderLayout.NORTH);
 
         xmlbaseCB = new JCheckBox
             (resources.getString("SVGOptionPanel.UseXMLBase"));
@@ -61,14 +62,14 @@ public class SVGOptionPanel extends OptionPanel {
      * Returns true if the output should use xml:base.
      */
     public boolean getUseXMLBase() {
-	return xmlbaseCB.isSelected();
+        return xmlbaseCB.isSelected();
     }
 
     /**
      * Returns true if the output should use xml:base.
      */
     public boolean getPrettyPrint() {
-	return prettyPrintCB.isSelected();
+        return prettyPrintCB.isSelected();
     }
 
     /**
@@ -78,9 +79,9 @@ public class SVGOptionPanel extends OptionPanel {
     public static SVGOptionPanel showDialog(Component parent) {
         String title = resources.getString("SVGOptionPanel.dialog.title");
         SVGOptionPanel panel = new SVGOptionPanel();
-	Dialog dialog = new Dialog(parent, title, panel);
-	dialog.pack();
-	dialog.show();
-	return panel;
+        Dialog dialog = new Dialog(parent, title, panel);
+        dialog.pack();
+        dialog.setVisible(true);
+        return panel;
     }
 }

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -15,11 +16,10 @@
    limitations under the License.
 
 */
-
 package org.apache.flex.forks.batik.parser;
 
 import org.w3c.dom.Element;
-import org.w3c.flex.forks.dom.svg.SVGLength;
+import org.w3c.dom.svg.SVGLength;
 
 /**
  * This class provides methods to convert SVG length and coordinate to
@@ -27,25 +27,30 @@ import org.w3c.flex.forks.dom.svg.SVGLength;
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: UnitProcessor.java,v 1.5 2005/03/27 08:58:35 cam Exp $
+ * @version $Id: UnitProcessor.java 480490 2006-11-29 09:02:20Z dvholten $
  */
 public abstract class UnitProcessor {
 
     /**
      * This constant represents horizontal lengths.
      */
-    public final static short HORIZONTAL_LENGTH = 2;
+    public static final short HORIZONTAL_LENGTH = 2;
 
     /**
      * This constant represents vertical lengths.
      */
-    public final static short VERTICAL_LENGTH = 1;
+    public static final short VERTICAL_LENGTH = 1;
 
     /**
      * This constant represents other lengths.
      */
-    public final static short OTHER_LENGTH = 0;
+    public static final short OTHER_LENGTH = 0;
 
+    /**
+     * precomputed square-root of 2.0
+     */
+    static final double SQRT2 = Math.sqrt( 2.0 );
+    
     /**
      * No instance of this class is required.
      */
@@ -106,7 +111,7 @@ public abstract class UnitProcessor {
             // in the objectBoundingBox coordinate system
             return svgToUserSpace(value, type, d, ctx);
         default:
-            throw new Error(); // can't be reached
+            throw new IllegalArgumentException("Length has unknown type");
         }
     }
 
@@ -169,7 +174,7 @@ public abstract class UnitProcessor {
         case SVGLength.SVG_LENGTHTYPE_PERCENTAGE:
             return percentagesToPixels(v, d, ctx);
         default:
-            throw new Error(); // can't be reached
+            throw new IllegalArgumentException("Length has unknown type");
         }
     }
 
@@ -207,7 +212,7 @@ public abstract class UnitProcessor {
         case SVGLength.SVG_LENGTHTYPE_PERCENTAGE:
             return pixelsToPercentages(v, d, ctx);
         default:
-            throw new Error(); // can't be reached
+            throw new IllegalArgumentException("Length has unknown type");
         }
     }
 
@@ -232,7 +237,7 @@ public abstract class UnitProcessor {
         } else {
             double w = ctx.getViewportWidth();
             double h = ctx.getViewportHeight();
-            double vpp = Math.sqrt(w * w + h * h) / Math.sqrt(2);
+            double vpp = Math.sqrt(w * w + h * h) / SQRT2;
             return (float)(vpp * v / 100d);
         }
     }
@@ -254,7 +259,7 @@ public abstract class UnitProcessor {
         } else {
             double w = ctx.getViewportWidth();
             double h = ctx.getViewportHeight();
-            double vpp = Math.sqrt(w * w + h * h) / Math.sqrt(2);
+            double vpp = Math.sqrt(w * w + h * h) / SQRT2;
             return (float)(v * 100d / vpp);
         }
     }

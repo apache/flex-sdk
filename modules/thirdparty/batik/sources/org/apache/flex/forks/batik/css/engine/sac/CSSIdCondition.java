@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,10 +25,10 @@ import org.w3c.dom.Element;
 
 /**
  * This class provides an implementation of the
- * {@link org.w3c.flex.forks.css.sac.AttributeCondition} interface.
+ * {@link org.w3c.css.sac.AttributeCondition} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: CSSIdCondition.java,v 1.4 2004/08/18 07:12:51 vhardy Exp $
+ * @version $Id: CSSIdCondition.java 478160 2006-11-22 13:35:06Z dvholten $
  */
 
 public class CSSIdCondition extends AbstractAttributeCondition {
@@ -46,50 +47,50 @@ public class CSSIdCondition extends AbstractAttributeCondition {
      * Creates a new CSSAttributeCondition object.
      */
     public CSSIdCondition(String ns, String ln, String value) {
-	super(value);
+        super(value);
         namespaceURI = ns;
         localName = ln;
     }
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.Condition#getConditionType()}.
-     */    
+     * org.w3c.css.sac.Condition#getConditionType()}.
+     */
     public short getConditionType() {
-	return SAC_ID_CONDITION;
-    }
-    
-    /**
-     * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.AttributeCondition#getNamespaceURI()}.
-     */    
-    public String getNamespaceURI() {
-	return namespaceURI;
+        return SAC_ID_CONDITION;
     }
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.AttributeCondition#getLocalName()}.
+     * org.w3c.css.sac.AttributeCondition#getNamespaceURI()}.
+     */
+    public String getNamespaceURI() {
+        return namespaceURI;
+    }
+
+    /**
+     * <b>SAC</b>: Implements {@link
+     * org.w3c.css.sac.AttributeCondition#getLocalName()}.
      */
     public String getLocalName() {
-	return localName;
+        return localName;
     }
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.AttributeCondition#getSpecified()}.
+     * org.w3c.css.sac.AttributeCondition#getSpecified()}.
      */
     public boolean getSpecified() {
-	return true;
+        return true;
     }
 
     /**
      * Tests whether this condition matches the given element.
      */
     public boolean match(Element e, String pseudoE) {
-	return (e instanceof CSSStylableElement)
-	    ? ((CSSStylableElement)e).getXMLId().equals(getValue())
-	    : false;
+        return (e instanceof CSSStylableElement)
+            ? ((CSSStylableElement)e).getXMLId().equals(getValue())
+            : false;
     }
 
     /**
@@ -103,13 +104,13 @@ public class CSSIdCondition extends AbstractAttributeCondition {
      * Returns the specificity of this condition.
      */
     public int getSpecificity() {
-	return 1 << 16;
+        return 1 << 16;
     }
 
     /**
      * Returns a text representation of this object.
      */
     public String toString() {
-	return "#" + getValue();
+        return '#' + getValue();
     }
 }

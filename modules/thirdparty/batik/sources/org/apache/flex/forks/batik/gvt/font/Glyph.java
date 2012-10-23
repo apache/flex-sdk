@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,18 +19,16 @@
 package org.apache.flex.forks.batik.gvt.font;
 
 import java.awt.Graphics2D;
-import java.awt.Paint;
 import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.font.GlyphMetrics;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Vector;
+import java.util.List;
 
 import org.apache.flex.forks.batik.gvt.GraphicsNode;
-import org.apache.flex.forks.batik.gvt.text.ArabicTextHandler;
 import org.apache.flex.forks.batik.gvt.text.TextPaintInfo;
 
 
@@ -38,7 +37,7 @@ import org.apache.flex.forks.batik.gvt.text.TextPaintInfo;
  * attributes.
  *
  * @author <a href="mailto:bella.robinson@cmis.csiro.au">Bella Robinson</a>
- * @version $Id: Glyph.java,v 1.17 2005/03/27 08:58:34 cam Exp $
+ * @version $Id: Glyph.java 501844 2007-01-31 13:54:05Z dvholten $
  */
 public class Glyph {
 
@@ -68,7 +67,7 @@ public class Glyph {
     /**
      * Constructs a Glyph with the specified parameters.
      */
-    public Glyph(String unicode, Vector names,
+    public Glyph(String unicode, List names,
                  String orientation, String arabicForm, String lang,
                  Point2D horizOrigin, Point2D vertOrigin, float horizAdvX,
                  float vertAdvY, int glyphCode,
@@ -86,7 +85,7 @@ public class Glyph {
         }
 
         this.unicode = unicode;
-        this.names = names;
+        this.names = new Vector( names );
         this.orientation = orientation;
         this.arabicForm = arabicForm;
         this.lang = lang;
@@ -127,7 +126,7 @@ public class Glyph {
      * Returns the orientation of this glyph.
      * Indicates what inline-progression-direction this glyph
      * can be used in. Should be either "h" for horizontal only, "v" for vertical
-     * only, or empty which indicates that the glpyh can be use in both.
+     * only, or empty which indicates that the glyph can be used in both.
      *
      * @return The glyph orientation.
      */
@@ -249,7 +248,7 @@ public class Glyph {
     public GVTGlyphMetrics getGlyphMetrics() {
         if (metrics == null) {
             Rectangle2D gb = getGeometryBounds();
-            
+
             metrics = new GVTGlyphMetrics
                 (getHorizAdvX(), getVertAdvY(),
                  new Rectangle2D.Double(gb.getX()-position.getX(),
@@ -266,15 +265,15 @@ public class Glyph {
      * applied.
      *
      * @param hkern The horizontal kerning value to apply when calculating
-     *              the glyph metrics.  
+     *              the glyph metrics.
      * @param vkern The horizontal vertical value to apply when calculating
-     *              the glyph metrics.  
+     *              the glyph metrics.
      * @return The kerned glyph metics
      */
     public GVTGlyphMetrics getGlyphMetrics(float hkern, float vkern) {
         return new GVTGlyphMetrics(getHorizAdvX() - hkern,
                                    getVertAdvY() - vkern,
-                                   getGeometryBounds(), 
+                                   getGeometryBounds(),
                                    GlyphMetrics.COMPONENT);
 
     }
@@ -289,8 +288,8 @@ public class Glyph {
             TextPaintInfo.equivilent(tpi, cacheTPI))
             return bounds;
 
-        AffineTransform tr = 
-            AffineTransform.getTranslateInstance(position.getX(), 
+        AffineTransform tr =
+            AffineTransform.getTranslateInstance(position.getX(),
                                                  position.getY());
         if (transform != null) {
             tr.concatenate(transform);
@@ -298,23 +297,25 @@ public class Glyph {
 
         Rectangle2D bounds = null;
         if ((dShape != null) && (tpi != null)) {
-            if (tpi.fillPaint != null) 
+            if (tpi.fillPaint != null)
                 bounds = tr.createTransformedShape(dShape).getBounds2D();
 
             if ((tpi.strokeStroke != null) && (tpi.strokePaint != null)) {
                 Shape s = tpi.strokeStroke.createStrokedShape(dShape);
                 Rectangle2D r = tr.createTransformedShape(s).getBounds2D();
                 if (bounds == null) bounds = r;
-                else                bounds = r.createUnion(bounds);
+                //else                bounds = r.createUnion(bounds);
+                else                bounds.add( r );
             }
         }
 
         if (glyphChildrenNode != null) {
             Rectangle2D r = glyphChildrenNode.getTransformedBounds(tr);
             if (bounds == null) bounds = r;
-            else                bounds = r.createUnion(bounds);
+            // else                bounds = r.createUnion(bounds);
+            else                bounds.add( r );
         }
-        if (bounds == null) 
+        if (bounds == null)
             bounds = new Rectangle2D.Double
                 (position.getX(), position.getY(), 0, 0);
 
@@ -330,9 +331,9 @@ public class Glyph {
      */
     public Shape getOutline() {
         if (outline == null) {
-            AffineTransform tr = 
-		AffineTransform.getTranslateInstance(position.getX(), 
-						     position.getY());
+            AffineTransform tr =
+                AffineTransform.getTranslateInstance(position.getX(),
+                                                     position.getY());
             if (transform != null) {
                 tr.concatenate(transform);
             }
@@ -363,9 +364,9 @@ public class Glyph {
      * @param graphics2D The Graphics2D object to draw to.
      */
     public void draw(Graphics2D graphics2D) {
-        AffineTransform tr = 
-	    AffineTransform.getTranslateInstance(position.getX(),
-						 position.getY());
+        AffineTransform tr =
+            AffineTransform.getTranslateInstance(position.getX(),
+                                                 position.getY());
         if (transform != null) {
             tr.concatenate(transform);
         }

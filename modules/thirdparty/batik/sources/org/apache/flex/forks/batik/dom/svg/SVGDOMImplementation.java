@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,24 +27,20 @@ import org.apache.flex.forks.batik.css.engine.SVGCSSEngine;
 import org.apache.flex.forks.batik.css.engine.value.ShorthandManager;
 import org.apache.flex.forks.batik.css.engine.value.ValueManager;
 import org.apache.flex.forks.batik.css.parser.ExtendedParser;
-import org.apache.flex.forks.batik.css.parser.ExtendedParserWrapper;
 import org.apache.flex.forks.batik.dom.AbstractDocument;
 import org.apache.flex.forks.batik.dom.AbstractStylableDocument;
 import org.apache.flex.forks.batik.dom.ExtensibleDOMImplementation;
 import org.apache.flex.forks.batik.dom.GenericDocumentType;
-import org.apache.flex.forks.batik.dom.GenericElement;
-import org.apache.flex.forks.batik.dom.GenericElementNS;
-import org.apache.flex.forks.batik.dom.StyleSheetFactory;
+import org.apache.flex.forks.batik.dom.events.DOMTimeEvent;
 import org.apache.flex.forks.batik.dom.events.DocumentEventSupport;
 import org.apache.flex.forks.batik.dom.util.CSSStyleDeclarationFactory;
 import org.apache.flex.forks.batik.dom.util.DOMUtilities;
 import org.apache.flex.forks.batik.dom.util.HashTable;
 import org.apache.flex.forks.batik.i18n.LocalizableSupport;
+import org.apache.flex.forks.batik.util.ParsedURL;
 import org.apache.flex.forks.batik.util.SVGConstants;
-import org.apache.flex.forks.batik.util.XMLResourceDescriptor;
 
-import org.w3c.flex.forks.css.sac.InputSource;
-import org.w3c.flex.forks.css.sac.Parser;
+import org.w3c.css.sac.InputSource;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -52,7 +49,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.css.CSSStyleSheet;
-import org.w3c.dom.css.DOMImplementationCSS;
 import org.w3c.dom.css.ViewCSS;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.stylesheets.StyleSheet;
@@ -62,22 +58,22 @@ import org.w3c.dom.stylesheets.StyleSheet;
  * It provides support the SVG 1.1 documents.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGDOMImplementation.java,v 1.31 2005/03/27 08:58:32 cam Exp $
+ * @version $Id: SVGDOMImplementation.java 578768 2007-09-24 11:53:45Z cam $
  */
 public class SVGDOMImplementation
-    extends    ExtensibleDOMImplementation 
+    extends    ExtensibleDOMImplementation
     implements CSSStyleDeclarationFactory {
-    
+
     /**
      * The SVG namespace uri.
      */
-    public final static String SVG_NAMESPACE_URI =
+    public static final String SVG_NAMESPACE_URI =
         SVGConstants.SVG_NAMESPACE_URI;
 
     /**
      * The error messages bundle class name.
      */
-    protected final static String RESOURCES =
+    protected static final String RESOURCES =
         "org.apache.flex.forks.batik.dom.svg.resources.Messages";
 
     protected HashTable factories;
@@ -89,7 +85,6 @@ public class SVGDOMImplementation
         return DOM_IMPLEMENTATION;
     }
 
-    
     /**
      * Creates a new SVGDOMImplementation object.
      */
@@ -106,20 +101,21 @@ public class SVGDOMImplementation
             (RESOURCES, getClass().getClassLoader());
     }
 
-    public CSSEngine createCSSEngine(AbstractStylableDocument doc, 
+    public CSSEngine createCSSEngine(AbstractStylableDocument doc,
                                      CSSContext               ctx,
                                      ExtendedParser           ep,
-                                     ValueManager     []      vms, 
+                                     ValueManager     []      vms,
                                      ShorthandManager []      sms) {
-                                     
-        URL durl = ((SVGOMDocument)doc).getURLObject();
+
+        ParsedURL durl = ((SVGOMDocument)doc).getParsedURL();
         CSSEngine result = new SVGCSSEngine(doc, durl, ep, vms, sms, ctx);
 
         URL url = getClass().getResource("resources/UserAgentStyleSheet.css");
         if (url != null) {
-            InputSource is = new InputSource(url.toString());
+            ParsedURL purl = new ParsedURL(url);
+            InputSource is = new InputSource(purl.toString());
             result.setUserAgentStyleSheet
-                (result.parseStyleSheet(is, url, "all"));
+                (result.parseStyleSheet(is, purl, "all"));
         }
 
         return result;
@@ -162,10 +158,11 @@ public class SVGDOMImplementation
 
     /**
      * <b>DOM</b>: Implements {@link
-     * DOMImplementationCSS#createCSSStyleSheet(String,String)}.
+     * org.w3c.dom.css.DOMImplementationCSS#createCSSStyleSheet(String,String)}.
      */
     public CSSStyleSheet createCSSStyleSheet(String title, String media) {
-        throw new InternalError("Not implemented");
+        throw new UnsupportedOperationException
+            ("DOMImplementationCSS.createCSSStyleSheet is not implemented"); // XXX
     }
 
     // CSSStyleDeclarationFactory ///////////////////////////////////////////
@@ -175,7 +172,8 @@ public class SVGDOMImplementation
      * @return a CSSOMStyleDeclaration instance.
      */
     public CSSStyleDeclaration createCSSStyleDeclaration() {
-        throw new InternalError("Not implemented");
+        throw new UnsupportedOperationException
+            ("CSSStyleDeclarationFactory.createCSSStyleDeclaration is not implemented"); // XXX
     }
 
     // StyleSheetFactory /////////////////////////////////////////////
@@ -185,14 +183,16 @@ public class SVGDOMImplementation
      * processing instruction or return null.
      */
     public StyleSheet createStyleSheet(Node n, HashTable attrs) {
-        throw new InternalError("Not implemented");
+        throw new UnsupportedOperationException
+            ("StyleSheetFactory.createStyleSheet is not implemented"); // XXX
     }
 
     /**
      * Returns the user-agent stylesheet.
      */
     public CSSStyleSheet getUserAgentStyleSheet() {
-        throw new InternalError("Not implemented");
+        throw new UnsupportedOperationException
+            ("StyleSheetFactory.getUserAgentStyleSheet is not implemented"); // XXX
     }
 
     /**
@@ -226,6 +226,12 @@ public class SVGDOMImplementation
                                     new DocumentEventSupport.EventFactory() {
                                             public Event createEvent() {
                                                 return new SVGOMEvent();
+                                            }
+                                        });
+        result.registerEventFactory("TimeEvent",
+                                    new DocumentEventSupport.EventFactory() {
+                                            public Event createEvent() {
+                                                return new DOMTimeEvent();
                                             }
                                         });
         return result;
@@ -495,7 +501,7 @@ public class SVGDOMImplementation
             return new SVGOMAElement(prefix, (AbstractDocument)doc);
         }
     }
-    
+
     /**
      * To create a 'altGlyph' element.
      */
@@ -1587,7 +1593,7 @@ public class SVGDOMImplementation
     /**
      * The default instance of this class.
      */
-    protected final static DOMImplementation DOM_IMPLEMENTATION =
+    protected static final DOMImplementation DOM_IMPLEMENTATION =
         new SVGDOMImplementation();
 
 }

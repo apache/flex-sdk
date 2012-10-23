@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,18 +26,18 @@ import org.apache.flex.forks.batik.i18n.Localizable;
  * This interface represents a parser.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: Parser.java,v 1.5 2004/08/18 07:14:47 vhardy Exp $
+ * @version $Id: Parser.java 478188 2006-11-22 15:19:17Z dvholten $
  */
 public interface Parser extends Localizable {
     /**
      * Parses the given reader
      */
-    public void parse(Reader r) throws ParseException;
+    void parse(Reader r) throws ParseException;
 
     /**
      * Parses the given string
      */
-    public void parse(String s) throws ParseException;
+    void parse(String s) throws ParseException;
 
     /**
      * Allows an application to register an error event handler.

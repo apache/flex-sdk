@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -20,28 +21,32 @@ package org.apache.flex.forks.batik.extension.svg;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.Filter;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.FilterColorInterpolation;
 
-public interface BatikHistogramNormalizationFilter 
+/**
+ *
+ * @version $Id: BatikHistogramNormalizationFilter.java 498740 2007-01-22 18:35:57Z dvholten $
+ */
+public interface BatikHistogramNormalizationFilter
     extends FilterColorInterpolation {
 
     /**
      * Returns the source to be offset.
      */
-    public Filter getSource();
+    Filter getSource();
 
     /**
      * Sets the source to be offset.
      * @param src image to offset.
      */
-    public void setSource(Filter src);
+    void setSource(Filter src);
 
     /**
      * Returns the trim percent for this normalization.
      */
-    public float getTrim();
+    float getTrim();
 
 
     /**
      * Sets the trim percent for this normalization.
      */
-    public void setTrim(float trim);
+    void setTrim(float trim);
 }

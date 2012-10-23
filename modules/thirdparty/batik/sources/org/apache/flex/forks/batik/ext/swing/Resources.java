@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,13 +23,13 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 
 import org.apache.flex.forks.batik.i18n.LocalizableSupport;
-import org.apache.flex.forks.batik.util.gui.resource.ResourceManager;
+import org.apache.flex.forks.batik.util.resources.ResourceManager;
 
 /**
  * This class manages the message for the Swing extensions.
  *
  * @author <a href="mailto:vhardy@apache.org">Vincent Hardy</a>
- * @version $Id: Resources.java,v 1.6 2004/10/30 18:38:05 deweese Exp $
+ * @version $Id: Resources.java 592928 2007-11-07 22:34:15Z cam $
  */
 public class Resources {
 
@@ -40,7 +41,7 @@ public class Resources {
     /**
      * The error messages bundle class name.
      */
-    protected final static String RESOURCES =
+    protected static final String RESOURCES =
         "org.apache.flex.forks.batik.ext.swing.resources.Messages";
 
     /**
@@ -84,7 +85,7 @@ public class Resources {
         return resourceManager.getString(key);
     }
 
-    public static int getInteger(String key) 
+    public static int getInteger(String key)
         throws MissingResourceException {
         return resourceManager.getInteger(key);
     }

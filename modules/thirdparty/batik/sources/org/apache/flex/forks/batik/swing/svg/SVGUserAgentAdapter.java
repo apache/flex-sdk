@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -46,7 +47,7 @@ import org.apache.flex.forks.batik.bridge.NoLoadScriptSecurity;
  * In a GUI environment you probably want to use SVGUserAgentGUIAdapter.
  *
  * @author <a href="mailto:deweese@apache.org">deweese</a>
- * @version $Id: SVGUserAgentAdapter.java,v 1.3 2005/03/27 08:58:36 cam Exp $
+ * @version $Id: SVGUserAgentAdapter.java 478176 2006-11-22 14:50:50Z dvholten $
  */
 public class SVGUserAgentAdapter implements SVGUserAgent {
     public SVGUserAgentAdapter() { }
@@ -107,7 +108,7 @@ public class SVGUserAgentAdapter implements SVGUserAgent {
     public float getPixelUnitToMillimeter() {
         return 0.26458333333333333333333333333333f; // 96dpi
     }
-        
+
     /**
      * Returns the size of a px CSS unit in millimeters.
      * This will be removed after next release.
@@ -115,7 +116,7 @@ public class SVGUserAgentAdapter implements SVGUserAgent {
      */
     public float getPixelToMM() {
         return getPixelUnitToMillimeter();
-            
+
     }
 
     /**
@@ -125,8 +126,8 @@ public class SVGUserAgentAdapter implements SVGUserAgent {
         return "Serif";
     }
 
-    /** 
-     * Returns the  medium font size. 
+    /**
+     * Returns the  medium font size.
      */
     public float getMediumFontSize() {
         // 9pt (72pt == 1in)
@@ -242,14 +243,14 @@ public class SVGUserAgentAdapter implements SVGUserAgent {
     /**
      * Returns the security settings for the given script
      * type, script url and document url
-     * 
-     * @param scriptType type of script, as found in the 
+     *
+     * @param scriptType type of script, as found in the
      *        type attribute of the &lt;script&gt; element.
      * @param scriptURL url for the script, as defined in
      *        the script's xlink:href attribute. If that
      *        attribute was empty, then this parameter should
      *        be null
-     * @param docURL url for the document into which the 
+     * @param docURL url for the document into which the
      *        script was found.
      */
     public ScriptSecurity getScriptSecurity(String scriptType,
@@ -273,18 +274,18 @@ public class SVGUserAgentAdapter implements SVGUserAgent {
      * This method throws a SecurityException if the script
      * of given type, found at url and referenced from docURL
      * should not be loaded.
-     * 
+     *
      * This is a convenience method to call checkLoadScript
-     * on the ScriptSecurity strategy returned by 
+     * on the ScriptSecurity strategy returned by
      * getScriptSecurity.
      *
-     * @param scriptType type of script, as found in the 
+     * @param scriptType type of script, as found in the
      *        type attribute of the &lt;script&gt; element.
      * @param scriptURL url for the script, as defined in
      *        the script's xlink:href attribute. If that
      *        attribute was empty, then this parameter should
      *        be null
-     * @param docURL url for the document into which the 
+     * @param docURL url for the document into which the
      *        script was found.
      */
     public void checkLoadScript(String scriptType,
@@ -296,21 +297,21 @@ public class SVGUserAgentAdapter implements SVGUserAgent {
 
         if (s != null) {
             s.checkLoadScript();
-        } 
+        }
     }
 
     /**
-     * Returns the security settings for the given 
+     * Returns the security settings for the given
      * resource url and document url
-     * 
+     *
      * @param resourceURL url for the resource, as defined in
      *        the resource's xlink:href attribute. If that
      *        attribute was empty, then this parameter should
      *        be null
-     * @param docURL url for the document into which the 
+     * @param docURL url for the document into which the
      *        resource was found.
      */
-    public ExternalResourceSecurity 
+    public ExternalResourceSecurity
         getExternalResourceSecurity(ParsedURL resourceURL,
                                     ParsedURL docURL){
         return new RelaxedExternalResourceSecurity(resourceURL,
@@ -327,26 +328,26 @@ public class SVGUserAgentAdapter implements SVGUserAgent {
      * This method throws a SecurityException if the resource
      * found at url and referenced from docURL
      * should not be loaded.
-     * 
+     *
      * This is a convenience method to call checkLoadExternalResource
-     * on the ExternalResourceSecurity strategy returned by 
+     * on the ExternalResourceSecurity strategy returned by
      * getExternalResourceSecurity.
      *
      * @param resourceURL url for the resource, as defined in
      *        the resource's xlink:href attribute. If that
      *        attribute was empty, then this parameter should
      *        be null
-     * @param docURL url for the document into which the 
+     * @param docURL url for the document into which the
      *        resource was found.
      */
-    public void 
+    public void
         checkLoadExternalResource(ParsedURL resourceURL,
                                   ParsedURL docURL) throws SecurityException {
-        ExternalResourceSecurity s 
+        ExternalResourceSecurity s
             =  getExternalResourceSecurity(resourceURL, docURL);
-            
+
         if (s != null) {
             s.checkLoadExternalResource();
         }
     }
-};
+}

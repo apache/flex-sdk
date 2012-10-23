@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -32,7 +33,7 @@ import org.apache.flex.forks.batik.util.gui.ExtendedGridBagConstraints;
  * of the PNG, i.e. RGB or INDEXED.
  *
  * @author <a href="mailto:jun@oop-reserch.com">Jun Inamori</a>
- *
+ * @version $Id: PNGOptionPanel.java 498740 2007-01-22 18:35:57Z dvholten $
  */
 public class PNGOptionPanel extends OptionPanel {
 
@@ -45,34 +46,34 @@ public class PNGOptionPanel extends OptionPanel {
      * Creates a new panel.
      */
     public PNGOptionPanel() {
-	super(new GridBagLayout());
+        super(new GridBagLayout());
 
-	ExtendedGridBagConstraints constraints = 
-	    new ExtendedGridBagConstraints();
+        ExtendedGridBagConstraints constraints =
+            new ExtendedGridBagConstraints();
 
-	
-	constraints.insets = new Insets(5, 5, 5, 5);
 
-	constraints.weightx = 0;
-	constraints.weighty = 0;
-	constraints.fill = GridBagConstraints.NONE;
-	constraints.setGridBounds(0, 0, 1, 1);
-	add(new JLabel(resources.getString("PNGOptionPanel.label")), 
-	    constraints);
+        constraints.insets = new Insets(5, 5, 5, 5);
 
-	check=new JCheckBox();
+        constraints.weightx = 0;
+        constraints.weighty = 0;
+        constraints.fill = GridBagConstraints.NONE;
+        constraints.setGridBounds(0, 0, 1, 1);
+        add(new JLabel(resources.getString("PNGOptionPanel.label")),
+            constraints);
 
-	constraints.weightx = 1.0;
-	constraints.fill = GridBagConstraints.HORIZONTAL;
-	constraints.setGridBounds(1, 0, 1, 1);
-	add(check, constraints);
+        check=new JCheckBox();
+
+        constraints.weightx = 1.0;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.setGridBounds(1, 0, 1, 1);
+        add(check, constraints);
     }
 
     /**
      * Returns if indexed or not
      */
     public boolean isIndexed() {
-	return check.isSelected();
+        return check.isSelected();
     }
 
     /**
@@ -81,9 +82,9 @@ public class PNGOptionPanel extends OptionPanel {
     public static boolean showDialog(Component parent) {
         String title = resources.getString("PNGOptionPanel.dialog.title");
         PNGOptionPanel panel = new PNGOptionPanel();
-	Dialog dialog = new Dialog(parent, title, panel);
-	dialog.pack();
-	dialog.show();
-	return panel.isIndexed();
+        Dialog dialog = new Dialog(parent, title, panel);
+        dialog.pack();
+        dialog.setVisible(true);
+        return panel.isIndexed();
     }
 }

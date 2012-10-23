@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -53,7 +54,7 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.PadRed;
  *   Does not support edgeMode="wrap" - pending Tile code.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: ConvolveMatrixRable8Bit.java,v 1.10 2004/08/18 07:13:59 vhardy Exp $
+ * @version $Id: ConvolveMatrixRable8Bit.java 478363 2006-11-22 23:01:13Z dvholten $
  */
 public class ConvolveMatrixRable8Bit
     extends    AbstractColorInterpolationRable
@@ -197,7 +198,7 @@ public class ConvolveMatrixRable8Bit
             (!bi.isAlphaPremultiplied()))
             // No need to fix alpha if it isn't premultiplied...
             return;
-        if (GraphicsUtil.is_INT_PACK_Data(bi.getSampleModel(), true)) 
+        if (GraphicsUtil.is_INT_PACK_Data(bi.getSampleModel(), true))
             fixAlpha_INT_PACK(bi.getRaster());
         else
             fixAlpha_FALLBACK(bi.getRaster());
@@ -215,16 +216,15 @@ public class ConvolveMatrixRable8Bit
             = (db.getOffset() +
                sppsm.getOffset(wr.getMinX()-wr.getSampleModelTranslateX(),
                                wr.getMinY()-wr.getSampleModelTranslateY()));
-        int pixel, a, v;
         // Access the pixel data array
-        final int pixels[] = db.getBankData()[0];
+        final int[] pixels = db.getBankData()[0];
         for (int y=0; y<wr.getHeight(); y++) {
             int sp = base + y*scanStride;
             final int end = sp + width;
             while (sp < end) {
-                pixel = pixels[sp];
-                a = pixel>>>24;
-                v = (pixel>>16)&0xFF;
+                int pixel = pixels[sp];
+                int a = pixel>>>24;          
+                int v = (pixel>>16)&0xFF;
                 if (a < v) a = v;
                 v = (pixel>> 8)&0xFF;
                 if (a < v) a = v;

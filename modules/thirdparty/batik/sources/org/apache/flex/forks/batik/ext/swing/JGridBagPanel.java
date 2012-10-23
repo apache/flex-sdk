@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -14,7 +15,8 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
- */package org.apache.flex.forks.batik.ext.swing;
+ */
+package org.apache.flex.forks.batik.ext.swing;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -26,11 +28,10 @@ import javax.swing.JPanel;
 
 /**
  * An implementation of JPanel that uses the GridBagLayout.
- * 
+ *
  * @author  <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: JGridBagPanel.java,v 1.6 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: JGridBagPanel.java 479559 2006-11-27 09:46:16Z dvholten $
  */
-
 public class JGridBagPanel extends JPanel implements GridBagConstants{
     /**
      * Provides insets desired for a given grid cell
@@ -39,7 +40,7 @@ public class JGridBagPanel extends JPanel implements GridBagConstants{
         /**
          * Returns the insets for cell (gridx, gridy);
          */
-        public Insets getInsets(int gridx, int gridy);
+        Insets getInsets(int gridx, int gridy);
     }
 
     /**
@@ -58,17 +59,17 @@ public class JGridBagPanel extends JPanel implements GridBagConstants{
      */
     private static class DefaultInsetsManager implements InsetsManager{
         /**
-         * leftInset is the space used by default as a padding to the 
+         * leftInset is the space used by default as a padding to the
          * left of each grid cell.
          */
         int leftInset=5;
-        
+
         /**
-         * topInset is the space used by default as a padding to the 
+         * topInset is the space used by default as a padding to the
          * top of each grid cell.
          */
         int topInset=5;
-        
+
         public Insets positiveInsets = new Insets(topInset, leftInset, 0, 0);
         public Insets leftInsets = new Insets(topInset, 0, 0, 0);
         public Insets topInsets = new Insets(0, leftInset, 0, 0);
@@ -137,7 +138,7 @@ public class JGridBagPanel extends JPanel implements GridBagConstants{
      * This version uses default insets and assumes that components are added in
      * positive cell coordinates. Top inset for components added to the top
      * is 0. Left inset for components added to the left is 0. For compoents at
-     * index gridx more than zero and index gridy more than zero, the insets 
+     * index gridx more than zero and index gridy more than zero, the insets
      * are set to a default value.
      *
      * @param cmp Component to add to the panel
@@ -151,7 +152,7 @@ public class JGridBagPanel extends JPanel implements GridBagConstants{
      * @param weighty what amount of extra vertical space, if any, should be given to this component?
      */
     public void add(Component cmp, int gridx, int gridy,
-                    int gridwidth, int gridheight, int anchor, int fill, 
+                    int gridwidth, int gridheight, int anchor, int fill,
                     double weightx, double weighty){
         Insets insets = insetsManager.getInsets(gridx, gridy);
         GridBagConstraints constraints = new GridBagConstraints();

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,10 +28,10 @@ import org.w3c.dom.Node;
  * support for namespaces.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: AbstractAttrNS.java,v 1.5 2005/02/22 09:12:57 cam Exp $
+ * @version $Id: AbstractAttrNS.java 476799 2006-11-19 11:33:41Z cam $
  */
-
 public abstract class AbstractAttrNS extends AbstractAttr {
+
     /**
      * The namespace URI
      */
@@ -63,33 +64,39 @@ public abstract class AbstractAttrNS extends AbstractAttr {
      *   "http://www.w3.org/2000/xmlns/".
      */
     protected AbstractAttrNS(String nsURI,
-			     String qname,
-			     AbstractDocument owner)
-	throws DOMException {
-	super(qname, owner);
-	namespaceURI = nsURI;
-	String prefix = DOMUtilities.getPrefix(qname);
-	if (prefix != null) {
-	    if (nsURI == null || nsURI.equals("") ||
-		("xml".equals(prefix) &&
-		 !XMLSupport.XML_NAMESPACE_URI.equals(nsURI)) ||
-		("xmlns".equals(prefix) &&
-		 !XMLSupport.XMLNS_NAMESPACE_URI.equals(nsURI))) {
-		throw createDOMException
+                             String qname,
+                             AbstractDocument owner)
+        throws DOMException {
+        super(qname, owner);
+        if (nsURI != null && nsURI.length() == 0) {
+            nsURI = null;
+        }
+        namespaceURI = nsURI;
+        String prefix = DOMUtilities.getPrefix(qname);
+        if (!owner.getStrictErrorChecking()) {
+            return;
+        }
+        if (prefix != null) {
+            if (nsURI == null ||
+                ("xml".equals(prefix) &&
+                 !XMLSupport.XML_NAMESPACE_URI.equals(nsURI)) ||
+                ("xmlns".equals(prefix) &&
+                 !XMLSupport.XMLNS_NAMESPACE_URI.equals(nsURI))) {
+                throw createDOMException
                     (DOMException.NAMESPACE_ERR,
                      "namespace.uri",
                      new Object[] { new Integer(getNodeType()),
                                     getNodeName(),
                                     nsURI });
-	    }
-	} else if ("xmlns".equals(qname) &&
-		   !XMLSupport.XMLNS_NAMESPACE_URI.equals(nsURI)) {
-	    throw createDOMException(DOMException.NAMESPACE_ERR,
-				     "namespace.uri",
-				     new Object[] { new Integer(getNodeType()),
-						    getNodeName(),
-						    nsURI });
-	}
+            }
+        } else if ("xmlns".equals(qname) &&
+                   !XMLSupport.XMLNS_NAMESPACE_URI.equals(nsURI)) {
+            throw createDOMException(DOMException.NAMESPACE_ERR,
+                                     "namespace.uri",
+                                     new Object[] { new Integer(getNodeType()),
+                                                    getNodeName(),
+                                                    nsURI });
+        }
     }
 
     /**
@@ -97,27 +104,27 @@ public abstract class AbstractAttrNS extends AbstractAttr {
      * @return {@link #namespaceURI}.
      */
     public String getNamespaceURI() {
-	return namespaceURI;
+        return namespaceURI;
     }
 
     /**
      * Exports this node to the given document.
      */
     protected Node export(Node n, AbstractDocument d) {
-	super.export(n, d);
-	AbstractAttrNS aa = (AbstractAttrNS)n;
-	aa.namespaceURI = namespaceURI;
-	return n;
+        super.export(n, d);
+        AbstractAttrNS aa = (AbstractAttrNS)n;
+        aa.namespaceURI = namespaceURI;
+        return n;
     }
 
     /**
      * Deeply exports this node to the given document.
      */
     protected Node deepExport(Node n, AbstractDocument d) {
-	super.deepExport(n, d);
-	AbstractAttrNS aa = (AbstractAttrNS)n;
-	aa.namespaceURI = namespaceURI;
-	return n;
+        super.deepExport(n, d);
+        AbstractAttrNS aa = (AbstractAttrNS)n;
+        aa.namespaceURI = namespaceURI;
+        return n;
     }
 
     /**
@@ -125,10 +132,10 @@ public abstract class AbstractAttrNS extends AbstractAttr {
      * @param n a node of the type of this.
      */
     protected Node copyInto(Node n) {
-	super.copyInto(n);
-	AbstractAttrNS aa = (AbstractAttrNS)n;
-	aa.namespaceURI = namespaceURI;
-	return n;
+        super.copyInto(n);
+        AbstractAttrNS aa = (AbstractAttrNS)n;
+        aa.namespaceURI = namespaceURI;
+        return n;
     }
 
     /**
@@ -136,9 +143,9 @@ public abstract class AbstractAttrNS extends AbstractAttr {
      * @param n a node of the type of this.
      */
     protected Node deepCopyInto(Node n) {
-	super.deepCopyInto(n);
-	AbstractAttrNS aa = (AbstractAttrNS)n;
-	aa.namespaceURI = namespaceURI;
-	return n;
+        super.deepCopyInto(n);
+        AbstractAttrNS aa = (AbstractAttrNS)n;
+        aa.namespaceURI = namespaceURI;
+        return n;
     }
 }

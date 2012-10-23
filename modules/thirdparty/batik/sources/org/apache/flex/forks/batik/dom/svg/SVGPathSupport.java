@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2005 The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -20,29 +21,37 @@ package org.apache.flex.forks.batik.dom.svg;
 
 import java.awt.geom.Point2D;
 
-import org.w3c.flex.forks.dom.svg.SVGPoint;
-import org.w3c.flex.forks.dom.svg.SVGMatrix;
+import org.w3c.dom.svg.SVGPoint;
+import org.w3c.dom.svg.SVGMatrix;
 import org.w3c.dom.DOMException;
 
 /**
- * The clas provides support for the SVGPath interface.
+ * The class provides support for the SVGPath interface.
  *
- * @author <a href="mailto:deweese@apache.org">deweese</a>
- * @version $Id: SVGPathSupport.java,v 1.3 2005/04/02 14:26:09 deweese Exp $
+ * @author <a href="mailto:deweese@apache.org">Thomas DeWeese</a>
+ * @version $Id: SVGPathSupport.java 478249 2006-11-22 17:29:37Z dvholten $
  */
 public class SVGPathSupport {
 
     /**
-     * To implement {@link org.w3c.flex.forks.dom.svg.SVGPathElement#getTotalLength()}.
+     * To implement {@link org.w3c.dom.svg.SVGPathElement#getTotalLength()}.
      */
     public static float getTotalLength(SVGOMPathElement path) {
         SVGPathContext pathCtx = (SVGPathContext)path.getSVGContext();
         return pathCtx.getTotalLength();
     }
 
+    /**
+     * To implement {@link
+     * org.w3c.dom.svg.SVGPathElement#getPathSegAtLength(float)}.
+     */
+    public static int getPathSegAtLength(SVGOMPathElement path, float x) {
+        SVGPathContext pathCtx = (SVGPathContext)path.getSVGContext();
+        return pathCtx.getPathSegAtLength(x);
+    }
 
     /**
-     * To implement {@link org.w3c.flex.forks.dom.svg.SVGPathElement#getPointAtLength(float)}.
+     * To implement {@link org.w3c.dom.svg.SVGPathElement#getPointAtLength(float)}.
      */
     public static SVGPoint getPointAtLength(final SVGOMPathElement path,
                                             final float distance) {
@@ -75,4 +84,4 @@ public class SVGPathSupport {
                 }
             };
     }
-};
+}

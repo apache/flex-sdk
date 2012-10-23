@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -38,7 +39,7 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.PadRed;
  * This pads the image to a specified rectangle in user coord system.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: PadRable8Bit.java,v 1.11 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: PadRable8Bit.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public class PadRable8Bit extends AbstractRable
     implements PadRable, PaintRable {
@@ -108,13 +109,13 @@ public class PadRable8Bit extends AbstractRable
     }
 
     /**
-     * Should perform the equivilent action as 
-     * createRendering followed by drawing the RenderedImage to 
+     * Should perform the equivilent action as
+     * createRendering followed by drawing the RenderedImage to
      * Graphics2D, or return false.
      *
      * @param g2d The Graphics2D to draw to.
      * @return true if the paint call succeeded, false if
-     *         for some reason the paint failed (in which 
+     *         for some reason the paint failed (in which
      *         case a createRendering should be used).
      */
     public boolean paintRable(Graphics2D g2d) {
@@ -155,19 +156,19 @@ public class PadRable8Bit extends AbstractRable
         Rectangle2D srect = src.getBounds2D();
         Rectangle2D rect  = getBounds2D();
         Rectangle2D arect = aoi.getBounds2D();
-        
+
         // System.out.println("Rects Src:" + srect +
         //                    "My: " + rect +
         //                    "AOI: " + arect);
-        if (arect.intersects(rect) == false)
+        if ( ! arect.intersects(rect) )
             return null;
         Rectangle2D.intersect(arect, rect, arect);
 
         RenderedImage ri = null;
-        if (arect.intersects(srect) == true) {
+        if ( arect.intersects(srect) ) {
             srect = (Rectangle2D)srect.clone();
             Rectangle2D.intersect(srect, arect, srect);
-            
+
             RenderContext srcRC = new RenderContext(usr2dev, srect, rh);
             ri = src.createRendering(srcRC);
 
@@ -183,9 +184,9 @@ public class PadRable8Bit extends AbstractRable
         // System.out.println("RI: " + ri + " R: " + srect);
 
         CachableRed cr = GraphicsUtil.wrap(ri);
-            
+
         arect = usr2dev.createTransformedShape(arect).getBounds2D();
-            
+
         // System.out.println("Pad rect : " + arect);
         // Use arect (my bounds intersect area of interest)
         cr = new PadRed(cr, arect.getBounds(), padMode, rh);
@@ -200,12 +201,12 @@ public class PadRable8Bit extends AbstractRable
         // our bounds and his bounds (remember our bounds may be
         // tighter than his in one or both directions).
         Rectangle2D srect = getSource().getBounds2D();
-        if (srect.intersects(outputRgn) == false)
+        if ( ! srect.intersects(outputRgn) )
             return new Rectangle2D.Float();
         Rectangle2D.intersect(srect, outputRgn, srect);
 
         Rectangle2D bounds = getBounds2D();
-        if (srect.intersects(bounds) == false)
+        if ( ! srect.intersects(bounds) )
             return new Rectangle2D.Float();
         Rectangle2D.intersect(srect, bounds, srect);
         return srect;
@@ -219,7 +220,7 @@ public class PadRable8Bit extends AbstractRable
         Rectangle2D bounds = getBounds2D();
         // Changes in the input region don't propogate outside our
         // bounds.
-        if (inputRgn.intersects(bounds) == false)
+        if ( ! inputRgn.intersects(bounds) )
             return new Rectangle2D.Float();
         Rectangle2D.intersect(inputRgn, bounds, inputRgn);
         return inputRgn;

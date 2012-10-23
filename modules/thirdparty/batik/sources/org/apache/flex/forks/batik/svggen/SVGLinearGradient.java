@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -30,7 +31,7 @@ import org.w3c.dom.Element;
  * SVG linear gradient element
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: SVGLinearGradient.java,v 1.15 2004/08/18 07:15:08 vhardy Exp $
+ * @version $Id: SVGLinearGradient.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class SVGLinearGradient extends AbstractSVGConverter {
     /**
@@ -81,13 +82,13 @@ public class SVGLinearGradient extends AbstractSVGConverter {
             Point2D p1 = gradient.getPoint1();
             Point2D p2 = gradient.getPoint2();
             gradientDef.setAttributeNS(null, SVG_X1_ATTRIBUTE,
-                                       "" + doubleString(p1.getX()));
+                                       doubleString(p1.getX()));
             gradientDef.setAttributeNS(null, SVG_Y1_ATTRIBUTE,
-                                       "" + doubleString(p1.getY()));
+                                       doubleString(p1.getY()));
             gradientDef.setAttributeNS(null, SVG_X2_ATTRIBUTE,
-                                       "" + doubleString(p2.getX()));
+                                       doubleString(p2.getX()));
             gradientDef.setAttributeNS(null, SVG_Y2_ATTRIBUTE,
-                                       "" + doubleString(p2.getY()));
+                                       doubleString(p2.getY()));
 
             //
             // Spread method
@@ -134,7 +135,7 @@ public class SVGLinearGradient extends AbstractSVGConverter {
             // Gradient ID
             //
             gradientDef.
-                setAttributeNS(null, ATTR_ID,
+                setAttributeNS(null, SVG_ID_ATTRIBUTE,
                                generatorContext.idGenerator.
                                generateID(ID_PREFIX_LINEAR_GRADIENT));
 
@@ -143,7 +144,7 @@ public class SVGLinearGradient extends AbstractSVGConverter {
             //
             StringBuffer paintAttrBuf = new StringBuffer(URL_PREFIX);
             paintAttrBuf.append(SIGN_POUND);
-            paintAttrBuf.append(gradientDef.getAttributeNS(null, ATTR_ID));
+            paintAttrBuf.append(gradientDef.getAttributeNS(null, SVG_ID_ATTRIBUTE));
             paintAttrBuf.append(URL_SUFFIX);
 
             gradientDesc = new SVGPaintDescriptor(paintAttrBuf.toString(),

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -30,7 +31,7 @@ import org.apache.flex.forks.batik.util.EncodingUtilities;
  * bytes.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: StreamNormalizingReader.java,v 1.5 2004/08/18 07:15:58 vhardy Exp $
+ * @version $Id: StreamNormalizingReader.java 478169 2006-11-22 14:23:24Z dvholten $
  */
 public class StreamNormalizingReader extends NormalizingReader {
 
@@ -119,7 +120,7 @@ public class StreamNormalizingReader extends NormalizingReader {
             }
             nextChar = c;
             return 10;
-                
+
         case 10:
             column = 0;
             line++;
@@ -169,7 +170,7 @@ public class StreamNormalizingReader extends NormalizingReader {
     /**
      * The CharDecoder factories map.
      */
-    protected final static Map charDecoderFactories = new HashMap(11);
+    protected static final Map charDecoderFactories = new HashMap(11);
     static {
         CharDecoderFactory cdf = new ASCIIDecoderFactory();
         charDecoderFactories.put("ASCII", cdf);

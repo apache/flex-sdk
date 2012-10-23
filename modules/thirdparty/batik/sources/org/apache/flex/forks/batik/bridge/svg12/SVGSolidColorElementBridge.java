@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,7 +23,7 @@ import java.awt.Paint;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.flex.forks.batik.bridge.AbstractSVGBridge;
+import org.apache.flex.forks.batik.bridge.AnimatableGenericSVGBridge;
 import org.apache.flex.forks.batik.bridge.BridgeContext;
 import org.apache.flex.forks.batik.bridge.BridgeException;
 import org.apache.flex.forks.batik.bridge.CSSUtilities;
@@ -47,9 +48,10 @@ import org.w3c.dom.css.CSSValue;
  * Bridge class for a regular polygon element.
  *
  * @author <a href="mailto:thomas.deweese@kodak.com">Thomas Deweese</a>
+ * @version $Id: SVGSolidColorElementBridge.java 498740 2007-01-22 18:35:57Z dvholten $
  */
-public class SVGSolidColorElementBridge extends AbstractSVGBridge
-    implements PaintBridge {
+public class SVGSolidColorElementBridge extends AnimatableGenericSVGBridge
+        implements PaintBridge {
 
     /**
      * Constructs a new bridge for the &lt;rect> element.
@@ -90,7 +92,7 @@ public class SVGSolidColorElementBridge extends AbstractSVGBridge
         return extractColor(paintElement, opacity, ctx);
     }
 
-    protected static float extractOpacity(Element paintElement, 
+    protected static float extractOpacity(Element paintElement,
                                           float opacity,
                                           BridgeContext ctx) {
         Map refs = new HashMap();
@@ -101,7 +103,7 @@ public class SVGSolidColorElementBridge extends AbstractSVGBridge
         for (;;) {
             Value opacityVal =
                 CSSUtilities.getComputedStyle(paintElement, pidx);
-        
+
             // Was solid-opacity explicity set on this element?
             StyleMap sm =
                 ((CSSStylableElement)paintElement).getComputedStyleMap(null);
@@ -122,7 +124,7 @@ public class SVGSolidColorElementBridge extends AbstractSVGBridge
             // check if there is circular dependencies
             if (refs.containsKey(purl)) {
                 throw new BridgeException
-                    (paintElement,
+                    (ctx, paintElement,
                      ErrorConstants.ERR_XLINK_HREF_CIRCULAR_DEPENDENCIES,
                      new Object[] {uri});
             }
@@ -131,7 +133,7 @@ public class SVGSolidColorElementBridge extends AbstractSVGBridge
         }
     }
 
-    protected static Color extractColor(Element paintElement, 
+    protected static Color extractColor(Element paintElement,
                                         float opacity,
                                         BridgeContext ctx) {
         Map refs = new HashMap();
@@ -142,7 +144,7 @@ public class SVGSolidColorElementBridge extends AbstractSVGBridge
         for (;;) {
             Value colorDef =
                 CSSUtilities.getComputedStyle(paintElement, pidx);
-        
+
             // Was solid-color explicity set on this element?
             StyleMap sm =
                 ((CSSStylableElement)paintElement).getComputedStyleMap(null);
@@ -162,8 +164,8 @@ public class SVGSolidColorElementBridge extends AbstractSVGBridge
 
             String uri = XLinkSupport.getXLinkHref(paintElement);
             if (uri.length() == 0) {
-                // no xlink:href found, exit    
-                return new Color(0, 0, 0, opacity); 
+                // no xlink:href found, exit
+                return new Color(0, 0, 0, opacity);
             }
 
             SVGOMDocument doc = (SVGOMDocument)paintElement.getOwnerDocument();
@@ -172,7 +174,7 @@ public class SVGSolidColorElementBridge extends AbstractSVGBridge
             // check if there is circular dependencies
             if (refs.containsKey(purl)) {
                 throw new BridgeException
-                    (paintElement,
+                    (ctx, paintElement,
                      ErrorConstants.ERR_XLINK_HREF_CIRCULAR_DEPENDENCIES,
                      new Object[] {uri});
             }

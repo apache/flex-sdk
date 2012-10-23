@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,40 +28,40 @@ import org.apache.flex.forks.batik.ext.awt.image.PadMode;
  * specified in the user coordinate system of this Renderable.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: PadRable.java,v 1.6 2005/03/27 08:58:33 cam Exp $ */
+ * @version $Id: PadRable.java 478276 2006-11-22 18:33:37Z dvholten $ */
 public interface PadRable extends Filter {
     /**
      * Returns the source to be padded
      */
-    public Filter getSource();
+    Filter getSource();
 
     /**
      * Sets the source to be padded
      * @param src image to offset.
      */
-    public void setSource(Filter src);
+    void setSource(Filter src);
 
     /**
      * Set the current rectangle for padding.
      * @param rect the new rectangle to use for pad.
      */
-    public void setPadRect(Rectangle2D rect);
+    void setPadRect(Rectangle2D rect);
 
     /**
      * Get the current rectangle for padding
      * @return Rectangle currently in use for pad.
      */
-    public Rectangle2D getPadRect();
+    Rectangle2D getPadRect();
 
     /**
      * Set the current extension mode for pad
      * @param mode the new pad mode
      */
-    public void setPadMode(PadMode mode);
+    void setPadMode(PadMode mode);
 
     /**
      * Get the current extension mode for pad
      * @return Mode currently in use for pad
      */
-    public PadMode getPadMode();
+    PadMode getPadMode();
 }

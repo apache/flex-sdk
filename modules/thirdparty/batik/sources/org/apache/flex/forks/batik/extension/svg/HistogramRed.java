@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,7 +27,7 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.CachableRed;
 /**
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: HistogramRed.java,v 1.5 2004/08/18 07:14:22 vhardy Exp $
+ * @version $Id: HistogramRed.java 479564 2006-11-27 09:56:57Z dvholten $
  */
 public class HistogramRed extends AbstractRed {
 
@@ -43,13 +44,13 @@ public class HistogramRed extends AbstractRed {
         int tiles = getNumXTiles()*getNumYTiles();
         computed = new boolean[tiles];
     }
-    
+
     public void tallyTile(Raster r) {
         final int minX = r.getMinX();
         final int minY = r.getMinY();
         final int w = r.getWidth();
         final int h = r.getHeight();
-        
+
         int [] samples = null;
         int val;
         for (int y=minY; y<minY+h; y++) {
@@ -69,12 +70,12 @@ public class HistogramRed extends AbstractRed {
         if (tallied == computed.length)
             return bins;
 
-        CachableRed src = (CachableRed)getSources().elementAt(0);
+        CachableRed src = (CachableRed)getSources().get( 0 );
         int yt0 = src.getMinTileY();
 
         int xtiles = src.getNumXTiles();
         int xt0 = src.getMinTileX();
-            
+
         for (int y=0; y<src.getNumYTiles(); y++) {
             for (int x=0; x<xtiles; x++) {
                 int idx = (x+xt0)+y*xtiles;
@@ -92,17 +93,17 @@ public class HistogramRed extends AbstractRed {
         copyToRaster(wr);
         return wr;
     }
-    
+
     public Raster getTile(int tileX, int tileY) {
         int yt = tileY-getMinTileY();
         int xt = tileX-getMinTileX();
 
-        CachableRed src = (CachableRed)getSources().elementAt(0);
+        CachableRed src = (CachableRed)getSources().get(0);
         Raster r = src.getTile(tileX, tileY);
-        
+
         int idx = xt+yt*getNumXTiles();
 
-        if (computed[idx]) 
+        if (computed[idx])
             return r;
 
         tallyTile(r);

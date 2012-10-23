@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,31 +22,31 @@ package org.apache.flex.forks.batik.ext.awt.image.spi;
  * The built in error codes.
  *
  * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
- * @version $Id: ErrorConstants.java,v 1.5 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: ErrorConstants.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public interface ErrorConstants {
 
     /**
      * The error messages bundle class name.
      */
-    public final static String RESOURCES =
+    String RESOURCES =
         "org.apache.flex.forks.batik.ext.awt.image.spi.resources.Messages";
 
 
     /**
      * The error code when a stream is unreadable (corrupt or unsupported).
      */
-    public static final String ERR_STREAM_UNREADABLE
+    String ERR_STREAM_UNREADABLE
         = "stream.unreadable";
 
     /**
-     * The error code when a url of a particular format is unreadable 
+     * The error code when a url of a particular format is unreadable
      * (corrupt).
      * <pre>
      * {0} = the format that couldn't be read.
      * </pre>
      */
-    public static final String ERR_STREAM_FORMAT_UNREADABLE
+    String ERR_STREAM_FORMAT_UNREADABLE
         = "stream.format.unreadable";
 
     /**
@@ -55,7 +56,7 @@ public interface ErrorConstants {
      * {0} = the ParsedURL that couldn't be read.
      * </pre>
      */
-    public static final String ERR_URL_UNINTERPRETABLE
+    String ERR_URL_UNINTERPRETABLE
         = "url.uninterpretable";
 
     /**
@@ -65,19 +66,19 @@ public interface ErrorConstants {
      * {0} = the ParsedURL that couldn't be read.
      * </pre>
      */
-    public static final String ERR_URL_UNREACHABLE
+    String ERR_URL_UNREACHABLE
         = "url.unreachable";
 
 
     /**
-     * The error code when a url of a particular format is unreadable 
+     * The error code when a url of a particular format is unreadable
      * (corrupt).
      * <pre>
      * {0} = the format that couldn't be read.
      * {1} = the ParsedURL for file.
      * </pre>
      */
-    public static final String ERR_URL_FORMAT_UNREADABLE
+    String ERR_URL_FORMAT_UNREADABLE
         = "url.format.unreadable";
 
 }

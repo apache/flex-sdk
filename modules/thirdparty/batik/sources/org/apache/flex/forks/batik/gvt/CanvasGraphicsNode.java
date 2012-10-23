@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,7 +27,7 @@ import java.awt.geom.NoninvertibleTransformException;
  * The graphics node container with a background color.
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: CanvasGraphicsNode.java,v 1.10 2004/08/18 07:14:25 vhardy Exp $
+ * @version $Id: CanvasGraphicsNode.java 504084 2007-02-06 11:24:46Z dvholten $
  */
 public class CanvasGraphicsNode extends CompositeGraphicsNode {
 
@@ -45,7 +46,7 @@ public class CanvasGraphicsNode extends CompositeGraphicsNode {
      */
     protected AffineTransform viewingTransform;
 
-    /** 
+    /**
      * The background of this canvas graphics node.
      */
     protected Paint backgroundPaint;
@@ -87,13 +88,13 @@ public class CanvasGraphicsNode extends CompositeGraphicsNode {
             transform = new AffineTransform(viewingTransform);
         else
             transform = new AffineTransform();
-        
+
         if (transform.getDeterminant() != 0){
             try{
                 inverseTransform = transform.createInverse();
             }catch(NoninvertibleTransformException e){
                 // Should never happen.
-                throw new Error();
+                throw new Error( e.getMessage() );
             }
         }
         else{
@@ -126,7 +127,7 @@ public class CanvasGraphicsNode extends CompositeGraphicsNode {
                 inverseTransform = transform.createInverse();
             }catch(NoninvertibleTransformException e){
                 // Should never happen.
-                throw new Error();
+                throw new Error( e.getMessage() );
             }
         }
         else{

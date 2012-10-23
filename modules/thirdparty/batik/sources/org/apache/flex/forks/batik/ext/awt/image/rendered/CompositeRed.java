@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -31,7 +32,7 @@ import java.awt.image.SampleModel;
 import java.awt.image.WritableRaster;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import org.apache.flex.forks.batik.ext.awt.image.CompositeRule;
 import org.apache.flex.forks.batik.ext.awt.image.GraphicsUtil;
@@ -44,7 +45,8 @@ import org.apache.flex.forks.batik.ext.awt.image.SVGComposite;
  * to do the work.  Eventually this may move to be more tiled in nature.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: CompositeRed.java,v 1.9 2004/08/18 07:14:08 vhardy Exp $ */
+ * @version $Id: CompositeRed.java 489226 2006-12-21 00:05:36Z cam $
+ */
 public class CompositeRed extends AbstractRed {
 
     CompositeRule rule;
@@ -90,21 +92,22 @@ public class CompositeRed extends AbstractRed {
                 myBounds = newBound;
                 break;
             default:
-                myBounds= myBounds.union(newBound);
+                // myBounds= myBounds.union(newBound);
+                myBounds.add( newBound );
             }
         }
 
-        if (myBounds == null) 
+        if (myBounds == null)
             throw new IllegalArgumentException
                 ("Composite Operation Must have some source!");
 
         if (rule.getRule() == CompositeRule.RULE_ARITHMETIC) {
-            Vector vec = new Vector();
+            List vec = new ArrayList( srcs.size() );
             i = srcs.iterator();
             while (i.hasNext()) {
                 CachableRed cr = (CachableRed)i.next();
                 Rectangle r = cr.getBounds();
-                // For arithmatic make sure they are all the same size...
+                // For arithmetic make sure they are all the same size...
                 if ((r.x      != myBounds.x) ||
                     (r.y      != myBounds.y) ||
                     (r.width  != myBounds.width) ||
@@ -143,13 +146,13 @@ public class CompositeRed extends AbstractRed {
         Point pt = new Point(tx, ty);
         WritableRaster wr = Raster.createWritableRaster(sm, pt);
         genRect(wr);
-        
+
         return wr;
     }
 
     public void emptyRect(WritableRaster wr) {
         PadRed.ZeroRecter zr = PadRed.ZeroRecter.getZeroRecter(wr);
-        zr.zeroRect(new Rectangle(wr.getMinX(), wr.getMinY(), 
+        zr.zeroRect(new Rectangle(wr.getMinX(), wr.getMinY(),
                                   wr.getWidth(), wr.getHeight()));
     }
 
@@ -157,7 +160,7 @@ public class CompositeRed extends AbstractRed {
         // long startTime = System.currentTimeMillis();
         // System.out.println("Comp GenR: " + wr);
         Rectangle r = wr.getBounds();
-        
+
         int idx = 0;
         Iterator i = srcs.iterator();
         boolean first = true;
@@ -165,7 +168,7 @@ public class CompositeRed extends AbstractRed {
             CachableRed cr = (CachableRed)i.next();
             if (first) {
                 Rectangle crR = cr.getBounds();
-                if ((r.x < crR.x)                   || 
+                if ((r.x < crR.x)                   ||
                     (r.y < crR.y)                   ||
                     (r.x+r.width > crR.x+crR.width) ||
                     (r.y+r.height > crR.y+crR.height))
@@ -175,7 +178,7 @@ public class CompositeRed extends AbstractRed {
                 // Fill in initial image...
                 cr.copyData(wr);
 
-                if (cr.getColorModel().isAlphaPremultiplied() == false)
+                if ( ! cr.getColorModel().isAlphaPremultiplied() )
                     GraphicsUtil.coerceData(wr, cr.getColorModel(), true);
                 first = false;
             } else {
@@ -184,9 +187,9 @@ public class CompositeRed extends AbstractRed {
                     Rectangle smR = crR.intersection(r);
                     Raster ras = cr.getData(smR);
                     WritableRaster smWR = wr.createWritableChild
-                        (smR.x, smR.y, smR.width, smR.height, 
+                        (smR.x, smR.y, smR.width, smR.height,
                          smR.x, smR.y, null);
-                    
+
                     contexts[idx].compose(ras, smWR, smWR);
                 }
             }
@@ -208,7 +211,7 @@ public class CompositeRed extends AbstractRed {
         ColorModel cm = getColorModel();
 
         BufferedImage bi = new BufferedImage
-            (cm, wr.createWritableTranslatedChild(0,0), 
+            (cm, wr.createWritableTranslatedChild(0,0),
              cm.isAlphaPremultiplied(), null);
 
         Graphics2D g2d = GraphicsUtil.createGraphics(bi);
@@ -220,7 +223,7 @@ public class CompositeRed extends AbstractRed {
             CachableRed cr = (CachableRed)i.next();
             if (first) {
                 Rectangle crR = cr.getBounds();
-                if ((r.x < crR.x)                   || 
+                if ((r.x < crR.x)                   ||
                     (r.y < crR.y)                   ||
                     (r.x+r.width > crR.x+crR.width) ||
                     (r.y+r.height > crR.y+crR.height))
@@ -230,7 +233,7 @@ public class CompositeRed extends AbstractRed {
                 // Fill in initial image...
                 cr.copyData(wr);
 
-                GraphicsUtil.coerceData(wr, cr.getColorModel(), 
+                GraphicsUtil.coerceData(wr, cr.getColorModel(),
                                         cm.isAlphaPremultiplied());
                 first = false;
             } else {
@@ -293,14 +296,14 @@ public class CompositeRed extends AbstractRed {
         if (b > 4)
             throw new IllegalArgumentException
                 ("CompositeRed can only handle up to three band images");
-        
+
         int [] masks = new int[4];
-        for (int i=0; i < b-1; i++) 
+        for (int i=0; i < b-1; i++)
             masks[i] = 0xFF0000 >> (8*i);
         masks[3] = 0xFF << (8*(b-1));
         ColorSpace cs = cm.getColorSpace();
 
-        return new DirectColorModel(cs, 8*b, masks[0], masks[1], 
+        return new DirectColorModel(cs, 8*b, masks[0], masks[1],
                                     masks[2], masks[3],
                                     true, DataBuffer.TYPE_INT);
     }

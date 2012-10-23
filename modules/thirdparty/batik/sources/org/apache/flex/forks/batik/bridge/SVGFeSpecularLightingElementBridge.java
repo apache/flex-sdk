@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -30,7 +31,7 @@ import org.w3c.dom.Element;
  * Bridge class for the &lt;feSpecularLighting> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGFeSpecularLightingElementBridge.java,v 1.16 2004/08/18 07:12:34 vhardy Exp $
+ * @version $Id: SVGFeSpecularLightingElementBridge.java 501922 2007-01-31 17:47:47Z dvholten $
  */
 public class SVGFeSpecularLightingElementBridge
     extends AbstractSVGLightingElementBridge {
@@ -76,21 +77,21 @@ public class SVGFeSpecularLightingElementBridge
 
 
         // 'surfaceScale' attribute - default is 1
-        float surfaceScale
-            = convertNumber(filterElement, SVG_SURFACE_SCALE_ATTRIBUTE, 1);
+        float surfaceScale = convertNumber(filterElement,
+                                           SVG_SURFACE_SCALE_ATTRIBUTE, 1, ctx);
 
         // 'specularConstant' attribute - default is 1
-        float specularConstant
-            = convertNumber(filterElement, SVG_SPECULAR_CONSTANT_ATTRIBUTE, 1);
+        float specularConstant = convertNumber
+            (filterElement, SVG_SPECULAR_CONSTANT_ATTRIBUTE, 1, ctx);
 
         // 'specularExponent' attribute - default is 1
-        float specularExponent = convertSpecularExponent(filterElement);
+        float specularExponent = convertSpecularExponent(filterElement, ctx);
 
         // extract the light definition from the filterElement's children list
         Light light = extractLight(filterElement, ctx);
 
         // 'kernelUnitLength' attribute
-        double [] kernelUnitLength = convertKernelUnitLength(filterElement);
+        double[] kernelUnitLength = convertKernelUnitLength(filterElement, ctx);
 
         // 'in' attribute
         Filter in = getIn(filterElement,
@@ -138,8 +139,10 @@ public class SVGFeSpecularLightingElementBridge
      * filter primitive element.
      *
      * @param filterElement the feSpecularLighting filter primitive element
+     * @param ctx the BridgeContext to use for error information
      */
-    protected static float convertSpecularExponent(Element filterElement) {
+    protected static float convertSpecularExponent(Element filterElement,
+                                                   BridgeContext ctx) {
         String s = filterElement.getAttributeNS
             (null, SVG_SPECULAR_EXPONENT_ATTRIBUTE);
         if (s.length() == 0) {
@@ -149,14 +152,14 @@ public class SVGFeSpecularLightingElementBridge
                 float v = SVGUtilities.convertSVGNumber(s);
                 if (v < 1 || v > 128) {
                     throw new BridgeException
-                        (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                        (ctx, filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
                          new Object[] {SVG_SPECULAR_CONSTANT_ATTRIBUTE, s});
                 }
                 return v;
-            } catch (NumberFormatException ex) {
+            } catch (NumberFormatException nfEx ) {
                 throw new BridgeException
-                    (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                     new Object[] {SVG_SPECULAR_CONSTANT_ATTRIBUTE, s, ex});
+                    (ctx, filterElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                     new Object[] {SVG_SPECULAR_CONSTANT_ATTRIBUTE, s, nfEx });
             }
         }
     }

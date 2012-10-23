@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -34,7 +35,7 @@ import org.w3c.dom.Element;
  * Bridge class for the &lt;feBlend> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGFeBlendElementBridge.java,v 1.15 2004/08/18 07:12:33 vhardy Exp $
+ * @version $Id: SVGFeBlendElementBridge.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class SVGFeBlendElementBridge
     extends AbstractSVGFilterPrimitiveElementBridge {
@@ -80,7 +81,7 @@ public class SVGFeBlendElementBridge
 
 
         // 'mode' attribute - default is 'normal'
-        CompositeRule rule = convertMode(filterElement);
+        CompositeRule rule = convertMode(filterElement, ctx);
 
         // 'in' attribute
         Filter in = getIn(filterElement,
@@ -140,7 +141,8 @@ public class SVGFeBlendElementBridge
      *
      * @param filterElement the filter feBlend element
      */
-    protected static CompositeRule convertMode(Element filterElement) {
+    protected static CompositeRule convertMode(Element filterElement,
+                                               BridgeContext ctx) {
         String rule = filterElement.getAttributeNS(null, SVG_MODE_ATTRIBUTE);
         if (rule.length() == 0) {
             return CompositeRule.OVER;
@@ -160,7 +162,8 @@ public class SVGFeBlendElementBridge
         if (SVG_LIGHTEN_VALUE.equals(rule)) {
             return CompositeRule.LIGHTEN;
         }
-        throw new BridgeException(filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                                  new Object[] {SVG_MODE_ATTRIBUTE, rule});
+        throw new BridgeException
+            (ctx, filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+             new Object[] {SVG_MODE_ATTRIBUTE, rule});
     }
 }

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,7 +22,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 /**
- * @version $Id: CmapFormat4.java,v 1.6 2004/09/01 09:35:23 deweese Exp $
+ * @version $Id: CmapFormat4.java 501844 2007-01-31 13:54:05Z dvholten $
  * @author <a href="mailto:david@steadystate.co.uk">David Schweinsberg</a>
  */
 public class CmapFormat4 extends CmapFormat {
@@ -84,7 +85,7 @@ public class CmapFormat4 extends CmapFormat {
             /*
               Quoting :
               http://developer.apple.com/fonts/TTRefMan/RM06/Chap6cmap.html#Surrogates
-               
+
               The original architecture of the Unicode Standard
               allowed for all encoded characters to be represented
               using sixteen bit code points. This allowed for up to
@@ -92,7 +93,7 @@ public class CmapFormat4 extends CmapFormat {
               U+FFFE and U+FFFF are reserved and unavailable to
               represent characters. For more details, see The Unicode
               Standard.)
-               
+
               My comment : Isn't there a typo here ? Shouldn't we
               rather read 65,534 ?
               */
@@ -103,7 +104,7 @@ public class CmapFormat4 extends CmapFormat {
                 if (endCode[i] >= charCode) {
                     if (startCode[i] <= charCode) {
                         if (idRangeOffset[i] > 0) {
-                            return glyphIdArray[idRangeOffset[i]/2 + 
+                            return glyphIdArray[idRangeOffset[i]/2 +
                                                 (charCode - startCode[i]) -
                                                 (segCount - i)];
                         } else {
@@ -121,7 +122,7 @@ public class CmapFormat4 extends CmapFormat {
     }
 
     public String toString() {
-        return new StringBuffer()
+        return new StringBuffer( 80 )
         .append(super.toString())
         .append(", segCountX2: ")
         .append(segCountX2)
@@ -132,12 +133,33 @@ public class CmapFormat4 extends CmapFormat {
         .append(", rangeShift: ")
         .append(rangeShift)
         .append(", endCode: ")
-        .append(endCode)
+        .append( intToStr( endCode ))
         .append(", startCode: ")
-        .append(endCode)
+        .append( intToStr( startCode ))
         .append(", idDelta: ")
-        .append(idDelta)
+        .append( intToStr( idDelta ))
         .append(", idRangeOffset: ")
-        .append(idRangeOffset).toString();
+        .append( intToStr( idRangeOffset ) ).toString();
+    }
+
+    /**
+     * local helper method to convert an int-array to String.
+     * Intended for debugging, format may change.
+     *
+     * @param array of int to convert
+     * @return a String in the form "[val,val,val ... ]"
+     */
+    private static String intToStr( int[] array ){
+        int nSlots = array.length;
+        StringBuffer workBuff = new StringBuffer( nSlots * 8 );
+        workBuff.append( '[' );
+        for( int i= 0; i < nSlots; i++ ){
+            workBuff.append( array[ i ] );
+            if ( i < nSlots-1 ) {
+                workBuff.append( ',' );
+            }
+        }
+        workBuff.append( ']');
+        return workBuff.toString();
     }
 }

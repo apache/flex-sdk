@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -40,7 +41,7 @@ import org.w3c.dom.Document;
  *
  * @see org.apache.flex.forks.batik.svggen.SVGGraphics2D#SVGGraphics2D(SVGGeneratorContext,boolean)
  * @author <a href="mailto:cjolif@ilog.fr">Christophe Jolif</a>
- * @version $Id: SVGGeneratorContext.java,v 1.21 2005/03/27 08:58:35 cam Exp $
+ * @version $Id: SVGGeneratorContext.java 478176 2006-11-22 14:50:50Z dvholten $
  */
 public class SVGGeneratorContext implements ErrorConstants {
     // this fields are package access for read-only purpose
@@ -63,7 +64,7 @@ public class SVGGeneratorContext implements ErrorConstants {
     ImageHandler imageHandler;
 
     /**
-     * Generic image handler. This allows more sophisticated 
+     * Generic image handler. This allows more sophisticated
      * image handling strategies than the <tt>ImageHandler</tt>
      * interfaces.
      */
@@ -108,12 +109,17 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Number of decimal places to use in output values.
      * 3 decimal places are used by default.
      */
-    int precision;
+    int precision = 4;
+
+    /**
+     * Current double value formatter
+     */
+    protected DecimalFormat decimalFormat = decimalFormats[precision];
 
     /**
      * Class to describe the GraphicContext defaults to
      * be used. Note that this class does *not* contain
-     * a default for the initial transform, as this 
+     * a default for the initial transform, as this
      * transform *has to be identity* for the SVGGraphics2D
      * to operate (the TransformStacks operation is based
      * on that assumption. See the DOMTreeManager class).
@@ -125,7 +131,7 @@ public class SVGGeneratorContext implements ErrorConstants {
         protected Shape clip;
         protected RenderingHints hints;
         protected Font font;
-        protected Color background; 
+        protected Color background;
 
         public void setStroke(Stroke stroke){
             this.stroke = stroke;
@@ -221,10 +227,10 @@ public class SVGGeneratorContext implements ErrorConstants {
     }
 
     /**
-     * Returns the set of defaults which should be used for the 
+     * Returns the set of defaults which should be used for the
      * GraphicContext.
      */
-    final public GraphicContextDefaults getGraphicContextDefaults(){
+    public final GraphicContextDefaults getGraphicContextDefaults(){
         return gcDefaults;
     }
 
@@ -233,7 +239,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Note that gcDefaults may be null and that any of its attributes
      * may be null.
      */
-    final public void setGraphicContextDefaults(GraphicContextDefaults gcDefaults){
+    public final void setGraphicContextDefaults(GraphicContextDefaults gcDefaults){
         this.gcDefaults = gcDefaults;
     }
 
@@ -241,7 +247,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Returns the {@link org.apache.flex.forks.batik.svggen.SVGIDGenerator} that
      * has been set.
      */
-    final public SVGIDGenerator getIDGenerator() {
+    public final SVGIDGenerator getIDGenerator() {
         return idGenerator;
     }
 
@@ -249,7 +255,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Sets the {@link org.apache.flex.forks.batik.svggen.SVGIDGenerator}
      * to be used. It should not be <code>null</code>.
      */
-    final public void setIDGenerator(SVGIDGenerator idGenerator) {
+    public final void setIDGenerator(SVGIDGenerator idGenerator) {
         if (idGenerator == null)
             throw new SVGGraphics2DRuntimeException(ERR_ID_GENERATOR_NULL);
         this.idGenerator = idGenerator;
@@ -259,7 +265,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Returns the DOM Factory that
      * has been set.
      */
-    final public Document getDOMFactory() {
+    public final Document getDOMFactory() {
         return domFactory;
     }
 
@@ -267,7 +273,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Sets the DOM Factory
      * to be used. It should not be <code>null</code>.
      */
-    final public void setDOMFactory(Document domFactory) {
+    public final void setDOMFactory(Document domFactory) {
         if (domFactory == null)
             throw new SVGGraphics2DRuntimeException(ERR_DOM_FACTORY_NULL);
         this.domFactory = domFactory;
@@ -277,7 +283,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Returns the {@link org.apache.flex.forks.batik.svggen.ExtensionHandler} that
      * has been set.
      */
-    final public ExtensionHandler getExtensionHandler() {
+    public final ExtensionHandler getExtensionHandler() {
         return extensionHandler;
     }
 
@@ -285,7 +291,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Sets the {@link org.apache.flex.forks.batik.svggen.ExtensionHandler}
      * to be used. It should not be <code>null</code>.
      */
-    final public void setExtensionHandler(ExtensionHandler extensionHandler) {
+    public final void setExtensionHandler(ExtensionHandler extensionHandler) {
         if (extensionHandler == null)
             throw new SVGGraphics2DRuntimeException(ERR_EXTENSION_HANDLER_NULL);
         this.extensionHandler = extensionHandler;
@@ -295,7 +301,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Returns the {@link org.apache.flex.forks.batik.svggen.ImageHandler} that
      * has been set.
      */
-    final public ImageHandler getImageHandler() {
+    public final ImageHandler getImageHandler() {
         return imageHandler;
     }
 
@@ -303,7 +309,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Sets the {@link org.apache.flex.forks.batik.svggen.ImageHandler}
      * to be used. It should not be <code>null</code>.
      */
-    final public void setImageHandler(ImageHandler imageHandler) {
+    public final void setImageHandler(ImageHandler imageHandler) {
         if (imageHandler == null)
             throw new SVGGraphics2DRuntimeException(ERR_IMAGE_HANDLER_NULL);
         this.imageHandler = imageHandler;
@@ -312,9 +318,9 @@ public class SVGGeneratorContext implements ErrorConstants {
 
     /**
      * Sets the {@link org.apache.flex.forks.batik.svggen.GenericImageHandler}
-     * to be used. 
+     * to be used.
      */
-    final public void setGenericImageHandler(GenericImageHandler genericImageHandler){
+    public final void setGenericImageHandler(GenericImageHandler genericImageHandler){
         if (genericImageHandler == null){
             throw new SVGGraphics2DRuntimeException(ERR_IMAGE_HANDLER_NULL);
         }
@@ -326,7 +332,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Returns the {@link org.apache.flex.forks.batik.svggen.StyleHandler} that
      * has been set.
      */
-    final public StyleHandler getStyleHandler() {
+    public final StyleHandler getStyleHandler() {
         return styleHandler;
     }
 
@@ -334,7 +340,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Sets the {@link org.apache.flex.forks.batik.svggen.StyleHandler}
      * to be used. It should not be <code>null</code>.
      */
-    final public void setStyleHandler(StyleHandler styleHandler) {
+    public final void setStyleHandler(StyleHandler styleHandler) {
         if (styleHandler == null)
             throw new SVGGraphics2DRuntimeException(ERR_STYLE_HANDLER_NULL);
         this.styleHandler = styleHandler;
@@ -343,7 +349,7 @@ public class SVGGeneratorContext implements ErrorConstants {
     /**
      * Returns the comment to be generated in the SVG file.
      */
-    final public String getComment() {
+    public final String getComment() {
         return generatorComment;
     }
 
@@ -351,7 +357,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Sets the comment to be used. It can be <code>null</code> if you
      * want to disable it.
      */
-    final public void setComment(String generatorComment) {
+    public final void setComment(String generatorComment) {
         this.generatorComment = generatorComment;
     }
 
@@ -359,7 +365,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Returns the {@link org.apache.flex.forks.batik.svggen.ErrorHandler} that
      * has been set.
      */
-    final public ErrorHandler getErrorHandler() {
+    public final ErrorHandler getErrorHandler() {
         return errorHandler;
     }
 
@@ -367,7 +373,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Sets the {@link org.apache.flex.forks.batik.svggen.ErrorHandler}
      * to be used. It should not be <code>null</code>.
      */
-    final public void setErrorHandler(ErrorHandler errorHandler) {
+    public final void setErrorHandler(ErrorHandler errorHandler) {
         if (errorHandler == null)
             throw new SVGGraphics2DRuntimeException(ERR_ERROR_HANDLER_NULL);
         this.errorHandler = errorHandler;
@@ -377,7 +383,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Returns <code>true</code> if we should generate SVG Fonts for
      * texts.
      */
-    final public boolean isEmbeddedFontsOn() {
+    public final boolean isEmbeddedFontsOn() {
         return svgFont;
     }
 
@@ -385,14 +391,14 @@ public class SVGGeneratorContext implements ErrorConstants {
      * Sets if we should generate SVG Fonts for texts. Default value
      * is <code>false</code>.
      */
-    final public void setEmbeddedFontsOn(boolean svgFont) {
+    public final void setEmbeddedFontsOn(boolean svgFont) {
         this.svgFont = svgFont;
     }
 
     /**
      * Returns the current precision used by this context
      */
-    final public int getPrecision() {
+    public final int getPrecision() {
         return precision;
     }
 
@@ -402,7 +408,7 @@ public class SVGGeneratorContext implements ErrorConstants {
      * output by the SVGGraphics2D generator.
      * Note that the precision is clipped to the [0,12] range.
      */
-    final public void setPrecision(int precision) {
+    public final void setPrecision(int precision) {
         if (precision < 0) {
             this.precision = 0;
         } else if (precision > 12) {
@@ -414,10 +420,10 @@ public class SVGGeneratorContext implements ErrorConstants {
     }
 
     /**
-     * Converts the input double value to a string with a number of 
+     * Converts the input double value to a string with a number of
      * decimal places controlled by the precision attribute.
      */
-    final public String doubleString(double value) {
+    public final String doubleString(double value) {
         double absvalue = Math.abs(value);
         // above 10e7 we do not output decimals as anyway
         // in scientific notation they were not available
@@ -427,24 +433,19 @@ public class SVGGeneratorContext implements ErrorConstants {
         // under 10e-3 we have to put decimals
         else {
             return decimalFormat.format(value);
-        } 
+        }
     }
 
-    /**
-     * Current double value formatter
-     */
-    protected DecimalFormat decimalFormat = decimalFormats[3];
-
-    protected static DecimalFormatSymbols dsf 
+    protected static DecimalFormatSymbols dsf
         = new DecimalFormatSymbols(Locale.US);
 
-    protected static DecimalFormat decimalFormats[] = new DecimalFormat[13];
+    protected static DecimalFormat[] decimalFormats = new DecimalFormat[13];
 
     static {
         decimalFormats[0] = new DecimalFormat("#", dsf);
 
         String format = "#.";
-        for (int i=0; i<=12; i++) {
+        for (int i=1; i<decimalFormats.length; i++) {
             format += "#";
             decimalFormats[i] = new DecimalFormat(format, dsf);
         }

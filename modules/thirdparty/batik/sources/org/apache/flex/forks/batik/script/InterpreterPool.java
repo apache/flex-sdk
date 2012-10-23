@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,6 +18,8 @@
  */
 package org.apache.flex.forks.batik.script;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -37,21 +40,9 @@ import org.w3c.dom.Document;
  * files).</p>
  *
  * @author <a href="mailto:cjolif@ilog.fr">Christophe Jolif</a>
- * @version $Id: InterpreterPool.java,v 1.19 2004/08/27 00:42:06 deweese Exp $
+ * @version $Id: InterpreterPool.java 578701 2007-09-24 08:14:55Z cam $
  */
 public class InterpreterPool {
-
-    /** The InterpreterFactory classname for Rhino. */
-    private static final String RHINO =
-        "org.apache.flex.forks.batik.script.rhino.RhinoInterpreterFactory";
-
-    /** The InterpreterFactory classname for JPython. */
-    private static final String JPYTHON =
-        "org.apache.flex.forks.batik.script.jpython.JPythonInterpreterFactory";
-
-    /** The InterpreterFactory classname for Jacl. */
-    private static final String JACL =
-        "org.apache.flex.forks.batik.script.jacl.JaclInterpreterFactory";
 
     /**
      * Name of the "document" object when referenced by scripts
@@ -73,8 +64,10 @@ public class InterpreterPool {
         while (iter.hasNext()) {
             InterpreterFactory factory = null;
             factory = (InterpreterFactory)iter.next();
-            // System.err.println("Factory : " + factory);
-            defaultFactories.put(factory.getMimeType(), factory);
+            String[] mimeTypes = factory.getMimeTypes();
+            for (int i = 0; i < mimeTypes.length; i++) {
+                defaultFactories.put(mimeTypes[i], factory);
+            }
         }
     }
 
@@ -96,13 +89,20 @@ public class InterpreterPool {
      */
     public Interpreter createInterpreter(Document document, String language) {
         InterpreterFactory factory = (InterpreterFactory)factories.get(language);
+        if (factory == null) return null;
+
         Interpreter interpreter = null;
-        if (factory != null)
-            interpreter = factory.createInterpreter
-                (((SVGOMDocument)document).getURLObject());
-        if (document != null) {
-            interpreter.bindObject(BIND_NAME_DOCUMENT, document);
+        SVGOMDocument svgDoc = (SVGOMDocument) document;
+        try {
+            URL url = new URL(svgDoc.getDocumentURI());
+            interpreter = factory.createInterpreter(url, svgDoc.isSVG12());
+        } catch (MalformedURLException e) {
         }
+
+        if (interpreter == null) return null;
+
+        if (document != null)
+            interpreter.bindObject(BIND_NAME_DOCUMENT, document);
 
         return interpreter;
     }
@@ -127,4 +127,3 @@ public class InterpreterPool {
         factories.remove(language);
     }
 }
-

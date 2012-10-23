@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,10 +22,9 @@ package org.apache.flex.forks.batik.dom.svg;
  * Adapter for the SVGItem interface.
  *
  * @author <a href="mailto:nicolas.socheleau@bitflash.com">Nicolas Socheleau</a>
- * @version $Id: AbstractSVGItem.java,v 1.3 2004/08/18 07:13:13 vhardy Exp $
+ * @version $Id: AbstractSVGItem.java 475477 2006-11-15 22:44:28Z cam $
  */
-public abstract class AbstractSVGItem 
-    implements SVGItem {
+public abstract class AbstractSVGItem implements SVGItem {
 
     /**
      * List the item belongs to.
@@ -33,9 +33,7 @@ public abstract class AbstractSVGItem
 
     /**
      * String representation of the item.
-     *
-     * This is a cached representation of the
-     * item while it is not changed.
+     * This is a cached representation of the item while it is not changed.
      */
     protected String itemStringValue;
 
@@ -44,50 +42,44 @@ public abstract class AbstractSVGItem
      */
     protected abstract String getStringValue();
 
-    /// Default Constructor.
-    protected AbstractSVGItem(){
+    /**
+     * Creates a new AbstractSVGList.
+     */
+    protected AbstractSVGItem() {
     }
 
     /**
-     * Assign a parent list to this item.
-     *
-     * @param list : list the item belongs.
+     * Assigns a parent list to this item.
+     * @param list The list the item belongs.
      */
-    public void setParent(AbstractSVGList list){
+    public void setParent(AbstractSVGList list) {
         parent = list;
     }
 
     /**
-     * Return the parent list of the item.
-     *
-     * @return list the item belongs.
+     * Returns the parent list of this item.
      */
-    public AbstractSVGList getParent(){
+    public AbstractSVGList getParent() {
         return parent;
     }
 
     /**
-     * Notifies the parent list that
-     * the item has changed.
-     *
-     * Discard the cached representation
-     * of the item.
+     * Notifies the parent list that the item has changed.
+     * This discards the cached representation of the item.
      */
-    protected void resetAttribute(){
-        if ( parent != null ){
+    protected void resetAttribute() {
+        if (parent != null) {
             itemStringValue = null;
             parent.itemChanged();
         }
     }
 
     /**
-     * Return the cached representation
-     * of the item if valid otherwise
-     * re-computes the String representation
-     * of the item.
+     * Returns the cached representation of the item if valid, otherwise
+     * recomputes the String representation of the item.
      */
-    public String getValueAsString(){
-        if ( itemStringValue == null ){
+    public String getValueAsString() {
+        if (itemStringValue == null) {
             itemStringValue = getStringValue();
         }
         return itemStringValue;

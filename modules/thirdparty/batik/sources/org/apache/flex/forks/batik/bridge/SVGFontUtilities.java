@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -41,7 +42,7 @@ import org.w3c.dom.NodeList;
  * Utility class for SVG fonts.
  *
  * @author <a href="mailto:bella.robinson@cmis.csiro.au">Bella Robinson</a>
- * @version $Id: SVGFontUtilities.java,v 1.17 2004/08/18 07:12:34 vhardy Exp $
+ * @version $Id: SVGFontUtilities.java 501844 2007-01-31 13:54:05Z dvholten $
  */
 public abstract class SVGFontUtilities implements SVGConstants {
 
@@ -51,13 +52,13 @@ public abstract class SVGFontUtilities implements SVGConstants {
         // FontFamily that matches
         Map fontFamilyMap = ctx.getFontFamilyMap();
         List ret = (List)fontFamilyMap.get(doc);
-        if (ret != null) 
+        if (ret != null)
             return ret;
 
         ret = new LinkedList();
 
         NodeList fontFaceElements = doc.getElementsByTagNameNS
-	    (SVG_NAMESPACE_URI, SVG_FONT_FACE_TAG);
+            (SVG_NAMESPACE_URI, SVG_FONT_FACE_TAG);
 
         SVGFontFaceElementBridge fontFaceBridge;
         fontFaceBridge = (SVGFontFaceElementBridge)ctx.getBridge
@@ -78,7 +79,7 @@ public abstract class SVGFontUtilities implements SVGConstants {
         }
         return ret;
     }
-                                       
+
 
     /**
      * Given a font family name tries to find a matching SVG font
@@ -106,7 +107,7 @@ public abstract class SVGFontUtilities implements SVGConstants {
                                              String fontStyle) {
 
         // TODO: should match against font-variant as well
-        String fontKeyName = fontFamilyName.toLowerCase() + " " +
+        String fontKeyName = fontFamilyName.toLowerCase() + " " +              // todo locale??
             fontWeight + " " + fontStyle;
 
         // check fontFamilyMap to see if we have already created an
@@ -122,13 +123,13 @@ public abstract class SVGFontUtilities implements SVGConstants {
         Document doc = textElement.getOwnerDocument();
 
         List fontFaces = (List)fontFamilyMap.get(doc);
-        
+
         if (fontFaces == null) {
             fontFaces = getFontFaces(doc, ctx);
             fontFamilyMap.put(doc, fontFaces);
         }
 
-        
+
         Iterator iter = fontFaces.iterator();
         List svgFontFamilies = new LinkedList();
         while (iter.hasNext()) {
@@ -142,7 +143,7 @@ public abstract class SVGFontUtilities implements SVGConstants {
             if (fontFaceStyle.equals(SVG_ALL_VALUE) ||
                 fontFaceStyle.indexOf(fontStyle) != -1) {
                 GVTFontFamily ffam = fontFace.getFontFamily(ctx);
-                if (ffam != null) 
+                if (ffam != null)
                     svgFontFamilies.add(ffam);
             }
         }
@@ -151,7 +152,7 @@ public abstract class SVGFontUtilities implements SVGConstants {
             // only found one matching svg font family
             fontFamilyMap.put(fontKeyName, svgFontFamilies.get(0));
             return (GVTFontFamily)svgFontFamilies.get(0);
-            
+
         } else if (svgFontFamilies.size() > 1) {
             // need to find font face that matches the font-weight closest
             String fontWeightNumber = getFontWeightNumberString(fontWeight);
@@ -198,7 +199,7 @@ public abstract class SVGFontUtilities implements SVGConstants {
                     String newFontFamilyWeight =
                         newFontFamilyWeights.get(minDifferenceIndex) +
                         ", " + weightString;
-                    newFontFamilyWeights.set(minDifferenceIndex, 
+                    newFontFamilyWeights.set(minDifferenceIndex,
                                              newFontFamilyWeight);
                 }
             }

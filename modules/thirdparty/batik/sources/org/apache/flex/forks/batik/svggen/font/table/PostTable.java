@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,7 +24,7 @@ import java.io.RandomAccessFile;
 /**
  *
  * @author <a href="mailto:david@steadystate.co.uk">David Schweinsberg</a>
- * @version $Id: PostTable.java,v 1.3 2004/08/18 07:15:22 vhardy Exp $
+ * @version $Id: PostTable.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class PostTable implements Table {
 
@@ -182,15 +183,15 @@ public class PostTable implements Table {
         "lessequal",    // 148
         "greaterequal", // 149
         "yen",          // 150
-	"mu",           // 151
+        "mu",           // 151
         "partialdiff",  // 152
         "summation",    // 153
         "product",      // 154
-	"pi",           // 155
+        "pi",           // 155
         "integral'",    // 156
         "ordfeminine",  // 157
         "ordmasculine", // 158
-	"Omega",        // 159
+        "Omega",        // 159
         "ae",           // 160
         "oslash",       // 161
         "questiondown", // 162

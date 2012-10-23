@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,16 +22,18 @@ import java.awt.geom.Rectangle2D;
 
 /**
  * This class holds the neccessary information to render a
- * <batik:regin> that is defined within the <batik:flowRegion>
+ * &lt;batik:flowRegion> that is defined within the &lt;batik:flowRoot>
  * element.  Namely it holds the bounds of the region and the desired
  * vertical alignment.
+ *
+ * @version $Id: RegionInfo.java 498740 2007-01-22 18:35:57Z dvholten $
  */
 public class RegionInfo
        extends Rectangle2D.Float
 {
     private float verticalAlignment = 0.0f;
 
-    public RegionInfo(float x, float y, float w, float h, 
+    public RegionInfo(float x, float y, float w, float h,
                       float verticalAlignment) {
         super(x, y, w, h);
         this.verticalAlignment = verticalAlignment;
@@ -38,7 +41,7 @@ public class RegionInfo
 
     /**
      * Gets the vertical alignment for this flow region.
-     * @return the vertical alignment for this flow region. 
+     * @return the vertical alignment for this flow region.
      *         It will be 0.0 for top, 0.5 for middle and 1.0 for bottom.
      */
     public float getVerticalAlignment() {
@@ -46,7 +49,7 @@ public class RegionInfo
     }
 
     /**
-     * Sets the alignment position of the text within this flow region.  
+     * Sets the alignment position of the text within this flow region.
      * The value must be 0.0 for top, 0.5 for middle and 1.0 for bottom.
      * @param verticalAlignment the vertical alignment of the text.
      */

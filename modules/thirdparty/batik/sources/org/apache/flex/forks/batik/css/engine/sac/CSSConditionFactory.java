@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,23 +18,23 @@
  */
 package org.apache.flex.forks.batik.css.engine.sac;
 
-import org.w3c.flex.forks.css.sac.AttributeCondition;
-import org.w3c.flex.forks.css.sac.CSSException;
-import org.w3c.flex.forks.css.sac.CombinatorCondition;
-import org.w3c.flex.forks.css.sac.Condition;
-import org.w3c.flex.forks.css.sac.ConditionFactory;
-import org.w3c.flex.forks.css.sac.ContentCondition;
-import org.w3c.flex.forks.css.sac.LangCondition;
-import org.w3c.flex.forks.css.sac.NegativeCondition;
-import org.w3c.flex.forks.css.sac.PositionalCondition;
+import org.w3c.css.sac.AttributeCondition;
+import org.w3c.css.sac.CSSException;
+import org.w3c.css.sac.CombinatorCondition;
+import org.w3c.css.sac.Condition;
+import org.w3c.css.sac.ConditionFactory;
+import org.w3c.css.sac.ContentCondition;
+import org.w3c.css.sac.LangCondition;
+import org.w3c.css.sac.NegativeCondition;
+import org.w3c.css.sac.PositionalCondition;
 
 
 /**
  * This class provides an implementation of the
- * {@link org.w3c.flex.forks.css.sac.ConditionFactory} interface.
+ * {@link org.w3c.css.sac.ConditionFactory} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: CSSConditionFactory.java,v 1.5 2004/08/18 07:12:51 vhardy Exp $
+ * @version $Id: CSSConditionFactory.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class CSSConditionFactory implements ConditionFactory {
 
@@ -74,8 +75,8 @@ public class CSSConditionFactory implements ConditionFactory {
      */    
     public CombinatorCondition createAndCondition(Condition first,
                                                   Condition second)
-	throws CSSException {
-	return new CSSAndCondition(first, second);
+        throws CSSException {
+        return new CSSAndCondition(first, second);
     }
 
     /**
@@ -84,17 +85,17 @@ public class CSSConditionFactory implements ConditionFactory {
      */    
     public CombinatorCondition createOrCondition(Condition first,
                                                  Condition second)
-	throws CSSException {
-	throw new CSSException("Not implemented in CSS2");
+        throws CSSException {
+        throw new CSSException("Not implemented in CSS2");
     }
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.ConditionFactory#createNegativeCondition(Condition)}.
+     * org.w3c.css.sac.ConditionFactory#createNegativeCondition(Condition)}.
      */    
     public NegativeCondition createNegativeCondition(Condition condition)
-	throws CSSException {
-	throw new CSSException("Not implemented in CSS2");
+        throws CSSException {
+        throw new CSSException("Not implemented in CSS2");
     }
 
     /**
@@ -102,10 +103,10 @@ public class CSSConditionFactory implements ConditionFactory {
      * ConditionFactory#createPositionalCondition(int,boolean,boolean)}.
      */    
     public PositionalCondition createPositionalCondition(int position, 
-							 boolean typeNode, 
-							 boolean type)
-	throws CSSException {
-	throw new CSSException("Not implemented in CSS2");
+                                                         boolean typeNode, 
+                                                         boolean type)
+        throws CSSException {
+        throw new CSSException("Not implemented in CSS2");
     }
     
     /**
@@ -113,29 +114,29 @@ public class CSSConditionFactory implements ConditionFactory {
      *ConditionFactory#createAttributeCondition(String,String,boolean,String)}.
      */    
     public AttributeCondition createAttributeCondition(String localName,
-						       String namespaceURI,
-						       boolean specified,
-						       String value)
-	throws CSSException {
-	return new CSSAttributeCondition(localName, namespaceURI, specified,
+                                                       String namespaceURI,
+                                                       boolean specified,
+                                                       String value)
+        throws CSSException {
+        return new CSSAttributeCondition(localName, namespaceURI, specified,
                                            value);
     }
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.ConditionFactory#createIdCondition(String)}.
+     * org.w3c.css.sac.ConditionFactory#createIdCondition(String)}.
      */    
     public AttributeCondition createIdCondition(String value)
         throws CSSException {
-	return new CSSIdCondition(idNamespaceURI, idLocalName, value);
+        return new CSSIdCondition(idNamespaceURI, idLocalName, value);
     }
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.ConditionFactory#createLangCondition(String)}.
+     * org.w3c.css.sac.ConditionFactory#createLangCondition(String)}.
      */    
     public LangCondition createLangCondition(String lang) throws CSSException {
-	return new CSSLangCondition(lang);
+        return new CSSLangCondition(lang);
     }
 
     /**
@@ -143,11 +144,11 @@ public class CSSConditionFactory implements ConditionFactory {
  ConditionFactory#createOneOfAttributeCondition(String,String,boolean,String)}.
      */    
     public AttributeCondition createOneOfAttributeCondition(String localName,
-							    String nsURI,
-							    boolean specified,
-							    String value)
-	throws CSSException {
-	return new CSSOneOfAttributeCondition(localName, nsURI, specified,
+                                                            String nsURI,
+                                                            boolean specified,
+                                                            String value)
+        throws CSSException {
+        return new CSSOneOfAttributeCondition(localName, nsURI, specified,
                                                 value);
     }
 
@@ -160,19 +161,19 @@ public class CSSConditionFactory implements ConditionFactory {
          String namespaceURI,
          boolean specified,
          String value)
-	throws CSSException {
-	return new CSSBeginHyphenAttributeCondition
-	    (localName, namespaceURI, specified, value);
+        throws CSSException {
+        return new CSSBeginHyphenAttributeCondition
+            (localName, namespaceURI, specified, value);
     }
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.ConditionFactory#createClassCondition(String,String)}.
+     * org.w3c.css.sac.ConditionFactory#createClassCondition(String,String)}.
      */    
     public AttributeCondition createClassCondition(String namespaceURI,
-						   String value)
-	throws CSSException {
-	return new CSSClassCondition(classLocalName, classNamespaceURI, value);
+                                                   String value)
+        throws CSSException {
+        return new CSSClassCondition(classLocalName, classNamespaceURI, value);
     }
 
     /**
@@ -180,33 +181,33 @@ public class CSSConditionFactory implements ConditionFactory {
      * ConditionFactory#createPseudoClassCondition(String,String)}.
      */    
     public AttributeCondition createPseudoClassCondition(String namespaceURI,
-							 String value)
-	throws CSSException {
-	return new CSSPseudoClassCondition(namespaceURI, value);
+                                                         String value)
+        throws CSSException {
+        return new CSSPseudoClassCondition(namespaceURI, value);
     }
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.ConditionFactory#createOnlyChildCondition()}.
+     * org.w3c.css.sac.ConditionFactory#createOnlyChildCondition()}.
      */    
     public Condition createOnlyChildCondition() throws CSSException {
-	throw new CSSException("Not implemented in CSS2");
+        throw new CSSException("Not implemented in CSS2");
     }
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.ConditionFactory#createOnlyTypeCondition()}.
+     * org.w3c.css.sac.ConditionFactory#createOnlyTypeCondition()}.
      */    
     public Condition createOnlyTypeCondition() throws CSSException {
-	throw new CSSException("Not implemented in CSS2");
+        throw new CSSException("Not implemented in CSS2");
     }
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.ConditionFactory#createContentCondition(String)}.
+     * org.w3c.css.sac.ConditionFactory#createContentCondition(String)}.
      */    
     public ContentCondition createContentCondition(String data)
         throws CSSException {
-	throw new CSSException("Not implemented in CSS2");
+        throw new CSSException("Not implemented in CSS2");
     }
 }

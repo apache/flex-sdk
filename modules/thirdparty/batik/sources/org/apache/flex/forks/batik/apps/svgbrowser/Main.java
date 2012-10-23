@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,16 +18,16 @@
  */
 package org.apache.flex.forks.batik.apps.svgbrowser;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.Authenticator;
 import java.net.URLDecoder;
@@ -40,6 +41,9 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -57,16 +61,17 @@ import org.apache.flex.forks.batik.swing.svg.GVTTreeBuilderEvent;
 import org.apache.flex.forks.batik.swing.svg.SVGDocumentLoaderAdapter;
 import org.apache.flex.forks.batik.swing.svg.SVGDocumentLoaderEvent;
 import org.apache.flex.forks.batik.util.ApplicationSecurityEnforcer;
+import org.apache.flex.forks.batik.util.Platform;
 import org.apache.flex.forks.batik.util.ParsedURL;
 import org.apache.flex.forks.batik.util.SVGConstants;
 import org.apache.flex.forks.batik.util.XMLResourceDescriptor;
-import org.apache.flex.forks.batik.util.gui.resource.ResourceManager;
+import org.apache.flex.forks.batik.util.resources.ResourceManager;
 
 /**
  * This class contains the main method of an SVG viewer.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: Main.java,v 1.53 2005/03/29 10:48:02 deweese Exp $
+ * @version $Id: Main.java 592619 2007-11-07 05:47:24Z cam $
  */
 public class Main implements Application {
     /**
@@ -74,7 +79,7 @@ public class Main implements Application {
      * to read from the PreferenceManager whether or not the
      * scriptType can be loaded.
      */
-    public static final String UNKNOWN_SCRIPT_TYPE_LOAD_KEY_EXTENSION 
+    public static final String UNKNOWN_SCRIPT_TYPE_LOAD_KEY_EXTENSION
         = ".load";
 
     /**
@@ -85,7 +90,7 @@ public class Main implements Application {
     /**
      * System property for specifying an additional policy file.
      */
-    public static final String PROPERTY_JAVA_SECURITY_POLICY 
+    public static final String PROPERTY_JAVA_SECURITY_POLICY
         = "java.security.policy";
 
     /**
@@ -134,9 +139,9 @@ public class Main implements Application {
     public static final String URI_SEPARATOR = " ";
 
     /**
-     * Default font-family value. 
+     * Default font-family value.
      */
-    public static final String DEFAULT_DEFAULT_FONT_FAMILY 
+    public static final String DEFAULT_DEFAULT_FONT_FAMILY
         = "Arial, Helvetica, sans-serif";
 
     /**
@@ -161,14 +166,14 @@ public class Main implements Application {
     /**
      * The gui resources file name
      */
-    public final static String RESOURCES =
+    public static final String RESOURCES =
         "org.apache.flex.forks.batik.apps.svgbrowser.resources.Main";
 
     /**
      * URL for Squiggle's security policy file
      */
     public static final String SQUIGGLE_SECURITY_POLICY
-        = "org/apache/batik/apps/svgbrowser/resources/svgbrowser.policy"; 
+        = "org/apache/batik/apps/svgbrowser/resources/svgbrowser.policy";
 
     /**
      * The resource bundle
@@ -216,16 +221,16 @@ public class Main implements Application {
     protected String[] arguments;
 
     /**
-     * Controls whether the application can override the 
+     * Controls whether the application can override the
      * system security policy property. This is done when there
      * was no initial security policy specified when the application
-     * stated, in which case Batik will use that property.
+     * started, in which case Batik will use that property.
      */
     protected boolean overrideSecurityPolicy = false;
 
     /**
-     * Script security enforcement is delegated to the 
-     * security utility 
+     * Script security enforcement is delegated to the
+     * security utility
      */
     protected ApplicationSecurityEnforcer securityEnforcer;
 
@@ -248,11 +253,93 @@ public class Main implements Application {
     protected PreferenceDialog preferenceDialog;
 
     /**
+     * The UI specialization to use in the JSVGViewerFrames.
+     */
+    protected String uiSpecialization;
+
+    /**
      * Creates a new application.
      * @param args The command-line arguments.
      */
     public Main(String[] args) {
         arguments = args;
+
+        if (Platform.isOSX) {
+            uiSpecialization = "OSX";
+
+            // Move the menu bars to the top of the screen.
+            System.setProperty("apple.laf.useScreenMenuBar", "true");
+
+            // Register listeners for the About and Preferences menu items
+            // in the application menu (using reflection).
+            try {
+                Class Application = Class.forName("com.apple.eawt.Application");
+                Class ApplicationListener =
+                    Class.forName("com.apple.eawt.ApplicationListener");
+                Class ApplicationEvent =
+                    Class.forName("com.apple.eawt.ApplicationEvent");
+
+                Method getApplication = Application.getMethod("getApplication",
+                                                              new Class[0]);
+                Method addApplicationListener =
+                    Application.getMethod("addApplicationListener",
+                                          new Class[] { ApplicationListener });
+                final Method setHandled =
+                    ApplicationEvent.getMethod("setHandled",
+                                               new Class[] { Boolean.TYPE });
+                Method setEnabledPreferencesMenu =
+                    Application.getMethod("setEnabledPreferencesMenu",
+                                          new Class[] { Boolean.TYPE });
+
+                InvocationHandler listenerHandler = new InvocationHandler() {
+                    public Object invoke(Object proxy, Method method,
+                                         Object[] args) {
+                        String name = method.getName();
+                        if (name.equals("handleAbout")) {
+                            JSVGViewerFrame relativeTo =
+                                viewerFrames.isEmpty()
+                                    ?  null
+                                    : (JSVGViewerFrame) viewerFrames.get(0);
+                            AboutDialog dlg = new AboutDialog(relativeTo);
+                            // Work around pack() bug on some platforms
+                            dlg.setSize(dlg.getPreferredSize());
+                            dlg.setLocationRelativeTo(relativeTo);
+                            dlg.setVisible(true);
+                            dlg.toFront();
+                        } else if (name.equals("handlePreferences")) {
+                            JSVGViewerFrame relativeTo =
+                                viewerFrames.isEmpty()
+                                    ?  null
+                                    : (JSVGViewerFrame) viewerFrames.get(0);
+                            showPreferenceDialog(relativeTo);
+                        } else if (name.equals("handleQuit")) {
+                            // Do nothing, let the OS quit the app.
+                        } else {
+                            return null;
+                        }
+                        try {
+                            setHandled.invoke(args[0],
+                                              new Object[] { Boolean.TRUE });
+                        } catch (Exception e) {
+                        }
+                        return null;
+                    }
+                };
+
+                Object application = getApplication.invoke(null, (Object[]) null);
+                setEnabledPreferencesMenu.invoke(application,
+                                                 new Object[] { Boolean.TRUE });
+                Object listener =
+                    Proxy.newProxyInstance(Main.class.getClassLoader(),
+                                           new Class[] { ApplicationListener },
+                                           listenerHandler);
+                addApplicationListener.invoke(application,
+                                              new Object[] { listener });
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                uiSpecialization = null;
+            }
+        }
 
         //
         // Preferences
@@ -299,10 +386,19 @@ public class Main implements Application {
                      "");
         defaults.put(PREFERENCE_KEY_VISITED_URI_LIST_LENGTH,
                      new Integer(MAX_VISITED_URIS));
-	
-        securityEnforcer 
+        defaults.put(PreferenceDialog.PREFERENCE_KEY_ANIMATION_RATE_LIMITING_MODE,
+                     new Integer(1));
+        defaults.put(PreferenceDialog.PREFERENCE_KEY_ANIMATION_RATE_LIMITING_CPU,
+                     new Float(0.75f));
+        defaults.put(PreferenceDialog.PREFERENCE_KEY_ANIMATION_RATE_LIMITING_FPS,
+                     new Float(10));
+        defaults.put(PreferenceDialog.PREFERENCE_KEY_USER_STYLESHEET_ENABLED,
+                     Boolean.TRUE);
+
+        securityEnforcer
             = new ApplicationSecurityEnforcer(this.getClass(),
                                               SQUIGGLE_SECURITY_POLICY);
+
 
         try {
             preferenceManager = new XMLPreferenceManager(SQUIGGLE_CONFIGURATION_FILE,
@@ -323,8 +419,9 @@ public class Main implements Application {
         // Initialization
         //
         final AboutDialog initDialog = new AboutDialog();
+        ((BorderLayout) initDialog.getContentPane().getLayout()).setVgap(8);
         final JProgressBar pb = new JProgressBar(0, 3);
-        initDialog.getContentPane().add("South", pb);
+        initDialog.getContentPane().add(pb, BorderLayout.SOUTH);
 
         // Work around pack() bug on some platforms
         Dimension ss = initDialog.getToolkit().getScreenSize();
@@ -366,11 +463,11 @@ public class Main implements Application {
     }
 
     /**
-     * Installs a custom policy file in the '.batik' directory. This is initialized 
+     * Installs a custom policy file in the '.batik' directory. This is initialized
      * with the content of the policy file coming with the distribution
      */
     public void installCustomPolicyFile() throws IOException {
-        String securityPolicyProperty 
+        String securityPolicyProperty
             = System.getProperty(PROPERTY_JAVA_SECURITY_POLICY);
 
         if (overrideSecurityPolicy
@@ -380,50 +477,50 @@ public class Main implements Application {
             "".equals(securityPolicyProperty)) {
             // Access default policy file
             ParsedURL policyURL = new ParsedURL(securityEnforcer.getPolicyURL());
-            
-            // Override the user policy 
+
+            // Override the user policy
             String dir = System.getProperty(PROPERTY_USER_HOME);
             File batikConfigDir = new File(dir, BATIK_CONFIGURATION_SUBDIRECTORY);
             File policyFile = new File(batikConfigDir, SQUIGGLE_POLICY_FILE);
-            
+
             // Copy original policy file into local policy file
             Reader r = new BufferedReader(new InputStreamReader(policyURL.openStream()));
             Writer w = new FileWriter(policyFile);
-            
+
             char[] buf = new char[1024];
             int n = 0;
             while ( (n=r.read(buf, 0, buf.length)) != -1 ) {
                 w.write(buf, 0, n);
             }
-            
+
             r.close();
-            
+
             // Now, append additional grants depending on the security
             // settings
-            boolean grantScriptNetworkAccess 
+            boolean grantScriptNetworkAccess
                 = preferenceManager.getBoolean
                 (PreferenceDialog.PREFERENCE_KEY_GRANT_SCRIPT_NETWORK_ACCESS);
             boolean grantScriptFileAccess
                 = preferenceManager.getBoolean
                 (PreferenceDialog.PREFERENCE_KEY_GRANT_SCRIPT_FILE_ACCESS);
-            
+
             if (grantScriptNetworkAccess) {
                 w.write(POLICY_GRANT_SCRIPT_NETWORK_ACCESS);
             }
-            
+
             if (grantScriptFileAccess) {
                 w.write(POLICY_GRANT_SCRIPT_FILE_ACCESS);
             }
-            
+
             w.close();
-            
-            // We now use the JAVA_SECURITY_POLICY property, so 
+
+            // We now use the JAVA_SECURITY_POLICY property, so
             // we allow override on subsequent calls.
             overrideSecurityPolicy = true;
-            
+
             System.setProperty(PROPERTY_JAVA_SECURITY_POLICY,
                                policyFile.toURL().toString());
-            
+
         }
     }
 
@@ -457,9 +554,9 @@ public class Main implements Application {
                         uri = file.toURL().toString();
                     }
                 }catch(SecurityException se){
-                    // Cannot access files. 
+                    // Cannot access files.
                 }
-                
+
                 if(uri == null){
                     uri = arguments[i];
                     ParsedURL purl = null;
@@ -650,7 +747,7 @@ public class Main implements Application {
      */
     public void showPreferenceDialog(JSVGViewerFrame f) {
         if (preferenceDialog == null) {
-            preferenceDialog = new PreferenceDialog(preferenceManager);
+            preferenceDialog = new PreferenceDialog(f, preferenceManager);
         }
         if (preferenceDialog.showDialog() == PreferenceDialog.OK_OPTION) {
             try {
@@ -696,7 +793,35 @@ public class Main implements Application {
         vf.setAutoAdjust(aa);
         boolean dd = preferenceManager.getBoolean
             (PreferenceDialog.PREFERENCE_KEY_SELECTION_XOR_MODE);
-	vf.getJSVGCanvas().setSelectionOverlayXORMode(dd);
+        vf.getJSVGCanvas().setSelectionOverlayXORMode(dd);
+        int al = preferenceManager.getInteger
+            (PreferenceDialog.PREFERENCE_KEY_ANIMATION_RATE_LIMITING_MODE);
+        if (al < 0 || al > 2) {
+            al = 1;
+        }
+        switch (al) {
+            case 0: // none
+                vf.getJSVGCanvas().setAnimationLimitingNone();
+                break;
+            case 1: { // %cpu
+                float pc = preferenceManager.getFloat
+                    (PreferenceDialog.PREFERENCE_KEY_ANIMATION_RATE_LIMITING_CPU);
+                if (pc <= 0f || pc > 1.0f) {
+                    pc = 0.75f;
+                }
+                vf.getJSVGCanvas().setAnimationLimitingCPU(pc);
+                break;
+            }
+            case 2: { // fps
+                float fps = preferenceManager.getFloat
+                    (PreferenceDialog.PREFERENCE_KEY_ANIMATION_RATE_LIMITING_FPS);
+                if (fps <= 0f) {
+                    fps = 10f;
+                }
+                vf.getJSVGCanvas().setAnimationLimitingFPS(fps);
+                break;
+            }
+        }
     }
 
     /**
@@ -715,8 +840,22 @@ public class Main implements Application {
      * @return null if no user style sheet was specified.
      */
     public String getUserStyleSheetURI() {
-        return preferenceManager.getString
+        boolean enabled = preferenceManager.getBoolean
+            (PreferenceDialog.PREFERENCE_KEY_USER_STYLESHEET_ENABLED);
+        String ssPath = preferenceManager.getString
             (PreferenceDialog.PREFERENCE_KEY_USER_STYLESHEET);
+        if (!enabled || ssPath.length() == 0) {
+            return null;
+        }
+        try {
+            File f = new File(ssPath);
+            if (f.exists()) {
+                return f.toURL().toString();
+            }
+        } catch (IOException ioe) {
+            // Nothing...
+        }
+        return ssPath;
     }
 
     /**
@@ -752,10 +891,15 @@ public class Main implements Application {
      * this application.
      */
     public boolean canLoadScriptType(String scriptType){
-        if (SVGConstants.SVG_SCRIPT_TYPE_ECMASCRIPT.equals(scriptType)){
+        if (SVGConstants.SVG_SCRIPT_TYPE_ECMASCRIPT.equals(scriptType)
+                || SVGConstants.SVG_SCRIPT_TYPE_APPLICATION_ECMASCRIPT
+                    .equals(scriptType)
+                || SVGConstants.SVG_SCRIPT_TYPE_JAVASCRIPT.equals(scriptType)
+                || SVGConstants.SVG_SCRIPT_TYPE_APPLICATION_JAVASCRIPT
+                    .equals(scriptType)) {
             return preferenceManager.getBoolean
                 (PreferenceDialog.PREFERENCE_KEY_LOAD_ECMASCRIPT);
-        } else if (SVGConstants.SVG_SCRIPT_TYPE_JAVA.equals(scriptType)){
+        } else if (SVGConstants.SVG_SCRIPT_TYPE_JAVA.equals(scriptType)) {
             return preferenceManager.getBoolean
                 (PreferenceDialog.PREFERENCE_KEY_LOAD_JAVA);
         } else {
@@ -777,7 +921,7 @@ public class Main implements Application {
 
     /**
      * Returns the allowed origins for external
-     * resources. 
+     * resources.
      * @see ResourceOrigin
      */
     public int getAllowedExternalResourceOrigin() {
@@ -789,16 +933,16 @@ public class Main implements Application {
 
     /**
      * Notifies Application of recently visited URI
-     */ 
+     */
     public void addVisitedURI(String uri) {
         if(svgInitializationURI.equals(uri)) {
             return;
         }
-        
-        int maxVisitedURIs = 
+
+        int maxVisitedURIs =
             preferenceManager.getInteger
             (PREFERENCE_KEY_VISITED_URI_LIST_LENGTH);
-        
+
         if (maxVisitedURIs < 0) {
             maxVisitedURIs = 0;
         }
@@ -809,21 +953,21 @@ public class Main implements Application {
 
         while (lastVisited.size() > 0 && lastVisited.size() > (maxVisitedURIs-1)) {
             lastVisited.removeElementAt(0);
-        } 
+        }
 
         if (maxVisitedURIs > 0) {
             lastVisited.addElement(uri);
         }
 
         // Now, save the list of visited URL into the preferences
-        StringBuffer lastVisitedBuffer = new StringBuffer();
+        StringBuffer lastVisitedBuffer = new StringBuffer( lastVisited.size() * 8 );
 
         for (int i=0; i<lastVisited.size(); i++) {
             lastVisitedBuffer.append
-                (URLEncoder.encode(lastVisited.elementAt(i).toString()));
+                (URLEncoder.encode(lastVisited.get(i).toString()));
             lastVisitedBuffer.append(URI_SEPARATOR);
         }
-        
+
         preferenceManager.setString
             (PREFERENCE_KEY_VISITED_URI_LIST,
              lastVisitedBuffer.toString());
@@ -840,24 +984,31 @@ public class Main implements Application {
      */
     public String[] getVisitedURIs() {
         String[] visitedURIs = new String[lastVisited.size()];
-        lastVisited.copyInto(visitedURIs);
+        lastVisited.toArray(visitedURIs);
         return visitedURIs;
+    }
+
+    /**
+     * Returns the UI resource specialization to use.
+     */
+    public String getUISpecialization() {
+        return uiSpecialization;
     }
 
     /**
      * Initializes the lastVisited array
      */
     protected void initializeLastVisited(){
-        String lastVisitedStr 
+        String lastVisitedStr
             = preferenceManager.getString(PREFERENCE_KEY_VISITED_URI_LIST);
 
-        StringTokenizer st 
+        StringTokenizer st
             = new StringTokenizer(lastVisitedStr,
                                   URI_SEPARATOR);
 
         int n = st.countTokens();
 
-        int maxVisitedURIs 
+        int maxVisitedURIs
             = preferenceManager.getInteger
             (PREFERENCE_KEY_VISITED_URI_LIST_LENGTH);
 

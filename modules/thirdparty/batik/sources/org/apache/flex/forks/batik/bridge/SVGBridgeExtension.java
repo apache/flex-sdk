@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2002,2004-2005  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,6 +27,9 @@ import org.w3c.dom.Element;
 /**
  * This is a Service interface for classes that want to extend the
  * functionality of the Bridge, to support new tags in the rendering tree.
+ *
+ * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
+ * @version $Id: SVGBridgeExtension.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class SVGBridgeExtension implements BridgeExtension {
 
@@ -147,7 +151,11 @@ public class SVGBridgeExtension implements BridgeExtension {
         ctx.putBridge(new SVGTitleElementBridge());
         ctx.putBridge(new SVGUseElementBridge());
         ctx.putBridge(new SVGVKernElementBridge());
-
+        ctx.putBridge(new SVGSetElementBridge());
+        ctx.putBridge(new SVGAnimateElementBridge());
+        ctx.putBridge(new SVGAnimateColorElementBridge());
+        ctx.putBridge(new SVGAnimateTransformElementBridge());
+        ctx.putBridge(new SVGAnimateMotionElementBridge());
     }
 
     /**
@@ -165,7 +173,7 @@ public class SVGBridgeExtension implements BridgeExtension {
         String ln = e.getLocalName();
         if (ln.equals(SVGConstants.SVG_SCRIPT_TAG)
                 || ln.startsWith("animate")
-                || ln.equals("set")) {
+                || ln.equals(SVGConstants.SVG_SET_TAG)) {
             return true;
         }
         return false;

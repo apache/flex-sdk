@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,9 +27,10 @@ import java.io.Writer;
  * a particular scripting language.
  *
  * @author <a href="mailto:cjolif@ilog.fr">Christophe Jolif</a>
- * @version $Id: Interpreter.java,v 1.9 2004/08/18 07:14:53 vhardy Exp $
+ * @version $Id: Interpreter.java 475477 2006-11-15 22:44:28Z cam $
  */
 public interface Interpreter extends org.apache.flex.forks.batik.i18n.Localizable {
+
     /**
      * This method should evaluate a piece of script associated to a given 
      * description.
@@ -39,7 +41,7 @@ public interface Interpreter extends org.apache.flex.forks.batik.i18n.Localizabl
      * @return if no exception is thrown during the call, should return the
      * value of the last expression evaluated in the script
      */
-    public Object evaluate(Reader scriptreader, String description)
+    Object evaluate(Reader scriptreader, String description)
         throws InterpreterException, IOException;
 
     /**
@@ -49,7 +51,7 @@ public interface Interpreter extends org.apache.flex.forks.batik.i18n.Localizabl
      * @return if no exception is thrown during the call, should return the
      * value of the last expression evaluated in the script
      */
-    public Object evaluate(Reader scriptreader)
+    Object evaluate(Reader scriptreader)
         throws InterpreterException, IOException;
 
     /**
@@ -61,7 +63,7 @@ public interface Interpreter extends org.apache.flex.forks.batik.i18n.Localizabl
      * @return if no exception is thrown during the call, should return the
      * value of the last expression evaluated in the script
      */
-    public Object evaluate(String script)
+    Object evaluate(String script)
         throws InterpreterException;
 
     /**
@@ -71,7 +73,7 @@ public interface Interpreter extends org.apache.flex.forks.batik.i18n.Localizabl
      * @param name the name of the script object to create
      * @param object the Java object
      */
-    public void bindObject(String name, Object object);
+    void bindObject(String name, Object object);
 
     /**
      * This method should change the output <code>Writer</code> that will be
@@ -79,12 +81,12 @@ public interface Interpreter extends org.apache.flex.forks.batik.i18n.Localizabl
      *
      * @param output the new out <code>Writer</code>.
      */
-    public void setOut(Writer output);
+    void setOut(Writer output);
 
     /**
      * This method can dispose resources used by the interpreter when it is
      * no longer used. Be careful, you SHOULD NOT use this interpreter instance
      * after calling this method.
      */
-    public void dispose();
+    void dispose();
 }

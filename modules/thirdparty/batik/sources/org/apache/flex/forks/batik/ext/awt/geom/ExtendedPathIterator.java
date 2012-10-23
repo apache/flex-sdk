@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -31,7 +32,8 @@ import java.awt.geom.PathIterator;
  * contract for that class.
  *
  * @author <a href="mailto:deweese@apache.org">Thomas DeWeese</a>
- * @version $Id: ExtendedPathIterator.java,v 1.4 2004/08/18 07:13:47 vhardy Exp $ */
+ * @version $Id: ExtendedPathIterator.java 475477 2006-11-15 22:44:28Z cam $
+ */
 public interface ExtendedPathIterator {
 
     /**
@@ -39,18 +41,21 @@ public interface ExtendedPathIterator {
      * subpath should be closed by appending a line segment back to
      * the point corresponding to the most recent SEG_MOVETO.
      */
-    public static final int SEG_CLOSE   = PathIterator.SEG_CLOSE;
+    int SEG_CLOSE   = PathIterator.SEG_CLOSE;
+
     /** 
      * The segment type constant for a point that specifies the end
      * point of a line to be drawn from the most recently specified
      * point.  */
-    public static final int SEG_MOVETO  = PathIterator.SEG_MOVETO;
+    int SEG_MOVETO  = PathIterator.SEG_MOVETO;
+
     /**
      * The segment type constant for a point that specifies the end
      * point of a line to be drawn from the most recently specified
      * point.
      */
-    public static final int SEG_LINETO  = PathIterator.SEG_LINETO;
+    int SEG_LINETO  = PathIterator.SEG_LINETO;
+
     /**
      * The segment type constant for the pair of points that specify a
      * quadratic parametric curve to be drawn from the most recently
@@ -59,7 +64,8 @@ public interface ExtendedPathIterator {
      * most recently specified (current) point (CP), the first control
      * point (P1), and the final interpolated control point (P2). 
      */
-    public static final int SEG_QUADTO  = PathIterator.SEG_QUADTO;
+    int SEG_QUADTO  = PathIterator.SEG_QUADTO;
+
     /**
      * The segment type constant for the set of 3 points that specify
      * a cubic parametric curve to be drawn from the most recently
@@ -69,7 +75,7 @@ public interface ExtendedPathIterator {
      * point (P1), the second control point (P2), and the final
      * interpolated control point (P3).
      */
-    public static final int SEG_CUBICTO = PathIterator.SEG_CUBICTO;
+    int SEG_CUBICTO = PathIterator.SEG_CUBICTO;
 
     /** The segment type constant for an elliptical arc.  This consists of
      *  Seven values [rx, ry, angle, largeArcFlag, sweepFlag, x, y].
@@ -78,7 +84,7 @@ public interface ExtendedPathIterator {
      *  largeArcFlag is zero if the smaller of the two arcs are to be used.
      *  sweepFlag is zero if the 'left' branch is taken one otherwise.
      *  x and y are the destination for the ellipse.  */
-    public static final int SEG_ARCTO = 4321;
+    int SEG_ARCTO = 4321;
 
     /** The winding rule constant for specifying an even-odd rule for
      * determining the interior of a path. The even-odd rule specifies
@@ -86,7 +92,8 @@ public interface ExtendedPathIterator {
      * direction from that point to infinity is crossed by path
      * segments an odd number of times.  
      */ 
-    public static final int WIND_EVEN_ODD = PathIterator.WIND_EVEN_ODD; 
+    int WIND_EVEN_ODD = PathIterator.WIND_EVEN_ODD; 
+
     /**
      * The winding rule constant for specifying a non-zero rule for
      * determining the interior of a path. The non-zero rule specifies
@@ -95,13 +102,12 @@ public interface ExtendedPathIterator {
      * segments a different number of times in the counter-clockwise
      * direction than the clockwise direction.
      */
-     public static final int WIND_NON_ZERO = PathIterator.WIND_NON_ZERO;
+    int WIND_NON_ZERO = PathIterator.WIND_NON_ZERO;
 
-
-    public int currentSegment(double[] coords);
-    public int currentSegment(float[] coords);
-    public int getWindingRule(); 
-    public boolean isDone();
-    public void next();
+    int currentSegment();
+    int currentSegment(double[] coords);
+    int currentSegment(float[] coords);
+    int getWindingRule(); 
+    boolean isDone();
+    void next();
 }
-

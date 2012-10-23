@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -28,7 +29,7 @@ import org.w3c.dom.Element;
  * Utility class that converts a Path object into an SVG clip
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: SVGClip.java,v 1.14 2004/08/18 07:14:59 vhardy Exp $
+ * @version $Id: SVGClip.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class SVGClip extends AbstractSVGConverter {
     /**
@@ -85,7 +86,7 @@ public class SVGClip extends AbstractSVGConverter {
                     clipDesc = NO_CLIP;
                 else {
                     clipPathAttrBuf.append(SIGN_POUND);
-                    clipPathAttrBuf.append(clipDef.getAttributeNS(null, ATTR_ID));
+                    clipPathAttrBuf.append(clipDef.getAttributeNS(null, SVG_ID_ATTRIBUTE));
                     clipPathAttrBuf.append(URL_SUFFIX);
 
                     clipDesc = new SVGClipDescriptor(clipPathAttrBuf.toString(),
@@ -115,7 +116,7 @@ public class SVGClip extends AbstractSVGConverter {
         clipDef.setAttributeNS(null, SVG_CLIP_PATH_UNITS_ATTRIBUTE,
                                SVG_USER_SPACE_ON_USE_VALUE);
 
-        clipDef.setAttributeNS(null, ATTR_ID,
+        clipDef.setAttributeNS(null, SVG_ID_ATTRIBUTE,
                                generatorContext.
                                idGenerator.generateID(ID_PREFIX_CLIP_PATH));
 
@@ -165,14 +166,11 @@ class ClipKey {
     }
 
     /**
-     * @param object to compare
+     * @param clipKey object to compare
      * @return true if equal, false otherwise
      */
-    public boolean equals(Object clipKey){
-        boolean isEqual = false;
-        if((clipKey != null) &&clipKey instanceof ClipKey)
-            isEqual = (hashCodeValue == ((ClipKey)clipKey).hashCodeValue);
-
-        return isEqual;
+    public boolean equals(Object clipKey) {
+        return clipKey instanceof ClipKey
+            && hashCodeValue == ((ClipKey) clipKey).hashCodeValue;
     }
 }

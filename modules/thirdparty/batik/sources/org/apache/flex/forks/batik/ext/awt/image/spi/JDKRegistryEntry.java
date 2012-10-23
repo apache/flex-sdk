@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -36,9 +37,11 @@ import org.apache.flex.forks.batik.util.ParsedURL;
 
 /**
  * This Image tag registy entry is setup to wrap the core JDK
- * Image stream tools.  
+ * Image stream tools.
+ *
+ * @version $Id: JDKRegistryEntry.java 501094 2007-01-29 16:35:37Z deweese $
  */
-public class JDKRegistryEntry extends AbstractRegistryEntry 
+public class JDKRegistryEntry extends AbstractRegistryEntry
     implements URLRegistryEntry {
 
     /**
@@ -47,7 +50,7 @@ public class JDKRegistryEntry extends AbstractRegistryEntry
      * but if one wishes one could set a priority higher and be called
      * afterwords
      */
-    public final static float PRIORITY = 
+    public static final float PRIORITY =
         1000*MagicNumberRegistryEntry.PRIORITY;
 
     public JDKRegistryEntry() {
@@ -64,7 +67,7 @@ public class JDKRegistryEntry extends AbstractRegistryEntry
      *
      * This method should only throw a StreamCorruptedException if it
      * is unable to restore the state of the InputStream
-     * (i.e. mark/reset fails basically).  
+     * (i.e. mark/reset fails basically).
      */
     public boolean isCompatibleURL(ParsedURL purl) {
         try {
@@ -81,11 +84,11 @@ public class JDKRegistryEntry extends AbstractRegistryEntry
      *
      * @param purl URL of the image.
      * @param needRawData If true the image returned should not have
-     *                    any default color correction the file may 
-     *                    specify applied.  
+     *                    any default color correction the file may
+     *                    specify applied.
      */
     public Filter handleURL(ParsedURL purl, boolean needRawData) {
-        
+
         final URL url;
         try {
             url = new URL(purl.toString());
@@ -107,21 +110,26 @@ public class JDKRegistryEntry extends AbstractRegistryEntry
         Thread t = new Thread() {
                 public void run() {
                     Filter filt = null;
+                    try {
+                        Toolkit tk = Toolkit.getDefaultToolkit();
+                        Image img = tk.createImage(url);
 
-                    Toolkit tk = Toolkit.getDefaultToolkit();
-                    Image img = tk.createImage(url);
-
-                    if (img != null) {
-                        RenderedImage ri = loadImage(img, dr);
-                        if (ri != null) {
-                            filt = new RedRable(GraphicsUtil.wrap(ri));
+                        if (img != null) {
+                            RenderedImage ri = loadImage(img, dr);
+                            if (ri != null) {
+                                filt = new RedRable(GraphicsUtil.wrap(ri));
+                            }
                         }
-                    }
-
+                    } catch (ThreadDeath td) {
+                        filt = ImageTagRegistry.getBrokenLinkImage
+                            (JDKRegistryEntry.this, errCode, errParam);
+                        dr.setSource(filt);
+                        throw td;
+                    } catch (Throwable t) { }
                     if (filt == null)
                         filt = ImageTagRegistry.getBrokenLinkImage
-                            (this, errCode, errParam);
-                    
+                            (JDKRegistryEntry.this, errCode, errParam);
+
                     dr.setSource(filt);
                 }
             };
@@ -149,7 +157,7 @@ public class JDKRegistryEntry extends AbstractRegistryEntry
         BufferedImage bi = new BufferedImage
             (width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = bi.createGraphics();
-        
+
         // Wait till the image is fully loaded.
         observer.waitTilImageDone();
         if (observer.imageError)
@@ -181,7 +189,7 @@ public class JDKRegistryEntry extends AbstractRegistryEntry
             imageDone       = false;
         }
 
-        public boolean imageUpdate(Image img, int infoflags, 
+        public boolean imageUpdate(Image img, int infoflags,
                                    int x, int y, int width, int height) {
             synchronized (this) {
                 boolean notify = false;
@@ -228,7 +236,7 @@ public class JDKRegistryEntry extends AbstractRegistryEntry
                     // Wait for someone to set xxxDone
                     wait();
                 }
-                catch(InterruptedException ie) { 
+                catch(InterruptedException ie) {
                     // Loop around again see if src is set now...
                 }
             }
@@ -239,7 +247,7 @@ public class JDKRegistryEntry extends AbstractRegistryEntry
                     // Wait for someone to set xxxDone
                     wait();
                 }
-                catch(InterruptedException ie) { 
+                catch(InterruptedException ie) {
                     // Loop around again see if src is set now...
                 }
             }
@@ -250,7 +258,7 @@ public class JDKRegistryEntry extends AbstractRegistryEntry
                     // Wait for someone to set xxxDone
                     wait();
                 }
-                catch(InterruptedException ie) { 
+                catch(InterruptedException ie) {
                     // Loop around again see if src is set now...
                 }
             }
@@ -262,7 +270,7 @@ public class JDKRegistryEntry extends AbstractRegistryEntry
                     // Wait for someone to set xxxDone
                     wait();
                 }
-                catch(InterruptedException ie) { 
+                catch(InterruptedException ie) {
                     // Loop around again see if src is set now...
                 }
             }

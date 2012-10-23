@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,6 +18,7 @@
  */
 package org.apache.flex.forks.batik.swing.gvt;
 
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 
@@ -26,7 +28,7 @@ import java.awt.geom.AffineTransform;
  * InteractorAdapter#startInteraction(InputEvent)} method.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: AbstractImageZoomInteractor.java,v 1.4 2004/08/18 07:15:32 vhardy Exp $
+ * @version $Id: AbstractImageZoomInteractor.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class AbstractImageZoomInteractor extends InteractorAdapter {
 
@@ -106,20 +108,22 @@ public class AbstractImageZoomInteractor extends InteractorAdapter {
      * bounds of the component).
      */
     public void mouseDragged(MouseEvent e) {
+        AffineTransform at;
         JGVTComponent c = (JGVTComponent)e.getSource();
 
         xCurrent = e.getX();
         yCurrent = e.getY();
 
-        AffineTransform at = AffineTransform.getTranslateInstance(xStart, yStart);
+        at = AffineTransform.getTranslateInstance(xStart, yStart);
         int dy = yCurrent - yStart;
+        double s;
         if (dy < 0) {
-            dy = (dy > -5) ? 15 : dy - 10;
+            dy -= 10;
+            s = (dy > -15) ? 1.0 : -15.0/dy;
         } else {
-            dy = (dy < 5) ? 15 : dy + 10;
+            dy += 10;
+            s = (dy <  15) ? 1.0 : dy/15.0;
         }
-        double s = dy / 15.0;
-        s = (s > 0) ? s : -1 / s;
 
         at.scale(s, s);
         at.translate(-xStart, -yStart);

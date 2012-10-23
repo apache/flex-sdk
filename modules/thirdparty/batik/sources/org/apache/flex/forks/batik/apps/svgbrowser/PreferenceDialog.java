@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,51 +20,68 @@ package org.apache.flex.forks.batik.apps.svgbrowser;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.FileDialog;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Frame;
-import java.awt.Rectangle;
+import java.awt.Insets;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.ListCellRenderer;
+import javax.swing.JToggleButton;
+import javax.swing.JToolBar;
+import javax.swing.LookAndFeel;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.border.Border;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.apache.flex.forks.batik.ext.swing.GridBagConstants;
 import org.apache.flex.forks.batik.ext.swing.JGridBagPanel;
+import org.apache.flex.forks.batik.util.Platform;
 import org.apache.flex.forks.batik.util.PreferenceManager;
 import org.apache.flex.forks.batik.util.gui.CSSMediaPanel;
 import org.apache.flex.forks.batik.util.gui.LanguageDialog;
-import org.apache.flex.forks.batik.util.gui.UserStyleDialog;
 
 /**
  * Dialog that displays user preferences.
  *
  * @author <a href="mailto:vhardy@apache.org">Vincent Hardy</a>
- * @version $Id: PreferenceDialog.java,v 1.21 2004/08/18 07:12:27 vhardy Exp $
+ * @version $Id: PreferenceDialog.java 498740 2007-01-22 18:35:57Z dvholten $
  */
 public class PreferenceDialog extends JDialog
     implements GridBagConstants {
@@ -71,145 +89,140 @@ public class PreferenceDialog extends JDialog
     /**
      * The return value if 'OK' is chosen.
      */
-    public final static int OK_OPTION = 0;
+    public static final int OK_OPTION = 0;
 
     /**
      * The return value if 'Cancel' is chosen.
      */
-    public final static int CANCEL_OPTION = 1;
+    public static final int CANCEL_OPTION = 1;
 
     //////////////////////////////////////////////////////////////
     // GUI Resources Keys
     //////////////////////////////////////////////////////////////
 
-    public static final String ICON_USER_LANGUAGE
-        = "PreferenceDialog.icon.userLanguagePref";
+    public static final String PREFERENCE_KEY_TITLE_PREFIX
+        = "PreferenceDialog.title.";
 
-    public static final String ICON_USER_STYLESHEET
-        = "PreferenceDialog.icon.userStylesheetPref";
-
-    public static final String ICON_BEHAVIOR
-        = "PreferenceDialog.icon.behaviorsPref";
-
-    public static final String ICON_NETWORK
-        = "PreferenceDialog.icon.networkPref";
-
-    public static final String LABEL_USER_OPTIONS
-        = "PreferenceDialog.label.user.options";
-
-    public static final String LABEL_BEHAVIOR
-        = "PreferenceDialog.label.behavior";
-
-    public static final String LABEL_NETWORK
-        = "PreferenceDialog.label.network";
-
-    public static final String LABEL_USER_LANGUAGE
-        = "PreferenceDialog.label.user.language";
-
-    public static final String LABEL_USER_STYLESHEET
-        = "PreferenceDialog.label.user.stylesheet";
-
-    public static final String LABEL_USER_FONT
-        = "PreferenceDialog.label.user.font";
-
-    public static final String LABEL_APPLICATIONS
-        = "PreferenceDialog.label.applications";
-
-    public static final String LABEL_SHOW_RENDERING
-        = "PreferenceDialog.label.show.rendering";
-
-    public static final String LABEL_AUTO_ADJUST_WINDOW
-        = "PreferenceDialog.label.auto.adjust.window";
-
-    public static final String LABEL_ENABLE_DOUBLE_BUFFERING
-        = "PreferenceDialog.label.enable.double.buffering";
-
-    public static final String LABEL_SHOW_DEBUG_TRACE
-        = "PreferenceDialog.label.show.debug.trace";
-
-    public static final String LABEL_SELECTION_XOR_MODE
-        = "PreferenceDialog.label.selection.xor.mode";
-
-    public static final String LABEL_IS_XML_PARSER_VALIDATING
-        = "PreferenceDialog.label.is.xml.parser.validating";
-
-    public static final String LABEL_ENFORCE_SECURE_SCRIPTING
-        = "PreferenceDialog.label.enforce.secure.scripting";
-
-    public static final String LABEL_SECURE_SCRIPTING_TOGGLE
-        = "PreferenceDialog.label.secure.scripting.toggle";
-
-    public static final String LABEL_GRANT_SCRIPT_FILE_ACCESS
-        = "PreferenceDialog.label.grant.script.file.access";
-
-    public static final String LABEL_GRANT_SCRIPT_NETWORK_ACCESS
-        = "PreferenceDialog.label.grant.script.network.access";
-
-    public static final String LABEL_LOAD_JAVA
-        = "PreferenceDialog.label.load.java";
-
-    public static final String LABEL_LOAD_ECMASCRIPT
-        = "PreferenceDialog.label.load.ecmascript";
-
-    public static final String LABEL_HOST
-        = "PreferenceDialog.label.host";
-
-    public static final String LABEL_PORT
-        = "PreferenceDialog.label.port";
-
-    public static final String LABEL_OK
-        = "PreferenceDialog.label.ok";
-
-    public static final String LABEL_LOAD_SCRIPTS
-        = "PreferenceDialog.label.load.scripts";
-
-    public static final String LABEL_ORIGIN_ANY
-        = "PreferenceDialog.label.origin.any";
-
-    public static final String LABEL_ORIGIN_DOCUMENT
-        = "PreferenceDialog.label.origin.document";
-
-    public static final String LABEL_ORIGIN_EMBED
-        = "PreferenceDialog.label.origin.embed";
-
-    public static final String LABEL_ORIGIN_NONE
-        = "PreferenceDialog.label.origin.none";
-
-    public static final String LABEL_SCRIPT_ORIGIN
-        = "PreferenceDialog.label.script.origin";
-
-    public static final String LABEL_RESOURCE_ORIGIN
-        = "PreferenceDialog.label.resource.origin";
-
-    public static final String LABEL_CANCEL
-        = "PreferenceDialog.label.cancel";
-
-    public static final String TITLE_BROWSER_OPTIONS
-        = "PreferenceDialog.title.browser.options";
-
-    public static final String TITLE_BEHAVIOR
-        = "PreferenceDialog.title.behavior";
-
-    public static final String TITLE_SECURITY
-        = "PreferenceDialog.title.security";
-
-    public static final String TITLE_NETWORK
-        = "PreferenceDialog.title.network";
-
-    public static final String TITLE_DIALOG
+    public static final String PREFERENCE_KEY_TITLE_DIALOG
         = "PreferenceDialog.title.dialog";
 
-    public static final String CONFIG_HOST_TEXT_FIELD_LENGTH
-        = "PreferenceDialog.config.host.text.field.length";
+    public static final String PREFERENCE_KEY_LABEL_RENDERING_OPTIONS
+        = "PreferenceDialog.label.rendering.options";
 
-    public static final String CONFIG_PORT_TEXT_FIELD_LENGTH
-        = "PreferenceDialog.config.port.text.field.length";
+    public static final String PREFERENCE_KEY_LABEL_ANIMATION_RATE_LIMITING
+        = "PreferenceDialog.label.animation.rate.limiting";
 
-    public static final String CONFIG_OK_MNEMONIC
-        = "PreferenceDialog.config.ok.mnemonic";
+    public static final String PREFERENCE_KEY_LABEL_OTHER_OPTIONS
+        = "PreferenceDialog.label.other.options";
 
-    public static final String CONFIG_CANCEL_MNEMONIC
-        = "PreferenceDialog.config.cancel.mnemonic";
+    public static final String PREFERENCE_KEY_LABEL_ENABLE_DOUBLE_BUFFERING
+        = "PreferenceDialog.label.enable.double.buffering";
+
+    public static final String PREFERENCE_KEY_LABEL_SHOW_RENDERING
+        = "PreferenceDialog.label.show.rendering";
+
+    public static final String PREFERENCE_KEY_LABEL_AUTO_ADJUST_WINDOW
+        = "PreferenceDialog.label.auto.adjust.window";
+
+    public static final String PREFERENCE_KEY_LABEL_SELECTION_XOR_MODE
+        = "PreferenceDialog.label.selection.xor.mode";
+
+    public static final String PREFERENCE_KEY_LABEL_ANIMATION_LIMIT_CPU
+        = "PreferenceDialog.label.animation.limit.cpu";
+
+    public static final String PREFERENCE_KEY_LABEL_PERCENT
+        = "PreferenceDialog.label.percent";
+
+    public static final String PREFERENCE_KEY_LABEL_ANIMATION_LIMIT_FPS
+        = "PreferenceDialog.label.animation.limit.fps";
+
+    public static final String PREFERENCE_KEY_LABEL_FPS
+        = "PreferenceDialog.label.fps";
+
+    public static final String PREFERENCE_KEY_LABEL_ANIMATION_LIMIT_UNLIMITED
+        = "PreferenceDialog.label.animation.limit.unlimited";
+
+    public static final String PREFERENCE_KEY_LABEL_SHOW_DEBUG_TRACE
+        = "PreferenceDialog.label.show.debug.trace";
+
+    public static final String PREFERENCE_KEY_LABEL_IS_XML_PARSER_VALIDATING
+        = "PreferenceDialog.label.is.xml.parser.validating";
+
+    public static final String PREFERENCE_KEY_LABEL_GRANT_SCRIPTS_ACCESS_TO
+        = "PreferenceDialog.label.grant.scripts.access.to";
+
+    public static final String PREFERENCE_KEY_LABEL_LOAD_SCRIPTS
+        = "PreferenceDialog.label.load.scripts";
+
+    public static final String PREFERENCE_KEY_LABEL_ALLOWED_SCRIPT_ORIGIN
+        = "PreferenceDialog.label.allowed.script.origin";
+
+    public static final String PREFERENCE_KEY_LABEL_ALLOWED_RESOURCE_ORIGIN
+        = "PreferenceDialog.label.allowed.resource.origin";
+
+    public static final String PREFERENCE_KEY_LABEL_ENFORCE_SECURE_SCRIPTING
+        = "PreferenceDialog.label.enforce.secure.scripting";
+
+    public static final String PREFERENCE_KEY_LABEL_FILE_SYSTEM
+        = "PreferenceDialog.label.file.system";
+
+    public static final String PREFERENCE_KEY_LABEL_ALL_NETWORK
+        = "PreferenceDialog.label.all.network";
+
+    public static final String PREFERENCE_KEY_LABEL_JAVA_JAR_FILES
+        = "PreferenceDialog.label.java.jar.files";
+
+    public static final String PREFERENCE_KEY_LABEL_ECMASCRIPT
+        = "PreferenceDialog.label.ecmascript";
+
+    public static final String PREFERENCE_KEY_LABEL_ORIGIN_ANY
+        = "PreferenceDialog.label.origin.any";
+
+    public static final String PREFERENCE_KEY_LABEL_ORIGIN_DOCUMENT
+        = "PreferenceDialog.label.origin.document";
+
+    public static final String PREFERENCE_KEY_LABEL_ORIGIN_EMBEDDED
+        = "PreferenceDialog.label.origin.embedded";
+
+    public static final String PREFERENCE_KEY_LABEL_ORIGIN_NONE
+        = "PreferenceDialog.label.origin.none";
+
+    public static final String PREFERENCE_KEY_LABEL_USER_STYLESHEET
+        = "PreferenceDialog.label.user.stylesheet";
+
+    public static final String PREFERENCE_KEY_LABEL_CSS_MEDIA_TYPES
+        = "PreferenceDialog.label.css.media.types";
+
+    public static final String PREFERENCE_KEY_LABEL_ENABLE_USER_STYLESHEET
+        = "PreferenceDialog.label.enable.user.stylesheet";
+
+    public static final String PREFERENCE_KEY_LABEL_BROWSE
+        = "PreferenceDialog.label.browse";
+
+    public static final String PREFERENCE_KEY_LABEL_ADD
+        = "PreferenceDialog.label.add";
+
+    public static final String PREFERENCE_KEY_LABEL_REMOVE
+        = "PreferenceDialog.label.remove";
+
+    public static final String PREFERENCE_KEY_LABEL_CLEAR
+        = "PreferenceDialog.label.clear";
+
+    public static final String PREFERENCE_KEY_LABEL_HTTP_PROXY
+        = "PreferenceDialog.label.http.proxy";
+
+    public static final String PREFERENCE_KEY_LABEL_HOST
+        = "PreferenceDialog.label.host";
+
+    public static final String PREFERENCE_KEY_LABEL_PORT
+        = "PreferenceDialog.label.port";
+
+    public static final String PREFERENCE_KEY_LABEL_COLON
+        = "PreferenceDialog.label.colon";
+
+    public static final String PREFERENCE_KEY_BROWSE_TITLE
+        = "PreferenceDialog.BrowseWindow.title";
+
 
     //////////////////////////////////////////////////////////////
     // Following are the preference keys used in the
@@ -224,6 +237,9 @@ public class PreferenceDialog extends JDialog
 
     public static final String PREFERENCE_KEY_USER_STYLESHEET
         = "preference.key.user.stylesheet";
+
+    public static final String PREFERENCE_KEY_USER_STYLESHEET_ENABLED
+        = "preference.key.user.stylesheet.enabled";
 
     public static final String PREFERENCE_KEY_SHOW_RENDERING
         = "preference.key.show.rendering";
@@ -259,7 +275,7 @@ public class PreferenceDialog extends JDialog
         = "preference.key.grant.script.file.access";
 
     public static final String PREFERENCE_KEY_GRANT_SCRIPT_NETWORK_ACCESS
-        = "preferenced.key.grant.script.network.access";
+        = "preference.key.grant.script.network.access";
 
     public static final String PREFERENCE_KEY_LOAD_ECMASCRIPT
         = "preference.key.load.ecmascript";
@@ -273,6 +289,21 @@ public class PreferenceDialog extends JDialog
     public static final String PREFERENCE_KEY_ALLOWED_EXTERNAL_RESOURCE_ORIGIN
         = "preference.key.allowed.external.resource.origin";
 
+    public static final String PREFERENCE_KEY_ANIMATION_RATE_LIMITING_MODE
+        = "preference.key.animation.rate.limiting.mode";
+
+    public static final String PREFERENCE_KEY_ANIMATION_RATE_LIMITING_CPU
+        = "preference.key.animation.rate.limiting.cpu";
+
+    public static final String PREFERENCE_KEY_ANIMATION_RATE_LIMITING_FPS
+        = "preference.key.animation.rate.limiting.fps";
+
+    public static final String LABEL_OK
+        = "PreferenceDialog.label.ok";
+
+    public static final String LABEL_CANCEL
+        = "PreferenceDialog.label.cancel";
+
     /**
      * <tt>PreferenceManager</tt> used to store and retrieve
      * preferences
@@ -280,63 +311,70 @@ public class PreferenceDialog extends JDialog
     protected PreferenceManager model;
 
     /**
-     * Allows selection of the desired configuration panel
+     * The configuration panel that holds each of the configuration pages.
      */
-    protected ConfigurationPanelSelector configPanelSelector;
+    protected JConfigurationPanel configurationPanel;
 
-    /**
-     * Allows selection of the user languages
-     */
-    protected LanguageDialog.Panel languagePanel;
-
-    /**
-     * Allows selection of a user stylesheet
-     */
-    protected UserStyleDialog.Panel userStylesheetPanel;
-
+    protected JCheckBox userStylesheetEnabled;
+    protected JLabel userStylesheetLabel;
+    protected JTextField userStylesheet;
+    protected JButton userStylesheetBrowse;
     protected JCheckBox showRendering;
-
     protected JCheckBox autoAdjustWindow;
-
-    protected JCheckBox showDebugTrace;
-
     protected JCheckBox enableDoubleBuffering;
-
+    protected JCheckBox showDebugTrace;
     protected JCheckBox selectionXorMode;
-
     protected JCheckBox isXMLParserValidating;
-
+    protected JRadioButton animationLimitUnlimited;
+    protected JRadioButton animationLimitCPU;
+    protected JRadioButton animationLimitFPS;
+    protected JLabel animationLimitCPULabel;
+    protected JLabel animationLimitFPSLabel;
+    protected JTextField animationLimitCPUAmount;
+    protected JTextField animationLimitFPSAmount;
     protected JCheckBox enforceSecureScripting;
-
     protected JCheckBox grantScriptFileAccess;
-
     protected JCheckBox grantScriptNetworkAccess;
-
     protected JCheckBox loadJava;
-
     protected JCheckBox loadEcmascript;
-
-    protected ButtonGroup scriptOriginGroup;
-
-    protected ButtonGroup resourceOriginGroup;
-
-    protected JTextField host, port;
-
-    protected CSSMediaPanel cssMediaPanel;
+    protected JComboBox allowedScriptOrigin;
+    protected JComboBox allowedResourceOrigin;
+    protected JList mediaList;
+    protected JButton mediaListRemoveButton;
+    protected JButton mediaListClearButton;
+    protected JTextField host;
+    protected JTextField port;
+    protected LanguageDialog.Panel languagePanel;
+    protected DefaultListModel mediaListModel = new DefaultListModel();
 
     /**
-     * Code indicating whether the dialog was OKayed
-     * or cancelled
+     * Code indicating whether the dialog was okayed or cancelled.
      */
     protected int returnCode;
 
     /**
-     * Default constructor
+     * Returns whether the current LAF is Metal Steel.
      */
-    public PreferenceDialog(PreferenceManager model){
-        super((Frame)null, true);
+    protected static boolean isMetalSteel() {
+        if (!UIManager.getLookAndFeel().getName().equals("Metal")) {
+            return false;
+        }
+        try {
+            LookAndFeel laf = UIManager.getLookAndFeel();
+            laf.getClass().getMethod("getCurrentTheme", new Class[0]);
+            return false;
+        } catch (Exception e) {
+        }
+        return true;
+    }
 
-        if(model == null){
+    /**
+     * Creates a new PreferenceDialog with the given model.
+     */
+    public PreferenceDialog(Frame owner, PreferenceManager model) {
+        super(owner, true);
+
+        if (model == null) {
             throw new IllegalArgumentException();
         }
 
@@ -344,6 +382,14 @@ public class PreferenceDialog extends JDialog
         buildGUI();
         initializeGUI();
         pack();
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                if (Platform.isOSX) {
+                    savePreferences();
+                }
+            }
+        });
     }
 
     /**
@@ -354,98 +400,160 @@ public class PreferenceDialog extends JDialog
     }
 
     /**
-     * Initializes the GUI components with the values
-     * from the model.
+     * Initializes the GUI components with the values from the model.
      */
-    protected void initializeGUI(){
-        //
-        // Initialize language. The set of languages is
-        // defined by a String.
-        //
-        String languages = model.getString(PREFERENCE_KEY_LANGUAGES);
-        languagePanel.setLanguages(languages);
+    protected void initializeGUI() {
+        boolean b;
+        float f;
+        int i;
+        String s;
 
-        //
-        // Initializes the User Stylesheet
-        //
-        String userStylesheetPath = model.getString(PREFERENCE_KEY_USER_STYLESHEET);
-        userStylesheetPanel.setPath(userStylesheetPath);
+        // General options
+        enableDoubleBuffering.setSelected
+            (model.getBoolean(PREFERENCE_KEY_ENABLE_DOUBLE_BUFFERING));
+        showRendering.setSelected
+            (model.getBoolean(PREFERENCE_KEY_SHOW_RENDERING));
+        autoAdjustWindow.setSelected
+            (model.getBoolean(PREFERENCE_KEY_AUTO_ADJUST_WINDOW));
+        selectionXorMode.setSelected
+            (model.getBoolean(PREFERENCE_KEY_SELECTION_XOR_MODE));
 
-        //
-        // Initializes the browser options
-        //
-        showRendering.setSelected(model.getBoolean(PREFERENCE_KEY_SHOW_RENDERING));
-        autoAdjustWindow.setSelected(model.getBoolean(PREFERENCE_KEY_AUTO_ADJUST_WINDOW));
-        enableDoubleBuffering.setSelected(model.getBoolean(PREFERENCE_KEY_ENABLE_DOUBLE_BUFFERING));
-        showDebugTrace.setSelected(model.getBoolean(PREFERENCE_KEY_SHOW_DEBUG_TRACE));
-        selectionXorMode.setSelected(model.getBoolean(PREFERENCE_KEY_SELECTION_XOR_MODE));
-
-        isXMLParserValidating.setSelected(model.getBoolean(PREFERENCE_KEY_IS_XML_PARSER_VALIDATING));
-        enforceSecureScripting.setSelected(model.getBoolean(PREFERENCE_KEY_ENFORCE_SECURE_SCRIPTING));
-        grantScriptFileAccess.setSelected(model.getBoolean(PREFERENCE_KEY_GRANT_SCRIPT_FILE_ACCESS));
-        grantScriptNetworkAccess.setSelected(model.getBoolean(PREFERENCE_KEY_GRANT_SCRIPT_NETWORK_ACCESS));
-        loadJava.setSelected(model.getBoolean(PREFERENCE_KEY_LOAD_JAVA));
-        loadEcmascript.setSelected(model.getBoolean(PREFERENCE_KEY_LOAD_ECMASCRIPT));
-
-        String allowedScriptOrigin = "" + model.getInteger(PREFERENCE_KEY_ALLOWED_SCRIPT_ORIGIN);
-        if (allowedScriptOrigin == null || "".equals(allowedScriptOrigin)) {
-            allowedScriptOrigin = "" + ResourceOrigin.NONE;
+        switch (model.getInteger(PREFERENCE_KEY_ANIMATION_RATE_LIMITING_MODE)) {
+            case 0: // unlimited
+                animationLimitUnlimited.setSelected(true);
+                break;
+            case 2: // fps
+                animationLimitFPS.setSelected(true);
+                break;
+            // case 1: // %cpu
+            default:
+                animationLimitCPU.setSelected(true);
+                break;
+        }
+        f = model.getFloat(PREFERENCE_KEY_ANIMATION_RATE_LIMITING_CPU);
+        if (f <= 0f || f > 100f) {
+            f = 85f;
+        } else {
+            f *= 100;
+        }
+        if (((int) f) == f) {
+            animationLimitCPUAmount.setText(Integer.toString((int) f));
+        } else {
+            animationLimitCPUAmount.setText(Float.toString(f));
+        }
+        f = model.getFloat(PREFERENCE_KEY_ANIMATION_RATE_LIMITING_FPS);
+        if (f <= 0f) {
+            f = 10f;
+        }
+        if (((int) f) == f) {
+            animationLimitFPSAmount.setText(Integer.toString((int) f));
+        } else {
+            animationLimitFPSAmount.setText(Float.toString(f));
         }
 
-        Enumeration e = scriptOriginGroup.getElements();
-        while (e.hasMoreElements()) {
-            AbstractButton ab = (AbstractButton)e.nextElement();
-            String ac = ab.getActionCommand();
-            if (allowedScriptOrigin.equals(ac)) {
-                ab.setSelected(true);
-            }
-        }
+        showDebugTrace.setSelected
+            (model.getBoolean(PREFERENCE_KEY_SHOW_DEBUG_TRACE));
+        isXMLParserValidating.setSelected
+            (model.getBoolean(PREFERENCE_KEY_IS_XML_PARSER_VALIDATING));
 
-        String allowedResourceOrigin = "" + model.getInteger(PREFERENCE_KEY_ALLOWED_EXTERNAL_RESOURCE_ORIGIN);
-        if (allowedResourceOrigin == null || "".equals(allowedResourceOrigin)) {
-            allowedResourceOrigin = "" + ResourceOrigin.NONE;
-        }
-
-        e = resourceOriginGroup.getElements();
-        while (e.hasMoreElements()) {
-            AbstractButton ab = (AbstractButton)e.nextElement();
-            String ac = ab.getActionCommand();
-            if (allowedResourceOrigin.equals(ac)) {
-                ab.setSelected(true);
-            }
-        }
-
-        showRendering.setEnabled
-            (!model.getBoolean(PREFERENCE_KEY_ENABLE_DOUBLE_BUFFERING));
-        grantScriptFileAccess.setEnabled
+        // Security options
+        enforceSecureScripting.setSelected
             (model.getBoolean(PREFERENCE_KEY_ENFORCE_SECURE_SCRIPTING));
-        grantScriptNetworkAccess.setEnabled
-            (model.getBoolean(PREFERENCE_KEY_ENFORCE_SECURE_SCRIPTING));
+        grantScriptFileAccess.setSelected
+            (model.getBoolean(PREFERENCE_KEY_GRANT_SCRIPT_FILE_ACCESS));
+        grantScriptNetworkAccess.setSelected
+            (model.getBoolean(PREFERENCE_KEY_GRANT_SCRIPT_NETWORK_ACCESS));
+        loadJava.setSelected
+            (model.getBoolean(PREFERENCE_KEY_LOAD_JAVA));
+        loadEcmascript.setSelected
+            (model.getBoolean(PREFERENCE_KEY_LOAD_ECMASCRIPT));
 
-        //
-        // Initialize the proxy options
-        //
+        i = model.getInteger(PREFERENCE_KEY_ALLOWED_SCRIPT_ORIGIN);
+        switch (i) {
+            case ResourceOrigin.ANY:
+                allowedScriptOrigin.setSelectedIndex(0);
+                break;
+            case ResourceOrigin.DOCUMENT:
+                allowedScriptOrigin.setSelectedIndex(1);
+                break;
+            case ResourceOrigin.EMBEDED:
+                allowedScriptOrigin.setSelectedIndex(2);
+                break;
+            default:
+                allowedScriptOrigin.setSelectedIndex(3);
+                break;
+        }
+
+        i = model.getInteger(PREFERENCE_KEY_ALLOWED_EXTERNAL_RESOURCE_ORIGIN);
+        switch (i) {
+            case ResourceOrigin.ANY:
+                allowedResourceOrigin.setSelectedIndex(0);
+                break;
+            case ResourceOrigin.DOCUMENT:
+                allowedResourceOrigin.setSelectedIndex(1);
+                break;
+            case ResourceOrigin.EMBEDED:
+                allowedResourceOrigin.setSelectedIndex(2);
+                break;
+            default:
+                allowedResourceOrigin.setSelectedIndex(3);
+                break;
+        }
+
+        // Language options
+        languagePanel.setLanguages(model.getString(PREFERENCE_KEY_LANGUAGES));
+
+        // Stylesheet options
+        s = model.getString(PREFERENCE_KEY_CSS_MEDIA);
+        mediaListModel.removeAllElements();
+        StringTokenizer st = new StringTokenizer(s, " ");
+        while (st.hasMoreTokens()) {
+            mediaListModel.addElement(st.nextToken());
+        }
+
+        userStylesheet.setText(model.getString(PREFERENCE_KEY_USER_STYLESHEET));
+        b = model.getBoolean(PREFERENCE_KEY_USER_STYLESHEET_ENABLED);
+        userStylesheetEnabled.setSelected(b);
+
+        // Network options
         host.setText(model.getString(PREFERENCE_KEY_PROXY_HOST));
         port.setText(model.getString(PREFERENCE_KEY_PROXY_PORT));
 
-        //
-        // Initialize the CSS media
-        //
-        cssMediaPanel.setMedia(model.getString(PREFERENCE_KEY_CSS_MEDIA));
-        //
-        // Sets the dialog's title
-        //
-        setTitle(Resources.getString(TITLE_DIALOG));
+        // Set some components disabled initially
+        b = enableDoubleBuffering.isSelected();
+        showRendering.setEnabled(b);
+
+        b = animationLimitCPU.isSelected();
+        animationLimitCPUAmount.setEnabled(b);
+        animationLimitCPULabel.setEnabled(b);
+
+        b = animationLimitFPS.isSelected();
+        animationLimitFPSAmount.setEnabled(b);
+        animationLimitFPSLabel.setEnabled(b);
+
+        b = enforceSecureScripting.isSelected();
+        grantScriptFileAccess.setEnabled(b);
+        grantScriptNetworkAccess.setEnabled(b);
+
+        b = userStylesheetEnabled.isSelected();
+        userStylesheetLabel.setEnabled(b);
+        userStylesheet.setEnabled(b);
+        userStylesheetBrowse.setEnabled(b);
+
+        mediaListRemoveButton.setEnabled(!mediaList.isSelectionEmpty());
+        mediaListClearButton.setEnabled(!mediaListModel.isEmpty());
     }
 
     /**
-     * Stores current setting in PreferenceManager model
+     * Stores the current settings in the PreferenceManager model.
      */
-    protected void savePreferences(){
+    protected void savePreferences() {
         model.setString(PREFERENCE_KEY_LANGUAGES,
                         languagePanel.getLanguages());
         model.setString(PREFERENCE_KEY_USER_STYLESHEET,
-                        userStylesheetPanel.getPath());
+                        userStylesheet.getText());
+        model.setBoolean(PREFERENCE_KEY_USER_STYLESHEET_ENABLED,
+                         userStylesheetEnabled.isSelected());
         model.setBoolean(PREFERENCE_KEY_SHOW_RENDERING,
                          showRendering.isSelected());
         model.setBoolean(PREFERENCE_KEY_AUTO_ADJUST_WINDOW,
@@ -468,49 +576,128 @@ public class PreferenceDialog extends JDialog
                          loadJava.isSelected());
         model.setBoolean(PREFERENCE_KEY_LOAD_ECMASCRIPT,
                          loadEcmascript.isSelected());
-        model.setInteger(PREFERENCE_KEY_ALLOWED_SCRIPT_ORIGIN,
-                         (new Integer(scriptOriginGroup.getSelection().getActionCommand())).intValue());
-        model.setInteger(PREFERENCE_KEY_ALLOWED_EXTERNAL_RESOURCE_ORIGIN,
-                         (new Integer(resourceOriginGroup.getSelection().getActionCommand())).intValue());
+        int i;
+        switch (allowedScriptOrigin.getSelectedIndex()) {
+            case 0:
+                i = ResourceOrigin.ANY;
+                break;
+            case 1:
+                i = ResourceOrigin.DOCUMENT;
+                break;
+            case 2:
+                i = ResourceOrigin.EMBEDED;
+                break;
+            // case 3:
+            default:
+                i = ResourceOrigin.NONE;
+                break;
+        }
+        model.setInteger(PREFERENCE_KEY_ALLOWED_SCRIPT_ORIGIN, i);
+        switch (allowedResourceOrigin.getSelectedIndex()) {
+            case 0:
+                i = ResourceOrigin.ANY;
+                break;
+            case 1:
+                i = ResourceOrigin.DOCUMENT;
+                break;
+            case 2:
+                i = ResourceOrigin.EMBEDED;
+                break;
+            // case 3:
+            default:
+                i = ResourceOrigin.NONE;
+                break;
+        }
+        model.setInteger(PREFERENCE_KEY_ALLOWED_EXTERNAL_RESOURCE_ORIGIN, i);
+        i = 1;
+        if (animationLimitFPS.isSelected()) {
+            i = 2;
+        } else if (animationLimitUnlimited.isSelected()) {
+            i = 0;
+        }
+        model.setInteger(PREFERENCE_KEY_ANIMATION_RATE_LIMITING_MODE, i);
+        float f;
+        try {
+            f = Float.parseFloat(animationLimitCPUAmount.getText()) / 100;
+            if (f <= 0f || f >= 1.0f) {
+                f = 0.85f;
+            }
+        } catch (NumberFormatException e) {
+            f = 0.85f;
+        }
+        model.setFloat(PREFERENCE_KEY_ANIMATION_RATE_LIMITING_CPU, f);
+        try {
+            f = Float.parseFloat(animationLimitFPSAmount.getText());
+            if (f <= 0) {
+                f = 15f;
+            }
+        } catch (NumberFormatException e) {
+            f = 15f;
+        }
+        model.setFloat(PREFERENCE_KEY_ANIMATION_RATE_LIMITING_FPS, f);
         model.setString(PREFERENCE_KEY_PROXY_HOST,
                         host.getText());
         model.setString(PREFERENCE_KEY_PROXY_PORT,
                         port.getText());
-        model.setString(PREFERENCE_KEY_CSS_MEDIA,
-                        cssMediaPanel.getMediaAsString());
+        StringBuffer sb = new StringBuffer();
+        Enumeration e = mediaListModel.elements();
+        while (e.hasMoreElements()) {
+            sb.append((String) e.nextElement());
+            sb.append(' ');
+        }
+        model.setString(PREFERENCE_KEY_CSS_MEDIA, sb.toString());
     }
 
     /**
-     * Builds the UI for this dialog
+     * Builds the UI for this dialog.
      */
-    protected void buildGUI(){
+    protected void buildGUI() {
         JPanel panel = new JPanel(new BorderLayout());
 
-        Component config = buildConfigPanel();
-        Component list = buildConfigPanelList();
+        configurationPanel = new JConfigurationPanel();
+        addConfigPanel("general", buildGeneralPanel());
+        addConfigPanel("security", buildSecurityPanel());
+        addConfigPanel("language", buildLanguagePanel());
+        addConfigPanel("stylesheet", buildStylesheetPanel());
+        addConfigPanel("network", buildNetworkPanel());
 
-        panel.add(list, BorderLayout.WEST);
-        panel.add(config, BorderLayout.CENTER);
-        panel.add(buildButtonsPanel(), BorderLayout.SOUTH);
-        panel.setBorder(BorderFactory.createEmptyBorder(2, 2, 0, 0));
+        panel.add(configurationPanel);
+
+        if (!Platform.isOSX) {
+            setTitle(Resources.getString(PREFERENCE_KEY_TITLE_DIALOG));
+            panel.add(buildButtonsPanel(), BorderLayout.SOUTH);
+        }
+        setResizable(false);
 
         getContentPane().add(panel);
     }
 
     /**
-     * Creates the OK/Cancel buttons panel
+     * Adds a panel to the configuration panel.
+     */
+    protected void addConfigPanel(String id, JPanel c) {
+        String name = Resources.getString(PREFERENCE_KEY_TITLE_PREFIX + id);
+        ImageIcon icon1 =
+            new ImageIcon(PreferenceDialog.class.getResource
+                              ("resources/icon-" + id + ".png"));
+        ImageIcon icon2 =
+            new ImageIcon(PreferenceDialog.class.getResource
+                              ("resources/icon-" + id + "-dark.png"));
+        configurationPanel.addPanel(name, icon1, icon2, c);
+    }
+
+    /**
+     * Creates the OK/Cancel button panel.
      */
     protected JPanel buildButtonsPanel() {
-        JPanel  p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton okButton = new JButton(Resources.getString(LABEL_OK));
-        okButton.setMnemonic(Resources.getCharacter(CONFIG_OK_MNEMONIC));
         JButton cancelButton = new JButton(Resources.getString(LABEL_CANCEL));
-        cancelButton.setMnemonic(Resources.getCharacter(CONFIG_CANCEL_MNEMONIC));
         p.add(okButton);
         p.add(cancelButton);
 
-        okButton.addActionListener(new ActionListener(){
-                public void actionPerformed(ActionEvent e){
+        okButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
                     setVisible(false);
                     returnCode = OK_OPTION;
                     savePreferences();
@@ -518,532 +705,596 @@ public class PreferenceDialog extends JDialog
                 }
             });
 
-        cancelButton.addActionListener(new ActionListener(){
-                public void actionPerformed(ActionEvent e){
+        cancelButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
                     setVisible(false);
                     returnCode = CANCEL_OPTION;
                     dispose();
                 }
             });
 
-        addKeyListener(new KeyAdapter(){
-                public void keyPressed(KeyEvent e){
-                    if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-                        setVisible(false);
-                        returnCode = CANCEL_OPTION;
-                        dispose();
+        addKeyListener(new KeyAdapter() {
+                public void keyPressed(KeyEvent e) {
+                    switch (e.getKeyCode()) {
+                        case KeyEvent.VK_ESCAPE:
+                            returnCode = CANCEL_OPTION;
+                            break;
+                        case KeyEvent.VK_ENTER:
+                            returnCode = OK_OPTION;
+                            break;
+                        default:
+                            return;
                     }
+                    setVisible(false);
+                    dispose();
                 }
             });
 
         return p;
-    }
-
-    protected Component buildConfigPanelList(){
-        String[] configList
-            = { Resources.getString(LABEL_NETWORK),
-                Resources.getString(LABEL_USER_LANGUAGE),
-                Resources.getString(LABEL_BEHAVIOR),
-                Resources.getString(LABEL_USER_STYLESHEET),
-                };
-
-        final JList list = new JList(configList);
-        list.addListSelectionListener(new ListSelectionListener(){
-                public void valueChanged(ListSelectionEvent evt){
-                    if(!evt.getValueIsAdjusting()){
-                        configPanelSelector.select(list.getSelectedValue().toString());
-                    }
-                }
-            });
-        list.setVisibleRowCount(4);
-
-        // Set Cell Renderer
-        ClassLoader cl = this.getClass().getClassLoader();
-        Map map= new Hashtable();
-        map.put(Resources.getString(LABEL_USER_LANGUAGE), new ImageIcon(cl.getResource(Resources.getString(ICON_USER_LANGUAGE))));
-        map.put(Resources.getString(LABEL_USER_STYLESHEET), new ImageIcon(cl.getResource(Resources.getString(ICON_USER_STYLESHEET))));
-        map.put(Resources.getString(LABEL_BEHAVIOR), new ImageIcon(cl.getResource(Resources.getString(ICON_BEHAVIOR))));
-        map.put(Resources.getString(LABEL_NETWORK), new ImageIcon(cl.getResource(Resources.getString(ICON_NETWORK))));
-
-        list.setCellRenderer(new IconCellRenderer(map));
-
-        list.setSelectedIndex(0);
-
-        return new JScrollPane(list);
-    }
-
-    protected Component buildConfigPanel(){
-        JPanel configPanel = new JPanel();
-        CardLayout cardLayout = new CardLayout();
-        configPanel.setLayout(cardLayout);
-        configPanel.add(buildUserLanguage(),
-                        Resources.getString(LABEL_USER_LANGUAGE));
-
-        configPanel.add(buildUserStyleSheet(),
-                        Resources.getString(LABEL_USER_STYLESHEET));
-
-        configPanel.add(buildBehavior(),
-                        Resources.getString(LABEL_BEHAVIOR));
-
-        configPanel.add(buildNetwork(),
-                        Resources.getString(LABEL_NETWORK));
-
-        configPanel.add(buildApplications(),
-                        Resources.getString(LABEL_APPLICATIONS));
-
-        configPanelSelector = new ConfigurationPanelSelector(configPanel,
-                                                             cardLayout);
-
-        return configPanel;
-    }
-
-    protected Component buildUserOptions(){
-        JTabbedPane p = new JTabbedPane();
-        p.add(buildUserLanguage(),
-              Resources.getString(LABEL_USER_LANGUAGE));
-        p.add(buildUserStyleSheet(),
-              Resources.getString(LABEL_USER_STYLESHEET));
-        p.add(buildUserFont(),
-              Resources.getString(LABEL_USER_FONT));
-        return p;
-    }
-
-    protected Component buildUserLanguage(){
-        languagePanel = new LanguageDialog.Panel();
-        return languagePanel;
-    }
-
-    protected Component buildUserStyleSheet(){
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
-
-        userStylesheetPanel = new UserStyleDialog.Panel();
-        panel.add(userStylesheetPanel, BorderLayout.NORTH);
-
-        cssMediaPanel = new CSSMediaPanel();
-        panel.add(cssMediaPanel, BorderLayout.SOUTH);
-
-        return panel;
-    }
-
-    protected Component buildUserFont(){
-        return new JButton("User Font");
-    }
-
-    protected Component buildBehavior(){
-        JGridBagPanel p = new JGridBagPanel();
-        showRendering
-            = new JCheckBox(Resources.getString(LABEL_SHOW_RENDERING));
-        autoAdjustWindow
-            = new JCheckBox(Resources.getString(LABEL_AUTO_ADJUST_WINDOW));
-        enableDoubleBuffering
-            = new JCheckBox(Resources.getString(LABEL_ENABLE_DOUBLE_BUFFERING));
-        enableDoubleBuffering.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                showRendering.setEnabled(!enableDoubleBuffering.isSelected());
-            }
-        });
-        showDebugTrace
-            = new JCheckBox(Resources.getString(LABEL_SHOW_DEBUG_TRACE));
-
-        selectionXorMode
-            = new JCheckBox(Resources.getString(LABEL_SELECTION_XOR_MODE));
-
-        isXMLParserValidating
-            = new JCheckBox(Resources.getString(LABEL_IS_XML_PARSER_VALIDATING));
-
-        enforceSecureScripting
-            = new JCheckBox(Resources.getString(LABEL_SECURE_SCRIPTING_TOGGLE));
-
-        grantScriptFileAccess
-            = new JCheckBox(Resources.getString(LABEL_GRANT_SCRIPT_FILE_ACCESS));
-        
-        grantScriptNetworkAccess
-            = new JCheckBox(Resources.getString(LABEL_GRANT_SCRIPT_NETWORK_ACCESS));
-
-        JGridBagPanel scriptSecurityPanel = new JGridBagPanel();
-        scriptSecurityPanel.add(enforceSecureScripting,    0, 0, 1, 1, WEST, HORIZONTAL, 1, 0);
-        scriptSecurityPanel.add(grantScriptFileAccess,    1, 0, 1, 1, WEST, HORIZONTAL, 1, 0);
-        scriptSecurityPanel.add(grantScriptNetworkAccess, 1, 1, 1, 1, WEST, HORIZONTAL, 1, 0);
-        
-        enforceSecureScripting.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    grantScriptFileAccess.setEnabled(enforceSecureScripting.isSelected());
-                    grantScriptNetworkAccess.setEnabled(enforceSecureScripting.isSelected());
-                }
-            });
-
-        loadJava
-            = new JCheckBox(Resources.getString(LABEL_LOAD_JAVA));
-
-        loadEcmascript
-            = new JCheckBox(Resources.getString(LABEL_LOAD_ECMASCRIPT));
-
-        JGridBagPanel loadScriptPanel = new JGridBagPanel();
-        loadScriptPanel.add(loadJava, 0, 0, 1, 1, WEST, NONE, 1, 0);
-        loadScriptPanel.add(loadEcmascript, 1, 0, 1, 1, WEST, NONE, 1, 0);
-
-        JPanel scriptOriginPanel = new JPanel();
-
-        scriptOriginGroup = new ButtonGroup();
-        JRadioButton rb = null;
-
-        rb = new JRadioButton(Resources.getString(LABEL_ORIGIN_ANY));
-        rb.setActionCommand("" + ResourceOrigin.ANY);
-        scriptOriginGroup.add(rb);
-        scriptOriginPanel.add(rb);
-
-        rb = new JRadioButton(Resources.getString(LABEL_ORIGIN_DOCUMENT));
-        rb.setActionCommand("" + ResourceOrigin.DOCUMENT);
-        scriptOriginGroup.add(rb);
-        scriptOriginPanel.add(rb);
-
-        rb = new JRadioButton(Resources.getString(LABEL_ORIGIN_EMBED));
-        rb.setActionCommand("" + ResourceOrigin.EMBEDED);
-        scriptOriginGroup.add(rb);
-        scriptOriginPanel.add(rb);
-
-        rb = new JRadioButton(Resources.getString(LABEL_ORIGIN_NONE));
-        rb.setActionCommand("" + ResourceOrigin.NONE);
-        scriptOriginGroup.add(rb);
-        scriptOriginPanel.add(rb);
-
-        JPanel resourceOriginPanel = new JPanel();
-        resourceOriginGroup = new ButtonGroup();
-
-        rb = new JRadioButton(Resources.getString(LABEL_ORIGIN_ANY));
-        rb.setActionCommand("" + ResourceOrigin.ANY);
-        resourceOriginGroup.add(rb);
-        resourceOriginPanel.add(rb);
-
-        rb = new JRadioButton(Resources.getString(LABEL_ORIGIN_DOCUMENT));
-        rb.setActionCommand("" + ResourceOrigin.DOCUMENT);
-        resourceOriginGroup.add(rb);
-        resourceOriginPanel.add(rb);
-
-        rb = new JRadioButton(Resources.getString(LABEL_ORIGIN_EMBED));
-        rb.setActionCommand("" + ResourceOrigin.EMBEDED);
-        resourceOriginGroup.add(rb);
-        resourceOriginPanel.add(rb);
-
-        rb = new JRadioButton(Resources.getString(LABEL_ORIGIN_NONE));
-        rb.setActionCommand("" + ResourceOrigin.NONE);
-        resourceOriginGroup.add(rb);
-        resourceOriginPanel.add(rb);
-
-        JTabbedPane browserOptions = new JTabbedPane();
-        // browserOptions.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-
-        p.add(showRendering,    0, 0, 2, 1, WEST, HORIZONTAL, 1, 0);
-        p.add(autoAdjustWindow, 0, 1, 2, 1, WEST, HORIZONTAL, 1, 0);
-        p.add(enableDoubleBuffering, 0, 2, 2, 1, WEST, HORIZONTAL, 1, 0);
-        p.add(showDebugTrace,   0, 3, 2, 1, WEST, HORIZONTAL, 1, 0);
-        p.add(selectionXorMode,   0, 4, 2, 1, WEST, HORIZONTAL, 1, 0);
-        p.add(isXMLParserValidating,   0, 5, 2, 1, WEST, HORIZONTAL, 1, 0);
-        p.add(new JLabel(), 0, 11, 2, 1, WEST, BOTH, 1, 1); 
-
-        browserOptions.addTab(Resources.getString(TITLE_BEHAVIOR), p);
-        p.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        p = new JGridBagPanel();
-        p.add(new JLabel(Resources.getString(LABEL_ENFORCE_SECURE_SCRIPTING)), 0, 6, 1, 1, NORTHWEST, NONE, 0, 0);
-        p.add(scriptSecurityPanel, 1, 6, 1, 1, WEST, NONE, 0, 0);
-        p.add(new JLabel(Resources.getString(LABEL_LOAD_SCRIPTS)), 0, 8, 1, 1, WEST, NONE, 0, 0);
-        p.add(loadScriptPanel, 1, 8, 1, 1, WEST, NONE, 1, 0);
-        p.add(new JLabel(Resources.getString(LABEL_SCRIPT_ORIGIN)), 0, 9, 1, 1, WEST, NONE, 0, 0);
-        p.add(scriptOriginPanel, 1, 9, 1, 1, WEST, NONE, 1, 0);
-        p.add(new JLabel(Resources.getString(LABEL_RESOURCE_ORIGIN)), 0, 10, 1, 1, WEST, NONE, 0, 0);
-        p.add(resourceOriginPanel, 1, 10, 1, 1, WEST, NONE, 1, 0); 
-        p.add(new JLabel(), 0, 11, 2, 1, WEST, BOTH, 1, 1); 
-
-        browserOptions.addTab(Resources.getString(TITLE_SECURITY), p);
-        p.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        JGridBagPanel borderedPanel = new JGridBagPanel();
-        borderedPanel.add(browserOptions, 0, 0, 1, 1, WEST, BOTH, 1, 1);
-        borderedPanel.setBorder(BorderFactory.createCompoundBorder
-                                (BorderFactory.createTitledBorder
-                                 (BorderFactory.createEtchedBorder(),
-                                  Resources.getString(TITLE_BROWSER_OPTIONS)),
-                                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        
-        return borderedPanel;
-    }
-
-    protected Component buildNetwork(){
-        JGridBagPanel p = new JGridBagPanel();
-        host = new JTextField(Resources.getInteger(CONFIG_HOST_TEXT_FIELD_LENGTH));
-        JLabel hostLabel = new JLabel(Resources.getString(LABEL_HOST));
-        port = new JTextField(Resources.getInteger(CONFIG_PORT_TEXT_FIELD_LENGTH));
-        JLabel portLabel = new JLabel(Resources.getString(LABEL_PORT));
-        p.add(hostLabel, 0, 0, 1, 1, WEST, HORIZONTAL, 0, 0);
-        p.add(host, 0, 1, 1, 1, CENTER, HORIZONTAL, 1, 0);
-        p.add(portLabel, 1, 0, 1, 1, WEST, HORIZONTAL, 0, 0);
-        p.add(port, 1, 1, 1, 1, CENTER, HORIZONTAL, 0, 0);
-        p.add(new JLabel(""), 2, 1, 1, 1, CENTER, HORIZONTAL, 0, 0);
-
-        p.setBorder(BorderFactory.createCompoundBorder
-                    (BorderFactory.createTitledBorder
-                     (BorderFactory.createEtchedBorder(),
-                     Resources.getString(TITLE_NETWORK)),
-                     BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-
-        return p;
-    }
-
-    protected Component buildApplications(){
-        return new JButton("Applications");
     }
 
     /**
-     * Shows the dialog
-     * @return OK_OPTION or CANCEL_OPTION
+     * Builds the General panel.
      */
-    public int showDialog(){
+    protected JPanel buildGeneralPanel() {
+        JGridBagPanel.InsetsManager im = new JGridBagPanel.InsetsManager() {
+            protected Insets i1 = new Insets(5, 5, 0, 0);
+            protected Insets i2 = new Insets(5, 0, 0, 0);
+            protected Insets i3 = new Insets(0, 5, 0, 0);
+            protected Insets i4 = new Insets(0, 0, 0, 0);
+
+            public Insets getInsets(int x, int y) {
+                if (y == 4 || y == 9) {
+                    return x == 0 ? i2 : i1;
+                }
+                return x == 0 ? i4 : i3;
+            }
+        };
+
+        JGridBagPanel p = new JGridBagPanel(im);
+        p.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
+
+        JLabel renderingLabel = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_RENDERING_OPTIONS));
+        enableDoubleBuffering = new JCheckBox(Resources.getString(PREFERENCE_KEY_LABEL_ENABLE_DOUBLE_BUFFERING));
+        enableDoubleBuffering.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                showRendering.setEnabled(enableDoubleBuffering.isSelected());
+            }
+        });
+        showRendering = new JCheckBox(Resources.getString(PREFERENCE_KEY_LABEL_SHOW_RENDERING));
+        Insets in = showRendering.getMargin();
+        showRendering.setMargin(new Insets(in.top, in.left + 24, in.bottom, in.right));
+        selectionXorMode = new JCheckBox(Resources.getString(PREFERENCE_KEY_LABEL_SELECTION_XOR_MODE));
+        autoAdjustWindow = new JCheckBox(Resources.getString(PREFERENCE_KEY_LABEL_AUTO_ADJUST_WINDOW));
+        JLabel animLabel = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_ANIMATION_RATE_LIMITING));
+        animationLimitCPU = new JRadioButton(Resources.getString(PREFERENCE_KEY_LABEL_ANIMATION_LIMIT_CPU));
+        JPanel cpuPanel = new JPanel();
+        cpuPanel.setLayout(new FlowLayout(FlowLayout.LEADING, 3, 0));
+        cpuPanel.setBorder(BorderFactory.createEmptyBorder(0, 24, 0, 0));
+        animationLimitCPUAmount = new JTextField();
+        animationLimitCPUAmount.setPreferredSize(new Dimension(40, 20));
+        cpuPanel.add(animationLimitCPUAmount);
+        animationLimitCPULabel = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_PERCENT));
+        cpuPanel.add(animationLimitCPULabel);
+        animationLimitFPS = new JRadioButton(Resources.getString(PREFERENCE_KEY_LABEL_ANIMATION_LIMIT_FPS));
+        JPanel fpsPanel = new JPanel();
+        fpsPanel.setLayout(new FlowLayout(FlowLayout.LEADING, 3, 0));
+        fpsPanel.setBorder(BorderFactory.createEmptyBorder(0, 24, 0, 0));
+        animationLimitFPSAmount = new JTextField();
+        animationLimitFPSAmount.setPreferredSize(new Dimension(40, 20));
+        fpsPanel.add(animationLimitFPSAmount);
+        animationLimitFPSLabel = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_FPS));
+        fpsPanel.add(animationLimitFPSLabel);
+        animationLimitUnlimited = new JRadioButton(Resources.getString(PREFERENCE_KEY_LABEL_ANIMATION_LIMIT_UNLIMITED));
+        ButtonGroup g = new ButtonGroup();
+        g.add(animationLimitCPU);
+        g.add(animationLimitFPS);
+        g.add(animationLimitUnlimited);
+        ActionListener l = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                boolean b = animationLimitCPU.isSelected();
+                animationLimitCPUAmount.setEnabled(b);
+                animationLimitCPULabel.setEnabled(b);
+                b = animationLimitFPS.isSelected();
+                animationLimitFPSAmount.setEnabled(b);
+                animationLimitFPSLabel.setEnabled(b);
+            }
+        };
+        animationLimitCPU.addActionListener(l);
+        animationLimitFPS.addActionListener(l);
+        animationLimitUnlimited.addActionListener(l);
+        JLabel otherLabel = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_OTHER_OPTIONS));
+        showDebugTrace = new JCheckBox(Resources.getString(PREFERENCE_KEY_LABEL_SHOW_DEBUG_TRACE));
+        isXMLParserValidating = new JCheckBox(Resources.getString(PREFERENCE_KEY_LABEL_IS_XML_PARSER_VALIDATING));
+
+        p.add(renderingLabel,          0, 0, 1, 1, EAST, NONE, 0, 0);
+        p.add(enableDoubleBuffering,   1, 0, 1, 1, WEST, NONE, 0, 0);
+        p.add(showRendering,           1, 1, 1, 1, WEST, NONE, 0, 0);
+        p.add(autoAdjustWindow,        1, 2, 1, 1, WEST, NONE, 0, 0);
+        p.add(selectionXorMode,        1, 3, 1, 1, WEST, NONE, 0, 0);
+        p.add(animLabel,               0, 4, 1, 1, EAST, NONE, 0, 0);
+        p.add(animationLimitCPU,       1, 4, 1, 1, WEST, NONE, 0, 0);
+        p.add(cpuPanel,                1, 5, 1, 1, WEST, NONE, 0, 0);
+        p.add(animationLimitFPS,       1, 6, 1, 1, WEST, NONE, 0, 0);
+        p.add(fpsPanel,                1, 7, 1, 1, WEST, NONE, 0, 0);
+        p.add(animationLimitUnlimited, 1, 8, 1, 1, WEST, NONE, 0, 0);
+        p.add(otherLabel,              0, 9, 1, 1, EAST, NONE, 0, 0);
+        p.add(showDebugTrace,          1, 9, 1, 1, WEST, NONE, 0, 0);
+        p.add(isXMLParserValidating,   1,10, 1, 1, WEST, NONE, 0, 0);
+
+        return p;
+    }
+
+    /**
+     * Builds the Security panel.
+     */
+    protected JPanel buildSecurityPanel() {
+        JGridBagPanel.InsetsManager im = new JGridBagPanel.InsetsManager() {
+            protected Insets i1 = new Insets(5, 5, 0, 0);
+            protected Insets i2 = new Insets(5, 0, 0, 0);
+            protected Insets i3 = new Insets(0, 5, 0, 0);
+            protected Insets i4 = new Insets(0, 0, 0, 0);
+
+            public Insets getInsets(int x, int y) {
+                if (y == 1 || y == 3 || y == 5 || y == 6) {
+                    return x == 0 ? i2 : i1;
+                }
+                return x == 0 ? i4 : i3;
+            }
+        };
+
+        JGridBagPanel p = new JGridBagPanel(im);
+        p.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
+
+        enforceSecureScripting = new JCheckBox(Resources.getString(PREFERENCE_KEY_LABEL_ENFORCE_SECURE_SCRIPTING));
+        enforceSecureScripting.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                boolean b = enforceSecureScripting.isSelected();
+                grantScriptFileAccess.setEnabled(b);
+                grantScriptNetworkAccess.setEnabled(b);
+            }
+        });
+
+        JLabel grantScript = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_GRANT_SCRIPTS_ACCESS_TO));
+        grantScript.setVerticalAlignment(SwingConstants.TOP);
+        grantScript.setOpaque(true);
+        grantScriptFileAccess = new JCheckBox(Resources.getString(PREFERENCE_KEY_LABEL_FILE_SYSTEM));
+        grantScriptNetworkAccess = new JCheckBox(Resources.getString(PREFERENCE_KEY_LABEL_ALL_NETWORK));
+
+        JLabel loadScripts = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_LOAD_SCRIPTS));
+        loadScripts.setVerticalAlignment(SwingConstants.TOP);
+        loadJava = new JCheckBox(Resources.getString(PREFERENCE_KEY_LABEL_JAVA_JAR_FILES));
+        loadEcmascript = new JCheckBox(Resources.getString(PREFERENCE_KEY_LABEL_ECMASCRIPT));
+
+        String[] origins = {
+            Resources.getString(PREFERENCE_KEY_LABEL_ORIGIN_ANY),
+            Resources.getString(PREFERENCE_KEY_LABEL_ORIGIN_DOCUMENT),
+            Resources.getString(PREFERENCE_KEY_LABEL_ORIGIN_EMBEDDED),
+            Resources.getString(PREFERENCE_KEY_LABEL_ORIGIN_NONE)
+        };
+        JLabel scriptOriginLabel = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_ALLOWED_SCRIPT_ORIGIN));
+        allowedScriptOrigin = new JComboBox(origins);
+        JLabel resourceOriginLabel = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_ALLOWED_RESOURCE_ORIGIN));
+        allowedResourceOrigin = new JComboBox(origins);
+
+        p.add(enforceSecureScripting,   1, 0, 1, 1, WEST, NONE, 1, 0);
+        p.add(grantScript,              0, 1, 1, 1, EAST, NONE, 1, 0);
+        p.add(grantScriptFileAccess,    1, 1, 1, 1, WEST, NONE, 1, 0);
+        p.add(grantScriptNetworkAccess, 1, 2, 1, 1, WEST, NONE, 1, 0);
+        p.add(loadScripts,              0, 3, 1, 1, EAST, NONE, 1, 0);
+        p.add(loadJava,                 1, 3, 1, 1, WEST, NONE, 1, 0);
+        p.add(loadEcmascript,           1, 4, 1, 1, WEST, NONE, 1, 0);
+        p.add(scriptOriginLabel,        0, 5, 1, 1, EAST, NONE, 1, 0);
+        p.add(allowedScriptOrigin,      1, 5, 1, 1, WEST, NONE, 1, 0);
+        p.add(resourceOriginLabel,      0, 6, 1, 1, EAST, NONE, 1, 0);
+        p.add(allowedResourceOrigin,    1, 6, 1, 1, WEST, NONE, 1, 0);
+
+        return p;
+    }
+
+    /**
+     * Builds the Language panel.
+     */
+    protected JPanel buildLanguagePanel() {
+        JPanel p = new JPanel();
+        p.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
+        languagePanel = new LanguageDialog.Panel();
+        languagePanel.setBorder(BorderFactory.createEmptyBorder());
+        Color c = UIManager.getColor("Window.background");
+        languagePanel.getComponent(0).setBackground(c);
+        languagePanel.getComponent(1).setBackground(c);
+        p.add(languagePanel);
+        return p;
+    }
+
+    /**
+     * Builds the Stylesheet panel.
+     */
+    protected JPanel buildStylesheetPanel() {
+        JGridBagPanel.InsetsManager im = new JGridBagPanel.InsetsManager() {
+            protected Insets i1 = new Insets(5, 5, 0, 0);
+            protected Insets i2 = new Insets(5, 0, 0, 0);
+            protected Insets i3 = new Insets(0, 5, 0, 0);
+            protected Insets i4 = new Insets(0, 0, 0, 0);
+
+            public Insets getInsets(int x, int y) {
+                if (y >= 1 && y <= 5) {
+                    return x == 0 ? i2 : i1;
+                }
+                return x == 0 ? i4 : i3;
+            }
+        };
+
+        JGridBagPanel p = new JGridBagPanel(im);
+        p.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
+
+        userStylesheetEnabled = new JCheckBox(Resources.getString(PREFERENCE_KEY_LABEL_ENABLE_USER_STYLESHEET));
+        userStylesheetEnabled.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                boolean b = userStylesheetEnabled.isSelected();
+                userStylesheetLabel.setEnabled(b);
+                userStylesheet.setEnabled(b);
+                userStylesheetBrowse.setEnabled(b);
+            }
+        });
+
+        userStylesheetLabel = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_USER_STYLESHEET));
+        userStylesheet = new JTextField();
+        userStylesheetBrowse = new JButton(Resources.getString(PREFERENCE_KEY_LABEL_BROWSE));
+        userStylesheetBrowse.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                File f = null;
+                if (Platform.isOSX) {
+                    FileDialog fileDialog =
+                        new FileDialog
+                            ((Frame) getOwner(),
+                             Resources.getString(PREFERENCE_KEY_BROWSE_TITLE));
+                    fileDialog.setVisible(true);
+                    String filename = fileDialog.getFile();
+                    if (filename != null) {
+                        String dirname = fileDialog.getDirectory();
+                        f = new File(dirname, filename);
+                    }
+                } else {
+                    JFileChooser fileChooser = new JFileChooser(new File("."));
+                    fileChooser.setDialogTitle
+                        (Resources.getString(PREFERENCE_KEY_BROWSE_TITLE));
+                    fileChooser.setFileHidingEnabled(false);
+
+                    int choice =
+                    fileChooser.showOpenDialog(PreferenceDialog.this);
+                    if (choice == JFileChooser.APPROVE_OPTION) {
+                        f = fileChooser.getSelectedFile();
+                    }
+                }
+                if (f != null) {
+                    try {
+                        userStylesheet.setText(f.getCanonicalPath());
+                    } catch (IOException ex) {
+                    }
+                }
+            }
+        });
+
+        JLabel mediaLabel = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_CSS_MEDIA_TYPES));
+        mediaLabel.setVerticalAlignment(SwingConstants.TOP);
+        mediaList = new JList();
+        mediaList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        mediaList.setModel(mediaListModel);
+        mediaList.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                updateMediaListButtons();
+            }
+        });
+        mediaListModel.addListDataListener(new ListDataListener() {
+            public void contentsChanged(ListDataEvent e) {
+                updateMediaListButtons();
+            }
+            public void intervalAdded(ListDataEvent e) {
+                updateMediaListButtons();
+            }
+            public void intervalRemoved(ListDataEvent e) {
+                updateMediaListButtons();
+            }
+        });
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBorder(BorderFactory.createLoweredBevelBorder());
+        scrollPane.getViewport().add(mediaList);
+
+        JButton addButton = new JButton(Resources.getString(PREFERENCE_KEY_LABEL_ADD));
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CSSMediaPanel.AddMediumDialog dialog =
+                    new CSSMediaPanel.AddMediumDialog(PreferenceDialog.this);
+                dialog.pack();
+                dialog.setVisible(true);
+
+                if (dialog.getReturnCode() ==
+                            CSSMediaPanel.AddMediumDialog.CANCEL_OPTION
+                        || dialog.getMedium() == null) {
+                    return;
+                }
+
+                String medium = dialog.getMedium().trim();
+                if (medium.length() == 0 || mediaListModel.contains(medium)) {
+                    return;
+                }
+
+                for (int i = 0;
+                        i < mediaListModel.size() && medium != null;
+                        ++i) {
+                    String s = (String) mediaListModel.getElementAt(i);
+                    int c = medium.compareTo(s);
+                    if (c == 0) {
+                        medium = null;
+                    } else if (c < 0) {
+                        mediaListModel.insertElementAt(medium, i);
+                        medium = null;
+                    }
+                }
+                if (medium != null) {
+                    mediaListModel.addElement(medium);
+                }
+            }
+        });
+
+        mediaListRemoveButton = new JButton(Resources.getString(PREFERENCE_KEY_LABEL_REMOVE));
+        mediaListRemoveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int index = mediaList.getSelectedIndex();
+                mediaList.clearSelection();
+                if (index >= 0) {
+                    mediaListModel.removeElementAt(index);
+                }
+            }
+        });
+
+        mediaListClearButton = new JButton(Resources.getString(PREFERENCE_KEY_LABEL_CLEAR));
+        mediaListClearButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                mediaList.clearSelection();
+                mediaListModel.removeAllElements();
+            }
+        });
+
+        p.add(userStylesheetEnabled, 1, 0, 2, 1, WEST, NONE, 0, 0);
+        p.add(userStylesheetLabel,   0, 1, 1, 1, EAST, NONE, 0, 0);
+        p.add(userStylesheet,        1, 1, 1, 1, WEST, HORIZONTAL, 1, 0);
+        p.add(userStylesheetBrowse,  2, 1, 1, 1, WEST, HORIZONTAL, 0, 0);
+        p.add(mediaLabel,            0, 2, 1, 1, EAST, VERTICAL, 0, 0);
+        p.add(scrollPane,            1, 2, 1, 4, WEST, BOTH, 1, 1);
+        p.add(new JPanel(),          2, 2, 1, 1, WEST, BOTH, 0, 1);
+        p.add(addButton,             2, 3, 1, 1, SOUTHWEST, HORIZONTAL, 0, 0);
+        p.add(mediaListRemoveButton, 2, 4, 1, 1, SOUTHWEST, HORIZONTAL, 0, 0);
+        p.add(mediaListClearButton,  2, 5, 1, 1, SOUTHWEST, HORIZONTAL, 0, 0);
+
+        return p;
+    }
+
+    /**
+     * Updates the disabled state of the buttons next to the media type list.
+     */
+    protected void updateMediaListButtons() {
+        mediaListRemoveButton.setEnabled(!mediaList.isSelectionEmpty());
+        mediaListClearButton.setEnabled(!mediaListModel.isEmpty());
+    }
+
+    /**
+     * Builds the Network panel.
+     */
+    protected JPanel buildNetworkPanel() {
+        JGridBagPanel p = new JGridBagPanel();
+        p.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
+
+        JLabel proxyLabel = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_HTTP_PROXY));
+        JLabel hostLabel = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_HOST));
+        JLabel portLabel = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_PORT));
+        JLabel colonLabel = new JLabel(Resources.getString(PREFERENCE_KEY_LABEL_COLON));
+        Font f = hostLabel.getFont();
+        float size = f.getSize2D() * 0.85f;
+        f = f.deriveFont(size);
+        hostLabel.setFont(f);
+        portLabel.setFont(f);
+        host = new JTextField();
+        host.setPreferredSize(new Dimension(200, 20));
+        port = new JTextField();
+        port.setPreferredSize(new Dimension(40, 20));
+
+        p.add(proxyLabel, 0, 0, 1, 1, EAST, NONE, 0, 0);
+        p.add(host,       1, 0, 1, 1, WEST, HORIZONTAL, 0, 0);
+        p.add(colonLabel, 2, 0, 1, 1, WEST, NONE, 0, 0);
+        p.add(port,       3, 0, 1, 1, WEST, HORIZONTAL, 0, 0);
+        p.add(hostLabel,  1, 1, 1, 1, WEST, NONE, 0, 0);
+        p.add(portLabel,  3, 1, 1, 1, WEST, NONE, 0, 0);
+
+        return p;
+    }
+
+    /**
+     * Shows the dialog.
+     */
+    public int showDialog() {
+        if (Platform.isOSX) {
+            // No OK/Cancel buttons in OS X, so always save the options.
+            returnCode = OK_OPTION;
+        } else {
+            // Default to Cancel on other platforms, if the window is closed
+            // without clicking one of the buttons.
+            returnCode = CANCEL_OPTION;
+        }
         pack();
-        show();
+        setVisible(true);
         return returnCode;
     }
 
-    public static void main(String[] args){
-        Map defaults = new Hashtable();
-        defaults.put(PREFERENCE_KEY_LANGUAGES, "fr");
-        defaults.put(PREFERENCE_KEY_SHOW_RENDERING, Boolean.TRUE);
-        defaults.put(PREFERENCE_KEY_SELECTION_XOR_MODE, Boolean.FALSE);
-        defaults.put(PREFERENCE_KEY_IS_XML_PARSER_VALIDATING, Boolean.FALSE);
-        defaults.put(PREFERENCE_KEY_AUTO_ADJUST_WINDOW, Boolean.TRUE);
-        defaults.put(PREFERENCE_KEY_ENABLE_DOUBLE_BUFFERING, Boolean.TRUE);
-        defaults.put(PREFERENCE_KEY_SHOW_DEBUG_TRACE, Boolean.TRUE);
-        defaults.put(PREFERENCE_KEY_PROXY_HOST, "webcache.eng.sun.com");
-        defaults.put(PREFERENCE_KEY_PROXY_PORT, "8080");
+    /**
+     * A paged panel for configuration windows.
+     */
+    protected class JConfigurationPanel extends JPanel {
 
-        XMLPreferenceManager manager
-            = new XMLPreferenceManager(args[0], defaults);
-        PreferenceDialog dlg = new PreferenceDialog(manager);
-        int c = dlg.showDialog();
-        if(c == OK_OPTION){
-            try{
-                manager.save();
-                System.out.println("Done Saving options");
-                System.exit(0);
-            }catch(Exception e){
-                System.err.println("Could not save options");
-                e.printStackTrace();
+        /**
+         * The toolbar that allows selection between the pages.
+         */
+        protected JToolBar toolbar;
+
+        /**
+         * The panel that holds the configuration pages.
+         */
+        protected JPanel panel;
+
+        /**
+         * The layout manager for the configuration pages.
+         */
+        protected CardLayout layout;
+
+        /**
+         * The button group for the configuration page buttons.
+         */
+        protected ButtonGroup group;
+
+        /**
+         * The currently selected page.
+         */
+        protected int page = -1;
+
+        /**
+         * Creates a new JConfigurationPanel.
+         */
+        public JConfigurationPanel() {
+            toolbar = new JToolBar();
+            toolbar.setFloatable(false);
+            toolbar.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
+            toolbar.add(new JToolBar.Separator(new Dimension(8, 8)));
+            if (Platform.isOSX || isMetalSteel()) {
+                toolbar.setBackground(new Color(0xf8, 0xf8, 0xf8));
+            }
+            toolbar.setOpaque(true);
+            panel = new JPanel();
+            layout = Platform.isOSX ? new ResizingCardLayout() : new CardLayout();
+            group = new ButtonGroup();
+            setLayout(new BorderLayout());
+            panel.setLayout(layout);
+            add(toolbar, BorderLayout.NORTH);
+            add(panel);
+        }
+
+        /**
+         * Adds a panel to this configuration panel.
+         * @param text the text to use on the toolbar button
+         * @param icon the icon to use on the toolbar button
+         * @param icon2 the icon to use on the toolbar button when the mouse
+         *              button is held down
+         * @param p the configuration panel page
+         */
+        public void addPanel(String text, Icon icon, Icon icon2, JPanel p) {
+            JToggleButton button = new JToggleButton(text, icon);
+            button.setVerticalTextPosition(AbstractButton.BOTTOM);
+            button.setHorizontalTextPosition(AbstractButton.CENTER);
+            button.setContentAreaFilled(false);
+            try {
+                // JDK 1.4+
+                // button.setIconTextGap(0);
+                AbstractButton.class.getMethod
+                    ("setIconTextGap", new Class[] { Integer.TYPE })
+                    .invoke(button, new Object[] { new Integer(0) });
+            } catch (Exception ex) {
+            }
+            button.setPressedIcon(icon2);
+            group.add(button);
+            toolbar.add(button);
+            toolbar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.gray));
+            button.addItemListener(new ItemListener() {
+                public void itemStateChanged(ItemEvent e) {
+                    JToggleButton b = (JToggleButton) e.getSource();
+                    switch (e.getStateChange()) {
+                        case ItemEvent.SELECTED:
+                            select(b);
+                            break;
+                        case ItemEvent.DESELECTED:
+                            unselect(b);
+                            break;
+                    }
+                }
+            });
+            if (panel.getComponentCount() == 0) {
+                button.setSelected(true);
+                page = 0;
+            } else {
+                unselect(button);
+            }
+            panel.add(p, text.intern());
+        }
+
+        /**
+         * Returns the index of the given configuration page.
+         */
+        protected int getComponentIndex(Component c) {
+            Container p = c.getParent();
+            int count = p.getComponentCount();
+            for (int i = 0; i < count; i++) {
+                if (p.getComponent(i) == c) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        /**
+         * Updates the style of the given button to indicate that it is
+         * selected.
+         */
+        protected void select(JToggleButton b) {
+            b.setOpaque(true);
+            b.setBackground
+                (Platform.isOSX ? new Color(0xd8, 0xd8, 0xd8)
+                       : UIManager.getColor("List.selectionBackground"));
+            b.setForeground(UIManager.getColor("List.selectionForeground"));
+            b.setBorder(BorderFactory.createCompoundBorder
+                            (BorderFactory.createMatteBorder
+                                 (0, 1, 0, 1, new Color(160, 160, 160)),
+                             BorderFactory.createEmptyBorder(4, 3, 4, 3)));
+            layout.show(panel, b.getText().intern());
+            page = getComponentIndex(b) - 1;
+            if (Platform.isOSX) {
+                PreferenceDialog.this.setTitle(b.getText());
+            }
+            PreferenceDialog.this.pack();
+            panel.grabFocus();
+        }
+
+        /**
+         * Updates the style of the given button to indicate that it is
+         * unselected.
+         */
+        protected void unselect(JToggleButton b) {
+            b.setOpaque(false);
+            b.setBackground(null);
+            b.setForeground(UIManager.getColor("Button.foreground"));
+            b.setBorder(BorderFactory.createEmptyBorder(5, 4, 5, 4));
+        }
+
+        /**
+         * A CardLayout that returns a preferred height based on the currently
+         * displayed component.
+         */
+        protected class ResizingCardLayout extends CardLayout {
+
+            /**
+             * Creates a new ResizingCardLayout.
+             */
+            public ResizingCardLayout() {
+                super(0, 0);
+            }
+
+            public Dimension preferredLayoutSize(Container parent) {
+                Dimension d = super.preferredLayoutSize(parent);
+                if (page != -1) {
+                    Dimension cur = panel.getComponent(page).getPreferredSize();
+                    d = new Dimension((int) d.getWidth(),
+                                      (int) cur.getHeight());
+                }
+                return d;
             }
         }
     }
-}
-
-
-class ConfigurationPanelSelector {
-    private CardLayout layout;
-    private Container container;
-
-    public ConfigurationPanelSelector(Container container,
-                                      CardLayout layout){
-        this.layout = layout;
-        this.container = container;
-    }
-
-    public void select(String panelName){
-        layout.show(container, panelName);
-    }
-}
-
-class IconCellRendererOld extends JLabel implements ListCellRenderer {
-    Map iconMap;
-
-    public IconCellRendererOld(Map iconMap){
-        this.iconMap = iconMap;
-
-        setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-    }
-    public Component getListCellRendererComponent
-        (
-         JList list,
-         Object value,            // value to display
-         int index,               // cell index
-         boolean isSelected,      // is the cell selected
-         boolean cellHasFocus)    // the list and the cell have the focus
-    {
-        String s = value.toString();
-        setText(s);
-        ImageIcon icon = (ImageIcon)iconMap.get(s);
-        if(icon != null){
-            setIcon(icon);
-            setHorizontalAlignment(CENTER);
-            setHorizontalTextPosition(CENTER);
-            setVerticalTextPosition(BOTTOM);
-        }
-        // if (isSelected) {
-        setBackground(java.awt.Color.red); // list.getSelectionBackground());
-            setForeground(list.getSelectionForeground());
-            /*}
-        else {
-            setBackground(list.getBackground());
-            setForeground(list.getForeground());
-            }*/
-            // setEnabled(list.isEnabled());
-            // setFont(list.getFont());
-        return this;
-    }
-}
-
-class IconCellRenderer extends JLabel
-    implements ListCellRenderer
-{
-    protected Map map;
-    protected static Border noFocusBorder;
-
-    /**
-     * Constructs a default renderer object for an item
-     * in a list.
-     */
-    public IconCellRenderer(Map map) {
-        super();
-    this.map = map;
-        noFocusBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
-        setOpaque(true);
-        setBorder(noFocusBorder);
-    }
-
-
-    public Component getListCellRendererComponent(
-        JList list,
-        Object value,
-        int index,
-        boolean isSelected,
-        boolean cellHasFocus)
-    {
-
-        setComponentOrientation(list.getComponentOrientation());
-
-        if (isSelected) {
-            setBackground(list.getSelectionBackground());
-            setForeground(list.getSelectionForeground());
-        }
-        else {
-            setBackground(list.getBackground());
-            setForeground(list.getForeground());
-        }
-
-        setBorder((cellHasFocus) ? UIManager.getBorder("List.focusCellHighlightBorder") : noFocusBorder);
-
-        /*if (value instanceof Icon) {
-            setIcon((Icon)value);
-            setText("");
-        }
-        else {
-            setIcon(null);
-            setText((value == null) ? "" : value.toString());
-        }*/
-
-    setText(value.toString());
-        ImageIcon icon = (ImageIcon)map.get(value.toString());
-        if(icon != null){
-            setIcon(icon);
-            setHorizontalAlignment(CENTER);
-            setHorizontalTextPosition(CENTER);
-            setVerticalTextPosition(BOTTOM);
-        }
-        setEnabled(list.isEnabled());
-        setFont(list.getFont());
-
-        return this;
-    }
-
-
-   /**
-    * Overridden for performance reasons.
-    * See the <a href="#override">Implementation Note</a>
-    * for more information.
-    */
-    public void validate() {}
-
-   /**
-    * Overridden for performance reasons.
-    * See the <a href="#override">Implementation Note</a>
-    * for more information.
-    */
-    public void revalidate() {}
-   /**
-    * Overridden for performance reasons.
-    * See the <a href="#override">Implementation Note</a>
-    * for more information.
-    */
-    public void repaint(long tm, int x, int y, int width, int height) {}
-
-   /**
-    * Overridden for performance reasons.
-    * See the <a href="#override">Implementation Note</a>
-    * for more information.
-    */
-    public void repaint(Rectangle r) {}
-
-   /**
-    * Overridden for performance reasons.
-    * See the <a href="#override">Implementation Note</a>
-    * for more information.
-    */
-    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
-        // Strings get interned...
-        if (propertyName=="text")
-            super.firePropertyChange(propertyName, oldValue, newValue);
-    }
-
-   /**
-    * Overridden for performance reasons.
-    * See the <a href="#override">Implementation Note</a>
-    * for more information.
-    */
-    public void firePropertyChange(String propertyName, byte oldValue, byte newValue) {}
-
-   /**
-    * Overridden for performance reasons.
-    * See the <a href="#override">Implementation Note</a>
-    * for more information.
-    */
-    public void firePropertyChange(String propertyName, char oldValue, char newValue) {}
-
-   /**
-    * Overridden for performance reasons.
-    * See the <a href="#override">Implementation Note</a>
-    * for more information.
-    */
-    public void firePropertyChange(String propertyName, short oldValue, short newValue) {}
-
-   /**
-    * Overridden for performance reasons.
-    * See the <a href="#override">Implementation Note</a>
-    * for more information.
-    */
-    public void firePropertyChange(String propertyName, int oldValue, int newValue) {}
-
-   /**
-    * Overridden for performance reasons.
-    * See the <a href="#override">Implementation Note</a>
-    * for more information.
-    */
-    public void firePropertyChange(String propertyName, long oldValue, long newValue) {}
-
-   /**
-    * Overridden for performance reasons.
-    * See the <a href="#override">Implementation Note</a>
-    * for more information.
-    */
-    public void firePropertyChange(String propertyName, float oldValue, float newValue) {}
-
-   /**
-    * Overridden for performance reasons.
-    * See the <a href="#override">Implementation Note</a>
-    * for more information.
-    */
-    public void firePropertyChange(String propertyName, double oldValue, double newValue) {}
-
-   /**
-    * Overridden for performance reasons.
-    * See the <a href="#override">Implementation Note</a>
-    * for more information.
-    */
-    public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {}
 }

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,6 +18,7 @@
  */
 package org.apache.flex.forks.batik.dom;
 
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 import org.w3c.dom.Notation;
 
@@ -24,11 +26,12 @@ import org.w3c.dom.Notation;
  * This class implements the {@link org.w3c.dom.Notation} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: AbstractNotation.java,v 1.5 2005/02/22 09:12:58 cam Exp $
+ * @version $Id: AbstractNotation.java 475685 2006-11-16 11:16:05Z cam $
  */
 public abstract class AbstractNotation
     extends    AbstractNode
     implements Notation {
+
     /**
      * The node name.
      */
@@ -49,21 +52,21 @@ public abstract class AbstractNotation
      * @return {@link org.w3c.dom.Node#NOTATION_NODE}
      */
     public short getNodeType() {
-	return NOTATION_NODE;
+        return NOTATION_NODE;
     }
 
     /**
      * Sets the name of this node.
      */
     public void setNodeName(String v) {
-	nodeName = v;
+        nodeName = v;
     }
 
     /**
      * <b>DOM</b>: Implements {@link org.w3c.dom.Node#getNodeName()}.
      */
     public String getNodeName() {
-	return nodeName;
+        return nodeName;
     }
 
     /**
@@ -71,14 +74,14 @@ public abstract class AbstractNotation
      * @return {@link #publicId}.
      */
     public String getPublicId() {
-	return publicId;
+        return publicId;
     }
 
     /**
      * Sets the public id.
      */
     public void setPublicId(String id) {
-	publicId = id;
+        publicId = id;
     }
 
     /**
@@ -86,38 +89,44 @@ public abstract class AbstractNotation
      * @return {@link #systemId}.
      */
     public String getSystemId() {
-	return systemId;
+        return systemId;
     }
 
     /**
      * Sets the system id.
      */
     public void setSystemId(String id) {
-	systemId = id;
+        systemId = id;
+    }
+
+    /**
+     * <b>DOM</b>: Implements {@link org.w3c.dom.Node#setTextContent(String)}.
+     */
+    public void setTextContent(String s) throws DOMException {
     }
 
     /**
      * Exports this node to the given document.
      */
     protected Node export(Node n, AbstractDocument d) {
-	super.export(n, d);
-	AbstractNotation an = (AbstractNotation)n;
-	an.nodeName = nodeName;
-	an.publicId = publicId;
-	an.systemId = systemId;
-	return n;
+        super.export(n, d);
+        AbstractNotation an = (AbstractNotation)n;
+        an.nodeName = nodeName;
+        an.publicId = publicId;
+        an.systemId = systemId;
+        return n;
     }
 
     /**
      * Deeply exports this node to the given document.
      */
     protected Node deepExport(Node n, AbstractDocument d) {
-	super.deepExport(n, d);
-	AbstractNotation an = (AbstractNotation)n;
-	an.nodeName = nodeName;
-	an.publicId = publicId;
-	an.systemId = systemId;
-	return n;
+        super.deepExport(n, d);
+        AbstractNotation an = (AbstractNotation)n;
+        an.nodeName = nodeName;
+        an.publicId = publicId;
+        an.systemId = systemId;
+        return n;
     }
 
     /**
@@ -125,12 +134,12 @@ public abstract class AbstractNotation
      * @param n a node of the type of this.
      */
     protected Node copyInto(Node n) {
-	super.copyInto(n);
-	AbstractNotation an = (AbstractNotation)n;
-	an.nodeName = nodeName;
-	an.publicId = publicId;
-	an.systemId = systemId;
-	return n;
+        super.copyInto(n);
+        AbstractNotation an = (AbstractNotation)n;
+        an.nodeName = nodeName;
+        an.publicId = publicId;
+        an.systemId = systemId;
+        return n;
     }
 
     /**
@@ -138,11 +147,11 @@ public abstract class AbstractNotation
      * @param n a node of the type of this.
      */
     protected Node deepCopyInto(Node n) {
-	super.deepCopyInto(n);
-	AbstractNotation an = (AbstractNotation)n;
-	an.nodeName = nodeName;
-	an.publicId = publicId;
-	an.systemId = systemId;
-	return n;
+        super.deepCopyInto(n);
+        AbstractNotation an = (AbstractNotation)n;
+        an.nodeName = nodeName;
+        an.publicId = publicId;
+        an.systemId = systemId;
+        return n;
     }
 }

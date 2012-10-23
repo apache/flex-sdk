@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -32,7 +33,7 @@ import java.lang.ref.Reference;
 import java.lang.ref.SoftReference;
 import java.util.Iterator;
 import java.util.ListIterator;
-import java.util.Vector;
+import java.util.List;
 
 import org.apache.flex.forks.batik.ext.awt.image.CompositeRule;
 import org.apache.flex.forks.batik.ext.awt.image.GraphicsUtil;
@@ -44,9 +45,9 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.TileCacheRed;
  * Interface for implementing filter resolution.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: FilterResRable8Bit.java,v 1.11 2004/08/18 07:13:59 vhardy Exp $
+ * @version $Id: FilterResRable8Bit.java 501844 2007-01-31 13:54:05Z dvholten $
  */
-public class FilterResRable8Bit extends AbstractRable 
+public class FilterResRable8Bit extends AbstractRable
     implements FilterResRable, PaintRable {
 
     /**
@@ -62,7 +63,7 @@ public class FilterResRable8Bit extends AbstractRable
     public FilterResRable8Bit() {
         // System.out.println("Using FilterResRable8bit...");
     }
-        
+
 
     public FilterResRable8Bit(Filter src, int filterResX, int filterResY) {
         init(src, null);
@@ -76,7 +77,7 @@ public class FilterResRable8Bit extends AbstractRable
     public Filter getSource() {
         return (Filter)srcs.get(0);
     }
-    
+
     /**
      * Sets the source to be cropped
      * @param src image to offset.
@@ -105,7 +106,7 @@ public class FilterResRable8Bit extends AbstractRable
         touch();
         this.filterResolutionX = filterResolutionX;
     }
-    
+
     /**
      * Returns the resolution along the Y axis.
      */
@@ -116,42 +117,42 @@ public class FilterResRable8Bit extends AbstractRable
     /**
      * Sets the resolution along the Y axis, i.e., the maximum
      * size for intermediate images along that axis.
-     * If the Y-value is less than zero, the scale applied to 
+     * If the Y-value is less than zero, the scale applied to
      * the rendered images is computed to preserve the image's aspect ratio
      */
     public void setFilterResolutionY(int filterResolutionY){
         touch();
         this.filterResolutionY = filterResolutionY;
     }
-    
+
 
     /**
      * This returns true if <tt>ri</tt> and all of <tt>ri</tt>'s
      * sources implement the PaintRable interface.  This is used to
      * indicate that the chain has a good potential for bypassing the
-     * filterRes operation entirely.  
-     * 
+     * filterRes operation entirely.
+     *
      * Ideally there would be a checkPaintRable method in PaintRable
      * that could be used to get a definate answer about a filters
      * ability to draw directly to a Graphics2D (this can sometimes
      * 'fail' because of the way the Graphics2D is currently
-     * configured).  
+     * configured).
      */
     public boolean allPaintRable(RenderableImage ri) {
         if (!(ri instanceof PaintRable))
             return false;
 
-        Vector v = ri.getSources();
+        List v = ri.getSources();
         // No sources and we are PaintRable so the chain is PaintRable.
         if (v == null) return true;
-        
+
         Iterator i = v.iterator();
         while (i.hasNext()) {
             RenderableImage nri = (RenderableImage)i.next();
             // A source is not paintRable so we are not 100% paintRable.
             if (!allPaintRable(nri)) return false;
         }
-        
+
         return true;
     }
 
@@ -192,13 +193,13 @@ public class FilterResRable8Bit extends AbstractRable
                     return false;
             }
 
-            Vector v = comp.getSources();
+            List v = comp.getSources();
             if (v == null) return true;
             ListIterator li = v.listIterator(v.size());
             while (li.hasPrevious()) {
                 RenderableImage csrc = (RenderableImage)li.previous();
                 if (!allPaintRable(csrc)) {
-                    li.next(); 
+                    li.next();
                     break;
                 }
             }
@@ -209,7 +210,7 @@ public class FilterResRable8Bit extends AbstractRable
                 GraphicsUtil.drawImage(g2d, comp);
                 return true;
             }
-            
+
             if (!li.hasNext())
                 // None of the trailing inputs are PaintRable so we don't
                 // distribute across this at all.
@@ -243,12 +244,12 @@ public class FilterResRable8Bit extends AbstractRable
     }
 
     /**
-     * Should perform the equivilent action as 
+     * Should perform the equivilent action as
      * createRendering followed by drawing the RenderedImage.
      *
      * @param g2d The Graphics2D to draw to.
      * @return true if the paint call succeeded, false if
-     *         for some reason the paint failed (in which 
+     *         for some reason the paint failed (in which
      *         case a createRendering should be used).
      */
     public boolean paintRable(Graphics2D g2d) {
@@ -288,8 +289,8 @@ public class FilterResRable8Bit extends AbstractRable
         double resScaleX = getFilterResolutionX()/imageRect.getWidth();
         double resScaleY = getFilterResolutionY()/imageRect.getHeight();
 
-        
-        // System.out.println("filterRes X " + filterResolutionX + 
+
+        // System.out.println("filterRes X " + filterResolutionX +
         //                    " Y : " + filterResolutionY);
 
         float resScale = (float)Math.min(resScaleX, resScaleY);
@@ -304,7 +305,7 @@ public class FilterResRable8Bit extends AbstractRable
 
         AffineTransform resUsr2Dev;
         resUsr2Dev = AffineTransform.getScaleInstance(resScale, resScale);
-        
+
         //
         // Create a new RenderingContext
         //
@@ -323,10 +324,10 @@ public class FilterResRable8Bit extends AbstractRable
         return ret;
     }
 
-    
+
 
     /**
-     * 
+     *
      */
     public RenderedImage createRendering(RenderContext renderContext) {
         // Get user space to device space transform
@@ -336,8 +337,8 @@ public class FilterResRable8Bit extends AbstractRable
         }
 
         RenderingHints hints = renderContext.getRenderingHints();
-        
-        // As per specification, a value of zero for the 
+
+        // As per specification, a value of zero for the
         // x-axis or y-axis causes the filter to produce
         // nothing.
         // The processing is done as follows:
@@ -346,7 +347,7 @@ public class FilterResRable8Bit extends AbstractRable
         // + if the y resolution is zero, this is a no-op
         //   else compute the y resolution from the x scale
         //   and compute the corresponding y scale.
-        // + if the y or x scale is less than one, insert 
+        // + if the y or x scale is less than one, insert
         //   an AffineRable.
         //   Else, return the source as is.
         int filterResolutionX = getFilterResolutionX();
@@ -356,7 +357,7 @@ public class FilterResRable8Bit extends AbstractRable
 
         if ((filterResolutionX <= 0) || (filterResolutionY == 0))
             return null;
-        
+
         // Find out the renderable area
         Rectangle2D imageRect = getBounds2D();
         Rectangle   devRect;

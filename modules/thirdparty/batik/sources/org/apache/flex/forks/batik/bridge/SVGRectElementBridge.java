@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,17 +22,20 @@ import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
+import org.apache.flex.forks.batik.dom.svg.AbstractSVGAnimatedLength;
+import org.apache.flex.forks.batik.dom.svg.AnimatedLiveAttributeValue;
+import org.apache.flex.forks.batik.dom.svg.LiveAttributeException;
+import org.apache.flex.forks.batik.dom.svg.SVGOMRectElement;
 import org.apache.flex.forks.batik.gvt.ShapeNode;
 import org.apache.flex.forks.batik.gvt.ShapePainter;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.events.MutationEvent;
 
 /**
  * Bridge class for the &lt;rect> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGRectElementBridge.java,v 1.16 2004/08/18 07:12:35 vhardy Exp $
+ * @version $Id: SVGRectElementBridge.java 527382 2007-04-11 04:31:58Z cam $
  */
 public class SVGRectElementBridge extends SVGShapeElementBridge {
 
@@ -65,113 +69,79 @@ public class SVGRectElementBridge extends SVGShapeElementBridge {
                               Element e,
                               ShapeNode shapeNode) {
 
-        UnitProcessor.Context uctx = UnitProcessor.createContext(ctx, e);
-        String s;
+        try {
+            SVGOMRectElement re = (SVGOMRectElement) e;
 
-        // 'x' attribute - default is 0
-        s = e.getAttributeNS(null, SVG_X_ATTRIBUTE);
-        float x = 0;
-        if (s.length() != 0) {
-            x = UnitProcessor.svgHorizontalCoordinateToUserSpace
-                (s, SVG_X_ATTRIBUTE, uctx);
-        }
+            // 'x' attribute - default is 0
+            AbstractSVGAnimatedLength _x =
+                (AbstractSVGAnimatedLength) re.getX();
+            float x = _x.getCheckedValue();
 
-        // 'y' attribute - default is 0
-        s = e.getAttributeNS(null, SVG_Y_ATTRIBUTE);
-        float y = 0;
-        if (s.length() != 0) {
-            y = UnitProcessor.svgVerticalCoordinateToUserSpace
-                (s, SVG_Y_ATTRIBUTE, uctx);
-        }
+            // 'y' attribute - default is 0
+            AbstractSVGAnimatedLength _y =
+                (AbstractSVGAnimatedLength) re.getY();
+            float y = _y.getCheckedValue();
 
-        // 'width' attribute - required
-        s = e.getAttributeNS(null, SVG_WIDTH_ATTRIBUTE);
-        float w;
-        if (s.length() != 0) {
-            w = UnitProcessor.svgHorizontalLengthToUserSpace
-                (s, SVG_WIDTH_ATTRIBUTE, uctx);
-        } else {
-            throw new BridgeException(e, ERR_ATTRIBUTE_MISSING,
-                                      new Object[] {SVG_WIDTH_ATTRIBUTE, s});
-        }
+            // 'width' attribute - required
+            AbstractSVGAnimatedLength _width =
+                (AbstractSVGAnimatedLength) re.getWidth();
+            float w = _width.getCheckedValue();
 
-        // 'height' attribute - required
-        s = e.getAttributeNS(null, SVG_HEIGHT_ATTRIBUTE);
-        float h;
-        if (s.length() != 0) {
-            h = UnitProcessor.svgVerticalLengthToUserSpace
-                (s, SVG_HEIGHT_ATTRIBUTE, uctx);
-        } else {
-            throw new BridgeException(e, ERR_ATTRIBUTE_MISSING,
-                                      new Object[] {SVG_HEIGHT_ATTRIBUTE, s});
-        }
+            // 'height' attribute - required
+            AbstractSVGAnimatedLength _height =
+                (AbstractSVGAnimatedLength) re.getHeight();
+            float h = _height.getCheckedValue();
 
-        // 'rx' attribute - default is 0
-        s = e.getAttributeNS(null, SVG_RX_ATTRIBUTE);
-        boolean rxs = (s.length() != 0);
-        float rx = 0;
-        if (rxs) {
-            rx = UnitProcessor.svgHorizontalLengthToUserSpace
-                (s, SVG_RX_ATTRIBUTE, uctx);
-        }
-        rx = (rx > w / 2) ? w / 2 : rx;
+            // 'rx' attribute - default is 0
+            AbstractSVGAnimatedLength _rx =
+                (AbstractSVGAnimatedLength) re.getRx();
+            float rx = _rx.getCheckedValue();
+            if (rx > w / 2) {
+                rx = w / 2;
+            }
 
-        // 'ry' attribute - default is 0
-        s = e.getAttributeNS(null, SVG_RY_ATTRIBUTE);
-        boolean rys = (s.length() != 0);
-        float ry = 0;
-        if (rys) {
-            ry = UnitProcessor.svgVerticalLengthToUserSpace
-                (s, SVG_RY_ATTRIBUTE, uctx);
-        }
-        ry = (ry > h / 2) ? h / 2 : ry;
+            // 'ry' attribute - default is rx
+            AbstractSVGAnimatedLength _ry =
+                (AbstractSVGAnimatedLength) re.getRy();
+            float ry = _ry.getCheckedValue();
+            if (ry > h / 2) {
+                ry = h / 2;
+            }
 
-        Shape shape = null;
-        if (rxs && rys) {
+            Shape shape;
             if (rx == 0 || ry == 0) {
                 shape = new Rectangle2D.Float(x, y, w, h);
             } else {
-                shape = new RoundRectangle2D.Float(x, y, w, h, rx*2, ry*2);
+                shape = new RoundRectangle2D.Float(x, y, w, h, rx * 2, ry * 2);
             }
-        } else if (rxs) {
-            if (rx == 0) {
-                shape = new Rectangle2D.Float(x, y, w, h);
-            } else {
-                shape = new RoundRectangle2D.Float(x, y, w, h, rx*2, rx*2);
-            }
-        } else if (rys) {
-            if (ry == 0) {
-                shape = new Rectangle2D.Float(x, y, w, h);
-            } else {
-                shape = new RoundRectangle2D.Float(x, y, w, h, ry*2, ry*2);
-            }
-        } else {
-            shape = new Rectangle2D.Float(x, y, w, h);
+            shapeNode.setShape(shape);
+        } catch (LiveAttributeException ex) {
+            throw new BridgeException(ctx, ex);
         }
-        shapeNode.setShape(shape);
     }
 
     // BridgeUpdateHandler implementation //////////////////////////////////
 
     /**
-     * Invoked when an MutationEvent of type 'DOMAttrModified' is fired.
+     * Invoked when the animated value of an animatable attribute has changed.
      */
-    public void handleDOMAttrModifiedEvent(MutationEvent evt) {
-        String attrName = evt.getAttrName();
-        if (attrName.equals(SVG_X_ATTRIBUTE) ||
-            attrName.equals(SVG_Y_ATTRIBUTE) ||
-            attrName.equals(SVG_WIDTH_ATTRIBUTE) ||
-            attrName.equals(SVG_HEIGHT_ATTRIBUTE) ||
-            attrName.equals(SVG_RX_ATTRIBUTE) ||
-            attrName.equals(SVG_RY_ATTRIBUTE)) {
-
-            buildShape(ctx, e, (ShapeNode)node);
-            handleGeometryChanged();
-        } else {
-            super.handleDOMAttrModifiedEvent(evt);
+    public void handleAnimatedAttributeChanged
+            (AnimatedLiveAttributeValue alav) {
+        if (alav.getNamespaceURI() == null) {
+            String ln = alav.getLocalName();
+            if (ln.equals(SVG_X_ATTRIBUTE)
+                    || ln.equals(SVG_Y_ATTRIBUTE)
+                    || ln.equals(SVG_WIDTH_ATTRIBUTE)
+                    || ln.equals(SVG_HEIGHT_ATTRIBUTE)
+                    || ln.equals(SVG_RX_ATTRIBUTE)
+                    || ln.equals(SVG_RY_ATTRIBUTE)) {
+                buildShape(ctx, e, (ShapeNode)node);
+                handleGeometryChanged();
+                return;
+            }
         }
+        super.handleAnimatedAttributeChanged(alav);
     }
-
 
     protected ShapePainter createShapePainter(BridgeContext ctx,
                                               Element e,

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,32 +19,37 @@
 package org.apache.flex.forks.batik.util;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * This class represents an object which queues Runnable objects for
  * invocation in a single thread.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: RunnableQueue.java,v 1.21 2005/02/23 11:05:54 deweese Exp $
+ * @version $Id: RunnableQueue.java 501495 2007-01-30 18:00:36Z dvholten $
  */
 public class RunnableQueue implements Runnable {
 
     /**
      * Type-safe enumeration of queue states.
      */
-    public static class RunnableQueueState extends Object {
-        final String value;
+    public static final class RunnableQueueState {
+
+        private final String value;
+
         private RunnableQueueState(String value) {
-            this.value = value.intern(); }
+            this.value = value; }
+
         public String getValue() { return value; }
-        public String toString() { 
-            return "[RunnableQueueState: " + value + "]"; }
+
+        public String toString() {
+            return "[RunnableQueueState: " + value + ']'; }
     }
 
     /**
-     * The queue is in the processes of running tasks.
+     * The queue is in the process of running tasks.
      */
-    public static final RunnableQueueState RUNNING 
+    public static final RunnableQueueState RUNNING
         = new RunnableQueueState("Running");
 
     /**
@@ -63,13 +69,13 @@ public class RunnableQueue implements Runnable {
     /**
      * The Suspension state of this thread.
      */
-    protected RunnableQueueState state;
+    protected volatile RunnableQueueState state;
 
     /**
      * Object to synchronize/wait/notify for suspension
      * issues.
      */
-    protected Object stateLock = new Object();
+    protected final Object stateLock = new Object();
 
     /**
      * Used to indicate if the queue was resumed while
@@ -78,16 +84,16 @@ public class RunnableQueue implements Runnable {
     protected boolean wasResumed;
 
     /**
-     * The Runnable objects list, also used as synchoronization point
+     * The Runnable objects list, also used as synchronization point
      * for pushing/poping runables.
      */
-    protected DoublyLinkedList list = new DoublyLinkedList();
+    private final DoublyLinkedList list = new DoublyLinkedList();
 
     /**
      * Count of preempt entries in queue, so preempt entries
      * can be kept properly ordered.
      */
-    protected int preemptCount = 0;
+    protected int preemptCount;
 
     /**
      * The object which handle run events.
@@ -97,22 +103,32 @@ public class RunnableQueue implements Runnable {
     /**
      * The current thread.
      */
-    protected HaltingThread runnableQueueThread;
+    protected volatile HaltingThread runnableQueueThread;
+
+    /**
+     * The {@link IdleRunnable} to run if the queue is empty.
+     */
+    private IdleRunnable idleRunnable;
+
+    /**
+     * The time (in milliseconds) that the idle runnable should be run next.
+     */
+    private long idleRunnableWaitTime;
 
     /**
      * Creates a new RunnableQueue started in a new thread.
-     * @return a RunnableQueue which is garanteed to have entered its
+     * @return a RunnableQueue which is guaranteed to have entered its
      *         <tt>run()</tt> method.
      */
     public static RunnableQueue createRunnableQueue() {
         RunnableQueue result = new RunnableQueue();
-        synchronized (result) {
+        synchronized (result) {       // todo ?? sync on local object has no meaning ??
             HaltingThread ht = new HaltingThread
                 (result, "RunnableQueue-" + threadCount++);
             ht.setDaemon(true);
             ht.start();
             while (result.getThread() == null) {
-                try { 
+                try {
                     result.wait();
                 } catch (InterruptedException ie) {
                 }
@@ -120,8 +136,9 @@ public class RunnableQueue implements Runnable {
         }
         return result;
     }
-    private static int threadCount;
-    
+
+    private static volatile int threadCount;
+
     /**
      * Runs this queue.
      */
@@ -137,40 +154,44 @@ public class RunnableQueue implements Runnable {
         Runnable rable;
         try {
             while (!HaltingThread.hasBeenHalted()) {
-
-                // Mutex for suspention work.
+                boolean callSuspended = false;
+                boolean callResumed   = false;
+                // Mutex for suspension work.
                 synchronized (stateLock) {
-                    if (state == RUNNING) {
+                    if (state != RUNNING) {
+                        state = SUSPENDED;
+                        callSuspended = true;
+                    }
+                }
+                if (callSuspended)
+                    executionSuspended();
 
-                        if (wasResumed) {
-                            wasResumed = false;
-                            executionResumed();
-                        }
-                    } else {
-                        
-                        while (state != RUNNING) {
-                            state = SUSPENDED;
+                synchronized (stateLock) {
+                    while (state != RUNNING) {
+                        state = SUSPENDED;
 
-                            // notify suspendExecution in case it is
-                            // waiting til we shut down.
-                            stateLock.notifyAll();
+                        // notify suspendExecution in case it is
+                        // waiting til we shut down.
+                        stateLock.notifyAll();
 
-                            executionSuspended();
+                        // Wait until resumeExecution called.
+                        try {
+                            stateLock.wait();
+                        } catch(InterruptedException ie) { }
+                    }
 
-                            // Wait until resumeExecution called.
-                            try {
-                                stateLock.wait();
-                            } catch(InterruptedException ie) { }
-                        }
-
+                    if (wasResumed) {
                         wasResumed = false;
-                        executionResumed();
+                        callResumed = true;
                     }
                 }
 
+                if (callResumed)
+                    executionResumed();
+
                 // The following seriously stress tests the class
                 // for stuff happening between the two sync blocks.
-                // 
+                //
                 // try {
                 //     Thread.sleep(1);
                 // } catch (InterruptedException ie) { }
@@ -181,16 +202,33 @@ public class RunnableQueue implements Runnable {
                     l = (Link)list.pop();
                     if (preemptCount != 0) preemptCount--;
                     if (l == null) {
-                        // No item to run, wait till there is one.
-                        try {
-                            list.wait();
-                        } catch (InterruptedException ie) {
-                            // just loop again.
+                        // No item to run, see if there is an idle runnable
+                        // to run instead.
+                        if (idleRunnable != null &&
+                                (idleRunnableWaitTime = idleRunnable.getWaitTime())
+                                    < System.currentTimeMillis()) {
+                            rable = idleRunnable;
+                        } else {
+                            // Wait for a runnable.
+                            try {
+                                if (idleRunnable != null && idleRunnableWaitTime
+                                        != Long.MAX_VALUE) {
+                                    long t = idleRunnableWaitTime
+                                        - System.currentTimeMillis();
+                                    if (t > 0) {
+                                        list.wait(t);
+                                    }
+                                } else {
+                                    list.wait();
+                                }
+                            } catch (InterruptedException ie) {
+                                // just loop again.
+                            }
+                            continue; // start loop over again...
                         }
-                        continue; // start loop over again...
+                    } else {
+                        rable = l.runnable;
                     }
-
-                    rable = l.runnable;
                 }
 
                 runnableStart(rable);
@@ -205,10 +243,13 @@ public class RunnableQueue implements Runnable {
                     // But this is more or less what Swing does.
                     t.printStackTrace();
                 }
-                l.unlock();
+                // Notify something waiting on the runnable just completed,
+                // if we just ran one from the queue.
+                if (l != null) {
+                    l.unlock();
+                }
                 runnableInvoked(rable);
             }
-        } catch (InterruptedException e) {
         } finally {
             synchronized (this) {
                 runnableQueueThread = null;
@@ -246,7 +287,7 @@ public class RunnableQueue implements Runnable {
      * Waits until the given Runnable's <tt>run()</tt> has returned.
      * <em>Note: <tt>invokeAndWait()</tt> must not be called from the
      * current thread (for example from the <tt>run()</tt> method of the
-     * argument).
+     * argument).</em>
      * @throws IllegalStateException if getThread() is null or if the
      *         thread returned by getThread() is the current one.
      */
@@ -274,8 +315,8 @@ public class RunnableQueue implements Runnable {
      * returns. The given runnable preempts any runnable that is not
      * currently executing (ie the next runnable started will be the
      * one given).  An exception is thrown if the RunnableQueue was
-     * not started.  
-     * @throws IllegalStateException if getThread() is  null.  
+     * not started.
+     * @throws IllegalStateException if getThread() is  null.
      */
     public void preemptLater(Runnable r) {
         if (runnableQueueThread == null) {
@@ -318,9 +359,9 @@ public class RunnableQueue implements Runnable {
         l.lock();
     }
 
-    public RunnableQueueState getQueueState() { 
+    public RunnableQueueState getQueueState() {
         synchronized (stateLock) {
-            return state; 
+            return state;
         }
     }
 
@@ -333,7 +374,8 @@ public class RunnableQueue implements Runnable {
      *        called while waiting will simply return (this really
      *        indicates a race condition in your code).  This may
      *        return before an associated RunHandler is notified.
-     * @throws IllegalStateException if getThread() is null.  */
+     * @throws IllegalStateException if getThread() is null.
+     */
     public void suspendExecution(boolean waitTillSuspended) {
         if (runnableQueueThread == null) {
             throw new IllegalStateException
@@ -417,7 +459,7 @@ public class RunnableQueue implements Runnable {
                 }
                 public Object next() {
                     if (head == null || head == link) {
-                        throw new java.util.NoSuchElementException();
+                        throw new NoSuchElementException();
                     }
                     if (link == null) {
                         link = (Link)head.getNext();
@@ -448,6 +490,17 @@ public class RunnableQueue implements Runnable {
     }
 
     /**
+     * Sets a Runnable to be run whenever the queue is empty.
+     */
+    public void setIdleRunnable(IdleRunnable r) {
+        synchronized (list) {
+            idleRunnable = r;
+            idleRunnableWaitTime = 0;
+            list.notify();
+        }
+    }
+
+    /**
      * Called when execution is being suspended.
      * Currently just notifies runHandler
      */
@@ -468,7 +521,7 @@ public class RunnableQueue implements Runnable {
             runHandler.executionResumed(this);
         }
     }
-        
+
     /**
      * Called just prior to executing a Runnable.
      * Currently just notifies runHandler
@@ -489,6 +542,23 @@ public class RunnableQueue implements Runnable {
         if (runHandler != null) {
             runHandler.runnableInvoked(this, rable);
         }
+    }
+
+    /**
+     * A {@link Runnable} that can also inform the caller how long it should
+     * be until it is run again.
+     */
+    public interface IdleRunnable extends Runnable {
+
+        /**
+         * Returns the system time that can be safely waited until before this
+         * {@link Runnable} is run again.
+         *
+         * @return time to wait until, <code>0</code> if no waiting can
+         *         be done, or {@link Long#MAX_VALUE} if the {@link Runnable}
+         *         should not be run again at this time
+         */
+        long getWaitTime();
     }
 
     /**
@@ -551,11 +621,11 @@ public class RunnableQueue implements Runnable {
      * To store a Runnable.
      */
     protected static class Link extends DoublyLinkedList.Node {
-        
+
         /**
          * The Runnable.
          */
-        public Runnable runnable;
+        private final Runnable runnable;
 
         /**
          * Creates a new link.
@@ -565,10 +635,10 @@ public class RunnableQueue implements Runnable {
         }
 
         /**
-         * unlock link and notify locker.  
+         * unlock link and notify locker.
          * Basic implementation does nothing.
          */
-        public void unlock() throws InterruptedException { return; }
+        public void unlock() { return; }
     }
 
     /**
@@ -579,7 +649,7 @@ public class RunnableQueue implements Runnable {
         /**
          * Whether this link is actually locked.
          */
-        protected boolean locked;
+        private volatile boolean locked;
 
         /**
          * Creates a new link.
@@ -607,11 +677,15 @@ public class RunnableQueue implements Runnable {
         /**
          * unlocks this link.
          */
-        public synchronized void unlock() throws InterruptedException {
+        public synchronized void unlock() {
             while (!locked) {
-                // Wait until lock is called...
-                wait();
+                try {
+                    wait(); // Wait until lock is called...
+                } catch (InterruptedException ie) {
+                    // Loop again...
+                }
             }
+            locked = false;
             // Wake the locking thread...
             notify();
         }

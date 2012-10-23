@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,31 +28,31 @@ import org.apache.flex.forks.batik.gvt.GraphicsNode;
  * of converting the GraphicsNode to a mask image.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: Mask.java,v 1.7 2005/03/27 08:58:34 cam Exp $
+ * @version $Id: Mask.java 478188 2006-11-22 15:19:17Z dvholten $
  */
 public interface Mask extends Filter {
     /**
      * The region to which this mask applies
      */
-    public Rectangle2D getFilterRegion();
+    Rectangle2D getFilterRegion();
 
     /**
      * Returns the filter region to which this mask applies
      */
-    public void setFilterRegion(Rectangle2D filterRegion);
+    void setFilterRegion(Rectangle2D filterRegion);
 
     /**
      * The source to be masked by the mask node.
      * @param src The Image to be masked.
      */
-    public void setSource(Filter src);
-    
+    void setSource(Filter src);
+
     /**
      * This returns the current image being masked by the mask node.
      * @return The image to mask
      */
-    public Filter getSource();
-    
+    Filter getSource();
+
     /**
      * Set the masking image to that described by gn.
      * If gn is an rgba image then the alpha is premultiplied and then
@@ -61,12 +62,12 @@ public interface Mask extends Filter {
      * conversion is performed.
      * @param gn The graphics node that defines the mask image.
      */
-    public void setMaskNode(GraphicsNode gn);
-    
+    void setMaskNode(GraphicsNode gn);
+
     /**
      * Returns the Graphics node that the mask operation will use to
      * define the masking image.
      * @return The graphics node that defines the mask image.
      */
-    public GraphicsNode getMaskNode();
+    GraphicsNode getMaskNode();
 }

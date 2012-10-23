@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2002,2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,7 +20,8 @@ package org.apache.flex.forks.batik.extension.svg;
 
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.Vector;
+import java.util.List;
+import java.util.Arrays;
 
 import org.apache.flex.forks.batik.bridge.BridgeContext;
 import org.apache.flex.forks.batik.bridge.BridgeExtension;
@@ -28,6 +30,9 @@ import org.w3c.dom.Element;
 /**
  * This is a Service interface for classes that want to extend the
  * functionality of the Bridge, to support new tags in the rendering tree.
+ *
+ * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
+ * @version $Id: BatikBridgeExtension.java 498740 2007-01-22 18:35:57Z dvholten $
  */
 public class BatikBridgeExtension implements BridgeExtension {
 
@@ -35,9 +40,9 @@ public class BatikBridgeExtension implements BridgeExtension {
      * Return the priority of this Extension.  Extensions are
      * registered from lowest to highest priority.  So if for some
      * reason you need to come before/after another existing extension
-     * make sure your priority is lower/higher than theirs.  
+     * make sure your priority is lower/higher than theirs.
      */
-    public float getPriority() { return 1f; }
+    public float getPriority() { return 1.0f; }
 
     /**
      * This should return the list of extensions implemented
@@ -53,10 +58,11 @@ public class BatikBridgeExtension implements BridgeExtension {
             "http://xml.apache.org/batik/ext/colorSwitch/1.0" ,
             "http://xml.apache.org/batik/ext/flowText/1.0" ,
         };
-        Vector v = new Vector(extensions.length);
-        for (int i=0; i<extensions.length; i++) {
-            v.add(extensions[i]);
-        }
+//        List v = new ArrayList(extensions.length);
+//        for (int i=0; i<extensions.length; i++) {
+//            v.add(extensions[i]);
+//        }
+        List v = Arrays.asList( extensions );
         return Collections.unmodifiableList(v).iterator();
     }
 

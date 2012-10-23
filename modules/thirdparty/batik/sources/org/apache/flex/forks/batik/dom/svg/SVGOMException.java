@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,13 +18,13 @@
  */
 package org.apache.flex.forks.batik.dom.svg;
 
-import org.w3c.flex.forks.dom.svg.SVGException;
+import org.w3c.dom.svg.SVGException;
 
 /**
  * An implementation of the SVGException class.
  *
  * @author <a href="mailto:tkormann@ilog.fr">Thierry Kormann</a>
- * @version $Id: SVGOMException.java,v 1.3 2004/08/18 07:13:15 vhardy Exp $
+ * @version $Id: SVGOMException.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class SVGOMException extends SVGException {
 

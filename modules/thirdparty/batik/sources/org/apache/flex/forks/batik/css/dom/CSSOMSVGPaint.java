@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,16 +26,16 @@ import org.apache.flex.forks.batik.util.CSSConstants;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSValue;
-import org.w3c.flex.forks.dom.svg.SVGPaint;
+import org.w3c.dom.svg.SVGPaint;
 
 /**
  * This class implements the {@link SVGPaint} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: CSSOMSVGPaint.java,v 1.6 2005/03/15 11:24:35 deweese Exp $
+ * @version $Id: CSSOMSVGPaint.java 476924 2006-11-19 21:13:26Z dvholten $
  */
 public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
-    
+
     /**
      * Creates a new CSSOMSVGPaint.
      */
@@ -54,7 +55,7 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGColor#getColorType()}.
+     * org.w3c.dom.svg.SVGColor#getColorType()}.
      */
     public short getColorType() {
         throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
@@ -62,7 +63,7 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGPaint#getPaintType()}.
+     * org.w3c.dom.svg.SVGPaint#getPaintType()}.
      */
     public short getPaintType() {
         Value value = valueProvider.getValue();
@@ -121,7 +122,7 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
     }
 
     /**
-     * <b>DOM</b>: Implements {@link org.w3c.flex.forks.dom.svg.SVGPaint#getUri()}.
+     * <b>DOM</b>: Implements {@link org.w3c.dom.svg.SVGPaint#getUri()}.
      */
     public String getUri() {
         switch (getPaintType()) {
@@ -138,37 +139,37 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
     }
 
     /**
-     * <b>DOM</b>: Implements {@link org.w3c.flex.forks.dom.svg.SVGPaint#setUri(String)}.
+     * <b>DOM</b>: Implements {@link org.w3c.dom.svg.SVGPaint#setUri(String)}.
      */
     public void setUri(String uri) {
-	if (handler == null) {
+        if (handler == null) {
             throw new DOMException
                 (DOMException.NO_MODIFICATION_ALLOWED_ERR, "");
-	} else {
+        } else {
             ((PaintModificationHandler)handler).uriChanged(uri);
-	}
+        }
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGPaint#setPaint(short,String,String,String)}.
+     * org.w3c.dom.svg.SVGPaint#setPaint(short,String,String,String)}.
      */
     public void setPaint(short paintType, String uri,
                          String rgbColor, String iccColor) {
-	if (handler == null) {
+        if (handler == null) {
             throw new DOMException
                 (DOMException.NO_MODIFICATION_ALLOWED_ERR, "");
-	} else {
+        } else {
             ((PaintModificationHandler)handler).paintChanged
                 (paintType, uri, rgbColor, iccColor);
-	}
+        }
     }
 
     /**
      * To manage the modifications on a SVGPaint value.
      */
     public interface PaintModificationHandler extends ModificationHandler {
-        
+
         /**
          * Called when the URI has been modified.
          */
@@ -196,11 +197,11 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
          */
         public void redTextChanged(String text) throws DOMException {
             switch (getPaintType()) {
-            case SVG_PAINTTYPE_RGBCOLOR: 
+            case SVG_PAINTTYPE_RGBCOLOR:
                 text = "rgb(" +
                     text + ", " +
                     getValue().getGreen().getCssText() + ", " +
-                    getValue().getBlue().getCssText() + ")";
+                    getValue().getBlue().getCssText() + ')';
                 break;
 
             case SVG_PAINTTYPE_RGBCOLOR_ICCCOLOR:
@@ -216,7 +217,7 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                     " rgb(" +
                     text + ", " +
                     getValue().item(1).getGreen().getCssText() + ", " +
-                    getValue().item(1).getBlue().getCssText() + ")";
+                    getValue().item(1).getBlue().getCssText() + ')';
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
@@ -242,11 +243,11 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
             throws DOMException {
             String text;
             switch (getPaintType()) {
-            case SVG_PAINTTYPE_RGBCOLOR: 
+            case SVG_PAINTTYPE_RGBCOLOR:
                 text = "rgb(" +
                     FloatValue.getCssText(unit, value) + ", " +
                     getValue().getGreen().getCssText() + ", " +
-                    getValue().getBlue().getCssText() + ")";
+                    getValue().getBlue().getCssText() + ')';
                 break;
 
             case SVG_PAINTTYPE_RGBCOLOR_ICCCOLOR:
@@ -262,7 +263,7 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                     " rgb(" +
                     FloatValue.getCssText(unit, value) + ", " +
                     getValue().item(1).getGreen().getCssText() + ", " +
-                    getValue().item(1).getBlue().getCssText() + ")";
+                    getValue().item(1).getBlue().getCssText() + ')';
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
@@ -286,11 +287,11 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
          */
         public void greenTextChanged(String text) throws DOMException {
             switch (getPaintType()) {
-            case SVG_PAINTTYPE_RGBCOLOR: 
+            case SVG_PAINTTYPE_RGBCOLOR:
                 text = "rgb(" +
                     getValue().getRed().getCssText() + ", " +
                     text + ", " +
-                    getValue().getBlue().getCssText() + ")";
+                    getValue().getBlue().getCssText() + ')';
                 break;
 
             case SVG_PAINTTYPE_RGBCOLOR_ICCCOLOR:
@@ -306,7 +307,7 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                     " rgb(" +
                     getValue().item(1).getRed().getCssText() + ", " +
                     text + ", " +
-                    getValue().item(1).getBlue().getCssText() + ")";
+                    getValue().item(1).getBlue().getCssText() + ')';
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
@@ -332,11 +333,11 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
             throws DOMException {
             String text;
             switch (getPaintType()) {
-            case SVG_PAINTTYPE_RGBCOLOR: 
+            case SVG_PAINTTYPE_RGBCOLOR:
                 text = "rgb(" +
                     getValue().getRed().getCssText() + ", " +
                     FloatValue.getCssText(unit, value) + ", " +
-                    getValue().getBlue().getCssText() + ")";
+                    getValue().getBlue().getCssText() + ')';
                 break;
 
             case SVG_PAINTTYPE_RGBCOLOR_ICCCOLOR:
@@ -352,7 +353,7 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                     " rgb(" +
                     getValue().item(1).getRed().getCssText() + ", " +
                     FloatValue.getCssText(unit, value) + ", " +
-                    getValue().item(1).getBlue().getCssText() + ")";
+                    getValue().item(1).getBlue().getCssText() + ')';
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
@@ -376,11 +377,11 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
          */
         public void blueTextChanged(String text) throws DOMException {
             switch (getPaintType()) {
-            case SVG_PAINTTYPE_RGBCOLOR: 
+            case SVG_PAINTTYPE_RGBCOLOR:
                 text = "rgb(" +
                     getValue().getRed().getCssText() + ", " +
                     getValue().getGreen().getCssText() + ", " +
-                    text + ")";
+                    text + ')';
                 break;
 
             case SVG_PAINTTYPE_RGBCOLOR_ICCCOLOR:
@@ -422,11 +423,11 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
             throws DOMException {
             String text;
             switch (getPaintType()) {
-            case SVG_PAINTTYPE_RGBCOLOR: 
+            case SVG_PAINTTYPE_RGBCOLOR:
                 text = "rgb(" +
                     getValue().getRed().getCssText() + ", " +
                     getValue().getGreen().getCssText() + ", " +
-                    FloatValue.getCssText(unit, value) + ")";
+                    FloatValue.getCssText(unit, value) + ')';
                 break;
 
             case SVG_PAINTTYPE_RGBCOLOR_ICCCOLOR:
@@ -442,7 +443,7 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                     " rgb(" +
                     getValue().item(1).getRed().getCssText() + ", " +
                     getValue().item(1).getGreen().getCssText() + ", " +
-                    FloatValue.getCssText(unit, value) + ")";
+                    FloatValue.getCssText(unit, value) + ')';
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
@@ -460,7 +461,7 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
             }
             textChanged(text);
         }
-        
+
         /**
          * Called when the RGBColor text has changed.
          */
@@ -474,11 +475,11 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR:
-                text = getValue().item(0).getCssText() + " " + text;
+                text = getValue().item(0).getCssText() + ' ' + text;
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
-                text = getValue().item(0).getCssText() + " " + text + " " +
+                text = getValue().item(0).getCssText() + ' ' + text + ' ' +
                     getValue().item(2).getCssText();
                 break;
 
@@ -496,12 +497,12 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
             throws DOMException {
             switch (getPaintType()) {
             case SVG_PAINTTYPE_RGBCOLOR_ICCCOLOR:
-                textChanged(rgb + " " + icc);
+                textChanged(rgb + ' ' + icc);
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
-                textChanged(getValue().item(0).getCssText() + " " +
-                            rgb + " " + icc);
+                textChanged(getValue().item(0).getCssText() + ' ' +
+                            rgb + ' ' + icc);
                 break;
 
             default:
@@ -525,7 +526,7 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                 break;
 
             case SVG_PAINTTYPE_RGBCOLOR_ICCCOLOR:
-                textChanged(rgb + " " + icc);
+                textChanged(rgb + ' ' + icc);
                 break;
 
             default:
@@ -545,25 +546,25 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                 sb.append(cp);
                 ICCColor iccc = (ICCColor)getValue().item(1);
                 for (int i = 0; i < iccc.getLength(); i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
-                sb.append(")");
+                sb.append( ')' );
                 textChanged(sb.toString());
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
                 sb = new StringBuffer(getValue().item(0).getCssText());
-                sb.append(" ");
+                sb.append( ' ' );
                 sb.append(getValue().item(1).getCssText());
                 sb.append(" icc-color(");
                 sb.append(cp);
                 iccc = (ICCColor)getValue().item(1);
                 for (int i = 0; i < iccc.getLength(); i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
-                sb.append(")");
+                sb.append( ')' );
                 textChanged(sb.toString());
                 break;
 
@@ -584,18 +585,18 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                 sb.append(" icc-color(");
                 ICCColor iccc = (ICCColor)getValue().item(1);
                 sb.append(iccc.getColorProfile());
-                sb.append(")");
+                sb.append( ')' );
                 textChanged(sb.toString());
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
                 sb = new StringBuffer(getValue().item(0).getCssText());
-                sb.append(" ");
+                sb.append( ' ' );
                 sb.append(getValue().item(1).getCssText());
                 sb.append(" icc-color(");
                 iccc = (ICCColor)getValue().item(1);
                 sb.append(iccc.getColorProfile());
-                sb.append(")");
+                sb.append( ')' );
                 textChanged(sb.toString());
                 break;
 
@@ -616,22 +617,22 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                 sb.append(" icc-color(");
                 ICCColor iccc = (ICCColor)getValue().item(1);
                 sb.append(iccc.getColorProfile());
-                sb.append(",");
+                sb.append( ',' );
                 sb.append(f);
-                sb.append(")");
+                sb.append( ')' );
                 textChanged(sb.toString());
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
                 sb = new StringBuffer(getValue().item(0).getCssText());
-                sb.append(" ");
+                sb.append( ' ' );
                 sb.append(getValue().item(1).getCssText());
                 sb.append(" icc-color(");
                 iccc = (ICCColor)getValue().item(1);
                 sb.append(iccc.getColorProfile());
-                sb.append(",");
+                sb.append( ',' );
                 sb.append(f);
-                sb.append(")");
+                sb.append( ')' );
                 textChanged(sb.toString());
                 break;
 
@@ -653,37 +654,37 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                 ICCColor iccc = (ICCColor)getValue().item(1);
                 sb.append(iccc.getColorProfile());
                 for (int i = 0; i < idx; i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
-                sb.append(",");
+                sb.append( ',' );
                 sb.append(f);
                 for (int i = idx; i < iccc.getLength(); i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
-                sb.append(")");
+                sb.append( ')' );
                 textChanged(sb.toString());
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
                 sb = new StringBuffer(getValue().item(0).getCssText());
-                sb.append(" ");
+                sb.append( ' ' );
                 sb.append(getValue().item(1).getCssText());
                 sb.append(" icc-color(");
                 iccc = (ICCColor)getValue().item(1);
                 sb.append(iccc.getColorProfile());
                 for (int i = 0; i < idx; i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
-                sb.append(",");
+                sb.append( ',' );
                 sb.append(f);
                 for (int i = idx; i < iccc.getLength(); i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
-                sb.append(")");
+                sb.append( ')' );
                 textChanged(sb.toString());
                 break;
 
@@ -705,37 +706,37 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                 ICCColor iccc = (ICCColor)getValue().item(1);
                 sb.append(iccc.getColorProfile());
                 for (int i = 0; i < idx; i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
-                sb.append(",");
+                sb.append( ',' );
                 sb.append(f);
                 for (int i = idx + 1; i < iccc.getLength(); i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
-                sb.append(")");
+                sb.append( ')' );
                 textChanged(sb.toString());
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
                 sb = new StringBuffer(getValue().item(0).getCssText());
-                sb.append(" ");
+                sb.append( ' ' );
                 sb.append(getValue().item(1).getCssText());
                 sb.append(" icc-color(");
                 iccc = (ICCColor)getValue().item(1);
                 sb.append(iccc.getColorProfile());
                 for (int i = 0; i < idx; i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
-                sb.append(",");
+                sb.append( ',' );
                 sb.append(f);
                 for (int i = idx + 1; i < iccc.getLength(); i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
-                sb.append(")");
+                sb.append( ')' );
                 textChanged(sb.toString());
                 break;
 
@@ -757,33 +758,33 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                 ICCColor iccc = (ICCColor)getValue().item(1);
                 sb.append(iccc.getColorProfile());
                 for (int i = 0; i < idx; i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
                 for (int i = idx + 1; i < iccc.getLength(); i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
-                sb.append(")");
+                sb.append( ')' );
                 textChanged(sb.toString());
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
                 sb = new StringBuffer(getValue().item(0).getCssText());
-                sb.append(" ");
+                sb.append( ' ' );
                 sb.append(getValue().item(1).getCssText());
                 sb.append(" icc-color(");
                 iccc = (ICCColor)getValue().item(1);
                 sb.append(iccc.getColorProfile());
                 for (int i = 0; i < idx; i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
                 for (int i = idx + 1; i < iccc.getLength(); i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
-                sb.append(")");
+                sb.append( ')' );
                 textChanged(sb.toString());
                 break;
 
@@ -805,29 +806,29 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                 ICCColor iccc = (ICCColor)getValue().item(1);
                 sb.append(iccc.getColorProfile());
                 for (int i = 0; i < iccc.getLength(); i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
-                sb.append(",");
+                sb.append( ',' );
                 sb.append(f);
-                sb.append(")");
+                sb.append( ')' );
                 textChanged(sb.toString());
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
                 sb = new StringBuffer(getValue().item(0).getCssText());
-                sb.append(" ");
+                sb.append( ' ' );
                 sb.append(getValue().item(1).getCssText());
                 sb.append(" icc-color(");
                 iccc = (ICCColor)getValue().item(1);
                 sb.append(iccc.getColorProfile());
                 for (int i = 0; i < iccc.getLength(); i++) {
-                    sb.append(",");
+                    sb.append( ',' );
                     sb.append(iccc.getColor(i));
                 }
-                sb.append(",");
+                sb.append( ',' );
                 sb.append(f);
-                sb.append(")");
+                sb.append( ')' );
                 textChanged(sb.toString());
                 break;
 
@@ -863,11 +864,11 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                 break;
 
             case SVG_PAINTTYPE_RGBCOLOR_ICCCOLOR:
-                textChanged(rgb + " " + icc);
+                textChanged(rgb + ' ' + icc);
                 break;
 
             case SVG_PAINTTYPE_URI:
-                textChanged("url(" + uri + ")");
+                textChanged("url(" + uri + ')' );
                 break;
 
             case SVG_PAINTTYPE_URI_NONE:
@@ -883,7 +884,7 @@ public class CSSOMSVGPaint extends CSSOMSVGColor implements SVGPaint {
                 break;
 
             case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
-                textChanged("url(" + uri + ") " + rgb + " " + icc);
+                textChanged("url(" + uri + ") " + rgb + ' ' + icc);
             }
         }
     }

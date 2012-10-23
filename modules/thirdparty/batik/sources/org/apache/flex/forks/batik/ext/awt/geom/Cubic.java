@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003 The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,7 +26,7 @@ import java.awt.geom.Rectangle2D;
 /**
  * A class representing a cubic path segment.
  *
- * @version $Id: Cubic.java,v 1.3 2005/03/27 08:58:32 cam Exp $
+ * @version $Id: Cubic.java 478249 2006-11-22 17:29:37Z dvholten $
  */
 public class Cubic extends AbstractSegment {
 
@@ -36,7 +37,7 @@ public class Cubic extends AbstractSegment {
         p3 = new Point2D.Double();
         p4 = new Point2D.Double();
     }
-    public Cubic(double x1, double y1,  double x2, double y2, 
+    public Cubic(double x1, double y1,  double x2, double y2,
                  double x3, double y3,  double x4, double y4) {
         p1 = new Point2D.Double(x1, y1);
         p2 = new Point2D.Double(x2, y2);
@@ -44,7 +45,7 @@ public class Cubic extends AbstractSegment {
         p4 = new Point2D.Double(x4, y4);
     }
 
-    public Cubic(Point2D.Double p1, Point2D.Double p2, 
+    public Cubic(Point2D.Double p1, Point2D.Double p2,
                  Point2D.Double p3, Point2D.Double p4) {
         this.p1 = p1;
         this.p2 = p2;
@@ -53,23 +54,22 @@ public class Cubic extends AbstractSegment {
     }
 
     public Object clone() {
-        return new Cubic(new Point2D.Double(p1.x, p1.y), 
-                         new Point2D.Double(p2.x, p2.y), 
-                         new Point2D.Double(p3.x, p3.y), 
+        return new Cubic(new Point2D.Double(p1.x, p1.y),
+                         new Point2D.Double(p2.x, p2.y),
+                         new Point2D.Double(p3.x, p3.y),
                          new Point2D.Double(p4.x, p4.y));
     }
 
     public Segment reverse() {
-        return new Cubic(new Point2D.Double(p4.x, p4.y), 
-                         new Point2D.Double(p3.x, p3.y), 
-                         new Point2D.Double(p2.x, p2.y), 
+        return new Cubic(new Point2D.Double(p4.x, p4.y),
+                         new Point2D.Double(p3.x, p3.y),
+                         new Point2D.Double(p2.x, p2.y),
                          new Point2D.Double(p1.x, p1.y));
     }
 
-    private void getMinMax(double p1, double p2, 
+    private void getMinMax(double p1, double p2,
                            double p3, double p4,
                            double [] minMax) {
-        double min, max;
         if (p4 > p1){
             minMax[0] = p1; minMax[1] = p4;
         } else {
@@ -84,7 +84,7 @@ public class Cubic extends AbstractSegment {
         for (int r=0; r<roots; r++) {
             double tv = eqn[r];
             if ((tv <= 0) || (tv >= 1)) continue;
-            tv = ((1-tv)*(1-tv)*(1-tv)*p1 + 
+            tv = ((1-tv)*(1-tv)*(1-tv)*p1 +
                     3*tv*(1-tv)*(1-tv)*p2 +
                     3*tv*tv*(1-tv)*p3 +
                     tv*tv*tv*p4);
@@ -132,10 +132,10 @@ public class Cubic extends AbstractSegment {
     }
 
     public Point2D.Double evalDt(double t) {
-        double x = 3*(  (p2.x-p1.x)*(1-t)*(1-t) + 
+        double x = 3*(  (p2.x-p1.x)*(1-t)*(1-t) +
                       2*(p3.x-p2.x)*(1-t)*t +
                         (p4.x-p3.x)*t*t);
-        double y = 3*(  (p2.y-p1.y)*(1-t)*(1-t) + 
+        double y = 3*(  (p2.y-p1.y)*(1-t)*(1-t) +
                       2*(p3.y-p2.y)*(1-t)*t +
                         (p4.y-p3.y)*t*t);
         return new Point2D.Double(x, y);
@@ -143,11 +143,11 @@ public class Cubic extends AbstractSegment {
 
 
     public Point2D.Double eval(double t) {
-        double x = ((1-t)*(1-t)*(1-t)*p1.x + 
+        double x = ((1-t)*(1-t)*(1-t)*p1.x +
                     3*(t* (1-t)*(1-t)*p2.x +
                        t* t*    (1-t)*p3.x) +
                     t*t*t            *p4.x);
-        double y = ((1-t)*(1-t)*(1-t)*p1.y + 
+        double y = ((1-t)*(1-t)*(1-t)*p1.y +
                     3*(t* (1-t)*(1-t)*p2.y +
                        t* t*    (1-t)*p3.y) +
                     t*t*t            *p4.y);
@@ -191,15 +191,15 @@ public class Cubic extends AbstractSegment {
         double npX = (p1.x+3*(p2.x+p3.x)+p4.x)*0.125;
         double npY = (p1.y+3*(p2.y+p3.y)+p4.y)*0.125;
 
-        double npdx = ((p2.x-p1.x)+2*(p3.x-p2.x)+(p4.x-p3.x))*.125;
-        double npdy = ((p2.y-p1.y)+2*(p3.y-p2.y)+(p4.y-p3.y))*.125;
+        double npdx = ((p2.x-p1.x)+2*(p3.x-p2.x)+(p4.x-p3.x))*0.125;
+        double npdy = ((p2.y-p1.y)+2*(p3.y-p2.y)+(p4.y-p3.y))*0.125;
 
         if (c0 != null) {
             c0.p1.x = p1.x;
             c0.p1.y = p1.y;
-            c0.p2.x = (p2.x+p1.x)*.5;
-            c0.p2.y = (p2.y+p1.y)*.5;
-            
+            c0.p2.x = (p2.x+p1.x)*0.5;
+            c0.p2.y = (p2.y+p1.y)*0.5;
+
             c0.p3.x = npX-npdx;
             c0.p3.y = npY-npdy;
             c0.p4.x = npX;
@@ -211,9 +211,9 @@ public class Cubic extends AbstractSegment {
             c1.p1.y = npY;
             c1.p2.x = npX+npdx;
             c1.p2.y = npY+npdy;
-            
-            c1.p3.x = (p4.x+p3.x)*.5;
-            c1.p3.y = (p4.y+p3.y)*.5;
+
+            c1.p3.x = (p4.x+p3.x)*0.5;
+            c1.p3.y = (p4.y+p3.y)*0.5;
             c1.p4.x = p4.x;
             c1.p4.y = p4.y;
         }
@@ -235,7 +235,7 @@ public class Cubic extends AbstractSegment {
             c0.p1.y = p1.y;
             c0.p2.x = (p2.x+p1.x)*t;
             c0.p2.y = (p2.y+p1.y)*t;
-            
+
             c0.p3.x = np.x-(npd.x*t/3);
             c0.p3.y = np.y-(npd.y*t/3);
             c0.p4.x = np.x;
@@ -247,7 +247,7 @@ public class Cubic extends AbstractSegment {
             c1.p1.y = np.y;
             c1.p2.x = np.x+(npd.x*(1-t)/3);
             c1.p2.y = np.y+(npd.y*(1-t)/3);
-            
+
             c1.p3.x = (p4.x+p3.x)*(1-t);
             c1.p3.y = (p4.y+p3.y)*(1-t);
             c1.p4.x = p4.x;
@@ -261,7 +261,7 @@ public class Cubic extends AbstractSegment {
         Point2D.Double dp1 = evalDt(t0);
         Point2D.Double np2 = new Point2D.Double(np1.x+dt*dp1.x/3,
                                                 np1.y+dt*dp1.y/3);
-        
+
         Point2D.Double np4 = eval(t1);
         Point2D.Double dp4 = evalDt(t1);
 
@@ -271,7 +271,6 @@ public class Cubic extends AbstractSegment {
     }
 
     private static int count = 0;
-    private static int countExp = 0;
 
     protected double subLength(double leftLegLen, double rightLegLen,
                                double maxErr) {
@@ -289,7 +288,7 @@ public class Cubic extends AbstractSegment {
         if (hullLen < maxErr) return (hullLen+cordLen)/2;
 
         double err = (hullLen-cordLen);
-        if (err < maxErr) 
+        if (err < maxErr)
             return (hullLen+cordLen)/2;
 
         Cubic c  = new Cubic();
@@ -298,17 +297,17 @@ public class Cubic extends AbstractSegment {
 
         double npdx = (cldx + cdx)*.125;
         double npdy = (cldy + cdy)*.125;
-        
+
         c.p1.x = p1.x;
         c.p1.y = p1.y;
         c.p2.x = (p2.x+p1.x)*.5;
         c.p2.y = (p2.y+p1.y)*.5;
-        
+
         c.p3.x = npX-npdx;
         c.p3.y = npY-npdy;
         c.p4.x = npX;
         c.p4.y = npY;
-        
+
         double midLen = Math.sqrt(npdx*npdx+npdy*npdy);
         double len = c.subLength(leftLegLen/2, midLen, maxErr/2);
 
@@ -316,7 +315,7 @@ public class Cubic extends AbstractSegment {
         c.p1.y = npY;
         c.p2.x = npX+npdx;
         c.p2.y = npY+npdy;
-            
+
         c.p3.x = (p4.x+p3.x)*.5;
         c.p3.y = (p4.y+p3.y)*.5;
         c.p4.x = p4.x;
@@ -341,17 +340,17 @@ public class Cubic extends AbstractSegment {
         dx = p3.x-p2.x;
         dy = p3.y-p2.y;
         double crossLegLen = Math.sqrt(dx*dx+dy*dy);
-        
+
         double eps = maxErr*(leftLegLen+rightLegLen+crossLegLen);
 
         return subLength(leftLegLen, rightLegLen, eps);
     }
 
-    public String toString() { 
-        return ("M" + p1.x + "," + p1.y + 
-                "C" + p2.x + "," + p2.y + " " +
-                p3.x + "," + p3.y + " " +
-                p4.x + "," + p4.y);
+    public String toString() {
+        return "M" + p1.x + ',' + p1.y +
+                'C' + p2.x + ',' + p2.y + ' ' +
+                p3.x + ',' + p3.y + ' ' +
+                p4.x + ',' + p4.y;
     }
     /*
     public static  boolean epsEq(double a, double b) {
@@ -359,7 +358,7 @@ public class Cubic extends AbstractSegment {
         return (((a + eps) > b) && ((a-eps) < b));
     }
 
-    public static void sub(Cubic orig, Cubic curr, 
+    public static void sub(Cubic orig, Cubic curr,
                            double t, double inc, int lev) {
         Cubic left=new Cubic();
         Cubic right=new Cubic();
@@ -401,7 +400,7 @@ public class Cubic extends AbstractSegment {
             len += Math.sqrt(dx*dx + dy*dy);
             oldP = newP;
         }
-        System.err.println("Length(.1): " + c.getLength(.001) + 
+        System.err.println("Length(.1): " + c.getLength(.001) +
                            " x " + count); count = 0;
         System.err.println("Length    : " + c.getLength() +
                            " x " + count); count = 0;

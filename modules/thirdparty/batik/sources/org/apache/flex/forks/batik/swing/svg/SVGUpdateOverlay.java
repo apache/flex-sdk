@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -33,7 +34,7 @@ import org.apache.flex.forks.batik.swing.gvt.Overlay;
  * Complete Class Desc
  *
  * @author <a href="mailto:deweese@apache.org">deweese</a>
- * @version $Id: SVGUpdateOverlay.java,v 1.3 2005/03/27 08:58:36 cam Exp $
+ * @version $Id: SVGUpdateOverlay.java 498740 2007-01-22 18:35:57Z dvholten $
  */
 public class SVGUpdateOverlay implements Overlay {
     List rects = new LinkedList();
@@ -53,13 +54,12 @@ public class SVGUpdateOverlay implements Overlay {
 
     public void endUpdate() {
         int i=0;
-        int total =0;
         for (; i<counts.length-1; i++) {
             counts[i] = counts[i+1];
         }
         counts[i] = updateCount;
         updateCount = 0;
-        
+
         int num = rects.size();
         for (i=counts.length-1; i>=0; i--) {
             if (counts[i] > num) {
@@ -75,19 +75,19 @@ public class SVGUpdateOverlay implements Overlay {
         int count = 0;
         int idx = 0;
         int group = 0;
-        while ((group < counts.length-1) && 
+        while ((group < counts.length-1) &&
                (idx == counts[group]))
             group++;
         int cmax = counts.length-1;
         while (i.hasNext()) {
             Rectangle r = (Rectangle)i.next();
             Color c;
-            c = new Color(1f, (cmax-group)/(float)cmax, 0,
-                          (count+1f)/rects.size());
+            c = new Color(1.0f, (cmax-group)/(float)cmax, 0,
+                          (count+1.0f)/rects.size());
             g.setColor(c);
             g.drawRect(r.x, r.y, r.width, r.height);
             count++; idx++;
-            while ((group < counts.length-1) && 
+            while ((group < counts.length-1) &&
                    (idx == counts[group])) {
                 group++;
                 idx = 0;

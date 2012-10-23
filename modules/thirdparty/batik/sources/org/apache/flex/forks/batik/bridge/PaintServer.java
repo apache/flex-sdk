@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,7 +25,6 @@ import java.awt.Shape;
 import java.awt.Stroke;
 
 import org.apache.flex.forks.batik.css.engine.SVGCSSEngine;
-import org.apache.flex.forks.batik.css.engine.value.ListValue;
 import org.apache.flex.forks.batik.css.engine.value.Value;
 import org.apache.flex.forks.batik.css.engine.value.svg.ICCColor;
 import org.apache.flex.forks.batik.ext.awt.color.ICCColorSpaceExt;
@@ -49,7 +49,7 @@ import org.w3c.dom.css.CSSValue;
  * Paint using the ShapePainter interface.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: PaintServer.java,v 1.17 2005/03/27 08:58:30 cam Exp $
+ * @version $Id: PaintServer.java 498740 2007-01-22 18:35:57Z dvholten $
  */
 public abstract class PaintServer
     implements SVGConstants, CSSConstants, ErrorConstants {
@@ -117,7 +117,7 @@ public abstract class PaintServer
             Element markerElement = ctx.getReferencedElement(e, uri);
             Bridge bridge = ctx.getBridge(markerElement);
             if (bridge == null || !(bridge instanceof MarkerBridge)) {
-                throw new BridgeException(e, ERR_CSS_URI_BAD_TARGET,
+                throw new BridgeException(ctx, e, ERR_CSS_URI_BAD_TARGET,
                                           new Object[] {uri});
             }
             return ((MarkerBridge)bridge).createMarker(ctx, markerElement, e);
@@ -263,7 +263,8 @@ public abstract class PaintServer
                                        ctx);
 
             default:
-                throw new Error(); // can't be reached
+                throw new IllegalArgumentException
+                    ("Paint argument is not an appropriate CSS value");
             }
         } else { // List
             Value v = paintDef.item(0);
@@ -283,7 +284,7 @@ public abstract class PaintServer
                 switch (v.getPrimitiveType()) {
                 case CSSPrimitiveValue.CSS_IDENT:
                     return null; // none
-                    
+
                 case CSSPrimitiveValue.CSS_RGBCOLOR:
                     if (paintDef.getLength() == 2) {
                         return convertColor(v, opacity);
@@ -293,12 +294,14 @@ public abstract class PaintServer
                                                   opacity, ctx);
                     }
                 default:
-                    throw new Error(); // can't be reached
+                    throw new IllegalArgumentException
+                        ("Paint argument is not an appropriate CSS value");
                 }
             }
             default:
                 // can't be reached
-                throw new Error("Unallowed Value: " + v.getPrimitiveType()); 
+                throw new IllegalArgumentException
+                    ("Paint argument is not an appropriate CSS value");
             }
         }
     }
@@ -349,8 +352,9 @@ public abstract class PaintServer
 
         Bridge bridge = ctx.getBridge(paintElement);
         if (bridge == null || !(bridge instanceof PaintBridge)) {
-            throw new BridgeException(paintedElement, ERR_CSS_URI_BAD_TARGET,
-                                      new Object[] {uri});
+            throw new BridgeException
+                (ctx, paintedElement, ERR_CSS_URI_BAD_TARGET,
+                 new Object[] {uri});
         }
         return ((PaintBridge)bridge).createPaint(ctx,
                                                  paintElement,
@@ -545,7 +549,7 @@ public abstract class PaintServer
      */
     public static float convertStrokeMiterlimit(Value v) {
         float miterlimit = v.getFloatValue();
-        return (miterlimit < 1f) ? 1f : miterlimit;
+        return (miterlimit < 1.0f) ? 1.0f : miterlimit;
     }
 
     /**
@@ -562,7 +566,8 @@ public abstract class PaintServer
         case 's':
             return BasicStroke.CAP_SQUARE;
         default:
-            throw new Error(); // can't be reached
+            throw new IllegalArgumentException
+                ("Linecap argument is not an appropriate CSS value");
         }
     }
 
@@ -581,7 +586,8 @@ public abstract class PaintServer
         case 'b':
             return BasicStroke.JOIN_BEVEL;
         default:
-            throw new Error(); // can't be reached
+            throw new IllegalArgumentException
+                ("Linejoin argument is not an appropriate CSS value");
         }
     }
 
@@ -605,7 +611,8 @@ public abstract class PaintServer
             f = (f > 255f) ? 255f : (f < 0f) ? 0f : f;
             return Math.round(f);
         default:
-            throw new Error(); // can't be reached
+            throw new IllegalArgumentException
+                ("Color component argument is not an appropriate CSS value");
         }
     }
 
@@ -616,6 +623,6 @@ public abstract class PaintServer
      */
     public static float convertOpacity(Value v) {
         float r = v.getFloatValue();
-        return (r < 0f) ? 0f : (r > 1f) ? 1f : r;
+        return (r < 0f) ? 0f : (r > 1.0f) ? 1.0f : r;
     }
 }

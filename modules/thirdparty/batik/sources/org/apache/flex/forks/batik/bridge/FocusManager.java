@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,6 +18,10 @@
  */
 package org.apache.flex.forks.batik.bridge;
 
+import org.apache.flex.forks.batik.dom.events.DOMUIEvent;
+import org.apache.flex.forks.batik.dom.events.NodeEventTarget;
+import org.apache.flex.forks.batik.util.XMLConstants;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.events.DocumentEvent;
@@ -24,13 +29,12 @@ import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.events.MouseEvent;
-import org.w3c.dom.events.UIEvent;
 
 /**
  * A class that manages focus on elements.
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: FocusManager.java,v 1.7 2004/08/18 07:12:31 vhardy Exp $
+ * @version $Id: FocusManager.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class FocusManager {
 
@@ -76,22 +80,67 @@ public class FocusManager {
      */
     public FocusManager(Document doc) {
         document = doc;
-        EventTarget target = (EventTarget)doc;
+        addEventListeners(doc);
+    }
 
-        mouseclickListener = new MouseClickTacker();
-        target.addEventListener("click", mouseclickListener, true);
+    /**
+     * Adds the event listeners to the document.
+     */
+    protected void addEventListeners(Document doc) {
+        NodeEventTarget target = (NodeEventTarget) doc;
 
-        mouseoverListener = new MouseOverTacker();
-        target.addEventListener("mouseover", mouseoverListener, true);
+        mouseclickListener = new MouseClickTracker();
+        target.addEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI,
+             "click",
+             mouseclickListener, true, null);
 
-        mouseoutListener = new MouseOutTacker();
-        target.addEventListener("mouseout", mouseoutListener, true);
+        mouseoverListener = new MouseOverTracker();
+        target.addEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI,
+             "mouseover",
+             mouseoverListener, true, null);
+
+        mouseoutListener = new MouseOutTracker();
+        target.addEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI,
+             "mouseout",
+             mouseoutListener, true, null);
 
         domFocusInListener = new DOMFocusInTracker();
-        target.addEventListener("DOMFocusIn", domFocusInListener, true);
+        target.addEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI,
+             "DOMFocusIn",
+             domFocusInListener, true, null);
 
         domFocusOutListener = new DOMFocusOutTracker();
-        target.addEventListener("DOMFocusOut", domFocusOutListener, true);
+        target.addEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI,
+             "DOMFocusOut",
+             domFocusOutListener, true, null);
+    }
+
+    /**
+     * Removes the event listeners from the document.
+     */
+    protected void removeEventListeners(Document doc) {
+        NodeEventTarget target = (NodeEventTarget) doc;
+
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "click",
+             mouseclickListener, true);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "mouseover",
+             mouseoverListener, true);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "mouseout",
+             mouseoutListener, true);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMFocusIn",
+             domFocusInListener, true);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMFocusOut",
+             domFocusOutListener, true);
     }
 
     /**
@@ -106,12 +155,7 @@ public class FocusManager {
      */
     public void dispose() {
         if (document == null) return;
-        EventTarget target = (EventTarget)document;
-        target.removeEventListener("click", mouseclickListener, true);
-        target.removeEventListener("mouseover", mouseoverListener, true);
-        target.removeEventListener("mouseout", mouseoutListener, true);
-        target.removeEventListener("DOMFocusIn", domFocusInListener, true);
-        target.removeEventListener("DOMFocusOut", domFocusOutListener, true);
+        removeEventListeners(document);
         lastFocusEventTarget = null;
         document = null;
     }
@@ -119,7 +163,7 @@ public class FocusManager {
     /**
      * The class that is responsible for tracking 'mouseclick' changes.
      */
-    protected class MouseClickTacker implements EventListener {
+    protected class MouseClickTracker implements EventListener {
 
         public void handleEvent(Event evt) {
             MouseEvent mevt = (MouseEvent)evt;
@@ -133,9 +177,10 @@ public class FocusManager {
     protected class DOMFocusInTracker implements EventListener {
 
         public void handleEvent(Event evt) {
+            EventTarget newTarget = evt.getTarget();
             if (lastFocusEventTarget != null && 
-                lastFocusEventTarget != evt.getTarget()) {
-                fireDOMFocusOutEvent(lastFocusEventTarget);
+                lastFocusEventTarget != newTarget) {
+                fireDOMFocusOutEvent(lastFocusEventTarget, newTarget);
             }
             lastFocusEventTarget = evt.getTarget();
         }
@@ -146,6 +191,9 @@ public class FocusManager {
      */
     protected class DOMFocusOutTracker implements EventListener {
 
+        public DOMFocusOutTracker() {
+        }
+
         public void handleEvent(Event evt) {
             lastFocusEventTarget = null;
         }
@@ -155,11 +203,13 @@ public class FocusManager {
      * The class that is responsible to update the focus according to
      * 'mouseover' event.
      */
-    protected class MouseOverTacker implements EventListener {
+    protected class MouseOverTracker implements EventListener {
 
         public void handleEvent(Event evt) {
+            MouseEvent me = (MouseEvent) evt;
             EventTarget target = evt.getTarget();
-            fireDOMFocusInEvent(target);
+            EventTarget relatedTarget = me.getRelatedTarget();
+            fireDOMFocusInEvent(target, relatedTarget);
         }
     }
 
@@ -167,37 +217,53 @@ public class FocusManager {
      * The class that is responsible to update the focus according to
      * 'mouseout' event.
      */
-    protected class MouseOutTacker implements EventListener {
+    protected class MouseOutTracker implements EventListener {
 
         public void handleEvent(Event evt) {
+            MouseEvent me = (MouseEvent) evt;
             EventTarget target = evt.getTarget();
-            fireDOMFocusOutEvent(target);
+            EventTarget relatedTarget = me.getRelatedTarget();
+            fireDOMFocusOutEvent(target, relatedTarget);
         }
     }
 
     /**
      * Fires a 'DOMFocusIn' event to the specified target.
      *
-     * @param target the event target
+     * @param target the newly focussed event target
+     * @param relatedTarget the previously focussed event target
      */
-    protected void fireDOMFocusInEvent(EventTarget target) {
+    protected void fireDOMFocusInEvent(EventTarget target,
+                                       EventTarget relatedTarget) {
         DocumentEvent docEvt = 
             (DocumentEvent)((Element)target).getOwnerDocument();
-        UIEvent uiEvt = (UIEvent)docEvt.createEvent("UIEvents");
-        uiEvt.initUIEvent("DOMFocusIn", true, false, null, 0);
+        DOMUIEvent uiEvt = (DOMUIEvent)docEvt.createEvent("UIEvents");
+        uiEvt.initUIEventNS(XMLConstants.XML_EVENTS_NAMESPACE_URI,
+                            "DOMFocusIn",
+                            true,    // canBubbleArg
+                            false,   // cancelableArg
+                            null,    // viewArg
+                            0);      // detailArg
         target.dispatchEvent(uiEvt);
     }
 
     /**
      * Fires a 'DOMFocusOut' event to the specified target.
      *
-     * @param target the event target
+     * @param target the previously focussed event target
+     * @param relatedTarget the newly focussed event target
      */
-    protected void fireDOMFocusOutEvent(EventTarget target) {
+    protected void fireDOMFocusOutEvent(EventTarget target,
+                                        EventTarget relatedTarget) {
         DocumentEvent docEvt = 
             (DocumentEvent)((Element)target).getOwnerDocument();
-        UIEvent uiEvt = (UIEvent)docEvt.createEvent("UIEvents");
-        uiEvt.initUIEvent("DOMFocusOut", true, false, null, 0);
+        DOMUIEvent uiEvt = (DOMUIEvent)docEvt.createEvent("UIEvents");
+        uiEvt.initUIEventNS(XMLConstants.XML_EVENTS_NAMESPACE_URI,
+                            "DOMFocusOut",
+                            true,    // canBubbleArg
+                            false,   // cancelableArg
+                            null,    // viewArg
+                            0);      // detailArg
         target.dispatchEvent(uiEvt);
     }
     
@@ -210,8 +276,13 @@ public class FocusManager {
     protected void fireDOMActivateEvent(EventTarget target, int detailArg) {
         DocumentEvent docEvt = 
             (DocumentEvent)((Element)target).getOwnerDocument();
-        UIEvent uiEvt = (UIEvent)docEvt.createEvent("UIEvents");
-        uiEvt.initUIEvent("DOMActivate", true, true, null, detailArg);
+        DOMUIEvent uiEvt = (DOMUIEvent)docEvt.createEvent("UIEvents");
+        uiEvt.initUIEventNS(XMLConstants.XML_EVENTS_NAMESPACE_URI,
+                            "DOMActivate",
+                            true,    // canBubbleArg
+                            true,    // cancelableArg
+                            null,    // viewArg
+                            0);      // detailArg
         target.dispatchEvent(uiEvt);
     }
 }

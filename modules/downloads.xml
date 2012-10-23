@@ -38,7 +38,7 @@
 
 	<property name="download.dir" value="${FLEX_HOME}/in"/>
 
-    <property name="batik.zip.dir" value="batik-1.6"/>
+    <property name="batik.zip.dir" value="batik-1.7"/>
     <property name="batik.dir" value="thirdparty/batik"/>
     <property name="velocity.zip.dir" value="velocity-1.4"/>
     <property name="velocity.dir" value="thirdparty/velocity"/>
@@ -105,8 +105,13 @@
             </fileset>
         </delete>
 
-        <delete dir="${lib.ext.dir}" failonerror="false"/>
-        <delete dir="${lib.opt.dir}" failonerror="false"/>
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${lib.ext.dir}">
+                <include name="*/**"/>
+                <!-- don't delete optional dir since this file doesn't populate it -->
+                <exclude name="optional/**"/>
+            </fileset>
+        </delete>
     </target>
     
     <!--
@@ -133,8 +138,9 @@
         description="Downloads tar/zip, and optionally verifies checksum and copies extracted jar.">                
         
         <mkdir dir="${download.dir}"/>        
-    	
-        <get src="${srcUrl}/${zipFile}" dest="${download.dir}/${zipFile}"/>
+
+        <available file="${download.dir}/${zipFile}" property="zip.exists"/>
+        <antcall target="get-zip"/>
 
         <condition property="zip.compressed">
             <matches string="${zipFile}" pattern="^*.zip$"/>      
@@ -142,10 +148,6 @@
  
         <antcall target="untar-file"/>
         <antcall target="unzip-file"/>
-        
-        <antcall target="check-sum">
-            <param name="message" value="Checksum mismatch for ${download.dir}/${zipFile}"/>
-        </antcall>
         
         <condition property="destination.known">
             <and>
@@ -156,6 +158,14 @@
         <antcall target="copy-downloaded-jar"/>
      </target>   	
      
+    <target name="get-zip" unless="zip.exists" description="Get zip and verify checksum.">
+        <get src="${srcUrl}/${zipFile}" dest="${download.dir}/${zipFile}"/>
+        
+        <antcall target="check-sum">
+            <param name="message" value="Checksum mismatch for ${download.dir}/${zipFile}"/>
+        </antcall>
+    </target>
+    
     <!--
         Download a jar file and optionally verify the checksum.
         If the checksum fails, this script fails.
@@ -195,10 +205,15 @@
 		</sequential>
 	</macrodef>	
 
-    <target name="check-sum" if="md5" 
+    <target name="check-sum" if="md5"
         description="Verifies MD5 checksum, and fails if checksum doesn't match">
         
-        <checksum file="${download.dir}/${zipFile}" algorithm="MD5" property="${we.failed}"/>
+        <checksum file="${download.dir}/${zipFile}" algorithm="MD5" property="${md5}" verifyProperty="isMD5ok"/>
+
+        <condition property="we.failed">
+            <isfalse value="${isMD5ok}"/>
+        </condition>
+        
         <antcall target="fail-with-message">
             <param name="message" value="${message}"/>
         </antcall>
@@ -218,56 +233,46 @@
         batik - SVG toolkit - need the jars for our forked version
     -->
     
-    <target name="batik-zip-check" description="Checks if batik expanded zip exists.">
-    	<condition property="batik.zip.exists">
-            <and>
-    	        <available file="${download.dir}/${batik.zip.dir}/lib/js.jar"/>
-    	        <available file="${download.dir}/${batik.zip.dir}/lib/pdf-transcoder.jar"/>
-    	        <available file="${download.dir}/${batik.zip.dir}/lib/xerces_2_5_0.jar"/>
-    	        <available file="${download.dir}/${batik.zip.dir}/lib/xml-apis.jar"/>
-            </and>
-        </condition>
-    </target>
-
     <target name="batik-jars-check" description="Checks if batik jars exists.">
-    	<condition property="batik.jars.exists">
-    	    <and>
-    	        <available file="${basedir}/${batik.dir}/lib/js.jar"/>
-    	        <available file="${basedir}/${batik.dir}/lib/pdf-transcoder.jar"/>
-    	        <available file="${basedir}/${batik.dir}/lib/xerces_2_5_0.jar"/>
-    	        <available file="${basedir}/${batik.dir}/lib/xml-apis.jar"/>
+        <!-- this implies the lib dir and its jars also exist -->
+        <condition property="batik.jars.exists">
+            <and>
+    	        <available file="${basedir}/${batik.dir}/lib/build" type="dir" />
+    	        <available file="${lib.ext.dir}/xml-apis-ext.jar"/>
     	    </and>
-        </condition>
+    	</condition>
     </target>
     
     <target name="batik-jars" depends="batik-jars-check" unless="batik.jars.exists"
         description="Copies the batik jars to the batik build directory.">
 
-        <antcall target="batik-download-zip"/>
+        <antcall target="download-zip">
+            <param name="srcUrl" value="http://archive.apache.org/dist/xmlgraphics/batik"/>
+            <param name="zipFile" value="batik-src-1.7.zip"/>
+            <param name="md5" value="c117ca2241907f62a2b3031167ebf917"/>
+        </antcall>
+
         <copy todir="${basedir}/${batik.dir}/lib" failonerror="true">
             <fileset dir="${download.dir}/${batik.zip.dir}/lib">
                 <include name="**/**"/>
             </fileset>            
         </copy>
+        
+        <!-- Copy the unique runtime jars to the lib directory.  -->
+        <!-- Also need xalan, xerces and xml-api jars.  -->
+        <copy todir="${lib.ext.dir}" failonerror="true" verbose="true">
+            <fileset dir="${download.dir}/${batik.zip.dir}/lib">
+                <include name="xml-apis-ext.jar"/>
+                <include name="LICENSE.xml-apis-ext*"/>
+                <include name="README.xml-apis-ext*"/>
+            </fileset>            
+        </copy>
+
         <delete dir="${download.dir}/${batik.zip.dir}"/>
     </target>
     
-    <target name="batik-download-zip" depends="batik-zip-check" unless="batik.zip.exists"
-        description="Downloads the batik jars.">
-        
-        <antcall target="download-zip">
-            <param name="srcUrl" value="http://archive.apache.org/dist/xmlgraphics/batik"/>
-            <param name="zipFile" value="${batik.zip.dir}.zip"/>
-            <param name="md5" value="edff288fc64f968ff96ca49763d50f3c"/>
-        </antcall>
-    </target>
-
 	<target name="batik-jars-clean">
-        <delete includeEmptyDirs="true" failonerror="fasle">
-            <fileset dir="${basedir}/${batik.dir}/lib">
-                <include name="**/**"/>
-            </fileset>            
-        </delete>
+	    <delete dir="${basedir}/${batik.dir}/lib/**" failonerror="false"/>
         <delete includeEmptyDirs="true" failonerror="fasle">
             <fileset dir="${download.dir}">
                 <include name="${batik.zip.dir}*/**"/>

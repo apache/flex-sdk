@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -41,7 +42,7 @@ import org.w3c.dom.Element;
  *
  * @author <a href="mailto:cjolif@ilog.fr">Christophe Jolif</a>
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: SVGPath.java,v 1.16 2004/10/30 16:54:53 deweese Exp $
+ * @version $Id: SVGPath.java 504084 2007-02-06 11:24:46Z dvholten $
  */
 public class SVGPath extends SVGGraphicObjectConverter {
     /**
@@ -82,9 +83,9 @@ public class SVGPath extends SVGGraphicObjectConverter {
      * @return the value of the corresponding d attribute
      */
      public static String toSVGPathData(Shape path, SVGGeneratorContext gc) {
-        StringBuffer d = new StringBuffer("");
+        StringBuffer d = new StringBuffer( 40 );
         PathIterator pi = path.getPathIterator(null);
-        float seg[] = new float[6];
+        float[] seg = new float[6];
         int segType = 0;
         while (!pi.isDone()) {
             segType = pi.currentSegment(seg);
@@ -112,7 +113,7 @@ public class SVGPath extends SVGGraphicObjectConverter {
                 appendPoint(d, seg[4], seg[5], gc);
                 break;
             default:
-                throw new Error();
+                throw new Error("invalid segmentType:" + segType );
             }
             pi.next();
         } // while !isDone
@@ -121,7 +122,7 @@ public class SVGPath extends SVGGraphicObjectConverter {
             return d.toString().trim();
         else {
             // This is a degenerate case: there was no initial moveTo
-            // in the path and no data at all. However, this happens 
+            // in the path and no data at all. However, this happens
             // in the Java 2D API (e.g., when clipping to a rectangle
             // with negative height/width, the clip will be a GeneralPath
             // with no data, which causes everything to be clipped)

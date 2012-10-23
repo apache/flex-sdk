@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -33,7 +34,7 @@ import org.w3c.dom.Element;
  * Bridge class for the &lt;feGaussianBlur> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGFeGaussianBlurElementBridge.java,v 1.18 2004/08/18 07:12:33 vhardy Exp $
+ * @version $Id: SVGFeGaussianBlurElementBridge.java 501922 2007-01-31 17:47:47Z dvholten $
  */
 public class SVGFeGaussianBlurElementBridge
     extends AbstractSVGFilterPrimitiveElementBridge {
@@ -78,12 +79,12 @@ public class SVGFeGaussianBlurElementBridge
                                Map filterMap) {
 
         // 'stdDeviation' attribute - default is [0, 0]
-        float [] stdDeviationXY = convertStdDeviation(filterElement);
+        float[] stdDeviationXY = convertStdDeviation(filterElement, ctx);
         if (stdDeviationXY[0] < 0 || stdDeviationXY[1] < 0) {
-            throw new BridgeException(filterElement,
+            throw new BridgeException(ctx, filterElement,
                                       ERR_ATTRIBUTE_VALUE_MALFORMED,
                                       new Object[] {SVG_STD_DEVIATION_ATTRIBUTE,
-                                                    "" + stdDeviationXY[0] + 
+                                                    String.valueOf( stdDeviationXY[ 0 ] ) +
                                                     stdDeviationXY[1]});
         }
 
@@ -135,8 +136,10 @@ public class SVGFeGaussianBlurElementBridge
      * filter primitive element.
      *
      * @param filterElement the feGaussianBlur filter primitive element
+     * @param ctx the BridgeContext to use for error information
      */
-    protected static float [] convertStdDeviation(Element filterElement) {
+    protected static float[] convertStdDeviation(Element filterElement,
+                                                 BridgeContext ctx) {
         String s
             = filterElement.getAttributeNS(null, SVG_STD_DEVIATION_ATTRIBUTE);
         if (s.length() == 0) {
@@ -151,14 +154,14 @@ public class SVGFeGaussianBlurElementBridge
             } else {
                 stdDevs[1] = stdDevs[0];
             }
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException nfEx ) {
             throw new BridgeException
-                (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                 new Object[] {SVG_STD_DEVIATION_ATTRIBUTE, s, ex});
+                (ctx, filterElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                 new Object[] {SVG_STD_DEVIATION_ATTRIBUTE, s, nfEx });
         }
         if (tokens.hasMoreTokens()) {
             throw new BridgeException
-                (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                (ctx, filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
                  new Object[] {SVG_STD_DEVIATION_ATTRIBUTE, s});
         }
         return stdDevs;

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,11 +22,9 @@ import java.awt.Dimension;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
-import java.net.URL;
-import java.net.MalformedURLException;
-import java.util.StringTokenizer;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.flex.forks.batik.bridge.BaseScriptingEnvironment;
 import org.apache.flex.forks.batik.bridge.BridgeContext;
@@ -34,15 +33,17 @@ import org.apache.flex.forks.batik.bridge.DefaultScriptSecurity;
 import org.apache.flex.forks.batik.bridge.GVTBuilder;
 import org.apache.flex.forks.batik.bridge.NoLoadScriptSecurity;
 import org.apache.flex.forks.batik.bridge.RelaxedScriptSecurity;
+import org.apache.flex.forks.batik.bridge.SVGUtilities;
 import org.apache.flex.forks.batik.bridge.ScriptSecurity;
 import org.apache.flex.forks.batik.bridge.UserAgent;
 import org.apache.flex.forks.batik.bridge.UserAgentAdapter;
 import org.apache.flex.forks.batik.bridge.ViewBox;
+import org.apache.flex.forks.batik.bridge.svg12.SVG12BridgeContext;
 import org.apache.flex.forks.batik.dom.svg.SAXSVGDocumentFactory;
 import org.apache.flex.forks.batik.dom.svg.SVGDOMImplementation;
 import org.apache.flex.forks.batik.dom.svg.SVGOMDocument;
-import org.apache.flex.forks.batik.dom.util.DocumentFactory;
 import org.apache.flex.forks.batik.dom.util.DOMUtilities;
+import org.apache.flex.forks.batik.dom.util.DocumentFactory;
 import org.apache.flex.forks.batik.gvt.CanvasGraphicsNode;
 import org.apache.flex.forks.batik.gvt.CompositeGraphicsNode;
 import org.apache.flex.forks.batik.gvt.GraphicsNode;
@@ -55,8 +56,7 @@ import org.apache.flex.forks.batik.util.ParsedURL;
 import org.apache.flex.forks.batik.util.SVGConstants;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
-import org.w3c.flex.forks.dom.svg.SVGSVGElement;
-
+import org.w3c.dom.svg.SVGSVGElement;
 
 /**
  * This class may be the base class of all transcoders which take an
@@ -70,12 +70,13 @@ import org.w3c.flex.forks.dom.svg.SVGSVGElement;
  * </ul>
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: SVGAbstractTranscoder.java,v 1.22 2004/11/18 01:47:02 deweese Exp $ */
+ * @version $Id: SVGAbstractTranscoder.java 591555 2007-11-03 05:53:15Z cam $
+ */
 public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
     /**
      * Value used as a default for the default font-family hint
      */
-    public static final String DEFAULT_DEFAULT_FONT_FAMILY 
+    public static final String DEFAULT_DEFAULT_FONT_FAMILY
         = "Arial, Helvetica, sans-serif";
 
     /**
@@ -125,7 +126,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
                   "screen");
         hints.put(KEY_DEFAULT_FONT_FAMILY,
                   DEFAULT_DEFAULT_FONT_FAMILY);
-        hints.put(KEY_EXECUTE_ONLOAD, 
+        hints.put(KEY_EXECUTE_ONLOAD,
                   Boolean.FALSE);
         hints.put(KEY_ALLOWED_SCRIPT_TYPES,
                   DEFAULT_ALLOWED_SCRIPT_TYPES);
@@ -151,10 +152,10 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
 
     public void transcode(TranscoderInput input, TranscoderOutput output)
             throws TranscoderException {
- 
+
         super.transcode(input, output);
 
-        if (ctx != null) 
+        if (ctx != null)
             ctx.dispose();
     }
     /**
@@ -177,25 +178,27 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
             // impl = SVGDOMImplementation.getDOMImplementation();
             document = DOMUtilities.deepCloneDocument(document, impl);
             if (uri != null) {
-                try { 
-                    URL url = new URL(uri);
-                    ((SVGOMDocument)document).setURLObject(url);
-                } catch (MalformedURLException mue) {
-                }
+                ParsedURL url = new ParsedURL(uri);
+                ((SVGOMDocument)document).setParsedURL(url);
             }
         }
 
-        ctx = createBridgeContext();
+        if (hints.containsKey(KEY_WIDTH))
+            width = ((Float)hints.get(KEY_WIDTH)).floatValue();
+        if (hints.containsKey(KEY_HEIGHT))
+            height = ((Float)hints.get(KEY_HEIGHT)).floatValue();
+
+
         SVGOMDocument svgDoc = (SVGOMDocument)document;
         SVGSVGElement root = svgDoc.getRootElement();
+        ctx = createBridgeContext(svgDoc);
 
         // build the GVT tree
         builder = new GVTBuilder();
         // flag that indicates if the document is dynamic
-        boolean isDynamic = 
-            (hints.containsKey(KEY_EXECUTE_ONLOAD) &&
-             ((Boolean)hints.get(KEY_EXECUTE_ONLOAD)).booleanValue() &&
-             ctx.isDynamicDocument(svgDoc));
+        boolean isDynamic =
+            hints.containsKey(KEY_EXECUTE_ONLOAD) &&
+             ((Boolean)hints.get(KEY_EXECUTE_ONLOAD)).booleanValue();
 
         GraphicsNode gvtRoot;
         try {
@@ -210,8 +213,17 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
                 se = new BaseScriptingEnvironment(ctx);
                 se.loadScripts();
                 se.dispatchSVGLoadEvent();
+                if (hints.containsKey(KEY_SNAPSHOT_TIME)) {
+                    float t =
+                        ((Float) hints.get(KEY_SNAPSHOT_TIME)).floatValue();
+                    ctx.getAnimationEngine().setCurrentTime(t);
+                } else if (ctx.isSVG12()) {
+                    float t = SVGUtilities.convertSnapshotTime(root, null);
+                    ctx.getAnimationEngine().setCurrentTime(t);
+                }
             }
         } catch (BridgeException ex) {
+            ex.printStackTrace();
             throw new TranscoderException(ex);
         }
 
@@ -234,7 +246,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
             double scale = Math.min(sx,sy);
             Px.scale(scale, scale);
             double tx = -aoi.getX() + (width/scale - aoi.getWidth())/2;
-            double ty = -aoi.getY() + (height/scale -aoi.getHeight())/2;;
+            double ty = -aoi.getY() + (height/scale -aoi.getHeight())/2;
             Px.translate(tx, ty);
             // take the AOI transformation matrix into account
             // we apply first the preserveAspectRatio matrix
@@ -242,16 +254,20 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
         } else {
             String ref = new ParsedURL(uri).getRef();
 
-            try {
-                Px = ViewBox.getViewTransform(ref, root, width, height);
-            } catch (BridgeException ex) {
-                throw new TranscoderException(ex);
-            }
+            // XXX Update this to use the animated value of 'viewBox' and
+            //     'preserveAspectRatio'.
+            String viewBox = root.getAttributeNS
+                (null, SVGConstants.SVG_VIEW_BOX_ATTRIBUTE);
 
-            if (Px.isIdentity() && 
-                (width != docWidth || height != docHeight)) {
-                // The document has no viewBox, we need to resize it by hand.
-                // we want to keep the document size ratio
+            if ((ref != null) && (ref.length() != 0)) {
+                Px = ViewBox.getViewTransform(ref, root, width, height, ctx);
+            } else if ((viewBox != null) && (viewBox.length() != 0)) {
+                String aspectRatio = root.getAttributeNS
+                    (null, SVGConstants.SVG_PRESERVE_ASPECT_RATIO_ATTRIBUTE);
+                Px = ViewBox.getPreserveAspectRatioTransform
+                    (root, viewBox, aspectRatio, width, height, ctx);
+            } else {
+                // no viewBox has been specified, create a scale transform
                 float xscale, yscale;
                 xscale = width/docWidth;
                 yscale = height/docHeight;
@@ -278,7 +294,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
             return null;
         CompositeGraphicsNode cgn = (CompositeGraphicsNode)gn;
         List children = cgn.getChildren();
-        if (children.size() == 0) 
+        if (children.size() == 0)
             return null;
         gn = (GraphicsNode)children.get(0);
         if (!(gn instanceof CanvasGraphicsNode))
@@ -290,9 +306,36 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
      * Factory method for constructing an configuring a
      * BridgeContext so subclasses can insert new/modified
      * bridges in the context.
+     * @param doc the SVG document to create the BridgeContext for
+     * @return the newly instantiated BridgeContext
+     */
+    protected BridgeContext createBridgeContext(SVGOMDocument doc) {
+        return createBridgeContext(doc.isSVG12() ? "1.2" : "1.x");
+    }
+
+    /**
+     * Creates the default SVG 1.0/1.1 BridgeContext. Subclass this method to provide
+     * customized bridges. This method is provided for historical reasons. New applications
+     * should use {@link #createBridgeContext(String)} instead.
+     * @return the newly instantiated BridgeContext
+     * @see #createBridgeContext(String)
      */
     protected BridgeContext createBridgeContext() {
-        return new BridgeContext(userAgent);
+        return createBridgeContext("1.x");
+    }
+
+    /**
+     * Creates the BridgeContext. Subclass this method to provide customized bridges. For example,
+     * Apache FOP uses this method to register special bridges for optimized text painting.
+     * @param svgVersion the SVG version in use (ex. "1.0", "1.x" or "1.2")
+     * @return the newly instantiated BridgeContext
+     */
+    protected BridgeContext createBridgeContext(String svgVersion) {
+        if ("1.2".equals(svgVersion)) {
+            return new SVG12BridgeContext(userAgent);
+        } else {
+            return new BridgeContext(userAgent);
+        }
     }
 
     /**
@@ -415,7 +458,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
      * <TR>
      * <TH VALIGN="TOP" ALIGN="RIGHT"><P ALIGN="RIGHT">Description: </TH>
      * <TD VALIGN="TOP">Specify the maximum width of the image to create.
-     * The value will set the maximum width of the image even when 
+     * The value will set the maximum width of the image even when
      * bigger width is specified in a document or set with KEY_WIDTH.
      * </TD></TR>
      * </TABLE>
@@ -440,8 +483,8 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
      * <TD VALIGN="TOP">No</TD></TR>
      * <TR>
      * <TH VALIGN="TOP" ALIGN="RIGHT"><P ALIGN="RIGHT">Description: </TH>
-     * <TD VALIGN="TOP">Specify the maximum height of the image to create. 
-     * The value will set the maximum height of the image even when 
+     * <TD VALIGN="TOP">Specify the maximum height of the image to create.
+     * The value will set the maximum height of the image even when
      * bigger height is specified in a document or set with KEY_HEIGHT.
      * </TD></TR>
      * </TABLE>
@@ -644,7 +687,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
      * </TD></TR>
      * </TABLE>
      */
-    public static final TranscodingHints.Key KEY_PIXEL_TO_MM 
+    public static final TranscodingHints.Key KEY_PIXEL_TO_MM
         = KEY_PIXEL_UNIT_TO_MILLIMETER;
 
     /**
@@ -664,12 +707,37 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
      * <TD VALIGN="TOP">No</TD></TR>
      * <TR>
      * <TH VALIGN="TOP" ALIGN="RIGHT"><P ALIGN="RIGHT">Description: </TH>
-     * <TD VALIGN="TOP">Specify if scripts added on the 'onload' event 
+     * <TD VALIGN="TOP">Specify if scripts added on the 'onload' event
      * attribute must be invoked.</TD></TR>
-     * </TABLE> 
+     * </TABLE>
      */
     public static final TranscodingHints.Key KEY_EXECUTE_ONLOAD
         = new BooleanKey();
+
+    /**
+     * The snapshot time key.
+     * <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="1">
+     * <TR>
+     * <TH VALIGN="TOP" ALIGN="RIGHT"><P ALIGN="RIGHT">Key: </TH>
+     * <TD VALIGN="TOP">KEY_SNAPSHOT_TIME</TD></TR>
+     * <TR>
+     * <TH VALIGN="TOP" ALIGN="RIGHT"><P ALIGN="RIGHT">Value: </TH>
+     * <TD VALIGN="TOP">Float</TD></TR>
+     * <TR>
+     * <TH VALIGN="TOP" ALIGN="RIGHT"><P ALIGN="RIGHT">Default: </TH>
+     * <TD VALIGN="TOP">0</TD></TR>
+     * <TR>
+     * <TH VALIGN="TOP" ALIGN="RIGHT"><P ALIGN="RIGHT">Required: </TH>
+     * <TD VALIGN="TOP">No</TD></TR>
+     * <TR>
+     * <TH VALIGN="TOP" ALIGN="RIGHT"><P ALIGN="RIGHT">Description: </TH>
+     * <TD VALIGN="TOP">Specifies the document time to seek to before
+     * rasterization.  Only applies if {@link #KEY_EXECUTE_ONLOAD} is
+     * set to <code>true</code>.</TD></TR>
+     * </TABLE>
+     */
+    public static final TranscodingHints.Key KEY_SNAPSHOT_TIME
+        = new FloatKey();
 
     /**
      * The set of supported script languages (i.e., the set of possible
@@ -703,11 +771,14 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
      * Default value for the KEY_ALLOWED_SCRIPT_TYPES key
      */
     public static final String DEFAULT_ALLOWED_SCRIPT_TYPES
-        = SVGConstants.SVG_SCRIPT_TYPE_ECMASCRIPT + ", " 
+        = SVGConstants.SVG_SCRIPT_TYPE_ECMASCRIPT + ", "
+        + SVGConstants.SVG_SCRIPT_TYPE_APPLICATION_ECMASCRIPT + ", "
+        + SVGConstants.SVG_SCRIPT_TYPE_JAVASCRIPT + ", "
+        + SVGConstants.SVG_SCRIPT_TYPE_APPLICATION_JAVASCRIPT + ", "
         + SVGConstants.SVG_SCRIPT_TYPE_JAVA;
 
     /**
-     * Controls whether or not scripts can only be loaded from the 
+     * Controls whether or not scripts can only be loaded from the
      * same location as the document which references them.
      *
      * <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="1">
@@ -767,7 +838,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
          * Returns the default size of this user agent (400x400).
          */
         public Dimension2D getViewportSize() {
-            return new Dimension((int)SVGAbstractTranscoder.this.width, 
+            return new Dimension((int)SVGAbstractTranscoder.this.width,
                                  (int)SVGAbstractTranscoder.this.height);
         }
 
@@ -779,7 +850,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
                 SVGAbstractTranscoder.this.handler.error
                     (new TranscoderException(message));
             } catch (TranscoderException ex) {
-                throw new RuntimeException();
+                throw new RuntimeException( ex.getMessage() );
             }
         }
 
@@ -792,7 +863,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
                 SVGAbstractTranscoder.this.handler.error
                     (new TranscoderException(e));
             } catch (TranscoderException ex) {
-                throw new RuntimeException();
+                throw new RuntimeException( ex.getMessage() );
             }
         }
 
@@ -804,7 +875,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
                 SVGAbstractTranscoder.this.handler.warning
                     (new TranscoderException(message));
             } catch (TranscoderException ex) {
-                throw new RuntimeException();
+                throw new RuntimeException( ex.getMessage() );
             }
         }
 
@@ -831,7 +902,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
                 return (String)SVGAbstractTranscoder.this.hints.get
                     (KEY_LANGUAGE);
             }
-             
+
             return super.getLanguages();
         }
 
@@ -907,14 +978,14 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
         /**
          * Returns the security settings for the given script
          * type, script url and document url
-         * 
-         * @param scriptType type of script, as found in the 
+         *
+         * @param scriptType type of script, as found in the
          *        type attribute of the &lt;script&gt; element.
          * @param scriptPURL url for the script, as defined in
          *        the script's xlink:href attribute. If that
          *        attribute was empty, then this parameter should
          *        be null
-         * @param docPURL url for the document into which the 
+         * @param docPURL url for the document into which the
          *        script was found.
          */
         public ScriptSecurity getScriptSecurity(String scriptType,
@@ -936,7 +1007,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
                 constrainOrigin =
                     ((Boolean)SVGAbstractTranscoder.this.hints.get
                      (KEY_CONSTRAIN_SCRIPT_ORIGIN)).booleanValue();
-            } 
+            }
 
             if (constrainOrigin) {
                 return new DefaultScriptSecurity
@@ -958,10 +1029,10 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
                 return;
             }
 
-            String allowedScripts 
+            String allowedScripts
                 = (String)SVGAbstractTranscoder.this.hints.get
                 (KEY_ALLOWED_SCRIPT_TYPES);
-                
+
             StringTokenizer st = new StringTokenizer(allowedScripts, ",");
             while (st.hasMoreTokens()) {
                 scripts.add(st.nextToken());

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,21 +18,21 @@
  */
 package org.apache.flex.forks.batik.css.engine;
 
-import org.w3c.flex.forks.css.sac.SACMediaList;
+import org.w3c.css.sac.SACMediaList;
 
 /**
  * This class represents a list of rules.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: StyleSheet.java,v 1.4 2004/08/18 07:12:48 vhardy Exp $
+ * @version $Id: StyleSheet.java 476924 2006-11-19 21:13:26Z dvholten $
  */
 public class StyleSheet {
-    
+
     /**
      * The rules.
      */
     protected Rule[] rules = new Rule[16];
-    
+
     /**
      * The number of rules.
      */
@@ -141,9 +142,7 @@ public class StyleSheet {
     public void append(Rule r) {
         if (size == rules.length) {
             Rule[] t = new Rule[size * 2];
-            for (int i = 0; i < size; i++) {
-                t[i] = rules[i];
-            }
+            System.arraycopy( rules, 0, t, 0, size );
             rules = t;
         }
         rules[size++] = r;
@@ -153,7 +152,7 @@ public class StyleSheet {
      * Returns a printable representation of this style-sheet.
      */
     public String toString(CSSEngine eng) {
-        StringBuffer sb = new StringBuffer();
+        StringBuffer sb = new StringBuffer( size * 8 );
         for (int i = 0; i < size; i++) {
             sb.append(rules[i].toString(eng));
         }

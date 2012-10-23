@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -33,13 +34,13 @@ import javax.swing.JRadioButtonMenuItem;
  * browser frame.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: LocalHistory.java,v 1.12 2004/08/18 07:12:27 vhardy Exp $
+ * @version $Id: LocalHistory.java 489226 2006-12-21 00:05:36Z cam $
  */
 public class LocalHistory {
     /**
      * The frame to manage.
      */
-    protected JSVGViewerFrame svgFrame;    
+    protected JSVGViewerFrame svgFrame;
 
     /**
      * The menu which contains the history.
@@ -77,15 +78,15 @@ public class LocalHistory {
     protected int state;
 
     // States
-    protected final static int STABLE_STATE = 0;
-    protected final static int BACK_PENDING_STATE = 1;
-    protected final static int FORWARD_PENDING_STATE = 2;
-    protected final static int RELOAD_PENDING_STATE = 3;
+    protected static final int STABLE_STATE = 0;
+    protected static final int BACK_PENDING_STATE = 1;
+    protected static final int FORWARD_PENDING_STATE = 2;
+    protected static final int RELOAD_PENDING_STATE = 3;
 
     /**
      * Creates a new local history.
      * @param mb The menubar used to display the history. It must
-     *        contains one '@@@' item used as marker to place the
+     *        contain one '@@@' item used as marker to place the
      *        history items.
      * @param svgFrame The frame to manage.
      */
@@ -164,7 +165,7 @@ public class LocalHistory {
      */
     public void update(String uri) {
         if (currentURI < -1) {
-            throw new InternalError();
+            throw new IllegalStateException("Unexpected currentURI:" + currentURI );
         }
         state = STABLE_STATE;
         if (++currentURI < visitedURIs.size()) {
@@ -194,17 +195,17 @@ public class LocalHistory {
 
         // Computes the button text.
         String text = uri;
-        int i = uri.lastIndexOf("/");
+        int i = uri.lastIndexOf('/');
         if (i == -1) {
-            i = uri.lastIndexOf("\\");
-            if (i != -1) {
-                text = uri.substring(i + 1);
-            }
-        } else {
+            i = uri.lastIndexOf('\\' );
+        }
+
+        if (i != -1) {
             text = uri.substring(i + 1);
         }
 
         JMenuItem mi = new JRadioButtonMenuItem(text);
+        mi.setToolTipText(uri);
         mi.setActionCommand(uri);
         mi.addActionListener(actionListener);
         group.add(mi);
@@ -222,7 +223,9 @@ public class LocalHistory {
             break;
         case RELOAD_PENDING_STATE:
             currentURI++;
+            break;
         case FORWARD_PENDING_STATE:
+            // fall-through intended
         case STABLE_STATE:
         }
     }
@@ -230,21 +233,26 @@ public class LocalHistory {
     /**
      * To listen to the radio buttons.
      */
-    protected class RadioListener implements ActionListener {
-        public RadioListener() {}
-	public void actionPerformed(ActionEvent e) {
-	    String uri = e.getActionCommand();
-            currentURI = getItemIndex((JMenuItem)e.getSource()) - 1;
-	    svgFrame.showSVGDocument(uri);
-	}
-        public int getItemIndex(JMenuItem item) {
+    protected class RadioListener
+            implements ActionListener {
+
+        protected RadioListener() {
+        }
+
+        public void actionPerformed( ActionEvent e ) {
+            String uri = e.getActionCommand();
+            currentURI = getItemIndex( (JMenuItem)e.getSource() ) - 1;
+            svgFrame.showSVGDocument( uri );
+        }
+
+        public int getItemIndex( JMenuItem item ) {
             int ic = menu.getItemCount();
-            for (int i = index; i < ic; i++) {
-                if (menu.getItem(i) == item) {
+            for ( int i = index; i < ic; i++ ) {
+                if ( menu.getItem( i ) == item ) {
                     return i - index;
                 }
             }
-            throw new InternalError();
+            throw new IllegalArgumentException("MenuItem is not from my menu!" );
         }
     }
 }

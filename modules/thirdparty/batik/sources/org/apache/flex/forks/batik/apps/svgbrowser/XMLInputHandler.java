@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -44,7 +45,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.ProcessingInstruction;
-import org.w3c.flex.forks.dom.svg.SVGDocument;
+import org.w3c.dom.svg.SVGDocument;
 
 /**
  * A <tt>SquiggleInputHandler</tt> that handles XSLT transformable
@@ -57,7 +58,7 @@ import org.w3c.flex.forks.dom.svg.SVGDocument;
  * SVG document with an SVG root.
  *
  * @author <a mailto="vincent.hardy@sun.com">Vincent Hardy</a>
- * @version $Id: XMLInputHandler.java,v 1.9 2005/03/27 08:58:30 cam Exp $
+ * @version $Id: XMLInputHandler.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class XMLInputHandler implements SquiggleInputHandler {
     public static final String[] XVG_MIME_TYPES = 

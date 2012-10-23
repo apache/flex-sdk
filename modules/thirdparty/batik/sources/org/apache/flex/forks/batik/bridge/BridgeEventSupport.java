@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,10 +23,14 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.lang.ref.SoftReference;
 import java.text.AttributedCharacterIterator;
 import java.util.List;
 
 import org.apache.flex.forks.batik.dom.events.DOMKeyEvent;
+import org.apache.flex.forks.batik.dom.events.DOMMouseEvent;
+import org.apache.flex.forks.batik.dom.events.NodeEventTarget;
+import org.apache.flex.forks.batik.dom.util.DOMUtilities;
 import org.apache.flex.forks.batik.gvt.GraphicsNode;
 import org.apache.flex.forks.batik.gvt.TextNode;
 import org.apache.flex.forks.batik.gvt.event.EventDispatcher;
@@ -38,24 +43,29 @@ import org.apache.flex.forks.batik.gvt.text.GVTAttributedCharacterIterator;
 import org.apache.flex.forks.batik.gvt.text.TextHit;
 import org.apache.flex.forks.batik.gvt.text.TextSpanLayout;
 import org.apache.flex.forks.batik.util.SVGConstants;
+import org.apache.flex.forks.batik.util.XMLConstants;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.events.DocumentEvent;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
-import org.w3c.dom.events.MouseEvent;
 
 /**
  * This class is responsible of tracking GraphicsNodeMouseEvent and
  * fowarding them to the DOM as regular DOM MouseEvent.
  *
  * @author <a href="mailto:tkormann@ilog.fr">Thierry Kormann</a>
- * @version $Id: BridgeEventSupport.java,v 1.59 2005/03/27 08:58:30 cam Exp $
+ * @version $Id: BridgeEventSupport.java 580012 2007-09-27 13:33:47Z cam $
  */
-public class BridgeEventSupport implements SVGConstants {
+public abstract class BridgeEventSupport implements SVGConstants {
 
-    private BridgeEventSupport() {}
+    public static final
+        AttributedCharacterIterator.Attribute TEXT_COMPOUND_ID =
+        GVTAttributedCharacterIterator.TextAttribute.TEXT_COMPOUND_ID;
+
+    protected BridgeEventSupport() {}
 
     /**
      * Is called only for the root element in order to dispatch GVT
@@ -72,11 +82,41 @@ public class BridgeEventSupport implements SVGConstants {
                 // add an unload listener on the SVGDocument to remove
                 // that listener for dispatching events
                 EventListener l = new GVTUnloadListener(dispatcher, listener);
-                EventTarget target = (EventTarget)doc;
-                target.addEventListener("SVGUnload", l, false);
-                ctx.storeEventListener(target, "SVGUnload", l, false);
+                NodeEventTarget target = (NodeEventTarget)doc;
+                target.addEventListenerNS
+                    (XMLConstants.XML_EVENTS_NAMESPACE_URI,
+                     "SVGUnload",
+                     l, false, null);
+                storeEventListenerNS
+                    (ctx, target,
+                     XMLConstants.XML_EVENTS_NAMESPACE_URI,
+                     "SVGUnload",
+                     l, false);
             }
         }
+    }
+
+    /**
+     * Calls storeEventListener on the given BridgeContext.
+     */
+    protected static void storeEventListener(BridgeContext ctx,
+                                             EventTarget e,
+                                             String t,
+                                             EventListener l,
+                                             boolean c) {
+        ctx.storeEventListener(e, t, l, c);
+    }
+
+    /**
+     * Calls storeEventListenerNS on the given BridgeContext.
+     */
+    protected static void storeEventListenerNS(BridgeContext ctx,
+                                               EventTarget e,
+                                               String n,
+                                               String t,
+                                               EventListener l,
+                                               boolean c) {
+        ctx.storeEventListenerNS(e, n, t, l, c);
     }
 
     protected static class GVTUnloadListener implements EventListener {
@@ -84,7 +124,7 @@ public class BridgeEventSupport implements SVGConstants {
         protected EventDispatcher dispatcher;
         protected Listener listener;
 
-        public GVTUnloadListener(EventDispatcher dispatcher, 
+        public GVTUnloadListener(EventDispatcher dispatcher,
                                  Listener listener) {
             this.dispatcher = dispatcher;
             this.listener = listener;
@@ -93,17 +133,19 @@ public class BridgeEventSupport implements SVGConstants {
         public void handleEvent(Event evt) {
             dispatcher.removeGraphicsNodeMouseListener(listener);
             dispatcher.removeGraphicsNodeKeyListener(listener);
-            evt.getTarget().removeEventListener
-                (SVGConstants.SVG_SVGUNLOAD_EVENT_TYPE, this, false);
+            NodeEventTarget et = (NodeEventTarget) evt.getTarget();
+            et.removeEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "SVGUnload",
+                 this, false);
         }
     }
 
     /**
      * A GraphicsNodeMouseListener that dispatch DOM events accordingly.
      */
-    protected static class Listener 
-        implements GraphicsNodeMouseListener, GraphicsNodeKeyListener {
-        
+    protected static class Listener implements GraphicsNodeMouseListener,
+                                               GraphicsNodeKeyListener {
+
         protected BridgeContext context;
         protected UserAgent ua;
         protected Element lastTargetElement;
@@ -121,6 +163,7 @@ public class BridgeEventSupport implements SVGConstants {
          * @param evt the graphics node key event
          */
         public void keyPressed(GraphicsNodeKeyEvent evt) {
+            // XXX isDown is not preventing key repeats
             if (!isDown) {
                 isDown = true;
                 dispatchKeyEvent("keydown", evt);
@@ -149,25 +192,28 @@ public class BridgeEventSupport implements SVGConstants {
             dispatchKeyEvent("keypress", evt);
         }
 
-        protected void dispatchKeyEvent(String eventType, 
+        /**
+         * Dispatch a DOM 2 Draft Key event.
+         */
+        protected void dispatchKeyEvent(String eventType,
                                         GraphicsNodeKeyEvent evt) {
             FocusManager fmgr = context.getFocusManager();
             if (fmgr == null) return;
 
             Element targetElement = (Element)fmgr.getCurrentEventTarget();
             if (targetElement == null) {
-                return;
+                targetElement = context.getDocument().getDocumentElement();
             }
             DocumentEvent d = (DocumentEvent)targetElement.getOwnerDocument();
             DOMKeyEvent keyEvt = (DOMKeyEvent)d.createEvent("KeyEvents");
-            keyEvt.initKeyEvent(eventType, 
-                                true, 
-                                true, 
-                                evt.isControlDown(), 
+            keyEvt.initKeyEvent(eventType,
+                                true,
+                                true,
+                                evt.isControlDown(),
                                 evt.isAltDown(),
-                                evt.isShiftDown(), 
+                                evt.isShiftDown(),
                                 evt.isMetaDown(),
-                                mapKeyCode(evt.getKeyCode()), 
+                                mapKeyCode(evt.getKeyCode()),
                                 evt.getKeyChar(),
                                 null);
 
@@ -187,7 +233,7 @@ public class BridgeEventSupport implements SVGConstants {
         protected final int mapKeyCode(int keyCode) {
             switch (keyCode) {
                 case KeyEvent.VK_ENTER:
-                    return DOMKeyEvent.DOM_VK_ENTER; 
+                    return DOMKeyEvent.DOM_VK_ENTER;
             case KeyEvent.VK_KANA_LOCK:
                 return DOMKeyEvent.DOM_VK_UNDEFINED;
             case KeyEvent.VK_INPUT_METHOD_ON_OFF:
@@ -212,7 +258,17 @@ public class BridgeEventSupport implements SVGConstants {
         }
 
         public void mouseEntered(GraphicsNodeMouseEvent evt) {
-            dispatchMouseEvent("mouseover", evt, true);
+            Point clientXY = evt.getClientPoint();
+            GraphicsNode node = evt.getGraphicsNode();
+            Element targetElement = getEventTarget
+                (node, new Point2D.Float(evt.getX(), evt.getY()));
+            Element relatedElement = getRelatedElement(evt);
+            dispatchMouseEvent("mouseover",
+                               targetElement,
+                               relatedElement,
+                               clientXY,
+                               evt,
+                               true);
         }
 
         public void mouseExited(GraphicsNodeMouseEvent evt) {
@@ -221,12 +277,13 @@ public class BridgeEventSupport implements SVGConstants {
             GraphicsNode node = evt.getRelatedNode();
             Element targetElement = getEventTarget(node, clientXY);
             if (lastTargetElement != null) {
-                dispatchMouseEvent("mouseout", 
+                dispatchMouseEvent("mouseout",
                                    lastTargetElement, // target
                                    targetElement,     // relatedTarget
                                    clientXY,
                                    evt,
                                    true);
+                lastTargetElement = null;
             }
         }
 
@@ -241,7 +298,7 @@ public class BridgeEventSupport implements SVGConstants {
             Element holdLTE = lastTargetElement;
             if (holdLTE != targetElement) {
                 if (holdLTE != null) {
-                    dispatchMouseEvent("mouseout", 
+                    dispatchMouseEvent("mouseout",
                                        holdLTE, // target
                                        targetElement,     // relatedTarget
                                        clientXY,
@@ -249,7 +306,7 @@ public class BridgeEventSupport implements SVGConstants {
                                        true);
                 }
                 if (targetElement != null) {
-                    dispatchMouseEvent("mouseover", 
+                    dispatchMouseEvent("mouseover",
                                        targetElement,     // target
                                        holdLTE, // relatedTarget
                                        clientXY,
@@ -257,7 +314,7 @@ public class BridgeEventSupport implements SVGConstants {
                                        true);
                 }
             }
-            dispatchMouseEvent("mousemove", 
+            dispatchMouseEvent("mousemove",
                                targetElement,     // target
                                null,              // relatedTarget
                                clientXY,
@@ -281,11 +338,11 @@ public class BridgeEventSupport implements SVGConstants {
             Element targetElement = getEventTarget
                 (node, new Point2D.Float(evt.getX(), evt.getY()));
             Element relatedElement = getRelatedElement(evt);
-            dispatchMouseEvent(eventType, 
+            dispatchMouseEvent(eventType,
                                targetElement,
                                relatedElement,
-                               clientXY, 
-                               evt, 
+                               clientXY,
+                               evt,
                                cancelable);
         }
 
@@ -322,26 +379,27 @@ public class BridgeEventSupport implements SVGConstants {
 
             }
             */
-            short button = getButton(evt);
             Point screenXY = evt.getScreenPoint();
             // create the coresponding DOM MouseEvent
             DocumentEvent d = (DocumentEvent)targetElement.getOwnerDocument();
-            MouseEvent mouseEvt = (MouseEvent)d.createEvent("MouseEvents");
-            mouseEvt.initMouseEvent(eventType, 
-                                    true, 
-                                    cancelable, 
-                                    null,
-                                    evt.getClickCount(),
-                                    screenXY.x, 
-                                    screenXY.y,
-                                    clientXY.x,
-                                    clientXY.y,
-                                    evt.isControlDown(), 
-                                    evt.isAltDown(),
-                                    evt.isShiftDown(), 
-                                    evt.isMetaDown(),
-                                    button, 
-                                    (EventTarget)relatedElement);
+            DOMMouseEvent mouseEvt
+                = (DOMMouseEvent)d.createEvent("MouseEvents");
+            String modifiers
+                = DOMUtilities.getModifiersList(evt.getLockState(),
+                                                evt.getModifiers());
+            mouseEvt.initMouseEventNS(XMLConstants.XML_EVENTS_NAMESPACE_URI,
+                                      eventType,
+                                      true,
+                                      cancelable,
+                                      null,
+                                      evt.getClickCount(),
+                                      screenXY.x,
+                                      screenXY.y,
+                                      clientXY.x,
+                                      clientXY.y,
+                                      (short) (evt.getButton() - 1),
+                                      (EventTarget)relatedElement,
+                                      modifiers);
 
             try {
                 ((EventTarget)targetElement).dispatchEvent(mouseEvt);
@@ -367,21 +425,6 @@ public class BridgeEventSupport implements SVGConstants {
         }
 
         /**
-         * Returns the mouse event button.
-         *
-         * @param evt the GVT GraphicsNodeMouseEvent
-         */
-        protected short getButton(GraphicsNodeMouseEvent evt) {
-            short button = 1;
-            if ((GraphicsNodeMouseEvent.BUTTON1_MASK & evt.getModifiers()) != 0) {
-                button = 0;
-            } else if ((GraphicsNodeMouseEvent.BUTTON3_MASK & evt.getModifiers()) != 0) {
-                button = 2;
-            }
-            return button;
-        }
-
-        /**
          * Returns the element that is the target of the specified
          * event or null if any.
          *
@@ -394,8 +437,8 @@ public class BridgeEventSupport implements SVGConstants {
             // is a tspan or textPath
 
             if (target != null && node instanceof TextNode) {
-		TextNode textNode = (TextNode)node;
-		List list = textNode.getTextRuns();
+                TextNode textNode = (TextNode)node;
+                List list = textNode.getTextRuns();
                 Point2D pt = (Point2D)coords.clone();
                 // place coords in text node coordinate system
                 try {
@@ -412,10 +455,12 @@ public class BridgeEventSupport implements SVGConstants {
                         float y = (float)pt.getY();
                         TextHit textHit = layout.hitTestChar(x, y);
                         Rectangle2D bounds = layout.getBounds2D();
-                        if ((textHit != null) && 
+                        if ((textHit != null) &&
                             (bounds != null) && bounds.contains(x, y)) {
-                            Object delimiter = aci.getAttribute
-                                (GVTAttributedCharacterIterator.TextAttribute.TEXT_COMPOUND_DELIMITER);
+                            SoftReference sr;
+                            sr =(SoftReference)aci.getAttribute
+                                (TEXT_COMPOUND_ID);
+                            Object delimiter = sr.get();
                             if (delimiter instanceof Element) {
                                 return (Element)delimiter;
                             }

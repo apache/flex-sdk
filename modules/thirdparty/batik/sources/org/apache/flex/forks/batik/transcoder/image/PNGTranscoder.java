@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,14 +19,10 @@
 package org.apache.flex.forks.batik.transcoder.image;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
 import java.awt.image.SinglePixelPackedSampleModel;
-import java.io.IOException;
 import java.io.OutputStream;
 
-import org.apache.flex.forks.batik.ext.awt.image.codec.PNGEncodeParam;
-import org.apache.flex.forks.batik.ext.awt.image.codec.PNGImageEncoder;
-import org.apache.flex.forks.batik.ext.awt.image.rendered.IndexImage;
+import org.apache.flex.forks.batik.bridge.UserAgent;
 import org.apache.flex.forks.batik.transcoder.TranscoderException;
 import org.apache.flex.forks.batik.transcoder.TranscoderOutput;
 import org.apache.flex.forks.batik.transcoder.TranscodingHints;
@@ -37,7 +34,7 @@ import org.apache.flex.forks.batik.transcoder.keys.IntegerKey;
  * This class is an <tt>ImageTranscoder</tt> that produces a PNG image.
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: PNGTranscoder.java,v 1.23 2005/03/27 08:58:36 cam Exp $
+ * @version $Id: PNGTranscoder.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class PNGTranscoder extends ImageTranscoder {
 
@@ -48,6 +45,11 @@ public class PNGTranscoder extends ImageTranscoder {
         hints.put(KEY_FORCE_TRANSPARENT_WHITE, Boolean.FALSE);
     }
 
+    /** @return the transcoder's user agent */
+    public UserAgent getUserAgent() {
+        return this.userAgent;
+    }
+    
     /**
      * Creates a new ARGB image with the specified dimension.
      * @param width the image width in pixels
@@ -57,6 +59,21 @@ public class PNGTranscoder extends ImageTranscoder {
         return new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     }
 
+    private WriteAdapter getWriteAdapter(String className) {
+        WriteAdapter adapter;
+        try {
+            Class clazz = Class.forName(className);
+            adapter = (WriteAdapter)clazz.newInstance();
+            return adapter;
+        } catch (ClassNotFoundException e) {
+            return null;
+        } catch (InstantiationException e) {
+            return null;
+        } catch (IllegalAccessException e) {
+            return null;
+        }
+    }
+    
     /**
      * Writes the specified image to the specified output.
      * @param img the image to write
@@ -78,86 +95,55 @@ public class PNGTranscoder extends ImageTranscoder {
         //
         boolean forceTransparentWhite = false;
 
-        if (hints.containsKey(KEY_FORCE_TRANSPARENT_WHITE)) {
+        if (hints.containsKey(PNGTranscoder.KEY_FORCE_TRANSPARENT_WHITE)) {
             forceTransparentWhite =
                 ((Boolean)hints.get
-                 (KEY_FORCE_TRANSPARENT_WHITE)).booleanValue();
+                 (PNGTranscoder.KEY_FORCE_TRANSPARENT_WHITE)).booleanValue();
         }
 
         if (forceTransparentWhite) {
-            int w = img.getWidth(), h = img.getHeight();
-            DataBufferInt biDB = (DataBufferInt)img.getRaster().getDataBuffer();
-            int scanStride = ((SinglePixelPackedSampleModel)
-                              img.getSampleModel()).getScanlineStride();
-            int dbOffset = biDB.getOffset();
-            int pixels[] = biDB.getBankData()[0];
-            int p = dbOffset;
-            int adjust = scanStride - w;
-            int a=0, r=0, g=0, b=0, pel=0;
-            for(int i=0; i<h; i++){
-                for(int j=0; j<w; j++){
-                    pel = pixels[p];
-                    a = (pel >> 24) & 0xff;
-                    r = (pel >> 16) & 0xff;
-                    g = (pel >> 8 ) & 0xff;
-                    b =  pel        & 0xff;
-                    r = (255*(255 -a) + a*r)/255;
-                    g = (255*(255 -a) + a*g)/255;
-                    b = (255*(255 -a) + a*b)/255;
-                    pixels[p++] =
-                        (a<<24 & 0xff000000) |
-                        (r<<16 & 0xff0000) |
-                        (g<<8  & 0xff00) |
-                        (b     & 0xff);
-                }
-                p += adjust;
-            }
+            SinglePixelPackedSampleModel sppsm;
+            sppsm = (SinglePixelPackedSampleModel)img.getSampleModel();
+            forceTransparentWhite(img, sppsm);
         }
 
-        int n=-1;
-        if (hints.containsKey(KEY_INDEXED)) {
-            n=((Integer)hints.get(KEY_INDEXED)).intValue();
-            if (n==1||n==2||n==4||n==8) 
-                //PNGEncodeParam.Palette can handle these numbers only.
-                img = IndexImage.getIndexedImage(img,1<<n);
+        WriteAdapter adapter = getWriteAdapter(
+                "org.apache.flex.forks.batik.ext.awt.image.codec.png.PNGTranscoderInternalCodecWriteAdapter");
+        if (adapter == null) {
+            adapter = getWriteAdapter(
+                "org.apache.flex.forks.batik.transcoder.image.PNGTranscoderImageIOWriteAdapter");
         }
-
-        PNGEncodeParam params = PNGEncodeParam.getDefaultEncodeParam(img);
-        if (params instanceof PNGEncodeParam.RGB) {
-            ((PNGEncodeParam.RGB)params).setBackgroundRGB
-                (new int [] { 255, 255, 255 });
+        if (adapter == null) {
+            throw new TranscoderException(
+                    "Could not write PNG file because no WriteAdapter is availble");
         }
-
-        // If they specify GAMMA key with a value of '0' then omit
-        // gamma chunk.  If they do not provide a GAMMA then just
-        // generate an sRGB chunk. Otherwise supress the sRGB chunk
-        // and just generate gamma and chroma chunks.
-        if (hints.containsKey(KEY_GAMMA)) {
-            float gamma = ((Float)hints.get(KEY_GAMMA)).floatValue();
-            if (gamma > 0) {
-                params.setGamma(gamma);
-            }
-            params.setChromaticity(DEFAULT_CHROMA);
-        }  else {
-            // We generally want an sRGB chunk and our encoding intent
-            // is perceptual
-            params.setSRGBIntent(PNGEncodeParam.INTENT_PERCEPTUAL);
-        }
-
-
-        float PixSzMM = userAgent.getPixelUnitToMillimeter();
-        // num Pixs in 1 Meter
-        int numPix      = (int)((1000/PixSzMM)+0.5);
-        params.setPhysicalDimension(numPix, numPix, 1); // 1 means 'pix/meter'
-
-        try {
-            PNGImageEncoder pngEncoder = new PNGImageEncoder(ostream, params);
-            pngEncoder.encode(img);
-            ostream.flush();
-        } catch (IOException ex) {
-            throw new TranscoderException(ex);
-        }
+        adapter.writeImage(this, img, output);
     }
+    
+    // --------------------------------------------------------------------
+    // PNG specific interfaces
+    // --------------------------------------------------------------------
+
+    /**
+     * This interface is used by <tt>PNGTranscoder</tt> to write PNG images 
+     * through different codecs.
+     *
+     * @version $Id: PNGTranscoder.java 475477 2006-11-15 22:44:28Z cam $
+     */
+    public interface WriteAdapter {
+        
+        /**
+         * Writes the specified image to the specified output.
+         * @param transcoder the calling PNGTranscoder
+         * @param img the image to write
+         * @param output the output where to store the image
+         * @throws TranscoderException if an error occured while storing the image
+         */
+        void writeImage(PNGTranscoder transcoder, BufferedImage img, 
+                TranscoderOutput output) throws TranscoderException;
+
+    }
+    
 
     // --------------------------------------------------------------------
     // Keys definition

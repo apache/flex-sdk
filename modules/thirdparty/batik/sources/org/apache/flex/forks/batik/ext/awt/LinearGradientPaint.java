@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -80,7 +81,7 @@ import java.awt.image.ColorModel;
  *
  * @author Nicholas Talian, Vincent Hardy, Jim Graham, Jerry Evans
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: LinearGradientPaint.java,v 1.6 2005/03/27 08:58:32 cam Exp $
+ * @version $Id: LinearGradientPaint.java 475685 2006-11-16 11:16:05Z cam $
  * @see java.awt.Paint
  * @see java.awt.Graphics2D#setPaint
  *
@@ -223,10 +224,10 @@ public final class LinearGradientPaint extends MultipleGradientPaint {
                                Color[] colors, 
                                CycleMethodEnum cycleMethod, 
                                ColorSpaceEnum colorSpace) {
-	
+        
         this(start, end, fractions, colors, cycleMethod, colorSpace, 
              new AffineTransform());
-	
+        
     }
     
     /**<p>
@@ -265,7 +266,7 @@ public final class LinearGradientPaint extends MultipleGradientPaint {
 
         //
         // Check input parameters
-        //	
+        //
         if (start == null || end == null) {
             throw new NullPointerException("Start and end points must be" +
                                            "non-null");
@@ -280,7 +281,7 @@ public final class LinearGradientPaint extends MultipleGradientPaint {
         this.start = (Point2D)start.clone();
 
         this.end = (Point2D)end.clone();
-	
+        
     }
     
     /**
@@ -330,7 +331,7 @@ public final class LinearGradientPaint extends MultipleGradientPaint {
                                                   cycleMethod,
                                                   colorSpace);
         }
-	
+        
         catch(NoninvertibleTransformException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("transform should be" + 

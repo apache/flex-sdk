@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,6 +24,8 @@ import org.w3c.dom.views.AbstractView;
  * The <code>KeyEvent</code> interface provides specific contextual  
  * information associated with Key events. 
  *
+ * @author <a href="mailto:tkormann@ilog.fr">Thierry Kormann</a>
+ * @version $Id: DOMKeyEvent.java 475477 2006-11-15 22:44:28Z cam $
  * @since DOM Level 2 (Working Draft)
  */
 public class DOMKeyEvent extends DOMUIEvent {
@@ -300,7 +303,7 @@ public class DOMKeyEvent extends DOMUIEvent {
                              int keyCodeArg, 
                              int charCodeArg, 
                              AbstractView viewArg) {
-	initUIEvent(typeArg, canBubbleArg, cancelableArg, viewArg, 0);
+        initUIEvent(typeArg, canBubbleArg, cancelableArg, viewArg, 0);
         ctrlKey = ctrlKeyArg;
         altKey = altKeyArg;
         shiftKey = shiftKeyArg;
@@ -309,4 +312,3 @@ public class DOMKeyEvent extends DOMUIEvent {
         charCode = charCodeArg;
     }
 }
-

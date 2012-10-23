@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,13 +18,13 @@
  */
 package org.apache.flex.forks.batik.dom.svg;
 
-import org.apache.flex.forks.batik.dom.util.DoublyIndexedTable;
+import org.apache.flex.forks.batik.util.DoublyIndexedTable;
 
 /**
  * This class is used by elements to initialize and reset their attributes.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: AttributeInitializer.java,v 1.3 2004/08/18 07:13:13 vhardy Exp $
+ * @version $Id: AttributeInitializer.java 592621 2007-11-07 05:58:12Z cam $
  */
 public class AttributeInitializer {
 
@@ -41,7 +42,7 @@ public class AttributeInitializer {
      * The attribute values table.
      */
     protected DoublyIndexedTable values = new DoublyIndexedTable();
-    
+
     /**
      * Creates a new AttributeInitializer.
      */
@@ -60,9 +61,7 @@ public class AttributeInitializer {
         int len = keys.length;
         if (length == len) {
             String[] t = new String[len * 2];
-            for (int i = len - 1; i >= 0; --i) {
-                t[i] = keys[i];
-            }
+            System.arraycopy( keys, 0, t, 0, len );
             keys = t;
         }
         keys[length++] = ns;
@@ -96,9 +95,7 @@ public class AttributeInitializer {
             return false;
         }
         if (prefix != null) {
-            StringBuffer sb = new StringBuffer(prefix.length() + ln.length() + 1);
-            sb.append(prefix).append(':').append(ln);
-            ln = sb.toString();
+            ln = prefix + ':' + ln;
         }
         elt.setUnspecifiedAttribute(ns, ln, val);
         return true;

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,18 +20,18 @@ package org.apache.flex.forks.batik.css.engine.sac;
 
 import java.util.Set;
 
-import org.w3c.flex.forks.css.sac.ElementSelector;
+import org.w3c.css.sac.ElementSelector;
 
 /**
  * This class provides an abstract implementation of the ElementSelector
  * interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: AbstractElementSelector.java,v 1.4 2004/08/18 07:12:50 vhardy Exp $
+ * @version $Id: AbstractElementSelector.java 475685 2006-11-16 11:16:05Z cam $
  */
 public abstract class AbstractElementSelector
     implements ElementSelector,
-	       ExtendedSelector {
+               ExtendedSelector {
 
     /**
      * The namespace URI.
@@ -46,8 +47,8 @@ public abstract class AbstractElementSelector
      * Creates a new ElementSelector object.
      */
     protected AbstractElementSelector(String uri, String name) {
-	namespaceURI = uri;
-	localName    = name;
+        namespaceURI = uri;
+        localName    = name;
     }
 
     /**
@@ -55,28 +56,28 @@ public abstract class AbstractElementSelector
      * @param obj the reference object with which to compare.
      */
     public boolean equals(Object obj) {
-	if (obj == null || !(obj.getClass() != getClass())) {
-	    return false;
-	}
-	AbstractElementSelector s = (AbstractElementSelector)obj;
-	return s.namespaceURI.equals(namespaceURI) &&
-	       s.localName.equals(localName);
+        if (obj == null || (obj.getClass() != getClass())) {
+            return false;
+        }
+        AbstractElementSelector s = (AbstractElementSelector)obj;
+        return (s.namespaceURI.equals(namespaceURI) &&
+                s.localName.equals(localName));
     }
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.ElementSelector#getNamespaceURI()}.
+     * org.w3c.css.sac.ElementSelector#getNamespaceURI()}.
      */
     public String getNamespaceURI() {
-	return namespaceURI;
+        return namespaceURI;
     }
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.ElementSelector#getLocalName()}.
+     * org.w3c.css.sac.ElementSelector#getLocalName()}.
      */
     public String getLocalName() {
-	return localName;
+        return localName;
     }
 
     /**

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,6 +19,7 @@
 package org.apache.flex.forks.batik.swing.gvt;
 
 import java.awt.Cursor;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 
@@ -27,14 +29,14 @@ import java.awt.geom.AffineTransform;
  * InteractorAdapter#startInteraction(InputEvent)} method.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: AbstractPanInteractor.java,v 1.5 2004/08/18 07:15:32 vhardy Exp $
+ * @version $Id: AbstractPanInteractor.java 478176 2006-11-22 14:50:50Z dvholten $
  */
 public abstract class AbstractPanInteractor extends InteractorAdapter {
 
     /**
      * The cursor for panning.
      */
-    public final static Cursor PAN_CURSOR = new Cursor(Cursor.MOVE_CURSOR);
+    public static final Cursor PAN_CURSOR = new Cursor(Cursor.MOVE_CURSOR);
 
     /**
      * Whether the interactor has finished.
@@ -74,7 +76,7 @@ public abstract class AbstractPanInteractor extends InteractorAdapter {
     }
 
     // MouseListener ///////////////////////////////////////////////////////
-        
+
     /**
      * Invoked when a mouse button has been pressed on a component.
      */
@@ -83,7 +85,7 @@ public abstract class AbstractPanInteractor extends InteractorAdapter {
             mouseExited(e);
             return;
         }
-        
+
         finished = false;
 
         xStart = e.getX();
@@ -127,7 +129,7 @@ public abstract class AbstractPanInteractor extends InteractorAdapter {
      */
     public void mouseExited(MouseEvent e) {
         finished = true;
-        
+
         JGVTComponent c = (JGVTComponent)e.getSource();
         c.setPaintingTransform(null);
         if (c.getCursor() == PAN_CURSOR) {
@@ -138,7 +140,7 @@ public abstract class AbstractPanInteractor extends InteractorAdapter {
     // MouseMotionListener /////////////////////////////////////////////////
 
     /**
-     * Invoked when a mouse button is pressed on a component and then 
+     * Invoked when a mouse button is pressed on a component and then
      * dragged.  Mouse drag events will continue to be delivered to
      * the component where the first originated until the mouse button is
      * released (regardless of whether the mouse position is within the

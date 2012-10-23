@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -31,7 +32,7 @@ import org.w3c.dom.Element;
  * attribute on the elements it creates.
  *
  * @author <a href="mailto:vincent.hardy@sun.com">Vincent Hardy</a>
- * @version $Id: SimpleImageHandler.java,v 1.6 2004/08/18 07:15:09 vhardy Exp $
+ * @version $Id: SimpleImageHandler.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class SimpleImageHandler implements GenericImageHandler, SVGSyntax, ErrorConstants {
     // duplicate the string here to remove dependencies on
@@ -183,7 +184,7 @@ public class SimpleImageHandler implements GenericImageHandler, SVGSyntax, Error
               
     protected void handleEmptyImage(Element imageElement) {
         imageElement.setAttributeNS(XLINK_NAMESPACE_URI,
-                                    ATTR_XLINK_HREF, "");
+                                    XLINK_HREF_QNAME, "");
         imageElement.setAttributeNS(null, SVG_WIDTH_ATTRIBUTE, "0");
         imageElement.setAttributeNS(null, SVG_HEIGHT_ATTRIBUTE, "0");
     }

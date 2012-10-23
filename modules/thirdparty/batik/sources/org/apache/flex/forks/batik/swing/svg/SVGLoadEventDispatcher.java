@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -29,13 +30,13 @@ import org.apache.flex.forks.batik.util.EventDispatcher;
 import org.apache.flex.forks.batik.util.EventDispatcher.Dispatcher;
 import org.apache.flex.forks.batik.util.HaltingThread;
 
-import org.w3c.flex.forks.dom.svg.SVGDocument;
+import org.w3c.dom.svg.SVGDocument;
 
 /**
  * This class dispatches the SVGLoadEvent event on a SVG document.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGLoadEventDispatcher.java,v 1.10 2004/10/23 17:11:03 deweese Exp $
+ * @version $Id: SVGLoadEventDispatcher.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class SVGLoadEventDispatcher extends HaltingThread {
 

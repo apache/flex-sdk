@@ -37,10 +37,10 @@ import flex2.compiler.util.CompilerMessage;
 import flex2.compiler.util.ThreadLocalToolkit;
 
 import org.apache.flex.forks.batik.css.parser.Parser;
-import org.w3c.flex.forks.css.sac.CSSException;
-import org.w3c.flex.forks.css.sac.CSSParseException;
-import org.w3c.flex.forks.css.sac.ErrorHandler;
-import org.w3c.flex.forks.css.sac.InputSource;
+import org.w3c.css.sac.CSSException;
+import org.w3c.css.sac.CSSParseException;
+import org.w3c.css.sac.ErrorHandler;
+import org.w3c.css.sac.InputSource;
 
 /**
  * The class is a wrapper around the Batik CSS Parser.  It uses a

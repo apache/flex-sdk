@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -33,11 +34,12 @@ import java.util.Set;
 import org.apache.flex.forks.batik.gvt.event.GraphicsNodeChangeAdapter;
 import org.apache.flex.forks.batik.gvt.event.GraphicsNodeChangeEvent;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.Filter;
+
 /**
  * This class tracks the changes on a GVT tree
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: UpdateTracker.java,v 1.24 2005/03/27 08:58:34 cam Exp $
+ * @version $Id: UpdateTracker.java 479559 2006-11-27 09:46:16Z dvholten $
  */
 public class UpdateTracker extends GraphicsNodeChangeAdapter {
 
@@ -47,7 +49,7 @@ public class UpdateTracker extends GraphicsNodeChangeAdapter {
 
     public UpdateTracker(){
     }
-    
+
     /**
      * Tells whether the GVT tree has changed.
      */
@@ -59,7 +61,7 @@ public class UpdateTracker extends GraphicsNodeChangeAdapter {
      * Returns the list of dirty areas on GVT.
      */
     public List getDirtyAreas() {
-        if (dirtyNodes == null) 
+        if (dirtyNodes == null)
             return null;
 
         List ret = new LinkedList();
@@ -81,7 +83,7 @@ public class UpdateTracker extends GraphicsNodeChangeAdapter {
             if (oat != null){
                 oat = new AffineTransform(oat);
             }
-            
+
             Rectangle2D srcORgn = (Rectangle2D)fromBounds.remove(gnWRef);
 
             Rectangle2D srcNRgn = null;
@@ -125,7 +127,7 @@ public class UpdateTracker extends GraphicsNodeChangeAdapter {
                 if (poat != null) {
                     if (oat != null)
                         oat.preConcatenate(poat);
-                    else 
+                    else
                         oat = new AffineTransform(poat);
                 }
 
@@ -151,7 +153,7 @@ public class UpdateTracker extends GraphicsNodeChangeAdapter {
                     // System.err.println("Src: " + oRgn.getBounds2D());
                     ret.add(oRgn);
                 }
-                
+
                 if (srcNRgn != null) {
                     Shape nRgn = srcNRgn;
                     if (nat != null)
@@ -161,17 +163,20 @@ public class UpdateTracker extends GraphicsNodeChangeAdapter {
                 }
             }
         }
+
+        fromBounds.clear();
+        dirtyNodes.clear();
         return ret;
     }
 
     /**
      * This returns the dirty region for gn in the coordinate system
-     * given by <code>at</at>.
+     * given by <code>at</code>.
      * @param gn Node tree to return dirty region for.
      * @param at Affine transform to coordinate space to accumulate
      *           dirty regions in.
      */
-    public Rectangle2D getNodeDirtyRegion(GraphicsNode gn, 
+    public Rectangle2D getNodeDirtyRegion(GraphicsNode gn,
                                           AffineTransform at) {
         WeakReference gnWRef = gn.getWeakReference();
         AffineTransform nat = (AffineTransform)dirtyNodes.get(gnWRef);
@@ -181,6 +186,7 @@ public class UpdateTracker extends GraphicsNodeChangeAdapter {
             at.concatenate(nat);
         }
 
+        Filter f= gn.getFilter();
         Rectangle2D ret = null;
         if (gn instanceof CompositeGraphicsNode) {
             CompositeGraphicsNode cgn = (CompositeGraphicsNode)gn;
@@ -190,15 +196,24 @@ public class UpdateTracker extends GraphicsNodeChangeAdapter {
                 GraphicsNode childGN = (GraphicsNode)iter.next();
                 Rectangle2D r2d = getNodeDirtyRegion(childGN, at);
                 if (r2d != null) {
+                    if (f != null) {
+                        // If we have a filter and a change region
+                        // Update our full filter extents.
+                        Shape s = at.createTransformedShape(f.getBounds2D());
+                        ret = s.getBounds2D();
+                        break;
+                    }
                     if ((ret == null) || (ret == NULL_RECT)) ret = r2d;
-                    else ret = ret.createUnion(r2d);
+                    //else ret = ret.createUnion(r2d);
+                    else ret.add(r2d);
                 }
             }
         } else {
             ret = (Rectangle2D)fromBounds.remove(gnWRef);
-            if (ret == null) 
-                ret = gn.getBounds();
-            else if (ret == NULL_RECT) 
+            if (ret == null) {
+                if (f != null) ret = f.getBounds2D();
+                else           ret = gn.getBounds();
+            } else if (ret == NULL_RECT)
                 ret = null;
             if (ret != null)
                 ret = at.createTransformedShape(ret).getBounds2D();
@@ -211,7 +226,7 @@ public class UpdateTracker extends GraphicsNodeChangeAdapter {
     }
 
     /**
-     * Recieves notification of a change to a GraphicsNode.
+     * Receives notification of a change to a GraphicsNode.
      * @param gnce The event object describing the GraphicsNode change.
      */
     public void changeStarted(GraphicsNodeChangeEvent gnce) {
@@ -223,7 +238,7 @@ public class UpdateTracker extends GraphicsNodeChangeAdapter {
         if (dirtyNodes == null) {
             dirtyNodes = new HashMap();
             doPut = true;
-        } else if (!dirtyNodes.containsKey(gnWRef)) 
+        } else if (!dirtyNodes.containsKey(gnWRef))
             doPut = true;
 
         if (doPut) {
@@ -252,13 +267,14 @@ public class UpdateTracker extends GraphicsNodeChangeAdapter {
                 // System.err.println("GN: " + gn);
                 // System.err.println("R2d: " + r2d);
                 // System.err.println("Rgn: " + rgn);
-                r2d = r2d.createUnion(rgn);
+                //r2d = r2d.createUnion(rgn);
+                r2d.add(rgn);
                 // System.err.println("Union: " + r2d);
             }
             else             r2d = rgn;
         }
 
-        // if ((gn instanceof CompositeGraphicsNode) && 
+        // if ((gn instanceof CompositeGraphicsNode) &&
         //     (r2d.getWidth() > 200)) {
         //     new Exception("Adding Large: " + gn).printStackTrace();
         // }
@@ -271,7 +287,7 @@ public class UpdateTracker extends GraphicsNodeChangeAdapter {
 
     class ChngSrcRect extends Rectangle2D.Float {
         ChngSrcRect(Rectangle2D r2d) {
-            super((float)r2d.getX(), (float)r2d.getY(), 
+            super((float)r2d.getX(), (float)r2d.getY(),
                   (float)r2d.getWidth(), (float)r2d.getHeight());
         }
     }

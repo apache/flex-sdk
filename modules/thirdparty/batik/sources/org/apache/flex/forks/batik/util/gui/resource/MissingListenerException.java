@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,7 +22,7 @@ package org.apache.flex.forks.batik.util.gui.resource;
  * Signals a missing listener
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: MissingListenerException.java,v 1.4 2005/03/27 08:58:37 cam Exp $
+ * @version $Id: MissingListenerException.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class MissingListenerException extends RuntimeException {
     /**
@@ -67,6 +68,6 @@ public class MissingListenerException extends RuntimeException {
      * Returns a printable representation of this object
      */
     public String toString() {
-	return super.toString()+" ("+getKey()+", bundle: "+getClassName()+")";
+        return super.toString()+" ("+getKey()+", bundle: "+getClassName()+")";
     }
 }

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,6 +26,9 @@ import org.apache.flex.forks.batik.gvt.font.GVTGlyphVector;
 /**
  * This class encapsulates the layout information about a single line
  * in a multi-line flow.
+ *
+ * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
+ * @version $Id: LineInfo.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public class LineInfo {
 
@@ -41,7 +45,7 @@ public class LineInfo {
     Point2D.Float               verticalAlignOffset;
 
     /**
-     * 
+     *
      */
     public LineInfo(Point2D.Float loc,
                     AttributedCharacterIterator aci,
@@ -78,14 +82,15 @@ public class LineInfo {
     public boolean        isPartialLine()       { return partial; }
     public Point2D.Float  getVerticalAlignOffset()    { return verticalAlignOffset; }
 
-    public String         toString() { 
-        return ("[LineInfo loc: " + loc + 
-                " [" + startIdx + "," + endIdx + "] " +
-                " LWidth: " + lineWidth +
-                " Adv: " + advance + " VAdv: " + visualAdvance +
-                " LCW: " + lastCharWidth +
-                " Partial: " + partial +
-                " verticalAlignOffset: " + verticalAlignOffset);
+    public String         toString() {
+        return "[LineInfo loc: " + loc
+                + " [" + startIdx + ',' + endIdx + "] "
+                + " LWidth: " + lineWidth
+                + " Adv: " + advance
+                + " VAdv: " + visualAdvance
+                + " LCW: " + lastCharWidth
+                + " Partial: " + partial
+                + " verticalAlignOffset: " + verticalAlignOffset;
     }
 
 }

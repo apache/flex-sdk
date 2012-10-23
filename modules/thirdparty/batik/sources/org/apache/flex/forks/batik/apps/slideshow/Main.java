@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -14,8 +15,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-*/
-
+ */
 package org.apache.flex.forks.batik.apps.slideshow;
 
 import java.awt.Color;
@@ -36,7 +36,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JWindow;
@@ -51,8 +52,12 @@ import org.apache.flex.forks.batik.gvt.GraphicsNode;
 import org.apache.flex.forks.batik.gvt.renderer.StaticRenderer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.flex.forks.dom.svg.SVGDocument;
+import org.w3c.dom.svg.SVGDocument;
 
+/**
+ *
+ * @version $Id: Main.java 504822 2007-02-08 08:40:18Z dvholten $
+ */
 public class Main extends JComponent {
 
     StaticRenderer renderer;
@@ -67,15 +72,17 @@ public class Main extends JComponent {
     static int duration = 3000;
     static int frameDelay = duration+7000;
 
-    boolean done = false;
+    volatile boolean done = false;
 
-    public Main(File []files, Dimension size) { 
+    public Main(File []files, Dimension size) {
         setBackground(Color.black);
         this.files = files;
-        renderer = new StaticRenderer();
-        userAgent = new UserAgentAdapter();
+        UserAgentAdapter ua = new UserAgentAdapter();
+        renderer  = new StaticRenderer();
+        userAgent = ua;
         loader    = new DocumentLoader(userAgent);
         ctx       = new BridgeContext(userAgent, loader);
+        ua.setBridgeContext(ctx);
 
         if (size == null) {
             size = Toolkit.getDefaultToolkit().getScreenSize();
@@ -94,7 +101,7 @@ public class Main extends JComponent {
 
         size.width += 2;
         size.height += 2;
-        display = new BufferedImage(size.width, size.height, 
+        display = new BufferedImage(size.width, size.height,
                                     BufferedImage.TYPE_INT_BGR);
 
         Thread t = new RenderThread();
@@ -110,6 +117,11 @@ public class Main extends JComponent {
     }
 
     class RenderThread extends Thread {
+        RenderThread(){
+            super("RenderThread");
+            setDaemon( true );
+        }
+
         public void run() {
             renderer.setDoubleBuffered(true);
             for (int i=0; i<files.length; i++) {
@@ -117,29 +129,31 @@ public class Main extends JComponent {
                 GVTBuilder builder = new GVTBuilder();
 
                 try {
-                    System.out.println("Reading: " + files[i]);
-                    Document svgDoc = loader.loadDocument
-                        (files[i].toURL().toString());
-                    System.out.println("Building: " + files[i]);
+                    String fileName = files[ i ].toURL().toString();
+                    System.out.println("Reading: " + fileName );
+                    Document svgDoc = loader.loadDocument( fileName );
+                    System.out.println("Building: " + fileName );
                     gvtRoot = builder.build(ctx, svgDoc);
-                    System.out.println("Rendering: " + files[i]);
+                    System.out.println("Rendering: " + fileName );
                     renderer.setTree(gvtRoot);
 
                     Element elt = ((SVGDocument)svgDoc).getRootElement();
                     renderer.setTransform
                         (ViewBox.getViewTransform
-                         (null, elt, display.getWidth(), display.getHeight()));
+                         (null, elt, display.getWidth(), display.getHeight(),
+                          ctx));
 
-                    renderer.updateOffScreen(display.getWidth(), 
+                    renderer.updateOffScreen(display.getWidth(),
                                              display.getHeight());
 
                     Rectangle r = new Rectangle(0, 0,
-                                                display.getWidth(), 
+                                                display.getWidth(),
                                                 display.getHeight());
                     renderer.repaint(r);
-                    System.out.println("Painting: " + files[i]);
+                    System.out.println("Painting: " + fileName );
                     image = renderer.getOffScreen();
                     setTransition(image);
+
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -151,10 +165,11 @@ public class Main extends JComponent {
                 done = true;
                 setCursor(new Cursor(Cursor.WAIT_CURSOR));
             }
+
         }
     }
 
-    Thread transitionThread = null;
+    volatile Thread transitionThread = null;
 
     public void setTransition(BufferedImage newImg) {
         synchronized (this) {
@@ -171,7 +186,7 @@ public class Main extends JComponent {
 
     long   startLastTransition=0;
 
-    boolean paused = false;
+    volatile boolean paused = false;
 
     public void togglePause() {
         synchronized(this) {
@@ -197,6 +212,8 @@ public class Main extends JComponent {
         int blockh = 75;
 
         public TransitionThread(BufferedImage bi) {
+            super( "TransitionThread");
+            setDaemon( true );
             src = bi;
         }
 
@@ -206,14 +223,14 @@ public class Main extends JComponent {
             int nblocks = xblocks*yblocks;
 
             int tblock = duration/nblocks;
-            
+
             Point [] rects = new Point[nblocks];
             for (int y=0; y<yblocks; y++)
                 for (int x=0; x<xblocks; x++)
                     rects[y*xblocks+x] = new Point(x, y);
 
             Graphics2D g2d = display.createGraphics();
-            g2d.setColor(new Color(0,0,0));
+            g2d.setColor( Color.black );
 
             long currTrans = System.currentTimeMillis();
             while ((currTrans-startLastTransition) < frameDelay) {
@@ -238,12 +255,11 @@ public class Main extends JComponent {
             }
 
             long last = startLastTransition = System.currentTimeMillis();
-            
+
             for (int i=0; i<rects.length; i++) {
                 int idx = (int)(Math.random()*(rects.length-i));
                 Point pt = rects[idx];
-                for (int j=idx+1; j<rects.length-i;j++)
-                    rects[j-1] = rects[j];
+                System.arraycopy( rects, idx + 1, rects, idx + 1 - 1, rects.length - i - idx -1 );  // +1??
                 int x=pt.x*blockw, y=pt.y*blockh;
                 int w=blockw, h = blockh;
                 if (x+w > src.getWidth())  w = src.getWidth()-x;
@@ -272,6 +288,7 @@ public class Main extends JComponent {
                 Main.this.notifyAll();
             }
         }
+
     }
 
     public void paint(Graphics g) {
@@ -281,7 +298,7 @@ public class Main extends JComponent {
         g2d.drawImage(display, null, 0, 0);
     }
 
-    public static void readFileList(String file, Vector fileVec) {
+    public static void readFileList(String file, List fileVec) {
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(file));
@@ -297,7 +314,7 @@ public class Main extends JComponent {
                 int idx = str.indexOf('#');
                 if (idx != -1)
                     str = str.substring(0, idx);
-                str.trim();
+                str = str.trim();
                 if (str.length() == 0)
                     continue;
                 try {
@@ -309,15 +326,17 @@ public class Main extends JComponent {
             }
         } catch (IOException ioe) {
             System.err.println("Error while reading file-list: " + file);
+        } finally {
+            try { br.close(); } catch (IOException ioe) { }
         }
     }
 
     public static void main(String []args) {
 
-        Vector fileVec = new Vector();
+        List fileVec = new ArrayList();
 
         Dimension d = null;
-        
+
         if (args.length == 0) {
             showUsage();
             return;
@@ -339,7 +358,7 @@ public class Main extends JComponent {
                      (args[i].equals("--file-list"))) {
                 if (i+1 == args.length) {
                     System.err.println
-                        ("Must provide name of file list file after " + 
+                        ("Must provide name of file list file after " +
                          args[i]);
                     break;
                 }
@@ -372,10 +391,10 @@ public class Main extends JComponent {
                 } catch (NumberFormatException nfe) {
                     System.err.println
                         ("Can't parse transition time: " + args[i+1]);
-                }                
+                }
             } else if ((args[i].equals("-ws"))||
                        (args[i].equals("--window-size"))) {
-                
+
                 if (i+1 == args.length) {
                     System.err.println
                         ("Must provide window size [w,h] after " + args[i]);
@@ -401,7 +420,7 @@ public class Main extends JComponent {
             } else
                 fileVec.add(args[i]);
         }
-            
+
         File [] files = new File[fileVec.size()];
 
 

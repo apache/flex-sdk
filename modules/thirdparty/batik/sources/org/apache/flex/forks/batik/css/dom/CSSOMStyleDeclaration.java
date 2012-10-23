@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -30,7 +31,7 @@ import org.w3c.dom.css.CSSValue;
  * This class represents a style declaration.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: CSSOMStyleDeclaration.java,v 1.7 2004/08/18 07:12:47 vhardy Exp $
+ * @version $Id: CSSOMStyleDeclaration.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class CSSOMStyleDeclaration implements CSSStyleDeclaration {
 
@@ -82,13 +83,13 @@ public class CSSOMStyleDeclaration implements CSSStyleDeclaration {
      * org.w3c.dom.css.CSSStyleDeclaration#setCssText(String)}.
      */
     public void setCssText(String cssText) throws DOMException {
-	if (handler == null) {
+        if (handler == null) {
             throw new DOMException
                 (DOMException.NO_MODIFICATION_ALLOWED_ERR, "");
-	} else {
+        } else {
             values = null;
             handler.textChanged(cssText);
-	}
+        }
     }
 
     /**
@@ -148,7 +149,7 @@ public class CSSOMStyleDeclaration implements CSSStyleDeclaration {
      * org.w3c.dom.css.CSSStyleDeclaration#setProperty(String,String,String)}.
      */
     public void setProperty(String propertyName, String value, String prio)
-	throws DOMException {
+        throws DOMException {
         if (handler == null) {
             throw new DOMException
                 (DOMException.NO_MODIFICATION_ALLOWED_ERR, "");
@@ -235,7 +236,6 @@ public class CSSOMStyleDeclaration implements CSSStyleDeclaration {
          * Returns the value at the given.
          */
         String item(int idx);
-
     }
 
     /**
@@ -258,7 +258,6 @@ public class CSSOMStyleDeclaration implements CSSStyleDeclaration {
          */
         void propertyChanged(String name, String value, String prio)
             throws DOMException;
-
     }
 
     /**
@@ -307,6 +306,5 @@ public class CSSOMStyleDeclaration implements CSSStyleDeclaration {
         public Value getValue() {
             return CSSOMStyleDeclaration.this.valueProvider.getValue(property);
         }
-
     }
 }

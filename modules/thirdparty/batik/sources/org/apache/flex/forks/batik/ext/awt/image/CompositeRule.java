@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,7 +23,7 @@ package org.apache.flex.forks.batik.ext.awt.image;
  * the CompositeRable operation. (over, in, out, atop, xor, arith)
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: CompositeRule.java,v 1.5 2004/08/18 07:13:48 vhardy Exp $
+ * @version $Id: CompositeRule.java 478249 2006-11-22 17:29:37Z dvholten $
  */
 public final class CompositeRule implements java.io.Serializable {
 
@@ -46,16 +47,16 @@ public final class CompositeRule implements java.io.Serializable {
 
     /** SVG feBlend Multiply rule */
     public static final int RULE_MULTIPLY = 7;
-        
+
     /** SVG feBlend Screen rule */
     public static final int RULE_SCREEN = 8;
-        
+
     /** SVG feBlend Darken rule */
     public static final int RULE_DARKEN = 9;
-        
+
     /** SVG feBlend Lighten rule */
     public static final int RULE_LIGHTEN = 10;
-        
+
 
       /**
        * Porter-Duff Source Over Destination rule. The source is
@@ -134,7 +135,7 @@ public final class CompositeRule implements java.io.Serializable {
        *        Ad = 1 - (1-Ad)*(1-As)
        * </pre>
        */
-    public static final CompositeRule MULTIPLY = 
+    public static final CompositeRule MULTIPLY =
         new CompositeRule(RULE_MULTIPLY);
 
       /**
@@ -144,7 +145,7 @@ public final class CompositeRule implements java.io.Serializable {
        *        Ad = 1 - (1-Ad)*(1-As)
        * </pre>
        */
-    public static final CompositeRule SCREEN = 
+    public static final CompositeRule SCREEN =
         new CompositeRule(RULE_SCREEN);
 
       /**
@@ -155,7 +156,7 @@ public final class CompositeRule implements java.io.Serializable {
        *        Ad = 1 - (1-Ad)*(1-As)
        * </pre>
        */
-    public static final CompositeRule DARKEN = 
+    public static final CompositeRule DARKEN =
         new CompositeRule(RULE_DARKEN);
 
 
@@ -167,7 +168,7 @@ public final class CompositeRule implements java.io.Serializable {
        *        Ad = 1 - (1-Ad)*(1-As)
        * </pre>
        */
-    public static final CompositeRule LIGHTEN = 
+    public static final CompositeRule LIGHTEN =
         new CompositeRule(RULE_LIGHTEN);
 
 
@@ -260,7 +261,7 @@ public final class CompositeRule implements java.io.Serializable {
             return "[CompositeRule: XOR]";
         case RULE_ARITHMETIC:
             return ("[CompositeRule: ARITHMATIC k1:" +
-                    k1 + " k2: " + k2 + " k3: " + k3 + " k4: " + k4 + "]");
+                    k1 + " k2: " + k2 + " k3: " + k3 + " k4: " + k4 + ']' );
         case RULE_MULTIPLY:
             return "[CompositeRule: MULTIPLY]";
         case RULE_SCREEN:

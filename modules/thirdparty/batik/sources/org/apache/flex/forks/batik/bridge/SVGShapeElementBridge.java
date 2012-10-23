@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -30,7 +31,7 @@ import org.w3c.dom.Element;
  * The base bridge class for shapes. Subclasses bridge <tt>ShapeNode</tt>.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGShapeElementBridge.java,v 1.28 2004/08/20 19:29:46 deweese Exp $
+ * @version $Id: SVGShapeElementBridge.java 475477 2006-11-15 22:44:28Z cam $
  */
 public abstract class SVGShapeElementBridge extends AbstractGraphicsNodeBridge {
 
@@ -49,9 +50,12 @@ public abstract class SVGShapeElementBridge extends AbstractGraphicsNodeBridge {
      */
     public GraphicsNode createGraphicsNode(BridgeContext ctx, Element e) {
         ShapeNode shapeNode = (ShapeNode)super.createGraphicsNode(ctx, e);
-	if (shapeNode == null) {
-	    return null;
-	}
+        if (shapeNode == null) {
+            return null;
+        }
+
+        associateSVGContext(ctx, e, shapeNode);
+
         // delegates to subclasses the shape construction
         buildShape(ctx, e, shapeNode);
 
@@ -137,7 +141,7 @@ public abstract class SVGShapeElementBridge extends AbstractGraphicsNodeBridge {
     /**
      * Invoked when the geometry of an graphical element has changed.
      */
-    protected  void handleGeometryChanged() {
+    protected void handleGeometryChanged() {
         super.handleGeometryChanged();
         ShapeNode shapeNode = (ShapeNode)node;
         shapeNode.setShapePainter(createShapePainter(ctx, e, shapeNode));

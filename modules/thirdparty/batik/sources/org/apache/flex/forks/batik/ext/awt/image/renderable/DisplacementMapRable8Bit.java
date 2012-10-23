@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -36,7 +37,7 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.DisplacementMapRed;
  * another image to spatially displace the input image
  *
  * @author <a href="mailto:sheng.pei@eng.sun.com">Sheng Pei</a>
- * @version $Id: DisplacementMapRable8Bit.java,v 1.13 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: DisplacementMapRable8Bit.java 479564 2006-11-27 09:56:57Z dvholten $
  */
 public class DisplacementMapRable8Bit
     extends    AbstractColorInterpolationRable
@@ -70,7 +71,7 @@ public class DisplacementMapRable8Bit
     }
 
     public Rectangle2D getBounds2D(){
-        return ((Filter)(getSources().elementAt(0))).getBounds2D();
+        return ((Filter)(getSources().get(0))).getBounds2D();
     }
 
     /**
@@ -143,9 +144,9 @@ public class DisplacementMapRable8Bit
 
     public RenderedImage createRendering(RenderContext rc) {
         // The source image to be displaced.
-        Filter displaced = (Filter)getSources().elementAt(0);
+        Filter displaced = (Filter)getSources().get(0);
         // The map giving the displacement.
-        Filter map = (Filter)getSources().elementAt(1);
+        Filter map = (Filter)getSources().get(1);
 
         RenderingHints rh = rc.getRenderingHints();
         if (rh == null) rh = new RenderingHints(null);
@@ -204,7 +205,7 @@ public class DisplacementMapRable8Bit
                                       aoiR.getHeight() + scale);
 
         Rectangle2D displacedRect = displaced.getBounds2D();
-        if (aoiR.intersects(displacedRect) == false)
+        if ( ! aoiR.intersects(displacedRect) )
             return null;
 
         aoiR = aoiR.createIntersection(displacedRect);
@@ -237,8 +238,6 @@ public class DisplacementMapRable8Bit
             cr = new AffineRed(cr, resAt, rh);
 
         return cr;
-
-
     }
 
     /**

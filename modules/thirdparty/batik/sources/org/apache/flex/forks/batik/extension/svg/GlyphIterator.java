@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -28,18 +29,21 @@ import org.apache.flex.forks.batik.gvt.font.GVTFont;
 import org.apache.flex.forks.batik.gvt.font.GVTGlyphVector;
 import org.apache.flex.forks.batik.gvt.font.GVTLineMetrics;
 
+/**
+ *
+ * @version $Id: GlyphIterator.java 498740 2007-01-22 18:35:57Z dvholten $
+ */
 public class GlyphIterator {
-    public static final AttributedCharacterIterator.Attribute PREFORMATTED 
+    public static final AttributedCharacterIterator.Attribute PREFORMATTED
         = GVTAttributedCharacterIterator.TextAttribute.PREFORMATTED;
 
-    public static final AttributedCharacterIterator.Attribute FLOW_LINE_BREAK 
+    public static final AttributedCharacterIterator.Attribute FLOW_LINE_BREAK
         = GVTAttributedCharacterIterator.TextAttribute.FLOW_LINE_BREAK;
 
-    public static final AttributedCharacterIterator.Attribute 
-        TEXT_COMPOUND_DELIMITER 
-        = GVTAttributedCharacterIterator.TextAttribute.TEXT_COMPOUND_DELIMITER;
-    public static final 
-        AttributedCharacterIterator.Attribute GVT_FONT 
+    public static final AttributedCharacterIterator.Attribute TEXT_COMPOUND_ID
+        = GVTAttributedCharacterIterator.TextAttribute.TEXT_COMPOUND_ID;
+    public static final
+        AttributedCharacterIterator.Attribute GVT_FONT
         = GVTAttributedCharacterIterator.TextAttribute.GVT_FONT;
 
     public static final char SOFT_HYPHEN       = 0x00AD;
@@ -98,12 +102,12 @@ public class GlyphIterator {
 
     Point2D gvBase = null;
 
-    
+
     public GlyphIterator(AttributedCharacterIterator aci,
                          GVTGlyphVector gv) {
         this.aci       = aci;
         this.gv        = gv;
- 
+
         this.idx       = 0;
         this.chIdx     = 0;
         this.lineIdx   = 0;
@@ -111,7 +115,7 @@ public class GlyphIterator {
         this.charCount = gv.getCharacterCount(idx, idx);
         this.ch        = aci.first();
         this.frc       = gv.getFontRenderContext();
-        
+
         this.font = (GVTFont)aci.getAttribute(GVT_FONT);
         if (font == null) {
             font = new AWTGVTFont(aci.getAttributes());
@@ -122,8 +126,8 @@ public class GlyphIterator {
         this.maxDescent  = -Float.MAX_VALUE;
 
         // Figure out where the font size might change again...
-        this.runLimit  = aci.getRunLimit(TEXT_COMPOUND_DELIMITER);
-        
+        this.runLimit  = aci.getRunLimit(TEXT_COMPOUND_ID);
+
         this.lineBreakRunLimit = aci.getRunLimit(FLOW_LINE_BREAK);
         Object o = aci.getAttribute(FLOW_LINE_BREAK);
         this.lineBreakCount = (o == null)?0:1;
@@ -188,7 +192,7 @@ public class GlyphIterator {
 
     /**
      * @return The index into Attributed Character iterator for
-     * current character.  
+     * current character.
      */
     public int getACIIndex() { return aciIdx; }
 
@@ -217,25 +221,25 @@ public class GlyphIterator {
             updateLineMetrics(newFS);
             fontStart = newFS;
         }
-        return maxFontSize; 
+        return maxFontSize;
     }
 
-    public float getMaxAscent()  { 
+    public float getMaxAscent()  {
         if (aciIdx >= fontStart) {
             int newFS = aciIdx + charCount;
             updateLineMetrics(newFS);
             fontStart = newFS;
         }
-        return maxAscent; 
+        return maxAscent;
     }
 
-    public float getMaxDescent() { 
+    public float getMaxDescent() {
         if (aciIdx >= fontStart) {
             int newFS = aciIdx + charCount;
             updateLineMetrics(newFS);
             fontStart = newFS;
         }
-        return maxDescent; 
+        return maxDescent;
     }
 
     public boolean isLastChar() {
@@ -248,8 +252,8 @@ public class GlyphIterator {
 
     public boolean isBreakChar() {
         switch (ch) {
-        case GlyphIterator.ZERO_WIDTH_SPACE:  return true;            
-        case GlyphIterator.ZERO_WIDTH_JOINER: return false;            
+        case GlyphIterator.ZERO_WIDTH_SPACE:  return true;
+        case GlyphIterator.ZERO_WIDTH_JOINER: return false;
         case GlyphIterator.SOFT_HYPHEN:       return true;
         case ' ': case '\t':                  return true;
         default:                              return false;
@@ -258,14 +262,14 @@ public class GlyphIterator {
 
     protected boolean isPrinting(char tstCH) {
         switch (ch) {
-        case GlyphIterator.ZERO_WIDTH_SPACE:  return false;            
-        case GlyphIterator.ZERO_WIDTH_JOINER: return false;            
+        case GlyphIterator.ZERO_WIDTH_SPACE:  return false;
+        case GlyphIterator.ZERO_WIDTH_JOINER: return false;
         case GlyphIterator.SOFT_HYPHEN:       return true;
         case ' ': case '\t':                  return false;
         default:                              return true;
         }
-    }        
-       
+    }
+
     public int getLineBreaks() {
         int ret = 0;
         if (aciIdx+charCount >= lineBreakRunLimit) {
@@ -289,7 +293,7 @@ public class GlyphIterator {
      * Move iterator to the next char.
      */
     public void nextChar() {
-        if ((ch == SOFT_HYPHEN)      || 
+        if ((ch == SOFT_HYPHEN)      ||
             (ch == ZERO_WIDTH_SPACE) ||
             (ch == ZERO_WIDTH_JOINER)) {
             // Special handling for soft hyphens and zero-width spaces
@@ -307,7 +311,7 @@ public class GlyphIterator {
 
         if (aciIdx >= runLimit) {
             updateLineMetrics(aciIdx);
-            runLimit = aci.getRunLimit(TEXT_COMPOUND_DELIMITER);
+            runLimit = aci.getRunLimit(TEXT_COMPOUND_ID);
             font     = (GVTFont)aci.getAttribute(GVT_FONT);
             if (font == null) {
                 font = new AWTGVTFont(aci.getAttributes());
@@ -332,14 +336,12 @@ public class GlyphIterator {
             leftShiftAmt[0] = chAdv;
         } else {
             int [] newLeftShiftIdx = new int[leftShiftIdx.length+1];
-            for (int i=0; i<leftShiftIdx.length; i++)
-                newLeftShiftIdx[i] = leftShiftIdx[i];
+            System.arraycopy( leftShiftIdx, 0, newLeftShiftIdx, 0, leftShiftIdx.length );
             newLeftShiftIdx[leftShiftIdx.length] = idx;
             leftShiftIdx = newLeftShiftIdx;
 
             float [] newLeftShiftAmt = new float[leftShiftAmt.length+1];
-            for (int i=0; i<leftShiftAmt.length; i++)
-                newLeftShiftAmt[i] = leftShiftAmt[i];
+            System.arraycopy( leftShiftAmt, 0, newLeftShiftAmt, 0, leftShiftAmt.length );
             newLeftShiftAmt[leftShiftAmt.length] = chAdv;
             leftShiftAmt = newLeftShiftAmt;
         }
@@ -356,8 +358,8 @@ public class GlyphIterator {
         if (fontSz >  maxFontSize) maxFontSize = fontSz;
     }
 
-    public LineInfo newLine(Point2D.Float loc, 
-                            float lineWidth, 
+    public LineInfo newLine(Point2D.Float loc,
+                            float lineWidth,
                             boolean partial,
                             Point2D.Float verticalAlignOffset) {
         if (ch == SOFT_HYPHEN) {
@@ -419,8 +421,8 @@ public class GlyphIterator {
         maxAscent   = -Float.MAX_VALUE;
         maxDescent  = -Float.MAX_VALUE;
         maxFontSize = -Float.MAX_VALUE;
-        LineInfo ret = new LineInfo(loc, aci, gv, lineIdx, lineInfoIdx, 
-                            lineInfoAdj, lineInfoAdv, lineInfoChW, 
+        LineInfo ret = new LineInfo(loc, aci, gv, lineIdx, lineInfoIdx,
+                            lineInfoAdj, lineInfoAdv, lineInfoChW,
                                     lineWidth, partial, verticalAlignOffset);
         lineIdx = idx;
 

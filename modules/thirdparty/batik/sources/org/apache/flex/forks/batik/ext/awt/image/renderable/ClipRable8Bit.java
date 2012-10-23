@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -40,10 +41,10 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.RenderedImageCachableR
  * ClipRable implementation
  *
  * @author <a href="mailto:Thomas.DeWeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: ClipRable8Bit.java,v 1.8 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: ClipRable8Bit.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public class ClipRable8Bit
-    extends    AbstractRable 
+    extends    AbstractRable
     implements ClipRable {
 
     protected boolean useAA;
@@ -139,13 +140,13 @@ public class ClipRable8Bit
         Rectangle2D rect     = getBounds2D();
         Rectangle2D clipRect = clipPath.getBounds2D();
         Rectangle2D aoiRect  = aoi.getBounds2D();
-        
-        if (rect.intersects(clipRect) == false)
+
+        if ( ! rect.intersects(clipRect) )
             return null;
         Rectangle2D.intersect(rect, clipRect, rect);
 
-        
-        if (rect.intersects(aoiRect) == false)
+
+        if ( ! rect.intersects(aoiRect) )
             return null;
         Rectangle2D.intersect(rect, aoi.getBounds2D(), rect);
 
@@ -153,7 +154,7 @@ public class ClipRable8Bit
 
         if ((devR.width == 0) || (devR.height == 0))
             return null;
-        
+
         BufferedImage bi = new BufferedImage(devR.width, devR.height,
                                              BufferedImage.TYPE_BYTE_GRAY);
 

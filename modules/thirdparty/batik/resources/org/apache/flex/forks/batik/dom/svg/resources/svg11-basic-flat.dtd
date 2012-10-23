@@ -22,7 +22,7 @@
      It is provided "as is" without expressed or implied warranty.
 
         Author:   Jun Fujisawa <fujisawa.jun@canon.co.jp>
-        Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+        Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
 -->
 <!-- This is the driver file for version 1.1 of the SVG Basic DTD.
@@ -76,7 +76,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -107,7 +107,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -201,7 +201,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -463,7 +463,7 @@
 
      This is SVG Basic, a proper subset of SVG.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -659,7 +659,7 @@
 
      This is SVG Basic, a proper subset of SVG.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -851,7 +851,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -909,7 +909,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -959,7 +959,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -1080,7 +1080,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -1132,7 +1132,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -1209,7 +1209,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -1276,7 +1276,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -1364,7 +1364,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -1421,7 +1421,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -1509,7 +1509,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -1553,7 +1553,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -1902,7 +1902,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -2043,7 +2043,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -2144,7 +2144,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -2233,7 +2233,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -2560,7 +2560,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -2996,7 +2996,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -3077,7 +3077,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -3235,7 +3235,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -3370,7 +3370,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -3479,7 +3479,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -3620,7 +3620,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -4182,7 +4182,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -4268,7 +4268,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -4399,7 +4399,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -4471,7 +4471,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -4542,7 +4542,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -4828,7 +4828,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 
@@ -5214,7 +5214,7 @@
 
      This is SVG, a language for describing two-dimensional graphics in XML.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-basic-flat.dtd,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-basic-flat.dtd 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 

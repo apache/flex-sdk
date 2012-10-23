@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2004 The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -33,7 +34,7 @@ import org.apache.flex.forks.batik.gvt.renderer.StrokingTextPainter;
  * Complete Class Desc
  *
  * @author <a href="mailto:deweese@apache.org">deweese</a>
- * @version $Id: FlowExtTextPainter.java,v 1.2 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: FlowExtTextPainter.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public class FlowExtTextPainter extends StrokingTextPainter {
 
@@ -46,7 +47,7 @@ public class FlowExtTextPainter extends StrokingTextPainter {
      * Returns a unique instance of this class.
      */
     public static TextPainter getInstance() {
-	return singleton;
+        return singleton;
     }
 
     public List getTextRuns(TextNode node, AttributedCharacterIterator aci) {
@@ -84,4 +85,4 @@ public class FlowExtTextPainter extends StrokingTextPainter {
         node.setTextRuns(textRuns);
         return textRuns;
     }
-};
+}

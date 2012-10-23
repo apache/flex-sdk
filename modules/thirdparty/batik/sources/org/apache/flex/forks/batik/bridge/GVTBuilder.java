@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -31,7 +32,7 @@ import org.w3c.dom.Node;
  * This class is responsible for creating a GVT tree using an SVG DOM tree.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: GVTBuilder.java,v 1.30 2005/03/27 08:58:30 cam Exp $
+ * @version $Id: GVTBuilder.java 599681 2007-11-30 02:55:48Z cam $
  */
 public class GVTBuilder implements SVGConstants {
 
@@ -57,10 +58,14 @@ public class GVTBuilder implements SVGConstants {
         ctx.setGVTBuilder(this);
 
         // build the GVT tree
-        RootGraphicsNode rootNode = new RootGraphicsNode();
-        Element svgElement = document.getDocumentElement();
-        GraphicsNode topNode = null;
+        DocumentBridge dBridge = ctx.getDocumentBridge();
+        RootGraphicsNode rootNode = null;
         try {
+            // create the root node
+            rootNode = dBridge.createGraphicsNode(ctx, document);
+            Element svgElement = document.getDocumentElement();
+            GraphicsNode topNode = null;
+
             // get the appropriate bridge according to the specified element
             Bridge bridge = ctx.getBridge(svgElement);
             if (bridge == null || !(bridge instanceof GraphicsNodeBridge)) {
@@ -76,11 +81,12 @@ public class GVTBuilder implements SVGConstants {
 
             buildComposite(ctx, svgElement, (CompositeGraphicsNode)topNode);
             gnBridge.buildGraphicsNode(ctx, svgElement, topNode);
+
+            // finally, build the root node
+            dBridge.buildGraphicsNode(ctx, document, rootNode);
         } catch (BridgeException ex) {
             // update the exception with the missing parameters
             ex.setGraphicsNode(rootNode);
-            Element errElement = ex.getElement();
-            ex.setLineNumber(ctx.getDocumentLoader().getLineNumber(errElement));
             //ex.printStackTrace();
             throw ex; // re-throw the udpated exception
         }
@@ -90,7 +96,7 @@ public class GVTBuilder implements SVGConstants {
             ctx.addUIEventListeners(document);
 
             // register GVT listeners for AWT event support
-            BridgeEventSupport.addGVTListener(ctx, document);
+            ctx.addGVTListener(document);
         }
 
         // <!> FIXME: TO BE REMOVED
@@ -113,16 +119,20 @@ public class GVTBuilder implements SVGConstants {
         // get the appropriate bridge according to the specified element
         Bridge bridge = ctx.getBridge(e);
         if (bridge instanceof GenericBridge) {
-            // If it is a GenericBridge just handle it and return.
+            // If it is a GenericBridge just handle it and any GenericBridge
+            // descendents and return.
             ((GenericBridge) bridge).handleElement(ctx, e);
+            handleGenericBridges(ctx, e);
             return null;
         } else if (bridge == null || !(bridge instanceof GraphicsNodeBridge)) {
+            handleGenericBridges(ctx, e);
             return null;
         }
         // create the associated graphics node
         GraphicsNodeBridge gnBridge = (GraphicsNodeBridge)bridge;
         // check the display property
         if (!gnBridge.getDisplay(e)) {
+            handleGenericBridges(ctx, e);
             return null;
         }
         GraphicsNode gn = gnBridge.createGraphicsNode(ctx, e);
@@ -183,14 +193,18 @@ public class GVTBuilder implements SVGConstants {
         // get the appropriate bridge according to the specified element
         Bridge bridge = ctx.getBridge(e);
         if (bridge instanceof GenericBridge) {
-            // If it is a GenericBridge just handle it and return.
+            // If it is a GenericBridge just handle it and any GenericBridge
+            // descendents and return.
             ((GenericBridge) bridge).handleElement(ctx, e);
+            handleGenericBridges(ctx, e);
             return;
         } else if (bridge == null || !(bridge instanceof GraphicsNodeBridge)) {
+            handleGenericBridges(ctx, e);
             return;
         }
         // check the display property
         if (!CSSUtilities.convertDisplay(e)) {
+            handleGenericBridges(ctx, e);
             return;
         }
         GraphicsNodeBridge gnBridge = (GraphicsNodeBridge)bridge;
@@ -208,6 +222,8 @@ public class GVTBuilder implements SVGConstants {
                     handleGenericBridges(ctx, e);
                 }
                 gnBridge.buildGraphicsNode(ctx, e, gn);
+            } else {
+                handleGenericBridges(ctx, e);
             }
         } catch (BridgeException ex) {
             // some bridge may decide that the node in error can be
@@ -238,6 +254,7 @@ public class GVTBuilder implements SVGConstants {
                 if (b instanceof GenericBridge) {
                     ((GenericBridge) b).handleElement(ctx, e2);
                 }
+                handleGenericBridges(ctx, e2);
             }
         }
     }

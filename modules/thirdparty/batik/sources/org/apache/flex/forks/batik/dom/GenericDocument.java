@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -16,6 +17,8 @@
 
  */
 package org.apache.flex.forks.batik.dom;
+
+import org.apache.flex.forks.batik.util.XMLConstants;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
@@ -35,13 +38,15 @@ import org.w3c.dom.Text;
  * {@link org.w3c.dom.events.DocumentEvent}.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: GenericDocument.java,v 1.11 2005/03/03 01:19:53 deweese Exp $
+ * @version $Id: GenericDocument.java 478249 2006-11-22 17:29:37Z dvholten $
  */
 public class GenericDocument
     extends AbstractDocument {
 
-    /** Local name for 'id' attributes. */
-    protected final static String ATTR_ID = "id";
+    /**
+     * Local name for 'id' attributes.
+     */
+    protected static final String ATTR_ID = XMLConstants.XML_ID_ATTRIBUTE;
 
     /**
      * Is this document immutable?
@@ -76,7 +81,7 @@ public class GenericDocument
     }
 
     /**
-     * Returns true if the given Attr node represents an 'id' 
+     * Returns true if the given Attr node represents an 'id'
      * for this document.
      */
     public boolean isId(Attr node) {
@@ -159,6 +164,9 @@ public class GenericDocument
      */
     public Element createElementNS(String namespaceURI, String qualifiedName)
         throws DOMException {
+        if (namespaceURI != null && namespaceURI.length() == 0) {
+            namespaceURI = null;
+        }
         if (namespaceURI == null) {
             return new GenericElement(qualifiedName.intern(), this);
         } else {
@@ -174,6 +182,9 @@ public class GenericDocument
      */
     public Attr createAttributeNS(String namespaceURI, String qualifiedName)
         throws DOMException {
+        if (namespaceURI != null && namespaceURI.length() == 0) {
+            namespaceURI = null;
+        }
         if (namespaceURI == null) {
             return new GenericAttr(qualifiedName.intern(), this);
         } else {

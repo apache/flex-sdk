@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -15,11 +16,6 @@
    limitations under the License.
 
  */
- 
-/**
- *  Modified by Adobe Flex.  Made ImageCacheEntry class static.
- */
-
 package org.apache.flex.forks.batik.svggen;
 
 import java.io.ByteArrayOutputStream;
@@ -29,9 +25,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
-import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.zip.Adler32;
 import java.util.zip.Checksum;
 
@@ -43,19 +40,19 @@ import org.w3c.dom.Element;
  * This class implements caching functionality for raster images.
  *
  * @author <a href="mailto:paul_evenblij@compuware.com">Paul Evenblij</a>
- * @version $Id: ImageCacher.java,v 1.6 2004/08/18 07:14:59 vhardy Exp $
+ * @version $Id: ImageCacher.java 498747 2007-01-22 18:56:19Z dvholten $
  */
 public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
-  
+
     DOMTreeManager  domTreeManager = null;
-    Hashtable       imageCache;
+    Map             imageCache;
     Checksum        checkSum;
-    
+
     /**
      * Creates an ImageCacher.
      */
     public ImageCacher() {
-        imageCache = new Hashtable();
+        imageCache = new HashMap();
         checkSum = new Adler32();
     }
 
@@ -96,7 +93,7 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
      *
      * @return a URI for the image
      * @throws SVGGraphics2DIOException if an error occurs during image file i/o
-     */     
+     */
     public String lookup(ByteArrayOutputStream os,
                          int width, int height,
                          SVGGeneratorContext ctx)
@@ -108,9 +105,9 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
         int     checksum = getChecksum(os.toByteArray());
         Integer key      = new Integer(checksum);
         String  href     = null;
-        
+
         Object data = getCacheableData(os);
-        
+
         LinkedList list = (LinkedList) imageCache.get(key);
         if(list == null) {
             // Key not found: make a new key/value pair
@@ -126,7 +123,7 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
                 }
             }
         }
-        
+
         if(href == null) {
             // Still no hit: add our own
             ImageCacheEntry newEntry = createEntry(checksum, data,
@@ -135,10 +132,10 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
             list.add(newEntry);
             href = newEntry.href;
         }
- 
+
         return href;
     }
-    
+
     /**
      * Returns an object which can be cached.
      * Implementation must determine which information
@@ -147,7 +144,7 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
      * @param os the byte stream which is to be coerced
      */
     abstract Object getCacheableData(ByteArrayOutputStream os);
-    
+
     /**
      * Determines if two images are equal.
      * Interpretation of the objects referred to by
@@ -193,17 +190,17 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
 
         /** A checksum calculated for the data cached */
         public int checksum;
-        
+
         /** An implementation-dependent object referring to the data */
         public Object src;
-        
+
         /** A uri identifying the data */
         public String href;
 
         /**
          * Creates a new entry
          */
-        public ImageCacheEntry(int    checksum,
+        ImageCacheEntry(int    checksum,
                                Object src,
                                String href) {
             this.checksum = checksum;
@@ -216,7 +213,7 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
      * Cache implementation for images embedded in the SVG file.
      */
     public static class Embedded extends ImageCacher {
-    
+
         /**
          * Sets the DOMTreeManager this cacher should work on.
          *
@@ -227,7 +224,7 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
             // images in the SVG tree itself
             if(this.domTreeManager != domTreeManager) {
                 this.domTreeManager = domTreeManager;
-                this.imageCache     = new Hashtable();
+                this.imageCache     = new HashMap();
             }
         }
 
@@ -237,7 +234,7 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
             // so we can just pass a reference to the tree manager.
             return DATA_PROTOCOL_PNG_PREFIX + os.toString();
         }
-        
+
         boolean imagesMatch(Object o1, Object o2) {
             return o1.equals(o2);
         }
@@ -248,12 +245,12 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
 
             // Get a new unique id
             String id = ctx.idGenerator.generateID(ID_PREFIX_IMAGE);
-            
+
             // Add the image data reference to the <defs> section
             addToTree(id, (String) data, width, height, ctx);
 
             // Create new cache entry
-            return new ImageCacheEntry(checksum, data, SIGN_POUND + id);
+            return new ImageCacheEntry(checksum, data, SIGN_POUND + id);    // <<<<<<<<<< error ??
         }
 
         /**
@@ -266,7 +263,7 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
 
             Document domFactory = domTreeManager.getDOMFactory();
             // Element imageDefs = getImageDefs(domFactory, ctx);
-            
+
             // Create and initialize the new image element
             Element imageElement = domFactory.createElementNS(SVG_NAMESPACE_URI,
                                                               SVG_IMAGE_TAG);
@@ -277,12 +274,12 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
             imageElement.setAttributeNS(null, SVG_HEIGHT_ATTRIBUTE,
                                               Integer.toString(height));
             imageElement.setAttributeNS(DefaultImageHandler.XLINK_NAMESPACE_URI,
-                                              ATTR_XLINK_HREF,
+                                              XLINK_HREF_QNAME,
                                               href);
             // imageDefs.appendChild(imageElement);
             domTreeManager.addOtherDef(imageElement);
         }
-        
+
 
        /**
          *  Returns the top level defs section dedicated to cached
@@ -294,28 +291,28 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
          */
         /*private Element getImageDefs(Document domFactory,
                                      SVGGeneratorContext ctx) {
-        
+
             Element imageDefs = domFactory.createElementNS(SVG_NAMESPACE_URI,
                                                            SVG_DEFS_TAG);
 
-            String id = ctx.idGenerator.generateID(ID_PREFIX_IMAGE_DEFS);        
+            String id = ctx.idGenerator.generateID(ID_PREFIX_IMAGE_DEFS);
             imageDefs.setAttributeNS(null, SVG_ID_ATTRIBUTE, id);
-            
+
             domTreeManager.appendGroup(imageDefs, null);
 
             return imageDefs;
             }*/
     }
-        
+
     /**
      * Cache implementation for file-based images.
      */
     public static class External extends ImageCacher {
-    
+
         private String imageDir;
         private String prefix;
         private String suffix;
-    
+
         public External(String imageDir, String prefix, String suffix) {
             super();
             this.imageDir = imageDir;
@@ -326,24 +323,24 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
         Object getCacheableData(ByteArrayOutputStream os) {
             return os;
         }
-        
+
         boolean imagesMatch(Object o1, Object o2)
                 throws SVGGraphics2DIOException {
             boolean match = false;
-            try {     
+            try {
                 FileInputStream imageStream =
                                     new FileInputStream((File) o1);
                 int imageLen = imageStream.available();
                 byte[] imageBytes = new byte[imageLen];
                 byte[] candidateBytes =
                         ((ByteArrayOutputStream) o2).toByteArray();
-                
+
                 int bytesRead = 0;
                 while (bytesRead != imageLen) {
                     bytesRead += imageStream.read
                       (imageBytes, bytesRead, imageLen-bytesRead);
                 }
-                            
+
                 match = Arrays.equals(imageBytes, candidateBytes);
             } catch(IOException e) {
                 throw new SVGGraphics2DIOException(
@@ -356,11 +353,11 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
                                     int width, int height,
                                     SVGGeneratorContext ctx)
             throws SVGGraphics2DIOException {
-        
+
             // Create a new file in image directory
             File imageFile = null;
 
-            try {    
+            try {
                 // While the files we are generating exist, try to create
                 // another unique id.
                 while (imageFile == null) {
@@ -369,7 +366,7 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
                     if (imageFile.exists())
                         imageFile = null;
                 }
-                
+
                 // Write data to file
                 OutputStream outputStream = new FileOutputStream(imageFile);
                 ((ByteArrayOutputStream) data).writeTo(outputStream);
@@ -377,9 +374,9 @@ public abstract class ImageCacher implements SVGSyntax, ErrorConstants {
             } catch(IOException e) {
                 throw new SVGGraphics2DIOException(ERR_WRITE+imageFile.getName());
             }
-            
+
             // Create new cache entry
-            return new ImageCacheEntry(checksum, imageFile, imageFile.getName());
+            return new ImageCacheEntry(checksum, imageFile, imageFile.getName());   // <<<<<<<<<< error ??
         }
 
     }

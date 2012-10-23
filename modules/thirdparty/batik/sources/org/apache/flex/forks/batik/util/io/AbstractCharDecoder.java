@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,20 +25,20 @@ import java.io.InputStream;
  * This class is the superclass of all the char decoders.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: AbstractCharDecoder.java,v 1.4 2004/08/18 07:15:58 vhardy Exp $
+ * @version $Id: AbstractCharDecoder.java 478169 2006-11-22 14:23:24Z dvholten $
  */
 public abstract class AbstractCharDecoder implements CharDecoder {
 
     /**
      * The buffer size.
      */
-    protected final static int BUFFER_SIZE = 8192;
+    protected static final int BUFFER_SIZE = 8192;
 
     /**
      * The input stream to read.
      */
     protected InputStream inputStream;
-    
+
     /**
      * The input buffer.
      */

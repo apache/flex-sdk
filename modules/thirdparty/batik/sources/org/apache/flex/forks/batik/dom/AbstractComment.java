@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,18 +24,19 @@ import org.w3c.dom.Comment;
  * This class implements the {@link org.w3c.dom.Comment} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: AbstractComment.java,v 1.5 2005/02/22 09:12:57 cam Exp $
+ * @version $Id: AbstractComment.java 475685 2006-11-16 11:16:05Z cam $
  */
 
 public abstract class AbstractComment
     extends    AbstractCharacterData
     implements Comment {
+
     /**
      * <b>DOM</b>: Implements {@link org.w3c.dom.Node#getNodeName()}.
      * @return "#comment".
      */
     public String getNodeName() {
-	return "#comment";
+        return "#comment";
     }
 
     /**
@@ -42,6 +44,13 @@ public abstract class AbstractComment
      * @return {@link org.w3c.dom.Node#COMMENT_NODE}
      */
     public short getNodeType() {
-	return COMMENT_NODE;
+        return COMMENT_NODE;
+    }
+
+    /**
+     * <b>DOM</b>: Implements {@link org.w3c.dom.Node#getTextContent()}.
+     */
+    public String getTextContent() {
+        return getNodeValue();
     }
 }

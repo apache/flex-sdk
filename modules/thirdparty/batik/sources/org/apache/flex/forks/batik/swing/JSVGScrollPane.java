@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,10 +18,10 @@
  */
 package org.apache.flex.forks.batik.swing;
 
-import java.awt.Rectangle;
-import java.awt.Dimension;
 import java.awt.Component;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Rectangle;
 
 import java.awt.event.ComponentAdapter;
 /*
@@ -31,7 +32,7 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.AffineTransform;
 
-import java.awt.event.ComponentEvent; 
+import java.awt.event.ComponentEvent;
 
 import javax.swing.BoundedRangeModel;
 import javax.swing.JScrollBar;
@@ -44,112 +45,140 @@ import javax.swing.event.ChangeEvent;
 import org.apache.flex.forks.batik.bridge.ViewBox;
 import org.apache.flex.forks.batik.bridge.UpdateManagerListener;
 import org.apache.flex.forks.batik.bridge.UpdateManagerEvent;
+import org.apache.flex.forks.batik.dom.events.NodeEventTarget;
 
 import org.apache.flex.forks.batik.gvt.GraphicsNode;
 
-import org.apache.flex.forks.batik.swing.JSVGCanvas;
 import org.apache.flex.forks.batik.swing.gvt.JGVTComponentListener;
+import org.apache.flex.forks.batik.swing.gvt.GVTTreeRendererListener;
+import org.apache.flex.forks.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.flex.forks.batik.swing.svg.SVGDocumentLoaderAdapter;
 import org.apache.flex.forks.batik.swing.svg.SVGDocumentLoaderEvent;
+import org.apache.flex.forks.batik.swing.svg.SVGDocumentLoaderListener;
 import org.apache.flex.forks.batik.swing.svg.GVTTreeBuilderListener;
 import org.apache.flex.forks.batik.swing.svg.GVTTreeBuilderEvent;
 
 import org.apache.flex.forks.batik.util.SVGConstants;
+import org.apache.flex.forks.batik.util.XMLConstants;
 
-import org.w3c.flex.forks.dom.svg.SVGSVGElement;
-import org.w3c.flex.forks.dom.svg.SVGDocument;
+import org.w3c.dom.svg.SVGSVGElement;
+import org.w3c.dom.svg.SVGDocument;
 
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
 
 /**
-*	This is implements a 2D scroller that will scroll an JSVGCanvas.
-*	<p>
-*	Reimplimentation, rather than imlementing the Scrollable interface,
-*	provides several advantages. The main advantage is the ability to 
-*	more precisely control ScrollBar events; fewer JSVGCanvas updates 
-*	are required when scrolling. This creates a significant performance
-*	(reflected by an increase in scroll speed) advantage compared to
-*	implementating the Scrollable interface.
-*	<p>
-*	@author Zach DelProposto
-*/
+ * A Swing component that consists of a JSVGCanvas with optional scroll
+ * bars.
+ * <p>
+ *   Reimplementation, rather than imlementing the Scrollable interface,
+ *   provides several advantages. The main advantage is the ability to
+ *   control more precisely ScrollBar events; fewer JSVGCanvas updates
+ *   are required when scrolling. This creates a significant performance
+ *   (reflected by an increase in scroll speed) advantage compared to
+ *   implementing the Scrollable interface.
+ * </p>
+ * @author Zach DelProposto
+ * @version $Id: JSVGScrollPane.java 579882 2007-09-27 03:53:32Z cam $
+ */
 public class JSVGScrollPane extends JPanel
 {
     protected JSVGCanvas canvas;
-	
+
     protected JPanel horizontalPanel;
     protected JScrollBar vertical;
     protected JScrollBar horizontal;
     protected Component cornerBox;
+    protected boolean scrollbarsAlwaysVisible = false;
+
     protected SBListener hsbListener;
     protected SBListener vsbListener;
-	
-    protected Rectangle2D viewBox = null; // SVG Root element viewbox 
+
+    protected Rectangle2D viewBox = null; // SVG Root element viewbox
     protected boolean ignoreScrollChange = false;
-	
 
     /**
-     *	Creates a JSVGScrollPane, which will scroll an JSVGCanvas.
-     *
+     * Creates a JSVGScrollPane, which will scroll an JSVGCanvas.
      */
-    public JSVGScrollPane(JSVGCanvas canvas)
-    {
+    public JSVGScrollPane(JSVGCanvas canvas) {
         super();
+
         this.canvas = canvas;
         canvas.setRecenterOnResize(false);
 
         // create components
-        vertical = new JScrollBar(JScrollBar.VERTICAL, 0, 0, 0, 0);
+        vertical   = new JScrollBar(JScrollBar.VERTICAL,   0, 0, 0, 0);
         horizontal = new JScrollBar(JScrollBar.HORIZONTAL, 0, 0, 0, 0);
-		
+
         // create a spacer next to the horizontal bar
         horizontalPanel = new JPanel(new BorderLayout());
         horizontalPanel.add(horizontal, BorderLayout.CENTER);
         cornerBox = Box.createRigidArea
-            (new Dimension(vertical.getPreferredSize().width, 
+            (new Dimension(vertical.getPreferredSize().width,
                            horizontal.getPreferredSize().height));
         horizontalPanel.add(cornerBox, BorderLayout.EAST);
-		
+
         // listeners
         hsbListener = createScrollBarListener(false);
         horizontal.getModel().addChangeListener(hsbListener);
-		
+
         vsbListener = createScrollBarListener(true);
         vertical.getModel().addChangeListener(vsbListener);
-		
-        // by default, scrollbars are not visible
-        horizontalPanel.setVisible(false);
-        vertical.setVisible(false);
-		
+
+        // by default, scrollbars are not needed
+        updateScrollbarState(false, false);
+
         // addMouseWheelListener(new WheelListener());
-		
+
         // layout
         setLayout(new BorderLayout());
         add(canvas, BorderLayout.CENTER);
         add(vertical, BorderLayout.EAST);
         add(horizontalPanel, BorderLayout.SOUTH);
-		
+
         // inform of ZOOM events (to print sizes, such as in a status bar)
-        canvas.addSVGDocumentLoaderListener
-            (new SVGScrollDocumentLoaderListener());
-		
+        canvas.addSVGDocumentLoaderListener(createLoadListener());
+
         // canvas listeners
-        ScrollListener xlistener = new ScrollListener();
-        this.addComponentListener(xlistener);
-        canvas.addJGVTComponentListener(xlistener);
-        canvas.addGVTTreeBuilderListener(xlistener);
-        canvas.addUpdateManagerListener(xlistener);
+        ScrollListener xlistener = createScrollListener();
+        addComponentListener(xlistener);
+        canvas.addGVTTreeRendererListener(xlistener);
+        canvas.addJGVTComponentListener  (xlistener);
+        canvas.addGVTTreeBuilderListener (xlistener);
+        canvas.addUpdateManagerListener  (xlistener);
     }// JSVGScrollPane()
 
+    public boolean getScrollbarsAlwaysVisible() {
+        return scrollbarsAlwaysVisible;
+    }
+
+    public void setScrollbarsAlwaysVisible(boolean vis) {
+        scrollbarsAlwaysVisible = vis;
+        resizeScrollBars();
+    }
 
     /**
      * Scrollbar listener factory method so subclasses can
-     * use a subclass of SBListener if needed.
+     * override the default SBListener behaviour.
      */
     protected SBListener createScrollBarListener(boolean isVertical) {
         return new SBListener(isVertical);
+    }
+
+    /**
+     * Factory method so subclasses can override the default listener behaviour
+     */
+    protected ScrollListener createScrollListener() {
+        return new ScrollListener();
+    }
+
+
+    /**
+     * Factory method so subclasses can override the default load listener.
+     */
+    protected SVGDocumentLoaderListener createLoadListener() {
+        return new SVGScrollDocumentLoaderListener();
     }
 
     public JSVGCanvas getCanvas() {
@@ -159,40 +188,40 @@ public class JSVGScrollPane extends JPanel
 
     class SVGScrollDocumentLoaderListener extends SVGDocumentLoaderAdapter {
         public void documentLoadingCompleted(SVGDocumentLoaderEvent e) {
-            SVGSVGElement root = e.getSVGDocument().getRootElement();
-            root.addEventListener
-                (SVGConstants.SVG_SVGZOOM_EVENT_TYPE, 
+            NodeEventTarget root
+                = (NodeEventTarget) e.getSVGDocument().getRootElement();
+            root.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI,
+                 SVGConstants.SVG_SVGZOOM_EVENT_TYPE,
                  new EventListener() {
                      public void handleEvent(Event evt) {
                          if (!(evt.getTarget() instanceof SVGSVGElement))
                              return;
-                         // assert(evt.getType() == 
+                         // assert(evt.getType() ==
                          //        SVGConstants.SVG_SVGZOOM_EVENT_TYPE);
                          SVGSVGElement svg = (SVGSVGElement) evt.getTarget();
                          scaleChange(svg.getCurrentScale());
                      } // handleEvent()
-                 }, false);
-        }// documentLoadingCompleted()			
-    };
-	
-	
+                 }, false, null);
+        }// documentLoadingCompleted()
+    }
+
+
     /**
-     *	Resets this object (for reloads),
-     *	releasing any cached data and recomputing
-     *	scroll extents.
+     *        Resets this object (for reloads),
+     *        releasing any cached data and recomputing
+     *        scroll extents.
      */
-    public void reset()
-    {
+    public void reset() {
         viewBox = null;
-        horizontalPanel.setVisible(false);
-        vertical.setVisible(false);
+        updateScrollbarState(false, false);
         revalidate();
     }// reset()
-	
-	
+
+
     /**
-     *	Sets the translation portion of the transform based upon the
-     *	current scroll bar position
+     *        Sets the translation portion of the transform based upon the
+     *        current scroll bar position
      */
     protected void setScrollPosition() {
         checkAndSetViewBoxRect();
@@ -220,27 +249,29 @@ public class JSVGScrollPane extends JPanel
             (AffineTransform.getTranslateInstance(-deltaX, -deltaY));
         canvas.setRenderingTransform(crt);
     }// setScrollPosition()
-	
-	
-	
+
+
+
     /**
-     *	MouseWheel Listener
-     *	<p>
-     *	Provides mouse wheel support. The mouse wheel will scroll the currently
-     *	displayed scroll bar, if only one is displayed. If two scrollbars are 
-     *	displayed, the mouse wheel will only scroll the vertical scrollbar.
+     * MouseWheel listener.
+     * <p>
+     * Provides mouse wheel support. The mouse wheel will scroll the currently
+     * displayed scroll bar, if only one is displayed. If two scrollbars are
+     * displayed, the mouse wheel will only scroll the vertical scrollbar.
      *
-     *  This is commented out because it requires JDK 1.4 and currently
-     *  Batik targets JDK 1.3.
+     * This is commented out because it requires JDK 1.4 and currently
+     * Batik targets JDK 1.3.
+     *
+     * TODO Move this to a JDK 1.4 specific class in sources-1.4.
      */
     /*
     protected class WheelListener implements MouseWheelListener
     {
         public void mouseWheelMoved(MouseWheelEvent e)
         {
-            final JScrollBar sb = (vertical.isVisible()) ? 
-                vertical : horizontal;	// vertical is preferred
-			
+            final JScrollBar sb = (vertical.isVisible()) ?
+                vertical : horizontal;        // vertical is preferred
+
             if(e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) {
                 final int amt = e.getUnitsToScroll() * sb.getUnitIncrement();
                 sb.setValue(sb.getValue() + amt);
@@ -248,27 +279,29 @@ public class JSVGScrollPane extends JPanel
                 final int amt = e.getWheelRotation() * sb.getBlockIncrement();
                 sb.setValue(sb.getValue() + amt);
             }
-			
+
         }// mouseWheelMoved()
     }// inner class WheelListener
     */
-	
-	
+
+
     /**
-     *	Advanced JScrollBar listener. 
-     *	<p>
-     *	<b>A separate listener must be attached to each scrollbar,
-     *	since we keep track of mouse state for each scrollbar
-     *	separately!</b> 
-     *  <p> 
-     *  This coalesces drag events so we don't track them, and
-     *  'passes through' click events. It doesn't coalesce as many
-     *  events as it should, but it helps * considerably.
+     * Advanced JScrollBar listener.
+     * <p>
+     *   <b>A separate listener must be attached to each scrollbar,
+     *     since we keep track of mouse state for each scrollbar
+     *     separately!</b>
+     * </p>
+     * <p>
+     *   This coalesces drag events so we don't track them, and
+     *   'passes through' click events. It doesn't coalesce as many
+     *   events as it should, but it helps considerably.
+     * </p>
      */
     protected class SBListener implements ChangeListener
     {
         // 'true' if we are in a drag (versus a click)
-        protected boolean inDrag = false; 
+        protected boolean inDrag = false;
         protected int startValue;
 
         protected boolean isVertical;
@@ -277,7 +310,7 @@ public class JSVGScrollPane extends JPanel
         {
             isVertical = vertical;
         }// SBListener()
-			
+
         public synchronized void stateChanged(ChangeEvent e)
         {
             // only respond to changes if we are NOT being dragged
@@ -285,7 +318,7 @@ public class JSVGScrollPane extends JPanel
             if(ignoreScrollChange) return;
 
             Object src = e.getSource();
-            if (!(src instanceof BoundedRangeModel)) 
+            if (!(src instanceof BoundedRangeModel))
                 return;
 
             int val = ((isVertical)?vertical.getValue():
@@ -319,44 +352,41 @@ public class JSVGScrollPane extends JPanel
             }
         }// stateChanged()
     }// inner class SBListener
-	
-	
-	
+
+
     /** Handle scroll, zoom, and resize events */
-    protected class ScrollListener extends ComponentAdapter 
-        implements JGVTComponentListener, GVTTreeBuilderListener, 
-                   UpdateManagerListener
+    protected class ScrollListener extends ComponentAdapter
+        implements JGVTComponentListener, GVTTreeBuilderListener,
+                   GVTTreeRendererListener, UpdateManagerListener
     {
         protected boolean isReady = false;
-		
+
         public void componentTransformChanged(ComponentEvent evt)
         {
             if(isReady)
                 resizeScrollBars();
         }// componentTransformChanged()
-		
-		
+
+
         public void componentResized(ComponentEvent evt)
         {
             if(isReady)
                 resizeScrollBars();
         }// componentResized()
-		
-		
-        public void gvtBuildPrepare  (GVTTreeBuilderEvent e) { 
+
+
+        public void gvtBuildStarted  (GVTTreeBuilderEvent e) {
             isReady = false;
             // Start by assuming we won't need them.
-            vertical       .setVisible(false);
-            horizontalPanel.setVisible(false);
-            cornerBox      .setVisible(false);
+            updateScrollbarState(false, false);
         }
         public void gvtBuildCompleted(GVTTreeBuilderEvent e)
         {
             isReady = true;
             viewBox = null;   // new document forget old viewBox if any.
         }// gvtRenderingCompleted()
-		
-        public void updateCompleted(UpdateManagerEvent e) { 
+
+        public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
             if (viewBox == null) {
                 resizeScrollBars();
                 return;
@@ -371,11 +401,31 @@ public class JSVGScrollPane extends JPanel
                 resizeScrollBars();
             }
         }
-		
+
+        public void updateCompleted(UpdateManagerEvent e) {
+            if (viewBox == null) {
+                resizeScrollBars();
+                return;
+            }
+
+            Rectangle2D newview = getViewBoxRect();
+            if ((newview.getX() != viewBox.getX()) ||
+                (newview.getY() != viewBox.getY()) ||
+                (newview.getWidth() != viewBox.getWidth()) ||
+                (newview.getHeight() != viewBox.getHeight())) {
+                viewBox = newview;
+                resizeScrollBars();
+            }
+        }
+
 
         public void gvtBuildCancelled(GVTTreeBuilderEvent e) { }
         public void gvtBuildFailed   (GVTTreeBuilderEvent e) { }
-        public void gvtBuildStarted  (GVTTreeBuilderEvent e) { }
+
+        public void gvtRenderingPrepare  (GVTTreeRendererEvent e) { }
+        public void gvtRenderingStarted  (GVTTreeRendererEvent e) { }
+        public void gvtRenderingCancelled(GVTTreeRendererEvent e) { }
+        public void gvtRenderingFailed   (GVTTreeRendererEvent e) { }
 
         public void managerStarted  (UpdateManagerEvent e) { }
         public void managerSuspended(UpdateManagerEvent e) { }
@@ -385,11 +435,11 @@ public class JSVGScrollPane extends JPanel
         public void updateFailed    (UpdateManagerEvent e) { }
 
     }// inner class ScrollListener
-	
-	
+
+
     /**
-     *	Compute the scrollbar extents, and determine if 
-     *	scrollbars should be visible.
+     *        Compute the scrollbar extents, and determine if
+     *        scrollbars should be visible.
      *
      */
     protected void resizeScrollBars()
@@ -405,7 +455,7 @@ public class JSVGScrollPane extends JPanel
         if (vbt == null) vbt = new AffineTransform();
 
         Rectangle r2d = vbt.createTransformedShape(viewBox).getBounds();
-        // System.out.println("VB: " + r2d);
+        // System.err.println("VB: " + r2d);
 
         // compute translation
         int maxW = r2d.width;
@@ -416,31 +466,33 @@ public class JSVGScrollPane extends JPanel
         if (r2d.y > 0) maxH += r2d.y;
         else           ty   -= r2d.y;
 
-        // System.err.println("   maxW = "+maxW+"; maxH = "+maxH + 
+        // System.err.println("   maxW = "+maxW+"; maxH = "+maxH +
         //                    " tx = "+tx+"; ty = "+ty);
-        vertical.setValue(ty);
-        horizontal.setValue(tx);
 
         // Changing scrollbar visibility may change the
         // canvas's dimensions so get the end result.
-        Dimension vpSize = updateScrollbarVisibility
-            (tx, ty, maxW, maxH);
+        Dimension vpSize = updateScrollbarVisibility(tx, ty, maxW, maxH);
 
         // set scroll params
         vertical.  setValues(ty, vpSize.height, 0, maxH);
         horizontal.setValues(tx, vpSize.width,  0, maxW);
-		
-        // set block scroll; this should be equal to a full 'page', 
+
+        // set block scroll; this should be equal to a full 'page',
         // minus a small amount to keep a portion in view
         // that small amount is 10%.
         vertical.  setBlockIncrement( (int) (0.9f * vpSize.height) );
         horizontal.setBlockIncrement( (int) (0.9f * vpSize.width) );
-		
+
         // set unit scroll. This is arbitrary, but we define
-        // it to be 20% of the current viewport. 
+        // it to be 20% of the current viewport.
         vertical.  setUnitIncrement( (int) (0.2f * vpSize.height) );
         horizontal.setUnitIncrement( (int) (0.2f * vpSize.width) );
-		
+
+        doLayout();
+        horizontalPanel.doLayout();
+        horizontal.doLayout();
+        vertical.doLayout();
+
         ignoreScrollChange = false;
         //System.out.println("  -- end resizeScrollBars()");
     }// resizeScrollBars()
@@ -458,6 +510,7 @@ public class JSVGScrollPane extends JPanel
         // minVPW/H is the viewport W/H with scrollbars.
         int maxVPW = vpSize.width;  int minVPW = vpSize.width;
         int maxVPH = vpSize.height; int minVPH = vpSize.height;
+
         if (vertical.isVisible()) {
             maxVPW += vertical.getPreferredSize().width;
         } else {
@@ -474,65 +527,55 @@ public class JSVGScrollPane extends JPanel
         // System.err.println("MAX: [" + maxW + "," + maxH + "]");
 
         // Fist check if we need either scrollbar (given maxVPW/H).
-        boolean vVis = (maxH > maxVPH) || (vertical.getValue() != 0);
-        boolean hVis = (maxW > maxVPW) || (horizontal.getValue() != 0);
+        boolean hNeeded, vNeeded;
         Dimension ret = new Dimension();
-        
-        // This makes sure that if one scrollbar is visible
-        // we 'recheck' the other scroll bar with the minVPW/H
-        // since making one visible makes the room for displaying content
-        // in the other dimension smaller. (This also makes the
-        // 'corner box' visible if both scroll bars are visible).
-        if (vVis) {
-            if (hVis) {
-                horizontalPanel.setVisible(true);
-                vertical.setVisible(true);
-                cornerBox.setVisible(true);
 
-                ret.width  = minVPW;
-                ret.height = minVPH;
-            } else {
-                vertical.setVisible(true);
-                ret.width = minVPW;
-                if (maxW > minVPW) {
-                    horizontalPanel.setVisible(true);
-                    cornerBox.setVisible(true);
-                    ret.height = minVPH;
-                } else {
-                    horizontalPanel.setVisible(false);
-                    cornerBox.setVisible(false);
-                    ret.height = maxVPH;
-                }
-            }
+        if (scrollbarsAlwaysVisible) {
+            hNeeded = (maxW > minVPW);
+            vNeeded = (maxH > minVPH);
+            ret.width  = minVPW;
+            ret.height = minVPH;
         } else {
-            if (hVis) {
-                horizontalPanel.setVisible(true);
-                ret.height = minVPH;
-                if (maxH > minVPH) {
-                    vertical.setVisible(true);
-                    cornerBox.setVisible(true);
-                    ret.width  = minVPW;
-                } else {
-                    vertical.setVisible(false);
-                    cornerBox.setVisible(false);
-                    ret.width  = maxVPW;
-                }
-            } else {
-                vertical       .setVisible(false);
-                horizontalPanel.setVisible(false);
-                cornerBox      .setVisible(false);
-                ret.width  = maxVPW;
-                ret.height = maxVPH;
-            }
+            hNeeded = (maxW > maxVPW) || (tx != 0);
+            vNeeded = (maxH > maxVPH) || (ty != 0);
+            // System.err.println("Vis flags: " + hNeeded +", " + vNeeded);
+
+            // This makes sure that if one scrollbar is visible
+            // we 'recheck' the other scroll bar with the minVPW/H
+            // since making one visible makes the room for displaying content
+            // in the other dimension smaller. (This also makes the
+            // 'corner box' visible if both scroll bars are visible).
+            if      (vNeeded && !hNeeded) hNeeded = (maxW > minVPW);
+            else if (hNeeded && !vNeeded) vNeeded = (maxH > minVPH);
+
+            ret.width  = (hNeeded)?minVPW:maxVPW;
+            ret.height = (vNeeded)?minVPH:maxVPH;
         }
+
+        updateScrollbarState(hNeeded, vNeeded);
 
         //  Return the new size of the canvas.
         return ret;
     }
-	
-    /** 
-     *	Derives the SVG Viewbox from the SVG root element. 
-     *	Caches it. Assumes that it will not change.
+
+    protected void updateScrollbarState(boolean hNeeded, boolean vNeeded) {
+        horizontal.setEnabled(hNeeded);
+        vertical  .setEnabled(vNeeded);
+
+        if (scrollbarsAlwaysVisible) {
+            horizontalPanel.setVisible(true);
+            vertical       .setVisible(true);
+            cornerBox      .setVisible(true);
+        } else {
+            horizontalPanel.setVisible(hNeeded);
+            vertical       .setVisible(vNeeded);
+            cornerBox      .setVisible(hNeeded&&vNeeded);
+        }
+    }
+
+    /**
+     *        Derives the SVG Viewbox from the SVG root element.
+     *        Caches it. Assumes that it will not change.
      *
      */
     protected void checkAndSetViewBoxRect() {
@@ -554,26 +597,26 @@ public class JSVGScrollPane extends JPanel
         String viewBoxStr = el.getAttributeNS
             (null, SVGConstants.SVG_VIEW_BOX_ATTRIBUTE);
         if (viewBoxStr.length() != 0) {
-            float[] rect = ViewBox.parseViewBoxAttribute(el, viewBoxStr);
-            return new Rectangle2D.Float(rect[0], rect[1], 
-                                            rect[2], rect[3]);
+            float[] rect = ViewBox.parseViewBoxAttribute(el, viewBoxStr, null);
+            return new Rectangle2D.Float(rect[0], rect[1],
+                                         rect[2], rect[3]);
         }
         GraphicsNode gn = canvas.getGraphicsNode();
         if (gn == null) return null;
 
-        return (Rectangle2D)gn.getBounds().clone();
+        Rectangle2D bounds = gn.getBounds();
+        if (bounds == null) return null;
+
+        return (Rectangle2D) bounds.clone();
     }
-	
-    /** 
-     *	Called when the scale size changes. The scale factor
-     *	(1.0 == original size). By default, this method does
-     *	nothing, but may be overidden to display a scale
-     *	(zoom) factor in a status bar, for example.
+
+    /**
+     * Called when the scale size changes. The scale factor
+     * (1.0 == original size). By default, this method does
+     * nothing, but may be overidden to display a scale
+     * (zoom) factor in a status bar, for example.
      */
-    public void scaleChange(float scale)
-    {
+    public void scaleChange(float scale) {
         // do nothing
     }
 }// class JSVGScrollPane
-
-

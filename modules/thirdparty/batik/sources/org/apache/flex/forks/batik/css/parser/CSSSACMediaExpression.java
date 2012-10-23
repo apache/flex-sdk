@@ -22,7 +22,7 @@
 
 package org.apache.flex.forks.batik.css.parser;
 
-import org.w3c.flex.forks.css.sac.LexicalUnit;
+import org.w3c.css.sac.LexicalUnit;
 
 public final class CSSSACMediaExpression {
 	private final String mediaFeature;

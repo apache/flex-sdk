@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,6 +20,7 @@ package org.apache.flex.forks.batik.swing;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+// import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -43,25 +45,32 @@ import javax.swing.KeyStroke;
 import javax.swing.ToolTipManager;
 
 import org.apache.flex.forks.batik.bridge.UserAgent;
+import org.apache.flex.forks.batik.css.engine.CSSEngine;
+import org.apache.flex.forks.batik.dom.events.NodeEventTarget;
 import org.apache.flex.forks.batik.swing.gvt.AbstractImageZoomInteractor;
 import org.apache.flex.forks.batik.swing.gvt.AbstractPanInteractor;
 import org.apache.flex.forks.batik.swing.gvt.AbstractResetTransformInteractor;
 import org.apache.flex.forks.batik.swing.gvt.AbstractRotateInteractor;
 import org.apache.flex.forks.batik.swing.gvt.AbstractZoomInteractor;
 import org.apache.flex.forks.batik.swing.gvt.Interactor;
+// import org.apache.flex.forks.batik.swing.gvt.Overlay;
 import org.apache.flex.forks.batik.swing.svg.JSVGComponent;
 import org.apache.flex.forks.batik.swing.svg.SVGDocumentLoaderEvent;
 import org.apache.flex.forks.batik.swing.svg.SVGUserAgent;
 import org.apache.flex.forks.batik.util.SVGConstants;
 import org.apache.flex.forks.batik.util.XMLConstants;
+// import org.apache.flex.forks.batik.util.gui.DOMViewer;
+// import org.apache.flex.forks.batik.util.gui.DOMViewerController;
+// import org.apache.flex.forks.batik.util.gui.ElementOverlayManager;
 import org.apache.flex.forks.batik.util.gui.JErrorPane;
 
+// import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
-import org.w3c.flex.forks.dom.svg.SVGDocument;
+import org.w3c.dom.svg.SVGDocument;
 
 /**
  * This class represents a general-purpose swing SVG component. The
@@ -73,7 +82,7 @@ import org.w3c.flex.forks.dom.svg.SVGDocument;
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: JSVGCanvas.java,v 1.52 2005/03/27 08:58:36 cam Exp $
+ * @version $Id: JSVGCanvas.java 594379 2007-11-13 01:08:28Z cam $
  */
 public class JSVGCanvas extends JSVGComponent {
 
@@ -185,7 +194,13 @@ public class JSVGCanvas extends JSVGComponent {
      */
     protected Map toolTipMap = null;
     protected EventListener toolTipListener = new ToolTipModifier();
-    protected EventTarget   lastTarget = null;;
+    protected EventTarget   lastTarget = null;
+    protected Map toolTipDocs = null;
+    /**
+     * This is used as the value in the toolTipDocs WeakHashMap.
+     * This way we can tell if a document has already been added.
+     */
+    protected static final Object MAP_TOKEN = new Object();
     /**
      * The time of the last tool tip event.
      */
@@ -533,7 +548,7 @@ public class JSVGCanvas extends JSVGComponent {
     /**
      * To hide the listener methods. This class just reset the tooltip.
      */
-    protected class CanvasSVGListener extends JSVGComponent.SVGListener {
+    protected class CanvasSVGListener extends ExtendedSVGListener {
 
         /**
          * Called when the loading of a document was started.
@@ -546,33 +561,80 @@ public class JSVGCanvas extends JSVGComponent {
     }
 
     protected void installSVGDocument(SVGDocument doc) {
-        if (svgDocument != null) {
-            EventTarget root;
-            root = (EventTarget)svgDocument.getRootElement();
-            root.removeEventListener(SVGConstants.SVG_EVENT_MOUSEOVER,
-                                     toolTipListener, false);
-            root.removeEventListener(SVGConstants.SVG_EVENT_MOUSEOUT,
-                                     toolTipListener, false);
-            lastTarget = null;
+        if (toolTipDocs != null) {
+            Iterator i = toolTipDocs.keySet().iterator();
+            while (i.hasNext()) {
+                SVGDocument ttdoc;
+                ttdoc = (SVGDocument)i.next();
+                if (ttdoc == null) continue;
+
+                NodeEventTarget root;
+                root = (NodeEventTarget)ttdoc.getRootElement();
+                if (root == null) continue;
+                root.removeEventListenerNS
+                    (XMLConstants.XML_EVENTS_NAMESPACE_URI,
+                     SVGConstants.SVG_EVENT_MOUSEOVER,
+                     toolTipListener, false);
+                root.removeEventListenerNS
+                    (XMLConstants.XML_EVENTS_NAMESPACE_URI,
+                     SVGConstants.SVG_EVENT_MOUSEOUT,
+                     toolTipListener, false);
+            }
+            toolTipDocs = null;
         }
+        lastTarget = null;
 
         if (toolTipMap != null) {
             toolTipMap.clear();
         }
 
-        if (doc != null) {
-            EventTarget root;
-            root = (EventTarget)doc.getRootElement();
-            // On mouseover, it sets the tooltip to the given value
-            root.addEventListener(SVGConstants.SVG_EVENT_MOUSEOVER,
-                                  toolTipListener, false);
-            // On mouseout, it removes the tooltip
-            root.addEventListener(SVGConstants.SVG_EVENT_MOUSEOUT,
-                                  toolTipListener, false);
-        }
-
         super.installSVGDocument(doc);
     }
+
+//     // DOMViewerController
+// 
+//     /**
+//      * DOMViewerController implementation.
+//      */
+//     protected class CanvasDOMViewerController implements DOMViewerController {
+// 
+//         public boolean canEdit() {
+//             return getUpdateManager() != null;
+//         }
+// 
+//         public ElementOverlayManager createSelectionManager() {
+//             if (canEdit()) {
+//                 return new ElementOverlayManager(JSVGCanvas.this);
+//             }
+//             return null;
+//         }
+// 
+//         public Document getDocument() {
+//             return svgDocument;
+//         }
+// 
+//         public void performUpdate(Runnable r) {
+//             if (canEdit()) {
+//                 getUpdateManager().getUpdateRunnableQueue().invokeLater(r);
+//             } else {
+//                 r.run();
+//             }
+//         }
+// 
+//         public void removeSelectionOverlay(Overlay selectionOverlay) {
+//             getOverlays().remove(selectionOverlay);
+//         }
+// 
+//         public void selectNode(Node node) {
+//             DOMViewer domViewer = new DOMViewer(this);
+//             Rectangle fr = getBounds();
+//             Dimension td = domViewer.getSize();
+//             domViewer.setLocation(fr.x + (fr.width - td.width) / 2,
+//                                   fr.y + (fr.height - td.height) / 2);
+//             domViewer.setVisible(true);
+//             domViewer.selectNode(node);
+//         }
+//     }
 
     // ----------------------------------------------------------------------
     // Actions
@@ -825,12 +887,12 @@ public class JSVGCanvas extends JSVGComponent {
 
             // Don't handle tool tips unless we are interactive.
             if (!isInteractive()) return;
-            
+
             if (!SVGConstants.SVG_NAMESPACE_URI.equals(elt.getNamespaceURI()))
                 return;
 
             // Don't handle tool tips for the root SVG element.
-            if (elt.getParentNode() == 
+            if (elt.getParentNode() ==
                 elt.getOwnerDocument().getDocumentElement()) {
                 return;
             }
@@ -844,13 +906,13 @@ public class JSVGCanvas extends JSVGComponent {
             Element descPeer = null;
             Element titlePeer = null;
             if (elt.getLocalName().equals(SVGConstants.SVG_TITLE_TAG)) {
-                if (data == Boolean.TRUE) 
+                if (data == Boolean.TRUE)
                     titlePeer = elt;
                 descPeer = getPeerWithTag(parent,
                                            SVGConstants.SVG_NAMESPACE_URI,
                                            SVGConstants.SVG_DESC_TAG);
             } else if (elt.getLocalName().equals(SVGConstants.SVG_DESC_TAG)) {
-                if (data == Boolean.TRUE) 
+                if (data == Boolean.TRUE)
                     descPeer = elt;
                 titlePeer = getPeerWithTag(parent,
                                            SVGConstants.SVG_NAMESPACE_URI,
@@ -966,7 +1028,7 @@ public class JSVGCanvas extends JSVGComponent {
                                       String nameSpaceURI,
                                       String localName) {
 
-            Element p = (Element)parent;
+            Element p = parent;
             if (p == null) {
                 return null;
             }
@@ -1002,6 +1064,24 @@ public class JSVGCanvas extends JSVGComponent {
         public void setToolTip(Element elt, String toolTip){
             if (toolTipMap == null) {
                 toolTipMap = new WeakHashMap();
+            }
+            if (toolTipDocs == null) {
+                toolTipDocs = new WeakHashMap();
+            }
+            SVGDocument doc = (SVGDocument)elt.getOwnerDocument();
+            if (toolTipDocs.put(doc, MAP_TOKEN) == null) {
+                NodeEventTarget root;
+                root = (NodeEventTarget)doc.getRootElement();
+                // On mouseover, it sets the tooltip to the given value
+                root.addEventListenerNS(XMLConstants.XML_EVENTS_NAMESPACE_URI,
+                                        SVGConstants.SVG_EVENT_MOUSEOVER,
+                                        toolTipListener,
+                                        false, null);
+                // On mouseout, it removes the tooltip
+                root.addEventListenerNS(XMLConstants.XML_EVENTS_NAMESPACE_URI,
+                                        SVGConstants.SVG_EVENT_MOUSEOUT,
+                                        toolTipListener,
+                                        false, null);
             }
 
             toolTipMap.put(elt, toolTip);
@@ -1079,8 +1159,8 @@ public class JSVGCanvas extends JSVGComponent {
 
         protected int lastX, lastY;
 
-        public LocationListener () { 
-            lastX = 0; lastY = 0; 
+        public LocationListener () {
+            lastX = 0; lastY = 0;
         }
 
         public void mouseMoved(MouseEvent evt) {
@@ -1098,13 +1178,13 @@ public class JSVGCanvas extends JSVGComponent {
     }
 
     /**
-     * Sets a specific tooltip on the JSVGCanvas when a given event occurs. 
-     * This listener is used in the handleElement method to set, remove or 
+     * Sets a specific tooltip on the JSVGCanvas when a given event occurs.
+     * This listener is used in the handleElement method to set, remove or
      * modify the JSVGCanvas tooltip on mouseover and on mouseout.<br/>
      *
      * Because we are on a single <tt>JComponent</tt> we trigger an artificial
-     * <tt>MouseEvent</tt> when the toolTip is set to a non-null value, so as 
-     * to make sure it will show after the <tt>ToolTipManager</tt>'s default 
+     * <tt>MouseEvent</tt> when the toolTip is set to a non-null value, so as
+     * to make sure it will show after the <tt>ToolTipManager</tt>'s default
      * delay.
      */
     protected class ToolTipModifier implements EventListener {
@@ -1134,14 +1214,21 @@ public class JSVGCanvas extends JSVGComponent {
                 // related target is one it is entering or null.
                 org.w3c.dom.events.MouseEvent mouseEvt;
                 mouseEvt = ((org.w3c.dom.events.MouseEvent)evt);
-                lastTarget = mouseEvt.getRelatedTarget(); 
+                lastTarget = mouseEvt.getRelatedTarget();
             }
 
             if (toolTipMap != null) {
-                Object o = toolTipMap.get(lastTarget);
-                final String theToolTip;
-                if (o == null) theToolTip = null;
-                else           theToolTip = (String)o;
+                Element e = (Element)lastTarget;
+                Object o = null;
+                while (e != null) {
+                    // Search the parents of the current node for ToolTips.
+                    o = toolTipMap.get(e);
+                    if (o != null) {
+                        break;
+                    }
+                    e = CSSEngine.getParentCSSStylableElement(e);
+                }
+                final String theToolTip = (String)o;
                 if (prevLastTarget != lastTarget)
                     EventQueue.invokeLater(new ToolTipRunnable(theToolTip));
             }

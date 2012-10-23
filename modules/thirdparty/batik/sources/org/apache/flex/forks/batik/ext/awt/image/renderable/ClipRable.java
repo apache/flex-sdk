@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,33 +26,33 @@ import java.awt.Shape;
  * shouldn't have any fluctions in side the outline of the shape.).
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: ClipRable.java,v 1.5 2005/03/27 08:58:33 cam Exp $ */
+ * @version $Id: ClipRable.java 478276 2006-11-22 18:33:37Z dvholten $ */
 public interface ClipRable extends Filter {
 
     /**
      * Set the default behaviour of anti-aliased clipping.
      * for this clip object.
      */
-    public void setUseAntialiasedClip(boolean useAA);
+    void setUseAntialiasedClip(boolean useAA);
 
     /**
      * Resturns true if the default behaviour should be to use
      * anti-aliased clipping.
      */
-    public boolean getUseAntialiasedClip();
+    boolean getUseAntialiasedClip();
 
 
       /**
        * The source to be clipped by the outline of the clip node.
        * @param src The Image to be clipped.
        */
-    public void setSource(Filter src);
+      void setSource(Filter src);
 
       /**
        * This returns the current image being clipped by the clip node.
        * @return The image to clip
        */
-    public Filter getSource();
+      Filter getSource();
 
     /**
      * Set the clip path to use.
@@ -59,12 +60,12 @@ public interface ClipRable extends Filter {
      * the clipping mask.
      * @param clipPath The clip path to use
      */
-    public void setClipPath(Shape clipPath);
+    void setClipPath(Shape clipPath);
 
       /**
        * Returns the Shape that the Clip will use to
        * define the clip path.
        * @return The shape that defines the clip path.
        */
-    public Shape getClipPath();
+      Shape getClipPath();
 }

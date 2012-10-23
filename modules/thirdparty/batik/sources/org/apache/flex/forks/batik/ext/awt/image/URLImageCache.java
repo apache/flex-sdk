@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,16 +25,22 @@ import org.apache.flex.forks.batik.util.SoftReferenceCache;
 
 /**
  * This class manages a cache of soft references to Images that
- * we have already loaded.  Adding an image is two fold.
- * First you add the ParsedURL, this lets the cache know that someone is
- * working on this ParsedURL.  Then when the completed RenderedImage is
- * ready you put it into the cache.<P>
+ * we have already loaded.
  *
- * If someone requests a ParsedURL after it has been added but before it has
- * been put they will be blocked until the put.
+ * <p>
+ *   Adding an image is two fold. First you add the ParsedURL, this lets
+ *   the cache know that someone is working on this ParsedURL.  Then when
+ *   the completed RenderedImage is ready you put it into the cache.
+ * </p>
+ * <p>
+ *   If someone requests a ParsedURL after it has been added but before it has
+ *   been put they will be blocked until the put.
+ * </p>
+ *
+ * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
+ * @version $Id: URLImageCache.java 475477 2006-11-15 22:44:28Z cam $
  */
-
-public class URLImageCache extends SoftReferenceCache{
+public class URLImageCache extends SoftReferenceCache {
 
     static URLImageCache theCache = new URLImageCache();
 

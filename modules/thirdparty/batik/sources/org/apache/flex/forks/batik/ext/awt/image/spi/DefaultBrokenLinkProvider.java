@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,31 +28,37 @@ import org.apache.flex.forks.batik.ext.awt.image.renderable.Filter;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.RedRable;
 import org.apache.flex.forks.batik.i18n.LocalizableSupport;
 
-public class DefaultBrokenLinkProvider 
-    implements BrokenLinkProvider {
+/**
+ *
+ * @version $Id: DefaultBrokenLinkProvider.java 501094 2007-01-29 16:35:37Z deweese $
+ */
+public class DefaultBrokenLinkProvider
+    extends BrokenLinkProvider {
 
     static Filter brokenLinkImg = null;
+    static final String MESSAGE_RSRC = "resources.Messages";
+
+    static final Color BROKEN_LINK_COLOR = new Color( 255,255,255,190 );
 
     public static String formatMessage(Object base,
                                        String code,
                                        Object [] params) {
-        String res = (base.getClass().getPackage().getName() + 
-                      ".resources.Messages");
         // Should probably cache these...
         ClassLoader cl = null;
         try {
             // Should work always
             cl = DefaultBrokenLinkProvider.class.getClassLoader();
             // may not work (depends on security and relationship
-            // of base's class loader to this class's class loader. 
+            // of base's class loader to this class's class loader.
             cl = base.getClass().getClassLoader();
         } catch (SecurityException se) {
         }
-        LocalizableSupport ls = new LocalizableSupport(res, cl);
+        LocalizableSupport ls;
+        ls = new LocalizableSupport(MESSAGE_RSRC, base.getClass(), cl);
         return ls.formatMessage(code, params);
     }
 
-    public Filter getBrokenLinkImage(Object base, 
+    public Filter getBrokenLinkImage(Object base,
                                      String code, Object [] params) {
         synchronized (DefaultBrokenLinkProvider.class) {
             if (brokenLinkImg != null)
@@ -63,14 +70,14 @@ public class DefaultBrokenLinkProvider
             // Put the broken link property in the image so people know
             // This isn't the "real" image.
             Hashtable ht = new Hashtable();
-            ht.put(BROKEN_LINK_PROPERTY, 
+            ht.put(BROKEN_LINK_PROPERTY,
                    formatMessage(base, code, params));
             bi = new BufferedImage(bi.getColorModel(), bi.getRaster(),
                                    bi.isAlphaPremultiplied(),
                                    ht);
             Graphics2D g2d = bi.createGraphics();
-	
-            g2d.setColor(new Color(255,255,255,190));
+
+            g2d.setColor( BROKEN_LINK_COLOR );
             g2d.fillRect(0, 0, 100, 100);
             g2d.setColor(Color.black);
             g2d.drawRect(2, 2, 96, 96);

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2002  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,11 +20,11 @@ package org.apache.flex.forks.batik.bridge;
 
 /**
  * A tagging interface that all bridges must implement. A bridge is
- * responsible on creating and maintaining an appropriate object
+ * responsible for creating and maintaining an appropriate object
  * according to an Element.
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: Bridge.java,v 1.8 2004/08/18 07:12:30 vhardy Exp $
+ * @version $Id: Bridge.java 475477 2006-11-15 22:44:28Z cam $
  */
 public interface Bridge {
 

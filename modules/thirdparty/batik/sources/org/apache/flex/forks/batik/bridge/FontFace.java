@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,30 +19,27 @@
 package org.apache.flex.forks.batik.bridge;
 
 import java.awt.Font;
-import java.awt.GraphicsEnvironment;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
+import org.apache.flex.forks.batik.dom.AbstractNode;
+import org.apache.flex.forks.batik.gvt.font.AWTFontFamily;
+import org.apache.flex.forks.batik.gvt.font.FontFamilyResolver;
+import org.apache.flex.forks.batik.gvt.font.GVTFontFace;
+import org.apache.flex.forks.batik.gvt.font.GVTFontFamily;
 import org.apache.flex.forks.batik.util.ParsedURL;
+import org.apache.flex.forks.batik.util.XMLConstants;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.flex.forks.dom.svg.SVGDocument;
-
-import org.apache.flex.forks.batik.dom.svg.XMLBaseSupport;
-import org.apache.flex.forks.batik.gvt.font.GVTFontFamily;
-import org.apache.flex.forks.batik.gvt.font.GVTFontFace;
-import org.apache.flex.forks.batik.gvt.font.AWTFontFamily;
-import org.apache.flex.forks.batik.gvt.font.FontFamilyResolver;
+import org.w3c.dom.svg.SVGDocument;
 
 /**
  * This class represents a &lt;font-face> element or @font-face rule
  *
  * @author <a href="mailto:bella.robinson@cmis.csiro.au">Bella Robinson</a>
- * @version $Id: FontFace.java,v 1.9 2005/02/22 09:12:57 cam Exp $
+ * @version $Id: FontFace.java 588550 2007-10-26 07:52:41Z dvholten $
  */
 public abstract class FontFace extends GVTFontFace
     implements ErrorConstants  {
@@ -82,7 +80,7 @@ public abstract class FontFace extends GVTFontFace
     public static CSSFontFace createFontFace(String familyName,
                                              FontFace src) {
         return new CSSFontFace
-            (new LinkedList(src.srcs), 
+            (new LinkedList(src.srcs),
              familyName, src.unitsPerEm, src.fontWeight,
              src.fontStyle, src.fontVariant, src.fontStretch,
              src.slope, src.panose1, src.ascent, src.descent,
@@ -90,7 +88,7 @@ public abstract class FontFace extends GVTFontFace
              src.underlinePosition, src.underlineThickness,
              src.overlinePosition, src.overlineThickness);
     }
-    
+
     /**
      * Returns the font associated with this rule or element.
      */
@@ -101,7 +99,7 @@ public abstract class FontFace extends GVTFontFace
             return new AWTFontFamily(ff);
         }
 
-        Iterator iter = srcs.iterator(); 
+        Iterator iter = srcs.iterator();
         while (iter.hasNext()) {
             Object o = iter.next();
             if (o instanceof String) {
@@ -120,14 +118,14 @@ public abstract class FontFace extends GVTFontFace
                     // Security violation notify the user but keep going.
                     ctx.getUserAgent().displayError(ex);
                 } catch (BridgeException ex) {
-                    // If Security violation notify 
+                    // If Security violation notify
                     // the user but keep going.
-                    if (ERR_URI_UNSECURE.equals(ex.getCode())) 
+                    if (ERR_URI_UNSECURE.equals(ex.getCode()))
                         ctx.getUserAgent().displayError(ex);
                 } catch (Exception ex) {
                     // Do nothing couldn't get Referenced URL.
                 }
-            }   
+            }
         }
 
         return new AWTFontFamily(this);
@@ -148,7 +146,7 @@ public abstract class FontFace extends GVTFontFace
             pDocURL = new ParsedURL(docURL);
 
         // try to load an SVG document
-        String baseURI = XMLBaseSupport.getCascadedXMLBase(e);
+        String baseURI = AbstractNode.getBaseURI(e);
         purl = new ParsedURL(baseURI, purlStr);
         UserAgent userAgent = ctx.getUserAgent();
 
@@ -161,7 +159,7 @@ public abstract class FontFace extends GVTFontFace
             // I'll vote yes just because it is a security exception (other
             // exceptions like font not available etc I would skip).
             userAgent.displayError(ex);
-            return null; 
+            return null;
         }
 
         if (purl.getRef() != null) {
@@ -178,14 +176,14 @@ public abstract class FontFace extends GVTFontFace
             Element fontElt = ref;
             if (doc != rdoc) {
                 fontElt = (Element)doc.importNode(ref, true);
-                String base = XMLBaseSupport.getCascadedXMLBase(ref);
+                String base = AbstractNode.getBaseURI(ref);
                 Element g = doc.createElementNS(SVG_NAMESPACE_URI, SVG_G_TAG);
                 g.appendChild(fontElt);
-                g.setAttributeNS(XMLBaseSupport.XML_NAMESPACE_URI,
+                g.setAttributeNS(XMLConstants.XML_NAMESPACE_URI,
                                  "xml:base", base);
                 CSSUtilities.computeStyleAndURIs(ref, fontElt, purlStr);
             }
-            
+
             // Search for a font-face element
             Element fontFaceElt = null;
             for (Node n = fontElt.getFirstChild();
@@ -198,12 +196,13 @@ public abstract class FontFace extends GVTFontFace
                     break;
                 }
             }
+            // todo : if the above loop fails to find a fontFaceElt, a null is passed to createFontFace()
             
             SVGFontFaceElementBridge fontFaceBridge;
             fontFaceBridge = (SVGFontFaceElementBridge)ctx.getBridge
                 (SVG_NAMESPACE_URI, SVG_FONT_FACE_TAG);
             GVTFontFace gff = fontFaceBridge.createFontFace(ctx, fontFaceElt);
-            
+
 
             return new SVGFontFamily(gff, fontElt, ctx);
         }
@@ -219,7 +218,7 @@ public abstract class FontFace extends GVTFontFace
     }
 
     /**
-     * Default implementation uses the root element of the document 
+     * Default implementation uses the root element of the document
      * associated with BridgeContext.  This is useful for CSS case.
      */
     protected Element getBaseElement(BridgeContext ctx) {

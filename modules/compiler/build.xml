@@ -58,7 +58,7 @@
 	<!-- Including Adobe proprietary font and license code.  -->
 	<property name="mxmlc.mpl_excludes.classpath" value="${opt.dir}/afe.jar ${opt.dir}/aglj40.jar ${opt.dir}/rideau.jar ${opt.dir}/flex-fontkit.jar "/>
     <property name="mxmlc.adobe.classpath" value="${mxmlc.mpl_excludes.classpath} asc.jar ${ext.dir}/xml-apis.jar batik-all-flex.jar velocity-dep-1.4-flex.jar ${ext.dir}/commons-collections.jar ${ext.dir}/commons-discovery.jar ${ext.dir}/commons-logging.jar swfutils.jar fxgutils.jar ${opt.dir}/flex-messaging-common.jar ${localized.mxmlc.jars} ${ext.dir}/xalan.jar"/>
-    <property name="mxmlc.classpath" value="${mxmlc.adobe.classpath} ${env.property.dir}"/>
+    <property name="mxmlc.classpath" value="${mxmlc.adobe.classpath} ${ext.dir}/xml-apis-ext.jar ${env.property.dir}"/>
     
 	<property name="compc.main" value="flex2.tools.Compc"/>
     <property name="compc.classpath" value="mxmlc.jar ${mxmlc.classpath}"/>

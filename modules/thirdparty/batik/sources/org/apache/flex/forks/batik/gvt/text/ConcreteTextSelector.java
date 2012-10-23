@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,17 +19,14 @@
 package org.apache.flex.forks.batik.gvt.text;
 
 import java.awt.Shape;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
-import java.text.CharacterIterator;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.apache.flex.forks.batik.gvt.GraphicsNode;
+import org.apache.flex.forks.batik.gvt.RootGraphicsNode;
 import org.apache.flex.forks.batik.gvt.Selectable;
 import org.apache.flex.forks.batik.gvt.Selector;
 import org.apache.flex.forks.batik.gvt.TextNode;
@@ -40,20 +38,17 @@ import org.apache.flex.forks.batik.gvt.event.SelectionEvent;
 import org.apache.flex.forks.batik.gvt.event.SelectionListener;
 
 /**
- * ConcreteTextSelector.java:
  * A simple implementation of GraphicsNodeMouseListener for text selection.
  *
  * @author <a href="mailto:bill.haneman@ireland.sun.com">Bill Haneman</a>
- * @version $Id: ConcreteTextSelector.java,v 1.22 2005/03/15 11:24:35 deweese Exp $
+ * @version $Id: ConcreteTextSelector.java 475477 2006-11-15 22:44:28Z cam $
  */
 
 public class ConcreteTextSelector implements Selector {
 
-    private ArrayList listeners = null;
-    private GraphicsNode selectionNode = null;
-    private GraphicsNode currentNode = null;
-    private int firstHit;
-    private int lastHit;
+    private ArrayList listeners;
+    private GraphicsNode selectionNode;
+    private RootGraphicsNode selectionNodeRoot;
 
     public ConcreteTextSelector() {
     }
@@ -67,13 +62,11 @@ public class ConcreteTextSelector implements Selector {
     }
 
     public void mouseEntered(GraphicsNodeMouseEvent evt) {
-        currentNode = evt.getGraphicsNode();
         checkSelectGesture(evt);
     }
 
     public void mouseExited(GraphicsNodeMouseEvent evt) {
         checkSelectGesture(evt);
-        currentNode = null;
     }
 
     public void mouseMoved(GraphicsNodeMouseEvent evt) {
@@ -101,8 +94,11 @@ public class ConcreteTextSelector implements Selector {
 
     public void changeStarted (GraphicsNodeChangeEvent gnce) {
     }
+
     public void changeCompleted (GraphicsNodeChangeEvent gnce) {
-        if (selectionNode == null) return;
+        if (selectionNode == null) {
+            return;
+        }
         Shape newShape =
             ((Selectable)selectionNode).getHighlightShape();
         dispatchSelectionEvent
@@ -113,10 +109,12 @@ public class ConcreteTextSelector implements Selector {
 
     public void setSelection(Mark begin, Mark end) {
         TextNode node = begin.getTextNode();
-        if (node != end.getTextNode())
+        if (node != end.getTextNode()) {
             throw new Error("Markers not from same TextNode");
+        }
         node.setSelection(begin, end);
         selectionNode = node;
+        selectionNodeRoot = node.getRoot();
         Object selection = getSelection();
         Shape  shape     = node.getHighlightShape();
         dispatchSelectionEvent(new SelectionEvent
@@ -124,11 +122,13 @@ public class ConcreteTextSelector implements Selector {
     }
 
     public void clearSelection() {
-        if (selectionNode == null) 
+        if (selectionNode == null) {
             return;
+        }
         dispatchSelectionEvent(new SelectionEvent
             (null, SelectionEvent.SELECTION_CLEARED, null));
         selectionNode = null;
+        selectionNodeRoot = null;
     }
 
     /*
@@ -147,10 +147,9 @@ public class ConcreteTextSelector implements Selector {
 
         GraphicsNode source = evt.getGraphicsNode();
         if (isDeselectGesture(evt)) {
-            if (selectionNode != null)
-                selectionNode.getRoot()
-                    .removeTreeGraphicsNodeChangeListener(this);
-
+            if (selectionNode != null) {
+                selectionNodeRoot.removeTreeGraphicsNodeChangeListener(this);
+            }
             clearSelection();
         } else if (mevt != null) {
 
@@ -170,15 +169,18 @@ public class ConcreteTextSelector implements Selector {
             if ((source instanceof Selectable) && 
                 (isSelectStartGesture(evt))) {
                 if (selectionNode != source) {
-                    if (selectionNode != null)
-                        selectionNode.getRoot()
+                    if (selectionNode != null) {
+                        selectionNodeRoot
                             .removeTreeGraphicsNodeChangeListener(this);
-                    if (source != null)
-                        source.getRoot()
+                    }
+                    selectionNode = source;
+                    if (source != null) {
+                        selectionNodeRoot = source.getRoot();
+                        selectionNodeRoot
                             .addTreeGraphicsNodeChangeListener(this);
+                    }
                 }
 
-                selectionNode = source;
                 ((Selectable) source).selectAt(p.getX(), p.getY());
                 dispatchSelectionEvent(
                         new SelectionEvent(null,
@@ -186,8 +188,9 @@ public class ConcreteTextSelector implements Selector {
                                 null));
 
             } else if (isSelectEndGesture(evt)) {
-                if (selectionNode == source) 
+                if (selectionNode == source)  {
                     ((Selectable) source).selectTo(p.getX(), p.getY());
+                }
                 Object oldSelection = getSelection();
                 if (selectionNode != null) {
                     Shape newShape;
@@ -215,14 +218,17 @@ public class ConcreteTextSelector implements Selector {
             } else if ((source instanceof Selectable) && 
                        (isSelectAllGesture(evt))) {
                 if (selectionNode != source) {
-                    if (selectionNode != null)
-                        selectionNode.getRoot()
+                    if (selectionNode != null) {
+                        selectionNodeRoot
                             .removeTreeGraphicsNodeChangeListener(this);
-                    if (source != null)
-                        source.getRoot()
+                    }
+                    selectionNode = source;
+                    if (source != null) {
+                        selectionNodeRoot = source.getRoot();
+                        selectionNodeRoot
                             .addTreeGraphicsNodeChangeListener(this);
+                    }
                 }
-                selectionNode = source;
                 ((Selectable) source).selectAll(p.getX(), p.getY());
                 Object oldSelection = getSelection();
                 Shape newShape =
@@ -263,7 +269,7 @@ public class ConcreteTextSelector implements Selector {
     public Object getSelection() {
         Object value = null;
         if (selectionNode instanceof Selectable) {
-            value =  ((Selectable) selectionNode).getSelection();
+            value = ((Selectable) selectionNode).getSelection();
         }
         return value;
     }

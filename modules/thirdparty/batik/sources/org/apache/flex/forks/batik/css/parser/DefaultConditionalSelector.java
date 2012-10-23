@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,19 +23,18 @@
  
 package org.apache.flex.forks.batik.css.parser;
 
-import org.w3c.flex.forks.css.sac.Condition;
-import org.w3c.flex.forks.css.sac.ConditionalSelector;
-import org.w3c.flex.forks.css.sac.SimpleSelector;
+import org.w3c.css.sac.Condition;
+import org.w3c.css.sac.ConditionalSelector;
+import org.w3c.css.sac.SimpleSelector;
 
 /**
  * This class provides an implementation of the
- * {@link org.w3c.flex.forks.css.sac.ConditionalSelector} interface.
+ * {@link org.w3c.css.sac.ConditionalSelector} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: DefaultConditionalSelector.java,v 1.3 2004/08/18 07:13:02 vhardy Exp $
+ * @version $Id: DefaultConditionalSelector.java 501495 2007-01-30 18:00:36Z dvholten $
  */
-public class DefaultConditionalSelector extends AbstractSelector
-    implements ConditionalSelector {
+public class DefaultConditionalSelector extends AbstractSelector implements ConditionalSelector {
     /**
      * The simple selector.
      */
@@ -55,7 +55,7 @@ public class DefaultConditionalSelector extends AbstractSelector
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.Selector#getSelectorType()}.
+     * org.w3c.css.sac.Selector#getSelectorType()}.
      */
     public short getSelectorType() {
 	return SAC_CONDITIONAL_SELECTOR;
@@ -63,7 +63,7 @@ public class DefaultConditionalSelector extends AbstractSelector
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.ConditionalSelector#getSimpleSelector()}.
+     * org.w3c.css.sac.ConditionalSelector#getSimpleSelector()}.
      */    
     public SimpleSelector getSimpleSelector() {
 	return simpleSelector;
@@ -71,7 +71,7 @@ public class DefaultConditionalSelector extends AbstractSelector
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.ConditionalSelector#getCondition()}.
+     * org.w3c.css.sac.ConditionalSelector#getCondition()}.
      */    
     public Condition getCondition() {
 	return condition;

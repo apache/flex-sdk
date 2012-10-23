@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,22 +20,22 @@ package org.apache.flex.forks.batik.apps.rasterizer;
 
 import java.io.File;
 import java.util.Map;
-import java.util.Vector;
+import java.util.List;
 
 import org.apache.flex.forks.batik.transcoder.Transcoder;
 
 /**
- * Default controller for the 
+ * Default controller for the
  * <tt>SVGConverter</tt> operation.
  *
  * @author <a href="mailto:vhardy@apache.org">Vincent Hardy</a>
- * @version $Id: DefaultSVGConverterController.java,v 1.5 2004/08/18 07:12:25 vhardy Exp $
+ * @version $Id: DefaultSVGConverterController.java 489226 2006-12-21 00:05:36Z cam $
  */
 public class DefaultSVGConverterController implements SVGConverterController {
     /**
-     * Invoked when the rasterizer has computed the 
-     * exact description of what it should do. The controller 
-     * should return true if the transcoding process should 
+     * Invoked when the rasterizer has computed the
+     * exact description of what it should do. The controller
+     * should return true if the transcoding process should
      * proceed or false otherwise.
      *
      * @param transcoder Transcoder which will be used for the conversion
@@ -44,11 +45,11 @@ public class DefaultSVGConverterController implements SVGConverterController {
      */
     public boolean proceedWithComputedTask(Transcoder transcoder,
                                            Map hints,
-                                           Vector sources,
-                                           Vector dest){
+                                           List sources,
+                                           List dest){
         return true;
     }
-    
+
     /**
      * Invoked when the rasterizer is about to start transcoding
      * of a given source.
@@ -60,10 +61,10 @@ public class DefaultSVGConverterController implements SVGConverterController {
         System.out.println("About to transcoder source of type: " + source.getClass().getName());
         return true;
     }
-    
+
     /**
      * Invoked when the rasterizer got an error while
-     * transcoding the input source. 
+     * transcoding the input source.
      * The controller should return true if the transcoding process
      * should continue on other sources and it should return false
      * if it should not.
@@ -84,4 +85,3 @@ public class DefaultSVGConverterController implements SVGConverterController {
                                            File dest){
     }
 }
-

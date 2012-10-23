@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,7 +27,7 @@ import java.util.List;
  * a BufferedImageOp filter.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: SVGFilterConverter.java,v 1.7 2005/03/27 08:58:35 cam Exp $
+ * @version $Id: SVGFilterConverter.java 478176 2006-11-22 14:50:50Z dvholten $
  * @see           org.apache.flex.forks.batik.svggen.SVGFilterDescriptor
  */
 public interface SVGFilterConverter extends SVGSyntax {
@@ -42,7 +43,7 @@ public interface SVGFilterConverter extends SVGSyntax {
      *         the input filter
      * @see org.apache.flex.forks.batik.svggen.SVGFilterDescriptor
      */
-    public SVGFilterDescriptor toSVG(BufferedImageOp filter, Rectangle filterRect);
+    SVGFilterDescriptor toSVG(BufferedImageOp filter, Rectangle filterRect);
 
     /**
      * @return set of definitions referenced by the attribute
@@ -51,5 +52,5 @@ public interface SVGFilterConverter extends SVGSyntax {
      *         If no definition is needed, an empty set should be
      *         returned.
      */
-    public List getDefinitionSet();
+    List getDefinitionSet();
 }

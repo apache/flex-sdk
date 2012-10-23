@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,7 +25,7 @@ import java.awt.Color;
  * constant over the whole surface.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: DistantLight.java,v 1.5 2005/03/27 08:58:32 cam Exp $
+ * @version $Id: DistantLight.java 501495 2007-01-30 18:00:36Z dvholten $
  */
 public class DistantLight extends AbstractLight {
     /**
@@ -64,9 +65,9 @@ public class DistantLight extends AbstractLight {
         this.azimuth = azimuth;
         this.elevation = elevation;
 
-        Lx = Math.cos(Math.PI*azimuth/180.)*Math.cos(Math.PI*elevation/180.);
-        Ly = Math.sin(Math.PI*azimuth/180.)*Math.cos(Math.PI*elevation/180.);
-        Lz = Math.sin(Math.PI*elevation/180);
+        Lx = Math.cos( Math.toRadians( azimuth ) ) * Math.cos( Math.toRadians( elevation ) );
+        Ly = Math.sin( Math.toRadians( azimuth ) ) * Math.cos( Math.toRadians( elevation ) );
+        Lz = Math.sin( Math.toRadians( elevation ));
     }
 
     /**
@@ -83,8 +84,8 @@ public class DistantLight extends AbstractLight {
      * @param y y-axis coordinate where the light should be computed
      * @param L array of length 3 where the result is stored
      */
-    public void getLight(final double x, final double y, final double z, 
-                         final double L[]){
+    public void getLight(final double x, final double y, final double z,
+                         final double[] L){
         L[0] = Lx;
         L[1] = Ly;
         L[2] = Lz;
@@ -106,7 +107,7 @@ public class DistantLight extends AbstractLight {
      * @return an array width columns where each element
      *         is an array of three components representing the x, y and z
      *         components of the light vector.  */
-    public double[][] getLightRow(double x, double y, 
+    public double[][] getLightRow(double x, double y,
                                   final double dx, final int width,
                                   final double[][] z,
                                   final double[][] lightRow) {

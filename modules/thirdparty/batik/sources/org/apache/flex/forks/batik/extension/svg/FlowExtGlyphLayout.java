@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2004 The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,26 +19,22 @@
 
 package org.apache.flex.forks.batik.extension.svg;
 
-import java.awt.geom.Point2D;
 import java.awt.font.FontRenderContext;
+import java.awt.geom.Point2D;
 import java.text.AttributedCharacterIterator;
 import java.util.Iterator;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
-import org.apache.flex.forks.batik.gvt.font.GVTFont;
 import org.apache.flex.forks.batik.gvt.font.GVTGlyphVector;
-import org.apache.flex.forks.batik.gvt.font.GVTLineMetrics;
 import org.apache.flex.forks.batik.gvt.font.MultiGlyphVector;
 import org.apache.flex.forks.batik.gvt.text.GlyphLayout;
-
-import org.apache.flex.forks.batik.gvt.TextNode;
 
 /**
  * A GlyphLayout class for SVG 1.2 flowing text.
  *
  * @author <a href="mailto:deweese@apache.org">deweese</a>
- * @version $Id: FlowExtGlyphLayout.java,v 1.2 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: FlowExtGlyphLayout.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class FlowExtGlyphLayout extends GlyphLayout {
 

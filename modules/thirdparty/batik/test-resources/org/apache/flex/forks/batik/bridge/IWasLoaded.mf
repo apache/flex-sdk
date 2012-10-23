@@ -1,2 +1,0 @@
-Manifest-Version: 1.0
-Script-Handler: org.apache.flex.forks.batik.bridge.IWasLoaded

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,33 +20,33 @@ package org.apache.flex.forks.batik.apps.rasterizer;
 
 import java.io.File;
 import java.util.Map;
-import java.util.Vector;
+import java.util.List;
 
 import org.apache.flex.forks.batik.transcoder.Transcoder;
 
 /**
- * Interface for controlling some aspectes of the 
+ * Interface for controlling some aspectes of the
  * <tt>SVGConverter</tt> operation.
  *
  * @author <a href="mailto:vhardy@apache.org">Vincent Hardy</a>
- * @version $Id: SVGConverterController.java,v 1.4 2004/08/18 07:12:26 vhardy Exp $
+ * @version $Id: SVGConverterController.java 479559 2006-11-27 09:46:16Z dvholten $
  */
 public interface SVGConverterController {
     /**
-     * Invoked when the rasterizer has computed the 
-     * exact description of what it should do. The controller 
-     * should return true if the transcoding process should 
+     * Invoked when the rasterizer has computed the
+     * exact description of what it should do. The controller
+     * should return true if the transcoding process should
      * proceed or false otherwise.
      *
-     * @param transcoder Transcoder which will be used 
+     * @param transcoder Transcoder which will be used
      * @param hints set of hints that were set on the transcoder
      * @param sources list of SVG sources it will convert.
      * @param dest list of destination file it will use
      */
-    public boolean proceedWithComputedTask(Transcoder transcoder,
+    boolean proceedWithComputedTask(Transcoder transcoder,
                                            Map hints,
-                                           Vector sources,
-                                           Vector dest);
+                                           List sources,
+                                           List dest);
 
     /**
      * Invoked when the rasterizer is about to start transcoding
@@ -53,19 +54,19 @@ public interface SVGConverterController {
      * The controller should return true if the source should be
      * transcoded and false otherwise.
      */
-    public boolean proceedWithSourceTranscoding(SVGConverterSource source,
+    boolean proceedWithSourceTranscoding(SVGConverterSource source,
                                                 File dest);
-        
+
     /**
      * Invoked when the rasterizer got an error while
-     * transcoding the input source. 
+     * transcoding the input source.
      * The controller should return true if the transcoding process
      * should continue on other sources and it should return false
      * if it should not.
      *
      * @param errorCode see the {@link SVGConverter} error code descriptions.
      */
-    public boolean proceedOnSourceTranscodingFailure(SVGConverterSource source,
+    boolean proceedOnSourceTranscodingFailure(SVGConverterSource source,
                                                      File dest,
                                                      String errorCode);
 
@@ -73,7 +74,7 @@ public interface SVGConverterController {
      * Invoked when the rasterizer successfully transcoded
      * the input source.
      */
-    public void onSourceTranscodingSuccess(SVGConverterSource source,
+    void onSourceTranscodingSuccess(SVGConverterSource source,
                                            File dest);
 
 }

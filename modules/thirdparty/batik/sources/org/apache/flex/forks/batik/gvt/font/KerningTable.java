@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,7 +25,7 @@ package org.apache.flex.forks.batik.gvt.font;
  * when laying out glyphs.
  *
  * @author <a href="mailto:dean.jackson@cmis.csiro.au">Dean Jackson</a>
- * @version $Id: KerningTable.java,v 1.6 2004/09/01 09:35:23 deweese Exp $ 
+ * @version $Id: KerningTable.java 475685 2006-11-16 11:16:05Z cam $ 
  */
 public class KerningTable {
 
@@ -53,9 +54,9 @@ public class KerningTable {
      * @return The amount of kerning to be added when laying out the glyphs 
      */
     public float getKerningValue(int glyphCode1, 
-				 int glyphCode2,
+                                 int glyphCode2,
                                  String glyphUnicode1, 
-				 String glyphUnicode2) {
+                                 String glyphUnicode2) {
         for (int i = 0; i < entries.length; i++) {
             if (entries[i].matchesFirstGlyph(glyphCode1, glyphUnicode1) &&
                 entries[i].matchesSecondGlyph(glyphCode2, glyphUnicode2)) {

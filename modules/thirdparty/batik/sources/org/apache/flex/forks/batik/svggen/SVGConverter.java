@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,7 +27,7 @@ import org.apache.flex.forks.batik.ext.awt.g2d.GraphicContext;
  * part or all of a GraphicContext.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: SVGConverter.java,v 1.6 2004/08/18 07:14:59 vhardy Exp $
+ * @version $Id: SVGConverter.java 478176 2006-11-22 14:50:50Z dvholten $
  * @see           org.apache.flex.forks.batik.ext.awt.g2d.GraphicContext
  */
 public interface SVGConverter extends SVGSyntax{
@@ -40,7 +41,7 @@ public interface SVGConverter extends SVGSyntax{
      *         with the related definitions
      * @see org.apache.flex.forks.batik.svggen.SVGDescriptor
      */
-    public SVGDescriptor toSVG(GraphicContext gc);
+    SVGDescriptor toSVG(GraphicContext gc);
 
     /**
      * @return set of definitions referenced by the attribute
@@ -49,5 +50,5 @@ public interface SVGConverter extends SVGSyntax{
      *         If no definition is needed, an empty set should be
      *         returned.
      */
-    public List getDefinitionSet();
+    List getDefinitionSet();
 }

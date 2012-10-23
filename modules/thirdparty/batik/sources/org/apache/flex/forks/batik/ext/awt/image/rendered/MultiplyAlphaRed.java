@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -40,7 +41,7 @@ import java.util.List;
  * one image by a luminance image (the mask).
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: MultiplyAlphaRed.java,v 1.6 2004/08/18 07:14:08 vhardy Exp $ */
+ * @version $Id: MultiplyAlphaRed.java 478276 2006-11-22 18:33:37Z dvholten $ */
 public class MultiplyAlphaRed extends AbstractRed {
 
     /**
@@ -83,7 +84,7 @@ public class MultiplyAlphaRed extends AbstractRed {
         if(masks[1] != 0x0000ff00) return false;
         if(masks[2] != 0x000000ff) return false;
         if(masks[3] != 0xff000000) return false;
- 
+
         ComponentSampleModel csm;
         csm = (ComponentSampleModel)alpSM;
         if (csm.getNumBands()    != 1) return false;
@@ -102,7 +103,7 @@ public class MultiplyAlphaRed extends AbstractRed {
 
         Rectangle rgn = wr.getBounds();
         rgn = rgn.intersection(alphaRed.getBounds());
-            
+
         Raster r = alphaRed.getData(rgn);
 
         ComponentSampleModel csm;
@@ -110,27 +111,27 @@ public class MultiplyAlphaRed extends AbstractRed {
         final int alpScanStride = csm.getScanlineStride();
 
         DataBufferByte alpDB   = (DataBufferByte)r.getDataBuffer();
-        final int      alpBase 
-            = (alpDB.getOffset() + 
-               csm.getOffset(rgn.x-r.getSampleModelTranslateX(), 
+        final int      alpBase
+            = (alpDB.getOffset() +
+               csm.getOffset(rgn.x-r.getSampleModelTranslateX(),
                              rgn.y-r.getSampleModelTranslateY()));
 
-            
+
           // Access the pixel data array
-        final byte alpPixels[] = alpDB.getBankData()[0];
+        final byte[] alpPixels = alpDB.getBankData()[0];
 
         SinglePixelPackedSampleModel sppsm;
         sppsm = (SinglePixelPackedSampleModel)wr.getSampleModel();
         final int srcScanStride = sppsm.getScanlineStride();
 
         DataBufferInt srcDB   = (DataBufferInt)wr.getDataBuffer();
-        final int     srcBase 
-            = (srcDB.getOffset() + 
-               sppsm.getOffset(rgn.x-wr.getSampleModelTranslateX(), 
+        final int     srcBase
+            = (srcDB.getOffset() +
+               sppsm.getOffset(rgn.x-wr.getSampleModelTranslateX(),
                                rgn.y-wr.getSampleModelTranslateY()));
 
           // Access the pixel data array
-        final int srcPixels[] = srcDB.getBankData()[0];
+        final int[] srcPixels = srcDB.getBankData()[0];
 
         ColorModel cm = srcRed.getColorModel();
 
@@ -144,7 +145,7 @@ public class MultiplyAlphaRed extends AbstractRed {
                 while (sp<end) {
                     int a = ((int)alpPixels[ap++])&0xFF;
                     final int pix = srcPixels[sp];
-                    srcPixels[sp] = 
+                    srcPixels[sp] =
                         ((((((pix>>>24)     ) *a)&0xFF00)<<16) |
                          (((((pix>>>16)&0xFF) *a)&0xFF00)<<8 ) |
                          (((((pix>>> 8)&0xFF) *a)&0xFF00)    ) |
@@ -152,7 +153,7 @@ public class MultiplyAlphaRed extends AbstractRed {
                     sp++;
                 }
             }
-                
+
         } else {
               // For non-alpha premult we only need to multiply alpha.
             for (int y=0; y<rgn.height; y++) {
@@ -189,9 +190,9 @@ public class MultiplyAlphaRed extends AbstractRed {
             Rectangle rgn = wr.getBounds();
             if (rgn.intersects(alphaRed.getBounds()))
                 rgn = rgn.intersection(alphaRed.getBounds());
-            else 
+            else
                 return wr;
-            
+
             int [] wrData    = null;
             int [] alphaData = null;
 
@@ -205,17 +206,17 @@ public class MultiplyAlphaRed extends AbstractRed {
                     wrData    = wr.getPixels (rgn.x, y, w, 1, wrData);
                     alphaData = r .getSamples(rgn.x, y, w, 1, 0, alphaData);
                     int i=0, a, b;
-                          // 4 is the most common case.  
+                          // 4 is the most common case.
                           // 2 is probably next most common...
                     switch (bands) {
-                    case 2: 
+                    case 2:
                         for (int x=0; x<alphaData.length; x++) {
                             a = alphaData[x]&0xFF;
                             wrData[i] = ((wrData[i]&0xFF)*a)>>8; ++i;
                             wrData[i] = ((wrData[i]&0xFF)*a)>>8; ++i;
                         }
                         break;
-                    case 4: 
+                    case 4:
                         for (int x=0; x<alphaData.length; x++) {
                             a = alphaData[x]&0xFF;
                             wrData[i] = ((wrData[i]&0xFF)*a)>>8; ++i;
@@ -228,7 +229,7 @@ public class MultiplyAlphaRed extends AbstractRed {
                         for (int x=0; x<alphaData.length; x++) {
                             a = alphaData[x]&0xFF;
                             for (b=0; b<bands; b++) {
-                                wrData[i] = ((wrData[i]&0xFF)*a)>>8; 
+                                wrData[i] = ((wrData[i]&0xFF)*a)>>8;
                                 ++i;
                             }
                         }
@@ -257,7 +258,7 @@ public class MultiplyAlphaRed extends AbstractRed {
             bands[i] = i;
 
         WritableRaster subWr;
-        subWr = wr.createWritableChild(wr.getMinX(),  wr.getMinY(), 
+        subWr = wr.createWritableChild(wr.getMinX(),  wr.getMinY(),
                                        wr.getWidth(), wr.getHeight(),
                                        wr.getMinX(),  wr.getMinY(),
                                        bands);
@@ -266,12 +267,12 @@ public class MultiplyAlphaRed extends AbstractRed {
 
         Rectangle rgn = wr.getBounds();
         rgn = rgn.intersection(alphaRed.getBounds());
-            
+
 
         bands = new int [] { wr.getNumBands()-1 };
-        subWr = wr.createWritableChild(rgn.x,     rgn.y, 
+        subWr = wr.createWritableChild(rgn.x,     rgn.y,
                                        rgn.width, rgn.height,
-                                       rgn.x,     rgn.y, 
+                                       rgn.x,     rgn.y,
                                        bands);
         alphaRed.copyData(subWr);
 
@@ -295,14 +296,14 @@ public class MultiplyAlphaRed extends AbstractRed {
         ColorModel  cm = src.getColorModel();
         SampleModel srcSM = src.getSampleModel();
 
-        if (cm.hasAlpha()) 
+        if (cm.hasAlpha())
             return srcSM;
 
         int w = srcSM.getWidth();
         int h = srcSM.getHeight();
         int b = srcSM.getNumBands()+1;
         int [] offsets = new int[b];
-        for (int i=0; i < b; i++) 
+        for (int i=0; i < b; i++)
             offsets[i] = i;
 
         // Really should check DataType range in srcSM...
@@ -318,12 +319,12 @@ public class MultiplyAlphaRed extends AbstractRed {
 
         int b = src.getSampleModel().getNumBands()+1;
         int [] bits = new int[b];
-        for (int i=0; i < b; i++) 
+        for (int i=0; i < b; i++)
             bits[i] = 8;
 
         ColorSpace cs = cm.getColorSpace();
 
-        return new ComponentColorModel(cs, bits, true, false, 
+        return new ComponentColorModel(cs, bits, true, false,
                                        Transparency.TRANSLUCENT,
                                        DataBuffer.TYPE_BYTE);
     }

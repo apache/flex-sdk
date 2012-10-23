@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -33,7 +34,7 @@ import org.w3c.dom.Element;
  * Bridge class for the &lt;feMorphology> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGFeMorphologyElementBridge.java,v 1.15 2004/08/18 07:12:34 vhardy Exp $
+ * @version $Id: SVGFeMorphologyElementBridge.java 501922 2007-01-31 17:47:47Z dvholten $
  */
 public class SVGFeMorphologyElementBridge
     extends AbstractSVGFilterPrimitiveElementBridge {
@@ -78,13 +79,13 @@ public class SVGFeMorphologyElementBridge
                                Map filterMap) {
 
         // 'radius' attribute - default is [0, 0]
-        float [] radii = convertRadius(filterElement);
+        float[] radii = convertRadius(filterElement, ctx);
         if (radii[0] == 0 || radii[1] == 0) {
             return null; // disable the filter
         }
 
         // 'operator' attribute - default is 'erode'
-        boolean isDilate = convertOperator(filterElement);
+        boolean isDilate = convertOperator(filterElement, ctx);
 
         // 'in' attribute
         Filter in = getIn(filterElement,
@@ -134,8 +135,10 @@ public class SVGFeMorphologyElementBridge
      * filter primitive.
      *
      * @param filterElement the feMorphology filter primitive
+     * @param ctx the BridgeContext to use for error information
      */
-    protected static float [] convertRadius(Element filterElement) {
+    protected static float[] convertRadius(Element filterElement,
+                                           BridgeContext ctx) {
         String s = filterElement.getAttributeNS(null, SVG_RADIUS_ATTRIBUTE);
         if (s.length() == 0) {
             return new float[] {0, 0};
@@ -149,14 +152,14 @@ public class SVGFeMorphologyElementBridge
             } else {
                 radii[1] = radii[0];
             }
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException nfEx ) {
             throw new BridgeException
-                (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                 new Object[] {SVG_RADIUS_ATTRIBUTE, s, ex});
+                (ctx, filterElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                 new Object[] {SVG_RADIUS_ATTRIBUTE, s, nfEx });
         }
         if (tokens.hasMoreTokens() || radii[0] < 0 || radii[1] < 0) {
             throw new BridgeException
-                (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                (ctx, filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
                  new Object[] {SVG_RADIUS_ATTRIBUTE, s});
         }
         return radii;
@@ -167,8 +170,10 @@ public class SVGFeMorphologyElementBridge
      * primitive.
      *
      * @param filterElement the feMorphology filter primitive
+     * @param ctx the BridgeContext to use for error information
      */
-    protected static boolean convertOperator(Element filterElement) {
+    protected static boolean convertOperator(Element filterElement,
+                                             BridgeContext ctx) {
         String s = filterElement.getAttributeNS(null, SVG_OPERATOR_ATTRIBUTE);
         if (s.length() == 0) {
             return false;
@@ -179,8 +184,8 @@ public class SVGFeMorphologyElementBridge
         if (SVG_DILATE_VALUE.equals(s)) {
             return true;
         }
-        throw new BridgeException(filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                                  new Object[] {SVG_OPERATOR_ATTRIBUTE, s});
+        throw new BridgeException
+            (ctx, filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+             new Object[] {SVG_OPERATOR_ATTRIBUTE, s});
     }
-
 }

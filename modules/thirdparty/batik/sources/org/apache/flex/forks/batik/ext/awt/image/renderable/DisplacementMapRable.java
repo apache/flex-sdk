@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,14 +27,14 @@ import org.apache.flex.forks.batik.ext.awt.image.ARGBChannel;
  * another image to spatially displace the input image
  *
  * @author <a href="mailto:sheng.pei@eng.sun.com">Sheng Pei</a>
- * @version $Id: DisplacementMapRable.java,v 1.7 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: DisplacementMapRable.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public interface DisplacementMapRable extends FilterColorInterpolation {
 
-    public static final int CHANNEL_R = 1;
-    public static final int CHANNEL_G = 2;
-    public static final int CHANNEL_B = 3;
-    public static final int CHANNEL_A = 4;
+    int CHANNEL_R = 1;
+    int CHANNEL_G = 2;
+    int CHANNEL_B = 3;
+    int CHANNEL_A = 4;
 
     /**
      * The sources to be used in the displacement operation
@@ -44,18 +45,18 @@ public interface DisplacementMapRable extends FilterColorInterpolation {
      *
      * @param srcs The list of images used in the operation.
      */
-    public void setSources(List srcs);
+    void setSources(List srcs);
 
     /**
      * The displacement scale factor
      * @param scale can be any number.
      */
-    public void setScale(double scale);
+    void setScale(double scale);
 
     /**
      * Returns the displacement scale factor
      */
-    public double getScale();
+    double getScale();
 
     /**
      * Select which component values will be used
@@ -63,12 +64,12 @@ public interface DisplacementMapRable extends FilterColorInterpolation {
      * @param xChannelSelector value is among R,
      * G, B and A.
      */
-    public void setXChannelSelector(ARGBChannel xChannelSelector);
+    void setXChannelSelector(ARGBChannel xChannelSelector);
 
     /**
      * Returns the xChannelSelector
      */
-    public ARGBChannel getXChannelSelector();
+    ARGBChannel getXChannelSelector();
 
     /**
      * Select which component values will be used
@@ -76,11 +77,11 @@ public interface DisplacementMapRable extends FilterColorInterpolation {
      * @param yChannelSelector value is among R,
      * G, B and A.
      */
-    public void setYChannelSelector(ARGBChannel yChannelSelector);
+    void setYChannelSelector(ARGBChannel yChannelSelector);
 
     /**
      * Returns the yChannelSelector
      */
-    public ARGBChannel getYChannelSelector();
+    ARGBChannel getYChannelSelector();
 
 }
