@@ -98,7 +98,9 @@
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorJPG" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
             </setup>
             <body>
-                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_Embeding_JPG.png" timeout="5000" />
+                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase> 
         <TestCase testID="TabNavigator_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, TabNavigator]" >
@@ -109,7 +111,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="TabNavigator_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, TabNavigator]" >
@@ -120,7 +124,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>     
         <TestCase testID="TabNavigator_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, TabNavigator]" >
@@ -132,7 +138,9 @@
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tn.tabn" waitEvent="mouseDown" waitTarget="tn.tabn" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="TabNavigator_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, TabNavigator]" >
@@ -144,7 +152,9 @@
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tn.tabn" waitEvent="rollOver" waitTarget="tn.tabn" /> 
                 <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tn.tabn" waitEvent="mouseDown" waitTarget="tn.tabn" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="TabNavigator_Styles_SkinStates_Embeding_JPG_Disabled" keywords="[disabled, SkinStates,EmbedJPG, TabNavigator]" >
@@ -154,7 +164,9 @@
                 <SetProperty target="tn.tabn" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tn.tabn"/>
             </setup>
             <body>
-                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_Embeding_Disabled_JPG.png" timeout="5000" />
+                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="TabNavigator_Styles_SkinStates_Embeding_PNG" keywords="[enabled, SkinStates,EmbedPNG, TabNavigator]" >
@@ -360,7 +372,9 @@
                 <SetStyle target="tn.tabn" styleName="tabStyleName" value="myTabNavigatorJPGRunTime" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
             </setup>
             <body>
-                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_runtime_JPG.png" timeout="5000" />
+                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase> 
         <TestCase testID="TabNavigator_Styles_SkinStates_runtime_JPG_Disabled" keywords="[disabled, SkinStates,runtimeJPG, TabNavigator]" >
@@ -370,7 +384,9 @@
                 <SetProperty target="tn.tabn" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tn.tabn"/>
             </setup>
             <body>
-                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/TabNavigator_Styles_SkinStates_runtime_Disabled_JPG.png" timeout="5000" />
+                <CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="TabNavigator_Styles_SkinStates_runtime_PNG" keywords="[enabled, SkinStates,runtimePNG, TabNavigator]" >
