@@ -151,7 +151,7 @@ public class ArgumentParser {
 		{
 			char c = working.charAt(i);
 			if( c == ' ' ) continue;
-			if( c == '-' ) {
+			if( c == '-' || c == '+' ) {
 				return i;
 			}
 		}
@@ -207,6 +207,9 @@ public class ArgumentParser {
 				// has been found. If not, consider the hyphen part of the argument value.
 				char prev = working.charAt(i-1);
 				if( prev == ' ' ) break;
+			}
+			else if( c == '+' ) {
+				break;
 			}
 			else {
 				if( c != ' ' ) lastPos = i; // the last non-blank character
