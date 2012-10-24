@@ -150,6 +150,12 @@ public class UnitTester extends EventDispatcher
 
 		}
 
+		if (cv.device == null)
+		{
+			if (Security.sandboxType == Security.APPLICATION)
+				cv.device = "air";
+		}
+		
 		if(root.loaderInfo != null && root.loaderInfo.parameters != null)
 		{
 			for (var ix:String in root.loaderInfo.parameters) 

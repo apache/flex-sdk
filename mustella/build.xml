@@ -160,11 +160,35 @@
     <property name="target_os_name" value="${host_os_name}" />
 
     <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListWin.txt" >
-        <equals arg1="${target_os_name}" arg2="windows" />
+        <and>
+            <equals arg1="${target_os_name}" arg2="windows" />
+            <not>
+                <istrue value="${use_apollo}" />
+            </not>
+        </and>
     </condition>
 
     <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListMac.txt" >
-        <equals arg1="${target_os_name}" arg2="mac" />
+        <and>
+            <equals arg1="${target_os_name}" arg2="mac" />
+            <not>
+                <istrue value="${use_apollo}" />
+            </not>
+        </and>
+    </condition>
+    
+    <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListMacAIR.txt" >
+        <and>
+            <equals arg1="${target_os_name}" arg2="mac" />
+            <istrue value="${use_apollo}" />
+        </and>
+    </condition>
+
+    <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListWinAIR.txt" >
+        <and>
+            <equals arg1="${target_os_name}" arg2="windows" />
+            <istrue value="${use_apollo}" />
+        </and>
     </condition>
 
     <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListLinux.txt" >

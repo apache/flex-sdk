@@ -59,7 +59,7 @@ package
 		[Inspectable(enumeration="16,32")]
 		public var color:Number = -1;
 
-		[Inspectable(enumeration="desire,droid,droid2,droidPro,droidX,evo,incredible,iPad,iPad2,iPodTouch3GS,iPodTouch4G,nexusOne,playbook,xoom")]
+		[Inspectable(enumeration="air,desire,droid,droid2,droidPro,droidX,evo,incredible,iPad,iPad2,iPodTouch3GS,iPodTouch4G,nexusOne,playbook,xoom")]
 		public var device:String = null;
 
 		/**
