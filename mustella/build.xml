@@ -346,6 +346,18 @@
     <echo message="    air.sdk.dir:             ${air.sdk.dir}"/>
     <echo message="    mustella exclude file:   ${exclude_filename}"/> 
 
+    <!-- Check that Adobe's embedded font jars exist and fail if any are missing.  -->
+    <condition property="fonts.exist">
+    <and>
+        <available file="${sdk.dir}/lib/external/optional/afe.jar" />
+        <available file="${sdk.dir}/lib/external/optional/aglj40.jar" />
+        <available file="${sdk.dir}/lib/external/optional/flex-fontkit.jar" />
+        <available file="${sdk.dir}/lib/external/optional/rideau.jar" />
+     </and>
+    </condition>
+    
+    <fail message="Mustella uses embedded fonts.  Please install Adobe's embedded font support." unless="fonts.exist"/>
+    
     <target name="getExcludeIds" unless="exclude_ids" description="Fetch exclude ids" >
         <taskdef name="excluder" classname="mustella.GetExcludeIdsTask" classpathref="flex.test.classpath"/>
         <excluder property="exclude_ids" type="${exclude_type}" filename="${exclude_filename}" branch="${branch_name}" os="${target_os_name}" browser="${browser_name}" apollo="${use_apollo}" bbrowser="${use_browser}" untilTime="${db_time}" write="false" excludeIds=""/>
