@@ -42,8 +42,6 @@
     
     <property name="HOMEPATH" value="${env.HOMEDRIVE}${env.HOMEPATH}" />
 
-    <echo>mustella.dir is ${mustella.dir}</echo>
-    
     <property name="mustella.swc.dir" value="${mustella.dir}" />
     <property name="mustella.swc.name" value="mustella.swc" />
 
@@ -73,8 +71,6 @@
     <property name="mustellagen.dir" value="${mustella.dir}/gen" />
     <property name="sdk.bin.dir" value="${sdk.dir}/bin" />
 
-    <echo>sdk.dir is ${sdk.dir}</echo>
-    
     <property name="branch" value="trunk"/>
 
     <property name="compc.dir" value="${sdk.dir}/bin" />
@@ -84,6 +80,8 @@
     <property name="aschartspath" value="."/>
     <property name="frameworks.dir1" value="${frameworks}" />
     <property name="librarypath" value="${frameworks.dir1}/libs/framework.swc,${frameworks.dir1}/libs/charts.swc,${frameworks.dir1}/libs/rpc.swc"/>
+    <!-- this seems to passed to CompileMustellaSwc but unused -->
+    <!-- probably the flex-config.xml file used determines which playerglobal.swc is used -->
     <property name="external.librarypath" value="${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc"/>
     <property name="rsl" value="" />
 
@@ -173,8 +171,6 @@
         <equals arg1="${target_os_name}" arg2="Linux" />
     </condition>
 
-    <echo>exclude file will be: ${exclude_filename}</echo>
-    
     <!-- Whether a run will spawn its own baseline server.  With multiple runs on a machine, they will collide. -->
     <property name="prevent_baseline_server" value="${prevent_baseline_server}" />
     
@@ -337,9 +333,18 @@
     <property name="apollo_location" value="${env.AIR_HOME}"/>
     <property name="air.sdk.dir" value="${apollo_location}" />
 
+
+
     <condition property="apollo_specific_excludes" value="${apollo_only_excludes}" >
         <istrue value="${use_apollo}" />
     </condition>
+
+    <!-- Summary Info -->
+    <echo message="    JAVA_HOME:               ${env.JAVA_HOME}"/>
+    <echo message="    FLASHPLAYER_DEBUGGER:    ${env.FLASHPLAYER_DEBUGGER}"/>
+    <echo message="    sdk.dir:                 ${sdk.dir}"/>
+    <echo message="    air.sdk.dir:             ${air.sdk.dir}"/>
+    <echo message="    mustella exclude file:   ${exclude_filename}"/> 
 
     <target name="getExcludeIds" unless="exclude_ids" description="Fetch exclude ids" >
         <taskdef name="excluder" classname="mustella.GetExcludeIdsTask" classpathref="flex.test.classpath"/>
