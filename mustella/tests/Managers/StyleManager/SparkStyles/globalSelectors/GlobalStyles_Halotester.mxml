@@ -347,6 +347,7 @@
                 <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
                 <RunCode code="application.textinput1.setSelection(0,1)" waitTarget="textinput1" waitEvent="updateComplete" />
+				<WaitForLayoutManager />
             </setup>
             <body>
                 <AssertStyleValue target="textinput1" styleName="chromeColor" value="0x9999FF"/>
