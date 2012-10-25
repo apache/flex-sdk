@@ -275,7 +275,7 @@
 	    <delete dir="${basedir}/${batik.dir}/lib/**" failonerror="false"/>
         <delete includeEmptyDirs="true" failonerror="fasle">
             <fileset dir="${download.dir}">
-                <include name="${batik.zip.dir}*/**"/>
+                <include name="batik*/**"/>
             </fileset>            
         </delete>
     </target>

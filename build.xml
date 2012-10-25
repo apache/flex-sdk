@@ -27,7 +27,7 @@
         <and>
             <equals arg1="${sun.arch.data.model}" arg2="64"/>
             <equals arg1="${os.arch}" arg2="x86_64"/>
-                <os family="mac"/>
+            <os family="mac"/>
         </and>
     </condition>
 
@@ -911,30 +911,21 @@
         -->
         <copy todir="${basedir}/temp/lib/external">
             <fileset dir="${basedir}/lib/external">
+                <!-- required license and notice files -->
+                <include name="*LICENSE*/**"/>
+                <include name="*NOTICE*/**"/>
+                <include name="*README*"/>
+                <!-- jar files -->
                 <include name="commons-collections.jar"/>
-                <include name="commons-collections-LICENSE*"/>
-                <include name="commons-collections-NOTICE*/**"/>
                 <include name="commons-discovery.jar"/>
-                <include name="commons-discovery-LICENSE*"/>
-                <include name="commons-discovery-NOTICE*/**"/>
                 <include name="commons-logging.jar"/>
-                <include name="commons-logging-LICENSE*"/>
-                <include name="commons-logging-NOTICE*/**"/>
                 <include name="javacc.jar"/>
-                <include name="javacc-LICENSE*"/>
                 <include name="saxon9.jar"/>
-                <include name="saxon9-LICENSE*"/>
-                <include name="saxon9-NOTICE*/**"/>
                 <include name="xalan.jar"/>
-                <include name="xalan-LICENSE*"/>
-                <include name="xalan-NOTICE*/**"/>
                 <include name="xercesImpl.jar"/>
                 <include name="xercesPatch.jar"/>
-                <include name="xerces-LICENSE*/**"/>
-                <include name="xerces-NOTICE*/**"/>
+                <include name="xml-apis-ext.jar"/>
                 <include name="xml-apis.jar"/>
-                <include name="xml-batik-LICENSE*"/>
-                <include name="xml-batik-NOTICE*/**"/>
                 <exclude name="optional/**"/>
             </fileset>
         </copy>

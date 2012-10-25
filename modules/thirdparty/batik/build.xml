@@ -1090,11 +1090,25 @@ JAVA=/usr/bin/java
 
   <!--====== START additions for Apache Flex =========-->
 
+    <!--
+    The following directories have been removed from the batik source tree since they
+    aren't being used by Flex:
+        resource and sources
+            apps
+            ext/swing
+            extension
+            
+        as well as the manifest files for the applications and all test files.
+        
+    There are several targets in this build file that will not build because of these
+    missing files.
+  -->
+
   <property name="FLEX_HOME" value="${basedir}/../../.."/>
   <property name="FLEX_LIB" value="${basedir}/../../../lib"/>
 
   <!-- 
-    Clone all-jar and add Flex manifest. 
+    Clone all-jar and add Flex info to manifest. 
     
     This must be built from the modules build file to get the manifest properties set
     correctly.
@@ -1115,9 +1129,9 @@ JAVA=/usr/bin/java
       <fileset dir="${dest}" excludes="**/.svn/">
         <include name="**"/>
       </fileset>
-      <!--fileset dir="${resources}" excludes="**/.svn/">
+      <fileset dir="${resources}" excludes="**/.svn/">
         <include name="**"/>
-      </fileset-->
+      </fileset>
     </jar>
   </target>
  
@@ -1129,10 +1143,8 @@ JAVA=/usr/bin/java
   <!--====== END additions for Apache Flex =========-->
 
   <!-- All batik in a single jar (dependencies: none) -->
-  <!-- Apache Flex:
-        modified Implementation-Title and added Class-Path.
-  -->
-  <target name="all-jar" depends="init, compile, prepare-build"
+
+    <target name="all-jar" depends="init, compile, prepare-build"
           description="Creates a combined JAR file of the Batik libraries in ${build}/lib">
     <jar jarfile="${build}/lib/${project}-all.jar">
       <manifest>
