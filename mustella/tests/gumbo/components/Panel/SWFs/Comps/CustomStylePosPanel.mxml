@@ -24,7 +24,7 @@
    		<mx:RadioButton id="myRB3" groupName="rbg1" label="Option 3"/>
    	</mx:HBox>
 
-   	<s:BitmapImage id="myPic" width="100" height="100" source="@Embed('../../../../../../Assets/Images/smallredrect.jpg')" fillMode="repeat"/>
+   	<s:BitmapImage id="myPic" width="100" height="100" source="@Embed('../../../../../../Assets/Images/smallorangerect.gif')" fillMode="repeat"/>
 
 	<s:Ellipse id="myEllipse" height="50" width="50">
 		<s:fill>
