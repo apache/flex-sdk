@@ -60,7 +60,9 @@
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPG" waitEvent="updateComplete" waitTarget="accordion_1" />
             </setup>
              <body>
-                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPG.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>					
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, Accordion]" >
@@ -72,7 +74,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, Accordion]" >
@@ -84,7 +88,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, Accordion]" >
@@ -97,7 +103,9 @@
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, Accordion]" >
@@ -110,7 +118,9 @@
                 <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPG_Disabled" keywords="[disabled, SkinStates,EmbedJPG, Accordion]" >
@@ -121,7 +131,9 @@
                 <SetProperty target="accordion_1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="accordion_1"/>
             </setup>
             <body>
-                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_Disabled_JPG.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_Embeding_PNG" keywords="[enabled, SkinStates,EmbedPNG, Accordion]" >
@@ -351,7 +363,9 @@
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPGRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
             </setup>
             <body>
-                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_JPG.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_runtime_PNG" keywords="[enabled, SkinStates,runtimePNG, Accordion]" >
@@ -450,7 +464,9 @@
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPGIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
             </setup>
             <body>
-                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPGIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, Accordion]" >
@@ -463,7 +479,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, Accordion]" >
@@ -474,7 +492,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, Accordion]" >
@@ -486,7 +506,9 @@
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, Accordion]" >
@@ -499,7 +521,9 @@
                 <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPGIcon_Disabled" keywords="[disabled, SkinStates,EmbedJPGIcon, Accordion]" >
@@ -510,7 +534,9 @@
                 <SetProperty target="accordion_1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="accordion_1"/>
             </setup>
             <body>
-                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_Disabled_JPGIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_Embeding_PNGIcon" keywords="[enabled, SkinStates,EmbedPNGIcon, Accordion]" >
@@ -721,7 +747,9 @@
                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPGIconRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
             </setup>
             <body>
-                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_JPGIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Accordion_Styles_SkinStates_runtime_PNGIcon" keywords="[enabled, SkinStates,runtimePNGIcon, Accordion]" >
