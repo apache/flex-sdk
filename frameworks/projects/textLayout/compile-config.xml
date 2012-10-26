@@ -1,0 +1,67 @@
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<flex-config>
+    <compiler>
+        <external-library-path>
+            <path-element>${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc</path-element>
+        </external-library-path>
+        
+        <keep-as3-metadata>
+            <name>IMXMLObject</name>
+        </keep-as3-metadata>
+        
+        <locale/>
+        
+        <library-path/>
+        
+        <namespaces>
+            <namespace>
+                <uri>library://ns.adobe.com/flashx/textLayout</uri>
+                <manifest>${source.dir}/manifest.xml</manifest>
+            </namespace>
+        </namespaces>
+        
+        <source-path>
+            <path-element>${source.dir}/src</path-element>
+        </source-path>
+        
+        <show-actionscript-warnings>false</show-actionscript-warnings>
+    </compiler>
+   
+    <compute-digest>true</compute-digest>
+    
+    <include-classes>
+        <class>flashx.textLayout.CoreClasses</class>
+        <class>flashx.textLayout.EditClasses</class>
+        <class>flashx.textLayout.ConversionClasses</class>
+    </include-classes>
+    
+    <include-file>
+        <name>manifest.xml</name>
+        <path>${source.dir}/manifest.xml</path>
+    </include-file>
+    
+    <include-namespaces>
+        <uri>library://ns.adobe.com/flashx/textLayout</uri>
+    </include-namespaces>  
+
+    <resource-bundle-list>bundles.properties</resource-bundle-list>
+            
+    <target-player>${playerglobal.version}</target-player>
+</flex-config>

@@ -189,22 +189,17 @@
 	
 	<target name="compile" description="Compiles textLayout.swc">
 		<taskdef resource="flexTasks.tasks" classpath="${flexTasks.location}"/>
-		<compc fork="true"
-			   output="${output.file}"
-			   show-actionscript-warnings="false"
-			   compute-digest="true"
-			   include-classes="flashx.textLayout.CoreClasses flashx.textLayout.EditClasses flashx.textLayout.ConversionClasses">
-			<jvmarg line="${compc.jvm.args}"/>
-			<keep-as3-metadata>IMXMLObject</keep-as3-metadata>
-			<include-namespaces uri="${project.uri}"/>
-			<namespace uri="${project.uri}" manifest="${source.dir}/manifest.xml"/>
-			<source-path path-element="${source.dir}/src"/>
-			<library-path/>
-			<include-file name="manifest.xml" path="${source.dir}/manifest.xml"/>
-			<static-link-runtime-shared-libraries/>
-			<define name="CONFIG::debug" value="${dbg}"/>
+		<compc fork="true" 
+		       output="${output.file}">
+            <jvmarg line="${compc.jvm.args}"/>
+            <load-config filename="compile-config.xml" />
+            <arg value="+playerglobal.version=${playerglobal.version}" />
+            <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
+            <arg value="+source.dir=${source.dir}" />
+            <define name="CONFIG::debug" value="${dbg}"/>
 			<define name="CONFIG::release" value="${rel}"/>
-		</compc>
+
+        </compc>
      </target>
 
 	<target name="doc" description="Updates textLayout.swc with ASDoc XML">
