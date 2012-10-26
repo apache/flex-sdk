@@ -234,9 +234,9 @@
     -->
     
     <target name="batik-jars-check" description="Checks if batik jars exists.">
-        <!-- this implies the lib dir and its jars also exist -->
         <condition property="batik.jars.exists">
             <and>
+                <!-- this implies the lib dir and its jars also exist -->
     	        <available file="${basedir}/${batik.dir}/lib/build" type="dir" />
     	        <available file="${lib.ext.dir}/xml-apis-ext.jar"/>
     	    </and>
@@ -251,6 +251,12 @@
             <param name="zipFile" value="batik-src-1.7.zip"/>
             <param name="md5" value="c117ca2241907f62a2b3031167ebf917"/>
         </antcall>
+
+        <!-- 
+            Make sure any left-over batik 1.6 libraries are removed to avoid compile errors.  
+            (super-clean/batik-jars-clean would take also take care of this.)
+        -->
+	    <delete dir="${basedir}/${batik.dir}/lib" failonerror="false"/>
 
         <copy todir="${basedir}/${batik.dir}/lib" failonerror="true">
             <fileset dir="${download.dir}/${batik.zip.dir}/lib">
