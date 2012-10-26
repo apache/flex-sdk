@@ -22,12 +22,15 @@
 
     <property name="FLEX_HOME" location="${basedir}"/>
     
-    <!-- Required for OSX 10.6 / Snow Leopard Performance -->
-    <condition property="local.d32" value="-d32" >
+    <!-- Required for OSX 10.6 / Snow Leopard Performance. -->
+    <!-- Java 7 on Mac requires OSX 10.7.3 or higher and is 64-bit only -->
+    <!-- local.d32 is set/used in build.properties so this needs to be done first. -->
+    <condition property="local.d32" value="-d32">
         <and>
+            <os family="windows"/>
             <equals arg1="${sun.arch.data.model}" arg2="64"/>
             <equals arg1="${os.arch}" arg2="x86_64"/>
-            <os family="mac"/>
+            <equals arg1="${ant.java.version}" arg2="1.6"/>
         </and>
     </condition>
 
@@ -121,7 +124,12 @@
         description="Stuff that needs to be done before any builds." />
 
     <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-pixelbender-home"
-        description="Check for the required environment variables for compilation."/>
+        description="Check for the required environment variables for compilation.">
+            <echo>OS: ${os.name} / ${os.version} / ${os.arch}</echo>
+            <echo>VM: ${java.vm.name} / ${java.vm.version}</echo>
+            <echo>Java: ${java.version}</echo>
+            <echo>Ant: ${ant.version} Ant Java Version: ${ant.java.version}</echo>
+    </target>
 
     <target name="check-playerglobal-home" unless="playerglobal.swc.exists"
         description="Check PLAYERGLOBAL_HOME for both a directory and a swc file">

@@ -361,6 +361,10 @@
 	</runtime-shared-library-path>
 	  
 	  <!-- TextLayout SWC -->
+	<!-- 
+	    Even though there is no textLayout rsl leave this in so that in a FlashBuilder
+	    Flex Library project, FlashBuilder will allow "Link Type" to be external.
+    -->
     <runtime-shared-library-path>
 		<path-element>libs/textLayout.swc</path-element>
 		<rsl-url>textLayout_${build.number}.swf</rsl-url>
