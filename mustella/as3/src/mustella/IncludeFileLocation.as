@@ -23,6 +23,7 @@ import flash.net.URLLoader;
 import flash.net.URLRequest;
 import flash.events.Event;
 import flash.system.Capabilities;
+import flash.system.Security;
 
 [Mixin]
 /**
@@ -58,7 +59,9 @@ public class IncludeFileLocation
 			useFile = "c:/tmp/IncludeList.txt";	
 		} else { 
 
-			useFile = "/tmp/IncludeList.txt";	
+			useFile = "/tmp/IncludeList.txt";
+			if (Security.sandboxType == Security.APPLICATION)
+				useFile = "file:///tmp/IncludeList.txt";
 
 		}
 
