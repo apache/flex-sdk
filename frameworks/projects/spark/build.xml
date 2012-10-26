@@ -20,181 +20,181 @@
 
 
 <project name="spark" default="main" basedir=".">
-	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+    <property name="FLEX_HOME" location="${basedir}/../../.."/>
 
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
-	<property file="${FLEX_HOME}/build.properties"/>
+    <property file="${FLEX_HOME}/build.properties"/>
 
     <macrodef name="bundle">
-		<attribute name="locale"/>
-		<sequential>
-			<echo message="Compiling frameworks/locale/@{locale}/spark_rb.swc"/>
+        <attribute name="locale"/>
+        <sequential>
+            <echo message="Compiling frameworks/locale/@{locale}/spark_rb.swc"/>
 
-			<!-- Load the <compc> task. We can't do this at the <project> level -->
-			<!-- because targets that run before flexTasks.jar gets built would fail. -->
-			<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
-			<compc fork="true" minimum-supported-version="4.0.0"
-				   output="${FLEX_HOME}/frameworks/locale/@{locale}/spark_rb.swc"
-				   locale="@{locale}">
+            <!-- Load the <compc> task. We can't do this at the <project> level -->
+            <!-- because targets that run before flexTasks.jar gets built would fail. -->
+            <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+            <compc fork="true" minimum-supported-version="4.0.0"
+                   output="${FLEX_HOME}/frameworks/locale/@{locale}/spark_rb.swc"
+                   locale="@{locale}">
 
-				<target-player>10.2</target-player>
-				<jvmarg line="${compc.jvm.args}"/>
+                <target-player>10.2</target-player>
+                <jvmarg line="${compc.jvm.args}"/>
                 <include-resource-bundles bundle="layout"/>
-				<include-resource-bundles bundle="collections"/>
-				<include-resource-bundles bundle="components"/>
-				<include-resource-bundles bundle="sparkEffects"/>
-				<include-resource-bundles bundle="textLayout"/>
+                <include-resource-bundles bundle="collections"/>
+                <include-resource-bundles bundle="components"/>
+                <include-resource-bundles bundle="sparkEffects"/>
+                <include-resource-bundles bundle="textLayout"/>
                 <include-resource-bundles bundle="osmf"/>
-				<include-namespaces/>
-				<include-classes/>
-				<source-path path-element="${basedir}/bundles/@{locale}"/>
-				<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/bundles/@{locale}"/>
-				<!--source-path path-element="${FLEX_HOME}/frameworks/projects/osmf/bundles/@{locale}"/-->
-				<!--source-path path-element="${FLEX_HOME}/frameworks/projects/textLayout/bundles/@{locale}"/-->
-				<source-path path-element="${FLEX_HOME}/frameworks/projects/spark/src"/>
-				<include-libraries/>
-				<library-path/>
+                <include-namespaces/>
+                <include-classes/>
+                <source-path path-element="${basedir}/bundles/@{locale}"/>
+                <source-path path-element="${FLEX_HOME}/frameworks/projects/framework/bundles/@{locale}"/>
+                <!--source-path path-element="${FLEX_HOME}/frameworks/projects/osmf/bundles/@{locale}"/-->
+                <!--source-path path-element="${FLEX_HOME}/frameworks/projects/textLayout/bundles/@{locale}"/-->
+                <source-path path-element="${FLEX_HOME}/frameworks/projects/spark/src"/>
+                <include-libraries/>
+                <library-path/>
                 <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
                     <include name="${playerglobal.version}/playerglobal.swc"/>
                 </external-library-path>
-				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-					<include name="framework.swc"/>
-				</external-library-path>
-			</compc>
-		</sequential>
-	</macrodef>	
-	
-	<macrodef name="fat-swc">
-		<attribute name="locale"/>
-		<sequential>
-		<echo message="creating 'fat-swc' in spark_rb.swc for @{locale}"/>
-			<mkdir dir="${basedir}/bundles/@{locale}/docs" />
-			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/spark_rb.swc" update="true">
-				<zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
-					<include name="*.*"/>
-				</zipfileset>
-				<zipfileset dir="${basedir}/bundles/en_US" prefix="docs">
-					<include name="packages.dita"/>
-				</zipfileset>
-			</zip>
-		</sequential>
-	</macrodef>	
+                <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                    <include name="framework.swc"/>
+                </external-library-path>
+            </compc>
+        </sequential>
+    </macrodef> 
+    
+    <macrodef name="fat-swc">
+        <attribute name="locale"/>
+        <sequential>
+        <echo message="creating 'fat-swc' in spark_rb.swc for @{locale}"/>
+            <mkdir dir="${basedir}/bundles/@{locale}/docs" />
+            <zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/spark_rb.swc" update="true">
+                <zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
+                    <include name="*.*"/>
+                </zipfileset>
+                <zipfileset dir="${basedir}/bundles/en_US" prefix="docs">
+                    <include name="packages.dita"/>
+                </zipfileset>
+            </zip>
+        </sequential>
+    </macrodef> 
 
-	<macrodef name="bundler">
-		<attribute name="locale"/>
-		<element name="run.fat.swc" optional="yes"/>
-		<sequential>
-			<bundle-clean locale="@{locale}"/>
-			<bundle locale="@{locale}"/>
-			<run.fat.swc/>
-		</sequential>
-	</macrodef>
-	
-	<macrodef name="bundle-clean">
-		<attribute name="locale"/>
-		<sequential>
-			<delete failonerror="false">
-			<fileset dir="${FLEX_HOME}/frameworks/locale">
-				<include name="@{locale}/spark_rb.swc"/>
-				<include name="@{locale}/spark_rb.swc.incr"/>
-				<include name="@{locale}/flex4_rb.swc"/>
-			</fileset>
-		</delete>
-		</sequential>
-	</macrodef>
-		
-	<target name="main" depends="clean,compile" description="Clean build of spark.swc and en_US">
-		<bundle locale="${locale}"/>
-	</target>
-	
-	<target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
-	
-	<!-- This is a private target for building automation_flashflexkit_rb.swc for various locales. -->
-	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
-	<target name="bundles">
-		<!-- these languages do not have localized docs-->
-		<bundler locale="en_AU"/><!-- Australian resources -->
-		<bundler locale="en_GB"/><!-- United Kingdom resources -->
-		<bundler locale="en_CA"/><!-- Canadian resources -->
-		<bundler locale="da_DK"/><!-- Danish resources -->
-		<bundler locale="de_DE"><!-- German resources -->
-			<run.fat.swc>
-				<fat-swc locale="de_DE"/>
-			</run.fat.swc>
-		</bundler>
-		<bundler locale="de_CH"/><!-- Swiss German resources -->
-		<bundler locale="es_ES"/><!-- Spanish resources -->
-		<bundler locale="fi_FI"/><!--  Finnish resources-->
-		<bundler locale="fr_FR"><!-- French resources -->
-			<run.fat.swc>
-				<fat-swc locale="fr_FR"/>
-			</run.fat.swc>
-		</bundler>
-		<bundler locale="it_IT"/><!-- Italian resources -->
-		<bundler locale="ja_JP"><!-- Japanese resources -->
-			<run.fat.swc>
-				<fat-swc locale="ja_JP"/>
-			</run.fat.swc>
-		</bundler>
-		<bundler locale="ko_KR"/><!-- Korean resources -->
-		<bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
-		<bundler locale="nl_NL"/><!-- Dutch resources -->
-		<bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
-		<bundler locale="pt_PT"/><!-- Portugal Portuguese resources -->
-		<bundler locale="ru_RU"><!-- Russian resources -->
-			<run.fat.swc>
-				<fat-swc locale="ru_RU"/>
-			</run.fat.swc>
-		</bundler>
-		<bundler locale="sv_SE"/><!-- Swedish resources -->
-		<bundler locale="zh_CN"><!-- Simplified Chinese resources -->
-			<run.fat.swc>
-				<fat-swc locale="zh_CN"/>
-			</run.fat.swc>
-		</bundler>
-		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
-		<bundler locale="el_GR"/><!-- Greek Language  resources -->
-	</target>
-		
-	<target name="clean" depends="bundles-clean, pixelbender-clean">
-		<delete failonerror="false">
-			<fileset dir="${basedir}" >
-				<include name="bundles.properties"/>
-			    <include name="bundles/en_US/packages.dita"/>
-				<include name="manifest.xml"/>
-			</fileset>
-			<fileset dir="${FLEX_HOME}/frameworks/libs">
-				<include name="spark.swc"/>
-				<include name="graphics.swc"/>
-				<include name="spark.swc.incr"/>
-				<include name="flex4.swc"/>
-			</fileset>
-		</delete>
-	</target>
-	
-	<target name="bundles-clean">
-		<delete failonerror="false">
-			<fileset dir="${FLEX_HOME}/frameworks/locale">
-				<include name="*/spark_rb.swc"/>
-				<include name="*/spark_rb.swc.incr"/>
-				<include name="*/flex4_rb.swc"/>
-			</fileset>
-		</delete>
-	</target>
-	
-	<target name="pixelbender-clean">
-		<delete failonerror="false">
-			<fileset dir="${FLEX_HOME}/frameworks/projects/spark/asdoc/en_US/spark/effects/examples/assets">
-				<include name="**/*.pbj"/>
-			</fileset>
-			<fileset dir="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects">
-				<include name="**/*.pbj"/>
-			</fileset>
-		</delete>
-	</target>
+    <macrodef name="bundler">
+        <attribute name="locale"/>
+        <element name="run.fat.swc" optional="yes"/>
+        <sequential>
+            <bundle-clean locale="@{locale}"/>
+            <bundle locale="@{locale}"/>
+            <run.fat.swc/>
+        </sequential>
+    </macrodef>
+    
+    <macrodef name="bundle-clean">
+        <attribute name="locale"/>
+        <sequential>
+            <delete failonerror="false">
+            <fileset dir="${FLEX_HOME}/frameworks/locale">
+                <include name="@{locale}/spark_rb.swc"/>
+                <include name="@{locale}/spark_rb.swc.incr"/>
+                <include name="@{locale}/flex4_rb.swc"/>
+            </fileset>
+        </delete>
+        </sequential>
+    </macrodef>
+        
+    <target name="main" depends="clean,compile" description="Clean build of spark.swc and en_US">
+        <bundle locale="${locale}"/>
+    </target>
+    
+    <target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
+    
+    <!-- This is a private target for building automation_flashflexkit_rb.swc for various locales. -->
+    <!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
+    <target name="bundles">
+        <!-- these languages do not have localized docs-->
+        <bundler locale="en_AU"/><!-- Australian resources -->
+        <bundler locale="en_GB"/><!-- United Kingdom resources -->
+        <bundler locale="en_CA"/><!-- Canadian resources -->
+        <bundler locale="da_DK"/><!-- Danish resources -->
+        <bundler locale="de_DE"><!-- German resources -->
+            <run.fat.swc>
+                <fat-swc locale="de_DE"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="de_CH"/><!-- Swiss German resources -->
+        <bundler locale="es_ES"/><!-- Spanish resources -->
+        <bundler locale="fi_FI"/><!--  Finnish resources-->
+        <bundler locale="fr_FR"><!-- French resources -->
+            <run.fat.swc>
+                <fat-swc locale="fr_FR"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="it_IT"/><!-- Italian resources -->
+        <bundler locale="ja_JP"><!-- Japanese resources -->
+            <run.fat.swc>
+                <fat-swc locale="ja_JP"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="ko_KR"/><!-- Korean resources -->
+        <bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
+        <bundler locale="nl_NL"/><!-- Dutch resources -->
+        <bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
+        <bundler locale="pt_PT"/><!-- Portugal Portuguese resources -->
+        <bundler locale="ru_RU"><!-- Russian resources -->
+            <run.fat.swc>
+                <fat-swc locale="ru_RU"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="sv_SE"/><!-- Swedish resources -->
+        <bundler locale="zh_CN"><!-- Simplified Chinese resources -->
+            <run.fat.swc>
+                <fat-swc locale="zh_CN"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
+        <bundler locale="el_GR"/><!-- Greek Language  resources -->
+    </target>
+        
+    <target name="clean" depends="bundles-clean, pixelbender-clean">
+        <delete failonerror="false">
+            <fileset dir="${basedir}" >
+                <include name="bundles.properties"/>
+                <include name="bundles/en_US/packages.dita"/>
+                <include name="manifest.xml"/>
+            </fileset>
+            <fileset dir="${FLEX_HOME}/frameworks/libs">
+                <include name="spark.swc"/>
+                <include name="graphics.swc"/>
+                <include name="spark.swc.incr"/>
+                <include name="flex4.swc"/>
+            </fileset>
+        </delete>
+    </target>
+    
+    <target name="bundles-clean">
+        <delete failonerror="false">
+            <fileset dir="${FLEX_HOME}/frameworks/locale">
+                <include name="*/spark_rb.swc"/>
+                <include name="*/spark_rb.swc.incr"/>
+                <include name="*/flex4_rb.swc"/>
+            </fileset>
+        </delete>
+    </target>
+    
+    <target name="pixelbender-clean">
+        <delete failonerror="false">
+            <fileset dir="${FLEX_HOME}/frameworks/projects/spark/asdoc/en_US/spark/effects/examples/assets">
+                <include name="**/*.pbj"/>
+            </fileset>
+            <fileset dir="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects">
+                <include name="**/*.pbj"/>
+            </fileset>
+        </delete>
+    </target>
 
-	<target name="pixelbender-compile">
+    <target name="pixelbender-compile">
         <exec executable="${env.PIXELBENDER_HOME}/pbutil">
             <arg value="${FLEX_HOME}/frameworks/projects/spark/asdoc/en_US/spark/effects/examples/assets/twist.pbk" />
             <arg value="${FLEX_HOME}/frameworks/projects/spark/asdoc/en_US/spark/effects/examples/assets/twist.pbj" />
@@ -219,102 +219,83 @@
             <arg value="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects/WipeRight.pbk" />
             <arg value="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects/WipeRight.pbj" />
         </exec>
-	</target>
+    </target>
 
-	
-	<target name="prepare" description="Copies manifests to project directories so the IDE can find them">
-		<copy file="${FLEX_HOME}/frameworks/spark-manifest.xml" tofile="${basedir}/manifest.xml" overwrite="true"/>
-	</target>
-	
-	<target name="compile" depends="prepare, pixelbender-compile" description="Compiles spark.swc">
-		<echo file="${FLEX_HOME}/frameworks/version.properties" append="false">build=${build.number}</echo>
-		<echo message="Compiling frameworks/libs/spark.swc"/>
+    
+    <target name="prepare" description="Copies manifests to project directories so the IDE can find them">
+        <copy file="${FLEX_HOME}/frameworks/spark-manifest.xml" tofile="${basedir}/manifest.xml" overwrite="true"/>
+    </target>
+    
+    <target name="compile" depends="prepare, pixelbender-compile" description="Compiles spark.swc">
+        <echo file="${FLEX_HOME}/frameworks/version.properties" append="false">build=${build.number}</echo>
+        <echo message="Compiling frameworks/libs/spark.swc"/>
 
-		<!-- Load the <compc> task. We can't do this at the <project> level -->
-		<!-- because targets that run before flexTasks.jar gets built would fail. -->
-		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
-		<!--
-			Link in the classes (and their dependencies) for the MXML tags
-			listed in this project's manifest.xml.
-			Also link the additional classes (and their dependencies)
-			listed in SparkClasses.as,
-			because these aren't referenced by the manifest classes.
-			Link in accessibility support.
-			Include the appropriate CSS files and assets in the SWC.
-			Don't include any resources in the SWC.
-			Write a bundle list of referenced resource bundles
-			into the file bundles.properties in this directory.
-		-->
-		<compc fork="true" minimum-supported-version="4.0.0"
-			   output="${FLEX_HOME}/frameworks/libs/spark.swc"
-			   resource-bundle-list="${basedir}/bundles.properties">
-			<jvmarg line="${compc.jvm.args}"/>
-			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest.xml"/>
-			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
-			<include-classes>SparkClasses</include-classes>
-			<source-path path-element="${basedir}/src"/>
-			<library-path />
-			<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-                <include name="${playerglobal.version}/playerglobal.swc"/>
-            </external-library-path>
-			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="framework.swc"/>
-				<include name="mx/mx.swc"/>
-                <include name="osmf.swc"/>
-                <include name="textLayout.swc"/>
-			</external-library-path>
-			<include-file name="version.properties" path="${FLEX_HOME}/frameworks/version.properties"/>
-			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
-			<include-file name="assets/ErrorIndicator.png" path="${basedir}/assets/ErrorIndicator.png"/>
-			<include-file name="assets/RequiredIndicator.png" path="${basedir}/assets/RequiredIndicator.png"/>
-			<locale/>
-            <keep-as3-metadata name="SkinPart"/>
-			<accessible>true</accessible>
-		</compc>
-		<delete file="${FLEX_HOME}/frameworks/version.properties"/>
-	</target>
-	
-	<target name="doc" depends="clean-temp-docs" description="updates spark.swc with asdoc xml">
-		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
-		<!-- because targets that run before flexTasks.jar gets built would fail. -->
-		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+        <!-- Load the <compc> task. We can't do this at the <project> level -->
+        <!-- because targets that run before flexTasks.jar gets built would fail. -->
+        <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+        <!--
+            Link in the classes (and their dependencies) for the MXML tags
+            listed in this project's manifest.xml.
+            Also link the additional classes (and their dependencies)
+            listed in SparkClasses.as,
+            because these aren't referenced by the manifest classes.
+            Link in accessibility support.
+            Include the appropriate CSS files and assets in the SWC.
+            Don't include any resources in the SWC.
+            Write a bundle list of referenced resource bundles
+            into the file bundles.properties in this directory.
+        -->
+        <compc fork="true"
+               output="${FLEX_HOME}/frameworks/libs/spark.swc">
+            <jvmarg line="${compc.jvm.args}"/>
+            <load-config filename="compile-config.xml" />
+            <arg value="+playerglobal.version=${playerglobal.version}" />
+            <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
+        </compc>
+        <delete file="${FLEX_HOME}/frameworks/version.properties"/>
+    </target>
+    
+    <target name="doc" depends="clean-temp-docs" description="updates spark.swc with asdoc xml">
+        <!-- Load the <asdoc> task. We can't do this at the <project> level -->
+        <!-- because targets that run before flexTasks.jar gets built would fail. -->
+        <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 
-	    <condition property="asdoc.jvm.args" value="-Xmx384m">
-	        <os family="windows"/>
-	    </condition>
+        <condition property="asdoc.jvm.args" value="-Xmx384m">
+            <os family="windows"/>
+        </condition>
 
-	    <condition property="asdoc.jvm.args" value="-Xmx512m">
-	        <os family="mac"/>
-	    </condition>
+        <condition property="asdoc.jvm.args" value="-Xmx512m">
+            <os family="mac"/>
+        </condition>
 
-	    <condition property="asdoc.jvm.args" value="-Xmx512m">
-	        <os family="unix"/>
-	    </condition>
+        <condition property="asdoc.jvm.args" value="-Xmx512m">
+            <os family="unix"/>
+        </condition>
 
-		<!-- Call asdoc to generate dita xml files -->
-		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
-		    <compiler.source-path path-element="${basedir}/src"/>
-		    <doc-classes class="SparkClasses"/>
-		    <doc-namespaces uri="library://ns.adobe.com/flex/spark"/>
-			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest.xml"/>
-		    <jvmarg line="${asdoc.jvm.args}"/>
-		</asdoc>
+        <!-- Call asdoc to generate dita xml files -->
+        <asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+            <compiler.source-path path-element="${basedir}/src"/>
+            <doc-classes class="SparkClasses"/>
+            <doc-namespaces uri="library://ns.adobe.com/flex/spark"/>
+            <namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest.xml"/>
+            <jvmarg line="${asdoc.jvm.args}"/>
+        </asdoc>
 
-		<!-- updates spark.swc with asdoc xml -->
-		<zip destfile="${FLEX_HOME}/frameworks/locale/en_US/spark_rb.swc" update="true">
-		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
-			    <include name="*.*"/>
-				<exclude name="ASDoc_Config.xml"/>
-				<exclude name="overviews.xml"/>
-		    </zipfileset>
-		</zip>
-		<copy file="${FLEX_HOME}/tempDoc/tempdita/packages.dita" tofile="${basedir}/bundles/en_US/packages.dita"/> 
-	</target>
+        <!-- updates spark.swc with asdoc xml -->
+        <zip destfile="${FLEX_HOME}/frameworks/locale/en_US/spark_rb.swc" update="true">
+            <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+                <include name="*.*"/>
+                <exclude name="ASDoc_Config.xml"/>
+                <exclude name="overviews.xml"/>
+            </zipfileset>
+        </zip>
+        <copy file="${FLEX_HOME}/tempDoc/tempdita/packages.dita" tofile="${basedir}/bundles/en_US/packages.dita"/> 
+    </target>
 
-	<target name="clean-temp-docs">
-		<delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
-		<delete file="${basedir}/bundles/en_US/packages.dita" failonerror="false"/>
-	</target>
+    <target name="clean-temp-docs">
+        <delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+        <delete file="${basedir}/bundles/en_US/packages.dita" failonerror="false"/>
+    </target>
 
 </project>
 
