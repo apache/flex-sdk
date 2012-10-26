@@ -145,7 +145,9 @@
                 <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
             </setup>
             <body>
-                <CompareBitmap target="tbb" url="../Styles/baselines/ToggleButtonBar_Styles_SkinStates_Embeding_JPG.png" timeout="5000" />
+                <CompareBitmap target="tbb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase> 
         <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, ToggleButtonBar]" >
@@ -157,7 +159,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="tbb" url="../Styles/baselines/ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="tbb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, ToggleButtonBar]" >
@@ -169,7 +173,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="tbb" url="../Styles/baselines/ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap target="tbb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>     
         <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, ToggleButtonBar]" >
@@ -182,7 +188,9 @@
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="tbb" url="../Styles/baselines/ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="tbb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, ToggleButtonBar]" >
@@ -195,7 +203,9 @@
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
                 <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="tbb" url="../Styles/baselines/ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap target="tbb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPG_Disabled" keywords="[disabled, SkinStates,EmbedJPG, ToggleButtonBar]" >
@@ -206,7 +216,9 @@
                 <SetProperty target="tbb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tbb"/>
             </setup>
             <body>
-                <CompareBitmap target="tbb" url="../Styles/baselines/ToggleButtonBar_Styles_SkinStates_Embeding_Disabled_JPG.png" timeout="5000" />
+                <CompareBitmap target="tbb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_PNG" keywords="[enabled, SkinStates,EmbedPNG, ToggleButtonBar]" >
@@ -431,7 +443,9 @@
                 <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPGRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
             </setup>
             <body>
-                <CompareBitmap target="tbb" url="../Styles/baselines/ToggleButtonBar_Styles_SkinStates_runtime_JPG.png" timeout="5000" />
+                <CompareBitmap target="tbb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase> 
         <TestCase testID="ToggleButtonBar_Styles_SkinStates_runtime_PNG" keywords="[enabled, SkinStates,runtimePNG, ToggleButtonBar]" >
@@ -530,7 +544,9 @@
                 <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
             </setup>
             <body>
-                <CompareBitmap target="tbb" url="../Styles/baselines/ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon.png" timeout="5000" />
+                <CompareBitmap target="tbb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase> 
         <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, ToggleButtonBar]" >
@@ -543,7 +559,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="tbb" url="../Styles/baselines/ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="tbb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, ToggleButtonBar]" >
@@ -556,7 +574,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="tbb" url="../Styles/baselines/ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap target="tbb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>     
         <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, ToggleButtonBar]" >
@@ -569,7 +589,9 @@
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="tbb" url="../Styles/baselines/ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="tbb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, ToggleButtonBar]" >
@@ -582,7 +604,9 @@
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
                 <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="tbb" url="../Styles/baselines/ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap target="tbb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_Disabled" keywords="[disabled, SkinStates,EmbedJPGIcon, ToggleButtonBar]" >
@@ -593,7 +617,9 @@
                 <SetProperty target="tbb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tbb"/>
             </setup>
             <body>
-                <CompareBitmap target="tbb" url="../Styles/baselines/ToggleButtonBar_Styles_SkinStates_Embeding_Disabled_JPGIcon.png" timeout="5000" />
+                <CompareBitmap target="tbb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_PNGIcon" keywords="[enabled, SkinStates,EmbedPNGIcon, ToggleButtonBar]" >
@@ -818,7 +844,9 @@
                 <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPGIconRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
             </setup>
             <body>
-                <CompareBitmap target="tbb" url="../Styles/baselines/ToggleButtonBar_Styles_SkinStates_runtime_JPGIcon.png" timeout="5000" />
+                <CompareBitmap target="tbb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase> 
         <TestCase testID="ToggleButtonBar_Styles_SkinStates_runtime_PNGIcon" keywords="[enabled, SkinStates,runtimePNGIcon, ToggleButtonBar]" >
