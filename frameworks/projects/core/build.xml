@@ -62,28 +62,10 @@
 			(This should be an empty list.)
 		-->
 		<compc fork="true"
-			   output="${FLEX_HOME}/frameworks/libs/core.swc"
-			   resource-bundle-list="${basedir}/bundles.properties">
-            <target-player>${playerglobal.version}</target-player>
-			<jvmarg line="${compc.jvm.args}"/>
-			<include-classes>CoreClasses</include-classes>
-			<source-path path-element="${basedir}/src"/>
-			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
-            <load-config filename="${FLEX_HOME}/frameworks/projects/framework/framework-config.xml"/>
-			<library-path/>
-            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-                <include name="${playerglobal.version}/playerglobal.swc"/>
-            </external-library-path>
-			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="textLayout.swc"/>
-			</external-library-path>
-			<locale/>
-			<accessible>true</accessible>
-			<keep-as3-metadata name="Bindable"/>
-			<keep-as3-metadata name="Managed"/>
-			<keep-as3-metadata name="ChangeEvent"/>
-			<keep-as3-metadata name="NonCommittingChangeEvent"/>
-			<keep-as3-metadata name="Transient"/>
+			   output="${FLEX_HOME}/frameworks/libs/core.swc">
+			<load-config filename="compile-config.xml" />
+            <arg value="+playerglobal.version=${playerglobal.version}" />
+            <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
 		</compc>
 	</target>
 
