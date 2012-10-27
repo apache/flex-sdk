@@ -18,6 +18,28 @@
 
 -->
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml">	
+	<mx:Script>
+		<![CDATA[
+			private function airify(s:String):String
+			{
+				if (ApplicationDomain.currentDomain.hasDefinition("flash.filesystem.File"))
+				{
+					var c:Class = Class(ApplicationDomain.currentDomain.getDefinition("flash.filesystem.File"));
+					var f:Object = c.applicationDirectory;
+					var p:String = f.nativePath;
+					while (s.indexOf("../") == 0)
+					{
+						var dot:int = p.lastIndexOf("/");
+						p = p.substr(0, dot);
+						s = s.substr(3);
+					}
+					f.nativePath = p + "/" + s;
+					return f.url;
+				}
+				return s;				
+			}
+		]]>
+	</mx:Script>
 	<mx:states>
 		<mx:State name="notBase">
 			<mx:RemoveChild target="{baseButton}"/>
@@ -25,40 +47,40 @@
 		<mx:State name="up" />
 		<mx:State name="over" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image id="overImage" source="../../../../Assets/Images/ButtonImages/buttonOver.swf" maintainAspectRatio="false" width="100%" height="100%"/> 
+				<mx:Image id="overImage" source="{airify('../../../../Assets/Images/ButtonImages/buttonOver.swf')}" maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="down" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image id="downImage" source="../../../../Assets/Images/ButtonImages/buttonDown.swf" maintainAspectRatio="false" width="100%" height="100%"/> 
+				<mx:Image id="downImage" source="{airify('../../../../Assets/Images/ButtonImages/buttonDown.swf')}" maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="disabled" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image id="disabledImage" source="../../../../Assets/Images/ButtonImages/buttonDisabled.swf" maintainAspectRatio="false" width="100%" height="100%"/> 
+				<mx:Image id="disabledImage" source="{airify('../../../../Assets/Images/ButtonImages/buttonDisabled.swf')}" maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedUp" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image id="selectedUpImage" source="../../../../Assets/Images/ButtonImages/buttonSelectedUp.swf" maintainAspectRatio="false" width="100%" height="100%"/> 
+				<mx:Image id="selectedUpImage" source="{airify('../../../../Assets/Images/ButtonImages/buttonSelectedUp.swf')}" maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedOver" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image id="selectedOverImage" source="../../../../Assets/Images/ButtonImages/buttonSelectedOver.swf" maintainAspectRatio="false" width="100%" height="100%"/> 
+				<mx:Image id="selectedOverImage" source="{airify('../../../../Assets/Images/ButtonImages/buttonSelectedOver.swf')}" maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedDown" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image id="selectedDownImage" source="../../../../Assets/Images/ButtonImages/buttonSelectedDown.swf" maintainAspectRatio="false" width="100%" height="100%"/> 
+				<mx:Image id="selectedDownImage" source="{airify('../../../../Assets/Images/ButtonImages/buttonSelectedDown.swf')}" maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedDisabled" basedOn="notBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image id="selectedDisabledImage" source="../../../../Assets/Images/ButtonImages/buttonSelectedDown.swf" maintainAspectRatio="false" width="100%" height="100%"/> 
+				<mx:Image id="selectedDisabledImage" source="{airify('../../../../Assets/Images/ButtonImages/buttonSelectedDown.swf')}" maintainAspectRatio="false" width="100%" height="100%"/> 
 			</mx:AddChild>
 		</mx:State>
 	</mx:states>
 		
-	<mx:Image id="baseButton" source="../../../../Assets/Images/ButtonImages/buttonUp.swf" maintainAspectRatio="false"  width="100%" height="100%"/>
+	<mx:Image id="baseButton" source="{airify('../../../../Assets/Images/ButtonImages/buttonUp.swf')}" maintainAspectRatio="false"  width="100%" height="100%"/>
 </mx:Canvas>

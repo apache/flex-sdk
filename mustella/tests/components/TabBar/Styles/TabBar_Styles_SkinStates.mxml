@@ -96,7 +96,9 @@
                 <WaitForEffectsToEnd />
             </setup>
             <body>
-                <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_Embeding_JPG.png" timeout="5000" />
+                <CompareBitmap target="tb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase> 
         <TestCase testID="TabBar_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, TabBar]" >
@@ -109,7 +111,9 @@
             </setup>
             <body>
 
-                <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="tb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="TabBar_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, TabBar]" >
@@ -121,7 +125,10 @@
                 <WaitForEffectsToEnd />
             </setup>
             <body>
-                <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap target="tb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
+
             </body>
         </TestCase>     
         <TestCase testID="TabBar_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, TabBar]" >
@@ -134,7 +141,9 @@
                 <WaitForEffectsToEnd />
             </setup>
             <body>
-                <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="tb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="TabBar_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, TabBar]" >
@@ -147,7 +156,9 @@
                 <WaitForEffectsToEnd />
             </setup>
             <body>
-                <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap target="tb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="TabBar_Styles_SkinStates_Embeding_JPG_Disabled" keywords="[disabled, SkinStates,EmbedJPG, TabBar]" >
@@ -391,7 +402,9 @@
                 <WaitForEffectsToEnd />
             </setup>
             <body>
-                <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_runtime_JPG.png" timeout="5000" />
+                <CompareBitmap target="tb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase> 
 
