@@ -87,7 +87,9 @@
                 <SetStyle target="rb" styleName="styleName" value="myRadioButtonJPG" waitEvent="updateComplete" waitTarget="rb" /> 
             </setup>
             <body>
-                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_JPG.png" timeout="5000" />
+                <CompareBitmap target="rb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase> 
         <TestCase testID="RadioButton_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, RadioButton]" >
@@ -99,7 +101,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="rb" waitEvent="rollOver" waitTarget="rb" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="rb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         
@@ -113,7 +117,9 @@
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="rb" waitEvent="rollOver" waitTarget="rb" /> 
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="rb" waitEvent="mouseDown" waitTarget="rb" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="rb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
@@ -318,7 +324,7 @@
                 <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
             </setup>
             <body>
-                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_SWF_air.png" timeout="5000" />
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_SWF_air.png" timeout="5000" numColorVariances="10" maxColorVariance="2" />
             </body>
         </TestCase> 
         <TestCase testID="RadioButton_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, RadioButton]" >
