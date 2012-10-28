@@ -125,7 +125,9 @@
                 <WaitForEffectsToEnd />
             </setup>
             <body>
-                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPG.png" timeout="5000" />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase> 
         <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkButton]" >
@@ -137,7 +139,9 @@
             <body>
                 <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkButton]" >
@@ -149,7 +153,9 @@
             <body>
                 <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>     
         <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkButton]" >
@@ -162,7 +168,9 @@
                 <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkButton]" >
@@ -175,10 +183,12 @@
                 <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPG_Disabled" keywords="[disabled, SkinStates,EmbedJPG, LinkButton]" >
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_Disabled_JPG" keywords="[disabled, SkinStates,EmbedJPG, LinkButton]" >
             <setup>
                 <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
                 <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
@@ -187,7 +197,9 @@
             </setup>
             <body>
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_Disabled_JPG.png" timeout="5000" />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkButton_Styles_SkinStates_Embeding_PNG" keywords="[enabled, SkinStates,EmbedPNG, LinkButton]" >
@@ -517,7 +529,9 @@
             </setup>
             <body>
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPGIcon.png" timeout="5000" />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase> 
         <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkButton]" >
@@ -530,7 +544,9 @@
             <body>
                 <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkButton]" >
@@ -543,7 +559,9 @@
             <body>
                 <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>     
         <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkButton]" >
@@ -556,7 +574,9 @@
                 <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkButton]" >
@@ -569,10 +589,12 @@
                 <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPGIcon_Disabled" keywords="[disabled, SkinStates,EmbedJPGIcon, LinkButton]" >
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_Disabled_JPGIcon" keywords="[disabled, SkinStates,EmbedJPGIcon, LinkButton]" >
             <setup>
                 <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
                 <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
@@ -581,7 +603,9 @@
             </setup>
             <body>
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_Disabled_JPGIcon.png" timeout="5000" />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>					
             </body>
         </TestCase>
         <TestCase testID="LinkButton_Styles_SkinStates_Embeding_PNGIcon" keywords="[enabled, SkinStates,EmbedPNGIcon, LinkButton]" >
@@ -813,7 +837,9 @@
             </setup>
             <body>
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_JPGIcon.png" timeout="5000" />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase> 
         <TestCase testID="LinkButton_Styles_SkinStates_runtime_PNGIcon" keywords="[enabled, SkinStates,runtimePNGIcon, LinkButton]" >
