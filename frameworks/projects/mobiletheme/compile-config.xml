@@ -24,29 +24,10 @@
         <external-library-path>
             <path-element>${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc</path-element>
             <path-element>../../libs/framework.swc</path-element>
-            <path-element>../../libs/mx/mx.swc</path-element>
-            <path-element>../../libs/osmf.swc</path-element>
+            <path-element>../../libs/spark.swc</path-element>
             <path-element>../../libs/textLayout.swc</path-element>
+            <path-element>../../libs/mobile/mobilecomponents.swc</path-element>
         </external-library-path>
-        
-        <keep-as3-metadata>
-            <name>SkinPart</name>
-        </keep-as3-metadata>
-        
-        <mxml>
-            <minimum-supported-version>4.0.0</minimum-supported-version>
-        </mxml>
-        
-        <locale/>
-        
-        <library-path/>
-        
-        <namespaces>
-            <namespace>
-                <uri>library://ns.adobe.com/flex/spark</uri>
-                <manifest>manifest.xml</manifest>
-            </namespace>
-        </namespaces>
         
         <source-path>
             <path-element>src</path-element>
@@ -56,29 +37,13 @@
     </compiler>
     
     <include-classes>
-        <class>SparkClasses</class>
+        <class>MobileThemeClasses</class>
     </include-classes>
     
-    <include-file>
-        <name>version.properties</name>
-        <path>../../version.properties</path>
-    </include-file>
     <include-file>
         <name>defaults.css</name>
         <path>defaults.css</path>
     </include-file>
-    <include-file>
-        <name>assets/ErrorIndicator.png</name>
-        <path>assets/ErrorIndicator.png</path>
-    </include-file>
-    <include-file>
-        <name>assets/RequiredIndicator.png</name>
-        <path>assets/RequiredIndicator.png</path>
-    </include-file>
-    
-    <include-namespaces>
-        <uri>library://ns.adobe.com/flex/spark</uri>
-    </include-namespaces>  
     
     <resource-bundle-list>bundles.properties</resource-bundle-list>
     

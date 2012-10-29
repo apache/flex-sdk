@@ -25,7 +25,7 @@
 
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
-	<property file="${FLEX_HOME}/build.properties"/>
+    <property file="${FLEX_HOME}/build.properties"/>
 
         <macrodef name="bundle">
             <attribute name="locale"/>
@@ -102,9 +102,9 @@
     <!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
     <target name="bundles">
         <!-- these languages do not have localized docs-->
-		<bundler locale="en_AU"/><!-- Australian resources -->
-		<bundler locale="en_GB"/><!-- United Kingdom resources -->
-		<bundler locale="en_CA"/><!-- Canadian resources -->
+        <bundler locale="en_AU"/><!-- Australian resources -->
+        <bundler locale="en_GB"/><!-- United Kingdom resources -->
+        <bundler locale="en_CA"/><!-- Canadian resources -->
         <bundler locale="da_DK"/><!-- Danish resources -->
         <bundler locale="de_DE"><!-- German resources -->
             <run.fat.swc>
@@ -141,7 +141,7 @@
             </run.fat.swc>
         </bundler>
         <bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
-    	<bundler locale="el_GR"/><!-- Greek Language  resources -->
+        <bundler locale="el_GR"/><!-- Greek Language  resources -->
     </target>
     
     <target name="clean" depends="bundles-clean">
@@ -168,7 +168,7 @@
 
     <target name="compile" description="Compiles mobilecomponents.swc">
         <echo message="Compiling frameworks/libs/mobile/mobilecomponents.swc"/>
-		<echo message="Using ${env.AIR_HOME}/frameworks/libs/air/airglobal.swc" level="info"/>
+        <echo message="Using ${env.AIR_HOME}/frameworks/libs/air/airglobal.swc" level="info"/>
 
         <!-- Load the <compc> task. We can't do this at the <project> level -->
         <!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -186,26 +186,12 @@
             Write a bundle list of referenced resource bundles
             into the file bundles.properties in this directory.
         -->
-        <compc fork="true" include-classes="MobileComponentsClasses spark.transitions.FlipViewTransitionMode spark.transitions.ZoomViewTransitionMode"
-               output="${FLEX_HOME}/frameworks/libs/mobile/mobilecomponents.swc"
-               resource-bundle-list="${basedir}/bundles.properties">
-            <target-player>${playerglobal.version}</target-player>
+        <compc fork="true"
+               output="${FLEX_HOME}/frameworks/libs/mobile/mobilecomponents.swc">
             <jvmarg line="${compc.jvm.args}"/>
-            <namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest.xml"/>
-            <include-namespaces uri="library://ns.adobe.com/flex/spark"/>
-            <source-path path-element="${basedir}/src"/>
-            <library-path/>
-            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="framework.swc"/>
-                <include name="spark.swc"/>
-                <include name="textLayout.swc"/>
-            </external-library-path>
-            <external-library-path dir="${env.AIR_HOME}/frameworks/libs/air">
-                <include name="airglobal.swc"/>
-            </external-library-path>
-            <locale/>
-                <keep-as3-metadata name="SkinPart"/>
-                <accessible>true</accessible>
+            <load-config filename="compile-config.xml" />
+            <arg value="+playerglobal.version=${playerglobal.version}" />
+            <arg value="+env.AIR_HOME=${env.AIR_HOME}" />
         </compc>
     </target>
     
