@@ -45,6 +45,7 @@
     <component id="BlurFilter" class="spark.filters.BlurFilter"/>
     <component id="BorderContainer" class="spark.components.BorderContainer"/>
     <component id="Bounce" class="spark.effects.easing.Bounce"/>
+    <component id="BusyIndicator" class="spark.components.BusyIndicator"/>
     <component id="Button" class="spark.components.Button"/>
     <component id="ButtonBar" class="spark.components.ButtonBar"/>
     <component id="ButtonBarButton" class="spark.components.ButtonBarButton"/>
