@@ -412,6 +412,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *   <strong>Properties</strong>
  *    measuredSizeIncludesScrollBars="true"
  *    minViewportInset="0"
+ *    pageScrollingEnabled="false"
+ *    scrollSnappingMode="none"
  *    viewport="null"
  *  
  *    <strong>Styles</strong>
