@@ -21,7 +21,7 @@
                xmlns:s="library://ns.adobe.com/flex/spark" 
                xmlns:comps="comps.*" 
                backgroundColor="0xe3e3e3"
-               splashScreenImage="@Embed('assets/splashScreen.png')"
+               splashScreenImage="@Embed('../../../../../Assets/Images/redrect.png')"
                splashScreenScaleMode="none" 
                applicationComplete="init(event)">
     <fx:Script>

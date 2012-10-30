@@ -37,7 +37,7 @@
             
             <s:Scroller id="innerScroller" width="80%" height="200">
                 <s:Group id="innerViewport">
-                    <s:Image source="@Embed('../assets/largeImage.jpg')"  />
+                    <s:Image source="@Embed('../../../../../../Assets/Images/redrect.jpg')"  />
                 </s:Group>
             </s:Scroller>
             

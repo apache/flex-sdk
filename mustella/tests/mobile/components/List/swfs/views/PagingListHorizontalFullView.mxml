@@ -40,82 +40,82 @@
 			import org.osmf.layout.ScaleMode;
 			
 			import spark.components.Image;
-			[Embed(source="../assets/1.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c1.png")]
 			public var image1:Class;   
 			
-			[Embed(source="../assets/2.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c2.png")]
 			public var image2:Class;               
 			
-			[Embed(source="../assets/5.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c3.png")]
 			public var image3:Class;               
 			
-			[Embed(source="../assets/6.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c4.png")]
 			public var image4:Class;               
 			
-			[Embed(source="../assets/7.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c5.png")]
 			public var image5:Class;               
 			
-			[Embed(source="../assets/8.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c6.png")]
 			public var image6:Class;     
 			
-			[Embed(source="../assets/9.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c7.png")]
 			public var image7:Class;     
 			
-			[Embed(source="../assets/10.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c8.png")]
 			public var image8:Class;     
 			
-			[Embed(source="../assets/11.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c1.png")]
 			public var image9:Class;     
 			
-			[Embed(source="../assets/12.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c2.png")]
 			public var image10:Class;     
 			
-			[Embed(source="../assets/1.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c1.png")]
 			public var image11:Class;   
 			
-			[Embed(source="../assets/2.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c2.png")]
 			public var image12:Class;     
 			
-			[Embed(source="../assets/3.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r2_c1.png")]
 			public var image13:Class;   
 			
-			[Embed(source="../assets/4.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r2_c2.png")]
 			public var image14:Class;               
 			
-			[Embed(source="../assets/5.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c3.png")]
 			public var image15:Class;               
 			
-			[Embed(source="../assets/6.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c4.png")]
 			public var image16:Class;               
 			
-			[Embed(source="../assets/7.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c5.png")]
 			public var image17:Class;               
 			
-			[Embed(source="../assets/12.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c2.png")]
 			public var image18:Class;               
 			
-			[Embed(source="../assets/8.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c6.png")]
 			public var image19:Class;     
 			
-			[Embed(source="../assets/9.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c7.png")]
 			public var image20:Class;     
 			
-			[Embed(source="../assets/10.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c8.png")]
 			public var image21:Class;     
 			
-			[Embed(source="../assets/11.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c1.png")]
 			public var image22:Class;     
 			
-			[Embed(source="../assets/12.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c2.png")]
 			public var image23:Class;     
 			
-			[Embed(source="../assets/1.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c1.png")]
 			public var image24:Class;   
 			
-			[Embed(source="../assets/2.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c2.png")]
 			public var image25:Class;     
 			
-			[Embed(source="../assets/3.jpg")]
+			[Embed(source="../../../../../../Assets/Images/GridImages/1_r2_c1.png")]
 			public var image26:Class;   
 			
 			protected function view1_activateHandler(event:Event):void
