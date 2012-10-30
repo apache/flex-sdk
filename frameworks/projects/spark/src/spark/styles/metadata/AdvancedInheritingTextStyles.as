@@ -70,6 +70,74 @@
 [Style(name="clearFloats", type="String", enumeration="start,end,left,right,both,none", inherit="yes")]
 
 /**
+ *  Controls column break after the element.
+ *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.columnBreakAfter.</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#columnBreakAfter
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 11
+ *  @playerversion AIR 3
+ *  @productversion Flex 5.0
+ */
+[Style(name="columnBreakAfter", type="String", enumeration="auto,always", inherit="yes")]
+
+/**
+ *  Controls column break before the element.
+ *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.columnBreakBefore.</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#columnBreakBefore
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 11
+ *  @playerversion AIR 3
+ *  @productversion Flex 5.0
+ */
+[Style(name="columnBreakBefore", type="String", enumeration="auto,always", inherit="yes")]
+
+/**
+ *  Controls container break after the element.
+ *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.containerBreakAfter.</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#containerBreakAfter
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 11
+ *  @playerversion AIR 3
+ *  @productversion Flex 5.0
+ */
+[Style(name="containerBreakAfter", type="String", enumeration="auto,always", inherit="yes")]
+
+/**
+ *  Controls container break before the element.
+ *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.containerBreakBefore.</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#containerBreakBefore
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 11
+ *  @playerversion AIR 3
+ *  @productversion Flex 5.0
+ */
+[Style(name="containerBreakBefore", type="String", enumeration="auto,always", inherit="yes")]
+
+/**
  *  Specifies the baseline position of the first line in the container.
  * 
  *  <p><b>For the Spark theme, see
