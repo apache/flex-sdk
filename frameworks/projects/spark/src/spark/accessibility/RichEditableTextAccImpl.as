@@ -24,10 +24,12 @@ import flash.accessibility.Accessibility;
 import flash.events.Event;
 import flash.events.FocusEvent;
 
-import mx.accessibility.AccImpl;
 import mx.accessibility.AccConst;
+import mx.accessibility.AccImpl;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.utils.StringUtil;
+
 import spark.components.RichEditableText;
 
 use namespace mx_internal;
@@ -313,7 +315,12 @@ public class RichEditableTextAccImpl extends AccImpl
      */
     override public function get_accValue(childID:uint):String
     {
-        return RichEditableText(master).text;
+		var richEditableText:RichEditableText = RichEditableText(master);
+		if (richEditableText.displayAsPassword)
+		{
+			return StringUtil.repeat("*", richEditableText.text.length);
+		} 
+		return richEditableText.text;
     }
 
     /**
