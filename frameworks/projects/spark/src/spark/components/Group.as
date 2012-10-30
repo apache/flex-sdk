@@ -23,9 +23,9 @@ package spark.components
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.geom.Rectangle;
+import flash.utils.Dictionary;
 
 import mx.core.FlexVersion;
-import mx.styles.IAdvancedStyleClient;
 import mx.core.IFlexModule;
 import mx.core.IFontContextComponent;
 import mx.core.IUIComponent;
@@ -43,6 +43,8 @@ import mx.graphics.shaderClasses.HueShader;
 import mx.graphics.shaderClasses.LuminosityShader;
 import mx.graphics.shaderClasses.SaturationShader;
 import mx.graphics.shaderClasses.SoftLightShader;
+import mx.styles.AdvancedStyleClient;
+import mx.styles.IAdvancedStyleClient;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProtoChain;
@@ -239,6 +241,7 @@ public class Group extends GroupBase implements IVisualElementContainer,
     private var needsDisplayObjectAssignment:Boolean = false;
     private var layeringMode:uint = ITEM_ORDERED_LAYERING;
     private var numGraphicElements:uint = 0;
+    private var deferredStyleClients:Dictionary = null;  // of IAdvancedStyleClient
     
     private static const ITEM_ORDERED_LAYERING:uint = 0;
     private static const SPARSE_LAYERING:uint = 1;    
@@ -841,6 +844,37 @@ public class Group extends GroupBase implements IVisualElementContainer,
     
     /**
      *  @private
+     *  Defer adding IAdvancedStyleClients until createChildren() time.  The AdvancedStyleClient's
+     *  styleName might be a component's show inclusion in the IVisualElement hierarchy was also
+     *  deferred.
+     */ 
+    override public function addStyleClient(styleClient:IAdvancedStyleClient):void    
+    {
+        if (!createChildrenCalled)
+        {
+            if (!deferredStyleClients)
+                deferredStyleClients = new Dictionary(true);
+            deferredStyleClients[styleClient] = true;
+        }
+        else 
+        {
+            super.addStyleClient(styleClient);
+        }
+    }
+    
+    /**
+     *  @private
+     */     
+    override public function removeStyleClient(styleClient:IAdvancedStyleClient):void
+    {
+        if (deferredStyleClients && !createChildrenCalled)
+            delete deferredStyleClients[styleClient];
+        else
+            super.removeStyleClient(styleClient);
+    }
+    
+    /**
+     *  @private
      *  Whether createChildren() has been called or not.
      *  We use this in the setter for mxmlContent to know 
      *  whether to validate the value immediately, or just 
@@ -862,6 +896,17 @@ public class Group extends GroupBase implements IVisualElementContainer,
             mxmlContentChanged = false;
             setMXMLContent(_mxmlContent);
         }
+        
+        if (deferredStyleClients)
+        {
+            for (var obj:Object in deferredStyleClients)
+            {
+                var styleClient:IAdvancedStyleClient = obj as IAdvancedStyleClient;
+                if (styleClient)
+                    super.addStyleClient(styleClient);
+            }
+            deferredStyleClients = null;
+        }        
     }
     
     /**
