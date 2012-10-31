@@ -117,7 +117,7 @@
 		
 	</fx:Declarations>
     <s:layout>
-        <comps:myLayout />
+        <s:VerticalLayout />
     </s:layout>
     <s:actionContent>
         <s:Button label="TS1" click="navigator['requestSeek'] = true" />

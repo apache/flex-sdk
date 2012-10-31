@@ -115,7 +115,7 @@
 				<RunCode code="navigator().pushView(components.ViewPersistence)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
 			</setup>
 			<body>
-				<AssertMethodValue method="value = Array(persistenceManager().getProperty('myArrayProperty')).toString()" value='apple,orange,banana'/>
+				<AssertMethodValue method="value = (persistenceManager().getProperty('myArrayProperty') as Array).toString()" value='apple,orange,banana'/>
 			</body>
 		</TestCase>
 
