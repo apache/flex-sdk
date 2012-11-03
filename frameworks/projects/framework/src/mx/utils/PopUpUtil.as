@@ -225,8 +225,9 @@ public class PopUpUtil
         {
             tmpColorTransform.alphaMultiplier = oldAlpha;
             tmpColorTransform.alphaOffset = 0;
+            DisplayObject(popUp).transform.colorTransform = tmpColorTransform;
         }
-        DisplayObject(popUp).transform.colorTransform = tmpColorTransform;
+
     }
 }
 }
