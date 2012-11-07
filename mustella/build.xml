@@ -724,10 +724,25 @@
             <equals arg1="${run_mobile_tests}" arg2="true" />
         </condition>
         
+        <condition property="step_timeout" value="1">
+        	<and>
+        		<not>
+        			<isset property="step_timeout" />
+        		</not>
+        		<or>
+        			<equals arg1="win" arg2="${device_name}" />
+        			<equals arg1="mac" arg2="${device_name}" />
+        		</or>
+        	</and>
+        </condition>
+        
         <echo>os: ${os}</echo>
         <echo>target_os_name: ${target_os_name}</echo>
         <echo>os_version: ${os_version}</echo>
         <echo>device_name: ${device_name}</echo>
+        <echo>get_results_from_log: ${get_results_from_log}</echo>
+        <echo>step_timeout: ${step_timeout}</echo>
+        <echo>run_mobile_tests: ${run_mobile_tests}</echo>
         <echo>use_android_runner: ${use_android_runner}</echo>
         <echo>use_ios_runner: ${use_ios_runner}</echo>
         <echo>use_qnx_runner: ${use_qnx_runner}</echo>
@@ -1036,10 +1051,10 @@
     <property name="result_include" value="-includes=SendFormattedResultsToLog" />
     <property name="exit_include" value="" />
 
-    <condition property="get_results_from_log" value="true" else="false" >
-        <not>
-            <isset property="${run_mobile_tests}" />
-        </not>
+   <condition property="get_results_from_log" value="true" else="false" >
+		<not>
+			<isset property="${run_mobile_tests}" />
+		</not>
     </condition>
 
     <property name="build_version" value="${server}" />
