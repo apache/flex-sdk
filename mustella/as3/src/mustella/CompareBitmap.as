@@ -364,9 +364,14 @@ public class CompareBitmap extends Assert
 			}
 		}
 
-		if (!reader.content)
-		{
-			testResult.doFail ("baseline image not available");
+		try {
+			if (!reader.content)
+			{
+				testResult.doFail ("baseline image not available");
+				return true;
+			}
+		} catch( e:Error ) {
+			testResult.doFail ("CompareBitmap BIG FAIL! Content reader is null!");
 			return true;
 		}
 
@@ -481,7 +486,7 @@ public class CompareBitmap extends Assert
 	{
 		var actualTarget:DisplayObject = DisplayObject(context.stringToObject(target));
 		if (comparePNG(actualTarget))
-			stepComplete();
+			preStepComplete();
 	}
 
 	private function readErrorHandler(event:Event):void
@@ -721,7 +726,7 @@ public class CompareBitmap extends Assert
 	{
 
 		if (baselineDone && screenDone)
-			stepComplete();
+			preStepComplete();
 
 
 	}
@@ -839,7 +844,7 @@ public class CompareBitmap extends Assert
 	public function keepGoing():void
 	{
 		trace("keepgoing", url, hasEventListener("stepComplete"));
-		stepComplete();
+		preStepComplete();
 	}
 
 	private function encodeURI2(s:String):String
@@ -929,7 +934,22 @@ public class CompareBitmap extends Assert
 		
 		return true;
 	}
+	
+	protected function preStepComplete():void
+	{
+		if (baselineBits != null)
+            baselineBits.dispose();
+        if (screenBits != null)
+            screenBits.dispose();
 
+		reader=null;
+		writer=null;
+		
+		stepComplete();
+	}
+
+	/* this was sometimes getting called before the image was loaded into
+	   'reader' which made it null and then the readCompleteHandler failed.
 	override protected function stepComplete():void 
 	{ 
 
@@ -938,14 +958,13 @@ public class CompareBitmap extends Assert
                 if (screenBits != null)
                         screenBits.dispose();
 
-
 		reader=null;
 		writer=null;
 		
 		super.stepComplete();
 
 
-	}
+	}*/
 }
 
 }

@@ -16,7 +16,7 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package  AIR { 
+package AIR { 
 
 import flash.display.*;
 import flash.events.*;

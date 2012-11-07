@@ -37,11 +37,19 @@ package
 		* For details: https://zerowing.corp.adobe.com/display/flexmobile/Multiple+Device%2C+DPI%2C+OS+Support
 		**/
 		
-		[Inspectable(enumeration="win,mac,android,iphone,qnx")]
+		[Inspectable(enumeration="win,mac,android,iphone,ios,qnx")]
 		public var os:String = null;
 
-		[Inspectable(enumeration="android22,android23,android234,android31,iphone421,iphone50")]
+		[Inspectable(enumeration="android22,android23,android234,android31,iphone421,iphone50,ios4,ios5,ios6")]
 		public var osVersion:String = null;
+		
+		/**
+		 * The targetOS is either null or set in the UnitTester's cv as the value to match
+		 * against the os properties from <ConditionalValue> elements present in the test
+		 * cases. See MultiResult.chooseCV()
+		 */
+		[Inspectable(enumeration="android,ios")]
+		public var targetOS:String = null;
 
 		// General, "marketing number" pixel density
 		[Inspectable(enumeration="160,240,320")]
@@ -91,7 +99,8 @@ package
 					(deviceWidth == -1) &&
 					(deviceHeight == -1) &&
 					(color == -1) &&
-					(device == null)
+					(device == null) &&
+					(targetOS == null)
 				);
 		}
 
@@ -105,9 +114,13 @@ package
 			
 			ret = testID + DELIMITER1;
 
-			if( os != null ){
+			if( os != null ) {
 				ret += os + DELIMITER2;
 			}
+			
+/*			if( targetOS != null ) {
+				ret += targetOS + DELIMITER2;
+			}*/
 
 			if( osVersion != null ){
 				ret += osVersion + DELIMITER2;
@@ -143,6 +156,8 @@ package
 			}
 			
 			ret += PNG_SUFFIX;
+			
+			trace("ConditionalValue ret="+ret+"; screenDPI="+screenDPI+"; density="+deviceDensity);
 			
 			// Be sure we'll be able to parse what we wrote when we read it later.
 			if( testCV.parseFilename( ret ) ){
@@ -207,6 +222,7 @@ package
 						for( j = 0; j < DeviceNames.OS_VALUES.length; ++j ){
 							if( curToken == DeviceNames.OS_VALUES[ j ] ){
 								os = curToken;
+								targetOS = curToken;
 								tokenDone = true;
 								break;
 							}
@@ -309,6 +325,7 @@ package
 			ret = "\tvalue=" + String(value);
 			ret += "\n\turl=" + url;
 			ret += "\n\tos=" + os;
+			ret += "\n\ttargetOS=" + targetOS;
 			ret += "\n\tosVersion=" + osVersion;
 			ret += "\n\tscreenDPI=" + screenDPI;
 			ret += "\n\tdeviceDensity=" + deviceDensity;

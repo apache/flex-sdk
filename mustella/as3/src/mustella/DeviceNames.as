@@ -28,13 +28,13 @@ import flash.system.Capabilities;
 public class DeviceNames
 {
 	public static const ANDROID:String = "android";
-	public static const IOS:String = "iphone";
+	public static const IOS:String = "ios";
 	public static const QNX:String = "qnx";
 	public static const MAC:String = "mac";
 	public static const WIN:String = "win";
 
 	public static const OS_VALUES:Array = [WIN, MAC, ANDROID, IOS, QNX];
-	public static const OS_VERSION_VALUES:Array = ["android22", "android23", "ios3x", "ios40", "ios41"];
+	public static const OS_VERSION_VALUES:Array = ["android22", "android23", "android3", "android4", "ios3x", "ios40", "ios41", "ios5", "ios6"];
 	public static const DEVICE_VALUES:Array = ["air","desire","droid","droid2","droidX","evo","incredible","nexusOne","playbook"];
 
 	public static function getFromOS ():String 

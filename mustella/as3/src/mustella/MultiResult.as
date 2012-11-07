@@ -77,6 +77,7 @@ package
 				}
 				
 				numMatches = countMatches( cv, cvUT );
+				//trace("numMatches="+numMatches+" with "+cv);
 				
 				if( numMatches <= 0 ) // -1 is a mismatch, and 0 is no matches.
 					continue;	
@@ -126,8 +127,12 @@ package
 		private function countMatches( cv1:ConditionalValue, cv2:ConditionalValue ):int{
 			var ret:int = 0;
 			
-			if( (cv1.os != null) && (cv2.os != null) ){
-				if( cv1.os != cv2.os )
+			// if .targetOS has been set in cv2 (which is the baseline as specified by options)
+			// use that for comparison otherwise use the normal .os
+			var os:String = cv2.targetOS != null ? cv2.targetOS : cv2.os;
+			
+			if( (cv1.os != null) && (os != null) ){
+				if( cv1.os != os )
 					return -1;
 				else
 					++ret;
