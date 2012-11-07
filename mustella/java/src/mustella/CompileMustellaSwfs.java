@@ -964,6 +964,9 @@ public class CompileMustellaSwfs extends Thread {
 		
 		// System.out.println ("Adding qa fwk dir: " + mustella_framework_dir);
 		
+		// Now add the rest.
+		args+= " -source-path="+mustella_framework_dir;	
+		
 		// If we're using android or iOS, use the CompareBitmap which handles file I/O. MXMLC will
 		// keep whichever CompareBitmap it encounters first.
 		if( target_os_name.equalsIgnoreCase( MobileUtil.ANDROID_OS ) ||
@@ -972,10 +975,7 @@ public class CompileMustellaSwfs extends Thread {
 		{
 			//System.out.println("AIR files will override.");
 			args+= " -source-path="+mustella_framework_dir+File.separator+"AIR";
-		}
-		
-		// Now add the rest.
-		args+= " -source-path="+mustella_framework_dir;		
+		}	
 	}
 
 	/// this is the include for the fwk to send stuff to the Runner

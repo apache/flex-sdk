@@ -213,7 +213,12 @@ public class GetDeviceSpecsTask extends Task {
 				project.setProperty( "os", os );
 				project.setProperty( "exclude_filename", mustellaDir + File.separator + "tests" + File.separator + "ExcludeList" + os + ".txt");				
 			}else{
-				System.out.println("Skipping mobile device setup; " + deviceName + " is not a supported mobile device.  Maybe this is a 'mobile on desktop' run or a new device.");
+				String targetOS = project.getProperty("target_os_name");
+				if( targetOS != null ) {
+					System.out.println("Skipping mobile device setup; "+deviceName+" is not a mobile device, maybe emulating target OS "+targetOS+" on desktop.");
+				} else {
+					System.out.println("Skipping mobile device setup; " + deviceName + " is not a supported mobile device.  Maybe this is a 'mobile on desktop' run or a new device.");
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();

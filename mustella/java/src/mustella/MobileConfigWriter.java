@@ -156,18 +156,34 @@ public class MobileConfigWriter {
 				// ConditionalValue stuff
 				ret += "		if( UnitTester.cv == null ){\n";
 				ret += "			UnitTester.cv = new ConditionalValue();\n";
-				ret += "		}";
+				ret += "		}\n";
 				ret += "		UnitTester.cv.device = \"" + device_name + "\";\n";
 				ret += "		UnitTester.cv.os = \"" + target_os + "\";\n";
+				ret += "		UnitTester.cv.targetOS = \"" + target_os + "\";\n";
 				ret += "		UnitTester.cv.osVersion = \"" + os_version + "\";\n";
+				
 				// If device, get the proper dpi bucket (160/240/320) for the device.
 				if( (target_os.compareToIgnoreCase(MobileUtil.MAC) == 0) || (target_os.compareToIgnoreCase(MobileUtil.WIN) == 0) ){
 					if( adl_extras_XscreenDPI == -1 ){
-					ret += "		UnitTester.cv.deviceDensity = flash.system.Capabilities.screenDPI;\n";
-				}else{
+						ret += "		UnitTester.cv.deviceDensity = flash.system.Capabilities.screenDPI;\n";
+					}else{
 						ret += "		UnitTester.cv.deviceDensity = Util.roundDeviceDensity( flash.system.Capabilities.screenDPI );\n";
 					}
-				}else{
+				}
+				// if the target OS is android or iOS, the device_name might not be a real device but mac or win, indicating a desktop
+				// emulator. If that's the case, treat this the same as above. 
+				else if((target_os.compareToIgnoreCase(MobileUtil.ANDROID) == 0) || (target_os.compareToIgnoreCase(MobileUtil.IOS) == 0)) {
+					if( (device_name.compareToIgnoreCase(MobileUtil.MAC) == 0 ) || (device_name.compareToIgnoreCase(MobileUtil.WIN2) == 0) ) {
+						if( adl_extras_XscreenDPI == -1 ){
+							ret += "		UnitTester.cv.deviceDensity = flash.system.Capabilities.screenDPI;\n";
+						}else{
+							ret += "		UnitTester.cv.deviceDensity = Util.roundDeviceDensity( flash.system.Capabilities.screenDPI );\n";
+						}
+					} else {
+						ret += "		UnitTester.cv.deviceDensity = " + Integer.toString(MobileUtil.getDeviceDensity(device_name)) + ";\n";
+					}
+				}
+				else{
 					ret += "		UnitTester.cv.deviceDensity = " + Integer.toString(MobileUtil.getDeviceDensity(device_name)) + ";\n";
 				}
 
