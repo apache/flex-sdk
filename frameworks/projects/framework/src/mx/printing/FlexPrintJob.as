@@ -80,17 +80,29 @@ public class FlexPrintJob
     //  Properties
     //
     //--------------------------------------------------------------------------
+	
+	//----------------------------------
+	//  printJob
+	//----------------------------------
 
     /**
      *  @private
+	 *  Storage for the printJob property.
      */
-    private var printJob:PrintJob = new PrintJob();
-
-    //--------------------------------------------------------------------------
-    //
-    //  Properties
-    //
-    //--------------------------------------------------------------------------
+    private var _printJob:PrintJob = new PrintJob();
+	
+	/**
+	 *  The printJob property; 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 4.9
+	 */
+	public function get printJob():PrintJob
+	{
+		return _printJob;
+	}
 
     //----------------------------------
     //  pageHeight
@@ -205,12 +217,12 @@ public class FlexPrintJob
      */
     public function start():Boolean
     {
-        var ok:Boolean = printJob.start();
+        var ok:Boolean = _printJob.start();
         
         if (ok)
         {
-            _pageWidth = printJob.pageWidth;
-            _pageHeight = printJob.pageHeight;
+            _pageWidth = _printJob.pageWidth;
+            _pageHeight = _printJob.pageHeight;
         }
         
         return ok;
@@ -443,7 +455,7 @@ public class FlexPrintJob
                 var printJobOptions:PrintJobOptions = new PrintJobOptions();
                 printJobOptions.printAsBitmap = _printAsBitmap;
 
-                printJob.addPage(Sprite(obj), r, printJobOptions);
+                _printJob.addPage(Sprite(obj), r, printJobOptions);
             }
         }
 
@@ -540,7 +552,7 @@ public class FlexPrintJob
      */
     public function send():void
     {
-        printJob.send();
+        _printJob.send();
     }
 
     /**
