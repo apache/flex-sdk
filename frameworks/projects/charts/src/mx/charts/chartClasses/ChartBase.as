@@ -650,7 +650,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
     /**
      *  @private
      */
-    private var _moduleFactoryInitialized:Boolean = false;
+    private static var _moduleFactoryInitialized:Dictionary = new Dictionary(true);
     
     /**
      *  @private
@@ -1892,10 +1892,10 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
     {
         super.moduleFactory = factory;
         
-        if (_moduleFactoryInitialized)
+        if (_moduleFactoryInitialized[factory])
             return;
         
-        _moduleFactoryInitialized = true;
+        _moduleFactoryInitialized[factory] = true;
         
         
         // our style settings

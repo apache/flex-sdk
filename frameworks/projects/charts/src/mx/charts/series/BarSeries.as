@@ -303,7 +303,7 @@ public class BarSeries extends Series implements IStackable2, IBar
     /**
      *  @private
      */
-    private var _moduleFactoryInitialized:Boolean = false;
+    private static var _moduleFactoryInitialized:Dictionary = new Dictionary(true);
     
     
     /**
@@ -1083,10 +1083,10 @@ public class BarSeries extends Series implements IStackable2, IBar
     {
         super.moduleFactory = factory;
         
-        if (_moduleFactoryInitialized)
+        if (_moduleFactoryInitialized[factory])
             return;
         
-        _moduleFactoryInitialized = true;
+        _moduleFactoryInitialized[factory] = true;
         
         // our style settings
         initStyles();

@@ -24,6 +24,7 @@ import flash.display.DisplayObject;
 import flash.display.Graphics;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.utils.Dictionary;
 
 import mx.charts.DateTimeAxis;
 import mx.charts.HitData;
@@ -299,7 +300,7 @@ public class LineSeries extends Series
     /**
      *  @private
      */
-    private var _moduleFactoryInitialized:Boolean = false;
+    private static var _moduleFactoryInitialized:Dictionary = new Dictionary(true);
 
     
     /**
@@ -907,10 +908,10 @@ public class LineSeries extends Series
     {
         super.moduleFactory = factory;
         
-        if (_moduleFactoryInitialized)
+        if (_moduleFactoryInitialized[factory])
             return;
         
-        _moduleFactoryInitialized = true;
+        _moduleFactoryInitialized[factory] = true;
         
         // our style settings
         initStyles();

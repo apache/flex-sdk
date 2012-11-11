@@ -25,6 +25,8 @@ import flash.display.Graphics;
 import flash.geom.Rectangle;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
+import flash.utils.Dictionary;
+
 import mx.charts.HitData;
 import mx.charts.styles.HaloDefaults;
 import mx.core.IDataRenderer;
@@ -251,7 +253,7 @@ public class DataTip extends UIComponent implements IDataRenderer
 	/**
 	 *  @private
 	 */
-	private var _moduleFactoryInitialized:Boolean = false;
+	private static var _moduleFactoryInitialized:Dictionary = new Dictionary(true);
 	
     /**
      *  @private.
@@ -344,10 +346,10 @@ public class DataTip extends UIComponent implements IDataRenderer
 	{
 		super.moduleFactory = factory;
 		
-		if (_moduleFactoryInitialized)
+		if (_moduleFactoryInitialized[factory])
 			return;
 		
-		_moduleFactoryInitialized = true;
+		_moduleFactoryInitialized[factory] = true;
 	}
 	
     /**

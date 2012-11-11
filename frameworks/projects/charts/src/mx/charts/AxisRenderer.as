@@ -30,6 +30,7 @@ import flash.geom.Rectangle;
 import flash.system.ApplicationDomain;
 import flash.text.TextFormat;
 import flash.utils.getQualifiedClassName;
+import flash.utils.Dictionary;
 
 import mx.charts.chartClasses.AxisBase;
 import mx.charts.chartClasses.AxisLabelSet;
@@ -427,7 +428,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
 	/**
 	 *  @private
 	 */
-	private var _moduleFactoryInitialized:Boolean = false;
+	private static var _moduleFactoryInitialized:Dictionary = new Dictionary(true);
     
     //--------------------------------------------------------------------------
     //
@@ -1152,10 +1153,10 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
 	{
 		super.moduleFactory = factory;
 		
-		if (_moduleFactoryInitialized)
+		if (_moduleFactoryInitialized[factory])
 			return;
 		
-		_moduleFactoryInitialized = true;
+		_moduleFactoryInitialized[factory] = true;
 		
 		// our style settings
 		initStyles();

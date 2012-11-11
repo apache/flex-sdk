@@ -19,6 +19,7 @@
 
 package mx.charts
 {
+import flash.utils.Dictionary;
 
 import mx.charts.chartClasses.DataTip;
 import mx.charts.chartClasses.DataTransform;
@@ -142,7 +143,7 @@ public class PieChart extends PolarChart
     /**
      *  @private
      */
-    private var _moduleFactoryInitialized:Boolean = false; 
+    private static var _moduleFactoryInitialized:Dictionary = new Dictionary(true); 
 
     
     /**
@@ -210,10 +211,10 @@ public class PieChart extends PolarChart
     {
         super.moduleFactory = factory;
         
-        if (_moduleFactoryInitialized)
+        if (_moduleFactoryInitialized[factory])
             return;
         
-        _moduleFactoryInitialized = true;
+        _moduleFactoryInitialized[factory] = true;
         
         // our style settings
         initStyles();
