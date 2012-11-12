@@ -105,7 +105,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="240" os="android" value="67"/>
 					<ConditionalValue deviceDensity="320" os="win" value="90"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="45"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="90"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="90"/>
 				</AssertPropertyValue>
 			</body>
 		</TestCase>
@@ -117,10 +117,10 @@ import mx.core.FlexGlobals;
 			<body>
 				<AssertPropertyValue target="navigator.actionBar" propertyName="width">
 					<ConditionalValue deviceDensity="160" os="win" value="320"/>
-					<ConditionalValue deviceDensity="240" os="android" value="480"/>
+					<ConditionalValue deviceDensity="240" os="android" value="640"/>
 					<ConditionalValue deviceDensity="320" os="win" value="640"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="1024"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="640"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="640"/>
 				</AssertPropertyValue>
 			</body>
 		</TestCase>
@@ -135,7 +135,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -151,7 +151,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -167,7 +167,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -183,7 +183,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -201,7 +201,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>			</body>
 			
@@ -223,7 +223,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -242,7 +242,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -259,7 +259,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -276,7 +276,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -293,7 +293,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -310,7 +310,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -329,7 +329,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -349,7 +349,7 @@ import mx.core.FlexGlobals;
 		<ConditionalValue deviceDensity="160" os="win"/>
 		<ConditionalValue deviceDensity="240" os="android"/>
 		<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 	</CompareBitmap>
 			</body>
@@ -370,14 +370,14 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="240" os="android" value="20"/>
 					<ConditionalValue deviceDensity="320" os="win" value="26"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="13"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="26"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="26"/>
 				</AssertPropertyValue>
 				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingRight">
 					<ConditionalValue deviceDensity="160" os="win" value="13"/>
 					<ConditionalValue deviceDensity="240" os="android" value="20"/>
 					<ConditionalValue deviceDensity="320" os="win" value="26"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="13"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="26"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="26"/>
 				</AssertPropertyValue>
 				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingTop" value="0"/>
 				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingBottom" value="0"/>
@@ -396,7 +396,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -415,7 +415,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -427,14 +427,14 @@ import mx.core.FlexGlobals;
 				
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=basic" />
-				<Pause timeout="300" />
+				<!--Pause timeout="300" /-->
 			</setup>
 			<body>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -457,7 +457,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 				
@@ -474,7 +474,7 @@ import mx.core.FlexGlobals;
 			<ConditionalValue deviceDensity="160" os="win"/>
 			<ConditionalValue deviceDensity="240" os="android"/>
 			<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 		</CompareBitmap>
 		</body>
@@ -490,7 +490,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -509,7 +509,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -530,7 +530,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -549,7 +549,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -569,7 +569,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -589,7 +589,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -622,7 +622,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -641,7 +641,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -661,7 +661,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -682,7 +682,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -706,7 +706,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -730,7 +730,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -761,7 +761,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			<!--<CompareBitmap url="../properties/baselines" target="actionBar"/>-->			
@@ -781,7 +781,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -802,7 +802,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -821,7 +821,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -840,7 +840,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -859,7 +859,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -878,7 +878,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -911,7 +911,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -923,14 +923,14 @@ import mx.core.FlexGlobals;
 				
 				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=manyEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationLayout" valueExpression="value=tile" />
-				<Pause timeout="300" />
+				<!--<Pause timeout="300" />-->
 			</setup>
 			<body>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -949,7 +949,7 @@ import mx.core.FlexGlobals;
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
