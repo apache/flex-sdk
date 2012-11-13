@@ -5057,11 +5057,15 @@ public class DataGrid extends DataGridBase implements IIMESupport
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
-        if (itemEditorInstance || event.target != event.currentTarget)
+		if (itemEditorInstance || !owns(DisplayObject(event.target)))
+		{
             return;
-
+		}
+		
         if (event.keyCode != Keyboard.SPACE)
+        {
             super.keyDownHandler(event);
+        }
         else if (caretIndex != -1)
         {
             moveSelectionVertically(event.keyCode, event.shiftKey, event.ctrlKey);
