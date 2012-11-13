@@ -194,7 +194,7 @@
 				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
 				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
 				<SetStyle target="actionBar.titleDisplay" styleName="textDecoration" value="underline" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
-				<Pause timeout="2000" />
+				<!--Pause timeout="2000" /-->
 			</setup>
 			<body>
 				<AssertStyleValue target="actionBar.titleDisplay" styleName="textDecoration" value="underline" />
