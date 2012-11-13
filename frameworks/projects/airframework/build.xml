@@ -229,56 +229,11 @@
 			into the file bundles.properties in this directory.
 		-->
 		<compc fork="true"
-			   output="${FLEX_HOME}/frameworks/libs/air/airframework.swc"
-			   resource-bundle-list="${basedir}/bundles.properties">
-		    <target-player>${playerglobal.version}</target-player>
+			   output="${FLEX_HOME}/frameworks/libs/air/airframework.swc">
 			<jvmarg line="${compc.jvm.args}"/>
-			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${basedir}/manifest.xml"/>
-			<include-namespaces uri="library://ns.adobe.com/flex/mx"/>
-			<include-classes>AIRFrameworkClasses</include-classes>
-			<source-path path-element="${basedir}/src"/>
-			<library-path/>
-            <external-library-path dir="${env.AIR_HOME}/frameworks/libs/air">
-                <include name="airglobal.swc"/>
-            </external-library-path>
-			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="framework.swc"/>
-				<include name="mx/mx.swc"/>
-                <include name="textLayout.swc"/>
-			</external-library-path>
-			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
-			<include-file name="defaults-3.0.0.css" path="${basedir}/defaults-3.0.0.css"/>
-			<include-file name="Assets.swf" path="${basedir}/assets/Assets.swf"/>
-			<include-file name="ComputerIcon.swf" path="${basedir}/assets/ComputerIcon.swf"/>
-			<include-file name="gripper_up.png" path="${basedir}//assets/gripper_up.png"/>
-			<include-file name="mac_close_down.png" path="${basedir}/assets/mac_close_down.png"/>
-			<include-file name="mac_close_over.png" path="${basedir}/assets/mac_close_over.png"/>
-			<include-file name="mac_close_up.png" path="${basedir}/assets/mac_close_up.png"/>
-			<include-file name="mac_max_dis.png" path="${basedir}/assets/mac_max_dis.png"/>
-			<include-file name="mac_max_down.png" path="${basedir}/assets/mac_max_down.png"/>
-			<include-file name="mac_max_over.png" path="${basedir}/assets/mac_max_over.png"/>
-			<include-file name="mac_max_up.png" path="${basedir}/assets/mac_max_up.png"/>
-			<include-file name="mac_min_dis.png" path="${basedir}/assets/mac_min_dis.png"/>
-			<include-file name="mac_min_down.png" path="${basedir}/assets/mac_min_down.png"/>
-			<include-file name="mac_min_over.png" path="${basedir}/assets/mac_min_over.png"/>
-			<include-file name="mac_min_up.png" path="${basedir}/assets/mac_min_up.png"/>
-			<include-file name="win_close_down.png" path="${basedir}/assets/win_close_down.png"/>
-			<include-file name="win_close_over.png" path="${basedir}/assets/win_close_over.png"/>
-			<include-file name="win_close_up.png" path="${basedir}/assets/win_close_up.png"/>
-			<include-file name="win_max_dis.png" path="${basedir}/assets/win_max_dis.png"/>
-			<include-file name="win_max_down.png" path="${basedir}/assets/win_max_down.png"/>
-			<include-file name="win_max_over.png" path="${basedir}/assets/win_max_over.png"/>
-			<include-file name="win_max_up.png" path="${basedir}/assets/win_max_up.png"/>
-			<include-file name="win_min_dis.png" path="${basedir}/assets/win_min_dis.png"/>
-			<include-file name="win_min_down.png" path="${basedir}/assets/win_min_down.png"/>
-			<include-file name="win_min_over.png" path="${basedir}/assets/win_min_over.png"/>
-			<include-file name="win_min_up.png" path="${basedir}/assets/win_min_up.png"/>
-			<include-file name="win_restore_down.png" path="${basedir}/assets/win_restore_down.png"/>
-			<include-file name="win_restore_over.png" path="${basedir}/assets/win_restore_over.png"/>
-			<include-file name="win_restore_up.png" path="${basedir}/assets/win_restore_up.png"/>
-			<locale/>
-		        <keep-as3-metadata name="SkinPart"/>
-		        <accessible>true</accessible>
+            <load-config filename="compile-config.xml" />
+            <arg value="+playerglobal.version=${playerglobal.version}" />
+            <arg value="+env.AIR_HOME=${env.AIR_HOME}" />
 		</compc>
 	</target>
 	

@@ -199,28 +199,11 @@
 			into the file bundles.properties in this directory.
 		-->
 		<compc fork="true"
-			include-classes="AdvancedDataGridClasses"
-			output="${FLEX_HOME}/frameworks/libs/advancedgrids.swc"
-			resource-bundle-list="${basedir}/bundles.properties">
+			output="${FLEX_HOME}/frameworks/libs/advancedgrids.swc">
 			<jvmarg line="${compc.jvm.args}"/>
-			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${basedir}/manifest_advancedgrids.xml"/>
-			<include-namespaces>library://ns.adobe.com/flex/mx</include-namespaces>
-			<source-path path-element="${basedir}/src"/>
-			<library-path />
-            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-                <include name="${playerglobal.version}/playerglobal.swc"/>
-            </external-library-path>
-			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="framework.swc"/>
-				<include name="mx/mx.swc"/>
-				<include name="rpc.swc"/>
-                <include name="textLayout.swc"/>
-			</external-library-path>
-			<include-file name="defaults.css" path="${basedir}/data_management.css"/>
-			<include-file name="defaults-3.0.0.css" path="${basedir}/data_management-3.0.0.css"/>
-			<locale/>
-            <accessible>true</accessible>
-			<show-deprecation-warnings>false</show-deprecation-warnings>
+            <load-config filename="compile-config.xml" />
+            <arg value="+playerglobal.version=${playerglobal.version}" />
+            <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
 		</compc>
 	</target>
 	

@@ -1,0 +1,55 @@
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<flex-config>
+
+    <compiler>
+        <accessible>true</accessible>
+        
+        <external-library-path>
+            <path-element>${env.AIR_HOME}/frameworks/libs/air/airglobal.swc</path-element>
+            <path-element>../../libs/framework.swc</path-element>
+            <path-element>../../libs/mx/mx.swc</path-element>
+            <path-element>../../libs/textLayout.swc</path-element>
+            <path-element>../../libs/air/airframework.swc</path-element>
+            <path-element>../../libs/automation/automation.swc</path-element>
+            <path-element>../../libs/automation/automation_agent.swc</path-element>
+            <path-element>../../libs/automation/tool.swc</path-element>
+            <path-element>../../libs/automation/tool_air.swc</path-element>
+        </external-library-path>
+        
+        <locale/>
+        
+        <library-path/>
+        
+        <source-path>
+            <path-element>src</path-element>
+            <path-element>../automation/src</path-element>
+        </source-path>
+
+        <warn-no-constructor>false</warn-no-constructor>
+    </compiler>
+    
+    <include-classes>
+        <class>AutomationAirClasses</class>
+    </include-classes>
+    
+    <resource-bundle-list>bundles.properties</resource-bundle-list>
+    
+    <target-player>${playerglobal.version}</target-player>
+</flex-config>

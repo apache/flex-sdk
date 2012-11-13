@@ -149,28 +149,11 @@
 			into the file bundles.properties in this directory.
 		-->
 		<compc fork="true"
-			   output="${FLEX_HOME}/frameworks/libs/experimental.swc"
-			   resource-bundle-list="${basedir}/bundles.properties">
+			   output="${FLEX_HOME}/frameworks/libs/experimental.swc">
 			<jvmarg line="${compc.jvm.args}"/>
-			<target-player>${playerglobal.version}</target-player>
-			<namespace uri="http://flex.apache.org/experimental/ns" manifest="${basedir}/manifest.xml"/>
-			<include-classes>ExperimentalClasses</include-classes>
-			<source-path path-element="${basedir}/src"/>
-			<library-path/>
-			<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-                <include name="${playerglobal.version}/playerglobal.swc"/>
-            </external-library-path>
-            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                  <include />
-			</external-library-path>
-			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
-			<locale/>
-			<accessible>true</accessible>
-			<keep-as3-metadata name="Bindable"/>
-			<keep-as3-metadata name="Managed"/>
-			<keep-as3-metadata name="ChangeEvent"/>
-			<keep-as3-metadata name="NonCommittingChangeEvent"/>
-			<keep-as3-metadata name="Transient"/>
+            <load-config filename="compile-config.xml" />
+            <arg value="+playerglobal.version=${playerglobal.version}" />
+            <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
 		</compc>
 	</target>
 	
