@@ -24,7 +24,6 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.utils.describeType;
 
-
 import mx.collections.ICollectionView;
 import mx.collections.ISort;
 import mx.core.IIMESupport;
@@ -32,12 +31,11 @@ import mx.core.IInvalidating;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
-import mx.core.UIComponent;
 import mx.validators.IValidatorListener;
 
-import spark.components.gridClasses.GridColumn;
 import spark.components.DataGrid;
 import spark.components.Group;
+import spark.components.gridClasses.GridColumn;
 
 use namespace mx_internal;
 
@@ -79,7 +77,7 @@ use namespace mx_internal;
 public class GridItemEditor extends Group implements IGridItemEditor
 {
     include "../../core/Version.as";    
-    
+        
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -183,7 +181,11 @@ public class GridItemEditor extends Group implements IGridItemEditor
         
         if (_data && column.dataField)
         {
-            this.value = _data[column.dataField];            
+            // If complex data need to dig the data value out of the correct object.
+            var dataFieldPath:Array = column.dataFieldPath;
+            this.value = column.dataFieldPath.length == 1 ?
+                _data[column.dataField] :
+                column.itemToString(_data, dataFieldPath, null, null);
         }
     }
 
@@ -458,9 +460,17 @@ public class GridItemEditor extends Group implements IGridItemEditor
             return false;
         
         var newData:Object = value;
-        var property:String = column.dataField;
+        var property:String;
         var data:Object = data;
         var typeInfo:String = "";
+                        
+        // Handle complex data field by drilling down to the correct object.
+        // Complex data fields means dataFieldPath.length > 1.
+        for (var i:int = 0; i < column.dataFieldPath.length - 1; i++)
+            data = data[column.dataFieldPath[i]];
+        
+        property = column.dataFieldPath[i];
+            
         for each(var variable:XML in describeType(data).variable)
         {
             if (property == variable.@name.toString())
@@ -501,7 +511,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
                 }
             }
         }
-     
+
         if (property && data[property] !== newData)
         {
             // If the data is sorted, turn off the sort for the edited data.
@@ -515,7 +525,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
                     dataProvider.sort = null;
                 }
             }
-            
+
             var oldData:Object = data[property];
             data[property] = newData;
             dataGrid.dataProvider.itemUpdated(data, property, oldData, newData);

@@ -276,7 +276,7 @@ public class GridColumn extends EventDispatcher
     //----------------------------------
     
     private var _dataField:String = null;
-    private var dataFieldPath:Array = [];
+    mx_internal var dataFieldPath:Array = [];
     
     [Bindable("dataFieldChanged")]    
     
@@ -1587,7 +1587,7 @@ public class GridColumn extends EventDispatcher
      *  Common logic for itemToLabel(), itemToDataTip().   Logically this code is
      *  similar to (not the same as) LabelUtil.itemToLabel().
      */
-    private function itemToString(item:Object, labelPath:Array, labelFunction:Function, formatter:IFormatter):String
+    mx_internal function itemToString(item:Object, labelPath:Array, labelFunction:Function, formatter:IFormatter):String
     {
         if (!item)
             return ERROR_TEXT;
