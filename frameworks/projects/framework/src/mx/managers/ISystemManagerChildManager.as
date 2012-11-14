@@ -22,7 +22,7 @@ package mx.managers
 
 import flash.display.DisplayObject;  
 
-[ExcludeClass];
+[ExcludeClass]
 
 /**
  */
