@@ -181,7 +181,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
         
         if (_data && column.dataField)
         {
-            // If complex data need to dig the data value out of the correct object.
+            // If complex field reference need to dig the data value out of the correct object.
             var dataFieldPath:Array = column.dataFieldPath;
             this.value = column.dataFieldPath.length == 1 ?
                 _data[column.dataField] :
@@ -464,12 +464,15 @@ public class GridItemEditor extends Group implements IGridItemEditor
         var data:Object = data;
         var typeInfo:String = "";
                         
-        // Handle complex data field by drilling down to the correct object.
-        // Complex data fields means dataFieldPath.length > 1.
-        for (var i:int = 0; i < column.dataFieldPath.length - 1; i++)
-            data = data[column.dataFieldPath[i]];
+        // If a complex field reference need to get the parent object where the property
+        // will be updated.  It is a complex field reference if dataFieldPath.length > 1.
+        // Note that if the path is incorrect there will be a ReferenceError either here or
+        // when accessing the invalid property below.
+        var dataFieldPath:Array = column.dataFieldPath;
+        for (var i:int = 0; i < dataFieldPath.length - 1; i++)
+            data = data[dataFieldPath[i]];
         
-        property = column.dataFieldPath[i];
+        property = dataFieldPath[i];
             
         for each(var variable:XML in describeType(data).variable)
         {
