@@ -36,14 +36,14 @@
     <property name="air.dir" value="${env.AIR_HOME}"/>
     <property name="debugger" value="${env.FLASHPLAYER_DEBUGGER}"/>
     
-    <target name="main" depends="create-config-files,expand-config-tokens" 
-        description="Create framework config files in format expected by Adobe FlashBuilder"/>
-
     <target name="clean">
         <delete dir="${basedir}/config" failonerror="false" />
         <delete file="${basedir}/FlashBuilderProjectFiles.zip" failonerror="false" />
     </target>
     
+    <target name="main" depends="expand-config-tokens" 
+        description="Create framework config files in format expected by Adobe FlashBuilder"/>
+
     <!-- For testing.  Run this to integrate this SDK (in-place) with playerglobal.swc and
          AIR, and modify the framework config files to be the format FB expects.  Only
          the AIR kit for the platform specified by AIR_HOME will be incorporated.
@@ -65,7 +65,7 @@
         </copy>
     </target>
 
-    <target name="expand-config-tokens" description="Expand {airHome} and {playerglobalHome} tokens">        
+    <target name="expand-config-tokens" depends="create-config-files" description="Expand {airHome} and {playerglobalHome} tokens">        
         <echo message="expanding {airHome} and {playerglobalHome} tokens"/>
         <fix-config-file-for-flashbuilder file="${basedir}/config/air-config.xml" />
         <fix-config-file-for-flashbuilder file="${basedir}/config/airmobile-config.xml" />
@@ -111,7 +111,7 @@
             unless="rsls.dir.exists"/>
     </target>
     
-    <target name="install-config">
+    <target name="install-config" depends="expand-config-tokens">
         <copy todir="${frameworks.dir}" verbose="true">
             <fileset dir="${basedir}/config"/> 
         </copy>
