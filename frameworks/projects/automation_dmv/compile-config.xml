@@ -30,8 +30,6 @@
             <path-element>../../libs/charts.swc</path-element>
             <path-element>../../libs/advancedgrids.swc</path-element>
             <path-element>../../libs/automation/automation_agent.swc</path-element>
-            <path-element>../../libs/automation/tool.swc</path-element>
-            <path-element>../../libs/automation/tool_air.swc</path-element>
         </external-library-path>
         
         <locale/>
