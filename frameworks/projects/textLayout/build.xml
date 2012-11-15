@@ -56,7 +56,7 @@
 				<include-resource-bundles bundle="textLayout"/>
 				<include-namespaces/>
 				<include-classes/>
-				<source-path path-element="${basedir}/bundles/@{locale}"/>
+				<source-path path-element="${source.dir}/bundles/@{locale}"/>
 				<include-libraries/>
 				<library-path/>
 				<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
@@ -73,9 +73,9 @@
 		<attribute name="locale"/>
 		<sequential>
 			<echo message="creating 'fat-swc' in textLayout_rb.swc for @{locale}"/>
-			<mkdir dir="${basedir}/bundles/@{locale}/docs" />
+			<mkdir dir="${source.dir}/bundles/@{locale}/docs" />
 			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/textLayout_rb.swc" update="true">
-				<zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
+				<zipfileset dir="${source.dir}/bundles/@{locale}/docs" prefix="docs">
 					<include name="*.*"/>
 					<exclude name="ASDoc_Config.xml"/>
 					<exclude name="overviews.xml"/>
@@ -109,19 +109,16 @@
 		<!--bundle locale="${locale}"/-->
 	</target>
 	
-	<target name="other.locales" description="Build other locale SWCs">
+	<!--target name="other.locales" description="Build other locale SWCs">
 	    <echo message="There are no locales for textLayout."/>
-	</target>
+	</target-->
 	
-	<!--target name="other.locales" depends="bundles" description="Build other locale SWCs"/-->
+	<target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
 	
 	<!-- This is a private target for building automation_rb.swc for various locales. -->
 	<!-- The targets below set the 'locale' parameter  -->
 	<target name="bundles">
 		<!-- these languages do not have localized docs-->
-		<bundler locale="en_AU"/><!-- Australian resources -->
-		<bundler locale="en_GB"/><!-- United Kingdom resources -->
-		<bundler locale="en_CA"/><!-- Canadian resources -->
 		<bundler locale="da_DK"/><!-- Danish resources -->
 		<bundler locale="de_DE"><!-- German resources -->
 			<run.fat.swc>
@@ -133,9 +130,10 @@
 				<fat-swc locale="en_US"/>
 			</run.fat.swc>
 		</bundler>
-		<bundler locale="en_AU"/>
-		<bundler locale="en_GB"/>
-		<bundler locale="en_CA"/>
+		<!--bundler locale="el_GR"/--><!-- Greek Language  resources -->
+		<!--bundler locale="en_AU"/--><!-- Australian resources -->
+		<!--bundler locale="en_GB"/--><!-- United Kingdom resources -->
+		<!--bundler locale="en_CA"/--><!-- Canadian resources -->
 		<bundler locale="es_ES"/><!-- Spanish resources -->
 		<bundler locale="fi_FI"/><!--  Finnish resources-->
 		<bundler locale="fr_FR"><!-- French resources -->
@@ -153,7 +151,7 @@
 		<bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
 		<bundler locale="nl_NL"/><!-- Dutch resources -->
 		<bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
-		<bundler locale="pt_PT"/><!-- Portugal Portuguese resources -->
+		<!--bundler locale="pt_PT"/--><!-- Portugal Portuguese resources -->
 		<bundler locale="ru_RU"><!-- Russian resources -->
 			<run.fat.swc>
 				<fat-swc locale="ru_RU"/>
@@ -166,7 +164,6 @@
 			</run.fat.swc>
 		</bundler>
 		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
-		<bundler locale="el_GR"/><!-- Greek Language  resources -->
 	</target>
 	
 	<target name="clean" depends="bundles-clean" description="Deletes the combined swc">
@@ -198,11 +195,54 @@
             <arg value="+source.dir=${source.dir}" />
             <define name="CONFIG::debug" value="${dbg}"/>
 			<define name="CONFIG::release" value="${rel}"/>
-
         </compc>
      </target>
 
-	<target name="doc" description="Updates textLayout.swc with ASDoc XML">
-	    <echo message="Docs are currently included in TLF drop."/>
+    <target name="clean-temp-docs">
+        <delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+        <delete file="${basedir}/bundles/en_US/packages.dita" failonerror="false"/>
+    </target>
+
+    <target name="doc" depends="clean-temp-docs" description="updates textLayout.swc with asdoc xml">
+        <!-- Load the <asdoc> task. We can't do this at the <project> level -->
+        <!-- because targets that run before flexTasks.jar gets built would fail. -->
+        <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+
+        <condition property="asdoc.jvm.args" value="-Xmx384m">
+            <os family="windows"/>
+        </condition>
+
+        <condition property="asdoc.jvm.args" value="-Xmx512m">
+            <os family="mac"/>
+        </condition>
+
+        <condition property="asdoc.jvm.args" value="-Xmx512m">
+            <os family="unix"/>
+        </condition>
+
+        <!-- Call asdoc to generate dita xml files -->
+        <asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+            <compiler.source-path path-element="${source.dir}/src"/>
+			<compiler.show-actionscript-warnings>false</compiler.show-actionscript-warnings>
+			<doc-classes class="flashx.textLayout.CoreClasses"/>
+			<doc-classes class="flashx.textLayout.EditClasses"/>
+			<doc-classes class="flashx.textLayout.ConversionClasses"/>
+            <doc-namespaces uri="library://ns.adobe.com/flashx/textLayout"/>
+            <namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${source.dir}/manifest.xml"/>
+            <jvmarg line="${asdoc.jvm.args}"/>
+			<static-link-runtime-shared-libraries/>
+			<define name="CONFIG::debug" value="${dbg}"/>
+			<define name="CONFIG::release" value="${rel}"/>
+        </asdoc>
+
+        <!-- updates textLayout.swc with asdoc xml -->
+        <zip destfile="${FLEX_HOME}/frameworks/locale/en_US/textLayout_rb.swc" update="true">
+            <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+                <include name="*.*"/>
+                <exclude name="ASDoc_Config.xml"/>
+                <exclude name="overviews.xml"/>
+            </zipfileset>
+        </zip>
+        <copy file="${FLEX_HOME}/tempDoc/tempdita/packages.dita" tofile="${basedir}/bundles/en_US/packages.dita"/> 
     </target>
 </project>
