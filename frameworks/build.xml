@@ -33,9 +33,9 @@
     <condition property="local.d32" value="-d32">
         <and>
             <os family="mac"/>
+            <matches pattern="1.6.*" string="${java.version}"/>
             <equals arg1="${sun.arch.data.model}" arg2="64"/>
             <equals arg1="${os.arch}" arg2="x86_64"/>
-            <equals arg1="${ant.java.version}" arg2="1.6"/>
         </and>
     </condition>
 
@@ -142,6 +142,9 @@
 		</condition>
 		<condition property="playerglobal.swfversion" value="17">
 			<equals arg1="${playerglobal.version}" arg2="11.4" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="18">
+			<equals arg1="${playerglobal.version}" arg2="11.5" />
 		</condition>
 	</target>	
 
