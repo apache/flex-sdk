@@ -5014,7 +5014,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
             var target:DisplayObject = DisplayObject(event.relatedObject);
             while (target && target != this)
             {
-                if (target is IListItemRenderer && target.parent.parent == this && target.parent is ListBaseContentHolder)
+                if (target is IListItemRenderer && target.parent is ListBaseContentHolder && target.parent.parent == this)
                 {
                     if (target.visible)
                     {
