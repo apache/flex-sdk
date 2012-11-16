@@ -899,6 +899,7 @@
             <fileset dir="${mustella.dir}">
                 <include name="test_files.tmp"/>
                 <include name="results.txt"/>
+                <include name="*.log"/>
             </fileset>
         </delete>
     </target>
@@ -920,15 +921,36 @@
 
     <target name="cleanswfs" unless="noclean.set" description="--> deletes all swfs and tag files">
         <delete quiet="true">
-            <fileset dir="${sdk.mustella.dir}" includes="${previous.generated.testfiles},**/bin-debug/*.swf,**/bin-release/*.swf" excludes="**/Assets/*.swf,**/small.swf,**/undo-redo_icons.swf,**/focusSkinSWF.swf,**/atEmbed/images/*.swf,**/atEmbed/**/assets/*.swf,**/Components/Assets/Skinning/ImageAssets/*.swf,**/CellRenderers/assets/*.swf,**/player/**/assets/*.swf,**/atEmbed/PathResolution/**/box.swf,**/Assets/*.swf,**/assets/*.swf"/>
-            <fileset dir="${mustella.dir}">
-                <include name="**/*.log"/>
+            <fileset dir="${sdk.mustella.dir}" casesensitive="false">
+                <include name="${previous.generated.testfiles}"/>
+                <include name="**/*.sh.*.log"/>
+                <include name="**/swfs/**/*.log"/>
+                <include name="**/swfs/**/*.lnk.xml"/>
+                <include name="**/swfs/**/*l*nkreport*.xml"/>
                 <include name="**/*.png.bad.png*"/>
+                <include name="**/swfs/**/*.swf"/>
+                <include name="**/swfs/**/*.swc"/>
+                <!-- all the special case swf files that need to be kept -->
+                <exclude name="**/swfs/assets/SwfSymbolSkinStates.swf"/>
+                <exclude name="mx/controls/MovieClipSWFLoader/SWFs/assets/quickMovie.swf"/>
+                <exclude name="mx/controls/MovieClipSWFLoader/SWFs/assets/test.swf"/>
+                <exclude name="mx/controls/MovieClipSWFLoader/SWFs/assets/test3.swf"/>
+                <exclude name="components/SWFLoader/SWFs/assets/FlashSWF.swf"/>
+                <exclude name="components/ProgressBar/SWFs/assets/flex_skins.swf"/>
+                <exclude name="States/CurrentSyntax/Integration/CrossVersion/SWFs/assets/Flex320App1.swf"/>
+                <exclude name="States/CurrentSyntax/Integration/CrossVersion/SWFs/assets/Flex330App1.swf"/>
+                <exclude name="gumbo/components/Application/SWFs/assets/BasicApplicationFlex34.swf"/>
+                <!-- all the special case swc files that need to be kept -->
+                <exclude name="gumbo/core/DesignLayer/swfs/assets/FCKAssets.swc"/>
+                <exclude name="gumbo/FCK/swfs/assets/*.swc"/>
+                <exclude name="mx/controls/MovieClipSWFLoader/SWFs/assets/FlashCS5_MovClip1.swc"/>
+                <exclude name="RuntimeLocalization/RTL_SparkSkin/SWFs/Assets/bundles/flex20/enCustomBundle2_Flex20.swc"/>
             </fileset>
         </delete>
+        <delete dir="tests/MarshallPlan/SWFs/assets/MyUtils"/>
     </target>
 
-    <property name="exclude_flag" value="" />
+   <property name="exclude_flag" value="" />
     <property name="cmd_line_scriptName" value="" />
     <property name="cmd_line_testcaseName" value="" />
     <property name="bugId" value="" />
