@@ -1277,6 +1277,8 @@
     <target name="mustella-setup" depends="runtime-setup" description="compile mustella java file">
         <ant dir="${basedir}/mustella" target="makemustellaswc">
             <property name="use_mustella_framework_dir" value="false"/>
+            <!-- Since we don't need embedded fonts for the checkintests fake out mustella.  -->
+            <property name="fonts.exist" value="set"/>
         </ant>
         <property name="moreCompilerArgs" value=""/>
         <!-- compile the results parser -->
