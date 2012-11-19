@@ -65,7 +65,7 @@ fontFamily: Does not work; see bug SDK-18608
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
 
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -83,7 +83,7 @@ fontFamily: Does not work; see bug SDK-18608
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -101,7 +101,7 @@ fontFamily: Does not work; see bug SDK-18608
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -119,7 +119,7 @@ fontSize: Does not work; see bug SDK-18603
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -131,7 +131,7 @@ fontSize: Does not work; see bug SDK-18603
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -148,7 +148,7 @@ fontSize: Does not work; see bug SDK-18603
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -165,7 +165,7 @@ fontSize: Does not work; see bug SDK-18603
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -182,7 +182,7 @@ fontSize: Does not work; see bug SDK-18603
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -199,7 +199,7 @@ fontSize: Does not work; see bug SDK-18603
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -215,7 +215,7 @@ fontWeight
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -227,7 +227,7 @@ fontWeight
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -244,7 +244,7 @@ fontWeight
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -262,7 +262,7 @@ fontWeight
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -279,7 +279,7 @@ fontWeight
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -297,7 +297,7 @@ fontWeight
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -314,7 +314,7 @@ color
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -331,7 +331,7 @@ color
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -348,7 +348,7 @@ color
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -366,7 +366,7 @@ direction: Blocked by bug SDK-18610, SDK-29043. direction isn't implemented.
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -378,7 +378,7 @@ direction: Blocked by bug SDK-18610, SDK-29043. direction isn't implemented.
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -397,7 +397,7 @@ direction: Blocked by bug SDK-18610, SDK-29043. direction isn't implemented.
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -416,7 +416,7 @@ direction: Blocked by bug SDK-18610, SDK-29043. direction isn't implemented.
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -437,7 +437,7 @@ direction: Blocked by bug SDK-18610, SDK-29043. direction isn't implemented.
 			<ConditionalValue deviceDensity="240" os="android"  />
 			<ConditionalValue deviceDensity="160" os="win"  />
 			<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 		</CompareBitmap>
     </body>
@@ -454,7 +454,7 @@ direction: Blocked by bug SDK-18610, SDK-29043. direction isn't implemented.
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -472,7 +472,7 @@ lineThrough
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -484,7 +484,7 @@ lineThrough
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -501,7 +501,7 @@ lineThrough
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -519,7 +519,7 @@ lineThrough
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -536,7 +536,7 @@ lineThrough
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -554,7 +554,7 @@ lineThrough
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -571,7 +571,7 @@ kerning
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -588,7 +588,7 @@ kerning
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -605,7 +605,7 @@ kerning
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -623,7 +623,7 @@ kerning
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -641,7 +641,7 @@ kerning
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -658,7 +658,7 @@ kerning
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -676,7 +676,7 @@ kerning
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -694,7 +694,7 @@ kerning
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -711,7 +711,7 @@ kerning
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -728,7 +728,7 @@ textDecoration
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -740,7 +740,7 @@ textDecoration
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -757,7 +757,7 @@ textDecoration
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -775,7 +775,7 @@ textDecoration
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -792,7 +792,7 @@ textDecoration
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -810,7 +810,7 @@ textDecoration
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -1262,7 +1262,7 @@ top/bottom/left/right combinations
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -1279,7 +1279,7 @@ top/bottom/left/right combinations
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -1298,7 +1298,7 @@ top/bottom/left/right combinations
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -1528,7 +1528,7 @@ vertical/horizontalCenter combinations
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -1545,7 +1545,7 @@ vertical/horizontalCenter combinations
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -1563,7 +1563,7 @@ baseline combinations
         	<ConditionalValue deviceDensity="160" value="43"/>
         	<ConditionalValue deviceDensity="160" os="qnx" value="44"/>
 			<ConditionalValue deviceDensity="320" value="16"/>
-			<ConditionalValue deviceDensity="320" os="iphone" value="15"/>
+			<ConditionalValue deviceDensity="320" os="ios" value="15"/>
 
         </AssertPropertyValue>
     </body>
@@ -1581,7 +1581,7 @@ baseline combinations
         	<ConditionalValue deviceDensity="160" value="-27"/>
         	<ConditionalValue deviceDensity="160" os="qnx" value="-26"/>
 			<ConditionalValue deviceDensity="320" value="-54" />
-        	<ConditionalValue deviceDensity="320" os="iphone" value="-55"/>
+        	<ConditionalValue deviceDensity="320" os="ios" value="-55"/>
         </AssertPropertyValue>
     </body>
 </TestCase>
@@ -1598,7 +1598,7 @@ baseline combinations
         	<ConditionalValue deviceDensity="160" value="-2"/>
         	<ConditionalValue deviceDensity="160" os="qnx" value="-1"/>
 			<ConditionalValue deviceDensity="320" value="-29" />
-        	<ConditionalValue deviceDensity="320" os="iphone" value="-30" />
+        	<ConditionalValue deviceDensity="320" os="ios" value="-30" />
 	</AssertPropertyValue>
 
     </body>
@@ -1616,7 +1616,7 @@ baseline combinations
         	<ConditionalValue deviceDensity="160" value="-32"/>
         	<ConditionalValue deviceDensity="160" os="qnx" value="-31"/>
 			<ConditionalValue deviceDensity="320" value="-59" />
-        	<ConditionalValue deviceDensity="320" os="iphone" value="-60" />
+        	<ConditionalValue deviceDensity="320" os="ios" value="-60" />
         </AssertPropertyValue>
     </body>
 </TestCase>
@@ -1642,7 +1642,7 @@ layoutDirection: Not implemented for mobile SDK4.5. See SDK-29043.
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
 
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
 

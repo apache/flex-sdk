@@ -65,7 +65,7 @@ States
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
 
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -82,7 +82,7 @@ States
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
 
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>	
     </body>
@@ -99,7 +99,7 @@ States
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
 
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -114,7 +114,7 @@ States
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
 
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
         <RunCode code="FlexGlobals.topLevelApplication.hidePopUp()" />

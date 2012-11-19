@@ -141,7 +141,7 @@ enabled
         	<ConditionalValue deviceDensity="160" value="27"/>
         	<ConditionalValue deviceDensity="160" os="qnx" value="26"/>
         	<ConditionalValue deviceDensity="320" value="54"/>
-        	<ConditionalValue deviceDensity="320" os="iphone" value="55"/>
+        	<ConditionalValue deviceDensity="320" os="ios" value="55"/>
         </AssertPropertyValue>
     </body>
 </TestCase>
@@ -157,7 +157,7 @@ enabled
 		        	<ConditionalValue deviceDensity="160" value="27"/>
 		        	<ConditionalValue deviceDensity="160" os="qnx" value="26"/>
                 	<ConditionalValue deviceDensity="320" value="54"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="55"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="55"/>
         </AssertPropertyValue>
     </body>
 </TestCase>
