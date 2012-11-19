@@ -572,8 +572,9 @@
              either type of line endings but the converse is often not true.             
              The bin directory is handled in stage-bin.
         -->
-        <fixcrlf srcdir="${basedir}/temp" eol="crlf">
+        <fixcrlf srcdir="${basedir}/temp" eol="crlf" fixlast="false">
             <exclude name="bin/**"/>
+            <exclude name="**/assets/**"/>
             <exclude name="**/*.fla"/>
             <exclude name="**/*.flv"/>
             <exclude name="**/*.gif"/>
@@ -589,7 +590,7 @@
             Unix shell scripts need the correct line endings. 
             The bin directory is handled in stage-bin.
         -->      
-        <fixcrlf srcdir="${basedir}/temp" eol="unix">  
+        <fixcrlf srcdir="${basedir}/temp" eol="unix" fixlast="false">  
             <include name="**.sh"/>
             <exclude name="bin/**"/>
         </fixcrlf>
@@ -612,6 +613,7 @@
                 <exclude name="projects/textLayout/**"/>
                 <exclude name="projects/spark/manifest.xml"/>
                 <exclude name="projects/*/bundles.properties"/>
+                <exclude name="projects/*/.settings/**"/>
             </fileset>
         </copy>
 
@@ -659,12 +661,12 @@
             </fileset>
         </copy>
         
-        <fixcrlf srcdir="${basedir}/temp/bin" eol="crlf">
+        <fixcrlf srcdir="${basedir}/temp/bin" eol="crlf" fixlast="false">
             <include name="**/*.bat"/>
         </fixcrlf>
   
           <!-- Unix shell scripts need the correct line endings. -->      
-        <fixcrlf srcdir="${basedir}/temp/bin" eol="unix">  
+        <fixcrlf srcdir="${basedir}/temp/bin" eol="unix" fixlast="false">  
             <exclude name="**/*.bat"/>
         </fixcrlf>
     </target>
@@ -712,8 +714,8 @@
                 <exclude name="as3/src/mustella/ContinueAfterRuntimeException/**"/>
                 <exclude name="as3/src/mustella/ExcludeList.txt"/>
                 <exclude name="as3/src/mustella/IncludeList.txt"/>
-                <exclude name="**/*.air"/>
-                <exclude name="**/*.swf"/>
+                <exclude name="as3/**/*.air"/>
+                <exclude name="as3/**/*.swf"/>
                 <include name="build.xml"/>
                 <include name="local.properties"/>
                 <include name="MustellaResultsParser.java"/>
@@ -1245,7 +1247,7 @@
         </copy>
     </target>
 
-    <target name="clean-temp">
+    <target name="clean-temp" unless="noclean.temp">
         <delete dir="${basedir}/temp" failonerror="false" includeEmptyDirs="true"/>
     </target>
 
@@ -1614,12 +1616,9 @@
     <target name="rat-check" depends="rat-taskdef" if="have.rattasks"
         description="Report on licenses in source kit.">
     
-        <!-- Unzip the source kit -->
-        <antcall target="clean-temp" />
-        <unzip src="${basedir}/out/${source.kit}.zip" dest="${basedir}/temp"/>
-        
         <property name="rat.dir" value="${basedir}/temp"/>
-
+        <antcall target="rat-unzip" />
+        
         <echo message="Checking files at ${rat.dir}, report is ${basedir}/rat.report"/>
              
         <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" 
@@ -1639,12 +1638,17 @@
                 <!--          End of binary files           -->
                 <!-- exclude batik manifests -->
                 <exclude name="modules/thirdparty/batik/sources/*.mf"/>
+                <!-- exclude text files -->
+                <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
+                <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
                 <!-- exclude w3c sources -->
                 <exclude name="modules/thirdparty/batik/resources/org/apache/flex/forks/batik/dom/svg/resources/*.mod"/>
                 <exclude name="modules/thirdparty/batik/resources/org/apache/flex/forks/batik/dom/svg/resources/*.dtd"/>
+                <exclude name="modules/thirdparty/batik/sources/org/w3c/css/sac/LexicalUnit.java"/>
                 <exclude name="modules/thirdparty/batik/sources/org/w3c/flex/forks/css/sac/*.java"/>
                 <exclude name="modules/thirdparty/batik/sources/org/w3c/flex/forks/css/sac/helpers/ParserFactory.java"/>
                 <!-- exclude config files -->
+                <exclude name="modules/thirdparty/batik/svn-revision"/>
                 <exclude name="modules/thirdparty/xerces-patch/src/java/META-INF/services/javax.xml.parsers.SAXParserFactory"/>
                 <exclude name="modules/thirdparty/xerces-patch/src/java/META-INF/services/org.apache.xerces.xni.parser.XMLParserConfiguration"/>
                 <exclude name="modules/thirdparty/xerces-patch/src/java/org/apache/xerces/jaxp/javax.xml.parsers.SAXParserFactory"/>
@@ -1652,6 +1656,11 @@
         </rat:report>
     </target>
 
+    <target name="rat-unzip" unless="no.zip">
+        <antcall target="clean-temp" />
+        <unzip src="${basedir}/out/${source.kit}.zip" dest="${rat.dir}"/>
+    </target>
+    
     <target name="rat-taskdef" description="Rat taskdef"> 
         <available property="have.rattasks" 
             resource="org/apache/rat/anttasks/antlib.xml" 

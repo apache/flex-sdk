@@ -198,6 +198,7 @@
 	
 	<!--
         flex-messaging-common.jar - BlazeDS interface for -service compiler option
+        This does not get installed if build.noprompt is set.
     -->
     
     <target name="blazeds-jar-check" unless="blazeds.donot.ask"
@@ -249,6 +250,7 @@
 
 	<!--
         Embedded Font Support
+        This does not get installed if build.noprompt is set.
     -->
     
     <target name="font-jars-check" unless="font.donot.ask"

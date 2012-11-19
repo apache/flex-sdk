@@ -244,6 +244,12 @@
         <ant dir="${basedir}/projects/experimental" target="clean"/>
         <ant dir="${basedir}/javascript" target="clean"/>
     	<ant dir="${basedir}/themes/AeonGraphical" target="clean"/>
+        <!-- delete the FlashBuilder executable directories -->
+        <delete includeemptydirs="true" failonerror="false">
+            <fileset dir="${basedir}/projects">
+                <include name="*/bin/**"/>
+            </fileset>
+        </delete> 
         <!-- Delete empty folders -->
         <delete dir="${basedir}/locale">
             <exclude name="**/metadata.properties"/>
