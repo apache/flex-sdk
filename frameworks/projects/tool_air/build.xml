@@ -80,25 +80,12 @@
         <!-- because targets that run before flexTasks.jar gets built would fail. -->
         <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 		<compc fork="true"
-			output="${FLEX_HOME}/frameworks/locale/${locale}/tool_air_rb.swc"
-			locale="${locale}">
-          
-            <target-player>11</target-player>
+			output="${FLEX_HOME}/frameworks/locale/${locale}/tool_air_rb.swc">          
 			<jvmarg line="${compc.jvm.args}"/>
- 			
-			<include-resource-bundles bundle="tool_air"/>
-			
-			<include-namespaces/>
-			<include-classes/>
-			
-			<source-path path-element="${basedir}/bundles/${locale}"/>
-			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
-			
-			<include-libraries/>
-			<library-path/>
-            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
-			</external-library-path>
+            <load-config filename="bundle-config.xml" />
+            <arg value="+playerglobal.version=${playerglobal.version}" />
+            <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
+            <arg value="+locale=${locale}" />
 		</compc>
 	</target>
 	

@@ -36,23 +36,12 @@
 			<!-- because targets that run before flexTasks.jar gets built would fail. -->
 			<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 			<compc fork="true"
-				   output="${FLEX_HOME}/frameworks/locale/@{locale}/apache_rb.swc"
-				   locale="@{locale}">
+				   output="${FLEX_HOME}/frameworks/locale/@{locale}/apache_rb.swc">
 				<jvmarg line="${compc.jvm.args}"/>
-				<target-player>${playerglobal.version}</target-player>
-				<include-resource-bundles bundle="apache"/>
-				<include-namespaces/>
-				<include-classes/>
-				<source-path path-element="${basedir}/bundles/@{locale}"/>
-				<source-path path-element="${FLEX_HOME}/frameworks/projects/apache/src"/>
-				<include-libraries/>
-				<library-path/>
-				<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-					<include name="${playerglobal.version}/playerglobal.swc"/>
-				</external-library-path>
-				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-	                <include name="framework.swc"/>
-				</external-library-path>
+                <load-config filename="bundle-config.xml" />
+                <arg value="+playerglobal.version=${playerglobal.version}" />
+                <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
+                <arg value="+locale=@{locale}" />
 			</compc>
 		</sequential>
 	</macrodef>	
