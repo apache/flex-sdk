@@ -724,18 +724,6 @@
             <equals arg1="${run_mobile_tests}" arg2="true" />
         </condition>
         
-        <condition property="step_timeout" value="1">
-        	<and>
-        		<not>
-        			<isset property="step_timeout" />
-        		</not>
-        		<or>
-        			<equals arg1="win" arg2="${device_name}" />
-        			<equals arg1="mac" arg2="${device_name}" />
-        		</or>
-        	</and>
-        </condition>
-        
         <echo>os: ${os}</echo>
         <echo>target_os_name: ${target_os_name}</echo>
         <echo>os_version: ${os_version}</echo>
