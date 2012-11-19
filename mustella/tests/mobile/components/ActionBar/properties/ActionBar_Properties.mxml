@@ -319,8 +319,9 @@
 				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
 				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.arrImage" waitEvent="updateComplete" />
 			</setup>
-			<body>
-				<AssertPropertyValue target="actionBar.titleContent" propertyName="length" value="2" />				
+			<body>	
+				<Pause timeout="300" />
+				<AssertPropertyValue target="actionBar.titleContent" propertyName="length" value="2" />			
 				<CompareBitmap url="../properties/baselines" target="actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
@@ -587,6 +588,7 @@
 				<SetProperty target="actionBar" propertyName="navigationContent" valueExpression="value=application.actionBar.arrImage" waitEvent="updateComplete" />
 			</setup>
 			<body>
+			    <Pause timeout="300" />
 				<AssertPropertyValue target="actionBar.navigationContent" propertyName="length" value="2" />				
 				<CompareBitmap url="../properties/baselines" target="actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
@@ -789,6 +791,7 @@
 				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.arrImage" waitEvent="updateComplete" />
 			</setup>
 			<body>
+				<Pause timeout="600" />
 				<AssertPropertyValue target="actionBar.actionContent" propertyName="length" value="2" />				
 				<CompareBitmap url="../properties/baselines" target="actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>

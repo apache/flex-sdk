@@ -130,6 +130,7 @@ import mx.core.FlexGlobals;
 				<SetProperty target="titlename" propertyName="text" value="éàç 1234567890 日本語" waitTarget="navigator.actionBar"/> 
 			</setup>
 			<body>
+				<Pause timeout="300" />
 				<AssertPropertyValue target="titlename" propertyName="text" value="éàç 1234567890 日本語"/>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
@@ -146,6 +147,7 @@ import mx.core.FlexGlobals;
 				<SetProperty target="titlename" propertyName="text" value="" waitTarget="navigator.actionBar"/>
 			</setup>
 			<body>
+				<Pause timeout="300" />
 				<AssertPropertyValue target="titlename" propertyName="text" value=""/>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
@@ -162,6 +164,7 @@ import mx.core.FlexGlobals;
 				<SetProperty target="titlename" propertyName="text" value="thisisaverylongtitlestringbecareful"/>
 			</setup>
 			<body>
+				<Pause timeout="300" />
 				<AssertPropertyValue target="titlename" propertyName="text" value="thisisaverylongtitlestringbecareful"/>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
@@ -178,6 +181,7 @@ import mx.core.FlexGlobals;
 				<SetProperty target="titlename" propertyName="text" value="{arr}"/>
 			</setup>
 			<body>
+				<Pause timeout="300" />
 				<AssertPropertyValue target="titlename" propertyName="text" value="{arr}"/>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
@@ -427,7 +431,7 @@ import mx.core.FlexGlobals;
 				
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=basic" />
-				<!--Pause timeout="300" /-->
+				<Pause timeout="300" />
 			</setup>
 			<body>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
@@ -677,6 +681,7 @@ import mx.core.FlexGlobals;
 				
 			</setup>
 			<body>
+				<Pause timeout="300" />
 				<AssertPropertyValue target="navigator.actionBar" propertyName="visible" value="true" />
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
@@ -923,7 +928,7 @@ import mx.core.FlexGlobals;
 				
 				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=manyEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationLayout" valueExpression="value=tile" />
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 			</setup>
 			<body>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">

@@ -105,7 +105,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar" />
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				
 			</setup>
 			<body>
@@ -133,7 +133,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar" />
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="height" value="93" waitEvent="updateComplete"/>
 				
 			</setup>
@@ -157,7 +157,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar" />
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=oneEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="height" value="50" waitEvent="updateComplete"/>
 				
@@ -181,7 +181,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="height" value="67" waitEvent="updateComplete"/>
 				<WaitForLayoutManager />
 			</setup>
@@ -213,7 +213,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=horizontal" waitEvent="updateComplete"/>
 				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
 				
@@ -236,7 +236,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="title" value="éàç 1234567890 日本語" waitTarget="navigator.actionBar" waitEvent="updateComplete"/> 
 			</setup>
 			<body>
@@ -256,7 +256,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>		
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="title" value="" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
 				
 			</setup>
@@ -277,7 +277,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>			
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="title" value="c" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
 			</setup>
 			<body>
@@ -298,7 +298,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="title" value="thisisaverylongtitlestringbecareful" waitEvent="updateComplete"/>
 				
 			</setup>
@@ -320,7 +320,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="title" value="{arr}" waitEvent="updateComplete"/>
 				
 			</setup>
@@ -387,7 +387,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" value="[]" waitEvent="updateComplete"/>
 				
 			</setup>
@@ -407,7 +407,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=emptyArray" waitEvent="updateComplete"/>
 				
 			</setup>
@@ -427,7 +427,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=oneEArray" waitEvent="updateComplete"/>
 				
 			</setup>
@@ -448,7 +448,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>			
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=twoEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
 				
 			</setup>
@@ -471,7 +471,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>			
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=manyEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
 			
 			</setup>
@@ -492,11 +492,12 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>				
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=imgArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
 				
 			</setup>
 			<body>
+				<Pause timeout="300" />
 				<AssertPropertyValue target="navigator.actionBar.titleContent" propertyName="length" value="2" />
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
@@ -515,7 +516,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=horizontal" waitEvent="updateComplete" />
 			
@@ -538,7 +539,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
 								<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=vertical" waitEvent="updateComplete"/>
 								
@@ -559,7 +560,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
 							<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=tile" waitEvent="updateComplete"/>
 							
@@ -580,7 +581,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
 							<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=tile" waitEvent="updateComplete"/>
 						
@@ -602,9 +603,9 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>			
-				<!--<Pause timeout="300" />-->			
 			</setup>
-			<body>
+			<body>			
+				<Pause timeout="300" />
 				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="verticalAlign" value="middle" />
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
@@ -624,9 +625,10 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 			</setup>
-			<body>
+			<body>	
+				<Pause timeout="300" />
 				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingLeft">
 <ConditionalValue deviceDensity="160" os="win" value="13"/>
 					<ConditionalValue deviceDensity="240" os="android" value="20"/>
@@ -662,7 +664,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=horizontal" waitEvent="updateComplete"/>
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
 			</setup>
@@ -682,9 +684,10 @@
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
-				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>		
-				<!--<Pause timeout="300" />--></setup>
-			<body>
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+			</setup>
+			<body>		
+				<Pause timeout="300" />
 				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="gap" value="0"/>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
@@ -705,7 +708,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="actionContent" value="[]" waitEvent="updateComplete"/>
 				
 			</setup>
@@ -726,7 +729,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=emptyArray" waitEvent="updateComplete"/>
 			</setup>
 			<body>
@@ -745,7 +748,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=oneEArray" waitEvent="updateComplete"/>
 			</setup>
 			<body>
@@ -765,7 +768,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=twoEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
 				
 			</setup>
@@ -788,7 +791,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>			
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=manyEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
 				
 			</setup>
@@ -809,7 +812,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=imgArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
 				
 			</setup>
@@ -831,7 +834,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=twoEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
 			</setup>
 			<body>
@@ -850,9 +853,10 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>									
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 			</setup>
-			<body>
+			<body>									
+				<Pause timeout="300" />
 				<AssertPropertyValue target="navigator.actionBar.actionLayout" propertyName="paddingLeft" value="0"/>
 				<AssertPropertyValue target="navigator.actionBar.actionLayout" propertyName="paddingRight" value="0"/>
 				<AssertPropertyValue target="navigator.actionBar.actionLayout" propertyName="paddingTop" value="0"/>
@@ -873,7 +877,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="actionLayout" valueExpression="value=vertical" waitEvent="updateComplete"/>
 				
@@ -894,7 +898,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=manyEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="actionLayout" valueExpression="value=tile" waitEvent="updateComplete"/>
 				
@@ -916,10 +920,10 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>		
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="actionLayout" valueExpression="value=basic" />
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 			</setup>
 			<body>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
@@ -938,7 +942,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=oneEArray" waitEvent="updateComplete"/>
 				
 				
@@ -960,10 +964,10 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=oneEArray" waitEvent="updateComplete"/>
 				<SetProperty target="navigator.actionBar" propertyName="visible" value="false"/>
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				
 			</setup>
 			<body>
@@ -984,9 +988,9 @@
 					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 					<SetProperty target="navigator.actionBar" propertyName="navigationContent" value="[]"/>
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 				</setup>
 				<body>
 					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="0" />	
@@ -1004,9 +1008,9 @@
 					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=emptyArray"/>
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 				</setup>
 				<body>
 					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="0" />
@@ -1024,9 +1028,9 @@
 					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=oneEArray" waitTarget="navigator.actionBar"/>
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 				</setup>
 				<body>
 					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="1" />
@@ -1045,9 +1049,9 @@
 					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=twoEArray" waitTarget="navigator.actionBar"/>
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 				</setup>
 				<body>
 					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="2" />
@@ -1068,9 +1072,9 @@
 					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=manyEArray" waitTarget="navigator.actionBar"/>
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 				</setup>
 				<body>
 					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="4" />
@@ -1089,9 +1093,9 @@
 					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=imgArray" waitTarget="navigator.actionBar"/>
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 				</setup>
 				<body>
 					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="2" />
@@ -1110,9 +1114,9 @@
 					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=mobileArray" waitTarget="navigator.actionBar" />
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 				</setup>
 				<body>
 					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="1" />
@@ -1131,9 +1135,9 @@
 					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=graphArray" waitTarget="navigator.actionBar"/>
-					<!--<Pause timeout="300" />-->
+					<Pause timeout="300" />
 				</setup>
 				<body>
 					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="2" />
@@ -1153,9 +1157,9 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=twoEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 			</setup>
 			<body>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
@@ -1173,7 +1177,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>									
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 			</setup>
 			<body>
 				<AssertPropertyValue target="navigator.actionBar.navigationLayout" propertyName="paddingLeft" value="0"/>
@@ -1196,10 +1200,10 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationLayout" valueExpression="value=vertical" />
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 			</setup>
 			<body>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
@@ -1217,10 +1221,10 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=manyEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationLayout" valueExpression="value=tile" />
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 			</setup>
 			<body>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
@@ -1238,10 +1242,10 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationLayout" valueExpression="value=basic" />
-				<!--<Pause timeout="300" />-->
+				<Pause timeout="300" />
 			</setup>
 			<body>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
