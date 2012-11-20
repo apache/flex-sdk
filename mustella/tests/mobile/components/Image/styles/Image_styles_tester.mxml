@@ -73,9 +73,9 @@
 					<ConditionalValue os="android" deviceDensity="160" />
 					<ConditionalValue os="android" deviceDensity="240" />
 					<ConditionalValue os="android" deviceDensity="320" />
-					<ConditionalValue os="iphone" deviceDensity="160" />
-					<ConditionalValue os="iphone" deviceDensity="240" />
-					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="ios" deviceDensity="160" />
+					<ConditionalValue os="ios" deviceDensity="240" />
+					<ConditionalValue os="ios" deviceDensity="320" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>				
@@ -89,7 +89,7 @@
 				<SetStyle target="navigator.activeView.imgComp1.img1" styleName="backgroundColor" value="0x000088" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="../../../../Assets/Images/smallpurplerect.jpg" waitEvent="ioError" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/doesNotExist.jpg" waitEvent="ioError" />
 				<CompareBitmap url="../styles/baselines/" target="navigator.activeView.imgComp1.img1">
 					<ConditionalValue os="win" deviceDensity="160" />
 					<ConditionalValue os="win" deviceDensity="240" />
@@ -97,9 +97,9 @@
 					<ConditionalValue os="android" deviceDensity="160" />
 					<ConditionalValue os="android" deviceDensity="240" />
 					<ConditionalValue os="android" deviceDensity="320" />
-					<ConditionalValue os="iphone" deviceDensity="160" />
-					<ConditionalValue os="iphone" deviceDensity="240" />
-					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="ios" deviceDensity="160" />
+					<ConditionalValue os="ios" deviceDensity="240" />
+					<ConditionalValue os="ios" deviceDensity="320" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>				
@@ -124,7 +124,7 @@
 			<body>
 				<SetStyle target="navigator.activeView.imgComp1.img1" styleName="enableLoadingState" value="false" />
 				<Pause timeout="1" />
-				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="../../../../Assets/Images/smallpurplerect.jpg" waitEvent="ioError" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/doesNotExist.jpg" waitEvent="ioError" />
 				<CompareBitmap url="../styles/baselines/" target="navigator.activeView.imgComp1.img1">
 					<ConditionalValue os="win" deviceDensity="160" />
 					<ConditionalValue os="win" deviceDensity="240" />
@@ -132,9 +132,9 @@
 					<ConditionalValue os="android" deviceDensity="160" />
 					<ConditionalValue os="android" deviceDensity="240" />
 					<ConditionalValue os="android" deviceDensity="320" />
-					<ConditionalValue os="iphone" deviceDensity="160" />
-					<ConditionalValue os="iphone" deviceDensity="240" />
-					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="ios" deviceDensity="160" />
+					<ConditionalValue os="ios" deviceDensity="240" />
+					<ConditionalValue os="ios" deviceDensity="320" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>				
