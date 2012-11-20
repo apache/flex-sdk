@@ -64,7 +64,7 @@
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="January" />
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="02">
 					<ConditionalValue value="2" os="android" />
-					<ConditionalValue value="2" os="iphone" />
+					<ConditionalValue value="2" os="ios" />
 					<ConditionalValue value="2" os="qnx" />
 				</AssertMethodValue>
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2000" />
@@ -131,7 +131,7 @@
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="June" />
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="06" >
 					<ConditionalValue value="6" os="android" />
-					<ConditionalValue value="6" os="iphone" />
+					<ConditionalValue value="6" os="ios" />
 					<ConditionalValue value="6" os="qnx" />
 				</AssertMethodValue>
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2012" />
@@ -181,7 +181,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -210,7 +210,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -232,7 +232,7 @@
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="June" />
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="01" >
 					<ConditionalValue value="1" os="android" />
-					<ConditionalValue value="1" os="iphone" />
+					<ConditionalValue value="1" os="ios" />
 					<ConditionalValue value="1" os="qnx" />
 				</AssertMethodValue>
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2013" />
@@ -255,7 +255,7 @@
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="July" />
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="01" >
 					<ConditionalValue value="1" os="android" />
-					<ConditionalValue value="1" os="iphone" />
+					<ConditionalValue value="1" os="ios" />
 					<ConditionalValue value="1" os="qnx" />
 				</AssertMethodValue>
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2011" />
@@ -320,7 +320,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -364,7 +364,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -395,7 +395,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -417,7 +417,7 @@
 				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMonthRenderer(0).label" value="June" />
 				<AssertMethodValue method="value=application.navigator.activeView.ds2.getDateRenderer(0).label" value="03" >
 					<ConditionalValue value="3" os="android" />
-					<ConditionalValue value="3" os="iphone" />
+					<ConditionalValue value="3" os="ios" />
 					<ConditionalValue value="3" os="qnx" />
 				</AssertMethodValue>
 				<AssertMethodValue method="value=application.navigator.activeView.ds2.getYearRenderer(0).label" value="2010" />
@@ -426,7 +426,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -448,7 +448,7 @@
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="July" />
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="08" >
 					<ConditionalValue value="8" os="android" />
-					<ConditionalValue value="8" os="iphone" />
+					<ConditionalValue value="8" os="ios" />
 					<ConditionalValue value="8" os="qnx" />
 				</AssertMethodValue>
 				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2011" />
@@ -457,7 +457,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>

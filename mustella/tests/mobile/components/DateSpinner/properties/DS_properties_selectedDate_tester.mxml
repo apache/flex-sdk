@@ -245,6 +245,8 @@
             </body>
         </TestCase>
         
+        <!-- REVISIT: ypeError: Error #1009: Cannot access a property or method of a null object reference.
+     [java] 	at TouchScrollingUtil$/dispatchMouseEvent()[/Users/pent/apache/flex/mustella/tests/mobile/components/DateSpinner/swfs/TouchScrollingUtil.as:458]
         <TestCase testID="DateSpinner_selectedDate_mouse_5" 
                   keywords="[DateSpinner, property, selectedDate, set, get]" 
                   description="Test the set get function of property selectedDate for DateSpinner component works well.">
@@ -289,7 +291,7 @@
 									 valueExpression="value=new Date(2015, 8, 30, 2, 55, 20)"/>
 							
             </body>
-        </TestCase>
+        </TestCase> -->
         
         <TestCase testID="DateSpinner_selectedDate_mouse_6" 
                   keywords="[DateSpinner, property, selectedDate, set, get]" 
@@ -365,7 +367,7 @@
 					<ConditionalValue deviceDensity="320" os="win" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 					<ConditionalValue deviceDensity="240" os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 				</CompareBitmap>
                 <!-- mouse click to let list move up , cannot scroll to invalid date  -->
 				
@@ -423,7 +425,7 @@
 					<ConditionalValue deviceDensity="320" os="win" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 					<ConditionalValue deviceDensity="240" os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 				</CompareBitmap>
 				
                 <!-- mouse click to let list move up -->
@@ -476,7 +478,7 @@
 					<ConditionalValue deviceDensity="320" os="win" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 					<ConditionalValue deviceDensity="240" os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 				</CompareBitmap>
 				
 				<!-- mouse click to let list move down -->

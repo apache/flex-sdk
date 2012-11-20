@@ -69,7 +69,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -96,7 +96,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -123,7 +123,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -157,8 +157,8 @@
 				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMonthRenderer(0).label" 
 								   value="五月">
 					<ConditionalValue value="五月" os="win"/>
-					<ConditionalValue value="5月" os="android"/>
-					<ConditionalValue value="五月" os="iphone"/>
+					<ConditionalValue value="五月" os="android"/>
+					<ConditionalValue value="五月" os="ios"/>
 				</AssertMethodValue>
 				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
 								   value="23日" />
@@ -175,8 +175,8 @@
 				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMonthRenderer(0).label" 
 								   value="十二月">
 					<ConditionalValue value="十二月" os="win"/>
-					<ConditionalValue value="12月" os="android"/>
-					<ConditionalValue value="十二月" os="iphone"/>
+					<ConditionalValue value="十二月" os="android"/>
+					<ConditionalValue value="十二月" os="ios"/>
 				</AssertMethodValue>
 				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
 								   value="31日" />
@@ -210,14 +210,14 @@
 								   value="12">
 					<ConditionalValue value="12" os="win"/>
 					<ConditionalValue value="12时" os="android"/>
-					<ConditionalValue value="12时" os="iphone"/>
+					<ConditionalValue value="12时" os="ios"/>
 					<ConditionalValue value="12时" os="qnx"/>
 				</AssertMethodValue>
 				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMinuteRenderer(0).label" 
 								   value="45">
 					<ConditionalValue value="45" os="win"/>
 					<ConditionalValue value="45分" os="android"/>
-					<ConditionalValue value="45分" os="iphone"/>
+					<ConditionalValue value="45分" os="ios"/>
 					<ConditionalValue value="45分" os="qnx"/>
 				</AssertMethodValue>
 				
@@ -232,14 +232,14 @@
 								   value="0">
 					<ConditionalValue value="0" os="win"/>
 					<ConditionalValue value="12时" os="android"/>
-					<ConditionalValue value="12时" os="iphone"/>
+					<ConditionalValue value="12时" os="ios"/>
 					<ConditionalValue value="12时" os="qnx"/>
 				</AssertMethodValue>
 				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMinuteRenderer(0).label" 
 								   value="00">
 					<ConditionalValue value="00" os="win"/>
 					<ConditionalValue value="00分" os="android"/>
-					<ConditionalValue value="00分" os="iphone"/>
+					<ConditionalValue value="00分" os="ios"/>
 					<ConditionalValue value="00分" os="qnx"/>
 				</AssertMethodValue>
 			</body>
@@ -281,15 +281,15 @@
 				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getHourRenderer(0).label" 
 								   value="9">
 					<ConditionalValue value="9" os="win"/>
-					<ConditionalValue value="09" os="android"/>
-					<ConditionalValue value="9" os="iphone"/>
+					<ConditionalValue value="9" os="android"/>
+					<ConditionalValue value="9" os="ios"/>
 					<ConditionalValue value="9" os="qnx"/>
 				</AssertMethodValue>
 				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMinuteRenderer(0).label" 
 								   value="10">
 					<ConditionalValue value="10" os="win"/>
 					<ConditionalValue value="10" os="android"/>
-					<ConditionalValue value="10" os="iphone"/>
+					<ConditionalValue value="10" os="ios"/>
 					<ConditionalValue value="10" os="qnx"/>
 				</AssertMethodValue>
 			</body>
@@ -323,7 +323,7 @@
 					<ConditionalValue deviceDensity="320" os="win" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 					<ConditionalValue deviceDensity="240" os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 				</CompareBitmap>
 			</body>
 		</TestCase>
@@ -357,7 +357,7 @@
 					<ConditionalValue deviceDensity="320" os="win" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 					<ConditionalValue deviceDensity="240" os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 				</CompareBitmap>
 			</body>
 		</TestCase>
@@ -395,7 +395,7 @@
 					<ConditionalValue deviceDensity="320" os="win" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 					<ConditionalValue deviceDensity="240" os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 				</CompareBitmap>
 			</body>
 		</TestCase>
@@ -431,7 +431,7 @@
 					<ConditionalValue deviceDensity="320" os="win" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 					<ConditionalValue deviceDensity="240" os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 				</CompareBitmap>
 				
 				<!-- mouse click to let list move up -->
@@ -445,7 +445,7 @@
 								   value="6月">
 					<ConditionalValue value="6月" os="win"/>
 					<ConditionalValue value="6月" os="android"/>
-					<ConditionalValue value="6月" os="iphone"/>
+					<ConditionalValue value="6月" os="ios"/>
 				</AssertMethodValue>
 				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
 								   value="28日" />
@@ -493,7 +493,7 @@
 					<ConditionalValue deviceDensity="320" os="win" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 					<ConditionalValue deviceDensity="240" os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 				</CompareBitmap>
 				
 			</body>
@@ -539,7 +539,7 @@
 					<ConditionalValue deviceDensity="320" os="win" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 					<ConditionalValue deviceDensity="240" os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 				</CompareBitmap>
 			</body>
 		</TestCase>
@@ -585,8 +585,8 @@
 				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMonthRenderer(0).label" 
 								   value="五月">
 					<ConditionalValue value="五月" os="win"/>
-					<ConditionalValue value="5月" os="android"/>
-					<ConditionalValue value="五月" os="iphone"/>
+					<ConditionalValue value="五月" os="android"/>
+					<ConditionalValue value="五月" os="ios"/>
 				</AssertMethodValue>
 				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
 								   value="23日" />
@@ -609,8 +609,8 @@
 				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMonthRenderer(0).label" 
 								   value="十二月">
 					<ConditionalValue value="十二月" os="win"/>
-					<ConditionalValue value="12月" os="android"/>
-					<ConditionalValue value="十二月" os="iphone"/>
+					<ConditionalValue value="十二月" os="android"/>
+					<ConditionalValue value="十二月" os="ios"/>
 				</AssertMethodValue>
 				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
 								   value="31日" />

@@ -128,7 +128,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(0).label" value="30" />
@@ -158,7 +158,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(0).label" value="30" />
