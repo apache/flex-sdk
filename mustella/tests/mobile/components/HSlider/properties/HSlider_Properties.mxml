@@ -39,7 +39,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="7"/>
 					<ConditionalValue deviceDensity="240" os="android" value="5"/>
 					<ConditionalValue deviceDensity="320" os="win" value="3"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="3"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="3"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="7"/>
 				</AssertPropertyValue>				
 				<DispatchMouseEvent target="myHSlider" localX="22" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />				
@@ -52,7 +52,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="14"/>
 					<ConditionalValue deviceDensity="240" os="android" value="10"/>
 					<ConditionalValue deviceDensity="320" os="win" value="6"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="6"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="6"/>
 	<ConditionalValue deviceDensity="160" os="qnx" value="14"/>
 				</AssertPropertyValue>	
 				<DispatchMouseEvent target="myHSlider" localX="39" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
@@ -64,7 +64,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="20"/>
 					<ConditionalValue deviceDensity="240" os="android" value="14"/>
 					<ConditionalValue deviceDensity="320" os="win" value="9"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="9"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="9"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="20"/>
 				</AssertPropertyValue>
 				<DispatchMouseEvent target="myHSlider" localX="56" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
@@ -76,7 +76,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="27"/>
 					<ConditionalValue deviceDensity="240" os="android" value="18"/>
 					<ConditionalValue deviceDensity="320" os="win" value="12"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="12"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="12"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="27"/>
 				</AssertPropertyValue>
 				<DispatchMouseEvent target="myHSlider" localX="74" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
@@ -88,7 +88,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="35"/>
 					<ConditionalValue deviceDensity="240" os="android" value="23"/>
 					<ConditionalValue deviceDensity="320" os="win" value="16"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="16"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="16"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="35"/>
 				</AssertPropertyValue>
 				<DispatchMouseEvent target="myHSlider" localX="96" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
@@ -100,7 +100,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="28"/>
 					<ConditionalValue deviceDensity="240" os="android" value="18"/>
 					<ConditionalValue deviceDensity="320" os="win" value="13"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="13"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="13"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="28"/>
 				</AssertPropertyValue>
 				<DispatchMouseEvent target="myHSlider" localX="78" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
@@ -112,7 +112,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="21"/>
 					<ConditionalValue deviceDensity="240" os="android" value="13"/>
 					<ConditionalValue deviceDensity="320" os="win" value="10"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="10"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="10"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="21"/>
 				</AssertPropertyValue>
 				<DispatchMouseEvent target="myHSlider" localX="61" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
@@ -124,7 +124,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="15"/>
 					<ConditionalValue deviceDensity="240" os="android" value="9"/>
 					<ConditionalValue deviceDensity="320" os="win" value="7"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="7"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="7"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="15"/>
 				</AssertPropertyValue>
 				<DispatchMouseEvent target="myHSlider" localX="45" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
@@ -136,7 +136,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="8"/>
 					<ConditionalValue deviceDensity="240" os="android" value="5"/>
 					<ConditionalValue deviceDensity="320" os="win" value="4"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="4"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="4"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="8"/>
 				</AssertPropertyValue>
 				<DispatchMouseEvent target="myHSlider" localX="27" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
@@ -167,7 +167,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="3"/>
 					<ConditionalValue deviceDensity="240" os="android" value="2"/>
 					<ConditionalValue deviceDensity="320" os="win" value="2"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="2"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="2"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="3"/>
 				</AssertPropertyValue>
 	    	</body>
@@ -221,7 +221,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="100"/>
 					<ConditionalValue deviceDensity="240" os="android" value="68"/>
 					<ConditionalValue deviceDensity="320" os="win" value="50"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="50"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="50"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="100"/>
 				</AssertPropertyValue>
 		
@@ -251,7 +251,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="42"/>
 					<ConditionalValue deviceDensity="240" os="android" value="29"/>
 					<ConditionalValue deviceDensity="320" os="win" value="21"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="21"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="21"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="42"/>
 				</AssertPropertyValue>
 		
@@ -264,7 +264,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="0"/>
 					<ConditionalValue deviceDensity="240" os="android" value="1"/>
 					<ConditionalValue deviceDensity="320" os="win" value="0"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="0"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="0"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="0"/>
 				</AssertPropertyValue>
             </body>
@@ -289,7 +289,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="-77"/>
 					<ConditionalValue deviceDensity="240" os="android" value="-87"/>
 					<ConditionalValue deviceDensity="320" os="win" value="-93"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="-93"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="-93"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="-77"/>
 				</AssertPropertyValue>
 				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
@@ -321,7 +321,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="-35"/>
 					<ConditionalValue deviceDensity="240" os="android" value="-40"/>
 					<ConditionalValue deviceDensity="320" os="win" value="-43"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="-43"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="-43"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="-35"/>
 				</AssertPropertyValue>
 		
@@ -349,7 +349,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="4.5"/>
 					<ConditionalValue deviceDensity="240" os="android" value="3.5"/>
 					<ConditionalValue deviceDensity="320" os="win" value="2.5"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="2.5"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="2.5"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="4.5"/>
 				</AssertPropertyValue>
 		
@@ -378,7 +378,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="-23"/>
 					<ConditionalValue deviceDensity="240" os="android" value="-29"/>
 					<ConditionalValue deviceDensity="320" os="win" value="-32"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="-32"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="-32"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="-23"/>
 				</AssertPropertyValue>
 		
@@ -411,7 +411,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="9.6"/>
 					<ConditionalValue deviceDensity="240" os="android" value="6.6"/>
 					<ConditionalValue deviceDensity="320" os="win" value="4.8"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="4.8"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="4.8"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="9.6"/>
 				</AssertPropertyValue>
 				
@@ -423,7 +423,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="17"/>
 					<ConditionalValue deviceDensity="240" os="android" value="11.600000"/>
 					<ConditionalValue deviceDensity="320" os="win" value="8.5"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="8.5"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="8.5"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="17"/>
 				</AssertPropertyValue>				
 	
@@ -507,7 +507,7 @@
 						<ConditionalValue deviceDensity="160" os="win"/>
 						<ConditionalValue deviceDensity="240" os="android"/>
 						<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 		    </body>
@@ -524,7 +524,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>		   
 			</body>
@@ -612,7 +612,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="0"/>
 					<ConditionalValue deviceDensity="240" os="android" value="0"/>
 					<ConditionalValue deviceDensity="320" os="win" value="0"/>
-<ConditionalValue deviceDensity="320" os="iphone" value="0"/>
+<ConditionalValue deviceDensity="320" os="ios" value="0"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="0"/>
 				</AssertPropertyValue>				
 			</body>
@@ -627,7 +627,7 @@
 					<ConditionalValue deviceDensity="160" os="win" value="0"/>
 					<ConditionalValue deviceDensity="240" os="android" value="0"/>
 					<ConditionalValue deviceDensity="320" os="win" value="0"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="0"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="0"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="0"/>
 				</AssertPropertyValue>					
 			</body>

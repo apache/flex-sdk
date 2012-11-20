@@ -32,7 +32,7 @@
 				<ConditionalValue deviceDensity="160" os="win"/>
 				<ConditionalValue deviceDensity="240" os="android"/>
 				<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>
 	    	
@@ -116,7 +116,7 @@
 				<ConditionalValue deviceDensity="160" os="win"/>
 				<ConditionalValue deviceDensity="240" os="android"/>
 				<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>
 		
@@ -127,7 +127,7 @@
 				<ConditionalValue deviceDensity="240" os="android" url="../events/baselines/testID_2"/>
 				<ConditionalValue deviceDensity="320" os="win" url="../events/baselines/testID_2"/>
 			
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>-->
 			<AssertEvent target="myHSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
