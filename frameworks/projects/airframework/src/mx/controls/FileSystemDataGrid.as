@@ -1605,7 +1605,17 @@ public class FileSystemDataGrid extends DataGrid
         if (!item.exists) // item may have been deleted
             return "";
 
-        return dateFormatter.format(item.creationDate);
+		var s:String;
+		try 
+		{
+	        s = dateFormatter.format(item.creationDate);
+		} 
+		catch (e:Error)
+		{
+			// a bad alias on mac will not have a valid creation date
+			s = "";
+		}
+		return s;
     }
 
     /**
@@ -1617,7 +1627,17 @@ public class FileSystemDataGrid extends DataGrid
         if (!item.exists) // item may have been deleted
             return "";
 
-        return dateFormatter.format(item.modificationDate);
+		var s:String;
+		try
+		{
+        	s = dateFormatter.format(item.modificationDate);
+		} 
+		catch (e:Error)
+		{
+			// a bad alias on mac will not have a valid mod date
+			s = "";
+		}
+		return s;
     }
 
     /**
