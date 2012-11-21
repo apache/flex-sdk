@@ -24,6 +24,7 @@
 
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
+	<property file="${FLEX_HOME}/build.properties"/>
 
 	<target name="main" depends="clean,doc" description="Clean build of all ASDocs"/>
 
@@ -45,12 +46,13 @@
 	        <os family="unix"/>
 	    </condition>
 
-	    <available property="flexTasksJar" value="${FLEX_HOME}/lib/flexTasks.jar" file="${FLEX_HOME}/lib/flexTasks.jar"/>
-	    <available property="flexTasksJar" value="${FLEX_HOME}/ant/lib/flexTasks.jar" file="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
-
-		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
-		<!-- because targets that run before flexTasks.jar gets built would fail. -->
-		<taskdef resource="flexTasks.tasks" classpath="${flexTasksJar}"/>
+        <path id="flexTasks.path">
+            <fileset dir="${FLEX_HOME}">
+                <include name="lib/flexTasks.jar" />
+                <include name="ant/lib/flexTasks.jar" />
+            </fileset>
+        </path>
+        <taskdef resource="flexTasks.tasks" classpathref="flexTasks.path"/>
 
 		<!-- Call asdoc to generate dita xml files -->
 		<asdoc output="${FLEX_HOME}/asdoc-output" lenient="true" failonerror="true" warnings="false" strict="false" locale="en_US" fork="true">
@@ -66,9 +68,9 @@
 		    <doc-classes class="MobileComponentsClasses"/>		    
 		    <doc-classes class="SparkDmvClasses"/>
 	    		    
-			<!--doc-classes class="flashx.textLayout.CoreClasses"/-->
-			<!--doc-classes class="flashx.textLayout.EditClasses"/-->
-			<!--doc-classes class="flashx.textLayout.ConversionClasses"/-->
+			<doc-classes class="flashx.textLayout.CoreClasses"/>
+			<doc-classes class="flashx.textLayout.EditClasses"/>
+			<doc-classes class="flashx.textLayout.ConversionClasses"/>
 
 			<!-- source path for asdoc -->
 			<compiler.source-path path-element="${flexlib}/projects/airframework/src"/>
@@ -79,7 +81,7 @@
 			<compiler.source-path path-element="${flexlib}/projects/mx/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/sparkskins/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/rpc/src"/>
-		    <!--compiler.source-path path-element="${flexlib}/projects/textLayout/src"/-->
+		    <compiler.source-path path-element="${flexlib}/projects/textLayout/${tlf.version}/src"/>
 			<!--compiler.source-path path-element="${flexlib}/projects/osmf/src"/-->
 			<compiler.source-path path-element="${flexlib}/projects/advancedgrids/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/charts/src"/>
@@ -92,14 +94,14 @@
 		    <doc-namespaces uri="library://ns.adobe.com/flex/spark"/>
 		    <doc-namespaces uri="http://www.adobe.com/2006/mxml"/>
 		    <doc-namespaces uri="http://www.adobe.com/2006/rpcmxml"/>
- 			<!--doc-namespaces uri="library://ns.adobe.com/flashx/textLayout"/-->
+ 			<doc-namespaces uri="library://ns.adobe.com/flashx/textLayout"/>
  			<doc-namespaces uri="http://ns.adobe.com/2009/mx-mxml"/>
  			<doc-namespaces uri="http://www.adobe.com/2006/advancedgridsmxml"/>
  			<doc-namespaces uri="http://www.adobe.com/2006/charts"/>
  			<doc-namespaces uri="library://ns.adobe.com/flex/spark-mobilecomponents"/>
  			<doc-namespaces uri="library://ns.adobe.com/flex/spark-dmv"/>
  			
-		    <!--namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${flexlib}/projects/textLayout/manifest.xml"/-->
+		    <namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${flexlib}/projects/textLayout/${tlf.version}/manifest.xml"/>
 
 			<!-- namespace declaration for asdoc -->
 		    <namespace uri="http://www.adobe.com/2006/airmxml" manifest="${flexlib}/projects/airframework/manifest.xml"/>
@@ -124,7 +126,7 @@
 		    	<!-- if no osfm sources -->
 		    	<include name="osmf.swc" />
 		    	<!-- if no textLayout sources -->
-		    	<include name="textLayout.swc" />
+		    	<!--include name="textLayout.swc" /-->
 		    </external-library-path>
 
 			<jvmarg line="${asdoc.jvm.args}"/>

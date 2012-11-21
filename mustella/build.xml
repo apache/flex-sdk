@@ -500,7 +500,7 @@
         <fail message="Mustella uses embedded fonts.  Please install Adobe's embedded font support." unless="fonts.exist"/>
     </target>
     
-    <target name="setup" depends="check-fonts,echo-info,get_date,get_os,setup_mac,setup_windows,setup_linux,db_time,handle_mobile_config,echo-browser,echo-apollo"  description="--> set platform specific properties">
+    <target name="setup" depends="echo-info,get_date,get_os,setup_mac,setup_windows,setup_linux,db_time,handle_mobile_config,echo-browser,echo-apollo"  description="--> set platform specific properties">
         <!-- antcall target="db_time">
             <param name="no_quote" value="true" />
             <param name="db_time_vetting_file" value="${tmp.dir}/.db.time.mini" />
@@ -896,7 +896,7 @@
         <istrue value="${run_mobile_tests}" />
     </condition>
 
-    <target name="prepare" unless="already_prepared" depends="handle_adt_jar" description="--> create test suite directories" >
+    <target name="prepare" unless="already_prepared" depends="check-fonts,handle_adt_jar" description="--> create test suite directories" >
         <echo message="Preparing testsuite."/>
         <mkdir dir="${sdk.dir}/lib"/>
         <mkdir dir="${classes.dir}"/>

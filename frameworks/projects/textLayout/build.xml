@@ -24,9 +24,6 @@
     <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 
-    <!--property name="tlf.version" value="2.0.232"/-->
-    <property name="tlf.version" value="3.0.33"/>
-    
     <property name="source.dir" value="${basedir}/${tlf.version}"/>
 	<property name="output.file" value="${FLEX_HOME}/frameworks/libs/textLayout.swc"/>
 	<property name="output.docs" value="${FLEX_HOME}/tempDoc"/>

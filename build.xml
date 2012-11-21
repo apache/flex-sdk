@@ -1279,8 +1279,6 @@
     <target name="mustella-setup" depends="runtime-setup" description="compile mustella java file">
         <ant dir="${basedir}/mustella" target="makemustellaswc">
             <property name="use_mustella_framework_dir" value="false"/>
-            <!-- Since we don't need embedded fonts for the checkintests fake out mustella.  -->
-            <property name="fonts.exist" value="set"/>
         </ant>
         <property name="moreCompilerArgs" value=""/>
         <!-- compile the results parser -->
@@ -1619,10 +1617,10 @@
         <property name="rat.dir" value="${basedir}/temp"/>
         <antcall target="rat-unzip" />
         
-        <echo message="Checking files at ${rat.dir}, report is ${basedir}/rat.report"/>
+        <property name="rat.report" value="${basedir}/rat.report"/>
+        <echo message="Checking files at ${rat.dir}, report is ${rat.report}"/>
              
-        <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" 
-            reportFile="${basedir}/rat.report">
+        <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" reportFile="${rat.report}">
             <fileset dir="${rat.dir}">
                 <!--          Start of binary files           -->
                 <!-- exclude Flash Professional file used for integration with Flash Professional -->
@@ -1680,5 +1678,32 @@
         <echo message="Rat report not generated."/>
         <echo message="rat jars (apache-rat-*.jar, apache-rat-tasks-*.jar)"/>
         <echo message="not found in anttask.classpath"/>
-    </target>   
+    </target>
+    
+    <target name="rat-check-mustella" depends="rat-taskdef" if="have.rattasks"
+        description="Report on licenses in mustella directory.">
+    
+        <ant dir="${basedir}/mustella" target="clean"/>
+        
+        <property name="rat.mustella.dir" value="${basedir}/mustella"/>
+        <property name="rat.mustella.report" value="${basedir}/rat.mustella.report"/>
+                
+        <echo message="Checking files at ${rat.mustella.dir}, report is ${basedir}/${rat.mustella.report}"/>
+             
+        <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" 
+            reportFile="${basedir}/${rat.mustella.report}">
+            <fileset dir="${rat.mustella.dir}">
+                <!--          Start of binary files           -->
+                <!-- exclude media (png, gif, jpg, mp3, flv) -->
+                <exclude name="assets/**"/>
+                <exclude name="tests/**/*.png"/>
+                <exclude name="tests/**/*.gif"/>
+                <exclude name="tests/**/*.jpg"/>
+                <exclude name="tests/**/*.mp3"/>
+                <exclude name="tests/**/*.flv"/>
+                <!--          End of binary files           -->
+                <exclude name="tests/**/*.compile"/>
+            </fileset>
+        </rat:report>
+    </target>
 </project>
