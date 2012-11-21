@@ -278,7 +278,11 @@
     </target>
     
 	<target name="batik-jars-clean">
-	    <delete dir="${basedir}/${batik.dir}/lib/**" failonerror="false"/>
+        <delete includeEmptyDirs="false" failonerror="fasle">
+            <fileset dir="${basedir}/${batik.dir}">
+                <include name="lib/**"/>
+            </fileset>            
+        </delete>
         <delete includeEmptyDirs="true" failonerror="fasle">
             <fileset dir="${download.dir}">
                 <include name="batik*/**"/>
