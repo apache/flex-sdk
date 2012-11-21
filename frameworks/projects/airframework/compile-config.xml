@@ -111,6 +111,10 @@
         <path>assets/mac_min_down.png</path>
     </include-file>
     <include-file>
+        <name>mac_min_over.png</name>
+        <path>assets/mac_min_over.png</path>
+    </include-file>
+    <include-file>
         <name>mac_min_up.png</name>
         <path>assets/mac_min_up.png</path>
     </include-file>
