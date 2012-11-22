@@ -16,7 +16,7 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-﻿package data {
+package data {
 	   public class ListDataAS  {
     
         public var myData:Object;
