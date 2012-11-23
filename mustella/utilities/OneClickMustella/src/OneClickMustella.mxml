@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   xmlns:webserver="org.apacheflex.webserver.*"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
+					   width="800"
+					   height="800" >
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			[Bindable] protected var _pathSVNStr:String;
+			[Bindable] protected var  _pathFlexStr:String;
+			[Bindable] protected var  _pathMustellaTestStr:String;
+			[Bindable] protected var  _pathShellStr:String;
+			
+			private const LSO_APACHE_FLEX_SDK:String = "LSO_APACHE_FLEX_SDK";
+			private const LSO_SVN:String = "LSO_SVN";
+			private const LSO_SHELL:String = "LSO_SHELL";
+			private var so:SharedObject = SharedObject.getLocal("savedData");
+			
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
+			{
+				if(so.data[LSO_APACHE_FLEX_SDK] != null)
+				{
+					_pathFlexStr = 	so.data[LSO_APACHE_FLEX_SDK];
+					_pathMustellaTestStr = _pathFlexStr + File.separator + "mustella" + File.separator + "tests";
+					webserver.setWebRoot(_pathMustellaTestStr);
+				}
+				if(so.data[LSO_SVN] != null)
+				{
+					_pathSVNStr = 	so.data[LSO_SVN];
+				}
+				if(so.data[LSO_SHELL] != null)
+				{
+					_pathShellStr = 	so.data[LSO_SHELL];
+				}
+				
+			}
+			
+			protected function handleSVNPathBrowse():void
+			{
+				openDirectoryForBrowse("Select SVN location", handleSVNPathSelect);
+			}
+			
+			protected function handleFlexPathBrowse():void
+			{
+				openDirectoryForBrowse("Select Apache Flex Directory", handleFlexPathSelect);
+			}
+
+			protected function handleShellPathBrowse():void
+			{
+				openDirectoryForBrowse("Select Apache Flex Directory", handleShellPathSelect);
+			}
+			
+			protected function openDirectoryForBrowse(title:String,resultFunction:Function):void{
+				var f:File = new File();
+				f.addEventListener(Event.SELECT,resultFunction);
+				f.browseForDirectory(title);
+			}
+			
+			protected function handleSVNPathSelect(event:Event):void
+			{
+				_pathSVNStr = so.data[LSO_SVN] = event.target.nativePath;
+			}
+			
+			protected function handleFlexPathSelect(event:Event):void
+			{
+				_pathFlexStr = so.data[LSO_APACHE_FLEX_SDK] = event.target.nativePath;
+				_pathMustellaTestStr = _pathFlexStr + File.separator + "mustella" + File.separator + "tests";
+				webserver.setWebRoot(_pathMustellaTestStr);
+			}
+
+			protected function handleShellPathSelect(event:Event):void
+			{
+				_pathShellStr = so.data[LSO_SHELL] = event.target.nativePath;
+			}
+			
+			
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	<s:HGroup verticalAlign="middle">
+		<s:Label text="SVN Path:" />
+		<s:TextInput id="svnPathTxtInput" width="500"
+					 text="{_pathSVNStr}"/>
+		<s:Button label="Browse" click="handleSVNPathBrowse()" />
+	</s:HGroup>
+	<s:HGroup verticalAlign="middle">
+		<s:Label text="Apache Flex SDK Path:" />
+		<s:TextInput id="flexPathTxtInput" width="500" 
+					 text="{_pathFlexStr}"/>
+		<s:Button label="Browse" click="handleFlexPathBrowse()" />
+	</s:HGroup>
+	<webserver:WebServer id="webserver" title="Web server" width="100%" height="100%" />
+</s:WindowedApplication>
