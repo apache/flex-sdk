@@ -53,7 +53,7 @@
 	========================================================
 	-->
 
-	<TestCase testID="skinClass_test1" keywords="[Window,skinClass]" description="Get WindowedApplicationSkin." >
+	<TestCase testID="skinClass1_test1" keywords="[Window,skinClass]" description="Get WindowedApplicationSkin." >
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()"  waitTarget="" waitEvent="myWindowComplete"/>    
@@ -66,7 +66,7 @@
 	    </body>
 	</TestCase>
 
-	<TestCase testID="skinClass_test2" keywords="[Window,skinClass]" description="Get SparkChromeWindowedApplicationSkin." >
+	<TestCase testID="skinClass1_test2" keywords="[Window,skinClass]" description="Get SparkChromeWindowedApplicationSkin." >
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()"  waitTarget="" waitEvent="myWindowComplete"/> 
@@ -79,7 +79,7 @@
 	    </body>
 	</TestCase>
 
-	<TestCase testID="skinClass_test3" keywords="[Window,skinClass]" description="Get SparkChromeWindowedApplicationSkin." >
+	<TestCase testID="skinClass1_test3" keywords="[Window,skinClass]" description="Get SparkChromeWindowedApplicationSkin." >
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()"  waitTarget="" waitEvent="myWindowComplete"/> 

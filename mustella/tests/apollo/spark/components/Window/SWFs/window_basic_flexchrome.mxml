@@ -169,9 +169,11 @@
 		public var windowObj:Window;
 		[Bindable]
 		public var statusStr:String="this is a test, this is a test, this is a test, this is a test";
-		public function createAWindow():void
+		public function createAWindow(maxok:Boolean = true, minok:Boolean = true):void
 		{
 		    myWin=new MySubWindow();
+			myWin.minimizable = minok;
+			myWin.maximizable = maxok;
 		    myWin.title="window test";
 		    myWin.titleBar=new TitleBar();
 		    myWin.titleBar.title="titlebar";

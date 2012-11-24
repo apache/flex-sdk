@@ -18,6 +18,7 @@
 
 -->
 <mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" height="500" width="600" closeButtonSkin="{myStyle}" maximizeButtonSkin="{myStyle}" minimizeButtonSkin="{myStyle}" restoreButtonSkin="{myStyle}">
+	<mx:Style source="../../../../Assets/Fonts/myStyles.css" />
 	<mx:Script>
 		<![CDATA[
 			[Bindable]

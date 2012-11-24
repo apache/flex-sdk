@@ -48,7 +48,7 @@
                 <RunCode code="application.resetWindow()"/>
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
                 <RunCode code="application.aw.maximize()" />
-                <AssertEvent target="aw" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" /> 
+                <AssertEvent target="aw" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" numExpectedEvents="-1" /> 
             </body> 
         </TestCase> 
 
@@ -93,7 +93,7 @@
         <TestCase testID="Window_Event_displayStateChange_maximize" keywords="[Window,Event, displayStateChange]">
              <body>
                 <RunCode code="application.aw.maximize()" />
-                 <AssertEvent target="aw" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" />                 
+                 <AssertEvent target="aw" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" numExpectedEvents="-1" />                 
              </body> 
          </TestCase> 
          
@@ -118,7 +118,7 @@
                 <SetProperty propertyName="width" value="300" target="aw"/>
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
                 <RunCode code="application.aw.maximize()" />
-                 <AssertEvent target="aw" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" /> 
+                 <AssertEvent target="aw" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" numExpectedEvents="-1" /> 
              </body> 
          </TestCase> 
          

@@ -146,6 +146,19 @@
 	    fontLookup: embeddedCFF;
 	    fontAntiAliasType: normal;
 	}
+	
+	mx|DataGrid{
+		fontFamily: EmbeddedVerdanaHalo;
+		fontLookup: embeddedCFF;
+		fontAntiAliasType: normal;
+	}
+
+	mx|ComboBox{
+		fontFamily: EmbeddedVerdanaHalo;
+		fontLookup: embeddedCFF;
+		fontAntiAliasType: normal;
+	}
+	
 	global{
 	    fontFamily: EmbeddedVerdana;
 	    fontAntiAliasType: normal;

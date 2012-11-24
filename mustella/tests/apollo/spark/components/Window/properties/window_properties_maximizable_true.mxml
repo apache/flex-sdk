@@ -92,7 +92,7 @@
 	    <body>
 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
-		<DispatchMouseClickEvent target="windowObj.skin.titleBar.maximizeButton" localX="2" localY="2" waitTarget="windowObj" waitEvent="displayStateChange" />
+		<DispatchMouseClickEvent target="windowObj.skin.titleBar.maximizeButton" localX="2" localY="2" waitTarget="windowObj" waitEvent="displayStateChange" timeout="2000" />
 		<AssertMethodValue method="value=checkMaxSizeValue(FlexGlobals.topLevelApplication.windowObj.width, Capabilities.screenResolutionX, 100)" value="true" />
 		<AssertPropertyValue target="windowObj.nativeWindow" propertyName="displayState" value="maximized" />
 	    </body>

@@ -18,6 +18,7 @@
 
 -->
 <mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" showFlexChrome="false">
+<mx:Style source="../../../../Assets/Fonts/myStyles.css" />
 <mx:Script>
 	<![CDATA[
 

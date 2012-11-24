@@ -77,7 +77,7 @@
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maximize()" waitTarget="windowObj" waitEvent="displayStateChange" />        
 		<AssertPropertyValue target="windowObj.nativeWindow" propertyName="displayState" value="maximized" />
 		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.width,Capabilities.screenResolutionX,130)" value="true" />
-		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.height,Capabilities.screenResolutionY,130)" value="false" />
+		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.height,Capabilities.screenResolutionY,130)" value="true" />
 		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.skin.titleBar.width,Capabilities.screenResolutionX,130)" value="true" />
 	    </body>
 	</TestCase>
@@ -94,7 +94,7 @@
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maximize()" waitTarget="windowObj" waitEvent="displayStateChange" />        
 		<AssertPropertyValue target="windowObj.nativeWindow" propertyName="displayState" value="maximized" />
 		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.width,Capabilities.screenResolutionX,130)" value="true" />
-		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.height,Capabilities.screenResolutionY,130)" value="false" />
+		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.height,Capabilities.screenResolutionY,130)" value="true" />
 	    </body>
 	</TestCase>
 
@@ -112,7 +112,7 @@
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<AssertPropertyValue target="windowObj.nativeWindow" propertyName="displayState" value="maximized" />
 		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.width,Capabilities.screenResolutionX,130)" value="true" />
-		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.height,Capabilities.screenResolutionY,130)" value="false" />
+		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.height,Capabilities.screenResolutionY,130)" value="true" />
 		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.skin.titleBar.width,Capabilities.screenResolutionX,130)" value="true" />
 	    </body>
 	</TestCase>
@@ -131,7 +131,7 @@
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
 		<AssertPropertyValue target="windowObj.nativeWindow" propertyName="displayState" value="maximized" />
 		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.width,Capabilities.screenResolutionX,130)" value="true" />
-		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.height,Capabilities.screenResolutionY,130)" value="false" />
+		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.height,Capabilities.screenResolutionY,130)" value="true" />
 	    </body>
 	</TestCase>
 
@@ -148,7 +148,7 @@
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maximize()" waitTarget="windowObj" waitEvent="displayStateChange" />
 		<AssertPropertyValue target="windowObj.nativeWindow" propertyName="displayState" value="maximized" />
 		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.width,Capabilities.screenResolutionX,130)" value="true" />
-		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.height,Capabilities.screenResolutionY,130)" value="false" />
+		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.height,Capabilities.screenResolutionY,130)" value="true" />
 		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.skin.titleBar.width,Capabilities.screenResolutionX,130)" value="true" />
         </body>
 	</TestCase>
@@ -166,7 +166,7 @@
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maximize()" waitTarget="windowObj" waitEvent="displayStateChange" />
 		<AssertPropertyValue target="windowObj.nativeWindow" propertyName="displayState" value="maximized" />
 		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.width,Capabilities.screenResolutionX,130)" value="true" />
-		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.height,Capabilities.screenResolutionY,130)" value="false" />
+		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.windowObj.height,Capabilities.screenResolutionY,130)" value="true" />
 	    </body>
 	</TestCase>
 

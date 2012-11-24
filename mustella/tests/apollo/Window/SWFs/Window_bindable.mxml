@@ -18,7 +18,8 @@
 
 -->
 <mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" applicationComplete="aw.open()">
-<mx:Script>
+	<mx:Style source="../../../../Assets/Fonts/myStyles.css" />
+	<mx:Script>
 	<![CDATA[
 		[Bindable]
 		public var aw:MyWindow = new MyWindow();
