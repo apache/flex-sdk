@@ -430,7 +430,7 @@
 
 		</TestCase>		
 
-		<TestCase testID="Window_properties_minHeight_default" keywords="[Window, properties, minHeight]">
+		<TestCase testID="Window_properties_minHeight_default_mac" keywords="[Window, properties, minHeight]">
 
 			<setup>
 
@@ -447,6 +447,24 @@
 			</body>
 
 		</TestCase>
+		<TestCase testID="Window_properties_minHeight_default_win" keywords="[Window, properties, minHeight]">
+			
+			<setup>
+				
+				<RunCode code="application.resetWindow()"/>
+				
+				<RunCode code="application.aw.open()"/>	
+				
+			</setup>
+			
+			<body>
+				
+				<AssertPropertyValue propertyName="minHeight" value="38" target="aw"/>
+				
+			</body>
+			
+		</TestCase>
+		
 
 		<TestCase testID="Window_properties_minHeight_300_height_200" keywords="[Window, properties, minHeight]">
 

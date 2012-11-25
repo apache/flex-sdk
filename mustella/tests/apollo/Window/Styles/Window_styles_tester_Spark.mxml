@@ -58,7 +58,7 @@
     </mx:Style>
 
     <testCases>
-        <TestCase testID="Window_styles_buttonAlignment_auto" keywords="[Window, buttonAlignment, styles]">
+        <TestCase testID="Window_styles_buttonAlignment_auto_Spark" keywords="[Window, buttonAlignment, styles]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>
@@ -67,11 +67,13 @@
             </setup>
             <body>
                 <AssertStyleValue styleName="buttonAlignment" target="aw" value="auto"/>
-                <CompareBitmap url="../Styles/baselines/Window_styles_buttonAlignment_auto_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_buttonAlignment_left" keywords="[Window, buttonAlignment, styles]">
+        <TestCase testID="Window_styles_buttonAlignment_left_Spark" keywords="[Window, buttonAlignment, styles]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>
@@ -80,11 +82,13 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_buttonAlignment_left_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_buttonAlignment_right" keywords="[Window, buttonAlignment, styles]">
+        <TestCase testID="Window_styles_buttonAlignment_right_Spark" keywords="[Window, buttonAlignment, styles]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>
@@ -93,11 +97,13 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_buttonAlignment_right_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_closeButtonStyleName" keywords="[Window, closeButtonStyleName, styles]">
+        <TestCase testID="Window_styles_closeButtonStyleName_Spark" keywords="[Window, closeButtonStyleName, styles]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>
@@ -106,11 +112,13 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_closeButtonStyleName_Spark.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_minimizeButtonStyleName" keywords="[Window, minimizeButtonStyleName, styles]">
+        <TestCase testID="Window_styles_minimizeButtonStyleName_Spark" keywords="[Window, minimizeButtonStyleName, styles]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>
@@ -119,11 +127,13 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_minimizeButtonStyleName_Spark.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_maximizeButtonStyleName" keywords="[Window, maximizeButtonStyleName, styles]">
+        <TestCase testID="Window_styles_maximizeButtonStyleName_Spark" keywords="[Window, maximizeButtonStyleName, styles]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                     <SetProperty target="aw" value="300" propertyName="height"/>
@@ -132,11 +142,13 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_maximizeButtonStyleName_Spark.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_restoreButtonStyleName" keywords="[Window, restoreButtonStyleName, styles]">
+        <TestCase testID="Window_styles_restoreButtonStyleName_Spark" keywords="[Window, restoreButtonStyleName, styles]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>
@@ -146,11 +158,13 @@
                 <DispatchMouseClickEvent target="aw.titleBar.maximizeButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_restoreButtonStyleName_Spark.png" target="aw.titleBar.maximizeButton"/>
+				<CompareBitmap target="aw.titleBar.maximizeButton" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
-        <TestCase testID="Window_Styles_headerHeight_large" keywords="[Window, Style, headerHeight]">
+        <TestCase testID="Window_styles_headerHeight_large_Spark" keywords="[Window, Style, headerHeight]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>
@@ -160,11 +174,13 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"    />
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_headerHeight_large_Spark.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
         
-        <TestCase testID="Window_Styles_headerHeight_small" keywords="[Window, Style, headerHeight]">
+        <TestCase testID="Window_styles_headerHeight_small_Spark" keywords="[Window, Style, headerHeight]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>
@@ -174,7 +190,9 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_headerHeight_small_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
@@ -203,7 +221,7 @@
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_statusBarBackgroundSkin" keywords="[Window, styles, statusBarBackgroundSkin]">
+        <TestCase testID="Window_styles_statusBarBackgroundSkin_Spark" keywords="[Window, styles, statusBarBackgroundSkin]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>
@@ -212,11 +230,13 @@
                 <SetStyle target="aw" styleName="statusBarBackgroundSkin" value="{kb}" waitEvent="updateComplete" waitTarget="aw" />
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_statusBackgroundSkin_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_statusBarBackgroundColor" keywords="[Window, styles, statusBackgroundColor]">
+        <TestCase testID="Window_styles_statusBarBackgroundColor_Spark" keywords="[Window, styles, statusBackgroundColor]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>
@@ -225,11 +245,13 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_statusBarBackgroundColor_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_statusTextStyleName" keywords="[Window, styles, statusTextStyleName]">
+        <TestCase testID="Window_styles_statusTextStyleName_Spark" keywords="[Window, styles, statusTextStyleName]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>
@@ -239,7 +261,9 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_statusTextStyleName_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
@@ -256,7 +280,7 @@
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_titleAlignment_left" keywords="[Window, titleAlignment, styles]">
+        <TestCase testID="Window_styles_titleAlignment_left_Spark" keywords="[Window, titleAlignment, styles]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty propertyName="title" value="Left title alignment" target="aw"/>
@@ -266,11 +290,13 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_titleAlignment_left_Spark.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_titleAlignment_center" keywords="[Window, titleAlignment, styles]">
+        <TestCase testID="Window_styles_titleAlignment_center_Spark" keywords="[Window, titleAlignment, styles]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty propertyName="title" value="Center title alignment" target="aw"/>
@@ -280,11 +306,13 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_titleAlignment_center_Spark.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_titleBarBackgroundSkin" keywords="[Window, styles, titleBarBackgroundSkin]">
+        <TestCase testID="Window_styles_titleBarBackgroundSkin_Spark" keywords="[Window, styles, titleBarBackgroundSkin]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>
@@ -294,11 +322,13 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_titleBarBackgroundSkin_Spark.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_titleBarColors" keywords="[Window, styles, titleBarBackgroundColors]">
+        <TestCase testID="Window_styles_titleBarColors_Spark" keywords="[Window, styles, titleBarBackgroundColors]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>
@@ -308,11 +338,13 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_titleBarColors_Spark.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_titleTextStyleName" keywords="[Window, styles, titleBarBackgroundColors]">
+        <TestCase testID="Window_styles_titleTextStyleName_Spark" keywords="[Window, styles, titleBarBackgroundColors]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>
@@ -322,7 +354,9 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Styles/baselines/Window_styles_titleTextStyleName_Spark.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
     </testCases>

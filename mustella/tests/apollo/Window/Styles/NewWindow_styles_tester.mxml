@@ -67,7 +67,9 @@
 			</setup>
 			<body>
 				<AssertStyleValue styleName="buttonAlignment" target="aw" value="auto"/>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_buttonAlignment_auto.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -80,7 +82,9 @@
 				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_buttonAlignment_left.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -93,7 +97,9 @@
 				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_buttonAlignment_right.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -106,7 +112,9 @@
 				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_closeButtonStyleName.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -119,7 +127,9 @@
 				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_minimizeButtonStyleName.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -132,7 +142,9 @@
 				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_maximizeButtonStyleName.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -146,11 +158,13 @@
 				<DispatchMouseClickEvent target="aw.titleBar.maximizeButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_restoreButtonStyleName.png" target="aw.titleBar.maximizeButton"/>
+				<CompareBitmap target="aw.titleBar.maximizeButton" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 		
-		<TestCase testID="NewWindow_Styles_headerHeight_large" keywords="[Window, Style, headerHeight]">
+		<TestCase testID="NewWindow_styles_headerHeight_large" keywords="[Window, Style, headerHeight]">
 			<setup>
 				<RunCode code="application.resetWindow()"/>
 				<SetProperty target="aw" value="300" propertyName="height"/>
@@ -160,11 +174,13 @@
 				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_headerHeight_large.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
-		<TestCase testID="NewWindow_Styles_headerHeight_small" keywords="[Window, Style, headerHeight]">
+		<TestCase testID="NewWindow_styles_headerHeight_small" keywords="[Window, Style, headerHeight]">
 			<setup>
 				<RunCode code="application.resetWindow()"/>
 				<SetProperty target="aw" value="300" propertyName="height"/>
@@ -174,7 +190,9 @@
 				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_headerHeight_small.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -212,7 +230,9 @@
 				<SetStyle target="aw" styleName="statusBarBackgroundSkin" value="{kb}" waitEvent="updateComplete" waitTarget="aw" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_statusBackgroundSkin.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -225,7 +245,9 @@
 				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_statusBarBackgroundColor.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -239,7 +261,9 @@
 				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_statusTextStyleName.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -266,7 +290,9 @@
 				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_titleAlignment_left.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -280,7 +306,9 @@
 				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_titleAlignment_center.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -294,7 +322,9 @@
 				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_titleBarBackgroundSkin.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -308,7 +338,9 @@
 				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_titleBarColors.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 
@@ -322,7 +354,9 @@
 				<RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Styles/baselines/NewWindow_styles_titleTextStyleName.png" target="aw.titleBar"/>
+				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body>
 		</TestCase>
 	</testCases>
