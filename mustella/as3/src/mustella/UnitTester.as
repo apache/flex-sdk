@@ -601,6 +601,26 @@ public class UnitTester extends EventDispatcher
 				root = _root;
 			}
 		}
+		else if (root != _root && (root is Stage))
+		{
+			// seems to happen in AIR windows
+			root = target;
+			try
+			{
+				// Walk up as high as you can get
+				while (!(root.parent is Stage))
+				{
+					root = root.parent;
+				}
+			}
+			catch (e:Error)
+			{
+				// in another sandbox, start from our root.
+				// probably won't work in an AIR window with
+				// loaded content.
+				root = _root;
+			}
+		}
 		_getObjectsUnderPoint(root, pt, arr);
 
 		return arr;
