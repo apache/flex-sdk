@@ -221,7 +221,7 @@
             </body>
         </TestCase>
 
-        <TestCase testID="Window_styles_statusBarBackgroundSkin_Spark" keywords="[Window, styles, statusBarBackgroundSkin]">
+        <TestCase testID="Window_styles_statusBackgroundSkin_Spark" keywords="[Window, styles, statusBarBackgroundSkin]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" value="300" propertyName="height"/>

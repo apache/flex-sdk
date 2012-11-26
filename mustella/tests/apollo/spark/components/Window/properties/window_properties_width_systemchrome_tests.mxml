@@ -122,7 +122,7 @@
 
 		<AssertPropertyValue target="windowObj" propertyName="width" value="115" />
 
-		<MyCompareBitmap target="windowObj"  numColorVariances="10" maxColorVariance="10" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+		<CompareBitmap target="windowObj"  numColorVariances="10" maxColorVariance="10" url="../properties/baselines/$testID.png" />
 
 	    </body>
 
