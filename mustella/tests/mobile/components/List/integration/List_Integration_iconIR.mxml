@@ -388,7 +388,7 @@
                 <SetStyle target="navigator.activeView.target" styleName="color" value="0xFF0000" waitTarget="navigator.activeView.target.dataGroup.getElementAt(1)" waitEvent="updateComplete" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -429,7 +429,7 @@
                 <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -445,7 +445,7 @@
                 <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -461,7 +461,7 @@
                 <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/" numColorVariances="4" maxColorVariance="20">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -477,7 +477,7 @@
                 <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -547,7 +547,7 @@
                 <Pause timeout="500" /><!-- TODO: iOS interpreter seems to need a bit of extra time here -->
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/" numColorVariances="2" ignoreMaxColorVariance="true">
                     <ConditionalValue os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -620,7 +620,7 @@
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalAlign_top)" waitEvent="itemRenderer1IconReady" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -636,7 +636,7 @@
                 <Pause timeout="500" /><!-- TODO: For iOS interpreter -->
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(2)" url="../integration/baselines/" numColorVariances="1" maxColorVariance="10">
                     <ConditionalValue os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -653,7 +653,7 @@
                 <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -668,7 +668,7 @@
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalAlign_bottom)" waitEvent="itemRenderer2IconReady" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(2)" url="../integration/baselines/" numColorVariances="1" maxColorVariance="10">
                     <ConditionalValue os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -888,7 +888,7 @@
                 <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -904,7 +904,7 @@
                 <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/" numColorVariances="2" maxColorVariance="20">
                     <ConditionalValue os="android"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -920,7 +920,7 @@
                 <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -936,7 +936,7 @@
                 <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -952,7 +952,7 @@
                 <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-    				<ConditionalValue deviceDensity="320" os="iphone" />
+    				<ConditionalValue deviceDensity="320" os="ios" />
     				<ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -968,7 +968,7 @@
                 <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/" numColorVariances="2" maxColorVariance="20">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -984,7 +984,7 @@
                 <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/" numColorVariances="2" maxColorVariance="20">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -1006,7 +1006,7 @@
                 <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -1029,7 +1029,7 @@
                 <Pause timeout="500" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -1051,7 +1051,7 @@
                 <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -1074,7 +1074,7 @@
                 <Pause timeout="1000" /><!-- TODO: Why is this needed to run on device all of a sudden?   Do I need to upgrade InstrumentedBitmapImage? -->
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -1090,7 +1090,7 @@
                 <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -1107,7 +1107,7 @@
                 <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>

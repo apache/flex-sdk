@@ -210,6 +210,7 @@
 				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="trailingEdge" />
 				<SetProperty target="navigator.activeView.itemList" propertyName="selectedIndex" value="2" />
 				<RunCode code="application.navigator.activeView.itemList.ensureIndexIsVisible(12)" waitTarget="navigator.activeView.itemList.dataGroup" waitEvent="propertyChange"/>
+				<WaitForLayoutManager />
 				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
 				<AssertMethodValue method="value=(application.navigator.activeView.itemList.layout as VerticalLayout).fractionOfElementInView((application.navigator.activeView.itemList.layout as VerticalLayout).lastIndexInView)" value="1" /> 
 			</body>
@@ -501,6 +502,7 @@
 				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="trailingEdge" />
 				<SetProperty target="navigator.activeView.itemList" propertyName="selectedIndex" value="2" />
 				<RunCode code="application.navigator.activeView.itemList.ensureIndexIsVisible(12)" waitTarget="navigator.activeView.itemList.dataGroup" waitEvent="propertyChange"/>
+				<WaitForLayoutManager />
 				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
 				<AssertMethodValue method="value=(application.navigator.activeView.itemList.layout as VerticalLayout).fractionOfElementInView((application.navigator.activeView.itemList.layout as VerticalLayout).lastIndexInView)" value="1" /> 
 				<!-- alternative approach generic for all layouts including tile -->

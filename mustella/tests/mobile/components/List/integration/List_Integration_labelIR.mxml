@@ -203,7 +203,7 @@
                 <WaitForEvent target="navigator.activeView.target.dataGroup.getElementAt(1)" eventName="creationComplete" timeout="9000" />
 				<CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
 					<ConditionalValue os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -259,7 +259,7 @@
                 <Pause timeout="250" /><!-- TODO: For iOS interpreter -->
 				<CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
 					<ConditionalValue os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -275,7 +275,7 @@
                 <Pause timeout="250" /><!-- TODO: For iOS interpreter --> 
 				<CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
 					<ConditionalValue os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -512,7 +512,7 @@
                 <Pause timeout="1000" /><!-- TODO: The server iPod doesn't seem to be ready yet sometimes, pause to see if that helps -->
                 <CompareBitmap target="navigator.activeView.target" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -526,7 +526,7 @@
                 <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
@@ -540,7 +540,7 @@
                 <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target2" url="../integration/baselines/">
                     <ConditionalValue os="android" />
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
                 </CompareBitmap>
             </body>
