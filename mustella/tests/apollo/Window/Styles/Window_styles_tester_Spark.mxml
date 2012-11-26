@@ -67,7 +67,7 @@
             </setup>
             <body>
                 <AssertStyleValue styleName="buttonAlignment" target="aw" value="auto"/>
-				<CompareBitmap target="aw" url="../Properties/baselines/" >
+				<CompareBitmap target="aw" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -82,7 +82,7 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-				<CompareBitmap target="aw" url="../Properties/baselines/" >
+				<CompareBitmap target="aw" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -97,7 +97,7 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-				<CompareBitmap target="aw" url="../Properties/baselines/" >
+				<CompareBitmap target="aw" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -112,7 +112,7 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+				<CompareBitmap target="aw.titleBar" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -127,7 +127,7 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+				<CompareBitmap target="aw.titleBar" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -142,7 +142,7 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+				<CompareBitmap target="aw.titleBar" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -158,7 +158,7 @@
                 <DispatchMouseClickEvent target="aw.titleBar.maximizeButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="aw"/>
             </setup>
             <body>
-				<CompareBitmap target="aw.titleBar.maximizeButton" url="../Properties/baselines/" >
+				<CompareBitmap target="aw.titleBar.maximizeButton" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -174,7 +174,7 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"    />
             </setup>
             <body>
-				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+				<CompareBitmap target="aw.titleBar" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -190,7 +190,7 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-				<CompareBitmap target="aw" url="../Properties/baselines/" >
+				<CompareBitmap target="aw" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -230,7 +230,7 @@
                 <SetStyle target="aw" styleName="statusBarBackgroundSkin" value="{kb}" waitEvent="updateComplete" waitTarget="aw" />
             </setup>
             <body>
-				<CompareBitmap target="aw" url="../Properties/baselines/" >
+				<CompareBitmap target="aw" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -245,7 +245,7 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-				<CompareBitmap target="aw" url="../Properties/baselines/" >
+				<CompareBitmap target="aw" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -261,7 +261,7 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-				<CompareBitmap target="aw" url="../Properties/baselines/" >
+				<CompareBitmap target="aw" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -290,7 +290,7 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+				<CompareBitmap target="aw.titleBar" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -306,7 +306,7 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+				<CompareBitmap target="aw.titleBar" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -322,7 +322,7 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+				<CompareBitmap target="aw.titleBar" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -338,7 +338,7 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+				<CompareBitmap target="aw.titleBar" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
@@ -354,7 +354,7 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-				<CompareBitmap target="aw.titleBar" url="../Properties/baselines/" >
+				<CompareBitmap target="aw.titleBar" url="../Styles/baselines/" >
 					<ConditionalValue os="win" />
 				</CompareBitmap>
             </body>
