@@ -124,6 +124,7 @@
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="minHeight" value="-10"/>
 		<SetProperty target="windowObj" propertyName="height" value="1" waitEvent="resize" />
+		<WaitForLayoutManager />
 		<AssertPropertyValue target="windowObj" propertyName="height" value="1" />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,1,1,1)" value=""/>
 		
@@ -156,6 +157,7 @@
 		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="height" value="30" waitEvent="resize" />
+		<WaitForLayoutManager />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,30,30,30)" value=""/>
 		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
 	    </body>
@@ -185,6 +187,7 @@
 		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="height" value="253" waitEvent="resize" />
+		<WaitForLayoutManager />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,253,253,253)" value=""/>
 		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
 	    </body>
@@ -215,6 +218,7 @@
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="minHeight" value="150" />
 		<SetProperty target="windowObj" propertyName="height" value="130" waitEvent="resize" />
+		<WaitForLayoutManager />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,150,150,150)" value=""/>
 		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
 	    </body>
@@ -245,6 +249,7 @@
 		<SetProperty target="windowObj" propertyName="maxHeight" value="160" />
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="height" value="170" waitEvent="resize" />
+		<WaitForLayoutManager />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,160,160,160)" value=""/>
 		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
 	    </body>

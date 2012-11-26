@@ -132,6 +132,8 @@
 	    <body>
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minimizable=false;"/>
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/> 
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap url="../Properties/Baselines/$testID.png" mac_url="../Properties/Baselines/$testID_mac.png" target="windowObj"  numColorVariances="15" maxColorVariance="20" />
 	    </body>

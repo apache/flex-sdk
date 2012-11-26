@@ -147,7 +147,7 @@ Test height
         <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin" waitEvent="updateComplete" />
         <SetProperty target="" propertyName="width" value="600" />
         <SetProperty target="" propertyName="height" value="35" waitEvent="resize" />
-        <AssertPropertyValue target="" propertyName="height" value="35" />
+        <AssertPropertyValue target="" propertyName="height" value="38" />
         <CompareBitmap target="" url="../properties/baselines/$testID.png" />
     </body>
 </TestCase>
@@ -158,7 +158,7 @@ Test height
     </setup>
     <body>
         <SetProperty target="" propertyName="height" value="35" waitEvent="resize" />
-        <AssertPropertyValue target="" propertyName="height" value="35" />
+        <AssertPropertyValue target="" propertyName="height" value="38" />
         <CompareBitmap target="" url="../properties/baselines/$testID.png" />
     </body>
 </TestCase>

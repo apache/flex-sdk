@@ -74,6 +74,8 @@
 	    </setup> 
 	    <body>
 		<SetProperty target="" propertyName="titleIcon" valueExpression="value =smallSquare1" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 	    </body>
 	</TestCase>
@@ -86,6 +88,8 @@
 	    <body>
 		<SetProperty target="" propertyName="titleIcon" valueExpression="value = smallSquare1" waitEvent="updateComplete" />
 		<SetProperty target="" propertyName="titleIcon" valueExpression="value = smallSquare2" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 	    </body>
 	</TestCase>
@@ -98,6 +102,8 @@
 	    <body>
 		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value = longRect1" waitEvent="updateComplete" />
 		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value = null" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 	    </body>
 	</TestCase>
@@ -110,6 +116,8 @@
 	    <body>
 		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value = smallSquare1" waitEvent="updateComplete" />
 		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value = longRect1" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 	    </body>
 	</TestCase>
@@ -122,6 +130,8 @@
 	    <body>
 		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value =longRect1" waitEvent="updateComplete" />
 		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value = smallSquare1" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 	    </body>
 	</TestCase>
@@ -135,6 +145,8 @@
 	       <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	       <RunCode code="FlexGlobals.topLevelApplication.windowObj.activate()" waitEvent="enterFrame" waitTarget="stage"/>
 	       <!-- verify should get default binded titleIcon -->
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 	    </body>
 	</TestCase>
@@ -148,6 +160,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.titleIconRef=longRect1" />
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<!-- verify the titleIcon now should be longRect1 -->
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 	    </body>
 	</TestCase>
@@ -160,6 +174,8 @@
 	    <body>
 		<SetProperty target="windowObj" propertyName="title" value="The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. " waitEvent="updateComplete" />
 		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value = longRect1" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 	    </body>
 	</TestCase>
@@ -172,6 +188,8 @@
 	    <body>
 		<SetProperty target="windowObj" propertyName="title" value="The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. The quick, brown fox jumps over the lazy dog. " waitEvent="updateComplete" />
 		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value = largeIcon" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="windowObj.skin.titleBar" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 	    </body>
 	</TestCase>

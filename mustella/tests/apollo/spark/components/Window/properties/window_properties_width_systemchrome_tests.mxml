@@ -106,7 +106,7 @@
 
 
 
-	<TestCase testID="width_test4_systemChrome" keywords="[Window,width]" description="Set width to a positive, reasonable value." >
+	<TestCase testID="width_test4_systemChrome_mac" keywords="[Window,width]" description="Set width to a positive, reasonable value." >
 
 	    <setup>
 
@@ -128,6 +128,27 @@
 
 	</TestCase>
 
+	<TestCase testID="width_test4_systemChrome_win" keywords="[Window,width]" description="Set width to a positive, reasonable value." >
+		
+		<setup>
+			
+			<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
+			
+			<RunCode code="FlexGlobals.topLevelApplication.createAWindowByClass(MyWindowWithContents,'window1')" waitTarget="" waitEvent="myWindowComplete" />
+			
+		</setup>
+		
+		<body>
+			
+			<SetProperty target="windowObj" propertyName="width" value="120" waitEvent="resize" />
+			
+			<AssertPropertyValue target="windowObj" propertyName="width" value="120" />
+			
+			<MyCompareBitmap target="windowObj"  numColorVariances="10" maxColorVariance="10" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
+			
+		</body>
+		
+	</TestCase>
 
 
 	<TestCase testID="width_test5_systemChrome" keywords="[Window,width]" description="Set width to a positive, reasonable value." >

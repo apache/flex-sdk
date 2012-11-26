@@ -248,6 +248,9 @@
 
 		<WaitForEffectsToEnd />
 
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			
 		<MyCompareBitmap url="../Properties/Baselines/$testID.png" mac_url="../Properties/Baselines/$testID_mac.png" target="myWin" />
 
 	    </body>
@@ -271,6 +274,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.myWin.minimize()" waitTarget="myWin" waitEvent="displayStateChange" />
 
 		<WaitForEffectsToEnd />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 
 		<MyCompareBitmap url="../Properties/Baselines/$testID.png" mac_url="../Properties/Baselines/$testID_mac.png" target="myWin" />
 

@@ -235,6 +235,8 @@
             <body>
             	<RunCode code="FlexGlobals.topLevelApplication.windowObj.layoutDirection='rtl'"  waitEvent="updateComplete" waitTarget="windowObj" />
 	       	<RunCode code="FlexGlobals.topLevelApplication.windowObj.setStyle('direction','rtl')"  waitEvent="updateComplete" waitTarget="windowObj" />
+				<WaitForLayoutManager />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	       	         
                 <MyCompareBitmap target="windowObj"  numColorVariances="10" maxColorVariance="10" url="../mirroring/baselines/$testID.png"  mac_url="../mirroring/baselines/$testID_mac.png"  />
                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
@@ -252,6 +254,8 @@
             	<RunCode code="FlexGlobals.topLevelApplication.windowObj.layoutDirection='ltr'"  />
 	       	<RunCode code="FlexGlobals.topLevelApplication.windowObj.setStyle('direction','ltr')" />
 	       	         
+				<WaitForLayoutManager />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
                 <MyCompareBitmap target="windowObj"  numColorVariances="10" maxColorVariance="10" url="../mirroring/baselines/$testID.png"  mac_url="../mirroring/baselines/$testID_mac.png"  />
                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
                 <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>  
@@ -367,6 +371,8 @@
             </setup>
             <body>
                 <SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin" waitEvent="updateComplete" />
+				<WaitForLayoutManager />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="windowObj"  numColorVariances="10" maxColorVariance="10" url="../mirroring/baselines/$testID.png"  mac_url="../mirroring/baselines/$testID_mac.png"  />
                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
                 <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>  
@@ -382,6 +388,8 @@
             <body>
                 <SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin" waitEvent="updateComplete" />
 		<SetProperty target="windowObj" propertyName="status" value="this is a status test, this is a status test, this is a status test" />
+				<WaitForLayoutManager />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 
 		<MyCompareBitmap target="windowObj"  numColorVariances="10" maxColorVariance="10" url="../mirroring/baselines/$testID.png"  mac_url="../mirroring/baselines/$testID_mac.png"  />
                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>

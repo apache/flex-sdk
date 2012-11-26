@@ -61,6 +61,8 @@
 	    </setup> 
 	    <body>
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<AssertStyleValue target="windowObj"  styleName="skinClass" valueExpression="value = '[class WindowedApplicationSkin]'" />
 		<MyCompareBitmap target="windowObj"  url="../styles/baselines/$testID.png" mac_url="../styles/baselines/$testID_mac.png" />
 	    </body>
@@ -74,6 +76,8 @@
 	    <body>
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetStyle target="windowObj"  styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<AssertStyleValue target="windowObj"  styleName="skinClass" valueExpression="value = '[class SparkChromeWindowedApplicationSkin]'" />
 		<MyCompareBitmap target="windowObj"  url="../styles/baselines/$testID.png" mac_url="../styles/baselines/$testID_mac.png" />
 	    </body>
@@ -87,6 +91,8 @@
 	    <body>
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetStyle target="windowObj"  styleName="skinClass" valueExpression="value = SkinTest1" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<AssertStyleValue target="windowObj"  styleName="skinClass" valueExpression="value = '[class SkinTest1]'" />
 		<MyCompareBitmap target="windowObj"  url="../styles/baselines/$testID.png" mac_url="../styles/baselines/$testID_mac.png" />
 	    </body>

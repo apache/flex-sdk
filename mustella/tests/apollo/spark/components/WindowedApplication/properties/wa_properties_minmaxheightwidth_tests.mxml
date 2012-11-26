@@ -54,7 +54,7 @@ Most tests decreaes it from 200.
 ========================================================
 -->
 
-<TestCase testID="maxHeight_test3" keywords="[WindowedApplication,maxHeight]" description="Decrease to 1" >
+<TestCase testID="maxHeight_test3_mac" keywords="[WindowedApplication,maxHeight]" description="Decrease to 1" >
     <setup>
         <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
     </setup>
@@ -62,6 +62,15 @@ Most tests decreaes it from 200.
         <SetProperty target="" propertyName="maxHeight" value="1" waitEvent="updateComplete" />
         <AssertMethodValue method="value = FlexGlobals.topLevelApplication.assertValueBasedOnOS(FlexGlobals.topLevelApplication.height, 34, 2, 2)" value="actual value = 34; expected value = 2" />
     </body>
+</TestCase>
+<TestCase testID="maxHeight_test3_win" keywords="[WindowedApplication,maxHeight]" description="Decrease to 1" >
+	<setup>
+		<RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+	</setup>
+	<body>
+		<SetProperty target="" propertyName="maxHeight" value="1" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.assertValueBasedOnOS(FlexGlobals.topLevelApplication.height, 38, 2, 2)" value="pass" />
+	</body>
 </TestCase>
 
 <TestCase testID="maxHeight_test4" keywords="[WindowedApplication,maxHeight]" description="Decrease to reasonable value" >

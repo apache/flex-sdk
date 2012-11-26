@@ -51,7 +51,10 @@
         <SetStyle target="windowObj" styleName="testStyle3"  waitEvent="updateComplete" waitTarget="windowObj" />      
         <RunCode code="FlexGlobals.topLevelApplication.windowObj.activate()"/>
 
-        <MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png"/>
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png"/>
    	
 	<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="windowObj" waitEvent="close"/>
     
@@ -79,7 +82,10 @@
       	<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin" waitEvent="updateComplete" />	
         <SetProperty target="windowObj" propertyName="title" value="江戸糸あやつり人形Japanese string" />
         
-        <MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png"/>
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png"/>
    	
 	<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"  waitTarget="windowObj" waitEvent="close"/>
     

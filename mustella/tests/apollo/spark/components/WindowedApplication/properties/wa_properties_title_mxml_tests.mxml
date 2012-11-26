@@ -59,6 +59,7 @@ Test title set in MXML
 
 <TestCase testID="title_mxml_test1_win" keywords="[WindowedApplication,title]" description="Check title set in mxml." >
     <body>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
         <AssertPropertyValue target="skin.titleBar.skin.titleText" propertyName="text" value="The pokey, orange fox leapt over the lazy cat." />
         <CompareBitmap target="" url="../properties/baselines/$testID.png" />
     </body>

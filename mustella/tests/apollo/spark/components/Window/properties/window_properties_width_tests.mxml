@@ -69,6 +69,8 @@
 	    <body>
 		<SetProperty target="myWin" propertyName="width" value="140" waitEvent="resize" />
 		<AssertPropertyValue target="myWin" propertyName="width" value="140" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 
 	    </body>
@@ -83,6 +85,8 @@
 	    <body>
 		<SetProperty target="myWin" propertyName="width" value="253" waitEvent="resize" />
 		<AssertPropertyValue target="myWin" propertyName="width" value="253" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 
 	    </body>
@@ -97,6 +101,8 @@
 		<SetProperty target="myWin" propertyName="minWidth" value="150" />
 		<SetProperty target="myWin" propertyName="width" value="130" waitEvent="resize" />
 		<AssertPropertyValue target="myWin" propertyName="width" value="150" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 
 	    </body>
@@ -112,6 +118,8 @@
 		<SetProperty target="myWin" propertyName="maxWidth" value="160" />
 		<SetProperty target="myWin" propertyName="width" value="170" waitEvent="resize" />
 		<AssertPropertyValue target="myWin" propertyName="width" value="160" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 
 	    </body>

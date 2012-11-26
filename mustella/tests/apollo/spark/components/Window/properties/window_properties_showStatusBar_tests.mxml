@@ -101,6 +101,8 @@ All pauses are needed.
 	<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" /></setup>
 
     <body>
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 
     	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 
@@ -128,6 +130,8 @@ All pauses are needed.
 
     <body>
 
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
     	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 
         <MyCompareBitmap target="myWin"   numColorVariances="10" maxColorVariance="10" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png" />
@@ -150,6 +154,8 @@ All pauses are needed.
 
 	<SetProperty target="myWin" propertyName="showStatusBar" value="false" />
 
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
         <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 
     </setup>
@@ -176,6 +182,8 @@ All pauses are needed.
 
 	<SetProperty target="myWin" propertyName="showStatusBar" value="true" />
 
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 
     </setup>
@@ -214,6 +222,8 @@ All pauses are needed.
 
         <SetProperty target="myWin" propertyName="showStatusBar" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
 
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
         <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 
         <MyCompareBitmap target="myWin"   numColorVariances="10" maxColorVariance="10" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png" />
@@ -238,6 +248,8 @@ All pauses are needed.
 
         <SetProperty target="myWin" propertyName="width" valueExpression="value = FlexGlobals.topLevelApplication.width + 20" waitEvent="updateComplete" />
 
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
         <MyCompareBitmap target="myWin"   numColorVariances="10" maxColorVariance="10" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png" />
 
     </body>
@@ -262,6 +274,8 @@ All pauses are needed.
 
         <SetProperty target="myWin" propertyName="width" valueExpression="value = FlexGlobals.topLevelApplication.width - 30" waitEvent="updateComplete" />
 
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
         <MyCompareBitmap target="myWin"   numColorVariances="10" maxColorVariance="10" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png" />
 
     </body>
@@ -298,6 +312,8 @@ All pauses are needed.
 
         <RunCode code="FlexGlobals.topLevelApplication.myWin.restore()" waitTarget="myWin" waitEvent="displayStateChange" />
 
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
         <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 
         <MyCompareBitmap target="myWin"   numColorVariances="10" maxColorVariance="10" url="../properties/baselines/$testID.png"  mac_url="../properties/baselines/$testID_mac.png" />

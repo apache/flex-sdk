@@ -112,6 +112,8 @@
 
 		<WaitForEvent numExpectedEvents="-1" eventName="updateComplete" target="myWin" timeout="2000" /> 
 
+		<WaitForLayoutManager />
+			
 		<MyCompareBitmap target="myWin"  numColorVariances="15" maxColorVariance="20" url="../methods/baselines/$testID.png" mac_url="../methods/baselines/$testID_mac.png"  />
 
 

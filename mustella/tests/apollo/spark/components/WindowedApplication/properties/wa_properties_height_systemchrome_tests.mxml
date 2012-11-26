@@ -53,7 +53,7 @@ Test height
 Note SDK-21672 for 1 and 2.
 ========================================================
 -->
-<TestCase testID="height_test1_systemChrome" keywords="[WindowedApplication,height]" description="Negative" >
+<TestCase testID="height_test1_systemChrome_mac" keywords="[WindowedApplication,height]" description="Negative" >
     <setup>
         <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
     </setup>
@@ -64,8 +64,19 @@ Note SDK-21672 for 1 and 2.
         <CompareBitmap target="group1" url="../properties/baselines/$testID.png" />
     </body>
 </TestCase>
+<TestCase testID="height_test1_systemChrome_win" keywords="[WindowedApplication,height]" description="Negative" >
+	<setup>
+		<RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+	</setup>
+	<body>
+		<SetProperty target="" propertyName="minHeight" value="-10"/>
+		<SetProperty target="" propertyName="height" value="-1" waitEvent="updateComplete" />
+		<AssertPropertyValue target="" propertyName="height" value="0" />
+		<CompareBitmap target="group1" url="../properties/baselines/$testID_win.png" />
+	</body>
+</TestCase>
 
-<TestCase testID="height_test2_systemChrome" keywords="[WindowedApplication,height]" description="Zero" >
+<TestCase testID="height_test2_systemChrome_mac" keywords="[WindowedApplication,height]" description="Zero" >
     <setup>
         <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
     </setup>
@@ -76,7 +87,18 @@ Note SDK-21672 for 1 and 2.
         <CompareBitmap target="group1" url="../properties/baselines/$testID.png" />
     </body>
 </TestCase>
-
+<TestCase testID="height_test2_systemChrome_win" keywords="[WindowedApplication,height]" description="Zero" >
+	<setup>
+		<RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+	</setup>
+	<body>
+		<SetProperty target="" propertyName="minHeight" value="0"/>
+		<SetProperty target="" propertyName="height" value="0" waitEvent="resize" />
+		<AssertPropertyValue target="" propertyName="height" value="0" />
+		<CompareBitmap target="group1" url="../properties/baselines/$testID.png" />
+	</body>
+</TestCase>
+		
 <TestCase testID="height_test3_systemChrome" keywords="[WindowedApplication,height]" description="One" >
     <setup>
         <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
