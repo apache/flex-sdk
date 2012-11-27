@@ -53,6 +53,8 @@ Test title set in MXML
 <TestCase testID="title_mxml_test2_mac" keywords="[WindowedApplication,title]" description="Check truncated title set in mxml." >
     <body>
         <AssertPropertyValue target="skin.titleBar.skin.titleText" propertyName="text" value="The pokey, orange fox leapt over the lazy cat. The pokey, orange fox leapt over the lazy cat. The pokey, orange fox leapt over the lazy cat. The pokey, orange fox leapt over the lazy cat." />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
         <CompareBitmap target="" url="../properties/baselines/$testID.png" />
     </body>
 </TestCase>

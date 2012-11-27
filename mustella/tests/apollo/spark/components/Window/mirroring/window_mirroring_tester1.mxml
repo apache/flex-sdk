@@ -202,7 +202,9 @@
                 <RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
                 <RunCode code="FlexGlobals.topLevelApplication.createAWindowWithScroller();" waitTarget="" waitEvent="myWindowComplete" />
                 <!-- add a button from the window caused scrolling -->
-                <RunCode code="addAButton();" waitTarget="windowObj" waitEvent="updateComplete" />
+                <RunCode code="addAButton();" />
+				<WaitForLayoutManager />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
             </setup>
             <body>
                 <!-- verify the window should show scroller -->
@@ -407,6 +409,8 @@
             <body>
                 <SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin" waitEvent="updateComplete" />
 		<SetProperty target="" propertyName="titleIcon" valueExpression="value =smallSquare1" waitEvent="updateComplete" />
+				<WaitForLayoutManager />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	
 		<MyCompareBitmap target="windowObj"  numColorVariances="10" maxColorVariance="10" url="../mirroring/baselines/$testID.png"  mac_url="../mirroring/baselines/$testID_mac.png"  />
                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
@@ -428,6 +432,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.setStyle('direction','ltr')"  waitEvent="updateComplete" waitTarget="windowObj" />
     		
 		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value =smallSquare1" waitEvent="updateComplete" />
+				<WaitForLayoutManager />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	
 		<MyCompareBitmap target="windowObj"  numColorVariances="10" maxColorVariance="10" url="../mirroring/baselines/$testID.png"  mac_url="../mirroring/baselines/$testID_mac.png"  />
                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
@@ -450,6 +456,8 @@
 		<SetProperty target="windowObj" propertyName="titleIcon" valueExpression="value =smallSquare1" waitEvent="updateComplete" />
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.layoutDirection='rtl'"  waitEvent="updateComplete" waitTarget="windowObj" />
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.setStyle('direction','rtl')"  waitEvent="updateComplete" waitTarget="windowObj" />
+				<WaitForLayoutManager />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
     		
 		<MyCompareBitmap target="windowObj"  numColorVariances="10" maxColorVariance="10" url="../mirroring/baselines/$testID.png"  mac_url="../mirroring/baselines/$testID_mac.png"  />
                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
