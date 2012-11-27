@@ -152,15 +152,25 @@ Test height
     </body>
 </TestCase>
 
-<TestCase testID="height_test4_windowedApplicationSkin" keywords="[WindowedApplication,height]" description="Set height to a positive, reasonable value." >
+<TestCase testID="height_test4_windowedApplicationSkin_mac" keywords="[WindowedApplication,height]" description="Set height to a positive, reasonable value." >
     <setup>
         <RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
     </setup>
     <body>
         <SetProperty target="" propertyName="height" value="35" waitEvent="resize" />
-        <AssertPropertyValue target="" propertyName="height" value="38" />
+        <AssertPropertyValue target="" propertyName="height" value="35" />
         <CompareBitmap target="" url="../properties/baselines/$testID.png" />
     </body>
+</TestCase>
+<TestCase testID="height_test4_windowedApplicationSkin_win" keywords="[WindowedApplication,height]" description="Set height to a positive, reasonable value." >
+	<setup>
+		<RunCode code="FlexGlobals.topLevelApplication.doReset()" waitTarget="" waitEvent="resetComplete" />
+	</setup>
+	<body>
+		<SetProperty target="" propertyName="height" value="35" waitEvent="resize" />
+		<AssertPropertyValue target="" propertyName="height" value="38" />
+		<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+	</body>
 </TestCase>
 
 <TestCase testID="height_test5_SparkChromeWindowedApplicationSkin_mac" keywords="[WindowedApplication,height]" description="Set height to a positive, reasonable value." >
