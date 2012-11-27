@@ -2345,6 +2345,13 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             updateHeaderSearchList();
         
             createDisplayableColumns();
+            
+            // It is possible that columns became invisible and the hsp is no longer valid.
+            // Force visibleColumns to be recomputed now so if there are lockedColumns and
+            // updateSubContent() is called before updateDisplayList() is called,
+            // visibleColumns will be correct.
+            if (horizontalScrollPosition > visibleHeaderInfos.length)
+                horizontalScrollPosition = visibleHeaderInfos.length - 1;
         }
 
         super.commitProperties();
