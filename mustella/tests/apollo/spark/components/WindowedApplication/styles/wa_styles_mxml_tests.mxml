@@ -71,6 +71,8 @@ testSWF="wa_styles_mxml.mxml">
 	<TestCase testID="style_focusColor_mxml_test1" keywords="[WindowedApplication,style,focusColor]" description="Set focusColor with setStyle().">
         <body>
             <RunCode code="FlexGlobals.topLevelApplication.group1.btn1.focusManager.setFocus(FlexGlobals.topLevelApplication.group1.btn1); FlexGlobals.topLevelApplication.group1.btn1.focusManager.showFocus()" />
+			<WaitForLayoutManager />
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
             <CompareBitmap target="group1" url="../styles/baselines/$testID.png" />
 	    </body>
 	</TestCase>

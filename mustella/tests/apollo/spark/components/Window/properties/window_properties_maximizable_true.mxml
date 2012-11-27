@@ -134,6 +134,8 @@
 	    </setup>
 	    <body>
 		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap url="../Properties/Baselines/$testID.png" mac_url="../Properties/Baselines/$testID_mac.png" target="windowObj.skin.titleBar.maximizeButton" />
 	    </body>
 	</TestCase>

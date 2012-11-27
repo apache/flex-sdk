@@ -53,11 +53,11 @@
 				<AssertStyleValue styleName="backgroundColor" target="" value="255" />
   				<AssertStyleValue styleName="backgroundAlpha" target="" value="0.5" />
 				
-				<CompareBitmap target="" url="../styles/baselines/$testID_1.png"/>
+				<MyCompareBitmap target=""  url="../Styles/baselines/$testID_1_win.png"  mac_url="../Styles/baselines/$testID_1.png"  />
 
 				<SetStyle styleName="backgroundAlpha" target="" value="0.2" waitEvent="updateComplete" waitTarget=""/>				
 				<SetStyle styleName="backgroundColor" target="" value="0x00FF00" waitEvent="updateComplete" waitTarget=""/>
-				<CompareBitmap target="" url="../styles/baselines/$testID_2.png"/>
+				<MyCompareBitmap target=""  url="../Styles/baselines/$testID_2_win.png"  mac_url="../Styles/baselines/$testID_2.png"  />
 				<AssertStyleValue styleName="backgroundColor" target="" value="65280" />
 				<AssertStyleValue styleName="backgroundAlpha" target="" value="0.2" />
 			</body>
@@ -70,12 +70,12 @@
 				<SetProperty propertyName="visible" target="" value="false"/>
 				<AssertStyleValue styleName="backgroundColor" target="myWin" value="16711680" />
 				<AssertStyleValue styleName="backgroundAlpha" target="myWin" value="0.2" />			
-				<CompareBitmap target="myWin" url="../styles/baselines/$testID_1.png"/>
+				<MyCompareBitmap target=""  url="../Styles/baselines/$testID_1_win.png"  mac_url="../Styles/baselines/$testID_1.png"  />
 				
 				<SetStyle styleName="backgroundAlpha" target="myWin" value="0.2" />				
 				<SetStyle styleName="backgroundColor" target="myWin" value="0x00FF00" waitEvent="updateComplete" waitTarget="myWin"/>
 				
-				<CompareBitmap target="myWin" url="../styles/baselines/$testID_2.png"/>
+				<MyCompareBitmap target="myWin"  url="../Styles/baselines/$testID_2_win.png"  mac_url="../Styles/baselines/$testID_2.png"  />
 				<AssertStyleValue styleName="backgroundColor" target="myWin" value="65280" />
 				<AssertStyleValue styleName="backgroundAlpha" target="myWin" value="0.2" />			
 				
