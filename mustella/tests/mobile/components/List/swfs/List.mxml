@@ -65,7 +65,7 @@
                         // quietly fail on all 160 + 320 ADL runs whether they are current or next
                         var errorString:String = "Error: List tests excluded for 160dpi and 320dpi ADL Mustella runs";
                         trace(errorString);
-                        throw new Error(errorString);
+//                        throw new Error(errorString);
                         NativeApplication.nativeApplication.exit(-1);                        
                     }
                 }
