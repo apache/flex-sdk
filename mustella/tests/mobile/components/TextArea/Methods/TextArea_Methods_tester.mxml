@@ -108,7 +108,7 @@
 		<body>
 			<RunCode code="FlexGlobals.topLevelApplication.tac1.ta1.insertText('eth')" />
 			<Pause timeout="100" />
-			<AssertPropertyValue target="tac1.ta1" propertyName="text" value="Silveth Musician"/>
+			<AssertPropertyValue target="tac1.ta1" propertyName="text" value="Silvethr Musician"/>
 		</body>
 	</TestCase>
 
@@ -126,7 +126,7 @@
 		<body>
 			<RunCode code="FlexGlobals.topLevelApplication.tac1.ta1.insertText('pre ')" />
 			<Pause timeout="200" />
-			<AssertPropertyValue target="tac1.ta1" propertyName="text" value="pre Dummy text"/>
+			<AssertPropertyValue target="tac1.ta1" propertyName="text" value="pre ummy text"/>
 		</body>
 	</TestCase>
 
@@ -237,9 +237,9 @@
 				<RunCode code="FlexGlobals.topLevelApplication.tac1.ta1.appendText('The\nQuick\nBrown\nFox\nJumps\nOver\nThe\nLazy\nDog:END')" waitTarget="tac1.ta1" waitEvent="updateComplete" />
 				<AssertPropertyValue target="tac1.ta1.scroller.viewport" propertyName="verticalScrollPosition">
 					<ConditionalValue deviceDensity="160" value="45" />
-					<ConditionalValue deviceDensity="240" value="132" />
+					<ConditionalValue deviceDensity="240" value="174" />
 					<ConditionalValue deviceDensity="320" value="218" />
-					<ConditionalValue deviceDensity="320" os="iphone" value="237" />
+					<ConditionalValue deviceDensity="320" os="ios" value="237" />
 				</AssertPropertyValue>
 				<AssertPropertyValue target="tac1.ta1" propertyName="selectionAnchorPosition" value="47" >
 					<ConditionalValue deviceDensity="160" value="47" />
@@ -312,15 +312,15 @@
 			<RunCode code="trace(FlexGlobals.topLevelApplication.tac4.ta1.scroller.viewport.verticalScrollPosition)" />
 			<AssertPropertyValue target="tac4.ta1.scroller.viewport" propertyName="verticalScrollPosition" >
 				<ConditionalValue deviceDensity="160" value="543.6" />
-				<ConditionalValue deviceDensity="240" value="818.3" />
+				<ConditionalValue deviceDensity="240" value="843" />
 				<ConditionalValue deviceDensity="320" value="1033.2" />
-				<ConditionalValue deviceDensity="320" os="iphone" value="1085.2" />
+				<ConditionalValue deviceDensity="320" os="ios" value="1085.2" />
 			</AssertPropertyValue>
 			<CompareBitmap numColorVariances="5" maxColorVariance="16" url="../Methods/baselines" target="tac4.ta1">
 				<ConditionalValue deviceDensity="160" />
 				<ConditionalValue deviceDensity="240" />
 				<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>
 		</body>
@@ -339,15 +339,15 @@
 			<RunCode code="trace(FlexGlobals.topLevelApplication.tac4.ta1.scroller.viewport.verticalScrollPosition)" />
 			<AssertPropertyValue target="tac4.ta1.scroller.viewport" propertyName="verticalScrollPosition" >
 				<ConditionalValue deviceDensity="160" value="843" />
-				<ConditionalValue deviceDensity="240" value="1448" />
+				<ConditionalValue deviceDensity="240" value="1481" />
 				<ConditionalValue deviceDensity="320" value="1872" />
-				<ConditionalValue deviceDensity="320" os="iphone" value="1983" />
+				<ConditionalValue deviceDensity="320" os="ios" value="1983" />
 			</AssertPropertyValue>
 			<CompareBitmap url="../Methods/baselines" target="tac4.ta1" numColorVariances="80" ignoreMaxColorVariance="true">
 				<ConditionalValue deviceDensity="160" />
 				<ConditionalValue deviceDensity="240" />
 				<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>
 		</body>
@@ -369,7 +369,7 @@
 				<ConditionalValue deviceDensity="160" />
 				<ConditionalValue deviceDensity="240" />
 				<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>
 		</body>
@@ -396,7 +396,7 @@
 				<ConditionalValue deviceDensity="160" />
 				<ConditionalValue deviceDensity="240" />
 				<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>
 		</body>
@@ -424,7 +424,7 @@
 				<ConditionalValue deviceDensity="160" />
 				<ConditionalValue deviceDensity="240" />
 				<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>
 		</body>
@@ -450,7 +450,7 @@
 				<ConditionalValue deviceDensity="160" />
 				<ConditionalValue deviceDensity="240" />
 				<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>
 		</body>
@@ -475,7 +475,7 @@
 				<ConditionalValue deviceDensity="160" />
 				<ConditionalValue deviceDensity="240" />
 				<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>
 		</body>
@@ -500,7 +500,7 @@
 				<ConditionalValue deviceDensity="160" />
 				<ConditionalValue deviceDensity="240" />
 				<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>
 		</body>
@@ -525,7 +525,7 @@
 				<ConditionalValue deviceDensity="160" />
 				<ConditionalValue deviceDensity="240" />
 				<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>
 		</body>
@@ -550,7 +550,7 @@
 				<ConditionalValue deviceDensity="160" />
 				<ConditionalValue deviceDensity="240" />
 				<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>
 		</body>
@@ -575,7 +575,7 @@
 				<ConditionalValue deviceDensity="160" />
 				<ConditionalValue deviceDensity="240" />
 				<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>
 		</body>
@@ -602,12 +602,12 @@
 			<SetProperty target="tac1.ta1" propertyName="text" value="Silver Musician" waitTarget="tac1.ta1" waitEvent="updateComplete" />
 			<Pause timeout="100" />
 			<AssertPropertyValue target="tac1.ta1" propertyName="selectionAnchorPosition" value="0" />
-			<AssertPropertyValue target="tac1.ta1" propertyName="selectionActivePosition" value="0" />
+			<AssertPropertyValue target="tac1.ta1" propertyName="selectionActivePosition" value="15" />
 			<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines" target="tac1.ta1">
 				<ConditionalValue deviceDensity="160" />
 				<ConditionalValue deviceDensity="240" />
 				<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 			</CompareBitmap>
 		</body>
