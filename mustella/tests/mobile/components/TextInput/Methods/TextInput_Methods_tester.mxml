@@ -102,7 +102,7 @@
 			<body>
 				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.insertText('eth')" />
 				<Pause timeout="100" />
-				<AssertPropertyValue target="tic1.ti1" propertyName="text" value="Silveth Musician"/>
+				<AssertPropertyValue target="tic1.ti1" propertyName="text" value="Silvethr Musician"/>
 			</body>
 		</TestCase>
 
@@ -276,7 +276,7 @@
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -303,7 +303,7 @@
 						<ConditionalValue deviceDensity="160" />
 						<ConditionalValue deviceDensity="240" />
 						<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 					</CompareBitmap>
 			</body>
@@ -327,7 +327,7 @@
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -351,7 +351,7 @@
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -375,7 +375,7 @@
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -399,7 +399,7 @@
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -423,7 +423,7 @@
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -449,12 +449,12 @@
 				<SetProperty target="tic1.ti1" propertyName="text" value="Silver Musician" waitTarget="tic1.ti1" waitEvent="updateComplete" />
 				<Pause timeout="100" />
 				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="0" />
-				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="0" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="15" />
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -478,7 +478,7 @@
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -498,15 +498,15 @@
 				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
 				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text">
 					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, cons..." />
-					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor si..."/>
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit ..."/>
 					<ConditionalValue deviceDensity="320" value="Lorem ipsum d..." />
-					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsum d..." />
+					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum d..." />
 				</AssertMethodValue>
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -526,15 +526,15 @@
 				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
 				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text">
 					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, cons..." />
-					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor si..."/>
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit ..."/>
 					<ConditionalValue deviceDensity="320" value="Lorem ipsum d..." />
-					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsum d..." />
+					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum d..." />
 				</AssertMethodValue>
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -554,15 +554,15 @@
 				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
 				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text">
 					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, cons..." />
-					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor si..."/>
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit ..."/>
 					<ConditionalValue deviceDensity="320" value="Lorem ipsum d..." />
-					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsum d..." />
+					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum d..." />
 				</AssertMethodValue>
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -582,15 +582,15 @@
 				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
 				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text">
 					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, conse " />
-					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit  "/>
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit a "/>
 					<ConditionalValue deviceDensity="320" value="Lorem ipsum do " />
-					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsum do " />
+					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum do " />
 				</AssertMethodValue>
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -610,15 +610,15 @@
 				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
 				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text">
 					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, co§¥©" />
-					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor§¥©"/>
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor s§¥©"/>
 					<ConditionalValue deviceDensity="320" value="Lorem ipsu§¥©" />
-					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsu§¥©" />
+					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsu§¥©" />
 				</AssertMethodValue>				
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -638,15 +638,15 @@
 				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
 				<AssertMethodValue method="value = StringUtil.trim(StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text)">
 					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, conse" />
-					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit"/>
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit a"/>
 					<ConditionalValue deviceDensity="320" value="Lorem ipsum dol" />
-					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsum dol" />
+					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum dol" />
 				</AssertMethodValue>				
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -666,15 +666,15 @@
 				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
 				<AssertMethodValue method="value = StringUtil.trim(StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text)">
 					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, conse" />
-					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit"/>
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit a"/>
 					<ConditionalValue deviceDensity="320" value="Lorem ipsum dol" />
-					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsum dol" />
+					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum dol" />
 				</AssertMethodValue>				
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
@@ -694,15 +694,15 @@
 				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
 				<AssertMethodValue method="value = StringUtil.trim(StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text)">
 					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, conse" />
-					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit"/>
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit a"/>
 					<ConditionalValue deviceDensity="320" value="Lorem ipsum dol" />
-					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsum dol" />
+					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum dol" />
 				</AssertMethodValue>				
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 			</body>
