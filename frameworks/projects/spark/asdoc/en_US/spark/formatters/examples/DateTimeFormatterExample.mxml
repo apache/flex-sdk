@@ -22,50 +22,50 @@
     xmlns:fx="http://ns.adobe.com/mxml/2009"
     xmlns:s="library://ns.adobe.com/flex/spark"
     xmlns:mx="library://ns.adobe.com/flex/mx">
-
+    
     <fx:Declarations>
         <s:DateTimeFormatter id="dateTimeFormatter"/>
     </fx:Declarations>
-
+    
     <fx:Script>
         <![CDATA[
             import mx.collections.ArrayCollection;
-
+            
             private static const dateTimeStyleMenuItems:ArrayCollection
-                = new ArrayCollection(["long", "medium", "short", "none"]);
+            = new ArrayCollection(["long", "medium", "short", "none"]);
         ]]>
     </fx:Script>
-
-    <mx:Form>
-        <mx:FormItem label="Input Locale ID Name">
-            <mx:HBox>
+    
+    <s:Form>
+        <s:FormItem label="Input Locale ID Name">
+            <s:HGroup>
                 <s:TextInput id="inputLocaleIDName"/>
                 <!-- Upon button click, sets the locale style on the document
-                    UI component. The formatter will inherit this style. -->
+                UI component. The formatter will inherit this style. -->
                 <s:Button click="setStyle('locale', inputLocaleIDName.text);"
                           label="Apply"/>
-            </mx:HBox>
-            <mx:Text text="Example: 'en-US', 'fr-FR', 'ja-JP', 'ar-SA'"/>
-        </mx:FormItem>
-        <mx:FormItem label="Date Style">
+            </s:HGroup>
+            <s:Label text="Example: 'en-US', 'fr-FR', 'ja-JP', 'ar-SA'"/>
+        </s:FormItem>
+        <s:FormItem label="Date Style">
             <s:DropDownList id="dateStyle" requireSelection="true"
-                change="dateTimeFormatter.dateStyle = dateTimeStyleMenuItems[dateStyle.selectedIndex]"
-                dataProvider="{dateTimeStyleMenuItems}"/>
-        </mx:FormItem>
-        <mx:FormItem label="Time Style">
+                            change="dateTimeFormatter.dateStyle = dateTimeStyleMenuItems[dateStyle.selectedIndex]"
+                            dataProvider="{dateTimeStyleMenuItems}"/>
+        </s:FormItem>
+        <s:FormItem label="Time Style">
             <s:DropDownList id="timeStyle" requireSelection="true"
-                change="dateTimeFormatter.timeStyle = dateTimeStyleMenuItems[timeStyle.selectedIndex]"
-                dataProvider="{dateTimeStyleMenuItems}"/>
-        </mx:FormItem>
-        <mx:FormItem label="Input Date">
-            <mx:TextInput id="inputDate" text="{new Date().toString()}"/>
-        </mx:FormItem>
-        <mx:FormItem label="Actual Locale ID Name">
-            <mx:Text text="{dateTimeFormatter.actualLocaleIDName}"/>
-        </mx:FormItem>
-        <mx:FormItem label="Formatted Result">
-            <mx:Text id="uiFormattedDate"
-                text="{dateTimeFormatter.format(inputDate.text)}"/>
-        </mx:FormItem>
-    </mx:Form>
+                            change="dateTimeFormatter.timeStyle = dateTimeStyleMenuItems[timeStyle.selectedIndex]"
+                            dataProvider="{dateTimeStyleMenuItems}"/>
+        </s:FormItem>
+        <s:FormItem label="Input Date">
+            <s:TextInput id="inputDate" text="{new Date().toString()}"/>
+        </s:FormItem>
+        <s:FormItem label="Actual Locale ID Name">
+            <s:Label text="{dateTimeFormatter.actualLocaleIDName}"/>
+        </s:FormItem>
+        <s:FormItem label="Formatted Result">
+            <s:Label id="uiFormattedDate"
+                     text="{dateTimeFormatter.format(inputDate.text)}"/>
+        </s:FormItem>
+    </s:Form>
 </s:Application>
