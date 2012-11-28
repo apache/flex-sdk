@@ -25,6 +25,7 @@ import flash.events.EventDispatcher;
 import flash.utils.Proxy;
 import flash.utils.flash_proxy;
 import flash.utils.getQualifiedClassName;
+
 import mx.collections.errors.CollectionViewError;
 import mx.collections.errors.CursorError;
 import mx.collections.errors.ItemPendingError;
@@ -636,10 +637,25 @@ public class ListCollectionView extends Proxy
      */
     public function addAllAt(addList:IList, index:int):void
     {
+        if (index < 0 || index > this.length)
+        {
+            var message:String = resourceManager.getString(
+                "collections", "outOfBounds", [ index ]);
+            throw new RangeError(message);
+        }
+        
         var length:int = addList.length;
         for (var i:int=0; i < length; i++)
         {
-            this.addItemAt(addList.getItemAt(i), i+index);
+            var insertIndex:int = i + index;
+            
+            // incremental index may be out of bounds because of filtering,
+            // so add this item to the end.
+            var currentLength:int = this.length;
+            if (insertIndex > currentLength)
+                insertIndex = currentLength;
+            
+            this.addItemAt(addList.getItemAt(i), insertIndex);
         }
     }
 
