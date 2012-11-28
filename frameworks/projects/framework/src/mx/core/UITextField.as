@@ -2434,10 +2434,16 @@ public class UITextField extends FlexTextField
         if (originalText != "" && textWidth + TEXT_WIDTH_PADDING > w + 0.00000000000001)
         {
             // This should get us into the ballpark.
-            var s:String = super.text = originalText;
+            var s:String = 
                 originalText.slice(0,
                     Math.floor((w / (textWidth + TEXT_WIDTH_PADDING)) * originalText.length));
 
+            // This doesn't seem correct but it preserves previous behavior.
+            // If one character doesn't fit the text is one character plus the
+            // truncation indicator rather than just the truncation indicator as you would expect.
+            if (s.length <= 1 && textWidth + TEXT_WIDTH_PADDING > w)
+                super.text = originalText.charAt(0) + truncationIndicator;
+            
             while (s.length > 1 && textWidth + TEXT_WIDTH_PADDING > w)
             {
                 s = s.slice(0, -1);
