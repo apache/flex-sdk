@@ -60,7 +60,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 				<DispatchMouseClickEvent target="navigator.activeView" localX="20" localY="20" waitEvent="viewMenuClose"/>
@@ -71,11 +71,12 @@
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
 				<Pause timeout="100"/>
-				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator"  />
+				<WaitForLayoutManager />
 				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView7)"
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
-
+				<WaitForLayoutManager />
 				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl" />
 			</setup>
 			<body>
@@ -87,7 +88,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 				<DispatchKeyEvent keyLocation="4" keyCode="13" waitTarget="navigator.activeView" waitEvent="viewMenuClose" />
@@ -108,7 +109,7 @@
 				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
 				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView7)"
-						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+						 waitTarget="navigator" waitEvent="viewChangeComplete"/>
 				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl" />
 			</setup>
 			<body>
@@ -129,7 +130,7 @@
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win" />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>
 				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="lbl"/>
