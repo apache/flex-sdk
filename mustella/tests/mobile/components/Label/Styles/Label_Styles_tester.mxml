@@ -809,6 +809,7 @@
 				<SetStyle target="navigator.activeView.textBoxComp7" styleName="paddingBottom" value="30" waitTarget="navigator.activeView.textBoxComp7" waitEvent="updateComplete" />
 			</setup>
 			<body>
+				<Pause timeout="400" />
 				<AssertStyleValue target="navigator.activeView.textBoxComp7" styleName="paddingBottom" value="30" />
 				<CompareBitmap url="../Styles/baselines/" target="navigator.activeView.textBoxComp7" numColorVariances="20" maxColorVariance="10" >
 					<ConditionalValue deviceDensity="160" />
