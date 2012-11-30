@@ -106,7 +106,7 @@ testDir="mobile/components/ToggleSwitch/properties/" testSWF="ToggleSwitchMain.m
 					<ConditionalValue deviceDensity="160" os="win" value="103"/>
 					<ConditionalValue deviceDensity="240" os="android" value="149"/>
 					<ConditionalValue deviceDensity="320" os="win" value="205"/>
-					<ConditionalValue deviceDensity="320" os="ios" value="205" />
+					<ConditionalValue deviceDensity="320" os="ios" value="201" />
 					<ConditionalValue deviceDensity="160" os="qnx" value="103"/>					
 				</AssertPropertyValue>	
 				<AssertPropertyValue target="propertiesRoot.target1" propertyName="height" >

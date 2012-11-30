@@ -733,8 +733,14 @@
                 <SetProperty target="propertiesRoot.button4" propertyName="percentHeight" value="100" waitEvent="resize" waitTarget="propertiesRoot.button4"/>
             </setup>
             <body>
-				<AssertPropertyValue propertyName="height" value="50" target="propertiesRoot.button3"/>
-				<AssertPropertyValue propertyName="height" value="50" target="propertiesRoot.button4"/>
+				<AssertPropertyValue propertyName="height" value="50" target="propertiesRoot.button3">
+					<ConditionalValue deviceDensity="240" os="android" value="50" />
+					<ConditionalValue deviceDensity="320" os="ios" value="64" />
+				</AssertPropertyValue>
+				<AssertPropertyValue propertyName="height" value="50" target="propertiesRoot.button4">
+					<ConditionalValue deviceDensity="240" os="android" value="50" />
+					<ConditionalValue deviceDensity="320" os="ios" value="64" />
+				</AssertPropertyValue>
 				<AssertPropertyValue propertyName="width" value="72" target="propertiesRoot.button3"/>
 				<AssertPropertyValue propertyName="width" value="72" target="propertiesRoot.button4"/>
                 <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp2">

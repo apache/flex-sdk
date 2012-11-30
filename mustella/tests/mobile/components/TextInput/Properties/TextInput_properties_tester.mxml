@@ -1013,7 +1013,7 @@
 								<ConditionalValue deviceDensity="160" value="22.85" />
 								<ConditionalValue deviceDensity="240" value="36.65" />
 								<ConditionalValue deviceDensity="320" value="43.70" />
-								<ConditionalValue deviceDensity="320" os="ios" value="43.70"/>
+								<ConditionalValue deviceDensity="320" os="ios" value="48.20"/>
 							</AssertPropertyValue>
 				        </body>
 				    </TestCase>
@@ -1029,7 +1029,7 @@
 								<ConditionalValue deviceDensity="160" value="22.85" />
 								<ConditionalValue deviceDensity="240" value="36.65" />
 								<ConditionalValue deviceDensity="320" value="43.70" />
-								<ConditionalValue deviceDensity="320" os="ios" value="43.70"/>
+								<ConditionalValue deviceDensity="320" os="ios" value="48.20"/>
 							</AssertPropertyValue>
 				        </body>
 				    </TestCase>

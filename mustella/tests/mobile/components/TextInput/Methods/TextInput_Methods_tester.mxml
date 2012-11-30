@@ -500,7 +500,7 @@
 					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, cons..." />
 					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit ..."/>
 					<ConditionalValue deviceDensity="320" value="Lorem ipsum d..." />
-					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum d..." />
+					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum do..." />
 				</AssertMethodValue>
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
 					<ConditionalValue deviceDensity="160" />
@@ -528,7 +528,7 @@
 					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, cons..." />
 					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit ..."/>
 					<ConditionalValue deviceDensity="320" value="Lorem ipsum d..." />
-					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum d..." />
+					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum do..." />
 				</AssertMethodValue>
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
 					<ConditionalValue deviceDensity="160" />
@@ -556,7 +556,7 @@
 					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, cons..." />
 					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit ..."/>
 					<ConditionalValue deviceDensity="320" value="Lorem ipsum d..." />
-					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum d..." />
+					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum do..." />
 				</AssertMethodValue>
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
 					<ConditionalValue deviceDensity="160" />
@@ -584,7 +584,7 @@
 					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, conse " />
 					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit a "/>
 					<ConditionalValue deviceDensity="320" value="Lorem ipsum do " />
-					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum do " />
+					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum dol " />
 				</AssertMethodValue>
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
 					<ConditionalValue deviceDensity="160" />
@@ -612,7 +612,7 @@
 					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, co§¥©" />
 					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor s§¥©"/>
 					<ConditionalValue deviceDensity="320" value="Lorem ipsu§¥©" />
-					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsu§¥©" />
+					<ConditionalValue deviceDensity="320" os="ios" value="Lorem ipsum §¥©" />
 				</AssertMethodValue>				
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
 					<ConditionalValue deviceDensity="160" />
