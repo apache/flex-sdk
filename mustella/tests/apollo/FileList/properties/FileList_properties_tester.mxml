@@ -222,7 +222,7 @@
 			</body>
 		</TestCase>
 			
-		<TestCase testID="FileSystemList_Property_directory_set" keywords="[directory, FileSystemList]">
+		<TestCase testID="FileSystemList_Property_directory_set2_mac" keywords="[directory, FileSystemList]">
 			<setup>
 				<RunCode code="whichOS()"/>
 				<ResetComponent target="myFileSystemList" className="mx.controls::FileSystemList" waitEvent="updateComplete" waitTarget="myFileSystemList"/> 
@@ -230,6 +230,16 @@
 			</setup>
 			<body>
 				<AssertMethodValue target="myFileSystemList" method="value=checkcurrentpath()" value="System"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FileSystemList_Property_directory_set2_win" keywords="[directory, FileSystemList]">
+			<setup>
+				<RunCode code="whichOS()"/>
+				<ResetComponent target="myFileSystemList" className="mx.controls::FileSystemList" waitEvent="updateComplete" waitTarget="myFileSystemList"/> 
+				<RunCode code="setDir()"/>
+			</setup>
+			<body>
+				<AssertMethodValue target="myFileSystemList" method="value=checkcurrentpath()" value="windows"/>
 			</body>
 		</TestCase>
 
