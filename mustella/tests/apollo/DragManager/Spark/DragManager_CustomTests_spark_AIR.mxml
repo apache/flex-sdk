@@ -17,7 +17,7 @@
   limitations under the License.
 
 -->
-<UnitTester testDir="Managers/DragManager/Spark/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DragManager_Custom_sparkAIR.mxml">
+<UnitTester testDir="apollo/DragManager/Spark/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DragManager_Custom_sparkAIR.mxml">
 
     <mx:Script>
     <![CDATA[
@@ -31,6 +31,29 @@
 
     ]]>
     </mx:Script>
+	<mx:Script>
+		<![CDATA[
+			private function airify(s:String):String
+			{
+				if (ApplicationDomain.currentDomain.hasDefinition("flash.filesystem.File"))
+				{
+					var c:Class = Class(ApplicationDomain.currentDomain.getDefinition("flash.filesystem.File"));
+					var f:Object = c.applicationDirectory;
+					var p:String = f.nativePath;
+					while (s.indexOf("../") == 0)
+					{
+						var dot:int = p.lastIndexOf(File.separator);
+						p = p.substr(0, dot);
+						s = s.substr(3);
+					}
+					f.nativePath = p;
+					f = f.resolvePath(s);
+					return f.url;
+				}
+				return s;				
+			}
+		]]>
+	</mx:Script>
 
     <mx:Metadata>
     <![CDATA[
@@ -96,13 +119,13 @@
                 <ResetComponent target="myImage2" className="mx.controls.Image" waitTarget="myImage2" waitEvent="updateComplete" />
                 <ResetComponent target="myImage" className="mx.controls.Image" waitTarget="myImage" waitEvent="updateComplete" />
                 <RunCode code="application.myImage.addEventListener('mouseDown', application.callDrag)" />
-                <SetProperty target="myImage" propertyName="source" valueExpression="value='../../../../Assets/Images/unknown.jpg'" waitEvent="complete" waitTarget="myImage" />
+                <SetProperty target="myImage" propertyName="source" valueExpression="value = airify('../../../../Assets/Images/unknown.jpg')" waitEvent="complete" waitTarget="myImage" timeout="2000" />
             </setup>
             <body>
                 <DispatchMouseEvent target="myImage" type="mouseOver" localX="15" localY="15"  />
                 <DispatchMouseEvent target="myImage" type="mouseDown" localX="15" localY="15" buttonDown="true" />
                 <DispatchMouseEvent target="v1" type="mouseMove" localX="20" localY="30" buttonDown="true"
-                    waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                    waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />	
                 <DispatchMouseEvent target="v1" type="mouseMove" localX="50" localY="60" buttonDown="true"
                     waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
                 <DispatchMouseEvent target="v1" type="mouseMove" localX="100" localY="75" buttonDown="true"
