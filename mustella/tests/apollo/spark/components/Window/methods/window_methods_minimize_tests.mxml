@@ -116,6 +116,7 @@
 			<WaitForLayoutManager />			
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maximize()" waitTarget="windowObj" waitEvent="displayStateChange" />
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minimize()" waitTarget="windowObj" waitEvent="displayStateChange" />
+		<WaitForLayoutManager />
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<AssertPropertyValue target="windowObj.nativeWindow" propertyName="displayState" value="minimized" />
 	    </body>
@@ -144,9 +145,10 @@
 	    </setup>
 	    <body>
 		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" />
-			<WaitForLayoutManager />
+		<WaitForLayoutManager />
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minimize()" waitTarget="windowObj" waitEvent="displayStateChange" />
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minimize()" />
+		<WaitForLayoutManager />
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
 		<AssertPropertyValue target="windowObj.nativeWindow" propertyName="displayState" value="minimized" />
 	    </body>
