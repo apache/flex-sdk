@@ -86,7 +86,9 @@
 
 	        <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(WindowWithStates,'window1');" waitTarget="" waitEvent="myWindowComplete" />
 
-	        <RunCode code="FlexGlobals.topLevelApplication.windowObj.currentState='showMenu'" waitTarget="windowObj" waitEvent="updateComplete" />
+	        <RunCode code="FlexGlobals.topLevelApplication.windowObj.currentState='showMenu'" waitTarget="windowObj" />
+			
+			<WaitForLayoutManager />
 
 	    </setup>
 
@@ -110,14 +112,18 @@
 
 	        <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(WindowWithStates,'window1');" waitTarget="" waitEvent="myWindowComplete" />
 
-	        <RunCode code="FlexGlobals.topLevelApplication.windowObj.currentState='showStatus'" waitTarget="windowObj" waitEvent="updateComplete" />
+	        <RunCode code="FlexGlobals.topLevelApplication.windowObj.currentState='showStatus'" waitTarget="windowObj" />
+			
+			<WaitForLayoutManager />
 
 	    </setup>
 
 	    <body>
 
-	    	<SetStyle target="windowObj" styleName="testStyle3"  waitEvent="updateComplete" waitTarget="windowObj" />
+	    	<SetStyle target="windowObj" styleName="testStyle3" />
 
+			<WaitForLayoutManager />
+			
 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 
 	    	<MyCompareBitmap target="windowObj"  numColorVariances="15" maxColorVariance="20" url="../integration/baselines/$testID.png"  mac_url="../integration/baselines/$testID_mac.png" /> 

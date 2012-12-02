@@ -119,7 +119,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/> 
 	    </setup>
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" />
+			<WaitForLayoutManager />			
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maximize()" waitTarget="windowObj" waitEvent="displayStateChange" />
 		<AssertMethodValue method="value=checkMaxSizeValue(FlexGlobals.topLevelApplication.windowObj.width, Capabilities.screenResolutionX, 100)" value="true" />
 		<AssertPropertyValue target="windowObj.nativeWindow" propertyName="displayState" value="maximized" />

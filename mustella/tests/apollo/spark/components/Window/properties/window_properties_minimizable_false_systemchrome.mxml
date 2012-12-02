@@ -88,7 +88,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minWidth=200;"/>
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minHeight=200;"/>
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/> 
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" />
+			<WaitForLayoutManager />			
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minimize()" waitTarget="windowObj" waitEvent="displayStateChange"/>
 		<!-- width, height is taken from PlainWindow -->

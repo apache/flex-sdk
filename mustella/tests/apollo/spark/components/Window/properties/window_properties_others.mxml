@@ -84,7 +84,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>    
-		<SetProperty target="myWin" propertyName="colorCorrection" value="on" waitEvent="updateComplete" />
+		<SetProperty target="myWin" propertyName="colorCorrection" value="on" />
+		<WaitForLayoutManager />
 	    </setup>
 	    <body>
 		<AssertPropertyValue target="myWin" propertyName="colorCorrection" value="on" />
@@ -96,7 +97,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>    
-		<SetProperty target="myWin" propertyName="colorCorrection" value="off" waitEvent="updateComplete" />
+		<SetProperty target="myWin" propertyName="colorCorrection" value="off"/>
+		<WaitForLayoutManager />
 	    </setup>
 	    <body>
 		<AssertPropertyValue target="myWin" propertyName="colorCorrection" value="off" />

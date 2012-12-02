@@ -80,7 +80,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
 	    </setup> 
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin "/>
+			<WaitForLayoutManager />
 		<SetProperty target="windowObj" propertyName="minHeight" value="-10"/>
 		<SetProperty target="windowObj" propertyName="height" value="-1" waitEvent="resize" />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,0,100,0)" value=""/>
@@ -107,7 +108,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
 	    </setup> 
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" /> 
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin "/> 
+			<WaitForLayoutManager />
 		<SetProperty target="windowObj" propertyName="minHeight" value="-10"/>
 		<SetProperty target="windowObj" propertyName="height" value="0" waitEvent="resize" />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,0,100,100)" value=""/>
@@ -138,7 +140,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
 	    </setup> 
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " />
+			<WaitForLayoutManager />
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="minHeight" value="-10"/>
 		<SetProperty target="windowObj" propertyName="height" value="1" waitEvent="resize" />
@@ -170,7 +173,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
 	    </setup> 
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " />
+			<WaitForLayoutManager />			
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="height" value="33" waitEvent="resize" />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,33,33,33)" value=""/>
@@ -200,7 +204,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
 	    </setup> 
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin "/>
+			<WaitForLayoutManager />			
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="height" value="183" waitEvent="resize" />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,183,183,183)" value=""/>
@@ -230,7 +235,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
 	    </setup> 
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " />
+			<WaitForLayoutManager />			
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="minHeight" value="150" />
 		<SetProperty target="windowObj" propertyName="height" value="130" waitEvent="resize" />
@@ -261,7 +267,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
 	    </setup> 
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " />
+			<WaitForLayoutManager />			
 		<SetProperty target="windowObj" propertyName="maxHeight" value="200" />
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="height" value="250" waitEvent="resize" />

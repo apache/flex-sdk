@@ -135,7 +135,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.myWin.maxHeight=600;" waitTarget="myWin" waitEvent="updateComplete" />
 	    </setup>
 	    <body>
-		<SetStyle target="myWin" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetStyle target="myWin" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " />
+		<WaitForLayoutManager />
 		<RunCode code="FlexGlobals.topLevelApplication.myWin.maximize()" />
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<RunCode code="configureExpectSize(Capabilities.screenResolutionX,600,Capabilities.screenResolutionX)"/>

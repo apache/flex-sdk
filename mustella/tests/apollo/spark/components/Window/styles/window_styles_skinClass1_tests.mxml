@@ -57,7 +57,8 @@
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()"  waitTarget="" waitEvent="myWindowComplete"/> 
-		<SetStyle target="windowObj"  styleName="skinClass" valueExpression="value = WindowedApplicationSkin" waitEvent="updateComplete" />
+		<SetStyle target="windowObj"  styleName="skinClass" valueExpression="value = WindowedApplicationSkin" />
+		<WaitForLayoutManager />
 	    </setup>
 	    <body>
 		<SetProperty target="windowObj" propertyName="width" value="115"/>

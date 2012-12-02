@@ -80,7 +80,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>
 	    </setup>
 	    <body>
-	       <SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" waitEvent="updateComplete" />
+	       <SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" />
+			<WaitForLayoutManager />
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minimize()" waitTarget="windowObj" waitEvent="displayStateChange" />     
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
@@ -111,7 +112,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>
 	    </setup>
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" />
+			<WaitForLayoutManager />			
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maximize()" waitTarget="windowObj" waitEvent="displayStateChange" />
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minimize()" waitTarget="windowObj" waitEvent="displayStateChange" />
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
@@ -141,8 +143,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>
 	    </setup>
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" waitEvent="updateComplete" />
-
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" />
+			<WaitForLayoutManager />
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minimize()" waitTarget="windowObj" waitEvent="displayStateChange" />
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minimize()" />
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
