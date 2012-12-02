@@ -77,13 +77,13 @@ limitations under the License.
 						if (c != -1)
 							file = file.substr(0, c);
 					}
-					c = file.indexOf("/src/");
+					c = file.indexOf(File.separator + "src" + File.separator);
 					if (c != -1)
 						file = file.substr(c + 5);
-					c = file.lastIndexOf("/");
+					c = file.lastIndexOf(File.separator);
 					if (c != -1)
 						file = file.substring(0, c) + ':' + file.substr(c + 1);
-					file = file.replace(/\//g, ".");
+					file = file.replace(new RegExp("\\" + File.separator,"g"), ".");
 					modFiles[i] = file;
 				}
 				var runTests:Array = [];
