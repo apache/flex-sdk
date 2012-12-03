@@ -131,7 +131,9 @@
                 <DispatchMouseEvent target="v1" type="mouseMove" localX="100" localY="75" buttonDown="true"
                     waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="v1" url="../Spark/baselines/$testID.png" timeout="2500" />
+                <CompareBitmap target="v1" url="../Spark/baselines/" timeout="2500" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
                 <DispatchMouseEvent target="v1" type="mouseUp" localX="100" localY="75" buttonDown="true"
                     waitTarget="myImage" waitEvent="dragComplete" />
         </body>
