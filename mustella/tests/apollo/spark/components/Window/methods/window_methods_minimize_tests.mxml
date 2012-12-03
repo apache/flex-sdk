@@ -80,8 +80,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>
 	    </setup>
 	    <body>
-	       <SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" />
-			<WaitForLayoutManager />
+	    <SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" />
+		<WaitForLayoutManager />
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minimize()" waitTarget="windowObj" waitEvent="displayStateChange" />     
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
@@ -106,14 +106,15 @@
 	    </body>
 	</TestCase>
 
-	<TestCase testID="minimize_test2_WindowedApplicationSkin " keywords="[Window,minimize]" description="Minimize when maximized." >
+	<TestCase testID="minimize_test2_WindowedApplicationSkin" keywords="[Window,minimize]" description="Minimize when maximized." >
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>
 	    </setup>
 	    <body>
 		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" />
-			<WaitForLayoutManager />			
+		<WaitForLayoutManager />			
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maximize()" waitTarget="windowObj" waitEvent="displayStateChange" />
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minimize()" waitTarget="windowObj" waitEvent="displayStateChange" />
 		<WaitForLayoutManager />
@@ -138,7 +139,7 @@
 	    </body>
 	</TestCase>
 
-	<TestCase testID="minimize_test3_WindowedApplicationSkin " keywords="[Window,minimize]" description="Minimize when minimized.  We must use Pause." >
+	<TestCase testID="minimize_test3_WindowedApplicationSkin" keywords="[Window,minimize]" description="Minimize when minimized.  We must use Pause." >
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete"/>
@@ -146,6 +147,7 @@
 	    <body>
 		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" />
 		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minimize()" waitTarget="windowObj" waitEvent="displayStateChange" />
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.minimize()" />
 		<WaitForLayoutManager />
