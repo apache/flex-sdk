@@ -186,7 +186,7 @@
 				
 				<SetStyle target="navigator.activeView.ds1.listContainer" styleName="skinClass" valueExpression="value=MySkin"/>
 				
-				<Pause timeout="3000"/>
+				<WaitForLayoutManager />
 				
 				<CompareBitmap url="../styles/baselines/" target="navigator.activeView.ds1" numColorVariances="10" ignoreMaxColorVariance="true">
 					

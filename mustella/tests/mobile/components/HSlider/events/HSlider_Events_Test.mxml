@@ -28,14 +28,6 @@
 	    </setup>
 	    <body>	   
 	    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
-	    	<CompareBitmap target="myHSlider" url="../events/baselines">
-				<ConditionalValue deviceDensity="160" os="win"/>
-				<ConditionalValue deviceDensity="240" os="android"/>
-				<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="ios" />
-							<ConditionalValue deviceDensity="160" os="qnx" />
-			</CompareBitmap>
-	    	
 			<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="myHSlider" />				
 		
 			<AssertEvent target="myHSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
@@ -112,24 +104,8 @@
 			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
 	    	<DispatchKeyEvent keys="[END]" waitEvent="change" waitTarget="myHSlider" />
 	    	<AssertPropertyValue target="myHSlider" propertyName="value" value="10" />	    	
-			<CompareBitmap target="myHSlider" url="../events/baselines">
-				<ConditionalValue deviceDensity="160" os="win"/>
-				<ConditionalValue deviceDensity="240" os="android"/>
-				<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="ios" />
-							<ConditionalValue deviceDensity="160" os="qnx" />
-			</CompareBitmap>
-		
 			<DispatchKeyEvent keys="[HOME]" waitEvent="change" waitTarget="myHSlider" />				
 			<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />	    	
-			<!--<CompareBitmap target="myHSlider">
-				<ConditionalValue deviceDensity="160" os="win" url="../events/baselines/testID_2"/>
-				<ConditionalValue deviceDensity="240" os="android" url="../events/baselines/testID_2"/>
-				<ConditionalValue deviceDensity="320" os="win" url="../events/baselines/testID_2"/>
-			
-							<ConditionalValue deviceDensity="320" os="ios" />
-							<ConditionalValue deviceDensity="160" os="qnx" />
-			</CompareBitmap>-->
 			<AssertEvent target="myHSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
 			<AssertEvent target="myHSlider" eventName="change" eventClass="flash.events::Event" />		
 	    </body>

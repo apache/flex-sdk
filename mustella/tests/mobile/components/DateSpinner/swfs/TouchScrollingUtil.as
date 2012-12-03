@@ -453,7 +453,7 @@ public static function dispatchMouseEvent(actualTarget:Object,
     //    root["topLevelSystemManager"][mouseY] = stagePt.y;
     //}
     
-    if (actualTarget is DisplayObjectContainer)
+    if (actualTarget is DisplayObjectContainer && actualTarget.stage != null)
     {
         var targets:Array = actualTarget.stage.getObjectsUnderPoint(stagePt);
         // SEJS: Removing Mustella specific context stuff for now so this static method

@@ -524,9 +524,9 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />	
-				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(1012,1,2)"  />
-				<Pause timeout="1000" /> 
+				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(1012,1,2)"  /> 
 				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2088,9,10) " waitEvent="valueCommit"/>
+				<WaitForLayoutManager />
 			</setup>
 			<body>		
 				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(1601,0,1) "/>

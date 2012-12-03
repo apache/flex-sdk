@@ -73,7 +73,7 @@
                 
                 <ChangeState changeTarget="navigator.activeView" toState="secondSt" 
                              waitTarget="navigator.activeView" waitEvent="stateChangeComplete" />
-                <Pause timeout="3000"/>
+                <WaitForLayoutManager />
 				<AssertPropertyValue target="navigator.activeView" propertyName="currentState" 
 									 valueExpression="value='secondSt'" />
 				

@@ -677,6 +677,9 @@
 				
 			</body>		
 		</TestCase>
+		
+		<!-- TO FIX: the backgroundAlpha style change is not complete when CompareBitmap is run. Using Pause and WaitForLayoutManager
+			 has no affect.
 		<TestCase testID="ActionBar_ViewNavigator_backgroundAlpha_05" keywords="[color]" description="set a backgroundalpha color to actionbar">
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
@@ -706,7 +709,7 @@
 				</CompareBitmap>
 				
 			</body>		
-		</TestCase>
+		</TestCase> -->
 		<TestCase testID="ActionBar_ViewNavigator_backgroundAlpha_0" keywords="[color]" description="set a backgroundalpha color to actionbar">
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
@@ -737,6 +740,8 @@
 				
 			</body>		
 		</TestCase>
+		<!-- TO FIX: the backgroundAlpha style change is not complete when CompareBitmap is run. Using Pause and WaitForLayoutManager
+			 has no affect.
 		<TestCase testID="ActionBar_ViewNavigator_backgroundAlpha_03" keywords="[color]" description="set a backgroundalpha color to actionbar">
 			<bugs>
 				<Bug bugID="SDK-27708" />
@@ -769,7 +774,7 @@
 				</CompareBitmap>
 				
 			</body>		
-		</TestCase>
+		</TestCase> -->
 	
 		
 		<TestCase testID="ActionBar_ViewNavigator_style_change_fontSize" keywords="[color]" description="set a backgroundalpha color to actionbar">

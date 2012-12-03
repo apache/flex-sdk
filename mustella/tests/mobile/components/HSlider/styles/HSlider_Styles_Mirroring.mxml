@@ -111,6 +111,7 @@
 				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="hs" />	
 				<AssertPropertyValue target="hs" propertyName="value" value="5" />	    					
 				<DispatchKeyEvent keys="[LEFT]" waitEvent="change" waitTarget="hs" />	
+				<Pause timeout="300" />
 				<AssertPropertyValue target="hs" propertyName="value" value="10" />				
 				<CompareBitmap target="myPanel" url="../styles/baselines" numColorVariances="5">
 					<ConditionalValue deviceDensity="160" os="win"/>
