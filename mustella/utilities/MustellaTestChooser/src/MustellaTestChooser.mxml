@@ -104,6 +104,7 @@ limitations under the License.
 					//trace(runTests[i]);
 					s += runTests[i].substr(7) + "\n"; // clip leading '/tests/'
 				}
+				s = s.replace(/\\/g, "/"); 
 				output.text = s;
 				doneLabel.visible = true;
 				var f:File = new File(dirFile.nativePath + "/" + "changes.txt");
