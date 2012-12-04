@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" layout="vertical" >
+  
+    <mx:Style source="../../../../Assets/Fonts/MyStyles.css" />
+ 
+    <mx:Script>
+    <![CDATA[
+
+    ]]>
+    </mx:Script>
+    <mx:Canvas id="box" width="100%" height="100%">
+        <CustomADG id="myCustomADG"/>
+    </mx:Canvas>
+    <mx:TextInput id="ti"/> 
+</mx:Application>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" layout="vertical" height="700" width="850"  >
+
+    <mx:Style source="../../../../Assets/Fonts/MyStyles.css" />
+	
+    <mx:XMLList id="comps"  xmlns="">
+    <companylist>
+        <Company>AalishaanSoft</Company>
+        <Quarter> 1 </Quarter>
+        <India>34 million</India>
+        <Veeranistan>1.5 million</Veeranistan>
+        <Pareestan>5 million</Pareestan>
+        <Licenses>321475987</Licenses>
+    </companylist>
+    <companylist>
+        <Company>MughaleAzamSoft</Company>
+        <Quarter> 1 </Quarter>
+        <India>3.4 million</India>
+        <Veeranistan>2 million</Veeranistan>
+        <Pareestan>5.4 million</Pareestan>
+        <Licenses>321475987</Licenses>
+    </companylist>
+    <companylist>
+        <Company>SheeshMahalSoft</Company>
+        <Quarter> 1 </Quarter>
+        <India>45 million</India>
+        <Veeranistan>15 million</Veeranistan>
+        <Pareestan>5.1 million</Pareestan>
+        <Licenses>321745987</Licenses>
+    </companylist>
+    <companylist>
+        <Company>AjnabeeSoft</Company>  
+        <Quarter> 1 </Quarter> 
+        <India>14 million</India>
+        <Veeranistan>11 million</Veeranistan> 
+        <Pareestan>5.7 million</Pareestan>
+        <Licenses>321479587</Licenses>
+    </companylist>
+   </mx:XMLList>
+
+    <mx:Canvas id="box" width="100%" height="100%">
+        <mx:AdvancedDataGrid id="mydatagrid" />
+    </mx:Canvas>
+    <mx:TextInput id="ti"/>
+</mx:Application>

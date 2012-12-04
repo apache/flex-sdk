@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300">
+    <mx:Style source="../../../../Assets/Fonts/MyStyles.css" />
+	<mx:Script>
+		<![CDATA[
+			override public function set data(value:Object):void
+			{
+				str = "Kaashif";
+				super.data = value;
+			}
+			
+			[Bindable]
+			private var str:String = "";
+		]]>
+	</mx:Script>
+    <mx:TextArea id="klabel" text="{str}"/>
+</mx:Canvas>
