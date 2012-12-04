@@ -49,6 +49,7 @@ import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.TouchInteractionEvent;
+import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
 import mx.styles.IStyleClient;
 
@@ -2143,10 +2144,12 @@ public class Scroller extends SkinnableComponent
     {
         super.focusInHandler(event);
         
+		var fm:IFocusManager = focusManager;
+		
         // When we gain focus, make sure the focused element is visible
-        if (viewport && ensureElementIsVisibleForSoftKeyboard)
+        if (fm && viewport && ensureElementIsVisibleForSoftKeyboard)
         {
-            var elt:IVisualElement = focusManager.getFocus() as IVisualElement; 
+            var elt:IVisualElement = fm.getFocus() as IVisualElement; 
             lastFocusedElement = elt;
         }
     }
