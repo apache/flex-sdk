@@ -173,7 +173,7 @@ public class MobileConfigWriter {
 				// if the target OS is android or iOS, the device_name might not be a real device but mac or win, indicating a desktop
 				// emulator. If that's the case, treat this the same as above. 
 				else if((target_os.compareToIgnoreCase(MobileUtil.ANDROID) == 0) || (target_os.compareToIgnoreCase(MobileUtil.IOS) == 0)) {
-					if( (device_name.compareToIgnoreCase(MobileUtil.MAC) == 0 ) || (device_name.compareToIgnoreCase(MobileUtil.WIN2) == 0) ) {
+					if( (device_name.compareToIgnoreCase(MobileUtil.MAC) == 0 ) || (device_name.compareToIgnoreCase(MobileUtil.WIN) == 0) ) {
 						if( adl_extras_XscreenDPI == -1 ){
 							ret += "		UnitTester.cv.deviceDensity = flash.system.Capabilities.screenDPI;\n";
 						}else{
