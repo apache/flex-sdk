@@ -1,14 +1,39 @@
-Apache Flex 4.8.0
+Apache Flex 4.9.0
 =================
 
-This is a parity release with Adobe Flex 4.6.0.
+This is first release after the Adobe Flex 4.8.0 parity release.
 
 The official Apache distribution is the source kit which can contain only source.
 Because of this, and various licensing constraints, there must be a few differences.  
 
 ====> Please see the README, especially the "Install Prerequisites" section. <====
   
-  Differences:
+  Differences from Apache Flex 4.8.0:
+  - New locales for Apache Flex including Australian, British, Canadian, Greek, Switzerland (German) and Portuguese
+  - Apache Flex SDK can can be compiled for any version of the Flash Player from 10.2 to 11.5
+  - New PostCodeFormatter and PostCodeValidator classes for international postcode formatting and validation
+  - New VectorList and VectorCollection classes for lists and collections of vectors
+  - New version of the TLF (Text Layout Framework), the TLF 3.0.33 source code is now included
+  - Can use Java 7 to compile SDK (see README for instructions)
+  - Many improvements and updates to Mustella tests
+  - A SDK installer has also been created and is the recommended way of installing the Apache Flex SDK in an IDE.
+    For more information see http://incubator.apache.org/flex/installer.html
+  
+  Several bug have also been fixed including (but not limited to):
+  FLEX-33272 A #1010 error occurred while trying to hide columns of an AdvancedDataGrid having lockedColumnCount
+             greater than 0
+  FLEX-33263 FocusOut in datagrid causes RTE if target.parent is null
+  FLEX-33248 Spark GridItemEditor cannot edit nested properties
+  FLEX-33216 Chart initialization performance degradation between Flex 3 and Flex 4
+  FLEX-33110 Building the SDK with Java 7
+  FLEX-29002 RunTime Error #1009 at mx.managers::PopUpManagerImpl/addModalPopUpAccessibility() when displaying more
+             than one modal popup via PopUpManager on top of each other. On Windows 7 running on some PCs
+  FLEX-28982 DropDownController - Null Object Reference
+  FLEX-27758 Keyboard navigation stops working in mx:DataGrid
+  
+  For a full list see https://issues.apache.org/jira/browse/FLEX
+  
+  Differences from Adobe Flex 4.6.0:
   
   - BlazeDS integration is an optional feature (Adobe license)
   - Adobe embedded font support is an optional feature  
