@@ -60,10 +60,6 @@
     </include-classes>
     
     <include-file>
-        <name>version.properties</name>
-        <path>../../version.properties</path>
-    </include-file>
-    <include-file>
         <name>defaults.css</name>
         <path>defaults.css</path>
     </include-file>
