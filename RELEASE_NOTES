@@ -49,9 +49,6 @@ Because of this, and various licensing constraints, there must be a few differen
   - the frameworks/rsls directory contains unsigned RSL for libraries we build
     
   - the frameworks/osmf src is not included which means there is not an osmf RSL.  
-
-  - the frameworks/textLayout src is not included which means there is not a textLayout 
-    RSL.  We expect this difference to be limited to this release.
   
   - the ASDoc in the asdoc package no longer has active links for Adobe Flash,
     Adobe Air, the Open Source Media Framework (OSMF) or Text Layout Format (TLF).
