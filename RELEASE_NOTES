@@ -10,13 +10,14 @@ Because of this, and various licensing constraints, there must be a few differen
   
   Differences from Apache Flex 4.8.0:
   - New locales for Apache Flex including Australian, British, Canadian, Greek, Switzerland (German) and Portuguese
-  - Apache Flex SDK can can be compiled for any version of the Flash Player from 10.2 to 11.5
+  - Apache Flex SDK can be compiled for any version of the Flash Player from 10.2 to 11.5
   - New PostCodeFormatter and PostCodeValidator classes for international postcode formatting and validation
   - New VectorList and VectorCollection classes for lists and collections of vectors
-  - New version of the TLF (Text Layout Framework), the TLF 3.0.33 source code is now included
+  - New version of the TLF (Text Layout Framework), the TLF 3.0.33 source code is now included as it is nor part
+    of the Apache Flex donation.
   - Can use Java 7 to compile SDK (see README for instructions)
   - Many improvements and updates to Mustella tests
-  - A SDK installer has also been created and is the recommended way of installing the Apache Flex SDK in an IDE.
+  - An SDK installer has also been created and is the recommended way of installing the Apache Flex SDK in an IDE.
     For more information see http://incubator.apache.org/flex/installer.html
   
   Several bug have also been fixed including (but not limited to):
