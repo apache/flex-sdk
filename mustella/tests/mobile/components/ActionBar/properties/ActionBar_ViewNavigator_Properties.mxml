@@ -132,7 +132,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar" />
-				<Pause timeout="300" />
+				<WaitForLayoutManager />
 				<SetProperty target="navigator.actionBar" propertyName="height" value="93" waitEvent="updateComplete"/>
 				
 			</setup>
@@ -215,7 +215,7 @@
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=horizontal" waitEvent="updateComplete"/>
 				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
-				
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingLeft" value="0"/>
@@ -237,6 +237,7 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="title" value="éàç 1234567890 日本語" waitTarget="navigator.actionBar" waitEvent="updateComplete"/> 
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<AssertPropertyValue target="navigator.actionBar" propertyName="title" value="éàç 1234567890 日本語"/>
@@ -257,7 +258,7 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>		
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="title" value="" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
-				
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<AssertPropertyValue target="navigator.actionBar" propertyName="title" value=""/>
@@ -278,6 +279,7 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>			
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="title" value="c" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<AssertPropertyValue target="navigator.actionBar" propertyName="title" value="c"/>
@@ -299,6 +301,7 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="title" value="thisisaverylongtitlestringbecareful" waitEvent="updateComplete"/>
+				<WaitForLayoutManager />
 				
 			</setup>
 			<body>
@@ -321,6 +324,7 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="title" value="{arr}" waitEvent="updateComplete"/>
+				<WaitForLayoutManager />
 				
 			</setup>
 			<body>
@@ -342,6 +346,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>								
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.actionBar.title='xhellox'" waitTarget="navigator" waitEvent="updateComplete"/>
+				<WaitForLayoutManager />
 				
 			</setup>
 			<body>
@@ -388,6 +393,7 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" value="[]" waitEvent="updateComplete"/>
+				<WaitForLayoutManager />
 				
 			</setup>
 			<body>
@@ -408,6 +414,7 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=emptyArray" waitEvent="updateComplete"/>
+				<WaitForLayoutManager />
 				
 			</setup>
 			<body>
@@ -428,6 +435,7 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=oneEArray" waitEvent="updateComplete"/>
+				<WaitForLayoutManager />
 				
 			</setup>
 			<body>
@@ -473,6 +481,7 @@
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=manyEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
 			
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<AssertPropertyValue target="navigator.actionBar.titleContent" propertyName="length" value="4" />
@@ -494,6 +503,7 @@
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=imgArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
 				
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<Pause timeout="300" />
@@ -1051,7 +1061,7 @@
 					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
 					<Pause timeout="300" />
 					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=twoEArray" waitTarget="navigator.actionBar"/>
-					<Pause timeout="300" />
+					<WaitForLayoutManager />
 				</setup>
 				<body>
 					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="2" />
@@ -1074,7 +1084,7 @@
 					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
 					<Pause timeout="300" />
 					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=manyEArray" waitTarget="navigator.actionBar"/>
-					<Pause timeout="300" />
+					<WaitForLayoutManager />
 				</setup>
 				<body>
 					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="4" />
@@ -1095,7 +1105,7 @@
 					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
 					<Pause timeout="300" />
 					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=imgArray" waitTarget="navigator.actionBar"/>
-					<Pause timeout="300" />
+					<WaitForLayoutManager />
 				</setup>
 				<body>
 					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="2" />
@@ -1115,8 +1125,8 @@
 					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
 					<Pause timeout="300" />
-					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=mobileArray" waitTarget="navigator.actionBar" />
-					<Pause timeout="300" />
+					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=mobileArray" waitTarget="navigator.actionBar" waitEvent="updateComplete" />
+					<WaitForLayoutManager />
 				</setup>
 				<body>
 					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="1" />
@@ -1137,7 +1147,7 @@
 					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
 					<Pause timeout="300" />
 					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=graphArray" waitTarget="navigator.actionBar"/>
-					<Pause timeout="300" />
+					<WaitForLayoutManager />
 				</setup>
 				<body>
 					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="2" />
@@ -1225,7 +1235,7 @@
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=manyEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationLayout" valueExpression="value=tile" />
-				<Pause timeout="300" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
@@ -1245,7 +1255,7 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
 				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationLayout" valueExpression="value=basic" />
-				<Pause timeout="300" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
