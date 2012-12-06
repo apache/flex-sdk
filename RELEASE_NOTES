@@ -13,7 +13,7 @@ Because of this, and various licensing constraints, there must be a few differen
   - Apache Flex SDK can be compiled for any version of the Flash Player from 10.2 to 11.5
   - New PostCodeFormatter and PostCodeValidator classes for international postcode formatting and validation
   - New VectorList and VectorCollection classes for lists and collections of vectors
-  - New version of the TLF (Text Layout Framework), the TLF 3.0.33 source code is now included as it is nor part
+  - New version of the TLF (Text Layout Framework), the TLF 3.0.33 source code is now included as it is now part
     of the Apache Flex donation.
   - Can use Java 7 to compile SDK (see README for instructions)
   - Many improvements and updates to Mustella tests
