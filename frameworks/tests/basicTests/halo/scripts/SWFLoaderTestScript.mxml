@@ -51,7 +51,7 @@
 		</TestCase>
 		<TestCase testID="SWFLoaderTest1">
 			<body>
-				<AssertPixelValue target="haloSWFLoaderTests.testLoader" x="10" y="10" value="0x0066CC" />
+				<AssertPixelValue target="haloSWFLoaderTests.testLoader" x="10" y="10" value="0xFF9933" />
 			</body>
 		</TestCase>
 	</testCases>

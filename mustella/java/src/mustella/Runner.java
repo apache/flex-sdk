@@ -338,6 +338,7 @@ public class Runner {
 		}
 
 		try {
+			System.out.println ("Step Timeout: " + System.getProperty ("step_timeout"));
 			step_timeout = Long.parseLong (System.getProperty ("step_timeout"));
 			if (step_timeout < 1000)
 				step_timeout = step_timeout*1000;
@@ -623,7 +624,7 @@ public class Runner {
 					break;
 			}
 
-			// System.out.println ("RUNNER HAS THIS TO DO: " + args[0]);
+			System.out.println ("RUNNER HAS THIS TO DO: " + args[i]);
 
 
 			seenEnd = false;
@@ -1093,6 +1094,7 @@ public class Runner {
 
 
     	public static String normalizeDirOS(String dir, boolean apollo_adjust) {
+			System.out.println ("normalizeDirOS: " + dir);
        		if (dir==null) dir=".";
        	 	try {
             		dir=new File(dir).getCanonicalPath();
@@ -1665,6 +1667,8 @@ public class Runner {
 				String [] whatever = {""};
 				lastTestCaseStart = "";
 				seenEnd = false;
+				
+				try { Thread.sleep (1000); } catch (Exception e) { }
 
 				if(!getResultsFromLog)
 					manageMetaTimer("process start");

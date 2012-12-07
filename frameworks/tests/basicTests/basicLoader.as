@@ -33,8 +33,8 @@ public class basicLoader extends MovieClip
 		super();
 		
 		text = new TextField();
-		text.width = stage.stageWidth;
-		text.height = stage.stageHeight;
+		text.width = 176;
+		text.height = 81;
 		
 		var tf:TextFormat;
 		tf = new TextFormat;
