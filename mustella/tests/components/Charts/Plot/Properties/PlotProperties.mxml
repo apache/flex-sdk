@@ -418,7 +418,7 @@
                 <RunCode code="MultipleAxesUtils.AxisRenderers('axisAtSeries', application.comp)" waitEvent="updateComplete" waitTarget="comp"/>            
             </setup>
             <body>
-                <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_axisAtSeriesLevel.png" />
+                <CompareBitmap target="comp" url="../Properties/Baselines/PlotSeries_axisAtSeriesLevel.png" ignoreMaxColorVariance="true" numColorVariances="25" />
             </body> 
         </TestCase>
     </testCases>
