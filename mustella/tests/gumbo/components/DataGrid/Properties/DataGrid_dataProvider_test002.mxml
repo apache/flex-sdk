@@ -130,9 +130,9 @@
             <body>
             	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg7.requireSelection" value="true" />
             	<RunCode code="FlexGlobals.topLevelApplication.insertItems(FlexGlobals.topLevelApplication.dg7,0)"/>
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-            	 <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg7" />
-            
+		        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            	<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg7" />
+            	<CompareBitmap url="../Properties/baselines/$testID_label7.png" numColorVariances="20" maxColorVariance="20"  target="label7" />
            </body>
         </TestCase>
  	<TestCase testID="dataProvider_columnNodata_test1" keywords="[DataGrid, Property, dataProvider]" description="dataGrid has a column not data mapping">

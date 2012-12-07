@@ -52,7 +52,6 @@
         <bundle>collections</bundle>
         <bundle>components</bundle>
         <bundle>sparkEffects</bundle>
-        <bundle>textLayout</bundle>
         <bundle>osmf</bundle>
     </include-resource-bundles>
         

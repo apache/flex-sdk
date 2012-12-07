@@ -86,9 +86,9 @@
     -->
     
     <target name="compile" description="Builds all SWCs but not their resource bundles" depends="flex-config">
-        <antcall target="textLayout"/>
         <antcall target="framework"/>
         <antcall target="mx"/>
+        <antcall target="textLayout"/>
         <antcall target="rpc"/>
         <antcall target="charts"/>
         <antcall target="advancedgrids"/>
@@ -164,9 +164,9 @@
     </target>
     
     <target name="other.locales" description ="Builds resource SWCs for all locales">
-        <ant dir="${basedir}/projects/textLayout" target="other.locales"/>
         <ant dir="${basedir}/projects/framework" target="other.locales"/>
         <ant dir="${basedir}/projects/mx" target="other.locales"/>
+        <ant dir="${basedir}/projects/textLayout" target="other.locales"/>
         <ant dir="${basedir}/projects/airframework" target="other.locales"/>
         <ant dir="${basedir}/projects/airspark" target="other.locales"/>
         <ant dir="${basedir}/projects/rpc" target="other.locales"/>
@@ -185,9 +185,9 @@
     </target>
     
     <target name="doc" >
-        <ant dir="${basedir}/projects/textLayout" target="doc" />
         <ant dir="${basedir}/projects/framework" target="doc" />
         <ant dir="${basedir}/projects/mx" target="doc" />
+        <ant dir="${basedir}/projects/textLayout" target="doc" />
         <ant dir="${basedir}/projects/rpc" target="doc" />
         <ant dir="${basedir}/projects/charts" target="doc" />
         <ant dir="${basedir}/projects/advancedgrids" target="doc" />
@@ -206,7 +206,7 @@
         <!--
         <ant dir="${basedir}/projects/automation" target="doc" />
         -->
-    	<ant dir="${basedir}/projects/apache" target="doc" />
+        <ant dir="${basedir}/projects/apache" target="doc" />
     	<ant dir="${basedir}/projects/experimental" target="doc" />
     </target>
    

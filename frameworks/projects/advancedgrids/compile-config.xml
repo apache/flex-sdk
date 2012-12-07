@@ -26,7 +26,6 @@
             <path-element>../../libs/framework.swc</path-element>
             <path-element>../../libs/mx/mx.swc</path-element>
             <path-element>../../libs/rpc.swc</path-element>
-            <path-element>../../libs/textLayout.swc</path-element>
         </external-library-path>
         
         <locale/>

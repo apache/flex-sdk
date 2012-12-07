@@ -19,224 +19,224 @@
 -->
 <UnitTester testDir="gumbo/components/DataGrid/Interaction/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGrid_basic_001.mxml">
 
-	<!-- this set of lines form a template that must be in each unit test -->
-	<mx:Script>
-	<![CDATA[
-	public static function init(o:DisplayObject):void
-	{
-	}					
-	]]>
-	</mx:Script>
-	<mx:Metadata>
-	<![CDATA[
-		[Mixin]
-	]]>
-	</mx:Metadata>	
-	<!-- end of set of lines that must be in each unit test -->
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
 
-	<mx:Script>
-	<![CDATA[
+    <mx:Script>
+    <![CDATA[
 
-    		import mx.utils.ObjectUtil;
-    		
-		import spark.components.DataGrid;
-		import spark.components.Grid;
-		
-		import mx.core.FlexGlobals;
-		import flash.events.MouseEvent;
-		
-		import spark.components.gridClasses.GridColumn;
-		import spark.components.gridClasses.GridSelectionMode;
-		import spark.components.gridClasses.GridSelection;
-		import components.*;
-		
-		public var grid:Grid;
-		
+        import mx.utils.ObjectUtil;
+            
+        import spark.components.DataGrid;
+        import spark.components.Grid;
+        
+        import mx.core.FlexGlobals;
+        import flash.events.MouseEvent;
+        
+        import spark.components.gridClasses.GridColumn;
+        import spark.components.gridClasses.GridSelectionMode;
+        import spark.components.gridClasses.GridSelection;
+        import components.*;
+        
+        public var grid:Grid;
+        
 
-		
-	]]>
-	</mx:Script>
-	
-	<testCases>
+        
+    ]]>
+    </mx:Script>
+    
+    <testCases>
 
         <TestCase testID="key_MC_Down_test01" keywords="['key,DOWN']" description="Test key down on datagrid under multiple_cells selection mode">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-            	<!-- move the focus on the first cell -->
-            	<RunCode code="grid.caretRowIndex=0"/>
-            	<RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first cell -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                 <DispatchKeyEvent keys="[DOWN]" waitTarget="dataGrid"  waitEvent="enterFrame" />
-             	<AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>	
-		<AssertMethodValue method="value=grid.caretRowIndex" value="1"/>
-		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="1" />
- 				
+                <AssertMethodValue method="value=grid.caretColumnIndex" value="0"/> 
+        <AssertMethodValue method="value=grid.caretRowIndex" value="1"/>
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="1" />
+                
             </body>
         </TestCase>
         
         <TestCase testID="key_MC_Down_test02" keywords="['key,DOWN']" description="Test key down on datagrid under multiple_cells selection mode">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-            	<!-- move the focus on the last row/page -->
-            	<RunCode code="grid.caretRowIndex=10"/>
-            	<RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the last row/page -->
+                <RunCode code="grid.caretRowIndex=10"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                 <DispatchKeyEvent keys="[DOWN]" waitTarget="dataGrid"  waitEvent="enterFrame"/>
-		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="1" />
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="11"/>
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="1" />
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="11"/>
             </body>
         </TestCase>
         <TestCase testID="key_MC_Down_test03" keywords="['key,DOWN']" description="Test key down on datagrid under multiple_cells selection mode">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-            	<!-- move the focus on the last row/cell/page -->
-            	<RunCode code="grid.caretRowIndex=99"/>
-            	<RunCode code="grid.caretColumnIndex=4"/>
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99)" waitEvent="enterFrame"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the last row/cell/page -->
+                <RunCode code="grid.caretRowIndex=99"/>
+                <RunCode code="grid.caretColumnIndex=4"/>
+        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99)" waitEvent="enterFrame"/>
                 <DispatchKeyEvent keys="[DOWN]" waitTarget="dataGrid"  waitEvent="enterFrame"/>
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="99"/>
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="99"/>
             </body>
         </TestCase>
         
         <TestCase testID="key_MC_Up_test01" keywords="['key,UP']" description="Test key up on datagrid under multiple_cells selection mode">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-            	<!-- move the focus on the last row/cell/page -->
-            	<RunCode code="grid.caretRowIndex=99"/>
-            	<RunCode code="grid.caretColumnIndex=4"/>
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99)" waitEvent="enterFrame"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the last row/cell/page -->
+                <RunCode code="grid.caretRowIndex=99"/>
+                <RunCode code="grid.caretColumnIndex=4"/>
+        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99)" waitEvent="enterFrame"/>
                 <DispatchKeyEvent keys="[UP]" waitTarget="dataGrid"  waitEvent="enterFrame" />
-             	
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="98"/>
+                
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="98"/>
             </body>
         </TestCase>
 
         <TestCase testID="key_MC_Up_test02" keywords="['key,UP']" description="Test key up on datagrid under multiple_cells selection mode">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-            	<!-- move the focus on the first row/cell/page -->
-            	<RunCode code="grid.caretRowIndex=0"/>
-            	<RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first row/cell/page -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                 <DispatchKeyEvent keys="[UP]" waitTarget="dataGrid"  waitEvent="enterFrame" />
-             	
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
+                
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
             </body>
         </TestCase>
 
         <TestCase testID="key_MC_Up_test03" keywords="['key,UP']" description="Test key up on datagrid under multiple_cells selection mode">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-            	 
-            	<RunCode code="grid.caretRowIndex=12"/>
-            	<RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                 
+                <RunCode code="grid.caretRowIndex=12"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                 <DispatchKeyEvent keys="[UP]" waitTarget="dataGrid" waitEvent="enterFrame" />
-             	
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="11"/>
+                
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="11"/>
             </body>
         </TestCase>
         
          <TestCase testID="key_MC_Left_test01" keywords="['key,LEFT']" description="Test key LEFT on datagrid under multiple_cells selection mode">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-            	<!-- move the focus on the first row/cell/page -->
-            	<RunCode code="grid.caretRowIndex=0"/>
-            	<RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first row/cell/page -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                 <DispatchKeyEvent keys="[LEFT]" waitTarget="dataGrid"  waitEvent="enterFrame" />
-             	
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
+                
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
             </body>
         </TestCase>       
         
          <TestCase testID="key_MC_Left_test02" keywords="['key,LEFT']" description="Test key LEFT on datagrid under multiple_cells selection mode">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-            	<!-- move the focus on the last cell/page -->
-            	<RunCode code="grid.caretRowIndex=0"/>
-            	<RunCode code="grid.caretColumnIndex=4"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the last cell/page -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=4"/>
                 <DispatchKeyEvent keys="[LEFT]" waitTarget="dataGrid"  waitEvent="enterFrame" />
-             	
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="3"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
+                
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="3"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
             </body>
         </TestCase>   
  
           <TestCase testID="key_MC_Left_test03" keywords="['key,LEFT']" description="Test key LEFT on datagrid under multiple_cells selection mode">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the last cell/page -->
-             	<RunCode code="grid.caretRowIndex=0"/>
-             	<RunCode code="grid.caretColumnIndex=1"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the last cell/page -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=1"/>
                 <DispatchKeyEvent keys="[LEFT, LEFT]" waitTarget="dataGrid"  waitEvent="enterFrame" />
-              	
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
+                
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
              </body>
         </TestCase>  
         
@@ -244,20 +244,20 @@
           <TestCase testID="key_MC_Right_test01" keywords="['key,RIGHT']" description="Test key RIGHT on datagrid under multiple_cells selection mode">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first cell/page -->
-             	<RunCode code="grid.caretRowIndex=0"/>
-             	<RunCode code="grid.caretColumnIndex=4"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first cell/page -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=4"/>
                 <DispatchKeyEvent keys="[RIGHT]" waitTarget="dataGrid"  waitEvent="keyUp" />
-              	
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
+                
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
              </body>
         </TestCase> 
         
@@ -265,240 +265,240 @@
           <TestCase testID="key_MC_Right_test02" keywords="['key,RIGHT']" description="Test key RIGHT on datagrid under multiple_cells selection mode">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first cell/page -->
-             	<RunCode code="grid.caretRowIndex=0"/>
-             	<RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first cell/page -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                 <DispatchKeyEvent keys="[RIGHT,RIGHT,RIGHT]" waitTarget="dataGrid"  waitEvent="enterFrame" />
-              	
- 		<AssertMethodValue method="value=grid.caretColumnIndex" value="3"/>
- 		<AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
+                
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="3"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
              </body>
         </TestCase> 
 
           <TestCase testID="key_MC_Right_test03" keywords="['key,RIGHT']" description="Test key RIGHT on datagrid under multiple_cells selection mode">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first cell/page -->
-             	<RunCode code="grid.caretRowIndex=99"/>
-             	<RunCode code="grid.caretColumnIndex=4"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first cell/page -->
+                <RunCode code="grid.caretRowIndex=99"/>
+                <RunCode code="grid.caretColumnIndex=4"/>
                 <DispatchKeyEvent keys="[RIGHT]" waitTarget="dataGrid"  waitEvent="keyUp" />
-              	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99)" waitEvent="enterFrame"/>
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="99"/>
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99)" waitEvent="enterFrame"/>
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="99"/>
              </body>
         </TestCase> 
 
           <TestCase testID="key_cell_Home_test01" keywords="['key,Home']" description="Test key Home on datagrid under multiple_cells selection mode">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first cell/page -->
-             	<RunCode code="grid.caretRowIndex=99"/>
-             	<RunCode code="grid.caretColumnIndex=4"/>
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99)" waitEvent="enterFrame"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first cell/page -->
+                <RunCode code="grid.caretRowIndex=99"/>
+                <RunCode code="grid.caretColumnIndex=4"/>
+        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99)" waitEvent="enterFrame"/>
                 <DispatchKeyEvent keys="[HOME]" waitTarget="dataGrid"  waitEvent="enterFrame" />
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
              </body>
         </TestCase> 
           <TestCase testID="key_cell_Home_test02" keywords="['key,Home']" description="Test key Home on datagrid under multiple_cells selection mode">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first cell/page -->
-             	<RunCode code="grid.caretRowIndex=0"/>
-             	<RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first cell/page -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                 <DispatchKeyEvent keys="[HOME]" waitTarget="dataGrid"  waitEvent="keyUp" />
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
              </body>
         </TestCase>
 
           <TestCase testID="key_cell_Home_test03" keywords="['key,Home']" description="Test key Home on datagrid under multiple_cells selection mode">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first cell/page -->
-             	<RunCode code="grid.caretRowIndex=50"/>
-             	<RunCode code="grid.caretColumnIndex=0"/>
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(50)" waitEvent="enterFrame"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first cell/page -->
+                <RunCode code="grid.caretRowIndex=50"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
+        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(50)" waitEvent="enterFrame"/>
                 <DispatchKeyEvent keys="[HOME]" waitTarget="dataGrid"  waitEvent="enterFrame"/>
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
              </body>
         </TestCase>
           <TestCase testID="key_cell_End_test01" keywords="['key,End']" description="Test key End on datagrid under multiple_cells selection mode">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first cell/page -->
-             	<RunCode code="grid.caretRowIndex=99"/>
-             	<RunCode code="grid.caretColumnIndex=4"/>
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99)" waitEvent="enterFrame"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first cell/page -->
+                <RunCode code="grid.caretRowIndex=99"/>
+                <RunCode code="grid.caretColumnIndex=4"/>
+        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99)" waitEvent="enterFrame"/>
                 <DispatchKeyEvent keys="[END]" waitTarget="dataGrid"  waitEvent="enterFrame" />
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="99"/>
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="99"/>
              </body>
         </TestCase> 
           <TestCase testID="key_cell_End_test02" keywords="['key,End']" description="Test key End on datagrid under multiple_cells selection mode">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first cell/page -->
-             	<RunCode code="grid.caretRowIndex=0"/>
-             	<RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first cell/page -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                 <DispatchKeyEvent keys="[END]" waitTarget="dataGrid"  waitEvent="enterFrame" />
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="99"/>
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="99"/>
              </body>
         </TestCase>
 
           <TestCase testID="key_cell_End_test03" keywords="['key,End']" description="Test key End on datagrid under multiple_cells selection mode">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first cell/page -->
-             	<RunCode code="grid.caretRowIndex=50"/>
-             	<RunCode code="grid.caretColumnIndex=0"/>
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(50)" waitEvent="enterFrame"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first cell/page -->
+                <RunCode code="grid.caretRowIndex=50"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
+        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(50)" waitEvent="enterFrame"/>
                 <DispatchKeyEvent keys="[END]" waitTarget="dataGrid"  waitEvent="enterFrame" />
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="99"/>
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="99"/>
              </body>
         </TestCase>
-          	 
+             
         <TestCase testID="key_MC_shift_test01" keywords="['key,shiftKey']" description="Test shiftkey navigation on dataGrid">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-            	<!-- move the focus on the first row -->
-            	<RunCode code="grid.caretRowIndex=0"/>
-            	<RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first row -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                 <DispatchKeyEvent keys="[RIGHT,RIGHT]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
-             	<!-- verify the first, second row are selected -->
-             	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="3" />
-		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,1,2)" value="true"/>		
+                <!-- verify the first, second row are selected -->
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="3" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,1,2)" value="true"/>      
             </body>
         </TestCase>
  
         <TestCase testID="key_MC_shift_test02" keywords="['key,shiftKey']" description="Test shiftkey navigation on dataGrid">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-            	<!-- move the focus on the first row -->
-            	<RunCode code="grid.caretRowIndex=0"/>
-            	<RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first row -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                 <DispatchKeyEvent keys="[RIGHT,RIGHT,DOWN]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
-             	<!-- verify the first, second row are selected -->
-             	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="6" />
-		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,2,2)" value="true"/>		
+                <!-- verify the first, second row are selected -->
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="6" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,2,2)" value="true"/>      
             </body>
         </TestCase>
  
          <TestCase testID="key_MC_shift_test03" keywords="['key,shiftKey']" description="Test shiftkey navigation on dataGrid">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first row -->
-             	<RunCode code="grid.caretRowIndex=0"/>
-             	<RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first row -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                  <DispatchKeyEvent keys="[RIGHT,RIGHT,DOWN, LEFT]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
-              	<!-- verify the first, second row are selected -->
-              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="4" />
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,2,1)" value="true"/>		
+                <!-- verify the first, second row are selected -->
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="4" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,2,1)" value="true"/>      
              </body>
         </TestCase>
         
          <TestCase testID="key_MC_shift_test04" keywords="['key,shiftKey']" description="Test shiftkey navigation on dataGrid">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first row -->
-             	<RunCode code="grid.caretRowIndex=0"/>
-             	<RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first row -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                  <DispatchKeyEvent keys="[RIGHT,RIGHT,DOWN]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame"/>
-              	<!-- verify the first, second row are selected -->
-              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="6" />
-		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,2,2)" value="true"/>		
+                <!-- verify the first, second row are selected -->
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="6" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,2,2)" value="true"/>      
                 <DispatchKeyEvent keys="[LEFT,UP,RIGHT]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
                 <AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
                 <AssertMethodValue method="value=grid.caretColumnIndex" value="2"/>
-		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="3" />
-		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,1,2)" value="true"/>		
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="3" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,1,2)" value="true"/>      
                
            </body>
         </TestCase>
@@ -506,18 +506,18 @@
          <TestCase testID="key_MC_shift_test05" keywords="['key,shiftKey']" description="Test shiftkey navigation on dataGrid">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first row -->
-             	<RunCode code="grid.caretRowIndex=0"/>
-             	<RunCode code="grid.caretColumnIndex=0"/>
-		<!-- set cellRegion -->
-             	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectCellRegion(0,0,2,3)" value="true" />
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first row -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
+        <!-- set cellRegion -->
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectCellRegion(0,0,2,3)" value="true" />
                 <DispatchKeyEvent keys="[RIGHT,RIGHT,RIGHT]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
                 <DispatchKeyEvent keys="[RIGHT]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame"/>
                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,1,4)" value="true"/>
@@ -529,16 +529,16 @@
         <TestCase testID="key_MC_shiftEnd_test01" keywords="['key,shiftKey']" description="Test shiftkey+End navigation on dataGrid">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first row -->
-             	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(0,0)"/>
-		
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first row -->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(0,0)"/>
+        
                 <DispatchKeyEvent keys="[END]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,100,5)" value="true"/>
            </body>
@@ -547,18 +547,18 @@
         <TestCase testID="key_MC_shiftEnd_test02" keywords="['key,shiftKey']" description="Test shiftkey+End navigation on dataGrid">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	
-             	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(4,3)"/>
-		
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(4,3)"/>
+        
                 <DispatchKeyEvent keys="[END]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
-		<!-- as we have 100 rows, 5 columns -->
+        <!-- as we have 100 rows, 5 columns -->
                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(4,3,96,2)" value="true"/>
            </body>
         </TestCase>
@@ -566,21 +566,21 @@
         <TestCase testID="key_MC_shiftEnd_test03" keywords="['key,shiftKey']" description="Test shiftkey+End navigation on dataGrid">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-             	<RunCode code="grid.caretRowIndex=0"/>
-            	<RunCode code="grid.caretColumnIndex=0"/>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- selectionAPI doesn't set anchor, 
- 		the anchor is only set by mouse click or by explicityl setting anchorRowIndex/ColumnIndex
- 		-->
-             	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(99,FlexGlobals.topLevelApplication.dataGrid.columns.length-1)"/>
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- selectionAPI doesn't set anchor, 
+        the anchor is only set by mouse click or by explicityl setting anchorRowIndex/ColumnIndex
+        -->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(99,FlexGlobals.topLevelApplication.dataGrid.columns.length-1)"/>
                 <DispatchKeyEvent keys="[END]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
-		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="500"/>
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="500"/>
                 </body>
         </TestCase>
         
@@ -589,37 +589,37 @@
         <TestCase testID="key_MC_shiftHome_test01" keywords="['key,shiftKey']" description="Test shiftkey+Home navigation on dataGrid">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first row -->
-             	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(0,0)"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first row -->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(0,0)"/>
                 <DispatchKeyEvent keys="[HOME]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
-		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
                
            </body>
         </TestCase>
         
-		
+        
         <TestCase testID="key_MC_shiftHome_test02" keywords="['key,shiftKey']" description="Test shiftkey+Home navigation on dataGrid">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-		<RunCode code="grid.caretRowIndex=0"/>
-            	<RunCode code="grid.caretColumnIndex=0"/>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- selectionAPI doesn't set anchor -->
-             	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(4,3)"/>
-		
+        <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- selectionAPI doesn't set anchor -->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(4,3)"/>
+        
                 <DispatchKeyEvent keys="[HOME]" waitTarget="dataGrid" shiftKey="true" waitEvent="keyUp" />
                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,1,1)" value="true"/>
            </body>
@@ -628,18 +628,18 @@
         <TestCase testID="key_MC_shiftHome_test02_2" keywords="['key,shiftKey']" description="Test shiftkey+Home navigation on dataGrid">
              <setup> 
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-             	<RunCode code="grid.caretRowIndex=0"/>
-            	<RunCode code="grid.caretColumnIndex=0"/>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-		<RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid.grid.getCellBounds(4,3))"/>
-             	<DispatchMouseClickEvent target="dataGrid.grid" localX="250" localY="140" />
-		
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+        <RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid.grid.getCellBounds(4,3))"/>
+                <DispatchMouseClickEvent target="dataGrid.grid" localX="250" localY="140" />
+        
                 <DispatchKeyEvent keys="[HOME]" waitTarget="dataGrid" shiftKey="true" waitEvent="keyUp" />
                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,4,3)" value="true"/>
            </body>
@@ -648,63 +648,61 @@
         <TestCase testID="key_MC_shiftHome_test03" keywords="['key,shiftKey']" description="Test shiftkey+Home navigation on dataGrid">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(99,FlexGlobals.topLevelApplication.dataGrid.columns.length-1)"/>				
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99)" waitEvent="enterFrame"/>
-		<DispatchKeyEvent keys="[HOME]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
-		<RunCode code="FlexGlobals.topLevelApplication.displaySelectedCellIndices(FlexGlobals.topLevelApplication.dataGrid.selectedCells)"/>
-                
-		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,1,1)" value="true"/> 
-		<RunCode code="trace(1)"/>
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.clearSelection()"/>
-		<RunCode code="grid.anchorRowIndex=99"/>
-            	<RunCode code="grid.anchorColumnIndex=4"/>
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(99,FlexGlobals.topLevelApplication.dataGrid.columns.length-1)"/>                
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99)" waitEvent="enterFrame"/>
                 <DispatchKeyEvent keys="[HOME]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-		<!-- 	
+                <RunCode code="FlexGlobals.topLevelApplication.displaySelectedCellIndices(FlexGlobals.topLevelApplication.dataGrid.selectedCells)"/>
+                        
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,1,1)" value="true"/> 
+                <RunCode code="trace(1)"/>
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.clearSelection()"/>
+                <RunCode code="grid.anchorRowIndex=99"/>
+                        <RunCode code="grid.anchorColumnIndex=4"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                        <DispatchKeyEvent keys="[HOME]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <!--    
                 <RunCode code="FlexGlobals.topLevelApplication.displaySelectedCellIndices(FlexGlobals.topLevelApplication.dataGrid.selectedCells)"/>
                 -->
-  		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,99,4)" value="true"/>               
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,99,4)" value="true"/>               
            </body>
         </TestCase>
         
         <TestCase testID="key_MC_shiftHome_test03_2" keywords="['key,shiftKey']" description="Test shiftkey+Home navigation on dataGrid">
              <setup>
-                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                <SetProperty target="dataGrid" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_CELLS}"/>
+                <WaitForLayoutManager/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-		<DispatchMouseClickEvent target="dataGrid.grid" localX="260" localY="2990" />
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99,4)" waitEvent="enterFrame" waitTarget="dataGrid"/>
-		
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99,4)"/>
+                <WaitForLayoutManager/> 
+                <!-- CLF DispatchMouseClickEvent target="dataGrid.grid" localX="310" localY="365" /-->
+                <DispatchMouseClickEvent target="dataGrid.grid" localX="260" localY="365" />
                 <DispatchKeyEvent keys="[HOME]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame"/>
-  		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,99,4)" value="true"/>               
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,99,4)" value="true"/>               
            </body>
         </TestCase>
-		        
+                
          <TestCase testID="key_MC_shiftPageDown_test01" keywords="['key,shiftKey']" description="Test shiftkey+PageDown navigation on dataGrid">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<DispatchMouseClickEvent target="dataGrid.grid" localX="250" localY="140" />
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <DispatchMouseClickEvent target="dataGrid.grid" localX="250" localY="140" />
                 <DispatchKeyEvent keys="[PAGE_DOWN]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
                 <RunCode code="FlexGlobals.topLevelApplication.displaySelectedCellIndices(FlexGlobals.topLevelApplication.dataGrid.selectedCells)"/>
                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(4,3,7,1)" value="true"/>
@@ -712,68 +710,64 @@
                 <AssertMethodValue method="value=grid.caretColumnIndex" value="3"/>  
            </body>
         </TestCase>
- 
+        
          <TestCase testID="key_MC_shiftPageDown_test02" keywords="['key,shiftKey']" description="Test shiftkey+PageDown navigation on dataGrid">
              <setup>
-                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                <SetProperty target="dataGrid" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_CELLS}"/>
+                <SetProperty target="dataGrid.grid" propertyName="caretRowIndex" value="4"/>
+                <SetProperty target="dataGrid.grid" propertyName="caretColumnIndex" value="0"/>
+                <WaitForLayoutManager/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="grid.caretRowIndex=0"/>
-            	<RunCode code="grid.caretColumnIndex=0"/>
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-		<RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid.grid.getCellBounds(26,0))"/>
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(26)" waitEvent="enterFrame"/>
-		<DispatchMouseClickEvent target="dataGrid.grid" localX="5" localY="780" />
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-		<DispatchKeyEvent keys="[PAGE_DOWN]" waitTarget="dataGrid" shiftKey="true" waitEvent="keyUp" />
-                <RunCode code="FlexGlobals.topLevelApplication.displaySelectedCellIndices(FlexGlobals.topLevelApplication.dataGrid.selectedCells)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(26,0,11,1)" value="true"/>
-                <AssertMethodValue method="value=grid.caretRowIndex" value="37"/>
-                <AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>  
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <DispatchKeyEvent keys="[PAGE_DOWN]" waitTarget="dataGrid" shiftKey="true" waitEvent="keyUp" />
+                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(4,0)" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(11,0)" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(4,0,8,1)" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.caretRowIndex" value="11"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.caretColumnIndex" value="0"/>  
            </body>
         </TestCase>
         
         
          <TestCase testID="key_MC_shiftPageDown_test03" keywords="['key,shiftKey']" description="Test shiftkey+PageDown navigation on dataGrid">
              <setup>
-                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                <SetProperty target="dataGrid" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_CELLS}"/>
+                <WaitForLayoutManager/>
              </setup>
              <body>
-             	<RunCode code="grid.caretRowIndex=0"/>
-            	<RunCode code="grid.caretColumnIndex=0"/>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- click on the last row -->
-             	<RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid.grid.getCellBounds(99,4))"/>
-		<DispatchMouseClickEvent target="dataGrid.grid" localX="275" localY="2980" />
+                <!-- click on the last row -->
+                <DispatchMouseClickEvent target="dataGrid.grid" localX="15" localY="150" />
+                <DispatchMouseClickEvent target="dataGrid.grid" localX="70" localY="150" shiftKey="true"/>
+                
                 <DispatchKeyEvent keys="[PAGE_DOWN]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
-		<RunCode code="FlexGlobals.topLevelApplication.displaySelectedCellIndices(FlexGlobals.topLevelApplication.dataGrid.selectedCells)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(99,4,1,1)" value="true"/>
-                <AssertMethodValue method="value=grid.caretRowIndex" value="99"/>
-                <AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>  
+                <RunCode code="FlexGlobals.topLevelApplication.displaySelectedCellIndices(FlexGlobals.topLevelApplication.dataGrid.selectedCells)"/>
+
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(5,0)" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(11,1)" value="true"/>
+                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(5,0,7,2)" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.caretRowIndex" value="11"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.caretColumnIndex" value="1"/>  
            </body>
         </TestCase>
         
         
          <TestCase testID="key_MC_shiftPageUp_test01" keywords="['key,shiftKey']" description="Test shiftkey+PageUp navigation on dataGrid">
              <setup>
-                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+                <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<DispatchMouseClickEvent target="dataGrid.grid" localX="2" localY="5" />
-		
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <DispatchMouseClickEvent target="dataGrid.grid" localX="2" localY="5" />
+        
                 <DispatchKeyEvent keys="[PAGE_UP]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
                 
                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,1,1)" value="true"/>
@@ -784,165 +778,158 @@
  
          <TestCase testID="key_MC_shiftPageUp_test02" keywords="['key,shiftKey']" description="Test shiftkey+PageUp navigation on dataGrid">
              <setup>
-                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                <SetProperty target="dataGrid" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_CELLS}"/>
+                <WaitForLayoutManager/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(25,3)"/>
+                <WaitForLayoutManager/>
+                <DispatchMouseClickEvent target="dataGrid.grid" localX="225" localY="360" />
 
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(25,3)" waitEvent="enterFrame" waitTarget="stage"/>
-		<DispatchMouseClickEvent target="dataGrid.grid" localX="225" localY="760" />
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
                 <DispatchKeyEvent keys="[PAGE_UP]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
-                <RunCode code="FlexGlobals.topLevelApplication.displaySelectedCellIndices(FlexGlobals.topLevelApplication.dataGrid.selectedCells)"/>
+                
                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(14,3,11,1)" value="true"/>
-                <AssertMethodValue method="value=grid.caretRowIndex" value="14"/>
-                <AssertMethodValue method="value=grid.caretColumnIndex" value="3"/>  
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.caretRowIndex" value="14"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.caretColumnIndex" value="3"/>  
            </body>
         </TestCase>
         
         
          <TestCase testID="key_MC_shiftPageUp_test03" keywords="['key,shiftKey']" description="Test shiftkey+PageUp navigation on dataGrid">
              <setup>
-                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                <SetProperty target="dataGrid" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_CELLS}"/>
+                <SetProperty target="dataGrid.grid" propertyName="caretRowIndex" value="99"/>
+                <SetProperty target="dataGrid.grid" propertyName="caretColumnIndex" value="4"/>
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99,4)" waitEvent="enterFrame"/>                
+                <WaitForLayoutManager/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-             	<!-- move the focus on the first row -->
-             	<RunCode code="grid.caretRowIndex=99"/>
-             	<RunCode code="grid.caretColumnIndex=FlexGlobals.topLevelApplication.dataGrid.columns.length-1"/>
-				
-		<DispatchMouseClickEvent target="dataGrid.grid" localX="275" localY="2980" />
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99,4)" waitEvent="enterFrame"/>
+                <!-- CLF DispatchMouseClickEvent target="dataGrid.grid" localX="310" localY="365" /-->
+                <DispatchMouseClickEvent target="dataGrid.grid" localX="275" localY="365" />
                 <DispatchKeyEvent keys="[PAGE_UP]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame"/>
-               <RunCode code="FlexGlobals.topLevelApplication.displaySelectedCellIndices(FlexGlobals.topLevelApplication.dataGrid.selectedCells)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(88,4,11,1)" value="true"/>
-                <AssertMethodValue method="value=grid.caretRowIndex" value="88"/>
-                <AssertMethodValue method="value=grid.caretColumnIndex" value="4"/>  
+                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(88,4,12,1)" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.caretRowIndex" value="88"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.caretColumnIndex" value="4"/>  
            </body>
         </TestCase>
         
          <TestCase testID="key_MC_ctrlKey_test01" keywords="['key,ctrlKey']" description="Test ctrlkey navigation on dataGrid">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-            	<!-- move the focus on the first row -->
-            	<RunCode code="grid.caretRowIndex=1"/>
-            	<RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first row -->
+                <RunCode code="grid.caretRowIndex=1"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                 <DispatchKeyEvent keys="[DOWN,DOWN,DOWN]" waitTarget="dataGrid" ctrlKey="true" waitEvent="enterFrame" />
-		<AssertMethodValue method="value=grid.caretRowIndex" value="4"/>		
+        <AssertMethodValue method="value=grid.caretRowIndex" value="4"/>        
             </body>
         </TestCase>
  
          <TestCase testID="key_MC_ctrlKey_test02" keywords="['key,ctrlKey']" description="Test ctrlkey navigation on dataGrid">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-            	<!-- move the focus on the first row -->
-            	<RunCode code="grid.caretRowIndex=1"/>
-            	<RunCode code="grid.caretColumnIndex=0"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <!-- move the focus on the first row -->
+                <RunCode code="grid.caretRowIndex=1"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                 <DispatchKeyEvent keys="[RIGHT,RIGHT,RIGHT]" waitTarget="dataGrid" ctrlKey="true" waitEvent="enterFrame" />
-		<AssertMethodValue method="value=grid.caretRowIndex" value="1"/>
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="3"/>		
+        <AssertMethodValue method="value=grid.caretRowIndex" value="1"/>
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="3"/>     
             </body>
         </TestCase>
 
          <TestCase testID="key_MC_ctrlKey_test03" keywords="['key,ctrlKey']" description="Test ctrlkey+pageUp navigation on dataGrid">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-            	<RunCode code="grid.caretRowIndex=50"/>
-            	<RunCode code="grid.caretColumnIndex=3"/>
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(50,3)" waitEvent="enterFrame"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <RunCode code="grid.caretRowIndex=50"/>
+                <RunCode code="grid.caretColumnIndex=3"/>
+        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(50,3)" waitEvent="enterFrame"/>
                 <DispatchKeyEvent keys="[PAGE_UP]" waitTarget="dataGrid" ctrlKey="true" waitEvent="enterFrame"/>
-             	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="0" />
-             	<!-- todo, verify caret should move to the first row of that page-->
-		<AssertMethodValue method="value=grid.caretRowIndex" value="39"/>
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="3"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="0" />
+                <!-- todo, verify caret should move to the first row of that page-->
+        <AssertMethodValue method="value=grid.caretRowIndex" value="39"/>
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="3"/>
             </body>
         </TestCase>
 
          <TestCase testID="key_MC_ctrlKey_test04" keywords="['key,ctrlKey']" description="Test ctrlkey+pageUp navigation on dataGrid">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-		 
-		<RunCode code="grid.caretRowIndex=20"/>
-		<RunCode code="grid.caretColumnIndex=3"/>
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(20,3)" waitEvent="enterFrame"/>
-		<DispatchKeyEvent keys="[PAGE_UP]" waitTarget="dataGrid" ctrlKey="true" waitEvent="enterFrame" />
-		<!-- verify the caret will move to previous page -->
-		<AssertMethodValue method="value=grid.caretRowIndex" value="9"/>		
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+         
+        <RunCode code="grid.caretRowIndex=20"/>
+        <RunCode code="grid.caretColumnIndex=3"/>
+        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(20,3)" waitEvent="enterFrame"/>
+        <DispatchKeyEvent keys="[PAGE_UP]" waitTarget="dataGrid" ctrlKey="true" waitEvent="enterFrame" />
+        <!-- verify the caret will move to previous page -->
+        <AssertMethodValue method="value=grid.caretRowIndex" value="9"/>        
             </body>
         </TestCase>
 
          <TestCase testID="key_MC_ctrlKey_test05" keywords="['key,ctrlKey']" description="Test ctrlkey+pageUp navigation on dataGrid">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-		<!-- todo: need check the scrolling pages -->
-            	<RunCode code="grid.caretRowIndex=0"/>
-            	<RunCode code="grid.caretColumnIndex=3"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+        <!-- todo: need check the scrolling pages -->
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=3"/>
                 <DispatchKeyEvent keys="[PAGE_UP]" waitTarget="dataGrid" ctrlKey="true" waitEvent="enterFrame" />
                 <!-- todo: verify caret will still be in the current row -->
-             	<RunCode code="grid.caretColumnIndex=3"/>
-		<AssertMethodValue method="value=grid.caretRowIndex" value="0"/>		
+                <RunCode code="grid.caretColumnIndex=3"/>
+        <AssertMethodValue method="value=grid.caretRowIndex" value="0"/>        
             </body>
         </TestCase>
 
          <TestCase testID="key_MC_ctrlKey_test06" keywords="['key,ctrlKey']" description="Test ctrlkey+pageUp navigation on dataGrid">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-		<!-- todo: need check the scrolling pages -->
-            	<RunCode code="grid.caretRowIndex=1"/>
-            	<RunCode code="grid.caretColumnIndex=3"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+        <!-- todo: need check the scrolling pages -->
+                <RunCode code="grid.caretRowIndex=1"/>
+                <RunCode code="grid.caretColumnIndex=3"/>
                 <DispatchKeyEvent keys="[PAGE_UP]" waitTarget="dataGrid" ctrlKey="true" waitEvent="enterFrame" />
-		<AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
-		 
+        <AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
+         
             </body>
         </TestCase>
         
@@ -950,40 +937,40 @@
           <TestCase testID="key_MC_ctrlKey_test07" keywords="['key,ctrlKey']" description="Test ctrlkey+pageDown navigation on dataGrid">
             <setup>
                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
-		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>              
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
             </setup>
             <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
-            	<RunCode code="grid.caretRowIndex=20"/>
-            	<RunCode code="grid.caretColumnIndex=3"/>
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(20,3)" waitEvent="enterFrame"/>
-		<DispatchKeyEvent keys="[PAGE_DOWN]" waitTarget="dataGrid" ctrlKey="true" waitEvent="enterFrame" />
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <RunCode code="grid.caretRowIndex=20"/>
+                <RunCode code="grid.caretColumnIndex=3"/>
+        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(20,3)" waitEvent="enterFrame"/>
+        <DispatchKeyEvent keys="[PAGE_DOWN]" waitTarget="dataGrid" ctrlKey="true" waitEvent="enterFrame" />
 
-		<AssertMethodValue method="value=grid.caretRowIndex" value="31"/>
-	
+        <AssertMethodValue method="value=grid.caretRowIndex" value="31"/>
+    
             </body>
         </TestCase>
  
            <TestCase testID="key_MC_ctrlKey_test08" keywords="['key,ctrlKey']" description="Test ctrlkey+pageDown navigation on dataGrid">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
- 		<!-- last row in that page -->
-             	<RunCode code="grid.caretRowIndex=99"/>
-             	<RunCode code="grid.caretColumnIndex=3"/>
-		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99)" waitEvent="enterFrame"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+        <!-- last row in that page -->
+                <RunCode code="grid.caretRowIndex=99"/>
+                <RunCode code="grid.caretColumnIndex=3"/>
+        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(99)" waitEvent="enterFrame"/>
                 <DispatchKeyEvent keys="[PAGE_DOWN]" waitTarget="dataGrid" ctrlKey="true" waitEvent="enterFrame" />
-              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="0" />
-		<AssertMethodValue method="value=grid.caretRowIndex" value="99"/>	
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="0" />
+        <AssertMethodValue method="value=grid.caretRowIndex" value="99"/>   
              </body>
         </TestCase>
         
@@ -991,171 +978,171 @@
         <TestCase testID="key_MC_ctrlKey_test11" keywords="['key,ctrlKey']" description="Test ctrlkey+home navigation on dataGrid">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
- 		<!-- a row at end of that page -->
-             	<RunCode code="grid.caretRowIndex=30"/>
-             	<RunCode code="grid.caretColumnIndex=3"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+        <!-- a row at end of that page -->
+                <RunCode code="grid.caretRowIndex=30"/>
+                <RunCode code="grid.caretColumnIndex=3"/>
                  <DispatchKeyEvent keys="[HOME]" waitTarget="dataGrid" ctrlKey="true" waitEvent="enterFrame" />
-              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="0" />
-		<AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="0" />
+        <AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
              </body>
         </TestCase>
 
         <TestCase testID="key_MC_ctrlKey_test12" keywords="['key,ctrlKey']" description="Test ctrlkey+home navigation on dataGrid">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
- 		<!-- last row in that page -->
-             	<RunCode code="grid.caretRowIndex=99"/>
-             	<RunCode code="grid.caretColumnIndex=3"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+        <!-- last row in that page -->
+                <RunCode code="grid.caretRowIndex=99"/>
+                <RunCode code="grid.caretColumnIndex=3"/>
                  <DispatchKeyEvent keys="[HOME]" waitTarget="dataGrid" ctrlKey="true" waitEvent="enterFrame" />
-              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="0" />
-		<AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
-		<AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="0" />
+        <AssertMethodValue method="value=grid.caretRowIndex" value="0"/>
+        <AssertMethodValue method="value=grid.caretColumnIndex" value="0"/>
              </body>
         </TestCase>
         
         <TestCase testID="key_MC_space_test01" keywords="['key,SPACE']" description="Test the selection is added by pressing space">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
- 		<!-- focus on row=1 in that page -->
-             	<RunCode code="grid.caretRowIndex=1"/>
-             	<RunCode code="grid.caretColumnIndex=3"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+        <!-- focus on row=1 in that page -->
+                <RunCode code="grid.caretRowIndex=1"/>
+                <RunCode code="grid.caretColumnIndex=3"/>
                  <DispatchKeyEvent keys="[SPACE]" waitTarget="dataGrid" waitEvent="enterFrame" />
-              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="1" />
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(1,3)" value="true"/>		
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="1" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(1,3)" value="true"/>        
              </body>
         </TestCase>
         <TestCase testID="key_space_test02" keywords="['key,SPACE']" description="Toggle the selection is added by pressing ctrl+ space">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
- 		 
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(1,3)" value="true"/>
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(1,3)" value="true"/>		
-             	<RunCode code="grid.caretRowIndex=1"/>
-             	<RunCode code="grid.caretColumnIndex=3"/>
-		<!-- cancel the selection -->
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+         
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(1,3)" value="true"/>
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(1,3)" value="true"/>        
+                <RunCode code="grid.caretRowIndex=1"/>
+                <RunCode code="grid.caretColumnIndex=3"/>
+        <!-- cancel the selection -->
                  <DispatchKeyEvent keys="[SPACE]" waitTarget="dataGrid" ctrlKey="true" waitEvent="enterFrame" />
-              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="0" />
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(1,3)" value="false"/>		
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="0" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(1,3)" value="false"/>       
              </body>
         </TestCase>
-	<!-- this case has issue as api doesn't seem set caret, cause verification failed -->
+    <!-- this case has issue as api doesn't seem set caret, cause verification failed -->
         <TestCase testID="key_space_test03" keywords="['key,SPACE']" description="Toggle the selection is added by pressing shift+ space">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
- 		 
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(1,3)" value="true"/>
-             	<RunCode code="grid.caretRowIndex=4"/>
-             	<RunCode code="grid.caretColumnIndex=3"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+         
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(1,3)" value="true"/>
+                <RunCode code="grid.caretRowIndex=4"/>
+                <RunCode code="grid.caretColumnIndex=3"/>
                  <DispatchKeyEvent keys="[SPACE]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
                  
-              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="20" />
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,5,4)" value="true"/>		
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="20" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,5,4)" value="true"/>      
              </body>
         </TestCase>
    
         <TestCase testID="key_space_test03_2" keywords="['key,SPACE']" description="Toggle the selection is added by pressing shift+ space">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
- 		<RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid.grid.getCellBounds(1,3))"/>
- 		<DispatchMouseClickEvent target="dataGrid" localX="195" localY="40" />
-             	<RunCode code="grid.caretRowIndex=4"/>
-             	<RunCode code="grid.caretColumnIndex=3"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+        <RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid.grid.getCellBounds(1,3))"/>
+        <DispatchMouseClickEvent target="dataGrid" localX="195" localY="40" />
+                <RunCode code="grid.caretRowIndex=4"/>
+                <RunCode code="grid.caretColumnIndex=3"/>
                  <DispatchKeyEvent keys="[SPACE]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame"/>
-              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="5" />
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,3,4,1)" value="true"/>		
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="5" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,3,4,1)" value="true"/>      
              </body>
         </TestCase>
         
         <TestCase testID="key_space_test04" keywords="['key,SPACE']" description="Toggle the selection is removed by pressing shift+ space">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(1,3)" value="true"/>
-             	<RunCode code="grid.caretRowIndex=4"/>
-             	<RunCode code="grid.caretColumnIndex=3"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(1,3)" value="true"/>
+                <RunCode code="grid.caretRowIndex=4"/>
+                <RunCode code="grid.caretColumnIndex=3"/>
                  <DispatchKeyEvent keys="[SPACE]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
-              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="20" />
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,5,4)" value="true"/>		
-               	<RunCode code="grid.caretRowIndex=0"/>
-               	<RunCode code="grid.caretColumnIndex=0"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="20" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,5,4)" value="true"/>      
+                <RunCode code="grid.caretRowIndex=0"/>
+                <RunCode code="grid.caretColumnIndex=0"/>
                 <DispatchKeyEvent keys="[SPACE]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="1" />
- 		
+        
              </body>
         </TestCase>
         <TestCase testID="key_space_test05" keywords="['key,SPACE']" description="Toggle the selection is removed by pressing shift+ space">
              <setup>
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
-                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
- 		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>             
+        <RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
              </setup>
              <body>
-            	<!-- move the focus on the dataGrid-->
-            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
- 		<RunCode code="grid.caretRowIndex=4"/>
-             	<RunCode code="grid.caretColumnIndex=3"/>
+                <!-- move the focus on the dataGrid-->
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+        <RunCode code="grid.caretRowIndex=4"/>
+                <RunCode code="grid.caretColumnIndex=3"/>
                  <DispatchKeyEvent keys="[SPACE]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
-              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="20" />
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,5,4)" value="true"/>		
-               	<RunCode code="grid.caretRowIndex=2"/>
-               	<RunCode code="grid.caretColumnIndex=2"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="20" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,5,4)" value="true"/>      
+                <RunCode code="grid.caretRowIndex=2"/>
+                <RunCode code="grid.caretColumnIndex=2"/>
                 <DispatchKeyEvent keys="[SPACE]" waitTarget="dataGrid" shiftKey="true" waitEvent="enterFrame" />
                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="9" />
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,3,3)" value="true"/>		
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,3,3)" value="true"/>      
                
              </body>
         </TestCase>       
         
-	</testCases>                
-	     
+    </testCases>                
+         
 </UnitTester>

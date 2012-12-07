@@ -50,6 +50,7 @@
                 import spark.components.DataGrid;
                 import spark.components.gridClasses.GridSelectionMode;
                 import spark.components.gridClasses.GridColumn;
+                import spark.components.gridClasses.IGridItemRenderer;
                 import spark.events.GridSortEvent;
                 import components.*;
                 
@@ -58,24 +59,12 @@
                 public var tobeCheckedCells:ArrayList;
                 public var arrList:ArrayList;
                 public var rowsHolder:ArrayList=new ArrayList();
-		public var indices:Vector.<int>;
-		public var xmlListColl:XMLListCollection;
-		public var temp:String="";
-		public var vTemp:Vector.<int>=Vector.<int>([0,1,2]);
-		public var vTemp2:Vector.<int>;
-		public var newItem:Object={index:101, firstName:"New Name",lastName:"Earl",food:"Almonds",drink:"DrinkD",imageURL:"../../../../../Assets/Images/smallbluerect.jpg", numberValue:3, birthDay:"2004/08/08" };
-
-               
-		
-		/**
-		* this method is to set a editorClass on a dataGrid based on columnIndex
-		*/
-		public function setCellEditorOnColumn(dg:DataGrid, editorClass:Class, index:int):void
-		{
-			var gc:GridColumn=(GridColumn)(dg.columns.getItemAt(index));
-			gc.itemEditor=new ClassFactory(editorClass);
-			gc.editable=true;
-		}
+                public var indices:Vector.<int>;
+                public var xmlListColl:XMLListCollection;
+                public var temp:String="";
+                public var vTemp:Vector.<int>=Vector.<int>([0,1,2]);
+                public var vTemp2:Vector.<int>;
+                public var newItem:Object={index:101, firstName:"New Name",lastName:"Earl",food:"Almonds",drink:"DrinkD",imageURL:"../../../../../Assets/Images/smallbluerect.jpg", numberValue:3, birthDay:"2004/08/08" };
             }
             
         ]]>
@@ -967,33 +956,36 @@
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg1.selectionContainsCell(4,1)" value="false"/>
 		
              </body>
-        </TestCase> 
-   	<TestCase testID="column_withRenderer_test001" keywords="[DataGrid, Property, Sortable]" description="verify after sorting, column with renderer should show updated, sorted data">
-	     <setup>
-		<ResetComponent target="dg3" className="components.DataGrid_Custom_IRs2" waitEvent="updateComplete"/> 
-	     </setup>
-	     <body>
-		<DispatchMouseClickEvent target="dg3.columnHeaderGroup" localX="200" localY="10" waitEvent="click" waitTarget="dg3"/>
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
-		<CompareBitmap url="../Properties/baselines/$testID_page1.png" numColorVariances="20" maxColorVariance="20"  target="dg3" />
-		
-		<RunCode code="FlexGlobals.topLevelApplication.dg3.ensureCellIsVisible(FlexGlobals.topLevelApplication.dg3.dataProvider.length-1)" />
- 	   	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
-		<CompareBitmap url="../Properties/baselines/$testID_lastPage.png" numColorVariances="20" maxColorVariance="20"  target="dg3" />
-		
-		<!-- reverse sort -->
-		<DispatchMouseClickEvent target="dg3.columnHeaderGroup" localX="200" localY="10" waitEvent="click" waitTarget="dg3"/>
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
-		
-		<!-- sort again, back to the first sort state-->
-		<DispatchMouseClickEvent target="dg3.columnHeaderGroup" localX="200" localY="10" waitEvent="click" waitTarget="dg3"/>
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
-		
-		<RunCode code="FlexGlobals.topLevelApplication.dg3.ensureCellIsVisible(FlexGlobals.topLevelApplication.dg3.dataProvider.length-1)" />
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
-		<CompareBitmap url="../Properties/baselines/$testID_lastPage.png" numColorVariances="20" maxColorVariance="20"  target="dg3" />
-		
-             </body>
+        </TestCase>
+        
+        <TestCase testID="column_withRenderer_test001" keywords="[DataGrid, Property, Sortable]" description="verify after sorting, column with renderer should show updated, sorted data">
+            <setup>
+                <ResetComponent target="dg3" className="components.DataGrid_Custom_IRs2" waitEvent="updateComplete"/> 
+                <RunCode code="var headerRenderer:IGridItemRenderer = dg3.columnHeaderGroup.getHeaderRendererAt(1)"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="headerRenderer" localX="{headerRenderer.x + 5}" localY="{headerRenderer.y + 5}" waitEvent="click"/>
+                <WaitForLayoutManager/>
+                <CompareBitmap url="../Properties/baselines/$testID_page1.png" numColorVariances="20" maxColorVariance="20"  target="dg3" />
+                
+                <RunCode code="FlexGlobals.topLevelApplication.dg3.ensureCellIsVisible(FlexGlobals.topLevelApplication.dg3.dataProvider.length-1)" />
+                <WaitForLayoutManager/>
+                <CompareBitmap url="../Properties/baselines/$testID_lastPage.png" numColorVariances="20" maxColorVariance="20"  target="dg3" />
+                
+                <!-- reverse sort -->
+                <!--DispatchMouseClickEvent target="dg3.columnHeaderGroup" localX="200" localY="10" waitEvent="click" waitTarget="dg3"/-->
+                <DispatchMouseClickEvent target="headerRenderer" localX="{headerRenderer.x + 5}" localY="{headerRenderer.y + 5}" waitEvent="click"/>
+                <WaitForLayoutManager/>
+                
+                <!-- sort again, back to the first sort state-->
+                <DispatchMouseClickEvent target="headerRenderer" localX="{headerRenderer.x + 5}" localY="{headerRenderer.y + 5}" waitEvent="click"/>
+                <WaitForLayoutManager/>
+                
+                <RunCode code="FlexGlobals.topLevelApplication.dg3.ensureCellIsVisible(FlexGlobals.topLevelApplication.dg3.dataProvider.length-1)" />
+                <WaitForLayoutManager/>
+                <CompareBitmap url="../Properties/baselines/$testID_lastPage.png" numColorVariances="20" maxColorVariance="20"  target="dg3" />
+            
+            </body>
         </TestCase>
         
         

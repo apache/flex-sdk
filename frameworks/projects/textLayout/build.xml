@@ -52,7 +52,8 @@
                 <arg value="+playerglobal.version=${playerglobal.version}" />
                 <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
                 <arg value="+locale=@{locale}" />
-                <arg value="+srcdir=${source.dir}" />
+                <!-- this is the directory the bundles dir is in -->
+                <arg value="+srcdir=${basedir}" />
 			</compc>
 		</sequential>
 	</macrodef>	
@@ -94,12 +95,8 @@
 		
 				
 	<target name="main" depends="clean,compile" description="Clean build of textLayout.swc">
-		<!--bundle locale="${locale}"/-->
+		<bundle locale="${locale}"/>
 	</target>
-	
-	<!--target name="other.locales" description="Build other locale SWCs">
-	    <echo message="There are no locales for textLayout."/>
-	</target-->
 	
 	<target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
 	
@@ -192,6 +189,9 @@
     </target>
 
     <target name="doc" depends="clean-temp-docs" description="updates textLayout.swc with asdoc xml">
+        <available file="${FLEX_HOME}/frameworks/locale/en_US/textLayout_rb.swc" property="resource.exists"/>
+        <fail message="${FLEX_HOME}/frameworks/locale/en_US/textLayout_rb.swc does not exist." unless="resource.exists"/> 
+        
         <!-- Load the <asdoc> task. We can't do this at the <project> level -->
         <!-- because targets that run before flexTasks.jar gets built would fail. -->
         <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -223,7 +223,7 @@
 			<define name="CONFIG::release" value="${rel}"/>
         </asdoc>
 
-        <!-- updates textLayout.swc with asdoc xml -->
+        <!-- updates textLayout_rb.swc with asdoc xml -->
         <zip destfile="${FLEX_HOME}/frameworks/locale/en_US/textLayout_rb.swc" update="true">
             <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
                 <include name="*.*"/>
