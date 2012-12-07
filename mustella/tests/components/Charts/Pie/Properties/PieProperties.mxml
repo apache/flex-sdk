@@ -117,7 +117,7 @@
 				<SetProperty target="comp.series.0" waitEvent="updateComplete" waitTarget="comp.series.0" propertyName="selectedIndex" value="15"  />
 			</setup>
 			<body>
-				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_selectionMode_Single.png"  timeout="5000"/>
+				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_selectionMode_Single.png"  timeout="5000" maxColorVariance="5" numColorVariances="1"/>
 			</body> 
 		</TestCase>
 
@@ -129,10 +129,9 @@
 				<SetProperty target="comp" waitTarget="comp" propertyName="selectionMode" value="none" />				
 				<SetProperty target="comp.series.0" waitTarget="comp.series.0" propertyName="selectable" value="true" /> 
 				<SetProperty target="comp.series.0" waitEvent="updateComplete" waitTarget="comp.series.0" propertyName="selectedIndex" value="3" />
-
 			</setup>
 			<body>
-				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_selectionMode_None.png"  timeout="5000"/> 
+				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_selectionMode_None.png" timeout="5000" maxColorVariance="5" numColorVariances="1"/> 
 			</body> 
 		</TestCase> 
 
@@ -146,7 +145,7 @@
 				<SetProperty target="comp.series.0" waitEvent="updateComplete" waitTarget="comp.series.0" propertyName="selectedIndices" value="[3,15,9,20]" />
 			</setup>
 			<body>
-				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_selectionMode_Multiple.png"  timeout="5000"/>
+				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_selectionMode_Multiple.png"  timeout="5000" maxColorVariance="5" numColorVariances="1"/>
 			</body> 
 		</TestCase>
 
