@@ -48,11 +48,12 @@ public class ResetComponent extends TestStep
     private static var effectsInEffect:QName = new QName(mx_internal, "effectsInEffect");
     private static var activeTweens:QName = new QName(mx_internal, "activeTweens");
     private static var tooltipReset:QName = new QName(mx_internal, "reset");
+	private static var resetFocusOnCleanup:Boolean = true;
 
     private var actualWaitEvent:String;
 
     private var waited:Boolean = false;
-
+	
     /**
      *  Called by the TestCase when it is time to start this step
      *  fake waitEvent because we don't want to listen to the old one
@@ -328,11 +329,14 @@ public class ResetComponent extends TestStep
         r = root;
         r = root["topLevelSystemManager"];
 
-        UnitTester.blockFocusEvents = false;
-        r.stage.focus = null;
-        UnitTester.blockFocusEvents = true;
-
-        n = r.numChildren;
+		if (resetFocusOnCleanup)
+		{
+	        UnitTester.blockFocusEvents = false;
+	        r.stage.focus = null;
+	        UnitTester.blockFocusEvents = true;
+		}
+		
+		n = r.numChildren;
         for (i = 0; i < n; i++)
         {
             if (context.knownDisplayObjects[r.getChildAt(i)] == null)
@@ -349,7 +353,7 @@ public class ResetComponent extends TestStep
                 n--;
             }
         }
-
+		
         r = root;
         r = root["topLevelSystemManager"];
         r = r.popUpChildren;

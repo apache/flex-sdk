@@ -75,7 +75,7 @@
                 <AssertPropertyValue target="vd" propertyName="state" value="buffering" />
                 -->
                 <AssertEvent target="vd" eventName="stateChange" eventClass="mx.events::VideoEvent" numExpectedEvents="1" />
-                <AssertPropertyValue target="vd" propertyName="state" value="playing" />
+                <AssertPropertyValue target="vd" propertyName="state" value="loading" />
             </body>
         </TestCase>
 
@@ -217,7 +217,7 @@
             	<AssertPropertyValue target="vd" propertyName="state" value="buffering" />
             	-->
 				<AssertEvent target="vd" eventName="stateChange" eventClass="mx.events::VideoEvent" numExpectedEvents="-1" />
-                <AssertPropertyValue target="vd" propertyName="state" value="playing" />
+                <AssertPropertyValue target="vd" propertyName="state" value="loading" />
                 <RunCode code="application.vd.pause();" waitEvent="stateChange" waitTarget="vd" />
                 <AssertPropertyValue target="vd" propertyName="state" value="paused" />
                 <RunCode code="application.vd.play()" waitEvent="stateChange" waitTarget="vd" />
