@@ -70,7 +70,7 @@ public class FlexSprite extends Sprite
 
 		try
 		{
-//			name = NameUtil.createUniqueName(this);
+			name = NameUtil.createUniqueName(this);
 		}
 		catch(e:Error)
 		{

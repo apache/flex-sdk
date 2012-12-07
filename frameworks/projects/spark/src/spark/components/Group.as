@@ -547,14 +547,6 @@ public class Group extends GroupBase implements IVisualElementContainer,
         }
     }
 
-	/**
-	 *  override setting of children
-	 */
-	override protected function addMXMLChildren(comps:Array):void
-	{
-		mxmlContent = comps;
-	}
-	
     //----------------------------------
     //  mxmlContent
     //----------------------------------

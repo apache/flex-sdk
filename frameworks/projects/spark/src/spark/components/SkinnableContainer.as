@@ -672,14 +672,6 @@ public class SkinnableContainer extends SkinnableContainerBase
             _contentModified = true;
     }
     
-	/**
-	 *  override setting of children
-	 */
-	override protected function addMXMLChildren(comps:Array):void
-	{
-		mxmlContent = comps;
-	}
-	
     //----------------------------------
     //  mxmlContentFactory
     //----------------------------------
@@ -881,18 +873,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     //
     //--------------------------------------------------------------------------
     
-	private var creatingChildren:Boolean;
-	
-	override protected function generateMXMLInstances(document:Object, data:Array, recursive:Boolean = true):void
-	{
-		// don't generate children during super.createChildren
-		if (creatingChildren)
-			return;
-		
-		super.generateMXMLInstances(document, data, recursive);
-	}
-	
-	    /**
+    /**
      *  Create content children, if the <code>creationPolicy</code> property 
      *  is not equal to <code>none</code>.
      *  
@@ -903,9 +884,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     override protected function createChildren():void
     {
-		creatingChildren = true;
-		super.createChildren();
-		creatingChildren = false;
+        super.createChildren();
         
         // TODO (rfrishbe): When navigator support is added, this is where we would 
         // determine if content should be created now, or wait until
@@ -1069,17 +1048,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function createDeferredContent():void
     {
-		var children:Array =  this.MXMLDescriptor;
-		if (children)
-		{
-			generateMXMLInstances(document, children);
-			mxmlContentCreated = true; // keep the code from recursing back into here.
-			_deferredContentCreated = true; 
-			dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
-			return;
-		}
-
-		if (!mxmlContentCreated)
+        if (!mxmlContentCreated)
         {
             mxmlContentCreated = true;
             

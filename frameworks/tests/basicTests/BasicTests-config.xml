@@ -96,7 +96,6 @@
         From mustella.swc
     -->
         <symbol>ExitWhenDone</symbol>
-        <symbol>SetShowRTE</symbol>
         <symbol>SendFormattedResultsToLog</symbol>
     </includes>
 </flex-config>
