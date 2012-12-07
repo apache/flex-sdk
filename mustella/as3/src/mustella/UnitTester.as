@@ -1873,8 +1873,6 @@ public class UnitTester extends EventDispatcher
 				var tr:TestResult = currentTest.testResult;
 				if (!tr.hasStatus())
 					tr.result = TestResult.PASS;
-				if (hasRTE)
-					tr.result = TestResult.FAIL;
 				tr.endTime = new Date().time;
 				TestOutput.logResult (tr.toString());
 				if (hasRTE)

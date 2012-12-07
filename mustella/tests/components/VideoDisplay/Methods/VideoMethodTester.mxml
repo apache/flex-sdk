@@ -73,7 +73,7 @@
                 <SetProperty target="vd" propertyName="source" value="assets/video.flv" waitEvent="ready" waitTarget="vd" />
             </setup>
             <body>
-            	<AssertPropertyValue target="vd" propertyName="state" value="playing" />
+            	<AssertPropertyValue target="vd" propertyName="state" value="buffering" />
 				<AssertEvent target="vd" eventName="stateChange" eventClass="mx.events::VideoEvent" numExpectedEvents="-1" />
 				<AssertPropertyValue target="vd" propertyName="state" value="playing" />
                 <RunCode code="application.vd.pause();" waitEvent="stateChange" waitTarget="vd" />
