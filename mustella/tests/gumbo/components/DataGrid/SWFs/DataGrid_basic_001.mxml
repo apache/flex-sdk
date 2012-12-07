@@ -22,7 +22,7 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   xmlns:local="*" xmlns:comps="components.*"
-			   width="800" height="1500">
+			   width="800" height="800">
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
 		@namespace mx "library://ns.adobe.com/flex/mx";
@@ -560,7 +560,6 @@
 		<s:HorizontalLayout/>
 	</s:layout>
 	<s:VGroup>
-		<comps:DataGrid_Custom_IRs2 id="dg3"/>
 		<s:Label id="label1" text="label holder" height="100"/>
 		<s:VGroup id="vg" height="{dataGrid.height+25}">
 		<comps:DataGrid_comp1 id="dataGrid" />
@@ -571,6 +570,7 @@
 			<comps:DataGrid_sort_noData id="dg1" />
 			<comps:DataGrid_no_explicit_columns id="dg2" />
 		</s:HGroup>
+		<comps:DataGrid_Custom_IRs2 id="dg3"/>
 	</s:VGroup>
 	<s:HGroup>
 		<comps:DataGrid_editable_comp1 id="dg4"/>

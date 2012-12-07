@@ -470,7 +470,6 @@
 	<s:Label text="dataProvider is null " />
 	<s:DataGrid  id="dg4" dataProvider="{null}" />
 	<s:DataGrid  id="dg7" requireSelection="true"/>
-	<s:Label id="label7" text="{dg7.width} x {dg7.height}"/>
 	<comps:DataGrid_dp_none id="dg5"/>
 	<!-- DG: has more columns, first column has no data matching -->
 	<comps:DataGrid_dp_columns id="dg6"/>	

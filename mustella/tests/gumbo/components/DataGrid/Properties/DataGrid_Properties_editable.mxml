@@ -1261,26 +1261,27 @@
 	  
 	 <TestCase testID="Mirroring_rtl_editor_test1" keywords="[DataGrid, Mirroring]" description="verify mirroring layout=rtl, datagrid displays editors as expected">
 	       <setup>
-              <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
-              <SetProperty target="dataGrid2" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="dataGrid2" />
-              <SetProperty target="dataGrid2" propertyName="width" value="450" waitEvent="updateComplete" waitTarget="dataGrid2" />
-              <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dp2" waitEvent="enterFrame" waitTarget="stage" />
-              <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+  		  <SetProperty target="dataGrid2" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="dataGrid2" />
+		  <SetProperty target="dataGrid2" propertyName="width" value="450" waitEvent="updateComplete" waitTarget="dataGrid2" />
+		  <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dp2" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
 	       </setup>
 	       <body>  
 	       	  <SetStyle target="dataGrid2" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" waitTarget="dataGrid2" />
-              <SetStyle target="dataGrid2" styleName="direction" value="rtl" waitEvent="updateComplete" waitTarget="dataGrid2" />
-              <!-- check editor layout, check input for editor, using the one no text insertion -->
-              <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
-             
-              <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,1)" value="true"/>
-              
-              <DispatchMouseClickEvent target="dataGrid2.grid" localX="200" localY="10" waitEvent="click" waitTarget="dataGrid2"/>
-              <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-              <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>		  
+		  <SetStyle target="dataGrid2" styleName="direction" value="rtl" waitEvent="updateComplete" waitTarget="dataGrid2" />
+   		  <!-- check editor layout, check input for editor, using the one no text insertion -->
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		 
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,1)" value="true"/>
+		  
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="200" localY="10" waitEvent="click" waitTarget="dataGrid2"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		  
 	      </body>
-	   </TestCase>
-	    
+	   </TestCase>   
 	 <TestCase testID="Mirroring_rtl_editing_test1" keywords="[DataGrid, Mirroring]" description="verify mirroring layout=rtl, input text, verify input is in right layout">
 	       <setup>
 		  <ResetComponent target="dataGrid3" className="components.DataGrid_editable_size" waitEvent="updateComplete"/> 
