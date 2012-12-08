@@ -207,7 +207,6 @@
     </target>
     
     <target name="compile" depends="prepare, pixelbender-compile" description="Compiles spark.swc">
-        <echo file="${FLEX_HOME}/frameworks/version.properties" append="false">build=${build.number}</echo>
         <echo message="Compiling frameworks/libs/spark.swc"/>
 
         <!-- Load the <compc> task. We can't do this at the <project> level -->
@@ -232,7 +231,6 @@
             <arg value="+playerglobal.version=${playerglobal.version}" />
             <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
         </compc>
-        <delete file="${FLEX_HOME}/frameworks/version.properties"/>
     </target>
     
     <target name="doc" depends="clean-temp-docs" description="updates spark.swc with asdoc xml">

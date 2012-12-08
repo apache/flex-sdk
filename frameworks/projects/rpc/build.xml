@@ -159,7 +159,6 @@
     </target>
     
     <target name="compile" description="Compiles rpc.swc">
-        <echo file="${FLEX_HOME}/frameworks/version.properties" append="false">build=${build.number}</echo>
         <echo message="Compiling frameworks/libs/rpc.swc"/>
 
         <!-- Load the <compc> task. We can't do this at the <project> level -->
@@ -183,11 +182,9 @@
                output="${FLEX_HOME}/frameworks/libs/rpc.swc">
             <jvmarg line="${compc.jvm.args}"/>
             <load-config filename="compile-config.xml" />
-            <include-file name="version.properties" path="${FLEX_HOME}/frameworks/version.properties"/>
             <arg value="+playerglobal.version=${playerglobal.version}" />
             <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
         </compc>
-        <delete file="${FLEX_HOME}/frameworks/version.properties"/>
     </target>
     
     <target name="doc" depends="clean-temp-docs" description="updates rpc.swc with asdoc xml">
