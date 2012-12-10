@@ -37,5 +37,3 @@ internal class AuthoringSupportClasses
 }
 
 }
-
-com.adobe.viewsource.ViewSource

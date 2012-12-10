@@ -153,7 +153,7 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
 
         var unmarshaller:Function = unmarshallers[type.localName];
         if (unmarshaller != null)
-            var value:* = unmarshaller(rawValue, type, restriction);
+            value = unmarshaller(rawValue, type, restriction);
         else
             throw new TypeError("Cannot unmarshall type '" + type + "' from XML.");
 
