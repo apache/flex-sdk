@@ -41,11 +41,11 @@ cp bundles/framework/resMod_events_001.swf bundles/framework/resMod_events_002.s
 cp bundles/framework/resMod_events_001.swf bundles/framework/resMod_events_003.swf
 
 echo "Compiling resource module SWFs for loadResourceModule..."
-$SDK_DIR/bin/mxmlc -locale=en_US -source-path=bundles/custom/{locale} -include-resource-bundles bundle1 -o bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf
+$SDK_DIR/bin/mxmlc -locale=en_US -static-rsls=true -source-path=bundles/custom/{locale} -include-resource-bundles bundle1 -o bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf
 cp bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf bundles/custom/resMod_loadResourceModule_enUS_bundle1_002.swf
 cp bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf bundles/custom/resMod_loadResourceModule_enUS_bundle1_003.swf
 cp bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf bundles/custom/resMod_loadResourceModule_enUS_bundle1_004.swf
-$SDK_DIR/bin/mxmlc -locale=en_US -source-path=bundles/custom2/{locale} -include-resource-bundles bundle1 -o bundles/custom2/resMod_loadResourceModule_enUS_bundle1_005.swf
+$SDK_DIR/bin/mxmlc -locale=en_US -static-rsls=true -source-path=bundles/custom2/{locale} -include-resource-bundles bundle1 -o bundles/custom2/resMod_loadResourceModule_enUS_bundle1_005.swf
 cp bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf bundles/custom/resMod_loadResourceModule_enUS_bundle1_006.swf
 cp bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf bundles/custom/resMod_loadResourceModule_enUS_bundle1_007.swf
 
