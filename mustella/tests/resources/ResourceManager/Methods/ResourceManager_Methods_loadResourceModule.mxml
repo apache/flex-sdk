@@ -208,11 +208,11 @@ General approach:
                 <RunCode code="ed4=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_enUS_bundle1_004.swf')" />
                 <RunCode code="ed4.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
                 <RunCode code="ed4.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
-				<WaitForEvent target="mx.resources::ResourceManager.getInstance()" eventName="change" timeout="1000" />
+				<WaitForEvent target="mx.resources::ResourceManager.getInstance()" eventName="change" timeout="2000" />
                 <RunCode code="ed5=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom2/resMod_loadResourceModule_enUS_bundle1_005.swf')" />
                 <RunCode code="ed5.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
                 <RunCode code="ed5.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
-				<WaitForEvent target="mx.resources::ResourceManager.getInstance()" eventName="change" timeout="1000" />
+				<WaitForEvent target="mx.resources::ResourceManager.getInstance()" eventName="change" timeout="2000" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="1" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().getLocales()[0]" value="en_US" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1','SHUTDOWN')" value="Shut down" />
@@ -231,11 +231,11 @@ General approach:
                 <RunCode code="ed6=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_enUS_bundle1_006.swf')" />
                 <RunCode code="ed6.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
                 <RunCode code="ed6.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
-				<WaitForEvent target="mx.resources::ResourceManager.getInstance()" eventName="change" timeout="1000" />
+				<WaitForEvent target="mx.resources::ResourceManager.getInstance()" eventName="change" timeout="2000" />
                 <RunCode code="ed7=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_frFR_bundle2.swf')" />
                 <RunCode code="ed7.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
                 <RunCode code="ed7.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
-				<WaitForEvent target="mx.resources::ResourceManager.getInstance()" eventName="change" timeout="1000" />
+				<WaitForEvent target="mx.resources::ResourceManager.getInstance()" eventName="change" timeout="2000" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="2" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('en_US') != -1" value="true" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('fr_FR') != -1" value="true" />
@@ -255,11 +255,11 @@ General approach:
                 <RunCode code="ed9=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_enUS_bundle1_007.swf')" />
                 <RunCode code="ed9.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
                 <RunCode code="ed9.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
-				<WaitForEvent target="mx.resources::ResourceManager.getInstance()" eventName="change" timeout="1000" />
+				<WaitForEvent target="mx.resources::ResourceManager.getInstance()" eventName="change" timeout="2000" />
                 <RunCode code="ed10=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_enUS,frFR,jaJP_bundles1,2,3.swf')" />
                 <RunCode code="ed10.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
                 <RunCode code="ed10.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
-				<WaitForEvent target="mx.resources::ResourceManager.getInstance()" eventName="change" timeout="1000" />
+				<WaitForEvent target="mx.resources::ResourceManager.getInstance()" eventName="change" timeout="2000" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="3" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('en_US') != -1" value="true" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('fr_FR') != -1" value="true" />
