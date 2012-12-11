@@ -37,6 +37,21 @@
             embedAsCFF: false;
         }
         
+        @font-face {
+            src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Italic.ttf");
+            fontFamily: EmbeddedVerdana;
+            fontWeight: normal;
+            fontStyle: italic;
+            embedAsCFF: false;
+        }
+        
+        /* Used by some of the styles tests. */
+        @font-face {
+            src: url("../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+            fontFamily: EmbeddedArial;
+            embedAsCFF: false;
+        }
+        
         mx|AdvancedDataGrid {
             /* embed the numeric sort indicator */
             sortFontFamily: EmbeddedVerdana;
