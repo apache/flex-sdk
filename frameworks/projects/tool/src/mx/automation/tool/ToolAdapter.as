@@ -1900,7 +1900,7 @@ package mx.automation.tool
 		 */
 		public function setLastError(message:String,fromTool:Boolean = true):void
 		{
-			var message:String = "WARNING....... somebody called setLastError. This was not tested for Marshalling";
+			message = "WARNING....... somebody called setLastError. This was not tested for Marshalling";
 			Automation.automationDebugTracer.traceMessage("ToolAdapter","setLastError()",message);
 			// we need to find out which was the last responded application.
 			var currentAppname:String = getApplicationName();
