@@ -208,9 +208,7 @@
                 <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
             </setup>
             <body>
-                <SetStyle target="mydatagrid" styleName="fontFamily" value="EmbddedVerdana" waitTarget="mydatagrid" waitEvent="updateComplete"/>
-                <WaitForEffectsToEnd />
-                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/$testID_EmbddedVerdana.png" timeout="5000" />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/$testID_EmbeddedVerdana.png" timeout="5000" />
 
                 <SetStyle target="mydatagrid" styleName="fontFamily" value="EmbeddedArial" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                 <WaitForEffectsToEnd />
@@ -224,9 +222,7 @@
                 <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
              </setup>
             <body>
-                <SetStyle target="mydatagrid" styleName="fontFamily" value="EmbddedVerdana" waitTarget="mydatagrid" waitEvent="updateComplete"/>
-                <WaitForEffectsToEnd />
-                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/$testID_EmbddedVerdana.png" timeout="5000" />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/$testID_EmbeddedVerdana.png" timeout="5000" />
 
                 <RunCode code="setFF()"/>
                 <WaitForEffectsToEnd />
