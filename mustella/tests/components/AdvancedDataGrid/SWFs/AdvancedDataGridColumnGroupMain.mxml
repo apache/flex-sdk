@@ -19,7 +19,34 @@
 -->
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" layout="vertical" height="700" width="850"  >
 
-    <mx:Style source="../../../../Assets/Fonts/MyStyles.css" />
+    <mx:Style>
+        @namespace s "library://ns.adobe.com/flex/spark";
+        @namespace mx "library://ns.adobe.com/flex/mx";
+        
+        @font-face {
+            src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+            fontFamily: EmbeddedVerdana;
+            embedAsCFF: false;
+        }
+        
+        @font-face {
+            src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Bold.ttf");
+            fontFamily: EmbeddedVerdana;
+            fontWeight: bold;
+            fontStyle: normal;
+            embedAsCFF: false;
+        }
+        
+        mx|AdvancedDataGrid {
+            /* embed the numeric sort indicator */
+            sortFontFamily: EmbeddedVerdana;
+        }
+        
+        global {
+            fontFamily: EmbeddedVerdana;
+            fontAntiAliasType: normal;
+        }
+    </mx:Style>
 	
     <mx:XMLList id="comps"  xmlns="">
     <companylist>
