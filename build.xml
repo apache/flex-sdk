@@ -428,8 +428,6 @@
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="advancedgrids" build-number="${release.version}.${build.number}"/>
 		<!-- spark_dmv RSL -->
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="spark_dmv" build-number="${release.version}.${build.number}"/>		
-		<!-- textLayout RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="textLayout" build-number="${release.version}.${build.number}"/>		
 		<!-- apache RSL -->
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="apache" build-number="${release.version}.${build.number}"/>		
 		<!-- experimental RSL -->
@@ -612,7 +610,6 @@
                 <exclude name="test*/**"/>
                 <exclude name="javascript/**"/>
                 <exclude name="projects/air/**"/>
-                <exclude name="projects/textLayout/**"/>
                 <exclude name="projects/spark/manifest.xml"/>
                 <exclude name="projects/*/bundles.properties"/>
                 <exclude name="projects/*/.settings/**"/>
