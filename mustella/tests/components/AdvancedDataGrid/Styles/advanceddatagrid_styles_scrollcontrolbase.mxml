@@ -223,9 +223,10 @@
              </setup>
             <body>
                 <CompareBitmap target="mydatagrid" url="../Styles/Baselines/$testID_EmbeddedVerdana.png" timeout="5000" />
-
-                <RunCode code="setFF()"/>
+                
+                <RunCode code="setFF()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                 <WaitForEffectsToEnd />
+                
                 <CompareBitmap target="mydatagrid" url="../Styles/Baselines/$testID_EmbeddedArial.png" timeout="5000" />
             </body>
         </TestCase>

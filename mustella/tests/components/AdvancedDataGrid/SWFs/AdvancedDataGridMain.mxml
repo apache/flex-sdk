@@ -51,6 +51,14 @@
             fontFamily: EmbeddedArial;
             embedAsCFF: false;
         }
+
+        @font-face {
+            src: url("../../../../Assets/Fonts/Cousine/Cousine-Bold.ttf");
+            fontFamily: EmbeddedArial;
+            fontWeight: bold;
+            fontStyle: normal;
+            embedAsCFF: false;
+        }
         
         mx|AdvancedDataGrid {
             /* embed the numeric sort indicator */
