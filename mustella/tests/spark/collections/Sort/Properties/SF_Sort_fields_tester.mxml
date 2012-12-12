@@ -145,7 +145,7 @@
                 <ResetComponent target="uiCustomListComp" className="newComps.CustomListComp" waitEvent="updateComplete" waitTarget="uiCustomListComp"/>
                 <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value=''"/>
                 <SetProperty target="uiCustomListComp" propertyName="listDataProvider" valueExpression="value=application.uiCustomListComp.dataComp.myAddressStrArr"/>
-                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="{flash.system.Capabilities.language}"/>
                 <SetProperty target="uiCustomListComp.listDataProvider" propertyName="sort" valueExpression="value=application.uiCustomListComp.mySort"/>
                 <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
             </setup>
@@ -154,7 +154,7 @@
                 <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
                 <SetStyle target="uiCustomListComp.mySort" styleName="locale" valueExpression="value='notLocale'"/>
                 <RunCode code="application.uiCustomListComp.listDataProvider.refresh()" waitEvent="collectionChange" waitTarget="uiCustomListComp.listDataProvider"/>
-                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="en"/>
+                <SetProperty target="uiCustomListComp" propertyName="flashCollatorLocale" value="{flash.system.Capabilities.language}"/>
                 <AssertMethodValue method="value=SFConstant.getArrayOfField(application.uiCustomListComp.listValueField, application.uiCustomListComp.listDataProvider);" valueExpression="value=application.uiCustomListComp.flashSortedArray"/>
             </body>
         </TestCase>
