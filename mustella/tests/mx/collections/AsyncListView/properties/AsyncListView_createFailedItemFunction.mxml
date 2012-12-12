@@ -119,7 +119,7 @@ public function setup( responseDelay:int = 500,
 	</setup>
 	<body>
 		<SetProperty target="obj1.alv" propertyName="createFailedItemFunction" valueExpression="value = FlexGlobals.topLevelApplication.obj1.errorFunction3" />
-		<AssertMethodValue method="try{ FlexGlobals.topLevelApplication.obj1.items.failPage(); } catch(e:Error) { value = e.message; }" value="Error #1063: Argument count mismatch on assets::PagedDataComp1/errorFunction3(). Expected 0, got 2." />
+		<AssertMethodValue method="try{ FlexGlobals.topLevelApplication.obj1.items.failPage(); } catch(e:Error) { value = e.message; }" errorArray="['Error #1063:', 'assets::PagedDataComp1/errorFunction3()', '0', '2']" />
 	</body>
 </TestCase>
 
@@ -130,7 +130,7 @@ public function setup( responseDelay:int = 500,
 	</setup>
 	<body>
 		<SetProperty target="obj1.alv" propertyName="createFailedItemFunction" valueExpression="value = FlexGlobals.topLevelApplication.obj1.errorFunction4" />
-		<AssertMethodValue method="try{ FlexGlobals.topLevelApplication.obj1.items.failPage(); } catch(e:Error) { value = e.message; }" value="Error #1063: Argument count mismatch on assets::PagedDataComp1/errorFunction4(). Expected 1, got 2." />
+		<AssertMethodValue method="try{ FlexGlobals.topLevelApplication.obj1.items.failPage(); } catch(e:Error) { value = e.message; }" errorArray="['Error #1063:', 'assets::PagedDataComp1/errorFunction4()', '1', '2']" />
 	</body>
 </TestCase>
 

@@ -25,15 +25,15 @@
 		<![CDATA[
 		public static function init(o:DisplayObject):void
 		{
-		}			
+		}
 		]]>
 	</fx:Script>
-	
+
 	<fx:Metadata>
 		<![CDATA[
 			[Mixin]
 		]]>
-	</fx:Metadata>	
+	</fx:Metadata>
 	<!-- end of set of lines that must be in each unit test -->
 	<fx:Script>
 	<![CDATA[
@@ -47,8 +47,8 @@
 	]]>
 	</fx:Script>
 	<testCases>
-	
-	
+
+
 <!-- check that you can call the IVisualElementContainer methods when a Group is preinitialized -->
 
 	<TestCase testID="Group_method_preInitialize_addElement" keywords="[Group, method, addElement]" description="before a group is initialized the addElement method should work as expected with no RTE">
@@ -60,8 +60,8 @@
 			<AssertMethodValue method="value=application.preinitializeGroup.numElements" value="4"  />
 			<AssertMethodValue method="value=application.preinitializeMethodOutput" value="no error"  />
 		</body>
-	</TestCase>	
-	
+	</TestCase>
+
 	<TestCase testID="Group_method_preInitialize_addElementAt" keywords="[Group, method, addElementAt]" description="before a group is initialized the addElementAt method should work as expected with no RTE">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
@@ -71,8 +71,8 @@
 			<AssertMethodValue method="value=application.preinitializeGroup.numElements" value="4"  />
 			<AssertMethodValue method="value=application.preinitializeMethodOutput" value="no error"  />
 		</body>
-	</TestCase>	
-	
+	</TestCase>
+
 	<TestCase testID="Group_method_preInitialize_getElementAt" keywords="[Group, method, getElementAt]" description="before a group is initialized the getElementAt method should work as expected with no RTE">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
@@ -82,8 +82,8 @@
 			<AssertMethodValue method="value=application.preinitializeGroup.getElementAt(0).label" value=""  />
 			<AssertMethodValue method="value=application.preinitializeMethodOutput" value="no error"  />
 		</body>
-	</TestCase>		
-	
+	</TestCase>
+
 	<TestCase testID="Group_method_preInitialize_getElementIndex" keywords="[Group, method, getElementIndex]" description="before a group is initialized the getElementIndex method should work as expected with no RTE">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
@@ -93,8 +93,8 @@
 			<AssertMethodValue method="value=application.preinitializeGroup.getElementIndex(application.preinitializeGroup.getElementAt(2))" value="2"  />
 			<AssertMethodValue method="value=application.preinitializeMethodOutput" value="no error"  />
 		</body>
-	</TestCase>			
-	
+	</TestCase>
+
 	<TestCase testID="Group_method_preInitialize_removeElement" keywords="[Group, method, removeElement]" description="before a group is initialized the removeElement method should work as expected with no RTE">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
@@ -104,8 +104,8 @@
 			<AssertMethodValue method="value=application.preinitializeGroup.numElements" value="2"  />
 			<AssertMethodValue method="value=application.preinitializeMethodOutput" value="no error"  />
 		</body>
-	</TestCase>		
-	
+	</TestCase>
+
 	<TestCase testID="Group_method_preInitialize_removeElementAt" keywords="[Group, method, removeElementAt]" description="before a group is initialized the removeElementAt method should work as expected with no RTE">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
@@ -115,8 +115,8 @@
 			<AssertMethodValue method="value=application.preinitializeGroup.numElements" value="2"  />
 			<AssertMethodValue method="value=application.preinitializeMethodOutput" value="no error"  />
 		</body>
-	</TestCase>		
-	
+	</TestCase>
+
 	<TestCase testID="Group_method_preInitialize_setElementIndex" keywords="[Group, method, setElementIndex]" description="before a group is initialized the setElementIndex method should work as expected with no RTE">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
@@ -128,7 +128,7 @@
 			<AssertMethodValue method="value=application.preinitializeGroup.getElementAt(2) is mx.controls.Button" valueExpression="value=true"  />
 			<AssertMethodValue method="value=application.preinitializeMethodOutput" value="no error"  />
 		</body>
-	</TestCase>		
+	</TestCase>
 
 	<TestCase testID="Group_method_preInitialize_swapElements" keywords="[Group, method, swapElements]" description="before a group is initialized the swapElements method should work as expected with no RTE">
 		<setup>
@@ -141,7 +141,7 @@
 			<AssertMethodValue method="value=application.preinitializeGroup.getElementAt(2) is mx.controls.Button" valueExpression="value=true"  />
 			<AssertMethodValue method="value=application.preinitializeMethodOutput" value="no error"  />
 		</body>
-	</TestCase>		
+	</TestCase>
 
 	<TestCase testID="Group_method_preInitialize_swapElementsAt" keywords="[Group, method, swapElements]" description="before a group is initialized the swapElementsAt method should work as expected with no RTE">
 		<setup>
@@ -155,19 +155,19 @@
 			<AssertMethodValue method="value=application.preinitializeMethodOutput" value="no error"  />
 		</body>
 	</TestCase>
-	
+
 <!-- assert errors on Group methods -->
-	
+
 	<TestCase testID="Group_method_error_addItem_null" keywords="[Group, method, addItem]" description="assert error when adding null to a Group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
 			<ResetComponent target="group2" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group2" />
 		</setup>
 		<body>
-			<AssertMethodValue method="value=application.assertGroupError('addElement(null)', application.group1)" value="Error #1009: Cannot access a property or method of a null object reference."  />
+			<AssertMethodValue method="value=application.assertGroupError('addElement(null)', application.group1)" errorArray="['Error #1009:']"  />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_error_addItem_itself" keywords="[Group, method, addItem]" description="assert error when adding a Group to itself">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -175,17 +175,17 @@
 		<body>
 			<AssertMethodValue method="value=application.assertGroupError('addElement(this group)', application.group1)" value="Cannot add an element as a child of itself."  />
 		</body>
-	</TestCase>	
+	</TestCase>
 
 	<TestCase testID="Group_method_error_addItem_undefined" keywords="[Group, method, addItem]" description="assert error when adding undefined to a Group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
 		</setup>
 		<body>
-			<AssertMethodValue method="value=application.assertGroupError('addElement(undefined)', application.group1)" value="Error #1009: Cannot access a property or method of a null object reference."  />
+			<AssertMethodValue method="value=application.assertGroupError('addElement(undefined)', application.group1)" errorArray="['Error #1009:']"  />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_error_addChild" keywords="[Group, method, addChild]" description="assert error when calling addChild">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -194,7 +194,7 @@
 			<AssertMethodValue method="value=application.assertGroupError('addChild', application.group1)" value="addChild() is not available in this class. Instead, use addElement() or modify the skin, if you have one."  />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_error_addChildAt" keywords="[Group, method, addChildAt]" description="assert error when calling addChildAt">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -212,7 +212,7 @@
 			<AssertMethodValue method="value=application.assertGroupError('removeChild', application.group1)" value="removeChild() is not available in this class. Instead, use removeElement() or modify the skin, if you have one."  />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_error_removeChildAt" keywords="[Group, method, removeChildAt]" description="assert error when calling removeChildAt">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -221,7 +221,7 @@
 			<AssertMethodValue method="value=application.assertGroupError('removeChildAt', application.group1)" value="removeChildAt() is not available in this class. Instead, use removeElementAt() or modify the skin, if you have one."  />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_error_setChildIndex" keywords="[Group, method, setChildIndex]" description="assert error when calling setChildIndex">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -230,7 +230,7 @@
 			<AssertMethodValue method="value=application.assertGroupError('setChildIndex', application.group1)" value="setChildIndex() is not available in this class. Instead, use setElementIndex() or modify the skin, if you have one."  />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_error_swapChildren" keywords="[Group, method, swapChildren]" description="assert error when calling swapChildren">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -239,7 +239,7 @@
 			<AssertMethodValue method="value=application.assertGroupError('swapChildren', application.group1)" value="swapChildren() is not available in this class. Instead, use swapElements() or modify the skin, if you have one."  />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_error_swapChildrenAt" keywords="[Group, method, swapChildrenAt]" description="assert error when calling swapChildrenAt">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -248,7 +248,7 @@
 			<AssertMethodValue method="value=application.assertGroupError('swapChildrenAt', application.group1)" value="swapChildrenAt() is not available in this class. Instead, use swapElementsAt() or modify the skin, if you have one."  />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_error_addItemAt_negative" keywords="[Group, method, addItemAt]" description="assert error when adding item at negative index">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -257,7 +257,7 @@
 			<AssertMethodValue method="value=application.assertGroupError('addElementAt(new spark.components.Button(), -1)', application.group1)" value="Index -1 is out of range."  />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_error_getItemAt_negative" keywords="[Group, method, getItemAt]" description="assert error when getting item at negative index">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -265,8 +265,8 @@
 		<body>
 			<AssertMethodValue method="value=application.assertGroupError('getElementAt(-1)', application.group1)" value="Index -1 is out of range."  />
 		</body>
-	</TestCase>	
-	
+	</TestCase>
+
 	<TestCase testID="Group_method_error_getItemIndex_error" keywords="[Group, method, getItemAt]" description="assert error when getting index of item that doesnt exist in the group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -274,7 +274,7 @@
 		<body>
 			<AssertMethodValue method="value=(application.assertGroupError('getElementIndex(new spark.components.Button())', application.group1)).split(' is ')[1]" value="not found in this Group."  />
 		</body>
-	</TestCase>	
+	</TestCase>
 
 	<TestCase testID="Group_method_error_removeItemAt_negative" keywords="[Group, method, removeItemAt]" description="assert error when removing item at negative index">
 		<setup>
@@ -283,19 +283,19 @@
 		<body>
 			<AssertMethodValue method="value=application.assertGroupError('removeElementAt(-1)', application.group1)" value="Index -1 is out of range."  />
 		</body>
-	</TestCase>		
+	</TestCase>
 
 <!-- addItem method -->
-	
-<!-- reparent items between two groups.  This test adds the items to subgroups of group1 for atomicity (SDK-18189) -->	
-	
+
+<!-- reparent items between two groups.  This test adds the items to subgroups of group1 for atomicity (SDK-18189) -->
+
 	<TestCase testID="Group_method_addItem_reparenting" keywords="[Group, method, addItem]" description="reparent items between two subgroups">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
-			
-			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>	
-			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>	
-			
+
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
+
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 50,  50, 0xFF0000)" />
 			<RunCode code="application.group1.getElementAt(0).addElement(application.createFxButton('button', 100, 20, 0, 0));" />
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 40,  40, 0x00FF00)" />
@@ -314,23 +314,23 @@
 			<RunCode code="application.group1.getElementAt(1).addElement(application.group1.getElementAt(0).getElementAt(0))" />
 			<RunCode code="application.group1.getElementAt(1).addElement(application.group1.getElementAt(0).getElementAt(0))" />
 			<Pause timeout="200" />
-			
-			<AssertMethodValue method="value=application.group1.getElementAt(0).numElements" value="0" />		
-			<AssertMethodValue method="value=application.group1.getElementAt(1).numElements" value="7" />		
+
+			<AssertMethodValue method="value=application.group1.getElementAt(0).numElements" value="0" />
+			<AssertMethodValue method="value=application.group1.getElementAt(1).numElements" value="7" />
 			<CompareBitmap url="../methods/baselines/group_method_addItem_reparenting.png" target="group1" timeout="2000" />
 		</body>
-	</TestCase>		
-	
+	</TestCase>
+
 	<TestCase testID="Group_method_addItem_subgroups" keywords="[Group, method, addItem]" description="add subgroups to a group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
 		</setup>
 		<body>
-			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>		
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.group1.getElementAt(0).width = 50" waitEvent="updateComplete" waitTarget="group1"/>
-			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>		
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.group1.getElementAt(1).width = 60" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue method="value=application.group1.getElementAt(0).width" value="50" />
 			<AssertMethodValue method="value=application.group1.getElementAt(1).width" value="60" />
 			<AssertPropertyValue target="group1" propertyName="numElements" value="2" />
@@ -339,23 +339,23 @@
 
 	<TestCase testID="Group_method_addItem_preexisting" keywords="[Group, method, addItem]" description="check that adding an item already in the group just moves it to the end (SDK-18189)">
 		<setup>
-			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />			
-			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1" />	
-			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1" />	
+			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1" />
 		</setup>
 		<body>
-			<RunCode code="application.group1.addElement(application.group1.getElementAt(0))" waitEvent="updateComplete" waitTarget="group1"/>			
-			
+			<RunCode code="application.group1.addElement(application.group1.getElementAt(0))" waitEvent="updateComplete" waitTarget="group1"/>
+
 			<AssertMethodValue method="value=application.group1.getElementAt(0).width" value="20" />
 			<AssertMethodValue method="value=application.group1.getElementAt(1).width" value="30" />
 			<AssertMethodValue method="value=application.group1.getElementAt(2).width" value="10" />
 		</body>
 	</TestCase>
-	
+
 <!-- addItemAt method -->
 
-	
+
 	<TestCase testID="Group_method_addItemAt_graphic_0" keywords="[Group, method, addItemAt]" description="add single item to start of a group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -364,15 +364,15 @@
 		</setup>
 		<body>
 			<RunCode code="value=application.addEllipseAt(application.group1, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="40" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="10" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="20" />
-			
-			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />					
+
+			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />
 		</body>
-	</TestCase>	
-		
+	</TestCase>
+
 	<TestCase testID="Group_method_addItemAt_graphic_1" keywords="[Group, method, addItemAt]" description="add single item to middle of a group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -381,15 +381,15 @@
 		</setup>
 		<body>
 			<RunCode code="value=application.addEllipseAt(application.group1, 1)" waitEvent="updateComplete" waitTarget="group1" />
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="10" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="40" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="20" />
-			
-			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />					
+
+			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />
 		</body>
-	</TestCase>		
-	
+	</TestCase>
+
 	<TestCase testID="Group_method_addItemAt_graphic_2" keywords="[Group, method, addItemAt]" description="add single item to end of a group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -398,15 +398,15 @@
 		</setup>
 		<body>
 			<RunCode code="value=application.addEllipseAt(application.group1, 2)" waitEvent="updateComplete" waitTarget="group1" />
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="10" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="20" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="40" />
-			
-			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />					
+
+			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />
 		</body>
-	</TestCase>	
-			
+	</TestCase>
+
 	<TestCase testID="Group_method_addItemAt_subgroups_0" keywords="[Group, method, addItemAt]" description="add subgroup to start of a group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -415,14 +415,14 @@
 		</setup>
 		<body>
 			<RunCode code="application.createSubgroupAt(application.group1, 33, 0);" waitTarget="group1" waitEvent="updateComplete" />
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="33" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="10" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="20" />
-			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />					
+			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />
 		</body>
-	</TestCase>		
-	
+	</TestCase>
+
 	<TestCase testID="Group_method_addItemAt_subgroups_middle" keywords="[Group, method, addItemAt]" description="add subgroup to middle of a group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -431,14 +431,14 @@
 		</setup>
 		<body>
 			<RunCode code="application.createSubgroupAt(application.group1, 33, 1);" waitTarget="group1" waitEvent="updateComplete" />
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="10" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="33" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="20" />
-			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />					
+			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />
 		</body>
-	</TestCase>		
-	
+	</TestCase>
+
 	<TestCase testID="Group_method_addItemAt_subgroups_end" keywords="[Group, method, addItemAt]" description="add subgroup to end of a mix content group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -447,20 +447,20 @@
 		</setup>
 		<body>
 			<RunCode code="application.createSubgroupAt(application.group1, 33, 2);" waitTarget="group1" waitEvent="updateComplete" />
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="10" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="20" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="33" />
-			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />					
+			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />
 		</body>
-	</TestCase>		
-	
-	
+	</TestCase>
+
+
 
 <!-- getItemAt method -->
-		
+
 <!-- getItemAt graphics -->
-	
+
 	<TestCase testID="Group_method_getItemAt_null" keywords="[Group, method, getItemAt]" description="nonsense items should throw RTEs">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -469,8 +469,8 @@
 			<AssertMethodValue method="value=application.assertGroupError('getElementAt(0)', application.group1)" value="Index 0 is out of range."  />
 			<AssertMethodValue method="value=application.assertGroupError('getElementAt(30)', application.group1)" value="Index 30 is out of range."  />
 		</body>
-	</TestCase>	
-	
+	</TestCase>
+
 	<TestCase testID="Group_method_getItemAt_graphics_0" keywords="[Group, method, getItemAt]" description="get graphic item at start of a group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -482,7 +482,7 @@
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).top" value="0" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_getItemAt_graphics_1" keywords="[Group, method, getItemAt]" description="get graphic item at middle of a group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -494,7 +494,7 @@
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).x" value="30" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_getItemAt_graphics_2" keywords="[Group, method, getItemAt]" description="get graphic item at end of a group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -506,7 +506,7 @@
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).xFrom" value="10" />
 		</body>
 	</TestCase>
-		
+
 <!-- getItemAt subgroups -->
 
 	<TestCase testID="Group_method_getItemAt_subgroups_empty" keywords="[Group, method, getItemAt]" description="get subgroup items that are empty">
@@ -522,7 +522,7 @@
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="22" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_getItemAt_subgroups_not_empty" keywords="[Group, method, getItemAt]" description="get subgroup items that are not empty">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -538,8 +538,8 @@
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).getElementAt(0).top" value="0" />
 		</body>
 	</TestCase>
-	
-	
+
+
 
 <!-- getItemIndex method -->
 
@@ -550,8 +550,8 @@
 		<body>
 			<AssertMethodValue method="value=application.assertGroupError('getElementIndex(group1.getElementAt(90))', application.group1)" value="Index 90 is out of range."  />
 		</body>
-	</TestCase>	
-	
+	</TestCase>
+
 	<TestCase testID="Group_method_getItemIndex_graphics" keywords="[Group, method, getItemIndex]" description="get index of graphic items">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -564,9 +564,9 @@
 			<AssertMethodValue   method="value=application.group1.getElementIndex(application.group1.getElementAt(1))" value="1" />
 			<AssertMethodValue   method="value=application.group1.getElementIndex(application.group1.getElementAt(2))" value="2" />
 		</body>
-	</TestCase>	
-		
-	
+	</TestCase>
+
+
 <!-- getLayoutItemAt method -->
 
 <!-- getLayoutItemAt data -->
@@ -579,10 +579,10 @@
 			<AssertMethodValue method="value=application.assertGroupError('getElementAt(0)', application.group1)" value="Index 0 is out of range."  />
 			<AssertMethodValue method="value=application.assertGroupError('getElementAt(30)', application.group1)" value="Index 30 is out of range."  />
 		</body>
-	</TestCase>	
-	
+	</TestCase>
+
 <!-- getLayoutItemAt graphics -->
-	
+
 	<TestCase testID="Group_method_getLayoutItemAt_graphics_0" keywords="[Group, method, getLayoutItemAt]" description="get graphic item at start">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -594,7 +594,7 @@
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).top" value="0" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_getLayoutItemAt_graphics_1" keywords="[Group, method, getLayoutItemAt]" description="get graphic item at middle">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -606,7 +606,7 @@
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).x" value="30" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_getLayoutItemAt_graphics_2" keywords="[Group, method, getLayoutItemAt]" description="get graphic item at end">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -618,7 +618,7 @@
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).xFrom" value="10" />
 		</body>
 	</TestCase>
-	
+
 <!-- getLayoutItemAt subgroups -->
 
 	<TestCase testID="Group_method_getLayoutItemAt_subgroups_empty" keywords="[Group, method, getLayoutItemAt]" description="get empty subgroups">
@@ -634,7 +634,7 @@
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="22" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_getLayoutItemAt_subgroups_not_empty" keywords="[Group, method, getLayoutItemAt]" description="get non-empty subgroups">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -649,10 +649,10 @@
 		</body>
 	</TestCase>
 
-	
- 	
+
+
 <!-- removeItem method -->
-	
+
 <!-- removeItem graphics -->
 
 	<TestCase testID="Group_method_removeItem_graphics_0" keywords="[Group, method, removeItem]" description="remove graphic item at start of group">
@@ -664,13 +664,13 @@
 		</setup>
 		<body>
 			<RunCode code="application.group1.removeElement(application.group1.getElementAt(0))" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).x" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).xFrom" value="10" />
 			<AssertPropertyValue target="group1" propertyName="numElements" value="2" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_removeItem_graphics_1" keywords="[Group, method, removeItem]" description="remove graphic item at middle of group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -680,13 +680,13 @@
 		</setup>
 		<body>
 			<RunCode code="application.group1.removeElement(application.group1.getElementAt(1))" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).top" value="0" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).xFrom" value="10" />
 			<AssertPropertyValue target="group1" propertyName="numElements" value="2" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_removeItem_graphics_2" keywords="[Group, method, removeItem]" description="remove graphic item at end of group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -696,13 +696,13 @@
 		</setup>
 		<body>
 			<RunCode code="application.group1.removeElement(application.group1.getElementAt(2))" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).top" value="0" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).x" value="30" />
 			<AssertPropertyValue target="group1" propertyName="numElements" value="2" />
 		</body>
 	</TestCase>
-	
+
 <!-- removeItem subgroups -->
 
 	<TestCase testID="Group_method_removeItem_subgroups_empty" keywords="[Group, method, removeItem]" description="remove empty subgroup">
@@ -715,7 +715,7 @@
 			<AssertPropertyValue target="group1" propertyName="numElements" value="0" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_removeItem_subgroups_not_empty" keywords="[Group, method, removeItem]" description="remove non-empty subgroup">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -728,14 +728,14 @@
 			<AssertPropertyValue target="group1" propertyName="numElements" value="0" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_removeItem_subgroups_nested_empty" keywords="[Group, method, removeItem]" description="remove empty nested subgroup">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
 			<RunCode code="application.createSubgroup(application.group1.getElementAt(0))" />
 			<!-- note: must timeout because cant access appropriate wait target -->
-			<Pause timeout="100" /> 
+			<Pause timeout="100" />
 		</setup>
 		<body>
 			<RunCode code="application.group1.removeElement(application.group1.getElementAt(0))" waitEvent="updateComplete" waitTarget="group1"/>
@@ -749,10 +749,10 @@
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
 			<RunCode code="application.createSubgroup(application.group1.getElementAt(0))" />
 			<!-- note: must timeout because cant access appropriate wait target -->
-			<Pause timeout="100" /> 
+			<Pause timeout="100" />
 			<RunCode code="application.addStretchRect(application.group1.getElementAt(0).getElementAt(0))" />
 			<!-- note: must timeout because cant access appropriate wait target -->
-			<Pause timeout="100" /> 
+			<Pause timeout="100" />
 		</setup>
 		<body>
 			<RunCode code="application.group1.removeElement(application.group1.getElementAt(0))" waitEvent="updateComplete" waitTarget="group1"/>
@@ -770,35 +770,35 @@
 		<body>
 			<AssertPropertyValue target="group1" propertyName="numElements" value="0" />
 		</body>
-	</TestCase>  
+	</TestCase>
 
 	<TestCase testID="Group_method_removeAllElements_1" keywords="[Group, method, removeAllElements]" description="remove all elements from a group with 1 element">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
-			<RunCode code="application.group1.removeAllElements()" waitEvent="updateComplete" waitTarget="group1"  />			
+			<RunCode code="application.group1.removeAllElements()" waitEvent="updateComplete" waitTarget="group1"  />
 		</setup>
 		<body>
 			<AssertPropertyValue target="group1" propertyName="numElements" value="0" />
 		</body>
-	</TestCase>  		
-	
+	</TestCase>
+
 	<TestCase testID="Group_method_removeAllElements_3" keywords="[Group, method, removeAllElements]" description="remove all elements from a group with 3 elements">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
 			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
 			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x00FF00)" waitEvent="updateComplete" waitTarget="group1"  />
-			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x0000FF)" waitEvent="updateComplete" waitTarget="group1"  />						
-			<RunCode code="application.group1.removeAllElements()" waitEvent="updateComplete" waitTarget="group1"  />			
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x0000FF)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.group1.removeAllElements()" waitEvent="updateComplete" waitTarget="group1"  />
 		</setup>
 		<body>
 			<AssertPropertyValue target="group1" propertyName="numElements" value="0" />
 		</body>
-	</TestCase>  		
-		
-	
+	</TestCase>
+
+
 <!-- removeItemAt method -->
-	
+
 	<TestCase testID="Group_method_removeItemAt_empty_group_0" keywords="[Group, method, removeItemAt]" description="check removing at an item from empty group returns RTE">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -807,11 +807,11 @@
 			<AssertMethodValue method="value=application.assertGroupError('removeElementAt(0)', application.group1)" value="Index 0 is out of range."  />
 			<AssertMethodValue method="value=application.assertGroupError('removeElementAt(30)', application.group1)" value="Index 30 is out of range."  />
 		</body>
-	</TestCase>  
-	
+	</TestCase>
+
 <!-- removeItemAt graphics -->
 
-	
+
 	<TestCase testID="Group_method_removeItemAt_graphics_0" keywords="[Group, method, removeItemAt]" description="remove graphic item from start of group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -821,13 +821,13 @@
 		</setup>
 		<body>
 			<RunCode code="application.group1.removeElementAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).x" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).xFrom" value="10" />
 			<AssertPropertyValue target="group1" propertyName="numElements" value="2" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_removeItemAt_graphics_1" keywords="[Group, method, removeItemAt]" description="remove graphic item from middle of group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -837,13 +837,13 @@
 		</setup>
 		<body>
 			<RunCode code="application.group1.removeElementAt(1)" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).top" value="0" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).xFrom" value="10" />
 			<AssertPropertyValue target="group1" propertyName="numElements" value="2" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_removeItemAt_graphics_2" keywords="[Group, method, removeItemAt]" description="remove graphic item from end of group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -853,13 +853,13 @@
 		</setup>
 		<body>
 			<RunCode code="application.group1.removeElementAt(2)" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).top" value="0" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).x" value="30" />
 			<AssertPropertyValue target="group1" propertyName="numElements" value="2" />
 		</body>
 	</TestCase>
-		
+
 <!-- removeItemAt subgroups -->
 
 	<TestCase testID="Group_method_removeItemAt_subgroups_empty" keywords="[Group, method, removeItemAt]" description="remove empty subgroup item from start of group">
@@ -872,7 +872,7 @@
 			<AssertPropertyValue target="group1" propertyName="numElements" value="0" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_removeItemAt_subgroups_not_empty" keywords="[Group, method, removeItemAt]" description="remove non-empty subgroup item from start of group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -885,14 +885,14 @@
 			<AssertPropertyValue target="group1" propertyName="numElements" value="0" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_removeItemAt_subgroups_nested_empty" keywords="[Group, method, removeItemAt]" description="remove nested subgroup item from start of group">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
 			<RunCode code="application.createSubgroup(application.group1.getElementAt(0))" />
 			<!-- note: must timeout because cant access appropriate wait target -->
-			<Pause timeout="100" /> 
+			<Pause timeout="100" />
 		</setup>
 		<body>
 			<RunCode code="application.group1.removeElementAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
@@ -906,22 +906,22 @@
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
 			<RunCode code="application.createSubgroup(application.group1.getElementAt(0))" />
 			<!-- note: must timeout because cant access appropriate wait target -->
-			<Pause timeout="100" /> 
+			<Pause timeout="100" />
 			<RunCode code="application.addStretchRect(application.group1.getElementAt(0).getElementAt(0))" />
 			<!-- note: must timeout because cant access appropriate wait target -->
-			<Pause timeout="100" /> 
+			<Pause timeout="100" />
 		</setup>
 		<body>
 			<RunCode code="application.group1.removeElementAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
 			<AssertPropertyValue target="group1" propertyName="numElements" value="0" />
 		</body>
 	</TestCase>
-				
-		
+
+
 <!-- setItemIndex method -->
 
-<!-- setItemIndex - graphics -->	
-	
+<!-- setItemIndex - graphics -->
+
 	<TestCase testID="Group_method_setItemIndex_graphics_0_1" keywords="[Group, method, setItemIndex]" description="change index of graphic item from 0 to 1">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -931,14 +931,14 @@
 		</setup>
 		<body>
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(0),1)" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).x" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).top" value="0" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).xFrom" value="10" />
-									
+
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_setItemIndex_graphics_1_0" keywords="[Group, method, setItemIndex]" description="change index of graphic item from 1 to 0">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -948,14 +948,14 @@
 		</setup>
 		<body>
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(1),0)" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).x" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).top" value="0" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).xFrom" value="10" />
-									
+
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_setItemIndex_graphics_0_2" keywords="[Group, method, setItemIndex]" description="change index of graphic item from 0 to 2">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -965,14 +965,14 @@
 		</setup>
 		<body>
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(0),2)" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).x" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).xFrom" value="10" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).top" value="0" />
-									
+
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_setItemIndex_graphics_2_0" keywords="[Group, method, setItemIndex]" description="change index of graphic item from 2 to 0">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -982,14 +982,14 @@
 		</setup>
 		<body>
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(2),0)" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).xFrom" value="10" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).top" value="0" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).x" value="30" />
-									
+
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_setItemIndex_graphics_0_0" keywords="[Group, method, setItemIndex]" description="change index of graphic item from 0 to 0">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -999,14 +999,14 @@
 		</setup>
 		<body>
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(0),0)" />
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).top" value="0" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).x" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).xFrom" value="10" />
-									
+
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_setItemIndex_graphics_2_2" keywords="[Group, method, setItemIndex]" description="change index of graphic item from 2 to 2">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -1016,16 +1016,16 @@
 		</setup>
 		<body>
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(2),2)" />
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).top" value="0" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).x" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).xFrom" value="10" />
-									
+
 		</body>
-	</TestCase>	
-	
+	</TestCase>
+
 <!-- setItemIndex - mix -->
-	
+
 	<TestCase testID="Group_method_setItemIndex_mix_graphic_to_subgroup" keywords="[Group, method, setItemIndex]" description="change index of graphic item to that of subgroup item">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -1038,15 +1038,15 @@
 			<AssertPropertyValue target="group1" propertyName="numElements" value="4" />
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(2),0)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(3),0)" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).x" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).top" value="0" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="11" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(3).width" value="22" />
-									
+
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_setItemIndex_mix_subgroup_to_graphic" keywords="[Group, method, setItemIndex]" description="change index of subgroup item to that of graphic item">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -1062,11 +1062,11 @@
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).top" value="0" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).x" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(3).width" value="11" />
-									
+
 		</body>
 	</TestCase>
-	
-<!-- setItemIndex - subgroups -->	
+
+<!-- setItemIndex - subgroups -->
 
 	<TestCase testID="Group_method_setItemIndex_subgroups_0_1" keywords="[Group, method, setItemIndex]" description="change index of subgroups from 0 to 1">
 		<setup>
@@ -1076,7 +1076,7 @@
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 10, 10, 0x0000FF, 0, 0)" />
 			<Pause timeout="100" /> <!-- note: must timeout because cant access appropriate wait target -->
-			
+
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(1), 20, 20, 0x0000FF, 0, 0)" />
 			<Pause timeout="100" /> <!-- note: must timeout because cant access appropriate wait target -->
@@ -1086,15 +1086,15 @@
 			<Pause timeout="100" /> <!-- note: must timeout because cant access appropriate wait target -->
 
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(0),1)" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).getElementAt(0).width" value="20" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).getElementAt(0).width" value="10" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).getElementAt(0).width" value="30" />
 
 		</body>
 	</TestCase>
-	
-	
+
+
 	<TestCase testID="Group_method_setItemIndex_subgroups_1_0" keywords="[Group, method, setItemIndex]" description="change index of subgroups from 1 to 0">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -1103,7 +1103,7 @@
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 10, 10, 0x0000FF, 0, 0)" />
 			<Pause timeout="100" /> <!-- note: must timeout because cant access appropriate wait target -->
-			
+
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(1), 20, 20, 0x0000FF, 0, 0)" />
 			<Pause timeout="100" /> <!-- note: must timeout because cant access appropriate wait target -->
@@ -1113,7 +1113,7 @@
 			<Pause timeout="100" /> <!-- note: must timeout because cant access appropriate wait target -->
 
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(1),0)" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).getElementAt(0).width" value="20" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).getElementAt(0).width" value="10" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).getElementAt(0).width" value="30" />
@@ -1129,7 +1129,7 @@
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 10, 10, 0x0000FF, 0, 0)" />
 			<Pause timeout="100" /> <!-- note: must timeout because cant access appropriate wait target -->
-			
+
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(1), 20, 20, 0x0000FF, 0, 0)" />
 			<Pause timeout="100" /> <!-- note: must timeout because cant access appropriate wait target -->
@@ -1139,14 +1139,14 @@
 			<Pause timeout="100" /> <!-- note: must timeout because cant access appropriate wait target -->
 
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(0),2)" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).getElementAt(0).width" value="20" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).getElementAt(0).width" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).getElementAt(0).width" value="10" />
 
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_setItemIndex_subgroups_2_0" keywords="[Group, method, setItemIndex]" description="change index of subgroups from 2 to 0">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -1155,7 +1155,7 @@
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 10, 10, 0x0000FF, 0, 0)" />
 			<Pause timeout="100" /> <!-- note: must timeout because cant access appropriate wait target -->
-			
+
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(1), 20, 20, 0x0000FF, 0, 0)" />
 			<Pause timeout="100" /> <!-- note: must timeout because cant access appropriate wait target -->
@@ -1165,14 +1165,14 @@
 			<Pause timeout="100" /> <!-- note: must timeout because cant access appropriate wait target -->
 
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(2),0)" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).getElementAt(0).width" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).getElementAt(0).width" value="10" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).getElementAt(0).width" value="20" />
 
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_setItemIndex_subgroups_same" keywords="[Group, method, setItemIndex]" description="change index of same subgroup">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
@@ -1181,7 +1181,7 @@
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 10, 10, 0x0000FF, 0, 0)" />
 			<Pause timeout="100" /> <!-- note: must timeout because cant access appropriate wait target -->
-			
+
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(1), 20, 20, 0x0000FF, 0, 0)" />
 			<Pause timeout="100" /> <!-- note: must timeout because cant access appropriate wait target -->
@@ -1193,102 +1193,102 @@
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(0),0)" />
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(1),1)" />
 			<RunCode code="application.group1.setElementIndex(application.group1.getElementAt(2),2)" />
-			
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).getElementAt(0).width" value="10" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).getElementAt(0).width" value="20" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(2).getElementAt(0).width" value="30" />
 
 		</body>
 	</TestCase>
-	
-	
-	
+
+
+
 
 
 <!-- swapItems method -->
 
 <!-- swapItems - graphics -->
-	
+
 	<TestCase testID="Group_method_swapItems_graphics_0_1" keywords="[Group, method, swapItems]" description="swap graphic items at 0 and 1">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />	
-		
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
+
 			<RunCode code="application.group1.swapElements(application.group1.getElementAt(0),application.group1.getElementAt(1))" waitEvent="updateComplete" waitTarget="group1"/>
 		</setup>
 		<body>
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="20" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="10" />
-			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="30" />		
+			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="30" />
 		</body>
 	</TestCase>
 
-	
+
 	<TestCase testID="Group_method_swapItems_graphics_0_2" keywords="[Group, method, swapItems]" description="swap graphic items at 0 and 2">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />	
-		
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
+
 			<RunCode code="application.group1.swapElements(application.group1.getElementAt(0),application.group1.getElementAt(2))" waitEvent="updateComplete" waitTarget="group1"/>
 		</setup>
 		<body>
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="20" />
-			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="10" />		
+			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="10" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_swapItems_graphics_1_0" keywords="[Group, method, swapItems]" description="swap graphic items at 1 and 0">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />	
-		
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
+
 			<RunCode code="application.group1.swapElements(application.group1.getElementAt(1),application.group1.getElementAt(0))" waitEvent="updateComplete" waitTarget="group1"/>
 		</setup>
 		<body>
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="20" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="10" />
-			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="30" />		
+			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="30" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_swapItems_graphics_2_0" keywords="[Group, method, swapItems]" description="swap graphic items at 2 and 0">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />	
-		
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
+
 			<RunCode code="application.group1.swapElements(application.group1.getElementAt(2),application.group1.getElementAt(0))" waitEvent="updateComplete" waitTarget="group1"/>
 		</setup>
 		<body>
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="20" />
-			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="10" />		
+			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="10" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_swapItems_same_item" keywords="[Group, method, swapItems]" description="swap same data item">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />	
-		
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
+
 			<RunCode code="application.group1.swapElements(application.group1.getElementAt(0),application.group1.getElementAt(0))" />
 			<RunCode code="application.group1.swapElements(application.group1.getElementAt(1),application.group1.getElementAt(1))" />
-			<RunCode code="application.group1.swapElements(application.group1.getElementAt(2),application.group1.getElementAt(2))" />						
+			<RunCode code="application.group1.swapElements(application.group1.getElementAt(2),application.group1.getElementAt(2))" />
 		</setup>
 		<body>
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="10" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="20" />
-			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="30" />		
+			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="30" />
 		</body>
 	</TestCase>
 
@@ -1299,104 +1299,104 @@
 			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 		</setup>
 		<body>
-			
+
 			<RunCode code="application.createSubgroup(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.createSubgroup(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
-			
+
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(2), 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(3), 40, 40, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-		
+
 			<AssertPropertyValue target="group1" propertyName="numElements" value="4" />
-			
+
 			<RunCode code="application.group1.swapElements(application.group1.getElementAt(0), application.group1.getElementAt(1))" />
 			<RunCode code="application.group1.swapElements(application.group1.getElementAt(0), application.group1.getElementAt(2))" />
 			<RunCode code="application.group1.swapElements(application.group1.getElementAt(0), application.group1.getElementAt(3))" />
-			
+
 			<AssertPropertyValue target="group1" propertyName="numElements" value="4" />
-			
+
 			<AssertMethodValue method="value=application.group1.getElementAt(0).getElementAt(0).width" value="40" />
 			<AssertMethodValue method="value=application.group1.getElementAt(1).width" value="10" />
 			<AssertMethodValue method="value=application.group1.getElementAt(2).width" value="20" />
 			<AssertMethodValue method="value=application.group1.getElementAt(3).getElementAt(0).width" value="30" />
 
 		</body>
-	</TestCase>	
-	
+	</TestCase>
+
 <!-- swapItems - subgroups  -->
-	
+
 	<TestCase testID="Group_method_swapItems_subgroup_subgroup_empty" keywords="[Group, method, swapItems]" description="swap empty subgroups">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
-			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>			
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.group1.getElementAt(0).width = 80" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.group1.getElementAt(1).width = 90" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 		</setup>
 		<body>
 			<RunCode code="application.group1.swapElements(application.group1.getElementAt(0),application.group1.getElementAt(1))" waitEvent="updateComplete" waitTarget="group1"/>
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="90" />
-			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="80" />	
+			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="80" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_swapItems_subgroup_subgroup_nonempty" keywords="[Group, method, swapItems]" description="swap non-empty subgroups">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
-			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>				
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 50, 50, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(1), 60, 60, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			
+
 		</setup>
 		<body>
-			<RunCode code="application.group1.swapElements(application.group1.getElementAt(0),application.group1.getElementAt(1))" waitEvent="updateComplete" waitTarget="group1"/>			
-			
+			<RunCode code="application.group1.swapElements(application.group1.getElementAt(0),application.group1.getElementAt(1))" waitEvent="updateComplete" waitTarget="group1"/>
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).getElementAt(0).width" value="60" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).getElementAt(0).width" value="50" />
-				
+
 		</body>
 	</TestCase>
-		
+
 	<TestCase testID="Group_method_swapItems_subgroup_graphics" keywords="[Group, method, swapItems]" description="swap subgroups and graphics">
 		<setup>
-			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />	
-			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>	
+			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 10, 10, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			<RunCode code="application.addStretchRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>	
+			<RunCode code="application.addStretchRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 		</setup>
 		<body>
-			<RunCode code="application.group1.swapElements(application.group1.getElementAt(0), application.group1.getElementAt(1))" waitEvent="updateComplete" waitTarget="group1"/>			
-			
+			<RunCode code="application.group1.swapElements(application.group1.getElementAt(0), application.group1.getElementAt(1))" waitEvent="updateComplete" waitTarget="group1"/>
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).top" value="0" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).getElementAt(0).width" value="10" />
-			
+
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_swapItems_graphics_subgroup" keywords="[Group, method, swapItems]" description="swap graphics and subgroups">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
-			<RunCode code="application.addStretchRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>		
-			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>	
-			
-			<RunCode code="application.addCustomRect(application.group1.getElementAt(1), 50, 50, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />	
-						
+			<RunCode code="application.addStretchRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<RunCode code="application.addCustomRect(application.group1.getElementAt(1), 50, 50, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
+
 		</setup>
 		<body>
-			
-			<RunCode code="application.group1.swapElements(application.group1.getElementAt(0),application.group1.getElementAt(1))" waitEvent="updateComplete" waitTarget="group1"/>			
-			
+
+			<RunCode code="application.group1.swapElements(application.group1.getElementAt(0),application.group1.getElementAt(1))" waitEvent="updateComplete" waitTarget="group1"/>
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).getElementAt(0).width" value="50" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).top" value="0" />
-			
+
 		</body>
 	</TestCase>
-		
-		
-			
-	
-	
+
+
+
+
+
 <!-- swapItemsAt method -->
 
 	<TestCase testID="Group_method_swapItemsAt_graphics_0_1" keywords="[Group, method, swapItemsAt]" description="swap graphic items at 0 and 1">
@@ -1404,81 +1404,81 @@
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />	
-		
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
+
 			<RunCode code="application.group1.swapElementsAt(0,1)" waitEvent="updateComplete" waitTarget="group1"/>
 		</setup>
 		<body>
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="20" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="10" />
-			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="30" />		
+			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="30" />
 		</body>
 	</TestCase>
 
-	
+
 	<TestCase testID="Group_method_swapItemsAt_graphics_0_2" keywords="[Group, method, swapItemsAt]" description="swap graphic items at 0 and 2">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />	
-		
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
+
 			<RunCode code="application.group1.swapElementsAt(0,2)" waitEvent="updateComplete" waitTarget="group1"/>
 		</setup>
 		<body>
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="20" />
-			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="10" />		
+			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="10" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_swapItemsAt_graphics_1_0" keywords="[Group, method, swapItemsAt]" description="swap graphic items at 1 and 0">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />	
-		
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
+
 			<RunCode code="application.group1.swapElementsAt(1,0)" waitEvent="updateComplete" waitTarget="group1"/>
 		</setup>
 		<body>
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="20" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="10" />
-			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="30" />		
+			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="30" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_swapItemsAt_graphics_2_0" keywords="[Group, method, swapItemsAt]" description="swap graphic items at 2 and 0">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />	
-		
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
+
 			<RunCode code="application.group1.swapElementsAt(2,0)" waitEvent="updateComplete" waitTarget="group1"/>
 		</setup>
 		<body>
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="30" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="20" />
-			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="10" />		
+			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="10" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_swapItemsAt_same_item" keywords="[Group, method, swapItemsAt]" description="swap same data item">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />	
-		
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
+
 			<RunCode code="application.group1.swapElementsAt(0, 0)" />
 			<RunCode code="application.group1.swapElementsAt(1, 1)" />
-			<RunCode code="application.group1.swapElementsAt(2, 2)" />						
+			<RunCode code="application.group1.swapElementsAt(2, 2)" />
 		</setup>
 		<body>
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="10" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="20" />
-			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="30" />		
+			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="30" />
 		</body>
 	</TestCase>
 
@@ -1490,16 +1490,16 @@
 			<RunCode code="application.addStretchRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addLine(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 		</setup>
 		<body>
-			
+
 			<RunCode code="application.group1.swapElementsAt(0,2)" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 			<AssertMethodValue method="value=application.group1.getElementAt(0).x" value="30" />
 			<AssertMethodValue method="value=application.group1.getElementAt(1).xFrom" value="10" />
 			<AssertMethodValue method="value=application.group1.getElementAt(2).top" value="0" />
-									
+
 		</body>
 	</TestCase>
 
@@ -1510,106 +1510,106 @@
 			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 		</setup>
 		<body>
-			
+
 			<RunCode code="application.createSubgroup(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.createSubgroup(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
 
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(2), 30, 30, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(3), 40, 40, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1"  />
-		
+
 			<AssertPropertyValue target="group1" propertyName="numElements" value="4" />
-			
+
 			<RunCode code="application.group1.swapElementsAt(0, 1)" />
 			<RunCode code="application.group1.swapElementsAt(0, 2)" />
 			<RunCode code="application.group1.swapElementsAt(0, 3)" />
-			
+
 			<AssertPropertyValue target="group1" propertyName="numElements" value="4" />
-			
+
 			<AssertMethodValue method="value=application.group1.getElementAt(0).getElementAt(0).width" value="40" />
 			<AssertMethodValue method="value=application.group1.getElementAt(1).width" value="10" />
 			<AssertMethodValue method="value=application.group1.getElementAt(2).width" value="20" />
 			<AssertMethodValue method="value=application.group1.getElementAt(3).getElementAt(0).width" value="30" />
 
 		</body>
-	</TestCase>	
-	
+	</TestCase>
+
 <!-- swapItemsAt - subgroups  -->
-	
+
 	<TestCase testID="Group_method_swapItemsAt_subgroup_subgroup_empty" keywords="[Group, method, swapItemsAt]" description="swap empty subgroups">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
-			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>			
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.group1.getElementAt(0).width = 80" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.group1.getElementAt(1).width = 90" waitEvent="updateComplete" waitTarget="group1"/>
-			
+
 		</setup>
 		<body>
 			<RunCode code="application.group1.swapElementsAt(0,1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="90" />
-			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="80" />	
+			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="80" />
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_swapItemsAt_subgroup_subgroup_nonempty" keywords="[Group, method, swapItemsAt]" description="swap non-empty subgroups">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
 			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
-			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>				
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 50, 50, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(1), 60, 60, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			
+
 		</setup>
 		<body>
-			<RunCode code="application.group1.swapElementsAt(0,1)" waitEvent="updateComplete" waitTarget="group1"/>			
-			
+			<RunCode code="application.group1.swapElementsAt(0,1)" waitEvent="updateComplete" waitTarget="group1"/>
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).getElementAt(0).width" value="60" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).getElementAt(0).width" value="50" />
-				
+
 		</body>
 	</TestCase>
-		
+
 	<TestCase testID="Group_method_swapItemsAt_subgroup_graphics" keywords="[Group, method, swapItemsAt]" description="swap subgroups and graphics">
 		<setup>
-			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />	
-			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>	
+			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 10, 10, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
-			<RunCode code="application.addStretchRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>	
+			<RunCode code="application.addStretchRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
 		</setup>
 		<body>
-			<RunCode code="application.group1.swapElementsAt(0, 1)" waitEvent="updateComplete" waitTarget="group1"/>			
-			
+			<RunCode code="application.group1.swapElementsAt(0, 1)" waitEvent="updateComplete" waitTarget="group1"/>
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).top" value="0" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).getElementAt(0).width" value="10" />
-			
+
 		</body>
 	</TestCase>
-	
+
 	<TestCase testID="Group_method_swapItemsAt_graphics_subgroup" keywords="[Group, method, swapItemsAt]" description="swap graphics and subgroups">
 		<setup>
 			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
-			<RunCode code="application.addStretchRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>		
-			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>	
-			
-			<RunCode code="application.addCustomRect(application.group1.getElementAt(1), 50, 50, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />	
-						
+			<RunCode code="application.addStretchRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<RunCode code="application.addCustomRect(application.group1.getElementAt(1), 50, 50, 0xFF0000, 0, 0)" waitEvent="updateComplete" waitTarget="group1" />
+
 		</setup>
 		<body>
-			
-			<RunCode code="application.group1.swapElementsAt(0, 1)" waitEvent="updateComplete" waitTarget="group1"/>			
-			
+
+			<RunCode code="application.group1.swapElementsAt(0, 1)" waitEvent="updateComplete" waitTarget="group1"/>
+
 			<AssertMethodValue   method="value=application.group1.getElementAt(0).getElementAt(0).width" value="50" />
 			<AssertMethodValue   method="value=application.group1.getElementAt(1).top" value="0" />
-			
+
 		</body>
 	</TestCase>
 
-	
-	
-	
 
 
-	</testCases>		
-	
-	
+
+
+
+	</testCases>
+
+
 </UnitTester>

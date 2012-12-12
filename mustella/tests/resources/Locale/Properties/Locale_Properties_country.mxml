@@ -20,25 +20,25 @@
 <UnitTester testDir="resources/Locale/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LocaleApp.mxml">
 
 	<!-- this set of lines form a template that must be in each unit test -->
-	
+
 	<mx:Script><![CDATA[
 		public static function init(o:DisplayObject):void{}
 	]]></mx:Script>
 
 	<mx:Metadata><![CDATA[
 		[Mixin]
-	]]></mx:Metadata>	
-	
+	]]></mx:Metadata>
+
 	<!-- end of set of lines that must be in each unit test -->
-	
+
 	<mx:Script><![CDATA[
-	
+
 		import mx.resources.Locale;
-		
+
 		public var locale:Locale;
-	
+
 	]]></mx:Script>
-	
+
 	<testCases>
 
 		<TestCase frequency="all" testID="Locale_country_is_read_only" description="Confirm that 'country' property of Locale is read-only" keywords="[resources,Locale,country]">
@@ -47,7 +47,7 @@
 			</setup>
 			<body>
 				<SetProperty target="script:locale" propertyName="country" value="DE"/>
-				<AssertError value="ReferenceError: Error #1074: Illegal write to read-only property country on mx.resources.Locale."/>
+				<AssertError errorArray="['ReferenceError: Error #1074:', 'country', 'mx.resources.Locale']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>

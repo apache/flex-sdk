@@ -197,7 +197,7 @@ Verify methods of ViewStack with spark ButtonBar
         <RunCode code="addNav()" waitTarget="TC.bb.dataGroup" waitEvent="updateComplete" />
     </setup>
     <body>
-    	<AssertMethodValue method="try{addNavAt(4)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+    	<AssertMethodValue method="try{addNavAt(4)}catch(e:Error){value = e.message}" errorArray="['Error #2006:']" />
     </body>
 </TestCase>
 
@@ -210,7 +210,7 @@ Verify methods of ViewStack with spark ButtonBar
         <RunCode code="addNav()" waitTarget="TC.bb.dataGroup" waitEvent="updateComplete" />
     </setup>
     <body>
-	<AssertMethodValue method="try{addNavAt(-1)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+	<AssertMethodValue method="try{addNavAt(-1)}catch(e:Error){value = e.message}" errorArray="['Error #2006:']" />
     </body>
 </TestCase>
 
@@ -299,7 +299,7 @@ Verify methods of ViewStack with spark ButtonBar
         <RunCode code="addNav()" waitTarget="TC.bb.dataGroup" waitEvent="updateComplete" />
     </setup>
     <body>
-	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.getItemAt(5)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.getItemAt(5)}catch(e:Error){value = e.message}" errorArray="['Error #2006:']" />
     </body>
 </TestCase>
 
@@ -314,7 +314,7 @@ Verify methods of ViewStack with spark ButtonBar
         <RunCode code="addNav()" waitTarget="TC.bb.dataGroup" waitEvent="updateComplete" />
     </setup>
     <body>
-	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.getItemAt(-1)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.getItemAt(-1)}catch(e:Error){value = e.message}" errorArray="['Error #2006:']" />
     </body>
 </TestCase>
 
@@ -555,7 +555,7 @@ Verify methods of ViewStack with spark ButtonBar
 	<RunCode code="addVB()" waitTarget="TC.bb.dataGroup" waitEvent="updateComplete" />
     </setup>
     <body>
-    	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(-2)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+    	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(-2)}catch(e:Error){value = e.message}" errorArray="['Error #2006:']" />
     </body>
 </TestCase>
 
@@ -570,7 +570,7 @@ Verify methods of ViewStack with spark ButtonBar
 	<RunCode code="addVB()" waitTarget="TC.bb.dataGroup" waitEvent="updateComplete" />
     </setup>
     <body>
-    	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(5)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+    	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(5)}catch(e:Error){value = e.message}" errorArray="['Error #2006:']" />
     </body>
 </TestCase>
 
@@ -711,7 +711,7 @@ Verify methods of ViewStack with spark ButtonBar
 	<RunCode code="addVB()" waitTarget="TC.bb.dataGroup" waitEvent="updateComplete" />
     </setup>
     <body>
-    	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(-2)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+    	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(-2)}catch(e:Error){value = e.message}" errorArray="['Error #2006:']" />
     </body>
 </TestCase>
 
@@ -725,7 +725,7 @@ Verify methods of ViewStack with spark ButtonBar
 	<RunCode code="addVB()" waitTarget="TC.bb.dataGroup" waitEvent="updateComplete" />
     </setup>
     <body>
-    	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(4)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+    	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(4)}catch(e:Error){value = e.message}" errorArray="['Error #2006:']" />
     </body>
 </TestCase>
 
