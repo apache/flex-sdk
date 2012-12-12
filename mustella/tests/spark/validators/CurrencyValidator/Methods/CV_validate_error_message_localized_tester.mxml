@@ -874,7 +874,7 @@
 				  keywords="[CurrencyValidator, custom invalidFormatCharsError, trigger programmatically, ActionScript, invalid]">
             <setup>
                 <ResetComponent target="uiCustomComp" className="assets.CustomCompErrorMessageLocalized" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
-                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="gv"/>
+                <SetStyle waitEvent="change" target="uiCustomComp.cvScript" styleName="locale" value="zh"/>
                 <SetProperty target="uiCustomComp.cvScript" propertyName="source" valueExpression="value=application.uiCustomComp.uiTI"/>
                 <SetProperty target="uiCustomComp.cvScript" propertyName="property" value="text"/>
                 <SetProperty target="uiCustomComp.cvScript" propertyName="trigger" valueExpression="value=application.uiCustomComp.uiBT"/>
