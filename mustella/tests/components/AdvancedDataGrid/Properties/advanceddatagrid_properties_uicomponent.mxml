@@ -101,7 +101,7 @@
 
     <testCases>
              <!--     -->
-              <TestCase testID="propert_enabled" keywords="['enabled']">
+              <TestCase testID="property_enabled" keywords="['enabled']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -113,7 +113,7 @@
 		  <AssertPropertyValue target="mydatagrid" propertyName="enabled" value="false"/>	
                  </body>
                   </TestCase>
-                  <TestCase testID="propert_enabled_withdisabledcolor" keywords="['enabled']">
+                  <TestCase testID="property_enabled_withdisabledcolor" keywords="['enabled']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -124,10 +124,10 @@
                   <SetStyle styleName="disabledColor" value="#FFCC00" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <SetProperty propertyName="enabled" value="false" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <WaitForEffectsToEnd />
-                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_enabled2.png"/>
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_enabled2.png" numColorVariances="1" maxColorVariance="2"/>
                  </body>
                   </TestCase>
-                  <TestCase testID="propert_explicitheight_400" keywords="['explicitheight']">
+                  <TestCase testID="property_explicitheight_400" keywords="['explicitheight']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -139,7 +139,7 @@
                   <AssertPropertyValue target="mydatagrid" propertyName="height" value="400"/>
                  </body>
                   </TestCase>
-                  <TestCase testID="propert_explicitheight_200" keywords="['explicitheight_200']">
+                  <TestCase testID="property_explicitheight_200" keywords="['explicitheight_200']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -175,7 +175,7 @@
                   <AssertPropertyValue target="mydatagrid" propertyName="width" value="200"/>
                  </body>
                   </TestCase>
-                   <TestCase testID="propert_explicitmaxwidth_300" keywords="['explicitmaxwidth_300']">
+                   <TestCase testID="property_explicitmaxwidth_300" keywords="['explicitmaxwidth_300']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -187,7 +187,7 @@
                   <AssertPropertyValue target="mydatagrid" propertyName="width" value="300"/>
                  </body>
                   </TestCase>
-                   <TestCase testID="propert_maxwidth_300" keywords="['maxwidth_300']">
+                   <TestCase testID="property_maxwidth_300" keywords="['maxwidth_300']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -200,7 +200,7 @@
                  </body>
                   </TestCase>
 
-                <TestCase testID="propert_maxheight" keywords="['maxheight_500']">
+                <TestCase testID="property_maxheight" keywords="['maxheight_500']">
                     <setup>
                         <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                         <RunCode code="startApp()"/>
@@ -216,7 +216,7 @@
                     </body>
                 </TestCase>
 			
-                   <TestCase testID="propert_width" keywords="['width_700']">
+                   <TestCase testID="property_width" keywords="['width_700']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -231,7 +231,7 @@
                   <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_width_700.png"/>
                  </body>
                   </TestCase>                
-                  <TestCase testID="propert_width_200" keywords="['width_200']">
+                  <TestCase testID="property_width_200" keywords="['width_200']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -243,11 +243,11 @@
                   <AssertPropertyValue target="mydatagrid" propertyName="width" value="200"/>
                   <WaitForEffectsToEnd/>
                   <WaitForEffectsToEnd />
-                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_width_200.png"/>
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_width_200.png" numColorVariances="1" maxColorVariance="2"/>
                  </body>
                   </TestCase>
                   
-                  <TestCase testID="propert_width_30" keywords="['width_30']">
+                  <TestCase testID="property_width_30" keywords="['width_30']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -259,11 +259,11 @@
                   <AssertPropertyValue target="mydatagrid" propertyName="width" value="30"/>
                   <WaitForEffectsToEnd/>
                   <WaitForEffectsToEnd />
-                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_width_30.png"/>
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_width_30.png" numColorVariances="1" maxColorVariance="2"/>
                  </body>
                   </TestCase>
 		
-              <TestCase testID="propert_height" keywords="['height_120']">
+              <TestCase testID="property_height" keywords="['height_120']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -275,10 +275,10 @@
                   <AssertPropertyValue target="mydatagrid" propertyName="height" value="120"/>
                   <WaitForEffectsToEnd/>
                   <WaitForEffectsToEnd />
-                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_height_120.png"/>
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_height_120.png" numColorVariances="1" maxColorVariance="2"/>
                  </body>
               </TestCase>
-              <TestCase testID="propert_height_200" keywords="['height_200']">
+              <TestCase testID="property_height_200" keywords="['height_200']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -290,10 +290,10 @@
                   <AssertPropertyValue target="mydatagrid" propertyName="height" value="200"/>
                   <WaitForEffectsToEnd/>
                   <WaitForEffectsToEnd />
-                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_height_200.png"/>
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_height_200.png" numColorVariances="1" maxColorVariance="2"/>
                  </body>
               </TestCase>
-              <TestCase testID="propert_height_30" keywords="['height_30']">
+              <TestCase testID="property_height_30" keywords="['height_30']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -305,10 +305,10 @@
                   <AssertPropertyValue target="mydatagrid" propertyName="height" value="30"/>
                   <WaitForEffectsToEnd/>
                   <WaitForEffectsToEnd />
-                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_height_30.png"/>
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_height_30.png" numColorVariances="1" maxColorVariance="2"/>
                  </body>
                  </TestCase>
-                 <TestCase testID="propert_scalex_3" keywords="['scalex_3']">
+                 <TestCase testID="property_scalex_3" keywords="['scalex_3']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -323,7 +323,7 @@
                   <AssertPropertyValue target="mydatagrid" propertyName="scaleX" value="3"/>
                  </body>
                 </TestCase>
-                <TestCase testID="propert_scalex_7" keywords="['scalex_7']">
+                <TestCase testID="property_scalex_7" keywords="['scalex_7']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -337,7 +337,7 @@
                   <AssertPropertyValue target="mydatagrid" propertyName="scaleX" value="7"/>
                  </body>
                 </TestCase>
-                <TestCase testID="propert_scalex_05" keywords="['scalex_0_5']">
+                <TestCase testID="property_scalex_05" keywords="['scalex_0_5']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -350,7 +350,7 @@
                  </body>
                 </TestCase>
 				
-                <TestCase testID="propert_scaley_05" keywords="['scaley_0_5']">
+                <TestCase testID="property_scaley_05" keywords="['scaley_0_5']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -364,7 +364,7 @@
                  </body>
                 </TestCase>
 				
-                <TestCase testID="propert_scaley_1" keywords="['scaley_1']">
+                <TestCase testID="property_scaley_1" keywords="['scaley_1']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid"/>
                   <RunCode code="startApp()"/>
@@ -377,7 +377,7 @@
                   <WaitForEffectsToEnd/>
                  </body>
                 </TestCase>
-                <TestCase testID="propert_visible_true" keywords="['visible_true']">
+                <TestCase testID="property_visible_true" keywords="['visible_true']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid"/>
                   <RunCode code="startApp()"/>
@@ -390,7 +390,7 @@
                   <WaitForEffectsToEnd/>
                  </body>
                 </TestCase>
-            <TestCase testID="propert_visible_false" keywords="['visible_false']">
+            <TestCase testID="property_visible_false" keywords="['visible_false']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid"/>
                   <RunCode code="startApp()"/>
@@ -406,7 +406,7 @@
                   <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_visible_false.png"/>
                  </body>
                 </TestCase>
-                <TestCase testID="propert_x_50" keywords="['x_50']">
+                <TestCase testID="property_x_50" keywords="['x_50']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -418,10 +418,10 @@
                   <AssertPropertyValue target="mydatagrid" propertyName="x" value="50"/>
                   <WaitForEffectsToEnd/>
                   <WaitForEffectsToEnd />
-                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_x_50.png"/>
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_x_50.png" numColorVariances="1" maxColorVariance="2"/>
                  </body>
                 </TestCase>
-                <TestCase testID="propert_x_minus10" keywords="['x_minus_10']">
+                <TestCase testID="property_x_minus10" keywords="['x_minus_10']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -432,10 +432,10 @@
                   <SetProperty propertyName="x" value="-10" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		  <WaitForEffectsToEnd/>
 		  <WaitForEffectsToEnd />
-                  <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_x_minus10.png"/>
+                  <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_x_minus10.png" numColorVariances="1" maxColorVariance="2"/>
                  </body>
                 </TestCase>
-                <TestCase testID="propert_y_50" keywords="['y_50']">
+                <TestCase testID="property_y_50" keywords="['y_50']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -447,10 +447,10 @@
                   <AssertPropertyValue target="mydatagrid" propertyName="y" value="50"/>
                   <WaitForEffectsToEnd/>
                   <WaitForEffectsToEnd />
-                  <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_y_50.png"/>
+                  <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_y_50.png" numColorVariances="1" maxColorVariance="2"/>
                  </body>
             </TestCase>
-            <TestCase testID="propert_y_minus10" keywords="['y_minus_10']">
+            <TestCase testID="property_y_minus10" keywords="['y_minus_10']">
                   <setup>
                   <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <RunCode code="startApp()"/>
@@ -461,12 +461,12 @@
                   <SetProperty propertyName="y" value="-10" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		  <WaitForEffectsToEnd/>
 		   <WaitForEffectsToEnd />
-                  <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_y_minus10.png"/>
+                  <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_y_minus10.png" numColorVariances="1" maxColorVariance="2"/>
                  </body>
                 </TestCase>
 
             
-             <TestCase testID="propert_focusEnabled_true" keywords="['focusEnabled_true']">
+             <TestCase testID="property_focusEnabled_true" keywords="['focusEnabled_true']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -477,11 +477,11 @@
 		       <DispatchKeyEvent key="TAB"/>
 		       <WaitForEffectsToEnd/>
 		       <WaitForEffectsToEnd />
-		       <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_focusenabledtrue.png"/>
+		       <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_focusenabledtrue.png" numColorVariances="1" maxColorVariance="2"/>
 
 		      </body>
                </TestCase>
-               <TestCase testID="propert_focusEnabled_false" keywords="['focusEnabled_false']">
+               <TestCase testID="property_focusEnabled_false" keywords="['focusEnabled_false']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -492,12 +492,12 @@
 		       <DispatchKeyEvent key="TAB"/>
 		       <WaitForEffectsToEnd/>
 		       <WaitForEffectsToEnd />
-		       <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_focusenabledfalse.png"/>
+		       <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_focusenabledfalse.png" numColorVariances="1" maxColorVariance="2"/>
 
 		      </body>
                </TestCase>
                
-                <TestCase testID="propert_focusManager" keywords="['focusManager']">
+                <TestCase testID="property_focusManager" keywords="['focusManager']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -511,7 +511,7 @@
                
               
                
-                <TestCase testID="propert_includeInLayout_default" keywords="['includeInLayout_default']">
+                <TestCase testID="property_includeInLayout_default" keywords="['includeInLayout_default']">
 	       		       <setup>
 	       		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 	       		       <RunCode code="startApp()"/>
@@ -522,7 +522,7 @@
 	                               <AssertPropertyValue target="mydatagrid" propertyName="includeInLayout" value="true"/>
 	       		      </body>
                </TestCase>
-                <TestCase testID="propert_includeInLayout_default" keywords="['includeInLayout_true']">
+                <TestCase testID="property_includeInLayout_default" keywords="['includeInLayout_true']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -534,7 +534,7 @@
 			       <AssertPropertyValue target="mydatagrid" propertyName="includeInLayout" value="true"/>
 		      </body>
                </TestCase>
-                <TestCase testID="propert_includeInLayout_default" keywords="['includeInLayout_true']">
+                <TestCase testID="property_includeInLayout_default" keywords="['includeInLayout_true']">
 	       		       <setup>
 	       		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 	       		       <RunCode code="startApp()"/>
@@ -547,7 +547,7 @@
 	       		      </body>
                </TestCase>
                
-               <TestCase testID="propert_measuredHeight" keywords="['measuredHeight']">
+               <TestCase testID="property_measuredHeight" keywords="['measuredHeight']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -559,7 +559,7 @@
 			       <AssertPropertyValue target="mydatagrid" propertyName="measuredHeight" value="142"/>
 		      </body>
                </TestCase>
-               <TestCase testID="propert_measuredWidth" keywords="['measuredWidth']">
+               <TestCase testID="property_measuredWidth" keywords="['measuredWidth']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -572,7 +572,7 @@
 		      </body>
                </TestCase>
               
-               <TestCase testID="propert_measuredMinWidth" keywords="['measuredMinWidth']">
+               <TestCase testID="property_measuredMinWidth" keywords="['measuredMinWidth']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -584,7 +584,7 @@
 			       <AssertPropertyValue target="mydatagrid" propertyName="measuredMinWidth" value="40"/>
 		      </body>
                </TestCase>
-                <TestCase testID="propert_measuredMinHeight" keywords="['measuredMinHeight']">
+                <TestCase testID="property_measuredMinHeight" keywords="['measuredMinHeight']">
 			       <setup>
 			       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 			       <RunCode code="startApp()"/>
@@ -597,7 +597,7 @@
 			      </body>
                </TestCase>
                 
-               <TestCase testID="propert_minWidth_default" keywords="['minWidth']">
+               <TestCase testID="property_minWidth_default" keywords="['minWidth']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -609,7 +609,7 @@
 			       <AssertPropertyValue target="mydatagrid" propertyName="minWidth" value="40"/>
 		      </body>
                </TestCase>
-               <TestCase testID="propert_minHeight_default" keywords="['minHeight']">
+               <TestCase testID="property_minHeight_default" keywords="['minHeight']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -622,7 +622,7 @@
 		      </body>
                </TestCase>
                 
-                 <TestCase testID="propert_minWidth" keywords="['minWidth']">
+                 <TestCase testID="property_minWidth" keywords="['minWidth']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -634,7 +634,7 @@
 			       <AssertPropertyValue target="mydatagrid" propertyName="minWidth" value="100"/>
 		      </body>
 		  </TestCase>
-		  <TestCase testID="propert_minHeight" keywords="['minHeight']">
+		  <TestCase testID="property_minHeight" keywords="['minHeight']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -646,7 +646,7 @@
 			       <AssertPropertyValue target="mydatagrid" propertyName="minHeight" value="100"/>
 		      </body>
                </TestCase>
-               <TestCase testID="propert_owner" keywords="['owner']">
+               <TestCase testID="property_owner" keywords="['owner']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -659,7 +659,7 @@
 		      </body>
                </TestCase>
                 
-                <TestCase testID="propert_parent" keywords="['parent']">
+                <TestCase testID="property_parent" keywords="['parent']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -672,7 +672,7 @@
 		      </body>
                </TestCase>
                
-                <TestCase testID="propert_parentApplication" keywords="['parentApplication']">
+                <TestCase testID="property_parentApplication" keywords="['parentApplication']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -685,7 +685,7 @@
 		      </body>
                </TestCase>
                
-               <TestCase testID="propert_parentDocument" keywords="['parentDocument']">
+               <TestCase testID="property_parentDocument" keywords="['parentDocument']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -698,7 +698,7 @@
 		      </body>
                </TestCase>
              
-                <TestCase testID="propert_styleDeclaration" keywords="['styleDeclaration']">
+                <TestCase testID="property_styleDeclaration" keywords="['styleDeclaration']">
 	      		       <setup>
 	      		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 	      		       <RunCode code="startApp()"/>
@@ -712,7 +712,7 @@
                </TestCase>
               
                <!--
-               <TestCase testID="propert_focusPane" keywords="['focusEnabled_true']">
+               <TestCase testID="property_focusPane" keywords="['focusEnabled_true']">
 		       <setup>
 		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 		       <RunCode code="startApp()"/>
@@ -726,7 +726,7 @@
 
 		      </body>
                </TestCase>
-               <TestCase testID="propert_toolTip" keywords="['toolTip']">
+               <TestCase testID="property_toolTip" keywords="['toolTip']">
 	       	       		       <setup>
 	       	       		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 	       	       		       <RunCode code="startApp()"/>

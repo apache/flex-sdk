@@ -121,8 +121,8 @@
 	      		      </setup>
 	      		      <body>
 	                        <SetStyle styleName="layoutDirection" value="ltr" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
-				 <WaitForEffectsToEnd/>
-	       	                	<CompareBitmap target="mydatagrid" url="../Properties/Baselines/property_layoutDirection_ltr.png" timeout="5000"/>			  
+				<WaitForEffectsToEnd/>
+	       	                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/property_layoutDirection_ltr.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>			  
 
 	      		      </body>
                </TestCase>
@@ -138,7 +138,7 @@
 	                        <SetStyle styleName="layoutDirection" value="rtl" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 				 <WaitForEffectsToEnd/>
 				 
-				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/property_layoutDirection_rtl.png" timeout="5000"/>
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/property_layoutDirection_rtl.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
 
 	      		      </body>
                </TestCase>
@@ -154,7 +154,7 @@
 	                        <SetStyle styleName="layoutDirection" value="ltr" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 				<RunCode code="mirroringApplication()"/>
 				 <WaitForEffectsToEnd/>
-								  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/property_layoutDirection_application.png" timeout="5000"/>
+								  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/property_layoutDirection_application.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
 
 
 	      		      </body>
@@ -172,7 +172,7 @@
 				<RunCode code="mirroringApplication_ltr()"/>
 				 <WaitForEffectsToEnd/>
 	       	     	       	               
-            				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/property_layoutDirection_application_ltr.png" timeout="5000"/>
+            				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/property_layoutDirection_application_ltr.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
 
 	      		      </body>
                </TestCase>

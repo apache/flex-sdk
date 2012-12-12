@@ -330,8 +330,8 @@
 			     </setup>
 			     <body>
 			          <SetProperty target="mydatagrid" propertyName="selectedIndex" value="1" waitTarget="mydatagrid" waitEvent="updateComplete"/>
-                                  <Pause timeout="5000"/>
-                                  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_columns.png" timeout="5000"/>
+                                  <Pause timeout="1000"/>
+                                  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_columns.png" timeout="1000"/>
 			     </body>
 			  </TestCase>
 			  -->
@@ -383,7 +383,7 @@
 			     </setup>
 			     <body>
 			    
-			          <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_state1.png" timeout="5000"/>
+			          <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_state1.png" timeout="1000" numColorVariances="1" maxColorVariance="2"/>
 			          <DispatchMouseEvent target="mydatagrid" type="mouseDown" localX="244" localY="14"/>
 			          
 			          <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="150" localY="14"/>
@@ -393,9 +393,9 @@
 				  <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="87" localY="14"/>
 				  
 				  <DispatchMouseEvent target="mydatagrid" type="mouseUp" buttonDown="true" localX="87" localY="14"/>
-				  <Pause timeout="5000"/>
+				  <Pause timeout="1000"/>
 				  
-				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_state2.png" timeout="5000"/>
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_state2.png" timeout="1000" numColorVariances="1" maxColorVariance="2"/>
 				  
 			     </body>
 			  </TestCase>
@@ -412,7 +412,7 @@
 			     </setup>
 			     <body>
 			        
-				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_false_state1.png"/>
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_false_state1.png" numColorVariances="1" maxColorVariance="2"/>
 				  <DispatchMouseEvent target="mydatagrid" type="mouseDown" localX="244" localY="14"/>
 
 				  <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="150" localY="14"/>
@@ -423,8 +423,8 @@
 
 				  <DispatchMouseEvent target="mydatagrid" type="mouseUp" buttonDown="true" localX="87" localY="14"/>
 				  <Pause timeout="100"/>
-				  <Pause timeout="5000"/>
-				  <CompareBitmap timeout="5000" target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_false_state2.png"/>
+				  <Pause timeout="1000"/>
+				  <CompareBitmap timeout="1000" target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_false_state2.png" numColorVariances="1" maxColorVariance="2"/>
 
 			     </body>
 			  </TestCase>
@@ -439,8 +439,8 @@
 
 			     </setup>
 			     <body>
-				  <Pause timeout="5000"/>
-				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_groupedview.png" timeout="5000"/>
+				  <Pause timeout="1000"/>
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_groupedview.png" timeout="1000"/>
 				  
 
 			     </body>
@@ -456,8 +456,8 @@
 
 			     </setup>
 			     <body>
-                                  <Pause timeout="5000"/>
-				 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_treeview.png" timeout="5000"/>
+                                 <Pause timeout="1000"/>
+				 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_treeview.png" timeout="1000"/>
 
 			     </body>
 			  </TestCase>
@@ -474,8 +474,8 @@
 			     </setup>
 			     <body>
                                   <DispatchMouseClickEvent target="mydatagrid" localX="244" localY="35"/>
-                                  <Pause timeout="5000"/>
-				 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_singlecellselection.png" timeout="5000"/>
+                                  <Pause timeout="1000"/>
+				 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_singlecellselection.png" timeout="1000" numColorVariances="1" maxColorVariance="2"/>
 
 			     </body>
 			  </TestCase>
@@ -493,8 +493,8 @@
 			     <body>
 				    <DispatchMouseClickEvent target="mydatagrid" localX="244" localY="35"/>
 				    <DispatchKeyEvent keys="['DOWN','SPACE']"/>
-				    <Pause timeout="5000"/>
-				 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_multicellselection.png" timeout="5000"/>
+				    <Pause timeout="1000"/>
+				 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_multicellselection.png" timeout="1000" numColorVariances="1" maxColorVariance="2"/>
 
 			     </body>
 			  </TestCase>
@@ -514,8 +514,8 @@
 			     <body>
 				    <DispatchMouseClickEvent target="mydatagrid" localX="100" localY="35"/>
 				   
-				    <Pause timeout="5000"/>
-				 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_tree_singlecellselection.png" timeout="5000"/>
+				    <Pause timeout="1000"/>
+				 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_tree_singlecellselection.png" timeout="1000" numColorVariances="1" maxColorVariance="2"/>
 
 			     </body>
 			  </TestCase>			    
@@ -534,8 +534,8 @@
 			     <body>
 				    <DispatchMouseClickEvent target="mydatagrid" localX="100" localY="35"/>
                                     <DispatchKeyEvent keys="['DOWN','SPACE']"/>
-				    <Pause timeout="5000"/>
-				    <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_tree_multicellselection.png" timeout="5000"/>
+				    <Pause timeout="1000"/>
+				    <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_tree_multicellselection.png" timeout="1000" numColorVariances="1" maxColorVariance="2"/>
 
 			     </body>
 			  </TestCase>
@@ -554,8 +554,8 @@
 			     </setup>
 			     <body>
 				    
-				    <Pause timeout="5000"/>
-				    <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_tree_displayitemsexpanded.png" timeout="5000"/>
+				    <Pause timeout="1000"/>
+				    <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_tree_displayitemsexpanded.png" timeout="1000" numColorVariances="1" maxColorVariance="2"/>
 
 			     </body>
 			  </TestCase>

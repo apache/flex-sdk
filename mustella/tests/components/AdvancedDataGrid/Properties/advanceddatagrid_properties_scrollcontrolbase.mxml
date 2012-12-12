@@ -101,7 +101,7 @@
 	
 	<testCases>
 
-		      <TestCase testID="propert_vscrollposition">
+		      <TestCase testID="property_vscrollposition">
 			      <setup>
 				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
 				  <RunCode code="addItems()"/>	
@@ -111,50 +111,53 @@
 				  <SetProperty propertyName="verticalScrollPosition" value="2" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 				  <RunCode code="vscroll()"/>
 				  <AssertPropertyValue target="mydatagrid" propertyName="verticalScrollPosition" value="1"/>
-				  <Pause timeout="5000"/>
-				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_verticalscrollposition.png" timeout="5000"/>
+				  <!--Pause timeout="5000"/-->
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_verticalscrollposition.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
 			     </body>
 	              </TestCase>
 	             
-	              <TestCase testID="propert_vscrollpolicy_off">
+	              <TestCase testID="property_vscrollpolicy_off">
 			      <setup>
-				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        
+				  <RunCode code="startApp()"/>
 				  <RunCode code="addItems()"/>	
 
 			     </setup>
 			     <body>
 				  <SetProperty propertyName="verticalScrollPolicy" value="off" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                                   <Pause timeout="5000"/>
-				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_verticalscrollpolicy.png" timeout="5000"/>
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_verticalscrollpolicy.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
 			     </body>
 	              </TestCase>
 	              
-	              <TestCase testID="propert_vscrollpolicy_on">
+	              <TestCase testID="property_vscrollpolicy_on">
 			      <setup>
-				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        
+				  <RunCode code="startApp()"/>
 				  <RunCode code="addItems()"/>	
 
 			     </setup>
 			     <body>
 				  <SetProperty propertyName="verticalScrollPolicy" value="on" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
-                                  <Pause timeout="5000"/>
-				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_verticalscrollpolicy_on.png" timeout="5000"/>
+                                  <!--Pause timeout="5000"/-->
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_verticalscrollpolicy_on.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
 			     </body>
 	              </TestCase>
-	               <TestCase testID="propert_vscrollpolicy_auto">
+	               <TestCase testID="property_vscrollpolicy_auto">
 			      <setup>
-				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        
+				  <RunCode code="startApp()"/>
 				  <RunCode code="addItems()"/>	
 
 			     </setup>
 			     <body>
 				  <SetProperty propertyName="verticalScrollPolicy" value="auto" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
-                                   <Pause timeout="5000"/>
-				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_verticalscrollpolicy_auto.png" timeout="5000"/>
+                                   <!--Pause timeout="5000"/-->
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_verticalscrollpolicy_auto.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
 			     </body>
 	              </TestCase>
 	              
-	              <TestCase testID="propert_showscrolltips_true">
+	              <TestCase testID="property_showscrolltips_true">
 			      <setup>
 				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
 				  <RunCode code="addItems()"/>	
@@ -166,7 +169,7 @@
 			
 			     </body>
 	              </TestCase>
-	              <TestCase testID="propert_showscrolltips_false">
+	              <TestCase testID="property_showscrolltips_false">
 			      <setup>
 				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
 				  <RunCode code="addItems()"/>	
@@ -180,7 +183,7 @@
 	              </TestCase>
 	              
 	              
-	              <TestCase testID="propert_livescrolling_true">
+	              <TestCase testID="property_livescrolling_true">
 			      <setup>
 				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
 				  <RunCode code="addItems()"/>	
@@ -192,7 +195,7 @@
  
 			     </body>
 	              </TestCase>
-	              <TestCase testID="propert_livescrolling_false">
+	              <TestCase testID="property_livescrolling_false">
 			      <setup>
 				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
 				  <RunCode code="addItems()"/>	
@@ -205,40 +208,43 @@
 			     </body>
 	              </TestCase>
 	              <!--
-	               <TestCase testID="propert_hscrollpolicy_auto">
+	               <TestCase testID="property_hscrollpolicy_auto">
 			      <setup>
-				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        
+				  <RunCode code="startApp()"/>
 				  <RunCode code="addItems()"/>	
 
 			     </setup>
 			     <body>
 				  <SetProperty propertyName="horizontalScrollPolicy" value="auto" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
 				  <Pause timeout="5000"/>
-				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_horizontalscrollpolicy_auto.png" timeout="5000"/>
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_horizontalscrollpolicy_auto.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
 			     </body>
 	              </TestCase>-->
-	              <TestCase testID="propert_hscrollpolicy_on">
+	              <TestCase testID="property_hscrollpolicy_on">
 			      <setup>
-				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        
+				  <RunCode code="startApp()"/>
 				  <RunCode code="addItems()"/>	
 
 			     </setup>
 			     <body>
 				  <SetProperty propertyName="horizontalScrollPolicy" value="on" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
-				  <Pause timeout="5000"/>
-				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_horizontalscrollpolicy_on.png" timeout="5000"/>
+				  <!--Pause timeout="5000"/-->
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_horizontalscrollpolicy_on.png" timeout="5000" numColorVariances="2" maxColorVariance="2"/>
 			     </body>
 	              </TestCase>
-	              <TestCase testID="propert_hscrollpolicy_off">
+	              <TestCase testID="property_hscrollpolicy_off">
 			      <setup>
-				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        
+				  <RunCode code="startApp()"/>
 				  <RunCode code="addItems()"/>	
 
 			     </setup>
 			     <body>
 				  <SetProperty propertyName="horizontalScrollPolicy" value="off" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
-				  <Pause timeout="5000"/>
-				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_horizontalscrollpolicy_off.png" timeout="5000"/>
+				  <!--Pause timeout="5000"/-->
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_horizontalscrollpolicy_off.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
 			     </body>
 	              </TestCase>
 	              
