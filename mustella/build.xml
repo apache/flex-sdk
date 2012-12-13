@@ -63,6 +63,7 @@
     <property name="previous.generated.testfiles" value="**/*.swf,**/*.output,**/SWFs/${apollo_transform_prefix}*.mxml,**/swfs/${apollo_transform_prefix}*.mxml,**/SWFs/${apollo_transform_prefix2}*.mxml,**/swfs/${apollo_transform_prefix2}*.mxml" />
     
     <property name="sdk.mustella.dir" value="${mustella.dir}/tests" />
+    <mkdir dir="${sdk.mustella.dir}" />
 
     <property name="root.dir" value="${basedir}/.."/>
     <property name="sdk.dir" value="${basedir}/.." />
