@@ -63,6 +63,10 @@
     <property name="previous.generated.testfiles" value="**/*.swf,**/*.output,**/SWFs/${apollo_transform_prefix}*.mxml,**/swfs/${apollo_transform_prefix}*.mxml,**/SWFs/${apollo_transform_prefix2}*.mxml,**/swfs/${apollo_transform_prefix2}*.mxml" />
     
     <property name="sdk.mustella.dir" value="${mustella.dir}/tests" />
+    <!-- 
+        This directory doesn't exist in the source kit so make it although it would be better
+        to make sure no targets that the source kit uses expect this directory to exist.
+    -->
     <mkdir dir="${sdk.mustella.dir}" />
 
     <property name="root.dir" value="${basedir}/.."/>
@@ -879,7 +883,7 @@
             excludes="${sdk.mustella.excludes},${other.mustella.excludes}" />
 
     <target name="clean" depends="cleanswfs" description="--> cleanup old report and actual files">
-        <echo message="Deleting old results and files from previous testsuite build"/>
+        <echo message="Deleting old results and files from previous testsuite build."/>
         <delete dir="${mustellagen.dir}" quiet="true"/>
         <!-- get rid of old runid prop file, in case we don't create a new one -->
         <delete verbose="true" file="${mustella.dir}/tests/runid.properties" failonerror="false" quiet="true" />
@@ -909,8 +913,8 @@
     </target>
 
     <target name="cleanswfs" unless="noclean.set" description="--> deletes all swfs and tag files">
-        <delete quiet="true">
-            <fileset dir="${sdk.mustella.dir}" casesensitive="false">
+        <delete quiet="true" failonerror="false">
+            <fileset dir="${sdk.mustella.dir}" casesensitive="false" >
                 <include name="${previous.generated.testfiles}"/>
                 <include name="**/*.sh.*.log"/>
                 <include name="**/swfs/**/*.log"/>
