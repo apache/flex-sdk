@@ -295,7 +295,7 @@
         <delete dir="${FLEX_HOME}/runtimes"/>
         <delete includeEmptyDirs="true" failonerror="false">
             <fileset dir="${FLEX_HOME}/samples">
-                <include name="badges/**" />
+                <include name="badge/**" />
                 <include name="descriptor-sample.xml" />
                 <include name="icons/**" />
             </fileset>

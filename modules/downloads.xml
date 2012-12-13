@@ -256,7 +256,7 @@
             Make sure any left-over batik 1.6 libraries are removed to avoid compile errors.  
             (super-clean/batik-jars-clean would take also take care of this.)
         -->
-	    <delete dir="${basedir}/${batik.dir}/lib" failonerror="false"/>
+     	<delete dir="${basedir}/${batik.dir}/lib/**" failonerror="false"/>
 
         <copy todir="${basedir}/${batik.dir}/lib" failonerror="true">
             <fileset dir="${download.dir}/${batik.zip.dir}/lib">
@@ -278,9 +278,10 @@
     </target>
     
 	<target name="batik-jars-clean">
-        <delete includeEmptyDirs="false" failonerror="fasle">
-            <fileset dir="${basedir}/${batik.dir}">
-                <include name="lib/**"/>
+	    <!-- leave the lib directory itself since batik build.xml expects it -->
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${basedir}/${batik.dir}/lib">
+                <include name="**/**"/>
             </fileset>            
         </delete>
         <delete includeEmptyDirs="true" failonerror="fasle">
