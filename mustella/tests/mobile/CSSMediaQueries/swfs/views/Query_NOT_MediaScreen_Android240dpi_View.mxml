@@ -24,17 +24,26 @@
 		@namespace s "library://ns.adobe.com/flex/spark";
 		.buttonNotMediaScreenAndroid240dpiTest
 		{
-			chromeColor: #AAAAAA;
-			color: #000000;
-			fontSize: 24;
+			chromeColor: #990000;
+			color: #009900;
+			fontSize: 26;
+		}
+		@media screen and (application-dpi: 240)
+		{
+			.buttonNotMediaScreenAndroid240dpiTest
+			{
+				chromeColor: #AAAAAA;
+				color: #000000;
+				fontSize: 24;
+			}
 		}
 		@media not screen and (os-platform: "Android") and (application-dpi: 240)
 		{
 			.buttonNotMediaScreenAndroid240dpiTest
 			{
-				chromeColor: #990000;
-				color: #009900;
-				fontSize: 26;
+				chromeColor: #AAAAAA;
+				color: #000000;
+				fontSize: 24;
 			}
 		}
 	</fx:Style>

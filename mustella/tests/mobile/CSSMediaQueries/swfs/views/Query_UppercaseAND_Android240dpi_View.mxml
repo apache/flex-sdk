@@ -28,6 +28,15 @@
 			color: #000000;
 			fontSize: 24;
 		}
+		@media screen AND (application-dpi: 240)
+		{
+			.buttonUpperCaseANDAndroid240dpiTest
+			{
+				chromeColor: #990000;
+				color: #009900;
+				fontSize: 26;
+			}
+		}
 		@media screen AND (os-platform: "Android") AND (application-dpi: 240)
 		{
 			.buttonUpperCaseANDAndroid240dpiTest

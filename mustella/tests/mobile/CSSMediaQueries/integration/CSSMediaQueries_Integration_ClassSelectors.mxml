@@ -258,6 +258,7 @@
 					<ConditionalValue os="android" deviceDensity="320" value="28"/>
 					<ConditionalValue os="iphone" deviceDensity="320" value="28"/>
 				</AssertStyleValue>
+				<Pause timeout="400" />
 				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="320" />

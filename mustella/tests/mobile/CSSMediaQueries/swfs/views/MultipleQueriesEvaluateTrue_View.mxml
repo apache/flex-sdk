@@ -28,44 +28,31 @@
 			color: #000000;
 			fontSize: 24;
 		}
-		@media (application-dpi: 160)
-		{
-			.buttonMultipleQueriesEvaluateTrueTest
-			{
-				color: #990000;
-				fontSize: 22;
-			}
-		}
+		
+		/* Styles when running on emulator (superseded by specific os-platform values below) */
 		@media screen and (application-dpi: 160)
-		{
-			.buttonMultipleQueriesEvaluateTrueTest
-			{
-				color: #990000;
-				fontSize: 22;
-			}
-		}
-		@media (application-dpi: 160)
-		{
-			.buttonMultipleQueriesEvaluateTrueTest
-			{
-				color: #009900;
-				fontSize: 26;
-			}
-		}
-		@media (application-dpi: 160) and (os-platform: "Android")
 		{
 			.buttonMultipleQueriesEvaluateTrueTest
 			{
 				chromeColor: #990000;
 				color: #000099;
-				fontSize: 28;
+				fontSize: 26;
 			}
 		}
-		@media (os-platform: "Android")
+		@media screen and (application-dpi: 240)
 		{
 			.buttonMultipleQueriesEvaluateTrueTest
 			{
 				chromeColor: #009900;
+				fontSize: 24;
+			}
+		}
+		@media screen and (application-dpi: 320)
+		{
+			.buttonMultipleQueriesEvaluateTrueTest
+			{
+				chromeColor: #009900;
+				fontSize: 28;
 			}
 		}
 	</fx:Style>
