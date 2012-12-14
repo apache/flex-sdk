@@ -40,9 +40,9 @@
 
 	<TestCase testID="idSelector_basic_style" keywords="[CSS, id selector]"
 	    description="Does a basic id selector work defined within the Style tag?">
-	    <setup>
-	        <Pause timeout="500" />
-	    </setup>
+		<setup>
+			<RunCode code="application.loadCSS()" waitTarget="" waitEvent="moduleReady" timeout="3000" />
+		</setup>
 	    <body>
 		    <CompareBitmap url="../idSelectors/baselines/$testID.png" target="redBackground" />
 		    <CompareBitmap url="../idSelectors/baselines/$testID_2.png" target="noBackground" />
@@ -50,6 +50,9 @@
 	</TestCase>
 	<TestCase testID="idSelector_basic_PopUp_style" keywords="[CSS, id selector, PopUpManager]"
 	    description="Does a basic id selector work for component added to a popUp when defined within the Style tag?">
+		<setup>
+			<RunCode code="application.loadCSS()" waitTarget="" waitEvent="moduleReady" timeout="3000" />
+		</setup>
 	    <body>
 		    <DispatchMouseClickEvent target="open_btn" localX="10" localY="10" waitTarget="iPopUp" waitEvent="updateComplete" />
 		    <AssertPropertyValue propertyName="y" value="10" target="iPopUp.label1" />
@@ -59,6 +62,7 @@
 	<TestCase testID="idSelector_basic_module_style" keywords="[CSS, id selector, Modules]"
 	    description="(Module) Does a basic id selector work defined within the Style tag?">
 	    <setup>
+			<RunCode code="application.loadCSS()" waitTarget="" waitEvent="moduleReady" timeout="3000" />
 		    <DispatchMouseClickEvent target="close_btn" localX="10" localY="10" />
 	        <!--ResetComponent target="boxComp" className="comps.BoxComp" waitTarget="boxComp" waitEvent="updateComplete" /-->
 	    </setup>
@@ -189,6 +193,9 @@
 	</TestCase>
 	<TestCase testID="id_multipleTypeSelector_style" keywords="[CSS, id selector]"
 	    description="Ensure that the selector FxButton,DateField#redTheme matches any only a DateField with id=redTheme">
+		<setup>
+			<RunCode code="application.loadCSS()" waitTarget="" waitEvent="moduleReady" timeout="3000" />
+		</setup>
 		<body>
 		    <CompareBitmap url="../idSelectors/baselines/$testID.png" target="redTheme" />
 		    <CompareBitmap url="../idSelectors/baselines/$testID_neg.png" target="noTheme" />

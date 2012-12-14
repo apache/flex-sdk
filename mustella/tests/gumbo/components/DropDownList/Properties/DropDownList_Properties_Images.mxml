@@ -73,8 +73,9 @@
 				
 				<RunCode code="FlexGlobals.topLevelApplication.myDDLImages.openDropDown()" waitEvent="open" waitTarget="myDDLImages"/>
 				<DispatchMouseClickEvent target="stage" stageX="416" stageY="403" waitEvent="click" waitTarget="stage"/>
-				<Pause timeout="100"/>
+				<WaitForLayoutManager/>
 				<DispatchMouseClickEvent target="myDDLImages.dropDown" localX="275" localY="50" waitEvent="click" waitTarget="myDDLImages.dropDown"/>				
+				<WaitForLayoutManager/>
 				<CompareBitmap target="myDDLImages" url="../Properties/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>			

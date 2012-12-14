@@ -74,7 +74,8 @@ Verify -locale[=]en_US[,]fr_FR[,]ja_JP combinations:
 
         <TestCase frequency="all" testID="RTL_Compiler_LocaleParams_1_EnglishPresent" description="Be sure that the English resources are present." keywords="[Localization,Compiler,locale]" >
             <setup>
-                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','fr_FR','ja_JP']" waitTarget="lbl1" waitEvent="updateComplete"/>
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','fr_FR','ja_JP']"/>
+				<WaitForLayoutManager />
             </setup>
             <body>
                 <AssertPropertyValue target="lbl1" propertyName="text" value="View Source" />
