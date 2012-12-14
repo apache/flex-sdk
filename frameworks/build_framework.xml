@@ -56,7 +56,8 @@
     <property name="spark.dir" value="${projects.dir}/spark"/>
     <property name="sparkskin.dir" value="${projects.dir}/sparkskins"/>
     <property name="spark_dmv.dir" value="${projects.dir}/spark_dmv"/>
-    <property name="textLayout.dir" value="${projects.dir}/textLayout/3.0.33"/>
+    <property name="textLayout.dir" value="${projects.dir}/textLayout"/>
+    <property name="textLayout.ver.dir" value="${textLayout.dir}/${tlf.version}"/>
 
     <!-- automation -->
     <property name="automation.dir" value="${projects.dir}/automation"/>
@@ -80,7 +81,7 @@
 
     <target name="main" depends="check-compile-env,clean,thirdparty-downloads,prepare,textLayout,framework,mx,spark,airframework,airspark,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,automation-swcs,bundles,themes,sparkskins,spark_dmv"/>
 
-    <target name="bundles" depends="framework_rb,mx_rb,spark_rb,airframework_rb,airspark_rb,mobilecomponents_rb,rpc_rb,charts_rb,advancedgrids_rb,automation-rbs"/>
+    <target name="bundles" depends="framework_rb,mx_rb,textLayout_rb,spark_rb,airframework_rb,airspark_rb,mobilecomponents_rb,rpc_rb,charts_rb,advancedgrids_rb,automation-rbs"/>
     
     <target name="automation-swcs" 
         depends="automation_agent,automation_dmv,tool,tool_air,automation,automation_air,automation_spark,automation_flashflexkit,automation_air,automation_airspark"
@@ -806,7 +807,6 @@
             <include-resource-bundles bundle="components"/>
             <include-resource-bundles bundle="sparkEffects"/>
             <include-resource-bundles bundle="layout"/>
-            <include-resource-bundles bundle="textLayout"/>
             <include-resource-bundles bundle="osmf"/>
             <source-path path-element="${spark.dir}/bundles/${locale}"/>
             <source-path path-element="${spark.dir}/src"/>
@@ -869,16 +869,30 @@
 			<jvmarg line="${compc.jvm.args}"/>
 			<keep-as3-metadata>IMXMLObject</keep-as3-metadata>
 			<include-namespaces uri="library://ns.adobe.com/flashx/textLayout"/>
-			<namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${textLayout.dir}/manifest.xml"/>
-			<source-path path-element="${textLayout.dir}/src"/>
+			<namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${textLayout.ver.dir}/manifest.xml"/>
+			<source-path path-element="${textLayout.ver.dir}/src"/>
 			<library-path/>
-			<include-file name="manifest.xml" path="${textLayout.dir}/manifest.xml"/>
+			<include-file name="manifest.xml" path="${textLayout.ver.dir}/manifest.xml"/>
 			<static-link-runtime-shared-libraries/>
 			<define name="CONFIG::debug" value="false"/>
 			<define name="CONFIG::release" value="true"/>
 		</compc>
      </target>
 
+    <target name="textLayout_rb" description="Builds default locale textLayout_rb.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" 
+            output="${basedir}/locale/${locale}/mx_rb.swc">
+            <include-resource-bundles bundle="textLayout"/>
+            <source-path path-element="${textLayout.dir}/bundles/${locale}"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <external-library-path dir="${basedir}/libs">
+                <include name="framework.swc"/>
+            </external-library-path>
+            <library-path/>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>   
+    
     <target name="tool_air" description="Builds the tool_air.swc">
         <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
             include-classes="ToolAIRClasses" output="${basedir}/libs/automation/tool_air.swc"
@@ -1042,6 +1056,7 @@
                 <include name="mx_rb.swc"/>
                 <include name="rpc_rb.swc"/>
                 <include name="spark_rb.swc"/>
+                <include name="textLayout_rb.swc"/>
                 <include name="tool_air_rb.swc"/>
             </fileset>
         </delete>
