@@ -90,13 +90,13 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
 	 */
 	public static function init(fbs:IFlexModuleFactory):void
 	{
-		var sm:StyleManagerImpl = fbs.getImplementation("mx.styles::IStyleManager2") as StyleManagerImpl;
-		if (!sm)
-			sm = new StyleManagerImpl(fbs);
-		
 		var styleDataClassName:String = fbs.info()["styleDataClassName"];
 		if (styleDataClassName)
 		{
+			var sm:StyleManagerImpl = fbs.getImplementation("mx.styles::IStyleManager2") as StyleManagerImpl;
+			if (!sm)
+				sm = new StyleManagerImpl(fbs);
+			
 			var styleDataClass:Class = fbs.info()["currentDomain"].getDefinition(styleDataClassName);
 			var styleNames:Array = styleDataClass["inheritingStyles"];
 			for each (var s:String in styleNames)
@@ -1759,7 +1759,7 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
 		{
 			timer.removeEventListener(TimerEvent.TIMER, timerHandler);
 			timer.stop();
-			module.load(applicationDomain, securityDomain);
+			module.load(applicationDomain, securityDomain, null, moduleFactory);
 		};
 		
 		timer.addEventListener(TimerEvent.TIMER, timerHandler, false, 0, true);
