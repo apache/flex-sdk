@@ -810,8 +810,10 @@
                 <include name="air/airframework.swc"/>
                 <include name="air/airspark.swc"/>
                 <include name="mobile/mobilecomponents.swc"/>
+                <include name="apache.swc"/>
                 <include name="authoringsupport.swc"/>
                 <include name="core.swc"/>
+                <include name="experimental.swc"/>
                 <include name="spark.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
@@ -824,8 +826,6 @@
                 <include name="spark_dmv.swc"/>
             	<include name="textLayout.swc"/>
                 <exclude name="osmf.swc"/>
-            	<exclude name="apache.swc"/>
-                <exclude name="experimental.swc"/>
             </fileset>
         </copy>
 

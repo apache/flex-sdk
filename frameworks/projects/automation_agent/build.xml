@@ -92,7 +92,6 @@
     </target>
     	
 	<target name="bundles" depends="bundles_en_US">
-	    <echo message="IN bundles"/>
             <antcall target="automation_agent_bundles">
                 <param name="locale" value="da_DK"/>
             </antcall>
@@ -150,7 +149,6 @@
 	</target>
 	
 	<target name="bundles-clean">
-	    <echo message="IN bundles clean"/>
         <antcall target="automation_agent_bundles-clean">
             <param name="locale" value="da_DK"/>
         </antcall>
