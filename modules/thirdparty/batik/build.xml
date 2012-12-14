@@ -97,7 +97,11 @@ To display the available targets type:
     <property name="debug"              value="off"/>
     <property name="optimize"           value="on"/>
     <property name="deprecation"        value="on"/>
-  
+
+    <!-- Added by Apache Flex -->  
+    <property name="javac.source" value="1.6"/>
+    <property name="javac.target" value="1.6"/>
+
     <property name="src"                value="sources"/>
     <property name="src-internal-codec" value="sources-internal-codec"/>
     <property name="resources"          value="resources"/>
@@ -230,8 +234,10 @@ To display the available targets type:
     <!-- Info ............................................................... -->
     <echo message=" == ${Project} ${completeVersion} build file ================================"/>
     <echo message=""/>
-    <echo message="    JAVA_HOME: ${env.JAVA_HOME}"/>
-    <echo message="    VM:        ${java.vm.version}, ${java.vm.vendor}"/>
+    <echo message="    JAVA_HOME:       ${env.JAVA_HOME}"/>
+    <echo message="    VM:              ${java.vm.version}, ${java.vm.vendor}"/>
+    <echo message="    javac.source:    ${javac.source}"/>
+    <echo message="    javac.target:    ${javac.target}"/>
 
     <property name="init.done" value="true"/>
   </target>
@@ -1009,7 +1015,10 @@ JAVA=/usr/bin/java
   </target>
 
   <target name="compile" depends="init, compile-prepare" unless="compile.done">
-    <javac destdir="${dest}" deprecation="${deprecation}" 
+    <javac destdir="${dest}" 
+           source="${javac.source}" 
+           target="${javac.target}" 
+           deprecation="${deprecation}" 
            debug="${debug}" optimize="${optimize}" encoding="UTF-8">
       <src path="${src}"/>
       <src path="${src-jdk}"/>
