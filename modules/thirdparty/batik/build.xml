@@ -141,7 +141,7 @@ To display the available targets type:
     </pathconvert>
   
     <path id="libs-classpath">
-      <fileset dir="lib">
+      <fileset dir="lib" erroronmissingdir="false">
         <include name="*.jar"/>
       </fileset>
     </path>
