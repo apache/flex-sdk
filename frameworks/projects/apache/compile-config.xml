@@ -23,7 +23,8 @@
         
         <external-library-path>
             <path-element>${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc</path-element>
-            <path-element>../../libs/mx/mx.swc</path-element>
+            <path-element>../../libs/framework.swc</path-element>
+            <path-element>../../libs/spark.swc</path-element>
         </external-library-path>
         
         <keep-as3-metadata>
@@ -51,7 +52,11 @@
         
         <warn-no-constructor>false</warn-no-constructor>
     </compiler>
-    
+
+	<include-namespaces>
+		 <uri>http://flex.apache.org/ns</uri>
+	</include-namespaces>
+
     <include-classes>
         <class>ApacheClasses</class>
     </include-classes>
