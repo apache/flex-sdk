@@ -926,6 +926,7 @@
              output="${basedir}/libs/experimental.swc" 
             resource-bundle-list="${experimental.dir}/bundles.properties">
             <namespace uri="http://flex.apache.org/experimental/ns" manifest="${experimental.dir}/manifest.xml"/>
+            <namespace uri="library://ns.adobe.com/flex/spark" manifest="${experimental.dir}/spark-manifest.xml"/>
             <include-namespaces uri="http://flex.apache.org/experimental/ns"/>
             <source-path path-element="${experimental.dir}/src"/>
             <library-path/>
@@ -971,10 +972,6 @@
                 <include name="textLayout.swc"/>
             </external-library-path>
             <include-file name="defaults.css" path="${halo.dir}/defaults.css"/>
-            <include-file name="assets/ErrorIndicator.png" path="${spark.dir}/assets/dividers/HDivider.png"/>
-            <include-file name="assets/ErrorIndicator.png" path="${spark.dir}/assets/dividers/HDividerCursor.png"/>
-            <include-file name="assets/ErrorIndicator.png" path="${spark.dir}/assets/dividers/VDivider.png"/>
-            <include-file name="assets/ErrorIndicator.png" path="${spark.dir}/assets/dividers/VDividerCursor.png"/>
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
     </target>
