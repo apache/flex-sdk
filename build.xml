@@ -610,6 +610,7 @@
                 <exclude name="test*/**"/>
                 <exclude name="javascript/**"/>
                 <exclude name="projects/air/**"/>
+                <exclude name="projects/textLayout/**"/>
                 <exclude name="projects/spark/manifest.xml"/>
                 <exclude name="projects/*/bundles.properties"/>
                 <exclude name="projects/*/.settings/**"/>
