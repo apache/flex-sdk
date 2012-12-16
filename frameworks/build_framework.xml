@@ -78,7 +78,7 @@
     
     <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar;${FLEX_HOME}/lib/flexTasks.jar"/>
 
-    <target name="main" depends="check-compile-env,clean,thirdparty-downloads,prepare,textLayout,framework,mx,spark,airframework,airspark,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,automation-swcs,bundles,themes,sparkskins,spark_dmv"/>
+    <target name="main" depends="check-compile-env,clean,thirdparty-downloads,prepare,textLayout,framework,mx,spark,airframework,airspark,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,automation-swcs,bundles,themes,sparkskins,spark_dmv,experimental"/>
 
     <target name="bundles" depends="framework_rb,mx_rb,spark_rb,airframework_rb,airspark_rb,mobilecomponents_rb,rpc_rb,charts_rb,advancedgrids_rb,automation-rbs"/>
     
@@ -918,6 +918,42 @@
             </external-library-path>
         </compc>
     </target>
+	
+    <target name="experimental" description="Builds experimental.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
+            show-deprecation-warnings="false"
+            include-classes="ExperimentalClasses"
+             output="${basedir}/libs/experimental.swc" 
+            resource-bundle-list="${experimental.dir}/bundles.properties">
+            <namespace uri="http://flex.apache.org/experimental/ns" manifest="${experimental.dir}/manifest.xml"/>
+            <include-namespaces uri="http://flex.apache.org/experimental/ns"/>
+            <source-path path-element="${experimental.dir}/src"/>
+            <library-path/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <external-library-path dir="${basedir}/libs">
+                <include name="framework.swc"/>
+                <include name="spark.swc"/>
+             </external-library-path>
+            <include-file name="experimental.css" path="${experimental.dir}/defaults.css"/>
+            <keep-as3-metadata name="SkinPart"/>
+			<show-deprecation-warnings>false</show-deprecation-warnings>
+			<warn-no-constructor>false</warn-no-constructor>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+    
+    <target name="experimental_rb" description="Builds default locale experimental_rb.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}"
+            output="${basedir}/locale/${locale}/experimental_rb.swc">          
+            <include-resource-bundles bundle="alert"/>         
+            <include-resource-bundles bundle="dividers"/>
+            <source-path path-element="${experimental.dir}/bundles/${locale}"/>
+            <source-path path-element="${framework.dir}/src"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <library-path/>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
 
     <!-- Build themes code -->
     <target name="themes" depends="halo,mobiletheme,wireframe" description="Builds themes"/>
@@ -935,6 +971,10 @@
                 <include name="textLayout.swc"/>
             </external-library-path>
             <include-file name="defaults.css" path="${halo.dir}/defaults.css"/>
+            <include-file name="assets/ErrorIndicator.png" path="${spark.dir}/assets/dividers/HDivider.png"/>
+            <include-file name="assets/ErrorIndicator.png" path="${spark.dir}/assets/dividers/HDividerCursor.png"/>
+            <include-file name="assets/ErrorIndicator.png" path="${spark.dir}/assets/dividers/VDivider.png"/>
+            <include-file name="assets/ErrorIndicator.png" path="${spark.dir}/assets/dividers/VDividerCursor.png"/>
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
     </target>
@@ -1010,6 +1050,7 @@
                 <include name="textLayout.swc"/>
                 <include name="authoringsupport.swc"/>
                 <include name="flash-integration.swc"/>
+                <include name="experimental.swc"/>
             </fileset>
             <fileset dir="${basedir}/libs/automation">
                 <include name="automation_agent.swc"/>
