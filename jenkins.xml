@@ -44,7 +44,7 @@
         <echo message="Be patient.  This takes a few minutes..." />
         <mkdir dir="${FLEX_HOME}/air"/>
         <mkdir dir="${FLEX_HOME}/temp"/>
-        <get src="http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip" 
+        <get src="http://airdownload.adobe.com/air/win/download/3.4/AdobeAIRSDK.zip" 
             dest="${FLEX_HOME}/temp/AIR Integration Kit.zip" 
             verbose="false"/>
         <unzip dest="${FLEX_HOME}/air/AIR Integration Kit" src="${FLEX_HOME}/temp/AIR Integration Kit.zip" />
@@ -106,7 +106,7 @@
 	
     <target name="playerglobal11.3-download" if="target11.3">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
-        <get src="http://labsdownload.adobe.com/pub/labs/flashplatformruntimes/flashplayer11-3/flashplayer11-3_p3_playerglobal_050412.swc" 
+        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_3.swc" 
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
