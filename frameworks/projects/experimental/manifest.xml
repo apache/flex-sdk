@@ -51,7 +51,4 @@
 	<!-- ProgressBar classes and skins -->
 	<component id="ProgressBar" class="org.apache.flex.components.sparkProgressBar.ProgressBar"/>
 	<component id="ProgressBarSkin" class="org.apache.flex.components.sparkProgressBar.skin.ProgressBarSkin"/>
-
-    <component id="SolidColor" class="mx.graphics.SolidColor" lookupOnly="true"/>
-    <component id="SolidColorStroke" class="mx.graphics.SolidColorStroke" lookupOnly="true"/>
 </componentPackage>
