@@ -24,6 +24,31 @@
 
 -->
 <componentPackage>
-
-
+	<!-- Alert class and it's skin -->
+	<component id="Alert" class="org.apache.flex.components.sparkAlert.Alert" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="AlertSkin" class="org.apache.flex.components.sparkAlert.skin.AlertSkin" uri="http://flex.apache.org/experimental/ns"/>
+	<!-- ColorPicker class and it's skins -->
+	<component id="ColorPicker" class="org.apache.flex.components.sparkColorPicker.ColorPicker" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="ColorPickerSkin" class="org.apache.flex.components.sparkColorPicker.skin.ColorPickerSkin" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="ColorButtonPickerSkin" class="org.apache.flex.components.sparkColorPicker.skin.ColorPickerButtonSkin" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="ColorChangeEvent" class="org.apache.flex.components.sparkColorPicker.events.ColorChangeEvent" uri="http://flex.apache.org/experimental/ns"/>
+	<!-- Horizontal and Vertical dividers and their groups -->
+	<component id="Divider" class="org.apache.flex.components.sparkDividers.Divider" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="HDivider" class="org.apache.flex.components.sparkDividers.HDivider" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="VDivider" class="org.apache.flex.components.sparkDividers.VDivider" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="DividerGroup" class="org.apache.flex.components.sparkDividers.DividedGroup" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="HDividerGroup" class="org.apache.flex.components.sparkDividers.HDividerGroup" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="VDividerGroup" class="org.apache.flex.components.sparkDividers.VDividerGroup" uri="http://flex.apache.org/experimental/ns"/>
+	<!-- Menu classes and skins -->
+	<component id="Menu" class="org.apache.flex.components.sparkMenu.Menu" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="MenuEvent" class="org.apache.flex.components.sparkMenu.events.MenuEvent" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="MenuSkin" class="org.apache.flex.components.sparkMenu.skin.MenuSkin" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="MenuItemRenderer" class="org.apache.flex.components.sparkMenu.skin.MenuItemRenderer" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="MenuBar" class="org.apache.flex.components.sparkMenu.MenuBar" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="MenuBarSkin" class="org.apache.flex.components.sparkMenu.skin.MenuBarSkin" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="MenuBarItemRenderer" class="org.apache.flex.components.sparkMenu.skin.MenuBarItemRenderer" uri="http://flex.apache.org/experimental/ns"/>	
+	<component id="IListItemRenderer" class="org.apache.flex.components.sparkMenu.IListItemRenderer" uri="http://flex.apache.org/experimental/ns"/>
+	<!-- ProgressBar classes and skins -->	
+	<component id="ProgressBar" class="org.apache.flex.components.sparkProgressBar.ProgressBar" uri="http://flex.apache.org/experimental/ns"/>
+	<component id="ProgressBarSkin" class="org.apache.flex.components.sparkProgressBar.skin.ProgressBarSkin" uri="http://flex.apache.org/experimental/ns"/>
 </componentPackage>
