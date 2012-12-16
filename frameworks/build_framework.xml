@@ -57,6 +57,7 @@
     <property name="sparkskin.dir" value="${projects.dir}/sparkskins"/>
     <property name="spark_dmv.dir" value="${projects.dir}/spark_dmv"/>
     <property name="textLayout.dir" value="${projects.dir}/textLayout/3.0.33"/>
+    <property name="experimental.dir" value="${projects.dir}/experimental"/>
 
     <!-- automation -->
     <property name="automation.dir" value="${projects.dir}/automation"/>
