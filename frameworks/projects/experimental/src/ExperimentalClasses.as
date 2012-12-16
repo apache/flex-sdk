@@ -16,20 +16,15 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-
 package
 {
-	
 	internal class ExperimentalClasses
 	{
-		
 		/**
 		 *  @private
 		 *  This class is used to link additional classes into experimental.swc
 		 *  beyond those that are found by dependecy analysis starting
 		 *  from the classes specified in manifest.xml.
 		 */
-		
 	}
-	
 }

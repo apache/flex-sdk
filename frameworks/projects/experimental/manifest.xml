@@ -24,5 +24,34 @@
 
 -->
 <componentPackage>
+	<!-- Alert class and it's skin -->
+	<component id="Alert" class="org.apache.flex.components.sparkAlert.Alert"/>
+	<component id="AlertSkin" class="org.apache.flex.components.sparkAlert.skin.AlertSkin"/>
+	<!-- ColorPicker class and it's skins -->
+	<component id="ColorPicker" class="org.apache.flex.components.sparkColorPicker.ColorPicker"/>
+	<component id="ColorPickerSkin" class="org.apache.flex.components.sparkColorPicker.skin.ColorPickerSkin"/>
+	<component id="ColorButtonPickerSkin" class="org.apache.flex.components.sparkColorPicker.skin.ColorPickerButtonSkin"/>
+	<component id="ColorChangeEvent" class="org.apache.flex.components.sparkColorPicker.events.ColorChangeEvent"/>
+	<!-- Horizontal and Vertical dividers and their groups -->
+	<component id="Divider" class="org.apache.flex.components.sparkDividers.Divider"/>
+	<component id="HDivider" class="org.apache.flex.components.sparkDividers.HDivider"/>
+	<component id="VDivider" class="org.apache.flex.components.sparkDividers.VDivider"/>
+	<component id="DividerGroup" class="org.apache.flex.components.sparkDividers.DividedGroup"/>
+	<component id="HDividerGroup" class="org.apache.flex.components.sparkDividers.HDividerGroup"/>
+	<component id="VDividerGroup" class="org.apache.flex.components.sparkDividers.VDividerGroup"/>
+	<!-- Menu classes and skins -->
+	<component id="Menu" class="org.apache.flex.components.sparkMenu.Menu"/>
+	<component id="MenuEvent" class="org.apache.flex.components.sparkMenu.events.MenuEvent"/>
+	<component id="MenuSkin" class="org.apache.flex.components.sparkMenu.skin.MenuSkin"/>
+	<component id="MenuItemRenderer" class="org.apache.flex.components.sparkMenu.skin.MenuItemRenderer"/>
+	<component id="MenuBar" class="org.apache.flex.components.sparkMenu.MenuBar"/>
+	<component id="MenuBarSkin" class="org.apache.flex.components.sparkMenu.skin.MenuBarSkin"/>
+	<component id="MenuBarItemRenderer" class="org.apache.flex.components.sparkMenu.skin.MenuBarItemRenderer"/>
+	<component id="IListItemRenderer" class="org.apache.flex.components.sparkMenu.IListItemRenderer"/>
+	<!-- ProgressBar classes and skins -->
+	<component id="ProgressBar" class="org.apache.flex.components.sparkProgressBar.ProgressBar"/>
+	<component id="ProgressBarSkin" class="org.apache.flex.components.sparkProgressBar.skin.ProgressBarSkin"/>
 
+    <component id="SolidColor" class="mx.graphics.SolidColor" lookupOnly="true"/>
+    <component id="SolidColorStroke" class="mx.graphics.SolidColorStroke" lookupOnly="true"/>
 </componentPackage>

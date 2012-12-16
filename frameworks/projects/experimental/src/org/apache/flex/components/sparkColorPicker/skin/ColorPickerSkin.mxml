@@ -1,0 +1,221 @@
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009" xmlns:local="*" alpha.disabled=".5" minWidth="24"
+			 currentStateChange="onStateChange(event)" 
+			 xmlns:focusgroup="org.apache.flex.components.spark.components.colorpicker.*" > 
+	<!--
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//  Licensed to the Apache Software Foundation (ASF) under one or more
+	//  contributor license agreements.  See the NOTICE file distributed with
+	//  this work for additional information regarding copyright ownership.
+	//  The ASF licenses this file to You under the Apache License, Version 2.0
+	//  (the "License"); you may not use this file except in compliance with
+	//  the License.  You may obtain a copy of the License at
+	//
+	//      http://www.apache.org/licenses/LICENSE-2.0
+	//
+	//  Unless required by applicable law or agreed to in writing, software
+	//  distributed under the License is distributed on an "AS IS" BASIS,
+	//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	//  See the License for the specific language governing permissions and
+	//  limitations under the License.
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	@author Bogdan Dinu (http://www.badu.ro)
+	-->
+	<fx:Metadata>
+		<![CDATA[ 
+		[HostComponent("org.apache.flex.components.sparkColorPicker.ColorPicker")]
+		]]>
+	</fx:Metadata> 
+	<fx:Declarations>		
+		<fx:Component id="colorItemRenderer">
+			<s:ItemRenderer rollOver="onRolledOver(event)">
+				<fx:Script>
+					<![CDATA[										
+						import org.apache.flex.components.sparkColorPicker.events.ColorChangeEvent;
+						import org.apache.flex.components.sparkColorPicker.util.ColorPickerUtil;
+						
+						protected function onRolledOver(event:MouseEvent):void
+						{
+							outerDocument.previewColor.color = uint(data); 
+							outerDocument.previewTextInput.text = ColorPickerUtil.uint2hex(uint(data)); 
+							outerDocument.hostComponent.dispatchEvent(new ColorChangeEvent(ColorChangeEvent.HOVER, uint(data)));							
+						}						
+					]]>
+				</fx:Script>
+				<s:states>
+					<s:State name="normal" />
+					<s:State name="hovered" />
+					<s:State name="selected" />
+				</s:states>
+				<s:Rect width="10" height="10">
+					<s:fill>
+						<s:SolidColor color="{data}" />
+					</s:fill>
+					<s:stroke>
+						<s:SolidColorStroke color="0xFFFF00" alpha.hovered="1" alpha="0" />
+					</s:stroke>
+				</s:Rect>
+			</s:ItemRenderer>
+		</fx:Component>
+	</fx:Declarations>
+	<fx:Script fb:purpose="styling">
+		<![CDATA[
+			import spark.events.TextOperationEvent;
+			import mx.events.StateChangeEvent;
+			import mx.events.FlexEvent;
+			
+			import spark.components.ComboBox;
+			import org.apache.flex.components.sparkColorPicker.events.ColorChangeEvent;
+			import org.apache.flex.components.sparkColorPicker.util.ColorPickerUtil;
+			
+			static private const contentFill:Array = ["bgFill"];
+			
+			/**
+			 * @private
+			 */
+			override public function get contentItems():Array {return contentFill};
+			/**
+			 * @private
+			 */
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				if (getStyle("borderVisible") == false)
+				{
+					if (border)
+					{
+						border.visible = false;
+					}
+					if (background)
+					{
+						background.left = background.top = background.right = background.bottom = 0;
+					}
+					if (swatchpanel)
+					{
+						swatchpanel.left = swatchpanel.top = swatchpanel.right = swatchpanel.bottom = 0;
+					}
+				}
+				else
+				{
+					if (border)
+					{
+						border.visible = true;
+					}
+					if (background)
+					{
+						background.left = background.top = background.right = background.bottom = 1;
+					}
+					if (swatchpanel)
+					{
+						swatchpanel.left = swatchpanel.top = swatchpanel.right = swatchpanel.bottom = 1;
+					}
+				}
+				
+				if (dropShadow)
+				{
+					dropShadow.visible = getStyle("dropShadowVisible");
+				}
+				
+				openButton.setStyle("cornerRadius", getStyle("cornerRadius"));
+				
+				if (borderStroke)
+				{
+					borderStroke.color = getStyle("borderColor");
+					borderStroke.alpha = getStyle("borderAlpha");
+				}
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+			}
+						
+			private function onEnterKey(e:FlexEvent):void
+			{
+				hostComponent.selectedItem = previewColor.color; 
+				hostComponent.closeDropDown(true); 
+				hostComponent.dispatchEvent(new ColorChangeEvent(ColorChangeEvent.CHOOSE, previewColor.color));
+			}
+			
+			protected function onStateChange(event:StateChangeEvent):void
+			{
+				if (currentState == 'open') 
+				{
+					if (preview) 
+					{
+						previewColor.color = hostComponent.selectedItem as uint;
+					}
+					previewTextInput.callLater(previewTextInput.setFocus);
+					previewTextInput.text = ColorPickerUtil.uint2hex(previewColor.color);
+				}				
+			}
+			
+			protected function onPreviewTextInputChange(event:TextOperationEvent):void
+			{
+				previewColor.color = uint('0x' + previewTextInput.text);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="open" />
+		<s:State name="disabled" />
+	</s:states>
+	
+	<s:PopUpAnchor id="popUp"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
+				   left="0" right="0" top="0" bottom="0" itemDestructionPolicy="auto"
+				   popUpPosition="below" popUpWidthMatchesAnchorWidth="false">
+		
+		<s:Group id="dropDown" >
+			<s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.45" distance="7" 
+									 angle="90" color="#000000" left="0" top="0" right="0" bottom="0"/>
+			<s:Rect id="border" left="0" right="0" top="0" bottom="0">
+				<s:stroke>
+					<s:SolidColorStroke id="borderStroke" weight="1"/>
+				</s:stroke>
+			</s:Rect>
+			
+			<s:Rect id="background" left="1" right="1" top="1" bottom="1" >
+				<s:fill>
+					<s:SolidColor id="bgFill" color="0x1F1F1F" />
+				</s:fill>
+			</s:Rect>
+			<s:VGroup id="swatchpanel" left="0" top="0" right="0" bottom="0" >
+				<s:HGroup>
+					<s:Rect id="preview" width="50" height="20" >
+						<s:fill>
+							<s:SolidColor id="previewColor" />
+						</s:fill>
+					</s:Rect>
+					<s:TextInput id="previewTextInput" restrict="0123456789abcdefABCDEF" 
+								 change="onPreviewTextInputChange(event)"
+								 enter="onEnterKey(event)"  />
+				</s:HGroup>
+				<s:Group>
+					<s:Rect left="0" top="0" right="0" bottom="0" width="220" height="132" >
+						<s:fill>
+							<s:SolidColor color="0x0" />
+						</s:fill>
+					</s:Rect>
+					<s:DataGroup id="dataGroup" left="0" top="0" right="0" bottom="0" width="220" height="132" 
+								 itemRenderer="{colorItemRenderer}">
+						<s:layout>
+							<s:TileLayout verticalGap="0" horizontalGap="0" 
+										  requestedColumnCount="20" 
+										  requestedRowCount="12" useVirtualLayout="false"/>
+						</s:layout>
+					</s:DataGroup>                           
+				</s:Group>
+			</s:VGroup>
+		</s:Group>
+	</s:PopUpAnchor>
+	
+	<s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
+			  skinClass="org.apache.flex.components.sparkColorPicker.skin.ColorPickerButtonSkin" />  	 
+	
+	<s:Rect left="2" right="2" top="2" bottom="2" width="20" height="20" radiusX="2">
+		<s:fill>
+			<s:SolidColor id="solidColor" />
+		</s:fill>
+	</s:Rect>
+	
+</s:SparkSkin>
