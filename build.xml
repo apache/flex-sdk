@@ -825,7 +825,7 @@
             	<include name="textLayout.swc"/>
                 <exclude name="osmf.swc"/>
             	<exclude name="apache.swc"/>
-                <exclude name="experimental.swc"/>
+                <include name="experimental.swc"/>
             </fileset>
         </copy>
 
