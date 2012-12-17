@@ -114,10 +114,10 @@ Install Prerequisites
          will get compile errors.
         
     *3) The Adobe AIR integration kit for Windows can be downloaded from:
-                http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip
+                http://airdownload.adobe.com/air/win/download/3.4/AdobeAIRSDK.zip
         
          The Adobe AIR integration kit for Mac can be downloaded from:
-            http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2
+            http://airdownload.adobe.com/air/mac/download/3.4/AdobeAIRSDK.tbz2
         
         Download the AIR SDK for your platform and unzip it.  Set AIR_HOME to the absolute 
         path of the AIR SDK directory.
@@ -146,6 +146,14 @@ Install Prerequisites
         
         Use URL above to download playerglobal11_1.swc. Create the directory, player/11.1
         and copy playerglobal11_1.swc to player/11.1/playerglobal.swc.
+        
+        Other more recent versions of Adode Flash Player playergloal.swc can be downloaded from:
+       		http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
+        	http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
+       		http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
+        	http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
+        	
+        These can be used with Apache Flex but have not been fully tested.
         
         Set PLAYERGLOBAL_HOME to the absolute path of the player directory (not including
 		the version subdirectory). The target-version option controls which 
