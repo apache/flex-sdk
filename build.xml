@@ -516,7 +516,6 @@
 				<include name="env-template.properties"/>
                 <include name="flex-sdk-description.xml"/>
                 <include name="CHANGES"/>
-                <include name="DISCLAIMER"/>
                 <include name="LICENSE"/>
                 <include name="NOTICE"/>
                 <include name="README"/>
@@ -1201,7 +1200,6 @@
             <fileset dir="${basedir}">
                 <include name="LICENSE" />
                 <include name="NOTICE" />
-                <include name="DISCLAIMER" />
             </fileset>
         </copy>
         <zip file="${basedir}/out/${kit.prefix}-asdocs.zip" basedir="${basedir}/temp"/>
