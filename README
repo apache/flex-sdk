@@ -79,7 +79,7 @@ Install Prerequisites
     Java SDK 1.6 or greater (*1)                JAVA_HOME
         (for Java 1.7 see note at (*2))
         
-    Ant 1.7.0 or greater (*1)                   ANT_HOME
+    Ant 1.7.1 or greater (*1)                   ANT_HOME
         (for Java 1.7 see note at (*2))
         
     Cygwin, git bash 
@@ -297,6 +297,10 @@ Building the Source in the Source Distribution
     dependencies take a little while to download and they don't change very often, they 
     are not cleaned with the regular clean target.
     
+    If you would like to build the RSLs, use
+    
+        ant frameworks-rsls
+        
     To clean the build, of everything other than the downloaded third-party dependencies 
     use
     

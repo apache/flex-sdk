@@ -21,8 +21,8 @@ REM ############################################################################
 
 REM    This script should be used to create an Apache Flex SDK that has the
 REM    directory structure that the Adobe Flash Builder IDE expects.  If this is a
-REM    source package, you must build the binaries first.  See the README at the root
-REM    for instructions.
+REM    source package, you must build the binaries and the RSLs first.  See the README at 
+REM    the root for instructions.
 REM
 REM    This script assumes that it is in the ide/flashbuilder directory of the Apache Flex SDK
 REM    The files from this SDK will be copied to the new directory structure.
@@ -61,8 +61,16 @@ REM
 REM     Quick check to see if there are binaries.
 REM
 :checkJar
-if exist "%APACHE_FLEX_BIN_DISTRO_DIR%\lib\mxmlc.jar" goto gotDir
+if exist "%APACHE_FLEX_BIN_DISTRO_DIR%\lib\mxmlc.jar" goto gotRSLs
 echo You must build the binaries for this SDK first.  See the README at the root.
+goto :eof
+
+REM
+REM     Quick check to see if there are binaries.
+REM
+:gotRSLs
+if exist "%APACHE_FLEX_BIN_DISTRO_DIR%\frameworks\rsls" goto gotDir
+echo You must build the RSLs for this SDK first.  See the README at the root.
 goto :eof
 
 REM
