@@ -36,7 +36,7 @@ TAG_NAME="apache-flex-sdk-4.8.0-RC1"
 # Do a release build.
 #   Set the build number in flex-sdk-description.xml
 #   Don't prompt for optional packages or acknowledgment of reciprocal licenses
-ant -Dbuild.number=$BUILD_NUMBER -Dbuild.noprompt= release
+ant -Dbuild.number=$BUILD_NUMBER -Dbuild.noprompt=release
 
 # Build the asdoc package.
 ant -Dbuild.number=$BUILD_NUMBER asdoc-package
