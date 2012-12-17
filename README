@@ -3,7 +3,12 @@ Apache Flex (Flex)
 
     Apache Flex is an application framework for easily building Flash-based applications 
     for mobile devices, the browser and desktop.
-    
+
+    Apache Flex 4.9 is a follow up release to Apache Flex 4.8 which was a parity release
+    of Adobe Flex 4.6.  This version adds new features and implements bug fixes that were
+    unavailable in previous versions.  It is compatible with most code written to target
+    Adobe Flex 4.6.
+
     For detailed information about Apache Flex please visit 
     http://incubator.apache.org/flex/
 
@@ -27,23 +32,45 @@ Apache Flex (Flex)
 Getting the latest sources via Subversion
 =========================================
 
+    This is the recommended way to get Apache Flex.  We offer an automated installer
+    along with binary distributions on our website at http://incubator.apache.org/flex.
+
     You can always checkout the latest source via subversion using the following
     command:
 
     svn co https://svn.apache.org/repos/asf/incubator/flex/trunk flex
 
     For further information visit http://incubator.apache.org/flex/source.html
-    
+
+
+Getting the convenience packages for Apache Flex
+================================================
+
+    The Apache Flex SDK Installer is an application that simplifies the download and
+    installation of the Apache Flex SDK and its (required) components. It is aimed at
+    anyone who wants to use the latest release of the Apache Flex SDK, but who might not
+    necessarily be familiar with the tools and procedures required to compile the Apache
+    Flex SDK from source code. The application will grab the official, current release of
+    the SDK from apache.org, install it onto your computer and prepare it for use with
+    your favorite IDE such as Adobe Flash Builder or JetBrains IntelliJ.
+
+    You can get the SDK Installer from the Apache Flex website at
+
+      http://incubator.apache.org/flex/installer.html
+
+    You can also get just the binaries from our website as well.  These binaries do not
+    include the dependencies, so additional software may need to be downloaded and installed.
+
+      http://incubator.apache.org/flex/download.html
+
 Building Apache Flex 4.9
 ========================
 
-    Apache Flex 4.9 is a follow up release to Apache Flex 4.8.  Apache Flex 4.8 which was 
-    a parity release from Apache of Adobe Flex 4.6.
-    
     Apache Flex is a large project. It requires some build tools which must be installed
     prior to building Flex and it depends on some external software which
-    are downloaded as part of the build process.  See the Software Dependencies
-    section for more information on the external software dependencies.
+    are downloaded as part of the build process.  Some of these have different licenses.
+    See the Software Dependencies section for more information on the external software
+    dependencies.
     
     From Apache's perspective, the Adobe Flash Player and Adobe AIR have excluded
     licenses so they can not be bundled with the Apache Flex binaries.  They must be
@@ -51,10 +78,6 @@ Building Apache Flex 4.9
     
 Install Prerequisites
 ---------------------
-
-    Adobe Flex 4.6 was certified with AIR 3.1 and Flash Player 11.1.  Apache Flex 4.9
-    will continue to use these.  Apache Flex 4.9 has been upgraded to use Text Layout
-    Format (TLF) 3.0.33 which is now part of Apache Flex.
 
     Before building Flex you must install the following software and set the
     corresponding environment variables using absolute file paths.  Relative file paths
@@ -118,12 +141,18 @@ Install Prerequisites
         
          The Adobe AIR integration kit for Mac can be downloaded from:
             http://airdownload.adobe.com/air/mac/download/3.4/AdobeAIRSDK.tbz2
-        
+
+        This version of Apache Flex was certified for use with AIR 3.1, and is compatible
+        with versions 3.1 through 3.5.
+
         Download the AIR SDK for your platform and unzip it.  Set AIR_HOME to the absolute 
         path of the AIR SDK directory.
                
     *4) The Adobe Flash Player content debuggers can be found here:
             http://www.adobe.com/support/flashplayer/downloads.html
+
+        This version of Apache Flex was certified for use with Flash Player 11.1, and is
+        compatible with versions 11.1 through 11.5.
             
         On Windows, set FLASHPLAYER_DEBUGGER to the absolute path of FlashPlayerDebugger.exe
         
