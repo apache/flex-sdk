@@ -174,6 +174,8 @@
         </delete>
     </target>
 
+    <target name="compile" depends="pixelbender-compile, swc-compile" description="Compiles spark.swc"/>
+    
     <target name="pixelbender-compile">
         <exec executable="${env.PIXELBENDER_HOME}/pbutil">
             <arg value="${FLEX_HOME}/frameworks/projects/spark/asdoc/en_US/spark/effects/examples/assets/twist.pbk" />
@@ -200,13 +202,12 @@
             <arg value="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects/WipeRight.pbj" />
         </exec>
     </target>
-
     
     <target name="prepare" description="Copies manifests to project directories so the IDE can find them">
         <copy file="${FLEX_HOME}/frameworks/spark-manifest.xml" tofile="${basedir}/manifest.xml" overwrite="true"/>
     </target>
     
-    <target name="compile" depends="prepare, pixelbender-compile" description="Compiles spark.swc">
+    <target name="swc-compile" depends="prepare" description="Compiles spark.swc">
         <echo message="Compiling frameworks/libs/spark.swc"/>
 
         <!-- Load the <compc> task. We can't do this at the <project> level -->
