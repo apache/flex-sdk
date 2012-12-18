@@ -18,9 +18,13 @@
 
 -->
 <project name="mustella" default="run" basedir=".">
-    <property name="FLEX_HOME" location="${basedir}/.."/>
+
+    <!-- Load the local properties.  Need sdk.dir to load the Flex config env vars.  -->
+    <property name="local_properties" value="local.properties" />
+    <property file="${basedir}/${local_properties}" />
+    <property name="sdk.dir" value="${basedir}/.." />
     
-    <property file="${FLEX_HOME}/env.properties"/>
+    <property file="${sdk.dir}/env.properties"/>
     <property environment="env"/>
 
     <pathconvert property="mustella.dir" dirsep="/" >
@@ -48,10 +52,8 @@
     <!-- default version file -->
     <property name="build.version.file" value="successfulBuild.properties" />
     <property prefix="on_disk" file="${mustella.dir}/${build.version.file}" />
-    <property name="local_properties" value="local.properties" />
     <property name="external_properties" value="external.properties" />
 
-    <property file="${mustella.dir}/${local_properties}" />
     <property file="${mustella.dir}/${external_properties}" />
     <property file="${mustella.dir}/build.properties" />
 
@@ -70,7 +72,6 @@
     <mkdir dir="${sdk.mustella.dir}" />
 
     <property name="root.dir" value="${basedir}/.."/>
-    <property name="sdk.dir" value="${basedir}/.." />
     <property name="frameworks" value="${sdk.dir}/frameworks" />
     <property file="${mustella.dir}/local.properties" />
     <property name="mustellagen.dir" value="${mustella.dir}/gen" />
