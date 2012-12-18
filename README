@@ -142,7 +142,7 @@ Install Prerequisites
          The Adobe AIR integration kit for Mac can be downloaded from:
             http://airdownload.adobe.com/air/mac/download/3.4/AdobeAIRSDK.tbz2
 
-        This version of Apache Flex was certified for use with AIR 3.1, and is compatible
+        This version of Apache Flex was certified for use with AIR 3.4, and is compatible
         with versions 3.1 through 3.5.
 
         Download the AIR SDK for your platform and unzip it.  Set AIR_HOME to the absolute 
