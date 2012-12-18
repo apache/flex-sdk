@@ -1115,7 +1115,8 @@ JAVA=/usr/bin/java
 
   <property name="FLEX_HOME" value="${basedir}/../../.."/>
   <property name="FLEX_LIB" value="${basedir}/../../../lib"/>
-
+  <property name="build.number" value="0"/>
+  
   <!-- 
     Clone all-jar and add Flex info to manifest. 
     
@@ -1123,16 +1124,26 @@ JAVA=/usr/bin/java
     correctly.
   -->
 
-  <target name="batik-all-flex-jar" depends="init, compile, prepare-build"
+  <target name="batik-all-flex-jar" depends="init, compile, determine-svn-revision-from-file, determine-svn-revision-set"
           description="Creates a combined JAR file of the Batik libraries in ${build}/lib">
 
+    <mkdir dir="${build}"/>
+    <mkdir dir="${build}/docs"/>
+    <mkdir dir="${build}/lib"/>
+
+    <property name="flex.implementation.title" value="Apache Batik all-in-one JAR - Fork of Batik 1.7"/>
+    <property name="flex.implementation.version" value="${completeVersion}${svn-revision-suffix} Build ${build.number}"/>
+    
+    <echo>Implementation-Title: ${flex.implementation.title}</echo>
+    <echo>Implementation-Version: ${flex.implementation.version}</echo>
+    <echo>Build-Id: ${build.id}</echo>
+    
     <jar jarfile="${FLEX_LIB}/batik-all-flex.jar">
       <manifest>
-        <attribute name="Implementation-Title" value="Apache Batik all-in-one JAR - Fork of Batik 1.7"/>
-        <attribute name="Implementation-Version" value="${completeVersion}${svn-revision-suffix}"/>
+        <attribute name="Implementation-Title" value="${flex.implementation.title}"/>
+        <attribute name="Implementation-Version" value="${flex.implementation.version}"/>
         <attribute name="Implementation-Vendor" value="The Apache Software Foundation (http://xmlgraphics.apache.org/batik/)"/>
         <attribute name="Build-Id" value="${build.id}"/>
-        <attribute name="Main-Class" value="${class-prefix}.apps.svgbrowser.Main"/>
       </manifest>
       <metainf dir="${basedir}" includes="LICENSE,NOTICE"/>
       <fileset dir="${dest}" excludes="**/.svn/">
