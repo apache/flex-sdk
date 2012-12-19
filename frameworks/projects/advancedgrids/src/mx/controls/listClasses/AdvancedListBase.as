@@ -6078,7 +6078,7 @@ public class AdvancedListBase extends ScrollControlBase
                     return;
                 }
                 var bookmark:CursorBookmark = collectionIterator.bookmark;
-                var index:int = bookmark.getViewIndex();
+                index = bookmark.getViewIndex();
                 if (index >= 0)
                 {
                     addSelectionData(uid, new ListBaseSelectionData(item, index, true));
