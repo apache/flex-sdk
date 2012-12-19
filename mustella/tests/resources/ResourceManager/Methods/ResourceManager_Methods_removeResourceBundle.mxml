@@ -36,11 +36,11 @@
 
             [Mixin]
 
-        ]]></mx:Metadata>   
+        ]]></mx:Metadata>
 
     <!-- end of set of lines that must be in each unit test -->
 
-    
+
 
     <mx:Script><![CDATA[
 
@@ -68,25 +68,25 @@
 
                 <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
 
-                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR']" />                
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR']" />
 
             </setup>
 
             <body>
 
-                <RunCode code="ResourceManager.getInstance().removeResourceBundle('fr_FR', 'bundle1')" />    
+                <RunCode code="ResourceManager.getInstance().removeResourceBundle('fr_FR', 'bundle1')" />
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR').length" value="0" />
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="0" />
 
-                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.toString()" value="fr_FR" />    
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.toString()" value="fr_FR" />
 
             </body>
 
         </TestCase>
 
-        
+
 
         <TestCase frequency="all" testID="ResourceManager_removeResourceBundle_1Locale3Bundles_Remove1st" description="Use removeResourceBundle() to remove the 1st of three bundles for a locale." keywords="[Runtime Localization,ResourceManager,removeResourceBundle]" >
 
@@ -104,7 +104,7 @@
 
             <body>
 
-                <RunCode code="ResourceManager.getInstance().removeResourceBundle('fr_FR', 'bundle1')" />    
+                <RunCode code="ResourceManager.getInstance().removeResourceBundle('fr_FR', 'bundle1')" />
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR').length" value="2" />
 
@@ -118,7 +118,7 @@
 
         </TestCase>
 
-        
+
 
         <TestCase frequency="all" testID="ResourceManager_removeResourceBundle_1Locale3Bundles_Remove2nd" description="Use removeResourceBundle() to remove the 2nd of three bundles for a locale." keywords="[Runtime Localization,ResourceManager,removeResourceBundle]" >
 
@@ -136,7 +136,7 @@
 
             <body>
 
-                <RunCode code="ResourceManager.getInstance().removeResourceBundle('fr_FR', 'bundle2')" />    
+                <RunCode code="ResourceManager.getInstance().removeResourceBundle('fr_FR', 'bundle2')" />
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR').length" value="2" />
 
@@ -150,7 +150,7 @@
 
         </TestCase>
 
-        
+
 
         <TestCase frequency="all" testID="ResourceManager_removeResourceBundle_1Locale3Bundles_Remove3rd" description="Use removeResourceBundle() to remove the 3rd of three bundles for a locale." keywords="[Runtime Localization,ResourceManager,removeResourceBundle]" >
 
@@ -168,7 +168,7 @@
 
             <body>
 
-                <RunCode code="ResourceManager.getInstance().removeResourceBundle('fr_FR', 'bundle3')" />    
+                <RunCode code="ResourceManager.getInstance().removeResourceBundle('fr_FR', 'bundle3')" />
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR').length" value="2" />
 
@@ -182,7 +182,7 @@
 
         </TestCase>
 
-        
+
 
         <TestCase frequency="all" testID="ResourceManager_removeResourceBundle_3LocalesVariousBundles_RemoveOnlyBundleFromOne" description="Be sure removeResourceBundle() removes from the correct locale when there are several." keywords="[Runtime Localization,ResourceManager,removeResourceBundle]" >
 
@@ -220,7 +220,7 @@
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('ja_JP').indexOf('bundle1_jaJP') != -1" value="true" />
 
-                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('ja_JP').indexOf('bundle2_jaJP') != -1" value="true" />        
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('ja_JP').indexOf('bundle2_jaJP') != -1" value="true" />
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('de_DE').length" value="3" />
 
@@ -228,13 +228,13 @@
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('de_DE').indexOf('bundle2_deDE') != -1" value="true" />
 
-                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('de_DE').indexOf('bundle3_deDE') != -1" value="true" />        
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('de_DE').indexOf('bundle3_deDE') != -1" value="true" />
 
             </body>
 
         </TestCase>
 
-        
+
 
         <TestCase frequency="all" testID="ResourceManager_removeResourceBundle_3LocalesVariousBundles_RemoveOneOfSeveralFromOne" description="Be sure removeResourceBundle() removes from the correct locale when there are several." keywords="[Runtime Localization,ResourceManager,removeResourceBundle]" >
 
@@ -268,7 +268,7 @@
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('fr_FR') != -1" value="true" />
 
-                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR').length" value="1" />        
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR').length" value="1" />
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR').indexOf('bundle1_frFR') != -1" value="true" />
 
@@ -276,21 +276,21 @@
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('ja_JP').indexOf('bundle1_jaJP') != -1" value="true" />
 
-                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('ja_JP').indexOf('bundle2_jaJP') != -1" value="true" />        
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('ja_JP').indexOf('bundle2_jaJP') != -1" value="true" />
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('de_DE').length" value="2" />
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('de_DE').indexOf('bundle1_deDE') != -1" value="true" />
 
-                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('de_DE').indexOf('bundle2_deDE')" value="-1" />        
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('de_DE').indexOf('bundle2_deDE')" value="-1" />
 
-                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('de_DE').indexOf('bundle3_deDE') != -1" value="true" />        
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('de_DE').indexOf('bundle3_deDE') != -1" value="true" />
 
             </body>
 
         </TestCase>
 
-        
+
 
         <TestCase frequency="all" testID="ResourceManager_removeResourceBundle_NonexistantBundle" description="Call removeResourceBundle() for a nonexistant bundle." keywords="[Runtime Localization,ResourceManager,removeResourceBundle]" >
 
@@ -304,17 +304,17 @@
 
             <body>
 
-                <RunCode code="ResourceManager.getInstance().removeResourceBundle('fr_FR', 'bundle2')" />    
+                <RunCode code="ResourceManager.getInstance().removeResourceBundle('fr_FR', 'bundle2')" />
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR').length" value="1" />
 
-                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR')[0]" value="bundle1" />        
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR')[0]" value="bundle1" />
 
             </body>
 
         </TestCase>
 
-        
+
 
         <TestCase frequency="all" testID="ResourceManager_removeResourceBundle_NonexistantLocale" description="Call removeResourceBundle() for a nonexistant locale." keywords="[Runtime Localization,ResourceManager,removeResourceBundle]" >
 
@@ -328,19 +328,19 @@
 
             <body>
 
-                <AssertMethodValue method="try{ ResourceManager.getInstance().removeResourceBundle('aa_BB', 'bundle1'); } catch(e:Error){ value=e.message; }" value="Error #1010: A term is undefined and has no properties." />
+                <AssertMethodValue method="try{ ResourceManager.getInstance().removeResourceBundle('aa_BB', 'bundle1'); } catch(e:Error){ value=e.message; }" errorArray="['Error #1010:']" />
 
                 <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR').length" value="1" />
 
-                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR')[0]" value="bundle1" />        
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR')[0]" value="bundle1" />
 
             </body>
 
         </TestCase>
 
-        
 
-        <!-- 
+
+        <!--
 
             Call this mainly to be sure something crazy doesn't happen.
 
@@ -356,7 +356,7 @@
 
             <body>
 
-                <AssertMethodValue method="try{ ResourceManager.getInstance().removeResourceBundle('fr_FR', 'bundle1'); } catch(e:Error){ value=e.message; }" value="Error #1010: A term is undefined and has no properties." />
+                <AssertMethodValue method="try{ ResourceManager.getInstance().removeResourceBundle('fr_FR', 'bundle1'); } catch(e:Error){ value=e.message; }" errorArray="['Error #1010:']" />
 
             </body>
 

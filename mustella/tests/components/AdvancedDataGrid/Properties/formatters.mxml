@@ -374,7 +374,7 @@ public function setzipcodeformatter():void {
    </setup>
 <body>
 <WaitForEffectsToEnd />
-      	<CompareBitmap target="myCustomADG.mydatagrid" url="../Properties/Baselines/groupview.png" timeout="5000" />
+      	<CompareBitmap target="myCustomADG.mydatagrid" url="../Properties/Baselines/groupview.png" timeout="5000" numColorVariances="2" maxColorVariance="2"/>
 </body>
 
 </TestCase>

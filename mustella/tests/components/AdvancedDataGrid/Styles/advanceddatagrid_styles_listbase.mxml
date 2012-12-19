@@ -72,11 +72,6 @@
         {
             application.mydatagrid.setStyle("backgroundColor",0xFF0000);
         }
-        public function setFF():void
-        {
-        
-           application.mydatagrid.setStyle("fontFamily","Arial");
-        }
         public function startApp():void
         {
           application.startIt();

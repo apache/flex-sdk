@@ -54,7 +54,7 @@ public class AssertError extends Assert
 			catch (e1:Error)
 			{
 				TestOutput.logResult("Exception thrown evaluating value expression.");
-				testResult.doFail (e1.getStackTrace());	
+				testResult.doFail (e1.getStackTrace());
 				return;
 			}
 			value = context.value;
@@ -62,16 +62,20 @@ public class AssertError extends Assert
 				TestOutput.logResult("WARNING: value was not set by valueExpression.  'value=' missing from expression?");
 		}
 
-		if (valueToString(testCase.lastError) != valueToString(value))
-		{
-			testResult.doFail ( "Expected Error " + valueToString(value) + ", got " + valueToString(testCase.lastError));
-		} 
+		if (errorArray) {
+            var errors:ErrorArray = new ErrorArray(errorArray);
+			if (!contains(testCase.lastError, errors))
+				testResult.doFail("Expected Error contains " + valueToString(errors) + ", got " + valueToString(testCase.lastError));
+        } else if (valueToString(testCase.lastError) != valueToString(value))
+            testResult.doFail("Expected Error " + valueToString(value) + ", got " + valueToString(testCase.lastError));
 	}
 
 	/**
-	 *  The value the property should have
+	 *  The value the property should have.
 	 */
-	public var value:Object;
+	public var value:*;
+
+    public var errorArray:Array;
 
 	/**
 	 *  customize string representation

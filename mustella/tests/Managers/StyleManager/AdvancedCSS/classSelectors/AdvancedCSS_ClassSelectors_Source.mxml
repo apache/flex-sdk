@@ -109,7 +109,7 @@
 		    <AssertStyleValue target="main_button2" styleName="color" value="0x000000" />
 		</body>
 	</TestCase>
-	<TestCase testID="id_classSelector_basic_style" keywords="[CSS, class selector, id selector]"
+	<TestCase testID="id_classSelector_basic_style2" keywords="[CSS, class selector, id selector]"
 	    description="Test id selectors, with a class selector within the Style tag">
 	    <body>
 		    <CompareBitmap url="../classSelectors/baselines/$testID.png" target="myDateField" numColorVariances="5" ignoreMaxColorVariance="true"/>
@@ -120,7 +120,7 @@
 		    <AssertStyleValue target="myDateField" styleName="color" value="0xFF0000" />
 		</body>
 	</TestCase>
-	<TestCase testID="id_classSelector_basic_style_neg" keywords="[CSS, class selector, id selector]"
+	<TestCase testID="id_classSelector_basic_style_neg2" keywords="[CSS, class selector, id selector]"
 	    description="Test id selectors, with a class selector within the Style tag">
 	    <setup>
 	        <ResetComponent target="myDateField" className="mx.controls.DateField" waitTarget="myDateField" waitEvent="updateComplete" />

@@ -64,7 +64,7 @@
         }
         public function setFF():void
         {  
-           application.mydatagrid.setStyle("fontFamily","MyArial");
+           application.mydatagrid.setStyle("fontFamily","EmbeddedArial");
         }
         public function startApp():void
         {
@@ -208,10 +208,11 @@
                 <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
             </setup>
             <body>
-                <SetStyle target="mydatagrid" styleName="fontFamily" value="Verdana" waitTarget="mydatagrid" waitEvent="updateComplete"/>
-                <SetStyle target="mydatagrid" styleName="fontFamily" value="MyArial" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/$testID_EmbeddedVerdana.png" timeout="5000" />
+
+                <SetStyle target="mydatagrid" styleName="fontFamily" value="EmbeddedArial" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_fontfamily_arial.png" timeout="5000" />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/$testID_EmbeddedArial.png" timeout="5000" />
             </body>
         </TestCase>
         
@@ -219,13 +220,14 @@
              <setup>
                 <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                 <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
-                <SetStyle target="mydatagrid" styleName="fontFamily" value="Verdana" waitTarget="mydatagrid" waitEvent="updateComplete"/>
-                <RunCode code="setFF()"/>
              </setup>
             <body>
-                <SetStyle target="mydatagrid" styleName="fontFamily" value="MyArial" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/$testID_EmbeddedVerdana.png" timeout="5000" />
+                
+                <RunCode code="setFF()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_fontfamily_arial.png" timeout="5000" />
+                
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/$testID_EmbeddedArial.png" timeout="5000" />
             </body>
         </TestCase>
         

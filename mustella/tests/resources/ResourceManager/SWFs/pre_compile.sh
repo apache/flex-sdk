@@ -41,19 +41,19 @@ cp bundles/framework/resMod_events_001.swf bundles/framework/resMod_events_002.s
 cp bundles/framework/resMod_events_001.swf bundles/framework/resMod_events_003.swf
 
 echo "Compiling resource module SWFs for loadResourceModule..."
-$SDK_DIR/bin/mxmlc -locale=en_US -source-path=bundles/custom/{locale} -include-resource-bundles bundle1 -o bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf
+$SDK_DIR/bin/mxmlc -locale=en_US -static-rsls=true -source-path=bundles/custom/{locale} -include-resource-bundles bundle1 -o bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf
 cp bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf bundles/custom/resMod_loadResourceModule_enUS_bundle1_002.swf
 cp bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf bundles/custom/resMod_loadResourceModule_enUS_bundle1_003.swf
 cp bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf bundles/custom/resMod_loadResourceModule_enUS_bundle1_004.swf
-$SDK_DIR/bin/mxmlc -locale=en_US -source-path=bundles/custom2/{locale} -include-resource-bundles bundle1 -o bundles/custom2/resMod_loadResourceModule_enUS_bundle1_005.swf
+$SDK_DIR/bin/mxmlc -locale=en_US -static-rsls=true -source-path=bundles/custom2/{locale} -include-resource-bundles bundle1 -o bundles/custom2/resMod_loadResourceModule_enUS_bundle1_005.swf
 cp bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf bundles/custom/resMod_loadResourceModule_enUS_bundle1_006.swf
 cp bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf bundles/custom/resMod_loadResourceModule_enUS_bundle1_007.swf
 
 $SDK_DIR/bin/mxmlc -locale=en_US -source-path=bundles/custom/{locale} -include-resource-bundles bundle2 -o bundles/custom/resMod_loadResourceModule_enUS_bundle2.swf
 $SDK_DIR/bin/mxmlc -locale=en_US -source-path=bundles/custom/{locale} -include-resource-bundles bundle1 bundle2 bundle3 -o bundles/custom/resMod_loadResourceModule_enUS_bundles1,2,3_001.swf
 cp bundles/custom/resMod_loadResourceModule_enUS_bundles1,2,3_001.swf bundles/custom/resMod_loadResourceModule_enUS_bundles1,2,3_002.swf
-$SDK_DIR/bin/mxmlc -library-path=$LIBRARY_PATH -locale=fr_FR -static-rsls=true -source-path=bundles/custom/{locale} -include-resource-bundles bundle2 -o bundles/custom/resMod_loadResourceModule_frFR_bundle2.swf
-$SDK_DIR/bin/mxmlc -library-path=$LIBRARY_PATH -locale=en_US,fr_FR,ja_JP -static-rsls=true -source-path=bundles/custom/{locale} -include-resource-bundles bundle1 bundle2 bundle3 -o bundles/custom/resMod_loadResourceModule_enUS,frFR,jaJP_bundles1,2,3.swf
+$SDK_DIR/bin/mxmlc -library-path=$LIBRARY_PATH -static-rsls=true -locale=fr_FR -source-path bundles/custom/{locale} bundles/framework/{locale} -include-resource-bundles bundle2 collections containers controls core effects formatters logging SharedResources skins states styles validators components layout sparkEffects -o bundles/custom/resMod_loadResourceModule_frFR_bundle2.swf
+$SDK_DIR/bin/mxmlc -locale=en_US,fr_FR,ja_JP -static-rsls=true -source-path=bundles/custom/{locale} -include-resource-bundles bundle1 bundle2 bundle3 -o bundles/custom/resMod_loadResourceModule_enUS,frFR,jaJP_bundles1,2,3.swf
 $SDK_DIR/bin/mxmlc -library-path=$LIBRARY_PATH -locale=ja_JP -static-rsls=true -source-path=bundles/framework/{locale} -include-resource-bundles collections containers controls core effects formatters logging SharedResources skins states styles validators components layout sparkEffects -o bundles/framework/resMod_loadResourceModule_jaJP_framework.swf
 
 $SDK_DIR/bin/mxmlc -library-path=$LIBRARY_PATH -locale=ja_JP,fr_FR,de_DE -source-path=bundles/framework/{locale} -include-resource-bundles collections containers controls core effects formatters logging SharedResources skins states styles validators components layout sparkEffects -o bundles/framework/resMod_loadResourceModule_jaJP,frFR,deDE_framework_001.swf

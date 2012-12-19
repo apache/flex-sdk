@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?> 
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,71 +17,89 @@
   limitations under the License.
 
 -->
-<UnitTester testDir="RuntimeLocalization/RTL_SparkSkin/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RTL_Compiler_LocaleParams_2.mxml" > 
- 
-    <!-- this set of lines form a template that must be in each unit test --> 
-        <mx:Script><![CDATA[ 
-            public static function init(o:DisplayObject):void{} 
-        ]]></mx:Script> 
- 
-        <mx:Metadata><![CDATA[ 
-            [Mixin] 
-        ]]></mx:Metadata>    
-    <!-- end of set of lines that must be in each unit test --> 
- 
-    <mx:Script><![CDATA[ 
+<UnitTester testDir="RuntimeLocalization/RTL_SparkSkin/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RTL_Compiler_LocaleParams_2.mxml" >
+
+    <!-- this set of lines form a template that must be in each unit test -->
+        <mx:Script><![CDATA[
+            public static function init(o:DisplayObject):void {
+            }
+
+            private function get localizedLocalChain():String {
+                var lang:String = Capabilities.language;
+
+                switch (lang) {
+                    case "fr":
+                        return "fr_FR,en_US,ja_JP";
+                    case "ja":
+                        return "ja_JP,en_US,fr_FR";
+                    default:
+                        return "en_US,fr_FR,ja_JP";
+                }
+            }
+            ]]></mx:Script>
+
+        <mx:Metadata><![CDATA[
+            [Mixin]
+        ]]></mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script><![CDATA[
         import mx.resources.ResourceManager;
-    ]]></mx:Script> 
- 
-    <testCases> 
-         
-<!-- 
-======================================================== 
+    ]]></mx:Script>
+
+    <testCases>
+
+<!--
+========================================================
 Verify -locale[=]en_US[,]fr_FR[,]ja_JP combinations:
 1) Verify the locale chain.
 2) Verify resources were included by changing the locale
-   chain and checking resources. 
-======================================================== 
---> 
-     
+   chain and checking resources.
+========================================================
+-->
+
         <TestCase frequency="all" testID="RTL_Compiler_LocaleParams_1_LocaleChain_AIR_Mac" description="Be sure that the locale chain was set correctly." keywords="[Localization,Compiler,locale]" >
-            <body> 
-                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.toString()" value="en_US,fr_FR,ja_JP" /> 
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.toString()" value="en_US,fr_FR,ja_JP" />
                 <Pause timeout="1" />
-            </body> 
-        </TestCase>         
+            </body>
+        </TestCase>
 
         <TestCase frequency="all" testID="RTL_Compiler_LocaleParams_1_LocaleChain_NOT_AIR_Mac" description="Be sure that the locale chain was set correctly." keywords="[Localization,Compiler,locale]" >
-            <body> 
-                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.toString()" value="en_US,fr_FR,ja_JP" /> 
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.toString()" value="{localizedLocalChain}" />
                 <Pause timeout="1" />
-            </body> 
-        </TestCase>         
-        
-        <TestCase frequency="all" testID="RTL_Compiler_LocaleParams_1_EnglishPresent" description="Be sure that the English resources are present." keywords="[Localization,Compiler,locale]" >
-            <body> 
-                <AssertPropertyValue target="lbl1" propertyName="text" value="View Source" /> 
-                <Pause timeout="1" />
-            </body> 
-        </TestCase> 
+            </body>
+        </TestCase>
 
-        <TestCase frequency="all" testID="RTL_Compiler_LocaleParams_1_JapanesePresent" description="Be sure that the Japanese resources are present." keywords="[Localization,Compiler,locale]" >                        
+        <TestCase frequency="all" testID="RTL_Compiler_LocaleParams_1_EnglishPresent" description="Be sure that the English resources are present." keywords="[Localization,Compiler,locale]" >
+            <setup>
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','fr_FR','ja_JP']"/>
+				<WaitForLayoutManager />
+            </setup>
+            <body>
+                <AssertPropertyValue target="lbl1" propertyName="text" value="View Source" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_Compiler_LocaleParams_1_FrenchPresent" description="Be sure that the French resources are present." keywords="[Localization,Compiler,locale]" >
             <setup>
                 <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP','en_US']" waitTarget="lbl1" waitEvent="updateComplete" />
             </setup>
-            <body> 
-                <AssertPropertyValue target="lbl1" propertyName="text" value="French View Source" /> 
-            </body> 
-        </TestCase> 
+            <body>
+                <AssertPropertyValue target="lbl1" propertyName="text" value="French View Source" />
+            </body>
+        </TestCase>
 
-        <TestCase frequency="all" testID="RTL_Compiler_LocaleParams_1_JapanesePresent_2" description="Be sure that the Japanese resources are present." keywords="[Localization,Compiler,locale]" >                        
+        <TestCase frequency="all" testID="RTL_Compiler_LocaleParams_1_JapanesePresent_2" description="Be sure that the Japanese resources are present." keywords="[Localization,Compiler,locale]" >
             <setup>
                 <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','en_US']" waitTarget="lbl1" waitEvent="updateComplete" />
             </setup>
-            <body> 
-                <AssertPropertyValue target="lbl1" propertyName="text" value="ソースの表示" /> 
-            </body> 
-        </TestCase> 
+            <body>
+                <AssertPropertyValue target="lbl1" propertyName="text" value="ソースの表示" />
+            </body>
+        </TestCase>
 
-   </testCases> 
+   </testCases>
 </UnitTester>

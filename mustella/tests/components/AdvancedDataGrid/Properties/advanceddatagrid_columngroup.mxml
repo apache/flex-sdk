@@ -226,7 +226,7 @@
             <body>
             <WaitForEffectsToEnd />
               <SetStyle styleName="layoutDirection" value="rtl" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
-             <CompareBitmap target="mydatagrid" url="../Properties/Baselines/use_grouped_data_mirroring.png" timeout="5000"/>
+             <CompareBitmap target="mydatagrid" url="../Properties/Baselines/use_grouped_data_mirroring.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
             
             </body>
             </TestCase>
@@ -243,7 +243,7 @@
                 <DispatchMouseEvent target="mydatagrid" type="mouseOver" stageX="230.65" stageY="125"/>
                 <WaitForEffectsToEnd />
                 <Pause timeout = "1000"/>
-                 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/adg_columngroups.png"/>
+                 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/adg_columngroups.png" numColorVariances="1" maxColorVariance="2"/>
                 </body>
             </TestCase>
             -->
@@ -257,7 +257,7 @@
             <body>
             <WaitForEffectsToEnd />
              
-            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_groupedview_withcolgroups.png" timeout="5000"/>
+            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_groupedview_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
             </body>
             </TestCase>
             
@@ -270,7 +270,7 @@
             <body>
             <WaitForEffectsToEnd />
             
-            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_itemeditable_withcolgroups.png" timeout="5000"/>
+            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_itemeditable_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
             <AssertPropertyValue target="mydatagrid" propertyName="editable" value="item"/>
             </body>
             </TestCase>
@@ -288,7 +288,7 @@
                 <body>
                 <WaitForEffectsToEnd />
                 
-                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_groupeditable_withcolgroups.png" timeout="5000"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_groupeditable_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
                 <AssertPropertyValue target="mydatagrid" propertyName="editable" value="group"/>
                 </body>
             </TestCase>
@@ -304,7 +304,7 @@
                     <body>
                     <WaitForEffectsToEnd />
                     
-                    <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_groupeditable_withcolgroups.png" timeout="5000"/>
+                    <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_groupeditable_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
                     <AssertPropertyValue target="mydatagrid" propertyName="editable" value="item group"/>
                     </body>
                 </TestCase>
@@ -318,7 +318,7 @@
             <body>
             <WaitForEffectsToEnd />
             
-            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_insertcolumn_withcolgroups.png" timeout="5000"/>
+            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_insertcolumn_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
             </body>
             </TestCase>
             
@@ -329,7 +329,7 @@
             <body>
             <WaitForEffectsToEnd />
             
-            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_insertcolumngroups.png" timeout="5000"/>
+            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_insertcolumngroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
             </body>
             </TestCase>
             
@@ -343,7 +343,7 @@
             <body>
             <WaitForEffectsToEnd />
             
-                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_hierarch_data_colgroups.png" timeout="5000"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_hierarch_data_colgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
             </body>
             </TestCase>
             <!--
@@ -355,7 +355,7 @@
             </setup>
             <body>
             <WaitForEffectsToEnd />
-            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_hierarch_data_colgroups.png"/>
+            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_hierarch_data_colgroups.png" numColorVariances="1" maxColorVariance="2"/>
             </body>
             </TestCase>
              -->
@@ -369,7 +369,7 @@
                  <SetProperty propertyName="rowCount" value="2" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                  <WaitForEffectsToEnd />
                  
-                  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_rowcount_withcolgroups.png" timeout="5000"/>
+                  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_rowcount_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
                  </body>
                  </TestCase>
                  
@@ -383,7 +383,7 @@
                  <body>
                  <WaitForEffectsToEnd />
                  
-                   <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_headerSkin_withcolgroups.png" timeout="5000"/>
+                   <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_headerSkin_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
                  </body>
                  </TestCase> -->
                  
@@ -396,7 +396,7 @@
                  <body>
                  <WaitForEffectsToEnd />
                  
-                  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_formatting_withcolgroups.png" timeout="5000"/>
+                  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_formatting_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
                  </body>
                  </TestCase>
                  
@@ -409,7 +409,7 @@
                  <body>
                  <WaitForEffectsToEnd />
                  
-                 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_columnspanning_withcolgroups.png" timeout="5000"/>
+                 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_columnspanning_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
                  </body>
             
             </TestCase>
@@ -424,7 +424,7 @@
                   <SetProperty propertyName="variableRowHeight" value="true" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
                   <SetProperty propertyName="wordWrap" value="true" target="mydatagrid" />
                   <WaitForEffectsToEnd />
-                  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_variablerowheight_wordwrap_withcolgroups.png"/>
+                  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_variablerowheight_wordwrap_withcolgroups.png" numColorVariances="1" maxColorVariance="2"/>
                  </body>
                  </TestCase>
                  
@@ -439,7 +439,7 @@
             <body>
                 <WaitForEffectsToEnd />
                 
-                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_headerrenderer_withcolgroups.png" timeout="5000"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_headerrenderer_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
             </body>
             </TestCase>
             
@@ -452,7 +452,7 @@
             <body>
                 <WaitForEffectsToEnd />
                 
-                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_customheaderrenderer_withcolgroups.png" timeout="5000"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_customheaderrenderer_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
             </body>
         </TestCase>
                  
@@ -465,7 +465,7 @@
             <body>
                 <WaitForEffectsToEnd />
                 
-                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_visible_withcolgroups.png" timeout="5000"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_visible_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
             </body>
         </TestCase>
     </testCases>
