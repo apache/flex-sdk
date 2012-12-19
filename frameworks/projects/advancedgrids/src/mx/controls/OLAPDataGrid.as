@@ -985,7 +985,9 @@ public class OLAPDataGrid extends AdvancedDataGrid
 
         // Height is usually as tall is the items in the row, but not if
         // it would extend below the bottom of listContent
-        height = Math.min(height, listContent.height - y);
+        var height:Number = Math.min(height,
+                                     listContent.height -
+                                     y);
 
         var g:Graphics = background.graphics;
         g.clear();
@@ -1062,7 +1064,6 @@ public class OLAPDataGrid extends AdvancedDataGrid
 
         // 2. Call the grid's styleFunction
         var newStyles:Object;
-        var styleFunction:Function = this.styleFunction;
         if (styleFunction != null)
         {
             newStyles = styleFunction(rowPosn, colPosn, cellValue);

@@ -3968,7 +3968,9 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         // Height is usually as tall is the items in the row, but not if
         // it would extend below the bottom of listContent
-        height = Math.min(height, listContent.height - y);
+        var height:Number = Math.min(height,
+                                     listContent.height -
+                                     y);
 
         var g:Graphics = background.graphics;
         g.clear();
@@ -7940,11 +7942,12 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 fm.setFocus(IFocusManagerComponent(itemEditorInstance));
             fm.defaultButtonEnabled = false;
 
-            var newEvent:AdvancedDataGridEvent = new AdvancedDataGridEvent(AdvancedDataGridEvent.ITEM_FOCUS_IN);
-            newEvent.columnIndex = _editedItemPosition.columnIndex;
-            newEvent.rowIndex = _editedItemPosition.rowIndex;
-            newEvent.itemRenderer = itemEditorInstance;
-            dispatchEvent(newEvent);
+            var event:AdvancedDataGridEvent =
+                new AdvancedDataGridEvent(AdvancedDataGridEvent.ITEM_FOCUS_IN);
+            event.columnIndex = _editedItemPosition.columnIndex;
+            event.rowIndex = _editedItemPosition.rowIndex;
+            event.itemRenderer = itemEditorInstance;
+            dispatchEvent(event);
         }
     }
 

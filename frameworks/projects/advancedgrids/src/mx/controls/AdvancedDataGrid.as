@@ -4730,7 +4730,8 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 
                         if (cellUID in cellSelectionIndicators)
                         {
-                            var cellIndicator:Object = cellSelectionIndicators[cellUID][cellColumn];
+                            var cellIndicator:Object = cellSelectionIndicators[cellUID]
+                                                                              [cellColumn];
                             if (cellIndicator)
                             {
                                 tmpMask = makeMask();
@@ -4811,10 +4812,10 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         // Also check if _userMaxHorizontalScrollPosition is greater than 0.
         if (!wordWrap && initialized)
         {
-            maxHorizontalScrollPosition =
+            super.maxHorizontalScrollPosition =
                 _userMaxHorizontalScrollPosition > 0 ?
                 _userMaxHorizontalScrollPosition + getIndent() :
-                maxHorizontalScrollPosition;
+                super.maxHorizontalScrollPosition;
         }
         //restore ItemSizeChangeNotification flag
         listContent.allowItemSizeChangeNotification = variableRowHeight;
@@ -7765,19 +7766,16 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 			if (rowData)
 			{
 				var rowIndicators:Object = cellSelectionIndicators[rowData.uid];
-				if (rowIndicators)
+				var columnIndicator:Sprite;
+				if (rowIndicators && (columnIndicator = rowIndicators[columnIndex.toString()]))
 				{
-					var columnIndicator:Sprite = rowIndicators[columnIndex.toString()];
-					if(columnIndicator) 
-					{
-						o = columnIndicator;
-						if (o.parent)
-							o.parent.removeChild(o);
-						
-						delete rowIndicators[columnIndex.toString()];
-						if (!atLeastOneProperty(rowIndicators))
-							delete cellSelectionIndicators[rowData.uid];
-					}
+					o = columnIndicator;
+					if (o.parent)
+						o.parent.removeChild(o);
+					
+					delete rowIndicators[columnIndex.toString()];
+					if (!atLeastOneProperty(rowIndicators))
+						delete cellSelectionIndicators[rowData.uid];
 				}
 			}
         }
