@@ -1415,6 +1415,7 @@ public class DateTimeAxis extends NumericAxis
     override public function formatForScreen(v:Object):String   
     {
         var d:Date = tmpDate;
+        var parseFunction:Function = this.parseFunction;
 
         if (parseFunction != null)
         {
