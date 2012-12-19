@@ -16,7 +16,7 @@ Apache Flex (Flex)
     project's URL will be soon be changing to http://flex.apache.org/.
 
     Apache Flex is a large project with many pieces.  The framework is implemented
-    in Actionscript and the compiler is implemented in Java.
+    in ActionScript and the compiler is implemented in Java.
 
     Currently supported platforms include:
 
@@ -58,7 +58,7 @@ Getting the convenience packages for Apache Flex
     anyone who wants to use the latest release of the Apache Flex SDK, but who might not
     necessarily be familiar with the tools and procedures required to compile the Apache
     Flex SDK from source code. The application will grab the binary distribution of the
-    SDK from apache.org or one of its mirrors., install it onto your computer and prepare
+    SDK from apache.org or one of its mirrors, install it onto your computer and prepare
     it for use with your favorite IDE such as Adobe Flash Builder or JetBrains IntelliJ.
 
     You can get the SDK Installer from the Apache Flex website at
