@@ -101,7 +101,7 @@ Install Prerequisites
     The Adobe Flash Player playerglobal.swc is needed to compile all the components
     with the exception of the airframework and airspark components which require
     airglobal.swc from the AIR Integration Kit.  The AIR Integration kit is also needed
-    to build and debug mobile applications.  The Flash Player content debugger is
+    to build and debug mobile applications.  The Adobe Flash Player content debugger is
     used by checkintests and other pieces of the test subsystem to run compiled
     applications.  The Adobe Pixel Bender Toolkit is needed to build some
     files needed for effects.
@@ -155,7 +155,7 @@ Install Prerequisites
 
         This version of Apache Flex was certified for use with AIR 3.4, and should
         be compatible with other versions of AIR newer than 3.1. However it hasn't
-        been tested on AIR 3.2, 3.3 or 3.4.
+        been tested on AIR 3.2, 3.3 or 3.5.
 
         Download the AIR SDK for your platform and unzip it.  Set AIR_HOME to the absolute 
         path of the AIR SDK directory.
@@ -163,10 +163,10 @@ Install Prerequisites
     *4) The Adobe Flash Player content debuggers can be found here:
             http://www.adobe.com/support/flashplayer/downloads.html
 
-        This version of Apache Flex was certified for use with Flash Player 11.1, and is
-        compatible with versions 10.2 through 11.5. It has been tested with versions 11.1
-        and 11.5 on Windows and Mac. It has been compiled against other Flash Player versions
-        but has not been fully tested.
+        This version of Apache Flex was certified for use with Adobe Flash Player 11.1, and
+        is compatible with versions 10.2 through 11.5. It has been tested with versions 11.1
+        and 11.5 on Windows and Mac. It has been compiled against other Adobe Flash Player
+        versions but has not been fully tested.
             
         On Windows, set FLASHPLAYER_DEBUGGER to the absolute path of FlashPlayerDebugger.exe
         
@@ -190,18 +190,18 @@ Install Prerequisites
         Use URL above to download playerglobal11_1.swc. Create the directory, player/11.1
         and copy playerglobal11_1.swc to player/11.1/playerglobal.swc.
         
-        Other more recent versions of Adode Flash Player playergloal.swc can be downloaded from:
-               http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
-            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
-               http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
-            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
-            
-        These can be used with Apache Flex but have not been fully tested.
-        
         Set PLAYERGLOBAL_HOME to the absolute path of the player directory (not including
         the version subdirectory). The target-version option controls which 
         PLAYERGLOBAL_HOME subdirectory is used.
 
+        Other more recent versions of Adode Flash Player playergloal.swc can be downloaded from:
+            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
+            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
+            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
+            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
+            
+        These can be used with Apache Flex but have not been fully tested.
+        
     *7) The Adobe Extension Manager is only required for those creating release or testing
             changes to the flash-integration swc.  Not that if you change APIs on classes
             that flash-integration depends on, you may need to update flash-integration.
@@ -219,7 +219,7 @@ Install Prerequisites
 FlashPlayer Configuration
 -------------------------
 
-    For testing, the Flash Player's mm.cfg file must have the following entries
+    For testing, the Adobe Flash Player's mm.cfg file must have the following entries
     
         ErrorReportingEnable=1
         TraceOutputFileEnable=1
@@ -235,7 +235,7 @@ Other Locale Support
     To compile the SDK for another locale either:
 
     Change the locale in the build.properties file to have a value other than "en_US". For this new
-    locale to take effect the SDK needs to be recompiled. For exampel to use the Australian English
+    locale to take effect the SDK needs to be recompiled. For example, to use the Australian English
     locale change locale to have a value of "en_AU" like so:
      
         locale = en_AU
@@ -253,27 +253,27 @@ Other Locale Support
     The Apache Flex SDK has only been tested for the en_US locale, however there is unlikely to be any
     issues with a SDK compiled for another locales.
     
-Flash Player version Support
-----------------------------
+Adobe Flash Player Version Support
+----------------------------------
 
-    The Apache Flex SDK defaults to using the Flash Player 11.1. The SDK can be compiled for Flash
-    Player versions 10.2, 10.3, 11.0, 11.0, 11.1, 11.2, 11.3, 11.4 and 11.5.
+    The Apache Flex SDK defaults to using the Adobe Flash Player 11.1. The SDK can be
+    compiled for Flash Player versions 10.2, 10.3, 11.0, 11.0, 11.1, 11.2, 11.3, 11.4 and 11.5.
 
-    To compile the SDK for another version of the Flash Player either:
+    To compile the SDK for another version of the Adobe Flash Player either:
 
     Change the playerglobal.version in the build.properties file to have a value other than "11.1".
     For this change to take effect the SDK needs to be recompiled. For example to compile against the
-    lastest version of the Flash Player set the value of playerglobal.version to be "11.5" like so:
+    lastest version of the Adobe Flash Player set the value of playerglobal.version to be "11.5" like so:
      
         playerglobal.version = 11.5
         
     OR
     
-    Compile the SDK with a -Dplayerglobal.version=<version> option, where <version> is the Flash Player version
-    to compile the SDK against.
+    Compile the SDK with a -Dplayerglobal.version=<version> option, where <version> is the 
+    Adobe Flash Player version to compile the SDK against.
     
     
-    Different versions of the Flash Player require different versions of playerglobal.swc.
+    Different versions of the Adobe Flash Player require different versions of playerglobal.swc.
     
     These can be found at:
     
@@ -290,11 +290,11 @@ Flash Player version Support
     
         frameworks/libs/player/<version>/playerglobal.swf
     
-    Where <version> is the major and minor version numbers of the Flash Player seperated
-    by a period or full stop.
+    Where <version> is the major and minor version numbers of the Adobe Flash Player 
+    separated by a period or full stop.
     
     If all of the playerglobal swcs where installed the frameworks/libs/player directory
-    structure woudl look like this.
+    structure would look like this.
     
         /frameworks
             /libs
@@ -316,10 +316,11 @@ Flash Player version Support
                     /11.5
                          /playerglobal.swc     
                                                                                                                                 
-    Apache Flex has been tested with Flash Player 11.1 and 11.5 on Windows and Mac.
+    Apache Flex has been tested with Adobe Flash Player 11.1 and 11.5 on Windows and Mac.
     
-    It compiles against other Flash Player versions and is expected to work but they may be some
-    issues, particularly with the earlier 10.2 and 10.3 versions of the Flash Player.
+    It compiles against other Adobe Flash Player versions and is expected to work but they 
+    may be some issues, particularly with the earlier 10.2 and 10.3 versions of the 
+    Adobe Flash Player.
 
 Software Dependencies
 ---------------------
