@@ -151,6 +151,9 @@ public class MustellaResultsParser {
 				else if (s.startsWith("[IOErrorEvent type=\"ioError\"") && s.contains("localhost:9999/ScriptComplete"))
 				{
 				}
+				else if (s.startsWith("Avertissement"))
+				{
+				}
 				else if (s.trim().equals(""))
 				{
 				}
