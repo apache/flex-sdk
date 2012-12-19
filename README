@@ -36,18 +36,14 @@ Getting the latest sources via Subversion
 =========================================
 
     This is the recommended way to get Apache Flex.  We offer an automated installer
-    along with binary distributions on our website at http://incubator.apache.org/flex
-    or http://flex.apache.org/.
+    along with binary distributions on our website at http://incubator.apache.org/flex.
 
     You can always checkout the latest source via subversion using the following
     command:
 
     svn co https://svn.apache.org/repos/asf/incubator/flex/trunk flex
-    or
-    svn co https://svn.apache.org/repos/asf/flex/trunk flex
 
     For further information visit http://incubator.apache.org/flex/source.html
-    or http://flex.apache.org/source.html
 
 
 Getting the convenience packages for Apache Flex
@@ -64,15 +60,11 @@ Getting the convenience packages for Apache Flex
     You can get the SDK Installer from the Apache Flex website at
 
       http://incubator.apache.org/flex/installer.html
-      or
-      http://flex.apache.org/installer.html
 
     You can also get just the binaries from our website as well.  These binaries do not
     include the dependencies, so additional software may need to be downloaded and installed.
 
       http://incubator.apache.org/flex/download.html
-      or
-      http://flex.apache.org/download.html
 
 Building Apache Flex 4.9
 ========================
@@ -476,4 +468,3 @@ Thanks for using Apache Flex.
 
                                           The Apache Flex Project
                                           <http://incubator.apache.org/flex>
-                                          <http://flex.apache.org>
