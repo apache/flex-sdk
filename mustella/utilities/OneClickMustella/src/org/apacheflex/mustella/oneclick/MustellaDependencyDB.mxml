@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Metadata>
+		[Event(name="complete", type="flash.events.Event")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			private static var skipDefs:Object = {
+				"AS3" : 1,
+				"ArgumentError" : 1,
+				"Array" : 1,
+				"Boolean" : 1,
+				"Class" : 1,
+				"Date" : 1,
+				"DefinitionError" : 1,
+				"Error" : 1,
+				"EvalError" : 1,
+				"Function" : 1,
+				"int" : 1,
+				"JSON" : 1,
+				"Math" : 1,
+				"Namespace" : 1,
+				"Number" : 1,
+				"Object": 1,
+				"QName" : 1,
+				"RangeError" : 1,
+				"ReferenceError" : 1,
+				"RegExp" : 1,
+				"SecurityError" : 1,
+				"String" : 1,
+				"SyntaxError" : 1,
+				"TypeError" : 1,
+				"uint" : 1,
+				"URIError" : 1,
+				"__AS3__.vec.Vector" : 1,
+				"XML" : 1,
+				"XMLList" : 1,
+				"trace" : 1,
+				
+				"mx.core:mx_internal" : 1
+			}
+			private var dirFile:File = new File();
+			private var fs:FileStream;
+			
+			public function setMustellaDirectory(path:String):void
+			{
+				dir.text = path;
+				dirFile = new File(path);
+			}
+			
+			private function browse():void
+			{
+				dirFile.addEventListener(Event.SELECT, selectHandler);
+				dirFile.browseForDirectory("Mustella Directory");
+			}
+			
+			private function selectHandler(event:Event):void
+			{
+				dir.text = dirFile.nativePath;	
+			}
+			
+			private function generateDB():void
+			{
+				callLater(readDB);
+			}
+			
+			private function readDB():void
+			{
+				var f:File = new File(dirFile.nativePath + "/" + "deps.xml");
+				try
+				{
+					var fs:FileStream = new FileStream();
+					fs.open(f, FileMode.READ);
+					var s:String = fs.readUTFBytes(fs.bytesAvailable);
+					var xml:XML = XML(s);
+					var scripts:XMLList = xml.scripts.script;
+					var n:int = scripts.length();
+					for (var i:int = 0; i < n; i++)
+					{
+						var script:XML = scripts[i];
+						var depMap:Object = db[script.@name] = {};
+						var deps:XMLList = script.deps;
+						var m:int= deps.length;
+						for (var j:int = 0; j < m; j++)
+						{
+							depMap[deps[j].@name] = 1;
+						}
+					}
+					fs.close();
+				}
+				catch (e:Error)
+				{
+					
+				}
+				
+				dirFile.nativePath = dir.text;
+				addFromFiles(dirFile);
+			}
+			
+			private var listings:Array = [];
+			private var counts:Array = [];
+			private var indexes:Array = [];
+			private var outputs:Array = [];
+			private var listing:Array;
+			private var count:int;
+			private var index:int;
+			
+			private function addFromFiles(dir:File):void
+			{
+				outputs.push(output.text);
+				output.text = "Scanning: " + dir.nativePath;
+				listing = dir.getDirectoryListing();
+				count = listing.length;
+				index = 0;
+				callLater(scanFiles);
+			}
+			
+			private function scanFiles():void
+			{
+				for (index; index < count; index++)
+				{
+					var f:File = listing[index];
+					if (f.isHidden) continue;
+					if (f.isDirectory)
+					{
+						listings.push(listing);
+						counts.push(count);
+						indexes.push(index);
+						addFromFiles(f);
+						return;
+					}
+					else if (f.nativePath.lastIndexOf(".lnk.xml") == f.nativePath.length - 8)
+					{
+						fs = new FileStream();
+						fs.open(f, FileMode.READ);
+						var s:String = fs.readUTFBytes(fs.bytesAvailable);
+						outputs.push(output.text);
+						output.text = "Parsing: " + f.nativePath;
+						fs.close();
+						callLater(parseFile, [s, f.nativePath.substring(dir.text.length, f.nativePath.length - 8)]);
+						return;
+					}
+				}
+				if (listings.length > 0)
+				{
+					listing = listings.pop();
+					count = counts.pop();
+					index = indexes.pop();
+					output.text = outputs.pop();
+					index++;
+					callLater(scanFiles);
+				}
+				else
+				{
+					output.text = "done!";
+					callLater(saveDB);
+				}
+				
+			}
+			
+			private function saveDB():void
+			{
+				var xml:XML = <Dependencies />;
+				for (var p:String in db)
+				{
+					var script:XML = <script />;
+					script.@name = p;
+					var deps:Object = db[p];
+					for (var q:String in deps)
+					{
+						var dep:XML = <dep />;
+						dep.@name = q;
+						script.appendChild(dep);
+					}
+					xml.appendChild(script);
+				}
+				var f:File = new File(dirFile.nativePath + "/" + "deps.xml");
+				var fs:FileStream = new FileStream();
+				fs.open(f, FileMode.WRITE);
+				var s:String = xml.toXMLString();
+				fs.writeUTFBytes(s);
+				fs.close();
+				callLater(handleComplete);
+			}
+			
+			private var db:Object = {};
+			
+			private function parseFile(s:String, mainClassPath:String):void
+			{
+				var xml:XML = XML(s);
+				var scripts:XMLList = xml.scripts.script;
+				var n:int = scripts.length();
+				for (var i:int = 0; i < n; i++)
+				{
+					var mxmlFile:Boolean = false;
+					var start:int;
+					var end:int;
+					var script:XML = scripts[i];
+					var name:String = script.def.@id;
+					var path:String = script.@name;
+					// if from a source file in the mustella dir
+					// use the path to it in case there are name collisions
+					if (path.indexOf(dir.text) == 0)
+					{
+						start = path.indexOf(".as");
+						if (start != -1)
+							name = path.substring(dir.text.length, start);
+						else
+						{
+							start = path.indexOf(".mxml");
+							if (start != -1)
+							{
+								name = path.substring(dir.text.length, start);
+								mxmlFile = true;
+							}
+						}
+					}
+					if (db[name] == null)
+					{
+						var depMap:Object = db[name] = {};
+						var deps:XMLList = script.dep;
+						var m:int;
+						var j:int;
+						m = deps.length();
+						for (j = 0; j < m; j++)
+						{
+							var dep:String = deps[j].@id;
+							if (skipDefs[dep])
+								continue; // skip as3 and mustella classes
+							if (dep.indexOf("flash.") == 0)
+								continue; // skip flash classes
+							depMap[dep] = 1;
+						}
+						deps = script.pre;
+						m = deps.length();
+						for (j = 0; j < m; j++)
+						{
+							dep = deps[j].@id;
+							if (skipDefs[dep])
+								continue; // skip as3 and mustella classes
+							if (dep.indexOf("flash.") == 0)
+								continue; // skip flash classes
+							depMap[dep] = 1;
+							if (dep == "UnitTester" && mxmlFile)
+							{
+								// this is a test script so inject a dependency on the
+								// main swf
+								depMap[mainClassPath] = 1;
+							}
+						}
+					}
+				}
+				index++;
+				output.text = outputs.pop();
+				callLater(scanFiles);
+			}
+			
+			private function handleComplete():void
+			{
+				dispatchEvent(new Event(Event.COMPLETE,true));
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	<s:HGroup>
+		<s:Label text="Mustella Directory:" />
+		<s:TextInput id="dir" width="220"/>
+		<s:Button label="Browse..." click="browse()" />
+		<s:Button label="Generate DB" click="generateDB()" />
+	</s:HGroup>
+	<s:Label id="output" />
+</s:Panel>
