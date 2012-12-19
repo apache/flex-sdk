@@ -10,7 +10,9 @@ Apache Flex (Flex)
     Adobe Flex 4.6.
 
     For detailed information about Apache Flex please visit 
-    http://incubator.apache.org/flex/
+    http://incubator.apache.org/flex/ 
+    
+    Soon to be http://flex.apache.org/
 
     Apache Flex is a large project with many pieces.  The framework is implemented
     in Actionscript and the compiler is implemented in Java.
@@ -144,6 +146,8 @@ Install Prerequisites
 
         This version of Apache Flex was certified for use with AIR 3.4, and is compatible
         with versions 3.1 through 3.5.
+        
+        Note however that it hasn't been tested on AIR 3.2, 3.3 or 3.4.
 
         Download the AIR SDK for your platform and unzip it.  Set AIR_HOME to the absolute 
         path of the AIR SDK directory.
@@ -152,7 +156,9 @@ Install Prerequisites
             http://www.adobe.com/support/flashplayer/downloads.html
 
         This version of Apache Flex was certified for use with Flash Player 11.1, and is
-        compatible with versions 11.1 through 11.5.
+        compatible with versions 10.2 through 11.5. It has been tested with versions 11.1
+        and 11.5 on Windows and Mac. It compiles against other Flash Player versions and
+        is expected to work but there may be some issues.
             
         On Windows, set FLASHPLAYER_DEBUGGER to the absolute path of FlashPlayerDebugger.exe
         
@@ -211,6 +217,101 @@ FlashPlayer Configuration
         TraceOutputFileEnable=1
     
     and a FlashPlayerTrust file must allow local SWFs to access local files.
+    
+Other Locale Support
+--------------------
+
+    The Apache Flex SDK defaults to using the en_US locale and SDK error messages are by default
+    displayed in American English.
+    
+    To compile the SDK for another locale either:
+
+    Change the locale in the build.properties file to have a value other than "en_US". For this new
+    locale to take effect the SDK needs to be recompiled. For exampel to use the Australian English
+    locale change locale to have a value of "en_AU" like so:
+     
+        locale = en_AU
+        
+    OR
+    
+    Compile the SDK with a -Dlocale=<locale> option, where <locale> is the new locale to compile the
+    SDK against.
+
+    The list of supported locales include:
+        da_DK	el_GR	en_GB	fi_FI	ja_JP	nl_NL	ru_RU	zh_TW
+        de_CH	en_AU	en_US	fr_FR	ko_KR	pt_BR	sv_SE
+        de_DE	en_CA	es_ES	it_IT	nb_NO	pt_PT	zh_CN
+
+    The Apache Flex SDK has only been tested for the en_US locale, however there is unlikely to be any
+    issues with a SDK compiled for another locales.
+    
+Flash Player version Support
+----------------------------
+
+    The Apache Flex SDK defaults to using the Flash Player 11.1. The SDK can be compiled for Flash
+    Player versions 10.2, 10.3, 11.0, 11.0, 11.1, 11.2, 11.3, 11.4 and 11.5.
+
+    To compile the SDK for another version of the Flash Player either:
+
+    Change the playerglobal.version in the build.properties file to have a value other than "11.1".
+    For this change to take effect the SDK needs to be recompiled. For example to compile against the
+    lastest version of the Flash Player set the value of playerglobal.version to be "11.5" like so:
+     
+        playerglobal.version = 11.5
+        
+    OR
+    
+    Compile the SDK with a -Dplayerglobal.version=<version> option, where <version> is the Flash Player version
+    to compile the SDK against.
+    
+    
+    Different versions of the Flash Player require different versions of playerglobal.swc.
+    
+    These can be found at:
+    
+    http://fpdownload.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_2.swc
+    http://fpdownload.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_3.swc
+    http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_0.swc 
+    http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
+    http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
+    http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
+    http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
+    http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
+    
+    Copy the target playerglobal.swc to the directory:
+    
+        frameworks/libs/player/<version>/playerglobal.swf
+    
+    Where <version> is the major and minor version numbers of the Flash Player seperated
+    by a period or full stop.
+    
+    If all of the playerglobal swcs where installed the frameworks/libs/player directory
+    structure woudl look like this.
+    
+        /frameworks
+            /libs
+                /player
+                    /10.2
+                         /playerglobal.swc
+                    /10.3
+                         /playerglobal.swc
+                    /11.0
+                         /playerglobal.swc
+                    /11.2
+                         /playerglobal.swc
+                    /11.2
+                         /playerglobal.swc
+                    /11.3
+                         /playerglobal.swc
+                    /11.4
+                         /playerglobal.swc
+                    /11.5
+                         /playerglobal.swc     
+                                                                                                                                
+    Apache Flex has been tested with Flash Player 11.1 and 11.5 on Windows and Mac.
+    
+    It compiles against other Flash Player versions and is expected to work but they may be some
+    issues, particularly with ealier 10.2 and 10.3 versions of the Flash Player.
 
 Software Dependencies
 ---------------------
