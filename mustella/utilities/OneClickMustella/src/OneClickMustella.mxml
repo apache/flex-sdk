@@ -145,7 +145,7 @@
 	</s:layout>
 	<s:VGroup width="50%" height="100%">
 		
-		<s:HGroup verticalAlign="middle">
+		<s:HGroup verticalAlign="middle"  includeInLayout="false" visible="false">
 			<s:Label text="SVN Path:" />
 			<s:TextInput id="svnPathTxtInput" width="500"
 						 text="{_pathSVNStr}"/>
@@ -157,7 +157,7 @@
 						 text="{_pathFlexStr}"/>
 			<s:Button label="Browse" click="handleFlexPathBrowse()" />
 		</s:HGroup>
-		<s:HGroup verticalAlign="middle">
+		<s:HGroup verticalAlign="middle"  >
 			<s:Label text="Shell Path:" />
 			<s:TextInput id="shellPathTxtInput" width="500" 
 						 text="{_shellPathStr}"/>
