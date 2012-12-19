@@ -12,7 +12,8 @@ Apache Flex (Flex)
     For detailed information about Apache Flex please visit 
     http://incubator.apache.org/flex/ 
     
-    Soon to be http://flex.apache.org/
+    The Apache Flex project has just graduated to be a top level Apache project and the
+    project's URL will be soon be changing to http://flex.apache.org/.
 
     Apache Flex is a large project with many pieces.  The framework is implemented
     in Actionscript and the compiler is implemented in Java.
@@ -35,14 +36,18 @@ Getting the latest sources via Subversion
 =========================================
 
     This is the recommended way to get Apache Flex.  We offer an automated installer
-    along with binary distributions on our website at http://incubator.apache.org/flex.
+    along with binary distributions on our website at http://incubator.apache.org/flex
+    or http://flex.apache.org/.
 
     You can always checkout the latest source via subversion using the following
     command:
 
     svn co https://svn.apache.org/repos/asf/incubator/flex/trunk flex
+    or
+    svn co https://svn.apache.org/repos/asf/flex/trunk flex
 
     For further information visit http://incubator.apache.org/flex/source.html
+    or http://flex.apache.org/source.html
 
 
 Getting the convenience packages for Apache Flex
@@ -52,18 +57,22 @@ Getting the convenience packages for Apache Flex
     installation of the Apache Flex SDK and its (required) components. It is aimed at
     anyone who wants to use the latest release of the Apache Flex SDK, but who might not
     necessarily be familiar with the tools and procedures required to compile the Apache
-    Flex SDK from source code. The application will grab the official, current release of
-    the SDK from apache.org, install it onto your computer and prepare it for use with
-    your favorite IDE such as Adobe Flash Builder or JetBrains IntelliJ.
+    Flex SDK from source code. The application will grab the binary distribution of the
+    SDK from apache.org or one of its mirrors., install it onto your computer and prepare
+    it for use with your favorite IDE such as Adobe Flash Builder or JetBrains IntelliJ.
 
     You can get the SDK Installer from the Apache Flex website at
 
       http://incubator.apache.org/flex/installer.html
+      or
+      http://flex.apache.org/installer.html
 
     You can also get just the binaries from our website as well.  These binaries do not
     include the dependencies, so additional software may need to be downloaded and installed.
 
       http://incubator.apache.org/flex/download.html
+      or
+      http://flex.apache.org/download.html
 
 Building Apache Flex 4.9
 ========================
@@ -84,10 +93,10 @@ Install Prerequisites
     Before building Flex you must install the following software and set the
     corresponding environment variables using absolute file paths.  Relative file paths
     will result in build errors.
-	
-	The environment variables PLAYERGLOBAL_HOME, AIR_HOME, FLASHPLAYER_DEBUGGER,
-	PIXELBENDER_HOME and ADOBE_EXTENSION_MANAGER can also be set in the property file 
-	called env.properties. See the env-template.properties file for instructions.
+    
+    The environment variables PLAYERGLOBAL_HOME, AIR_HOME, FLASHPLAYER_DEBUGGER,
+    PIXELBENDER_HOME and ADOBE_EXTENSION_MANAGER can also be set in the property file 
+    called env.properties. See the env-template.properties file for instructions.
     
     The Adobe Flash Player playerglobal.swc is needed to compile all the components
     with the exception of the airframework and airspark components which require
@@ -144,10 +153,9 @@ Install Prerequisites
          The Adobe AIR integration kit for Mac can be downloaded from:
             http://airdownload.adobe.com/air/mac/download/3.4/AdobeAIRSDK.tbz2
 
-        This version of Apache Flex was certified for use with AIR 3.4, and is compatible
-        with versions 3.1 through 3.5.
-        
-        Note however that it hasn't been tested on AIR 3.2, 3.3 or 3.4.
+        This version of Apache Flex was certified for use with AIR 3.4, and should
+        be compatible with other versions of AIR newer than 3.1. However it hasn't
+        been tested on AIR 3.2, 3.3 or 3.4.
 
         Download the AIR SDK for your platform and unzip it.  Set AIR_HOME to the absolute 
         path of the AIR SDK directory.
@@ -157,8 +165,8 @@ Install Prerequisites
 
         This version of Apache Flex was certified for use with Flash Player 11.1, and is
         compatible with versions 10.2 through 11.5. It has been tested with versions 11.1
-        and 11.5 on Windows and Mac. It compiles against other Flash Player versions and
-        is expected to work but there may be some issues.
+        and 11.5 on Windows and Mac. It has been compiled against other Flash Player versions
+        but has not been fully tested.
             
         On Windows, set FLASHPLAYER_DEBUGGER to the absolute path of FlashPlayerDebugger.exe
         
@@ -174,7 +182,7 @@ Install Prerequisites
             http://www.adobe.com/go/pixelbender_toolkit_dmg/
         
         Download the Pixel Bender Toolkit for your platform and install or unzip it.
-	    Set PIXELBENDER_HOME to the absolute path of the Pixel Bender Toolkit directory.
+        Set PIXELBENDER_HOME to the absolute path of the Pixel Bender Toolkit directory.
 
     *6) The Adobe Flash Player playerglobal.swc for 11.1 can be downloaded from:
             http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc 
@@ -183,16 +191,16 @@ Install Prerequisites
         and copy playerglobal11_1.swc to player/11.1/playerglobal.swc.
         
         Other more recent versions of Adode Flash Player playergloal.swc can be downloaded from:
-       		http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
-        	http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
-       		http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
-        	http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
-        	
+               http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
+            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
+               http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
+            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
+            
         These can be used with Apache Flex but have not been fully tested.
         
         Set PLAYERGLOBAL_HOME to the absolute path of the player directory (not including
-		the version subdirectory). The target-version option controls which 
-		PLAYERGLOBAL_HOME subdirectory is used.
+        the version subdirectory). The target-version option controls which 
+        PLAYERGLOBAL_HOME subdirectory is used.
 
     *7) The Adobe Extension Manager is only required for those creating release or testing
             changes to the flash-integration swc.  Not that if you change APIs on classes
@@ -238,9 +246,9 @@ Other Locale Support
     SDK against.
 
     The list of supported locales include:
-        da_DK	el_GR	en_GB	fi_FI	ja_JP	nl_NL	ru_RU	zh_TW
-        de_CH	en_AU	en_US	fr_FR	ko_KR	pt_BR	sv_SE
-        de_DE	en_CA	es_ES	it_IT	nb_NO	pt_PT	zh_CN
+        da_DK    el_GR    en_GB    fi_FI    ja_JP    nl_NL    ru_RU    zh_TW
+        de_CH    en_AU    en_US    fr_FR    ko_KR    pt_BR    sv_SE
+        de_DE    en_CA    es_ES    it_IT    nb_NO    pt_PT    zh_CN
 
     The Apache Flex SDK has only been tested for the en_US locale, however there is unlikely to be any
     issues with a SDK compiled for another locales.
@@ -311,7 +319,7 @@ Flash Player version Support
     Apache Flex has been tested with Flash Player 11.1 and 11.5 on Windows and Mac.
     
     It compiles against other Flash Player versions and is expected to work but they may be some
-    issues, particularly with ealier 10.2 and 10.3 versions of the Flash Player.
+    issues, particularly with the earlier 10.2 and 10.3 versions of the Flash Player.
 
 Software Dependencies
 ---------------------
@@ -342,8 +350,7 @@ Software Dependencies
     downloaded to your system. These files are installed in frameworks/libs.
         
         osmf.swc            
-            frameworks/libs
-            
+
             Open Source Media Framework v1.0 used for video components
         
             This file is extracted from:
@@ -467,4 +474,5 @@ Building the Source in the Source Distribution
 Thanks for using Apache Flex.
 
                                           The Apache Flex Project
-                                          <http://incubator.apache.org/flex/>
+                                          <http://incubator.apache.org/flex>
+                                          <http://flex.apache.org>
