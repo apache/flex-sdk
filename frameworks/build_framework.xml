@@ -55,7 +55,9 @@
     <property name="rpc.dir" value="${projects.dir}/rpc"/>
     <property name="spark.dir" value="${projects.dir}/spark"/>
     <property name="sparkskin.dir" value="${projects.dir}/sparkskins"/>
-    <property name="spark_dmv.dir" value="${projects.dir}/spark_dmv"/>
+	<property name="spark_dmv.dir" value="${projects.dir}/spark_dmv"/>
+	<property name="apache.dir" value="${projects.dir}/apache"/>
+	<property name="experimental.dir" value="${projects.dir}/experimental"/>
     <property name="textLayout.dir" value="${projects.dir}/textLayout"/>
     <property name="textLayout.ver.dir" value="${textLayout.dir}/${tlf.version}"/>
 
@@ -79,9 +81,9 @@
     
     <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar;${FLEX_HOME}/lib/flexTasks.jar"/>
 
-    <target name="main" depends="check-compile-env,clean,thirdparty-downloads,prepare,textLayout,framework,mx,spark,airframework,airspark,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,automation-swcs,bundles,themes,sparkskins,spark_dmv"/>
+    <target name="main" depends="check-compile-env,clean,thirdparty-downloads,prepare,textLayout,framework,mx,spark,airframework,airspark,mobilecomponents,rpc,charts,advancedgrids,core,flash-integration,automation-swcs,bundles,themes,sparkskins,spark_dmv,apache,experimental"/>
 
-    <target name="bundles" depends="framework_rb,mx_rb,textLayout_rb,spark_rb,airframework_rb,airspark_rb,mobilecomponents_rb,rpc_rb,charts_rb,advancedgrids_rb,automation-rbs"/>
+    <target name="bundles" depends="framework_rb,mx_rb,textLayout_rb,spark_rb,airframework_rb,airspark_rb,mobilecomponents_rb,rpc_rb,charts_rb,advancedgrids_rb,automation-rbs,apache_rb,experimental_rb"/>
     
     <target name="automation-swcs" 
         depends="automation_agent,automation_dmv,tool,tool_air,automation,automation_air,automation_spark,automation_flashflexkit,automation_air,automation_airspark"
@@ -995,6 +997,78 @@
             <jvmarg line="${compc.jvm.args}"/>
         </compc>
     </target>
+	
+    <target name="apache" description="Builds the apache.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true" 
+            include-classes="ApacheClasses" output="${basedir}/libs/apache.swc"
+            resource-bundle-list="${apache.dir}/bundles.properties">
+        	<namespace uri="http://flex.apache.org/ns" manifest="${apache.dir}/manifest.xml"/>
+            <source-path path-element="${apache.dir}/src"/>
+            <library-path />
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <external-library-path dir="${basedir}/libs">
+            	<include name="mx.swc"/>
+            </external-library-path>
+            <include-file name="defaults.css" path="${mx.dir}/defaults.css"/>
+            <jvmarg line="${compc.jvm.args}"/>
+            <keep-as3-metadata name="Bindable"/>
+            <keep-as3-metadata name="Managed"/>
+            <keep-as3-metadata name="ChangeEvent"/>
+            <keep-as3-metadata name="NonCommittingChangeEvent"/>
+            <keep-as3-metadata name="Transient"/>
+        </compc>
+    </target>
+    
+    <target name="apache_rb" description="Builds default locale apache_rb.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" 
+            output="${basedir}/locale/${locale}/apache_rb.swc">
+            <include-resource-bundles bundle="apache"/>
+            <source-path path-element="${apache.dir}/bundles/${locale}"/>
+            <source-path path-element="${apache.dir}/src"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <external-library-path dir="${basedir}/libs">
+                <include name="framework.swc"/>
+            </external-library-path>
+            <library-path/>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>   
+	
+    <target name="experimental" description="Builds the experimental.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true" 
+            include-classes="ExperimentalClasses" output="${basedir}/libs/experimental.swc"
+            resource-bundle-list="${experimental.dir}/bundles.properties">
+            <source-path path-element="${experimental.dir}/src"/>
+            <library-path />
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <external-library-path dir="${basedir}/libs">
+            	<include name="mx.swc"/>
+            </external-library-path>
+            <include-file name="defaults.css" path="${mx.dir}/defaults.css"/>
+            <jvmarg line="${compc.jvm.args}"/>
+            <keep-as3-metadata name="Bindable"/>
+            <keep-as3-metadata name="Managed"/>
+            <keep-as3-metadata name="ChangeEvent"/>
+            <keep-as3-metadata name="NonCommittingChangeEvent"/>
+            <keep-as3-metadata name="Transient"/>
+        </compc>
+    </target>
+    
+    <target name="experimental_rb" description="Builds default locale experimental_rb.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" 
+            output="${basedir}/locale/${locale}/experimental_rb.swc">
+            <include-resource-bundles bundle="empty"/>
+            <source-path path-element="${experimental.dir}/bundles/${locale}"/>
+            <source-path path-element="${experimental.dir}/src"/>
+            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
+            <external-library-path dir="${basedir}/libs">
+                <include name="framework.swc"/>
+            </external-library-path>
+            <library-path/>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+
         
     <!-- Download thirdparty code -->
     
@@ -1024,6 +1098,8 @@
                 <include name="textLayout.swc"/>
                 <include name="authoringsupport.swc"/>
                 <include name="flash-integration.swc"/>
+            	<include name="apache.swc"/>
+            	<include name="experimental.swc"/>	
             </fileset>
             <fileset dir="${basedir}/libs/automation">
                 <include name="automation_agent.swc"/>
@@ -1057,7 +1133,9 @@
                 <include name="rpc_rb.swc"/>
                 <include name="spark_rb.swc"/>
                 <include name="textLayout_rb.swc"/>
-                <include name="tool_air_rb.swc"/>
+            	<include name="tool_air_rb.swc"/>
+            	<include name="apache_rb.swc"/>
+                <include name="experimental_rb.swc"/>
             </fileset>
         </delete>
         <delete dir="${basedir}/projects" includes="*/bundles.properties"/>
