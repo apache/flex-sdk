@@ -2789,7 +2789,7 @@ public class WindowedApplication extends Application implements IWindow
     {
         return function (e:FlexNativeWindowBoundsEvent):void
         {
-            const win:DisplayObject = e.target;
+            const win:DisplayObject = e.target as DisplayObject;
             html.width  = win.width;
             html.height = win.height;
         };
