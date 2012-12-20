@@ -1057,7 +1057,7 @@
     <target name="experimental_rb" description="Builds default locale experimental_rb.swc">
         <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" 
             output="${basedir}/locale/${locale}/experimental_rb.swc">
-            <include-resource-bundles bundle="empty"/>
+            <include-resource-bundles bundle="experimental"/>
             <source-path path-element="${experimental.dir}/bundles/${locale}"/>
             <source-path path-element="${experimental.dir}/src"/>
             <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>

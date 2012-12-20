@@ -43,7 +43,7 @@
     <include-namespaces/>
     
     <include-resource-bundles>
-        <bundle>empty</bundle>
+        <bundle>experimental</bundle>
     </include-resource-bundles>
         
     <target-player>${playerglobal.version}</target-player>
