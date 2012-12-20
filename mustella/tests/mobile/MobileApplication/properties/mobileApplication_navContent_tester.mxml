@@ -242,6 +242,7 @@
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
 				<RunCode code="FlexGlobals.topLevelApplication.navigationLayout=tile" waitTarget="navigator" waitEvent="updateComplete"/>
+				<WaitForLayoutManager />
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
 			</setup>
 			<body>
@@ -261,11 +262,11 @@
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
 				<RunCode code="FlexGlobals.topLevelApplication.navigationLayout=basic" waitTarget="navigator" waitEvent="updateComplete"/>
+				<WaitForLayoutManager />
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
 			</setup>
 			<body>
 				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigationLayout is BasicLayout)" value="true"/>
-				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.navigationLayout is BasicLayout)" value="true"/>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
 					 <ConditionalValue deviceDensity="160" os="win"  />
 					 <ConditionalValue deviceDensity="240" os="android" />
