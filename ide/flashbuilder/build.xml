@@ -107,8 +107,12 @@
 
     <target name="check-rsls">
         <available file="${frameworks.dir}/rsls" type="dir" property="rsls.dir.exists"/>
-        <fail message="The ${frameworks.dir}/rsls directory must be created. Use the frameworks-rsls ant target in ${FLEX_HOME}." 
-            unless="rsls.dir.exists"/>
+        <!--fail message="The ${frameworks.dir}/rsls directory must be created. Use the frameworks-rsls ant target in ${FLEX_HOME}." 
+            unless="rsls.dir.exists"/-->
+    </target>
+    
+    <target name="build-rsls" depends="check-rsls" unless="rsls.dir.exists">
+        <ant dir="${FLEX_HOME}" target="frameworks-rsls"/>
     </target>
     
     <target name="install-config" depends="expand-config-tokens">
