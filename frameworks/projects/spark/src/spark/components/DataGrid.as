@@ -753,6 +753,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @includeExample examples/DataGridRowHeightExample.mxml
  *  @includeExample examples/DataGridSelectionExample.mxml
  *  @includeExample examples/DataGridInvalidateCellExample.mxml
+ *  @includeExample examples/DataGridLockedRowsAndColumnsExample.mxml
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
