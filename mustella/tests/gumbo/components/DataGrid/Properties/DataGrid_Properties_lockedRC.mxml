@@ -59,12 +59,8 @@
  
 		<!--
 		************** NOTE ***************
-		The tests in this file are commented out because DataGrid Locked Rows and Columns
-		functionality is not yet fully implemented.  Existing DataGrid bugs result in the
-		incorrect appearance of the column separator in the header when lockedColumnCount is set,
-		making all tests that use bitmaps incorrect.  All of these tests should function 
-		correctly, therefore, once bitmaps can be generated they can theoretically be uncommented,
-		updated, and used.  
+		The tests in this file that are still commented out can be turned on after they 
+		are verified to be correct.
 		-->
 		
  		<TestCase testID="DataGrid_Properties_LRC_defaultGet" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test lockedRowCount and lockedColumnCount set in MXML">			
