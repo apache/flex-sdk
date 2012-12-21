@@ -148,6 +148,7 @@
                 <DispatchMouseEvent type="mouseDown" stageX="127" stageY="21" target=""/-->
             </setup>
             <body>
+            	<WaitForLayoutManager />
                 <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
@@ -516,7 +517,8 @@
             </setup>        
             <body>
                 <AssertPropertyValue propertyName="maxWidth" target="propertiesRoot.button1" value="10"/>
-                <SetProperty target="propertiesRoot.button1" propertyName="maxWidth" value="100" waitEvent="explicitMaxWidthChanged" waitTarget="propertiesRoot.button1"/>								
+                <SetProperty target="propertiesRoot.button1" propertyName="maxWidth" value="100" waitEvent="explicitMaxWidthChanged" waitTarget="propertiesRoot.button1"/>	
+                <WaitForLayoutManager />							
                 <AssertPropertyValue propertyName="maxWidth" target="propertiesRoot.button1" value="100"/>
                 <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
 					<ConditionalValue deviceDensity="160" os="win" />
