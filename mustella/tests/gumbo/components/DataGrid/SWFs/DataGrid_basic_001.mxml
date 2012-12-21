@@ -66,19 +66,23 @@
 			embedAsCFF: false;
 		}				
 
-
-		s|DataGrid s|GridColumnHeaderGroup{
+        mx|ColorPicker {
+		    fontFamily: MyVeraHalo;
+		    fontAntiAliasType: normal;
+			fontLookup: "embeddedCFF";		
+        }
+        
+		s|DataGrid s|GridColumnHeaderGroup {
 			fontAntiAliasType: "normal";
 			fontFamily: MyVera;
-			 fontLookup: "embeddedCFF";		
+			fontLookup: "embeddedCFF";		
 		}
-
 
 		global{
 		    fontFamily: MyVera;
 		    fontAntiAliasType: normal;
 		    kerning: "off";
-        	}
+        }
 	 		
 	</fx:Style>
 	

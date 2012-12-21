@@ -53,15 +53,17 @@
 		<TestCase testID="DataGrid_Properties_col1VisibleFalse" keywords="[DataGrid, Property, column, visible]" description="Test the width and appearance of the DataGrid when column visibility is set to false and true">			
 			<setup>
 				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<WaitForLayoutManager/>				
 			</setup>
 			<body>				
 				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="250"/>
 				<SetProperty target="myComp1.c1_1" propertyName="visible" value="false" waitEvent="enterFrame" waitTarget="stage"/>
-				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
-				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="250"/>
+				<!--CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/-->
+				
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="212"/>
 				<SetProperty target="myComp1.c1_1" propertyName="visible" value="true" waitEvent="enterFrame" waitTarget="stage"/>
-				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+				<!--CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/-->
+				
 				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="250"/>
 			</body>
 		</TestCase>
@@ -69,30 +71,38 @@
 		<TestCase testID="DataGrid_Properties_col1col2VisibleFalse" keywords="[DataGrid, Property, column, visible]" description="Test the width and appears of the DataGrid when two columns have their visibility set to false">			
 			<setup>
 				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<WaitForLayoutManager/>				
 			</setup>
 			<body>				
 				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="250"/>
+                
+                <!-- column 1 is 38 and column 2 is 46 -->
 				<SetProperty target="myComp1.c1_1" propertyName="visible" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="212"/>
+				
 				<SetProperty target="myComp1.c1_2" propertyName="visible" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="166"/>
+
 				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
-				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="250"/>
 			</body>
 		</TestCase>		
 
 		<TestCase testID="DataGrid_Properties_colResizeVisibleFalse" keywords="[DataGrid, Property, column, visible]" description="Test changing the width of a column at runtime and ensure it is preserved after visibility is toggled">			
 			<setup>
 				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<WaitForLayoutManager/>			
 			</setup>
 			<body>				
 				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="250"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
-				<SetProperty target="myComp1.c1_1" propertyName="width" value="100" waitEvent="enterFrame" waitTarget="stage"/>
-				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="312"/>
+				
+				<SetProperty target="myComp1.c1_1" propertyName="width" value="100" waitEvent="enterFrame" waitTarget="stage"/>				
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="100"/>
-				<SetProperty target="myComp1.c1_1" propertyName="visible" value="false" waitEvent="enterFrame" waitTarget="stage"/>
 				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="312"/>
+
+				<SetProperty target="myComp1.c1_1" propertyName="visible" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="212"/>
+				
 				<SetProperty target="myComp1.c1_1" propertyName="visible" value="true" waitEvent="enterFrame" waitTarget="stage"/>
 				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="312"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="100"/>
@@ -102,15 +112,17 @@
 		<TestCase testID="DataGrid_Properties_colResizeVisibleFalse2" keywords="[DataGrid, Property, column, visible]" description="Test setting the width of a non-visible column on DataGrid">			
 			<setup>
 				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
-				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<WaitForLayoutManager/>			
 			</setup>
 			<body>				
 				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="250"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
+				
 				<SetProperty target="myComp1.c1_1" propertyName="visible" value="false" waitEvent="enterFrame" waitTarget="stage"/>
 				<SetProperty target="myComp1.c1_1" propertyName="width" value="100" waitEvent="enterFrame" waitTarget="stage"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="0"/>								
-				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="250"/>								
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="212"/>
+												
 				<SetProperty target="myComp1.c1_1" propertyName="visible" value="true" waitEvent="enterFrame" waitTarget="stage"/>						
 				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="312"/>				
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="100"/>				

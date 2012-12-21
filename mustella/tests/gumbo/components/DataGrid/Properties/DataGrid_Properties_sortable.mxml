@@ -58,24 +58,31 @@
                 public var tobeCheckedCells:ArrayList;
                 public var arrList:ArrayList;
                 public var rowsHolder:ArrayList=new ArrayList();
-		public var indices:Vector.<int>;
-		public var xmlListColl:XMLListCollection;
-		public var temp:String="";
-		public var vTemp:Vector.<int>=Vector.<int>([0,1,2]);
-		public var vTemp2:Vector.<int>;
-		public var newItem:Object={index:101, firstName:"New Name",lastName:"Earl",food:"Almonds",drink:"DrinkD",imageURL:"../../../../../Assets/Images/smallbluerect.jpg", numberValue:3, birthDay:"2004/08/08" };
+                public var indices:Vector.<int>;
+                public var xmlListColl:XMLListCollection;
+                public var temp:String="";
+                public var vTemp:Vector.<int>=Vector.<int>([0,1,2]);
+                public var vTemp2:Vector.<int>;
+                public var newItem:Object={index:101, firstName:"New Name",lastName:"Earl",food:"Almonds",drink:"DrinkD",imageURL:"../../../../../Assets/Images/smallbluerect.jpg", numberValue:3, birthDay:"2004/08/08" };
 
-               
-		
-		/**
-		* this method is to set a editorClass on a dataGrid based on columnIndex
-		*/
-		public function setCellEditorOnColumn(dg:DataGrid, editorClass:Class, index:int):void
-		{
-			var gc:GridColumn=(GridColumn)(dg.columns.getItemAt(index));
-			gc.itemEditor=new ClassFactory(editorClass);
-			gc.editable=true;
-		}
+                [Bindable]
+                private var firstNameX:int;
+                
+                /**
+                * this method is to set a editorClass on a dataGrid based on columnIndex
+                */
+                public function setCellEditorOnColumn(dg:DataGrid, editorClass:Class, index:int):void
+                {
+                    var gc:GridColumn=(GridColumn)(dg.columns.getItemAt(index));
+                    gc.itemEditor=new ClassFactory(editorClass);
+                    gc.editable=true;
+                }
+                
+                private function setFirstNameX():void
+                {
+                    firstNameX = FlexGlobals.topLevelApplication.dg2.grid.getColumnBounds(1).x + 10;
+                    //trace("setFirstNameX", firstNameX);
+                }                
             }
             
         ]]>
@@ -319,36 +326,36 @@
         </TestCase> 
         
         
-        <!-- regression sdk-28144 -->
-	<TestCase testID="CHG_invisibleColumn_test002" keywords="[DataGrid, GridColumn,visibility]" description="update dataGrid columns with invisible columns">
-             <setup>
-                 <ResetComponent target="dg1" className="components.DataGrid_sort_noData" waitEvent="updateComplete"/> 
-		 <RunCode code="FlexGlobals.topLevelApplication.dg1.dataProvider=FlexGlobals.topLevelApplication.dg1.dp3"  waitEvent="enterFrame" waitTarget="stage"/>
-		 <SetProperty target="dg1" propertyName="height" value="150" waitEvent="updateComplete" />
-		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
-             	
-             </setup>
-             <body>
-             	 <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
-		
-             	 <SetProperty target="dg1" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dg1.columnsUpdate2" />
-		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
-             	 <SetProperty target="dg1" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dg1.columnsUpdate1" />
-		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>		 
-		 
-		 <AssertMethodValue method="value=GridColumn(FlexGlobals.topLevelApplication.dg1.columns.getItemAt(1)).visible" value="true"/>
-		
-		 <CompareBitmap target="dg1" url="../Properties/Baselines/$testID_c1visible.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
-		 
- 		<!-- enable the column -->
- 		<RunCode code="GridColumn(FlexGlobals.topLevelApplication.dg1.columns.getItemAt(1)).visible=false" />
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
- 		
- 		<!-- check the bitmap -->
- 		<CompareBitmap target="dg1" url="../Properties/Baselines/$testID_c1invisible.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
- 		
-             </body>
-        </TestCase>  
+    <!-- regression sdk-28144 -->
+    <TestCase testID="CHG_invisibleColumn_test002" keywords="[DataGrid, GridColumn,visibility]" description="update dataGrid columns with invisible columns">
+        <setup>
+            <ResetComponent target="dg1" className="components.DataGrid_sort_noData" waitEvent="updateComplete"/> 
+            <RunCode code="FlexGlobals.topLevelApplication.dg1.dataProvider=FlexGlobals.topLevelApplication.dg1.dp3"  waitEvent="enterFrame" waitTarget="stage"/>
+            <SetProperty target="dg1" propertyName="height" value="150" waitEvent="updateComplete" />
+            <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+            
+        </setup>
+        <body>
+            <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+            
+            <SetProperty target="dg1" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dg1.columnsUpdate2" />
+            <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+            <SetProperty target="dg1" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dg1.columnsUpdate1" />
+            <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>		 
+            
+            <AssertMethodValue method="value=GridColumn(FlexGlobals.topLevelApplication.dg1.columns.getItemAt(1)).visible" value="true"/>
+            
+            <CompareBitmap target="dg1" url="../Properties/Baselines/$testID_c1visible.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+            
+            <!-- enable the column -->
+            <RunCode code="GridColumn(FlexGlobals.topLevelApplication.dg1.columns.getItemAt(1)).visible=false" />
+            <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            
+            <!-- check the bitmap -->
+            <CompareBitmap target="dg1" url="../Properties/Baselines/$testID_c1invisible.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+        
+        </body>
+    </TestCase>  
         
 	<TestCase testID="Sort_invisibleColumn_test001" keywords="[DataGrid, Property, Sortable]" description="sort an invisible column, then make the column visible, verify the data is sorted correctly">
              <setup>
@@ -967,33 +974,37 @@
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg1.selectionContainsCell(4,1)" value="false"/>
 		
              </body>
-        </TestCase> 
-   	<TestCase testID="column_withRenderer_test001" keywords="[DataGrid, Property, Sortable]" description="verify after sorting, column with renderer should show updated, sorted data">
-	     <setup>
-		<ResetComponent target="dg3" className="components.DataGrid_Custom_IRs2" waitEvent="updateComplete"/> 
-	     </setup>
-	     <body>
-		<DispatchMouseClickEvent target="dg3.columnHeaderGroup" localX="200" localY="10" waitEvent="click" waitTarget="dg3"/>
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
-		<CompareBitmap url="../Properties/baselines/$testID_page1.png" numColorVariances="20" maxColorVariance="20"  target="dg3" />
-		
-		<RunCode code="FlexGlobals.topLevelApplication.dg3.ensureCellIsVisible(FlexGlobals.topLevelApplication.dg3.dataProvider.length-1)" />
- 	   	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
-		<CompareBitmap url="../Properties/baselines/$testID_lastPage.png" numColorVariances="20" maxColorVariance="20"  target="dg3" />
-		
-		<!-- reverse sort -->
-		<DispatchMouseClickEvent target="dg3.columnHeaderGroup" localX="200" localY="10" waitEvent="click" waitTarget="dg3"/>
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
-		
-		<!-- sort again, back to the first sort state-->
-		<DispatchMouseClickEvent target="dg3.columnHeaderGroup" localX="200" localY="10" waitEvent="click" waitTarget="dg3"/>
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
-		
-		<RunCode code="FlexGlobals.topLevelApplication.dg3.ensureCellIsVisible(FlexGlobals.topLevelApplication.dg3.dataProvider.length-1)" />
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
-		<CompareBitmap url="../Properties/baselines/$testID_lastPage.png" numColorVariances="20" maxColorVariance="20"  target="dg3" />
-		
-             </body>
+        </TestCase>
+        
+        <TestCase testID="column_withRenderer_test001" keywords="[DataGrid, Property, Sortable]" description="verify after sorting, column with renderer should show updated, sorted data">
+            <setup>
+                <ResetComponent target="dg3" className="components.DataGrid_Custom_IRs2" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <!-- click on columnIndex=1 to sort -->
+		        <DispatchMouseClickEvent target="dg3.columnHeaderGroup" localX="200" localY="10" waitEvent="sortChange" waitTarget="dg3"/>
+ 	   	        <WaitForLayoutManager/>
+                <CompareBitmap url="../Properties/baselines/$testID_page1.png" numColorVariances="20" maxColorVariance="20"  target="dg3" />
+                
+                <!-- ensure last row is visible -->
+                <RunCode code="FlexGlobals.topLevelApplication.dg3.ensureCellIsVisible(FlexGlobals.topLevelApplication.dg3.dataProvider.length-1)" />
+ 	   	        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+                <WaitForLayoutManager/>
+                <CompareBitmap url="../Properties/baselines/$testID_lastPage.png" numColorVariances="20" maxColorVariance="20"  target="dg3" />
+                
+                <!-- click on columnIndex=1 to reverse sort -->
+		        <DispatchMouseClickEvent target="dg3.columnHeaderGroup" localX="200" localY="10" waitEvent="sortChange" waitTarget="dg3"/>
+                <WaitForLayoutManager/>
+                
+                <!-- click on columnIndex=1 again, to sort back to the first sort state-->
+		        <DispatchMouseClickEvent target="dg3.columnHeaderGroup" localX="200" localY="10" waitEvent="sortChange" waitTarget="dg3"/>
+                <WaitForLayoutManager/>
+                
+                <!-- ensure last row is visible -->
+                <RunCode code="FlexGlobals.topLevelApplication.dg3.ensureCellIsVisible(FlexGlobals.topLevelApplication.dg3.dataProvider.length-1)" />
+                <WaitForLayoutManager/>
+                <CompareBitmap url="../Properties/baselines/$testID_lastPage.png" numColorVariances="20" maxColorVariance="20"  target="dg3" />            
+            </body>
         </TestCase>
         
         
@@ -1076,53 +1087,42 @@
 
 	     </body>
         </TestCase> 
-  	<TestCase testID="Sort_sortableFalse_test001" keywords="[DataGrid, Property, Sortable]" description="dataGrid has sortable toggled, verify interacting the dataGrid for sort is toggled as well">
-               <setup>
-                  <ResetComponent target="dg2" className="components.DataGrid_no_explicit_columns" waitEvent="updateComplete"/> 
-              </setup>
-              <body>
-              	
-              	  
-              	<!-- click on columnHeader column=firstName which is sortable -->
-              	<RunCode code="FlexGlobals.topLevelApplication.dg2.setFocus()" waitEvent="focusIn" waitTarget="dg2"/>
-                 <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="188" localY="10" waitEvent="click" waitTarget="dg2"/>
-  		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-  		
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="JamFN"/>
- 		<!-- disable sortable on the column -->
- 		<RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dg2.columns.getItemAt(2))).sortable=false"  waitEvent="enterFrame" waitTarget="stage"/>
- 		
- 		<!-- sort on the column -->
-  	        <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="188" localY="10" waitEvent="click" waitTarget="dg2"/>
-  	        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-  	        <!-- verify sort is disabled, no data update -->
-  	        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="RicFN"/>
-  	        
-  	        <!-- enable the column sortable again -->
-  	        <RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dg2.columns.getItemAt(2))).sortable=true"  waitEvent="enterFrame" waitTarget="stage"/>
- 		<DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="188" localY="10" waitEvent="click" waitTarget="dg2"/>
- 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
- 		<!-- verify sort is enabled,data is updated-->
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="JamFN"/>
- 
-  	        <!-- disable sortable on DataGrid level -->
-  	        <SetProperty target="dg2" propertyName="sortableColumns" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
-  	        
-  	        <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="188" localY="10" waitEvent="click" waitTarget="dg2"/>
- 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-  	        <!-- verify sort is disabled, no data update -->
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="JamFN"/>
-  	       
-  	       <!-- verify sort is disabled, no data updated -->
- 		<SetProperty target="dg2" propertyName="sortableColumns" value="true"  waitEvent="enterFrame" waitTarget="stage"/>
-  	       
-  	        <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="188" localY="10" waitEvent="click" waitTarget="dg2"/>
- 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-  	        <!-- verify sort is enabled, data is updated -->
- 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="RicFN"/>
-  	               
- 	    </body>
-        </TestCase>  
+        
+    <TestCase testID="Sort_sortableFalse_test001" keywords="[DataGrid, Property, Sortable]" description="dataGrid has sortable toggled, verify interacting the dataGrid for sort is toggled as well">
+        <setup>
+            <ResetComponent target="dg2" className="components.DataGrid_no_explicit_columns" waitEvent="updateComplete"/> 
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.dg2.setFocus()" waitEvent="focusIn" waitTarget="dg2"/>
+            <RunCode code="setFirstNameX()"/>
+
+            <!-- click on columnHeader column=firstName which is sortable -->
+            <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="{firstNameX}" localY="10" waitEvent="sortChange" waitTarget="dg2"/>
+            <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="JamFN"/>
+            
+            <!-- disable sortable on the column - verify sort is disabled, no data update -->
+            <RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dg2.columns.getItemAt(1))).sortable=false"  waitEvent="enterFrame" waitTarget="stage"/>
+            <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="{firstNameX}" localY="10" waitEvent="click" waitTarget="dg2"/>
+            <!--AssertNoEvent target="dg2" eventName="sortChange" eventClass="spark.events::GridSortEvent" /-->
+            <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="JamFN"/>
+            
+            <!-- enable the column sortable again - verify sort is enabled,data is updated -->
+            <RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dg2.columns.getItemAt(1))).sortable=true"  waitEvent="enterFrame" waitTarget="stage"/>
+            <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="{firstNameX}" localY="10" waitEvent="sortChange" waitTarget="dg2"/>
+            <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="RonFN"/>
+            
+            <!-- disable sortable on DataGrid level - verify sort is disabled, no data update-->
+            <SetProperty target="dg2" propertyName="sortableColumns" value="false" waitEvent="sortableColumnsChanged" waitTarget="dg2"/>            
+            <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="{firstNameX}" localY="10" waitEvent="click" waitTarget="dg2"/>
+            <!--AssertNoEvent target="dg2" eventName="sortChange" eventClass="spark.events::GridSortEvent" /-->
+            <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="RonFN"/>
+            
+            <!-- enable sortable on DataGrid level - verify sort is enabled, data is updated -->
+            <SetProperty target="dg2" propertyName="sortableColumns" value="true" waitEvent="sortableColumnsChanged" waitTarget="dg2"/>            
+            <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="{firstNameX}" localY="10" waitEvent="sortChange" waitTarget="dg2"/>
+            <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="JamFN"/>        
+        </body>
+    </TestCase>  
                
     <TestCase testID="Sort_XMLCollection_test001" keywords="[DataGrid, Property, Sortable]" description="dataGrid with XMLListCollection dataProvider, verify sort is handled correctly">
              <setup>

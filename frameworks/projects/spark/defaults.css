@@ -67,6 +67,8 @@ ComboBox
 
 DataGrid
 {
+    dragIndicatorClass: ClassReference("spark.components.gridClasses.DataGridDragProxy");
+    dropIndicatorSkin: ClassReference("spark.skins.spark.ListDropIndicator");
     skinClass: ClassReference("spark.skins.spark.DataGridSkin");
     stretchCursor: Embed(source="Assets.swf",symbol="cursorStretch");    
 }

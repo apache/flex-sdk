@@ -119,22 +119,21 @@
            </body>
         </TestCase>
 
- 	<TestCase testID="dataProvider_nodata_test5" keywords="[DataGrid, Property, dataProvider]" description="dataprovider isn't set, requiredSelection=true">
-            <setup>
-		<ResetComponent target="dg7" className="spark.components.DataGrid" waitEvent="updateComplete" />
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-		<SetProperty target="dg7" propertyName="requireSelection" value="true" />
-		<SetProperty target="dg7" propertyName="variableRowHeight" value="true" />
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-	    </setup>           
-            <body>
-            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg7.requireSelection" value="true" />
-            	<RunCode code="FlexGlobals.topLevelApplication.insertItems(FlexGlobals.topLevelApplication.dg7,0)"/>
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-            	 <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg7" />
-            
-           </body>
-        </TestCase>
+    <TestCase testID="dataProvider_nodata_test5" keywords="[DataGrid, Property, dataProvider]" description="dataprovider isn't set, requiredSelection=true">
+        <setup>
+            <ResetComponent target="dg7" className="spark.components.DataGrid" waitEvent="updateComplete" />
+            <SetProperty target="dg7" propertyName="requireSelection" value="true" />
+            <SetProperty target="dg7" propertyName="variableRowHeight" value="true"/>
+        </setup>           
+        <body>
+            <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg7.requireSelection" value="true" />
+            <!-- since no typical item is specified it is the first one added to the dataProvider -->
+            <RunCode code="FlexGlobals.topLevelApplication.insertItems(FlexGlobals.topLevelApplication.dg7,0)"/>
+            <WaitForLayoutManager/>
+            <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg7" />        
+        </body>
+    </TestCase>
+
  	<TestCase testID="dataProvider_columnNodata_test1" keywords="[DataGrid, Property, dataProvider]" description="dataGrid has a column not data mapping">
  	    <setup>
  	    	<ResetComponent target="dg6" className="components.DataGrid_dp_columns" waitEvent="updateComplete" />

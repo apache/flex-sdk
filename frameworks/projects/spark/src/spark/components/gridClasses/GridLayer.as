@@ -62,7 +62,7 @@ public class GridLayer extends Group
     public function GridLayer()
     {
         super();
-        layout = new LayoutBase();        
+        layout = new LayoutBase();   // essentially "no layout"       
     }
     
     //--------------------------------------------------------------------------

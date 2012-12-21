@@ -106,7 +106,7 @@ The default skin class for a Spark DataGrid component in the Wireframe theme.
                 </s:stroke>
             </s:Line>
         </fx:Component>
-        
+       
         <!--- Defines the value of the columnSeparator property for the columnHeaderGroup. -->
         <fx:Component id="headerColumnSeparator">
             <s:Line>
@@ -124,6 +124,28 @@ The default skin class for a Spark DataGrid component in the Wireframe theme.
                 </s:fill>                
             </s:Rect>
         </fx:Component>      
+
+        <!--- @private -->
+        <fx:Component id="lockedColumnsSeparator">
+            <s:Group>
+                <s:Line left="0" right="0" top="0" bottom="0">
+                    <s:stroke>
+                        <s:SolidColorStroke color="0x000000" weight="2" caps="square"/>
+                    </s:stroke>
+                </s:Line>
+            </s:Group>
+        </fx:Component>
+        
+        <!--- @private -->
+        <fx:Component id="lockedRowsSeparator">
+            <s:Group>
+                <s:Line left="0" right="0" top="0" bottom="0">
+                    <s:stroke>
+                        <s:SolidColorStroke color="0x000000" weight="2" caps="square"/>
+                    </s:stroke>
+                </s:Line>
+            </s:Group>
+        </fx:Component>           
 
         <!--- @private -->
         <fx:Component id="rowSeparator">
@@ -181,11 +203,17 @@ The default skin class for a Spark DataGrid component in the Wireframe theme.
             <s:Scroller id="scroller" minViewportInset="1" hasFocusableChildren="false" height="100%">
                 <!--- @private -->
                 <s:Grid id="grid" itemRenderer="spark.skins.spark.DefaultGridItemRenderer">
-                    <s:GridLayer name="backgroundLayer"/>
-                    <s:GridLayer name="selectionLayer"/>
-                    <s:GridLayer name="editorIndicatorLayer"/>
-                    <s:GridLayer name="rendererLayer"/>
-                    <s:GridLayer name="overlayLayer"/>
+                    <s:gridView>
+                        <fx:Component>
+                            <s:GridView>
+                                <s:GridLayer name="backgroundLayer"/>
+                                <s:GridLayer name="selectionLayer"/>
+                                <s:GridLayer name="editorIndicatorLayer"/>                            
+                                <s:GridLayer name="rendererLayer"/>
+                                <s:GridLayer name="overlayLayer"/>
+                           </s:GridView>
+                        </fx:Component>
+                    </s:gridView>
                 </s:Grid>
             </s:Scroller>
         </s:VGroup>

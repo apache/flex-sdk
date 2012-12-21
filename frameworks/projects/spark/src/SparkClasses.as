@@ -44,6 +44,7 @@ import spark.components.IconPlacement; IconPlacement;
 import spark.components.calendarClasses.DateSelectorDisplayMode; DateSelectorDisplayMode;
 import spark.components.gridClasses.CellPosition; CellPosition;
 import spark.components.gridClasses.CellRegion; CellRegion;
+import spark.components.gridClasses.DataGridDragProxy; DataGridDragProxy;
 import spark.components.supportClasses.ListItemDragProxy; ListItemDragProxy;
 import spark.components.supportClasses.InteractionStateDetector; InteractionStateDetector;
 import spark.globalization.supportClasses.CalendarDate; CalendarDate;
