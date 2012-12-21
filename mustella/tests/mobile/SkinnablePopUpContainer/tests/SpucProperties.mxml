@@ -72,7 +72,7 @@
 
 			<body>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.showDialogWithNoTransition(true)" waitTarget="navigator.activeView.dialogNoTransition" waitEvent="open"/>
-				
+				<WaitForLayoutManager />
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.list.selectedIndex = 3" waitTarget="navigator.activeView.dialogNoTransition.list"/>
 				<Pause timeout="5" />
 				
@@ -173,7 +173,7 @@
 
 			<body>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.showDialog(true)" waitTarget="navigator.activeView.dialog" waitEvent="open" timeout="5000" />
-
+				
 				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../tests/baselines/" target="navigator.activeView.dialog">
 					<ConditionalValue deviceDensity="240" os="android"  />        
 					<ConditionalValue deviceDensity="160" os="win"  />
