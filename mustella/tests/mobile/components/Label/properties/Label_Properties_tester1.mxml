@@ -17,7 +17,7 @@
   limitations under the License.
 
 -->
-<UnitTester testDir="mobile/components/Label/Properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label2.mxml">
+<UnitTester testDir="mobile/components/Label/properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label2.mxml">
 
     <mx:Script>
         <![CDATA[
