@@ -74,7 +74,7 @@
  			<body>				
  				<AssertPropertyValue target="myLockedDG" propertyName="lockedRowCount" value="2"/>
  				<AssertPropertyValue target="myLockedDG" propertyName="lockedColumnCount" value="2"/>
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
  			</body>
 		</TestCase>
 					
@@ -89,7 +89,7 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 				
                 <!-- for debug
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 				-->
 
 				<!-- all locked rows and cells should be visible -->
@@ -117,7 +117,7 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 
                 <!-- for debug
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 				-->
 				
 				<!-- all locked rows and cells should be visible -->
@@ -170,7 +170,7 @@
 				<!-- wait for scroll to complete -->
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="3"/>
 				
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 
 				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(3,3)" value="true"/>
 				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(4,3)" value="false"/>				
@@ -228,7 +228,7 @@
 				<!-- wait for scroll to complete -->
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="3"/>
 
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 
 				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(1,2)" value="true"/>
 				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(3,2)" value="false"/>
@@ -819,7 +819,7 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 				<AssertMethodValue method="value=application.myLockedDG.dp1.getItemAt(0).col0" value="R02C0"/>				
 				<AssertMethodValue method="value=application.myLockedDG.dp1.getItemAt(1).col0" value="R03C0"/>				
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
 
@@ -834,7 +834,7 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 				<AssertMethodValue method="value=application.myLockedDG.dp1.getItemAt(0).col0" value="NEW02"/>				
 				<AssertMethodValue method="value=application.myLockedDG.dp1.getItemAt(1).col0" value="NEW01"/>				
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>				
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 			</body>
 		</TestCase>
         -->
@@ -860,7 +860,7 @@
 				<SetProperty target="myLockedDG" propertyName="lockedRowCount" value="8" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
 			</setup>
 			<body>				
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID_1.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID_1.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
 				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
 				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
@@ -874,7 +874,7 @@
 				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>	
 				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>				
 				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>														
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID_2.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID_2.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
 
@@ -885,7 +885,7 @@
 				<SetProperty target="myLockedDG" propertyName="lockedColumnCount" value="4" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
 			</setup>
 			<body>				
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID_1.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID_1.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 				<RunCode code="application.myLockedDG.cols.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>
 				<RunCode code="application.myLockedDG.cols.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>
 				<RunCode code="application.myLockedDG.cols.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>
@@ -893,7 +893,7 @@
 				<RunCode code="application.myLockedDG.cols.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>
 				<RunCode code="application.myLockedDG.cols.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>
 				<RunCode code="application.myLockedDG.cols.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>								
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID_2.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID_2.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
 
@@ -907,7 +907,7 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 				<RunCode code="application.myLockedDG.cols.addItemAt(application.myLockedDG.myGC_2,0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>				
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
 
@@ -922,7 +922,7 @@
 				<RunCode code="application.myLockedDG.dp1.addItemAt(application.myLockedDG.myDI_1,0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
 				<RunCode code="application.myLockedDG.dp1.addItemAt(application.myLockedDG.myDI_2,0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>								
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>											
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>											
 			</body>
 		</TestCase>
 
@@ -934,7 +934,7 @@
 			<body>				
 				<RunCode code="application.myLockedDG.dp1.getItemAt(0,0).col0='Col0000000000000000000000000000000000000000000'" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>				
 				<RunCode code="application.myLockedDG.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>								
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>				
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 			</body>
 		</TestCase>
 		-->
@@ -1121,7 +1121,7 @@
 				<DispatchKeyEvent keys="[DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
 				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="1"/>				
 				<DispatchKeyEvent keys="[A]" ctrlKey="true" waitEvent="selectionChange" waitTarget="myLockedDG"/>				
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
 
@@ -1353,7 +1353,7 @@
 				<WaitForLayoutManager/>				
 			</setup>
 			<body>																
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
 		
@@ -1400,7 +1400,7 @@
 			<body>						
 				<SetProperty target="myLockedDG.c0" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>								
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
 
@@ -1415,7 +1415,7 @@
 				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseMove" localX="115" localY="12" waitEvent="mouseMove"/>
 				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseUp" localX="115" localY="12" waitEvent="mouseUp"/>				
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
 
@@ -1431,7 +1431,7 @@
 				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseMove" localX="25" localY="12" waitEvent="mouseMove"/>
 				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseUp" localX="25" localY="12" waitEvent="mouseUp"/>												
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
 
@@ -1448,7 +1448,7 @@
 				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseDown" localX="55" localY="12" waitEvent="mouseDown"/>
 				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseMove" localX="115" localY="12" waitEvent="mouseMove"/>
 				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseUp" localX="115" localY="12" waitEvent="mouseUp"/>
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>				
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 			</body>
 		</TestCase>
 
@@ -1465,7 +1465,7 @@
 				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseDown" localX="55" localY="12" waitEvent="mouseDown"/>
 				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseMove" localX="115" localY="12" waitEvent="mouseMove"/>
 				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseUp" localX="115" localY="12" waitEvent="mouseUp"/>
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>				
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 			</body>
 		</TestCase>
 
@@ -1485,7 +1485,7 @@
 				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseMove" localX="150" localY="12" waitEvent="mouseMove"/>
 				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseUp" localX="150" localY="12" waitEvent="mouseUp"/>
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>				
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 			</body>
 		</TestCase>
 			
@@ -1498,7 +1498,7 @@
 			<body>												
 				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>			
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>				
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 			</body>
 		</TestCase>				
 		-->
@@ -1508,11 +1508,11 @@
 				<ResetComponent target="myLockedDGStates" className="components.DataGrid_Custom_lockedRC_States" waitEvent="updateComplete" />				
 			</setup>
 			<body>												
-				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_1.png"/>				
+				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_1.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state2" waitEvent="currentStateChange"/>
-				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_2.png"/>				
+				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_2.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state3" waitEvent="currentStateChange"/>
-				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_3.png"/>				
+				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_3.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 			</body>
 		</TestCase>	
 
@@ -1525,11 +1525,11 @@
 				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state2" waitEvent="currentStateChange"/>				
 				<SetProperty target="myLockedDGStates" propertyName="lockedRowCount" value="3" waitEvent="updateComplete" waitTarget="myLockedDGStates.grid"/>
 				<SetProperty target="myLockedDGStates" propertyName="lockedColumnCount" value="1" waitEvent="updateComplete" waitTarget="myLockedDGStates.grid"/>
-				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_1.png"/>				
+				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_1.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state3" waitEvent="currentStateChange"/>
-				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_2.png"/>				
+				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_2.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state2" waitEvent="currentStateChange"/>
-				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_3.png"/>				
+				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_3.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 			</body>
 		</TestCase>
 
@@ -1542,7 +1542,7 @@
 				<RunCode code="application.myLockedDGStates.dp1.getItemAt(0,0).col0='ABCDEFGHIJKLMNOPQRSTUVWXYZ'" waitEvent="collectionChange" waitTarget="myLockedDGStates.dp1"/>									
 				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state1" waitEvent="currentStateChange"/>				
 				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state3" waitEvent="currentStateChange"/>
-				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID.png"/>				
+				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 			</body>
 		</TestCase>
 
@@ -1559,7 +1559,7 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 				<DispatchKeyEvent keys="[ENTER]"/>				
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
 
@@ -1569,7 +1569,7 @@
 				<SetStyle target="myLockedDG" styleName="skinClass" valueExpression="value=CustomDataGridLockedSkin" waitEvent="updateComplete"/>				
 			</setup>
 			<body>												
-				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
     </testCases>
