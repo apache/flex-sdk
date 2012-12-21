@@ -28,16 +28,14 @@
 	<fx:Style source="assets/myDGStyles.css"/>
 	
     <s:layout>
-    	<s:HorizontalLayout paddingLeft="10" paddingTop="10" gap="20"/>
+    	<s:VerticalLayout paddingLeft="10" paddingTop="10" gap="20"/>
     </s:layout>	
-
-	<s:VGroup>    	
-		<comps:DataGrid_Custom_lockedRC id="myLockedDG"/>
-		<comps:DataGrid_Custom_unlockedRC id="myUnlockedDG"/>
-	</s:VGroup>
-	
-	<s:VGroup>
+    	
+	<s:HGroup>
+	    <comps:DataGrid_Custom_lockedRC id="myLockedDG"/>
 		<comps:DataGrid_Custom_lockedRC_States id="myLockedDGStates"/>		
-	</s:VGroup>	
+	</s:HGroup>	
+
+	<comps:DataGrid_Custom_unlockedRC id="myUnlockedDG"/>
 
 </s:Application>	
