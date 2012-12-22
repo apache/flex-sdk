@@ -1020,7 +1020,7 @@
 
                 <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
 
-                <SetProperty target="textInput" propertyName="alpha" value="0.1" />
+                <SetProperty target="textInput" propertyName="alpha" value="0.1156" />
                 <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
                 <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
 

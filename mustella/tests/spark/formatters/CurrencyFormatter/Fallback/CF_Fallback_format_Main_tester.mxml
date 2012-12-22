@@ -32,6 +32,11 @@
         {
  
         }
+		
+		private function fixToFixed(numberToFormat:uint, baseCompare:String):String {
+			var s:String = application.cf_inline.format(numberToFormat); 
+			return (s.indexOf(".") > -1) ? baseCompare + "." : baseCompare;
+		}
     ]]>
     </mx:Script>
 
@@ -55,7 +60,7 @@
 			<AssertMethodValue method="value=application.cf_inline.format(123456789)" 
 							   valueExpression="value='USD123456789'"/>
 			<AssertMethodValue method="value=application.cf_inline.format(0.12345)" 
-							   valueExpression="value='USD0.'"/>
+							   valueExpression="value=fixToFixed(0.12345, 'USD0')"/>
 			<AssertMethodValue method="value=application.cf_inline.format(-1234567.345)" 
 							   valueExpression="value='USD-1234567'"/>
 		</body>
@@ -114,7 +119,7 @@
 			<AssertMethodValue method="value=application.cf_inline.format(123456789)" 
 							   valueExpression="value='RUR123456789'"/>
 			<AssertMethodValue method="value=application.cf_inline.format(0.12345)" 
-							   valueExpression="value='RUR0.'"/>
+							   valueExpression="value=fixToFixed(0.12345, 'RUR0')"/>
 			<AssertMethodValue method="value=application.cf_inline.format(-1234567.345)" 
 							   valueExpression="value='RUR-1234567'"/>
 		</body>
@@ -137,7 +142,7 @@
 			<AssertMethodValue method="value=application.cf_inline.format(123456789)" 
 							   valueExpression="value='RUR123456789'"/>
 			<AssertMethodValue method="value=application.cf_inline.format(0.12345)" 
-							   valueExpression="value='RUR0.'"/>
+							   valueExpression="value=fixToFixed(0.12345, 'RUR0')"/>
 			<AssertMethodValue method="value=application.cf_inline.format(-1234567.345)" 
 							   valueExpression="value='RUR-1234567'"/>
 		</body>
@@ -160,7 +165,7 @@
 			<AssertMethodValue method="value=application.cf_inline.format(123456789)" 
 							   valueExpression="value='RUR123456789'"/>
 			<AssertMethodValue method="value=application.cf_inline.format(0.12345)" 
-							   valueExpression="value='RUR0.'"/>
+							   valueExpression="value=fixToFixed(0.12345, 'RUR0')"/>
 			<AssertMethodValue method="value=application.cf_inline.format(-1234567.345)" 
 							   valueExpression="value='RUR-1234567'"/>
 		</body>
@@ -182,7 +187,7 @@
 			<AssertMethodValue method="value=application.cf_inline.format(123456789)" 
 							   valueExpression="value='RUR123456789'"/>
 			<AssertMethodValue method="value=application.cf_inline.format(0.12345)" 
-							   valueExpression="value='RUR0.'"/>
+							   valueExpression="value=fixToFixed(0.12345, 'RUR0')"/>
 			<AssertMethodValue method="value=application.cf_inline.format(-1234567.345)" 
 							   valueExpression="value='RUR-1234567'"/>
 		</body>
@@ -347,7 +352,7 @@
 			<AssertMethodValue method="value=application.cf_inline.format(123456789)" 
 							   valueExpression="value='€123456789'"/>
 			<AssertMethodValue method="value=application.cf_inline.format(0.12345)" 
-							   valueExpression="value='€0.'"/>
+							   valueExpression="value=fixToFixed(0.12345, '€0')"/>
 			<AssertMethodValue method="value=application.cf_inline.format(123.345)" 
 							   valueExpression="value='€123'"/>
 		</body>
@@ -365,7 +370,7 @@
 			<AssertMethodValue method="value=application.cf.format(123456789)" 
 							   valueExpression="value='USD123456789'"/>
 			<AssertMethodValue method="value=application.cf.format(0.12345)" 
-							   valueExpression="value='USD0.'"/>
+							   valueExpression="value=fixToFixed(0.12345, 'USD0')"/>
 			<AssertMethodValue method="value=application.cf.format(-1234567.345)" 
 							   valueExpression="value='USD-1234567'"/>
 		</body>
@@ -386,7 +391,7 @@
 			<AssertMethodValue method="value=application.cf.format(123456789)" 
 							   valueExpression="value='CNY123456789'"/>
 			<AssertMethodValue method="value=application.cf.format(0.12345)" 
-							   valueExpression="value='CNY0.'"/>
+							   valueExpression="value=fixToFixed(0.12345, 'CNY0')"/>
 			<AssertMethodValue method="value=application.cf.format(-1234567.345)" 
 							   valueExpression="value='CNY-1234567'"/>
 		</body>
