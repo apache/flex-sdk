@@ -165,7 +165,7 @@ Install Prerequisites
         On the Mac, set FLASHPLAYER_DEBUGGER to the absolute path of 
         Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger
         
-        On Linux, set set FLASHPLAYER_DEBUGGER to the absolute path of flashplayerdebugger
+        On Linux, set FLASHPLAYER_DEBUGGER to the absolute path of flashplayerdebugger
             
     *5) The Adobe Pixel Bender Toolkit for Windows can be downloaded from:
             http://www.adobe.com/go/pixelbender_toolkit_zip/
@@ -183,7 +183,7 @@ Install Prerequisites
         and copy playerglobal11_1.swc to player/11.1/playerglobal.swc.
         
         Set PLAYERGLOBAL_HOME to the absolute path of the player directory (not including
-        the version subdirectory). The target-version option controls which 
+        the version subdirectory). The target-player option controls which 
         PLAYERGLOBAL_HOME subdirectory is used.
 
         Other more recent versions of Adode Flash Player playergloal.swc can be downloaded from:
@@ -194,7 +194,7 @@ Install Prerequisites
             
         These can be used with Apache Flex but have not been fully tested.
         
-    *7) The Adobe Extension Manager is only required for those creating release or testing
+    *7) The Adobe Extension Manager is only required for those creating releases or testing
             changes to the flash-integration swc.  Not that if you change APIs on classes
             that flash-integration depends on, you may need to update flash-integration.
 
@@ -382,7 +382,7 @@ Software Dependencies
 Using the Binary Distribution
 -----------------------------
 
-    You must download the thirdparty dependencies.
+    You must download the third-party dependencies.
 
     When you have all the prerequisites in place and the environment variables set, 
     (see Install Prerequisites above), use
@@ -402,7 +402,7 @@ Building the Framework in a Binary Distribution
         cd <flex.dir>/frameworks
         ant main        (or just ant since the default target is main)
     
-    to download the thirdparty dependencies and build the Flex framework.  You may be 
+    to download the third-party dependencies and build the Flex framework.  You may be 
     prompted to acknowledge some of the downloads.  Since the third-party dependencies 
     take a little while to download and they don't change very often, they are not 
     cleaned with the regular clean target.
