@@ -1630,6 +1630,8 @@
                 <exclude name="**/*.jpg"/>
                 <exclude name="**/*.mp3"/>
                 <exclude name="**/*.flv"/>
+                <!-- exclude batik icon -->
+                <exclude name="modules/thirdparty/batik/sources/*.icns"/>
                 <!--          End of binary files           -->
                 <!-- exclude batik manifests -->
                 <exclude name="modules/thirdparty/batik/sources/*.mf"/>
@@ -1683,7 +1685,7 @@
         <ant dir="${basedir}/mustella" target="clean"/>
         
         <property name="rat.mustella.dir" value="${basedir}/mustella"/>
-        <property name="rat.mustella.report" value="${basedir}/rat.mustella.report"/>
+        <property name="rat.mustella.report" value="rat.mustella.report"/>
                 
         <echo message="Checking files at ${rat.mustella.dir}, report is ${basedir}/${rat.mustella.report}"/>
              
