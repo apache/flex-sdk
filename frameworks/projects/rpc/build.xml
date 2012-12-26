@@ -138,7 +138,10 @@
             
     <target name="clean" depends="bundles-clean">
         <delete failonerror="false">
-            <fileset file="${basedir}/bundles.properties"/>
+			<fileset dir="${basedir}">
+				<include name="bundles.properties"/>
+			    <include name="bundles/en_US/packages.dita"/>
+			</fileset>
             <fileset dir="${FLEX_HOME}/frameworks/libs">
                 <include name="rpc.swc"/>
                 <include name="rpc.swc.incr"/>

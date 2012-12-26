@@ -51,12 +51,12 @@
         </source-path>
         
         <warn-no-constructor>false</warn-no-constructor>
-    </compiler>    
+    </compiler>
 
 	<include-namespaces>
 		 <uri>http://flex.apache.org/ns</uri>
 	</include-namespaces>
-	
+
     <include-classes>
         <class>ApacheClasses</class>
     </include-classes>

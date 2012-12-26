@@ -153,6 +153,10 @@
 	
 	<target name="clean" depends="bundles-clean" description="Deletes the combined swc">
 		<delete failonerror="false">
+			<fileset dir="${basedir}">
+				<include name="bundles.properties"/>
+			    <include name="bundles/en_US/packages.dita"/>
+			</fileset>
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
 				<include name="textLayout.swc"/>
 				<include name="combined_link.xml"/>

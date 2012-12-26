@@ -46,6 +46,7 @@
     <include-resource-bundles>
         <bundle>alert</bundle>
         <bundle>dividers</bundle>
+        <bundle>experimental</bundle>
     </include-resource-bundles>
         
     <target-player>${playerglobal.version}</target-player>
