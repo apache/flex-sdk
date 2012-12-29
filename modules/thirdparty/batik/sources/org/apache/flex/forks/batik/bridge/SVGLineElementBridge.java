@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,16 +20,20 @@ package org.apache.flex.forks.batik.bridge;
 
 import java.awt.geom.Line2D;
 
+import org.apache.flex.forks.batik.dom.svg.AbstractSVGAnimatedLength;
+import org.apache.flex.forks.batik.dom.svg.AnimatedLiveAttributeValue;
+import org.apache.flex.forks.batik.dom.svg.LiveAttributeException;
+import org.apache.flex.forks.batik.dom.svg.SVGOMLineElement;
 import org.apache.flex.forks.batik.gvt.ShapeNode;
 import org.apache.flex.forks.batik.gvt.ShapePainter;
+
 import org.w3c.dom.Element;
-import org.w3c.dom.events.MutationEvent;
 
 /**
  * Bridge class for the &lt;line> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGLineElementBridge.java,v 1.14 2004/08/18 07:12:35 vhardy Exp $
+ * @version $Id: SVGLineElementBridge.java 527382 2007-04-11 04:31:58Z cam $
  */
 public class SVGLineElementBridge extends SVGDecoratedShapeElementBridge {
 
@@ -87,60 +92,53 @@ public class SVGLineElementBridge extends SVGDecoratedShapeElementBridge {
                               Element e,
                               ShapeNode shapeNode) {
 
-        UnitProcessor.Context uctx = UnitProcessor.createContext(ctx, e);
-        String s;
+        try {
+            SVGOMLineElement le = (SVGOMLineElement) e;
 
-        // 'x1' attribute - default is 0
-        s = e.getAttributeNS(null, SVG_X1_ATTRIBUTE);
-        float x1 = 0;
-        if (s.length() != 0) {
-            x1 = UnitProcessor.svgHorizontalCoordinateToUserSpace
-                (s, SVG_X1_ATTRIBUTE, uctx);
+            // 'x1' attribute - default is 0
+            AbstractSVGAnimatedLength _x1 =
+                (AbstractSVGAnimatedLength) le.getX1();
+            float x1 = _x1.getCheckedValue();
+
+            // 'y1' attribute - default is 0
+            AbstractSVGAnimatedLength _y1 =
+                (AbstractSVGAnimatedLength) le.getY1();
+            float y1 = _y1.getCheckedValue();
+
+            // 'x2' attribute - default is 0
+            AbstractSVGAnimatedLength _x2 =
+                (AbstractSVGAnimatedLength) le.getX2();
+            float x2 = _x2.getCheckedValue();
+
+            // 'y2' attribute - default is 0
+            AbstractSVGAnimatedLength _y2 =
+                (AbstractSVGAnimatedLength) le.getY2();
+            float y2 = _y2.getCheckedValue();
+
+            shapeNode.setShape(new Line2D.Float(x1, y1, x2, y2));
+        } catch (LiveAttributeException ex) {
+            throw new BridgeException(ctx, ex);
         }
-
-        // 'y1' attribute - default is 0
-        s = e.getAttributeNS(null, SVG_Y1_ATTRIBUTE);
-        float y1 = 0;
-        if (s.length() != 0) {
-            y1 = UnitProcessor.svgVerticalCoordinateToUserSpace
-                (s, SVG_Y1_ATTRIBUTE, uctx);
-        }
-
-        // 'x2' attribute - default is 0
-        s = e.getAttributeNS(null, SVG_X2_ATTRIBUTE);
-        float x2 = 0;
-        if (s.length() != 0) {
-            x2 = UnitProcessor.svgHorizontalCoordinateToUserSpace
-                (s, SVG_X2_ATTRIBUTE, uctx);
-        }
-
-        // 'y2' attribute - default is 0
-        s = e.getAttributeNS(null, SVG_Y2_ATTRIBUTE);
-        float y2 = 0;
-        if (s.length() != 0) {
-            y2 = UnitProcessor.svgVerticalCoordinateToUserSpace
-                (s, SVG_Y2_ATTRIBUTE, uctx);
-        }
-
-        shapeNode.setShape(new Line2D.Float(x1, y1, x2, y2));
     }
 
     // BridgeUpdateHandler implementation //////////////////////////////////
 
     /**
-     * Invoked when an MutationEvent of type 'DOMAttrModified' is fired.
+     * Invoked when the animated value of an animatable attribute has changed.
      */
-    public void handleDOMAttrModifiedEvent(MutationEvent evt) {
-        String attrName = evt.getAttrName();
-        if (attrName.equals(SVG_X1_ATTRIBUTE) ||
-            attrName.equals(SVG_Y1_ATTRIBUTE) ||
-            attrName.equals(SVG_X2_ATTRIBUTE) ||
-            attrName.equals(SVG_Y2_ATTRIBUTE)) {
-
-            buildShape(ctx, e, (ShapeNode)node);
-            handleGeometryChanged();
-        } else {
-            super.handleDOMAttrModifiedEvent(evt);
+    public void handleAnimatedAttributeChanged
+            (AnimatedLiveAttributeValue alav) {
+        if (alav.getNamespaceURI() == null) {
+            String ln = alav.getLocalName();
+            if (ln.equals(SVG_X1_ATTRIBUTE)
+                    || ln.equals(SVG_Y1_ATTRIBUTE)
+                    || ln.equals(SVG_X2_ATTRIBUTE)
+                    || ln.equals(SVG_Y2_ATTRIBUTE)) {
+                buildShape(ctx, e, (ShapeNode)node);
+                handleGeometryChanged();
+                return;
+            }
         }
+        super.handleAnimatedAttributeChanged(alav);
     }
 }

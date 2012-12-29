@@ -298,10 +298,9 @@
                 <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
                 <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
                 <DispatchKeyEvent char="Kenneth Ray 'Silver' Musican" waitTarget="textInput" waitEvent="change" />
-                <AssertPropertyValue target="textInput" propertyName="text" value="K R 'K' R" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="K R 'S' M" />
             </body>
         </TestCase>
-
 
         <TestCase testID="Gumbo_TextInput_restrict_property_specialChars" description="Checks the default value of the restrict property on an TextInput control" keywords="[FxTextInput, restrict, property]">
             <setup>
@@ -467,7 +466,7 @@
 
                 <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="5" />
 
-                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="8" />
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="9" />
 
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="65" localY="5" target="textInput" waitEvent="mouseMove" waitTarget="textInput" />
 
@@ -475,7 +474,7 @@
 
                 <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="5" />
 
-                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="10" />
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="11" />
 
             </body>
 
@@ -508,15 +507,15 @@
 
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="55" localY="5" target="textInput" waitEvent="mouseMove" waitTarget="textInput" />
 
-                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="10" />
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="11" />
 
-                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="8" />
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="9" />
 
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="35" localY="5" target="textInput" waitEvent="mouseMove" waitTarget="textInput" />
 
                 <DispatchMouseEvent type="mouseUp" localX="35" localY="5" target="textInput" waitEvent="mouseUp" waitTarget="textInput" />
 
-                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="10" />
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="11" />
 
                 <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="5" />
 
@@ -1021,7 +1020,7 @@
 
                 <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
 
-                <SetProperty target="textInput" propertyName="alpha" value="0.1" />
+                <SetProperty target="textInput" propertyName="alpha" value="0.1156" />
                 <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
                 <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
 

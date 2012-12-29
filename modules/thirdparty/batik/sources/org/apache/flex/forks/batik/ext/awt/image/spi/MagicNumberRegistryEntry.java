@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -29,9 +30,11 @@ import java.io.StreamCorruptedException;
  * This base class can handle the compatiblity check based on a list
  * of Magic Numbers that correspond to your format (Some formats have
  * multiple magic numbers associated with them).
+ *
+ * @version $Id: MagicNumberRegistryEntry.java 498740 2007-01-22 18:35:57Z dvholten $
  */
-public abstract class MagicNumberRegistryEntry 
-    extends AbstractRegistryEntry 
+public abstract class MagicNumberRegistryEntry
+    extends AbstractRegistryEntry
     implements StreamRegistryEntry {
 
     public static final float PRIORITY = 1000;
@@ -45,7 +48,7 @@ public abstract class MagicNumberRegistryEntry
         int offset;
         byte [] magicNumber;
         byte [] buffer;
-        
+
         /**
          *  Constructor.
          * @param offset the location of the magic number in file.
@@ -59,7 +62,7 @@ public abstract class MagicNumberRegistryEntry
 
         /**
          * Returns the maximum number of bytes that will be read for
-         * this magic number compairison.  
+         * this magic number compairison.
          */
         int getReadlimit() {
             return offset+magicNumber.length;
@@ -68,7 +71,7 @@ public abstract class MagicNumberRegistryEntry
         /**
          * Performs the check of is.
          */
-        boolean isMatch(InputStream is) 
+        boolean isMatch(InputStream is)
             throws StreamCorruptedException {
             int idx = 0;
             is.mark(getReadlimit());
@@ -79,14 +82,14 @@ public abstract class MagicNumberRegistryEntry
                     if (rn == -1) return false;
                     idx += rn;
                 }
-		
+
                 idx = 0;
                 while (idx < buffer.length) {
                     int rn = is.read(buffer, idx, buffer.length-idx);
                     if (rn == -1) return false;
                     idx += rn;
                 }
-		
+
                 for (int i=0; i<magicNumber.length; i++) {
                     if (magicNumber[i] != buffer[i])
                         return false;
@@ -114,32 +117,89 @@ public abstract class MagicNumberRegistryEntry
      * Constructor, simplifies construction of entry when only
      * one extension and one magic number is required.
      * @param name        Format Name
+     * @param priority    the priority of the RegistryEntry
      * @param ext         Standard extension
+     * @param mimeType    the supported MIME type
+     * @param offset      Offset of magic number
+     * @param magicNumber byte array to match.
+     */
+    public MagicNumberRegistryEntry(String name,
+                                    float priority,
+                                    String ext,
+                                    String mimeType,
+                                    int offset, byte[]magicNumber) {
+        super(name, priority, ext, mimeType);
+        magicNumbers    = new MagicNumber[1];
+        magicNumbers[0] = new MagicNumber(offset, magicNumber);
+    }
+
+    /**
+     * Constructor, simplifies construction of entry when only
+     * one extension and one magic number is required.
+     * @param name        Format Name
+     * @param ext         Standard extension
+     * @param mimeType    the supported MIME type
      * @param offset      Offset of magic number
      * @param magicNumber byte array to match.
      */
     public MagicNumberRegistryEntry(String name,
                                     String ext,
                                     String mimeType,
-                                    int offset, byte[]magicNumber) {
-        super(name, PRIORITY, ext, mimeType);
-        magicNumbers    = new MagicNumber[1];
-        magicNumbers[0] = new MagicNumber(offset, magicNumber);
+                                    int offset, byte[] magicNumber) {
+        this(name, PRIORITY, ext, mimeType, offset, magicNumber);
     }
-    
+
+    /**
+     * Constructor, simplifies construction of entry when only
+     * one extension is required.
+     * @param name         Format Name
+     * @param priority     the priority of the RegistryEntry
+     * @param ext          Standard extension
+     * @param mimeType     the supported MIME type
+     * @param magicNumbers Array of magic numbers any of which can match.
+     */
+    public MagicNumberRegistryEntry(String name,
+                                    float priority,
+                                    String ext,
+                                    String mimeType,
+                                    MagicNumber[] magicNumbers) {
+        super(name, priority, ext, mimeType);
+        this.magicNumbers = magicNumbers;
+    }
+
     /**
      * Constructor, simplifies construction of entry when only
      * one extension is required.
      * @param name         Format Name
      * @param ext          Standard extension
+     * @param mimeType     the supported MIME type
      * @param magicNumbers Array of magic numbers any of which can match.
      */
     public MagicNumberRegistryEntry(String name,
                                     String ext,
                                     String mimeType,
-                                    MagicNumber [] magicNumbers) {
-        super(name, PRIORITY, ext, mimeType);
-        this.magicNumbers = magicNumbers;
+                                    MagicNumber[] magicNumbers) {
+        this(name, PRIORITY, ext, mimeType, magicNumbers);
+    }
+
+    /**
+     * Constructor, simplifies construction of entry when only
+     * one magic number is required.
+     * @param name Format Name
+     * @param priority the priority of the RegistryEntry
+     * @param exts Standard set of extensions
+     * @param mimeTypes array of supported MIME types
+     * @param offset Offset of magic number
+     * @param magicNumber byte array to match.
+     */
+    public MagicNumberRegistryEntry(String    name,
+                                    float     priority,
+                                    String [] exts,
+                                    String [] mimeTypes,
+                                    int offset, byte[]magicNumber) {
+        super(name, priority, exts, mimeTypes);
+        magicNumbers    = new MagicNumber[1];
+        magicNumbers[0] = new MagicNumber(offset, magicNumber);
     }
 
     /**
@@ -147,32 +207,48 @@ public abstract class MagicNumberRegistryEntry
      * one magic number is required.
      * @param name Format Name
      * @param exts Standard set of extensions
+     * @param mimeTypes array of supported MIME types
      * @param offset Offset of magic number
-     * @param magicNumber byte array to match.
+     * @param magicNumbers byte array to match.
      */
     public MagicNumberRegistryEntry(String    name,
                                     String [] exts,
                                     String [] mimeTypes,
-                                    int offset, byte[]magicNumber) {
-        super(name, PRIORITY, exts, mimeTypes);
-        magicNumbers    = new MagicNumber[1];
-        magicNumbers[0] = new MagicNumber(offset, magicNumber);
+                                    int offset, byte[] magicNumbers) {
+        this(name, PRIORITY, exts, mimeTypes, offset, magicNumbers);
     }
-    
+
+    /**
+     * Constructor
+     * @param name Format Name
+     * @param priority the priority of the RegistryEntry
+     * @param exts Standard set of extensions
+     * @param mimeTypes array of supported MIME types
+     * @param magicNumbers array of magic numbers any of which can match.
+     */
+    public MagicNumberRegistryEntry(String    name,
+                                    float     priority,
+                                    String [] exts,
+                                    String [] mimeTypes,
+                                    MagicNumber [] magicNumbers) {
+        super(name, priority, exts, mimeTypes);
+        this.magicNumbers = magicNumbers;
+    }
+
     /**
      * Constructor
      * @param name Format Name
      * @param exts Standard set of extensions
+     * @param mimeTypes array of supported MIME types
      * @param magicNumbers array of magic numbers any of which can match.
      */
     public MagicNumberRegistryEntry(String    name,
                                     String [] exts,
                                     String [] mimeTypes,
                                     MagicNumber [] magicNumbers) {
-        super(name, PRIORITY, exts, mimeTypes);
-        this.magicNumbers = magicNumbers;
+        this(name, PRIORITY, exts, mimeTypes, magicNumbers);
     }
-    
+
     /**
      * Constructor, allows for overriding the default priority of
      * magic number entries.  This should be needed very rarely since
@@ -203,15 +279,15 @@ public abstract class MagicNumberRegistryEntry
         }
         return maxbuf;
     }
-    
+
     /**
      * Check if the stream contains an image that can be
      * handled by this format handler
      */
-    public boolean isCompatibleStream(InputStream is) 
+    public boolean isCompatibleStream(InputStream is)
         throws StreamCorruptedException {
         for (int i=0; i<magicNumbers.length; i++) {
-            if (magicNumbers[i].isMatch(is)) 
+            if (magicNumbers[i].isMatch(is))
                 return true;
         }
 

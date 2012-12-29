@@ -74,7 +74,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="150" target="grp"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
@@ -98,7 +98,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="250" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="250" target="grp"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
@@ -123,58 +123,11 @@
 				<AssertPropertyValue propertyName="contentWidth" value="300" target="myScroll.grp"/>
 				<Pause timeout="1000"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
-        
-        <TestCase testID="VLayout_group_clipAndEnableScrolling_parent_true_children_false" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs for parent but not child">
-		    <setup>
-				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
-				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
-				<SetProperty propertyName="visible" value="false" target="myScroll"/>
-		    </setup>
-		    <body>
-	
-				<RunCode code="application.addRect(application.grp)"/>
-				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="600" waitEvent="updateComplete" waitTarget="grp"/>
-				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="600" waitEvent="updateComplete" waitTarget="grp"/>
-				<SetProperty propertyName="width" value="550" target="grp" waitEvent="updateComplete" />
-				<SetProperty propertyName="height" value="550" target="grp" waitEvent="updateComplete"/>
-				
-				<AssertPropertyValue propertyName="height" value="550" target="grp"/>
-				<AssertPropertyValue propertyName="width" value="550" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="600" target="grp"/>
-				<AssertPropertyValue propertyName="contentWidth" value="600" target="grp"/>
-				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
-		    </body>
-		</TestCase>
-        
-        <TestCase testID="VLayout_group_clipAndEnableScrolling_parent_false_children_true" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs for parent but not child">
-		    <setup>
-				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
-				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
-				<SetProperty propertyName="visible" value="false" target="grp"/>
-		    </setup>
-		    <body>
-			
-				<RunCode code="application.addRect(application.myScroll.grp)"/>
-				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
-				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
-				<SetProperty propertyName="width" value="100" target="myScroll.grp" waitEvent="updateComplete" />
-				<SetProperty propertyName="height" value="100" target="myScroll.grp" waitEvent="updateComplete"/>
-				<Pause timeout="1000"/>
-				
-				<AssertPropertyValue propertyName="height" value="100" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="width" value="100" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="200" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentWidth" value="200" target="myScroll.grp"/>
-				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
-		    </body>
-		</TestCase>
-		
-		<TestCase testID="VLayout_group_clipAndEnableScrolling_child_percent_lessThan" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs for parent but not child">
+                
+ 		<TestCase testID="VLayout_group_clipAndEnableScrolling_child_percent_lessThan" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs for parent but not child">
 		    <setup>
 				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
 				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
@@ -196,7 +149,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="326" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
@@ -226,7 +179,7 @@
 				<AssertPropertyValue propertyName="height" value="206" target="myScroll.grp.getElementAt(1)"/>
 				<AssertPropertyValue propertyName="width" value="400" target="myScroll.grp.getElementAt(1)"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
@@ -324,7 +277,7 @@
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
 				
 				<AssertPropertyValue propertyName="firstIndexInView" value="-1" target="grp.layout"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
@@ -683,7 +636,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="82" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
@@ -706,7 +659,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="162" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
@@ -730,7 +683,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="202" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
@@ -764,11 +717,11 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="652" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="710" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="100" target="grp"/>
 
 				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="30" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
@@ -792,11 +745,10 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="642" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="700" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
 				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
@@ -820,11 +772,11 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="354" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="355" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
 				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="30" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
@@ -851,11 +803,11 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="679" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="737" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="150" target="grp"/>
 
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="30" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
@@ -882,10 +834,10 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="30" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 
@@ -909,14 +861,14 @@
 
 				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
 				<SetProperty propertyName="horizontalAlign" value="left" target="grp.vl" waitEvent="updateComplete" waitTarget="grp"/>
-				<SetProperty propertyName="text" target="grp.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="grp.getElementAt(2)"/>
+				<SetProperty propertyName="text" target="grp.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="grp"/>
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="151" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 
@@ -944,10 +896,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="669" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="727" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
@@ -976,10 +926,10 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="179" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="180" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1007,11 +957,9 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
-			</body>
+		</body>
 		</TestCase>
 
 		<TestCase testID="VLayout_group_horizontalAlign_center_to_contentJustify_change_text" keywords="[VerticalLayout, horizontalAlign]" description="Change horizontalAlign at runtime">
@@ -1042,7 +990,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="151" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1070,10 +1018,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
@@ -1105,7 +1051,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="151" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1132,10 +1078,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="377" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1164,10 +1108,8 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="377" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
@@ -1193,7 +1135,7 @@
 				<SetProperty propertyName="height" value="200" target="myScroll.grp" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1224,10 +1166,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="350" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="365" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="myScroll.grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1256,10 +1196,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="261" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
@@ -1287,10 +1225,8 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="377" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
@@ -1319,10 +1255,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="261" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1349,10 +1283,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="567" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="582" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1379,10 +1311,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1409,10 +1339,8 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1439,10 +1367,8 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1469,10 +1395,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="391" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1500,10 +1424,8 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="391" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
@@ -1532,10 +1454,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="276" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
@@ -1563,10 +1483,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="391" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
@@ -1595,10 +1513,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="276" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1625,10 +1541,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="581" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="582" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1655,10 +1569,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1685,10 +1597,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
@@ -1715,10 +1625,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="367" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 
@@ -1745,10 +1653,8 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="679" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="737" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
@@ -1774,10 +1680,10 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="669" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="727" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				
 			</body>
 		</TestCase>
 
@@ -1803,10 +1709,8 @@
 				
 				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
 				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="381" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="382" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
 			</body>
 		</TestCase>
 		
@@ -2293,7 +2197,7 @@
 				<AssertPropertyValue propertyName="width" value="80" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="144" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
@@ -2314,7 +2218,7 @@
 				<AssertPropertyValue propertyName="width" value="80" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="144" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
@@ -2335,7 +2239,7 @@
 				<AssertPropertyValue propertyName="width" value="110" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="110" target="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 				
@@ -2356,7 +2260,7 @@
 				<AssertPropertyValue propertyName="width" value="110" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="110" target="grp"/>			
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
@@ -2377,7 +2281,7 @@
 				<AssertPropertyValue propertyName="width" value="80" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="94" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
@@ -2398,7 +2302,7 @@
 				<AssertPropertyValue propertyName="width" value="80" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="94" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
@@ -2421,7 +2325,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="60" target="grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
@@ -2442,7 +2346,7 @@
 				<AssertPropertyValue propertyName="width" value="60" target="grp"/>
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="60" target="grp"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
@@ -2468,7 +2372,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="144" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
@@ -2494,7 +2398,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="144" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
@@ -2520,7 +2424,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="110" target="myScroll.grp"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
@@ -2546,7 +2450,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="110" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
@@ -2572,7 +2476,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="94" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="myScroll.grp"/>
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
@@ -2598,7 +2502,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="94" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
@@ -2624,7 +2528,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="60" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 
@@ -2650,7 +2554,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="114" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="60" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>
 		    </body>
 		</TestCase>
 		
@@ -2690,12 +2594,10 @@
 				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 
-				<AssertPropertyValue propertyName="height" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="190" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="430" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<AssertPropertyValue propertyName="contentHeight" value="431" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>		
 			</body>
 		</TestCase>
 		
@@ -2730,10 +2632,10 @@
 				<AssertPropertyValue propertyName="rowCount" value="3" target="myScroll.grp.vl"/>
 				<AssertPropertyValue propertyName="height" value="100" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="100" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>				
 			</body>
 		</TestCase>
 		
@@ -2772,12 +2674,10 @@
 				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(5)" value="80" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 				
 				<AssertPropertyValue propertyName="rowCount" value="4" target="myScroll.grp.vl"/>
-				<AssertPropertyValue propertyName="height" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="190" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="773" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target="myScroll"/>				
+				<AssertPropertyValue propertyName="contentHeight" value="775" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>			
 			</body>
 		</TestCase>
 		
@@ -2803,7 +2703,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="129" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="70" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="15" target=""/>				
 			</body>
 		</TestCase>
 		
@@ -2847,12 +2747,10 @@
 				
 				<AssertPropertyValue propertyName="rowCount" value="6" target="myScroll.grp.vl"/>
 				
-				<AssertPropertyValue propertyName="height" value="424" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="425" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="250" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="370" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="371" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="250" target="myScroll.grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
 			</body>
 		</TestCase>
 		
@@ -2923,9 +2821,9 @@
 				<AssertPropertyValue propertyName="rowCount" value="6" target="myScroll.grp.vl"/>
 				<AssertPropertyValue propertyName="label" value="6" target="rowCountBtn" />	
 
-				<AssertPropertyValue propertyName="height" value="424" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="425" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="250" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="370" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="371" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="250" target="myScroll.grp"/>				
 
 			</body>
@@ -2959,12 +2857,10 @@
 				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
 
-				<AssertPropertyValue propertyName="height" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="width" value="190" target="myScroll.grp"/>
-				<AssertPropertyValue propertyName="contentHeight" value="430" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="431" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
-
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
 			</body>
 		</TestCase>
 
@@ -3001,7 +2897,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="418" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>				
 			</body>
 		</TestCase>
 		
@@ -3037,7 +2933,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="102" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>				
 			</body>
 		</TestCase>
 		
@@ -3084,7 +2980,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="258" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>				
 			</body>
 		</TestCase>
 		<TestCase testID="VLayout_group_rowHeight_typicalLayoutElement_UIComponent" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
@@ -3125,7 +3021,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="129" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>				
 			</body>
 		</TestCase>
 
@@ -3167,7 +3063,7 @@
 				<AssertPropertyValue propertyName="contentHeight" value="324" target="myScroll.grp"/>
 				<AssertPropertyValue propertyName="contentWidth" value="190" target="myScroll.grp"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" ignoreMaxColorVariance="true" target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="12" maxColorVariance="15" target=""/>				
 			</body>
 		</TestCase>
 		

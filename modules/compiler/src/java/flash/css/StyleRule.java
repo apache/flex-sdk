@@ -19,7 +19,7 @@
 
 package flash.css;
 
-import org.w3c.flex.forks.css.sac.SelectorList;
+import org.w3c.css.sac.SelectorList;
 
 /**
  * Represents a CSS style rule.

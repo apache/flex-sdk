@@ -67,10 +67,10 @@
 			embedAsCFF: false;
 		}
 		
-        global{
-            fontFamily: EmbeddedVerdana;
-            fontAntiAliasType: normal;
-        }
+		global{
+			fontFamily: EmbeddedVerdana;
+			fontAntiAliasType: normal;
+		}
     </mx:Style>
 
     <mx:DataGrid id="dg1"  variableRowHeight="true" wordWrap="true" height="200">

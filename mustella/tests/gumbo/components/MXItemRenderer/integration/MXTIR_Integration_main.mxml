@@ -153,7 +153,7 @@ MXItemRenderer Testing - Tree - Integration tests
         <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_DropDownList)}"  />
         <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
 	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
-        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="50" maxColorVariance="1" />
         
     </body>
 </TestCase>
@@ -172,7 +172,7 @@ MXItemRenderer Testing - Tree - Integration tests
 	select dropdown list, verify value is updated?
 	
 	-->
-        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="50" maxColorVariance="1" />
         
     </body>
 </TestCase>
@@ -214,7 +214,8 @@ MXItemRenderer Testing - Tree - Integration tests
         <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
         <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_MixHaloSpark)}"  />
         <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
-        <DispatchMouseEvent target="treeRoot.tree1" type="mouseOver" localX="10" localY="5" />
+        <DispatchMouseEvent target="treeRoot.tree1" type="mouseOver" localX="10" localY="5" waitEvent="mouseOver"/>
+		<WaitForLayoutManager />
 	<CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
        
         
@@ -252,7 +253,7 @@ MXItemRenderer Testing - Tree - Integration tests
                    
                    <DispatchMouseClickEvent target="treeRoot.tree1" localX="228" localY="9" waitEvent="click" waitTarget="treeRoot.tree1"/>
                	<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)"  />
-       
+		<WaitForLayoutManager />
         <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
        
         
@@ -298,7 +299,7 @@ MXItemRenderer Testing - Tree - Integration tests
          	
            <RunCode code="addEmptyBranchDP()" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
    	   <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)"  />
-           <Pause timeout="50"/>
+		  <WaitForLayoutManager />
            <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
              	 
     </body>
@@ -315,7 +316,7 @@ MXItemRenderer Testing - Tree - Integration tests
          	
         <RunCode code="addEmptyBranchDD()" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
         <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)"  />
-        <Pause timeout="50"/>
+		<WaitForLayoutManager />
         <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
 
     </body>
@@ -357,6 +358,7 @@ MXItemRenderer Testing - Tree - Integration tests
         <RunCode code="addEmptyBranchDP2()" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
         <SetProperty propertyName="selectedIndex" value="0" target="treeRoot.tree1" waitEvent="valueCommit" waitTarget="treeRoot.tree1"/>
 	<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandChildrenOf(FlexGlobals.topLevelApplication.treeRoot.tree1.selectedItem, true)"  />
+		<WaitForLayoutManager />
         <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
     </body>
 </TestCase>

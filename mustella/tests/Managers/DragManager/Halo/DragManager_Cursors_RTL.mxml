@@ -20,16 +20,16 @@
 <UnitTester testDir="Managers/DragManager/Halo/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DragManager_customcursors_RTL.mxml">
 
     <mx:Script>
-    <![CDATA[
-       import data.ListDataAS;
-       import comps.DragList;
-       import comps.DragDataGrid;
-        import comps.CustomComp;
+	<![CDATA[
+	   import data.ListDataAS;
+	   import comps.DragList;
+	   import comps.DragDataGrid;
+		import comps.CustomComp;
 
        public static function init(o:DisplayObject):void
-        {
+		{
 
-        }
+		}
 
         private function addData(component:Object): void
         {
@@ -62,14 +62,13 @@
                <SetStyle styleName="direction" value="rtl" target="secondList" />
              </setup>
              <body>
-                <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
-                <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
-                    waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="85" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="10" localY="10"  />
+                <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="10" localY="10" buttonDown="true" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="43" buttonDown="true"
+						waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="60" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="70" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="80" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <CompareBitmap target="secondList" url="../Halo/baselines/$testID.png" timeout="2500" />
                 <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="85" waitTarget="secondList" waitEvent="dragDrop" />
             </body>
@@ -86,19 +85,18 @@
                <RunCode code="addData(application.firstList)" waitTarget="firstList" waitEvent="updateComplete" />
                <ResetComponent target="secondList" className="mx.controls.List" waitTarget="secondList" waitEvent="updateComplete" />
                <SetProperty propertyName="dropEnabled" value="true" target="secondList" />
-               <SetProperty propertyName="width" value="250" target="secondList" />
+               <SetProperty propertyName="width" value="250" target="secondList" />	
                <SetProperty propertyName="layoutDirection" value="rtl" target="secondList" />
                <SetStyle styleName="direction" value="rtl" target="secondList" />
              </setup>
              <body>
-                <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
-                <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+                <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="10" localY="10"  />
+                <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="10" localY="10" buttonDown="true" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="43" buttonDown="true"
                     waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="85" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="60" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="70" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="80" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <CompareBitmap target="secondList" url="../Halo/baselines/$testID.png" timeout="2500" />
                 <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="85" waitTarget="secondList" waitEvent="dragDrop" />
             </body>
@@ -119,14 +117,13 @@
                <SetStyle styleName="direction" value="rtl" target="secondList" />
              </setup>
              <body>
-                <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
-                <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="75" buttonDown="true"
+                <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseOver" localX="10" localY="10"  />
+                <DispatchMouseEvent target="firstList.mx_internal:rendererArray.0.0" type="mouseDown" localX="10" localY="10" buttonDown="true" />
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="43" buttonDown="true"
                     waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="75" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="75" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="75" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-                <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="85" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="60" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="70" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="80" buttonDown="true"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <CompareBitmap target="secondList" url="../Halo/baselines/$testID.png" timeout="2500" />
                 <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="85" />
             </body>

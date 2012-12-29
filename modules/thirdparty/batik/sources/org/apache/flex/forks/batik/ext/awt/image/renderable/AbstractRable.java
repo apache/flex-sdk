@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -44,7 +45,7 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.RenderedImageCachableR
  * implementation.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: AbstractRable.java,v 1.8 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: AbstractRable.java 489226 2006-12-21 00:05:36Z cam $
  */
 public abstract class AbstractRable implements Filter {
 
@@ -199,7 +200,7 @@ public abstract class AbstractRable implements Filter {
         return createScaledRendering(100, 100, null);
     }
 
-    public RenderedImage createScaledRendering(int w, int h, 
+    public RenderedImage createScaledRendering(int w, int h,
                                            RenderingHints hints) {
         float sX = w/getWidth();
         float sY = h/getHeight();
@@ -245,7 +246,7 @@ public abstract class AbstractRable implements Filter {
     public String [] getPropertyNames() {
         Set keys = props.keySet();
         Iterator iter = keys.iterator();
-        String [] ret  = new String[keys.size()];
+        String[] ret  = new String[keys.size()];
         int i=0;
         while (iter.hasNext()) {
             ret[i++] = (String)iter.next();
@@ -257,7 +258,7 @@ public abstract class AbstractRable implements Filter {
             String [] srcProps = ri.getPropertyNames();
             if (srcProps.length != 0) {
                 String [] tmp = new String[ret.length+srcProps.length];
-                System.arraycopy(tmp,0,tmp,0,ret.length);
+                System.arraycopy(ret,0,tmp,0,ret.length);
                 System.arraycopy(tmp,ret.length,srcProps,0,srcProps.length);
                 ret = tmp;
             }
@@ -268,7 +269,7 @@ public abstract class AbstractRable implements Filter {
 
     public boolean isDynamic() { return false; }
 
-    public Shape getDependencyRegion(int srcIndex, 
+    public Shape getDependencyRegion(int srcIndex,
                                      Rectangle2D outputRgn) {
         if ((srcIndex < 0) || (srcIndex > srcs.size()))
             throw new IndexOutOfBoundsException
@@ -280,14 +281,14 @@ public abstract class AbstractRable implements Filter {
         Rectangle2D bounds = getBounds2D();
 
         // Return empty rect if they don't intersect.
-        if (bounds.intersects(srect) == false)
+        if ( ! bounds.intersects(srect) )
             return new Rectangle2D.Float();
-            
+
         Rectangle2D.intersect(srect, bounds, srect);
         return srect;
     }
 
-    public Shape getDirtyRegion(int srcIndex, 
+    public Shape getDirtyRegion(int srcIndex,
                                 Rectangle2D inputRgn) {
         if ((srcIndex < 0) || (srcIndex > srcs.size()))
             throw new IndexOutOfBoundsException
@@ -299,14 +300,14 @@ public abstract class AbstractRable implements Filter {
         Rectangle2D bounds = getBounds2D();
 
         // Return empty rect if they don't intersect.
-        if (bounds.intersects(drect) == false)
+        if ( ! bounds.intersects(drect) )
             return new Rectangle2D.Float();
 
         Rectangle2D.intersect(drect, bounds, drect);
         return drect;
     }
-    
-    
+
+
     /* left for subclass:
        public RenderedImage createRendering(RenderContext rc);
     */

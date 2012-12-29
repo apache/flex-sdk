@@ -27,6 +27,7 @@
              import mx.managers.PopUpManager;
 	         import mx.core.IFlexDisplayObject;
 	         import comps.*;
+ 			 import mx.events.StyleEvent;
 	         import mx.styles.StyleManager;
 	         import mx.core.EmbeddedFontRegistry; EmbeddedFontRegistry;
 
@@ -46,7 +47,21 @@
 
 			public function loadCSS(): void
 			{
+				if (moduleLoaded)
+				{
+					dispatchEvent(new Event("moduleReady"));
+					return;
+				}
 				eventDispatcher = StyleManager.loadStyleDeclarations("assets/idStyles.swf");
+				eventDispatcher.addEventListener(StyleEvent.COMPLETE, completeHandler);
+			}
+			
+			private var moduleLoaded:Boolean = false;
+			
+			private function completeHandler(event:Event):void
+			{
+				moduleLoaded = true;	
+				dispatchEvent(new Event("moduleReady"));
 			}
 
         ]]>

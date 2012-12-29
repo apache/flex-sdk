@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -35,7 +36,7 @@ import org.apache.flex.forks.batik.ext.awt.image.renderable.PadRable8Bit;
  * defined as a GVT Tree.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: PatternPaint.java,v 1.14 2004/08/18 07:14:27 vhardy Exp $ 
+ * @version $Id: PatternPaint.java 478188 2006-11-22 15:19:17Z dvholten $
  */
 public class PatternPaint implements Paint {
 
@@ -98,7 +99,7 @@ public class PatternPaint implements Paint {
         this.patternRegion    = patternRegion;
         this.overflow         = overflow;
         this.patternTransform = patternTransform;
-        
+
         // Wrap the input node so that the primitivePaint
         // in GraphicsNodeRable takes the filter, clip....
         // into account.
@@ -143,10 +144,14 @@ public class PatternPaint implements Paint {
         return patternTransform;
     }
 
+    public boolean getOverflow() {
+        return overflow;
+    }
+
     /**
      * Creates and returns a context used to generate the pattern.
      */
-    public PaintContext createContext(ColorModel      cm, 
+    public PaintContext createContext(ColorModel      cm,
                                       Rectangle       deviceBounds,
                                       Rectangle2D     userBounds,
                                       AffineTransform xform,
@@ -159,18 +164,18 @@ public class PatternPaint implements Paint {
 
         if ((lastContext!= null) &&
             lastContext.getColorModel().equals(cm)) {
-            
-            double p[] = new double[6];
-            double q[] = new double[6];
+
+            double[] p = new double[6];
+            double[] q = new double[6];
             xform.getMatrix(p);
             lastContext.getUsr2Dev().getMatrix(q);
-            if ((p[0] == q[0]) && (p[1] == q[1]) && 
+            if ((p[0] == q[0]) && (p[1] == q[1]) &&
                 (p[2] == q[2]) && (p[3] == q[3])) {
                 if ((p[4] == q[4]) && (p[5] == q[5]))
                     return lastContext;
-                else 
+                else
                     return new PatternPaintContextWrapper
-                        (lastContext, 
+                        (lastContext,
                          (int)(q[4]-p[4]+0.5),
                          (int)(q[5]-p[5]+0.5));
             }
@@ -178,7 +183,7 @@ public class PatternPaint implements Paint {
         // System.out.println("CreateContext Called: " + this);
         // System.out.println("CM : " + cm);
         // System.out.println("xForm : " + xform);
-        
+
         lastContext = new PatternPaintContext(cm, xform,
                                        hints, tile,
                                        patternRegion,

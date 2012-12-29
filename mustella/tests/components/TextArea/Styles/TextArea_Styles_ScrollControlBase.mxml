@@ -81,6 +81,8 @@
 			embedAsCFF: false;
         }
 
+/* These are Flash system fonts.  They can't be replaced with other fonts.
+   
         @font-face {
             src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
             fontFamily: "Hancock";
@@ -92,6 +94,7 @@
             fontFamily: "Vivaldi";
             fontAntiAliasType: "normal";
         }
+*/
     </mx:Style>
 
     <testCases>
@@ -293,6 +296,7 @@
             </body>
         </TestCase>
 
+		<!-- FIXME (aharui) no flashtype font swfs right now
         <TestCase frequency="all" testID="style_fontFamily_flash_vivaldi" keywords="[TextArea,styles,fontFamily]" description="Test setting fontFamily to Vivaldi (Flash type font).">
             <setup>
                 <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
@@ -301,7 +305,12 @@
                 <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
             </setup>
             <body>
-                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Vivaldi.png" />
+                <CompareBitmap target="ta1" url="../Styles/Baselines/$testID.png">
+                    <ConditionalValue os="win"/>
+                </CompareBitmap>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/$testID_mac.png">
+                    <ConditionalValue os="mac"/>
+                </CompareBitmap>
             </body>
         </TestCase>
 
@@ -313,7 +322,12 @@
                 <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
             </setup>
             <body>
-                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Hancock.png" />
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Hancock.png">
+                    <ConditionalValue os="win"/>
+                </CompareBitmap>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Hancock_mac.png">
+                    <ConditionalValue os="mac"/>
+                </CompareBitmap>
             </body>
 
         </TestCase>
@@ -324,11 +338,16 @@
                 <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
                 <SetStyle target="ta1" styleName="fontFamily" value="myArial" />
                 <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
-                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Arial.png" />
-                <SetStyle target="ta1" styleName="fontFamily" value="Vivaldi" waitEvent="updateComplete" waitTarget="ta1" />
             </setup>
             <body>
-                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Vivaldi.png" />
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Arial.png" />
+                <SetStyle target="ta1" styleName="fontFamily" value="Vivaldi" waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Styles/Baselines/$testID.png">
+                    <ConditionalValue os="win"/>
+                </CompareBitmap>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/$testID_mac.png">
+                    <ConditionalValue os="mac"/>
+                </CompareBitmap>
             </body>
         </TestCase>
 
@@ -338,14 +357,19 @@
                 <SetStyle target="ta1" styleName="fontFamily" value="Hancock" />
                 <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
                 <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
-                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Hancock.png" />
-                <SetStyle target="ta1" styleName="fontFamily" value="myArial" waitEvent="updateComplete" waitTarget="ta1" />
             </setup>
             <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Hancock.png">
+                    <ConditionalValue os="win"/>
+                </CompareBitmap>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Hancock_mac.png">
+                    <ConditionalValue os="mac"/>
+                </CompareBitmap>
+                <SetStyle target="ta1" styleName="fontFamily" value="myArial" waitEvent="updateComplete" waitTarget="ta1" />
                 <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Arial.png" />
             </body>
         </TestCase>
-
+		-->
         <TestCase frequency="all" testID="style_fontSize_default" keywords="[TextArea,styles,fontSize]" description="Test the default fontSize.">
             <setup>
                 <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
@@ -422,7 +446,7 @@
             <setup>
                 <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
                 <SetProperty target="ta1" propertyName="width" value="150" />
-                <SetProperty target="ta1" propertyName="height" value="150" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
                 <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." />
                 <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
                 <SetStyle target="ta1" styleName="fontSize" value="127" waitEvent="updateComplete" />
@@ -439,7 +463,7 @@
             <setup>
                 <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
                 <SetProperty target="ta1" propertyName="width" value="150" />
-                <SetProperty target="ta1" propertyName="height" value="150" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
                 <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." />
                 <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
                 <SetStyle target="ta1" styleName="fontSize" value="128" waitEvent="updateComplete" />

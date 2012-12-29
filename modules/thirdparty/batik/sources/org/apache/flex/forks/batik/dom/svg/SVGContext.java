@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,9 +25,15 @@ import java.awt.geom.Rectangle2D;
  * This interface is the placeholder for SVG application informations.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGContext.java,v 1.15 2004/10/08 16:12:01 deweese Exp $
+ * @version $Id: SVGContext.java 478249 2006-11-22 17:29:37Z dvholten $
  */
 public interface SVGContext {
+
+    // Constants for percentage interpretation.
+    int PERCENTAGE_FONT_SIZE       = 0;
+    int PERCENTAGE_VIEWPORT_WIDTH  = 1;
+    int PERCENTAGE_VIEWPORT_HEIGHT = 2;
+    int PERCENTAGE_VIEWPORT_SIZE   = 3;
 
     /**
      * Returns the size of a px CSS unit in millimeters.
@@ -87,5 +94,4 @@ public interface SVGContext {
      * Returns the font-size on the associated element.
      */
     float getFontSize();
-
 }

@@ -57,7 +57,7 @@
 
 		<TestCase frequency="all" testID="Preloader_params5_appParameterURLs" description="Confirm that application.parameters.resourceModuleURLs was available when preinitialize occurred." keywords="[resources,Preloader,application.parameters.resourceModuleURLs]">
 			<body>
-                <AssertMethodValue method="value=application.appParamURLs" value="Assets/resources/custom/enCustomResources_bundle1_001.swf,http://localhost/browser/resources/Preloader/SWFs/Assets/resources/custom/frCustomResources_bundle1_001.swf,Assets/resources/custom/enCustomResources_bundle2_001.swf,http://localhost/browser/resources/Preloader/SWFs/Assets/resources/custom/en_fr_jaCustomResources_bundles1_2_001.swf" />
+                <AssertMethodValue method="value=application.appParamURLs" value="Assets/resources/custom/enCustomResources_bundle1_001.swf,http://localhost:{portNumber}/browser/resources/Preloader/SWFs/Assets/resources/custom/frCustomResources_bundle1_001.swf,Assets/resources/custom/enCustomResources_bundle2_001.swf,http://localhost:{portNumber}/browser/resources/Preloader/SWFs/Assets/resources/custom/en_fr_jaCustomResources_bundles1_2_001.swf" />
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>

@@ -845,9 +845,9 @@
 		        <DispatchMouseClickEvent target="myVSlider" localX="7" localY="77" />
 		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
 
-		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
-				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myVSlider" />				
-				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />	        
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" buttonDown="true"  />				
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" />	        
 	        
 		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
 	        	        	        	    				

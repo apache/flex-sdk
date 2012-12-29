@@ -20,8 +20,8 @@
 <mx:Application 
     backgroundColor="0xFFFFFF" 
     backgroundImage="" 
-    height="500" 
-    width="700" 
+    height="800" 
+    width="1000" 
     xmlns:mx="http://www.adobe.com/2006/mxml" 
     xmlns="*" >
 
@@ -32,23 +32,23 @@
 	
 	
    	<mx:Style>
-	@namespace "library://ns.adobe.com/flex/mx";
+	    @namespace "library://ns.adobe.com/flex/mx";
 		@font-face {
-			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
 			fontFamily: EmbeddedArial;
 			embedAsCFF: false;
 		}
 
 		@font-face {
-			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
-			fontWeight: bold;			
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
 			fontFamily: EmbeddedArial;
 			embedAsCFF: false;
 		}
 
 		@font-face {
-			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
-			fontStyle: italic;			
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
 			fontFamily: EmbeddedArial;
 			embedAsCFF: false;
 		}

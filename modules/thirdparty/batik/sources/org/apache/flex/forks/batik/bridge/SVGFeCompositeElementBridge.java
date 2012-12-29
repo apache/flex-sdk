@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -34,7 +35,7 @@ import org.w3c.dom.Element;
  * Bridge class for the &lt;feComposite> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGFeCompositeElementBridge.java,v 1.15 2004/08/18 07:12:33 vhardy Exp $
+ * @version $Id: SVGFeCompositeElementBridge.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class SVGFeCompositeElementBridge
     extends AbstractSVGFilterPrimitiveElementBridge {
@@ -79,7 +80,7 @@ public class SVGFeCompositeElementBridge
                                Map filterMap) {
 
         // 'operator' attribute - default is 'over'
-        CompositeRule rule = convertOperator(filterElement);
+        CompositeRule rule = convertOperator(filterElement, ctx);
 
         // 'in' attribute
         Filter in = getIn(filterElement,
@@ -137,8 +138,10 @@ public class SVGFeCompositeElementBridge
      * filter primitive element.
      *
      * @param filterElement the feComposite filter element
+     * @param ctx the BridgeContext to use for error information
      */
-    protected static CompositeRule convertOperator(Element filterElement) {
+    protected static CompositeRule convertOperator(Element filterElement,
+                                                   BridgeContext ctx) {
         String s = filterElement.getAttributeNS(null, SVG_OPERATOR_ATTRIBUTE);
         if (s.length() == 0) {
             return CompositeRule.OVER; // default is over
@@ -159,13 +162,14 @@ public class SVGFeCompositeElementBridge
             return CompositeRule.XOR;
         }
         if (SVG_ARITHMETIC_VALUE.equals(s)) {
-            float k1 = convertNumber(filterElement, SVG_K1_ATTRIBUTE, 0);
-            float k2 = convertNumber(filterElement, SVG_K2_ATTRIBUTE, 0);
-            float k3 = convertNumber(filterElement, SVG_K3_ATTRIBUTE, 0);
-            float k4 = convertNumber(filterElement, SVG_K4_ATTRIBUTE, 0);
+            float k1 = convertNumber(filterElement, SVG_K1_ATTRIBUTE, 0, ctx);
+            float k2 = convertNumber(filterElement, SVG_K2_ATTRIBUTE, 0, ctx);
+            float k3 = convertNumber(filterElement, SVG_K3_ATTRIBUTE, 0, ctx);
+            float k4 = convertNumber(filterElement, SVG_K4_ATTRIBUTE, 0, ctx);
             return CompositeRule.ARITHMETIC(k1, k2, k3, k4);
         }
-        throw new BridgeException(filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                                  new Object[] {SVG_OPERATOR_ATTRIBUTE, s});
+        throw new BridgeException
+            (ctx, filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+             new Object[] {SVG_OPERATOR_ATTRIBUTE, s});
     }
 }

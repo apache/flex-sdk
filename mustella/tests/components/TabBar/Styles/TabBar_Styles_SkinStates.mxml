@@ -96,7 +96,9 @@
                 <WaitForEffectsToEnd />
             </setup>
             <body>
-                <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_Embeding_JPG.png" timeout="5000" />
+                <CompareBitmap target="tb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase> 
         <TestCase testID="TabBar_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, TabBar]" >
@@ -109,7 +111,9 @@
             </setup>
             <body>
 
-                <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="tb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="TabBar_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, TabBar]" >
@@ -121,7 +125,10 @@
                 <WaitForEffectsToEnd />
             </setup>
             <body>
-                <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap target="tb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
+
             </body>
         </TestCase>     
         <TestCase testID="TabBar_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, TabBar]" >
@@ -134,7 +141,9 @@
                 <WaitForEffectsToEnd />
             </setup>
             <body>
-                <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab.png" timeout="5000" />
+                <CompareBitmap target="tb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="TabBar_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, TabBar]" >
@@ -147,7 +156,9 @@
                 <WaitForEffectsToEnd />
             </setup>
             <body>
-                <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap target="tb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="TabBar_Styles_SkinStates_Embeding_JPG_Disabled" keywords="[disabled, SkinStates,EmbedJPG, TabBar]" >
@@ -391,7 +402,9 @@
                 <WaitForEffectsToEnd />
             </setup>
             <body>
-                <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_runtime_JPG.png" timeout="5000" />
+                <CompareBitmap target="tb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase> 
 
@@ -434,8 +447,9 @@
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
                 <RunCode code="addData(0);" />
                 <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
-                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
-                <WaitForEffectsToEnd />
+				<!-- don't wait for mouse event so we don't miss the complete event -->
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tb" /> 
+                <WaitForEvent eventName="complete" target="tb.getChildAt(0).currentSkin.overImage" timeout="10000"/> 
             </setup>
             <body>
                 <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab.png" timeout="5000" />
@@ -446,34 +460,43 @@
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
                 <RunCode code="addData(0);" />
                 <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
-                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
+				<!-- don't wait for mouse event so we don't miss the complete event -->
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tb" /> 
+                <WaitForEvent eventName="complete" target="tb.getChildAt(1).currentSkin.overImage" timeout="5000"/> 
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab.png" timeout="5000" />
             </body>
         </TestCase>     
+        <!-- TabBars select the tab on mouse down instead of click. -->
         <TestCase testID="TabBar_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab" keywords="[enabled, SkinStates,runtimeSWF, TabBar]" >
             <setup>
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
-                <RunCode code="addData(0);" />
-                <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
+				<RunCode code="addData(0);" />
+				<SetProperty target="tb" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="tb" />
+                <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" /> 
+				<WaitForEvent eventName="complete" target="tb.getChildAt(0).currentSkin.selectedUpImage" timeout="5000" /> 
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tb" waitEvent="mouseDown" waitTarget="tb" /> 
-                <WaitForEffectsToEnd />
+                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab.png" timeout="5000" />
             </body>
         </TestCase>
+        <!-- TabBars select the tab on mouse down instead of click. -->
         <TestCase testID="TabBar_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWF, TabBar]" >
             <setup>
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
                 <RunCode code="addData(0);" />
                 <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tb" waitEvent="rollOver" waitTarget="tb" /> 
-                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tb" waitEvent="mouseDown" waitTarget="tb" /> 
-                <WaitForEffectsToEnd />
+                <!-- don't wait for mouse up event so we don't miss the complete event -->
+                <DispatchMouseEvent type="mouseDown" localX="100" localY="9" target="tb"/> 
+                <WaitForEvent eventName="complete" target="tb.getChildAt(1).currentSkin.selectedUpImage" timeout="5000" /> 
+                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab.png" timeout="5000" />
@@ -484,8 +507,12 @@
                 <ResetComponent target="tb" className="mx.controls.TabBar"  waitEvent="updateComplete" waitTarget="tb"/>
                 <RunCode code="addData(0);" />
                 <SetStyle target="tb" styleName="tabStyleName" value="myTabBarSWFRunTime" waitEvent="updateComplete" waitTarget="tb" /> 
-                <SetProperty target="tb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tb"/>
+                <!-- don't wait for the updateComplete event so we don't miss the complete event for the load of the first tab -->
+                <SetProperty target="tb" propertyName="enabled" value="false"/>
+                <WaitForEvent eventName="complete" target="tb.getChildAt(0).getChildAt(0).disabledImage" /> 
+                <!-- need to wait for all three tabs to load the disabledImage -->
                 <WaitForEffectsToEnd />
+                <WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tb" url="../Styles/baselines/TabBar_Styles_SkinStates_runtime_Disabled_SWF.png" timeout="5000" />

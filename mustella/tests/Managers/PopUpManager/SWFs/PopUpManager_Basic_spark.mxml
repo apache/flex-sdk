@@ -67,7 +67,7 @@
 				embedAsCFF: false;
 			}		
 	 
-	 		mx|TextInput, mx|Button, mx|Panel, mx|Label {
+	 		mx|TextInput, mx|Button, mx|Panel, mx|Label, mx|DateChooser, mx|TitleWindow {
 	 			fontAntiAliasType: "normal";
 				fontFamily: MyArialHalo;
 				fontSize: 12;

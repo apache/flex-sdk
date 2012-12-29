@@ -641,8 +641,18 @@ public class Runner {
 
 			// let's not bother with this one anymore
 
-			if (currentArg.endsWith (".swf"))
+			if (currentArg.endsWith (".swf")) {
+				if (server.inputHandler != null && server.inputHandler.inWaitLoop)
+				{
+					server.inputHandler.abortWaitLoop = true;
+					while (server.inputHandler.inWaitLoop)
+					{
+						Thread.sleep (10);
+					}					
+				}
+				startedCases.clear();
 				doexec (currentArg);
+			}
 			else {
 				System.out.println ("Skipping: " + currentArg);
 				continue;
@@ -900,6 +910,9 @@ public class Runner {
 
 			System.out.println ("TROUBLE on the log copy.");
 
+			if (e.getLocalizedMessage() != null)
+				System.out.println(e.getLocalizedMessage());
+			
 			/// if we're depending on the log, note that we're bailing here
 			if (getResultsFromLog)
 				unpackResult (sourceName, "Missing Results");
@@ -1020,6 +1033,7 @@ public class Runner {
 
 
 	private static final String winDir = "Application Data";
+	private static final String win7Dir = "AppData/Roaming";
 	private static final String macEnd = "Library/Preferences/Macromedia/Flash Player/Logs/flashlog.txt";
 	private static final String linuxEnd = ".macromedia/Flash_Player/Logs/flashlog.txt";
 	private static final String winEnd = "Macromedia/Flash Player/Logs/flashlog.txt";
@@ -1028,16 +1042,22 @@ public class Runner {
 
 	private static String getLogSource() {
 
-
 		String start= System.getProperties ().getProperty ("user.home");
 		String ret = null;
 
 		String tmp = null;
 		String os = System.getProperties ().getProperty ("os.name");
 
-
 		/// need testing of the mac & Linux parts of this.
-		if (os.indexOf ("Windows") !=  -1) {
+		// Just guessing that "Windows Vista" is the correct string for Vista.
+
+		// On Windows 7 the value of user.home is the registry key
+		// "[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\Desktop]"
+		// with the last directory stripped.
+
+		if (os.indexOf ("Windows 7") != -1 || os.indexOf ("Windows Vista") != -1) {
+			ret = start + File.separator + win7Dir + File.separator + winEnd;
+		} else if (os.indexOf ("Windows") !=  -1) {
 			ret = start + File.separator + winDir + File.separator + winEnd;
 		} else if (os.indexOf ("Linux") !=  -1) {
 			ret = start + File.separator + linuxEnd;
@@ -1569,7 +1589,18 @@ public class Runner {
 
 		public void clobberProcess (boolean timedOut) {
 
-			System.out.println ("clobberProcess");
+			System.out.println ("clobberProcess " + timedOut);
+			if (!timedOut)
+			{
+				int wait = 0;
+				while (wait < 5000 && p != null)
+				{
+					try { Thread.sleep (100);
+					}catch (Exception e)  {}
+					wait += 100;
+				}
+				System.out.println ("waited " + wait);
+			}
 			if (p != null) {
 
 				if (coverage_timeout > 0) {
@@ -1580,6 +1611,7 @@ public class Runner {
 				}
 
 				try {
+					System.out.println ("ClobberProcess, destroying process");
 					p.destroy();
 				} catch (Exception e)
 					{ System.out.println("attempt to destroy process failed, but could be natural ending"); e.printStackTrace();
@@ -1664,9 +1696,12 @@ public class Runner {
 				e.printStackTrace();
 			}
 
+			p = null;
+			
 			/// if we got here, it's done
 			running = false;
-
+			System.out.println ("Total Results so far: " + localResultStore.size());
+			
 		}
 
 	}
@@ -1678,7 +1713,7 @@ public class Runner {
 	/**
 	 * Server object
 	 */
-	LocalListener server = null;
+	public LocalListener server = null;
 
 
 	public void cleanup() throws Exception {
@@ -1797,7 +1832,13 @@ public class Runner {
 		}
 
 		// System.out.println ("BA: started, excluded: " + startedCases.size() + " "+ excluded);
-
+		for (int i=0;i<startedCases.size();i++) {
+			try {
+				System.out.println((String)startedCases.get(i) + " not finished yet");
+			} catch (Exception e) {
+			}
+		}
+		
 
 
 		return (startedCases.size() - excluded);
@@ -2049,6 +2090,8 @@ public class Runner {
 		}
 
 
+		public InputHandler inputHandler;
+		
 		ServerSocket ss = null; /// 4/19 added moved to inst, was local to run
 
 		public void run () {
@@ -2065,8 +2108,9 @@ public class Runner {
 
 					try {
 
-					Socket s = ss.accept ();
-					new InputHandler (s).start();
+						Socket s = ss.accept ();
+						inputHandler = new InputHandler (s);
+						inputHandler.start();
 
 					} catch (Exception e) {
 						// System.out.println ("broke out of the socket loop");
@@ -2162,7 +2206,8 @@ public class Runner {
 		}
 
 
-
+		public boolean inWaitLoop = false;
+		public boolean abortWaitLoop = false;
 
 		public void handleDone (String line) {
 			currentExec.setDone();
@@ -2284,7 +2329,9 @@ public class Runner {
 				lastUpdate = System.currentTimeMillis();
 				handleStepTimeout(line);
 			} else if (line.indexOf (scriptDone) != -1) {
-				/// System.out.println ("SCRIPTDONE! " + sdf.format(new Date()));
+				String timeStamp = sdf.format(new Date());
+				System.out.println ("SCRIPTDONE! " + timeStamp);
+				System.out.println (line);
 				lastUpdate = System.currentTimeMillis();
 				killAllTimers ();
 				killMetaTimer();
@@ -2300,27 +2347,36 @@ public class Runner {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-
+					
 					// hack, just in case a result is still processing
 					// wait a little to check for other socket action:
 					int waiting = balanceAccounts(Integer.parseInt(s_tc_done));
 
+					System.out.println ("Before Wait loop " + timeStamp + " waiting = " + waiting);
+					
 					while (waiting > 0) {
+						inWaitLoop = true;
+						if (abortWaitLoop) {
+							abortWaitLoop = false;
+							break;
+						}
 						try { Thread.sleep (100); } catch (Exception e) { }
 						allowed++;
 						// System.out.println ("Current wait is: " + (allowed*100) + " vs timeout: " + timeout);
 						if ( (allowed*100) > timeout) {
 							if (waiting > 0)
-								System.out.println ("Bailing, waited too long for results");
+								System.out.println ("Bailing, waited too long for results " + timeStamp);
 							break;
 						}
 
 						waiting = balanceAccounts(Integer.parseInt(s_tc_done));
 
 						if (allowed%10==0)
-							System.out.println ("Waiting for results...");
+							System.out.println ("In wait loop " + timeStamp + ": Waiting for results...");
 					}
 					allowed = 0;
+					inWaitLoop = false;
+					System.out.println ("After Wait loop " + timeStamp + " waiting = " + waiting);
 
 
 					lastUpdate = System.currentTimeMillis();

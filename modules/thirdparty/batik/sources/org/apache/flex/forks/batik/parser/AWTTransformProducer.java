@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,7 +26,7 @@ import java.io.Reader;
  * an AffineTransform from the value of a 'transform' attribute.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: AWTTransformProducer.java,v 1.8 2005/03/27 08:58:35 cam Exp $
+ * @version $Id: AWTTransformProducer.java 501495 2007-01-30 18:00:36Z dvholten $
  */
 public class AWTTransformProducer implements TransformListHandler {
     /**
@@ -93,7 +94,7 @@ public class AWTTransformProducer implements TransformListHandler {
      */
     public void rotate(float theta) throws ParseException {
         affineTransform.concatenate
-            (AffineTransform.getRotateInstance(Math.PI * theta / 180));
+            (AffineTransform.getRotateInstance( Math.toRadians( theta ) ));
     }
 
     /**
@@ -101,7 +102,7 @@ public class AWTTransformProducer implements TransformListHandler {
      */
     public void rotate(float theta, float cx, float cy) throws ParseException {
         AffineTransform at
-            = AffineTransform.getRotateInstance(Math.PI * theta / 180, cx, cy);
+            = AffineTransform.getRotateInstance( Math.toRadians( theta ), cx, cy);
         affineTransform.concatenate(at);
     }
 
@@ -140,8 +141,7 @@ public class AWTTransformProducer implements TransformListHandler {
      */
     public void skewX(float skx) throws ParseException {
         affineTransform.concatenate
-            (AffineTransform.getShearInstance(Math.tan(Math.PI * skx / 180),
-                                              0));
+            (AffineTransform.getShearInstance(Math.tan( Math.toRadians( skx ) ), 0));
     }
 
     /**
@@ -149,8 +149,7 @@ public class AWTTransformProducer implements TransformListHandler {
      */
     public void skewY(float sky) throws ParseException {
         affineTransform.concatenate
-            (AffineTransform.getShearInstance(0,
-                                              Math.tan(Math.PI * sky / 180)));
+            (AffineTransform.getShearInstance(0, Math.tan( Math.toRadians( sky ) )));
     }
 
     /**

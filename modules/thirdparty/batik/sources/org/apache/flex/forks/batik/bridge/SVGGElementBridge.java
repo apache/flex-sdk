@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -30,7 +31,7 @@ import org.w3c.dom.events.MutationEvent;
  * Bridge class for the &lt;g> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGGElementBridge.java,v 1.26 2004/08/20 19:29:46 deweese Exp $
+ * @version $Id: SVGGElementBridge.java 491178 2006-12-30 06:18:34Z cam $
  */
 public class SVGGElementBridge extends AbstractGraphicsNodeBridge {
 
@@ -63,8 +64,10 @@ public class SVGGElementBridge extends AbstractGraphicsNodeBridge {
     public GraphicsNode createGraphicsNode(BridgeContext ctx, Element e) {
         CompositeGraphicsNode gn =
             (CompositeGraphicsNode)super.createGraphicsNode(ctx, e);
-	if (gn == null)
-	    return null;
+        if (gn == null)
+            return null;
+
+        associateSVGContext(ctx, e, gn);
 
         // 'color-rendering'
         RenderingHints hints = null;
@@ -100,19 +103,21 @@ public class SVGGElementBridge extends AbstractGraphicsNodeBridge {
      * Invoked when an MutationEvent of type 'DOMNodeInserted' is fired.
      */
     public void handleDOMNodeInsertedEvent(MutationEvent evt) {
-        if ( evt.getTarget() instanceof Element ){
+        if (evt.getTarget() instanceof Element) {
             handleElementAdded((CompositeGraphicsNode)node, 
                                e, 
                                (Element)evt.getTarget());
+        } else {
+            super.handleDOMNodeInsertedEvent(evt);
         }
     }
 
     /**
      * Invoked when an MutationEvent of type 'DOMNodeInserted' is fired.
      */
-    public void handleElementAdded(CompositeGraphicsNode gn, 
-                                   Node parent, 
-                                   Element childElt) {
+    protected void handleElementAdded(CompositeGraphicsNode gn, 
+                                      Node parent, 
+                                      Element childElt) {
         // build the graphics node
         GVTBuilder builder = ctx.getGVTBuilder();
         GraphicsNode childNode = builder.build(ctx, childElt);

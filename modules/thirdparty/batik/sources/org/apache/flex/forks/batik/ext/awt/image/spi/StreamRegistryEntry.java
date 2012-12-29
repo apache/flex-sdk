@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -29,6 +30,8 @@ import org.apache.flex.forks.batik.util.ParsedURL;
  * to check if it is "compatible" if you return true then you will
  * likely be asked to provide the decoded image next.
  * @see MagicNumberRegistryEntry
+ *
+ * @version $Id: StreamRegistryEntry.java 498740 2007-01-22 18:35:57Z dvholten $
  */
 public interface StreamRegistryEntry extends RegistryEntry {
 
@@ -37,7 +40,7 @@ public interface StreamRegistryEntry extends RegistryEntry {
      * supported by mark on the InputStream for this
      * to check the stream for compatibility.
      */
-    public int getReadlimit();
+    int getReadlimit();
 
     /**
      * Check if the Stream references an image that can be handled by
@@ -49,9 +52,9 @@ public interface StreamRegistryEntry extends RegistryEntry {
      *
      * This method should only throw a StreamCorruptedException if it
      * is unable to restore the state of the InputStream
-     * (i.e. mark/reset fails basically).  
+     * (i.e. mark/reset fails basically).
      */
-    public boolean isCompatibleStream(InputStream is) 
+    boolean isCompatibleStream(InputStream is)
         throws StreamCorruptedException;
 
     /**
@@ -66,10 +69,10 @@ public interface StreamRegistryEntry extends RegistryEntry {
      * @param origURL The original URL, if any, for documentation
      *                purposes only.  This may be null.
      * @param needRawData If true the image returned should not have
-     *                    any default color correction the file may 
-     *                    specify applied.  
+     *                    any default color correction the file may
+     *                    specify applied.
      */
-    public Filter handleStream(InputStream is, 
+    Filter handleStream(InputStream is,
                                ParsedURL   origURL,
                                boolean     needRawData);
 }

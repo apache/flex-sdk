@@ -1854,7 +1854,7 @@ public class VideoPlayer extends SkinnableComponent
         }
         else if (instance == muteButton)
         {
-            playButton.removeEventListener(FlexEvent.MUTED_CHANGE, muteButton_mutedChangeHandler);
+            muteButton.removeEventListener(FlexEvent.MUTED_CHANGE, muteButton_mutedChangeHandler);
         }
         else if (instance == volumeBar)
         {

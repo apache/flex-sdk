@@ -69,9 +69,9 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 			</setup>
 			<body>
-				<AssertPropertyValue target="defaultDG" propertyName="height" value="294"/>
-				<AssertPropertyValue target="defaultDG" propertyName="width" value="253"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.defaultDG.grid.getRowBounds(2).height" value="27"/>
+				<AssertPropertyValue target="defaultDG" propertyName="height" value="286"/>
+				<AssertPropertyValue target="defaultDG" propertyName="width" value="250"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.defaultDG.grid.getRowBounds(2).height" value="26"/>
 				<CompareBitmap target="defaultDG" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>		
@@ -83,9 +83,9 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 			</setup>
 			<body>
-				<AssertPropertyValue target="defaultDG" propertyName="height" value="294"/>
-				<AssertPropertyValue target="defaultDG" propertyName="width" value="253"/>				
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.defaultDG.grid.getRowBounds(2).height" value="27"/>
+				<AssertPropertyValue target="defaultDG" propertyName="height" value="286"/>
+				<AssertPropertyValue target="defaultDG" propertyName="width" value="250"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.defaultDG.grid.getRowBounds(2).height" value="26"/>
 			</body>
 		</TestCase>		
 	
@@ -134,9 +134,9 @@
 				<Pause timeout="2000"/>
 			</setup>
 			<body>
-				<AssertPropertyValue target="defaultDG_typItem" propertyName="height" value="294"/>
+				<AssertPropertyValue target="defaultDG_typItem" propertyName="height" value="286"/>
 				<AssertPropertyValue target="defaultDG_typItem" propertyName="width" value="273"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.defaultDG_typItem.grid.getRowBounds(2).height" value="27"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.defaultDG_typItem.grid.getRowBounds(2).height" value="26"/>
 				<CompareBitmap target="defaultDG_typItem" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>		
@@ -148,9 +148,9 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 			</setup>
 			<body>
-				<AssertPropertyValue target="defaultDG_typItem" propertyName="height" value="294"/>
+				<AssertPropertyValue target="defaultDG_typItem" propertyName="height" value="286"/>
 				<AssertPropertyValue target="defaultDG_typItem" propertyName="width" value="273"/>				
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.defaultDG_typItem.grid.getRowBounds(2).height" value="27"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.defaultDG_typItem.grid.getRowBounds(2).height" value="26"/>
 			</body>
 		</TestCase>		
 	
@@ -162,7 +162,7 @@
 			</setup>
 			<body>
 				<AssertPropertyValue target="defaultDG_typItem" propertyName="height" value="84"/>
-				<AssertPropertyValue target="defaultDG_typItem" propertyName="width" value="208"/>				
+				<AssertPropertyValue target="defaultDG_typItem" propertyName="width" value="211"/>				
 				<CompareBitmap target="defaultDG_typItem" url="../Properties/Baselines/$testID.png"/>
 			</body>
 		</TestCase>			

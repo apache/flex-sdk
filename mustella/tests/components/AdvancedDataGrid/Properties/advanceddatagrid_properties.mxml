@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/AdvancedDataGrid/Properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AdvancedDataGridMain.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.DateChooser;
+	import mx.controls.AdvancedDataGrid;
+	import mx.controls.advancedDataGridClasses.*
+	 import mx.collections.GroupingField;
+        import mx.collections.Grouping;
+	import mx.containers.Canvas;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.collections.*;
+	public var mydatagrid:AdvancedDataGrid
+	public var mybox:Canvas;
+	public function genericCleanUp():void
+	{
+	 mydatagrid= stringToObject ("mydatagrid") as AdvancedDataGrid;
+	 mybox = stringToObject ("box") as Canvas;
+	 mybox = new Canvas();
+		mydatagrid = new AdvancedDataGrid();
+		
+		application.startIt();
+		
+	}
+	public function addItems():void
+	{
+	   for(var i:int=0;i<15;i++)
+	   {
+	      var obj:Object={col1:'one'+i,col2:i,col3:'three'+i}
+	      application.mydatagrid.dataProvider.addItem(obj);
+	   }
+	   
+	}
+        public function addBigItems():void
+        {
+           application.mydatagrid.height=250;
+            application.mydatagrid.dataProvider.removeAll()
+            var str1:String=" "
+            var str2:String="two two "
+            var str3:String=" "
+            var dummytext:String ="The Quick Brown Fox Jumped over the lazy dog"
+            for(var i:int=0;i<25;i++)
+            {
+                for(var j:int=0;j<5;j++)
+                {
+                   str1+=dummytext;
+                   str3+=dummytext;
+                }
+                var obj:Object = {col1:str1,col2:str2+i,col3:str3}
+                application.mydatagrid.dataProvider.addItem(obj);
+            }
+            trace(application.mydatagrid.rowHeight);
+        }
+        private function getItem():String
+        {
+           return application.mydatagrid.dataProvider.getItemAt(0).col2;
+        }
+        private function setWidth():void
+        {
+           application.mydatagrid.width=100;
+        }
+        private function showSelectedItem():void
+        {
+           application.ti.text= String(application.mydatagrid.editedItemPosition.columnIndex);
+        }
+        private function resetWidth():void
+        {
+           application.mydatagrid.horizontalScrollPolicy="off"
+           application.mydatagrid.width=250;
+           
+        }
+        private function getCurrentSelection():String
+        {
+           return String(application.mydatagrid.dataProvider.getItemAt(application.mydatagrid.selectedIndex).col2)
+        }
+        private function getCurrentSelections():String
+        {
+           var count:Number =0;
+               if(application.mydatagrid.dataProvider.getItemAt(application.mydatagrid.selectedIndices[0]).col2==3)
+              {
+                count++
+              }
+              if(application.mydatagrid.dataProvider.getItemAt(application.mydatagrid.selectedIndices[1]).col2==2)
+	      {
+	        count++
+              }
+              if(application.mydatagrid.dataProvider.getItemAt(application.mydatagrid.selectedIndices[2]).col2==0)
+	      {
+	        count++
+              }
+              
+           return String(count);
+        }
+        private function setSelectedIndices():void
+        {
+        
+           application.mydatagrid.selectedIndices=[1,3,4];
+        }
+        
+         public function startApp():void
+	{
+	  application.startIt();
+        }
+        private function changeColWidth():void
+        {
+          application.mydatagrid.columns[0].width=20
+          if(application.mydatagrid.columns[0].width==30)
+          {
+            application.ti.text="pass"
+          }
+        }
+        private function setEditedItemPosition():void
+        {
+          application.mydatagrid.editedItemPosition={rowIndex:1,columnIndex:1};
+        }
+        
+        private function setHSpos():void
+        {
+          application.mydatagrid.horizontalScrollPosition++;
+          if(application.mydatagrid.horizontalScrollPosition==1)
+          {
+            application.ti.text="pass";
+          }
+        }
+        private function addCols():void
+        {
+          var dgc:AdvancedDataGridColumn = new AdvancedDataGridColumn()
+          dgc.dataField="col1";
+          dgc.headerText = "new column1"
+          dgc.width=100
+          var dgc1:AdvancedDataGridColumn = new AdvancedDataGridColumn()
+	  dgc1.dataField="col1";
+	  dgc1.headerText = "new column2"
+          dgc1.width=100
+          application.mydatagrid.columns=[dgc,dgc1];
+        }
+        private function geteditorInstance():void
+        {
+          if(application.mydatagrid.editedItemRenderer!=null)
+	  {
+	     application.ti.text="pass";
+          }
+        }
+        private function getitemeditorinstance():void
+        {
+           if(application.mydatagrid.itemEditorInstance!=null)
+	   {
+	   	     application.ti.text="pass";
+           }
+        }
+        private function applyGrouping():void
+        {
+           var gc:GroupingCollection = new GroupingCollection();
+	   gc.source = application.mydatagrid.dataProvider;
+	   //gc.groupLabelField = "Group";
+	   var group:Grouping = new Grouping();
+	   group.fields = [new GroupingField("col1"), new GroupingField("col2")];
+	   gc.grouping = group;	   
+	  // application.mydatagrid.groupLabelField = "Group";
+	   application.mydatagrid.dataProvider = gc;
+        }
+        private function applyTreeView():void
+        {
+            var fs2:Object = 
+	   	       
+	   			   {fileName:"mxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmx", Summary:"true", children: [
+	   
+	   			   {fileName: "utils", children: [
+	   
+	   			   {fileName: "StringUtil.as", Summary:"true", size:"5563  bytes", lastModified:"October 6, 2006", type:"File", attributes:"Read Only"},
+	   
+	   			   {fileName: "ArrayUtil.as", size:"2509  bytes", lastModified:"June 12, 2006", type:"File", attributes:"Read Only"}]},
+	   
+	   			   {fileName:"accessibility", size:"1724 bytes", lastModified:"October 6, 2006", Summary:"false", children: [
+	   
+	   			   {fileName:"DataGridAccImpl.as DataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.as", size:"17045  bytes", lastModified:"November 2, 2006", type:"File", attributes:"Read Only"},
+	   
+	   			   {fileName:"AccImpl.as", Summary:"true", size:"7263 bytes", lastModified:"June 1, 2006", type:"File", attributes:"Read Only"}]},
+	   
+	   			   {fileName: "controls", children: [
+	   
+	   			   {fileName: "DataGrid.as", size:"169825  bytes", lastModified:"December 6, 2006", type:"File", attributes:"Read Only"},
+	   
+	   			   {fileName: "dataGridClasses", children: [
+	   
+	   		           {fileName: "DataGridItemRenderer.as", size:"18587  bytes", lastModified:"November 20, 2006", type:"File", attributes:"Read Only"},
+	   
+	   		           {fileName: "DataGridBase.as", size:"36419  bytes", lastModified:"December 6, 2006", type:"File", attributes:"Read Only"}]}]}
+	   
+	   
+	   
+		       ]};
+		       var hc:HierarchicalData = new HierarchicalData(fs2)
+		       application.mydatagrid.columns[0].dataField = "fileName"
+		       application.mydatagrid.columns[1].dataField = "size"
+		       application.mydatagrid.columns[2].dataField = "lastModified"
+		       //Force dataField change
+		       application.mydatagrid.dataProvider.refresh();
+		       application.mydatagrid.dataProvider= hc;
+        }
+        //Note to self
+        //resizable columns and sortableColumns are getter setter checks, revisit.
+       
+	]]>
+	</mx:Script>
+	
+	<testCases>
+	<!--
+	        
+			<TestCase testID="datagrid_own_properties_sortableColumns" keywords="[dsdsf]">
+                             <setup>
+			      <SetProperty target="mydatagrid" propertyName="enabled" value="false" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                              <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+                              
+                               <RunCode code="addItems()"/>
+                             </setup>
+                             <body>
+                                  
+                                  
+                                  <SetProperty target="mydatagrid" propertyName="sortableColumns" value="true" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                                  <DispatchMouseEvent target="mydatagrid" type="mouseOver" localX="72" localY="14"/>
+                                  <DispatchMouseEvent target="mydatagrid" type="mouseDown" localX="72" localY="14"/>
+                                  <DispatchMouseEvent target="mydatagrid" type="mouseUp" localX="72" localY="14"/>
+                                  <AssertMethodValue target="mydatagrid" method="value=getItem()" value="two"/>
+                                 <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+                                  <RunCode code="addItems()"/>
+                                  <SetProperty target="mydatagrid" propertyName="sortableColumns" value="false" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                                  <DispatchMouseEvent target="mydatagrid" type="mouseOver" localX="72" localY="14"/>
+			          <DispatchMouseEvent target="mydatagrid" type="mouseDown" localX="72" localY="14"/>
+                                  <DispatchMouseEvent target="mydatagrid" type="mouseUp" localX="72" localY="14"/>
+                                  <AssertMethodValue target="mydatagrid" method="value=getItem()" value="two"/>
+				   <SetProperty target="mydatagrid" propertyName="enabled" value="false" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                             </body>
+	                </TestCase>
+	-->                
+	            
+	                  
+	                  <TestCase testID="datagrid_own_properties_mincolumnwidth" keywords="[AdvancedDataGrid, sortableColumns, mouseOver,enabled, editable]">
+			      <setup>
+				
+				 <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+			     </setup>
+			     <body>
+				  <SetProperty target="mydatagrid" propertyName="minColumnWidth" value="30" waitTarget="mydatagrid" waitEvent="updateComplete" />
+				  <RunCode code="changeColWidth()"/>
+				  <AssertPropertyValue target="ti" propertyName="text" value="pass"/>
+			     </body>
+			  </TestCase> 
+	                   <TestCase testID="datagrid_own_properties_resizableColumns" keywords="[AdvancedDataGrid, sortableColumns, mouseOver,enabled, editable]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <SetProperty target="mydatagrid" propertyName="resizableColumns" value="false" />
+			     </setup>
+			     <body>
+				  <AssertPropertyValue target="mydatagrid" propertyName="resizableColumns" value="false"/>
+
+			     </body>
+                           </TestCase>
+			   <TestCase testID="datagrid_own_properties_sortableColumns" keywords="[AdvancedDataGrid, sortableColumns, mouseOver,enabled, editable]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <SetProperty target="mydatagrid" propertyName="sortableColumns" value="false" />
+			     </setup>
+			     <body>
+				  <AssertPropertyValue target="mydatagrid" propertyName="sortableColumns" value="false"/>
+
+			     </body>
+	                   </TestCase>
+			   <TestCase testID="datagrid_own_properties_horizontalScrollPosition" keywords="[AdvancedDataGrid, sortableColumns, mouseOver,enabled, editable]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <SetProperty target="mydatagrid" propertyName="horizontalScrollPolicy" value="on" />
+			     </setup>
+			     <body>
+				  <RunCode code="setHSpos()"/>
+				  <AssertPropertyValue target="ti" propertyName="text" value="pass"/>
+
+			     </body>
+			  </TestCase>
+			 <!--
+			   <TestCase testID="datagrid_own_properties_columns" keywords="[columns]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        
+				  <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <RunCode code="addCols()"/>
+			     </setup>
+			     <body>
+			          <SetProperty target="mydatagrid" propertyName="selectedIndex" value="1" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                                  <Pause timeout="1000"/>
+                                  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_columns.png" timeout="1000"/>
+			     </body>
+			  </TestCase>
+			  -->
+			  <TestCase testID="datagrid_own_properties_editeditemrenderer" keywords="[editeditemrenderer]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        
+				  <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <SetProperty target="mydatagrid" propertyName="editable" value="true"/>
+				  <RunCode code="setEditedItemPosition()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				
+			     </setup>
+			     <body>
+			          <RunCode code="geteditorInstance()"/>
+				  <AssertPropertyValue propertyName="text" target="ti" value="pass"/>
+				  <DispatchMouseClickEvent target="mydatagrid" localX="244" localY="14"/>
+			     </body>
+			  </TestCase>
+  
+			  <TestCase testID="datagrid_own_properties_itemEditorInstance" keywords="[itemeditorinstance]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        
+				  <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <SetProperty target="mydatagrid" propertyName="editable" value="true"/>
+				  <RunCode code="setEditedItemPosition()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+
+			     </setup>
+			     <body>
+				  <RunCode code="getitemeditorinstance()"/>
+				  <AssertPropertyValue propertyName="text" target="ti" value="pass"/>
+				  <DispatchMouseClickEvent target="mydatagrid" localX="244" localY="14"/>
+			     </body>
+			  </TestCase>
+			
+	                  
+			  
+			  <TestCase testID="datagrid_own_properties_draggablecolumns_true" keywords="[draggablecolumns]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        
+				  <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <SetProperty target="mydatagrid" propertyName="draggableColumns" value="true"/>
+				  
+
+			     </setup>
+			     <body>
+			    
+			          <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_state1.png" timeout="1000" numColorVariances="1" maxColorVariance="2"/>
+			          <DispatchMouseEvent target="mydatagrid" type="mouseDown" localX="244" localY="14"/>
+			          
+			          <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="150" localY="14"/>
+			         
+				  <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="112" localY="14"/>
+				 
+				  <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="87" localY="14"/>
+				  
+				  <DispatchMouseEvent target="mydatagrid" type="mouseUp" buttonDown="true" localX="87" localY="14"/>
+				  <Pause timeout="1000"/>
+				  
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_state2.png" timeout="1000" numColorVariances="1" maxColorVariance="2"/>
+				  
+			     </body>
+			  </TestCase>
+			 
+			  <TestCase testID="datagrid_own_properties_draggablecolumns_false" keywords="[draggablecolumns_false]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        
+				  <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <SetProperty target="mydatagrid" propertyName="draggableColumns" value="false"/>
+
+
+			     </setup>
+			     <body>
+			        
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_false_state1.png" numColorVariances="1" maxColorVariance="2"/>
+				  <DispatchMouseEvent target="mydatagrid" type="mouseDown" localX="244" localY="14"/>
+
+				  <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="150" localY="14"/>
+
+				  <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="112" localY="14"/>
+
+				  <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="87" localY="14"/>
+
+				  <DispatchMouseEvent target="mydatagrid" type="mouseUp" buttonDown="true" localX="87" localY="14"/>
+				  <Pause timeout="100"/>
+				  <Pause timeout="1000"/>
+				  <CompareBitmap timeout="1000" target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_false_state2.png" numColorVariances="1" maxColorVariance="2"/>
+
+			     </body>
+			  </TestCase>
+			  <TestCase testID="datagrid_own_properties_applygrouping" keywords="[applygrouping]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        
+				  <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <RunCode code="applyGrouping()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+
+
+			     </setup>
+			     <body>
+				  <Pause timeout="1000"/>
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_groupedview.png" timeout="1000"/>
+				  
+
+			     </body>
+			  </TestCase>
+			  <TestCase testID="datagrid_own_properties_treeview" keywords="[TDG view]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        
+				  <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <RunCode code="applyTreeView()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+
+
+			     </setup>
+			     <body>
+                                 <Pause timeout="1000"/>
+				 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_treeview.png" timeout="1000"/>
+
+			     </body>
+			  </TestCase>
+			  
+			  <TestCase testID="datagrid_own_properties_selectionMode_flat_single" keywords="[selectionMode flat single cell]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        
+				  <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				
+                                  <SetProperty target="mydatagrid" propertyName="selectionMode" value="singleCell"/>
+
+			     </setup>
+			     <body>
+                                  <DispatchMouseClickEvent target="mydatagrid" localX="244" localY="35"/>
+                                  <Pause timeout="1000"/>
+				 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_singlecellselection.png" timeout="1000" numColorVariances="1" maxColorVariance="2"/>
+
+			     </body>
+			  </TestCase>
+			 
+			<TestCase testID="datagrid_own_properties_selectionMode_flat_multiple" keywords="[selectionMode flat multiple cell]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        
+				  <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+
+				    <SetProperty target="mydatagrid" propertyName="selectionMode" value="multipleCells"/>
+
+			     </setup>
+			     <body>
+				    <DispatchMouseClickEvent target="mydatagrid" localX="244" localY="35"/>
+				    <DispatchKeyEvent keys="['DOWN','SPACE']"/>
+				    <Pause timeout="1000"/>
+				 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_multicellselection.png" timeout="1000" numColorVariances="1" maxColorVariance="2"/>
+
+			     </body>
+			  </TestCase>
+			 
+			 <TestCase testID="datagrid_own_properties_selectionMode_tree_singlecell" keywords="[selectionMode tree single cell]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        
+				  <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <RunCode code="applyTreeView()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <RunCode code="application.mydatagrid.expandAll()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+
+				    <SetProperty target="mydatagrid" propertyName="selectionMode" value="singleCell"/>
+
+			     </setup>
+			     <body>
+				    <DispatchMouseClickEvent target="mydatagrid" localX="100" localY="35"/>
+				   
+				    <Pause timeout="1000"/>
+				 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_tree_singlecellselection.png" timeout="1000" numColorVariances="1" maxColorVariance="2"/>
+
+			     </body>
+			  </TestCase>			    
+                         <TestCase testID="datagrid_own_properties_selectionMode_tree_multicells" keywords="[selectionMode tree single cell]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        
+				  <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <RunCode code="applyTreeView()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <RunCode code="application.mydatagrid.expandAll()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+
+				    <SetProperty target="mydatagrid" propertyName="selectionMode" value="multipleCells"/>
+
+			     </setup>
+			     <body>
+				    <DispatchMouseClickEvent target="mydatagrid" localX="100" localY="35"/>
+                                    <DispatchKeyEvent keys="['DOWN','SPACE']"/>
+				    <Pause timeout="1000"/>
+				    <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_tree_multicellselection.png" timeout="1000" numColorVariances="1" maxColorVariance="2"/>
+
+			     </body>
+			  </TestCase>
+			   
+	                 <TestCase testID="datagrid_own_properties_selectionMode_tree_displayitemsexpanded" keywords="[displayitemsexpanded]">
+			      <setup>
+
+				  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        
+				  <RunCode code="startApp()"/>
+				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				  <RunCode code="applyTreeView()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+			
+
+				    <SetProperty target="mydatagrid" propertyName="displayItemsExpanded" value="true"/>
+
+			     </setup>
+			     <body>
+				    
+				    <Pause timeout="1000"/>
+				    <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_tree_displayitemsexpanded.png" timeout="1000" numColorVariances="1" maxColorVariance="2"/>
+
+			     </body>
+			  </TestCase>
+			    <!--  
+			-->
+			  <!--
+			  <TestCase testID="datagrid_own_properties_editedItemPosition" keywords="[AdvancedDataGrid, sortableColumns, mouseOver,enabled, editable]">
+			  			      <setup>
+			  
+			  				 <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid"/>				        <RunCode code="startApp()"/>
+			  				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+			  			     </setup>
+			  			     <body>
+			  				  <SetProperty target="mydatagrid" propertyName="editable" value="true" />
+			  				  <RunCode code="setEditedItemPosition()"/>
+			  				  <Pause timeout="100"/>
+			  				  <WaitForEffectsToEnd />
+			  				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_editeditempos.png"/>
+			  				<DispatchMouseClickEvent target="mydatagrid" localX="244" localY="14"/>
+			  				  
+			  			     </body>
+			  </TestCase> 
+			  
+			  	                <TestCase testID="datagrid_own_properties_editable" keywords="[AdvancedDataGrid, sortableColumns, mouseOver,enabled, editable]">
+			  			      <setup>
+			  				   <SetProperty target="mydatagrid" propertyName="enabled" value="false" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+			  				 <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+			  				  <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+			  			     </setup>
+			  			     <body>
+			  			          <SetProperty target="mydatagrid" propertyName="editable" value="true" />
+			  			          <DispatchMouseEvent target="mydatagrid" type="mouseOver" localX="26" localY="36"/>
+			  			          <DispatchMouseEvent target="mydatagrid" type="mouseDown" localX="26" localY="36"/>
+			  			          <DispatchMouseEvent target="mydatagrid" type="mouseUp" localX="26" localY="36" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+			  			          <RunCode code="showSelectedItem()"/>
+			  			          <AssertPropertyValue target="ti" propertyName="text" value="0"/>
+			  			          
+			  			     </body>
+			  			  </TestCase> 
+			  			  
+			  			  <TestCase testID="datagrid_own_properties_horizontalScrollPosition" keywords="[AdvancedDataGrid, sortableColumns, mouseOver,enabled, horizontalScrollPosition]">
+			  			      <setup>
+			  				   <SetProperty target="mydatagrid" propertyName="enabled" value="false" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+			  				 <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+			  				  <RunCode code="addItems()"/>
+			  				  <RunCode code="setWidth()"/>
+			  				  
+			  			     </setup>
+			  			     <body>
+			  			         <SetProperty target="mydatagrid" propertyName="editable" value="false" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+			  			          <DispatchMouseEvent target="mydatagrid" type="mouseOver" localX="72" localY="14"/>
+			  				  <DispatchMouseEvent target="mydatagrid" type="mouseDown" localX="72" localY="14"/>
+			                                    <DispatchMouseEvent target="mydatagrid" type="mouseUp" localX="72" localY="14"/>
+			  			          <SetProperty target="mydatagrid" propertyName="horizontalScrollPolicy" value="on"/>
+			  			          <SetProperty target="mydatagrid" propertyName="horizontalScrollPosition" value="2"/>
+			  			          <SetProperty target="mydatagrid" propertyName="editable" value="true"/>
+			  			          
+			  			          <DispatchMouseEvent target="mydatagrid" type="mouseOver" localX="26" localY="36"/>
+			  				  <DispatchMouseEvent target="mydatagrid" type="mouseDown" localX="26" localY="36"/>
+			  			          <DispatchMouseEvent target="mydatagrid" type="mouseUp" localX="26" localY="36" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+			  			           <RunCode code="showSelectedItem()"/>
+			  			          <AssertPropertyValue target="ti" propertyName="text" value="2"/>
+			  			          <RunCode code="resetWidth()"/>
+			  				   <SetProperty target="mydatagrid" propertyName="enabled" value="false" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+			  			         
+			  			     </body>
+	                  </TestCase>
+			  -->
+			 
+			  
+		
+	</testCases>                
+	     
+</UnitTester>

@@ -287,7 +287,7 @@
 			   <Pause timeout="100" />
 			   <SetProperty target="swfLoader1" propertyName="autoLoad" value="false" />
 			   <SetProperty target="swfLoader1" propertyName="loadForCompatibility" value="false" />
-			   <SetProperty target="swfLoader1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/DragMXMLComp.swf?272_6?272_6?272_6" waitTarget="swfLoader1" waitEvent="updateComplete"/>
+			   <SetProperty target="swfLoader1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/DragMXMLComp.swf?param=CustomDrag_UnTrusted" waitTarget="swfLoader1" waitEvent="updateComplete"/>
 			   <SetProperty target="swfLoader1" propertyName="autoLoad" value="true" waitTarget="swfLoader1" waitEvent="complete"/>
 			</setup>
 			<body>

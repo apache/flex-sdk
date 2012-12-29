@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,7 +22,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 /**
- * @version $Id: HheaTable.java,v 1.3 2004/08/18 07:15:21 vhardy Exp $
+ * @version $Id: HheaTable.java 475477 2006-11-15 22:44:28Z cam $
  * @author <a href="mailto:david@steadystate.co.uk">David Schweinsberg</a>
  */
 public class HheaTable implements Table {
@@ -37,7 +38,7 @@ public class HheaTable implements Table {
     private short caretSlopeRise;
     private short caretSlopeRun;
     private short metricDataFormat;
-    private short numberOfHMetrics;
+    private int   numberOfHMetrics;
 
     protected HheaTable(DirectoryEntry de,RandomAccessFile raf) throws IOException {
         raf.seek(de.getOffset());
@@ -55,7 +56,7 @@ public class HheaTable implements Table {
             raf.readShort();
         }
         metricDataFormat = raf.readShort();
-        numberOfHMetrics = raf.readShort();
+        numberOfHMetrics = raf.readUnsignedShort();
     }
 
     public short getAdvanceWidthMax() {
@@ -94,7 +95,7 @@ public class HheaTable implements Table {
         return minRightSideBearing;
     }
 
-    public short getNumberOfHMetrics() {
+    public int getNumberOfHMetrics() {
         return numberOfHMetrics;
     }
 

@@ -57,7 +57,7 @@ package com.adobe.internal.fxg.dom.types;
  *    luminosity
  * </pre>
  * 
- * The following was introduced in FXG 2.0 which acts like blendMode=îlayerî except when alpha is 0 or 1, in which case it acts like blendMode=înormalî
+ * The following was introduced in FXG 2.0 which acts like blendMode=√Ælayer√Æ except when alpha is 0 or 1, in which case it acts like blendMode=√Ænormal√Æ
  * <pre>
  * 		auto
  * </pre>

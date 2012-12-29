@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,43 +18,74 @@
  */
 package org.apache.flex.forks.batik.dom.svg;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
+import org.apache.flex.forks.batik.dom.anim.AnimationTargetListener;
+import org.apache.flex.forks.batik.anim.values.AnimatableValue;
 import org.apache.flex.forks.batik.css.dom.CSSOMSVGColor;
 import org.apache.flex.forks.batik.css.dom.CSSOMSVGPaint;
-import org.apache.flex.forks.batik.css.dom.CSSOMSVGStyleDeclaration;
+import org.apache.flex.forks.batik.css.dom.CSSOMStoredStyleDeclaration;
 import org.apache.flex.forks.batik.css.dom.CSSOMValue;
 import org.apache.flex.forks.batik.css.engine.CSSEngine;
 import org.apache.flex.forks.batik.css.engine.CSSStylableElement;
 import org.apache.flex.forks.batik.css.engine.SVGCSSEngine;
+import org.apache.flex.forks.batik.css.engine.StyleDeclarationProvider;
 import org.apache.flex.forks.batik.css.engine.StyleMap;
 import org.apache.flex.forks.batik.css.engine.value.Value;
 import org.apache.flex.forks.batik.css.engine.value.svg.SVGColorManager;
 import org.apache.flex.forks.batik.css.engine.value.svg.SVGPaintManager;
 import org.apache.flex.forks.batik.dom.AbstractDocument;
+import org.apache.flex.forks.batik.util.DoublyIndexedTable;
+import org.apache.flex.forks.batik.util.ParsedURL;
+import org.apache.flex.forks.batik.util.SVGTypes;
+
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.css.CSSValue;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedString;
+import org.w3c.dom.svg.SVGAnimatedString;
 
 /**
  * This class provides a common superclass for elements which implement
  * SVGStylable.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGStylableElement.java,v 1.17 2005/02/22 09:13:01 cam Exp $
+ * @version $Id: SVGStylableElement.java 592621 2007-11-07 05:58:12Z cam $
  */
 public abstract class SVGStylableElement
     extends SVGOMElement
     implements CSSStylableElement {
 
     /**
+     * Table mapping XML attribute names to TraitInformation objects.
+     */
+    protected static DoublyIndexedTable xmlTraitInformation;
+    static {
+        DoublyIndexedTable t =
+            new DoublyIndexedTable(SVGOMElement.xmlTraitInformation);
+        t.put(null, SVG_CLASS_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_CDATA));
+        xmlTraitInformation = t;
+    }
+
+    /**
      * The computed style map.
      */
     protected StyleMap computedStyleMap;
+
+    /**
+     * The override style declaration for this element.
+     */
+    protected OverrideStyleDeclaration overrideStyleDeclaration;
+
+    /**
+     * The 'class' attribute value.
+     */
+    protected SVGOMAnimatedString className;
+
+    /**
+     * The 'style' attribute value.
+     */
+    protected StyleDeclaration style;
 
     /**
      * Creates a new SVGStylableElement object.
@@ -68,10 +100,37 @@ public abstract class SVGStylableElement
      */
     protected SVGStylableElement(String prefix, AbstractDocument owner) {
         super(prefix, owner);
+        initializeLiveAttributes();
     }
-    
+
+    /**
+     * Initializes all live attributes for this element.
+     */
+    protected void initializeAllLiveAttributes() {
+        super.initializeAllLiveAttributes();
+        initializeLiveAttributes();
+    }
+
+    /**
+     * Initializes the live attribute values of this element.
+     */
+    private void initializeLiveAttributes() {
+        className = createLiveAnimatedString(null, SVG_CLASS_ATTRIBUTE);
+    }
+
+    /**
+     * Returns the override style declaration for this element.
+     */
+    public CSSStyleDeclaration getOverrideStyle() {
+        if (overrideStyleDeclaration == null) {
+            CSSEngine eng = ((SVGOMDocument) getOwnerDocument()).getCSSEngine();
+            overrideStyleDeclaration = new OverrideStyleDeclaration(eng);
+        }
+        return overrideStyleDeclaration;
+    }
+
     // CSSStylableElement //////////////////////////////////////////
-    
+
     /**
      * Returns the computed style of this element/pseudo-element.
      */
@@ -102,19 +161,15 @@ public abstract class SVGStylableElement
 
     /**
      * Returns the CSS base URL of this element.
+     * @throws IllegalArgumentException when the result of getBaseURI()
+     *         cannot be used as an URL.
      */
-    public URL getCSSBase() {
-        try {
-            String bu = XMLBaseSupport.getCascadedXMLBase(this);
-            if (bu == null) {
-                return null;
-            }
-            return new URL(bu);
-        } catch (MalformedURLException e) {
-            // !!! TODO
-            e.printStackTrace();
-            throw new InternalError();
+    public ParsedURL getCSSBase() {
+        if (getXblBoundElement() != null) {
+            return null;
         }
+        String bu = getBaseURI();
+        return bu == null ? null : new ParsedURL(bu);
     }
 
     /**
@@ -132,25 +187,81 @@ public abstract class SVGStylableElement
         return false;
     }
 
+    /**
+     * Returns the object that gives access to the underlying
+     * {@link org.apache.flex.forks.batik.css.engine.StyleDeclaration} for the override
+     * style of this element.
+     */
+    public StyleDeclarationProvider getOverrideStyleDeclarationProvider() {
+        return (StyleDeclarationProvider) getOverrideStyle();
+    }
+
+    // AnimationTarget ///////////////////////////////////////////////////////
+
+    /**
+     * Updates a property value in this target.
+     */
+    public void updatePropertyValue(String pn, AnimatableValue val) {
+        CSSStyleDeclaration over = getOverrideStyle();
+        if (val == null) {
+            over.removeProperty(pn);
+        } else {
+            over.setProperty(pn, val.getCssText(), "");
+        }
+    }
+
+    /**
+     * Returns whether color interpolations should be done in linear RGB
+     * color space rather than sRGB.
+     */
+    public boolean useLinearRGBColorInterpolation() {
+        CSSEngine eng = ((SVGOMDocument) getOwnerDocument()).getCSSEngine();
+        Value v = eng.getComputedStyle(this, null,
+                                       SVGCSSEngine.COLOR_INTERPOLATION_INDEX);
+        return v.getStringValue().charAt(0) == 'l';
+    }
+
+    /**
+     * Adds a listener for changes to the given attribute value.
+     */
+    public void addTargetListener(String ns, String an, boolean isCSS,
+                                  AnimationTargetListener l) {
+        if (isCSS && svgContext != null) {
+            ((SVGAnimationTargetContext) svgContext).addTargetListener(an, l);
+        } else {
+            super.addTargetListener(ns, an, isCSS, l);
+        }
+    }
+
+    /**
+     * Removes a listener for changes to the given attribute value.
+     */
+    public void removeTargetListener(String ns, String an, boolean isCSS,
+                                     AnimationTargetListener l) {
+        if (isCSS) {
+            ((SVGAnimationTargetContext)svgContext).removeTargetListener(an, l);
+        } else {
+            super.removeTargetListener(ns, an, isCSS, l);
+        }
+    }
+
     // SVGStylable support ///////////////////////////////////////////////////
 
     /**
-     * <b>DOM</b>: Implements {@link org.w3c.flex.forks.dom.svg.SVGStylable#getStyle()}.
+     * <b>DOM</b>: Implements {@link org.w3c.dom.svg.SVGStylable#getStyle()}.
      */
     public CSSStyleDeclaration getStyle() {
-        CSSStyleDeclaration result =
-            (CSSStyleDeclaration)getLiveAttributeValue(null,
-                                                       SVG_STYLE_ATTRIBUTE);
-        if (result == null) {
+        if (style == null) {
             CSSEngine eng = ((SVGOMDocument)getOwnerDocument()).getCSSEngine();
-            result = new StyleDeclaration(eng);
+            style = new StyleDeclaration(eng);
+            putLiveAttributeValue(null, SVG_STYLE_ATTRIBUTE, style);
         }
-        return result;
+        return style;
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGStylable#getPresentationAttribute(String)}.
+     * org.w3c.dom.svg.SVGStylable#getPresentationAttribute(String)}.
      */
     public CSSValue getPresentationAttribute(String name) {
         CSSValue result = (CSSValue)getLiveAttributeValue(null, name);
@@ -159,7 +270,7 @@ public abstract class SVGStylableElement
 
         CSSEngine eng = ((SVGOMDocument)getOwnerDocument()).getCSSEngine();
         int idx = eng.getPropertyIndex(name);
-        if (idx == -1) 
+        if (idx == -1)
             return null;
 
         if (idx > SVGCSSEngine.FINAL_INDEX) {
@@ -175,27 +286,37 @@ public abstract class SVGStylableElement
             case SVGCSSEngine.STROKE_INDEX:
                 result = new PresentationAttributePaintValue(eng, name);
                 break;
-                
+
             case SVGCSSEngine.FLOOD_COLOR_INDEX:
             case SVGCSSEngine.LIGHTING_COLOR_INDEX:
             case SVGCSSEngine.STOP_COLOR_INDEX:
                 result = new PresentationAttributeColorValue(eng, name);
                 break;
-                
+
             default:
                 result = new PresentationAttributeValue(eng, name);
             }
         }
         putLiveAttributeValue(null, name, (LiveAttributeValue)result);
+        if (getAttributeNS(null, name).length() == 0) {
+            return null;
+        }
         return result;
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGStylable#getClassName()}.
+     * org.w3c.dom.svg.SVGStylable#getClassName()}.
      */
     public SVGAnimatedString getClassName() {
-        return getAnimatedStringAttribute(null, SVG_CLASS_ATTRIBUTE);
+        return className;
+    }
+
+    /**
+     * Returns the table of TraitInformation objects for this element.
+     */
+    protected DoublyIndexedTable getTraitInformationTable() {
+        return xmlTraitInformation;
     }
 
     /**
@@ -506,16 +627,9 @@ public abstract class SVGStylableElement
      * This class represents the 'style' attribute.
      */
     public class StyleDeclaration
-        extends CSSOMSVGStyleDeclaration
+        extends CSSOMStoredStyleDeclaration
         implements LiveAttributeValue,
-                   CSSOMSVGStyleDeclaration.ValueProvider,
-                   CSSOMSVGStyleDeclaration.ModificationHandler,
                    CSSEngine.MainPropertyReceiver {
-        
-        /**
-         * The associated CSS object.
-         */
-        protected org.apache.flex.forks.batik.css.engine.StyleDeclaration declaration;
 
         /**
          * Whether the mutation comes from this object.
@@ -526,62 +640,11 @@ public abstract class SVGStylableElement
          * Creates a new StyleDeclaration.
          */
         public StyleDeclaration(CSSEngine eng) {
-            super(null, null, eng);
-            valueProvider = this;
-            setModificationHandler(this);
+            super(eng);
 
             declaration = cssEngine.parseStyleDeclaration
                 (SVGStylableElement.this,
                  getAttributeNS(null, SVG_STYLE_ATTRIBUTE));
-        }
-
-        // ValueProvider ////////////////////////////////////////
-
-        /**
-         * Returns the current value associated with this object.
-         */
-        public Value getValue(String name) {
-            int idx = cssEngine.getPropertyIndex(name);
-            for (int i = 0; i < declaration.size(); i++) {
-                if (idx == declaration.getIndex(i)) {
-                    return declaration.getValue(i);
-                }
-            }
-            return null;
-        }
-
-        /**
-         * Tells whether the given property is important.
-         */
-        public boolean isImportant(String name) {
-            int idx = cssEngine.getPropertyIndex(name);
-            for (int i = 0; i < declaration.size(); i++) {
-                if (idx == declaration.getIndex(i)) {
-                    return declaration.getPriority(i);
-                }
-            }
-            return false;
-        }
-
-        /**
-         * Returns the text of the declaration.
-         */
-        public String getText() {
-            return declaration.toString(cssEngine);
-        }
-
-        /**
-         * Returns the length of the declaration.
-         */
-        public int getLength() {
-            return declaration.size();
-        }
-
-        /**
-         * Returns the value at the given.
-         */
-        public String item(int idx) {
-            return cssEngine.getPropertyName(declaration.getIndex(idx));
         }
 
         // LiveAttributeValue //////////////////////////////////////
@@ -646,34 +709,83 @@ public abstract class SVGStylableElement
             }
         }
 
-        public void setMainProperty(String name, Value v, boolean important) {
-            int idx = cssEngine.getPropertyIndex(name);
-            if (idx == -1) 
-                return;   // unknown property
-
-            int i=0;
-            for (; i < declaration.size(); i++) {
-                if (idx == declaration.getIndex(i))
-                    break;
-            }
-            if (i < declaration.size()) 
-                declaration.put(i, v, idx, important);
-            else
-                declaration.append(v, idx, important);
-        }
-
         /**
          * Called when a property was changed.
          */
         public void propertyChanged(String name, String value, String prio)
             throws DOMException {
-            boolean important = ((prio != null) && (prio.length() >0));
+            boolean important = prio != null && prio.length() > 0;
             cssEngine.setMainProperties(SVGStylableElement.this,
                                         this, name, value, important);
             mutate = true;
             setAttributeNS(null, SVG_STYLE_ATTRIBUTE,
                            declaration.toString(cssEngine));
             mutate = false;
+        }
+
+        // MainPropertyReceiver //////////////////////////////////////////////
+
+        /**
+         * Sets a main property value in response to a shorthand property
+         * being set.
+         */
+        public void setMainProperty(String name, Value v, boolean important) {
+            int idx = cssEngine.getPropertyIndex(name);
+            if (idx == -1)
+                return;   // unknown property
+
+            int i;
+            for (i = 0; i < declaration.size(); i++) {
+                if (idx == declaration.getIndex(i))
+                    break;
+            }
+            if (i < declaration.size())
+                declaration.put(i, v, idx, important);
+            else
+                declaration.append(v, idx, important);
+        }
+    }
+
+    /**
+     * This class is a CSSStyleDeclaration for the override style of
+     * the element.
+     */
+    protected class OverrideStyleDeclaration
+        extends CSSOMStoredStyleDeclaration {
+
+        /**
+         * Creates a new OverrideStyleDeclaration.
+         */
+        protected OverrideStyleDeclaration(CSSEngine eng) {
+            super(eng);
+            declaration = new org.apache.flex.forks.batik.css.engine.StyleDeclaration();
+        }
+
+        // ModificationHandler ///////////////////////////////////////////////
+
+        /**
+         * Called when the value text has changed.
+         */
+        public void textChanged(String text) throws DOMException {
+            ((SVGOMDocument) ownerDocument).overrideStyleTextChanged
+                (SVGStylableElement.this, text);
+        }
+
+        /**
+         * Called when a property was removed.
+         */
+        public void propertyRemoved(String name) throws DOMException {
+            ((SVGOMDocument) ownerDocument).overrideStylePropertyRemoved
+                (SVGStylableElement.this, name);
+        }
+
+        /**
+         * Called when a property was changed.
+         */
+        public void propertyChanged(String name, String value, String prio)
+                throws DOMException {
+            ((SVGOMDocument) ownerDocument).overrideStylePropertyChanged
+                (SVGStylableElement.this, name, value, prio);
         }
     }
 }

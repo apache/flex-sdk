@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,55 +19,55 @@
 package org.apache.flex.forks.batik.ext.awt.image;
 
 /**
- * Defines the interface expected from a component 
+ * Defines the interface expected from a component
  * transfer function.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: ComponentTransferFunction.java,v 1.3 2004/08/18 07:13:48 vhardy Exp $
+ * @version $Id: ComponentTransferFunction.java 478249 2006-11-22 17:29:37Z dvholten $
  */
 public interface ComponentTransferFunction {
     /**
      * The various transfer types
      */
-    public static final int IDENTITY = 0;
-    public static final int TABLE    = 1;
-    public static final int DISCRETE = 2;
-    public static final int LINEAR   = 3;
-    public static final int GAMMA    = 4;
+    int IDENTITY = 0;
+    int TABLE    = 1;
+    int DISCRETE = 2;
+    int LINEAR   = 3;
+    int GAMMA    = 4;
 
     /**
      * Returns the type of this transfer function
      */
-    public int getType();
+    int getType();
 
     /**
      * Returns the slope value for this transfer function
      */
-    public float getSlope();
+    float getSlope();
 
     /**
      * Returns the table values for this transfer function
      */
-    public float[] getTableValues();
+    float[] getTableValues();
 
     /**
      * Returns the intercept value for this transfer function
      */
-    public float getIntercept();
+    float getIntercept();
 
     /**
      * Returns the amplitude value for this transfer function
      */
-    public float getAmplitude();
+    float getAmplitude();
 
     /**
      * Returns the exponent value for this transfer function
      */
-    public float getExponent();
+    float getExponent();
 
     /**
      * Returns the offset value for this transfer function
      */
-    public float getOffset();
+    float getOffset();
 }
 

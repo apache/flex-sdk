@@ -306,7 +306,7 @@
 		    </setup>
 		    <body>
 				<DispatchKeyEvent key="ENTER" waitEvent="close" waitTarget="curAlert" />
-				<Pause timeout="200"/>
+				<WaitForLayoutManager/>
 				<AssertPropertyValue target="ti" propertyName="text" value="You answered OK" />
 				<WaitForEffectsToEnd />
 		    </body>

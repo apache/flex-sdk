@@ -31,7 +31,7 @@
 
  
     </fx:Script>
-    <fx:Style source="../../../../Assets/Fonts/myStyles.css" />
+    <fx:Style source="../../../../Assets/Fonts/VeraFontStyles.css" />
     <fx:Style>
         @namespace comps "comps.*";
 

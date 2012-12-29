@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,26 +23,28 @@ import org.apache.flex.forks.batik.css.engine.value.IdentifierManager;
 import org.apache.flex.forks.batik.css.engine.value.StringMap;
 import org.apache.flex.forks.batik.css.engine.value.Value;
 import org.apache.flex.forks.batik.css.engine.value.ValueConstants;
+import org.apache.flex.forks.batik.css.engine.value.ValueManager;
 import org.apache.flex.forks.batik.util.CSSConstants;
+import org.apache.flex.forks.batik.util.SVGTypes;
 
 /**
  * This class provides a manager for the 'visibility' property values.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: VisibilityManager.java,v 1.5 2004/12/03 12:20:15 deweese Exp $
+ * @version $Id: VisibilityManager.java 478160 2006-11-22 13:35:06Z dvholten $
  */
 public class VisibilityManager extends IdentifierManager {
-    
+
     /**
      * The identifier values.
      */
-    protected final static StringMap values = new StringMap();
+    protected static final StringMap values = new StringMap();
     static {
-	values.put(CSSConstants.CSS_VISIBLE_VALUE,
+        values.put(CSSConstants.CSS_VISIBLE_VALUE,
                    ValueConstants.VISIBLE_VALUE);
-	values.put(CSSConstants.CSS_HIDDEN_VALUE,
+        values.put(CSSConstants.CSS_HIDDEN_VALUE,
                    ValueConstants.HIDDEN_VALUE);
-	values.put(CSSConstants.CSS_COLLAPSE_VALUE,
+        values.put(CSSConstants.CSS_COLLAPSE_VALUE,
                    ValueConstants.COLLAPSE_VALUE);
     }
 
@@ -50,7 +53,28 @@ public class VisibilityManager extends IdentifierManager {
      * org.apache.flex.forks.batik.css.engine.value.ValueManager#isInheritedProperty()}.
      */
     public boolean isInheritedProperty() {
-	return true;
+        return true;
+    }
+
+    /**
+     * Implements {@link ValueManager#isAnimatableProperty()}.
+     */
+    public boolean isAnimatableProperty() {
+        return true;
+    }
+
+    /**
+     * Implements {@link ValueManager#isAdditiveProperty()}.
+     */
+    public boolean isAdditiveProperty() {
+        return false;
+    }
+
+    /**
+     * Implements {@link ValueManager#getPropertyType()}.
+     */
+    public int getPropertyType() {
+        return SVGTypes.TYPE_IDENT;
     }
 
     /**
@@ -58,9 +82,9 @@ public class VisibilityManager extends IdentifierManager {
      * org.apache.flex.forks.batik.css.engine.value.ValueManager#getPropertyName()}.
      */
     public String getPropertyName() {
-	return CSSConstants.CSS_VISIBILITY_PROPERTY;
+        return CSSConstants.CSS_VISIBILITY_PROPERTY;
     }
-    
+
     /**
      * Implements {@link
      * org.apache.flex.forks.batik.css.engine.value.ValueManager#getDefaultValue()}.

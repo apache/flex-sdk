@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -33,7 +34,7 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.TurbulencePatternRed;
  * Creates a sourceless image from a turbulence function.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: TurbulenceRable8Bit.java,v 1.12 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: TurbulenceRable8Bit.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public class TurbulenceRable8Bit
     extends    AbstractColorInterpolationRable
@@ -206,7 +207,7 @@ public class TurbulenceRable8Bit
         } else {
             Rectangle2D rect = getBounds2D();
             aoiRect          = aoi.getBounds2D();
-            if (aoiRect.intersects(rect) == false)
+            if ( ! aoiRect.intersects(rect) )
                 return null;
             Rectangle2D.intersect(aoiRect, rect, aoiRect);
         }
@@ -225,7 +226,7 @@ public class TurbulenceRable8Bit
             return null;
 
         ColorSpace cs = getOperationColorSpace();
-        
+
         Rectangle2D tile = null;
         if (stitched)
             tile = (Rectangle2D)region.clone();
@@ -237,7 +238,7 @@ public class TurbulenceRable8Bit
         }
 
         return new TurbulencePatternRed
-            (baseFreqX, baseFreqY, numOctaves, seed, fractalNoise, 
+            (baseFreqX, baseFreqY, numOctaves, seed, fractalNoise,
              tile, patternTxf, devRect, cs, true);
     }
 }

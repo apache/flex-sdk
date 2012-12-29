@@ -59,7 +59,7 @@ xmlns="*" testSWF="ListBasic.mxml">
                 <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="4" />
                 <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
                 <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
-                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="7" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="6" />
             </body>
         </TestCase>
         <TestCase testID="List_ms_property_arrayCollection__selectedIndex_dup1" keywords="[List, property,selectedIndex]" description="">
@@ -169,9 +169,9 @@ xmlns="*" testSWF="ListBasic.mxml">
                     <AssertPropertyValue target = "list1.dataProvider" propertyName="length" value="3" />
                     <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="3" />
                     <AssertMethodValue   method="value=application.list1.dataProvider.getItemAt(0).toString()" value="1" />
-                    <AssertMethodValue   method="value=application.list2.dataProvider.getItemAt(2).toString()" value="DaName" />
+                    <AssertMethodValue   method="value=application.list2.dataProvider.getItemAt(2).toString()" value="david" />
                     <AssertPixelValue    target="list1" x="2"  y="9"  value="0xA8C6EE" />
-                    <AssertPixelValue    target="list2" x="2"  y="48"  value="0xA8C6EE" />
+                    <AssertPixelValue    target="list2" x="2"  y="54"  value="0xA8C6EE" />
 
                 </body>
         </TestCase>
@@ -192,7 +192,7 @@ xmlns="*" testSWF="ListBasic.mxml">
                 <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
                 <AssertPropertyValue target="list2" propertyName="selectedIndex" value="2" />
                 <AssertPixelValue    target="list1" x="2"  y="9"  value="0xA8C6EE" />
-                <AssertPixelValue    target="list2" x="2"  y="48"  value="0xA8C6EE" />
+                <AssertPixelValue    target="list2" x="2"  y="54"  value="0xA8C6EE" />
                 <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"   waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
                 <SetProperty    target="list2" propertyName="layout"  valueExpression="value=new HorizontalLayout()"   waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
                 <AssertPixelValue    target="list1" x="2"  y="9"  value="0xA8C6EE" />
@@ -261,9 +261,9 @@ xmlns="*" testSWF="ListBasic.mxml">
                 <AssertPropertyValue target = "list1.dataProvider" propertyName="length" value="3" />
                 <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="3" />
                 <AssertMethodValue   method="value=application.list1.dataProvider.getItemAt(0)" value="1" />
-                <AssertMethodValue   method="value=application.list2.dataProvider.getItemAt(2)" value="DaName" />
+                <AssertMethodValue   method="value=application.list2.dataProvider.getItemAt(2)" value="david" />
                 <AssertPixelValue    target="list1" x="2"  y="9"  value="0xA8C6EE" />
-                <AssertPixelValue    target="list2" x="2"  y="48"  value="0xA8C6EE" />
+                <AssertPixelValue    target="list2" x="2"  y="54"  value="0xA8C6EE" />
                 <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"   waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
                 <SetProperty    target="list2" propertyName="layout"  valueExpression="value=new HorizontalLayout()"   waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
                 <AssertPixelValue    target="list1" x="2"  y="9"  value="0xA8C6EE" />
@@ -284,12 +284,12 @@ xmlns="*" testSWF="ListBasic.mxml">
                 <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['1','2','3'])" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
                 <SetProperty target="list2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['john','tim','david'])" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
                 <DispatchMouseClickEvent target="list1" localX="10"  localY="10"  />
-                <DispatchMouseClickEvent target="list2" localX="12"  localY="51" waitEvent="change" />
+                <DispatchMouseClickEvent target="list2" localX="12"  localY="55" waitEvent="change" />
 
                 <AssertPropertyValue target="list1"  propertyName="selectedIndex" value="0" />
                 <AssertPropertyValue target="list2" propertyName="selectedIndex" value="2" />
                 <AssertPixelValue    target="list1" x="10"  y="10"  value="0xA8C6EE" />
-                <AssertPixelValue    target="list2" x="12"  y="51"  value="0xA8C6EE" />
+                <AssertPixelValue    target="list2" x="12"  y="54"  value="0xA8C6EE" />
                 <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"   waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
                 <SetProperty    target="list2" propertyName="layout"  valueExpression="value=new HorizontalLayout()"   waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
                 <AssertPixelValue    target="list1" x="10"  y="10"  value="0xA8C6EE" />
@@ -631,6 +631,7 @@ xmlns="*" testSWF="ListBasic.mxml">
                 <SetProperty target="list1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="list1"/>
                 <SetProperty target="list1" propertyName="labelFunction" valueExpression="value=application.jerseyNumberLabelFunction" />
                 <SetProperty target="list1" propertyName="selectedIndex" value="3" waitEvent="valueCommit" waitTarget="list1"/>
+				<WaitForLayoutManager />
                 <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../properties/baselines/$testID.png" target="list1" />
             </body>
         </TestCase>
@@ -985,7 +986,7 @@ xmlns="*" testSWF="ListBasic.mxml">
                 <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
                 <SetProperty target="list1" propertyName="selectedIndex" value="4" waitEvent="valueCommit" waitTarget="list1"/>
                 <AssertPropertyValue target = "list1" propertyName="selectedItem" value="a" />
-                <DispatchMouseClickEvent target="list1" localX="10"  localY="100" ctrlKey="true" waitEvent="change"  />
+                <DispatchMouseClickEvent target="list1" localX="10"  localY="108" ctrlKey="true" waitEvent="change"  />
 		<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="-1" />
             </body>
         </TestCase>

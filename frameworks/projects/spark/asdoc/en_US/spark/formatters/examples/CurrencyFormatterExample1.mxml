@@ -22,15 +22,15 @@
     xmlns:fx="http://ns.adobe.com/mxml/2009"
     xmlns:s="library://ns.adobe.com/flex/spark"
     xmlns:mx="library://ns.adobe.com/flex/mx">
-
+    
     <fx:Declarations>
         <s:CurrencyFormatter id="currencyFormatter"/>
     </fx:Declarations>
-
+    
     <fx:Script>
         <![CDATA[
             import flash.globalization.CurrencyParseResult;
-
+            
             private function localeChange():void
             {
                 // Sets the locale style on the document UI component.
@@ -38,34 +38,34 @@
                 setStyle('locale', inputLocaleIDName.text);
                 inputCurrencyChange();
             }
-
+            
             private function inputCurrencyChange():void
             {
                 const cpr:CurrencyParseResult
-                                = currencyFormatter.parse(inputCurrency.text);
+                = currencyFormatter.parse(inputCurrency.text);
                 parsedResult.text = "Currency String: [" + cpr.currencyString
                     + "], Amount: [" + cpr.value.toString() + "]";
             }
         ]]>
     </fx:Script>
-
-    <mx:Form>
-        <mx:FormItem label="Input Locale ID Name">
-            <mx:HBox>
+    
+    <s:Form>
+        <s:FormItem label="Input Locale ID Name">
+            <s:HGroup>
                 <s:TextInput id="inputLocaleIDName"/>
                 <s:Button click="localeChange()" label="Apply"/>
-            </mx:HBox>
-            <mx:Text text="Example: 'en-US', 'fr-FR', 'ja-JP', 'ar-SA'"/>
-        </mx:FormItem>
-        <mx:FormItem label="Input Currency Amount">
+            </s:HGroup>
+            <s:Label text="Example: 'en-US', 'fr-FR', 'ja-JP', 'ar-SA'"/>
+        </s:FormItem>
+        <s:FormItem label="Input Currency Amount">
             <s:TextInput id="inputCurrency" change="inputCurrencyChange()"/>
-            <mx:Text text="Example: {currencyFormatter.format(123456789.123)}"/>
-        </mx:FormItem>
-        <mx:FormItem label="Actual Locale ID Name">
-            <mx:Text text="{currencyFormatter.actualLocaleIDName}"/>
-        </mx:FormItem>
-        <mx:FormItem label="Parsed Result">
-            <mx:Text id="parsedResult"/>
-        </mx:FormItem>
-    </mx:Form>
+            <s:Label text="Example: {currencyFormatter.format(123456789.123)}"/>
+        </s:FormItem>
+        <s:FormItem label="Actual Locale ID Name">
+            <s:Label text="{currencyFormatter.actualLocaleIDName}"/>
+        </s:FormItem>
+        <s:FormItem label="Parsed Result">
+            <s:Label id="parsedResult"/>
+        </s:FormItem>
+    </s:Form>
 </s:Application>

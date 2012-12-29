@@ -32,7 +32,7 @@
         <TestCase testID="Image_clip" keywords="[Image, clip]" description="Clip image">
             <setup>
                 <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
-                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready" waitTarget="pr.im" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_en_US.png" waitEvent="ready" waitTarget="pr.im" />
             </setup>
             <body>
                 <SetProperty target="pr.im" propertyName="width" value="30" waitEvent="updateComplete" waitTarget="pr.im" />
@@ -53,7 +53,7 @@
             <body>
                 <SetProperty target="pr.im" propertyName="horizontalAlign" value="right" />
                 <SetProperty target="pr.im" propertyName="verticalAlign" value="bottom" />
-                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_en_US.png" waitEvent="ready"  />
 
                 <SetProperty target="pr.im" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="pr.im" />
                 <SetProperty target="pr.im" propertyName="percentHeight" value="100" waitEvent="updateComplete" waitTarget="pr.im" />
@@ -74,7 +74,7 @@
                 <SetProperty target="pr.im" propertyName="percentHeight" value="100"   />
                 <SetProperty target="pr.im" propertyName="horizontalAlign" value="right" />
                 <SetProperty target="pr.im" propertyName="verticalAlign" value="bottom" />
-                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/greenrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_de_DE.png" waitEvent="ready"  />
                 <SetProperty target="pr.im" propertyName="fillMode" value="clip" />
 
                  <Pause timeout="100"/>
@@ -88,12 +88,12 @@
                 <SetProperty target="pr" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="pr" />
             </setup>
             <body>
-            	<SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="ready"  />
+            	<SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_fr_FR.png" waitEvent="ready"  />
                 <SetProperty target="pr.im" propertyName="width" value="100" waitEvent="updateComplete"  />
                 <SetProperty target="pr.im" propertyName="height" value="30" waitEvent="updateComplete"  />
                 <SetProperty target="pr.im" propertyName="horizontalAlign" value="right" />
                 <SetProperty target="pr.im" propertyName="verticalAlign" value="bottom" />
-                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_en_US.png" waitEvent="ready"  />
                 <SetProperty target="pr.im" propertyName="fillMode" value="clip"  />
                  <Pause timeout="100"/>
 		<CompareBitmap target="pr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
@@ -107,13 +107,13 @@
                 <SetProperty target="pr" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="pr" />
             </setup>
             <body>
-            	<SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="ready"  />
+            	<SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_fr_FR.png" waitEvent="ready"  />
                 <SetProperty target="pr.im" propertyName="horizontalAlign" value="center" />
                 <SetProperty target="pr.im" propertyName="verticalAlign" value="top" />
                 <SetProperty target="pr.im" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="pr.im" />
 		<SetProperty target="pr.im" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="pr.im" />
                 <SetProperty target="pr.im" propertyName="scaleMode" value="letterbox" />
-                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_en_US.png" waitEvent="ready"  />
                 <SetProperty target="pr.im" propertyName="fillMode" value="clip" />
 
                  <Pause timeout="100"/>
@@ -127,12 +127,12 @@
                 <SetProperty target="pr" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="pr" />
             </setup>
             <body>
-            	<SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="ready"  />
+            	<SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_fr_FR.png" waitEvent="ready"  />
                 <SetProperty target="pr.im" propertyName="percentHeight" value="100" waitEvent="updateComplete"  />
                 <SetProperty target="pr.im" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="pr.im" />
                 <SetProperty target="pr.im" propertyName="horizontalAlign" value="right" />
                 <SetProperty target="pr.im" propertyName="verticalAlign" value="bottom" />
-                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/greenrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_de_DE.png" waitEvent="ready"  />
                 <SetProperty target="pr.im" propertyName="fillMode" value="clip" />
                  <Pause timeout="100"/>
 		<CompareBitmap target="pr" url="../properties/baselines/$testID.png"  />
@@ -146,11 +146,11 @@
             </setup>
             <body>
             	<SetProperty target="pr.im" propertyName="fillMode" value="clip" />
-            	<SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="ready"  />
+            	<SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_fr_FR.png" waitEvent="ready"  />
                 <SetProperty target="pr.im" propertyName="width" value="100" waitEvent="updateComplete"  />
                 <SetProperty target="pr.im" propertyName="horizontalAlign" value="right" />
                 <SetProperty target="pr.im" propertyName="verticalAlign" value="bottom" />
-                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_en_US.png" waitEvent="ready"  />
 
                  <Pause timeout="100"/>
 		<CompareBitmap target="pr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
@@ -164,11 +164,11 @@
 
             </setup>
             <body>
-            	<SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="ready"  />
+            	<SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_fr_FR.png" waitEvent="ready"  />
                 <SetProperty target="pr.im" propertyName="width" value="300" waitEvent="updateComplete"  />
                 <SetProperty target="pr.im" propertyName="height" value="200" waitEvent="updateComplete"/>
                 <SetProperty target="pr.im" propertyName="fillMode" value="repeat" />
-                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_en_US.png" waitEvent="ready"  />
 
                  <Pause timeout="100"/>
 		<CompareBitmap target="pr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
@@ -181,12 +181,12 @@
                 <SetProperty target="pr" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="pr" />
             </setup>
             <body>
-            	<SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="ready"  />
+            	<SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_fr_FR.png" waitEvent="ready"  />
                 <SetProperty target="pr.im" propertyName="height" value="100" waitEvent="updateComplete"  />
                 <SetProperty target="pr.im" propertyName="width" value="300" waitEvent="updateComplete"  />
                 <SetProperty target="pr.im" propertyName="horizontalAlign" value="right" />
                 <SetProperty target="pr.im" propertyName="verticalAlign" value="bottom" />
-                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_en_US.png" waitEvent="ready"  />
                 <SetProperty target="pr.im" propertyName="fillMode" value="repeat" />
                  <Pause timeout="100"/>
 		<CompareBitmap target="pr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
@@ -204,7 +204,7 @@
             <SetProperty target="pr.im" propertyName="width" value="100"  />
             <SetProperty target="pr.im" propertyName="percentHeight" value="100"   />
 
-            <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+            <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_en_US.png" waitEvent="ready"  />
             <SetProperty target="pr.im" propertyName="fillMode" value="repeat" />
              <Pause timeout="100"/>
 		<CompareBitmap target="pr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
@@ -224,7 +224,7 @@
             <SetProperty target="pr.im" propertyName="height" value="100"   />
             <SetProperty target="pr.im" propertyName="percentWidth" value="100"   />
 
-            <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="ready"  />
+            <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/FlagImages/flag_fr_FR.png" waitEvent="ready"  />
 
             <Pause timeout="100"/>
 	    <CompareBitmap target="pr" url="../properties/baselines/$testID.png"  />

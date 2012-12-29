@@ -64,7 +64,7 @@
 
             <body>
 
-                <CompareBitmap url="../properties/baselines/verifyfix_spark.png" target="myForm"/>
+                <CompareBitmap url="../properties/baselines/verifyfix_spark.png" target="myForm" numColorVariances="5" maxColorVariance="5"/>
 
             </body>
 

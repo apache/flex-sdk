@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,8 +25,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.apache.flex.forks.batik.ext.awt.image.codec.ImageEncoder;
-import org.apache.flex.forks.batik.ext.awt.image.codec.PNGImageEncoder;
+import org.apache.flex.forks.batik.ext.awt.image.spi.ImageWriter;
+import org.apache.flex.forks.batik.ext.awt.image.spi.ImageWriterRegistry;
 
 /**
  * This implementation of the abstract AbstractImageHandlerEncoder
@@ -34,7 +35,7 @@ import org.apache.flex.forks.batik.ext.awt.image.codec.PNGImageEncoder;
  * image elements it handles.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: ImageHandlerPNGEncoder.java,v 1.13 2004/08/18 07:14:59 vhardy Exp $
+ * @version $Id: ImageHandlerPNGEncoder.java 475477 2006-11-15 22:44:28Z cam $
  * @see             org.apache.flex.forks.batik.svggen.SVGGraphics2D
  * @see             org.apache.flex.forks.batik.svggen.ImageHandlerJPEGEncoder
  * @see             org.apache.flex.forks.batik.svggen.ImageHandlerPNGEncoder
@@ -76,9 +77,14 @@ public class ImageHandlerPNGEncoder extends AbstractImageHandlerEncoder {
         throws SVGGraphics2DIOException {
         try {
             OutputStream os = new FileOutputStream(imageFile);
-            ImageEncoder encoder = new PNGImageEncoder(os, null);
-            encoder.encode(buf);
-            os.close();
+            try {
+                ImageWriter writer = ImageWriterRegistry.getInstance()
+                    .getWriterFor("image/png");
+                writer.writeImage(buf, os);
+                
+            } finally {
+                os.close();
+            }
         } catch (IOException e) {
             throw new SVGGraphics2DIOException(ERR_WRITE+imageFile.getName());
         }

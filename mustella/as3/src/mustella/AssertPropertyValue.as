@@ -48,7 +48,7 @@ use namespace mx_internal;
 public class AssertPropertyValue extends Assert
 {
 	public var conditionalValues:Vector.<ConditionalValue> = null;
-	
+
 	/**
 	 *  See if the property has the correct value
 	 */
@@ -58,7 +58,7 @@ public class AssertPropertyValue extends Assert
 		var multiResultResult:String = "";
 		var cv:ConditionalValue = null;
 		var dispatcher:EventDispatcher = this;
-		
+
 		if (!actualTarget)
 		{
 			testResult.doFail("Target " + target + " not found");
@@ -90,21 +90,23 @@ public class AssertPropertyValue extends Assert
 			catch (e1:Error)
 			{
 				TestOutput.logResult("Exception thrown evaluating value expression.");
-				testResult.doFail (e1.getStackTrace());	
+				testResult.doFail (e1.getStackTrace());
 				return;
 			}
-			
+
 			value = context.value;
-			
+
 			if (!context.valueChanged)
 				TestOutput.logResult("WARNING: value was not set by valueExpression.  'value=' missing from expression?");
 
 		}
 
-		if (valueToString(actualTarget[propertyName]) != valueToString(value))
-		{
-			testResult.doFail ( target + "." + propertyName + " " + valueToString(actualTarget[propertyName]) + " != " + valueToString(value));
-		}
+        if (errorArray) {
+            var errors:ErrorArray = new ErrorArray(errorArray);
+            if (!contains(actualTarget[propertyName], errors))
+                testResult.doFail(target + "." + propertyName + " " + valueToString(actualTarget[propertyName]) + " should contain " + valueToString(errors));
+        } else if (valueToString(actualTarget[propertyName]) != valueToString(value))
+            testResult.doFail(target + "." + propertyName + " " + valueToString(actualTarget[propertyName]) + " != " + valueToString(value));
 	}
 
 	/**
@@ -115,7 +117,9 @@ public class AssertPropertyValue extends Assert
 	/**
 	 *  The value the property should have
 	 */
-	public var value:Object;
+	public var value:*;
+
+    public var errorArray:Array;
 
 	/**
 	 *  customize string representation

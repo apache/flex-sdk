@@ -154,25 +154,27 @@ public class CompareBitmap extends Assert
 	 */
 	public function CompareBitmap() 
 	{ 
-		if (!connection)
+		if (useRemoteDiffer)
 		{
-			connection = new LocalConnection();
-			connection.allowDomain("*");
-			connection.addEventListener(StatusEvent.STATUS, statusHandler);
-
-			commandconnection = new LocalConnection();
-			commandconnection.allowDomain("*");
-
-			try
+			if (!connection)
 			{
-				commandconnection.connect("_ImageDifferCommands");
-			}
-			catch (e:Error)
-			{
-				trace("connection failed");
+				connection = new LocalConnection();
+				connection.allowDomain("*");
+				connection.addEventListener(StatusEvent.STATUS, statusHandler);
+	
+				commandconnection = new LocalConnection();
+				commandconnection.allowDomain("*");
+	
+				try
+				{
+					commandconnection.connect("_ImageDifferCommands");
+				}
+				catch (e:Error)
+				{
+					trace("connection failed");
+				}
 			}
 		}
-
 	}
 
 	override public function execute(root:DisplayObject, context:UnitTester, testCase:TestCase, testResult:TestResult):Boolean
@@ -362,9 +364,14 @@ public class CompareBitmap extends Assert
 			}
 		}
 
-		if (!reader.content)
-		{
-			testResult.doFail ("baseline image not available");
+		try {
+			if (!reader.content)
+			{
+				testResult.doFail ("baseline image not available");
+				return true;
+			}
+		} catch( e:Error ) {
+			testResult.doFail ("CompareBitmap BIG FAIL! Content reader is null!");
 			return true;
 		}
 
@@ -479,7 +486,7 @@ public class CompareBitmap extends Assert
 	{
 		var actualTarget:DisplayObject = DisplayObject(context.stringToObject(target));
 		if (comparePNG(actualTarget))
-			stepComplete();
+			preStepComplete();
 	}
 
 	private function readErrorHandler(event:Event):void
@@ -719,7 +726,7 @@ public class CompareBitmap extends Assert
 	{
 
 		if (baselineDone && screenDone)
-			stepComplete();
+			preStepComplete();
 
 
 	}
@@ -837,7 +844,7 @@ public class CompareBitmap extends Assert
 	public function keepGoing():void
 	{
 		trace("keepgoing", url, hasEventListener("stepComplete"));
-		stepComplete();
+		preStepComplete();
 	}
 
 	private function encodeURI2(s:String):String
@@ -856,7 +863,8 @@ public class CompareBitmap extends Assert
 	private function compareWithVariances(bm:BitmapData):Object
 	{
 
-		var allowed:int = numColorVariances * UnitTester.pixelToleranceMultiplier;
+		var totalAllowed:int = numColorVariances * UnitTester.pixelToleranceMultiplier;
+		var allowed:int = totalAllowed;
 		var n:int = bm.height;
 		var m:int = bm.width;
 
@@ -882,17 +890,22 @@ public class CompareBitmap extends Assert
 							blue > maxColorVariance ||
 							green > maxColorVariance)
 						{
+							var max:int = Math.max(Math.max(red, blue), green);
+							trace("CompareBitmap: exceeded maxColorVariance=" + maxColorVariance + " max(red,green,blue)=" + max);
 							return bm;
 						}
 					}
 					allowed--;
 					if (allowed < 0)
 					{
+						trace("CompareBitmap: exceeded numColorVariances=" + numColorVariances);
 						return bm;
 					}
 				}
 			}
 		}
+		
+		trace("CompareBitmap: numColorVariances seen=" + String(totalAllowed - allowed));
 		return 0;
 	}
 
@@ -921,7 +934,22 @@ public class CompareBitmap extends Assert
 		
 		return true;
 	}
+	
+	protected function preStepComplete():void
+	{
+		if (baselineBits != null)
+            baselineBits.dispose();
+        if (screenBits != null)
+            screenBits.dispose();
 
+		reader=null;
+		writer=null;
+		
+		stepComplete();
+	}
+
+	/* this was sometimes getting called before the image was loaded into
+	   'reader' which made it null and then the readCompleteHandler failed.
 	override protected function stepComplete():void 
 	{ 
 
@@ -930,14 +958,13 @@ public class CompareBitmap extends Assert
                 if (screenBits != null)
                         screenBits.dispose();
 
-
 		reader=null;
 		writer=null;
 		
 		super.stepComplete();
 
 
-	}
+	}*/
 }
 
 }

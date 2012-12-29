@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,9 +19,12 @@
 package org.apache.flex.forks.batik.bridge;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PushbackInputStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
@@ -29,13 +33,18 @@ import java.util.List;
 import java.util.Set;
 import java.util.jar.Manifest;
 
-import org.apache.flex.forks.batik.dom.svg.XMLBaseSupport;
+import org.apache.flex.forks.batik.dom.AbstractElement;
+import org.apache.flex.forks.batik.dom.events.AbstractEvent;
+import org.apache.flex.forks.batik.dom.events.NodeEventTarget;
 import org.apache.flex.forks.batik.dom.util.XLinkSupport;
 import org.apache.flex.forks.batik.script.Interpreter;
 import org.apache.flex.forks.batik.script.InterpreterException;
+import org.apache.flex.forks.batik.script.ScriptEventWrapper;
 import org.apache.flex.forks.batik.script.ScriptHandler;
 import org.apache.flex.forks.batik.util.ParsedURL;
 import org.apache.flex.forks.batik.util.SVGConstants;
+import org.apache.flex.forks.batik.util.XMLConstants;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -44,15 +53,15 @@ import org.w3c.dom.events.DocumentEvent;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
-import org.w3c.flex.forks.dom.svg.SVGDocument;
-import org.w3c.flex.forks.dom.svg.SVGSVGElement;
-import org.w3c.flex.forks.dom.svg.EventListenerInitializer;
+import org.w3c.dom.svg.SVGDocument;
+import org.w3c.dom.svg.SVGSVGElement;
+import org.w3c.dom.svg.EventListenerInitializer;
 
 /**
  * This class is the base class for SVG scripting.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: BaseScriptingEnvironment.java,v 1.35 2005/03/27 08:58:30 cam Exp $
+ * @version $Id: BaseScriptingEnvironment.java 594737 2007-11-14 01:47:08Z cam $
  */
 public class BaseScriptingEnvironment {
     /**
@@ -202,8 +211,14 @@ public class BaseScriptingEnvironment {
     }
 
 
-    protected final static String EVENT_NAME = "event";
-    protected final static String ALTERNATE_EVENT_NAME = "evt";
+    protected static final String EVENT_NAME = "event";
+    protected static final String ALTERNATE_EVENT_NAME = "evt";
+
+    /**
+     * The 'application/ecmascript' MIME type.
+     */
+    protected static final String APPLICATION_ECMASCRIPT =
+        "application/ecmascript";
 
     /**
      * The bridge context.
@@ -312,7 +327,7 @@ public class BaseScriptingEnvironment {
         }
 
         for (int i = 0; i < len; i++) {
-            Element script = (Element)scripts.item(i);
+            AbstractElement script = (AbstractElement) scripts.item(i);
             String type = script.getAttributeNS
                 (null, SVGConstants.SVG_TYPE_ATTRIBUTE);
 
@@ -326,8 +341,7 @@ public class BaseScriptingEnvironment {
             if (type.equals(SVGConstants.SVG_SCRIPT_TYPE_JAVA)) {
                 try {
                     String href = XLinkSupport.getXLinkHref(script);
-                    ParsedURL purl = new ParsedURL
-                        (XMLBaseSupport.getCascadedXMLBase(script), href);
+                    ParsedURL purl = new ParsedURL(script.getBaseURI(), href);
 
                     checkCompatibleScriptURL(type, purl);
 
@@ -395,17 +409,80 @@ public class BaseScriptingEnvironment {
             try {
                 String href = XLinkSupport.getXLinkHref(script);
                 String desc = null;
-                Reader reader;
+                Reader reader = null;
 
                 if (href.length() > 0) {
                     desc = href;
 
                     // External script.
-                    ParsedURL purl = new ParsedURL
-                        (XMLBaseSupport.getCascadedXMLBase(script), href);
+                    ParsedURL purl = new ParsedURL(script.getBaseURI(), href);
 
                     checkCompatibleScriptURL(type, purl);
-                    reader = new InputStreamReader(purl.openStream());
+                    InputStream is = purl.openStream();
+                    String mediaType = purl.getContentTypeMediaType();
+                    String enc = purl.getContentTypeCharset();
+                    if (enc != null) {
+                        try {
+                            reader = new InputStreamReader(is, enc);
+                        } catch (UnsupportedEncodingException uee) {
+                            enc = null;
+                        }
+                    }
+                    if (reader == null) {
+                        if (APPLICATION_ECMASCRIPT.equals(mediaType)) {
+                            // No encoding was specified in the MIME type, so
+                            // infer it according to RFC 4329.
+                            if (purl.hasContentTypeParameter("version")) {
+                                // Future versions of application/ecmascript 
+                                // are not supported, so skip this script 
+                                // element if the version parameter is present.
+                                continue;
+                            }
+
+                            PushbackInputStream pbis =
+                                new PushbackInputStream(is, 8);
+                            byte[] buf = new byte[4];
+                            int read = pbis.read(buf);
+                            if (read > 0) {
+                                pbis.unread(buf, 0, read);
+                                if (read >= 2) {
+                                    if (buf[0] == (byte)0xff &&
+                                            buf[1] == (byte)0xfe) {
+                                        if (read >= 4 && buf[2] == 0 &&
+                                                buf[3] == 0) {
+                                            enc = "UTF32-LE";
+                                            pbis.skip(4);
+                                        } else {
+                                            enc = "UTF-16LE";
+                                            pbis.skip(2);
+                                        }
+                                    } else if (buf[0] == (byte)0xfe &&
+                                            buf[1] == (byte)0xff) {
+                                        enc = "UTF-16BE";
+                                        pbis.skip(2);
+                                    } else if (read >= 3
+                                            && buf[0] == (byte)0xef 
+                                            && buf[1] == (byte)0xbb
+                                            && buf[2] == (byte)0xbf) {
+                                        enc = "UTF-8";
+                                        pbis.skip(3);
+                                    } else if (read >= 4 && buf[0] == 0 &&
+                                            buf[1] == 0 &&
+                                            buf[2] == (byte)0xfe &&
+                                            buf[3] == (byte)0xff) {
+                                        enc = "UTF-32BE";
+                                        pbis.skip(4);
+                                    }
+                                }
+                                if (enc == null) {
+                                    enc = "UTF-8";
+                                }
+                            }
+                            reader = new InputStreamReader(pbis, enc);
+                        } else {
+                            reader = new InputStreamReader(is);
+                        }
+                    }
                 } else {
                     checkCompatibleScriptURL(type, docPURL);
                     DocumentLoader dl = bridgeContext.getDocumentLoader();
@@ -415,7 +492,7 @@ public class BaseScriptingEnvironment {
                     desc = Messages.formatMessage
                         (INLINE_SCRIPT_DESCRIPTION,
                          new Object [] {d.getURL(),
-                                        "<"+script.getNodeName()+">", 
+                                        "<"+script.getNodeName()+">",
                                         new Integer(line)});
                     // Inline script.
                     Node n = script.getFirstChild();
@@ -468,6 +545,8 @@ public class BaseScriptingEnvironment {
     public void dispatchSVGLoadEvent() {
         SVGSVGElement root = (SVGSVGElement)document.getDocumentElement();
         String lang = root.getContentScriptType();
+        long documentStartTime = System.currentTimeMillis();
+        bridgeContext.getAnimationEngine().start(documentStartTime);
         dispatchSVGLoad(root, true, lang);
     }
 
@@ -485,11 +564,19 @@ public class BaseScriptingEnvironment {
             }
         }
 
-        Event ev;
         DocumentEvent de = (DocumentEvent)elt.getOwnerDocument();
-        ev = de.createEvent("SVGEvents");
-        ev.initEvent("SVGLoad", false, false);
-        EventTarget t = (EventTarget)elt;
+        AbstractEvent ev = (AbstractEvent) de.createEvent("SVGEvents");
+        String type;
+        if (bridgeContext.isSVG12()) {
+            type = "load";
+        } else {
+            type = "SVGLoad";
+        }
+        ev.initEventNS(XMLConstants.XML_EVENTS_NAMESPACE_URI,
+                       type,
+                       false,
+                       false);
+        NodeEventTarget t = (NodeEventTarget)elt;
 
         final String s =
             elt.getAttributeNS(null, SVGConstants.SVG_ONLOAD_ATTRIBUTE);
@@ -520,14 +607,20 @@ public class BaseScriptingEnvironment {
         final String desc = Messages.formatMessage
             (EVENT_SCRIPT_DESCRIPTION,
              new Object [] {d.getURL(),
-                            SVGConstants.SVG_ONLOAD_ATTRIBUTE, 
+                            SVGConstants.SVG_ONLOAD_ATTRIBUTE,
                             new Integer(line)});
 
         EventListener l = new EventListener() {
                 public void handleEvent(Event evt) {
                     try {
-                        interp.bindObject(EVENT_NAME, evt);
-                        interp.bindObject(ALTERNATE_EVENT_NAME, evt);
+                        Object event;
+                        if (evt instanceof ScriptEventWrapper) {
+                            event = ((ScriptEventWrapper) evt).getEventObject();
+                        } else {
+                            event = evt;
+                        }
+                        interp.bindObject(EVENT_NAME, event);
+                        interp.bindObject(ALTERNATE_EVENT_NAME, event);
                         interp.evaluate(new StringReader(s), desc);
                     } catch (IOException io) {
                     } catch (InterpreterException e) {
@@ -535,30 +628,46 @@ public class BaseScriptingEnvironment {
                     }
                 }
             };
-        t.addEventListener("SVGLoad", l, false);
+        t.addEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, type,
+             l, false, null);
         t.dispatchEvent(ev);
-        t.removeEventListener("SVGLoad", l, false);
+        t.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, type,
+             l, false);
     }
 
     /**
      * Method to dispatch SVG Zoom event.
      */
     protected void dispatchSVGZoomEvent() {
-        dispatchSVGDocEvent("SVGZoom");
+        if (bridgeContext.isSVG12()) {
+            dispatchSVGDocEvent("zoom");
+        } else {
+            dispatchSVGDocEvent("SVGZoom");
+        }
     }
 
     /**
      * Method to dispatch SVG Scroll event.
      */
     protected void dispatchSVGScrollEvent() {
-        dispatchSVGDocEvent("SVGScroll");
+        if (bridgeContext.isSVG12()) {
+            dispatchSVGDocEvent("scroll");
+        } else {
+            dispatchSVGDocEvent("SVGScroll");
+        }
     }
 
     /**
      * Method to dispatch SVG Resize event.
      */
     protected void dispatchSVGResizeEvent() {
-        dispatchSVGDocEvent("SVGResize");
+        if (bridgeContext.isSVG12()) {
+            dispatchSVGDocEvent("resize");
+        } else {
+            dispatchSVGDocEvent("SVGResize");
+        }
     }
 
     protected void dispatchSVGDocEvent(String eventType) {
@@ -568,8 +677,11 @@ public class BaseScriptingEnvironment {
         EventTarget t = root;
 
         DocumentEvent de = (DocumentEvent)document;
-        Event ev = de.createEvent("SVGEvents");
-        ev.initEvent(eventType, false, false);
+        AbstractEvent ev = (AbstractEvent) de.createEvent("SVGEvents");
+        ev.initEventNS(XMLConstants.XML_EVENTS_NAMESPACE_URI,
+                       eventType,
+                       false,
+                       false);
         t.dispatchEvent(ev);
     }
 
@@ -691,22 +803,22 @@ public class BaseScriptingEnvironment {
                            String enc) {
         }
 
-        public void postURL(String uri, String content, 
+        public void postURL(String uri, String content,
                             org.apache.flex.forks.batik.script.Window.URLResponseHandler h) {
             postURL(uri, content, h, "text/plain", null);
         }
 
-        public void postURL(String uri, String content, 
-                            org.apache.flex.forks.batik.script.Window.URLResponseHandler h, 
+        public void postURL(String uri, String content,
+                            org.apache.flex.forks.batik.script.Window.URLResponseHandler h,
                      String mimeType) {
             postURL(uri, content, h, mimeType, null);
         }
 
-        public void postURL(String uri, 
-                            String content, 
-                            org.apache.flex.forks.batik.script.Window.URLResponseHandler h, 
-                            String mimeType, 
-                            String fEnc) { 
+        public void postURL(String uri,
+                            String content,
+                            org.apache.flex.forks.batik.script.Window.URLResponseHandler h,
+                            String mimeType,
+                            String fEnc) {
         }
 
 

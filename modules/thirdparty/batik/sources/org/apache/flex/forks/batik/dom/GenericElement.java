@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,7 +25,7 @@ import org.w3c.dom.Node;
  * This class implements the {@link org.w3c.dom.Element} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: GenericElement.java,v 1.4 2004/08/18 07:13:08 vhardy Exp $
+ * @version $Id: GenericElement.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class GenericElement extends AbstractElement {
     /**
@@ -51,16 +52,16 @@ public class GenericElement extends AbstractElement {
      *   INVALID_CHARACTER_ERR: if name contains invalid characters,
      */
     public GenericElement(String name, AbstractDocument owner)
-	throws DOMException {
-	super(name, owner);
-	nodeName = name;
+        throws DOMException {
+        super(name, owner);
+        nodeName = name;
     }
 
     /**
      * Sets the name of this node.
      */
     public void setNodeName(String v) {
-	nodeName = v;
+        nodeName = v;
     }
 
     /**
@@ -68,7 +69,7 @@ public class GenericElement extends AbstractElement {
      * @return {@link #nodeName}
      */
     public String getNodeName() {
-	return nodeName;
+        return nodeName;
     }
 
     // ExtendedNode //////////////////////////////////////////////////
@@ -77,34 +78,34 @@ public class GenericElement extends AbstractElement {
      * Tests whether this node is readonly.
      */
     public boolean isReadonly() {
-	return readonly;
+        return readonly;
     }
 
     /**
      * Sets this node readonly attribute.
      */
     public void setReadonly(boolean v) {
-	readonly = v;
+        readonly = v;
     }
 
     /**
      * Exports this node to the given document.
      */
     protected Node export(Node n, AbstractDocument d) {
-	super.export(n, d);
-	GenericElement ge = (GenericElement)n;
-	ge.nodeName = nodeName;
-	return n;
+        super.export(n, d);
+        GenericElement ge = (GenericElement)n;
+        ge.nodeName = nodeName;
+        return n;
     }
 
     /**
      * Deeply exports this node to the given document.
      */
     protected Node deepExport(Node n, AbstractDocument d) {
-	super.deepExport(n, d);
-	GenericElement ge = (GenericElement)n;
-	ge.nodeName = nodeName;
-	return n;
+        super.deepExport(n, d);
+        GenericElement ge = (GenericElement)n;
+        ge.nodeName = nodeName;
+        return n;
     }
 
     /**
@@ -112,9 +113,9 @@ public class GenericElement extends AbstractElement {
      * @param n a node of the type of this.
      */
     protected Node copyInto(Node n) {
-	GenericElement ge = (GenericElement)super.copyInto(n);
-	ge.nodeName = nodeName;
-	return n;
+        GenericElement ge = (GenericElement)super.copyInto(n);
+        ge.nodeName = nodeName;
+        return n;
     }
 
     /**
@@ -122,9 +123,9 @@ public class GenericElement extends AbstractElement {
      * @param n a node of the type of this.
      */
     protected Node deepCopyInto(Node n) {
-	GenericElement ge = (GenericElement)super.deepCopyInto(n);
-	ge.nodeName = nodeName;
-	return n;
+        GenericElement ge = (GenericElement)super.deepCopyInto(n);
+        ge.nodeName = nodeName;
+        return n;
     }
 
     /**

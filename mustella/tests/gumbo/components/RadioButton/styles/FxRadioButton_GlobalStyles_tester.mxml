@@ -67,7 +67,7 @@
 		</TestCase>
 		<TestCase testID="FxRadioButton_Style_symbolColor_mxml" keywords="[FxRadioButton, symbolColor]" description="Ensure that contentColor works in mxml.">
 			<body>
-	            <SetProperty target="symbolColor_radio" propertyName="selected" value="true" />
+	            <SetProperty target="symbolColor_radio" propertyName="selected" value="true" waitEvent="updateComplete" />
 				<AssertStyleValue target="symbolColor_radio" styleName="symbolColor" value="0x9900CC"/>
 				<CompareBitmap url="../styles/baselines/$testID.png" target="symbolColor_radio"/>
 			</body>

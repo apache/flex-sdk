@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003 The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,19 +19,20 @@
 package org.apache.flex.forks.batik.gvt.flow;
 
 import java.awt.Shape;
-import java.awt.geom.Point2D;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+
 import org.apache.flex.forks.batik.ext.awt.geom.SegmentList;
 import org.apache.flex.forks.batik.ext.awt.geom.Segment;
 
 /**
  * A class to hold flow region information for a given shape.
  *
- * @version $Id: FlowRegions.java,v 1.2 2005/03/27 08:58:34 cam Exp $
+ * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
+ * @version $Id: FlowRegions.java 522271 2007-03-25 14:42:45Z dvholten $
  */
 public class FlowRegions {
     Shape flowShape;
@@ -48,7 +50,7 @@ public class FlowRegions {
         this.flowShape = s;
         sl = new SegmentList(s);
         currentY = startY-1;
-	gotoY(startY);
+        gotoY(startY);
     }
 
     public double getCurrentY() { return currentY; }
@@ -63,7 +65,7 @@ public class FlowRegions {
         sr = sl.split(y);
         sl = sr.getBelow();
         sr = null;
-	currentY = y;
+        currentY = y;
         if (sl == null) return true;
 
         newLineHeight(lineHeight);
@@ -73,7 +75,7 @@ public class FlowRegions {
     public void newLineHeight(double lineHeight) {
         this.lineHeight = lineHeight;
         sr = sl.split(currentY+lineHeight);
-        
+
         if (sr.getAbove() != null) {
             sortRow(sr.getAbove());
         }
@@ -81,6 +83,7 @@ public class FlowRegions {
     }
 
     public int getNumRangeOnLine() {
+        if (validRanges == null) return 0;
         return validRanges.size();
     }
     public void resetRange() {
@@ -88,7 +91,7 @@ public class FlowRegions {
     }
 
     public double [] nextRange() {
-        if (currentRange >= validRanges.size()) 
+        if (currentRange >= validRanges.size())
             return null;
         return (double [])validRanges.get(currentRange++);
     }
@@ -153,7 +156,7 @@ public class FlowRegions {
                     double cx = (openStart + t.loc)/2;
                     double cy = currentY + lineHeight/2;
                     // System.err.println("PT: " + cx+", "+cy);
-                    if (flowShape.contains(new Point2D.Double(cx, cy))) {
+                    if (flowShape.contains( cx, cy )) {
                         validRanges.add(new double[]{openStart, t.loc});
                     }
                 }

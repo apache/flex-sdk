@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -32,12 +33,12 @@ import java.io.PrintStream;
  * @author <a href="mailto:deweese@apache.org">Thomas DeWeese</a>
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
  * @author      Chuck McManis
- * @version $Id: Base64EncoderStream.java,v 1.6 2005/03/27 08:58:36 cam Exp $
+ * @version $Id: Base64EncoderStream.java 501495 2007-01-30 18:00:36Z dvholten $
  */
 public class Base64EncoderStream extends OutputStream {
 
     /** This array maps the 6 bit values to their characters */
-    private final static byte pem_array[] = {
+    private static final byte[] pem_array = {
     //   0   1   2   3   4   5   6   7
         'A','B','C','D','E','F','G','H', // 0
         'I','J','K','L','M','N','O','P', // 1
@@ -70,7 +71,7 @@ public class Base64EncoderStream extends OutputStream {
     public void close () throws IOException {
         if (out != null) {
             encodeAtom();
-            out.flush();        
+            out.flush();
             if (closeOutOnClose)
                 out.close();
             out=null;
@@ -80,7 +81,7 @@ public class Base64EncoderStream extends OutputStream {
     /**
      * This can't really flush out output since that may generate
      * '=' chars which would indicate the end of the stream.
-     * Instead we flush out.  You can only be sure all output is 
+     * Instead we flush out.  You can only be sure all output is
      * writen by closing this stream.
      */
     public void flush() throws IOException {
@@ -151,14 +152,14 @@ public class Base64EncoderStream extends OutputStream {
      * than three is encodes either one or two '=' signs to indicate
      * padding characters.
      */
-    void encodeFromArray(byte[] data, int offset, int len) 
+    void encodeFromArray(byte[] data, int offset, int len)
         throws IOException{
         byte a, b, c;
         if (len == 0)
             return;
 
-        // System.out.println("atomLen: " + atomLen + 
-        //                    " len: " + len + 
+        // System.out.println("atomLen: " + atomLen +
+        //                    " len: " + len +
         //                    " offset:  " + offset);
 
         if (atomLen != 0) {
@@ -180,7 +181,7 @@ public class Base64EncoderStream extends OutputStream {
             a = data[offset++];
             b = data[offset++];
             c = data[offset++];
-            
+
             encodeBuf[0] = pem_array[((a >>> 2) & 0x3F)];
             encodeBuf[1] = pem_array[(((a << 4) & 0x30) | ((b >>> 4) & 0x0F))];
             encodeBuf[2] = pem_array[(((b << 2) & 0x3C) | ((c >>> 6) & 0x03))];
@@ -209,6 +210,6 @@ public class Base64EncoderStream extends OutputStream {
         atomLen = len;
     }
 
-    
-    
+
+
 }

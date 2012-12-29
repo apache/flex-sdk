@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,9 +25,8 @@ import java.io.IOException;
  * values.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: AngleParser.java,v 1.8 2004/08/18 07:14:46 vhardy Exp $
+ * @version $Id: AngleParser.java 502181 2007-02-01 10:14:58Z dvholten $
  */
-
 public class AngleParser extends NumberParser {
 
     /**
@@ -46,113 +46,97 @@ public class AngleParser extends NumberParser {
      * @param handler The transform list handler.
      */
     public void setAngleHandler(AngleHandler handler) {
-	angleHandler = handler;
+        angleHandler = handler;
     }
 
     /**
      * Returns the angle handler in use.
      */
     public AngleHandler getAngleHandler() {
-	return angleHandler;
+        return angleHandler;
     }
 
     /**
      * Parses the current reader representing an angle.
      */
     protected void doParse() throws ParseException, IOException {
-	angleHandler.startAngle();
+        angleHandler.startAngle();
 
-	current = reader.read();
-	skipSpaces();
-	
-	try {
-	    float f = parseFloat();
+        current = reader.read();
+        skipSpaces();
 
-	    angleHandler.angleValue(f);
+        try {
+            float f = parseFloat();
 
-	    s: if (current != -1) {
-		switch (current) {
-		case 0xD: case 0xA: case 0x20: case 0x9:
-		    break s;
-		}
-		
-		switch (current) {
-		case 'd':
-		    current = reader.read();
-		    if (current != 'e') {
-			reportError("character.expected",
-				    new Object[] { new Character('e'),
-						   new Integer(current) });
-			break;
-		    }
-		    current = reader.read();
-		    if (current != 'g') {
-			reportError("character.expected",
-				    new Object[] { new Character('g'),
-						   new Integer(current) });
-			break;
-		    }
-		    angleHandler.deg();
-		    current = reader.read();
-		    break;
-		case 'g':
-		    current = reader.read();
-		    if (current != 'r') {
-			reportError("character.expected",
-				    new Object[] { new Character('r'),
-						   new Integer(current) });
-			break;
-		    }
-		    current = reader.read();
-		    if (current != 'a') {
-			reportError("character.expected",
-				    new Object[] { new Character('a'),
-						   new Integer(current) });
-			break;
-		    }
-		    current = reader.read();
-		    if (current != 'd') {
-			reportError("character.expected",
-				    new Object[] { new Character('d'),
-						   new Integer(current) });
-			break;
-		    }
-		    angleHandler.grad();
-		    current = reader.read();
-		    break;
-		case 'r':
-		    current = reader.read();
-		    if (current != 'a') {
-			reportError("character.expected",
-				    new Object[] { new Character('a'),
-						   new Integer(current) });
-			break;
-		    }
-		    current = reader.read();
-		    if (current != 'd') {
-			reportError("character.expected",
-				    new Object[] { new Character('d'),
-						   new Integer(current) });
-			break;
-		    }
-		    angleHandler.rad();
-		    current = reader.read();
-		    break;
-		default:
-		    reportError("character.unexpected",
-				new Object[] { new Integer(current) });
-		}
-	    }
+            angleHandler.angleValue(f);
 
-	    skipSpaces();
-	    if (current != -1) {
-		reportError("end.of.stream.expected",
-			    new Object[] { new Integer(current) });
-	    }
-	} catch (NumberFormatException e) {
-            reportError("character.unexpected",
-                        new Object[] { new Integer(current) });
-	}
-	angleHandler.endAngle();
+            s: if (current != -1) {
+                switch (current) {
+                case 0xD: case 0xA: case 0x20: case 0x9:
+                    break s;
+                }
+
+                switch (current) {
+                case 'd':
+                    current = reader.read();
+                    if (current != 'e') {
+                        reportCharacterExpectedError('e', current );
+                        break;
+                    }
+                    current = reader.read();
+                    if (current != 'g') {
+                        reportCharacterExpectedError('g', current );
+                        break;
+                    }
+                    angleHandler.deg();
+                    current = reader.read();
+                    break;
+                case 'g':
+                    current = reader.read();
+                    if (current != 'r') {
+                        reportCharacterExpectedError('r', current );
+                        break;
+                    }
+                    current = reader.read();
+                    if (current != 'a') {
+                        reportCharacterExpectedError('a', current );
+                        break;
+                    }
+                    current = reader.read();
+                    if (current != 'd') {
+                        reportCharacterExpectedError('d', current );
+                        break;
+                    }
+                    angleHandler.grad();
+                    current = reader.read();
+                    break;
+                case 'r':
+                    current = reader.read();
+                    if (current != 'a') {
+                        reportCharacterExpectedError('a', current );
+                        break;
+                    }
+                    current = reader.read();
+                    if (current != 'd') {
+                        reportCharacterExpectedError('d', current );
+                        break;
+                    }
+                    angleHandler.rad();
+                    current = reader.read();
+                    break;
+                default:
+                    reportUnexpectedCharacterError( current );
+                }
+            }
+
+            skipSpaces();
+            if (current != -1) {
+                reportError("end.of.stream.expected",
+                            new Object[] { new Integer(current) });
+            }
+        } catch (NumberFormatException e) {
+            reportUnexpectedCharacterError( current );
+        }
+        angleHandler.endAngle();
     }
 }

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -36,31 +37,33 @@ import java.util.Map;
 
 import org.apache.flex.forks.batik.css.engine.SVGCSSEngine;
 import org.apache.flex.forks.batik.css.engine.value.Value;
-import org.apache.flex.forks.batik.dom.svg.XMLBaseSupport;
+import org.apache.flex.forks.batik.dom.AbstractNode;
 import org.apache.flex.forks.batik.dom.util.XLinkSupport;
 import org.apache.flex.forks.batik.ext.awt.image.PadMode;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.AffineRable8Bit;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.Filter;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.PadRable8Bit;
+import org.apache.flex.forks.batik.ext.awt.image.spi.BrokenLinkProvider;
 import org.apache.flex.forks.batik.ext.awt.image.spi.ImageTagRegistry;
 import org.apache.flex.forks.batik.gvt.GraphicsNode;
 import org.apache.flex.forks.batik.util.ParsedURL;
+import org.apache.flex.forks.batik.util.Platform;
 import org.apache.flex.forks.batik.util.SVGConstants;
 import org.apache.flex.forks.batik.util.SoftReferenceCache;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSValue;
-import org.w3c.flex.forks.dom.svg.SVGDocument;
-import org.w3c.flex.forks.dom.svg.SVGPreserveAspectRatio;
+import org.w3c.dom.svg.SVGDocument;
+import org.w3c.dom.svg.SVGPreserveAspectRatio;
 
 
 /**
- * The CursorManager class is a helper class which preloads the cursors 
+ * The CursorManager class is a helper class which preloads the cursors
  * corresponding to the SVG built in cursors.
  *
  * @author <a href="mailto:vincent.hardy@sun.com">Vincent Hardy</a>
- * @version $Id: CursorManager.java,v 1.17 2005/03/27 08:58:30 cam Exp $
+ * @version $Id: CursorManager.java 594367 2007-11-13 00:40:53Z cam $
  */
 public class CursorManager implements SVGConstants, ErrorConstants {
     /**
@@ -71,7 +74,7 @@ public class CursorManager implements SVGConstants, ErrorConstants {
     /**
      * Default cursor when value is not found
      */
-    public static final Cursor DEFAULT_CURSOR 
+    public static final Cursor DEFAULT_CURSOR
         = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
 
     /**
@@ -96,6 +99,7 @@ public class CursorManager implements SVGConstants, ErrorConstants {
      * Static initialization of the cursorMap
      */
     static {
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
         cursorMap = new Hashtable();
         cursorMap.put(SVG_CROSSHAIR_VALUE,
                       Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
@@ -103,8 +107,6 @@ public class CursorManager implements SVGConstants, ErrorConstants {
                       Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         cursorMap.put(SVG_POINTER_VALUE,
                       Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        cursorMap.put(SVG_MOVE_VALUE,
-                      Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
         cursorMap.put(SVG_E_RESIZE_VALUE,
                       Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
         cursorMap.put(SVG_NE_RESIZE_VALUE,
@@ -125,9 +127,27 @@ public class CursorManager implements SVGConstants, ErrorConstants {
                       Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
         cursorMap.put(SVG_WAIT_VALUE,
                       Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        cursorMap.put(SVG_HELP_VALUE, 
-                      Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));  
-        
+        Cursor moveCursor = Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR);
+        if (Platform.isOSX) {
+            try {
+                Image img = toolkit.createImage
+                    (CursorManager.class.getResource("resources/move.gif"));
+                moveCursor = toolkit.createCustomCursor
+                    (img, new Point(11, 11), "move");
+            } catch (Exception ex) {
+            }
+        }
+        cursorMap.put(SVG_MOVE_VALUE, moveCursor);
+        Cursor helpCursor;
+        try {
+            Image img = toolkit.createImage
+                (CursorManager.class.getResource("resources/help.gif"));
+            helpCursor = toolkit.createCustomCursor
+                (img, new Point(1, 3), "help");
+        } catch (Exception ex) {
+            helpCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
+        }
+        cursorMap.put(SVG_HELP_VALUE, helpCursor);
     }
 
     /**
@@ -158,8 +178,6 @@ public class CursorManager implements SVGConstants, ErrorConstants {
         return (Cursor)cursorMap.get(cursorName);
     }
 
-
-
     /**
      * Returns the Cursor corresponding to the input element's cursor property
      *
@@ -175,16 +193,16 @@ public class CursorManager implements SVGConstants, ErrorConstants {
             if (cursorValue.getCssValueType() == CSSValue.CSS_PRIMITIVE_VALUE
                 &&
                 cursorValue.getPrimitiveType() == CSSPrimitiveValue.CSS_IDENT) {
-                // Single Value : should be one of the predefined cursors or 
+                // Single Value : should be one of the predefined cursors or
                 // 'inherit'
                 cursorStr = cursorValue.getStringValue();
                 return convertBuiltInCursor(e, cursorStr);
-            } else if (cursorValue.getCssValueType() == 
+            } else if (cursorValue.getCssValueType() ==
                        CSSValue.CSS_VALUE_LIST) {
                 int nValues = cursorValue.getLength();
                 if (nValues == 1) {
                     cursorValue = cursorValue.item(0);
-                    if (cursorValue.getPrimitiveType() == 
+                    if (cursorValue.getPrimitiveType() ==
                         CSSPrimitiveValue.CSS_IDENT) {
                         cursorStr = cursorValue.getStringValue();
                         return convertBuiltInCursor(e, cursorStr);
@@ -197,18 +215,18 @@ public class CursorManager implements SVGConstants, ErrorConstants {
                     return convertSVGCursor(e, cursorValue);
                 }
             }
-        } 
-        
+        }
+
         return convertBuiltInCursor(e, cursorStr);
     }
-    
+
     public Cursor convertBuiltInCursor(Element e, String cursorStr) {
         Cursor cursor = null;
 
         // The CSS engine guarantees an non null, non empty string
         // as the computed value for cursor. Therefore, the following
         // test is safe.
-        if (cursorStr.charAt(0) == 'a') { 
+        if (cursorStr.charAt(0) == 'a') {
             //
             // Handle 'auto' value.
             //
@@ -248,7 +266,7 @@ public class CursorManager implements SVGConstants, ErrorConstants {
                            SVGConstants.SVG_TREF_TAG.equals(tag) ) {
                     cursor = CursorManager.TEXT_CURSOR;
                 } else if (SVGConstants.SVG_IMAGE_TAG.equals(tag)) {
-                    // Do not change the cursor 
+                    // Do not change the cursor
                     return null;
                 } else {
                     cursor = CursorManager.DEFAULT_CURSOR;
@@ -260,13 +278,13 @@ public class CursorManager implements SVGConstants, ErrorConstants {
             // Specific, logical cursor
             cursor = CursorManager.getPredefinedCursor(cursorStr);
         }
-        
+
         return cursor;
     }
 
-       
+
     /**
-     * Returns a cursor for the given value list. Note that the 
+     * Returns a cursor for the given value list. Note that the
      * code assumes that the input value has at least two entries.
      * So the caller should check that before calling the method.
      * For example, CSSUtilities.convertCursor performs that check.
@@ -278,7 +296,7 @@ public class CursorManager implements SVGConstants, ErrorConstants {
             Value cursorValue = l.item(i);
             if (cursorValue.getPrimitiveType() == CSSPrimitiveValue.CSS_URI) {
                 String uri = cursorValue.getStringValue();
-                
+
                 // If the uri does not resolve to a cursor element,
                 // then, this is not a type of cursor uri we can handle:
                 // go to the next or default to logical cursor
@@ -292,7 +310,7 @@ public class CursorManager implements SVGConstants, ErrorConstants {
                         throw be;
                     }
                 }
-                
+
                 if (cursorElement != null) {
                     // We go an element, check it is of type cursor
                     String cursorNS = cursorElement.getNamespaceURI();
@@ -300,14 +318,14 @@ public class CursorManager implements SVGConstants, ErrorConstants {
                         SVGConstants.SVG_CURSOR_TAG.equals
                         (cursorElement.getLocalName())) {
                         Cursor c = convertSVGCursorElement(cursorElement);
-                        if (c != null) { 
+                        if (c != null) {
                             return c;
                         }
                     }
                 }
             }
         }
-        
+
         // If we got to that point, it means that no cursorElement
         // produced a valid cursor, i.e., either a format we support
         // or a valid referenced image (no broken image).
@@ -317,7 +335,7 @@ public class CursorManager implements SVGConstants, ErrorConstants {
         if (cursorValue.getPrimitiveType() == CSSPrimitiveValue.CSS_IDENT) {
             cursorStr = cursorValue.getStringValue();
         }
-          
+
         return convertBuiltInCursor(e, cursorStr);
     }
 
@@ -329,11 +347,11 @@ public class CursorManager implements SVGConstants, ErrorConstants {
         // Try to handle its image.
         String uriStr = XLinkSupport.getXLinkHref(cursorElement);
         if (uriStr.length() == 0) {
-            throw new BridgeException(cursorElement, ERR_ATTRIBUTE_MISSING,
+            throw new BridgeException(ctx, cursorElement, ERR_ATTRIBUTE_MISSING,
                                       new Object[] {"xlink:href"});
         }
 
-        String baseURI = XMLBaseSupport.getCascadedXMLBase(cursorElement);
+        String baseURI = AbstractNode.getBaseURI(cursorElement);
         ParsedURL purl;
         if (baseURI == null) {
             purl = new ParsedURL(uriStr);
@@ -344,7 +362,7 @@ public class CursorManager implements SVGConstants, ErrorConstants {
         //
         // Convert the cursor's hot spot
         //
-        UnitProcessor.Context uctx 
+        UnitProcessor.Context uctx
             = UnitProcessor.createContext(ctx, cursorElement);
 
         String s = cursorElement.getAttributeNS(null, SVG_X_ATTRIBUTE);
@@ -370,22 +388,22 @@ public class CursorManager implements SVGConstants, ErrorConstants {
 
         if (cachedCursor != null) {
             return cachedCursor;
-        } 
-        
+        }
+
         //
-        // Load image into Filter f and transform hotSpot to 
+        // Load image into Filter f and transform hotSpot to
         // cursor space.
         //
         Point2D.Float hotSpot = new Point2D.Float(x, y);
-        Filter f = cursorHrefToFilter(cursorElement, 
-                                      purl, 
+        Filter f = cursorHrefToFilter(cursorElement,
+                                      purl,
                                       hotSpot);
         if (f == null) {
             cursorCache.clearCursor(desc);
             return null;
         }
-            
-        // The returned Filter is guaranteed to create a 
+
+        // The returned Filter is guaranteed to create a
         // default rendering of the desired size
         Rectangle cursorSize = f.getBounds2D().getBounds();
         RenderedImage ri = f.createScaledRendering(cursorSize.width,
@@ -410,23 +428,23 @@ public class CursorManager implements SVGConstants, ErrorConstants {
         // The cursor image is now into 'img'
         //
         Cursor c = Toolkit.getDefaultToolkit()
-            .createCustomCursor(img, 
+            .createCustomCursor(img,
                                 new Point(Math.round(hotSpot.x),
                                           Math.round(hotSpot.y)),
                                 purl.toString());
 
         cursorCache.putCursor(desc, c);
-        return c;        
+        return c;
     }
 
     /**
-     * Converts the input ParsedURL into a Filter and transforms the 
+     * Converts the input ParsedURL into a Filter and transforms the
      * input hotSpot point (in image space) to cursor space
      */
-    protected Filter cursorHrefToFilter(Element cursorElement, 
+    protected Filter cursorHrefToFilter(Element cursorElement,
                                         ParsedURL purl,
                                         Point2D hotSpot) {
-        
+
         AffineRable8Bit f = null;
         String uriStr = purl.toString();
         Dimension cursorSize = null;
@@ -434,30 +452,30 @@ public class CursorManager implements SVGConstants, ErrorConstants {
         // Try to load as an SVG Document
         DocumentLoader loader = ctx.getDocumentLoader();
         SVGDocument svgDoc = (SVGDocument)cursorElement.getOwnerDocument();
-        URIResolver resolver = new URIResolver(svgDoc, loader);
+        URIResolver resolver = ctx.createURIResolver(svgDoc, loader);
         try {
             Element rootElement = null;
             Node n = resolver.getNode(uriStr, cursorElement);
             if (n.getNodeType() == Node.DOCUMENT_NODE) {
                 SVGDocument doc = (SVGDocument)n;
                 // FIXX: really should be subCtx here.
-                ctx.initializeDocument(doc); 
+                ctx.initializeDocument(doc);
                 rootElement = doc.getRootElement();
             } else {
-                throw new BridgeException 
-                    (cursorElement, ERR_URI_IMAGE_INVALID,
+                throw new BridgeException
+                    (ctx, cursorElement, ERR_URI_IMAGE_INVALID,
                      new Object[] {uriStr});
             }
             GraphicsNode node = ctx.getGVTBuilder().build(ctx, rootElement);
 
             //
-            // The cursorSize define the viewport into which the 
-            // cursor is displayed. That viewport is platform 
+            // The cursorSize define the viewport into which the
+            // cursor is displayed. That viewport is platform
             // dependant and is not defined by the SVG content.
             //
             float width  = DEFAULT_PREFERRED_WIDTH;
             float height = DEFAULT_PREFERRED_HEIGHT;
-            UnitProcessor.Context uctx 
+            UnitProcessor.Context uctx
                 = UnitProcessor.createContext(ctx, rootElement);
 
             String s = rootElement.getAttribute(SVG_WIDTH_ATTRIBUTE);
@@ -465,31 +483,29 @@ public class CursorManager implements SVGConstants, ErrorConstants {
                 width = UnitProcessor.svgHorizontalLengthToUserSpace
                 (s, SVG_WIDTH_ATTRIBUTE, uctx);
             }
-            
+
             s = rootElement.getAttribute(SVG_HEIGHT_ATTRIBUTE);
             if (s.length() != 0) {
                 height = UnitProcessor.svgVerticalLengthToUserSpace
                     (s, SVG_HEIGHT_ATTRIBUTE, uctx);
             }
 
-            cursorSize 
+            cursorSize
                 = Toolkit.getDefaultToolkit().getBestCursorSize
                 (Math.round(width), Math.round(height));
-            
+
             // Handle the viewBox transform
-            AffineTransform at 
-                = ViewBox.getPreserveAspectRatioTransform(rootElement,
-                                                          cursorSize.width,
-                                                          cursorSize.height);
+            AffineTransform at = ViewBox.getPreserveAspectRatioTransform
+                (rootElement, cursorSize.width, cursorSize.height, ctx);
             Filter filter = node.getGraphicsNodeRable(true);
             f = new AffineRable8Bit(filter, at);
         } catch (BridgeException ex) {
             throw ex;
         } catch (SecurityException ex) {
-            throw new BridgeException(cursorElement, ERR_URI_UNSECURE,
+            throw new BridgeException(ctx, cursorElement, ex, ERR_URI_UNSECURE,
                                       new Object[] {uriStr});
         } catch (Exception ex) {
-            /* Nothing to do */ 
+            /* Nothing to do */
         }
 
 
@@ -503,19 +519,18 @@ public class CursorManager implements SVGConstants, ErrorConstants {
             }
 
             // Check if we got a broken image
-            if (filter.getProperty
-                (SVGBrokenLinkProvider.SVG_BROKEN_LINK_DOCUMENT_PROPERTY) != null) {
+            if (BrokenLinkProvider.hasBrokenLinkProperty(filter)) {
                 return null;
-            } 
-            
+            }
+
             Rectangle preferredSize = filter.getBounds2D().getBounds();
             cursorSize = Toolkit.getDefaultToolkit().getBestCursorSize
                 (preferredSize.width, preferredSize.height);
-            
+
             if (preferredSize != null && preferredSize.width >0
                 && preferredSize.height > 0 ) {
                 AffineTransform at = new AffineTransform();
-                if (preferredSize.width > cursorSize.width 
+                if (preferredSize.width > cursorSize.width
                     ||
                     preferredSize.height > cursorSize.height) {
                     at = ViewBox.getPreserveAspectRatioTransform
@@ -524,7 +539,7 @@ public class CursorManager implements SVGConstants, ErrorConstants {
                          true,
                          cursorSize.width,
                          cursorSize.height);
-                } 
+                }
                 f = new AffineRable8Bit(filter, at);
             } else {
                 // Invalid Size
@@ -542,15 +557,15 @@ public class CursorManager implements SVGConstants, ErrorConstants {
         //
         // In all cases, clip to the cursor boundaries
         //
-        Rectangle cursorViewport 
+        Rectangle cursorViewport
             = new Rectangle(0, 0, cursorSize.width, cursorSize.height);
 
-        PadRable8Bit cursorImage 
+        PadRable8Bit cursorImage
             = new PadRable8Bit(f, cursorViewport,
                                PadMode.ZERO_PAD);
 
         return cursorImage;
-            
+
     }
 
 
@@ -590,25 +605,25 @@ public class CursorManager implements SVGConstants, ErrorConstants {
             this.y = y;
 
             // Desc is used for hascode as well as for toString()
-            this.desc = this.getClass().getName() + 
+            this.desc = this.getClass().getName() +
                 "\n\t:[" + this.purl + "]\n\t:[" + x + "]:[" + y + "]";
         }
 
         public boolean equals(Object obj) {
-            if (obj == null 
+            if (obj == null
                 ||
                 !(obj instanceof CursorDescriptor)) {
                 return false;
             }
 
             CursorDescriptor desc = (CursorDescriptor)obj;
-            boolean isEqual =  
+            boolean isEqual =
                 this.purl.equals(desc.purl)
                  &&
                  this.x == desc.x
                  &&
                  this.y == desc.y;
-                 
+
             return isEqual;
         }
 
@@ -622,7 +637,7 @@ public class CursorManager implements SVGConstants, ErrorConstants {
     }
 
     /**
-     * Simple extension of the SoftReferenceCache that 
+     * Simple extension of the SoftReferenceCache that
      * offers typed interface (Kind of needed as SoftReferenceCache
      * mostly has protected methods).
      */
@@ -634,7 +649,7 @@ public class CursorManager implements SVGConstants, ErrorConstants {
             return (Cursor)requestImpl(desc);
         }
 
-        public void putCursor(CursorDescriptor desc, 
+        public void putCursor(CursorDescriptor desc,
                               Cursor cursor) {
             putImpl(desc, cursor);
         }
@@ -643,7 +658,4 @@ public class CursorManager implements SVGConstants, ErrorConstants {
             clearImpl(desc);
         }
     }
-
-
-
 }

@@ -86,10 +86,10 @@
 			embedAsCFF: false;
 		}
 		
-        global{
-            fontFamily: EmbeddedVerdana;
-            fontAntiAliasType: normal;
-        }
+		global{
+			fontFamily: EmbeddedVerdana;
+			fontAntiAliasType: normal;
+		}
     </mx:Style>
 
     <comps:dataGridVisibleComp id="myDataGrid1" />

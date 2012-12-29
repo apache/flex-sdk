@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -36,7 +37,7 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.PadRed;
  * This fills the input image with a given flood paint
  *
  * @author <a href="mailto:dean@w3.org">Dean Jackson</a>
- * @version $Id: FloodRable8Bit.java,v 1.10 2004/08/18 07:13:59 vhardy Exp $
+ * @version $Id: FloodRable8Bit.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 
 public class FloodRable8Bit extends AbstractRable
@@ -56,7 +57,7 @@ public class FloodRable8Bit extends AbstractRable
      * @param floodRegion region to be filled with floodPaint
      * @param floodPaint paint to use to flood the floodRegion
      */
-    public FloodRable8Bit(Rectangle2D floodRegion, 
+    public FloodRable8Bit(Rectangle2D floodRegion,
                               Paint floodPaint) {
         setFloodPaint(floodPaint);
         setFloodRegion(floodRegion);
@@ -136,7 +137,7 @@ public class FloodRable8Bit extends AbstractRable
             userAOI = aoi.getBounds2D();
 
             // No intersection with the area of interest so return null..
-            if (imageRect.intersects(userAOI) == false) 
+            if ( ! imageRect.intersects(userAOI) )
                 return null;
 
             // intersect the filter area and the AOI in user space

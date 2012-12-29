@@ -190,7 +190,7 @@ xmlns="*" testSWF="Layout3DBasic.mxml">
             <body>
                 <SetProperty target="list1" propertyName="depth" value="1" />
                 <SetProperty target="list1" propertyName="width" value="50" waitEvent="updateComplete"/>
-                <CompareBitmap maxColorVariance="30" url="../properties/baselines/$testID.png" target="list1" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="list1" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
 
@@ -288,10 +288,10 @@ xmlns="*" testSWF="Layout3DBasic.mxml">
                 <SetProperty target="icons" propertyName="x" value="0"  />
                 <SetProperty target="icons" propertyName="y" value="0"  />
                 <SetProperty target="icons" propertyName="width" value="200" waitEvent="updateComplete" />
-                <CompareBitmap url="../properties/baselines/$testID.png" target="icons" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="icons" numColorVariances="5" maxColorVariance="1" />
                 <SetProperty target="icons" propertyName="depth" value="3" />
                 <SetProperty target="icons" propertyName="width" value="210" waitEvent="updateComplete" />
-                <CompareBitmap url="../properties/baselines/Layout3D_property_layer_graphics_ListIconsTop.png" target="icons" />
+                <CompareBitmap url="../properties/baselines/Layout3D_property_layer_graphics_ListIconsTop.png" target="icons" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
     </testCases>

@@ -1081,11 +1081,6 @@ package mx.charts
         /**
          *  @private
          */
-        private var _moduleFactoryInitialized:Boolean = false;
-        
-        /**
-         *  @private
-         */
         private var _preferredMajorAxisLength:Number;
         
         /**

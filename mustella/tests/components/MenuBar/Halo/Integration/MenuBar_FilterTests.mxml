@@ -76,7 +76,7 @@
 		<TestCase testID="MenuBar_DropShadowFilter"  description="MenuBar with a DropShadow filter." keywords="[DropShadowFilter, MenuBar]" >
 			<body>
 				<RunCode code="addData(application.mb)" waitTarget="mb" waitEvent="updateComplete" />
-				<AssertPixelValue x="341" y="34" target="" value="0xFF7A7A" />
+				<AssertPixelValue x="341" y="34" target="" value="0xFFC6C6" />
 				<AssertPixelValue x="189" y="47" target="" value="0xFF8080" />
 			</body>
 		</TestCase>

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -36,11 +37,11 @@ import org.w3c.dom.Element;
  * The base bridge class for SVG filter primitives.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: AbstractSVGFilterPrimitiveElementBridge.java,v 1.11 2004/08/18 07:12:30 vhardy Exp $
+ * @version $Id: AbstractSVGFilterPrimitiveElementBridge.java 501922 2007-01-31 17:47:47Z dvholten $
  */
 public abstract class AbstractSVGFilterPrimitiveElementBridge
-    extends AbstractSVGBridge
-    implements FilterPrimitiveBridge, ErrorConstants {
+        extends AnimatableGenericSVGBridge
+        implements FilterPrimitiveBridge, ErrorConstants {
 
     /**
      * Constructs a new bridge for a filter primitive element.
@@ -99,7 +100,7 @@ public abstract class AbstractSVGFilterPrimitiveElementBridge
 
         String s = filterElement.getAttributeNS(null, SVG_IN2_ATTRIBUTE);
         if (s.length() == 0) {
-            throw new BridgeException(filterElement, ERR_ATTRIBUTE_MISSING,
+            throw new BridgeException(ctx, filterElement, ERR_ATTRIBUTE_MISSING,
                                       new Object [] {SVG_IN2_ATTRIBUTE});
         }
         return getFilterSource(filterElement,
@@ -194,14 +195,14 @@ public abstract class AbstractSVGFilterPrimitiveElementBridge
                 if (SVG_BACKGROUND_IMAGE_VALUE.equals(s)) {
                     // BackgroundImage
                     source = new BackgroundRable8Bit(filteredNode);
-                    source = new PadRable8Bit(source, filterRegion, 
+                    source = new PadRable8Bit(source, filterRegion,
                                               PadMode.ZERO_PAD);
                 }
             } else if (SVG_BACKGROUND_ALPHA_VALUE.equals(s)) {
                 // BackgroundAlpha
                 source = new BackgroundRable8Bit(filteredNode);
                 source = new FilterAlphaRable(source);
-                source = new PadRable8Bit(source, filterRegion, 
+                source = new PadRable8Bit(source, filterRegion,
                                           PadMode.ZERO_PAD);
             }
             break;
@@ -244,19 +245,21 @@ public abstract class AbstractSVGFilterPrimitiveElementBridge
      * @param filterElement the filter primitive element
      * @param attrName the name of the attribute
      * @param defaultValue the default value of the attribute
+     * @param ctx the BridgeContext to use for error information
      */
     protected static int convertInteger(Element filterElement,
                                         String attrName,
-                                        int defaultValue) {
+                                        int defaultValue,
+                                        BridgeContext ctx) {
         String s = filterElement.getAttributeNS(null, attrName);
         if (s.length() == 0) {
             return defaultValue;
         } else {
             try {
                 return SVGUtilities.convertSVGInteger(s);
-            } catch (NumberFormatException ex) {
+            } catch (NumberFormatException nfEx ) {
                 throw new BridgeException
-                    (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                    (ctx, filterElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
                      new Object[] {attrName, s});
             }
         }
@@ -270,10 +273,12 @@ public abstract class AbstractSVGFilterPrimitiveElementBridge
      * @param filterElement the filter primitive element
      * @param attrName the name of the attribute
      * @param defaultValue the default value of the attribute
+     * @param ctx the BridgeContext to use for error information
      */
     protected static float convertNumber(Element filterElement,
                                          String attrName,
-                                         float defaultValue) {
+                                         float defaultValue,
+                                         BridgeContext ctx) {
 
         String s = filterElement.getAttributeNS(null, attrName);
         if (s.length() == 0) {
@@ -281,10 +286,10 @@ public abstract class AbstractSVGFilterPrimitiveElementBridge
         } else {
             try {
                 return SVGUtilities.convertSVGNumber(s);
-            } catch (NumberFormatException ex) {
+            } catch (NumberFormatException nfEx) {
                 throw new BridgeException
-                    (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                     new Object[] {attrName, s, ex});
+                    (ctx, filterElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                     new Object[] {attrName, s, nfEx});
             }
         }
     }

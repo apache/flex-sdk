@@ -98,7 +98,7 @@ public class SwfLoaderTestAdapter {
 		String [] args  = StringUtils.StringToArray (extra_args);
 
 
-		compm.compile(loader_mxml_file, args);
+		compm.compile(loader_mxml_file, new ArrayList(Arrays.asList(args)));
 
 		System.out.println ("Done with generic loader compile");
 	}

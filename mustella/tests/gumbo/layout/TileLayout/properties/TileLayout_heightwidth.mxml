@@ -128,7 +128,7 @@ around it by doing multiple adds.
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />        
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -156,7 +156,7 @@ around it by doing multiple adds.
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -233,7 +233,7 @@ around it by doing multiple adds.
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <AssertPropertyValue target="box1.group1" propertyName="height" value="50" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -311,7 +311,7 @@ around it by doing multiple adds.
         <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="3" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="5" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -375,7 +375,7 @@ around it by doing multiple adds.
         <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="2" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="1" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <AssertPropertyValue target="box1.group1" propertyName="height" value="50" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -441,7 +441,7 @@ around it by doing multiple adds.
         <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="2" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -509,7 +509,7 @@ around it by doing multiple adds.
         <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="4" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="5" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <AssertPropertyValue target="box1.group1" propertyName="height" value="90" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -574,7 +574,7 @@ around it by doing multiple adds.
         <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="80" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="81" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -765,7 +765,7 @@ around it by doing multiple adds.
         <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="90" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="100" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <AssertPropertyValue target="box1.group1" propertyName="height" value="50" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -834,7 +834,7 @@ around it by doing multiple adds.
         <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="30" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="31" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <AssertPropertyValue target="box1.group1" propertyName="width" value="60" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -1075,7 +1075,7 @@ around it by doing multiple adds.
         <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="60" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <AssertPropertyValue target="box1.group1" propertyName="height" value="40" />
         <AssertPropertyValue target="box1.group1" propertyName="width" value="40" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" waitTarget="box1.group1" waitEvent="updateComplete" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -1110,7 +1110,7 @@ around it by doing multiple adds.
         <RunCode code="application.addItemsToGroup(application.box1.group1, 16)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>                
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" waitTarget="box1.group1" waitEvent="updateComplete" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 

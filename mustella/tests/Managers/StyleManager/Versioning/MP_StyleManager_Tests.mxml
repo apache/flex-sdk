@@ -103,8 +103,7 @@
             </setup>
             <body>
                 <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
-                <!--AssertEvent eventName="updateComplete" eventClass="mx.events::FlexEvent" target="swf1.content.document.acb3" /-->
-                <Pause timeout="400" />
+                <WaitForEvent eventName="updateComplete" target="swf1.content.document.map1" />
                 <CompareBitmap target="swf1.content.document.acb3" url="../Versioning/baselines/mp_classSelector_gif.png" timeout="2500" />
             </body>
          </TestCase>
@@ -218,6 +217,7 @@
                 <CompareBitmap target="swf1.content.document.acb2" url="../Versioning/baselines/mp_typeSelector_png.png" timeout="2500" numColorVariances="10" ignoreMaxColorVariance="true" />
             </body>
          </TestCase>
+		<!-- browser or AIR required
          <TestCase testID="MP_RuntimeCSS_ClassSelector_gif_untrusted" description="Test that a class selector using a gif works in a untrusted child app." keywords="[Runtime CSS, Marshall Plan, Class Selector]">
              <setup>
                <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"
@@ -233,11 +233,12 @@
             <body>
                 <WaitForSandboxApp target="swf1" />
                 <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="added"/>
-                <!--AssertEvent eventName="updateComplete" eventClass="mx.events::FlexEvent" target="swf1.content.document.acb3" /-->
+				<WaitForEvent eventName="complete" target="swf1.content.document.acb3.border" />
                 
-                <CompareBitmap target="swf1.content.document.acb3" url="../Versioning/baselines/mp_classSelector_gif.png" timeout="2500" />
+                <CompareBitmap target="swf1.content.document.acb3" url="../Versioning/baselines/mp_classSelector_gif_untrusted.png" timeout="2500" />
             </body>
          </TestCase>
+		 -->
          <TestCase testID="MP_RuntimeCSS_TypeSelector_gif_untrusted" description="Test that a type selector using a gif works in a untrusted child app." keywords="[Runtime CSS, Marshall Plan, Type Selector]">
              <setup>
                <ResetComponent target="control1" className="mx.controls.TextInput" waitTarget="control1"

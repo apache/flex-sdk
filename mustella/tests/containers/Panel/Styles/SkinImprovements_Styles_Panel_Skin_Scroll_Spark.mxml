@@ -85,7 +85,7 @@
                 <WaitForEffectsToEnd />
             </setup>
             <body>
-                <CompareBitmap target="componentPanelwithscroll" url="../Styles/Baselines/Panel_BorderSkin_scroll2_Spark.png" />
+                <CompareBitmap target="componentPanelwithscroll" url="../Styles/Baselines/Panel_BorderSkin_scroll2_Spark.png" numColorVariances="4" maxColorVariance="5"/>
             </body>
         </TestCase>
     </testCases>

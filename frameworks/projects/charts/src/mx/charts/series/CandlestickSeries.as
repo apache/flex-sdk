@@ -19,6 +19,7 @@
 
 package mx.charts.series
 {
+import flash.utils.Dictionary;
 
 import mx.charts.HitData;
 import mx.charts.chartClasses.CartesianTransform;
@@ -175,7 +176,7 @@ public class CandlestickSeries extends HLOCSeriesBase
     /**
      *  @private
      */
-    private var _moduleFactoryInitialized:Boolean = false; 
+    private static var _moduleFactoryInitialized:Dictionary = new Dictionary(true); 
 
     /**
      * @private
@@ -311,10 +312,10 @@ public class CandlestickSeries extends HLOCSeriesBase
     {
         super.moduleFactory = factory;
         
-        if (_moduleFactoryInitialized)
+        if (_moduleFactoryInitialized[factory])
             return;
         
-        _moduleFactoryInitialized = true;
+        _moduleFactoryInitialized[factory] = true;
         
         // our style settings
         initStyles();

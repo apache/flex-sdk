@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -36,10 +37,12 @@ import org.apache.flex.forks.batik.util.HaltingThread;
 /**
  * A CompositeGraphicsNode is a graphics node that can contain graphics nodes.
  *
+ * <br>Note: this class is a 'little bit aware of' other threads, but not really threadsafe.
+ *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: CompositeGraphicsNode.java,v 1.44 2005/03/27 08:58:34 cam Exp $
+ * @version $Id: CompositeGraphicsNode.java 489226 2006-12-21 00:05:36Z cam $
  */
-public class CompositeGraphicsNode extends AbstractGraphicsNode 
+public class CompositeGraphicsNode extends AbstractGraphicsNode
     implements List {
 
     public static final Rectangle2D VIEWPORT  = new Rectangle();
@@ -53,12 +56,12 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
     /**
      * The number of children of this composite graphics node.
      */
-    protected int count;
+    protected volatile int count;
 
     /**
      * The number of times the children list has been structurally modified.
      */
-    protected int modCount;
+    protected volatile int modCount;
 
     /**
      * This flag indicates if this node has BackgroundEnable = 'new'.
@@ -70,17 +73,17 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
      * Internal Cache: Geometry bounds for this node, not taking into
      * account any of its children rendering attributes into account
      */
-    private Rectangle2D geometryBounds;
+    private volatile Rectangle2D geometryBounds;
 
     /**
      * Internal Cache: Primitive bounds.
      */
-    private Rectangle2D primitiveBounds;
+    private volatile Rectangle2D primitiveBounds;
 
     /**
      * Internal Cache: Sensitive bounds.
      */
-    private Rectangle2D sensitiveBounds;
+    private volatile Rectangle2D sensitiveBounds;
 
     /**
      * Internal Cache: the outline.
@@ -147,9 +150,12 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
             return;
         }
 
+        // Thread.currentThread() is potentially expensive, so reuse my instance in hasBeenHalted()
+        Thread currentThread = Thread.currentThread();
+
         // Paint children
         for (int i=0; i < count; ++i) {
-            if (HaltingThread.hasBeenHalted())
+            if (HaltingThread.hasBeenHalted( currentThread ))
                 return;
 
             GraphicsNode node = children[i];
@@ -192,14 +198,17 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
             return primitiveBounds;
         }
 
+        // Thread.currentThread() is potentially expensive, so reuse my instance in hasBeenHalted()
+        Thread currentThread = Thread.currentThread();
+
         int i=0;
         Rectangle2D bounds = null;
         while ((bounds == null) && i < count) {
             bounds = children[i++].getTransformedBounds(IDENTITY);
-            if (((i & 0x0F) == 0) && HaltingThread.hasBeenHalted())
+            if (((i & 0x0F) == 0) && HaltingThread.hasBeenHalted( currentThread ))
                 break; // check every 16 children if we have been interrupted.
         }
-        if (HaltingThread.hasBeenHalted()) {
+        if (HaltingThread.hasBeenHalted( currentThread )) {
             invalidateGeometryCache();
             return null;
         }
@@ -210,9 +219,9 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
         }
 
         primitiveBounds = bounds;
-        Rectangle2D ctb = null;
+
         while (i < count) {
-            ctb = children[i++].getTransformedBounds(IDENTITY);
+            Rectangle2D ctb = children[i++].getTransformedBounds(IDENTITY);
             if (ctb != null) {
                 if (primitiveBounds == null) {
                     // another thread has set the primitive bounds to null,
@@ -223,12 +232,12 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
                 }
             }
 
-            if (((i & 0x0F) == 0) && HaltingThread.hasBeenHalted())
+            if (((i & 0x0F) == 0) && HaltingThread.hasBeenHalted( currentThread ))
                 break; // check every 16 children if we have been interrupted.
         }
-        
+
         // Check If we should halt early.
-        if (HaltingThread.hasBeenHalted()) {
+        if (HaltingThread.hasBeenHalted( currentThread )) {
             // The Thread has been halted.
             // Invalidate any cached values and proceed.
             invalidateGeometryCache();
@@ -261,7 +270,7 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
         }
 
         return new Rectangle2D.Float
-            ((float)(x*sx+t.getTranslateX()), 
+            ((float)(x*sx+t.getTranslateX()),
              (float)(y*sy+t.getTranslateY()),
              (float)(w*sx), (float)(h*sy));
     }
@@ -272,7 +281,8 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
      * transform (if any).
      *
      * @param txf the affine transform with which this node's transform should
-     *        be concatenated. Should not be null.  */
+     *        be concatenated. Should not be null.
+     */
     public Rectangle2D getTransformedPrimitiveBounds(AffineTransform txf) {
         AffineTransform t = txf;
         if (transform != null) {
@@ -284,16 +294,15 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
             // No rotation it's safe to simply transform our bounding box.
             return getTransformedBBox(getPrimitiveBounds(), t);
         }
-	
+
         int i = 0;
         Rectangle2D tpb = null;
         while (tpb == null && i < count) {
             tpb = children[i++].getTransformedBounds(t);
         }
 
-        Rectangle2D ctb = null;
         while (i < count) {
-            ctb = children[i++].getTransformedBounds(t);
+            Rectangle2D ctb = children[i++].getTransformedBounds(t);
             if(ctb != null){
                 tpb.add(ctb);
             }
@@ -304,7 +313,7 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
 
     /**
      * Returns the bounds of the area covered by this node, without
-     * taking any of its rendering attribute into account. That is,
+     * taking any of its rendering attributes into account. That is,
      * exclusive of any clipping, masking, filtering or stroking, for
      * example.
      */
@@ -313,13 +322,12 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
             // System.err.println("geometryBounds are null");
             int i=0;
             while(geometryBounds == null && i < count){
-                geometryBounds = 
-		    children[i++].getTransformedGeometryBounds (IDENTITY);
+                geometryBounds =
+                children[i++].getTransformedGeometryBounds (IDENTITY);
             }
 
-            Rectangle2D cgb = null;
             while (i<count) {
-                cgb = children[i++].getTransformedGeometryBounds(IDENTITY);
+                Rectangle2D cgb = children[i++].getTransformedGeometryBounds(IDENTITY);
                 if (cgb != null) {
                     if (geometryBounds == null) {
                         // another thread has set the geometry bounds to null,
@@ -356,13 +364,13 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
             // No rotation it's safe to simply transform our bounding box.
             return getTransformedBBox(getGeometryBounds(), t);
         }
-	
+
         Rectangle2D gb = null;
         int i=0;
         while (gb == null && i < count) {
             gb = children[i++].getTransformedGeometryBounds(t);
         }
-	
+
         Rectangle2D cgb = null;
         while (i < count) {
             cgb = children[i++].getTransformedGeometryBounds(t);
@@ -386,19 +394,18 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
         // System.out.println("sensitiveBoundsBounds are null");
         int i=0;
         while(sensitiveBounds == null && i < count){
-            sensitiveBounds = 
+            sensitiveBounds =
                 children[i++].getTransformedSensitiveBounds(IDENTITY);
         }
 
-        Rectangle2D cgb = null;
         while (i<count) {
-            cgb = children[i++].getTransformedSensitiveBounds(IDENTITY);
+            Rectangle2D cgb = children[i++].getTransformedSensitiveBounds(IDENTITY);
             if (cgb != null) {
                 if (sensitiveBounds == null)
                     // another thread has set the geometry bounds to null,
                     // need to recall this function
                     return getSensitiveBounds();
-                
+
                 sensitiveBounds.add(cgb);
             }
         }
@@ -422,21 +429,20 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
             t = new AffineTransform(txf);
             t.concatenate(transform);
         }
-	
+
         if ((t == null) || ((t.getShearX() == 0) && (t.getShearY() == 0))) {
             // No rotation it's safe to simply transform our bounding box.
             return getTransformedBBox(getSensitiveBounds(), t);
         }
-	
+
         Rectangle2D sb = null;
         int i=0;
         while (sb == null && i < count) {
             sb = children[i++].getTransformedSensitiveBounds(t);
         }
-	
-        Rectangle2D csb = null;
+
         while (i < count) {
-            csb = children[i++].getTransformedSensitiveBounds(t);
+            Rectangle2D csb = children[i++].getTransformedSensitiveBounds(t);
             if (csb != null) {
                 sb.add(csb);
             }
@@ -508,7 +514,7 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
      * Returns the outline of this node.
      */
     public Shape getOutline() {
-        if (outline != null) 
+        if (outline != null)
             return outline;
 
         outline = new GeneralPath();
@@ -578,24 +584,24 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
     }
 
     /**
-     * Returns an array containing all of the graphics node in the
-     * children list of this composite graphics node in the correct
-     * order. If the children list fits in the specified array, it is
-     * returned therein. Otherwise, a new array is allocated.
+     * Returns an array containing all of the graphics node in the children list
+     * of this composite graphics node in the correct order.
      */
     public Object [] toArray() {
         GraphicsNode [] result = new GraphicsNode[count];
-        for (int i=0; i < count; ++i) {
-            result[i] = children[i];
-        }
+
+        System.arraycopy( children, 0, result, 0, count );
+
         return result;
     }
 
     /**
-     * Returns an array containing all of the graphics node in the children list
-     * of this composite graphics node in the correct order.
+     * Returns an array containing all of the graphics node in the
+     * children list of this composite graphics node in the correct
+     * order. If the children list fits in the specified array, it is
+     * returned therein. Otherwise, a new array is allocated.
      *
-     * @param a the array to fit if possible 
+     * @param a the array to fit if possible
      */
     public Object[] toArray(Object [] a) {
         if (a.length < count) {
@@ -630,7 +636,7 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
      * @return the graphics node previously  at the specified position
      * @exception IndexOutOfBoundsException if the index is out of range
      * @exception IllegalArgumentException if the node is not an
-     * instance of GraphicsNode 
+     * instance of GraphicsNode
      */
     public Object set(int index, Object o) {
         // Check for correct arguments
@@ -714,7 +720,7 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
      * @param o the graphics node to be inserted.
      * @exception IndexOutOfBoundsException if the index is out of range
      * @exception IllegalArgumentException if the node is not an
-     * instance of GraphicsNode 
+     * instance of GraphicsNode
      */
     public void add(int index, Object o) {
         // Check for correct arguments
@@ -767,12 +773,13 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
     }
 
     /**
-     * Removes the specified graphics node from the children list.
+     * Removes the first instance of the specified graphics node from the children list.
      *
      * @param o the node the remove
      * @return true if the children list contains the specified graphics node
      * @exception IllegalArgumentException if the node is not an
      * instance of GraphicsNode
+     * @exception IndexOutOfBoundsException when o is not in children list
      */
     public boolean remove(Object o) {
         // Check for correct argument
@@ -785,7 +792,7 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
         }
         // Remove the node
         int index = 0;
-        for (; node != children[index]; index++);
+        for (; node != children[index]; index++);     // fires exception when node not found!
         remove(index);
         return true;
     }
@@ -797,7 +804,7 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
      *
      * @param index the position of the graphics node to remove
      * @return the graphics node that was removed
-     * @exception IndexOutOfBoundsException if index out of range <tt> 
+     * @exception IndexOutOfBoundsException if index out of range <tt>
      */
     public Object remove(int index) {
         // Check for correct argument
@@ -857,7 +864,7 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
      * Returns true if this composite graphics node contains all the graphics
      * node in the specified collection, false otherwise.
      *
-     * @param c the collection to be checked for containment 
+     * @param c the collection to be checked for containment
      */
     public boolean containsAll(Collection c) {
         Iterator i = c.iterator();
@@ -875,15 +882,17 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
      * Returns the index in the children list of the specified graphics node or
      * -1 if the children list does not contain this graphics node.
      *
-     * @param node the graphics node to search for 
+     * @param node the graphics node to search for
      */
     public int indexOf(Object node) {
         if (node == null || !(node instanceof GraphicsNode)) {
             return -1;
         }
         if (((GraphicsNode) node).getParent() == this) {
-            for (int i = 0; i < count; i++) {
-                if (node == children[i]) {
+            int iCount = count;                  // local is cheaper
+            GraphicsNode[] workList = children;  // local is cheaper
+            for (int i = 0; i < iCount; i++) {
+                if (node == workList[ i ]) {
                     return i;
                 }
             }
@@ -896,7 +905,7 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
      * specified graphics node, or -1 if the list does not contain this graphics
      * node.
      *
-     * @param node the graphics node to search for 
+     * @param node the graphics node to search for
      */
     public int lastIndexOf(Object node) {
         if (node == null || !(node instanceof GraphicsNode)) {
@@ -926,7 +935,7 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
      * the specified position in the children list.
      *
      * @param index the index of the first graphics node to return
-     * from the children list 
+     * from the children list
      */
     public ListIterator listIterator(int index) {
         if (index < 0 || index > count) {
@@ -973,7 +982,7 @@ public class CompositeGraphicsNode extends AbstractGraphicsNode
         int oldCapacity = children.length;
         if (minCapacity > oldCapacity) {
             GraphicsNode [] oldData = children;
-            int newCapacity = (oldCapacity * 3)/2 + 1;
+            int newCapacity = oldCapacity + oldCapacity/2 + 1;
             if (newCapacity < minCapacity) {
                 newCapacity = minCapacity;
             }

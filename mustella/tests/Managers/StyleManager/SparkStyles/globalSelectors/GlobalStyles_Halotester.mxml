@@ -87,10 +87,10 @@
 		</TestCase>
 		<TestCase testID="TextInput_GlobalStyle_compileTime" keywords="[TextInput]" description="Ensure that TextInput looks correct when global styles are set.">
 			<setup>
+			    <RunCode code="application.textinput1.setSelection(0,1)" waitTarget="textinput1" waitEvent="updateComplete" />
 			    <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
 			    <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
-			    <RunCode code="application.textinput1.setSelection(0,1)" waitTarget="textinput1" waitEvent="updateComplete" />
 			</setup>
 			<body>
 				<AssertStyleValue target="textinput1" styleName="chromeColor" value="0xFFCC99"/>
@@ -280,13 +280,9 @@
 			</body>
 		</TestCase>
 
-        <TestCase testID="GlobalStyle_loadingCSS" keywords="[Runtime CSS]" description="This just loads the CSS">
-			<body>
-			    <RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
-			</body>
-		</TestCase>
         <TestCase testID="RadioButton_GlobalStyle_runtimeCSS" keywords="[RadioButton]" description="Ensure that RadioButton looks correct when global styles are set.">
             <setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
                 <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
             </setup>
@@ -299,6 +295,7 @@
         </TestCase>
         <TestCase testID="TextArea_GlobalStyle_runtimeCSS" keywords="[TextArea]" description="Ensure that TextArea looks correct when global styles are set.">
             <setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
                 <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
             </setup>
@@ -314,6 +311,7 @@
         </TestCase>
         <TestCase testID="TextInput_GlobalStyle_runtimeCSS" keywords="[TextInput]" description="Ensure that TextInput looks correct when global styles are set.">
             <setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
                 <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
@@ -328,6 +326,7 @@
         </TestCase>
         <TestCase testID="TextArea_GlobalStyle_runtimeCSS_AIR" keywords="[TextArea]" description="AIR:Ensure that TextArea looks correct when global styles are set.">
             <setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
                 <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
             </setup>
@@ -343,10 +342,12 @@
         </TestCase>
         <TestCase testID="TextInput_GlobalStyle_runtimeCSS_AIR" keywords="[TextInput]" description="AIR:Ensure that TextInput looks correct when global styles are set.">
             <setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
                 <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
                 <RunCode code="application.textinput1.setSelection(0,1)" waitTarget="textinput1" waitEvent="updateComplete" />
+				<WaitForLayoutManager />
             </setup>
             <body>
                 <AssertStyleValue target="textinput1" styleName="chromeColor" value="0x9999FF"/>
@@ -357,6 +358,7 @@
         </TestCase>
         <TestCase testID="Button_GlobalStyle_runtimeCSS" keywords="[Button]" description="Ensure that Button looks correct when global styles are set.">
             <setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <RunCode code="application.defaultButton1.setFocus()" waitEvent="focusIn" waitTarget="defaultButton1" />
                 <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
@@ -370,6 +372,7 @@
         </TestCase>
         <TestCase testID="CheckBox_GlobalStyle_runtimeCSS" keywords="[CheckBox]" description="Ensure that CheckBox looks correct when global styles are set.">
             <setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <RunCode code="application.defaultButton3.setFocus()" waitEvent="focusIn" waitTarget="defaultButton3" />
                 <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
             </setup>
@@ -382,6 +385,7 @@
         </TestCase>
         <TestCase testID="ToggleButton_GlobalStyle_runtimeCSS_selected" keywords="[ToggleButton]" description="Ensure that ToggleButton looks correct when global styles are set.">
             <setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
                 <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
@@ -396,6 +400,7 @@
         </TestCase>
         <TestCase testID="NumericStepper_GlobalStyle_runtimeCSS" keywords="[NumericStepper]" description="Ensure that NumericStepper looks correct when global styles are set.">
             <setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
                 <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
@@ -413,6 +418,7 @@
         </TestCase>
         <TestCase testID="NumericStepper_GlobalStyle_runtimeCSS_AIR" keywords="[NumericStepper]" description="AIR:Ensure that NumericStepper looks correct when global styles are set.">
             <setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
                 <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
@@ -430,6 +436,7 @@
         </TestCase>
         <TestCase testID="HSlider_GlobalStyle_runtimeCSS" keywords="[HSlider]" description="Ensure that HSlider looks correct when global styles are set.">
             <setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <RunCode code="application.defaultButton3.setFocus()" waitEvent="focusIn" waitTarget="defaultButton3" />
                 <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
@@ -440,6 +447,7 @@
         </TestCase>
         <TestCase testID="VSlider_GlobalStyle_runtimeCSS" keywords="[VSlider]" description="Ensure that VSlider looks correct when global styles are set.">
             <setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <RunCode code="application.defaultButton3.setFocus()" waitEvent="focusIn" waitTarget="defaultButton3" />
                 <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
@@ -453,6 +461,7 @@
         </TestCase>
         <TestCase testID="List_GlobalStyle_runtimeCSS" keywords="[List]" description="Ensure that List looks correct when global styles are set.">
             <setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <RunCode code="application.defaultButton3.setFocus()" waitEvent="focusIn" waitTarget="defaultButton3" />
                 <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
@@ -469,6 +478,7 @@
         </TestCase>
         <TestCase testID="ButtonBar_GlobalStyle_runtimeCSS" keywords="[ButtonBar]" description="Ensure that ButtonBar looks correct when global styles are set.">
             <setup>
+				<RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
                 <RunCode code="application.defaultButton4.setFocus()" waitEvent="focusIn" waitTarget="defaultButton4" />
                 <DispatchKeyEvent key="TAB" waitTarget="cp" waitEvent="focusIn" />
                 <DispatchKeyEvent key="TAB" waitTarget="buttonbar1" waitEvent="focusIn" />

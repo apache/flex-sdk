@@ -73,7 +73,7 @@ buttonBar_keyDownHandler(event:KeyboardEvent)
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
 
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -94,7 +94,7 @@ buttonBar_keyDownHandler(event:KeyboardEvent)
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -113,7 +113,7 @@ buttonBar_keyDownHandler(event:KeyboardEvent)
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -132,7 +132,7 @@ buttonBar_keyDownHandler(event:KeyboardEvent)
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -152,7 +152,7 @@ buttonBar_keyDownHandler(event:KeyboardEvent)
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -172,7 +172,7 @@ buttonBar_keyDownHandler(event:KeyboardEvent)
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -192,7 +192,7 @@ buttonBar_keyDownHandler(event:KeyboardEvent)
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -212,7 +212,7 @@ buttonBar_keyDownHandler(event:KeyboardEvent)
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -233,7 +233,7 @@ buttonBar_keyDownHandler(event:KeyboardEvent)
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -254,7 +254,7 @@ buttonBar_keyDownHandler(event:KeyboardEvent)
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -276,7 +276,7 @@ buttonBar_keyDownHandler(event:KeyboardEvent)
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>
@@ -298,7 +298,7 @@ buttonBar_keyDownHandler(event:KeyboardEvent)
 		<ConditionalValue deviceDensity="240" os="android"  />
 		<ConditionalValue deviceDensity="160" os="win"  />
 		<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>

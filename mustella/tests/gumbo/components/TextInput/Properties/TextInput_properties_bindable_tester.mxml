@@ -161,9 +161,7 @@
 			<body>
 				<SetProperty target="textInput3" propertyName="text" value="jello world" waitEvent="updateComplete" waitTarget="textInput3"/>
 				<AssertPropertyValue target="textInput2" propertyName="prompt" value="jello world" />
-				<CompareBitmap url="../Properties/baselines/" target="textInput2">
-				<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput2" />
 			</body>
 		</TestCase>
 

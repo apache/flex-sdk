@@ -204,9 +204,9 @@
             </setup>
             <body>          
                 <CompareBitmap target="mainGroup.focusBox" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>              
-                <DispatchMouseEvent type="rollOver" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="rollOver" waitTarget="mainGroup.myCB1"/>
-                <DispatchMouseEvent type="mouseDown" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="mouseDown" waitTarget="mainGroup.myCB1"/>
-                <DispatchMouseEvent type="mouseUp" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="mouseUp" waitTarget="mainGroup.myCB1"/>               
+                <DispatchMouseEvent type="rollOver" target="mainGroup.myCB1.openButton" localX="10" localY="10" />
+                <DispatchMouseEvent type="mouseDown" target="mainGroup.myCB1.openButton" localX="10" localY="10" />
+                <DispatchMouseEvent type="mouseUp" target="mainGroup.myCB1.openButton" localX="10" localY="10" />               
                 <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="false"/>
                 <CompareBitmap target="mainGroup.focusBox" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>                                
             </body>

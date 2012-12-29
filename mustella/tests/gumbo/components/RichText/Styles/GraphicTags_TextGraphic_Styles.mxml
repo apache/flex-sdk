@@ -428,9 +428,7 @@
             </setup>
             <body>
                 <AssertStyleValue target="textGraphicComp.textGraphic" styleName="cffHinting" value="none" />
-                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../Styles/baselines/" target="container" >
-                    <ConditionalValue os="mac" />
-                </CompareBitmap>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../Styles/baselines/$testID.png" target="container" />
             </body>
         </TestCase>
 
@@ -3207,8 +3205,8 @@
                 <SetProperty target="textGraphicComp.textGraphic" propertyName="textFlow" valueExpression="value=TextFlowUtil.importFromString(content_backgroundColor);" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
             </setup>
             <body>
-		<AssertPropertyValue target="textGraphicComp.textGraphic" propertyName="width" value="253" />
-		<AssertPropertyValue target="textGraphicComp.textGraphic" propertyName="height" value="16" />
+		<AssertPropertyValue target="textGraphicComp.textGraphic" propertyName="width" value="261" />
+		<AssertPropertyValue target="textGraphicComp.textGraphic" propertyName="height" value="20" />
 
                 <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../Styles/baselines/$testID.png" target="container" />
             </body>

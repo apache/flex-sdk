@@ -72,7 +72,7 @@ state and that selectedIndex is correct.
 			<ConditionalValue deviceDensity="240" os="android"  />
 			<ConditionalValue deviceDensity="160" os="win"  />
 			<ConditionalValue deviceDensity="320" os="win"  />
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
         </CompareBitmap>
     </body>

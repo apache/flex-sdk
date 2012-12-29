@@ -87,6 +87,7 @@
                 <RunCode code="FlexGlobals.topLevelApplication.windowObj=FlexGlobals.topLevelApplication.createAWindowByClass(WindowWithModule,'window1');" waitTarget="" waitEvent="myWindowComplete"/>
 
                 <!-- module should be loaded inside of the window -->
+				<WaitForEvent target="windowObj.ml" eventName="ready" />
 
             </setup>
 

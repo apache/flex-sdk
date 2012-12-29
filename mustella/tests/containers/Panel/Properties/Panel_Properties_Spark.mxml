@@ -314,15 +314,12 @@
                 <ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
 
                 <SetProperty target="myCustomPanelSpark.myPanel" propertyName="autoLayout" value="true" />
-                <SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+                <SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30" waitEvent="updateComplete"/>
             </setup>
 
             <body>
 
                 <AssertPropertyValue target="myCustomPanelSpark.myPanel" propertyName="autoLayout" value="true"/>
-
-
-
                 <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Properties/baselines/autoLayout2_Spark.png" timeout="5000" />
 
             </body>

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,16 +24,19 @@ import java.awt.Graphics2D;
  * Interface for Rable's that can more efficently represent there
  * action as a paint method instead of a RenderedImage when going to a
  * Graphics2D anyways.
+ *
+ * @version $Id: PaintRable.java 478363 2006-11-22 23:01:13Z dvholten $
  */
 public interface PaintRable {
+    
     /**
-     * Should perform the equivilent action as 
+     * Should perform the equivilent action as
      * createRendering followed by drawing the RenderedImage.
      *
      * @param g2d The Graphics2D to draw to.
      * @return true if the paint call succeeded, false if
-     *         for some reason the paint failed (in which 
+     *         for some reason the paint failed (in which
      *         case a createRendering should be used).
      */
-    public boolean paintRable(Graphics2D g2d);
+    boolean paintRable(Graphics2D g2d);
 }

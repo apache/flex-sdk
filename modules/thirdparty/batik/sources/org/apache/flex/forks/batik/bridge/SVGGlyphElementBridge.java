@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,22 +18,22 @@
  */
 package org.apache.flex.forks.batik.bridge;
 
-import java.awt.Paint;
 import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.StringTokenizer;
-import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.flex.forks.batik.gvt.CompositeGraphicsNode;
 import org.apache.flex.forks.batik.gvt.GraphicsNode;
-import org.apache.flex.forks.batik.gvt.font.Glyph;
 import org.apache.flex.forks.batik.gvt.font.GVTFontFace;
+import org.apache.flex.forks.batik.gvt.font.Glyph;
 import org.apache.flex.forks.batik.gvt.text.TextPaintInfo;
 import org.apache.flex.forks.batik.parser.AWTPathProducer;
 import org.apache.flex.forks.batik.parser.ParseException;
 import org.apache.flex.forks.batik.parser.PathParser;
+
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -43,7 +44,7 @@ import org.w3c.dom.NodeList;
  * Bridge class for the &lt;glyph> element.
  *
  * @author <a href="mailto:bella.robinson@cmis.csiro.au">Bella Robinson</a>
- * @version $Id: SVGGlyphElementBridge.java,v 1.14 2004/09/06 00:01:58 deweese Exp $
+ * @version $Id: SVGGlyphElementBridge.java 501922 2007-01-31 17:47:47Z dvholten $
  */
 public class SVGGlyphElementBridge extends AbstractSVGBridge
     implements ErrorConstants {
@@ -81,8 +82,6 @@ public class SVGGlyphElementBridge extends AbstractSVGBridge
                              GVTFontFace fontFace,
                              TextPaintInfo tpi) {
 
-
-
         float fontHeight = fontFace.getUnitsPerEm();
         float scale = fontSize/fontHeight;
         AffineTransform scaleTransform
@@ -99,9 +98,9 @@ public class SVGGlyphElementBridge extends AbstractSVGBridge
                 PathParser pathParser = new PathParser();
                 pathParser.setPathHandler(app);
                 pathParser.parse(d);
-            } catch (ParseException ex) {
-                throw new BridgeException(glyphElement,
-                                          ERR_ATTRIBUTE_VALUE_MALFORMED,
+            } catch (ParseException pEx) {
+                throw new BridgeException(ctx, glyphElement,
+                                          pEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
                                           new Object [] {SVG_D_ATTRIBUTE});
             } finally {
                 // transform the shape into the correct coord system
@@ -185,7 +184,7 @@ public class SVGGlyphElementBridge extends AbstractSVGBridge
         // glyph-name
         String nameList
             = glyphElement.getAttributeNS(null, SVG_GLYPH_NAME_ATTRIBUTE);
-        Vector names = new Vector();
+        List names = new ArrayList();
         StringTokenizer st = new StringTokenizer(nameList, " ,");
         while (st.hasMoreTokens()) {
             names.add(st.nextToken());
@@ -212,17 +211,18 @@ public class SVGGlyphElementBridge extends AbstractSVGBridge
             s = parentFontElement.getAttributeNS(null, SVG_HORIZ_ADV_X_ATTRIBUTE);
             if (s.length() == 0) {
                 // throw an exception since this attribute is required on the font element
-                throw new BridgeException (parentFontElement, ERR_ATTRIBUTE_MISSING,
-                                           new Object[] {SVG_HORIZ_ADV_X_ATTRIBUTE});
+                throw new BridgeException
+                    (ctx, parentFontElement, ERR_ATTRIBUTE_MISSING,
+                     new Object[] {SVG_HORIZ_ADV_X_ATTRIBUTE});
             }
         }
         float horizAdvX;
         try {
             horizAdvX = SVGUtilities.convertSVGNumber(s) * scale;
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException nfEx ) {
             throw new BridgeException
-                (glyphElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                new Object [] {SVG_HORIZ_ADV_X_ATTRIBUTE, s});
+                (ctx, glyphElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                 new Object [] {SVG_HORIZ_ADV_X_ATTRIBUTE, s});
         }
 
         // vert-adv-y
@@ -238,10 +238,10 @@ public class SVGGlyphElementBridge extends AbstractSVGBridge
         float vertAdvY;
         try {
             vertAdvY = SVGUtilities.convertSVGNumber(s) * scale;
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException nfEx ) {
             throw new BridgeException
-                (glyphElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                new Object [] {SVG_VERT_ADV_Y_ATTRIBUTE, s});
+                (ctx, glyphElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                 new Object [] {SVG_VERT_ADV_Y_ATTRIBUTE, s});
         }
 
         // vert-origin-x
@@ -257,10 +257,10 @@ public class SVGGlyphElementBridge extends AbstractSVGBridge
         float vertOriginX;
         try {
             vertOriginX = SVGUtilities.convertSVGNumber(s) * scale;
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException nfEx ) {
             throw new BridgeException
-                (glyphElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                new Object [] {SVG_VERT_ORIGIN_X_ATTRIBUTE, s});
+                (ctx, glyphElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                 new Object [] {SVG_VERT_ORIGIN_X_ATTRIBUTE, s});
         }
 
         // vert-origin-y
@@ -276,10 +276,10 @@ public class SVGGlyphElementBridge extends AbstractSVGBridge
         float vertOriginY;
         try {
             vertOriginY = SVGUtilities.convertSVGNumber(s) * -scale;
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException nfEx ) {
             throw new BridgeException
-                (glyphElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                new Object [] {SVG_VERT_ORIGIN_Y_ATTRIBUTE, s});
+                (ctx, glyphElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                 new Object [] {SVG_VERT_ORIGIN_Y_ATTRIBUTE, s});
         }
 
         Point2D vertOrigin = new Point2D.Float(vertOriginX, vertOriginY);
@@ -296,10 +296,10 @@ public class SVGGlyphElementBridge extends AbstractSVGBridge
         float horizOriginX;
         try {
             horizOriginX = SVGUtilities.convertSVGNumber(s) * scale;
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException nfEx ) {
             throw new BridgeException
-                (parentFontElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                new Object [] {SVG_HORIZ_ORIGIN_X_ATTRIBUTE, s});
+                (ctx, parentFontElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                 new Object [] {SVG_HORIZ_ORIGIN_X_ATTRIBUTE, s});
         }
 
         // horiz-origin-y
@@ -311,10 +311,10 @@ public class SVGGlyphElementBridge extends AbstractSVGBridge
         float horizOriginY;
         try {
             horizOriginY = SVGUtilities.convertSVGNumber(s) * -scale;
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException nfEx ) {
             throw new BridgeException
-                (glyphElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                new Object [] {SVG_HORIZ_ORIGIN_Y_ATTRIBUTE, s});
+                (ctx, glyphElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                 new Object [] {SVG_HORIZ_ORIGIN_Y_ATTRIBUTE, s});
         }
 
         Point2D horizOrigin = new Point2D.Float(horizOriginX, horizOriginY);
@@ -322,7 +322,7 @@ public class SVGGlyphElementBridge extends AbstractSVGBridge
         // return a new Glyph
         return new Glyph(unicode, names, orientation,
                          arabicForm, lang, horizOrigin, vertOrigin,
-                         horizAdvX, vertAdvY, glyphCode, 
+                         horizAdvX, vertAdvY, glyphCode,
                          tpi, dShape, glyphContentNode);
     }
 }

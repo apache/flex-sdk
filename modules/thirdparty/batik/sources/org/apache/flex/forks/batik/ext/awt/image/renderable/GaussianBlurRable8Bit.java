@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -36,7 +37,7 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.PadRed;
  * GaussianBlurRable implementation
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: GaussianBlurRable8Bit.java,v 1.10 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: GaussianBlurRable8Bit.java 501495 2007-01-30 18:00:36Z dvholten $
  */
 public class GaussianBlurRable8Bit
     extends    AbstractColorInterpolationRable
@@ -108,7 +109,7 @@ public class GaussianBlurRable8Bit
     /**
      * Constant: 3*sqrt(2*PI)/4
      */
-    static final float DSQRT2PI = (float)(Math.sqrt(2*Math.PI)*3.0/4.0);
+    static final double DSQRT2PI = (Math.sqrt(2*Math.PI)*3.0/4.0);
 
     /**
      * Grow the source's bounds
@@ -133,7 +134,8 @@ public class GaussianBlurRable8Bit
         return (Filter)getSources().get(0);
     }
 
-    public final static double eps = 0.0001;
+    public static final double eps = 0.0001;
+
     public static boolean eps_eq(double f1, double f2) {
         return ((f1 >= f2-eps) && (f1 <= f2+eps));
     }
@@ -305,7 +307,7 @@ public class GaussianBlurRable8Bit
                              (float)(outputRgn.getHeight()+2*radY));
 
             Rectangle2D bounds = getBounds2D();
-            if (outputRgn.intersects(bounds) == false)
+            if ( ! outputRgn.intersects(bounds) )
                 return new Rectangle2D.Float();
             // Intersect with output region
             outputRgn = outputRgn.createIntersection(bounds);
@@ -339,7 +341,7 @@ public class GaussianBlurRable8Bit
                              (float)(inputRgn.getHeight()+2*radY));
 
             Rectangle2D bounds = getBounds2D();
-            if (inputRgn.intersects(bounds) == false)
+            if ( ! inputRgn.intersects(bounds) )
                 return new Rectangle2D.Float();
             // Intersect with input region
             dirtyRegion = inputRgn.createIntersection(bounds);

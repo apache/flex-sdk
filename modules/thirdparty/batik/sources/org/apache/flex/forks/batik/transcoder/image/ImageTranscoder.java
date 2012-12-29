@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,6 +25,8 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
+import java.awt.image.SinglePixelPackedSampleModel;
 
 import org.apache.flex.forks.batik.ext.awt.image.GraphicsUtil;
 import org.apache.flex.forks.batik.gvt.renderer.ConcreteImageRendererFactory;
@@ -62,7 +65,7 @@ import org.w3c.dom.Document;
  * millimeters in each pixel .
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: ImageTranscoder.java,v 1.49 2005/03/27 08:58:36 cam Exp $ 
+ * @version $Id: ImageTranscoder.java 533275 2007-04-28 01:30:54Z deweese $
  */
 public abstract class ImageTranscoder extends SVGAbstractTranscoder {
 
@@ -94,9 +97,7 @@ public abstract class ImageTranscoder extends SVGAbstractTranscoder {
 
         // paint the SVG document using the bridge package
         // create the appropriate renderer
-        ImageRendererFactory rendFactory = new ConcreteImageRendererFactory();
-        // ImageRenderer renderer = rendFactory.createDynamicImageRenderer();
-        ImageRenderer renderer = rendFactory.createStaticImageRenderer();
+        ImageRenderer renderer = createRenderer();
         renderer.updateOffScreen(w, h);
         // curTxf.translate(0.5, 0.5);
         renderer.setTransform(curTxf);
@@ -129,6 +130,57 @@ public abstract class ImageTranscoder extends SVGAbstractTranscoder {
             writeImage(dest, output);
         } catch (Exception ex) {
             throw new TranscoderException(ex);
+        }
+    }
+
+    /**
+     * Method so subclasses can modify the Renderer used to render document.
+     */
+    protected ImageRenderer createRenderer() {
+        ImageRendererFactory rendFactory = new ConcreteImageRendererFactory();
+        // ImageRenderer renderer = rendFactory.createDynamicImageRenderer();
+        return rendFactory.createStaticImageRenderer();
+    }
+
+    /**
+     * Converts an image so that viewers which do not support the
+     * alpha channel will see a white background (and not a black
+     * one).
+     * @param img the image to convert
+     * @param sppsm
+     */
+    protected void forceTransparentWhite(BufferedImage img, SinglePixelPackedSampleModel sppsm) {
+        //
+        // This is a trick so that viewers which do not support
+        // the alpha channel will see a white background (and not
+        // a black one).
+        //
+        int w = img.getWidth();
+        int h = img.getHeight();
+        DataBufferInt biDB=(DataBufferInt)img.getRaster().getDataBuffer();
+        int scanStride = sppsm.getScanlineStride();
+        int dbOffset = biDB.getOffset();
+        int[] pixels = biDB.getBankData()[0];
+        int p = dbOffset;
+        int adjust = scanStride - w;
+        int a=0, r=0, g=0, b=0, pel=0;
+        for(int i=0; i<h; i++){
+            for(int j=0; j<w; j++){
+                pel = pixels[p];
+                a = (pel >> 24) & 0xff;
+                r = (pel >> 16) & 0xff;
+                g = (pel >> 8 ) & 0xff;
+                b =  pel        & 0xff;
+                r = (255*(255 -a) + a*r)/255;
+                g = (255*(255 -a) + a*g)/255;
+                b = (255*(255 -a) + a*b)/255;
+                pixels[p++] =
+                    (a<<24 & 0xff000000) |
+                    (r<<16 & 0xff0000) |
+                    (g<<8  & 0xff00) |
+                    (b     & 0xff);
+            }
+            p += adjust;
         }
     }
 
@@ -210,8 +262,8 @@ public abstract class ImageTranscoder extends SVGAbstractTranscoder {
      * Not all Transcoders use this key (in particular some formats
      * can't preserve the alpha channel at all in which case this
      * is not used.
-     * </TD></TR> 
-     * </TABLE> 
+     * </TD></TR>
+     * </TABLE>
      */
     public static final TranscodingHints.Key KEY_FORCE_TRANSPARENT_WHITE
         = new BooleanKey();

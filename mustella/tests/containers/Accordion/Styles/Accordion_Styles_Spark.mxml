@@ -306,7 +306,7 @@
 				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
 			</setup>
 			<body>
- 				<AssertStyleValue target="accordion_1" styleName="fontFamily" value="EmbeddedVerdana"  />
+ 				<AssertStyleValue target="accordion_1" styleName="fontFamily" value="MyVerdana"  />
  				<CompareBitmap target="accordion_1" url="../Styles/baselines/spark/fontFamily_default.png" numColorVariances="2" ignoreMaxColorVariance="true" timeout="5000" />
  			</body>
 		</TestCase>

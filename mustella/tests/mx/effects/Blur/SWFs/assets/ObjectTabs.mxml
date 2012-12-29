@@ -85,7 +85,7 @@
             <mx:HSlider id="control_HSlider" width="200" height="20" x="20" y="20"/>
         </mx:Canvas>
         <mx:Canvas id="can_Image" label="Image" width="100%" height="100%">
-            <mx:Image id="control_Image" width="50" height="50" x="20" y="20" source="../../../../../../Assets/Images/redrect.jpg"/>
+            <mx:Image id="control_Image" width="50" height="50" x="20" y="20" source="../../../../../Assets/Images/redrect.jpg"/>
         </mx:Canvas>
         <mx:Canvas id="can_Label" label="Label" width="100%" height="100%">
             <mx:Label id="control_Label" width="200" text="Hello World" x="20" y="20"/>

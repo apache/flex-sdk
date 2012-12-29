@@ -67,7 +67,7 @@
 		
 		<TestCase testID="SimplifiedSkins_ComboBox" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
             <body>
-                <CompareBitmap url="../Styles/baselines/$testID.png" target="ss.cmbbox"/>
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="ss.cmbbox" numColorVariances="5" maxColorVariance="1" />
             </body>
 		</TestCase>
 		
@@ -79,13 +79,13 @@
 		
 		<TestCase testID="SimplifiedSkins_DropDownList" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
             <body>
-                <CompareBitmap url="../Styles/baselines/$testID.png" target="ss.ddl"/>
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="ss.ddl" numColorVariances="5" maxColorVariance="1" />
             </body>
 		</TestCase>
 		
 		<TestCase testID="SimplifiedSkins_HScrollBar" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
             <body>
-                <CompareBitmap url="../Styles/baselines/$testID.png" target="ss.hsc"/>
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="ss.hsc" numColorVariances="5" maxColorVariance="1" />
             </body>
 		</TestCase>
 		
@@ -168,7 +168,7 @@
 
 		<TestCase testID="SimplifiedSkins_VScrollBar" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
 			<body>
-				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.vsc"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.vsc" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 

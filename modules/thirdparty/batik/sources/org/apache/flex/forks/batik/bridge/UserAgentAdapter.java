@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -29,31 +30,43 @@ import java.util.Set;
 import org.apache.flex.forks.batik.gvt.event.EventDispatcher;
 import org.apache.flex.forks.batik.gvt.text.Mark;
 import org.apache.flex.forks.batik.util.ParsedURL;
-import org.apache.flex.forks.batik.util.SVGConstants;
+import org.apache.flex.forks.batik.util.SVGFeatureStrings;
 import org.apache.flex.forks.batik.util.XMLResourceDescriptor;
+
 import org.w3c.dom.Element;
-import org.w3c.flex.forks.dom.svg.SVGAElement;
+import org.w3c.dom.svg.SVGAElement;
+import org.w3c.dom.svg.SVGDocument;
 
 /**
  * An abstract user agent adaptor implementation.  It exists to simply
  * the creation of UserAgent instances.
  *
  * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
- * @version $Id: UserAgentAdapter.java,v 1.20 2005/03/27 08:58:30 cam Exp $
+ * @version $Id: UserAgentAdapter.java 599691 2007-11-30 03:37:58Z cam $
  */
 public class UserAgentAdapter implements UserAgent {
     protected Set FEATURES   = new HashSet();
     protected Set extensions = new HashSet();
 
-    public UserAgentAdapter() {
+    /**
+     * The BridgeContext to use for error information.
+     */
+    protected BridgeContext ctx;
+
+    /**
+     * Sets the BridgeContext to be used for error information.
+     */
+    public void setBridgeContext(BridgeContext ctx) {
+        this.ctx = ctx;
     }
 
+    /**
+     * Adds the standard SVG feature strings to the set of features supported
+     * by this user agent.
+     */
     public void addStdFeatures() {
-        FEATURES.add(SVGConstants.SVG_ORG_W3C_SVG_FEATURE);
-        FEATURES.add(SVGConstants.SVG_ORG_W3C_SVG_LANG_FEATURE);
-        FEATURES.add(SVGConstants.SVG_ORG_W3C_SVG_STATIC_FEATURE);
+        SVGFeatureStrings.addSupportedFeatureStrings(FEATURES);
     }
-
 
     /**
      * Returns the default size of this user agent (400x400).
@@ -422,5 +435,18 @@ public class UserAgentAdapter implements UserAgent {
         }
     }
 
+    /**
+     * This Implementation simply throws a BridgeException.
+     *
+     * @param e   The &lt;image> element that can't be loaded.
+     * @param url The resolved url that can't be loaded.
+     * @param message As best as can be determined the reason it can't be
+     *                loaded (not available, corrupt, unknown format,...).
+     */
+    public SVGDocument getBrokenLinkDocument(Element e, 
+                                             String url, 
+                                             String message) {
+        throw new BridgeException(ctx, e, ErrorConstants.ERR_URI_IMAGE_BROKEN,
+                                  new Object[] {url, message });
+    }
 }
-

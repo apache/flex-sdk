@@ -212,7 +212,8 @@
 		   	   <SetProperty target="topSWF" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/simpleLoader.swf?194_8" timeout="6000"/>
 			   <SetProperty target="topSWF" propertyName="autoLoad" value="true"
 					waitTarget="topSWF" waitEvent="complete" timeout="5000"/>
-			   <DispatchMouseEvent target="topSWF" type="mouseMove" localX="10" localY="55" waitTarget="topSWF.mx_internal:contentHolder.contentLoaderInfo.sharedEvents" waitEvent="mustellaStarted" timeout="3000" />
+			   <DispatchMouseEvent target="topSWF" type="mouseMove" localX="10" localY="55" 
+					waitTarget="topSWF.mx_internal:contentHolder.contentLoaderInfo.sharedEvents" waitEvent="mustellaStarted" timeout="5000" />
 			   <DispatchMouseEvent target="control1" type="mouseMove" localX="12" localY="55"
 					waitTarget="topSWF.content" waitEvent="applicationComplete"/>
 			   <SetProperty target="topSWF.content.document.swf1" propertyName="autoLoad" value="false" />

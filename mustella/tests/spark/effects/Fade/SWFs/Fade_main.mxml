@@ -61,7 +61,20 @@
 		}
 		
 
+		mx|HBox
+		{
+			fontFamily: vera1Halo;
+			color: blue;
+		}
+		
 		s|SkinnableComponent
+		{
+			fontFamily: vera1;
+			color: black;
+			fontLookup: "embeddedCFF";
+		}
+		
+		s|Label
 		{
 		fontFamily: vera1;
 		color: black;

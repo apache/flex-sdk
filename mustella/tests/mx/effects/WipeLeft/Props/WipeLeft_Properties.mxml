@@ -68,7 +68,7 @@
                 <RunCode code="application.testEffect.play()"/>
                 <Pause timeout="500"/>
                 <RunCode code="application.testEffect.pause()"/>
-                <AssertPixelValue target="testImage" x="50" y="50" value="0"/>
+                <AssertPixelValue target="testImage" x="50" y="50" value="#3E48CC"/>
             </body>
         </TestCase>
 
@@ -82,7 +82,7 @@
                 <RunCode code="application.testEffect.play()"/>
                 <Pause timeout="500"/>
                 <RunCode code="application.testEffect.pause()"/>
-                <AssertPixelValue target="testImage" x="50" y="50" value="0"/>
+                <AssertPixelValue target="testImage" x="50" y="50" value="#FFFFFF"/>
             </body>
         </TestCase>
 

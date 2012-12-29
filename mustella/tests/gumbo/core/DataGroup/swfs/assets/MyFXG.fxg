@@ -1,1 +1,22 @@
-﻿<?xml version="1.0" encoding="UTF-8"?><Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008" xmlns:fw="http://ns.adobe.com/fxg/2008/fireworks"  viewHeight= "63" viewWidth= "66">	<Library>	</Library>	<Group id="Page_1" fw:type="page">		<Group id="State_1" fw:type="state">			<Group id="Layer_1" fw:type="layer">				<Group id="undefined">					<Path winding="evenOdd" data="M 33 1 L 43 21 L 65 24 L 49 40 L 53 62 L 33 52 L 13 62 L 17 40 L 1 24 L 23 21 L 33 1 Z " blendMode="normal" alpha="1">						<fill>							<LinearGradient x = "33" y = "1" scaleX = "62" rotation = "90">								<GradientEntry color="#000000" ratio="0" alpha="1"/>								<GradientEntry color="#006666" ratio="1" alpha="1"/>							</LinearGradient>						</fill>					</Path>				</Group>			</Group>		</Group>	</Group></Graphic>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Graphic version="1.0" xmlns="http://ns.adobe.com/fxg/2008" xmlns:fw="http://ns.adobe.com/fxg/2008/fireworks"  viewHeight= "63" viewWidth= "66">
+	<Library>
+	</Library>
+
+	<Group id="Page_1" fw:type="page">
+		<Group id="State_1" fw:type="state">
+			<Group id="Layer_1" fw:type="layer">
+				<Group id="undefined">
+					<Path winding="evenOdd" data="M 33 1 L 43 21 L 65 24 L 49 40 L 53 62 L 33 52 L 13 62 L 17 40 L 1 24 L 23 21 L 33 1 Z " blendMode="normal" alpha="1">
+						<fill>
+							<LinearGradient x = "33" y = "1" scaleX = "62" rotation = "90">
+								<GradientEntry color="#000000" ratio="0" alpha="1"/>
+								<GradientEntry color="#006666" ratio="1" alpha="1"/>
+							</LinearGradient>
+						</fill>
+					</Path>
+				</Group>
+			</Group>
+		</Group>
+	</Group>
+</Graphic>

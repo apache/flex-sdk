@@ -85,7 +85,7 @@
             </setup>
             <body>
                 <RunCode code="application.testEffect.pause()"/>
-                <AssertPixelValue x="50" y="50" value="0xFFFFFF"/>
+                <AssertPixelValue x="50" y="50" value="#3E48CC"/>
                 <Pause timeout="700"/>
                 <AssertNoEvent target="testEffect" eventName="effectEnd" eventClass="mx.effects.EffectEvent"/>
             </body>

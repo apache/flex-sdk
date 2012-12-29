@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,52 +28,54 @@ import  java.lang.ref.SoftReference;
  * removes it's hard reference to the tile, but retains it's soft
  * reference allowing for the recovery of the tile when the JVM is
  * not under memory pressure
+ *
+ * @version $Id: TileLRUMember.java 498740 2007-01-22 18:35:57Z dvholten $
  */
 public class TileLRUMember implements LRUCache.LRUObj {
     private static final boolean DEBUG = false;
-			
-	protected LRUCache.LRUNode myNode  = null;
-	protected Reference        wRaster = null;
-	protected Raster           hRaster = null;
 
-	public TileLRUMember() { }
+        protected LRUCache.LRUNode myNode  = null;
+        protected Reference        wRaster = null;
+        protected Raster           hRaster = null;
 
-	public TileLRUMember(Raster ras) { 
-	    setRaster(ras);
-	}
+        public TileLRUMember() { }
 
-	public void setRaster(Raster ras) {
-	    hRaster = ras;
-	    wRaster = new SoftReference(ras);
-	}
+        public TileLRUMember(Raster ras) {
+            setRaster(ras);
+        }
 
-	public boolean checkRaster() {
-	    if (hRaster != null) return true;
+        public void setRaster(Raster ras) {
+            hRaster = ras;
+            wRaster = new SoftReference(ras);
+        }
 
-	    if ((wRaster       != null) && 
+        public boolean checkRaster() {
+            if (hRaster != null) return true;
+
+            if ((wRaster       != null) &&
             (wRaster.get() != null)) return true;
-			
-	    return false;
-	}
 
-	public Raster retrieveRaster() {
-	    if (hRaster != null) return hRaster;
-	    if (wRaster == null) return null;
+            return false;
+        }
 
-	    hRaster = (Raster)wRaster.get();
+        public Raster retrieveRaster() {
+            if (hRaster != null) return hRaster;
+            if (wRaster == null) return null;
 
-	    if (hRaster == null)  // didn't manage to retrieve it...
+            hRaster = (Raster)wRaster.get();
+
+            if (hRaster == null)  // didn't manage to retrieve it...
             wRaster = null;
 
-	    return hRaster;
-	}
+            return hRaster;
+        }
 
-	public LRUCache.LRUNode lruGet()         { return myNode; }
-	public void lruSet(LRUCache.LRUNode nde) { myNode = nde; }
-	public void lruRemove()                  { 
-	    myNode  = null; 
-	    hRaster = null;
-	    if (DEBUG) System.out.println("Removing");
-	}
+        public LRUCache.LRUNode lruGet()         { return myNode; }
+        public void lruSet(LRUCache.LRUNode nde) { myNode = nde; }
+        public void lruRemove()                  {
+            myNode  = null;
+            hRaster = null;
+            if (DEBUG) System.out.println("Removing");
+        }
 }
 

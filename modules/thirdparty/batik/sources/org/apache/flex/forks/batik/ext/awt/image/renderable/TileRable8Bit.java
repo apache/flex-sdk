@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -39,10 +40,10 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.TileRed;
  * 8 bit TileRable implementation
  *
  * @author <a href="mailto:vhardy@apache.org">Vincent Hardy</a>
- * @version $Id: TileRable8Bit.java,v 1.9 2004/08/18 07:14:00 vhardy Exp $
+ * @version $Id: TileRable8Bit.java 478276 2006-11-22 18:33:37Z dvholten $
  */
-public class TileRable8Bit 
-    extends    AbstractColorInterpolationRable 
+public class TileRable8Bit
+    extends    AbstractColorInterpolationRable
     implements TileRable{
     /**
      * Tile region
@@ -114,7 +115,7 @@ public class TileRable8Bit
     /**
      * Default constructor
      */
-    public TileRable8Bit(Filter source, 
+    public TileRable8Bit(Filter source,
                          Rectangle2D tiledRegion,
                          Rectangle2D tileRegion,
                          boolean overflow){
@@ -185,14 +186,14 @@ public class TileRable8Bit
         else {
             aoiRect = aoiShape.getBounds2D();
 
-            if (tiledRect.intersects(aoiRect) == false) 
+            if ( ! tiledRect.intersects(aoiRect) )
                 return null;
             Rectangle2D.intersect(tiledRect, aoiRect, tiledRect);
         }
 
         // tileRect
         Rectangle2D tileRect = tileRegion;
-        
+
         // Adjust the scale so that the tiling happens on pixel
         // boundaries on both axis.
         // Desired pixel rect width
@@ -232,7 +233,7 @@ public class TileRable8Bit
         //                                        aoiRect.getY()), null));
 
         // System.out.println("tileRect in userSpace   : " + tileRect);
-        // System.out.println("tileRect in deviceSpace : " + 
+        // System.out.println("tileRect in deviceSpace : " +
         //                    tileAt.createTransformedShape(tileRect).
         //                    getBounds2D());
         Filter        source  = getSource();
@@ -248,12 +249,12 @@ public class TileRable8Bit
         RenderContext tileRc  = new RenderContext(tileAt, srcRect, rh);
         // RenderedImage tileRed = new DemandRed(source, tileRc);
         RenderedImage tileRed = source.createRendering(tileRc);
-        
-        // System.out.println("TileRed: " + 
+
+        // System.out.println("TileRed: " +
         //                    GraphicsUtil.wrap(tileRed).getBounds());
 
         // RenderedImage tileRed = createTile(tileRc);
-        // System.out.println("tileRed : " + tileRed.getMinX() + "/" + tileRed.getMinY() + "/" 
+        // System.out.println("tileRed : " + tileRed.getMinX() + "/" + tileRed.getMinY() + "/"
         // + tileRed.getWidth() + "/" + tileRed.getHeight());
         if(tileRed == null)
             return null;
@@ -276,9 +277,9 @@ public class TileRable8Bit
         // what it's bounds were going to be....
         if ((tiledArea.width  == Integer.MAX_VALUE)||
             (tiledArea.height == Integer.MAX_VALUE)) {
-            tiledArea = new Rectangle(Integer.MIN_VALUE/4, 
-                                      Integer.MIN_VALUE/4, 
-                                      Integer.MAX_VALUE/2, 
+            tiledArea = new Rectangle(Integer.MIN_VALUE/4,
+                                      Integer.MIN_VALUE/4,
+                                      Integer.MAX_VALUE/2,
                                       Integer.MAX_VALUE/2);
         }
         // System.out.println("tiledArea: " + tiledArea);
@@ -294,7 +295,7 @@ public class TileRable8Bit
                                 shx/scaleY, sy/scaleY,
                                 tx, ty);
         shearAt.scale(scaleX/tileScaleX, scaleY/tileScaleY);
-        
+
         shearAt.translate(-ttx, -tty);
 
         CachableRed cr = tiledRed;
@@ -322,14 +323,14 @@ public class TileRable8Bit
 
         double tileWidth = tileRect.getWidth();
         double tileHeight = tileRect.getHeight();
-        
+
         double tiledWidth = tiledRect.getWidth();
         double tiledHeight = tiledRect.getHeight();
 
         double w = Math.min(tileWidth, tiledWidth);
         double h = Math.min(tileHeight, tiledHeight);
 
-        Rectangle2D realTileRect 
+        Rectangle2D realTileRect
             = new Rectangle2D.Double(tileRect.getX(),
                                      tileRect.getY(),
                                      w, h);
@@ -339,28 +340,27 @@ public class TileRable8Bit
 
     /**
      * Computes the tile to use for the tiling operation.
-     * 
+     *
      * The tile has its origin in the upper left
-     * corner of the tiled region. That tile is separated 
+     * corner of the tiled region. That tile is separated
      * into 4 areas: top-left, top-right, bottom-left and
-     * bottom-right. Each of these areas is mapped to 
+     * bottom-right. Each of these areas is mapped to
      * some input area from the source.
      * If the source is smaller than the tiled area, then
      * a single rendering is requested from the source.
      * If the source's width or height is bigger than that
-     * of the tiled area, then separate renderings are 
+     * of the tiled area, then separate renderings are
      * requested from the source.
-     * 
+     *
      */
     public RenderedImage createTile(RenderContext rc){
         AffineTransform usr2dev = rc.getTransform();
 
         // Hints
-        RenderingHints hints = rc.getRenderingHints();
-        if(hints == null){
-            hints = new RenderingHints(null);
-        } else {
-            hints = new RenderingHints(hints);
+        RenderingHints rcHints = rc.getRenderingHints();
+        RenderingHints hints = new RenderingHints(null);
+        if(rcHints != null){
+            hints.add(rcHints);
         }
 
         // The region actually tiles is the intersection
@@ -368,7 +368,7 @@ public class TileRable8Bit
         Rectangle2D tiledRect = getBounds2D();
         Shape       aoiShape  = rc.getAreaOfInterest();
         Rectangle2D aoiRect   = aoiShape.getBounds2D();
-        if (tiledRect.intersects(aoiRect) == false) 
+        if ( ! tiledRect.intersects(aoiRect) )
             return null;
         Rectangle2D.intersect(tiledRect, aoiRect, tiledRect);
 
@@ -399,7 +399,7 @@ public class TileRable8Bit
         // Maps to, in the tile:
         //
         // (tileX, tileY)
-        // 
+        //
         //                    <-----------      tileWidth     --------------->
         //                    ^ +-----------------------------+------+-------+
         //                    | +                             +      +       |
@@ -412,7 +412,7 @@ public class TileRable8Bit
         //                    | +-----------------------------+------+-------+
         //                    | |               B             +      +   A   |
         //                    ^ +-----------------------------+------+-------+
-            
+
         // w  = min(tileWidth, tiledWidth)
         // h  = min(tileHeight, tiledHeight)
         // dx = tileWidth  - (tiledX - tileX)%tileWidth;
@@ -427,7 +427,7 @@ public class TileRable8Bit
         double tileY = tileRect.getY();
         double tileWidth = tileRect.getWidth();
         double tileHeight = tileRect.getHeight();
-        
+
         double tiledX = tiledRect.getX();
         double tiledY = tiledRect.getY();
         double tiledWidth = tiledRect.getWidth();
@@ -474,7 +474,7 @@ public class TileRable8Bit
         Rectangle2D.Double D = new Rectangle2D.Double
             (tileX, tileY, w - dx, h - dy);
 
-        Rectangle2D realTileRect 
+        Rectangle2D realTileRect
             = new Rectangle2D.Double(tiledRect.getX(),
                                      tiledRect.getY(),
                                      w, h);
@@ -484,14 +484,14 @@ public class TileRable8Bit
         // System.out.println("C rect    : " + C);
         // System.out.println("D rect    : " + D);
         // System.out.println("realTileR : " + realTileRect);
-        
+
         // A, B, C and D are the four user space are that make the
         // tile that will be used. We create a rendering for each of
         // these areas that i s not empty (i.e., with either width or
         // height equal to zero)
         RenderedImage ARed = null, BRed = null, CRed = null, DRed = null;
         Filter source = getSource();
-        
+
         if (A.getWidth() > 0 && A.getHeight() > 0){
             // System.out.println("Rendering A");
             Rectangle devA = usr2dev.createTransformedShape(A).getBounds();
@@ -502,7 +502,7 @@ public class TileRable8Bit
 
                 Shape aoi = A;
                 if(overflow){
-                    aoi = new Rectangle2D.Double(A.x, 
+                    aoi = new Rectangle2D.Double(A.x,
                                                  A.y,
                                                  tiledWidth,
                                                  tiledHeight);
@@ -511,14 +511,14 @@ public class TileRable8Bit
                 hints.put(RenderingHintsKeyExt.KEY_AREA_OF_INTEREST,
                           aoi);
 
-                RenderContext arc 
+                RenderContext arc
                     = new RenderContext(ATxf, aoi, hints);
 
                 ARed = source.createRendering(arc);
-                
-                //System.out.println("ARed : " + ARed.getMinX() + " / " + 
-                //                   ARed.getMinY() + " / " + 
-                //                   ARed.getWidth() + " / " + 
+
+                //System.out.println("ARed : " + ARed.getMinX() + " / " +
+                //                   ARed.getMinY() + " / " +
+                //                   ARed.getWidth() + " / " +
                 //                   ARed.getHeight());
             }
         }
@@ -542,7 +542,7 @@ public class TileRable8Bit
                 hints.put(RenderingHintsKeyExt.KEY_AREA_OF_INTEREST,
                           aoi);
 
-                RenderContext brc 
+                RenderContext brc
                     = new RenderContext(BTxf, aoi, hints);
 
                 BRed = source.createRendering(brc);
@@ -569,7 +569,7 @@ public class TileRable8Bit
                 hints.put(RenderingHintsKeyExt.KEY_AREA_OF_INTEREST,
                           aoi);
 
-                RenderContext crc 
+                RenderContext crc
                     = new RenderContext(CTxf, aoi, hints);
 
                 CRed = source.createRendering(crc);
@@ -596,7 +596,7 @@ public class TileRable8Bit
                 hints.put(RenderingHintsKeyExt.KEY_AREA_OF_INTEREST,
                           aoi);
 
-                RenderContext drc 
+                RenderContext drc
                     = new RenderContext(DTxf, aoi, hints);
 
                 DRed = source.createRendering(drc);
@@ -608,9 +608,9 @@ public class TileRable8Bit
         // Now, combine ARed, BRed, CRed and DRed into a single
         // RenderedImage that will be tiled
         //
-        final Rectangle realTileRectDev 
+        final Rectangle realTileRectDev
             = usr2dev.createTransformedShape(realTileRect).getBounds();
-        
+
         if(realTileRectDev.width == 0 || realTileRectDev.height == 0){
             return null;
         }
@@ -619,7 +619,7 @@ public class TileRable8Bit
             = new BufferedImage(realTileRectDev.width,
                                 realTileRectDev.height,
                                 BufferedImage.TYPE_INT_ARGB);
-        
+
         Graphics2D g = GraphicsUtil.createGraphics(realTileBI,
                                                    rc.getRenderingHints());
         // g.setPaint(new java.awt.Color(0, 255, 0, 64));

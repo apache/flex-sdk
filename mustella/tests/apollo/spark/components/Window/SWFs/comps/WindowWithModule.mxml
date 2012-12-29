@@ -22,6 +22,6 @@
 		
 	
 	<mx:Label text="loading module..." />
-	<mx:ModuleLoader url="./assets/testmodule.swf" />
+	<mx:ModuleLoader id="ml" url="./assets/testmodule.swf" />
 	</s:Group>
 </s:Window>

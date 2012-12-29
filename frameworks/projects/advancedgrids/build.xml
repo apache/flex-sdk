@@ -33,24 +33,12 @@
 				<!-- because targets that run before flexTasks.jar gets built would fail. -->
 				<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 				<compc fork="true"
-					output="${FLEX_HOME}/frameworks/locale/@{locale}/advancedgrids_rb.swc"
-					locale="@{locale}">
-					<target-player>${playerglobal.version}</target-player>
+					output="${FLEX_HOME}/frameworks/locale/@{locale}/advancedgrids_rb.swc">
 					<jvmarg line="${compc.jvm.args}"/>
-					<include-resource-bundles bundle="datamanagement"/>
-					<include-resource-bundles bundle="olap"/>
-					<include-namespaces/>
-					<include-classes/>
-					<source-path path-element="${basedir}/bundles/@{locale}"/>
-					<source-path path-element="${FLEX_HOME}/frameworks/projects/advancedgrids/src"/>
-					<include-libraries/>
-					<library-path/>
-					<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-						<include name="${playerglobal.version}/playerglobal.swc"/>
-					</external-library-path>
-					<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-						<include name="framework.swc"/>
-					</external-library-path>
+                    <load-config filename="bundle-config.xml" />
+                    <arg value="+playerglobal.version=${playerglobal.version}" />
+                    <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
+                    <arg value="+locale=@{locale}" />
 				</compc>
 		</sequential>
 	</macrodef>
@@ -116,6 +104,7 @@
 				<fat-swc locale="de_DE"/>
 			</run.fat.swc>
 		</bundler>
+		<bundler locale="de_CH"/><!-- Swiss German resources -->
 		<bundler locale="es_ES"/><!-- Spanish resources -->
 		<bundler locale="fi_FI"/><!--  Finnish resources-->
 		<bundler locale="fr_FR"><!-- French resources -->
@@ -198,28 +187,11 @@
 			into the file bundles.properties in this directory.
 		-->
 		<compc fork="true"
-			include-classes="AdvancedDataGridClasses"
-			output="${FLEX_HOME}/frameworks/libs/advancedgrids.swc"
-			resource-bundle-list="${basedir}/bundles.properties">
+			output="${FLEX_HOME}/frameworks/libs/advancedgrids.swc">
 			<jvmarg line="${compc.jvm.args}"/>
-			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${basedir}/manifest_advancedgrids.xml"/>
-			<include-namespaces>library://ns.adobe.com/flex/mx</include-namespaces>
-			<source-path path-element="${basedir}/src"/>
-			<library-path />
-            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-                <include name="${playerglobal.version}/playerglobal.swc"/>
-            </external-library-path>
-			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="framework.swc"/>
-				<include name="mx/mx.swc"/>
-				<include name="rpc.swc"/>
-                <include name="textLayout.swc"/>
-			</external-library-path>
-			<include-file name="defaults.css" path="${basedir}/data_management.css"/>
-			<include-file name="defaults-3.0.0.css" path="${basedir}/data_management-3.0.0.css"/>
-			<locale/>
-            <accessible>true</accessible>
-			<show-deprecation-warnings>false</show-deprecation-warnings>
+            <load-config filename="compile-config.xml" />
+            <arg value="+playerglobal.version=${playerglobal.version}" />
+            <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
 		</compc>
 	</target>
 	

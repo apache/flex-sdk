@@ -88,7 +88,7 @@ import renderers.*;
 /**
  * An embedded image of a 100x100 grid part
  */
-[Embed(source="../assets/bg_grid.gif")]
+[Embed(source="../../../../../../Assets/Images/GridImages/100x100.png")]
 [Bindable]
 public var gridImage:Class;
 

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,13 +20,13 @@ package org.apache.flex.forks.batik.dom.svg;
 
 import org.apache.flex.forks.batik.dom.AbstractDocument;
 import org.w3c.dom.Node;
-import org.w3c.flex.forks.dom.svg.SVGFEFuncAElement;
+import org.w3c.dom.svg.SVGFEFuncAElement;
 
 /**
  * This class implements {@link SVGFEFuncAElement}.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGOMFEFuncAElement.java,v 1.7 2004/08/18 07:13:15 vhardy Exp $
+ * @version $Id: SVGOMFEFuncAElement.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class SVGOMFEFuncAElement
     extends    SVGOMComponentTransferFunctionElement

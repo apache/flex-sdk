@@ -83,11 +83,9 @@
 		<ant dir="${basedir}/antTasks" target="clean"/>
         <ant dir="${basedir}/asc/build/java" target="clean"/>
         <ant dir="${basedir}/thirdparty/xerces-patch" target="clean"/>
-        <delete file="${FLEX_LIB}/asc.jar"/>
-        <!--delete dir="${FLEX_LIB}/*.jar" failonerror="false"/-->
         <delete includeemptydirs="true" failonerror="false">
             <fileset dir="${FLEX_LIB}">
-                <exclude name="**/*" />
+                <include name="*" />
             </fileset>
         </delete>
 	</target>
@@ -160,19 +158,15 @@
     </target>
 	
 	<target name="batik" description="Build batik-all-flex.jar">
-
-		<echo message="This target should be run with Java 1.4.2_14. It doesn't work with Java 1.5."/>
-		
         <ant antfile="${basedir}/downloads.xml" target="batik-jars" dir="${basedir}"/>
 		<ant dir="${basedir}/thirdparty/batik" target="batik-all-flex-jar">
 	        <property name="deprecation" value="off"/>
+	        <property name="sun-codecs.disabled" value="true"/>
 	    </ant>
 	</target>
 
 	<target name="batik-clean">
-	    <mkdir dir="${basedir}/thirdparty/batik/lib"/>
 		<ant dir="${basedir}/thirdparty/batik" target="batik-all-flex-clean"/>
-	    <delete dir="${basedir}/thirdparty/batik/lib"/>
 	</target>
 	
     <target name="velocity" description="Build velocity-dep-1.4-flex.jar">

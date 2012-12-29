@@ -25,7 +25,7 @@ max=${NUMBER_OF_PROCESSORS:=1}
 j=0
 i=0
 
-list=($*)
+list=($MUSTELLA_SCRIPTS2)
 
 len=${#list[*]}
 
@@ -50,12 +50,15 @@ if [ $ret != 0 ]
 fi
 
 
-if [ -f $file ] && [ "$file" != "" ]
-	then
-	echo "next: $file $i"
-	./$file > ${file}.${i}.log 2>&1 &
-else
-	echo "skipping $file not found"
+if [ "$file" != ""  ]
+then
+    if [ -f $file ]
+    then
+    	echo "next: $file $i"
+    	./$file > ${file}.${i}.log 2>&1 &
+    else
+    	echo "skipping $file not found"
+    fi
 fi
 	
 

@@ -80,7 +80,7 @@
 				<SetProperty target="customRETEditor" propertyName="text" value="current state is state1" waitTarget="customRETEditor" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor"/>
 			</body>
 		</TestCase>	
 		

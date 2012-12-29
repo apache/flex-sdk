@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,29 +18,60 @@
  */
 package org.apache.flex.forks.batik.parser;
 
+import java.io.IOException;
+
 /**
- * This interface represents an event-based parser for the SVG clock
- * values.
+ * A parser for clock values.
  *
- * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: ClockParser.java,v 1.3 2004/08/18 07:14:46 vhardy Exp $
+ * @author <a href="mailto:cam%40mcc%2eid%2eau">Cameron McCormack</a>
+ * @version $Id: ClockParser.java 492528 2007-01-04 11:45:47Z cam $
  */
-public interface ClockParser extends Parser {
-    /**
-     * Allows an application to register an clock handler.
-     *
-     * <p>If the application does not register a handler, all
-     * events reported by the parser will be silently ignored.
-     *
-     * <p>Applications may register a new or different handler in the
-     * middle of a parse, and the parser must begin using the new
-     * handler immediately.</p>
-     * @param handler The clock handler.
-     */
-    void setClockHandler(ClockHandler handler);
+public class ClockParser extends TimingParser {
 
     /**
-     * Returns the clock handler in use.
+     * The handler used to report parse events.
      */
-    ClockHandler getClockHandler();
+    protected ClockHandler clockHandler;
+
+    /**
+     * Whether this parser should parse offsets rather than clock values.
+     */
+    protected boolean parseOffset;
+
+    /**
+     * Creates a new ClockParser.
+     */
+    public ClockParser(boolean parseOffset) {
+        super(false, false);
+        this.parseOffset = parseOffset;
+    }
+
+    /**
+     * Registers a parse event handler.
+     */
+    public void setClockHandler(ClockHandler handler) {
+        clockHandler = handler;
+    }
+
+    /**
+     * Returns the parse event handler in use.
+     */
+    public ClockHandler getClockHandler() {
+        return clockHandler;
+    }
+
+    /**
+     * Parses a clock value.
+     */
+    protected void doParse() throws ParseException, IOException {
+        current = reader.read();
+        float clockValue = parseOffset ? parseOffset() : parseClockValue();
+        if (current != -1) {
+            reportError("end.of.stream.expected",
+                        new Object[] { new Integer(current) });
+        }
+        if (clockHandler != null) {
+            clockHandler.clockValue(clockValue);
+        }
+    }
 }

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" layout="vertical"  >
+   
+    <mx:Style>
+        @namespace s "library://ns.adobe.com/flex/spark";
+        @namespace mx "library://ns.adobe.com/flex/mx";
+        
+        @font-face {
+            src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+            fontFamily: EmbeddedVerdana;
+            embedAsCFF: false;
+        }
+        
+        @font-face {
+            src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Bold.ttf");
+            fontFamily: EmbeddedVerdana;
+            fontWeight: bold;
+            fontStyle: normal;
+            embedAsCFF: false;
+        }
+        
+        @font-face {
+            src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Italic.ttf");
+            fontFamily: EmbeddedVerdana;
+            fontWeight: normal;
+            fontStyle: italic;
+            embedAsCFF: false;
+        }
+        
+        /* Used by some of the styles tests. */
+        @font-face {
+            src: url("../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+            fontFamily: EmbeddedArial;
+            embedAsCFF: false;
+        }
+
+        @font-face {
+            src: url("../../../../Assets/Fonts/Cousine/Cousine-Bold.ttf");
+            fontFamily: EmbeddedArial;
+            fontWeight: bold;
+            fontStyle: normal;
+            embedAsCFF: false;
+        }
+        
+        mx|AdvancedDataGrid {
+            /* embed the numeric sort indicator */
+            sortFontFamily: EmbeddedVerdana;
+        }
+        
+        global {
+            fontFamily: EmbeddedVerdana;
+            fontAntiAliasType: normal;
+        }
+    </mx:Style>
+
+    <mx:Script>
+    <![CDATA[
+        import mx.collections.*;
+        [Bindable]public var mydata:ArrayCollection;
+        public function startIt():void
+        {
+            mydata= new ArrayCollection([
+            {col1:111, col2:04716723103, col3:433},
+            {col1:546, col2:08056781372, col3:409},
+            {col1:123, col2:08543217703, col3:769},
+            {col1:511, col2:04562341444, col3:209},
+            {col1:444322, col2:09873452144, col3:555}
+            ]);
+        }
+        
+    ]]>
+    </mx:Script>
+
+    <mx:Canvas id="box" width="100%" height="100%">
+       <mx:AdvancedDataGrid id="mydatagrid" dataProvider="{mydata}">
+           <mx:columns>
+                <mx:AdvancedDataGridColumn headerText="Column 1" id="col1" dataField="col1"/>
+                <mx:AdvancedDataGridColumn headerText="Column 2" id="col2" dataField="col2" />
+                <mx:AdvancedDataGridColumn headerText="Column 3" id="col3" dataField="col3"/>
+            </mx:columns>
+        </mx:AdvancedDataGrid>  
+    </mx:Canvas>
+    <mx:TextInput id="ti"/>
+</mx:Application>

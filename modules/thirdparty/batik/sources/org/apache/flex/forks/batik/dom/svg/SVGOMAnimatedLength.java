@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,10 +20,10 @@ package org.apache.flex.forks.batik.dom.svg;
 
 /**
  * This class provides an implementation of the {@link
- * org.w3c.flex.forks.dom.svg.SVGAnimatedLength} interface.
+ * org.w3c.dom.svg.SVGAnimatedLength} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGOMAnimatedLength.java,v 1.13 2005/03/27 08:58:32 cam Exp $
+ * @version $Id: SVGOMAnimatedLength.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class SVGOMAnimatedLength extends AbstractSVGAnimatedLength {
 
@@ -32,19 +33,21 @@ public class SVGOMAnimatedLength extends AbstractSVGAnimatedLength {
     protected String defaultValue;
 
     /**
-     * Creates a new SVGAnimatedLength.
+     * Creates a new SVGOMAnimatedLength.
      * @param elt The associated element.
      * @param ns The attribute's namespace URI.
      * @param ln The attribute's local name.
      * @param def The default value if the attribute is not specified.
      * @param dir The length's direction.
+     * @param nonneg Whether the length must be non-negative.
      */
     public SVGOMAnimatedLength(AbstractElement elt,
                                String ns,
                                String ln,
                                String def,
-                               short dir) {
-        super(elt, ns, ln, dir);
+                               short dir,
+                               boolean nonneg) {
+        super(elt, ns, ln, dir, nonneg);
         defaultValue = def;
     }
 
@@ -55,5 +58,4 @@ public class SVGOMAnimatedLength extends AbstractSVGAnimatedLength {
     protected String getDefaultValue() {
         return defaultValue;
     }
-
 }

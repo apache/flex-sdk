@@ -303,7 +303,7 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
     /**
      *  @private
      */
-    private var _moduleFactoryInitialized:Boolean = false;
+    private static var _moduleFactoryInitialized:Dictionary = new Dictionary(true);
     
     /**
      *  @private
@@ -1071,10 +1071,10 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
     {
         super.moduleFactory = factory;
         
-        if (_moduleFactoryInitialized)
+        if (_moduleFactoryInitialized[factory])
             return;
         
-        _moduleFactoryInitialized = true;
+        _moduleFactoryInitialized[factory] = true;
         
         // our style settings
         initStyles();

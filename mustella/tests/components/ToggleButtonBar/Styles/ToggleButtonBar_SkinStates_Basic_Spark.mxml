@@ -527,8 +527,10 @@
                 <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
                 <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
                 <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
-                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
-                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb"  /> 
+				<WaitForEvent eventName="complete" target="tbb.getChildAt(0).currentSkin.overImage" /> 
+				<WaitForEffectsToEnd />
+				<WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab.png" timeout="5000" />
@@ -541,8 +543,10 @@
                 <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
                 <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
                 <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" />
-                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
-                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="rollOver" localX="85" localY="13" target="tbb" /> 
+				<WaitForEvent eventName="complete" target="tbb.getChildAt(1).currentSkin.overImage" /> 
+				<WaitForEffectsToEnd />
+				<WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab.png" timeout="5000" />
@@ -556,8 +560,10 @@
                 <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
                 <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" />
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
-                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
-                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tbb" /> 
+				<WaitForEvent eventName="complete" target="tbb.getChildAt(0).currentSkin.downImage" /> 
+				<WaitForEffectsToEnd />
+				<WaitForLayoutManager /> 
             </setup>
             <body>
                 <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab.png" timeout="5000" />
@@ -571,9 +577,10 @@
                 <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
                 <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" />
 				<DispatchMouseEvent type="rollOver" localX="85" localY="13" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
-                <DispatchMouseEvent type="mouseDown" localX="85" localY="13" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
-				
-                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseDown" localX="85" localY="13" target="tbb" /> 
+				<WaitForEvent eventName="complete" target="tbb.getChildAt(1).currentSkin.downImage" /> 
+				<WaitForEffectsToEnd />
+				<WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab.png" timeout="5000" />

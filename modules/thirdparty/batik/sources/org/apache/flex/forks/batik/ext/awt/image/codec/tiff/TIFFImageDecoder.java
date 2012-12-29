@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -20,24 +21,24 @@ package org.apache.flex.forks.batik.ext.awt.image.codec.tiff;
 import java.awt.image.RenderedImage;
 import java.io.IOException;
 
-import org.apache.flex.forks.batik.ext.awt.image.codec.ImageDecodeParam;
-import org.apache.flex.forks.batik.ext.awt.image.codec.ImageDecoderImpl;
-import org.apache.flex.forks.batik.ext.awt.image.codec.SeekableStream;
+import org.apache.flex.forks.batik.ext.awt.image.codec.util.ImageDecodeParam;
+import org.apache.flex.forks.batik.ext.awt.image.codec.util.ImageDecoderImpl;
+import org.apache.flex.forks.batik.ext.awt.image.codec.util.SeekableStream;
 
 /**
- * A baseline TIFF reader. The reader has some functionality in addition to 
+ * A baseline TIFF reader. The reader has some functionality in addition to
  * the baseline specifications for Bilevel images, for which the group 3 and
- * group 4 decompression schemes have been implemented. Support for LZW 
- * decompression has also been added. Support for Horizontal differencing 
- * predictor decoding is also included, when used with LZW compression. 
- * However, this support is limited to data with bitsPerSample value of 8. 
+ * group 4 decompression schemes have been implemented. Support for LZW
+ * decompression has also been added. Support for Horizontal differencing
+ * predictor decoding is also included, when used with LZW compression.
+ * However, this support is limited to data with bitsPerSample value of 8.
  * When reading in RGB images, support for alpha and extraSamples being
  * present has been added. Support for reading in images with 16 bit samples
  * has been added. Support for the SampleFormat tag (signed samples as well
  * as floating-point samples) has also been added. In all other cases, support
  * is limited to Baseline specifications.
  *
- *
+ * @version $Id: TIFFImageDecoder.java 498740 2007-01-22 18:35:57Z dvholten $
  */
 public class TIFFImageDecoder extends ImageDecoderImpl {
 

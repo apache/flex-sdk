@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2002,2004-2005  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,11 +24,16 @@ import java.util.Iterator;
 import org.apache.flex.forks.batik.bridge.BridgeContext;
 import org.apache.flex.forks.batik.bridge.SVGBridgeExtension;
 import org.apache.flex.forks.batik.util.SVGConstants;
+import org.apache.flex.forks.batik.util.SVG12Constants;
+import org.apache.flex.forks.batik.util.XBLConstants;
 import org.w3c.dom.Element;
 
 /**
  * This is a Service interface for classes that want to extend the
  * functionality of the Bridge, to support new tags in the rendering tree.
+ *
+ * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
+ * @version $Id: SVG12BridgeExtension.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class SVG12BridgeExtension extends SVGBridgeExtension {
 
@@ -93,8 +99,48 @@ public class SVG12BridgeExtension extends SVGBridgeExtension {
         // bridges to handle elements in the SVG namespace
         super.registerTags(ctx);
 
+        // Bridges for SVG 1.2 elements
         ctx.putBridge(new SVGFlowRootElementBridge());
         ctx.putBridge(new SVGMultiImageElementBridge());
         ctx.putBridge(new SVGSolidColorElementBridge());
+
+        ctx.putBridge(new SVG12TextElementBridge());
+
+        // Bridges for XBL shadow trees and content elements
+        ctx.putBridge(new XBLShadowTreeElementBridge());
+        ctx.putBridge(new XBLContentElementBridge());
+
+        // Default bridge to handle bindable elements
+        ctx.setDefaultBridge(new BindableElementBridge());
+
+        // Namespaces to avoid for default bridges
+        ctx.putReservedNamespaceURI(null);
+        ctx.putReservedNamespaceURI(SVGConstants.SVG_NAMESPACE_URI);
+        ctx.putReservedNamespaceURI(XBLConstants.XBL_NAMESPACE_URI);
+    }
+
+    /**
+     * Whether the presence of the specified element should cause
+     * the document to be dynamic.  If this element isn't handled
+     * by this BridgeExtension, just return false.
+     *
+     * @param e The element to check.
+     */
+    public boolean isDynamicElement(Element e) {
+        String ns = e.getNamespaceURI();
+        if (XBLConstants.XBL_NAMESPACE_URI.equals(ns)) {
+            return true;
+        }
+        if (!SVGConstants.SVG_NAMESPACE_URI.equals(ns)) {
+            return false;
+        }
+        String ln = e.getLocalName();
+        if (ln.equals(SVGConstants.SVG_SCRIPT_TAG)
+                || ln.equals(SVG12Constants.SVG_HANDLER_TAG)
+                || ln.startsWith("animate")
+                || ln.equals("set")) {
+            return true;
+        }
+        return false;
     }
 }

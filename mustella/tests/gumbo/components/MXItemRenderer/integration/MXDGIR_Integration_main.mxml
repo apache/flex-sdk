@@ -86,7 +86,7 @@ MXItemRenderer Testing - DataGrid - Integration tests
 			  <DispatchMouseClickEvent target="dgRoot.dataGrid1" localX="208" localY="87" waitEvent="click"/>
 			  <DispatchMouseClickEvent target="stage" localX="890" localY="590" waitEvent="click"/>
 			  <AssertMethodValue method="value=application.dgRoot.dataGrid1.dataProvider.getItemAt(2).booleanValue" valueExpression="value=true"/>			  
-			  <CompareBitmap url="../integration/baselines/$testID.png" target="dgRoot.dataGrid1" />			  			  
+			  <CompareBitmap url="../integration/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="5" maxColorVariance="1"/>			  			  
 			  <DispatchMouseClickEvent target="dgRoot.dataGrid1" localX="291" localY="170" waitEvent="click"/>			  
 			  <AssertMethodValue method="value=application.dgRoot.dataGrid1.dataProvider.getItemAt(0).booleanValue" valueExpression="value=false"/>
 			  <AssertMethodValue method="value=application.dgRoot.dataGrid1.dataProvider.getItemAt(2).booleanValue" valueExpression="value=true"/>			  			  
@@ -104,7 +104,7 @@ MXItemRenderer Testing - DataGrid - Integration tests
 			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns1" waitEvent="updateComplete" />
 		  </setup>
 		  <body>			  			  
-			  <CompareBitmap url="../integration/baselines/$testID.png" target="dgRoot.dataGrid1" />
+			  <CompareBitmap url="../integration/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="5" maxColorVariance="1"/>
 		  </body>
 	  </TestCase>
 	  
@@ -239,7 +239,7 @@ MXItemRenderer Testing - DataGrid - Integration tests
 			  <SetProperty target="dgRoot.dataGrid1" propertyName="width" value="600" waitEvent="updateComplete" />			  
 		  </setup>
 		  <body>			  			  
-			  <CompareBitmap url="../integration/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="45" ignoreMaxColorVariance="true"/>
+			  <CompareBitmap url="../integration/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="250" maxColorVariance="1"/>
 		  </body>
 	  </TestCase>
 	  
@@ -263,7 +263,7 @@ MXItemRenderer Testing - DataGrid - Integration tests
 			  <SetProperty target="dgRoot.dataGrid1" propertyName="width" value="600" waitEvent="updateComplete" />		  
 		  </setup>
 		  <body>			  			    
-			  <CompareBitmap url="../integration/baselines/$testID.png" target="dgRoot.dataGrid1" />
+			  <CompareBitmap url="../integration/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="150" maxColorVariance="1"/>
 		  </body>
 	  </TestCase>	  	 	  
 
@@ -275,7 +275,7 @@ MXItemRenderer Testing - DataGrid - Integration tests
 			  <SetProperty target="dgRoot.dataGrid1" propertyName="width" value="500" waitEvent="updateComplete" />		  
 		  </setup>
 		  <body>			  			    
-			  <CompareBitmap url="../integration/baselines/$testID.png" target="dgRoot.dataGrid1" />
+			  <CompareBitmap url="../integration/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="5" maxColorVariance="1"/>
 		  </body>
 	  </TestCase>
 	  

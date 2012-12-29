@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,19 +24,20 @@ import java.awt.geom.NoninvertibleTransformException;
 import org.apache.flex.forks.batik.css.engine.SVGCSSEngine;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
-import org.w3c.flex.forks.dom.svg.SVGElement;
-import org.w3c.flex.forks.dom.svg.SVGException;
-import org.w3c.flex.forks.dom.svg.SVGFitToViewBox;
-import org.w3c.flex.forks.dom.svg.SVGMatrix;
-import org.w3c.flex.forks.dom.svg.SVGRect;
+import org.w3c.dom.svg.SVGElement;
+import org.w3c.dom.svg.SVGException;
+import org.w3c.dom.svg.SVGFitToViewBox;
+import org.w3c.dom.svg.SVGMatrix;
+import org.w3c.dom.svg.SVGRect;
 
 /**
  * This class provides support for the SVGLocatable interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGLocatableSupport.java,v 1.11 2005/02/27 02:08:51 deweese Exp $
+ * @version $Id: SVGLocatableSupport.java 489964 2006-12-24 01:30:23Z cam $
  */
 public class SVGLocatableSupport {
+
     /**
      * Creates a new SVGLocatable element.
      */
@@ -44,7 +46,7 @@ public class SVGLocatableSupport {
     
     /**
      * To implement {@link
-     * org.w3c.flex.forks.dom.svg.SVGLocatable#getNearestViewportElement()}.
+     * org.w3c.dom.svg.SVGLocatable#getNearestViewportElement()}.
      */
     public static SVGElement getNearestViewportElement(Element e) {
         Element elt = e;
@@ -59,14 +61,14 @@ public class SVGLocatableSupport {
 
     /**
      * To implement {@link
-     * org.w3c.flex.forks.dom.svg.SVGLocatable#getFarthestViewportElement()}.
+     * org.w3c.dom.svg.SVGLocatable#getFarthestViewportElement()}.
      */
     public static SVGElement getFarthestViewportElement(Element elt) {
         return (SVGElement)elt.getOwnerDocument().getDocumentElement();
     }
 
     /**
-     * To implement {@link org.w3c.flex.forks.dom.svg.SVGLocatable#getBBox()}.
+     * To implement {@link org.w3c.dom.svg.SVGLocatable#getBBox()}.
      */
     public static SVGRect getBBox(Element elt) {
         final SVGOMElement svgelt = (SVGOMElement)elt;
@@ -111,7 +113,7 @@ public class SVGLocatableSupport {
     }
 
     /**
-     * To implement {@link org.w3c.flex.forks.dom.svg.SVGLocatable#getCTM()}.
+     * To implement {@link org.w3c.dom.svg.SVGLocatable#getCTM()}.
      */
     public static SVGMatrix getCTM(Element elt) {
         final SVGOMElement svgelt = (SVGOMElement)elt;
@@ -123,7 +125,7 @@ public class SVGLocatableSupport {
     }
 
     /**
-     * To implement {@link org.w3c.flex.forks.dom.svg.SVGLocatable#getScreenCTM()}.
+     * To implement {@link org.w3c.dom.svg.SVGLocatable#getScreenCTM()}.
      */
     public static SVGMatrix getScreenCTM(Element elt) {
         final SVGOMElement svgelt  = (SVGOMElement)elt;
@@ -141,11 +143,11 @@ public class SVGLocatableSupport {
 
     /**
      * To implement {@link
-     * org.w3c.flex.forks.dom.svg.SVGLocatable#getTransformToElement(SVGElement)}.
+     * org.w3c.dom.svg.SVGLocatable#getTransformToElement(SVGElement)}.
      */
     public static SVGMatrix getTransformToElement(Element elt,
                                                   SVGElement element)
-	throws SVGException {
+        throws SVGException {
         final SVGOMElement currentElt = (SVGOMElement)elt;
         final SVGOMElement targetElt = (SVGOMElement)element;
         return new AbstractSVGMatrix() {

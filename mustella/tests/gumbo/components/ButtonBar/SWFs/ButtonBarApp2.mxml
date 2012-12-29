@@ -28,57 +28,34 @@
 </fx:Script>
 
 <!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style source="Assets/myStyles.css"/>
 <fx:Style>
-@namespace s "library://ns.adobe.com/flex/spark";
-@namespace mx "library://ns.adobe.com/flex/mx";
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+    
+    /* This font supports Hebrew. */
     @font-face {
-        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
-        fontFamily: EmbeddedVerdana;
+        src: url("../../../../../Assets/Fonts/SILEOT/SILEOT.ttf");
+        fontWeight: normal;
+        fontStyle: normal;
+        fontFamily: EmbeddedSILEOT;
         embedAsCFF: true;
     }
-
+    
     @font-face {
-        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        src: url("../../../../../Assets/Fonts/SILEOT/SILEOT.ttf");
         fontWeight: bold;
-        fontFamily: EmbeddedVerdana;
+        fontStyle: normal;
+        fontFamily: EmbeddedSILEOT;
         embedAsCFF: true;
     }
-
+    
     @font-face {
-        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        src: url("../../../../../Assets/Fonts/SILEOT/SILEOT.ttf");
+        fontWeight: normal;
         fontStyle: italic;
-        fontFamily: EmbeddedVerdana;
+        fontFamily: EmbeddedSILEOT;
         embedAsCFF: true;
-    }
-
-    @font-face {
-        src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
-        fontFamily: EmbeddedArial;
-        embedAsCFF: true;
-    }
-
-    @font-face {
-        src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
-        fontWeight: bold;
-        fontFamily: EmbeddedArial;
-        embedAsCFF: true;
-    }
-
-    @font-face {
-        src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
-        fontStyle: italic;
-        fontFamily: EmbeddedArial;
-        embedAsCFF: true;
-    }
-
-	@font-face {
-		src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
-		fontFamily: EmbeddedArno;
-		embedAsCFF: true;
-	}
-
-    global{
-        kerning: "off";
     }
         
     s|ButtonBar {
@@ -94,15 +71,29 @@
     }
 
     .fontFamily1{
-        fontFamily: EmbeddedArial;
+        fontFamily: EmbeddedSILEOT;
         fontLookup: embeddedCFF;
         fontAntiAliasType: normal;
     }
 
     .fontFamily2{
-        fontFamily: EmbeddedArno;
+        fontFamily: EmbeddedLobsterTwo;
         fontLookup: embeddedCFF;
         fontAntiAliasType: normal;
+    }
+
+    .hebrewLTR{
+        fontFamily: EmbeddedSILEOT;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+        direction: ltr;
+    }
+
+    .hebrewRTL{
+        fontFamily: EmbeddedSILEOT;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+        direction: rtl;
     }
 
     .fontSize1{
@@ -308,8 +299,8 @@
     </mx:ArrayCollection>
 
     <mx:ArrayCollection id="ac_hebrew">
-        <fx:String>שרה</fx:String>
-        <fx:String>אלפבית</fx:String>
+        <fx:String>שרה shalom</fx:String>
+        <fx:String>אלפבית alphabet</fx:String>
     </mx:ArrayCollection>
 </fx:Declarations>
 
@@ -318,15 +309,15 @@
 <mx:VBox>
     <s:ButtonBar id="fontFamilyBB1" dataProvider="{ac1}" fontSize="24" fontFamily="EmbeddedArial" 
         fontLookup="embeddedCFF" />
-    <s:ButtonBar id="fontFamilyBB2" dataProvider="{ac1}" fontSize="24" fontFamily="EmbeddedArno" 
+    <s:ButtonBar id="fontFamilyBB2" dataProvider="{ac1}" fontSize="24" fontFamily="EmbeddedLobsterTwo" 
         fontLookup="embeddedCFF" />
     <s:ButtonBar id="fontSizeBB1" dataProvider="{ac1}" fontSize="8" />
     <s:ButtonBar id="fontSizeBB2" dataProvider="{ac1}" fontSize="24" />
     <s:ButtonBar id="fontWeightBB1" dataProvider="{ac1}" fontWeight="bold" />
     <s:ButtonBar id="fontWeightBB2" dataProvider="{ac1}" fontWeight="normal" />
     <s:ButtonBar id="colorBB1" dataProvider="{ac1}" color="0xff0000" />
-    <s:ButtonBar id="directionBB1" dataProvider="{ac_hebrew}" direction="rtl" styleName="fontFamily1" />
-    <s:ButtonBar id="directionBB2" dataProvider="{ac_hebrew}" direction="ltr" styleName="fontFamily1" />
+    <s:ButtonBar id="directionBB1" dataProvider="{ac_hebrew}" direction="rtl" styleName="fontFamily1" fontSize="24" />
+    <s:ButtonBar id="directionBB2" dataProvider="{ac_hebrew}" direction="ltr" styleName="fontFamily1" fontSize="24" />
     <s:ButtonBar id="lineThroughBB1" dataProvider="{ac1}" lineThrough="true" />
     <s:ButtonBar id="lineThroughBB2" dataProvider="{ac1}" lineThrough="false" />
     <s:ButtonBar id="kerningBB1" dataProvider="{ac2}" kerning="on" />

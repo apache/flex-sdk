@@ -54,23 +54,23 @@ then
     
     # echo ""
     # echo "Compiling new custom SWCs..."
-    $SDK_DIR/bin/compc -library-path=$LIBRARY_PATH -source-path=bundles/custom/fr_FR -locale fr_FR -include-resource-bundles bundle1 bundle2 bundle3 bundle4 bundle5 -include-file locale/fr_FR/flag.gif bundles/custom/fr_FR/flag.gif -include-classes HaloColors MyCheckBoxIcon_fr_FR -o bundles/custom/frCustomResources.swc
-    $SDK_DIR/bin/compc -library-path=$LIBRARY_PATH -source-path=bundles/custom/ja_JP -locale ja_JP -include-resource-bundles bundle1 bundle2 bundle3 bundle4 bundle5 -include-file locale/ja_JP/flag.gif bundles/custom/ja_JP/flag.gif -include-classes HaloColors MyCheckBoxIcon_ja_JP -o bundles/custom/jaCustomResources.swc
-    $SDK_DIR/bin/compc -source-path=bundles/custom/en_US -locale en_US -include-resource-bundles bundle1 bundle2 bundle3 bundle4 bundle5 -include-file locale/en_US/flag.gif bundles/custom/en_US/flag.gif -include-classes HaloColors MyCheckBoxIcon_en_US -o bundles/custom/enCustomResources.swc
+    # $SDK_DIR/bin/compc -library-path=$LIBRARY_PATH -source-path=bundles/custom/fr_FR -locale fr_FR -include-resource-bundles bundle1 bundle2 bundle3 bundle4 bundle5 -include-file locale/fr_FR/flag.gif bundles/custom/fr_FR/flag.gif -include-classes HaloColors MyCheckBoxIcon_fr_FR -o bundles/custom/frCustomResources.swc
+    # $SDK_DIR/bin/compc -library-path=$LIBRARY_PATH -source-path=bundles/custom/ja_JP -locale ja_JP -include-resource-bundles bundle1 bundle2 bundle3 bundle4 bundle5 -include-file locale/ja_JP/flag.gif bundles/custom/ja_JP/flag.gif -include-classes HaloColors MyCheckBoxIcon_ja_JP -o bundles/custom/jaCustomResources.swc
+    # $SDK_DIR/bin/compc -source-path=bundles/custom/en_US -locale en_US -include-resource-bundles bundle1 bundle2 bundle3 bundle4 bundle5 -include-file locale/en_US/flag.gif bundles/custom/en_US/flag.gif -include-classes HaloColors MyCheckBoxIcon_en_US -o bundles/custom/enCustomResources.swc
      
     # echo ""
     # echo "Compiling new resource module SWFs..."
     $SDK_DIR/bin/mxmlc -static-rsls=true -locale=en_US -source-path=bundles/custom/{locale} -include-resource-bundles bundle1 -o bundles/custom/resMod_enUS_bundle1_001.swf
-    $SDK_DIR/bin/mxmlc -static-rsls=true -locale=en_US -source-path=bundles/custom2/{locale} -include-resource-bundles bundle1 -o bundles/custom2/resMod_enUS_bundle1_101.swf
+    # $SDK_DIR/bin/mxmlc -static-rsls=true -locale=en_US -source-path=bundles/custom2/{locale} -include-resource-bundles bundle1 -o bundles/custom2/resMod_enUS_bundle1_101.swf
     $SDK_DIR/bin/mxmlc -static-rsls=true -locale=en_US -source-path=bundles/custom/{locale} -include-resource-bundles bundle2 -o bundles/custom/resMod_enUS_bundle2.swf
     $SDK_DIR/bin/mxmlc -static-rsls=true -locale=en_US -source-path=bundles/custom/{locale} -include-resource-bundles bundle2 bundle3 -o bundles/custom/resMod_enUS_bundles2,3.swf
     $SDK_DIR/bin/mxmlc -static-rsls=true -locale=en_US -source-path=bundles/custom/{locale} -include-resource-bundles bundle1 bundle2 bundle3 -o bundles/custom/resMod_enUS_bundles1,2,3.swf
-    $SDK_DIR/bin/mxmlc -static-rsls=true -library-path=$LIBRARY_PATH -locale=fr_FR -source-path=bundles/custom/{locale} -include-resource-bundles bundle2 -o bundles/custom/resMod_frFR_bundle2.swf
+    # $SDK_DIR/bin/mxmlc -static-rsls=true -library-path=$LIBRARY_PATH -locale=fr_FR -source-path=bundles/custom/{locale} -include-resource-bundles bundle2 -o bundles/custom/resMod_frFR_bundle2.swf
      
-    $SDK_DIR/bin/mxmlc -static-rsls=true -library-path=$LIBRARY_PATH -locale=en_US,fr_FR,ja_JP -source-path=bundles/custom/{locale} -include-resource-bundles bundle1 -o bundles/custom/resMod_enUS,frFR,jaJP_bundle1.swf
-    $SDK_DIR/bin/mxmlc -static-rsls=true -library-path=$LIBRARY_PATH -locale=en_US,fr_FR,ja_JP -source-path=bundles/custom/{locale} -include-resource-bundles bundle2 -o bundles/custom/resMod_enUS,frFR,jaJP_bundle2.swf
-    $SDK_DIR/bin/mxmlc -static-rsls=true -library-path=$LIBRARY_PATH -locale=en_US,fr_FR,ja_JP -source-path=bundles/custom/{locale} -include-resource-bundles bundle2 bundle3 -o bundles/custom/resMod_enUS,frFR,jaJP_bundles2,3.swf
-    $SDK_DIR/bin/mxmlc -static-rsls=true -library-path=$LIBRARY_PATH -locale=en_US,fr_FR,ja_JP -source-path=bundles/custom/{locale} -include-resource-bundles bundle1 bundle2 bundle3 -o bundles/custom/resMod_enUS,frFR,jaJP_bundles1,2,3.swf
+    # $SDK_DIR/bin/mxmlc -static-rsls=true -library-path=$LIBRARY_PATH -locale=en_US,fr_FR,ja_JP -source-path=bundles/custom/{locale} -include-resource-bundles bundle1 -o bundles/custom/resMod_enUS,frFR,jaJP_bundle1.swf
+    # $SDK_DIR/bin/mxmlc -static-rsls=true -library-path=$LIBRARY_PATH -locale=en_US,fr_FR,ja_JP -source-path=bundles/custom/{locale} -include-resource-bundles bundle2 -o bundles/custom/resMod_enUS,frFR,jaJP_bundle2.swf
+    # $SDK_DIR/bin/mxmlc -static-rsls=true -library-path=$LIBRARY_PATH -locale=en_US,fr_FR,ja_JP -source-path=bundles/custom/{locale} -include-resource-bundles bundle2 bundle3 -o bundles/custom/resMod_enUS,frFR,jaJP_bundles2,3.swf
+    # $SDK_DIR/bin/mxmlc -static-rsls=true -library-path=$LIBRARY_PATH -locale=en_US,fr_FR,ja_JP -source-path=bundles/custom/{locale} -include-resource-bundles bundle1 bundle2 bundle3 -o bundles/custom/resMod_enUS,frFR,jaJP_bundles1,2,3.swf
     $SDK_DIR/bin/mxmlc -static-rsls=true -library-path=$LIBRARY_PATH -locale=ja_JP,fr_FR,de_DE -source-path=bundles/framework/{locale} -include-resource-bundles collections containers controls core effects formatters logging SharedResources skins states styles validators textLayout sparkEffects -o bundles/framework/resMod_framework_jaJP,frFR,deDE.swf
     $SDK_DIR/bin/mxmlc -static-rsls=true -locale=en_US -source-path=bundles/framework/{locale} -include-resource-bundles collections containers controls core effects formatters logging SharedResources skins states styles validators textLayout sparkEffects -o bundles/framework/resMod_framework_enUS.swf
     $SDK_DIR/bin/mxmlc -static-rsls=true -library-path=$LIBRARY_PATH -locale=ja_JP -source-path=bundles/framework/{locale} -include-resource-bundles collections containers controls core effects formatters logging SharedResources skins states styles validators textLayout sparkEffects -o bundles/framework/resMod_framework_jaJP.swf

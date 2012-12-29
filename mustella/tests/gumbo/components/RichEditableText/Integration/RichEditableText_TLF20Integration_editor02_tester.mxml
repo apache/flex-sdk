@@ -149,11 +149,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEnd.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatLeft" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatLeft]" 
@@ -166,11 +164,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeft.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatNone" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatNone]" 
@@ -183,11 +179,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNone.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatRight" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatRight]" 
@@ -200,11 +194,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRight.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatStart" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatStart]" 
@@ -217,11 +209,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatStart.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		
@@ -236,11 +226,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRightClearBoth.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatRightClearLeft" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatRightClearLeft]" 
@@ -253,11 +241,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRightClearLeft.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatRightClearNone" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatRightClearNone]" 
@@ -270,11 +256,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRightClearNone.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatRightClearRight" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatRightClearRight]" 
@@ -287,11 +271,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRightClearRight.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		
@@ -306,11 +288,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEndClearBoth.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatEndClearLeft" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatEndClearLeft]" 
@@ -323,11 +303,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEndClearLeft.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatEndClearNone" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatEndClearNone]" 
@@ -340,11 +318,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEndClearNone.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatEndClearRight" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatEndClearRight]" 
@@ -357,11 +333,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEndClearRight.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		
@@ -375,11 +349,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeftClearBoth.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatLeftClearLeft" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatLeftClearLeft]" 
@@ -392,11 +364,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeftClearLeft.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatLeftClearNone" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatLeftClearNone]" 
@@ -409,11 +379,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeftClearNone.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatLeftClearRight" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatLeftClearRight]" 
@@ -426,11 +394,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeftClearRight.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		
@@ -445,11 +411,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNoneClearBoth.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatNoneClearLeft" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatNoneClearLeft]" 
@@ -462,11 +426,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNoneClearLeft.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatNoneClearNone" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatNoneClearNone]" 
@@ -479,11 +441,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNoneClearNone.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_FLOAT_ImgFloatNoneClearRight" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatNoneClearRight]" 
@@ -496,11 +456,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNoneClearRight.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_ImgFloatAndClearFloatsRuntime" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatNoneClearRight]" 
@@ -513,11 +471,9 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatAndClearFloatsRuntime.shallowCopy() as TextFlow"  waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="0" maxColorVariance="0"/>
 			</body>
 		</TestCase>
 		<TestCase testID="RET_02_TextFlowGroup" keywords="[TLF 2.0 Integration, RichEditableText, Group]" 
@@ -530,8 +486,6 @@
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=application.TextFlowGroup.shallowCopy() as TextFlow"  waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-				<RunCode code="application.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
-				<RunCode code="application.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor"  />

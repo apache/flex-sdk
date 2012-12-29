@@ -61,6 +61,8 @@
 	    </setup>
 	    <body>
 		<SetProperty target="myWin" propertyName="title" value="I II III IIII IIIII" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="myWin.skin.titleBar" url="../Properties/Baselines/$testID.png" mac_url="../Properties/Baselines/$testID_mac.png" />
 	    </body>
 	</TestCase>

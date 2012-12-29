@@ -25,6 +25,7 @@ import flash.events.KeyboardEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.ui.Keyboard;
+import flash.utils.Dictionary;
 
 import mx.charts.ChartItem;
 import mx.charts.LinearAxis;
@@ -102,7 +103,7 @@ public class PolarChart extends ChartBase
     /**
      *  @private
      */
-    private var _moduleFactoryInitialized:Boolean = false; 
+    private static var _moduleFactoryInitialized:Dictionary = new Dictionary(true); 
     
     /**
      *  @private
@@ -230,10 +231,10 @@ public class PolarChart extends ChartBase
     {
         super.moduleFactory = factory;
         
-        if (_moduleFactoryInitialized)
+        if (_moduleFactoryInitialized[factory])
             return;
         
-        _moduleFactoryInitialized = true;
+        _moduleFactoryInitialized[factory] = true;
         
         // our style settings
         initStyles();

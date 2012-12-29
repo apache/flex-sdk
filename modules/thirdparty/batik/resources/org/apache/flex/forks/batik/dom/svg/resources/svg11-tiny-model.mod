@@ -4,7 +4,7 @@
 
      This is SVG Tiny, a proper subset of SVG.
      Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
-     Revision: $Id: svg11-tiny-model.mod,v 1.1 2002/11/13 09:51:12 vhardy Exp $
+     Revision: $Id: svg11-tiny-model.mod 201058 2002-11-13 09:51:12Z vhardy $
 
      This DTD module is identified by the PUBLIC and SYSTEM identifiers:
 

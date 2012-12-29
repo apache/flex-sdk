@@ -77,21 +77,6 @@
 			</body>
          </TestCase>
 
-        <TestCase testID="styleName_multiple_precedence_mac" description="Test multiple styleNames for DataGrid. This test will only work with Flex 4 and newer."
-            keywords="[DataGrid, styleName, CSS]" >
-            <setup>
-                 <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitEvent="updateComplete" waitTarget="gridInCanvas" />
-			     <SetProperty propertyName="width" value="200" target="gridInCanvas" waitEvent="updateComplete" waitTarget="gridInCanvas" />
-			     <SetProperty propertyName="height" value="200" target="gridInCanvas" waitEvent="updateComplete" waitTarget="gridInCanvas" />
-                 <SetProperty propertyName="dataProvider" target="gridInCanvas.getChildAt(0)" valueExpression="value=application.myDP"
-                     waitEvent="updateComplete" waitTarget="gridInCanvas.getChildAt(0)" />
-            </setup>
-            <body>
-                 <SetStyle target="gridInCanvas" value="redText italicText boldBig" styleName="styleName" waitEvent="updateComplete" waitTarget="gridInCanvas" />
-                 <CompareBitmap target="gridInCanvas.getChildAt(0).mx_internal:rendererArray.1.0" url="../Styles/Baselines/$testID.png" timeout="5000" />
-			</body>
-         </TestCase>
-
         <TestCase testID="styleName_multiple_setStyle" description="Test multiple styleNames for DataGrid used with setStyle. This test will only work with Flex 4 and newer."
             keywords="[DataGrid, styleName, CSS]" >
             <setup>

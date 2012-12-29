@@ -61,7 +61,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -81,7 +81,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 			</body>	
@@ -118,7 +118,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 						
@@ -176,7 +176,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -200,6 +200,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 			<setup>
 				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
 				<SetStyle target="stylesRoot.target1" styleName="chromeColor" value="0x3333ff" />
+				<WaitForLayoutManager />
 			</setup>			
 			
 			<body>
@@ -208,7 +209,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -223,7 +224,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -240,6 +241,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 			<setup>
 				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
 				<SetStyle target="stylesRoot.target1" styleName="color" value="0x00ff00" />
+				<WaitForLayoutManager />
 			</setup>			
 			
 			<body>
@@ -248,7 +250,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -288,7 +290,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>-->				
 				
@@ -310,7 +312,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>-->				
 				
@@ -343,7 +345,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 							<ConditionalValue deviceDensity="160" os="win"/>
 							<ConditionalValue deviceDensity="240" os="android" />
 							<ConditionalValue deviceDensity="320" os="win"/>
-							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="320" os="ios" />
 							<ConditionalValue deviceDensity="160" os="qnx" />
 						</CompareBitmap>-->				
 						
@@ -362,7 +364,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -378,14 +380,14 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win" value="18"/>
 					<ConditionalValue deviceDensity="240" os="android" value="27"/>
 					<ConditionalValue deviceDensity="320" os="win" value="36"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="36" />
+					<ConditionalValue deviceDensity="320" os="ios" value="36" />
 					<ConditionalValue deviceDensity="160" os="qnx" value="18"/>					
 				</AssertStyleValue>
 				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -402,6 +404,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 			<setup>
 				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
 				<SetStyle target="stylesRoot.target1" styleName="fontSize" value="14" />
+				<WaitForLayoutManager />
 			</setup>			
 			
 			<body>
@@ -410,7 +413,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -427,7 +430,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -447,6 +450,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 			<setup>
 				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
 				<SetStyle target="stylesRoot.target1" styleName="fontStyle" value="italic" />
+				<WaitForLayoutManager />
 			</setup>			
 			
 			<body>
@@ -455,7 +459,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -476,7 +480,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -496,6 +500,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 			<setup>
 				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
 				<SetStyle target="stylesRoot.target1" styleName="fontWeight" value="bold" />
+				<WaitForLayoutManager />
 			</setup>			
 			
 			<body>
@@ -504,7 +509,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -524,7 +529,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -544,6 +549,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 			<setup>
 				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
 				<SetStyle target="stylesRoot.target1" styleName="fontFamily" value="Verdana" />
+				<WaitForLayoutManager />
 			</setup>			
 			
 			<body>
@@ -552,7 +558,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -571,7 +577,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -591,7 +597,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -610,7 +616,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -638,7 +644,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -657,7 +663,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -677,6 +683,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 			<setup>
 				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
 				<SetStyle target="stylesRoot.target1" styleName="textDecoration" value="underline" />
+				<WaitForLayoutManager />
 			</setup>			
 			
 			<body>
@@ -685,7 +692,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -704,7 +711,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -732,7 +739,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -751,7 +758,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				
@@ -779,7 +786,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="320" os="ios" />
 					<ConditionalValue deviceDensity="160" os="qnx" />
 				</CompareBitmap>				
 				

@@ -43,11 +43,13 @@
 		 <setup>
 			<RunCode code="application.openPopUp(true)" waitEvent="validateDisplayListComplete" waitTarget="" />
 			<WaitForEffectsToEnd />
+			<WaitForLayoutManager/>
 		</setup>
 		<body>
 		    <CompareBitmap url="../Integration/baselines/$testID.png" target="GraphicPopUp.getChildAt(0)" timeout="2000" />
 		    <RunCode code="application.closePopUp()" />
 		    <WaitForEffectsToEnd />
+			<WaitForLayoutManager/>
 		</body>
 	  </TestCase>
           <TestCase testID="GraphicTags_PopUpManager_Ellipse" description="Test a Ellipse in a PopUp" keywords="[Ellipse, PopUpManager, Graphic]">
@@ -55,12 +57,13 @@
 		    <ResetComponent target="text1" className="mx.controls.TextInput" waitTarget="text1" waitEvent="updateComplete" />
 			<RunCode code="application.openPopUp(true)" waitEvent="validateDisplayListComplete" waitTarget="" />
 			<WaitForEffectsToEnd />
-			<Pause timeout="200" />
+			<WaitForLayoutManager/>
 		</setup>
 		<body>
 		    <CompareBitmap url="../Integration/baselines/$testID.png" target="GraphicPopUp.getChildAt(0)" timeout="2000" />
 		    <RunCode code="application.closePopUp()" />
 		    <WaitForEffectsToEnd />
+			<WaitForLayoutManager/>
 		</body>
 	  </TestCase>
 	  <TestCase testID="GraphicTags_PopUpManager_Line" description="Test a Line in a PopUp" keywords="[Line, PopUpManager, Graphic]">
@@ -68,12 +71,13 @@
 		    <ResetComponent target="text1" className="mx.controls.TextInput" waitTarget="text1" waitEvent="updateComplete" />
 			<RunCode code="application.openPopUp(true)" waitEvent="validateDisplayListComplete" waitTarget="" />
 			<WaitForEffectsToEnd />
-			<Pause timeout="200" />
+			<WaitForLayoutManager/>
 		</setup>
 		<body>
 		    <CompareBitmap url="../Integration/baselines/$testID.png" target="GraphicPopUp.getChildAt(1)" timeout="2000" />
 		    <RunCode code="application.closePopUp()" />
 		    <WaitForEffectsToEnd />
+			<WaitForLayoutManager/>
 		</body>
 	   </TestCase>
 	   <TestCase testID="GraphicTags_PopUpManager_BitmapGraphic" description="Test a BitmapImage in a PopUp" keywords="[BitmapGraphic, PopUpManager, Graphic]">
@@ -81,11 +85,13 @@
 		    <ResetComponent target="text1" className="mx.controls.TextInput" waitTarget="text1" waitEvent="updateComplete" />
 			<RunCode code="application.openPopUp(true)" waitEvent="validateDisplayListComplete" waitTarget="" />
 			<WaitForEffectsToEnd />
+			<WaitForLayoutManager/>
 		</setup>
 		<body>
 		    <CompareBitmap url="../Integration/baselines/$testID.png" target="GraphicPopUp.getChildAt(1)" timeout="2000" />
 		    <RunCode code="application.closePopUp()" />
 		    <WaitForEffectsToEnd />
+			<WaitForLayoutManager/>
 		</body>
 	   </TestCase>
 	   <TestCase testID="GraphicTags_PopUpManager_Path" description="Test a Path in a PopUp" keywords="[Path, PopUpManager, Graphic]">
@@ -93,12 +99,13 @@
 		    <ResetComponent target="text1" className="mx.controls.TextInput" waitTarget="text1" waitEvent="updateComplete" />
 			<RunCode code="application.openPopUp(true)" waitEvent="validateDisplayListComplete" waitTarget="" />
 			<WaitForEffectsToEnd />
-			<Pause timeout="200" />
+			<WaitForLayoutManager/>
 		</setup>
 		<body>
 		    <CompareBitmap url="../Integration/baselines/$testID.png" target="GraphicPopUp.getChildAt(0)" timeout="2000" />
 		    <RunCode code="application.closePopUp()" />
 		    <WaitForEffectsToEnd />
+			<WaitForLayoutManager/>
 		</body>
 	    </TestCase>
 

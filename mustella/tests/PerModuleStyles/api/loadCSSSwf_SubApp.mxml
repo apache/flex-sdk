@@ -40,15 +40,13 @@
 		<body>				
 		    <RunCode code="application.iniit();"  waitTarget="swf_loader" waitEvent="complete" />				
 		    <Pause timeout="1000" />				
-		    <CompareBitmap url="../api/baselines/" target="groupId" numColorVariances="10" ignoreMaxColorVariance="true">
-		        <ConditionalValue os="mac" />
-		    </CompareBitmap>
+		    <CompareBitmap url="../api/baselines/$testID.png" target="groupId" numColorVariances="15" maxColorVariance="20"/>
 		    <DispatchMouseClickEvent target="loadStylesButton" waitEvent="complete" waitTarget="eventDispatcher" />		    
 		    <Pause timeout="500"/>
-		    <CompareBitmap url="../api/baselines/$testID_loaded.png" target="groupId" numColorVariances="10" ignoreMaxColorVariance="true"/>
+		    <CompareBitmap url="../api/baselines/$testID_loaded.png" target="groupId" numColorVariances="15" ignoreMaxColorVariance="true"/>
 		    <DispatchMouseClickEvent target="unloadStylesButton" waitEvent="click" waitTarget="unloadStylesButton" />		    
 		    <Pause timeout="500"/>
-		    <CompareBitmap url="../api/baselines/$testID_unloaded.png" target="groupId" numColorVariances="10" ignoreMaxColorVariance="true"/>		    
+		    <CompareBitmap url="../api/baselines/$testID_unloaded.png" target="groupId" numColorVariances="15" maxColorVariance="20"/>		    
 		</body>
 		</TestCase>
 	</testCases>

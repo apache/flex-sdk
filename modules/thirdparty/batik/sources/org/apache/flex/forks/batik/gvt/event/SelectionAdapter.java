@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2005 The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,7 +23,7 @@ package org.apache.flex.forks.batik.gvt.event;
  * Adapter for the listener interface for receiving selection events.
  *
  * @author <a href="mailto:deweese@apache.org">deweese</a>
- * @version $Id: SelectionAdapter.java,v 1.2 2005/03/27 08:58:34 cam Exp $
+ * @version $Id: SelectionAdapter.java 478188 2006-11-22 15:19:17Z dvholten $
  */
 public class SelectionAdapter implements SelectionListener {
     /**
@@ -48,7 +49,5 @@ public class SelectionAdapter implements SelectionListener {
      * @param evt the selection change event
      */
     public void selectionStarted(SelectionEvent evt) { }
-};
-
-
+}
 

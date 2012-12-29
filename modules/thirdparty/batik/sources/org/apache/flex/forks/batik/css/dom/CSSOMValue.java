@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -35,7 +36,7 @@ import org.w3c.dom.css.Rect;
  * {@link org.w3c.dom.css.CSSValueList} interfaces.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: CSSOMValue.java,v 1.5 2004/08/18 07:12:47 vhardy Exp $
+ * @version $Id: CSSOMValue.java 504107 2007-02-06 12:32:18Z dvholten $
  */
 public class CSSOMValue
     implements CSSPrimitiveValue,
@@ -43,7 +44,7 @@ public class CSSOMValue
                Counter,
                Rect,
                RGBColor {
-    
+
     /**
      * The associated value.
      */
@@ -120,12 +121,12 @@ public class CSSOMValue
      * org.w3c.dom.css.CSSValue#setCssText(String)}.
      */
     public void setCssText(String cssText) throws DOMException {
-	if (handler == null) {
+        if (handler == null) {
             throw new DOMException
                 (DOMException.NO_MODIFICATION_ALLOWED_ERR, "");
-	} else {
+        } else {
             handler.textChanged(cssText);
-	}
+        }
     }
 
     /**
@@ -150,12 +151,12 @@ public class CSSOMValue
      */
     public void setFloatValue(short unitType, float floatValue)
         throws DOMException {
-	if (handler == null) {
+        if (handler == null) {
             throw new DOMException
                 (DOMException.NO_MODIFICATION_ALLOWED_ERR, "");
-	} else {
+        } else {
             handler.floatValueChanged(unitType, floatValue);
-	}
+        }
     }
 
     /**
@@ -170,42 +171,42 @@ public class CSSOMValue
      * Converts the actual float value to the given unit type.
      */
     public static float convertFloatValue(short unitType, Value value) {
-	switch (unitType) {
-	case CSSPrimitiveValue.CSS_NUMBER:
-	case CSSPrimitiveValue.CSS_PERCENTAGE:
-	case CSSPrimitiveValue.CSS_EMS:
-	case CSSPrimitiveValue.CSS_EXS:
-	case CSSPrimitiveValue.CSS_DIMENSION:
-	case CSSPrimitiveValue.CSS_PX:
-	    if (value.getPrimitiveType() == unitType) {
-		return value.getFloatValue();
-	    }
-	    break;
-	case CSSPrimitiveValue.CSS_CM:
-	    return toCentimeters(value);
-	case CSSPrimitiveValue.CSS_MM:
-	    return toMillimeters(value);
-	case CSSPrimitiveValue.CSS_IN:
-	    return toInches(value);
-	case CSSPrimitiveValue.CSS_PT:
-	    return toPoints(value);
-	case CSSPrimitiveValue.CSS_PC:
-	    return toPicas(value);
-	case CSSPrimitiveValue.CSS_DEG:
-	    return toDegrees(value);
-	case CSSPrimitiveValue.CSS_RAD:
-	    return toRadians(value);
-	case CSSPrimitiveValue.CSS_GRAD:
-	    return toGradians(value);
-	case CSSPrimitiveValue.CSS_MS:
-	    return toMilliseconds(value);
-	case CSSPrimitiveValue.CSS_S:
-	    return toSeconds(value);
-	case CSSPrimitiveValue.CSS_HZ:
-	    return toHertz(value);
-	case CSSPrimitiveValue.CSS_KHZ:
-	    return tokHertz(value);
-	}
+        switch (unitType) {
+        case CSSPrimitiveValue.CSS_NUMBER:
+        case CSSPrimitiveValue.CSS_PERCENTAGE:
+        case CSSPrimitiveValue.CSS_EMS:
+        case CSSPrimitiveValue.CSS_EXS:
+        case CSSPrimitiveValue.CSS_DIMENSION:
+        case CSSPrimitiveValue.CSS_PX:
+            if (value.getPrimitiveType() == unitType) {
+                return value.getFloatValue();
+            }
+            break;
+        case CSSPrimitiveValue.CSS_CM:
+            return toCentimeters(value);
+        case CSSPrimitiveValue.CSS_MM:
+            return toMillimeters(value);
+        case CSSPrimitiveValue.CSS_IN:
+            return toInches(value);
+        case CSSPrimitiveValue.CSS_PT:
+            return toPoints(value);
+        case CSSPrimitiveValue.CSS_PC:
+            return toPicas(value);
+        case CSSPrimitiveValue.CSS_DEG:
+            return toDegrees(value);
+        case CSSPrimitiveValue.CSS_RAD:
+            return toRadians(value);
+        case CSSPrimitiveValue.CSS_GRAD:
+            return toGradians(value);
+        case CSSPrimitiveValue.CSS_MS:
+            return toMilliseconds(value);
+        case CSSPrimitiveValue.CSS_S:
+            return toSeconds(value);
+        case CSSPrimitiveValue.CSS_HZ:
+            return toHertz(value);
+        case CSSPrimitiveValue.CSS_KHZ:
+            return tokHertz(value);
+        }
         throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
     }
 
@@ -213,204 +214,204 @@ public class CSSOMValue
      * Converts the current value into centimeters.
      */
     protected static float toCentimeters(Value value) {
-	switch (value.getPrimitiveType()) {
-	case CSSPrimitiveValue.CSS_CM:
-	    return value.getFloatValue();
-	case CSSPrimitiveValue.CSS_MM:
-	    return (value.getFloatValue() / 10);
-	case CSSPrimitiveValue.CSS_IN:
-	    return (value.getFloatValue() * 2.54f);
-	case CSSPrimitiveValue.CSS_PT:
-	    return (value.getFloatValue() * 2.54f / 72);
-	case CSSPrimitiveValue.CSS_PC:
-	    return (value.getFloatValue() * 2.54f / 6);
-	default:
+        switch (value.getPrimitiveType()) {
+        case CSSPrimitiveValue.CSS_CM:
+            return value.getFloatValue();
+        case CSSPrimitiveValue.CSS_MM:
+            return (value.getFloatValue() / 10);
+        case CSSPrimitiveValue.CSS_IN:
+            return (value.getFloatValue() * 2.54f);
+        case CSSPrimitiveValue.CSS_PT:
+            return (value.getFloatValue() * 2.54f / 72);
+        case CSSPrimitiveValue.CSS_PC:
+            return (value.getFloatValue() * 2.54f / 6);
+        default:
             throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
-	}
+        }
     }
 
     /**
      * Converts the current value into inches.
      */
     protected static float toInches(Value value) {
-	switch (value.getPrimitiveType()) {
-	case CSSPrimitiveValue.CSS_CM:
-	    return (value.getFloatValue() / 2.54f);
-	case CSSPrimitiveValue.CSS_MM:
-	    return (value.getFloatValue() / 25.4f);
-	case CSSPrimitiveValue.CSS_IN:
-	    return value.getFloatValue();
-	case CSSPrimitiveValue.CSS_PT:
-	    return (value.getFloatValue() / 72);
-	case CSSPrimitiveValue.CSS_PC:
-	    return (value.getFloatValue() / 6);
-	default:
+        switch (value.getPrimitiveType()) {
+        case CSSPrimitiveValue.CSS_CM:
+            return (value.getFloatValue() / 2.54f);
+        case CSSPrimitiveValue.CSS_MM:
+            return (value.getFloatValue() / 25.4f);
+        case CSSPrimitiveValue.CSS_IN:
+            return value.getFloatValue();
+        case CSSPrimitiveValue.CSS_PT:
+            return (value.getFloatValue() / 72);
+        case CSSPrimitiveValue.CSS_PC:
+            return (value.getFloatValue() / 6);
+        default:
             throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
-	}
+        }
     }
 
     /**
      * Converts the current value into millimeters.
      */
     protected static float toMillimeters(Value value) {
-	switch (value.getPrimitiveType()) {
-	case CSSPrimitiveValue.CSS_CM:
-	    return (value.getFloatValue() * 10);
-	case CSSPrimitiveValue.CSS_MM:
-	    return value.getFloatValue();
-	case CSSPrimitiveValue.CSS_IN:
-	    return (value.getFloatValue() * 25.4f);
-	case CSSPrimitiveValue.CSS_PT:
-	    return (value.getFloatValue() * 25.4f / 72);
-	case CSSPrimitiveValue.CSS_PC:
-	    return (value.getFloatValue() * 25.4f / 6);
-	default:
+        switch (value.getPrimitiveType()) {
+        case CSSPrimitiveValue.CSS_CM:
+            return (value.getFloatValue() * 10);
+        case CSSPrimitiveValue.CSS_MM:
+            return value.getFloatValue();
+        case CSSPrimitiveValue.CSS_IN:
+            return (value.getFloatValue() * 25.4f);
+        case CSSPrimitiveValue.CSS_PT:
+            return (value.getFloatValue() * 25.4f / 72);
+        case CSSPrimitiveValue.CSS_PC:
+            return (value.getFloatValue() * 25.4f / 6);
+        default:
             throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
-	}
+        }
     }
 
     /**
      * Converts the current value into points.
      */
     protected static float toPoints(Value value) {
-	switch (value.getPrimitiveType()) {
-	case CSSPrimitiveValue.CSS_CM:
-	    return (value.getFloatValue() * 72 / 2.54f);
-	case CSSPrimitiveValue.CSS_MM:
-	    return (value.getFloatValue() * 72 / 25.4f);
-	case CSSPrimitiveValue.CSS_IN:
-	    return (value.getFloatValue() * 72);
-	case CSSPrimitiveValue.CSS_PT:
-	    return value.getFloatValue();
-	case CSSPrimitiveValue.CSS_PC:
-	    return (value.getFloatValue() * 12);
-	default:
+        switch (value.getPrimitiveType()) {
+        case CSSPrimitiveValue.CSS_CM:
+            return (value.getFloatValue() * 72 / 2.54f);
+        case CSSPrimitiveValue.CSS_MM:
+            return (value.getFloatValue() * 72 / 25.4f);
+        case CSSPrimitiveValue.CSS_IN:
+            return (value.getFloatValue() * 72);
+        case CSSPrimitiveValue.CSS_PT:
+            return value.getFloatValue();
+        case CSSPrimitiveValue.CSS_PC:
+            return (value.getFloatValue() * 12);
+        default:
             throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
-	}
+        }
     }
 
     /**
      * Converts the current value into picas.
      */
     protected static float toPicas(Value value) {
-	switch (value.getPrimitiveType()) {
-	case CSSPrimitiveValue.CSS_CM:
-	    return (value.getFloatValue() * 6 / 2.54f);
-	case CSSPrimitiveValue.CSS_MM:
-	    return (value.getFloatValue() * 6 / 25.4f);
-	case CSSPrimitiveValue.CSS_IN:
-	    return (value.getFloatValue() * 6);
-	case CSSPrimitiveValue.CSS_PT:
-	    return (value.getFloatValue() / 12);
-	case CSSPrimitiveValue.CSS_PC:
-	    return value.getFloatValue();
-	default:
+        switch (value.getPrimitiveType()) {
+        case CSSPrimitiveValue.CSS_CM:
+            return (value.getFloatValue() * 6 / 2.54f);
+        case CSSPrimitiveValue.CSS_MM:
+            return (value.getFloatValue() * 6 / 25.4f);
+        case CSSPrimitiveValue.CSS_IN:
+            return (value.getFloatValue() * 6);
+        case CSSPrimitiveValue.CSS_PT:
+            return (value.getFloatValue() / 12);
+        case CSSPrimitiveValue.CSS_PC:
+            return value.getFloatValue();
+        default:
             throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
-	}
+        }
     }
 
     /**
      * Converts the current value into degrees.
      */
     protected static float toDegrees(Value value) {
-	switch (value.getPrimitiveType()) {
-	case CSSPrimitiveValue.CSS_DEG:
-	    return value.getFloatValue();
-	case CSSPrimitiveValue.CSS_RAD:
-	    return (float)(value.getFloatValue() * 180 / Math.PI);
-	case CSSPrimitiveValue.CSS_GRAD:
-	    return (value.getFloatValue() * 9 / 5);
-	default:
+        switch (value.getPrimitiveType()) {
+        case CSSPrimitiveValue.CSS_DEG:
+            return value.getFloatValue();
+        case CSSPrimitiveValue.CSS_RAD:
+            return (float) Math.toDegrees( value.getFloatValue() );
+        case CSSPrimitiveValue.CSS_GRAD:
+            return (value.getFloatValue() * 9 / 5);
+        default:
             throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
-	}
+        }
     }
 
     /**
      * Converts the current value into radians.
      */
     protected static float toRadians(Value value) {
-	switch (value.getPrimitiveType()) {
-	case CSSPrimitiveValue.CSS_DEG:
-	    return (value.getFloatValue() * 5 / 9);
-	case CSSPrimitiveValue.CSS_RAD:
-	    return value.getFloatValue();
-	case CSSPrimitiveValue.CSS_GRAD:
-	    return (float)(value.getFloatValue() * 100 / Math.PI);
-	default:
+        switch (value.getPrimitiveType()) {
+        case CSSPrimitiveValue.CSS_DEG:
+            return (value.getFloatValue() * 5 / 9);      // todo ??
+        case CSSPrimitiveValue.CSS_RAD:
+            return value.getFloatValue();
+        case CSSPrimitiveValue.CSS_GRAD:
+            return (float)(value.getFloatValue() * 100 / Math.PI);
+        default:
             throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
-	}
+        }
     }
 
     /**
      * Converts the current value into gradians.
      */
     protected static float toGradians(Value value) {
-	switch (value.getPrimitiveType()) {
-	case CSSPrimitiveValue.CSS_DEG:
-	    return (float)(value.getFloatValue() * Math.PI / 180);
-	case CSSPrimitiveValue.CSS_RAD:
-	    return (float)(value.getFloatValue() * Math.PI / 100);
-	case CSSPrimitiveValue.CSS_GRAD:
-	    return value.getFloatValue();
-	default:
+        switch (value.getPrimitiveType()) {
+        case CSSPrimitiveValue.CSS_DEG:
+            return (float)(value.getFloatValue() * Math.PI / 180);   // todo ????
+        case CSSPrimitiveValue.CSS_RAD:
+            return (float)(value.getFloatValue() * Math.PI / 100);
+        case CSSPrimitiveValue.CSS_GRAD:
+            return value.getFloatValue();
+        default:
             throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
-	}
+        }
     }
 
     /**
      * Converts the current value into milliseconds.
      */
     protected static float toMilliseconds(Value value) {
-	switch (value.getPrimitiveType()) {
-	case CSSPrimitiveValue.CSS_MS:
-	    return value.getFloatValue();
-	case CSSPrimitiveValue.CSS_S:
-	    return (value.getFloatValue() * 1000);
-	default:
+        switch (value.getPrimitiveType()) {
+        case CSSPrimitiveValue.CSS_MS:
+            return value.getFloatValue();
+        case CSSPrimitiveValue.CSS_S:
+            return (value.getFloatValue() * 1000);
+        default:
             throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
-	}
+        }
     }
-	
+
     /**
      * Converts the current value into seconds.
      */
     protected static float toSeconds(Value value) {
-	switch (value.getPrimitiveType()) {
-	case CSSPrimitiveValue.CSS_MS:
-	    return (value.getFloatValue() / 1000);
-	case CSSPrimitiveValue.CSS_S:
-	    return value.getFloatValue();
-	default:
+        switch (value.getPrimitiveType()) {
+        case CSSPrimitiveValue.CSS_MS:
+            return (value.getFloatValue() / 1000);
+        case CSSPrimitiveValue.CSS_S:
+            return value.getFloatValue();
+        default:
             throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
-	}
+        }
     }
-	
+
     /**
      * Converts the current value into Hertz.
      */
     protected static float toHertz(Value value) {
-	switch (value.getPrimitiveType()) {
-	case CSSPrimitiveValue.CSS_HZ:
-	    return value.getFloatValue();
-	case CSSPrimitiveValue.CSS_KHZ:
-	    return (value.getFloatValue() / 1000);
-	default:
+        switch (value.getPrimitiveType()) {
+        case CSSPrimitiveValue.CSS_HZ:
+            return value.getFloatValue();
+        case CSSPrimitiveValue.CSS_KHZ:
+            return (value.getFloatValue() / 1000);
+        default:
             throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
-	}
+        }
     }
 
     /**
      * Converts the current value into kHertz.
      */
     protected static float tokHertz(Value value) {
-	switch (value.getPrimitiveType()) {
-	case CSSPrimitiveValue.CSS_HZ:
-	    return (value.getFloatValue() * 1000);
-	case CSSPrimitiveValue.CSS_KHZ:
-	    return value.getFloatValue();
-	default:
+        switch (value.getPrimitiveType()) {
+        case CSSPrimitiveValue.CSS_HZ:
+            return (value.getFloatValue() * 1000);
+        case CSSPrimitiveValue.CSS_KHZ:
+            return value.getFloatValue();
+        default:
             throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
-	}
+        }
     }
 
    /**
@@ -419,12 +420,12 @@ public class CSSOMValue
      */
     public void setStringValue(short stringType, String stringValue)
         throws DOMException {
-	if (handler == null) {
+        if (handler == null) {
             throw new DOMException
                 (DOMException.NO_MODIFICATION_ALLOWED_ERR, "");
-	} else {
+        } else {
             handler.stringValueChanged(stringType, stringValue);
-	}
+        }
     }
 
     /**
@@ -480,9 +481,7 @@ public class CSSOMValue
             items = new CSSValue[valueProvider.getValue().getLength()];
         } else if (items.length < len) {
             CSSValue[] nitems = new CSSValue[len];
-            for (int i = 0; i < items.length; i++) {
-                nitems[i] = items[i];
-            }
+            System.arraycopy( items, 0, nitems, 0, items.length );
             items = nitems;
         }
         CSSValue result = items[index];
@@ -531,7 +530,7 @@ public class CSSOMValue
     /**
      * <b>DOM</b>: Implements {@link org.w3c.dom.css.Rect#getRight()}.
      */
-    public CSSPrimitiveValue getRight() { 
+    public CSSPrimitiveValue getRight() {
         valueProvider.getValue().getRight();
         if (rightComponent == null) {
             rightComponent = new RightComponent();
@@ -755,11 +754,12 @@ public class CSSOMValue
          * Called when the left value text has changed.
          */
         public void leftTextChanged(String text) throws DOMException {
+            final Value val = getValue();
             text = "rect(" +
-                getValue().getTop().getCssText() + ", " +
-                getValue().getRight().getCssText() + ", " +
-                getValue().getBottom().getCssText() + ", " +
-                text + ")";
+                val.getTop().getCssText() + ", " +
+                val.getRight().getCssText() + ", " +
+                val.getBottom().getCssText() + ", " +
+                text + ')';
             textChanged(text);
         }
 
@@ -768,11 +768,12 @@ public class CSSOMValue
          */
         public void leftFloatValueChanged(short unit, float value)
             throws DOMException {
+            final Value val = getValue();
             String text = "rect(" +
-                getValue().getTop().getCssText() + ", " +
-                getValue().getRight().getCssText() + ", " +
-                getValue().getBottom().getCssText() + ", " +
-                FloatValue.getCssText(unit, value) + ")";
+                val.getTop().getCssText() + ", " +
+                val.getRight().getCssText() + ", " +
+                val.getBottom().getCssText() + ", " +
+                FloatValue.getCssText(unit, value) + ')';
             textChanged(text);
         }
 
@@ -780,11 +781,12 @@ public class CSSOMValue
          * Called when the top value text has changed.
          */
         public void topTextChanged(String text) throws DOMException {
+            final Value val = getValue();
             text = "rect(" +
                 text + ", " +
-                getValue().getRight().getCssText() + ", " +
-                getValue().getBottom().getCssText() + ", " +
-                getValue().getLeft().getCssText() + ")";
+                val.getRight().getCssText() + ", " +
+                val.getBottom().getCssText() + ", " +
+                val.getLeft().getCssText() + ')';
             textChanged(text);
         }
 
@@ -793,11 +795,12 @@ public class CSSOMValue
          */
         public void topFloatValueChanged(short unit, float value)
             throws DOMException {
+            final Value val = getValue();
             String text = "rect(" +
                 FloatValue.getCssText(unit, value) + ", " +
-                getValue().getRight().getCssText() + ", " +
-                getValue().getBottom().getCssText() + ", " +
-                getValue().getLeft().getCssText() + ")";
+                val.getRight().getCssText() + ", " +
+                val.getBottom().getCssText() + ", " +
+                val.getLeft().getCssText() + ')';
             textChanged(text);
         }
 
@@ -805,11 +808,12 @@ public class CSSOMValue
          * Called when the right value text has changed.
          */
         public void rightTextChanged(String text) throws DOMException {
+            final Value val = getValue();
             text = "rect(" +
-                getValue().getTop().getCssText() + ", " +
+                val.getTop().getCssText() + ", " +
                 text + ", " +
-                getValue().getBottom().getCssText() + ", " +
-                getValue().getLeft().getCssText() + ")";
+                val.getBottom().getCssText() + ", " +
+                val.getLeft().getCssText() + ')';
             textChanged(text);
         }
 
@@ -818,11 +822,12 @@ public class CSSOMValue
          */
         public void rightFloatValueChanged(short unit, float value)
             throws DOMException {
+            final Value val = getValue();
             String text = "rect(" +
-                getValue().getTop().getCssText() + ", " +
+                val.getTop().getCssText() + ", " +
                 FloatValue.getCssText(unit, value) + ", " +
-                getValue().getBottom().getCssText() + ", " +
-                getValue().getLeft().getCssText() + ")";
+                val.getBottom().getCssText() + ", " +
+                val.getLeft().getCssText() + ')';
             textChanged(text);
         }
 
@@ -830,11 +835,12 @@ public class CSSOMValue
          * Called when the bottom value text has changed.
          */
         public void bottomTextChanged(String text) throws DOMException {
+            final Value val = getValue();
             text = "rect(" +
-                getValue().getTop().getCssText() + ", " +
-                getValue().getRight().getCssText() + ", " +
+                val.getTop().getCssText() + ", " +
+                val.getRight().getCssText() + ", " +
                 text + ", " +
-                getValue().getLeft().getCssText() + ")";
+                val.getLeft().getCssText() + ')';
             textChanged(text);
         }
 
@@ -843,11 +849,12 @@ public class CSSOMValue
          */
         public void bottomFloatValueChanged(short unit, float value)
             throws DOMException {
+            final Value val = getValue();
             String text = "rect(" +
-                getValue().getTop().getCssText() + ", " +
-                getValue().getRight().getCssText() + ", " +
+                val.getTop().getCssText() + ", " +
+                val.getRight().getCssText() + ", " +
                 FloatValue.getCssText(unit, value) + ", " +
-                getValue().getLeft().getCssText() + ")";
+                val.getLeft().getCssText() + ')';
             textChanged(text);
         }
 
@@ -855,10 +862,11 @@ public class CSSOMValue
          * Called when the red value text has changed.
          */
         public void redTextChanged(String text) throws DOMException {
+            final Value val = getValue();
             text = "rgb(" +
                 text + ", " +
-                getValue().getGreen().getCssText() + ", " +
-                getValue().getBlue().getCssText() + ")";
+                val.getGreen().getCssText() + ", " +
+                val.getBlue().getCssText() + ')';
             textChanged(text);
         }
 
@@ -867,10 +875,11 @@ public class CSSOMValue
          */
         public void redFloatValueChanged(short unit, float value)
             throws DOMException {
+            final Value val = getValue();
             String text = "rgb(" +
                 FloatValue.getCssText(unit, value) + ", " +
-                getValue().getGreen().getCssText() + ", " +
-                getValue().getBlue().getCssText() + ")";
+                val.getGreen().getCssText() + ", " +
+                val.getBlue().getCssText() + ')';
             textChanged(text);
         }
 
@@ -878,10 +887,11 @@ public class CSSOMValue
          * Called when the green value text has changed.
          */
         public void greenTextChanged(String text) throws DOMException {
+            final Value val = getValue();
             text = "rgb(" +
-                getValue().getRed().getCssText() + ", " +
+                val.getRed().getCssText() + ", " +
                 text + ", " +
-                getValue().getBlue().getCssText() + ")";
+                val.getBlue().getCssText() + ')';
             textChanged(text);
         }
 
@@ -890,10 +900,11 @@ public class CSSOMValue
          */
         public void greenFloatValueChanged(short unit, float value)
             throws DOMException {
+            final Value val = getValue();
             String text = "rgb(" +
-                getValue().getRed().getCssText() + ", " +
+                val.getRed().getCssText() + ", " +
                 FloatValue.getCssText(unit, value) + ", " +
-                getValue().getBlue().getCssText() + ")";
+                val.getBlue().getCssText() + ')';
             textChanged(text);
         }
 
@@ -901,10 +912,11 @@ public class CSSOMValue
          * Called when the blue value text has changed.
          */
         public void blueTextChanged(String text) throws DOMException {
+            final Value val = getValue();
             text = "rgb(" +
-                getValue().getRed().getCssText() + ", " +
-                getValue().getGreen().getCssText() + ", " +
-                text + ")";
+                val.getRed().getCssText() + ", " +
+                val.getGreen().getCssText() + ", " +
+                text + ')';
             textChanged(text);
         }
 
@@ -913,10 +925,11 @@ public class CSSOMValue
          */
         public void blueFloatValueChanged(short unit, float value)
             throws DOMException {
+            final Value val = getValue();
             String text = "rgb(" +
-                getValue().getRed().getCssText() + ", " +
-                getValue().getGreen().getCssText() + ", " +
-                FloatValue.getCssText(unit, value) + ")";
+                val.getRed().getCssText() + ", " +
+                val.getGreen().getCssText() + ", " +
+                FloatValue.getCssText(unit, value) + ')';
             textChanged(text);
         }
 
@@ -925,13 +938,13 @@ public class CSSOMValue
          */
         public void listTextChanged(int idx, String text) throws DOMException {
             ListValue lv = (ListValue)getValue();
-            StringBuffer sb = new StringBuffer();
+            int len = lv.getLength();
+            StringBuffer sb = new StringBuffer( len * 8 );
             for (int i = 0; i < idx; i++) {
                 sb.append(lv.item(i).getCssText());
                 sb.append(lv.getSeparatorChar());
             }
             sb.append(text);
-            int len = lv.getLength();
             for (int i = idx + 1; i < len; i++) {
                 sb.append(lv.getSeparatorChar());
                 sb.append(lv.item(i).getCssText());
@@ -946,13 +959,13 @@ public class CSSOMValue
         public void listFloatValueChanged(int idx, short unit, float value)
             throws DOMException {
             ListValue lv = (ListValue)getValue();
-            StringBuffer sb = new StringBuffer();
+            int len = lv.getLength();
+            StringBuffer sb = new StringBuffer( len * 8 );
             for (int i = 0; i < idx; i++) {
                 sb.append(lv.item(i).getCssText());
                 sb.append(lv.getSeparatorChar());
             }
             sb.append(FloatValue.getCssText(unit, value));
-            int len = lv.getLength();
             for (int i = idx + 1; i < len; i++) {
                 sb.append(lv.getSeparatorChar());
                 sb.append(lv.item(i).getCssText());
@@ -966,13 +979,13 @@ public class CSSOMValue
         public void listStringValueChanged(int idx, short unit, String value)
             throws DOMException {
             ListValue lv = (ListValue)getValue();
-            StringBuffer sb = new StringBuffer();
+            int len = lv.getLength();
+            StringBuffer sb = new StringBuffer( len * 8 );
             for (int i = 0; i < idx; i++) {
                 sb.append(lv.item(i).getCssText());
                 sb.append(lv.getSeparatorChar());
             }
             sb.append(StringValue.getCssText(unit, value));
-            int len = lv.getLength();
             for (int i = idx + 1; i < len; i++) {
                 sb.append(lv.getSeparatorChar());
                 sb.append(lv.item(i).getCssText());
@@ -1030,7 +1043,7 @@ public class CSSOMValue
         public String getStringValue() throws DOMException {
             return valueProvider.getValue().getStringValue();
         }
-        
+
         /**
          * <b>DOM</b>: Implements {@link
          * org.w3c.dom.css.CSSPrimitiveValue#getCounterValue()}.
@@ -1038,7 +1051,7 @@ public class CSSOMValue
         public Counter getCounterValue() throws DOMException {
             throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
         }
-        
+
         /**
          * <b>DOM</b>: Implements {@link
          * org.w3c.dom.css.CSSPrimitiveValue#getRectValue()}.
@@ -1064,7 +1077,7 @@ public class CSSOMValue
         public int getLength() {
             throw new DOMException(DOMException.INVALID_ACCESS_ERR, "");
         }
-        
+
         /**
          * <b>DOM</b>: Implements {@link
          * org.w3c.dom.css.CSSValueList#item(int)}.
@@ -1093,7 +1106,7 @@ public class CSSOMValue
      * To represents a left component.
      */
     protected class LeftComponent extends FloatComponent {
-        
+
         /**
          * The returns the actual value of this component.
          */
@@ -1136,7 +1149,7 @@ public class CSSOMValue
      * To represents a top component.
      */
     protected class TopComponent extends FloatComponent {
-        
+
         /**
          * The returns the actual value of this component.
          */
@@ -1179,7 +1192,7 @@ public class CSSOMValue
      * To represents a right component.
      */
     protected class RightComponent extends FloatComponent {
-        
+
         /**
          * The returns the actual value of this component.
          */
@@ -1223,7 +1236,7 @@ public class CSSOMValue
      * To represents a bottom component.
      */
     protected class BottomComponent extends FloatComponent {
-        
+
         /**
          * The returns the actual value of this component.
          */
@@ -1267,7 +1280,7 @@ public class CSSOMValue
      * To represents a red component.
      */
     protected class RedComponent extends FloatComponent {
-        
+
         /**
          * The returns the actual value of this component.
          */
@@ -1311,7 +1324,7 @@ public class CSSOMValue
      * To represents a green component.
      */
     protected class GreenComponent extends FloatComponent {
-        
+
         /**
          * The returns the actual value of this component.
          */
@@ -1354,7 +1367,7 @@ public class CSSOMValue
      * To represents a blue component.
      */
     protected class BlueComponent extends FloatComponent {
-        
+
         /**
          * The returns the actual value of this component.
          */
@@ -1397,7 +1410,7 @@ public class CSSOMValue
      * To represents a List component.
      */
     protected class ListComponent extends AbstractComponent {
-        
+
         /**
          * The index of this component.
          */

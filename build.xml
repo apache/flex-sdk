@@ -22,12 +22,15 @@
 
     <property name="FLEX_HOME" location="${basedir}"/>
     
-    <!-- Required for OSX 10.6 / Snow Leopard Performance -->
-    <condition property="local.d32" value="-d32" >
+    <!-- Required for OSX 10.6 / Snow Leopard Performance. -->
+    <!-- Java 7 on Mac requires OSX 10.7.3 or higher and is 64-bit only -->
+    <!-- local.d32 is set/used in build.properties so this needs to be done first. -->
+    <condition property="local.d32" value="-d32">
         <and>
+            <os family="windows"/>
             <equals arg1="${sun.arch.data.model}" arg2="64"/>
             <equals arg1="${os.arch}" arg2="x86_64"/>
-                <os family="mac"/>
+            <equals arg1="${ant.java.version}" arg2="1.6"/>
         </and>
     </condition>
 
@@ -40,7 +43,7 @@
     <property name="strict" value="true"/>
     <property name="javac.src" value="1.5"/>
     
-    <property name="kit.prefix" value="apache-flex-sdk-${release.version}-incubating"/>
+    <property name="kit.prefix" value="apache-flex-sdk-${release.version}"/>
     <property name="source.kit" value="${kit.prefix}-src"/>
     <property name="binary.kit" value="${kit.prefix}-bin"/>
       
@@ -121,7 +124,12 @@
         description="Stuff that needs to be done before any builds." />
 
     <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-pixelbender-home"
-        description="Check for the required environment variables for compilation."/>
+        description="Check for the required environment variables for compilation.">
+            <echo>OS: ${os.name} / ${os.version} / ${os.arch}</echo>
+            <echo>VM: ${java.vm.name} / ${java.vm.version}</echo>
+            <echo>Java: ${java.version}</echo>
+            <echo>Ant: ${ant.version} Ant Java Version: ${ant.java.version}</echo>
+    </target>
 
     <target name="check-playerglobal-home" unless="playerglobal.swc.exists"
         description="Check PLAYERGLOBAL_HOME for both a directory and a swc file">
@@ -402,6 +410,8 @@
     </macrodef>
 
 	<target name="frameworks-rsls" description="Build signed framework RSLs">
+		<!-- textLayout RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="textLayout" build-number="${release.version}.${build.number}"/>
 		<!-- framework RSL -->
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="framework" build-number="${release.version}.${build.number}"/>
 		<!-- mx RSL -->
@@ -506,7 +516,6 @@
 				<include name="env-template.properties"/>
                 <include name="flex-sdk-description.xml"/>
                 <include name="CHANGES"/>
-                <include name="DISCLAIMER"/>
                 <include name="LICENSE"/>
                 <include name="NOTICE"/>
                 <include name="README"/>
@@ -562,8 +571,9 @@
              either type of line endings but the converse is often not true.             
              The bin directory is handled in stage-bin.
         -->
-        <fixcrlf srcdir="${basedir}/temp" eol="crlf">
+        <fixcrlf srcdir="${basedir}/temp" eol="crlf" fixlast="false">
             <exclude name="bin/**"/>
+            <exclude name="**/assets/**"/>
             <exclude name="**/*.fla"/>
             <exclude name="**/*.flv"/>
             <exclude name="**/*.gif"/>
@@ -579,7 +589,7 @@
             Unix shell scripts need the correct line endings. 
             The bin directory is handled in stage-bin.
         -->      
-        <fixcrlf srcdir="${basedir}/temp" eol="unix">  
+        <fixcrlf srcdir="${basedir}/temp" eol="unix" fixlast="false">  
             <include name="**.sh"/>
             <exclude name="bin/**"/>
         </fixcrlf>
@@ -599,9 +609,9 @@
                 <exclude name="test*/**"/>
                 <exclude name="javascript/**"/>
                 <exclude name="projects/air/**"/>
-                <exclude name="projects/textLayout/**"/>
                 <exclude name="projects/spark/manifest.xml"/>
                 <exclude name="projects/*/bundles.properties"/>
+                <exclude name="projects/*/.settings/**"/>
             </fileset>
         </copy>
 
@@ -649,12 +659,12 @@
             </fileset>
         </copy>
         
-        <fixcrlf srcdir="${basedir}/temp/bin" eol="crlf">
+        <fixcrlf srcdir="${basedir}/temp/bin" eol="crlf" fixlast="false">
             <include name="**/*.bat"/>
         </fixcrlf>
   
           <!-- Unix shell scripts need the correct line endings. -->      
-        <fixcrlf srcdir="${basedir}/temp/bin" eol="unix">  
+        <fixcrlf srcdir="${basedir}/temp/bin" eol="unix" fixlast="false">  
             <exclude name="**/*.bat"/>
         </fixcrlf>
     </target>
@@ -702,8 +712,8 @@
                 <exclude name="as3/src/mustella/ContinueAfterRuntimeException/**"/>
                 <exclude name="as3/src/mustella/ExcludeList.txt"/>
                 <exclude name="as3/src/mustella/IncludeList.txt"/>
-                <exclude name="**/*.air"/>
-                <exclude name="**/*.swf"/>
+                <exclude name="as3/**/*.air"/>
+                <exclude name="as3/**/*.swf"/>
                 <include name="build.xml"/>
                 <include name="local.properties"/>
                 <include name="MustellaResultsParser.java"/>
@@ -793,15 +803,16 @@
             </fileset>
         </copy>
 
-
         <!-- frameworks/libs -->
         <copy todir="${basedir}/temp/frameworks/libs">
             <fileset dir="${basedir}/frameworks/libs">
                 <include name="air/airframework.swc"/>
                 <include name="air/airspark.swc"/>
                 <include name="mobile/mobilecomponents.swc"/>
+                <include name="apache.swc"/>
                 <include name="authoringsupport.swc"/>
                 <include name="core.swc"/>
+                <include name="experimental.swc"/>
                 <include name="spark.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
@@ -812,10 +823,8 @@
                 <include name="charts.swc"/>
                 <include name="advancedgrids.swc"/>
                 <include name="spark_dmv.swc"/>
+            	<include name="textLayout.swc"/>
                 <exclude name="osmf.swc"/>
-            	<exclude name="textLayout.swc"/>
-            	<exclude name="apache.swc"/>
-                <exclude name="experimental.swc"/>
             </fileset>
         </copy>
 
@@ -910,30 +919,21 @@
         -->
         <copy todir="${basedir}/temp/lib/external">
             <fileset dir="${basedir}/lib/external">
+                <!-- required license and notice files -->
+                <include name="*LICENSE*/**"/>
+                <include name="*NOTICE*/**"/>
+                <include name="*README*"/>
+                <!-- jar files -->
                 <include name="commons-collections.jar"/>
-                <include name="commons-collections-LICENSE*"/>
-                <include name="commons-collections-NOTICE*/**"/>
                 <include name="commons-discovery.jar"/>
-                <include name="commons-discovery-LICENSE*"/>
-                <include name="commons-discovery-NOTICE*/**"/>
                 <include name="commons-logging.jar"/>
-                <include name="commons-logging-LICENSE*"/>
-                <include name="commons-logging-NOTICE*/**"/>
                 <include name="javacc.jar"/>
-                <include name="javacc-LICENSE*"/>
                 <include name="saxon9.jar"/>
-                <include name="saxon9-LICENSE*"/>
-                <include name="saxon9-NOTICE*/**"/>
                 <include name="xalan.jar"/>
-                <include name="xalan-LICENSE*"/>
-                <include name="xalan-NOTICE*/**"/>
                 <include name="xercesImpl.jar"/>
                 <include name="xercesPatch.jar"/>
-                <include name="xerces-LICENSE*/**"/>
-                <include name="xerces-NOTICE*/**"/>
+                <include name="xml-apis-ext.jar"/>
                 <include name="xml-apis.jar"/>
-                <include name="xml-batik-LICENSE*"/>
-                <include name="xml-batik-NOTICE*/**"/>
                 <exclude name="optional/**"/>
             </fileset>
         </copy>
@@ -1200,7 +1200,6 @@
             <fileset dir="${basedir}">
                 <include name="LICENSE" />
                 <include name="NOTICE" />
-                <include name="DISCLAIMER" />
             </fileset>
         </copy>
         <zip file="${basedir}/out/${kit.prefix}-asdocs.zip" basedir="${basedir}/temp"/>
@@ -1245,7 +1244,7 @@
         </copy>
     </target>
 
-    <target name="clean-temp">
+    <target name="clean-temp" unless="noclean.temp">
         <delete dir="${basedir}/temp" failonerror="false" includeEmptyDirs="true"/>
     </target>
 
@@ -1275,9 +1274,9 @@
     <target name="airmobile-basictests-mustella" depends="mustella-setup,airmobile-basictests"/>
 
     <target name="mustella-setup" depends="runtime-setup" description="compile mustella java file">
-        <!-- delete and rebuild mustella.swc -->
-        <ant dir="${basedir}/mustella" target="cleanmustellaswc"/>
-        <ant dir="${basedir}/mustella" target="makemustellaswc"/>
+        <ant dir="${basedir}/mustella" target="makemustellaswc">
+            <property name="use_mustella_framework_dir" value="false"/>
+        </ant>
         <property name="moreCompilerArgs" value=""/>
         <!-- compile the results parser -->
         <javac srcdir="mustella" includes="MustellaResultsParser.java"/>
@@ -1612,16 +1611,13 @@
     <target name="rat-check" depends="rat-taskdef" if="have.rattasks"
         description="Report on licenses in source kit.">
     
-        <!-- Unzip the source kit -->
-        <antcall target="clean-temp" />
-        <unzip src="${basedir}/out/${source.kit}.zip" dest="${basedir}/temp"/>
-        
         <property name="rat.dir" value="${basedir}/temp"/>
-
-        <echo message="Checking files at ${rat.dir}, report is ${basedir}/rat.report"/>
+        <antcall target="rat-unzip" />
+        
+        <property name="rat.report" value="${basedir}/rat.report"/>
+        <echo message="Checking files at ${rat.dir}, report is ${rat.report}"/>
              
-        <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" 
-            reportFile="${basedir}/rat.report">
+        <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" reportFile="${rat.report}">
             <fileset dir="${rat.dir}">
                 <!--          Start of binary files           -->
                 <!-- exclude Flash Professional file used for integration with Flash Professional -->
@@ -1634,15 +1630,22 @@
                 <exclude name="**/*.jpg"/>
                 <exclude name="**/*.mp3"/>
                 <exclude name="**/*.flv"/>
+                <!-- exclude batik icon -->
+                <exclude name="modules/thirdparty/batik/sources/*.icns"/>
                 <!--          End of binary files           -->
                 <!-- exclude batik manifests -->
                 <exclude name="modules/thirdparty/batik/sources/*.mf"/>
+                <!-- exclude text files -->
+                <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
+                <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
                 <!-- exclude w3c sources -->
                 <exclude name="modules/thirdparty/batik/resources/org/apache/flex/forks/batik/dom/svg/resources/*.mod"/>
                 <exclude name="modules/thirdparty/batik/resources/org/apache/flex/forks/batik/dom/svg/resources/*.dtd"/>
+                <exclude name="modules/thirdparty/batik/sources/org/w3c/css/sac/LexicalUnit.java"/>
                 <exclude name="modules/thirdparty/batik/sources/org/w3c/flex/forks/css/sac/*.java"/>
                 <exclude name="modules/thirdparty/batik/sources/org/w3c/flex/forks/css/sac/helpers/ParserFactory.java"/>
                 <!-- exclude config files -->
+                <exclude name="modules/thirdparty/batik/svn-revision"/>
                 <exclude name="modules/thirdparty/xerces-patch/src/java/META-INF/services/javax.xml.parsers.SAXParserFactory"/>
                 <exclude name="modules/thirdparty/xerces-patch/src/java/META-INF/services/org.apache.xerces.xni.parser.XMLParserConfiguration"/>
                 <exclude name="modules/thirdparty/xerces-patch/src/java/org/apache/xerces/jaxp/javax.xml.parsers.SAXParserFactory"/>
@@ -1650,6 +1653,11 @@
         </rat:report>
     </target>
 
+    <target name="rat-unzip" unless="no.zip">
+        <antcall target="clean-temp" />
+        <unzip src="${basedir}/out/${source.kit}.zip" dest="${rat.dir}"/>
+    </target>
+    
     <target name="rat-taskdef" description="Rat taskdef"> 
         <available property="have.rattasks" 
             resource="org/apache/rat/anttasks/antlib.xml" 
@@ -1669,5 +1677,32 @@
         <echo message="Rat report not generated."/>
         <echo message="rat jars (apache-rat-*.jar, apache-rat-tasks-*.jar)"/>
         <echo message="not found in anttask.classpath"/>
-    </target>   
+    </target>
+    
+    <target name="rat-check-mustella" depends="rat-taskdef" if="have.rattasks"
+        description="Report on licenses in mustella directory.">
+    
+        <ant dir="${basedir}/mustella" target="clean"/>
+        
+        <property name="rat.mustella.dir" value="${basedir}/mustella"/>
+        <property name="rat.mustella.report" value="rat.mustella.report"/>
+                
+        <echo message="Checking files at ${rat.mustella.dir}, report is ${basedir}/${rat.mustella.report}"/>
+             
+        <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" 
+            reportFile="${basedir}/${rat.mustella.report}">
+            <fileset dir="${rat.mustella.dir}">
+                <!--          Start of binary files           -->
+                <!-- exclude media (png, gif, jpg, mp3, flv) -->
+                <exclude name="assets/**"/>
+                <exclude name="tests/**/*.png"/>
+                <exclude name="tests/**/*.gif"/>
+                <exclude name="tests/**/*.jpg"/>
+                <exclude name="tests/**/*.mp3"/>
+                <exclude name="tests/**/*.flv"/>
+                <!--          End of binary files           -->
+                <exclude name="tests/**/*.compile"/>
+            </fileset>
+        </rat:report>
+    </target>
 </project>

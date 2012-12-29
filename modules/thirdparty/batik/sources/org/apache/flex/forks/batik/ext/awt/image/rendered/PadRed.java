@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -32,7 +33,7 @@ import org.apache.flex.forks.batik.ext.awt.image.PadMode;
  * This is an implementation of a Pad operation as a RenderedImage.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: PadRed.java,v 1.14 2004/08/18 07:14:08 vhardy Exp $ */
+ * @version $Id: PadRed.java 478276 2006-11-22 18:33:37Z dvholten $ */
 public class PadRed extends AbstractRed {
 
     static final boolean DEBUG=false;
@@ -61,7 +62,7 @@ public class PadRed extends AbstractRed {
         this.padMode = padMode;
 
         if (DEBUG) {
-            System.out.println("Src: " + src + " Bounds: " + bounds + 
+            System.out.println("Src: " + src + " Bounds: " + bounds +
                                " Off: " +
                                src.getTileGridXOffset() + ", " +
                                src.getTileGridYOffset());
@@ -79,7 +80,7 @@ public class PadRed extends AbstractRed {
 
         if (wrR.intersects(srcR)) {
             Rectangle r = wrR.intersection(srcR);
-        
+
             // Limit the raster I send to my source to his rect.
             WritableRaster srcWR;
             srcWR = wr.createWritableChild(r.x, r.y, r.width, r.height,
@@ -134,8 +135,8 @@ public class PadRed extends AbstractRed {
     protected static class ZeroRecter_INT_PACK extends ZeroRecter {
         final int base;
         final int scanStride;
-        final int pixels[];
-        final int zeros[];
+        final int[] pixels;
+        final int[] zeros;
         final int x0, y0;
 
         public ZeroRecter_INT_PACK(WritableRaster wr) {
@@ -148,8 +149,8 @@ public class PadRed extends AbstractRed {
             DataBufferInt db = (DataBufferInt)wr.getDataBuffer();
             x0 = wr.getMinY();
             y0 = wr.getMinX();
-            base = (db.getOffset() + 
-                    sppsm.getOffset(x0-wr.getSampleModelTranslateX(), 
+            base = (db.getOffset() +
+                    sppsm.getOffset(x0-wr.getSampleModelTranslateX(),
                                     y0-wr.getSampleModelTranslateY()));
 
             pixels = db.getBankData()[0];
@@ -230,9 +231,9 @@ public class PadRed extends AbstractRed {
 
         // Draw #2
         if (DEBUG) {
-            System.out.println("WrR: [" + 
-                               ar.x + "," + ar.y + "," + 
-                               ar.width + "," + ar.height + 
+            System.out.println("WrR: [" +
+                               ar.x + "," + ar.y + "," +
+                               ar.width + "," + ar.height +
                                "] s rcR: " + srcR);
             // g2d.setColor(new Color(0,0,255,128));
         }
@@ -252,9 +253,9 @@ public class PadRed extends AbstractRed {
 
         // Draw #3
         if (DEBUG) {
-            System.out.println("WrR: [" + 
-                               ar.x + "," + ar.y + "," + 
-                               ar.width + "," + ar.height + 
+            System.out.println("WrR: [" +
+                               ar.x + "," + ar.y + "," +
+                               ar.width + "," + ar.height +
                                "] srcR: " + srcR);
             // g2d.setColor(new Color(0,255,0,128));
         }
@@ -276,9 +277,9 @@ public class PadRed extends AbstractRed {
 
         // Draw #4
         if (DEBUG) {
-            System.out.println("WrR: [" + 
-                               ar.x + "," + ar.y + "," + 
-                               ar.width + "," + ar.height + 
+            System.out.println("WrR: [" +
+                               ar.x + "," + ar.y + "," +
+                               ar.width + "," + ar.height +
                                "] srcR: " + srcR);
             // g2d.setColor(new Color(255,255,0,128));
         }
@@ -293,7 +294,7 @@ public class PadRed extends AbstractRed {
             dr.width  = w;
             dr.height = ar.height;
             zr.zeroRect(dr);
-            
+
             ar.width-=w;
         }
     }
@@ -313,15 +314,15 @@ public class PadRed extends AbstractRed {
         Rectangle   r;
         {
             // Calculate an intersection that makes some sense
-            // even when the rects don't really intersect 
+            // even when the rects don't really intersect
             // (The x and y ranges will be correct if they
             // overlap in one dimension even if they don't
             // intersect in both dimensions).
             int minX = (srcR.x > x) ? srcR.x : x;
-            int maxX = (((srcR.x+srcR.width-1) < (x+width-1)) ? 
+            int maxX = (((srcR.x+srcR.width-1) < (x+width-1)) ?
                         ( srcR.x+srcR.width-1) : (x+width-1));
             int minY = (srcR.y > y) ? srcR.y : y;
-            int maxY = (((srcR.y+srcR.height-1) < (y+height-1)) ? 
+            int maxY = (((srcR.y+srcR.height-1) < (y+height-1)) ?
                         ( srcR.y+srcR.height-1) : (y+height-1));
 
             int x0 = minX;
@@ -345,7 +346,7 @@ public class PadRed extends AbstractRed {
         //  |      +---------------+      |
         //  |      | 2             |      |
         //  +-----------------------------+
-        // 
+        //
 
         // Draw #1
         if (y < srcR.y) {
@@ -371,7 +372,7 @@ public class PadRed extends AbstractRed {
             // go to src instead of getting the data from wr because
             // in some cases wr will be completely off the top of src
             WritableRaster wr1 = wr.createWritableChild(wrX, wrY,
-                                                        repW, 1, 
+                                                        repW, 1,
                                                         repX, srcR.y, null);
             src.copyData(wr1);
             wrY++;
@@ -380,7 +381,7 @@ public class PadRed extends AbstractRed {
             if (y+height < endY) endY = y+height;
 
             if (wrY < endY) {
-                int [] pixels = wr.getPixels(wrX, wrY-1, 
+                int [] pixels = wr.getPixels(wrX, wrY-1,
                                              repW, 1, (int [])null);
                 while (wrY < srcR.y) {
                     wr.setPixels(wrX, wrY, repW, 1, pixels);
@@ -388,7 +389,7 @@ public class PadRed extends AbstractRed {
                 }
             }
         }
-        
+
         // Draw #2
         if ((y+height) > (srcR.y+srcR.height)) {
             int repW = r.width;
@@ -415,7 +416,7 @@ public class PadRed extends AbstractRed {
 
             if (DEBUG) {
                 System.out.println("wr: "  + wr.getBounds());
-                System.out.println("req: [" + wrX + ", " + wrY + ", " + 
+                System.out.println("req: [" + wrX + ", " + wrY + ", " +
                                    repW + ", 1]");
             }
 
@@ -423,16 +424,16 @@ public class PadRed extends AbstractRed {
             // go to src instead of getting the data from wr because
             // in some cases wr will be completely off the bottom of src).
             WritableRaster wr1 = wr.createWritableChild(wrX, wrY,
-                                                        repW, 1, 
+                                                        repW, 1,
                                                         repX, repY, null);
-            // This fills the top row of section 2 from src 
+            // This fills the top row of section 2 from src
             src.copyData(wr1);
             wrY++;
 
             int endY = y+height;
             if (wrY < endY) {
                 // This fills the rest of section 2 from the first line.
-                int [] pixels = wr.getPixels(wrX, wrY-1, 
+                int [] pixels = wr.getPixels(wrX, wrY-1,
                                              repW, 1, (int [])null);
                 while (wrY < endY) {
                     wr.setPixels(wrX, wrY, repW, 1, pixels);
@@ -440,7 +441,7 @@ public class PadRed extends AbstractRed {
                 }
             }
         }
-                                                        
+
         // Draw #3
         if (x < srcR.x) {
             // We are garunteed that we have a column of pixels down

@@ -25,7 +25,8 @@
             <body>                                                
                 <CompareBitmap target="myNestedICNone1" url="../DfrdInst_Tests/Baselines/$testID_1.png"/>
                 <RunCode code="application.myNestedICNone1.createDeferredContent();" waitTarget="myNestedICNone1" waitEvent="contentCreationComplete" />
-                <CompareBitmap target="myNestedICNone1" url="../DfrdInst_Tests/Baselines/$testID_2.png"/>
+				<WaitForLayoutManager />
+				<CompareBitmap target="myNestedICNone1" url="../DfrdInst_Tests/Baselines/$testID_2.png"/>
                 <RunCode code="application.myNestedICNone1.myNestedIC2.createDeferredContent();" waitTarget="myNestedICNone1.myNestedIC2" waitEvent="contentCreationComplete" />             
                 <CompareBitmap target="myNestedICNone1" url="../DfrdInst_Tests/Baselines/$testID_3.png"/>
             </body>

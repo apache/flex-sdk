@@ -132,7 +132,7 @@ enabled
         <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" />
     </setup>
     <body>
-        <AssertPropertyValue target="tb1" propertyName="baselinePosition" value="15.85" />
+        <AssertPropertyValue target="tb1" propertyName="baselinePosition" value="16.1" />
     </body>
 </TestCase>
 
@@ -189,6 +189,8 @@ enabled
         <DispatchKeyEvent keys="[RIGHT,RIGHT,SPACE]" />
 		<WaitForEffectsToEnd/>
         <WaitForEvent numExpectedEvents="-1" eventName="updateComplete" target="vgroup1.buttonBar1" timeout="2000" />
+		<WaitForLayoutManager />
+		<WaitForLayoutManager /><!-- focus sometimes get applied in the updatecompletes from the layoutmanager -->
         <CompareBitmap url="../Properties/baselines/$testID_tabBar_focus3.png" target="vgroup1" numColorVariances="10" maxColorVariance="20"/>
         <Pause timeout="40"/>
         <DispatchMouseClickEvent target="vgroup1.tabBarFocusTest1.skin.dataGroup.getChildAt(2)" localX="2" localY="2" waitEvent="updateComplete" />

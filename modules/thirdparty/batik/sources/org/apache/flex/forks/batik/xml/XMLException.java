@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,7 +28,7 @@ package org.apache.flex.forks.batik.xml;
  * exceptions, it must wrap those exceptions in a XMLException.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: XMLException.java,v 1.3 2004/08/18 07:15:59 vhardy Exp $
+ * @version $Id: XMLException.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class XMLException extends RuntimeException {
 
@@ -41,8 +42,8 @@ public class XMLException extends RuntimeException {
      * @param message The error or warning message.
      */
     public XMLException (String message) {
-	super(message);
-	exception = null;
+        super(message);
+        exception = null;
     }
     
     /**
@@ -54,7 +55,7 @@ public class XMLException extends RuntimeException {
      * @param e The exception to be wrapped in a XMLException.
      */
     public XMLException (Exception e) {
-	exception = e;
+        exception = e;
     }
     
     /**
@@ -66,8 +67,8 @@ public class XMLException extends RuntimeException {
      * @param e The exception to be wrapped in a SAXException.
      */
     public XMLException (String message, Exception e) {
-	super(message);
-	exception = e;
+        super(message);
+        exception = e;
     }
     
     /**
@@ -79,13 +80,13 @@ public class XMLException extends RuntimeException {
      * @return The error or warning message.
      */
     public String getMessage () {
-	String message = super.getMessage();
-	
-	if (message == null && exception != null) {
-	    return exception.getMessage();
-	} else {
-	    return message;
-	}
+        String message = super.getMessage();
+        
+        if (message == null && exception != null) {
+            return exception.getMessage();
+        } else {
+            return message;
+        }
     }
     
     /**
@@ -93,7 +94,7 @@ public class XMLException extends RuntimeException {
      * @return The embedded exception, or null if there is none.
      */
     public Exception getException () {
-	return exception;
+        return exception;
     }
 
     /**

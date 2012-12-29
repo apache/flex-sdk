@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,7 +24,7 @@ import java.awt.Color;
  * A light source which emits a light of constant intensity in all directions.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: PointLight.java,v 1.5 2005/03/27 08:58:32 cam Exp $
+ * @version $Id: PointLight.java 478363 2006-11-22 23:01:13Z dvholten $
  */
 public class PointLight extends AbstractLight {
     /**
@@ -76,21 +77,25 @@ public class PointLight extends AbstractLight {
      * @param L array of length 3 where the result is stored
      */
     public final void getLight(final double x, final double y, final double z,
-                               final double L[]){
-        L[0] = lightX - x;
-        L[1] = lightY - y;
-        L[2] = lightZ - z;
+                               final double[] L){
 
-        final double norm = Math.sqrt(L[0]*L[0] +
-                                      L[1]*L[1] +
-                                      L[2]*L[2]);
+        double L0 = lightX - x;
+        double L1 = lightY - y;
+        double L2 = lightZ - z;
+
+        final double norm = Math.sqrt( L0*L0 + L1*L1 + L2*L2 );
 
         if(norm > 0){
             final double invNorm = 1.0/norm;
-            L[0] *= invNorm;
-            L[1] *= invNorm;
-            L[2] *= invNorm;
+            L0 *= invNorm;
+            L1 *= invNorm;
+            L2 *= invNorm;
         }
+
+        // copy the work-variables into return-array
+        L[ 0 ] = L0;
+        L[ 1 ] = L1;
+        L[ 2 ] = L2;
     }
 }
 

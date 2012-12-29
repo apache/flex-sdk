@@ -26,16 +26,19 @@
 <project name="frameworks" default="main" basedir=".">
 
     <property name="FLEX_HOME" location=".."/>
-    
-    <!-- Required for OSX 10.6 / Snow Leopard Performance -->
-    <condition property="local.d32" value="-d32" >
+
+    <!-- Required for OSX 10.6 / Snow Leopard Performance. -->
+    <!-- Java 7 on Mac requires OSX 10.7.3 or higher and is 64-bit only -->
+    <!-- local.d32 is set/used in build.properties so this needs to be done first. -->
+    <condition property="local.d32" value="-d32">
         <and>
+            <os family="mac"/>
+            <matches pattern="1.6.*" string="${java.version}"/>
             <equals arg1="${sun.arch.data.model}" arg2="64"/>
             <equals arg1="${os.arch}" arg2="x86_64"/>
-            <os family="mac"/>
         </and>
     </condition>
-    
+
     <!-- Property for the platform.  -->
     <condition property="isMac" value="true">
         <os family="mac"/>
@@ -85,6 +88,7 @@
     <target name="compile" description="Builds all SWCs but not their resource bundles" depends="flex-config">
         <antcall target="framework"/>
         <antcall target="mx"/>
+        <antcall target="textLayout"/>
         <antcall target="rpc"/>
         <antcall target="charts"/>
         <antcall target="advancedgrids"/>
@@ -139,6 +143,9 @@
 		<condition property="playerglobal.swfversion" value="17">
 			<equals arg1="${playerglobal.version}" arg2="11.4" />
 		</condition>
+		<condition property="playerglobal.swfversion" value="18">
+			<equals arg1="${playerglobal.version}" arg2="11.5" />
+		</condition>
 	</target>	
 
     <!--
@@ -159,6 +166,7 @@
     <target name="other.locales" description ="Builds resource SWCs for all locales">
         <ant dir="${basedir}/projects/framework" target="other.locales"/>
         <ant dir="${basedir}/projects/mx" target="other.locales"/>
+        <ant dir="${basedir}/projects/textLayout" target="other.locales"/>
         <ant dir="${basedir}/projects/airframework" target="other.locales"/>
         <ant dir="${basedir}/projects/airspark" target="other.locales"/>
         <ant dir="${basedir}/projects/rpc" target="other.locales"/>
@@ -166,7 +174,6 @@
         <ant dir="${basedir}/projects/advancedgrids" target="other.locales"/>
         <ant dir="${basedir}/projects/spark" target="other.locales"/>
         <ant dir="${basedir}/projects/mobilecomponents" target="other.locales" />
-        <!--ant dir="${basedir}/projects/textLayout" target="other.locales"/-->
         <ant dir="${basedir}/projects/playerglobal" target="other.locales" />
         <ant dir="${basedir}/projects/flash-integration" target="other.locales"/>
         <ant dir="${basedir}/projects/automation" target="other.locales"/>
@@ -180,6 +187,7 @@
     <target name="doc" >
         <ant dir="${basedir}/projects/framework" target="doc" />
         <ant dir="${basedir}/projects/mx" target="doc" />
+        <ant dir="${basedir}/projects/textLayout" target="doc" />
         <ant dir="${basedir}/projects/rpc" target="doc" />
         <ant dir="${basedir}/projects/charts" target="doc" />
         <ant dir="${basedir}/projects/advancedgrids" target="doc" />
@@ -198,7 +206,7 @@
         <!--
         <ant dir="${basedir}/projects/automation" target="doc" />
         -->
-    	<ant dir="${basedir}/projects/apache" target="doc" />
+        <ant dir="${basedir}/projects/apache" target="doc" />
     	<ant dir="${basedir}/projects/experimental" target="doc" />
     </target>
    
@@ -214,6 +222,7 @@
     
     <target name="clean" depends="automation-clean,airsdk-clean" description="Cleans all SWCs and their resource bundles">
         <!-- Delete output from SWC projects -->
+        <ant dir="${basedir}/projects/textLayout" target="clean"/>
         <ant dir="${basedir}/projects/framework" target="clean"/>
         <ant dir="${basedir}/projects/mx" target="clean"/>
         <ant dir="${basedir}/projects/airframework" target="clean"/>
@@ -235,6 +244,12 @@
         <ant dir="${basedir}/projects/experimental" target="clean"/>
         <ant dir="${basedir}/javascript" target="clean"/>
     	<ant dir="${basedir}/themes/AeonGraphical" target="clean"/>
+        <!-- delete the FlashBuilder executable directories -->
+        <delete includeemptydirs="true" failonerror="false">
+            <fileset dir="${basedir}/projects">
+                <include name="*/bin/**"/>
+            </fileset>
+        </delete> 
         <!-- Delete empty folders -->
         <delete dir="${basedir}/locale">
             <exclude name="**/metadata.properties"/>
@@ -280,7 +295,7 @@
         <delete dir="${FLEX_HOME}/runtimes"/>
         <delete includeEmptyDirs="true" failonerror="false">
             <fileset dir="${FLEX_HOME}/samples">
-                <include name="badges/**" />
+                <include name="badge/**" />
                 <include name="descriptor-sample.xml" />
                 <include name="icons/**" />
             </fileset>
@@ -365,8 +380,7 @@
         <ant dir="${basedir}/projects/rpc"/>
     </target>
 
-    <!-- For debugging only.  For release, we distribute the swc built by the TLF team. -->
-    <target name="tlf" description="Clean build of textLayout.swc">
+    <target name="textLayout" description="Clean build of textLayout.swc">
         <ant dir="${basedir}/projects/textLayout"/>
     </target>
     

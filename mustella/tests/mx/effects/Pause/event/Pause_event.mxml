@@ -3,7 +3,7 @@
     testDir="mx/effects/Pause/event/"  
     xmlns:mx="http://www.adobe.com/2006/mxml" 
     xmlns="*"
-    testSWF="../SWFs/Pause_Main.mxml">
+    testSWF="../SWFs/Pause_main.mxml">
     
     
     <!-- this set of lines form a template that must be in each unit test -->

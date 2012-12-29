@@ -20,19 +20,19 @@
 <UnitTester testDir="resources/ResourceBundle/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceBundleApp.mxml">
 
 	<!-- this set of lines form a template that must be in each unit test -->
-	
+
 	<mx:Script><![CDATA[
 		public static function init(o:DisplayObject):void{}
 	]]></mx:Script>
 
 	<mx:Metadata><![CDATA[
 		[Mixin]
-	]]></mx:Metadata>	
-	
+	]]></mx:Metadata>
+
 	<!-- end of set of lines that must be in each unit test -->
-	
+
 	<mx:Script><![CDATA[
-	
+
 		public function testGetBooleanError(key:String):String
 		{
 			try
@@ -45,14 +45,14 @@
 			}
 			return null;
 		}
-	
+
 		public function testGetBoolean(key:String, expectedValue:Boolean):Boolean
 		{
 			return application.resourceBundle.getBoolean(key) === expectedValue;
 		}
 
 	]]></mx:Script>
-	
+
 	<testCases>
 
 		<TestCase frequency="all" testID="ResourceBundle_getBoolean_NO_SUCH_KEY" description="Tests that the getBoolean() method of ResourceBundle throws an Error when accessing a non-existent resource" keywords="[resources,ResourceBundle,getBoolean]">
@@ -135,7 +135,7 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_TRUE_UPPERCASE" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String 'TRUE'" keywords="[resources,ResourceBundle,getBoolean]">
 			<setup>
 				<RunCode code="application.setup()"/>
@@ -145,7 +145,7 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_FALSE_LOWERCASE" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String 'false'" keywords="[resources,ResourceBundle,getBoolean]">
 			<setup>
 				<RunCode code="application.setup()"/>
@@ -155,7 +155,7 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_FALSE_MIXEDCASE" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String 'False'" keywords="[resources,ResourceBundle,getBoolean]">
 			<setup>
 				<RunCode code="application.setup()"/>
@@ -165,7 +165,7 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_FALSE_UPPERCASE" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String 'FALSE'" keywords="[resources,ResourceBundle,getBoolean]">
 			<setup>
 				<RunCode code="application.setup()"/>
@@ -215,7 +215,7 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_FIXEDPOINT" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String rep of a typical fractional Number" keywords="[resources,ResourceBundle,getBoolean]">
 			<setup>
 				<RunCode code="application.setup()"/>
@@ -246,7 +246,7 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getBoolean_UNDEFINED" description="Tests the getBoolean() method of ResourceBundle for a resource value which is undefined" keywords="[resources,ResourceBundle,getBoolean]">
 			<setup>
 				<RunCode code="application.setup()"/>
@@ -264,7 +264,7 @@
 			</setup>
 			<body>
 				<!-- See Note 2 below -->
-				<AssertMethodValue method="value=testGetBooleanError('TRUE')" value="TypeError: Error #1006: value is not a function."/>
+				<AssertMethodValue method="value=testGetBooleanError('TRUE')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
@@ -301,14 +301,14 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getBoolean_POSITIVE_INTEGER" description="Tests the getBoolean() method of ResourceBundle for a resource value which is a typical positive integer" keywords="[resources,ResourceBundle,getBoolean]">
 			<setup>
 				<RunCode code="application.setup()"/>
 			</setup>
 			<body>
 				<!-- See Note 2 below -->
-				<AssertMethodValue method="value=testGetBooleanError('POSITIVE_INTEGER')" value="TypeError: Error #1006: value is not a function."/>
+				<AssertMethodValue method="value=testGetBooleanError('POSITIVE_INTEGER')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
@@ -319,7 +319,7 @@
 			</setup>
 			<body>
 				<!-- See Note 2 below -->
-				<AssertMethodValue method="value=testGetBooleanError('NEGATIVE_INTEGER')" value="TypeError: Error #1006: value is not a function."/>
+				<AssertMethodValue method="value=testGetBooleanError('NEGATIVE_INTEGER')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
@@ -330,55 +330,55 @@
 			</setup>
 			<body>
 				<!-- See Note 2 below -->
-				<AssertMethodValue method="value=testGetBooleanError('FIXEDPOINT')" value="TypeError: Error #1006: value is not a function."/>
+				<AssertMethodValue method="value=testGetBooleanError('FIXEDPOINT')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getBoolean_FLOATINGPOINT" description="Tests the getBoolean() method of ResourceBundle for a resource value which is a typical fractional Number in exponential notation" keywords="[resources,ResourceBundle,getBoolean]">
 			<setup>
 				<RunCode code="application.setup()"/>
 			</setup>
 			<body>
 				<!-- See Note 2 below -->
-				<AssertMethodValue method="value=testGetBooleanError('FLOATINGPOINT')" value="TypeError: Error #1006: value is not a function."/>
+				<AssertMethodValue method="value=testGetBooleanError('FLOATINGPOINT')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getBoolean_CLASS" description="Tests the getBoolean() method of ResourceBundle for a resource value which is a Class reference" keywords="[resources,ResourceBundle,getBoolean]">
 			<setup>
 				<RunCode code="application.setup()"/>
 			</setup>
 			<body>
 				<!-- See Note 2 below -->
-				<AssertMethodValue method="value=testGetBooleanError('CLASS')" value="TypeError: Error #1006: toLowerCase is not a function."/>
+				<AssertMethodValue method="value=testGetBooleanError('CLASS')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getBoolean_ARRAY" description="Tests the getBoolean() method of ResourceBundle for a resource value which is an Array of Strings" keywords="[resources,ResourceBundle,getBoolean]">
 			<setup>
 				<RunCode code="application.setup()"/>
 			</setup>
 			<body>
 				<!-- See Note 2 below -->
-				<AssertMethodValue method="value=testGetBooleanError('ARRAY')" value="TypeError: Error #1006: toLowerCase is not a function."/>
+				<AssertMethodValue method="value=testGetBooleanError('ARRAY')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getBoolean_OBJECT" description="Tests the getBoolean() method of ResourceBundle for a resource value which is a plain Object" keywords="[resources,ResourceBundle,getBoolean]">
 			<setup>
 				<RunCode code="application.setup()"/>
 			</setup>
 			<body>
 				<!-- See Note 2 below -->
-				<AssertMethodValue method="value=testGetBooleanError('OBJECT')" value="TypeError: Error #1006: toLowerCase is not a function."/>
+				<AssertMethodValue method="value=testGetBooleanError('OBJECT')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 	</testCases>
 
 	<!--

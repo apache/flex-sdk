@@ -162,6 +162,7 @@ import spark.components.Button;
                 <DispatchMouseEvent type="mouseDown" stageX="127" stageY="22" target=""/>
                 <DispatchMouseEvent type="mouseMove" stageX="127" stageY="21" target="" />
                 <DispatchMouseEvent type="mouseDown" stageX="127" stageY="21" target=""/>
+				<WaitForLayoutManager />
             </setup>
             <body>
                 <CompareBitmap url="../properties/baselines/$testID.png" target="myButton"/>
@@ -736,7 +737,7 @@ import spark.components.Button;
                 <SetProperty propertyName="label" value="The quick brown fox jumps" target="myButton" />
             </setup>
             <body>
-                <AssertPropertyValue propertyName="baselinePosition" value="14.55" target="myButton"/>
+                <AssertPropertyValue propertyName="baselinePosition" value="16" target="myButton"/>
             </body>
         </TestCase>
         <TestCase testID="baselinePosition_property_Button_prevalidation_noLabel" keywords="[Button, baselinePosition, property]" description="Get read only property baselinePosition of FxButton">
@@ -744,7 +745,7 @@ import spark.components.Button;
                 <ResetComponent target="myButton" className="spark.components.Button" />
             </setup>
             <body>
-                <AssertPropertyValue propertyName="baselinePosition" value="14.55" target="myButton"/>
+                <AssertPropertyValue propertyName="baselinePosition" value="16" target="myButton"/>
             </body>
         </TestCase>
         <TestCase testID="baselinePosition_property_Button_postvalidation" keywords="[Button, baselinePosition, property]" description="Get read only property baselinePosition of FxButton">
@@ -753,7 +754,7 @@ import spark.components.Button;
                 <SetProperty propertyName="label" value="The quick brown fox jumps" target="myButton" />
             </setup>
             <body>
-                <AssertPropertyValue propertyName="baselinePosition" value="14.55" target="myButton"/>
+                <AssertPropertyValue propertyName="baselinePosition" value="16" target="myButton"/>
             </body>
         </TestCase>
         

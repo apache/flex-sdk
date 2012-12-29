@@ -22,42 +22,42 @@
     xmlns:fx="http://ns.adobe.com/mxml/2009"
     xmlns:s="library://ns.adobe.com/flex/spark"
     xmlns:mx="library://ns.adobe.com/flex/mx">
-
+    
     <fx:Declarations>
         <s:NumberFormatter id="numberFormatter"/>
     </fx:Declarations>
-
+    
     <fx:Script>
         <![CDATA[
             [Bindable]
             private var number:Number = 123456789.123456789;
         ]]>
     </fx:Script>
-
-    <mx:Form>
-        <mx:FormItem label="Input Locale ID Name">
-            <mx:HBox>
+    
+    <s:Form>
+        <s:FormItem label="Input Locale ID Name">
+            <s:HGroup>
                 <s:TextInput id="inputLocaleIDName"/>
                 <!-- Upon button click, sets the locale style on the document
-                    UI component. The formatter will inherit this style. -->
+                UI component. The formatter will inherit this style. -->
                 <s:Button click="setStyle('locale', inputLocaleIDName.text);"
                           label="Apply"/>
-            </mx:HBox>
-            <mx:Text text="Example: 'en-US', 'fr-FR', 'ja-JP', 'ar-SA'"/>
-        </mx:FormItem>
-        <mx:FormItem label="Use Grouping">
-            <mx:CheckBox id="useGrouping"
-                change="numberFormatter.useGrouping= useGrouping.selected"/>
-        </mx:FormItem>
-        <mx:FormItem label="Fractional Digits">
-            <mx:TextInput id="fractionalDigits"
-                change="numberFormatter.fractionalDigits = Number(fractionalDigits.text)"/>
-        </mx:FormItem>
-        <mx:FormItem label="Actual Locale ID Name">
-            <mx:Text text="{numberFormatter.actualLocaleIDName}"/>
-        </mx:FormItem>
-        <mx:FormItem label="Formatted Result">
-            <mx:Text text="{numberFormatter.format(number)}"/>
-        </mx:FormItem>
-    </mx:Form>
+            </s:HGroup>
+            <s:Label text="Example: 'en-US', 'fr-FR', 'ja-JP', 'ar-SA'"/>
+        </s:FormItem>
+        <s:FormItem label="Use Grouping">
+            <s:CheckBox id="useGrouping"
+                         change="numberFormatter.useGrouping = useGrouping.selected"/>
+        </s:FormItem>
+        <s:FormItem label="Fractional Digits">
+            <s:TextInput id="fractionalDigits"
+                          change="numberFormatter.fractionalDigits = Number(fractionalDigits.text)"/>
+        </s:FormItem>
+        <s:FormItem label="Actual Locale ID Name">
+            <s:Label text="{numberFormatter.actualLocaleIDName}"/>
+        </s:FormItem>
+        <s:FormItem label="Formatted Result">
+            <s:Label text="{numberFormatter.format(number)}"/>
+        </s:FormItem>
+    </s:Form>
 </s:Application>

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -35,11 +36,11 @@ import org.apache.flex.forks.batik.ext.awt.geom.RectListManager;
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
  * @author <a href="mailto:vincent.hardy@sun.com">Vincent Hardy</a>
- * @version $Id: RepaintManager.java,v 1.18 2005/03/27 08:58:30 cam Exp $
+ * @version $Id: RepaintManager.java 478160 2006-11-22 13:35:06Z dvholten $
  */
 public class RepaintManager {
-    final static int COPY_OVERHEAD      = 10000;
-    final static int COPY_LINE_OVERHEAD = 10;
+    static final int COPY_OVERHEAD      = 10000;
+    static final int COPY_LINE_OVERHEAD = 10;
 
     /**
      * The renderer used to repaint the buffer.
@@ -52,13 +53,13 @@ public class RepaintManager {
     public RepaintManager(ImageRenderer r) {
         renderer = r;
     }
-    
+
     /**
      * Updates the rendering buffer.
      * @param areas The areas of interest in renderer space units.
      * @return the list of the rectangles to repaint.
      */
-    public Collection updateRendering(Collection areas) 
+    public Collection updateRendering(Collection areas)
         throws InterruptedException {
         renderer.flush(areas);
         List rects = new ArrayList(areas.size());
@@ -74,9 +75,9 @@ public class RepaintManager {
             int x1 = (int)Math.ceil(r2d.getX()+r2d.getWidth());
             int y1 = (int)Math.ceil(r2d.getY()+r2d.getHeight());
             // This rectangle must be outset one pixel to ensure
-            // it includes the effects of anti-aliasing on object.s
+            // it includes the effects of anti-aliasing on objects.
             Rectangle r = new Rectangle(x0-1, y0-1, x1-x0+3, y1-y0+3);
-                
+
             rects.add(r);
         }
         RectListManager devRLM =null;

@@ -101,7 +101,8 @@
 			</setup>
 			<body>
 				<DispatchMouseClickEvent target="dg1" localX="46" localY="72" waitEvent="mouseUp" waitTarget="dg1"/>
-				<Pause timeout="200"/>
+                <WaitForEffectsToEnd/>
+                <WaitForLayoutManager/>
 				<CompareBitmap target="dg1" url="../Bugs/baselines/Bug_139322_textSelectedColor.png" timeout="5000" numColorVariances="2" ignoreMaxColorVariance="true"/>
 		        </body> 
 	        </TestCase>

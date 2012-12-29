@@ -87,7 +87,7 @@
                <SetStyle target="mybox.mylist" styleName="fontSize" value="20" waitEvent="updateComplete" waitTarget="mybox.mylist" />
             </setup>
            <body>
-                <CompareBitmap target="mybox" url="../Styles/Baselines/list_bugs_injection_158616_spark.png"  />
+                <CompareBitmap target="mybox" url="../Styles/Baselines/list_bugs_injection_158616_spark.png"  numColorVariances="1" maxColorVariance="1"  />
             </body>
     </TestCase>
 

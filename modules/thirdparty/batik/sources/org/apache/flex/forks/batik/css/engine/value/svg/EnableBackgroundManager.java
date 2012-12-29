@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,7 +26,9 @@ import org.apache.flex.forks.batik.css.engine.value.ListValue;
 import org.apache.flex.forks.batik.css.engine.value.Value;
 import org.apache.flex.forks.batik.css.engine.value.ValueManager;
 import org.apache.flex.forks.batik.util.CSSConstants;
-import org.w3c.flex.forks.css.sac.LexicalUnit;
+import org.apache.flex.forks.batik.util.SVGTypes;
+
+import org.w3c.css.sac.LexicalUnit;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSValue;
@@ -34,7 +37,7 @@ import org.w3c.dom.css.CSSValue;
  * This class provides a manager for the 'enable-background' property values.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: EnableBackgroundManager.java,v 1.5 2005/03/27 08:58:31 cam Exp $
+ * @version $Id: EnableBackgroundManager.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class EnableBackgroundManager extends LengthManager {
     
@@ -47,14 +50,35 @@ public class EnableBackgroundManager extends LengthManager {
      * Implements {@link ValueManager#isInheritedProperty()}.
      */
     public boolean isInheritedProperty() {
-	return false;
+        return false;
+    }
+
+    /**
+     * Implements {@link ValueManager#isAnimatableProperty()}.
+     */
+    public boolean isAnimatableProperty() {
+        return false;
+    }
+
+    /**
+     * Implements {@link ValueManager#isAdditiveProperty()}.
+     */
+    public boolean isAdditiveProperty() {
+        return false;
+    }
+
+    /**
+     * Implements {@link ValueManager#getPropertyType()}.
+     */
+    public int getPropertyType() {
+        return SVGTypes.TYPE_ENABLE_BACKGROUND_VALUE;
     }
 
     /**
      * Implements {@link ValueManager#getPropertyName()}.
      */
     public String getPropertyName() {
-	return CSSConstants.CSS_ENABLE_BACKGROUND_PROPERTY;
+        return CSSConstants.CSS_ENABLE_BACKGROUND_PROPERTY;
     }
     
     /**
@@ -109,20 +133,20 @@ public class EnableBackgroundManager extends LengthManager {
      */
     public Value createStringValue(short type, String value,
                                    CSSEngine engine) {
-	if (type != CSSPrimitiveValue.CSS_IDENT) {
+        if (type != CSSPrimitiveValue.CSS_IDENT) {
             throw createInvalidStringTypeDOMException(type);
-	}
-	if (!value.equalsIgnoreCase(CSSConstants.CSS_ACCUMULATE_VALUE)) {
+        }
+        if (!value.equalsIgnoreCase(CSSConstants.CSS_ACCUMULATE_VALUE)) {
             throw createInvalidIdentifierDOMException(value);
         }
-	return SVGValueConstants.ACCUMULATE_VALUE;
+        return SVGValueConstants.ACCUMULATE_VALUE;
     }
 
     /**
      * Implements {@link ValueManager#createFloatValue(short,float)}.
      */
     public Value createFloatValue(short unitType, float floatValue)
-	throws DOMException {
+        throws DOMException {
         throw createDOMException();
     }
 

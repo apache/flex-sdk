@@ -53,20 +53,23 @@
 	========================================================
 	-->
 
-	<TestCase testID="skinClass_test1" keywords="[Window,skinClass]" description="Get WindowedApplicationSkin." >
+	<TestCase testID="skinClass1_test1" keywords="[Window,skinClass]" description="Get WindowedApplicationSkin." >
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()"  waitTarget="" waitEvent="myWindowComplete"/>    
-		<SetStyle target="windowObj"  styleName="skinClass" valueExpression="value = WindowedApplicationSkin" waitEvent="updateComplete" />
+		<SetStyle target="windowObj"  styleName="skinClass" valueExpression="value = WindowedApplicationSkin" />
+		<WaitForLayoutManager />
 	    </setup> 
 	    <body>
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<AssertStyleValue target="windowObj"  styleName="skinClass" valueExpression="value = '[class WindowedApplicationSkin]'" />
 		<MyCompareBitmap target="windowObj"  url="../styles/baselines/$testID.png" mac_url="../styles/baselines/$testID_mac.png" />
 	    </body>
 	</TestCase>
 
-	<TestCase testID="skinClass_test2" keywords="[Window,skinClass]" description="Get SparkChromeWindowedApplicationSkin." >
+	<TestCase testID="skinClass1_test2" keywords="[Window,skinClass]" description="Get SparkChromeWindowedApplicationSkin." >
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()"  waitTarget="" waitEvent="myWindowComplete"/> 
@@ -74,12 +77,14 @@
 	    <body>
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetStyle target="windowObj"  styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<AssertStyleValue target="windowObj"  styleName="skinClass" valueExpression="value = '[class SparkChromeWindowedApplicationSkin]'" />
 		<MyCompareBitmap target="windowObj"  url="../styles/baselines/$testID.png" mac_url="../styles/baselines/$testID_mac.png" />
 	    </body>
 	</TestCase>
 
-	<TestCase testID="skinClass_test3" keywords="[Window,skinClass]" description="Get SparkChromeWindowedApplicationSkin." >
+	<TestCase testID="skinClass1_test3" keywords="[Window,skinClass]" description="Get SparkChromeWindowedApplicationSkin." >
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()"  waitTarget="" waitEvent="myWindowComplete"/> 
@@ -87,6 +92,8 @@
 	    <body>
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetStyle target="windowObj"  styleName="skinClass" valueExpression="value = SkinTest1" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<AssertStyleValue target="windowObj"  styleName="skinClass" valueExpression="value = '[class SkinTest1]'" />
 		<MyCompareBitmap target="windowObj"  url="../styles/baselines/$testID.png" mac_url="../styles/baselines/$testID_mac.png" />
 	    </body>

@@ -44,11 +44,11 @@
 
 			[Bindable]
 			public var myDP:Array =
-			 [ { Artist:'Pavement', Album:'Slanted and Enchanted', Price:11.99, Rating:'Excellent' },
-			   { Artist:'Pavement', Album:'Crooked Rain, Crooked Rain', Price:10.99, Rating:'Excellent' },
-			   { Artist:'Pavement', Album:'Wowee Zowee', Price:12.99, Rating:'Excellent' },
-			   { Artist:'Pavement', Album:'Brighten the Corners', Price:11.99, Rating:'Good' },
-			   { Artist:'Pavement', Album:'Terror Twilight', Price:11.99, Rating:'Good' },
+			 [ { Artist:'ArtistA', Album:'Album 1', Price:11.99, Rating:'Excellent' },
+			   { Artist:'ArtistA', Album:'Album 2', Price:10.99, Rating:'Excellent' },
+			   { Artist:'ArtistA', Album:'Album 3', Price:12.99, Rating:'Excellent' },
+			   { Artist:'ArtistA', Album:'Album 4', Price:11.99, Rating:'Good' },
+			   { Artist:'ArtistA', Album:'Album 4', Price:11.99, Rating:'Good' },
 			   { Artist:'Other', Album:'Other', Price:5.99, Rating:'Bad' },
 			   { Artist:'Other1', Album:'Other1', Price:5.99, Rating:'Good' },
 			   { Artist:'Other2', Album:'Other2', Price:5.99, Rating:'Excellent' },

@@ -143,7 +143,7 @@
 	    </body>
 	</TestCase>
 	
-	
+	<!-- tests are too dependent on max screen dimensions 
 	<TestCase testID="method_move_test6" keywords="[Window,methods,move]" 
 		description="call the method window.move(x,y), x=500,y=900">
 
@@ -183,7 +183,7 @@
 		<RunCode code="FlexGlobals.topLevelApplication.closeAllChildWindow()"/>
 	    </body>
 	</TestCase>
-		
+	-->
     </testCases>
 
 </UnitTester>

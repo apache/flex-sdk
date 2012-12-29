@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,9 +23,10 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
 
-import org.apache.flex.forks.batik.ext.awt.image.codec.SeekableStream;
+import org.apache.flex.forks.batik.ext.awt.image.codec.util.SeekableStream;
 
 /**
  * A class representing an Image File Directory (IFD) from a TIFF 6.0
@@ -46,12 +48,13 @@ import org.apache.flex.forks.batik.ext.awt.image.codec.SeekableStream;
  * be removed or changed in future releases of JAI.</b>
  *
  * @see TIFFField
+ * @version $Id: TIFFDirectory.java 501495 2007-01-30 18:00:36Z dvholten $
  */
-public class TIFFDirectory extends Object implements Serializable {
+public class TIFFDirectory implements Serializable {
 
     /** A boolean storing the endianness of the stream. */
     boolean isBigEndian;
-    
+
     /** The number of entries in the IFD. */
     int numEntries;
 
@@ -94,28 +97,28 @@ public class TIFFDirectory extends Object implements Serializable {
         stream.seek(0L);
         int endian = stream.readUnsignedShort();
         if (!isValidEndianTag(endian)) {
-            throw new 
-		IllegalArgumentException("TIFFDirectory1");
+            throw new
+                IllegalArgumentException("TIFFDirectory1");
         }
         isBigEndian = (endian == 0x4d4d);
 
         int magic = readUnsignedShort(stream);
         if (magic != 42) {
-            throw new 
-		IllegalArgumentException("TIFFDirectory2");
+            throw new
+                IllegalArgumentException("TIFFDirectory2");
         }
 
         // Get the initial ifd offset as an unsigned int (using a long)
         ifd_offset = readUnsignedInt(stream);
-        
+
         for (int i = 0; i < directory; i++) {
             if (ifd_offset == 0L) {
-                throw new 
-		   IllegalArgumentException("TIFFDirectory3");
+                throw new
+                   IllegalArgumentException("TIFFDirectory3");
             }
-            
+
             stream.seek(ifd_offset);
-            int entries = readUnsignedShort(stream);
+            long entries = readUnsignedShort(stream);
             stream.skip(12*entries);
 
             ifd_offset = readUnsignedInt(stream);
@@ -146,8 +149,8 @@ public class TIFFDirectory extends Object implements Serializable {
         stream.seek(0L);
         int endian = stream.readUnsignedShort();
         if (!isValidEndianTag(endian)) {
-            throw new 
-		IllegalArgumentException("TIFFDirectory1");
+            throw new
+                IllegalArgumentException("TIFFDirectory1");
         }
         isBigEndian = (endian == 0x4d4d);
 
@@ -158,7 +161,7 @@ public class TIFFDirectory extends Object implements Serializable {
         int dirNum = 0;
         while(dirNum < directory) {
             // Get the number of fields in the current IFD.
-            int numEntries = readUnsignedShort(stream);
+            long numEntries = readUnsignedShort(stream);
 
             // Skip to the next IFD offset value field.
             stream.seek(ifd_offset + 12*numEntries);
@@ -190,7 +193,7 @@ public class TIFFDirectory extends Object implements Serializable {
         4, //  9 = slong
         8, // 10 = srational
         4, // 11 = float
-        8  // 12 = double 
+        8  // 12 = double
     };
 
     private void initialize(SeekableStream stream) throws IOException {
@@ -201,30 +204,30 @@ public class TIFFDirectory extends Object implements Serializable {
 
         numEntries = readUnsignedShort(stream);
         fields = new TIFFField[numEntries];
-        
+
         for (i = 0; i < numEntries; i++) {
             int tag = readUnsignedShort(stream);
             int type = readUnsignedShort(stream);
             int count = (int)(readUnsignedInt(stream));
             int value = 0;
-	    
+
             // The place to return to to read the next tag
             nextTagOffset = stream.getFilePointer() + 4;
 
-	    try {
-		// If the tag data can't fit in 4 bytes, the next 4 bytes
-		// contain the starting offset of the data
-		if (count*sizeOfType[type] > 4) {
-		    value = (int)(readUnsignedInt(stream));
-		    stream.seek(value);
-		}
-	    } catch (ArrayIndexOutOfBoundsException ae) {
+            try {
+                // If the tag data can't fit in 4 bytes, the next 4 bytes
+                // contain the starting offset of the data
+                if (count*sizeOfType[type] > 4) {
+                    value = (int)(readUnsignedInt(stream));
+                    stream.seek(value);
+                }
+            } catch (ArrayIndexOutOfBoundsException ae) {
 
-		System.err.println(tag + " " + "TIFFDirectory4");
-		// if the data type is unknown we should skip this TIFF Field
-		stream.seek(nextTagOffset);
-		continue;
-	    }
+                System.err.println(tag + " " + "TIFFDirectory4");
+                // if the data type is unknown we should skip this TIFF Field
+                stream.seek(nextTagOffset);
+                continue;
+            }
 
             fieldIndex.put(new Integer(tag), new Integer(i));
             Object obj = null;
@@ -237,43 +240,40 @@ public class TIFFDirectory extends Object implements Serializable {
                 byte[] bvalues = new byte[count];
                 stream.readFully(bvalues, 0, count);
 
-		if (type == TIFFField.TIFF_ASCII) {
+                if (type == TIFFField.TIFF_ASCII) {
 
-		    // Can be multiple strings
-		    int index = 0, prevIndex = 0;
-		    Vector v = new Vector();
+                    // Can be multiple strings
+                    int index = 0, prevIndex = 0;
+                    List v = new ArrayList();
 
-		    while (index < count) {
-			
+                    while (index < count) {
+
                         while ((index < count) && (bvalues[index++] != 0));
 
-			// When we encountered zero, means one string has ended
-			v.add(new String(bvalues, prevIndex, 
-					 (index - prevIndex)) );
-			prevIndex = index;
-		    }
+                        // When we encountered zero, means one string has ended
+                        v.add(new String(bvalues, prevIndex,
+                                         (index - prevIndex)) );
+                        prevIndex = index;
+                    }
 
-		    count = v.size();
-		    String strings[] = new String[count];
-		    for (int c = 0 ; c < count; c++) {
-			strings[c] = (String)v.elementAt(c);
-		    }
-
-		    obj = strings;
-		} else {
-		    obj = bvalues;
-		}
+                    count = v.size();
+                    String[] strings = new String[count];
+                    v.toArray( strings );
+                    obj = strings;
+                } else {
+                    obj = bvalues;
+                }
 
                 break;
 
             case TIFFField.TIFF_SHORT:
                 char[] cvalues = new char[count];
                 for (j = 0; j < count; j++) {
-		    cvalues[j] = (char)(readUnsignedShort(stream));
+                    cvalues[j] = (char)(readUnsignedShort(stream));
                 }
                 obj = cvalues;
                 break;
-                
+
             case TIFFField.TIFF_LONG:
                 long[] lvalues = new long[count];
                 for (j = 0; j < count; j++) {
@@ -281,24 +281,24 @@ public class TIFFDirectory extends Object implements Serializable {
                 }
                 obj = lvalues;
                 break;
-                
+
             case TIFFField.TIFF_RATIONAL:
                 long[][] llvalues = new long[count][2];
                 for (j = 0; j < count; j++) {
                     llvalues[j][0] = readUnsignedInt(stream);
                     llvalues[j][1] = readUnsignedInt(stream);
                 }
-		obj = llvalues;
+                obj = llvalues;
                 break;
-                
+
             case TIFFField.TIFF_SSHORT:
                 short[] svalues = new short[count];
                 for (j = 0; j < count; j++) {
-		    svalues[j] = readShort(stream);
+                    svalues[j] = readShort(stream);
                 }
                 obj = svalues;
                 break;
-                
+
             case TIFFField.TIFF_SLONG:
                 int[] ivalues = new int[count];
                 for (j = 0; j < count; j++) {
@@ -306,7 +306,7 @@ public class TIFFDirectory extends Object implements Serializable {
                 }
                 obj = ivalues;
                 break;
-                
+
             case TIFFField.TIFF_SRATIONAL:
                 int[][] iivalues = new int[count][2];
                 for (j = 0; j < count; j++) {
@@ -364,7 +364,7 @@ public class TIFFDirectory extends Object implements Serializable {
     }
 
     /**
-     * Returns true if a tag appears in the directory. 
+     * Returns true if a tag appears in the directory.
      */
     public boolean isTagPresent(int tag) {
         return fieldIndex.containsKey(new Integer(tag));
@@ -497,7 +497,7 @@ public class TIFFDirectory extends Object implements Serializable {
         }
     }
 
-    private int readInt(SeekableStream stream) 
+    private int readInt(SeekableStream stream)
         throws IOException {
         if (isBigEndian) {
             return stream.readInt();
@@ -506,7 +506,7 @@ public class TIFFDirectory extends Object implements Serializable {
         }
     }
 
-    private long readUnsignedInt(SeekableStream stream) 
+    private long readUnsignedInt(SeekableStream stream)
         throws IOException {
         if (isBigEndian) {
             return stream.readUnsignedInt();
@@ -553,7 +553,7 @@ public class TIFFDirectory extends Object implements Serializable {
     }
 
     private static long readUnsignedInt(SeekableStream stream,
-                                        boolean isBigEndian) 
+                                        boolean isBigEndian)
         throws IOException {
         if (isBigEndian) {
             return stream.readUnsignedInt();
@@ -575,16 +575,16 @@ public class TIFFDirectory extends Object implements Serializable {
         stream.seek(0L);
         int endian = stream.readUnsignedShort();
         if (!isValidEndianTag(endian)) {
-            throw new 
-		IllegalArgumentException("TIFFDirectory1");
+            throw new
+                IllegalArgumentException("TIFFDirectory1");
         }
         boolean isBigEndian = (endian == 0x4d4d);
         int magic = readUnsignedShort(stream, isBigEndian);
         if (magic != 42) {
-            throw new 
-		IllegalArgumentException("TIFFDirectory2");
+            throw new
+                IllegalArgumentException("TIFFDirectory2");
         }
-        
+
         stream.seek(4L);
         long offset = readUnsignedInt(stream, isBigEndian);
 
@@ -593,22 +593,22 @@ public class TIFFDirectory extends Object implements Serializable {
             ++numDirectories;
 
             stream.seek(offset);
-            int entries = readUnsignedShort(stream, isBigEndian);
+            long entries = readUnsignedShort(stream, isBigEndian);
             stream.skip(12*entries);
             offset = readUnsignedInt(stream, isBigEndian);
         }
-      
+
         stream.seek(pointer); // Reset stream pointer
         return numDirectories;
     }
 
     /**
      * Returns a boolean indicating whether the byte order used in the
-     * the TIFF file is big-endian.  That is, whether the byte order is from  
+     * the TIFF file is big-endian.  That is, whether the byte order is from
      * the most significant to the least significant.
      */
     public boolean isBigEndian() {
-	return isBigEndian;
+        return isBigEndian;
     }
 
     /**

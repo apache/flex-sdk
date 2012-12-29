@@ -542,11 +542,11 @@
 	   	</setup>
     	<body>
 			<AssertMethodValue method="value=application.group1.getElementAt(0) is DataGroupDefaultItemRenderer" value="{true}" />
-			<AssertMethodValue method="value=application.group1.getElementAt(0).width" value="21" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).width" value="20" />
 			<AssertMethodValue method="value=application.group1.getElementAt(1) is DataGroupDefaultItemRenderer" value="{true}" />
-			<AssertMethodValue method="value=application.group1.getElementAt(1).width" value="21" />
+			<AssertMethodValue method="value=application.group1.getElementAt(1).width" value="20" />
 			<AssertMethodValue method="value=application.group1.getElementAt(2) is DataGroupDefaultItemRenderer" value="{true}" />
-			<AssertMethodValue method="value=application.group1.getElementAt(2).width" value="21" />
+			<AssertMethodValue method="value=application.group1.getElementAt(2).width" value="20" />
 		</body>
     </TestCase>
 
@@ -580,7 +580,7 @@
 	   	</setup>
     	<body>
 			<AssertMethodValue method="value=application.group1.getElementAt(0) is DataGroupDefaultItemRenderer" value="{true}" />
-			<AssertMethodValue method="value=application.group1.getElementAt(0).width" value="21" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).width" value="20" />
 			<AssertMethodValue method="value=application.group1.getElementAt(1) is DataGroupDefaultItemRendererComplex" value="{true}" />
 			<AssertMethodValue method="value=application.group1.getElementAt(1).width" value="20" />
 			<AssertMethodValue method="value=application.group1.getElementAt(2) is DataGroupDefaultItemRendererComplex" value="{true}" />
@@ -608,7 +608,7 @@
 	   	</setup>
     	<body>
 			<AssertMethodValue method="value=application.group1.getElementAt(0) is DataGroupJustifyItemRenderer" value="{true}" />
-			<AssertMethodValue method="value=application.group1.getElementAt(0).width" value="21" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).width" value="20" />
 			<AssertMethodValue method="value=application.group1.getElementAt(1) is Group" value="{true}" />
 			<AssertMethodValue method="value=application.group1.getElementAt(1).width" value="20" />
 			<AssertMethodValue method="value=application.group1.getElementAt(2) is Group" value="{true}" />
@@ -1507,7 +1507,7 @@
 			<RunCode code="application.group1.dataProvider.addItem(application.createButton('halo button 2'));" />
 			<RunCode code="application.group1.dataProvider.addItem('data string 3');" />
 			<RunCode code="application.group1.dataProvider.addItem(application.createFxButton('spark button 4', 99, 21));" />
-			<Pause timeout="100" />
+			<WaitForLayoutManager />
 		</setup>
 		<body>
 
@@ -1609,11 +1609,11 @@
         <body>
             <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3" />
             <SetProperty target="group1" propertyName="verticalScrollPosition" value="656" waitEvent="propertyChange" />
-            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="23,24,25,26" />
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="20,21,22,23" />
             <SetProperty target="group1" propertyName="verticalScrollPosition" value="-50" waitEvent="propertyChange" />
             <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1" />
             <SetProperty target="group1" propertyName="verticalScrollPosition" value="2750" waitEvent="propertyChange" />
-            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="98,99" />
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="86,87,88,89" />
         </body>
     </TestCase>
 
@@ -1630,7 +1630,7 @@
         <body>
             <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3" />
             <SetProperty target="group1" propertyName="height" value="200" waitEvent="updateComplete" />
-            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3,4,5,6,7" />
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3,4,5,6" />
         </body>
     </TestCase>
 

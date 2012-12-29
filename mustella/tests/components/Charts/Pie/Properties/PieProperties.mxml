@@ -1,0 +1,268 @@
+<UnitTester testDir="components/Charts/Pie/Properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="GenericPie.mxml">
+
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}	
+
+	import mx.collections.ArrayCollection;
+
+ 	  [Bindable]
+        private var companyBAC:ArrayCollection = new ArrayCollection( [
+            { Date: "25-Jul", open: 18.50,  high: 19, close:18.86},
+            { Date: "26-Jul", open: 19.56,  high: 19.98,  close:11.69},                       
+            { Date: "27-Jul", open: 20.81,  high: 20.99,  close:20.12}, 
+            { Date: "28-Jul", open: 20.70,  high: 21.00,  close:23.84}, 
+            { Date: "29-Jul", open: 21.7,  high: 21.79, close:15.6}, 
+            { Date: "1-Aug", open: 22.45,  high: 22.65, close:21.95},
+            { Date: "2-Aug", open: 22.56,  high: 22.6, close:12.98},
+            { Date: "3-Aug", open: 22.42,  high: 22.70, close:23.63},
+            { Date: "4-Aug", open: 21.67,  high: 22.82, close:26.34},
+            { Date: "5-Aug", open: 22.44,  high: 22.85, close:16.31} ]);
+
+				
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+
+	<mx:Script>
+	<![CDATA[
+	import mx.charts.*;
+	import mx.charts.series.*;
+	import mx.charts.renderers.*;
+
+	import mx.graphics.*;
+
+
+	public function scriptFunction(a:String, b:int):String
+	{
+		return a + ":" + b.toString();
+	}
+
+	// public var styleDecl:Object;
+	// public var styleObj:Object;
+
+	public function createLegend():void
+	{
+		var legend1:Legend = new Legend();		
+            legend1.dataProvider = application.comp;		
+		application.addChildAt(legend1,0);
+	}
+
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+
+	  <TestCase  testID="Pie_Series_renderDirection_clockwise" keywords="[PieChart, renderDirection, clockwise]">
+			<setup>
+				<ResetComponent target="comp" className="mx.charts::PieChart" />
+				<RunCode code="AllSeriesData.setDefault('pie', application.comp)" />
+				<SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DataGraphicsData().getDataAsXMLList()" waitEvent="updateComplete" />
+				<SetStyle target="comp.series.0" styleName="renderDirection" value="clockwise" waitEvent="updateComplete" waitTarget="comp.series.0"/>
+				
+			</setup>
+			<body>
+				<CompareBitmap target="comp"   url="../Properties/Baselines/Pie_Series_renderDirection_clockwise.png" timeout="5000"/>
+			</body> 
+		</TestCase> 
+		
+ 		<TestCase  testID="Pie_Series_renderDirection_counterClockwise" keywords="[PieChart, renderDirection, counterClockwise]">
+			<setup>
+				<ResetComponent target="comp" className="mx.charts::PieChart" />
+				<RunCode code="AllSeriesData.setDefault('pie', application.comp)" />
+				<SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DataGraphicsData().getDataAsXMLList()" waitEvent="updateComplete" />
+			
+				<SetStyle target="comp.series.0" styleName="renderDirection" value="counterClockwise" />
+				<Pause timeout="20"/>
+
+			</setup>
+			<body>
+				<CompareBitmap target="comp"   url="../Properties/Baselines/Pie_Series_renderDirection_counterClockwise.png" timeout="5000"/>
+			</body> 
+		</TestCase>
+
+
+		<TestCase  testID="Pie_Series_change_Dataprovider_Series_Level" keywords="[PieChart, change Dataprovider, Series level]">
+			<setup>
+				<ResetComponent target="comp" className="mx.charts::PieChart" />
+				<RunCode code="AllSeriesData.setDefault('pie', application.comp)" />
+				<SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DataGraphicsData().getDataAsXMLList()" waitEvent="updateComplete" />
+				  <Pause timeout="2000"/>
+
+				<SetProperty target="comp.series.0" propertyName="dataProvider" value="{companyBAC}" waitTarget="comp"  waitEvent="updateComplete" /> 				
+						
+			</setup>
+			<body>
+				<CompareBitmap target="comp"   url="../Properties/Baselines/Pie_Series_change_Dataprovider_Series_Level.png" timeout="5000"/>
+			</body> 
+		</TestCase>
+
+
+
+		<TestCase  testID="PieSeries_selectionMode_Single" keywords="[PieChart, Selection mode, single]">
+			<setup>
+				<ResetComponent target="comp" className="mx.charts::PieChart" />
+				<SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new AdbeStockData().getDataAsArray()" waitEvent="updateComplete" />
+				<RunCode code="AllSeriesData.setDefault('pie', application.comp)" waitEvent="updateComplete" waitTarget="comp.series.0" />
+				<SetProperty target="comp" waitEvent="updateComplete" waitTarget="comp" propertyName="selectionMode" value="single" />
+				<SetProperty target="comp.series.0" waitTarget="comp.series.0" propertyName="selectable" value="true" /> 
+				<SetProperty target="comp.series.0" waitEvent="updateComplete" waitTarget="comp.series.0" propertyName="selectedIndex" value="15"  />
+			</setup>
+			<body>
+				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_selectionMode_Single.png"  timeout="5000" maxColorVariance="5" numColorVariances="1"/>
+			</body> 
+		</TestCase>
+
+		<TestCase  testID="PieSeries_selectionMode_None" keywords="[PieChart, Selection mode, none]">
+			<setup>
+				<ResetComponent target="comp" className="mx.charts::PieChart" />
+				<SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new AdbeStockData().getDataAsArray()" waitEvent="updateComplete" />
+				<RunCode code="AllSeriesData.setDefault('pie', application.comp)" waitEvent="updateComplete" waitTarget="comp.series.0" />
+				<SetProperty target="comp" waitTarget="comp" propertyName="selectionMode" value="none" />				
+				<SetProperty target="comp.series.0" waitTarget="comp.series.0" propertyName="selectable" value="true" /> 
+				<SetProperty target="comp.series.0" waitEvent="updateComplete" waitTarget="comp.series.0" propertyName="selectedIndex" value="3" />
+			</setup>
+			<body>
+				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_selectionMode_None.png" timeout="5000" maxColorVariance="5" numColorVariances="1"/> 
+			</body> 
+		</TestCase> 
+
+		<TestCase  testID="PieSeries_selectionMode_Multiple" keywords="[PieChart, Selection mode, multiple]">
+			<setup>
+				<ResetComponent target="comp" className="mx.charts::PieChart" />
+				<SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new AdbeStockData().getDataAsArray()" waitEvent="updateComplete" />
+				<RunCode code="AllSeriesData.setDefault('pie', application.comp)" waitEvent="updateComplete" waitTarget="comp.series.0" />
+				<SetProperty target="comp" waitEvent="updateComplete" waitTarget="comp" propertyName="selectionMode" value="multiple" />
+				<SetProperty target="comp.series.0" waitTarget="comp.series.0" propertyName="selectable" value="true" /> 
+				<SetProperty target="comp.series.0" waitEvent="updateComplete" waitTarget="comp.series.0" propertyName="selectedIndices" value="[3,15,9,20]" />
+			</setup>
+			<body>
+				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_selectionMode_Multiple.png"  timeout="5000" maxColorVariance="5" numColorVariances="1"/>
+			</body> 
+		</TestCase>
+
+
+	   <TestCase  testID="PieSeries_legend" keywords="[PieChart, Legend, multiple series]">
+			<setup>
+				<ResetComponent target="comp" className="mx.charts::PieChart" />
+				<RunCode code="AllSeriesData.setDefault('pie_multiple_dataGraphics', application.comp)" />
+				<SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DataGraphicsData().getDataAsXMLList()" waitEvent="updateComplete" />
+
+
+				<SetProperty target="comp.series.0" propertyName="nameField" value="low" waitTarget="comp.series.0" />
+			
+		
+			
+				<Pause timeout="200"/>
+				<RunCode code="createLegend()" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap target=""   url="../Properties/Baselines/PieSeries_legend.png" />
+			</body> 
+		</TestCase>
+
+
+	  <TestCase  testID="PieSeries_ChangeDataProvider_AtChartLevel" keywords="[PieChart, Dataprovider, chartLevel]">
+		<setup>
+			<ResetComponent target="comp" className="mx.charts::PieChart" />
+			<RunCode code="AllSeriesData.setDefault('pie', application.comp)" />
+			<SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DataGraphicsData().getDataAsXMLList()" waitEvent="updateComplete" />
+			<SetStyle target="comp.series.0" waitEvent="updateComplete" waitTarget="comp.series.0" styleName="labelPosition" value="inside" />
+			<Pause timeout="200"/>
+			<SetProperty target="comp" propertyName="dataProvider" value="{companyBAC}" waitEvent="updateComplete" waitTarget="comp"/> 
+			<Pause timeout="200"/>
+
+		</setup>
+		<body>
+			<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_ChangeDataProvider_AtChartLevel.png"  />
+		</body>
+	  </TestCase> 
+
+
+	<TestCase  testID="PieSeries_TotalValueSet_Circle_Annotation" keywords="[PieChart,TotalValueSet, Circle, Annotation]">
+			<setup>
+				<ResetComponent target="comp" className="mx.charts::PieChart" />
+				<RunCode code="AllSeriesData.setDefault('pie_multiple_dataGraphics', application.comp)" />
+				<SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DataGraphicsData().getDataAsXMLList()" waitEvent="updateComplete" />
+				<RunCode code="DataGraphicsUtils.DrawShapesWithTotalValSet('circle', application.comp, 'annotation')" waitEvent="updateComplete" waitTarget="comp"/> 
+			</setup>
+			<body>
+				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_totalValueSet_circle_annotation.png"  />
+			</body>
+		</TestCase>		
+
+		<TestCase  testID="PieSeries_TotalValueSet_Line_Annotation" keywords="[PieChart,TotalValueSet, Line, Annotation]">
+			<setup>
+				<ResetComponent target="comp" className="mx.charts::PieChart" />
+				<RunCode code="AllSeriesData.setDefault('pie_multiple_dataGraphics', application.comp)" />
+				<SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DataGraphicsData().getDataAsXMLList()" waitEvent="updateComplete" />
+				<RunCode code="DataGraphicsUtils.DrawShapesWithTotalValSet('line', application.comp, 'annotation')"  waitEvent="updateComplete" waitTarget="comp"/> 
+			</setup>
+			<body>
+				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_totalValueSet_line_annotation.png"  />
+			</body>
+		</TestCase>		
+
+
+		<TestCase  testID="PieSeries_TotalValueSet_Rect_Annotation" keywords="[PieChart,TotalValueSet, Rect, Annotation]">
+			<setup>
+				<ResetComponent target="comp" className="mx.charts::PieChart" />
+				<RunCode code="AllSeriesData.setDefault('pie_multiple_dataGraphics', application.comp)" />
+				<SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DataGraphicsData().getDataAsXMLList()" waitEvent="updateComplete" />
+				<RunCode code="DataGraphicsUtils.DrawShapesWithTotalValSet('rect', application.comp, 'annotation')"  waitEvent="updateComplete" waitTarget="comp"/> 
+			</setup>
+			<body>
+				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_totalValueSet_rect_annotation.png"  />
+			</body>
+		</TestCase>		
+
+
+		<TestCase  testID="PieSeries_TotalValueSet_RoundedRect_Annotation" keywords="[PieChart,TotalValueSet, RoundedRect, Annotation]">
+			<setup>
+				<ResetComponent target="comp" className="mx.charts::PieChart" />
+				<RunCode code="AllSeriesData.setDefault('pie_multiple_dataGraphics', application.comp)" />
+				<SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DataGraphicsData().getDataAsXMLList()" waitEvent="updateComplete" />
+				<RunCode code="DataGraphicsUtils.DrawShapesWithTotalValSet('roundedRect', application.comp, 'annotation')"  waitEvent="updateComplete" waitTarget="comp"/> 
+			</setup>
+			<body>
+				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_totalValueSet_roundedRect_annotation.png"  />
+			</body>
+		</TestCase>		
+			
+			
+		<TestCase  testID="PieSeries_TotalValueSet_Ellipse_Annotation" keywords="[PieChart,TotalValueSet, Ellipse, Annotation]">
+			<setup>
+				<ResetComponent target="comp" className="mx.charts::PieChart" />
+				<RunCode code="AllSeriesData.setDefault('pie_multiple_dataGraphics', application.comp)" />
+				<SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DataGraphicsData().getDataAsXMLList()" waitEvent="updateComplete" />
+				<RunCode code="DataGraphicsUtils.DrawShapesWithTotalValSet('ellipse', application.comp, 'annotation')"  waitEvent="updateComplete" waitTarget="comp"/> 
+
+			</setup>
+			<body>
+				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_totalValueSet_ellipse_annotation.png"  />
+			</body>
+		</TestCase>
+
+		<TestCase  testID="PieSeries_TotalValueSet_Curve_Annotation" keywords="[PieChart,TotalValueSet, Curve, Annotation]">
+			<setup>
+				<ResetComponent target="comp" className="mx.charts::PieChart" />
+				<RunCode code="AllSeriesData.setDefault('pie_multiple_dataGraphics', application.comp)" />
+				<SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DataGraphicsData().getDataAsXMLList()" waitEvent="updateComplete" />
+				<RunCode code="DataGraphicsUtils.DrawShapesWithTotalValSet('curve', application.comp, 'annotation')"  waitEvent="updateComplete" waitTarget="comp"/> 
+			</setup>
+			<body>
+				<CompareBitmap target="comp"   url="../Properties/Baselines/PieSeries_totalValueSet_curve_annotation.png"  />
+			</body>
+		</TestCase> 
+		
+	</testCases>
+</UnitTester>
+		

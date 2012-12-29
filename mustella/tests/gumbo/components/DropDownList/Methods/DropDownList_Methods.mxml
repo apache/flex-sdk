@@ -73,6 +73,9 @@
 				<Pause timeout="200"/>
 				<CompareBitmap target="myDDL1.dropDown" url="../Methods/Baselines/$testID_1.png" numColorVariances="10" maxColorVariance="100"/>
 				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(true)" />
+				<WaitForEffectsToEnd />
+				<WaitForLayoutManager />
+				<WaitForLayoutManager /><!-- updatecomplete from first wait triggers more invalidation -->
 				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="2"/>
 				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductC"/>
 				<CompareBitmap target="focusBox" url="../Methods/Baselines/$testID_2.png" numColorVariances="10" maxColorVariance="100"/>
@@ -91,6 +94,9 @@
 				<Pause timeout="200"/>
 				<CompareBitmap target="myDDL1.dropDown" url="../Methods/Baselines/$testID_1.png" numColorVariances="10" maxColorVariance="100"/>
 				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" />
+				<WaitForEffectsToEnd />
+				<WaitForLayoutManager />
+				<WaitForLayoutManager /><!-- updatecomplete from first wait triggers more invalidation -->
 				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="-1"/>
 				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="null"/>
 				<CompareBitmap target="focusBox" url="../Methods/Baselines/$testID_2.png" numColorVariances="10" maxColorVariance="100"/>

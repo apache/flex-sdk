@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,30 +18,58 @@
  */
 package org.apache.flex.forks.batik.dom.svg;
 
+import java.awt.geom.AffineTransform;
+
+import org.apache.flex.forks.batik.anim.values.AnimatableMotionPointValue;
+import org.apache.flex.forks.batik.anim.values.AnimatableValue;
 import org.apache.flex.forks.batik.dom.AbstractDocument;
-import org.apache.flex.forks.batik.util.SVGConstants;
+import org.apache.flex.forks.batik.util.DoublyIndexedTable;
+import org.apache.flex.forks.batik.util.SVGTypes;
+
 import org.w3c.dom.Node;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedLengthList;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedTransformList;
-import org.w3c.flex.forks.dom.svg.SVGElement;
-import org.w3c.flex.forks.dom.svg.SVGException;
-import org.w3c.flex.forks.dom.svg.SVGMatrix;
-import org.w3c.flex.forks.dom.svg.SVGRect;
-import org.w3c.flex.forks.dom.svg.SVGTextElement;
+import org.w3c.dom.svg.SVGAnimatedTransformList;
+import org.w3c.dom.svg.SVGElement;
+import org.w3c.dom.svg.SVGException;
+import org.w3c.dom.svg.SVGMatrix;
+import org.w3c.dom.svg.SVGRect;
+import org.w3c.dom.svg.SVGTextElement;
 
 /**
  * This class implements {@link SVGTextElement}.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGOMTextElement.java,v 1.13 2004/08/18 07:13:18 vhardy Exp $
+ * @version $Id: SVGOMTextElement.java 592621 2007-11-07 05:58:12Z cam $
  */
 public class SVGOMTextElement
     extends    SVGOMTextPositioningElement
-    implements SVGTextElement {
+    implements SVGTextElement,
+               SVGMotionAnimatableElement {
 
     // Default values for attributes on a text element
-    public static final String X_DEFAULT_VALUE = "0";
-    public static final String Y_DEFAULT_VALUE = "0";
+    protected static final String X_DEFAULT_VALUE = "0";
+    protected static final String Y_DEFAULT_VALUE = "0";
+
+    /**
+     * Table mapping XML attribute names to TraitInformation objects.
+     */
+    protected static DoublyIndexedTable xmlTraitInformation;
+    static {
+        DoublyIndexedTable t =
+            new DoublyIndexedTable(SVGOMTextPositioningElement.xmlTraitInformation);
+        t.put(null, SVG_TRANSFORM_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_TRANSFORM_LIST));
+        xmlTraitInformation = t;
+    }
+
+    /**
+     * The 'transform' attribute value.
+     */
+    protected SVGOMAnimatedTransformList transform;
+
+    /**
+     * Supplemental transformation due to motion animation.
+     */
+    protected AffineTransform motionTransform;
 
     /**
      * Creates a new SVGOMTextElement object.
@@ -55,6 +84,23 @@ public class SVGOMTextElement
      */
     public SVGOMTextElement(String prefix, AbstractDocument owner) {
         super(prefix, owner);
+        initializeLiveAttributes();
+    }
+
+    /**
+     * Initializes all live attributes for this element.
+     */
+    protected void initializeAllLiveAttributes() {
+        super.initializeAllLiveAttributes();
+        initializeLiveAttributes();
+    }
+
+    /**
+     * Initializes the live attribute values of this element.
+     */
+    private void initializeLiveAttributes() {
+        transform =
+            createLiveAnimatedTransformList(null, SVG_TRANSFORM_ATTRIBUTE, "");
     }
 
     /**
@@ -68,59 +114,73 @@ public class SVGOMTextElement
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGLocatable#getNearestViewportElement()}.
+     * org.w3c.dom.svg.SVGLocatable#getNearestViewportElement()}.
      */
     public SVGElement getNearestViewportElement() {
-	return SVGLocatableSupport.getNearestViewportElement(this);
+        return SVGLocatableSupport.getNearestViewportElement(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGLocatable#getFarthestViewportElement()}.
+     * org.w3c.dom.svg.SVGLocatable#getFarthestViewportElement()}.
      */
     public SVGElement getFarthestViewportElement() {
-	return SVGLocatableSupport.getFarthestViewportElement(this);
+        return SVGLocatableSupport.getFarthestViewportElement(this);
     }
 
     /**
-     * <b>DOM</b>: Implements {@link org.w3c.flex.forks.dom.svg.SVGLocatable#getBBox()}.
+     * <b>DOM</b>: Implements {@link org.w3c.dom.svg.SVGLocatable#getBBox()}.
      */
     public SVGRect getBBox() {
-	return SVGLocatableSupport.getBBox(this);
+        return SVGLocatableSupport.getBBox(this);
     }
 
     /**
-     * <b>DOM</b>: Implements {@link org.w3c.flex.forks.dom.svg.SVGLocatable#getCTM()}.
+     * <b>DOM</b>: Implements {@link org.w3c.dom.svg.SVGLocatable#getCTM()}.
      */
     public SVGMatrix getCTM() {
-	return SVGLocatableSupport.getCTM(this);
+        return SVGLocatableSupport.getCTM(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGLocatable#getScreenCTM()}.
+     * org.w3c.dom.svg.SVGLocatable#getScreenCTM()}.
      */
     public SVGMatrix getScreenCTM() {
-	return SVGLocatableSupport.getScreenCTM(this);
+        return SVGLocatableSupport.getScreenCTM(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGLocatable#getTransformToElement(SVGElement)}.
+     * org.w3c.dom.svg.SVGLocatable#getTransformToElement(SVGElement)}.
      */
     public SVGMatrix getTransformToElement(SVGElement element)
-	throws SVGException {
-	return SVGLocatableSupport.getTransformToElement(this, element);
+        throws SVGException {
+        return SVGLocatableSupport.getTransformToElement(this, element);
     }
 
     // SVGTransformable support /////////////////////////////////////////////
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGTransformable#getTransform()}.
+     * org.w3c.dom.svg.SVGTransformable#getTransform()}.
      */
     public SVGAnimatedTransformList getTransform() {
-	return SVGTransformableSupport.getTransform(this);
+        return transform;
+    }
+
+    /**
+     * Returns the default value of the 'x' attribute.
+     */
+    protected String getDefaultXValue() {
+        return X_DEFAULT_VALUE;
+    }
+
+    /**
+     * Returns the default value of the 'y' attribute.
+     */
+    protected String getDefaultYValue() {
+        return Y_DEFAULT_VALUE;
     }
 
     /**
@@ -130,41 +190,44 @@ public class SVGOMTextElement
         return new SVGOMTextElement();
     }
 
-    // SVGTextPositioningElement support ////////////////////////////////////
-
     /**
-     * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGTextPositioningElement#getX()}.
+     * Returns the table of TraitInformation objects for this element.
      */
-    public SVGAnimatedLengthList getX() {
-        SVGOMAnimatedLengthList result = (SVGOMAnimatedLengthList)
-            getLiveAttributeValue(null, SVGConstants.SVG_X_ATTRIBUTE);
-        if (result == null) {
-            result = new SVGOMAnimatedLengthList(this, null,
-                                                 SVGConstants.SVG_X_ATTRIBUTE,
-                                                 X_DEFAULT_VALUE,
-                                                 AbstractSVGLength.HORIZONTAL_LENGTH);
-            putLiveAttributeValue(null,
-                                  SVGConstants.SVG_X_ATTRIBUTE, result);
-        }
-        return result;
+    protected DoublyIndexedTable getTraitInformationTable() {
+        return xmlTraitInformation;
     }
 
+    // SVGMotionAnimatableElement ////////////////////////////////////////////
+
     /**
-     * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGTextPositioningElement#getY()}.
+     * Returns the {@link AffineTransform} representing the current motion
+     * animation for this element.
      */
-    public SVGAnimatedLengthList getY() {
-        SVGOMAnimatedLengthList result = (SVGOMAnimatedLengthList)
-            getLiveAttributeValue(null, SVGConstants.SVG_Y_ATTRIBUTE);
-        if (result == null) {
-            result = new SVGOMAnimatedLengthList(this, null,
-                                                 SVGConstants.SVG_Y_ATTRIBUTE,
-                                                 Y_DEFAULT_VALUE,
-                                                 AbstractSVGLength.VERTICAL_LENGTH);
-            putLiveAttributeValue(null,
-                                  SVGConstants.SVG_Y_ATTRIBUTE, result);
+    public AffineTransform getMotionTransform() {
+        return motionTransform;
+    }
+
+    // AnimationTarget ///////////////////////////////////////////////////////
+
+    /**
+     * Updates a 'other' animation value in this target.
+     */
+    public void updateOtherValue(String type, AnimatableValue val) {
+        if (type.equals("motion")) {
+            if (motionTransform == null) {
+                motionTransform = new AffineTransform();
+            }
+            if (val == null) {
+                motionTransform.setToIdentity();
+            } else {
+                AnimatableMotionPointValue p = (AnimatableMotionPointValue) val;
+                motionTransform.setToTranslation(p.getX(), p.getY());
+                motionTransform.rotate(p.getAngle());
+            }
+            SVGOMDocument d = (SVGOMDocument) ownerDocument;
+            d.getAnimatedAttributeListener().otherAnimationChanged(this, type);
+        } else {
+            super.updateOtherValue(type, val);
         }
-        return result;
     }
 }

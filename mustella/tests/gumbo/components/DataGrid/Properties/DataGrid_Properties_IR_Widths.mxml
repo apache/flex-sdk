@@ -66,7 +66,7 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 			</setup>
 			<body>
-				<AssertPropertyValue target="myDG_all100" propertyName="height" value="159"/>				
+				<AssertPropertyValue target="myDG_all100" propertyName="height" value="156"/>				
 			</body>
 		</TestCase>		
 		
@@ -99,7 +99,7 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 			</setup>
 			<body>
-				<AssertPropertyValue target="myDG_one75" propertyName="width" value="289"/>								
+				<AssertPropertyValue target="myDG_one75" propertyName="width" value="287"/>								
 			</body>
 		</TestCase>
 		
@@ -109,7 +109,7 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 			</setup>
 			<body>
-				<AssertPropertyValue target="myDG_one75" propertyName="height" value="105"/>								
+				<AssertPropertyValue target="myDG_one75" propertyName="height" value="104"/>								
 			</body>
 		</TestCase>		
 		
@@ -120,7 +120,7 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 			</setup>
 			<body>
-				<AssertPropertyValue target="myDG_one75" propertyName="width" value="364"/>								
+				<AssertPropertyValue target="myDG_one75" propertyName="width" value="362"/>								
 			</body>
 		</TestCase>		
 		
@@ -130,10 +130,10 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>							
 			</setup>
 			<body>
-				<AssertPropertyValue target="myDG_one75" propertyName="width" value="289"/>								
+				<AssertPropertyValue target="myDG_one75" propertyName="width" value="287"/>								
 				<RunCode code="FlexGlobals.topLevelApplication.myDG_one75.columns1.removeItemAt(0);" waitEvent="enterFrame" waitTarget="stage"/>				
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>			
-				<AssertPropertyValue target="myDG_one75" propertyName="width" value="214"/>								
+				<AssertPropertyValue target="myDG_one75" propertyName="width" value="212"/>								
 			</body>
 		</TestCase>		
 		
@@ -153,7 +153,7 @@
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
 			</setup>
 			<body>
-				<AssertPropertyValue target="myDG_mult" propertyName="height" value="114"/>								
+				<AssertPropertyValue target="myDG_mult" propertyName="height" value="112"/>								
 			</body>
 		</TestCase>			
 		

@@ -445,8 +445,13 @@ public class SkinnableComponent extends UIComponent
         if (!skipReload)
         {
             if (skin)
-                detachSkin();
-            attachSkin();
+            {
+                detachSkin();                
+                // If there is an error skin remove it since it has to go on top of the new skin.
+                removeErrorSkin();
+            }
+            attachSkin();            
+            updateErrorSkin();
         }
     }
     
@@ -831,12 +836,20 @@ public class SkinnableComponent extends UIComponent
         }
         else
         {
-            if (errorObj)
-                super.removeChild(errorObj);
-            
-            errorObj = null;
+            removeErrorSkin();
         }
     }
+    
+    private function removeErrorSkin():void
+    {
+        if (errorObj)
+        {
+            super.removeChild(errorObj);
+            errorObj = null;
+        }
+
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Methods - Parts

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,7 +27,7 @@ import org.w3c.dom.NodeList;
  * Bridge class for the &lt;font> element.
  *
  * @author <a href="mailto:bella.robinson@cmis.csiro.au">Bella Robinson</a>
- * @version $Id: SVGFontElementBridge.java,v 1.9 2004/08/18 07:12:34 vhardy Exp $
+ * @version $Id: SVGFontElementBridge.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class SVGFontElementBridge extends AbstractSVGBridge {
 
@@ -65,7 +66,7 @@ public class SVGFontElementBridge extends AbstractSVGBridge {
         // construct a list of glyph codes that this font can display and
         // a list of the glyph elements
         NodeList glyphElements = fontElement.getElementsByTagNameNS
-	    (SVG_NAMESPACE_URI, SVG_GLYPH_TAG);
+            (SVG_NAMESPACE_URI, SVG_GLYPH_TAG);
         int numGlyphs = glyphElements.getLength();
         String[] glyphCodes = new String[numGlyphs];
         String[] glyphNames = new String[numGlyphs];
@@ -92,7 +93,7 @@ public class SVGFontElementBridge extends AbstractSVGBridge {
 
         // get the missing glyph element
         NodeList missingGlyphElements = fontElement.getElementsByTagNameNS
-	    (SVG_NAMESPACE_URI, SVG_MISSING_GLYPH_TAG);
+            (SVG_NAMESPACE_URI, SVG_MISSING_GLYPH_TAG);
         Element missingGlyphElement = null;
         if (missingGlyphElements.getLength() > 0) {
             missingGlyphElement = (Element)missingGlyphElements.item(0);
@@ -100,7 +101,7 @@ public class SVGFontElementBridge extends AbstractSVGBridge {
 
         // get the hkern elements
         NodeList hkernElements = fontElement.getElementsByTagNameNS
-	    (SVG_NAMESPACE_URI, SVG_HKERN_TAG);
+            (SVG_NAMESPACE_URI, SVG_HKERN_TAG);
         Element[] hkernElementArray = new Element[hkernElements.getLength()];
 
         for (int i = 0; i < hkernElementArray.length; i++) {
@@ -110,7 +111,7 @@ public class SVGFontElementBridge extends AbstractSVGBridge {
 
         // get the vkern elements
         NodeList vkernElements = fontElement.getElementsByTagNameNS
-	    (SVG_NAMESPACE_URI, SVG_VKERN_TAG);
+            (SVG_NAMESPACE_URI, SVG_VKERN_TAG);
         Element[] vkernElementArray = new Element[vkernElements.getLength()];
 
         for (int i = 0; i < vkernElementArray.length; i++) {

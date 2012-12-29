@@ -121,13 +121,21 @@ because everything has been set up in MXML.
          
         <!-- Just check the style. --> 
         <TestCase frequency="all" testID="RTL_ATResource_String_Bundle1_Style_fr_1" description="Test that resourceManager.getXX() can be used to specify a custom resource as a String in a style." keywords="[Runtime Localization,ATResource,String,Style]" > 
-           <body>
+           <setup>
+			   <SetProperty propertyName="currentState" value="setTwo" />
+			   <WaitForLayoutManager />
+		   </setup>
+		   <body>
                <AssertStyleValue target="lbl3" styleName="fontStyle" value="normal" />               
            </body>
         </TestCase> 
 
         <!-- Just check the style. --> 
         <TestCase frequency="all" testID="RTL_ATResource_String_Bundle1_Style_fr_2" description="Test that resourceManager.getXX() can be used to specify a custom resource as a String in a style." keywords="[Runtime Localization,ATResource,String,Style]" > 
+			<setup>
+				<SetProperty propertyName="currentState" value="setTwo" />
+				<WaitForLayoutManager />
+			</setup>
            <body>
                <AssertStyleValue target="lbl4" styleName="fontStyle" value="italic" />               
            </body>
@@ -135,6 +143,10 @@ because everything has been set up in MXML.
  
         <!-- Just check the style. --> 
         <TestCase frequency="all" testID="RTL_ATResource_Number_Bundle1_Style_fr_1" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Number in a style." keywords="[Runtime Localization,ATResource,Number,Style]" > 
+			<setup>
+				<SetProperty propertyName="currentState" value="setTwo" />
+				<WaitForLayoutManager />
+			</setup>
             <body>
                 <AssertStyleValue target="lbl5" styleName="fontSize" value="12" />                
             </body>         
@@ -142,12 +154,20 @@ because everything has been set up in MXML.
 
         <!-- Just check the style. --> 
         <TestCase frequency="all" testID="RTL_ATResource_Number_Bundle1_Style_fr_2" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Number in a style." keywords="[Runtime Localization,ATResource,Number,Style]" > 
+			<setup>
+				<SetProperty propertyName="currentState" value="setTwo" />
+				<WaitForLayoutManager />
+			</setup>
             <body>
                 <AssertStyleValue target="lbl6" styleName="fontSize" value="3" />                
             </body>         
         </TestCase> 
 
         <TestCase frequency="all" testID="RTL_ATResource_Int_Bundle1_Style_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as an Int in a style." keywords="[Runtime Localization,ATResource,Int,Style]" > 
+			<setup>
+				<SetProperty propertyName="currentState" value="setTwo" />
+				<WaitForLayoutManager />
+			</setup>
             <body>
                 <DispatchMouseEvent type="mouseDown" target="slider1" localX="50" localY="15" />
                 <WaitForEffectsToEnd />
@@ -163,6 +183,10 @@ because everything has been set up in MXML.
  
         <!-- Check the vertical line of the letter R and make sure it's red.. --> 
         <TestCase frequency="all" testID="RTL_ATResource_Number_Bundle1_Style_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Number in a style." keywords="[Runtime Localization,ATResource,Number,Style]" > 
+			<setup>
+				<SetProperty propertyName="currentState" value="setTwo" />
+				<WaitForLayoutManager />
+			</setup>
             <body> 
                 <CompareBitmap target="lbl7" url="../Integration/Baselines/$testID.png" />
             </body> 
@@ -170,12 +194,20 @@ because everything has been set up in MXML.
 
         <!-- left's lineThrough is false, right's lineThrough is true, for French --> 
         <TestCase frequency="all" testID="RTL_ATResource_Boolean_Bundle1_Style_fr_1" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a style." keywords="[Runtime Localization,ATResource,Boolean,Style]" > 
+			<setup>
+				<SetProperty propertyName="currentState" value="setTwo" />
+				<WaitForLayoutManager />
+			</setup>
            <body> 
                <AssertStyleValue target="btn1" styleName="lineThrough" value="false" />
            </body> 
         </TestCase> 
 
         <TestCase frequency="all" testID="RTL_ATResource_Boolean_Bundle1_Style_fr_2" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Boolean in a style." keywords="[Runtime Localization,ATResource,Boolean,Style]" > 
+			<setup>
+				<SetProperty propertyName="currentState" value="setTwo" />
+				<WaitForLayoutManager />
+			</setup>
            <body> 
                <AssertStyleValue target="btn2" styleName="lineThrough" value="true" />
            </body> 
@@ -183,6 +215,10 @@ because everything has been set up in MXML.
 
         <!-- Check that the alternating colors are green and blue. --> 
         <TestCase frequency="all" testID="RTL_ATResource_StringArray_Bundle1_Style_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a StringArray in a style." keywords="[Runtime Localization,ATResource,StringArray,Style]" > 
+			<setup>
+				<SetProperty propertyName="currentState" value="setTwo" />
+				<WaitForLayoutManager />
+			</setup>
             <body> 
                 <AssertStyleValue target="list1" styleName="alternatingItemColors" valueExpression="value=[0x008000,0x0000ff]" />
             </body> 
@@ -190,6 +226,10 @@ because everything has been set up in MXML.
  
         <!-- Verify the flag as the button's skin. --> 
         <TestCase frequency="all" testID="RTL_ATResource_Class_Embed_Bundle1_Style_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Class in a style, using Embed." keywords="[Runtime Localization,ATResource,Class,Style,Embed]" > 
+			<setup>
+				<SetProperty propertyName="currentState" value="setTwo" />
+				<WaitForLayoutManager />
+			</setup>
             <body> 
                 <CompareBitmap target="btn3" url="../Integration/Baselines/$testID.png" />
             </body> 
@@ -197,7 +237,9 @@ because everything has been set up in MXML.
  
         <!-- Verify the backwards checkmark by examining a line across the upper half of the check box.  The tail of the check should be on the left. --> 
         <TestCase frequency="all" testID="RTL_ATResource_Class_ClassReference_Bundle1_Style_fr" description="Test that resourceManager.getXX() can be used to specify a custom resource as a Class in a style, using ClassReference." keywords="[Runtime Localization,ATResource,Class,Style,ClassReference]" > 
-            <setup>
+			<setup>
+				<SetProperty propertyName="currentState" value="setTwo" />
+				<WaitForLayoutManager />
                 <DispatchMouseEvent target="ck3" localX="10" localY="10" type="rollOver" waitEvent="updateComplete" />
             </setup> 
             <body> 

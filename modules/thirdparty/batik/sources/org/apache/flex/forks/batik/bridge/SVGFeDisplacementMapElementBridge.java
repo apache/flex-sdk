@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -35,7 +36,7 @@ import org.w3c.dom.Element;
  * Bridge class for the &lt;feDisplacementMap> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGFeDisplacementMapElementBridge.java,v 1.15 2004/08/18 07:12:33 vhardy Exp $
+ * @version $Id: SVGFeDisplacementMapElementBridge.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class SVGFeDisplacementMapElementBridge
     extends AbstractSVGFilterPrimitiveElementBridge {
@@ -80,15 +81,17 @@ public class SVGFeDisplacementMapElementBridge
                                Map filterMap) {
 
         // 'scale' attribute - default is 0
-        float scale = convertNumber(filterElement, SVG_SCALE_ATTRIBUTE, 0);
+        float scale = convertNumber(filterElement, SVG_SCALE_ATTRIBUTE, 0, ctx);
 
         // 'xChannelSelector' attribute - default is 'A'
         ARGBChannel xChannelSelector = convertChannelSelector
-            (filterElement, SVG_X_CHANNEL_SELECTOR_ATTRIBUTE, ARGBChannel.A);
+            (filterElement, SVG_X_CHANNEL_SELECTOR_ATTRIBUTE, ARGBChannel.A,
+             ctx);
 
         // 'yChannelSelector' attribute - default is 'A'
         ARGBChannel yChannelSelector = convertChannelSelector
-            (filterElement, SVG_Y_CHANNEL_SELECTOR_ATTRIBUTE, ARGBChannel.A);
+            (filterElement, SVG_Y_CHANNEL_SELECTOR_ATTRIBUTE, ARGBChannel.A,
+             ctx);
 
         // 'in' attribute
         Filter in = getIn(filterElement,
@@ -152,11 +155,13 @@ public class SVGFeDisplacementMapElementBridge
      *
      * @param filterElement the feDisplacementMap filter primitive element
      * @param attrName the name of the channel attribute
+     * @param ctx the BridgeContext to use for error information
      */
     protected static
         ARGBChannel convertChannelSelector(Element filterElement,
                                            String attrName,
-                                           ARGBChannel defaultChannel) {
+                                           ARGBChannel defaultChannel,
+                                           BridgeContext ctx) {
 
         String s = filterElement.getAttributeNS(null, attrName);
         if (s.length() == 0) {
@@ -174,7 +179,8 @@ public class SVGFeDisplacementMapElementBridge
         if (SVG_B_VALUE.equals(s)) {
             return ARGBChannel.B;
         }
-        throw new BridgeException(filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                                  new Object[] {attrName, s});
+        throw new BridgeException
+            (ctx, filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+             new Object[] {attrName, s});
     }
 }

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,27 +19,50 @@
 package org.apache.flex.forks.batik.dom.svg;
 
 import org.apache.flex.forks.batik.dom.AbstractDocument;
+import org.apache.flex.forks.batik.util.DoublyIndexedTable;
+import org.apache.flex.forks.batik.util.SVGTypes;
+
 import org.w3c.dom.Node;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedBoolean;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedPreserveAspectRatio;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedRect;
-import org.w3c.flex.forks.dom.svg.SVGStringList;
-import org.w3c.flex.forks.dom.svg.SVGViewElement;
+import org.w3c.dom.svg.SVGAnimatedBoolean;
+import org.w3c.dom.svg.SVGAnimatedPreserveAspectRatio;
+import org.w3c.dom.svg.SVGAnimatedRect;
+import org.w3c.dom.svg.SVGStringList;
+import org.w3c.dom.svg.SVGViewElement;
 
 /**
- * This class implements {@link org.w3c.flex.forks.dom.svg.SVGViewElement}.
+ * This class implements {@link org.w3c.dom.svg.SVGViewElement}.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGOMViewElement.java,v 1.7 2004/09/01 09:35:23 deweese Exp $
+ * @version $Id: SVGOMViewElement.java 592621 2007-11-07 05:58:12Z cam $
  */
 public class SVGOMViewElement
     extends SVGOMElement
     implements SVGViewElement {
-    
+
+    /**
+     * Table mapping XML attribute names to TraitInformation objects.
+     */
+    protected static DoublyIndexedTable xmlTraitInformation;
+    static {
+        DoublyIndexedTable t =
+            new DoublyIndexedTable(SVGOMElement.xmlTraitInformation);
+        t.put(null, SVG_PRESERVE_ASPECT_RATIO_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_PRESERVE_ASPECT_RATIO_VALUE));
+        t.put(null, SVG_VIEW_BOX_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_NUMBER_LIST));
+        t.put(null, SVG_EXTERNAL_RESOURCES_REQUIRED_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_BOOLEAN));
+//         t.put(null, SVG_VIEW_TARGET_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_CDATA));
+//         t.put(null, SVG_ZOOM_AND_PAN_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_IDENT));
+        xmlTraitInformation = t;
+    }
+
     /**
      * The attribute initializer.
      */
-    protected final static AttributeInitializer attributeInitializer;
+    protected static final AttributeInitializer attributeInitializer;
     static {
         attributeInitializer = new AttributeInitializer(2);
         attributeInitializer.addAttribute(null,
@@ -50,6 +74,16 @@ public class SVGOMViewElement
                                           SVG_ZOOM_AND_PAN_ATTRIBUTE,
                                           SVG_MAGNIFY_VALUE);
     }
+
+    /**
+     * The 'externalResourcesRequired' attribute value.
+     */
+    protected SVGOMAnimatedBoolean externalResourcesRequired;
+
+    /**
+     * The 'preserveAspectRatio' attribute value.
+     */
+    protected SVGOMAnimatedPreserveAspectRatio preserveAspectRatio;
 
     /**
      * Creates a new SVGOMViewElement object.
@@ -64,6 +98,25 @@ public class SVGOMViewElement
      */
     public SVGOMViewElement(String prefix, AbstractDocument owner) {
         super(prefix, owner);
+        initializeLiveAttributes();
+    }
+
+    /**
+     * Initializes all live attributes for this element.
+     */
+    protected void initializeAllLiveAttributes() {
+        super.initializeAllLiveAttributes();
+        initializeLiveAttributes();
+    }
+
+    /**
+     * Initializes the live attribute values of this element.
+     */
+    private void initializeLiveAttributes() {
+        externalResourcesRequired =
+            createLiveAnimatedBoolean
+                (null, SVG_EXTERNAL_RESOURCES_REQUIRED_ATTRIBUTE, false);
+        preserveAspectRatio = createLiveAnimatedPreserveAspectRatio();
     }
 
     /**
@@ -77,14 +130,15 @@ public class SVGOMViewElement
      * <b>DOM</b>: Implements {@link SVGViewElement#getViewTarget()}.
      */
     public SVGStringList getViewTarget() {
-        throw new RuntimeException("!!! TODO: getViewTarget()");
+        throw new UnsupportedOperationException
+            ("SVGViewElement.getViewTarget is not implemented"); // XXX
     }
 
     // SVGZoomAndPan support ///////////////////////////////////////////////
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGZoomAndPan#getZoomAndPan()}.
+     * org.w3c.dom.svg.SVGZoomAndPan#getZoomAndPan()}.
      */
     public short getZoomAndPan() {
         return SVGZoomAndPanSupport.getZoomAndPan(this);
@@ -92,7 +146,7 @@ public class SVGOMViewElement
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGZoomAndPan#getZoomAndPan()}.
+     * org.w3c.dom.svg.SVGZoomAndPan#getZoomAndPan()}.
      */
     public void setZoomAndPan(short val) {
         SVGZoomAndPanSupport.setZoomAndPan(this, val);
@@ -102,29 +156,29 @@ public class SVGOMViewElement
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGFitToViewBox#getViewBox()}.
+     * org.w3c.dom.svg.SVGFitToViewBox#getViewBox()}.
      */
     public SVGAnimatedRect getViewBox() {
-        throw new RuntimeException(" !!! TODO: getViewBox()");
+        throw new UnsupportedOperationException
+            ("SVGFitToViewBox.getViewBox is not implemented"); // XXX
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGFitToViewBox#getPreserveAspectRatio()}.
+     * org.w3c.dom.svg.SVGFitToViewBox#getPreserveAspectRatio()}.
      */
     public SVGAnimatedPreserveAspectRatio getPreserveAspectRatio() {
-        return SVGPreserveAspectRatioSupport.getPreserveAspectRatio(this);
+        return preserveAspectRatio;
     }
 
     // SVGExternalResourcesRequired support /////////////////////////////
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGExternalResourcesRequired#getExternalResourcesRequired()}.
+     * org.w3c.dom.svg.SVGExternalResourcesRequired#getExternalResourcesRequired()}.
      */
     public SVGAnimatedBoolean getExternalResourcesRequired() {
-        return SVGExternalResourcesRequiredSupport.
-            getExternalResourcesRequired(this);
+        return externalResourcesRequired;
     }
 
     /**
@@ -140,5 +194,12 @@ public class SVGOMViewElement
      */
     protected Node newNode() {
         return new SVGOMViewElement();
+    }
+
+    /**
+     * Returns the table of TraitInformation objects for this element.
+     */
+    protected DoublyIndexedTable getTraitInformationTable() {
+        return xmlTraitInformation;
     }
 }

@@ -110,7 +110,7 @@
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
-                <SetStyle styleName="fontFamily" value="ComicSansMS" target="menu1" />
+                <SetStyle styleName="fontFamily" value="OpenSans" target="menu1" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
                 <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" waitTarget="menu1.mx_internal:subMenus.2.mx_internal:popupTween" waitEvent="tweenEnd" />
                 <WaitForEffectsToEnd />

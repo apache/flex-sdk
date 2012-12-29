@@ -19,6 +19,7 @@
 
 package mx.charts.series
 {
+import flash.utils.Dictionary;
 
 import mx.charts.HitData;
 import mx.charts.chartClasses.HLOCSeriesBase;
@@ -177,7 +178,7 @@ public class HLOCSeries extends HLOCSeriesBase
 	/**
 	 *  @private
 	 */
-	private var _moduleFactoryInitialized:Boolean = false;
+	private static var _moduleFactoryInitialized:Dictionary = new Dictionary(true);
 	
 	//--------------------------------------------------------------------------
 	//
@@ -214,10 +215,10 @@ public class HLOCSeries extends HLOCSeriesBase
 	{
 		super.moduleFactory = factory;
 		
-		if (_moduleFactoryInitialized)
+		if (_moduleFactoryInitialized[factory])
 			return;
 		
-		_moduleFactoryInitialized = true;
+		_moduleFactoryInitialized[factory] = true;
 		
 		// our style settings
 		initStyles();

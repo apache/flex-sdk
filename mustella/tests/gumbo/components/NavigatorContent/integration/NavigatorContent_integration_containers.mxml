@@ -88,7 +88,7 @@
     </setup>
     <body>
 		<SetProperty target="tn1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" />
-		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" numColorVariances="15" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -130,6 +130,7 @@
     </setup>
     <body>
 		<SetProperty target="acc1" propertyName="selectedIndex" value="1" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
 		<CompareBitmap target="acc1" url="../integration/baselines/$testID.png" />
     </body>
 </TestCase>
@@ -140,6 +141,7 @@
     </setup>
     <body>
 		<SetProperty target="acc1" propertyName="selectedIndex" value="2" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
 		<CompareBitmap target="acc1" url="../integration/baselines/$testID.png" />
     </body>
 </TestCase>
@@ -151,7 +153,7 @@
     <body>
 		<SetProperty target="acc1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" />
 		<Pause timeout="500"/>
-		<CompareBitmap target="acc1" url="../integration/baselines/$testID.png" />
+		<CompareBitmap target="acc1" url="../integration/baselines/$testID.png" numColorVariances="15" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -212,7 +214,7 @@
     </setup>
     <body>
 		<SetProperty target="vs1.bb1" propertyName="selectedIndex" value="3" waitTarget="vs1.vs1" waitEvent="updateComplete" />
-		<CompareBitmap target="vs1.vs1" url="../integration/baselines/$testID.png" />
+		<CompareBitmap target="vs1.vs1" url="../integration/baselines/$testID.png" numColorVariances="15" maxColorVariance="1" />
     </body>
 </TestCase>
 

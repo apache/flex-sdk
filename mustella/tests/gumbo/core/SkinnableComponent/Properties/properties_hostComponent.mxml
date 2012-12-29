@@ -24,25 +24,25 @@
 	<![CDATA[
 	public static function init(o:DisplayObject):void
 	{
-	}					
+	}
 	]]>
 	</fx:Script>
 	<fx:Metadata>
 	<![CDATA[
 		[Mixin]
 	]]>
-	</fx:Metadata>	
+	</fx:Metadata>
 	<!-- end of set of lines that must be in each unit test -->
 
 	<fx:Script>
 	<![CDATA[
         private var hostComponent_custom_result1:String = "name=\"assets::SkinnedMXMLComponent\"";
         private var hostComponent_custom_result2:String = "base=\"assets::SkinnedComponent\"";
-        
+
         private var hostComponent_default_result1:String = "name=\"spark.components::Button\"";
         private var hostComponent_default_result2:String = "base=\"spark.components.supportClasses::ButtonBase\"";
 
-        
+
         // I tire of trying to escape double quotes, etc... in XML in an indexOf()
         // call within AssertMethodValue, so here it is in AS.
         private function myIndexOf(findMe:String, searchMe:String):int{
@@ -78,7 +78,7 @@
         <ResetComponent target="sc2" className="assets.SkinnedMXMLComponent2" waitEvent="updateComplete" />
     </setup>
     <body>
-        <AssertMethodValue method="try{application.sc2.skin.hostComponent}catch(e:Error){value = e.toString()}" value="ReferenceError: Error #1069: Property hostComponent not found on assets.HostlessSkin and there is no default value." />
+        <AssertMethodValue method="try{application.sc2.skin.hostComponent}catch(e:Error){value = e.toString()}" errorArray="['ReferenceError: Error #1069:', 'hostComponent', 'assets.HostlessSkin']" />
     </body>
 </TestCase>
 

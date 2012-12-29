@@ -104,6 +104,7 @@
 				<!-- Intentionally not waiting for touchInteractionEndEvent for verifying the bug -->
 				<SimulateMouseGesture target="navigator.activeView.imageGroup" valueExpression="value=application.mouseSequences.throw_large_right" waitTarget="navigator.activeView.imageScroller"/>
 				<RunCode code="application.navigator.stage.setOrientation(StageOrientation.ROTATED_RIGHT)" waitTarget="stage" waitEvent="orientationChange" timeout="6000"/>
+				<WaitForLayoutManager />
 				<AssertMethodValue method="value=application.navigator.activeView.imageGroup.horizontalScrollPosition % application.navigator.activeView.imageGroup.width" value="0" /> 
 			</body>
 		</TestCase>

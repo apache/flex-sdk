@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -32,15 +33,15 @@ import org.w3c.dom.css.CSSPrimitiveValue;
  * This class provides support for AWT system colors.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SystemColorSupport.java,v 1.4 2004/10/30 18:38:04 deweese Exp $
+ * @version $Id: SystemColorSupport.java 502538 2007-02-02 08:52:56Z dvholten $
  */
 public class SystemColorSupport implements CSSConstants {
-    
+
     /**
      * Returns the Value corresponding to the given system color.
      */
     public static Value getSystemColor(String ident) {
-        ident = ident.toLowerCase();
+        ident = ident.toLowerCase( );                                 // todo locale??
         SystemColor sc = (SystemColor)factories.get(ident);
         return new RGBColorValue
             (new FloatValue(CSSPrimitiveValue.CSS_NUMBER, sc.getRed()),
@@ -51,7 +52,7 @@ public class SystemColorSupport implements CSSConstants {
     /**
      * The color factories.
      */
-    protected final static Map factories = new HashMap();
+    protected static final Map factories = new HashMap();
     static {
         factories.put(CSS_ACTIVEBORDER_VALUE,
                       SystemColor.windowBorder);

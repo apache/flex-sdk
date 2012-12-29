@@ -24,35 +24,36 @@
 #
 
 case `uname` in
-		CYGWIN*)
-			OS="Windows"
-		;;
-		*)
-			OS=Unix
+        CYGWIN*)
+            OS="Windows"
+        ;;
+        *)
+            OS=Unix
 esac
 
 D32=''
 
 if [ $OS = "Windows" ]; then
-	# set FLEX_HOME relative to optimizer if not set
-	test "$FLEX_HOME" = "" && {
-	FLEX_HOME=`dirname $0`/..
-    	FLEX_HOME=`cygpath -m $FLEX_HOME`
-	}
+    # set FLEX_HOME relative to optimizer if not set
+    test "$FLEX_HOME" = "" && {
+        FLEX_HOME=`dirname $0`/..
+        FLEX_HOME=`cygpath -m $FLEX_HOME`
+    }
 
 elif [ $OS = "Unix" ]; then
 
-	# set FLEX_HOME relative to optimizer if not set
-	test "$FLEX_HOME" = "" && {
-	FLEX_HOME=`dirname "$0"`/..
-	}
-	
-	check64="`java -version 2>&1 | grep -i 64-Bit`"
-		isOSX="`uname | grep -i Darwin`"
-		
-		if [ "$isOSX" != "" -a "$HOSTTYPE" = "x86_64" -a "$check64" != "" ]; then
-			D32='-d32'
-	fi
+    # set FLEX_HOME relative to optimizer if not set
+    test "$FLEX_HOME" = "" && {
+    FLEX_HOME=`dirname "$0"`/..
+    }
+    
+    check64="`java -version 2>&1 | grep -i 64-Bit`"
+    isOSX="`uname | grep -i Darwin`"
+    javaVersion="`java -version 2>&1 | awk -F '[ ".]+' 'NR==1 {print $3 "." $4}'`"
+    
+    if [ "$isOSX" != "" -a "$HOSTTYPE" = "x86_64" -a "$check64" != "" -a "$javaVersion" = "1.6" ]; then
+        D32='-d32'
+    fi
 fi
 
 # don't use $FLEX_HOME in this variable because it may contain spaces,

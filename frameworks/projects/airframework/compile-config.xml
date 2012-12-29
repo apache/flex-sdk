@@ -1,0 +1,185 @@
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<flex-config>
+
+    <compiler>
+        <accessible>true</accessible>
+        
+        <external-library-path>
+            <path-element>${env.AIR_HOME}/frameworks/libs/air/airglobal.swc</path-element>
+            <path-element>../../libs/framework.swc</path-element>
+            <path-element>../../libs/mx/mx.swc</path-element>
+            <path-element>../../libs/textLayout.swc</path-element>
+        </external-library-path>
+        
+        <keep-as3-metadata>
+            <name>SkinPart</name>
+        </keep-as3-metadata>
+        
+        <locale/>
+        
+        <library-path/>
+        
+        <namespaces>
+            <namespace>
+                <uri>library://ns.adobe.com/flex/mx</uri>
+                <manifest>manifest.xml</manifest>
+            </namespace>
+        </namespaces>
+        
+        <source-path>
+            <path-element>src</path-element>
+        </source-path>
+        
+        <warn-no-constructor>false</warn-no-constructor>
+    </compiler>
+    
+    <include-classes>
+        <class>AIRFrameworkClasses</class>
+    </include-classes>
+    
+    <include-file>
+        <name>defaults.css</name>
+        <path>defaults.css</path>
+    </include-file>
+    <include-file>
+        <name>defaults-3.0.0.css</name>
+        <path>defaults-3.0.0.css</path>
+    </include-file>
+    <include-file>
+        <name>Assets.swf</name>
+        <path>assets/Assets.swf</path>
+    </include-file>
+    <include-file>
+        <name>ComputerIcon.swf</name>
+        <path>assets/ComputerIcon.swf</path>
+    </include-file>
+    <include-file>
+        <name>gripper_up.png</name>
+        <path>assets/gripper_up.png</path>
+    </include-file>
+    <include-file>
+        <name>mac_close_down.png</name>
+        <path>assets/mac_close_down.png</path>
+    </include-file>
+    <include-file>
+        <name>mac_close_over.png</name>
+        <path>assets/mac_close_over.png</path>
+    </include-file>
+    <include-file>
+        <name>mac_close_up.png</name>
+        <path>assets/mac_close_up.png</path>
+    </include-file>
+    <include-file>
+        <name>mac_max_dis.png</name>
+        <path>assets/mac_max_dis.png</path>
+    </include-file>
+    <include-file>
+        <name>mac_max_down.png</name>
+        <path>assets/mac_max_down.png</path>
+    </include-file>
+    <include-file>
+        <name>mac_max_over.png</name>
+        <path>assets/mac_max_over.png</path>
+    </include-file>
+    <include-file>
+        <name>mac_max_up.png</name>
+        <path>assets/mac_max_up.png</path>
+    </include-file>
+    <include-file>
+        <name>mac_min_dis.png</name>
+        <path>assets/mac_min_dis.png</path>
+    </include-file>
+    <include-file>
+        <name>mac_min_down.png</name>
+        <path>assets/mac_min_down.png</path>
+    </include-file>
+    <include-file>
+        <name>mac_min_over.png</name>
+        <path>assets/mac_min_over.png</path>
+    </include-file>
+    <include-file>
+        <name>mac_min_up.png</name>
+        <path>assets/mac_min_up.png</path>
+    </include-file>
+    <include-file>
+        <name>win_close_down.png</name>
+        <path>assets/win_close_down.png</path>
+    </include-file>
+    <include-file>
+        <name>win_close_over.png</name>
+        <path>assets/win_close_over.png</path>
+    </include-file>
+    <include-file>
+        <name>win_close_up.png</name>
+        <path>assets/win_close_up.png</path>
+    </include-file>
+    <include-file>
+        <name>win_max_dis.png</name>
+        <path>assets/win_max_dis.png</path>
+    </include-file>
+    <include-file>
+        <name>win_max_down.png</name>
+        <path>assets/win_max_down.png</path>
+    </include-file>
+    <include-file>
+        <name>win_max_over.png</name>
+        <path>assets/win_max_over.png</path>
+    </include-file>
+    <include-file>
+        <name>win_max_up.png</name>
+        <path>assets/win_max_up.png</path>
+    </include-file>
+    <include-file>
+        <name>win_min_dis.png</name>
+        <path>assets/win_min_dis.png</path>
+    </include-file>
+    <include-file>
+        <name>win_min_down.png</name>
+        <path>assets/win_min_down.png</path>
+    </include-file>
+    <include-file>
+        <name>win_min_over.png</name>
+        <path>assets/win_min_over.png</path>
+    </include-file>
+    <include-file>
+        <name>win_min_up.png</name>
+        <path>assets/win_min_up.png</path>
+    </include-file>
+    <include-file>
+        <name>win_restore_down.png</name>
+        <path>assets/win_restore_down.png</path>
+    </include-file>
+    <include-file>
+        <name>win_restore_over.png</name>
+        <path>assets/win_restore_over.png</path>
+    </include-file>
+    <include-file>
+        <name>win_restore_up.png</name>
+        <path>assets/win_restore_up.png</path>
+    </include-file>
+    
+    <include-namespaces>
+        <uri>library://ns.adobe.com/flex/mx</uri>
+    </include-namespaces>
+    
+    <resource-bundle-list>bundles.properties</resource-bundle-list>
+    
+    <target-player>${playerglobal.version}</target-player>
+</flex-config>

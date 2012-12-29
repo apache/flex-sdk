@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -28,14 +29,14 @@ import org.apache.flex.forks.batik.util.CleanerThread;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.flex.forks.dom.svg.SVGDocument;
+import org.w3c.dom.svg.SVGDocument;
 
 /**
  * This class is responsible on loading an SVG document and
  * maintaining a cache.
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: DocumentLoader.java,v 1.23 2005/01/03 10:48:05 deweese Exp $
+ * @version $Id: DocumentLoader.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class DocumentLoader {
 
@@ -71,7 +72,7 @@ public class DocumentLoader {
         this.userAgent = userAgent;
         documentFactory = new SAXSVGDocumentFactory
             (userAgent.getXMLParserClassName(), true);
-	documentFactory.setValidating(userAgent.isXMLParserValidating());
+        documentFactory.setValidating(userAgent.isXMLParserValidating());
     }
 
     public Document checkCache(String uri) {

@@ -28,7 +28,7 @@
 	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
 
 	<testCases>
-         <TestCase testID="Image_Scale_stretch_smoothingQuality " keywords="[Image, scale, stretch, smoothingQuality ]" description="Scale image stretch, smoothingQuality high">
+         <TestCase testID="Image_Scale_stretch_smoothingQuality" keywords="[Image, scale, stretch, smoothingQuality ]" description="Scale image stretch, smoothingQuality high">
             <setup>
                 <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
                 <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />
@@ -41,7 +41,7 @@
                 <CompareBitmap target="pr" url="../styles/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
             </body>
         </TestCase>
-        <TestCase testID="Image_Scale_stretch_smoothingQuality_high " keywords="[Image, scale, stretch, smoothingQuality ]" description="Scale image stretch, smoothingQuality high">
+        <TestCase testID="Image_Scale_stretch_smoothingQuality_high" keywords="[Image, scale, stretch, smoothingQuality ]" description="Scale image stretch, smoothingQuality high">
             <setup>
                 <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
                 <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />
@@ -55,7 +55,7 @@
                 <CompareBitmap target="pr" url="../styles/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
             </body>
         </TestCase>
-        <TestCase testID="Image_Scale_stretch_smooth_false " keywords="[Image, scale, stretch, no_smooth ]" description="Scale image stretch, no-smooth">
+        <TestCase testID="Image_Scale_stretch_smooth_false" keywords="[Image, scale, stretch, no_smooth ]" description="Scale image stretch, no-smooth">
             <setup>
                 <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
                 <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />

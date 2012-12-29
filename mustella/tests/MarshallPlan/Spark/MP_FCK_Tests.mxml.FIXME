@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="MarshallPlan/Spark/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MP_FCK_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import mx.core.IFlexDisplayObject;
+       import mx.events.FlexEvent;
+       import flash.utils.*;
+       import mx.core.FlexSprite;
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+        <!-- FIXME: Needs FLA compiled to SWC 
+		<TestCase testID="MP_Spark_Component_DropDownList_compatible" description="Test that you can use a DropDownList in a trusted child." keywords="[DropDownList, Spark, Marshall Plan, ToolTip]">
+             <setup>
+              <ResetComponent target="text1" className="spark.components.TextInput" waitTarget="text1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="assets/MP_FCK_childApp.swf" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="" waitEvent="mouseMove"/>
+                <Pause timeout="500"/>
+                <DispatchMouseEvent type="rollOver"  target="swf1.content.document.dropdown1.skin" localX="5" localY="10"  waitEvent="rollOver"
+                    waitTarget="swf1.content.document.dropdown1"/>
+                <DispatchMouseEvent type="mouseDown" target="swf1.content.document.dropdown1.skin" localX="5" localY="10" waitEvent="open" waitTarget="swf1.content.document.dropdown1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseUp"   target="swf1.content.document.dropdown1.skin" localX="5" localY="10" />
+                <Pause timeout="300"/>
+                <DispatchMouseClickEvent target="swf1.content.document.dropdown1.skin" localX="18" localY="38" />
+                <AssertEvent eventName="change" eventClass="spark.events::IndexChangeEvent" target="swf1.content.document.dropdown1" />
+                <Pause timeout="1000" />
+           </body>
+         </TestCase>        
+         <TestCase testID="MP_Spark_Component_DropDownList_untrusted" description="Test that you can use a DropDownList in a trusted child." keywords="[DropDownList, Spark, Marshall Plan, ToolTip]">
+             <setup>
+              <ResetComponent target="text1" className="spark.components.TextInput" waitTarget="text1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_FCK_childApp.swf?147_39?147_39?147_39" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" />
+                <Pause timeout="500"/>
+                <DispatchMouseEvent type="rollOver"  target="swf1.content.document.dropdown1.skin" localX="5" localY="10"  waitEvent="rollOver"
+                    waitTarget="swf1.content.document.dropdown1"/>
+                <DispatchMouseEvent type="mouseDown" target="swf1.content.document.dropdown1.skin" localX="5" localY="10" waitEvent="open" waitTarget="swf1.content.document.dropdown1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseUp"   target="swf1.content.document.dropdown1.skin" localX="5" localY="10" />
+                <Pause timeout="300"/>
+                <DispatchMouseClickEvent target="swf1.content.document.dropdown1.skin" localX="18" localY="38" />
+                <AssertEvent eventName="change" eventClass="spark.events::IndexChangeEvent" target="swf1.content.document.dropdown1" />
+                <Pause timeout="3000" />
+           </body>
+         </TestCase> 
+         
+         <TestCase testID="MP_FCK_Component_toolTip_trusted" description="Test that you can see a tooltip for a Spark component." keywords="[TextInput, Spark, Marshall Plan, ToolTip]">
+             <setup>
+               <ResetComponent target="text1" className="spark.components.TextInput" waitTarget="text1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="assets/MP_FCK_childApp.swf" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="2000"/>
+            </setup>
+            <body>
+            	
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="" waitEvent="mouseMove"/>
+                <DispatchMouseEvent type="mouseOver" target="swf1.content.document.dropdown1" localX="20" localY="8"
+                   waitEvent="toolTipShown" waitTarget="swf1.content.document.dropdown1" />
+                <WaitForEffectsToEnd />
+                <Pause timeout="200" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="10" url="../Spark/baselines/$testID.png" target="swf1.content.document.group1" timeout="2000"  />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_FCK_Component_toolTip_compatible" description="Test that you can see a tooltip for a Spark component." keywords="[TextInput, Spark, Marshall Plan, ToolTip]">
+             <setup>
+               <ResetComponent target="text1" className="spark.components.TextInput" waitTarget="text1" waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="assets/MP_FCK_childApp.swf" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="" waitEvent="mouseMove"/>
+                <DispatchMouseEvent type="mouseOver" target="swf1.content.document.dropdown1" localX="20" localY="8"
+                   waitEvent="toolTipShown" waitTarget="swf1.content.document.dropdown1" timeout="5000" />
+                <WaitForEffectsToEnd />
+                <Pause timeout="200" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="10" url="../Spark/baselines/$testID.png" target="swf1.content.document.group1" timeout="2000"  />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_FCK_Component_toolTip_untrusted" description="Test that you can see a tooltip for a Spark component." keywords="[TextInput, Spark, Marshall Plan, ToolTip]">
+             <setup>
+               <ResetComponent target="text1" className="spark.components.TextInput" waitTarget="text1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_FCK_childApp.swf?80_39?80_39?80_39" />
+			   <Pause timeout="500"/>             
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitEvent="complete" waitTarget="swf1"/>
+               <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" />
+                <Pause timeout="100"/>
+                <DispatchMouseEvent type="mouseOver" target="swf1.content.document.dropdown1" localX="20" localY="8"
+                   waitEvent="toolTipShown" waitTarget="swf1.content.document.dropdown1" />
+                <WaitForEffectsToEnd />
+                <Pause timeout="200" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="10" url="../Spark/baselines/$testID.png" target="swf1.content.document.group1" timeout="2000"  />
+                <Pause timeout="1000" />
+           </body>
+         </TestCase>    
+         -->
+         <!--TestCase testID="MP_Spark_Component_DropDownList_trusted" description="Test that you can use a DropDownList in a trusted child." keywords="[DropDownList, Spark, Marshall Plan, ToolTip]">
+             <setup>
+              <ResetComponent target="text1" className="spark.components.TextInput" waitTarget="text1"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../Assets/Images/smallpurplerect.jpg" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="assets/MP_FCK_childApp.swf" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+               <Pause timeout="500"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="" waitEvent="mouseMove"/>
+                <DispatchMouseEvent type="rollOver"  target="swf1.content.document.dropdown1.skin" localX="5" localY="10"  waitEvent="rollOver"
+                    waitTarget="swf1.content.document.dropdown1"/>
+                <DispatchMouseEvent type="mouseDown" target="swf1.content.document.dropdown1.skin" localX="5" localY="10" waitEvent="open" waitTarget="swf1.content.document.dropdown1"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseUp"   target="swf1.content.document.dropdown1.skin" localX="5" localY="10" />
+                <DispatchMouseClickEvent target="swf1.content.document.dropdown1.skin.popUp" localX="18" localY="38" />
+                <AssertEvent eventName="change" eventClass="spark.events::IndexChangeEvent" target="swf1.content.document.dropdown1" />
+           </body>
+         </TestCase-->                   
+    </testCases>
+</UnitTester>

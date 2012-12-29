@@ -21,7 +21,7 @@
 	<mx:Script>
 	<![CDATA[
 
-		[Embed(source="../../../../../Assets/Images/orangerect.jpg")]
+		[Embed(source="../../../../../Assets/Images/tinyorangerect.jpg")]
 	    public var bearIcon:Class;
 
 	]]>

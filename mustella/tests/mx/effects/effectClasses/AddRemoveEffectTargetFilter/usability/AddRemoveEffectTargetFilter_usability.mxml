@@ -45,15 +45,15 @@
         <TestCase testID="AddRemoveEffectTargetFilter_addItem" keywords="[AddRemoveEffectTargetFilter, usability]" description="Add an item to a list with a data effect.">
             <body>
                 <RunCode code="application.addListItem();" waitTarget="dataChangeEffect1" waitEvent="effectEnd"/>
-                <CompareBitmap target="tlist0" url="../usability/baseline/AddRemoveEffectTargetFilter_addItem.png" />
+                <CompareBitmap target="tlist0" url="../usability/baseline/AddRemoveEffectTargetFilter_addItem.png" numColorVariances="1" maxColorVariance="1"/>
             </body>
         </TestCase>
 
-        <!-- AddItem -->
+        <!-- RemoveItem -->
         <TestCase testID="AddRemoveEffectTargetFilter_removeItem" keywords="[AddRemoveEffectTargetFilter, usability]" description="Remove an item from the list with a data effect.">
             <body>
                 <RunCode code="application.removeListItem();" waitTarget="dataChangeEffect1" waitEvent="effectEnd"/>
-                <CompareBitmap target="tlist0" url="../usability/baseline/AddRemoveEffectTargetFilter_removeItem.png" />
+                <CompareBitmap target="tlist0" url="../usability/baseline/AddRemoveEffectTargetFilter_removeItem.png" numColorVariances="1" maxColorVariance="1"/>
             </body>
         </TestCase>
     </testCases>

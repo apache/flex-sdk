@@ -282,6 +282,7 @@ mx.core.DesignLayer:
 	<body>
 		<SetProperty target="propertiesGroup.dlAlphaNested1" propertyName="alpha" value="0.5"  />
 		<SetProperty target="propertiesGroup.dlAlphaNested2" propertyName="alpha" value="0.5"  />
+		<WaitForLayoutManager />
 
 		<AssertPropertyValue target="propertiesGroup.dlAlphaNested1" propertyName="alpha" value="0.5" />
 		<AssertPropertyValue target="propertiesGroup.dlAlphaNested2" propertyName="alpha" value="0.5" />
@@ -343,6 +344,7 @@ mx.core.DesignLayer:
 	</setup>
 	<body>
 		<SetProperty target="propertiesGroup.dlVisible" propertyName="visible" value="false" />
+		<WaitForLayoutManager />
 
 		<AssertPropertyValue target="propertiesGroup.dlVisible" propertyName="visible" value="false" />
 		<AssertPropertyValue target="propertiesGroup.dlVisibleVetA" propertyName="visible" value="true" />
@@ -383,6 +385,7 @@ mx.core.DesignLayer:
 	<body>
 		<SetProperty target="propertiesGroup.dlVisibleNested1" propertyName="visible" value="false"  />
 		<SetProperty target="propertiesGroup.dlVisibleNested2" propertyName="visible" value="true"  />
+		<WaitForLayoutManager />
 
 		<AssertPropertyValue target="propertiesGroup.dlVisibleNested1" propertyName="visible" value="false" />
 		<AssertPropertyValue target="propertiesGroup.dlVisibleNested2" propertyName="visible" value="true" />

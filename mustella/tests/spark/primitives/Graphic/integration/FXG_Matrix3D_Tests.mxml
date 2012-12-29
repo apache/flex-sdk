@@ -50,7 +50,9 @@
 	    <body>
 		    <AssertPropertyValue value="3" propertyName="scaleX" target="ellipse1" />
 			<AssertPropertyValue value="0.5" propertyName="scaleY" target="ellipse1" />
-			<CompareBitmap numColorVariances="4" maxColorVariance="7" target="group1" url="../Integration/baselines/$testID.png" timeout="2500" />
+			<CompareBitmap target="group1" url="../Integration/baselines/" timeout="2500">
+				<ConditionalValue os="win" />
+			</CompareBitmap>
 	    </body>
 	  </TestCase>
 	  <TestCase testID="FXG_Matrix3D_AS_scale" description="Test scaling an ellipse using a Matrix3D within a transform at runtime"
@@ -67,7 +69,9 @@
 	            waitEvent="updateComplete" />
 		    <AssertPropertyValue value="1" propertyName="scaleX" target="ellipse1" />
 			<AssertPropertyValue value="1" propertyName="scaleY" target="ellipse1" />
-			<CompareBitmap numColorVariances="4" maxColorVariance="7" target="group1" url="../Integration/baselines/$testID.png" timeout="2500" />
+			<CompareBitmap target="group1" url="../Integration/baselines/" timeout="2500" >
+				<ConditionalValue os="win" />
+			</CompareBitmap>
 	    </body>
 	  </TestCase>
 	  <TestCase testID="FXG_Matrix3D_AS_rotate" description="Test scaling an ellipse using a Matrix3D within a transform at runtime"
@@ -82,7 +86,9 @@
 	    <body>
 	        <SetProperty target="ellipse1.transform" propertyName="matrix3D" valueExpression="value=application.rotate3D" waitTarget="ellipse1"
 	            waitEvent="updateComplete" />
-			<CompareBitmap numColorVariances="8" maxColorVariance="256" target="group1" url="../Integration/baselines/$testID.png" timeout="2500" />
+			<CompareBitmap target="group1" url="../Integration/baselines/" timeout="2500">
+				<ConditionalValue os="win"/>
+			</CompareBitmap>
 	    </body>
 	  </TestCase>
 

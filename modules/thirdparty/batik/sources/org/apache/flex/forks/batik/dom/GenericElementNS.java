@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,13 +18,14 @@
  */
 package org.apache.flex.forks.batik.dom;
 
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 
 /**
  * This class implements the {@link org.w3c.dom.Element} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: GenericElementNS.java,v 1.5 2004/08/18 07:13:08 vhardy Exp $
+ * @version $Id: GenericElementNS.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class GenericElementNS extends AbstractElementNS {
     /**
@@ -59,15 +61,15 @@ public class GenericElementNS extends AbstractElementNS {
      */
     public GenericElementNS(String nsURI, String name,
                             AbstractDocument owner) {
-	super(nsURI, name, owner);
-	nodeName = name;
+        super(nsURI, name, owner);
+        nodeName = name;
     }
 
     /**
      * Sets the name of this node.
      */
     public void setNodeName(String v) {
-	nodeName = v;
+        nodeName = v;
     }
 
     /**
@@ -75,7 +77,7 @@ public class GenericElementNS extends AbstractElementNS {
      * @return {@link #nodeName}
      */
     public String getNodeName() {
-	return nodeName;
+        return nodeName;
     }
 
     // ExtendedNode ///////////////////////////////////////////////////
@@ -84,32 +86,32 @@ public class GenericElementNS extends AbstractElementNS {
      * Tests whether this node is readonly.
      */
     public boolean isReadonly() {
-	return readonly;
+        return readonly;
     }
 
     /**
      * Sets this node readonly attribute.
      */
     public void setReadonly(boolean v) {
-	readonly = v;
+        readonly = v;
     }
 
     /**
      * Exports this node to the given document.
      */
     protected Node export(Node n, AbstractDocument d) {
-	GenericElementNS ge = (GenericElementNS)super.export(n, d);
-	ge.nodeName = nodeName;
-	return n;
+        GenericElementNS ge = (GenericElementNS)super.export(n, d);
+        ge.nodeName = nodeName;
+        return n;
     }
 
     /**
      * Deeply exports this node to the given document.
      */
     protected Node deepExport(Node n, AbstractDocument d) {
-	GenericElementNS ge = (GenericElementNS)super.deepExport(n, d);
-	ge.nodeName = nodeName;
-	return n;
+        GenericElementNS ge = (GenericElementNS)super.deepExport(n, d);
+        ge.nodeName = nodeName;
+        return n;
     }
 
     /**
@@ -117,9 +119,9 @@ public class GenericElementNS extends AbstractElementNS {
      * @param n a node of the type of this.
      */
     protected Node copyInto(Node n) {
-	GenericElementNS ge = (GenericElementNS)super.copyInto(n);
-	ge.nodeName = nodeName;
-	return n;
+        GenericElementNS ge = (GenericElementNS)super.copyInto(n);
+        ge.nodeName = nodeName;
+        return n;
     }
 
     /**
@@ -127,9 +129,9 @@ public class GenericElementNS extends AbstractElementNS {
      * @param n a node of the type of this.
      */
     protected Node deepCopyInto(Node n) {
-	GenericElementNS ge = (GenericElementNS)super.deepCopyInto(n);
-	ge.nodeName = nodeName;
-	return n;
+        GenericElementNS ge = (GenericElementNS)super.deepCopyInto(n);
+        ge.nodeName = nodeName;
+        return n;
     }
 
     /**

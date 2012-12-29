@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,16 +18,20 @@
  */
 package org.apache.flex.forks.batik.ext.awt.image.rendered;
 
-import java.util.Iterator;
-import java.util.Vector;
+
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * This class is responsible for breaking up a block of tiles into
- * a set of smaller requests that are a large as possible without
+ * a set of smaller requests that are as large as possible without
  * rerequesting significant numbers of tiles that are already
- * available 
+ * available.
+ *
+ * @version $Id: TileBlock.java 489226 2006-12-21 00:05:36Z cam $
  */
 public class TileBlock {
+
     int occX, occY, occW, occH;
     int xOff, yOff, w, h, benefit;
     boolean [] occupied;
@@ -34,8 +39,8 @@ public class TileBlock {
     /**
      * Construct a tile block this represents a block of contigous
      * tiles.
-     * @param xloc The x index of left edge of the tile block.
-     * @param yloc The y index of top edge of the tile block.
+     * @param xOff The x index of left edge of the tile block.
+     * @param yOff The y index of top edge of the tile block.
      * @param w    The number of tiles across in the block
      * @param h    The number of tiles down  the block
      * @param occupied Which entries in the block are already
@@ -53,13 +58,11 @@ public class TileBlock {
         this.h    = h   ;
         this.occupied = occupied;
 
-
-
-        // System.out.println("Block: [" + 
-        //                    xloc + "," + yloc + ","  + 
+        // System.out.println("Block: [" +
+        //                    xloc + "," + yloc + ","  +
         //                    w + "," + h + "]");
         for (int y=0; y<h; y++)
-            for (int x=0; x<w; x++)                
+            for (int x=0; x<w; x++)
                 if (!occupied[x+xOff+occW*(y+yOff)])
                     benefit++;
     }
@@ -78,9 +81,9 @@ public class TileBlock {
                         ret += "+";
                     else  if ((y>yOff) && (y<yOff+h-1))
                         ret += "|";
-                    else 
+                    else
                         ret += " ";
-                } 
+                }
                 else if ((y==yOff)     && (x> xOff) && (x < xOff+w))
                     ret += "-";
                 else if ((y==yOff+h-1) && (x> xOff) && (x < xOff+w))
@@ -91,7 +94,7 @@ public class TileBlock {
                 if (x== occW)
                     continue;
 
-                if (occupied[x+y*occW]) 
+                if (occupied[x+y*occW])
                     ret += "*";
                 else
                     ret += ".";
@@ -101,29 +104,32 @@ public class TileBlock {
         return ret;
     }
 
-    /** 
+    /**
      * Return the x location of this block of tiles
      */
     int getXLoc()    { return occX+xOff; }
-    /** 
+
+    /**
      * Return the y location of this block of tiles
      */
     int getYLoc()    { return occY+yOff; }
-    /** 
+
+    /**
      * Return the width of this block of tiles
      */
     int getWidth()   { return w; }
-    /** 
+
+    /**
      * Return the height of this block of tiles
      */
     int getHeight()  { return h; }
 
-    /** 
+    /**
      * Return the number of new tiles computed.
      */
     int getBenefit() { return benefit; }
-        
-    /** 
+
+    /**
      * Return the approximate amount of work required to compute
      * those tiles.
      */
@@ -132,9 +138,9 @@ public class TileBlock {
     /**
      * Returns the total amount of work for the array of tile blocks
      */
-    static int getWork(TileBlock [] blocks) { 
+    static int getWork(TileBlock [] blocks) {
         int ret=0;
-        for (int i=0; i<blocks.length; i++) 
+        for (int i=0; i<blocks.length; i++)
             ret += blocks[i].getWork();
         return ret;
     }
@@ -147,7 +153,7 @@ public class TileBlock {
     TileBlock [] getBestSplit() {
         if (simplify())
             return null;
-            
+
         // Optimal split already...
         if (benefit == w*h)
             return new TileBlock [] { this };
@@ -157,7 +163,7 @@ public class TileBlock {
 
     public TileBlock [] splitOneGo() {
         boolean [] filled = (boolean [])occupied.clone();
-        Vector items = new Vector();
+        List items = new ArrayList();
         for (int y=yOff; y<yOff+h; y++)
             for (int x=xOff; x<xOff+w; x++) {
                 if (!filled[x+y*occW]) {
@@ -176,7 +182,7 @@ public class TileBlock {
                     int ch=1;
                     for (int cy=y+1; cy<yOff+h; cy++) {
                         int cx=x;
-                        for (; cx<x+cw; cx++) 
+                        for (; cx<x+cw; cx++)
                             if (filled[cx+cy*occW])
                                 break;
 
@@ -185,29 +191,30 @@ public class TileBlock {
                             break;
 
                         // Fill in the slot since we will use it...
-                        for (cx=x; cx<x+cw; cx++) 
+                        for (cx=x; cx<x+cw; cx++)
                             filled[cx+cy*occW] = true;
                         ch++;
                     }
-                    items.add(new TileBlock(occX, occY, occW, occH, 
+                    items.add(new TileBlock(occX, occY, occW, occH,
                                             occupied, x, y, cw, ch));
                     x+=(cw-1);
                 }
             }
 
         TileBlock [] ret = new TileBlock[items.size()];
-        Iterator iter = items.iterator();
-        int i=0;
-        while (iter.hasNext())
-            ret[i++] = (TileBlock)iter.next();
+        items.toArray( ret );
+
         return ret;
     }
 
     public boolean simplify() {
+
+        boolean[] workOccupied = occupied;   // local is cheaper
+
         for (int y=0; y<h; y++) {
             int x;
-            for (x=0; x<w; x++)                
-                if (!occupied[x+xOff+occW*(y+yOff)])
+            for (x=0; x<w; x++)
+                if (!workOccupied[x+xOff+occW*(y+yOff)])
                     break;
             if (x!=w) break;
 
@@ -224,8 +231,8 @@ public class TileBlock {
 
         for (int y=h-1; y>=0; y--) {
             int x;
-            for (x=0; x<w; x++)                
-                if (!occupied[x+xOff+occW*(y+yOff)])
+            for (x=0; x<w; x++)
+                if (!workOccupied[x+xOff+occW*(y+yOff)])
                     break;
             if (x!=w) break;
 
@@ -236,11 +243,11 @@ public class TileBlock {
         for (int x=0; x<w; x++) {
             int y;
             for (y=0; y<h; y++)
-                if (!occupied[x+xOff+occW*(y+yOff)])
+                if (!workOccupied[x+xOff+occW*(y+yOff)])
                     break;
             if (y!=h) break;
 
-            // Fully occupied Col so remove it. 
+            // Fully occupied Col so remove it.
             xOff++;
             x--;
             w--;
@@ -249,16 +256,14 @@ public class TileBlock {
         for (int x=w-1; x>=0; x--) {
             int y;
             for (y=0; y<h; y++)
-                if (!occupied[x+xOff+occW*(y+yOff)])
+                if (!workOccupied[x+xOff+occW*(y+yOff)])
                     break;
             if (y!=h) break;
 
-            // Fully occupied Col so remove it. 
+            // Fully occupied Col so remove it.
             w--;
         }
 
         return false;
     }
 }
-
-

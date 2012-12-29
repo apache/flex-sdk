@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,10 +24,10 @@ import org.w3c.dom.Node;
 /**
  * This is a development only class. It is used temporarily in the
  * SVG DOM implementation for SVG elements whose DOM support has not
- * been put in
+ * been put in.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: SVGOMToBeImplementedElement.java,v 1.8 2004/08/18 07:13:18 vhardy Exp $
+ * @version $Id: SVGOMToBeImplementedElement.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class SVGOMToBeImplementedElement
     extends SVGGraphicsElement {
@@ -72,20 +73,20 @@ public class SVGOMToBeImplementedElement
      * Exports this node to the given document.
      */
     protected Node export(Node n, AbstractDocument d) {
-	super.export(n, d);
-	SVGOMToBeImplementedElement ae = (SVGOMToBeImplementedElement)n;
-	ae.localName = localName;
-	return n;
+        super.export(n, d);
+        SVGOMToBeImplementedElement ae = (SVGOMToBeImplementedElement)n;
+        ae.localName = localName;
+        return n;
     }
 
     /**
      * Deeply exports this node to the given document.
      */
     protected Node deepExport(Node n, AbstractDocument d) {
-	super.deepExport(n, d);
-	SVGOMToBeImplementedElement ae = (SVGOMToBeImplementedElement)n;
-	ae.localName = localName;
-	return n;
+        super.deepExport(n, d);
+        SVGOMToBeImplementedElement ae = (SVGOMToBeImplementedElement)n;
+        ae.localName = localName;
+        return n;
     }
 
     /**
@@ -93,10 +94,10 @@ public class SVGOMToBeImplementedElement
      * @param n a node of the type of this.
      */
     protected Node copyInto(Node n) {
-	super.copyInto(n);
-	SVGOMToBeImplementedElement ae = (SVGOMToBeImplementedElement)n;
-	ae.localName = localName;
-	return n;
+        super.copyInto(n);
+        SVGOMToBeImplementedElement ae = (SVGOMToBeImplementedElement)n;
+        ae.localName = localName;
+        return n;
     }
 
     /**
@@ -104,9 +105,9 @@ public class SVGOMToBeImplementedElement
      * @param n a node of the type of this.
      */
     protected Node deepCopyInto(Node n) {
-	super.deepCopyInto(n);
-	SVGOMToBeImplementedElement ae = (SVGOMToBeImplementedElement)n;
-	ae.localName = localName;
+        super.deepCopyInto(n);
+        SVGOMToBeImplementedElement ae = (SVGOMToBeImplementedElement)n;
+        ae.localName = localName;
         return n;
     }
 

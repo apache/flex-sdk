@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/AdvancedDataGrid/Styles/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AdvancedDataGridMain.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.controls.DateChooser;
+        import mx.controls.AdvancedDataGrid;
+        import mx.containers.Canvas;
+        import mx.styles.StyleManager;
+        import mx.managers.SystemManager;
+    
+        public var mydatagrid:AdvancedDataGrid
+        public var testgrid:AdvancedDataGrid
+        public var mybox:Canvas;
+    
+        public function addItems():void
+        {
+            for(var i:int=0;i<15;i++)
+            {
+                var obj:Object={col1:'one'+i,col2:i,col3:'three'+i}
+                application.mydatagrid.dataProvider.addItem(obj);
+            }
+        }
+        public function setAIcolors():void
+        {
+            application.mydatagrid.setStyle("alternatingItemColors",[0xFFCC00,0x00FF00]);
+        }
+        public function setBg():void
+        {
+            application.mydatagrid.setStyle("backgroundColor",0xFF0000);
+        }
+        public function setFF():void
+        {  
+           application.mydatagrid.setStyle("fontFamily","EmbeddedArial");
+        }
+        public function startApp():void
+        {
+          application.startIt();
+        }
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+        <TestCase testID="style_borderThickness" keywords="[AdvancedDataGrid, borderColor, borderThickness]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="borderThickness" value="5"/>
+                <SetStyle target="mydatagrid" styleName="borderColor" value="0xFF0000" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <AssertPixelValue target="mydatagrid" x="2" y="2" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_borderColor_string" keywords="[AdvancedDataGrid, borderColor, borderThickness]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="borderThickness" value="5"/>
+                <SetStyle target="mydatagrid" styleName="borderColor" value="green" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <AssertPixelValue target="mydatagrid" x="2" y="2" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_borderColor_0x" keywords="[AdvancedDataGrid, borderColor, borderThickness]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="borderColor" value="0x0FFCC00" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <AssertPixelValue target="mydatagrid" x="2" y="2" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_borderColor_pound" keywords="[AdvancedDataGrid, borderColor, borderThickness]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="borderThickness" value="5"/>
+                <SetStyle target="mydatagrid" styleName="borderColor" value="#008000" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <AssertPixelValue target="mydatagrid" x="2" y="2" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_borderSides_all" keywords="[AdvancedDataGrid, borderSides]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+                <SetStyle target="mydatagrid" styleName="borderSides" value="top bottom left right" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_bordersides_all.png" timeout="5000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_borderSides_lr" keywords="[AdvancedDataGrid, borderSides]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+                <SetStyle target="mydatagrid" styleName="borderSides" value="left right" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_bordersides_lr.png" timeout="5000"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_borderStyle_inset" keywords="[AdvancedDataGrid, borderStyle, inset]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+                <SetStyle target="mydatagrid" styleName="borderStyle" value="inset" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_borderstyle_inset.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="style_borderStyle_outset" keywords="[AdvancedDataGrid, borderStyle, outset]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+                <SetStyle target="mydatagrid" styleName="borderStyle" value="outset" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_borderstyle_outset.png" timeout="5000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_color_string" keywords="[AdvancedDataGrid, borderStyle, solid]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp(); addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>                
+                <SetStyle target="mydatagrid" styleName="color" value="#008000" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <AssertPixelValue target="mydatagrid" x="2" y="2" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+        
+        <!-- Seems like a problem, visually they are all fine, but asserts are failing-->
+        <TestCase testID="style_color_0x" keywords="[AdvancedDataGrid, color]">
+             <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+             </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="color" value="0xFFCC00" waitTarget="mydatagrid" waitEvent="updateComplete"/>          
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_color_pound" keywords="[AdvancedDataGrid, color]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="color" value="#FF0000" waitTarget="mydatagrid" waitEvent="updateComplete"/>        
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_fontFamily_mxml" keywords="[AdvancedDataGrid, fontFamily]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+            </setup>
+            <body>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/$testID_EmbeddedVerdana.png" timeout="5000" />
+
+                <SetStyle target="mydatagrid" styleName="fontFamily" value="EmbeddedArial" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/$testID_EmbeddedArial.png" timeout="5000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_fontFamily_AS" keywords="[AdvancedDataGrid, fontFamily]">
+             <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+             </setup>
+            <body>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/$testID_EmbeddedVerdana.png" timeout="5000" />
+                
+                <RunCode code="setFF()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+                
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/$testID_EmbeddedArial.png" timeout="5000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_fontWeight" keywords="[AdvancedDataGrid, fontWeight]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+                <SetStyle target="mydatagrid" styleName="fontWeight" value="bold" waitTarget="mydatagrid" waitEvent="updateComplete"/>          
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_fontweight_bold.png" timeout="5000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_fontStyle" keywords="[AdvancedDataGrid, fontStyle]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+                <SetStyle target="mydatagrid" styleName="fontStyle" value="italic" waitTarget="mydatagrid" waitEvent="updateComplete"/>            
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_fontstyle_italic.png" timeout="5000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_fontSize" keywords="[AdvancedDataGrid, fontStyle]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+                <SetStyle target="mydatagrid" styleName="fontSize" value="16" waitTarget="mydatagrid" waitEvent="updateComplete"/>            
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_fontsize_16.png" timeout="5000"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_dropShadowEnabled" keywords="[AdvancedDataGrid, dropShadowEnabled]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+                <SetStyle target="mydatagrid" styleName="dropShadowEnabled" value="true" waitTarget="mydatagrid" waitEvent="updateComplete"/>       
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="shadowDirection" value="left" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetStyle target="mydatagrid" styleName="shadowDistance" value="6" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_dropShadowEnabled_true.png" timeout="5000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_shadowDirection" keywords="[AdvancedDataGrid, dropShadowDirection]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="shadowDirection" value="right" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_shadowdirection_right.png" timeout="5000" />
+            </body>
+        </TestCase>
+            
+        <TestCase testID="style_shadowDistance" keywords="[AdvancedDataGrid, dropShadowDistance]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="shadowDirection" value="left" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetStyle target="mydatagrid" styleName="shadowDistance" value="8" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_shadowdistance_8.png" timeout="5000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_textDecoration" keywords="[AdvancedDataGrid, textDecoration]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()" waitTarget="mydatagrid" waitEvent="updateComplete"/>                
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="textDecoration" value="underline" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_textdecoration_underline.png" timeout="5000"/>
+            </body>
+        </TestCase>
+
+	</testCases>
+
+</UnitTester>

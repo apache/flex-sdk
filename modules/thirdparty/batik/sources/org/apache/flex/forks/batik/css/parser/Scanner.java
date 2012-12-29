@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -15,11 +16,6 @@
    limitations under the License.
 
  */
- 
-/**
- *  Modified by Adobe Flex.
- */
-
 package org.apache.flex.forks.batik.css.parser;
 
 import java.io.IOException;
@@ -32,12 +28,16 @@ import org.apache.flex.forks.batik.util.io.NormalizingReader;
 import org.apache.flex.forks.batik.util.io.StreamNormalizingReader;
 import org.apache.flex.forks.batik.util.io.StringNormalizingReader;
 
+ /**
+  *  Modified by Adobe Flex.
+  */
+
 /**
  * This class represents a CSS scanner - an object which decodes CSS lexical
  * units.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: Scanner.java,v 1.17 2005/03/27 08:58:31 cam Exp $
+ * @version $Id: Scanner.java 478283 2006-11-22 18:53:40Z dvholten $
  */
 public class Scanner {
 
@@ -442,7 +442,7 @@ public class Scanner {
                     start = position - 1;
                     do {
                         nextChar();
-                        if (current == '\\') {
+                        while (current == '\\') {
                             nextChar();
                             escape();
                         }
@@ -825,8 +825,7 @@ public class Scanner {
     
     private boolean identifierOrFunction() throws IOException
     {
-    	if (ScannerUtilities.isCSSIdentifierStartCharacter
-                ((char)current)) {
+    	if (ScannerUtilities.isCSSIdentifierStartCharacter((char)current)) {
     		identifierOrFunctionWithoutStartCharacterCheck();
             return true;
         }
@@ -1392,10 +1391,9 @@ public class Scanner {
         }
 
         if (position == buffer.length) {
-            char[] t = new char[position * 3 / 2];
-            for (int i = 0; i < position; i++) {
-                t[i] = buffer[i];
-            }
+            // list is full, grow to 1.5 * size
+            char[] t = new char[ 1 + position + position / 2];
+            System.arraycopy( buffer, 0, t, 0, position );
             buffer = t;
         }
 

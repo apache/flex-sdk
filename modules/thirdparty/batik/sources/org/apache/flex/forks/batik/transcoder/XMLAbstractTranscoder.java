@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -47,7 +48,7 @@ import org.w3c.dom.Document;
  * </ul>
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: XMLAbstractTranscoder.java,v 1.14 2004/10/30 18:38:06 deweese Exp $
+ * @version $Id: XMLAbstractTranscoder.java 475685 2006-11-16 11:16:05Z cam $
  */
 public abstract class XMLAbstractTranscoder extends AbstractTranscoder {
 
@@ -55,7 +56,7 @@ public abstract class XMLAbstractTranscoder extends AbstractTranscoder {
      * Constructs a new <tt>XMLAbstractTranscoder</tt>.
      */
     protected XMLAbstractTranscoder() {
-	hints.put(KEY_XML_PARSER_VALIDATING, Boolean.FALSE);
+        hints.put(KEY_XML_PARSER_VALIDATING, Boolean.FALSE);
     }
 
     /**
@@ -84,7 +85,7 @@ public abstract class XMLAbstractTranscoder extends AbstractTranscoder {
                 (String)hints.get(KEY_DOCUMENT_ELEMENT);
             DOMImplementation domImpl =
                 (DOMImplementation)hints.get(KEY_DOM_IMPLEMENTATION);
-	    
+            
             if (parserClassname == null) {
                 parserClassname = XMLResourceDescriptor.getXMLParserClassName();
             }
@@ -105,9 +106,9 @@ public abstract class XMLAbstractTranscoder extends AbstractTranscoder {
             }
             // parse the XML document
             DocumentFactory f = createDocumentFactory(domImpl, parserClassname);
-	    boolean b =
-		((Boolean)hints.get(KEY_XML_PARSER_VALIDATING)).booleanValue();
-	    f.setValidating(b);
+            boolean b =
+                ((Boolean)hints.get(KEY_XML_PARSER_VALIDATING)).booleanValue();
+            f.setValidating(b);
             try {
                 if (input.getInputStream() != null) {
                     document = f.createDocument(namespaceURI,
@@ -132,7 +133,6 @@ public abstract class XMLAbstractTranscoder extends AbstractTranscoder {
             } catch (DOMException ex) {
                 handler.fatalError(new TranscoderException(ex));
             } catch (IOException ex) {
-                ex.printStackTrace();
                 handler.fatalError(new TranscoderException(ex));
             }
         }
@@ -159,7 +159,7 @@ public abstract class XMLAbstractTranscoder extends AbstractTranscoder {
      */
     protected DocumentFactory createDocumentFactory(DOMImplementation domImpl,
                                                     String parserClassname) {
-	return new SAXDocumentFactory(domImpl, parserClassname);
+        return new SAXDocumentFactory(domImpl, parserClassname);
     }
 
     /**

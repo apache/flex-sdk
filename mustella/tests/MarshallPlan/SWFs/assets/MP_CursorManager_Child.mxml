@@ -19,7 +19,7 @@
 -->
 <mx:Application height="500" width="500"
     xmlns:mx="http://www.adobe.com/2006/mxml"
-    backgroundColor="0xFFFFFF"
+    backgroundColor="0x00FFFF"
     backgroundImage="">
 
   <mx:Style source="../../../../Assets/Fonts/myStyles.css" />
@@ -50,7 +50,7 @@
 
     <mx:Fade id="testEffect" alphaFrom="1" alphaTo="2" duration="1000" />
 
-    <mx:Panel x="10" y="10" id="testPanel" layout="absolute"  width="400" height="300"
+    <mx:Panel x="10" y="10" id="testPanel" layout="absolute"  width="400" height="300" backgroundColor="0xFF00FF"
         title="Test Panel">
     <mx:Button bottom="15" id="btn1" click="this.cursorManager.setCursor(cursorPencil, CursorManagerPriority.HIGH, 0, 0)" />
     <mx:Button bottom="15" right="10" id="btn2" click="ResetCursorManager()" />

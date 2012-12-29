@@ -16,7 +16,7 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-﻿package data{
+package data{
 import mx.controls.*;
 import mx.core.*;
 import flash.events.*;

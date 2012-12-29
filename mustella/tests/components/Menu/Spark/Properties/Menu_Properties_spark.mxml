@@ -74,6 +74,11 @@
 
         private function changeDP(node:int, bool:String):void
         {
+            // If we're running an individual test we need to ensure myDP has been
+            // created before attempting to modify it.
+            if (!myDP)
+                createAMenu(0);
+                
             myDP.node[node].@enabled = bool;
         }
 
@@ -155,12 +160,12 @@
                 <AssertPropertyValue target="menu1" propertyName="selectedIndex" value="1" />
             </body>
             <cleanup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
             </cleanup>
         </TestCase>
         <TestCase testID="Enabled_falseToTrue" description="Menu dataProvider item is set to false and changed to true test." keywords="[enabled, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                <RunCode code="createAMenu(0);" />
                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                <RunCode code="changeDP(0,'true');" />
@@ -170,13 +175,13 @@
                 <AssertPropertyValue target="menu1" propertyName="selectedIndex" value="0" />
             </body>
             <cleanup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
             </cleanup>
         </TestCase>
         <!-- This test is failing because of bug #190107 -->
         <TestCase testID="Enabled_trueToFalse"  description="Menu dataProvider item is set to true and changed to false test." keywords="[enabled, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu(0);" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                 <RunCode code="changeDP(1, 'false');" />
@@ -186,13 +191,13 @@
                 <AssertPropertyValue target="menu1" propertyName="selectedIndex" value="2" />
             </body>
             <cleanup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
             </cleanup>
         </TestCase>
 <!-- property: labelField -->
         <TestCase testID="LabelField_Menu"  description="Menu labelField is set to 'data'." keywords="[labelField, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="changeDP(1, 'true');" />
                 <RunCode code="createAMenu(1)" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
@@ -207,7 +212,7 @@
 <!-- property: icon -->
         <TestCase testID="Icon_Basic"  description="Menu item icon is set at top level. bitmap test." keywords="[icon, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="addObjData();" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -215,14 +220,14 @@
                 <CompareBitmap target="menu1" url="../Properties/baselines/Icon_Basic.png" timeout="2500" />
             </body>
             <cleanup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
             </cleanup>
         </TestCase>
 <!-- property: iconField -->
         <TestCase testID="IconField_Basic"  description="Menu iconField is set. bitmap test." keywords="[iconField, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
-                <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="addObjData();" />
             </setup>
             <body>
@@ -231,13 +236,13 @@
                 <CompareBitmap target="menu1" url="../Properties/baselines/IconField_Basic.png" timeout="2500" />
             </body>
             <cleanup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
             </cleanup>
         </TestCase>
 <!-- property: selectedIndex -->
         <TestCase testID="selectedIndex_Zero_Keys"  description="Menu selectedIndex=0 test with keyboard interaction." keywords="[selectedIndex, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <DispatchMouseEvent type="mouseDown" localX="50" localY="50" target="" />
                 <RunCode code="addObjData();" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
@@ -247,7 +252,7 @@
                 <AssertPropertyValue target="menu1" propertyName="selectedIndex" value="0" />
             </body>
             <cleanup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
             </cleanup>
         </TestCase>
         <TestCase testID="selectedIndex_Num_Keys" description="Menu selectedIndex=1 test with keyboard interaction." keywords="[selectedIndex, Menu]">
@@ -261,13 +266,13 @@
                 <AssertPropertyValue target="menu1" propertyName="selectedIndex" value="1" />
             </body>
             <cleanup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
             </cleanup>
         </TestCase>
 <!-- property: hasRoot -->
         <TestCase testID="hasRoot_True" description="Menu hasRoot set to true for Object dataProvider." keywords="[hasRoot, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="addRootData()" />
                 <RunCode code="application.menu1= Menu.createMenu(null,rootDP, true);" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
@@ -276,12 +281,12 @@
                 <AssertPropertyValue target="menu1" propertyName="hasRoot" value="true" />
             </body>
             <cleanup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
             </cleanup>
         </TestCase>
         <TestCase testID="hasRoot_False" description="Menu hasRoot set to false for Object dataProvider." keywords="[hasRoot, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="addObjData()" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -289,13 +294,13 @@
                 <AssertPropertyValue target="menu1" propertyName="hasRoot" value="false" />
             </body>
             <cleanup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
             </cleanup>
         </TestCase>
 <!-- property: showRoot -->
         <TestCase testID="showRoot_TrueAS" description="Menu showRoot set to true for Object dataProvider." keywords="[showRoot, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="addRootData()" />
                 <RunCode code="application.menu1= Menu.createMenu(null,rootDP, true);" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
@@ -308,7 +313,7 @@
         </TestCase>
         <TestCase testID="showRoot_FalseAS" description="Menu showRoot set to false for Object dataProvider" keywords="[showRoot, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="addRootData()" />
                 <RunCode code="application.menu1=Menu.createMenu(null, rootDP, false);" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
@@ -321,7 +326,7 @@
         </TestCase>
         <TestCase testID="showRoot_FalseXML" description="Menu showRoot set to false for XML dataProvider" keywords="[showRoot, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu(0);"  />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -334,7 +339,7 @@
         <!-- property: dataDescriptor methods -->
         <TestCase testID="dataDescriptor_addChildAt" description="Menu dataDescriptor method test: addChildAt" keywords="[addChildAt, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu(0);" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                 <RunCode code="testAddChildAt()" waitTarget="menu1" waitEvent="updateComplete" />
@@ -347,7 +352,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_getChildren" description="Menu dataDescriptor method test: getChildren" keywords="[getChildren, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu(0);" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                 <RunCode code="testGetChildren()" />
@@ -358,7 +363,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_getType" description="Menu dataDescriptor method test: getType" keywords="[getType, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu(0);" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -368,7 +373,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_hasChildren_false" description="Menu dataDescriptor method test: hasChildren (return false)" keywords="[hasChildren, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu(0);" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -378,7 +383,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_hasChildren_true" description="Menu dataDescriptor method test: hasChildren (return true)" keywords="[hasChildren, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu(0);" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -388,7 +393,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_isBranch_false" description="Menu dataDescriptor method test: isBranch (return false)" keywords="[isBranch, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu(0);" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -398,7 +403,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_isBranch_true" description="Menu dataDescriptor method test: isBranch (return true)" keywords="[isBranch, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                  <RunCode code="createAMenu(0);" />
                  <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -408,7 +413,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_isEnabled_false" description="Menu dataDescriptor method test: isEnabled (return false)" keywords="[isEnabled, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu(0);" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                 <RunCode code="changeDP(2,'false');" />
@@ -422,7 +427,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_isEnabled_true" description="Menu dataDescriptor method test: isEnabled (return true)" keywords="[isEnabled, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="createAMenu(0);" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
 
@@ -433,7 +438,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_isToggled_false"  description="Menu dataDescriptor method test: isToggled (return false)" keywords="[isToggled, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                  <RunCode code="createAMenu(0);" />
                  <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                  <RunCode code="myDP.node[0].nodeitem[2].@toggled=false" waitTarget="menu1" waitEvent="updateComplete" />
@@ -445,7 +450,7 @@
 
         <TestCase testID="dataDescriptor_isToggled_true"  description="Menu dataDescriptor method test: isToggled (return true)" keywords="[isToggled, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                  <RunCode code="createAMenu(0);" />
                  <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -455,7 +460,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_isToggled_afterSelection"  description="Menu dataDescriptor method test: isToggled (after a selection)" keywords="[isToggled, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                  <RunCode code="createAMenu(0);" />
                  <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
             </setup>
@@ -466,7 +471,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_removeChildAt"  description="Menu dataDescriptor method test: removeChildAt" keywords="[removeChildAt, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                  <RunCode code="createAMenu(0);" />
                  <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                  <RunCode code="testRemoveChildAt()" waitTarget="menu1" waitEvent="updateComplete" />
@@ -479,7 +484,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_setEnabled_false" description="Menu dataDescriptor method test: setEnabled to false" keywords="[setEnabled, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                  <RunCode code="createAMenu(0);" />
                  <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                  <RunCode code="testSetEnabled(0)" waitTarget="menu1" waitEvent="updateComplete" />
@@ -492,7 +497,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_setEnabled_true" description="Menu dataDescriptor method test: setEnabled to true" keywords="[setEnabled, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                  <RunCode code="createAMenu(0);" />
                  <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                  <RunCode code="testSetEnabled(0)"  />
@@ -506,7 +511,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_setToggled_false" description="Menu dataDescriptor method test: setToggled to false" keywords="[setToggled, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                  <RunCode code="createAMenu(0);" />
                  <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                  <RunCode code="testSetToggled(0)" waitTarget="menu1" waitEvent="updateComplete" />
@@ -517,7 +522,7 @@
         </TestCase>
         <TestCase testID="dataDescriptor_setToggled_true" description="Menu dataDescriptor method test: setToggled to true" keywords="[setToggled, dataDescriptor, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                  <RunCode code="createAMenu(0);" />
                  <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                  <RunCode code="testSetToggled(1)" waitTarget="menu1" waitEvent="updateComplete" />
@@ -529,7 +534,7 @@
         <TestCase testID="reference_typeIcon_fromItemRenderer"  description="Ensure that in bc mode, you can access icon from a subclass of MenuItemRenderer."
            keywords="[typeIcon, itemRenderer, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <WaitForEffectsToEnd />
                 <RunCode code="createASimpleMenu();" />
                 <SetProperty propertyName="labelField" target="menu1" value="@label" />
@@ -546,12 +551,12 @@
                 <CompareBitmap target="menu1" url="../Properties/baselines/typeIconReference_itemRenderer.png" timeout="2500" />
             </body>
             <cleanup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
             </cleanup>
         </TestCase>
         <!--TestCase testID="Menu_dataProvider_null" description="Show a menu with a null dataprovider." keywords="[dataProvider, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                <RunCode code="createAMenu(0);" />
                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                <RunCode code="application.menu1.dataProvider.removeAll()"/>
@@ -561,12 +566,12 @@
                <AssertPropertyValue target="menu1.dataProvider" propertyName="length" value="0" />
             </body>
             <cleanup>
-                <RunCode code="application.menu1.hide()" />
+                <RunCode code="if (application.menu1) application.menu1.hide()" />
             </cleanup>
         </TestCase-->
         <TestCase testID="Menu_layoutDirection_RTL_keyboard"  description="Menu layoutDirection set to RTL." keywords="[layoutDirection, Mirroring, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="changeDP(1, 'true');" />
                 <RunCode code="createAMenu(1)" />
                 <SetStyle styleName="layoutDirection" value="rtl" target="menu1" />
@@ -583,7 +588,7 @@
         </TestCase>
         <TestCase testID="Menu_layoutDirection_RTL_visual"  description="Menu layoutDirection set to RTL." keywords="[layoutDirection, Mirroring, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="changeDP(1, 'true');" />
                 <RunCode code="createAMenu(1)" />
                 <SetStyle styleName="layoutDirection" value="rtl" target="menu1" />
@@ -601,7 +606,7 @@
         </TestCase>
         <TestCase testID="Menu_layoutDirection_RTL_onParent"  description="Menu layoutDirection set to RTL." keywords="[layoutDirection, Mirroring, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="changeDP(1, 'true');" />
                 <RunCode code="createAMenu(1)" />
                 <SetStyle styleName="layoutDirection" value="rtl" target="menu1" />
@@ -621,7 +626,7 @@
         </TestCase>
         <TestCase testID="Menu_layoutDirection_RTL_mouseDownOutside"  description="Menu layoutDirection set to RTL. Be sure mousing down outside closes a Menu." keywords="[layoutDirection, Mirroring, Menu]">
             <setup>
-               <RunCode code="application.menu1.hide()" />
+               <RunCode code="if (application.menu1) application.menu1.hide()" />
                 <RunCode code="changeDP(1, 'true');" />
                 <RunCode code="createAMenu(1)" />
                 <SetStyle styleName="layoutDirection" value="rtl" target="menu1" />

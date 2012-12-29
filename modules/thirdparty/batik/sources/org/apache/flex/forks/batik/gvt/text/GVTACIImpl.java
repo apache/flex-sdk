@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -37,7 +38,7 @@ import java.util.Set;
  * GVTAttributedCharacterIterator.TextAttributes.
  *
  * @author <a href="mailto:bill.haneman@ireland.sun.com">Bill Haneman</a>
- * @version $Id: GVTACIImpl.java,v 1.5 2004/08/18 07:14:41 vhardy Exp $
+ * @version $Id: GVTACIImpl.java 476924 2006-11-19 21:13:26Z dvholten $
  */
 
 public class GVTACIImpl
@@ -364,7 +365,7 @@ public class GVTACIImpl
         mapList = new ArrayList(length);
         charInRun = new int[length];
         char  c = aci.first();
-        char chars[] = new char[length];
+        char[] chars = new char[length];
         for (int i = 0; i < length; ++i) {
             chars[i] = c;
             charInRun[i] = SINGLETON;

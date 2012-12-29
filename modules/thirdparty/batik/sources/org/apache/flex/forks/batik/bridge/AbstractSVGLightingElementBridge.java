@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -31,7 +32,7 @@ import org.w3c.dom.Node;
  * Bridge class for the &lt;feDiffuseLighting> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: AbstractSVGLightingElementBridge.java,v 1.5 2004/08/18 07:12:30 vhardy Exp $
+ * @version $Id: AbstractSVGLightingElementBridge.java 501922 2007-01-31 17:47:47Z dvholten $
  */
 public abstract class AbstractSVGLightingElementBridge
     extends AbstractSVGFilterPrimitiveElementBridge {
@@ -78,8 +79,10 @@ public abstract class AbstractSVGLightingElementBridge
      * feDiffuseLighting or feSpecularLighting filter primitive element.
      *
      * @param filterElement the filter primitive element
+     * @param ctx the BridgeContext to use for error information
      */
-    protected static double [] convertKernelUnitLength(Element filterElement) {
+    protected static double[] convertKernelUnitLength(Element filterElement,
+                                                      BridgeContext ctx) {
         String s = filterElement.getAttributeNS
             (null, SVG_KERNEL_UNIT_LENGTH_ATTRIBUTE);
         if (s.length() == 0) {
@@ -94,15 +97,15 @@ public abstract class AbstractSVGLightingElementBridge
             } else {
                 units[1] = units[0];
             }
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException nfEx ) {
             throw new BridgeException
-                (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                (ctx, filterElement, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
                  new Object[] {SVG_KERNEL_UNIT_LENGTH_ATTRIBUTE, s});
 
         }
         if (tokens.hasMoreTokens() || units[0] <= 0 || units[1] <= 0) {
             throw new BridgeException
-                (filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                (ctx, filterElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
                  new Object[] {SVG_KERNEL_UNIT_LENGTH_ATTRIBUTE, s});
         }
         return units;
@@ -111,8 +114,8 @@ public abstract class AbstractSVGLightingElementBridge
     /**
      * The base bridge class for light element.
      */
-    protected static abstract class AbstractSVGLightElementBridge
-        extends AbstractSVGBridge {
+    protected abstract static class AbstractSVGLightElementBridge
+        extends AnimatableGenericSVGBridge {
 
         /**
          * Creates a <tt>Light</tt> according to the specified parameters.
@@ -160,33 +163,33 @@ public abstract class AbstractSVGLightingElementBridge
                                  Color color) {
 
             // 'x' attribute - default is 0
-            double x = convertNumber(lightElement, SVG_X_ATTRIBUTE, 0);
+            double x = convertNumber(lightElement, SVG_X_ATTRIBUTE, 0, ctx);
 
             // 'y' attribute - default is 0
-            double y = convertNumber(lightElement, SVG_Y_ATTRIBUTE, 0);
+            double y = convertNumber(lightElement, SVG_Y_ATTRIBUTE, 0, ctx);
 
             // 'z' attribute - default is 0
-            double z = convertNumber(lightElement, SVG_Z_ATTRIBUTE, 0);
+            double z = convertNumber(lightElement, SVG_Z_ATTRIBUTE, 0, ctx);
 
             // 'pointsAtX' attribute - default is 0
-            double px
-                = convertNumber(lightElement, SVG_POINTS_AT_X_ATTRIBUTE, 0);
+            double px = convertNumber(lightElement, SVG_POINTS_AT_X_ATTRIBUTE,
+                                      0, ctx);
 
             // 'pointsAtY' attribute - default is 0
-            double py
-                = convertNumber(lightElement, SVG_POINTS_AT_Y_ATTRIBUTE, 0);
+            double py = convertNumber(lightElement, SVG_POINTS_AT_Y_ATTRIBUTE,
+                                      0, ctx);
 
             // 'pointsAtZ' attribute - default is 0
-            double pz
-                = convertNumber(lightElement, SVG_POINTS_AT_Z_ATTRIBUTE, 0);
+            double pz = convertNumber(lightElement, SVG_POINTS_AT_Z_ATTRIBUTE,
+                                      0, ctx);
 
             // 'specularExponent' attribute - default is 1
             double specularExponent = convertNumber
-                (lightElement, SVG_SPECULAR_EXPONENT_ATTRIBUTE, 1);
+                (lightElement, SVG_SPECULAR_EXPONENT_ATTRIBUTE, 1, ctx);
 
             // 'limitingConeAngle' attribute - default is 90
             double limitingConeAngle = convertNumber
-                (lightElement, SVG_LIMITING_CONE_ANGLE_ATTRIBUTE, 90);
+                (lightElement, SVG_LIMITING_CONE_ANGLE_ATTRIBUTE, 90, ctx);
 
             return new SpotLight(x, y, z,
                                  px, py, pz,
@@ -229,11 +232,11 @@ public abstract class AbstractSVGLightingElementBridge
 
             // 'azimuth' attribute - default is 0
             double azimuth
-                = convertNumber(lightElement, SVG_AZIMUTH_ATTRIBUTE, 0);
+                = convertNumber(lightElement, SVG_AZIMUTH_ATTRIBUTE, 0, ctx);
 
             // 'elevation' attribute - default is 0
             double elevation
-                = convertNumber(lightElement, SVG_ELEVATION_ATTRIBUTE, 0);
+                = convertNumber(lightElement, SVG_ELEVATION_ATTRIBUTE, 0, ctx);
 
             return new DistantLight(azimuth, elevation, color);
         }
@@ -271,13 +274,13 @@ public abstract class AbstractSVGLightingElementBridge
                                  Color color) {
 
             // 'x' attribute - default is 0
-            double x = convertNumber(lightElement, SVG_X_ATTRIBUTE, 0);
+            double x = convertNumber(lightElement, SVG_X_ATTRIBUTE, 0, ctx);
 
             // 'y' attribute - default is 0
-            double y = convertNumber(lightElement, SVG_Y_ATTRIBUTE, 0);
+            double y = convertNumber(lightElement, SVG_Y_ATTRIBUTE, 0, ctx);
 
             // 'z' attribute - default is 0
-            double z = convertNumber(lightElement, SVG_Z_ATTRIBUTE, 0);
+            double z = convertNumber(lightElement, SVG_Z_ATTRIBUTE, 0, ctx);
 
             return new PointLight(x, y, z, color);
         }

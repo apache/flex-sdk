@@ -19,7 +19,7 @@
 -->
 <Graphic xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns="http://ns.adobe.com/fxg/2008" xmlns:fc="http://ns.adobe.com/thermo/2009" xmlns:ai="http://ns.adobe.com/ai/2008" version="1">
 
-	<TextGraphic   d:userLabel="Default font" >
-		<content><p>fxg default font</p></content>
+	<TextGraphic   d:userLabel="Default font" fontFamily="ArnoEmbedded" >
+		<content><p>fxg with ArnoEmbedded font</p></content>
 	</TextGraphic>
 </Graphic>

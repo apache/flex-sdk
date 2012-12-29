@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -34,7 +35,7 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.TranslateRed;
  * RenderableImage world.
  *
  * @author <a href="mailto:Thomas.DeWeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: RedRable.java,v 1.8 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: RedRable.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public class RedRable
     extends    AbstractRable {
@@ -75,7 +76,7 @@ public class RedRable
 
         Shape aoi = rc.getAreaOfInterest();
         Rectangle aoiR;
-        if (aoi != null) 
+        if (aoi != null)
             aoiR = aoi.getBounds();
         else
             aoiR = getBounds2D().getBounds();
@@ -88,7 +89,7 @@ public class RedRable
         // helps to prevent aliasing in the result image.
         CachableRed cr = getSource();
 
-        if (aoiR.intersects(cr.getBounds()) == false)
+        if ( ! aoiR.intersects(cr.getBounds()) )
             return null;
 
         if (at.isIdentity()) {

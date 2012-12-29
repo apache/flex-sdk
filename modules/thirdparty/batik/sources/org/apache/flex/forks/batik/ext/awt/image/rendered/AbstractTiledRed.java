@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -37,9 +38,9 @@ import org.apache.flex.forks.batik.util.HaltingThread;
  * the subclass implementation.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: AbstractTiledRed.java,v 1.20 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: AbstractTiledRed.java 489226 2006-12-21 00:05:36Z cam $
  */
-public abstract class AbstractTiledRed 
+public abstract class AbstractTiledRed
     extends    AbstractRed
     implements TileGenerator {
 
@@ -297,7 +298,7 @@ public abstract class AbstractTiledRed
         return wr;
     }
 
-        
+
     public Raster getData(Rectangle rect) {
         int xt0 = getXTile(rect.x);
         int xt1 = getXTile(rect.x+rect.width-1);
@@ -320,7 +321,7 @@ public abstract class AbstractTiledRed
 
     public Raster genTile(int x, int y) {
         WritableRaster wr = makeTile(x, y);
-        genRect(wr); 
+        genRect(wr);
         return wr;
     }
 
@@ -333,7 +334,7 @@ public abstract class AbstractTiledRed
     }
 
     public void copyToRasterByBlocks(WritableRaster wr) {
-        final boolean is_INT_PACK = 
+        final boolean is_INT_PACK =
             GraphicsUtil.is_INT_PACK_Data(getSampleModel(), false);
 
         Rectangle bounds = getBounds();
@@ -365,7 +366,7 @@ public abstract class AbstractTiledRed
         // Now figure out what tiles lie completely inside wr...
         int tx, ty;
         tx = tx0*tileWidth+tileGridXOff;
-        if ((tx < wrR.x)  && (bounds.x != wrR.x)) 
+        if ((tx < wrR.x)  && (bounds.x != wrR.x))
             // Partial tile off the left.
             insideTx0++;
 
@@ -375,7 +376,7 @@ public abstract class AbstractTiledRed
             insideTy0++;
 
         tx= (tx1+1)*tileWidth+tileGridXOff-1;
-        if ((tx >= (wrR.x+wrR.width)) && 
+        if ((tx >= (wrR.x+wrR.width)) &&
             ((bounds.x+bounds.width) != (wrR.x+wrR.width)))
             // Partial tile off right
             insideTx1--;
@@ -417,7 +418,7 @@ public abstract class AbstractTiledRed
             }
         }
 
-        // System.out.println("Found: " + numFound + " out of " + 
+        // System.out.println("Found: " + numFound + " out of " +
         //                    ((tx1-tx0+1)*(ty1-ty0+1)));
 
         // Compute the stuff from the middle in the largest possible Chunks.
@@ -426,12 +427,13 @@ public abstract class AbstractTiledRed
                 (insideTx0, insideTy0, xtiles, ytiles, occupied,
                  0, 0, xtiles, ytiles);
             // System.out.println("Starting Splits");
-	    drawBlock(block, wr);
+            drawBlock(block, wr);
             // Exception e= new Exception("Foo");
             // e.printStackTrace();
         }
 
         // Check If we should halt early.
+        Thread currentThread = Thread.currentThread();
         if (HaltingThread.hasBeenHalted())
             return;
 
@@ -462,10 +464,10 @@ public abstract class AbstractTiledRed
                     if (got[idx++]) continue;
 
                     // System.out.println("Computing : " + x + "," + y);
-                
+
                     ras = getTile(tx, ty);// Compute the tile..
                     // Check If we should halt early.
-                    if (HaltingThread.hasBeenHalted())
+                    if (HaltingThread.hasBeenHalted( currentThread ))
                         return;
 
                     if (is_INT_PACK)
@@ -487,7 +489,7 @@ public abstract class AbstractTiledRed
      */
     public void copyToRaster(WritableRaster wr) {
         Rectangle wrR = wr.getBounds();
-            
+
         int tx0 = getXTile(wrR.x);
         int ty0 = getYTile(wrR.y);
         int tx1 = getXTile(wrR.x+wrR.width -1);
@@ -499,7 +501,7 @@ public abstract class AbstractTiledRed
         if (tx1 >= minTileX+numXTiles) tx1 = minTileX+numXTiles-1;
         if (ty1 >= minTileY+numYTiles) ty1 = minTileY+numYTiles-1;
 
-        final boolean is_INT_PACK = 
+        final boolean is_INT_PACK =
             GraphicsUtil.is_INT_PACK_Data(getSampleModel(), false);
 
         int xtiles = (tx1-tx0+1);
@@ -533,85 +535,104 @@ public abstract class AbstractTiledRed
             }
     }
 
-    protected void drawBlock(TileBlock block, WritableRaster wr) {
-	TileBlock [] blocks = block.getBestSplit();
-	if (blocks == null)
-	    return;
+    protected void drawBlock( TileBlock block, WritableRaster wr ) {
+        TileBlock [] blocks = block.getBestSplit();
+        if ( blocks == null ) {
+            return;
+        }
 
-        drawBlockInPlace(blocks, wr);
+        drawBlockInPlace( blocks, wr );
     }
 
-    protected void drawBlockAndCopy(TileBlock []blocks, WritableRaster wr) {
-	if (blocks.length == 1) {
-	    TileBlock curr = blocks[0];
-	    int xloc = curr.getXLoc()*tileWidth +tileGridXOff;
-	    int yloc = curr.getYLoc()*tileHeight+tileGridYOff;
-	    if ((xloc == wr.getMinX()) &&
-		(yloc == wr.getMinY())) {
-		// Safe to draw in place...
-		drawBlockInPlace(blocks, wr);
-		return;
-	    }
-	}
+    protected void drawBlockAndCopy( TileBlock []blocks, WritableRaster wr ) {
 
-	int maxSz=0;
-	for (int i=0; i<blocks.length; i++) {
-	    int sz = ((blocks[i].getWidth() *tileWidth)*
-		      (blocks[i].getHeight()*tileHeight));
-	    if (sz > maxSz) maxSz=sz;
-	}
-	DataBufferInt dbi = new DataBufferInt(maxSz);
-	int [] masks = { 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000 };
-	boolean use_INT_PACK = GraphicsUtil.is_INT_PACK_Data
-	    (wr.getSampleModel(), false);
+        if ( blocks.length == 1 ) {
+            TileBlock curr = blocks[ 0 ];
+            int xloc = curr.getXLoc() * tileWidth + tileGridXOff;
+            int yloc = curr.getYLoc() * tileHeight + tileGridYOff;
+            if ( ( xloc == wr.getMinX() ) &&
+                 ( yloc == wr.getMinY() ) ) {
+                // Safe to draw in place...
+                drawBlockInPlace( blocks, wr );
+                return;
+            }
+        }
 
-	for (int i=0; i<blocks.length; i++) {
-	    TileBlock curr = blocks[i];
-	    int xloc = curr.getXLoc()*tileWidth +tileGridXOff;
-	    int yloc = curr.getYLoc()*tileHeight+tileGridYOff;
-	    Rectangle tb = new Rectangle(xloc, yloc,
-					 curr.getWidth()*tileWidth,
-					 curr.getHeight()*tileHeight);
-	    tb = tb.intersection(bounds);
-	    Point loc = new Point(tb.x, tb.y);
-	    WritableRaster child = Raster.createPackedRaster
-		(dbi, tb.width, tb.height, tb.width, masks, loc);
-	    genRect(child);
-	    if (use_INT_PACK) GraphicsUtil.copyData_INT_PACK(child, wr);
-	    else              GraphicsUtil.copyData_FALLBACK(child, wr);
+        int workTileWidth = tileWidth;    // local is cheaper
+        int workTileHeight = tileHeight;  // local is cheaper
+        int maxTileSize = 0;
+        for ( int i = 0; i < blocks.length; i++ ) {
+            TileBlock curr = blocks[ i ];
+            int sz = ( ( curr.getWidth() * workTileWidth ) *
+                       ( curr.getHeight() * workTileHeight ) );
+            if ( sz > maxTileSize ) {
+                maxTileSize = sz;
+            }
+        }
+        DataBufferInt dbi = new DataBufferInt( maxTileSize );
+        int [] masks = {0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000};
+        boolean use_INT_PACK = GraphicsUtil.is_INT_PACK_Data( wr.getSampleModel(), false );
+
+        // cache for reuse in hasBeenHalted()
+        Thread currentThread = Thread.currentThread();
+
+        for ( int i = 0; i < blocks.length; i++ ) {
+            TileBlock curr = blocks[ i ];
+            int xloc = curr.getXLoc() * workTileWidth + tileGridXOff;
+            int yloc = curr.getYLoc() * workTileHeight + tileGridYOff;
+            Rectangle tb = new Rectangle( xloc, yloc,
+                    curr.getWidth() * workTileWidth,
+                    curr.getHeight() * workTileHeight );
+            tb = tb.intersection( bounds );
+            Point loc = new Point( tb.x, tb.y );
+            WritableRaster child = Raster.createPackedRaster( dbi, tb.width, tb.height, tb.width, masks, loc );
+            genRect( child );
+            if ( use_INT_PACK ) {
+                GraphicsUtil.copyData_INT_PACK( child, wr );
+            } else {
+                GraphicsUtil.copyData_FALLBACK( child, wr );
+            }
 
             // Check If we should halt early.
-            if (HaltingThread.hasBeenHalted())
-		return;
-	}
+            if ( HaltingThread.hasBeenHalted( currentThread ) ) {
+                return;
+            }
+        }
     }
 
 
-    protected void drawBlockInPlace(TileBlock [] blocks, WritableRaster wr) {
-	// System.out.println("Ending Splits: " + blocks.length);
+    protected void drawBlockInPlace( TileBlock [] blocks, WritableRaster wr ) {
+        // System.out.println("Ending Splits: " + blocks.length);
 
-	for (int i=0; i<blocks.length; i++) {
-	    TileBlock curr = blocks[i];
-                    
-	    // System.out.println("Block " + i + ":\n" + curr);
+        // cache for reuse in hasBeenHalted()
+        Thread currentThread = Thread.currentThread();
 
-	    int xloc = curr.getXLoc()*tileWidth +tileGridXOff;
-	    int yloc = curr.getYLoc()*tileHeight+tileGridYOff;
-	    Rectangle tb = new Rectangle(xloc, yloc,
-					 curr.getWidth()*tileWidth,
-					 curr.getHeight()*tileHeight);
-	    tb = tb.intersection(bounds);
+        int workTileWidth = tileWidth;    // local is cheaper
+        int workTileHeight = tileHeight;  // local is cheaper
 
-	    WritableRaster child = 
-		wr.createWritableChild(tb.x, tb.y, tb.width, tb.height,
-				       tb.x, tb.y, null);
-	    // System.out.println("Computing : " + child);
-	    genRect(child);
+        for ( int i = 0; i < blocks.length; i++ ) {
+            TileBlock curr = blocks[ i ];
+
+            // System.out.println("Block " + i + ":\n" + curr);
+
+            int xloc = curr.getXLoc() * workTileWidth + tileGridXOff;
+            int yloc = curr.getYLoc() * workTileHeight + tileGridYOff;
+            Rectangle tb = new Rectangle( xloc, yloc,
+                    curr.getWidth() * workTileWidth,
+                    curr.getHeight() * workTileHeight );
+            tb = tb.intersection( bounds );
+
+            WritableRaster child =
+                    wr.createWritableChild( tb.x, tb.y, tb.width, tb.height,
+                            tb.x, tb.y, null );
+            // System.out.println("Computing : " + child);
+            genRect( child );
 
             // Check If we should halt early.
-            if (HaltingThread.hasBeenHalted())
-		return;
-	}
+            if ( HaltingThread.hasBeenHalted( currentThread ) ) {
+                return;
+            }
+        }
     }
 }
 

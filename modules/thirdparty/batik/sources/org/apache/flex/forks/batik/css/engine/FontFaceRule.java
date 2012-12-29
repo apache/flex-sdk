@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,17 +23,17 @@ import org.apache.flex.forks.batik.util.ParsedURL;
 /**
  * This class represents a @font-face CSS rule.
  *
- * This mostly exists to give us a place to store the 
+ * This mostly exists to give us a place to store the
  * URI to be used for 'src' URI resolution.
  *
  * @author <a href="mailto:deweese@apache.org">l449433</a>
- * @version $Id: FontFaceRule.java,v 1.5 2005/03/27 08:58:31 cam Exp $
+ * @version $Id: FontFaceRule.java 478160 2006-11-22 13:35:06Z dvholten $
  */
 public class FontFaceRule implements Rule {
     /**
      * The type constant.
      */
-    public final static short TYPE = (short)3;
+    public static final short TYPE = (short)3;
 
     StyleMap sm;
     ParsedURL purl;
@@ -40,7 +41,7 @@ public class FontFaceRule implements Rule {
         this.sm = sm;
         this.purl = purl;
     }
-    
+
     /**
      * Returns a constant identifying the rule type.
      */

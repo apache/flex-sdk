@@ -140,10 +140,10 @@
   </s:Group>
   <s:VGroup id="gr5">
   	<s:RichText color="#000000" fontSize="12" x="10" y="271">
-  		<s:content><s:p fontFamily="Arial" fontWeight="bold">fontFamily="Arial" fontWeight="bold" in p</s:p></s:content>
+  		<s:content><s:p fontFamily="ArialEmbedded" fontWeight="bold">fontFamily="ArialEmbedded" fontWeight="bold" in p</s:p></s:content>
   	</s:RichText>
   	<s:RichText color="#000000" fontFamily="ArnoEmbedded" fontSize="12" x="10" y="481">
-  		<s:content><s:p fontFamily="Arial" fontWeight="bold">fontFamily="Arial" fontWeight="bold" inside ArnoEmbedded</s:p></s:content>
+  		<s:content><s:p fontFamily="ArialEmbedded" fontWeight="bold">fontFamily="ArialEmbedded" fontWeight="bold" inside ArnoEmbedded</s:p></s:content>
 	</s:RichText>
   </s:VGroup>
   <s:Group id="gr6" >

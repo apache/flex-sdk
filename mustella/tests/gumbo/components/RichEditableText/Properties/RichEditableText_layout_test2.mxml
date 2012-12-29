@@ -74,9 +74,10 @@
          <TestCase testID="RichEditableText_Property_textFlow1" description="test property textFlow, content has paragraph, div,scan" keywords="[RichEditableText,Property,TextFlow]">
             <setup>
                 <ResetComponent target="retTFBinding1" className="comps.TextFlowRET_ContentBinding" waitTarget="retTFBinding1" waitEvent="updateComplete" />
+            	<RunCode code="FlexGlobals.topLevelApplication.retTFBinding1.textFlow=TextConverter.importToFlow(FlexGlobals.topLevelApplication.tfText1, TextConverter.TEXT_LAYOUT_FORMAT)" 
+            	    waitTarget="retTFBinding1" waitEvent="updateComplete" />
             </setup>
             <body>
-            	<RunCode code="FlexGlobals.topLevelApplication.retTFBinding1.textFlow=TextConverter.importToFlow(FlexGlobals.topLevelApplication.tfText1, TextConverter.TEXT_LAYOUT_FORMAT)" />
                 <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retTFBinding1" />
             </body>
         </TestCase> 
@@ -84,9 +85,10 @@
         <TestCase testID="RichEditableText_Property_textFlow2" description="test property textFlow, textFlow has content with paragraph,scan, fontweight" keywords="[RichEditableText,Property,TextFlow]">
             <setup>
                 <ResetComponent target="retTFBinding1" className="comps.TextFlowRET_ContentBinding" waitTarget="retTFBinding1" waitEvent="updateComplete" />
+            	<RunCode code="FlexGlobals.topLevelApplication.retTFBinding1.textFlow=TextConverter.importToFlow(FlexGlobals.topLevelApplication.tfText2, TextConverter.TEXT_LAYOUT_FORMAT)" 
+            	    waitTarget="retTFBinding1" waitEvent="updateComplete" />
             </setup>
             <body>
-            	<RunCode code="FlexGlobals.topLevelApplication.retTFBinding1.textFlow=TextConverter.importToFlow(FlexGlobals.topLevelApplication.tfText2, TextConverter.TEXT_LAYOUT_FORMAT)" />
                 <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retTFBinding1" />
             </body>
         </TestCase> 
@@ -94,9 +96,10 @@
         <TestCase testID="RichEditableText_Property_textFlow3" description="test property textFlow, textFlow has content with fontfamily, color" keywords="[RichEditableText,Property,TextFlow]">
             <setup>
                 <ResetComponent target="retTFBinding1" className="comps.TextFlowRET_ContentBinding" waitTarget="retTFBinding1" waitEvent="updateComplete" />
+            	<RunCode code="FlexGlobals.topLevelApplication.retTFBinding1.textFlow=TextConverter.importToFlow(FlexGlobals.topLevelApplication.tfText3, TextConverter.TEXT_LAYOUT_FORMAT)"
+            	    waitTarget="retTFBinding1" waitEvent="updateComplete" />
             </setup>
             <body>
-            	<RunCode code="FlexGlobals.topLevelApplication.retTFBinding1.textFlow=TextConverter.importToFlow(FlexGlobals.topLevelApplication.tfText3, TextConverter.TEXT_LAYOUT_FORMAT)" />
                 <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retTFBinding1" />
             </body>
         </TestCase> 
@@ -105,9 +108,10 @@
          <TestCase testID="RichEditableText_Property_textFlow4" description="test property textFlow, textFlow has content with html markup" keywords="[RichEditableText,Property,TextFlow]">
             <setup>
                 <ResetComponent target="retTFBinding1" className="comps.TextFlowRET_ContentBinding" waitTarget="retTFBinding1" waitEvent="updateComplete" />
+            	<RunCode code="FlexGlobals.topLevelApplication.retTFBinding1.textFlow=TextFlowUtil.importFromString(FlexGlobals.topLevelApplication.htmlText1)"
+            	    waitTarget="retTFBinding1" waitEvent="updateComplete" />
             </setup>
             <body>
-            	<RunCode code="FlexGlobals.topLevelApplication.retTFBinding1.textFlow=TextFlowUtil.importFromString(FlexGlobals.topLevelApplication.htmlText1)" />
                 <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retTFBinding1" />
             </body>
         </TestCase> 
@@ -162,9 +166,9 @@
         <TestCase testID="RichEditableText_content6" description="test text content, content has inline image" keywords="[RichEditableText,Content]">
             <setup>
                 <ResetComponent target="retEditable1" className="comps.EditableRET1" waitTarget="retEditable1" waitEvent="updateComplete" />
+            	<RunCode code="FlexGlobals.topLevelApplication.addInLineImg(FlexGlobals.topLevelApplication.retEditable1, FlexGlobals.topLevelApplication.imgClass)" />
             </setup>
             <body>
-            	<RunCode code="FlexGlobals.topLevelApplication.addInLineImg(FlexGlobals.topLevelApplication.retEditable1, FlexGlobals.topLevelApplication.imgClass)"/>
                 <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retEditable1" />
             </body>
         </TestCase> 
@@ -173,9 +177,9 @@
 	<TestCase testID="RichEditableText_content7" description="test text content when insert more text" keywords="[RichEditableText,Property,TextFlow]">
             <setup>
                 <ResetComponent target="retTFBinding1" className="comps.TextFlowRET_ContentBinding" waitTarget="retTFBinding1" waitEvent="updateComplete" />
+            	<RunCode code="FlexGlobals.topLevelApplication.insertNewText(FlexGlobals.topLevelApplication.retTFBinding1,newText)" />
             </setup>
             <body>
-            	<RunCode code="FlexGlobals.topLevelApplication.insertNewText(FlexGlobals.topLevelApplication.retTFBinding1,newText)" />
                 <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retTFBinding1" />
             </body>
         </TestCase>        
@@ -183,10 +187,10 @@
 	<TestCase testID="RichEditableText_content8" description="test text content when append more text" keywords="[RichEditableText,Property,TextFlow]">
             <setup>
                 <ResetComponent target="retTFBinding1" className="comps.TextFlowRET_ContentBinding" waitTarget="retTFBinding1" waitEvent="updateComplete" />
-            </setup>
-            <body>
                 <RunCode code="FlexGlobals.topLevelApplication.appendNewText(FlexGlobals.topLevelApplication.retTFBinding1,t)" />
             	<RunCode code="FlexGlobals.topLevelApplication.appendNewText(FlexGlobals.topLevelApplication.retTFBinding1,newText)" />
+            </setup>
+            <body>
                 <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retTFBinding1" />
             </body>
         </TestCase>  

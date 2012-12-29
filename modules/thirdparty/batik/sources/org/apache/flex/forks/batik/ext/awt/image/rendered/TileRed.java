@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -41,7 +42,7 @@ import org.apache.flex.forks.batik.util.HaltingThread;
  * left corner of the tiled region.
  * 
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: TileRed.java,v 1.15 2004/10/23 17:11:03 deweese Exp $
+ * @version $Id: TileRed.java 509851 2007-02-21 01:12:30Z deweese $
  */
 public class TileRed extends AbstractRed implements TileGenerator {
     static final AffineTransform IDENTITY = new AffineTransform();
@@ -59,7 +60,6 @@ public class TileRed extends AbstractRed implements TileGenerator {
     private RenderingHints  hints;
 
     final boolean is_INT_PACK;
-    final boolean alphaPremult;
 
     /**
      * Tile
@@ -102,12 +102,11 @@ public class TileRed extends AbstractRed implements TileGenerator {
         this.xStep        = xStep;
         this.yStep        = yStep;
         this.hints        = hints;
-        this.alphaPremult = false;
 
         SampleModel sm = fixSampleModel(tile, xStep, yStep, 
                                         tiledRegion.width,
                                         tiledRegion.height);
-        ColorModel cm  = fixColorModel(tile, alphaPremult);
+        ColorModel cm  = tile.getColorModel();
 
         double smSz   = AbstractTiledRed.getDefaultTileSize();
         smSz = smSz*smSz;
@@ -284,7 +283,10 @@ public class TileRed extends AbstractRed implements TileGenerator {
         count %= colors.length;
 
         g.fillRect(0, 0, maxX, maxY);*/
-        GraphicsUtil.coerceData(wr, src.getColorModel(), alphaPremult);
+
+        // Don't coerceData since it will be in the proper alpha state
+        // due to the drawing.
+        // GraphicsUtil.coerceData(wr, src.getColorModel(), alphaPremult);
         return wr;
     }
 
@@ -394,12 +396,6 @@ public class TileRed extends AbstractRed implements TileGenerator {
         }
     }
 
-    protected static ColorModel fixColorModel(RenderedImage src,
-                                              boolean alphaPremult) {
-        return GraphicsUtil.coerceColorModel(src.getColorModel(), 
-                                             alphaPremult);
-    }
-    
     /**
      * This function 'fixes' the source's sample model.
      * right now it just ensures that the sample model isn't

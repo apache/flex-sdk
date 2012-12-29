@@ -388,12 +388,12 @@
 	     <SetStyle target="myColorPicker" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
 	     <SetStyle target="myColorPicker" styleName="direction" value="ltr" waitEvent="updateComplete"/>
 	     <AssertStyleValue target="myColorPicker" styleName="layoutDirection" value="ltr"/>
-	     <Pause timeout="100"/>
 	     <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" waitEvent="open" waitTarget="myColorPicker"/>
- 	    <WaitForEffectsToEnd />
- 	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+ 	     <WaitForEffectsToEnd />
+ 	     <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
 	    
-	     <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	    <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+         <WaitForLayoutManager/>
 	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
              
          </body>
@@ -407,10 +407,10 @@
 	    <RunCode code="application.myColorPicker.open()" waitTarget="myColorPicker" waitEvent="open" />
 	    <WaitForEffectsToEnd />
 	    <RunCode code="application.myColorPicker.mx_internal::dropdown.mx_internal::textInput.text = '668912'" />
-	   
 	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
 	    
 	    <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+        <WaitForLayoutManager/>
 	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
 	    
 	</body>
@@ -430,6 +430,7 @@
 	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
 	    
 	    <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+        <WaitForLayoutManager/>
 	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
 	   
 	</body>

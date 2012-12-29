@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2005  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,13 +18,11 @@
  */
 package org.apache.flex.forks.batik.bridge;
 
-import org.w3c.dom.Element;
-
 /**
  * Bridge class for the &lt;desc&gt; element.
  *
  * @author <a href="mailto:vhardy@apache.org">Vincent Hardy</a>
- * @version $Id: SVGDescElementBridge.java,v 1.4 2005/02/27 02:08:51 deweese Exp $
+ * @version $Id: SVGDescElementBridge.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class SVGDescElementBridge extends SVGDescriptiveElementBridge {
 
@@ -39,10 +38,8 @@ public class SVGDescElementBridge extends SVGDescriptiveElementBridge {
         return SVG_DESC_TAG;
     }
 
-
     /**
      * Returns a new instance of this bridge.
      */
     public Bridge getInstance() { return new SVGDescElementBridge(); }
 }
-

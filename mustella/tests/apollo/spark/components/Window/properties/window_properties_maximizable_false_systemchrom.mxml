@@ -113,8 +113,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maxHeight=600;" waitTarget="windowObj" waitEvent="updateComplete" />
 	    </setup>
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" waitEvent="updateComplete" />
-
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin" />
+			<WaitForLayoutManager />			
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.maximize()" />
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
 		<RunCode code="configureExpectSize(Capabilities.screenResolutionX,600,Capabilities.screenResolutionX)"/>

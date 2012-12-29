@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -28,10 +29,8 @@ import java.awt.geom.AffineTransform;
  *
  * @author Nicholas Talian, Vincent Hardy, Jim Graham, Jerry Evans
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: MultipleGradientPaint.java,v 1.7 2005/03/27 08:58:32 cam Exp $
- *
+ * @version $Id: MultipleGradientPaint.java 479573 2006-11-27 10:13:36Z dvholten $
  */
-
 public abstract class MultipleGradientPaint implements Paint {
 
     /** Transparency. */
@@ -187,7 +186,7 @@ public abstract class MultipleGradientPaint implements Paint {
      *
      */
     public Color[] getColors() {
-        Color colors[] = new Color[this.colors.length];
+        Color[] colors = new Color[this.colors.length];
         System.arraycopy(this.colors, 0, colors, 0, this.colors.length);
         return colors;
     }
@@ -200,7 +199,7 @@ public abstract class MultipleGradientPaint implements Paint {
      *
      */
     public float[] getFractions() {
-        float fractions[] = new float[this.fractions.length];
+        float[] fractions = new float[this.fractions.length];
         System.arraycopy(this.fractions, 0, fractions, 0, this.fractions.length);
         return fractions;
     }

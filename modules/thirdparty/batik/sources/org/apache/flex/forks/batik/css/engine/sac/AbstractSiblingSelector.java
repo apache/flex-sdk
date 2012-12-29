@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,20 +18,20 @@
  */
 package org.apache.flex.forks.batik.css.engine.sac;
 
-import org.w3c.flex.forks.css.sac.Selector;
-import org.w3c.flex.forks.css.sac.SiblingSelector;
-import org.w3c.flex.forks.css.sac.SimpleSelector;
+import org.w3c.css.sac.Selector;
+import org.w3c.css.sac.SiblingSelector;
+import org.w3c.css.sac.SimpleSelector;
 
 /**
  * This class provides an abstract implementation of the {@link
- * org.w3c.flex.forks.css.sac.SiblingSelector} interface.
+ * org.w3c.css.sac.SiblingSelector} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: AbstractSiblingSelector.java,v 1.4 2004/08/18 07:12:50 vhardy Exp $
+ * @version $Id: AbstractSiblingSelector.java 475685 2006-11-16 11:16:05Z cam $
  */
 public abstract class AbstractSiblingSelector
     implements SiblingSelector,
-	       ExtendedSelector {
+               ExtendedSelector {
 
     /**
      * The node type.
@@ -54,8 +55,8 @@ public abstract class AbstractSiblingSelector
                                       Selector sel,
                                       SimpleSelector simple) {
         nodeType = type;
-	selector = sel;
-	simpleSelector = simple;
+        selector = sel;
+        simpleSelector = simple;
     }
 
     /**
@@ -70,34 +71,34 @@ public abstract class AbstractSiblingSelector
      * @param obj the reference object with which to compare.
      */
     public boolean equals(Object obj) {
-	if (obj == null || !(obj.getClass() != getClass())) {
-	    return false;
-	}
-	AbstractSiblingSelector s = (AbstractSiblingSelector)obj;
-	return s.simpleSelector.equals(simpleSelector);
+        if (obj == null || (obj.getClass() != getClass())) {
+            return false;
+        }
+        AbstractSiblingSelector s = (AbstractSiblingSelector)obj;
+        return s.simpleSelector.equals(simpleSelector);
     }
 
     /**
      * Returns the specificity of this selector.
      */
     public int getSpecificity() {
-	return ((ExtendedSelector)selector).getSpecificity() +
-       	       ((ExtendedSelector)simpleSelector).getSpecificity();
+        return ((ExtendedSelector)selector).getSpecificity() +
+               ((ExtendedSelector)simpleSelector).getSpecificity();
     }
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.SiblingSelector#getSelector()}.
-     */    
+     * org.w3c.css.sac.SiblingSelector#getSelector()}.
+     */
     public Selector getSelector() {
-	return selector;
+        return selector;
     }
 
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.SiblingSelector#getSiblingSelector()}.
-     */    
+     * org.w3c.css.sac.SiblingSelector#getSiblingSelector()}.
+     */
     public SimpleSelector getSiblingSelector() {
-	return simpleSelector;
+        return simpleSelector;
     }
 }

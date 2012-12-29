@@ -64,17 +64,6 @@
 		    <CompareBitmap url="../descendantSelectors/baselines/$testID.png" target="main_button1" />
 		</body>
 	</TestCase>
-	<TestCase testID="descendantSelector_basic_noMatch_style_mac" keywords="[CSS, descendant selector]"
-	    description="Be sure that the style doesn't apply to other types that aren't descendants.">
-	    <setup>
-	        <ResetComponent target="panel1" className="comps.PanelComp" waitTarget="panel1" waitEvent="updateComplete" />
-	        <ResetComponent target="panel2" className="comps.PanelComp" waitTarget="panel2" waitEvent="updateComplete" />
-	    </setup>
-		<body>
-		    <AssertStyleValue target="panel1.label1" styleName="color" value="0x000000" />
-		    <CompareBitmap url="../descendantSelectors/baselines/$testID.png" target="main_button1" />
-		</body>
-	</TestCase>
 	<TestCase testID="descendantSelector_subclass_style" keywords="[CSS, descendant selector]"
 	    description="Be sure that the style applies to other subclasses of the subject">
 	    <setup>
@@ -169,7 +158,7 @@
 		    <AssertStyleValue target="panel1.getChildAt(4).text1" styleName="color" value="0x000000" />
 		</body>
 	</TestCase>
-	<TestCase testID="descendantSelector_nestedContainer_subclass_style" keywords="[CSS, descendant selector, Module]"
+	<TestCase testID="descendantSelector_nestedContainer_subclass_style3" keywords="[CSS, descendant selector, Module]"
 	    description="Be sure that the style applies to other subclasses of the subject">
 	    <setup>
 	        <ResetComponent target="panel1" className="comps.PanelComp" waitTarget="panel1" waitEvent="updateComplete" />
@@ -240,36 +229,6 @@
 		</body>
 	</TestCase>
 	<TestCase testID="descendantSelector_combining_nested_style" keywords="[CSS, descendant selector, class selector]"
-	    description="Be sure that a descendant selector and class selector can combine styles.">
-	    <setup>
-		    <ResetComponent target="tileComp" className="comps.TileComp" waitTarget="tileComp" waitEvent="updateComplete" />
-	        <SetProperty propertyName="styleName" target="tileComp" value="italicStyles" waitTarget="tileComp" waitEvent="updateComplete" />
-	    </setup>
-	    <body>
-		    <AssertStyleValue target="tileComp.label2" styleName="fontSize" value="14" />
-		    <AssertStyleValue target="tileComp.button3" styleName="fontSize" value="14" />
-		    <AssertStyleValue target="tileComp.label2" styleName="textDecoration" value="underline" />
-		    <AssertStyleValue target="tileComp.button3" styleName="textDecoration" value="none" />
-		    <CompareBitmap numColorVariances="12" maxColorVariance="20" url="../descendantSelectors/baselines/$testID.png" target="tileComp.label2" />
-		</body>
-	</TestCase>
-	<TestCase testID="descendantSelector_combining_style_mac" keywords="[CSS, descendant selector, class selector]"
-	    description="Be sure that a descendant selector and class selector can combine styles.">
-	    <setup>
-		    <ResetComponent target="tileComp" className="comps.TileComp" waitTarget="tileComp" waitEvent="updateComplete" />
-	        <SetProperty propertyName="styleName" target="tileComp" value="italicStyles" waitTarget="tileComp" waitEvent="updateComplete" />
-	    </setup>
-	    <body>
-		    <AssertStyleValue target="tileComp.label1" styleName="fontSize" value="14" />
-		    <AssertStyleValue target="tileComp.button1" styleName="fontSize" value="14" />
-		    <AssertStyleValue target="tileComp.button2" styleName="fontSize" value="14" />
-		    <AssertStyleValue target="tileComp.label1" styleName="textDecoration" value="underline" />
-		    <AssertStyleValue target="tileComp.button1" styleName="textDecoration" value="none" />
-		    <AssertStyleValue target="tileComp.button2" styleName="textDecoration" value="none" />
-		    <CompareBitmap numColorVariances="12" maxColorVariance="20" url="../descendantSelectors/baselines/$testID.png" target="tileComp.label1" />
-		</body>
-	</TestCase>
-	<TestCase testID="descendantSelector_combining_nested_style_mac" keywords="[CSS, descendant selector, class selector]"
 	    description="Be sure that a descendant selector and class selector can combine styles.">
 	    <setup>
 		    <ResetComponent target="tileComp" className="comps.TileComp" waitTarget="tileComp" waitEvent="updateComplete" />

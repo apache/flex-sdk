@@ -52,7 +52,7 @@
 	<TestCase testID="Window_Event_displayStateChange_1" keywords="[Window,Event, displayStateChange]">
 			<body>
 				<RunCode code="application.maximize()" />
-				<AssertEvent target="" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" /> 
+				<AssertEvent target="" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" numExpectedEvents="-1" /> 
 								
 			</body> 
 		</TestCase> 
@@ -117,7 +117,7 @@
  		<TestCase testID="Window_Event_displayStateChange_maximize" keywords="[Window,Event, displayStateChange]">
  			<body>
  				<RunCode code="application.maximize()" />
- 				<AssertEvent target="" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" /> 
+ 				<AssertEvent target="" eventName="displayStateChange" eventClass="flash.events::NativeWindowDisplayStateEvent" numExpectedEvents="-1" /> 
  								
  			</body> 
  		</TestCase> 

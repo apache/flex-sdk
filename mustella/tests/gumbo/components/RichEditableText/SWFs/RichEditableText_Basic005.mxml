@@ -24,7 +24,7 @@
 			   xmlns:comps="comps.*"
 			   width="800" height="600" 
 			   creationComplete="(CONFIG::skaha){import qa.Skaha;Skaha.enable()}">
-	<fx:Style source="../../../../../Assets/Fonts/myStyles.css" />
+	<fx:Style source="../../../../../Assets/Fonts/VeraFontStyles.css" />
 	
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";

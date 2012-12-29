@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,8 +24,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 
-import org.apache.flex.forks.batik.css.engine.CSSImportNode;
-import org.apache.flex.forks.batik.dom.svg.SVGOMCSSImportedElementRoot;
+import org.apache.flex.forks.batik.dom.svg.SVGOMUseElement;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.ClipRable;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.ClipRable8Bit;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.Filter;
@@ -37,10 +37,10 @@ import org.w3c.dom.Node;
  * Bridge class for the &lt;clipPath> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGClipPathElementBridge.java,v 1.23 2004/11/18 01:46:53 deweese Exp $
+ * @version $Id: SVGClipPathElementBridge.java 475477 2006-11-15 22:44:28Z cam $
  */
-public class SVGClipPathElementBridge extends AbstractSVGBridge
-    implements ClipBridge {
+public class SVGClipPathElementBridge extends AnimatableGenericSVGBridge
+        implements ClipBridge {
 
     /**
      * Constructs a new bridge for the &lt;clipPath> element.
@@ -74,7 +74,7 @@ public class SVGClipPathElementBridge extends AbstractSVGBridge
         s = clipElement.getAttributeNS(null, SVG_TRANSFORM_ATTRIBUTE);
         if (s.length() != 0) {
             Tx = SVGUtilities.convertTransform
-                (clipElement, SVG_TRANSFORM_ATTRIBUTE, s);
+                (clipElement, SVG_TRANSFORM_ATTRIBUTE, s, ctx);
         } else {
             Tx = new AffineTransform();
         }
@@ -86,7 +86,7 @@ public class SVGClipPathElementBridge extends AbstractSVGBridge
             coordSystemType = SVGUtilities.USER_SPACE_ON_USE;
         } else {
             coordSystemType = SVGUtilities.parseCoordinateSystem
-                (clipElement, SVG_CLIP_PATH_UNITS_ATTRIBUTE, s);
+                (clipElement, SVG_CLIP_PATH_UNITS_ATTRIBUTE, s, ctx);
         }
         // additional transform to move to objectBoundingBox coordinate system
         if (coordSystemType == SVGUtilities.OBJECT_BOUNDING_BOX) {
@@ -123,17 +123,13 @@ public class SVGClipPathElementBridge extends AbstractSVGBridge
             hasChildren = true;
 
             // if this is a 'use' element, get the actual shape used
-            if (child instanceof CSSImportNode) {
-                SVGOMCSSImportedElementRoot shadow =
-                    (SVGOMCSSImportedElementRoot)
-                    ((CSSImportNode) child).getCSSImportedElementRoot();
-                
-                if (shadow != null) {
-                    Node shadowChild = shadow.getFirstChild();
-                    if (shadowChild != null
-                            && shadowChild.getNodeType() == Node.ELEMENT_NODE) {
-                        child = (Element) shadowChild;
-                    }
+            if (child instanceof SVGOMUseElement) {
+                Node shadowChild
+                    = ((SVGOMUseElement) child).getCSSFirstChild();
+
+                if (shadowChild != null
+                        && shadowChild.getNodeType() == Node.ELEMENT_NODE) {
+                    child = (Element) shadowChild;
                 }
             }
 

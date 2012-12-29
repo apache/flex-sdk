@@ -21,7 +21,7 @@
                 <Pause timeout="1500"/>
             </setup>
             <body>
-                <RunCode code="application.PlayEffectControl('Button', application.eff_Fade, 500, 0, 1, 0)" waitTarget="eff_Fade" waitEvent="effectEnd" />
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Fade, 500, 0, 1, 0)" waitTarget="eff_Fade" waitEvent="effectEnd" timeout="1000"/>
                 <CompareBitmap target="eventBox" url="../event/Baselines/$testID.png" />
             </body>
         </TestCase>

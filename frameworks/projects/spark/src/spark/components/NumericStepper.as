@@ -25,13 +25,13 @@ import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
-import flash.globalization.LocaleID;
-import flash.globalization.NumberFormatter;
 
 import mx.core.IIMESupport;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
+
+import spark.formatters.NumberFormatter;
 
 use namespace mx_internal;
 
@@ -791,7 +791,10 @@ public class NumericStepper extends Spinner
         else 
         {
             if (dataFormatter == null)
-                dataFormatter = new NumberFormatter(LocaleID.DEFAULT);
+            {
+                dataFormatter = new NumberFormatter();
+                addStyleClient(dataFormatter);
+            }
 
             inputValue = dataFormatter.parseNumber(textDisplay.text);
         }

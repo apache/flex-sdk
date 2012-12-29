@@ -205,23 +205,15 @@
 		<TestCase testID="Panel_Event_hideToolTip" description="Panel mouseDown event." keywords="[event, hideToolTip, Panel]">
 
 			<setup>
-
 			    	<ResetComponent target="myCustomPanel" className="CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel" />
-
 			    	<SetProperty target="myCustomPanel.myPanel" propertyName="toolTip" value="I am a Panel" />
-
 			    	<WaitForEffectsToEnd />
-
 			</setup>
 
 			<body>
-
-				
-
-				<DispatchMouseEvent target="myCustomPanel" type="mouseOver" localX="22" localY="5" />
-
+				<DispatchMouseEvent target="myCustomPanel" type="mouseOver" localX="22" localY="5" waitTarget="myCustomPanel.myPanel" waitEvent="toolTipShown" />
 				<DispatchMouseEvent target="myCustomPanel" type="mouseMove" localX="22" localY="5"/>
-
+				<DispatchMouseEvent target="myCustomPanel" type="mouseOut" localX="22" localY="5"/>
 				<AssertEvent target="myCustomPanel.myPanel" eventName="toolTipHide" eventClass="mx.events::ToolTipEvent" timeout="15000" />
 
 				<WaitForEffectsToEnd />
@@ -229,10 +221,6 @@
 			</body>
 
 		</TestCase> 
-
-
-
-					
 
 	</testCases>
 

@@ -348,7 +348,7 @@
             </setup>
             <body>
                 <SetStyle target="dg1" styleName="fontFamily" value="EmbeddedComic" waitTarget="dg1" waitEvent="updateComplete"/>
-                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="2" ignoreMaxColorVariance="true"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="6" ignoreMaxColorVariance="true"/>
             </body>
         </TestCase>
 

@@ -50,9 +50,7 @@
 				  description="Ensure float for img  - ImgFloatNoneClearRight.">
 
 			<body>
-				<CompareBitmap url="../Integration/baselines/" target="contentText">
-                    <ConditionalValue os="mac"/>
-                </CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/" target="contentText"/>
 			</body>
 		</TestCase>
 	</testCases>

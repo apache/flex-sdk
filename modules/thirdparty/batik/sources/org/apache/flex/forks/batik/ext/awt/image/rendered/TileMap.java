@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,9 +26,13 @@ import java.util.HashMap;
 import org.apache.flex.forks.batik.util.CleanerThread;
 import org.apache.flex.forks.batik.util.HaltingThread;
 
+/**
+ *
+ * @version $Id: TileMap.java 498740 2007-01-22 18:35:57Z dvholten $
+ */
 public class TileMap implements TileStore {
     private static final boolean DEBUG = false;
-    private static final boolean COUNT = false;		
+    private static final boolean COUNT = false;
 
     private HashMap rasters=new HashMap();
 
@@ -61,7 +66,7 @@ public class TileMap implements TileStore {
     private LRUCache      cache = null;
 
     public TileMap(TileGenerator source,
-		   LRUCache cache) {
+                   LRUCache cache) {
         this.cache    = cache;
         this.source   = source;
     }
@@ -72,7 +77,7 @@ public class TileMap implements TileStore {
         if (ras == null) {
             // Clearing entry...
             Object o = rasters.remove(pt);
-            if (o != null) 
+            if (o != null)
                 cache.remove((TileMapLRUMember)o);
             return;
         }
@@ -86,17 +91,17 @@ public class TileMap implements TileStore {
             item = (TileMapLRUMember)o;
             item.setRaster(ras);
         }
-		
+
         cache.add(item);
-        if (DEBUG) System.out.println("Setting: (" + x + ", " + y + ")");
+        if (DEBUG) System.out.println("Setting: (" + x + ", " + y + ')' );
     }
 
-    // Returns Raster if the tile is _currently_ in the cache.  
+    // Returns Raster if the tile is _currently_ in the cache.
     // If it is not currently in the cache it returns null.
     public Raster getTileNoCompute(int x, int y) {
         Point pt = new Point(x, y);
         Object o = rasters.get(pt);
-        if (o == null) 
+        if (o == null)
             return null;
 
         TileMapLRUMember item = (TileMapLRUMember)o;
@@ -107,8 +112,8 @@ public class TileMap implements TileStore {
     }
 
     public Raster getTile(int x, int y) {
-        if (DEBUG) System.out.println("Fetching: (" + (x) + ", " + 
-                                      (y) + ")");
+        if (DEBUG) System.out.println("Fetching: (" + (x) + ", " +
+                                      (y) + ')' );
         if (COUNT) synchronized (TileMap.class) { requests++; }
 
         Raster       ras  = null;
@@ -119,7 +124,7 @@ public class TileMap implements TileStore {
             item = (TileMapLRUMember)o;
             ras = item.retrieveRaster();
         }
-		
+
         if (ras == null) {
             if (DEBUG) System.out.println("Generating: ("+(x)+", "+
                                           (y) + ")");

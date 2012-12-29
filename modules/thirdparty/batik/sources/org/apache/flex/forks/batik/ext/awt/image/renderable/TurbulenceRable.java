@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,7 +24,7 @@ import java.awt.geom.Rectangle2D;
  * Creates a sourceless image from a turbulence function.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: TurbulenceRable.java,v 1.6 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: TurbulenceRable.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public interface TurbulenceRable extends FilterColorInterpolation {
 
@@ -31,42 +32,42 @@ public interface TurbulenceRable extends FilterColorInterpolation {
      * Sets the turbulence region
      * @param turbulenceRegion region to fill with turbulence function.
      */
-    public void setTurbulenceRegion(Rectangle2D turbulenceRegion);
+    void setTurbulenceRegion(Rectangle2D turbulenceRegion);
 
     /**
      * Gets the turbulence region
      */
-     public Rectangle2D getTurbulenceRegion();
+    Rectangle2D getTurbulenceRegion();
 
     /**
      * Gets the current seed value for the pseudo random number generator.
      * @return The current seed value for the pseudo random number generator.
      */
-    public int getSeed();
+    int getSeed();
 
     /**
      * Gets the current base fequency in x direction.
      * @return The current base fequency in x direction.
      */
-    public double getBaseFrequencyX();
+    double getBaseFrequencyX();
 
     /**
      * Gets the current base fequency in y direction.
      * @return The current base fequency in y direction.
      */
-    public double getBaseFrequencyY();
+    double getBaseFrequencyY();
 
     /**
      * Gets the current number of octaves for the noise function .
      * @return The current number of octaves for the noise function .
      */
-    public int getNumOctaves();
+    int getNumOctaves();
 
     /**
      * Returns true if the turbulence function is currently stitching tiles.
      * @return true if the turbulence function is currently stitching tiles.
      */
-    public boolean isStitched();
+    boolean isStitched();
 
     /**
      * Returns true if the turbulence function is using fractal noise,
@@ -74,43 +75,43 @@ public interface TurbulenceRable extends FilterColorInterpolation {
      * @return true if the turbulence function is using fractal noise,
      * instead of turbulence noise.
      */
-    public boolean isFractalNoise();
+    boolean isFractalNoise();
 
     /**
      * Sets the seed value for the pseudo random number generator.
      * @param seed The new seed value for the pseudo random number generator.
      */
-    public void setSeed(int seed);
+    void setSeed(int seed);
 
     /**
      * Sets the base fequency in x direction.
      * @param xfreq The new base fequency in x direction.
      */
-    public void setBaseFrequencyX(double xfreq);
+    void setBaseFrequencyX(double xfreq);
 
     /**
      * Sets the base fequency in y direction.
      * @param yfreq The new base fequency in y direction.
      */
-    public void setBaseFrequencyY(double yfreq);
+    void setBaseFrequencyY(double yfreq);
 
     /**
      * Sets the number of octaves for the noise function .
      * @param numOctaves The new number of octaves for the noise function .
      */
-    public void setNumOctaves(int numOctaves);
+    void setNumOctaves(int numOctaves);
 
     /**
      * Sets stitching state for tiles.
      * @param stitched true if the turbulence operator should stitch tiles.
      */
-    public void setStitched(boolean stitched);
+    void setStitched(boolean stitched);
 
     /**
      * Turns on/off fractal noise.
      * @param fractalNoise true if fractal noise should be used.
      */
-    public void setFractalNoise(boolean fractalNoise);
+    void setFractalNoise(boolean fractalNoise);
 }
 
 

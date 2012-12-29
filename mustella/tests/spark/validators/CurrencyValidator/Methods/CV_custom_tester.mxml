@@ -56,7 +56,7 @@
                 <SetProperty target="uiMyValidatorComp.myBaseValidator" propertyName="required" value="false"/>
             </setup>
             <body>
-                <SetProperty target="uiMyValidatorComp.uiTI" propertyName="text" value="we have adobe here" waitEvent="updateComplete" waitTarget="uiMyValidatorComp.uiTI"/>
+                <SetProperty target="uiMyValidatorComp.uiTI" propertyName="text" value="we have apache here" waitEvent="updateComplete" waitTarget="uiMyValidatorComp.uiTI"/>
                 <DispatchKeyEvent keys="[TAB, TAB]"/>
                 <AssertEvent target="uiMyValidatorComp.myBaseValidator" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
                 <AssertNoEvent target="uiMyValidatorComp.myBaseValidator" eventName="valid"/>

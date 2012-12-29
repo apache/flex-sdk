@@ -934,7 +934,7 @@ public class ListBase extends SkinnableDataContainer
             else
                 _proposedSelectedIndex = NO_SELECTION;
             
-            if (allowCustomSelectedItem && _proposedSelectedIndex == -1)
+            if (allowCustomSelectedItem && _proposedSelectedIndex == -1 && _pendingSelectedItem != null)
             {
                 _proposedSelectedIndex = CUSTOM_SELECTED_ITEM;
                 _selectedItem = _pendingSelectedItem;

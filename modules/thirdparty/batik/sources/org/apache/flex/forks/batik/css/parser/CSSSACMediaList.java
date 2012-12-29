@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,13 +23,13 @@
  
 package org.apache.flex.forks.batik.css.parser;
 
-import org.w3c.flex.forks.css.sac.SACMediaList;
+import org.w3c.css.sac.SACMediaList;
 
 /**
  * This class implements the {@link SACMediaList} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: CSSSACMediaList.java,v 1.4 2004/08/18 07:13:02 vhardy Exp $
+ * @version $Id: CSSSACMediaList.java 478283 2006-11-22 18:53:40Z dvholten $
  */
 public class CSSSACMediaList implements SACMediaList {
 
@@ -91,15 +92,15 @@ public class CSSSACMediaList implements SACMediaList {
     	if (item == null)
     		item = QUERY_NOT_ALL; 
         if (length == list.length) {
+            // list is full, grow to 1.5 * size
         	CSSSACMediaQuery[] tmp = list;
-            list = new CSSSACMediaQuery[list.length * 3 / 2];
-            for (int i = 0; i < tmp.length; i++) {
-                list[i] = tmp[i];
-            }
+            list = new CSSSACMediaQuery[1 + list.length + list.length / 2];
+            System.arraycopy( tmp, 0, list, 0, tmp.length );
         }
         list[length++] = item;
     }
     
+
     public void append(String item)
     {
     	append(new CSSSACMediaQuery(false, item));

@@ -135,24 +135,16 @@
 		    <CompareBitmap url="../Integration/baselines/GradientGlowGraphic_mxml.png" target="graphic8.getChildAt(0)" timeout="2000" />
 	    </body>
 	  </TestCase>
-	  <TestCase testID="GraphicTags_Filters_DropShadowFilter_AS" description="Test that a DropShadow set on a Graphic looks right" keywords="[DropShadowFilter, Filters, Graphic, MXMLG-219]">
+     <TestCase testID="GraphicTags_Filters_DropShadowFilter_AS" description="Test that a DropShadow set on a Graphic looks right" keywords="[DropShadowFilter, Filters, Graphic, MXMLG-219]">
 	    <setup>
 	        <RunCode code="clearSpace()" />
 	        <RunCode code="addFilter(1,1)" />
 	        <Pause timeout="300" />
 	    </setup>
 	    <body>
-	  	    <CompareBitmap url="../Integration/baselines/AddFilter_AS.png" target="graphic9" timeout="2000" />
-	    </body>
-	  </TestCase>
-     <TestCase testID="GraphicTags_Filters_DropShadowFilter_AS_mac" description="Test that a DropShadow set on a Graphic looks right" keywords="[DropShadowFilter, Filters, Graphic, MXMLG-219]">
-	    <setup>
-	        <RunCode code="clearSpace()" />
-	        <RunCode code="addFilter(1,1)" />
-	        <Pause timeout="300" />
-	    </setup>
-	    <body>
-	  	    <CompareBitmap url="../Integration/baselines/$testID.png" target="graphic9" timeout="2000" />
+	  	    <CompareBitmap url="../Integration/baselines/" target="graphic9" timeout="2000">
+				<ConditionalValue os="mac" />
+			</CompareBitmap>
 	    </body>
 	  </TestCase>
 	  <TestCase testID="GraphicTags_Filters_MultipleFilters_AS" description="Test that a multiple filters set on a Graphic looks right" keywords="[DropShadowFilter, BlurFilter, Filters, Graphic, MXMLG-219]">

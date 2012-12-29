@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -32,9 +33,9 @@ import org.w3c.dom.Element;
  * Bridge class for the &lt;textPath> element.
  *
  * @author <a href="mailto:bella.robinson@cmis.csiro.au">Bella Robinson</a>
- * @version $Id: SVGTextPathElementBridge.java,v 1.8 2005/03/03 01:19:53 deweese Exp $
+ * @version $Id: SVGTextPathElementBridge.java 501922 2007-01-31 17:47:47Z dvholten $
  */
-public class SVGTextPathElementBridge extends AbstractSVGBridge
+public class SVGTextPathElementBridge extends AnimatableGenericSVGBridge
                                       implements ErrorConstants {
 
     /**
@@ -47,6 +48,10 @@ public class SVGTextPathElementBridge extends AbstractSVGBridge
      */
     public String getLocalName() {
         return SVG_TEXT_PATH_TAG;
+    }
+
+    public void handleElement(BridgeContext ctx, Element e) {
+        // We don't want to take over from the text content element.
     }
 
     /**
@@ -64,13 +69,13 @@ public class SVGTextPathElementBridge extends AbstractSVGBridge
         String uri = XLinkSupport.getXLinkHref(textPathElement);
         Element pathElement = ctx.getReferencedElement(textPathElement, uri);
 
-        if ((pathElement == null) || 
+        if ((pathElement == null) ||
             (!SVG_NAMESPACE_URI.equals(pathElement.getNamespaceURI())) ||
             (!pathElement.getLocalName().equals(SVG_PATH_TAG))) {
             // couldn't find the referenced element
             // or the referenced element was not a path
-            throw new BridgeException(textPathElement, ERR_URI_BAD_TARGET,
-                                          new Object[] {uri});
+            throw new BridgeException(ctx, textPathElement, ERR_URI_BAD_TARGET,
+                                      new Object[] {uri});
         }
 
         // construct a shape for the referenced path element
@@ -83,14 +88,15 @@ public class SVGTextPathElementBridge extends AbstractSVGBridge
                 PathParser pathParser = new PathParser();
                 pathParser.setPathHandler(app);
                 pathParser.parse(s);
-            } catch (ParseException ex) {
-               throw new BridgeException(pathElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                                          new Object[] {SVG_D_ATTRIBUTE});
+            } catch (ParseException pEx ) {
+               throw new BridgeException
+                   (ctx, pathElement, pEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                    new Object[] {SVG_D_ATTRIBUTE});
             } finally {
                 pathShape = app.getShape();
             }
         } else {
-            throw new BridgeException(pathElement, ERR_ATTRIBUTE_MISSING,
+            throw new BridgeException(ctx, pathElement, ERR_ATTRIBUTE_MISSING,
                                       new Object[] {SVG_D_ATTRIBUTE});
         }
 
@@ -98,8 +104,9 @@ public class SVGTextPathElementBridge extends AbstractSVGBridge
         // to the path shape
         s = pathElement.getAttributeNS(null, SVG_TRANSFORM_ATTRIBUTE);
         if (s.length() != 0) {
-            AffineTransform tr = SVGUtilities.convertTransform(pathElement,
-                                                  SVG_TRANSFORM_ATTRIBUTE, s);
+            AffineTransform tr =
+                SVGUtilities.convertTransform(pathElement,
+                                              SVG_TRANSFORM_ATTRIBUTE, s, ctx);
             pathShape = tr.createTransformedShape(pathShape);
         }
 
@@ -110,7 +117,7 @@ public class SVGTextPathElementBridge extends AbstractSVGBridge
         s = textPathElement.getAttributeNS(null, SVG_START_OFFSET_ATTRIBUTE);
         if (s.length() > 0) {
             float startOffset = 0;
-            int percentIndex = s.indexOf("%");
+            int percentIndex = s.indexOf('%');
             if (percentIndex != -1) {
                 // its a percentage of the length of the path
                 float pathLength = textPath.lengthOfPath();
@@ -122,8 +129,9 @@ public class SVGTextPathElementBridge extends AbstractSVGBridge
                     startOffsetPercent = -1;
                 }
                 if (startOffsetPercent < 0) {
-                    throw new BridgeException(textPathElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
-                                              new Object[] {SVG_START_OFFSET_ATTRIBUTE, s});
+                    throw new BridgeException
+                        (ctx, textPathElement, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                         new Object[] {SVG_START_OFFSET_ATTRIBUTE, s});
                 }
                 startOffset = (float)(startOffsetPercent * pathLength/100.0);
 
@@ -137,7 +145,4 @@ public class SVGTextPathElementBridge extends AbstractSVGBridge
 
         return textPath;
     }
-
-
 }
-

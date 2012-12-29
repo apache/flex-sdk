@@ -42,12 +42,12 @@
 					}
 				}
 		    }*/
-		    if(application.iPopUp.visible)
+		    if(application.iPopUp && application.iPopUp.visible)
 		    {
 		        PopUpManager.removePopUp(application.iPopUp);
 		    }
 
-		    if(application.canvasPopUp.visible)
+		    if(application.canvasPopUp && application.canvasPopUp.visible)
 		    {
 		        PopUpManager.removePopUp(application.canvasPopUp);
 		    }

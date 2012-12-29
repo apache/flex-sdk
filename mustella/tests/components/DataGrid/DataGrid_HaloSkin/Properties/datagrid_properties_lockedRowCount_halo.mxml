@@ -87,11 +87,9 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" localX="2" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
-                <Pause timeout="1" />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/" numColorVariances="5" ignoreMaxColorVariance="true">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
-            </body>
+                <WaitForLayoutManager/>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="1"/>
+             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
             </cleanup>
@@ -124,7 +122,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" localX="2" localY="0" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" localX="2" localY="30" />
-                <Pause timeout="500" />
+		<WaitForEffectsToEnd />
+                <WaitForLayoutManager />
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config1_dragDropInLockedRowArea_dropComplete.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
             </body>
             <cleanup>
@@ -153,10 +152,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
-                <Pause timeout="1" />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
+                <WaitForLayoutManager/>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="1"/>
             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
@@ -190,7 +187,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="0" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="0" />
-                <Pause timeout="500" />
+                <WaitForEffectsToEnd/>
+		<WaitForLayoutManager />
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config1_dragDropInUnlockedRowArea_dropComplete.png" />
             </body>
             <cleanup>
@@ -228,7 +226,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="0" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="0" />
-                <Pause timeout="500" />
+		<WaitForEffectsToEnd/>
+                <WaitForLayoutManager />
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config1_dragDropLockedToUnlockedRow.png" />
             </body>
             <cleanup>
@@ -268,7 +267,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" localX="2" localY="0" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" localX="2" localY="2" />
-                <Pause timeout="500" />
+		<WaitForEffectsToEnd/>
+                <WaitForLayoutManager />
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config1_dragDropUnlockedToLockedRowArea.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
             </body>
             <cleanup>
@@ -306,10 +306,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
                 <Pause timeout="1" />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/" numColorVariances="5" ignoreMaxColorVariance="true">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
-            </body>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="1"/>
+             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
             </cleanup>
@@ -343,7 +341,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" localX="2" localY="0" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" localX="2" localY="30" />
-                <Pause timeout="500" />
+				<WaitForEffectsToEnd />
+                <WaitForLayoutManager />
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config2_dragDropInLockedRowArea_dropComplete.png" numColorVariances="4" ignoreMaxColorVariance="true" />
             </body>
             <cleanup>
@@ -374,10 +373,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
                 <Pause timeout="1" />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
-            </body>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="1"/>
+             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
             </cleanup>
@@ -411,7 +408,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="0" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="0" />
-                <Pause timeout="500" />
+				<WaitForEffectsToEnd />
+                <WaitForLayoutManager />
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config2_dragDropInUnlockedRowArea_dropComplete.png" />
             </body>
             <cleanup>
@@ -450,7 +448,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="0" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="0" />
-                <Pause timeout="500" />
+				<WaitForEffectsToEnd />
+                <WaitForLayoutManager />
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config2_dragDropLockedToUnlockedRow.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
             </body>
             <cleanup>
@@ -491,7 +490,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" localX="2" localY="0" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" localX="2" localY="2" />
-                <Pause timeout="500" />
+				<WaitForEffectsToEnd />
+                <WaitForLayoutManager />
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config2_dragDropUnlockedToLockedRowArea.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
             </body>
             <cleanup>
@@ -1865,7 +1865,7 @@ some locked rows.
                 <SetProperty target="dg1" propertyName="dragMoveEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="dropEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="lockedRowCount" value="3" />
-                <SetProperty target="dg1" propertyName="height" value="170" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="height" value="180" waitEvent="updateComplete" />
             </setup>
             <body>
                 <RunCode code="application.dg1.dataProvider.addItemAt(ObjectUtil.copy(application.dataArray6.getItemAt(0)), application.dg1.dataProvider.length)" waitTarget="dg1" waitEvent="updateComplete" />
@@ -1903,7 +1903,7 @@ some locked rows.
                 <SetProperty target="dg1" propertyName="dragMoveEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="dropEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="lockedRowCount" value="3" />
-                <SetProperty target="dg1" propertyName="height" value="172" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="height" value="180" waitEvent="updateComplete" />
             </setup>
             <body>
                 <RunCode code="application.dg1.dataProvider.addItemAt(ObjectUtil.copy(application.dataArray6.getItemAt(0)), application.dg1.dataProvider.length)" waitTarget="dg1" waitEvent="updateComplete" />
@@ -1993,7 +1993,7 @@ some locked rows.
                 <SetProperty target="dg1" propertyName="dragMoveEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="dropEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="lockedRowCount" value="3" />
-                <SetProperty target="dg1" propertyName="height" value="172" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="height" value="180" waitEvent="updateComplete" />
             </setup>
             <body>
                 <RunCode code="application.dg1.dataProvider.addItemAt(ObjectUtil.copy(application.dataArray6.getItemAt(0)), application.dg1.dataProvider.length)" waitTarget="dg1" waitEvent="updateComplete" />
@@ -2081,7 +2081,7 @@ some locked rows.
                 <SetProperty target="dg1" propertyName="dragMoveEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="dropEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="lockedRowCount" value="3" />
-                <SetProperty target="dg1" propertyName="height" value="172" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="height" value="180" waitEvent="updateComplete" />
             </setup>
             <body>
                 <RunCode code="application.dg1.dataProvider.addItemAt(ObjectUtil.copy(application.dataArray6.getItemAt(0)), application.dg1.dataProvider.length)" waitTarget="dg1" waitEvent="updateComplete" />
@@ -2167,7 +2167,7 @@ some locked rows.
                 <SetProperty target="dg1" propertyName="dragMoveEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="dropEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="lockedRowCount" value="3" />
-                <SetProperty target="dg1" propertyName="height" value="172" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="height" value="180" waitEvent="updateComplete" />
             </setup>
             <body>
                 <RunCode code="application.dg1.dataProvider.addItemAt(ObjectUtil.copy(application.dataArray6.getItemAt(0)), application.dg1.dataProvider.length)" waitTarget="dg1" waitEvent="updateComplete" />
@@ -2251,7 +2251,7 @@ some locked rows.
                 <SetProperty target="dg1" propertyName="dragMoveEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="dropEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="lockedRowCount" value="3" />
-                <SetProperty target="dg1" propertyName="height" value="172" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="height" value="180" waitEvent="updateComplete" />
             </setup>
             <body>
                 <RunCode code="application.dg1.dataProvider.addItemAt(ObjectUtil.copy(application.dataArray6.getItemAt(0)), application.dg1.dataProvider.length)" waitTarget="dg1" waitEvent="updateComplete" />
@@ -2461,7 +2461,7 @@ some locked rows.
                 <SetProperty target="dg1" propertyName="dragMoveEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="dropEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="lockedRowCount" value="3" />
-                <SetProperty target="dg1" propertyName="height" value="172" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="height" value="180" waitEvent="updateComplete" />
             </setup>
             <body>
                 <RunCode code="application.dg1.dataProvider.addItemAt(ObjectUtil.copy(application.dataArray6.getItemAt(0)), application.dg1.dataProvider.length)" waitTarget="dg1" waitEvent="updateComplete" />
@@ -4499,7 +4499,7 @@ some locked rows.
                 <SetProperty target="dg1" propertyName="dragMoveEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="dropEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="lockedRowCount" value="3" />
-                <SetProperty target="dg1" propertyName="height" value="172" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="height" value="180" waitEvent="updateComplete" />
             </setup>
             <body>
                 <RunCode code="application.dg1.dataProvider.addItemAt(ObjectUtil.copy(application.dataArray6.getItemAt(0)), application.dg1.dataProvider.length)" waitTarget="dg1" waitEvent="updateComplete" />
@@ -4544,7 +4544,7 @@ some locked rows.
                 <SetProperty target="dg1" propertyName="dragMoveEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="dropEnabled" value="true" /> 
                 <SetProperty target="dg1" propertyName="lockedRowCount" value="3" />
-                <SetProperty target="dg1" propertyName="height" value="172" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="height" value="180" waitEvent="updateComplete" />
             </setup>
             <body>
                 <RunCode code="application.dg1.dataProvider.addItemAt(ObjectUtil.copy(application.dataArray6.getItemAt(0)), application.dg1.dataProvider.length)" waitTarget="dg1" waitEvent="updateComplete" />

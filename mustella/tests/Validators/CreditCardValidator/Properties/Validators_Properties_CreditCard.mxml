@@ -38,8 +38,9 @@
 	<mx:Script>
 	<![CDATA[
 	import mx.controls.TextInput;
-	import 	mx.validators.CreditCardValidator;
-	import 	mx.validators.ValidationResult;
+	import mx.validators.CreditCardValidator;
+	import mx.validators.CreditCardValidatorCardType;
+	import mx.validators.ValidationResult;
 	import mx.managers.SystemManager;
 	
 	]]>
@@ -49,7 +50,7 @@
 		<TestCase testID="CreditCardValidator_allowedFormatChars_default"  keywords="[allowedFormatChars, CreditCardValidator]">
 			<setup>
 				<ResetComponent target="myCustomCCV" className="CustomCCV"  waitEvent="updateComplete" waitTarget="myCustomCCV"/> 
-				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="CreditCard" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
+				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="{CreditCardValidatorCardType.VISA}" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
 				<SetProperty target="myCustomCCV.ti2" propertyName="text" value="4207734009977262" waitEvent="updateComplete" waitTarget="myCustomCCV.ti2"/>
 			</setup>
 			<body>
@@ -58,11 +59,11 @@
 				<AssertNoEvent target="myCustomCCV.myCCV" eventName="invalid" />
 			</body>
 		</TestCase>
-		<TestCase testID="CreditCardValidator_allowedFormatChars_%"  keywords="[allowedFormatChars, CreditCardValidator]">
+		<TestCase testID="CreditCardValidator_allowedFormatChars_percentsign"  keywords="[allowedFormatChars, CreditCardValidator]">
 			<setup>
 				<ResetComponent target="myCustomCCV" className="CustomCCV"  waitEvent="updateComplete" waitTarget="myCustomCCV"/> 
 				<SetProperty target="myCustomCCV.myCCV" propertyName="allowedFormatChars" value="%" />
-				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="CreditCard" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
+				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="{CreditCardValidatorCardType.VISA}" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
 				<SetProperty target="myCustomCCV.ti2" propertyName="text" value="4207%7340%0997%7262" waitEvent="updateComplete" waitTarget="myCustomCCV.ti2"/>
 			</setup>
 			<body>
@@ -75,7 +76,7 @@
 			<setup>
 				<ResetComponent target="myCustomCCV" className="CustomCCV"  waitEvent="updateComplete" waitTarget="myCustomCCV"/> 
 				<SetProperty target="myCustomCCV.myCCV" propertyName="allowedFormatChars" value=" " />
-				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="CreditCard" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
+				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="{CreditCardValidatorCardType.VISA}" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
 				<SetProperty target="myCustomCCV.ti2" propertyName="text" value="4207 7340 0997 7262" waitEvent="updateComplete" waitTarget="myCustomCCV.ti2"/>
 			</setup>
 			<body>
@@ -88,7 +89,7 @@
 			<setup>
 				<ResetComponent target="myCustomCCV" className="CustomCCV"  waitEvent="updateComplete" waitTarget="myCustomCCV"/> 
 				<SetProperty target="myCustomCCV.myCCV" propertyName="allowedFormatChars" value="abcd" />
-				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="CreditCard" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
+				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="{CreditCardValidatorCardType.VISA}" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
 				<SetProperty target="myCustomCCV.ti2" propertyName="text" value="4207abcd7340abcd0997abcd7262" waitEvent="updateComplete" waitTarget="myCustomCCV.ti2"/>
 			</setup>
 			<body>
@@ -101,7 +102,7 @@
 			<setup>	
 				<ResetComponent target="myCustomCCV" className="CustomCCV"  waitEvent="updateComplete" waitTarget="myCustomCCV"/> 
 				<SetProperty target="myCustomCCV.myCCV" propertyName="allowedFormatChars" value="?" />
-				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="CreditCard" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
+				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="{CreditCardValidatorCardType.VISA}" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
 				<SetProperty target="myCustomCCV.ti2" propertyName="text" value="4207?7340?0997?7262" waitEvent="updateComplete" waitTarget="myCustomCCV.ti2"/>
 			</setup>
 			<body>
@@ -132,7 +133,7 @@
 			<setup>
 				
 				<ResetComponent target="myCustomCCV" className="CustomCCV"  waitEvent="updateComplete" waitTarget="myCustomCCV"/> 
-				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="CreditCard" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
+				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="{CreditCardValidatorCardType.VISA}" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
 				<SetProperty target="myCustomCCV.ti2" propertyName="text" value="4207?734009977262" waitEvent="updateComplete" waitTarget="myCustomCCV.ti2"/>
 				
 			</setup>
@@ -150,7 +151,7 @@
 			<setup>
 				
 				<ResetComponent target="myCustomCCV" className="CustomCCV"  waitEvent="updateComplete" waitTarget="myCustomCCV"/> 
-				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="CreditCard" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
+				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="{CreditCardValidatorCardType.VISA}" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
 				<SetProperty target="myCustomCCV.ti2" propertyName="text" value=" " waitEvent="updateComplete" waitTarget="myCustomCCV.ti2"/>
 				<SetProperty target="myCustomCCV.myCCV" propertyName="noNumError" value="Please enter the number!"/>
 				
@@ -204,7 +205,7 @@
 			<setup>
 				
 				<ResetComponent target="myCustomCCV" className="CustomCCV"  waitEvent="updateComplete" waitTarget="myCustomCCV"/> 
-				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="CreditCard" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
+				<SetProperty target="myCustomCCV.ti1" propertyName="text" value="{CreditCardValidatorCardType.VISA}" waitEvent="updateComplete" waitTarget="myCustomCCV.ti1"/>
 			</setup>
 			<body>
 				<RunCode code="application.myCustomCCV.myCCV.validate(application.myCustomCCV.def)"/>

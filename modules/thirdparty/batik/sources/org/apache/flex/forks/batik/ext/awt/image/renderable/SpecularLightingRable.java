@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,83 +23,83 @@ import java.awt.geom.Rectangle2D;
 import org.apache.flex.forks.batik.ext.awt.image.Light;
 
 /**
- * This filter follows the specification of the feSpecularLighting filter in 
+ * This filter follows the specification of the feSpecularLighting filter in
  * the SVG 1.0 specification.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: SpecularLightingRable.java,v 1.7 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: SpecularLightingRable.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public interface SpecularLightingRable extends FilterColorInterpolation {
     /**
      * Returns the source to be filtered
      */
-    public Filter getSource();
+    Filter getSource();
 
     /**
      * Sets the source to be filtered
      */
-    public void setSource(Filter src);
+    void setSource(Filter src);
 
     /**
      * @return Light object used for the diffuse lighting
      */
-    public Light getLight();
+    Light getLight();
 
     /**
      * @param light New Light object
      */
-    public void setLight(Light light);
+    void setLight(Light light);
 
     /**
      * @return surfaceScale
      */
-    public double getSurfaceScale();
+    double getSurfaceScale();
 
     /**
      * Sets the surface scale
      */
-    public void setSurfaceScale(double surfaceScale);
+    void setSurfaceScale(double surfaceScale);
 
     /**
      * @return specular constant, or ks.
      */
-    public double getKs();
+    double getKs();
 
     /**
      * Sets the specular constant, or ks
      */
-    public void setKs(double ks);
+    void setKs(double ks);
 
     /**
      * @return specular exponent, or kd
      */
-    public double getSpecularExponent();
+    double getSpecularExponent();
 
     /**
      * Sets the specular exponent
      */
-    public void setSpecularExponent(double specularExponent);
+    void setSpecularExponent(double specularExponent);
 
     /**
      * @return the litRegion for this filter
      */
-    public Rectangle2D getLitRegion();
+    Rectangle2D getLitRegion();
 
     /**
      * Sets the litRegion for this filter
      */
-    public void setLitRegion(Rectangle2D litRegion);
+    void setLitRegion(Rectangle2D litRegion);
 
     /**
-     * Returns the min [dx,dy] distance in user space for evalutation of 
+     * Returns the min [dx,dy] distance in user space for evalutation of
      * the sobel gradient.
      */
-    public double [] getKernelUnitLength();
+    double [] getKernelUnitLength();
 
     /**
-     * Sets the min [dx,dy] distance in user space for evaluation of the 
+     * Sets the min [dx,dy] distance in user space for evaluation of the
      * sobel gradient. If set to zero or null then device space will be used.
      */
-    public void setKernelUnitLength(double [] kernelUnitLength);
+    void setKernelUnitLength(double [] kernelUnitLength);
 }
 

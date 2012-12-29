@@ -342,9 +342,10 @@
 			<SetStyle target="dataGrid2" styleName="styleName" value="style4" waitEvent="updateComplete" waitTarget="dataGrid2" />
 			<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2" />
 			<DispatchMouseEvent type="{MouseEvent.MOUSE_OVER}" target="dataGrid2.grid" localX="110" localY="20" />
-			<DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" target="dataGrid2.grid" localX="110" localY="30" />
+			<DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" target="dataGrid2.grid" localX="110" localY="30"/>
 
 			<AssertEvent target="dataGrid2.grid" eventName="{GridEvent.GRID_ROLL_OVER}" eventClass="spark.events::GridEvent" />
+			<WaitForLayoutManager />
 			<CompareBitmap url="../Styles/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
 
 		</body>
@@ -451,7 +452,7 @@
 		<body>		
 		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
             	    <DispatchMouseEvent type="{MouseEvent.MOUSE_OVER}" target="dataGrid2.grid" localX="10" localY="20" />
-		    <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" target="dataGrid2.grid" localX="10" localY="30" />
+		    <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" target="dataGrid2.grid" localX="10" localY="30" waitEvent="mouseMove"/>
 		    <CompareBitmap url="../Styles/baselines/$testID_cell1.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
 		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
 		    
@@ -465,6 +466,7 @@
 		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
 		    <DispatchMouseEvent type="{MouseEvent.MOUSE_OVER}" target="dataGrid2.grid" localX="120" localY="20" />
 		    <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" target="dataGrid2.grid" localX="120" localY="30" />
+			<WaitForLayoutManager />
 		    <CompareBitmap url="../Styles/baselines/$testID_row1.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
 		   
 		
@@ -488,6 +490,7 @@
 		<body>		
 		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
             	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(2,1)" value="true" />
+			<WaitForLayoutManager />
 		    <CompareBitmap url="../Styles/baselines/$testID_cellgray.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
 		
 		    <SetStyle target="dataGrid2" styleName="selectionColor" value="0x37D422" waitEvent="updateComplete" waitTarget="dataGrid2" /> 
@@ -501,7 +504,8 @@
 		    <CompareBitmap url="../Styles/baselines/$testID_cellRegionGreen.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
 		    
 		    <SetStyle target="dataGrid2" styleName="selectionColor" value="0x22C2D4" waitEvent="updateComplete" waitTarget="dataGrid2" /> 
-		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.addSelectedCell(4,3)" value="true" />	  
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.addSelectedCell(4,3)" value="true" />	
+			<WaitForLayoutManager />
 		    <CompareBitmap url="../Styles/baselines/$testID_blue.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
 		</body>
 	    </TestCase>
@@ -521,20 +525,24 @@
 		<body>		
 		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
             	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedIndex(2)" value="true" />
+			<WaitForLayoutManager />
 		    <CompareBitmap url="../Styles/baselines/$testID_cellgray.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
 		
 		    <SetStyle target="dataGrid2" styleName="selectionColor" value="0x37D422" waitEvent="updateComplete" waitTarget="dataGrid2" /> 
 		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedIndex(3)" value="true" />
+			<WaitForLayoutManager />
 		    <CompareBitmap url="../Styles/baselines/$testID_cellgreen.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
 		    
 		    <SetProperty target="dataGrid2" propertyName="selectionMode" value="multipleRows" waitEvent="enterFrame" waitTarget="stage" />
 		
 		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.addSelectedIndex(4)" value="true" />
 	  	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.addSelectedIndex(5)" value="true" />
+			<WaitForLayoutManager />
 		    <CompareBitmap url="../Styles/baselines/$testID_cellRegionGreen.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
 		    
 		    <SetStyle target="dataGrid2" styleName="selectionColor" value="0x22C2D4" waitEvent="updateComplete" waitTarget="dataGrid2" /> 
 		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.addSelectedIndex(0)" value="true" />	  
+			<WaitForLayoutManager />
 		    <CompareBitmap url="../Styles/baselines/$testID_cellRegionBlue.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
 		   <!-- clear selection -->
 		   <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.clearSelection()" value="true" />	

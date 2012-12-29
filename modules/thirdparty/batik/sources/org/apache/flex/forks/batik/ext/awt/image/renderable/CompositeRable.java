@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,7 +27,7 @@ import org.apache.flex.forks.batik.ext.awt.image.CompositeRule;
  * the image are applied in the order they are in the List given.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: CompositeRable.java,v 1.8 2004/08/18 07:13:59 vhardy Exp $
+ * @version $Id: CompositeRable.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public interface CompositeRable extends FilterColorInterpolation {
 
@@ -34,17 +35,17 @@ public interface CompositeRable extends FilterColorInterpolation {
      * The sources to be composited togeather.
      * @param srcs The list of images to be composited by the composite rule.
      */
-    public void setSources(List srcs);
+    void setSources(List srcs);
 
     /**
      * Set the composite rule to use for combining the sources.
      * @param cr Composite rule to use.
      */
-    public void setCompositeRule(CompositeRule cr);
+    void setCompositeRule(CompositeRule cr);
 
     /**
      * Get the composite rule in use for combining the sources.
      * @return Composite rule currently in use.
      */
-    public CompositeRule getCompositeRule();
+    CompositeRule getCompositeRule();
 }

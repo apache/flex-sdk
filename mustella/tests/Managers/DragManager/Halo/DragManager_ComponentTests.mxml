@@ -376,13 +376,13 @@
 			 <body>
 			    <DispatchMouseEvent target="firstTileList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
 			    <DispatchMouseEvent target="firstTileList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="435" buttonDown="true"
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="175" localY="370" buttonDown="true"
 					waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="445" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="445" waitTarget="secondTileList" waitEvent="dragDrop" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="440" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="460" localY="375" waitTarget="secondTileList" waitEvent="dragDrop" />
 	            <AssertPropertyValue propertyName="label" target="secondTileList.dataProvider.0" value="Toys" />
 	            <AssertPropertyValue propertyName="length" target="firstTileList.dataProvider" value="9" />
 			</body>
@@ -406,13 +406,13 @@
 			    <DispatchMouseClickEvent target="firstTileList.mx_internal:rendererArray.0.2" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstTileList" ctrlKey="true" />
 			    <DispatchMouseEvent target="firstTileList.mx_internal:rendererArray.0.1" type="mouseOver" localX="5" localY="5"  />
 			    <DispatchMouseEvent target="firstTileList.mx_internal:rendererArray.0.1" type="mouseDown" localX="5" localY="5" buttonDown="true" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="435" buttonDown="true"
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="370" buttonDown="true"
 					waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="435" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="440" localY="375" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="460" localY="375" waitTarget="secondTileList" waitEvent="dragDrop" />
 				<AssertPropertyValue propertyName="length" target="secondTileList.dataProvider" value="2" />
 				<AssertPropertyValue propertyName="length" target="firstTileList.dataProvider" value="8" />
 			 </body>
@@ -432,14 +432,13 @@
 			 <body>
 			    <DispatchMouseEvent target="firstTileList.mx_internal:rendererArray.1.0" type="mouseOver" localX="5" localY="5"  />
 			    <DispatchMouseEvent target="firstTileList.mx_internal:rendererArray.1.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="435" buttonDown="true"
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="370" buttonDown="true"
 					waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-	            <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="445" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="445" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+	            <DispatchMouseEvent target="stage" type="mouseMove" localX="440" localY="375" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="460" localY="375" waitTarget="secondTileList" waitEvent="dragDrop" />
 				<AssertPropertyValue propertyName="label" target="secondTileList.dataProvider.0" value="White Squares" />
 	            <AssertPropertyValue propertyName="length" target="firstTileList.dataProvider" value="10" />
 			</body>
@@ -462,14 +461,13 @@
 			    <DispatchMouseClickEvent target="firstTileList.mx_internal:rendererArray.0.2" localX="4" localY="5" waitEvent="itemClick" waitTarget="firstTileList" ctrlKey="true" />
 			    <DispatchMouseEvent target="firstTileList.mx_internal:rendererArray.0.1" type="mouseOver" localX="5" localY="5"  />
 			    <DispatchMouseEvent target="firstTileList.mx_internal:rendererArray.0.1" type="mouseDown" localX="5" localY="5" buttonDown="true" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="435" buttonDown="true"
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="370" buttonDown="true"
 					waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-	            <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="435" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+	            <DispatchMouseEvent target="stage" type="mouseMove" localX="440" localY="375" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="460" localY="375" waitTarget="secondTileList" waitEvent="dragDrop" />
 				<AssertPropertyValue propertyName="length" target="secondTileList.dataProvider" value="2" />
 				<AssertPropertyValue propertyName="length" target="firstTileList.dataProvider" value="10" />
 			 </body>
@@ -478,6 +476,7 @@
 			<setup>
 			   <ResetComponent target="firstTileList" className="mx.controls.TileList" waitTarget="firstTileList" waitEvent="updateComplete" />
 			   <SetProperty propertyName="width" value="250" target="firstTileList" />
+   			   <SetProperty propertyName="dragEnabled" value="false" target="firstTileList" />
 			   <RunCode code="addData(application.firstTileList)" waitTarget="firstTileList" waitEvent="updateComplete" />
 			   <ResetComponent target="secondTileList" className="mx.controls.TileList" waitTarget="secondTileList" waitEvent="updateComplete" />
 			   <SetProperty propertyName="dropEnabled" value="true" target="secondTileList" />
@@ -488,13 +487,13 @@
 			 <body>
 			    <DispatchMouseEvent target="firstTileList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
 			    <DispatchMouseEvent target="firstTileList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="435" buttonDown="true"
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="370" buttonDown="true"
 					waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="445" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="445" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="440" localY="375" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="460" localY="375" waitTarget="secondTileList" />
 	            <AssertPropertyValue propertyName="length" target="secondTileList.dataProvider" value="0" />
 	            <AssertPropertyValue propertyName="length" target="firstTileList.dataProvider" value="10" />
 			</body>
@@ -539,7 +538,7 @@
 			        waitTarget="mx.managers::DragManager.mx_internal:dragProxy"/>
 	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="212" waitTarget="secondDataGrid" waitEvent="dragDrop" />
 
-	            <AssertPropertyValue propertyName="text" target="secondDataGrid.mx_internal:rendererArray.1.2" value="Movies" />
+	            <AssertPropertyValue propertyName="text" target="secondDataGrid.mx_internal:rendererArray.1.2" value="Race Cars" />
 	            <AssertPropertyValue propertyName="length" target="firstDataGrid.dataProvider" value="8" />
 			</body>
 		</TestCase>
@@ -561,13 +560,13 @@
 			 <body>
 			    <DispatchMouseEvent target="firstTileList.mx_internal:rendererArray.0.0" type="mouseOver" localX="5" localY="5"  />
 			    <DispatchMouseEvent target="firstTileList.mx_internal:rendererArray.0.0" type="mouseDown" localX="5" localY="5" buttonDown="true" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="435" buttonDown="true"
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="100" localY="370" buttonDown="true"
 					waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="435" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-			    <DispatchMouseEvent target="stage" type="mouseMove" localX="480" localY="445" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
-	            <DispatchMouseEvent target="stage" type="mouseUp" localX="480" localY="445" waitTarget="secondTileList" waitEvent="dragDrop" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="200" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="260" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="350" localY="370" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+			    <DispatchMouseEvent target="stage" type="mouseMove" localX="440" localY="375" buttonDown="true" 	waitTarget="mx.managers::DragManager.mx_internal:dragProxy" />
+	            <DispatchMouseEvent target="stage" type="mouseUp" localX="460" localY="375" waitTarget="secondTileList" waitEvent="dragDrop" />
 	            <AssertPropertyValue propertyName="label" target="secondTileList.dataProvider.0" value="Toys" />
 	            <AssertPropertyValue propertyName="length" target="firstTileList.dataProvider" value="9" />
 			</body>

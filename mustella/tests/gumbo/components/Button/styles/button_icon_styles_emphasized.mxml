@@ -75,7 +75,7 @@
 <TestCase testID="button_icon_http_emphasized" keywords="[emphasized,Button]" description="Load icon from the internet">
 	<setup>
 		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
-		<SetStyle target="btn1" styleName="icon" value="http://localhost/gumbo/components/Button/swfs/Assets/logo.png?avoidThe304_1" />
+		<SetStyle target="btn1" styleName="icon" value="http://localhost:{portNumber}/gumbo/components/Button/swfs/Assets/logo.png?avoidThe304_1" />
 		<SetProperty target="btn1" propertyName="emphasized" value="true" waitEvent="updateComplete" />
 		<Pause timeout="1000" />
 	</setup>
@@ -87,7 +87,7 @@
 <TestCase testID="button_icon_http_404_emphasized" keywords="[emphasized,Button]" description="Load icon from the internet which is not available">
 	<setup>
 		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
-		<SetStyle target="btn1" styleName="icon" value="http://localhost/gumbo/components/Button/swfs/Assets/logo.pngss" />
+		<SetStyle target="btn1" styleName="icon" value="http://localhost:{portNumber}/gumbo/components/Button/swfs/Assets/logo.pngss" />
 		<Pause timeout="1000" />
 		<SetProperty target="btn1" propertyName="emphasized" value="true" waitEvent="updateComplete" />
 	</setup>
@@ -282,11 +282,11 @@
 		<SetProperty target="btn1" propertyName="emphasized" value="true" waitEvent="updateComplete" />
 	</setup>
 	<body>
-		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
-		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
-		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="28" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="28" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="33" waitEvent="mouseDown" />
 		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
-		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="33" waitEvent="mouseUp" />
 	</body>
 </TestCase>
 
@@ -298,11 +298,11 @@
 		<SetProperty target="btn1" propertyName="emphasized" value="true" waitEvent="updateComplete" />
 	</setup>
 	<body>
-		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
-		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
-		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="28" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="28" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="33" waitEvent="mouseDown" />
 		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
-		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="33" waitEvent="mouseUp" />
 	</body>
 </TestCase>
 
@@ -432,11 +432,11 @@
 		<SetProperty target="btn1" propertyName="emphasized" value="true" waitEvent="updateComplete" />
 	</setup>
 	<body>
-		<DispatchMouseEvent target="btn1" type="rollOver" localX="86" localY="38" waitEvent="rollOver" />
-		<DispatchMouseEvent target="btn1" type="mouseMove" localX="90" localY="38" waitEvent="mouseMove" />
-		<DispatchMouseEvent target="btn1" type="mouseDown" localX="90" localY="43" waitEvent="mouseDown" />
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="86" localY="28" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="90" localY="28" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="90" localY="33" waitEvent="mouseDown" />
 		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
-		<DispatchMouseEvent target="btn1" type="mouseUp" localX="90" localY="43" waitEvent="mouseUp" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="90" localY="33" waitEvent="mouseUp" />
 	</body>
 </TestCase>
 
@@ -1232,11 +1232,11 @@ Combine with various other styles and properties.
 	<body>
 		<SetStyle target="btn1" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="btn1"/>
 		<AssertStyleValue target="btn1" styleName="fontFamily" value="myFontFamily" />		
-		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
-		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
-		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="28" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="28" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="33" waitEvent="mouseDown" />
 		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
-		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="33" waitEvent="mouseUp" />
 	</body>
 </TestCase>
 
@@ -1268,11 +1268,11 @@ Combine with various other styles and properties.
 		<AssertStyleValue target="btn1" styleName="fontSize" value="12" />		
 		<SetStyle target="btn1" styleName="fontSize" value="26" waitEvent="updateComplete" waitTarget="btn1"/>
 		<AssertStyleValue target="btn1" styleName="fontSize" value="26" />		
-		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
-		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
-		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="28" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="28" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="33" waitEvent="mouseDown" />
 		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
-		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="33" waitEvent="mouseUp" />
 	</body>
 </TestCase>
 
@@ -1302,11 +1302,11 @@ Combine with various other styles and properties.
 	</setup>
 	<body>
 		<AssertStyleValue target="btn1" styleName="fontWeight" value="normal" />		
-		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
-		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
-		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="28" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="28" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="33" waitEvent="mouseDown" />
 		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
-		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="33" waitEvent="mouseUp" />
 	</body>
 </TestCase>
 
@@ -1338,11 +1338,11 @@ Combine with various other styles and properties.
 		<AssertStyleValue target="btn1" styleName="textDecoration" value="none" />		
 		<SetStyle target="btn1" styleName="textDecoration" value="underline" waitEvent="updateComplete" waitTarget="btn1"/>
 		<AssertStyleValue target="btn1" styleName="textDecoration" value="underline" />		
-		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
-		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
-		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="28" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="28" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="33" waitEvent="mouseDown" />
 		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
-		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="33" waitEvent="mouseUp" />
 	</body>
 </TestCase>
 
@@ -1374,11 +1374,11 @@ Combine with various other styles and properties.
 		<AssertStyleValue target="btn1" styleName="fontStyle" value="normal" />		
 		<SetStyle target="btn1" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="btn1"/>
 		<AssertStyleValue target="btn1" styleName="fontStyle" value="italic" />		
-		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
-		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
-		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="28" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="28" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="33" waitEvent="mouseDown" />
 		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
-		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="33" waitEvent="mouseUp" />
 	</body>
 </TestCase>
 
@@ -1418,11 +1418,11 @@ Combine with various other styles and properties.
 	<body>
 		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
 		<AssertStyleValue target="btn1" styleName="chromeColor" value="0xff0000" />		
-		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
-		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
-		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="28" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="28" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="33" waitEvent="mouseDown" />
 		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
-		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="33" waitEvent="mouseUp" />
 	</body>
 </TestCase>
 
@@ -1436,11 +1436,11 @@ Combine with various other styles and properties.
 	<body>
 		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
 		<AssertStyleValue target="btn1" styleName="chromeColor" value="0xff0000" />		
-		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
-		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
-		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="28" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="28" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="33" waitEvent="mouseDown" />
 		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
-		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="33" waitEvent="mouseUp" />
 	</body>
 </TestCase>
 

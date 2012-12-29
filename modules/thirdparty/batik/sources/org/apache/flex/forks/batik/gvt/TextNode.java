@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -39,7 +40,7 @@ import org.apache.flex.forks.batik.gvt.text.TextSpanLayout;
  * A graphics node that represents text.
  *
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: TextNode.java,v 1.34 2005/03/27 08:58:34 cam Exp $
+ * @version $Id: TextNode.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class TextNode extends AbstractGraphicsNode implements Selectable {
 
@@ -147,7 +148,13 @@ public class TextNode extends AbstractGraphicsNode implements Selectable {
      * Returns the text of this <tt>TextNode</tt> as a string.
      */
     public String getText() {
-        if (text == null) {
+
+        if (text != null) 
+            return text;
+
+        if (aci == null) {
+            text = "";
+        } else {
             StringBuffer buf = new StringBuffer(aci.getEndIndex());
             for (char c = aci.first();
                  c != CharacterIterator.DONE;
@@ -331,8 +338,8 @@ public class TextNode extends AbstractGraphicsNode implements Selectable {
      */
     public boolean selectAll(double x, double y) {
         beginMark = textPainter.selectFirst(this);
-        endMark = textPainter.selectLast(this);
-        return true;
+        endMark   = textPainter.selectLast(this);
+        return true; // assume this always changes selection, for now.
     }
 
     /**
@@ -341,9 +348,10 @@ public class TextNode extends AbstractGraphicsNode implements Selectable {
      * @return an object containing the selected content.
      */
     public Object getSelection() {
+        Object o = null;
+        if (aci == null) return o;
 
         int[] ranges = textPainter.getSelected(beginMark, endMark);
-        Object o = null;
 
         // TODO: later we can return more complex things like
         // noncontiguous selections

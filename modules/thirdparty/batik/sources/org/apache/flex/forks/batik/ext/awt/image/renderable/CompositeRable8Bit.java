@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -29,7 +30,7 @@ import java.awt.image.RenderedImage;
 import java.awt.image.renderable.RenderContext;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import org.apache.flex.forks.batik.ext.awt.image.CompositeRule;
 import org.apache.flex.forks.batik.ext.awt.image.GraphicsUtil;
@@ -43,7 +44,7 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.FloodRed;
  * the image are applied in the order they are in the List given.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: CompositeRable8Bit.java,v 1.15 2004/08/18 07:13:59 vhardy Exp $
+ * @version $Id: CompositeRable8Bit.java 489226 2006-12-21 00:05:36Z cam $
  */
 public class CompositeRable8Bit
     extends    AbstractColorInterpolationRable
@@ -140,7 +141,7 @@ public class CompositeRable8Bit
         else {
             aoiR = aoi.getBounds2D();
             Rectangle2D bounds2d = getBounds2D();
-            if (bounds2d.intersects(aoiR) == false)
+            if ( ! bounds2d.intersects(aoiR) )
                 return null;
 
             Rectangle2D.intersect(aoiR, bounds2d, aoiR);
@@ -150,7 +151,8 @@ public class CompositeRable8Bit
 
         rc = new RenderContext(at, aoiR, rh);
 
-        Vector srcs = new Vector();
+        // note: this hides a member in a superclass!
+        List srcs = new ArrayList();
 
         Iterator i = getSources().iterator();
         while (i.hasNext()) {

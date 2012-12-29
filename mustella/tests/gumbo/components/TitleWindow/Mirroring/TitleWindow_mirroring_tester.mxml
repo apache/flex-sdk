@@ -44,7 +44,7 @@
             </setup>
             <body>
             	<AssertPropertyValue target="defaultTW" propertyName="layoutDirection" value="rtl"/>
-            	<MyCompareBitmap target="defaultTW" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="15" maxColorVariance="20"/>
+            	<CompareBitmap target="defaultTW" url="../Mirroring/Baselines/$testID.png" />
             </body>
         </TestCase> 
     
@@ -55,7 +55,7 @@
             </setup>
             <body>
                 <AssertPropertyValue target="twObject" propertyName="layoutDirection" value="rtl"/>
-            	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="12" maxColorVariance="20"/>
+            	<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" />
             </body>
         </TestCase> 
         
@@ -66,7 +66,7 @@
             </setup>
             <body>
                 <AssertPropertyValue target="twObject" propertyName="layoutDirection" value="rtl"/>
-            	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+            	<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" />
             </body>
         </TestCase> 
         
@@ -77,7 +77,7 @@
             </setup>
             <body>
                 <AssertPropertyValue target="twObject" propertyName="layoutDirection" value="rtl"/>
-            	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+            	<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" />
             </body>
         </TestCase> 
         
@@ -88,7 +88,7 @@
             </setup>
             <body>
                 <AssertPropertyValue target="twObject" propertyName="layoutDirection" value="rtl"/>
-            	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+            	<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase> 
         
@@ -99,7 +99,7 @@
             </setup>
             <body>
                 <AssertPropertyValue target="twObject" propertyName="layoutDirection" value="rtl"/>
-            	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+            	<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase> 
  
@@ -114,7 +114,7 @@
 		<Pause timeout="40"/>
 		
 		<AssertPropertyValue target="twObject.curAlert" propertyName="layoutDirection" value="rtl"/>
-		<MyCompareBitmap target="twObject.curAlert" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png"  numColorVariances="10" maxColorVariance="20"/>
+		<CompareBitmap target="twObject.curAlert" url="../Mirroring/Baselines/$testID.png"  />
 		<DispatchKeyEvent key="SPACE" />
 		<AssertEvent target="twObject.curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
 		<WaitForEffectsToEnd />
@@ -130,7 +130,7 @@
              	<RunCode code="FlexGlobals.topLevelApplication.twObject.showTitleWindow()" waitEvent="TitleWindowComplete" waitTarget="twObject"/>
 		<RunCode code="FlexGlobals.topLevelApplication.childWindowList.push(FlexGlobals.topLevelApplication.twObject.twWindow2)" />
 		<AssertPropertyValue target="twObject.twWindow2" propertyName="layoutDirection" value="rtl"/>
-		<MyCompareBitmap target="twObject.twWindow2" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png"  numColorVariances="10" maxColorVariance="20"/>
+		<CompareBitmap target="twObject.twWindow2" url="../Mirroring/Baselines/$testID.png" />
            
              </body>
         </TestCase>
@@ -144,7 +144,7 @@
                	   <RunCode code="FlexGlobals.topLevelApplication.twObject=TitleWindow(PopUpManager.createPopUp(DisplayObject(FlexGlobals.topLevelApplication),TitleWindowWithContent1))" />
    	    	   <RunCode code="FlexGlobals.topLevelApplication.childWindowList.push(FlexGlobals.topLevelApplication.twObject)"/>
    	           <AssertPropertyValue target="twObject" propertyName="layoutDirection" value="rtl"/>
-  		   <MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+  		   <CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" />
              
                </body>
         </TestCase>
@@ -158,7 +158,7 @@
               	<RunCode code="FlexGlobals.topLevelApplication.twObject.showPopupAnchor()"  waitEvent="updateComplete" waitTarget="twObject.myForm" />
    	        <AssertPropertyValue target="twObject.myForm" propertyName="layoutDirection" value="rtl"/>
  	    	<Pause timeout="100"/>
-   	    	<MyCompareBitmap target="twObject.myForm" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+   	    	<CompareBitmap target="twObject.myForm" url="../Mirroring/Baselines/$testID.png" />
            
               </body>
         </TestCase>
@@ -178,12 +178,12 @@
        
     		<RunCode code="addCheckBox(FlexGlobals.topLevelApplication.twObject)" waitEvent="elementAdd" waitTarget="twObject"/>
     		<Pause timeout="100"/>
-    		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID_addToParent.png"  mac_url="../Mirroring/Baselines/$testID_addToParent_mac.png" numColorVariances="10" maxColorVariance="20"/>
+    		<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID_addToParent.png" />
     		
     		<RunCode code="addCheckBox(FlexGlobals.topLevelApplication.twObject.twWindow)" waitEvent="elementAdd" waitTarget="twObject.twWindow"/>
 		 <Pause timeout="100"/>
-    		<MyCompareBitmap target="twObject.twWindow" url="../Mirroring/Baselines/$testID_addToChild.png" mac_url="../Mirroring/Baselines/$testID_addToChild_mac.png"  numColorVariances="15" maxColorVariance="20"/>
-    		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID_removeChild.png" mac_url="../Mirroring/Baselines/$testID_removeChild_mac.png"  numColorVariances="15" maxColorVariance="20"/>
+    		<CompareBitmap target="twObject.twWindow" url="../Mirroring/Baselines/$testID_addToChild.png"  />
+    		<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID_removeChild.png"  />
             </body>
         </TestCase>        
         
@@ -195,7 +195,7 @@
                   <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithRTLContent1,'window TitleWindow')" waitEvent="TitleWindowComplete" waitTarget=""/>
               </setup>
               <body>
-   	    	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+   	    	<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" />
            
               </body>
         </TestCase>      
@@ -209,7 +209,7 @@
 	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithSizeConstraints3,'size constrainted test')" waitEvent="TitleWindowComplete" waitTarget=""/>
 	    </setup>
 	    <body>            	            	
-		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+		<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" />
 	    </body>
 	</TestCase>
 	
@@ -225,7 +225,7 @@
 	        <SetProperty target="twObject.myOutterPanel" propertyName="layoutDirection" value="rtl"  />
     	    	<SetStyle target="twObject.myOutterPanel" styleName="direction" value="rtl" waitEvent="updateComplete"/>
        
-		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+		<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" />
 	    </body>
 	</TestCase>
 	
@@ -239,7 +239,7 @@
 	    </setup>
 	    <body>     
 	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.chk2.move(200,300)" waitTarget="twObject.chk2" waitEvent="move"/>
-		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+		<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" />
 	    </body>
 	</TestCase>
 
@@ -253,7 +253,7 @@
 	    	<SetStyle target="twObject" styleName="direction" value="ltr" waitEvent="updateComplete"/>
 		
 	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.chk2.move(200,300)" waitTarget="twObject.chk2" waitEvent="move"/>
-		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+		<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" />
 	    </body>
 	</TestCase>
 	
@@ -265,7 +265,7 @@
 	    </setup>
 	    <body>     
 	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.chk1.move(150,60)" waitTarget="twObject.chk1" waitEvent="move"/>
-		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+		<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" />
 	    </body>
 	</TestCase>
 	<TestCase testID="TitleWindow_rtl_constraint3_update" keywords="[TitleWindow,Mirroring,sizeConstraint]" description="Test content inside titleWindow with size constraint setting, layoutDirection=rtl, move a child">
@@ -280,7 +280,7 @@
 		<SetStyle target="twObject" styleName="direction" value="ltr" waitEvent="updateComplete"/>
 		<RunCode code="FlexGlobals.topLevelApplication.twObject.chk1.move(100,60)" waitTarget="twObject.chk1" waitEvent="move"/>
 		
-		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" numColorVariances="10"  mac_url="../Mirroring/Baselines/$testID_mac.png" maxColorVariance="20"/>
+		<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" />
 	    </body>
 	</TestCase>
 	
@@ -291,7 +291,7 @@
 	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithSizeConstraints4,'size constrainted test2')" waitEvent="TitleWindowComplete" waitTarget=""/>
 	    </setup>
 	    <body>     
-	    	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+	    	<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" />
 	    </body>
 	</TestCase>
 	
@@ -304,7 +304,7 @@
 	    <body>  
 	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.layoutDirection='ltr'"  waitEvent="updateComplete" waitTarget="twObject" />
    	        <SetStyle target="twObject" styleName="direction" value="ltr" waitEvent="updateComplete"/>
-	    	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+	    	<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" />
 	    </body>
 	</TestCase>
 	
@@ -316,11 +316,11 @@
             </setup>
 	    <body>  
 	    	<SetProperty target="defaultTW" propertyName="title" valueExpression="value=longTitle" waitEvent="updateComplete" waitTarget="defaultTW"/>
-  		<MyCompareBitmap target="defaultTW" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+  		<CompareBitmap target="defaultTW" url="../Mirroring/Baselines/$testID.png" />
 	    	<SetProperty target="defaultTW" propertyName="layoutDirection" value="ltr" waitEvent="updateComplete" waitTarget="defaultTW"/>
 	      	 <SetStyle target="defaultTW" styleName="direction" value="ltr" waitEvent="updateComplete"/>
 	    	<Pause timeout="200"/>
-	      	<MyCompareBitmap target="defaultTW" url="../Mirroring/Baselines/$testID_ltr.png" mac_url="../Mirroring/Baselines/$testID_ltr_mac.png" numColorVariances="10" maxColorVariance="20"/>
+	      	<CompareBitmap target="defaultTW" url="../Mirroring/Baselines/$testID_ltr.png" />
 	    
 	    </body>
 	</TestCase>
@@ -331,7 +331,7 @@
 	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowSkinned,'skinnedTitleWindow')" waitEvent="TitleWindowComplete" waitTarget=""/>
 	    </setup>
 	    <body>  
-	    	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+	    	<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" />
 	    	<DispatchMouseEvent type="rollOver" target="twObject.closeButton" localX="2" localY="2" />
 		<DispatchMouseEvent type="click" target="twObject.closeButton" localX="5" localY="5" waitEvent="click" />
 		<AssertEvent target="twObject" eventName="close" eventClass="mx.events::CloseEvent" timeout="5000" />

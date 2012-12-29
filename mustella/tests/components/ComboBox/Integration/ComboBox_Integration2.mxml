@@ -95,24 +95,29 @@
 		   <RunCode code="setToolTipDelays()"/>
 	     </setup>
 	    <body>			
-		  <DispatchKeyEvent key="TAB" />
-		 <CompareBitmap target="mybox" url="../Integration/Baselines/cb_bugs_priorityA_173712_inital.png" numColorVariances="15" ignoreMaxColorVariance="true" />
-		 <RunCode code="setErrorString()" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
-		 <DispatchMouseEvent  target="mybox.myCB" type ="mouseOver" localX="2" localY="2" />
-		 <Pause timeout="600"/>
-		  <CompareBitmap target="mybox" url="../Integration/Baselines/cb_bugs_priorityA_173712_error_string_set.png" numColorVariances="15" ignoreMaxColorVariance="true" />
-		  <RunCode code="resetErrorString()" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
-		 <DispatchMouseEvent  target="mybox.myCB" type ="mouseOver" localX="2" localY="2" />	
- 		 <Pause timeout="600"/>
-		  <CompareBitmap target="mybox" url="../Integration/Baselines/cb_bugs_priorityA_173712_error_string_reset.png" numColorVariances="15" ignoreMaxColorVariance="true" />
-	         <RunCode code="setErrorString()" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
-		 <DispatchMouseClickEvent target="mybox.myCB" stageX="2" stageY="2" />
-		 <DispatchMouseEvent  target="mybox.myCB" type ="mouseOver" localX="2" localY="2" />		 
-		 <Pause timeout="600"/>	
-		 <CompareBitmap target="mybox" url="../Integration/Baselines/cb_bugs_priorityA_173712_error_string_setAgain.png" numColorVariances="15" ignoreMaxColorVariance="true" />
-		 <RunCode code="resetErrorString()" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
-		 <Pause timeout="500"/>
-	     </body>
+    		<DispatchKeyEvent key="TAB" />
+            <CompareBitmap target="mybox" url="../Integration/Baselines/cb_bugs_priorityA_173712_inital.png" numColorVariances="15" ignoreMaxColorVariance="true" />
+            <RunCode code="setErrorString()" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <DispatchMouseEvent  target="mybox.myCB" type ="mouseOver" localX="2" localY="2" />
+		    <!-- wait for ToolTip - see setToolTipDelays() ToolTipManager.showDisplay -->
+            <Pause timeout="600"/>
+            <CompareBitmap target="mybox" url="../Integration/Baselines/cb_bugs_priorityA_173712_error_string_set.png" numColorVariances="15" ignoreMaxColorVariance="true" />
+            <RunCode code="resetErrorString()" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <DispatchMouseEvent  target="mybox.myCB" type ="mouseOver" localX="2" localY="2" />	
+            <!-- wait for ToolTip - see setToolTipDelays() ToolTipManager.showDisplay -->
+ 		    <Pause timeout="600"/>
+            <CompareBitmap target="mybox" url="../Integration/Baselines/cb_bugs_priorityA_173712_error_string_reset.png" numColorVariances="15" ignoreMaxColorVariance="true" />
+            <RunCode code="setErrorString()" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <DispatchMouseClickEvent target="mybox.myCB" stageX="2" stageY="2" />
+            <DispatchMouseEvent  target="mybox.myCB" type ="mouseOver" localX="2" localY="2" />		 
+            <!-- wait for ToolTip - see setToolTipDelays() ToolTipManager.showDisplay -->
+		    <Pause timeout="600"/>	
+            <CompareBitmap target="mybox" url="../Integration/Baselines/cb_bugs_priorityA_173712_error_string_setAgain.png" numColorVariances="15" ignoreMaxColorVariance="true" />
+        </body>
+        <cleanup>
+            <RunCode code="resetErrorString()" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <WaitForLayoutManager/>	
+        </cleanup>
 	</TestCase>	
 	
 	</testCases>                	     

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -36,11 +37,11 @@ import org.w3c.dom.Element;
  * for handlers implementing a caching strategy.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: DefaultCachedImageHandler.java,v 1.8 2004/08/18 07:14:59 vhardy Exp $
+ * @version $Id: DefaultCachedImageHandler.java 478176 2006-11-22 14:50:50Z dvholten $
  * @see             org.apache.flex.forks.batik.svggen.SVGGraphics2D
  */
-public abstract class DefaultCachedImageHandler 
-    implements CachedImageHandler, 
+public abstract class DefaultCachedImageHandler
+    implements CachedImageHandler,
                SVGSyntax,
                ErrorConstants {
 
@@ -54,7 +55,7 @@ public abstract class DefaultCachedImageHandler
     // for createGraphics method.
     private static Method createGraphics = null;
     private static boolean initDone = false;
-    private final static Class[] paramc = new Class[] {BufferedImage.class};
+    private static final Class[] paramc = new Class[] {BufferedImage.class};
     private static Object[] paramo = null;
 
     protected ImageCacher imageCacher;
@@ -126,7 +127,7 @@ public abstract class DefaultCachedImageHandler
     /**
      * Creates an Element which can refer to an image.
      * Note that no assumptions should be made by the caller about the
-     * corresponding SVG tag. By default, an &lt;image&gt; tag is 
+     * corresponding SVG tag. By default, an &lt;image&gt; tag is
      * used, but the {@link CachedImageHandlerBase64Encoder}, for
      * example, overrides this method to use a different tag.
      */
@@ -295,10 +296,10 @@ public abstract class DefaultCachedImageHandler
                                     generatorContext.doubleString(dstHeight));
         return null;
     }
-              
+
     protected void handleEmptyImage(Element imageElement) {
         imageElement.setAttributeNS(XLINK_NAMESPACE_URI,
-                                    ATTR_XLINK_HREF, "");
+                                    XLINK_HREF_QNAME, "");
         imageElement.setAttributeNS(null, SVG_WIDTH_ATTRIBUTE, "0");
         imageElement.setAttributeNS(null, SVG_HEIGHT_ATTRIBUTE, "0");
     }
@@ -352,16 +353,16 @@ public abstract class DefaultCachedImageHandler
         // Create an buffered image if necessary
         //
         BufferedImage buf = null;
-        if (image instanceof BufferedImage 
+        if (image instanceof BufferedImage
             &&
             ((BufferedImage)image).getType() == getBufferedImageType()){
             buf = (BufferedImage)image;
         } else {
             Dimension size = new Dimension(image.getWidth(), image.getHeight());
             buf = buildBufferedImage(size);
-            
+
             Graphics2D g = createGraphics(buf);
-            
+
             g.drawRenderedImage(image, IDENTITY);
             g.dispose();
         }
@@ -396,12 +397,12 @@ public abstract class DefaultCachedImageHandler
                                       BufferedImage buf,
                                       SVGGeneratorContext generatorContext)
         throws SVGGraphics2DIOException {
-        
+
         ByteArrayOutputStream os;
-        
+
         if (generatorContext == null)
             throw new SVGGraphics2DRuntimeException(ERR_CONTEXT_NULL);
-        
+
         try {
             os = new ByteArrayOutputStream();
             // encode the image in memory
@@ -412,19 +413,19 @@ public abstract class DefaultCachedImageHandler
             // should not happen since we do in-memory processing
             throw new SVGGraphics2DIOException(ERR_UNEXPECTED, e);
         }
-        
+
         // ask the cacher for a reference
         String ref = imageCacher.lookup(os,
                                                   buf.getWidth(),
                                                   buf.getHeight(),
                                                   generatorContext);
-        
+
         // set the URL
         imageElement.setAttributeNS(XLINK_NAMESPACE_URI,
-                                    ATTR_XLINK_HREF,
+                                    XLINK_HREF_QNAME,
                                     getRefPrefix() + ref);
-    }                
- 
+    }
+
     /**
      * Should return the prefix with wich the image reference
      * should be pre-concatenated.
@@ -437,11 +438,11 @@ public abstract class DefaultCachedImageHandler
      */
     public abstract void encodeImage(BufferedImage buf, OutputStream os)
         throws IOException;
- 
+
     /**
-     * This template method should be overridden by derived classes to 
+     * This template method should be overridden by derived classes to
      * declare the image type they need for saving to file.
      */
     public abstract int getBufferedImageType();
-  
+
 }

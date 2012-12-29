@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,15 +28,10 @@ import org.w3c.dom.Element;
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: UnitProcessor.java,v 1.14 2004/08/18 07:12:36 vhardy Exp $
+ * @version $Id: UnitProcessor.java 501922 2007-01-31 17:47:47Z dvholten $
  */
 public abstract class UnitProcessor
     extends org.apache.flex.forks.batik.parser.UnitProcessor {
-
-    /**
-     * No instance of this class is required.
-     */
-    protected UnitProcessor() { }
 
     /**
      * Creates a context for the specified element.
@@ -157,7 +153,7 @@ public abstract class UnitProcessor
                                                      Context ctx) {
         float v = svgToObjectBoundingBox(s, attr, d, ctx);
         if (v < 0) {
-            throw new BridgeException(ctx.getElement(),
+            throw new BridgeException(getBridgeContext(ctx), ctx.getElement(),
                                       ErrorConstants.ERR_LENGTH_NEGATIVE,
                                       new Object[] {attr, s});
         }
@@ -180,10 +176,11 @@ public abstract class UnitProcessor
         try {
             return org.apache.flex.forks.batik.parser.UnitProcessor.
                 svgToObjectBoundingBox(s, attr, d, ctx);
-        } catch (ParseException ex) {
-            throw new BridgeException(ctx.getElement(),
-                                  ErrorConstants.ERR_ATTRIBUTE_VALUE_MALFORMED,
-                                      new Object[] {attr, s, ex});
+        } catch (ParseException pEx ) {
+            throw new BridgeException
+                (getBridgeContext(ctx), ctx.getElement(),
+                 pEx, ErrorConstants.ERR_ATTRIBUTE_VALUE_MALFORMED,
+                 new Object[] {attr, s, pEx });
         }
     }
 
@@ -288,7 +285,7 @@ public abstract class UnitProcessor
                                              Context ctx) {
         float v = svgToUserSpace(s, attr, d, ctx);
         if (v < 0) {
-            throw new BridgeException(ctx.getElement(),
+            throw new BridgeException(getBridgeContext(ctx), ctx.getElement(),
                                       ErrorConstants.ERR_LENGTH_NEGATIVE,
                                       new Object[] {attr, s});
         } else {
@@ -312,25 +309,45 @@ public abstract class UnitProcessor
         try {
             return org.apache.flex.forks.batik.parser.UnitProcessor.
                 svgToUserSpace(s, attr, d, ctx);
-        } catch (ParseException ex) {
-            throw new BridgeException(ctx.getElement(),
-                                 ErrorConstants.ERR_ATTRIBUTE_VALUE_MALFORMED,
-                                      new Object[] {attr, s, ex});
+        } catch (ParseException pEx ) {
+            throw new BridgeException
+                (getBridgeContext(ctx), ctx.getElement(),
+                 pEx, ErrorConstants.ERR_ATTRIBUTE_VALUE_MALFORMED,
+                 new Object[] {attr, s, pEx, });
         }
     }
 
     /**
-     * This class is the default context for a particular
-     * element. Informations not available on the element are get from
-     * the bridge context (such as the viewport or the pixel to
-     * millimeter factor.
+     * Returns the {@link BridgeContext} from the given {@link Context}
+     * if it is a {@link DefaultContext}, or null otherwise.
+     */
+    protected static BridgeContext getBridgeContext(Context ctx) {
+        if (ctx instanceof DefaultContext) {
+            return ((DefaultContext) ctx).ctx;
+        }
+        return null;
+    }
+
+    /**
+     * This class is the default context for a particular element. Information
+     * not available on the element are obtained from the bridge context (such
+     * as the viewport or the pixel to millimeter factor).
      */
     public static class DefaultContext implements Context {
 
-        /** The element. */
+        /**
+         * The element.
+         */
         protected Element e;
+
+        /**
+         * The bridge context.
+         */
         protected BridgeContext ctx;
 
+        /**
+         * Creates a new DefaultContext.
+         */
         public DefaultContext(BridgeContext ctx, Element e) {
             this.ctx = ctx;
             this.e = e;
@@ -357,7 +374,7 @@ public abstract class UnitProcessor
          */
         public float getPixelToMM() {
             return getPixelUnitToMillimeter();
-            
+
         }
 
         /**

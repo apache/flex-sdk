@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,8 +28,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.apache.flex.forks.batik.ext.awt.image.codec.ImageEncoder;
-import org.apache.flex.forks.batik.ext.awt.image.codec.PNGImageEncoder;
+import org.apache.flex.forks.batik.ext.awt.image.spi.ImageWriter;
+import org.apache.flex.forks.batik.ext.awt.image.spi.ImageWriterRegistry;
 import org.apache.flex.forks.batik.util.Base64EncoderStream;
 import org.w3c.dom.Element;
 
@@ -39,7 +40,7 @@ import org.w3c.dom.Element;
  * the data protocol.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: ImageHandlerBase64Encoder.java,v 1.18 2004/08/18 07:14:59 vhardy Exp $
+ * @version $Id: ImageHandlerBase64Encoder.java 475477 2006-11-15 22:44:28Z cam $
  * @see             org.apache.flex.forks.batik.svggen.SVGGraphics2D
  * @see             org.apache.flex.forks.batik.svggen.ImageHandler
  */
@@ -105,7 +106,7 @@ public class ImageHandlerBase64Encoder extends DefaultImageHandler {
 
     protected void handleEmptyImage(Element imageElement) {
         imageElement.setAttributeNS(XLINK_NAMESPACE_URI,
-                                    ATTR_XLINK_HREF, DATA_PROTOCOL_PNG_PREFIX);
+                                    XLINK_HREF_QNAME, DATA_PROTOCOL_PNG_PREFIX);
         imageElement.setAttributeNS(null, SVG_WIDTH_ATTRIBUTE, "0");
         imageElement.setAttributeNS(null, SVG_HEIGHT_ATTRIBUTE, "0");
     }
@@ -142,7 +143,7 @@ public class ImageHandlerBase64Encoder extends DefaultImageHandler {
         // Finally, write out url
         //
         imageElement.setAttributeNS(XLINK_NAMESPACE_URI,
-                                    ATTR_XLINK_HREF,
+                                    XLINK_HREF_QNAME,
                                     DATA_PROTOCOL_PNG_PREFIX +
                                     os.toString());
 
@@ -151,8 +152,9 @@ public class ImageHandlerBase64Encoder extends DefaultImageHandler {
     public void encodeImage(RenderedImage buf, OutputStream os)
         throws SVGGraphics2DIOException {
         try{
-            ImageEncoder encoder = new PNGImageEncoder(os, null);
-            encoder.encode(buf);
+            ImageWriter writer = ImageWriterRegistry.getInstance()
+                .getWriterFor("image/png");
+            writer.writeImage(buf, os);
         } catch(IOException e) {
             // We are doing in-memory processing. This should not happen.
             throw new SVGGraphics2DIOException(ERR_UNEXPECTED);

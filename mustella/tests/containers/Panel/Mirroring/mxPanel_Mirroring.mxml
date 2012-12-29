@@ -88,9 +88,9 @@
             </setup>
             <body>
                 <AssertMethodValue method="value=convertXY(application.mainPanel.btn).x" value="499"/>
-            	<AssertMethodValue method="value=convertXY(application.mainPanel.btn).y" value="31"/>
+            	<AssertMethodValue method="value=convertXY(application.mainPanel.btn).y" value="32"/>
                 <AssertMethodValue method="value=convertXY(application.mainPanel.lbl).x" value="499"/>
-            	<AssertMethodValue method="value=convertXY(application.mainPanel.lbl).y" value="85"/>            	
+            	<AssertMethodValue method="value=convertXY(application.mainPanel.lbl).y" value="86"/>            	
             </body>
         </TestCase>
         
@@ -102,9 +102,9 @@
             </setup>
             <body>
                 <AssertMethodValue method="value=convertXY(application.mainPanel.btn).x" value="499"/>
-            	<AssertMethodValue method="value=convertXY(application.mainPanel.btn).y" value="31"/>
-                <AssertMethodValue method="value=convertXY(application.mainPanel.lbl).x" value="257"/>
-            	<AssertMethodValue method="value=convertXY(application.mainPanel.lbl).y" value="31"/>            	
+            	<AssertMethodValue method="value=convertXY(application.mainPanel.btn).y" value="32"/>
+                <AssertMethodValue method="value=convertXY(application.mainPanel.lbl).x" value="225"/>
+            	<AssertMethodValue method="value=convertXY(application.mainPanel.lbl).y" value="32"/>            	
             </body>
         </TestCase>        
  
@@ -128,7 +128,7 @@
             <body>
                 <AssertMethodValue method="value=convertXY(application.mainPanel.cb_btn).x" value="478"/>
             	<AssertMethodValue method="value=convertXY(application.mainPanel.cb_btn).y" value="354"/>
-                <AssertMethodValue method="value=convertXY(application.mainPanel.cb_lbl).x" value="216"/>
+                <AssertMethodValue method="value=convertXY(application.mainPanel.cb_lbl).x" value="188"/>
             	<AssertMethodValue method="value=convertXY(application.mainPanel.cb_lbl).y" value="354"/>  
             </body>
         </TestCase>     

@@ -22,14 +22,16 @@ package mx.controls
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
+import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.EventDispatcher;
+
 import mx.core.FlexGlobals;
 import mx.core.IFlexDisplayObject;
 import mx.core.IMXMLObject;
 import mx.core.IRawChildrenContainer;
-import mx.core.mx_internal;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.ItemClickEvent;
 
@@ -477,8 +479,8 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         instance.addEventListener(Event.REMOVED, radioButton_removedHandler);
         radioButtons.push(instance);
 
-        // Apply group indices in "breadth-first" order.
-        radioButtons.sort(breadthOrderCompare);
+        // Apply group indices in "tab order" or "breadth-first" order.
+        radioButtons.sort(readOrderCompare);
         for (var i:int = 0; i < radioButtons.length; i++)
             radioButtons[i].indexNumber = i;
 
@@ -604,16 +606,37 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
 
     /**
      *  @private
+	 *  Comparison function used to sort items as they are added to the radioButtons array.
+	 *  Compares by tabIndex or if neither item defines a tabIndex, by "breadthOrder."
+	 * 
+	 *  Returns -1 if a is before b in sort order, 0 if a and b have same
+     *  sort order and 1 if a after b in sort order.
      */
-    private function breadthOrderCompare(a:DisplayObject, b:DisplayObject):Number
+    private function readOrderCompare(a:DisplayObject, b:DisplayObject):Number
     {
         var aParent:DisplayObject = (a is UIComponent) ? UIComponent(a).$parent : a.parent;
         var bParent:DisplayObject = (b is UIComponent) ? UIComponent(b).$parent : b.parent;
 
         if (!aParent || !bParent)
             return 0;
-
-        var aNestLevel:int = (a is UIComponent) ? UIComponent(a).nestLevel : -1;
+		
+		// first check to see if we can compare by tabIndex
+		var aTabIndex:int = (a is InteractiveObject) ? InteractiveObject(a).tabIndex : -1;
+		var bTabIndex:int = (b is InteractiveObject) ? InteractiveObject(b).tabIndex : -1;
+		
+		// if one of the items being compared has a defined tabIndex, compare by tabIndex
+		if(aTabIndex > -1 || bTabIndex > -1)
+		{
+			if (aTabIndex > bTabIndex)
+				return (bTabIndex == -1) ? -1 : 1; // items with assigned tabIndex come before those without
+			if (aTabIndex < bTabIndex)
+				return (aTabIndex == -1) ? 1 : -1; // items without assigned tabIndex come after those without
+			if (a == b)
+				return 0;
+		}
+		
+		// if neither item has a defined tabIndex we compare by "breadthOrder"
+		var aNestLevel:int = (a is UIComponent) ? UIComponent(a).nestLevel : -1;
         var bNestLevel:int = (b is UIComponent) ? UIComponent(b).nestLevel : -1;
 
         var aIndex:int = DisplayObjectContainer(aParent).getChildIndex(a);
@@ -627,7 +650,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         else if (a == b)
             return 0;
         else // Nest levels are identical, compare ancestors.
-            return breadthOrderCompare(aParent, bParent);
+            return readOrderCompare(aParent, bParent);
     }
 
     //--------------------------------------------------------------------------

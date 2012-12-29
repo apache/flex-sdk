@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -39,7 +40,7 @@ import org.apache.flex.forks.batik.ext.awt.image.GraphicsUtil;
  * new image.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: Any2LsRGBRed.java,v 1.6 2004/08/18 07:14:07 vhardy Exp $ */
+ * @version $Id: Any2LsRGBRed.java 478276 2006-11-22 18:33:37Z dvholten $ */
 public class Any2LsRGBRed extends AbstractRed {
 
     boolean srcIssRGB = false;
@@ -50,7 +51,7 @@ public class Any2LsRGBRed extends AbstractRed {
      * @param src The image to convert to a luminance image
      */
     public Any2LsRGBRed(CachableRed src) {
-        super(src,src.getBounds(), 
+        super(src,src.getBounds(),
               fixColorModel(src),
               fixSampleModel(src),
               src.getTileGridXOffset(),
@@ -83,7 +84,7 @@ public class Any2LsRGBRed extends AbstractRed {
      * linearToLinear table is used when the values are considered to
      * be on the sRGB scale to begin with.
      */
-    private static final int sRGBToLsRGBLut[] = new int[256];
+    private static final int[] sRGBToLsRGBLut = new int[256];
     static {
         final double scale = 1.0/255;
 
@@ -103,7 +104,7 @@ public class Any2LsRGBRed extends AbstractRed {
         SampleModel srcSM = src.getSampleModel();
 
         // Fast case, SRGB source, INT Pack writable raster...
-        if (srcIssRGB && 
+        if (srcIssRGB &&
             Any2sRGBRed.is_INT_PACK_COMP(wr.getSampleModel())) {
             src.copyData(wr);
             if (srcCM.hasAlpha())
@@ -167,8 +168,8 @@ public class Any2LsRGBRed extends AbstractRed {
                 dstSM = (SinglePixelPackedSampleModel)wr.getSampleModel();
                 int [] masks = dstSM.getBitMasks();
                 SampleModel dstSMNoA = new SinglePixelPackedSampleModel
-                    (dstSM.getDataType(), dstSM.getWidth(), dstSM.getHeight(), 
-                     dstSM.getScanlineStride(), 
+                    (dstSM.getDataType(), dstSM.getWidth(), dstSM.getHeight(),
+                     dstSM.getScanlineStride(),
                      new int[] {masks[0], masks[1], masks[2]});
                 ColorModel dstCMNoA = GraphicsUtil.Linear_sRGB;
 
@@ -181,21 +182,20 @@ public class Any2LsRGBRed extends AbstractRed {
                      wr.getMinY()-wr.getSampleModelTranslateY(),
                      wr.getWidth(), wr.getHeight(),
                      0, 0, null);
-                
+
                 dstBI = new BufferedImage(dstCMNoA, dstWr, false, null);
             }
 
             // Divide out alpha if we have it.  We need to do this since
-            // the color convert may not be a linear operation which may 
+            // the color convert may not be a linear operation which may
             // lead to out of range values.
             ColorModel srcBICM = srcCM;
             WritableRaster srcWr;
-            if ((srcCM.hasAlpha() == true) && 
-                (srcCM.isAlphaPremultiplied() != false)) {
+            if ( srcCM.hasAlpha() && srcCM.isAlphaPremultiplied() ) {
                 Rectangle wrR = wr.getBounds();
                 SampleModel sm = srcCM.createCompatibleSampleModel
                     (wrR.width, wrR.height);
-                
+
                 srcWr = Raster.createWritableRaster
                     (sm, new Point(wrR.x, wrR.y));
                 src.copyData(srcWr);
@@ -206,15 +206,15 @@ public class Any2LsRGBRed extends AbstractRed {
             }
 
             BufferedImage srcBI;
-            srcBI = new BufferedImage(srcBICM, 
+            srcBI = new BufferedImage(srcBICM,
                                       srcWr.createWritableTranslatedChild(0,0),
-                                      false, 
+                                      false,
                                       null);
 
             /*
-             * System.out.println("src: " + srcBI.getWidth() + "x" + 
+             * System.out.println("src: " + srcBI.getWidth() + "x" +
              *                    srcBI.getHeight());
-             * System.out.println("dst: " + dstBI.getWidth() + "x" + 
+             * System.out.println("dst: " + dstBI.getWidth() + "x" +
              *                    dstBI.getHeight());
              */
 

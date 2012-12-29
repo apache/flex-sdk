@@ -91,11 +91,11 @@
 		</body>
 	</TestCase>
 
-    <TestCase testID="constraintRow_contentSized_mxml_noHeightOnComponent_mac" keywords="[constraintRows, MXML]"
+    <TestCase testID="constraintRow_contentSized_mxml_noHeightOnComponent" keywords="[constraintRows, MXML]"
 	    description="Verify the constraintRows has the right height when its children have no explicit height set in mxml">
 		<body>
 			<AssertPropertyValue target="constraintRows.2" propertyName="height" valueExpression="value=application.datechooser1.height + 20" />
-			<AssertPropertyValue target="datechooser1" propertyName="height" value="194" />
+			<AssertPropertyValue target="datechooser1" propertyName="height" value="194"/>
 			<AssertPropertyValue target="datechooser1" propertyName="x" value="0" />
 			<AssertPropertyValue target="datechooser1" propertyName="y" valueExpression="value=application.constraintRows[0].height + application.constraintRows[1].height + 10" />
 		</body>
@@ -120,11 +120,11 @@
 		</body>
 	</TestCase>
 
-    <TestCase testID="constraintColumn_contentSized_mxml_noWidthOnComponent_mac" keywords="[constraintRows, MXML]"
+    <TestCase testID="constraintColumn_contentSized_mxml_noWidthOnComponent" keywords="[constraintRows, MXML]"
 	    description="Verify the constraintRows has the right width when its children have no explicit width set in mxml">
 		<body>
 			<AssertPropertyValue target="constraintColumns.2" propertyName="width" valueExpression="value=application.getChildAt(4).width + 20" />
-			<AssertPropertyValue target="getChildAt(4)" propertyName="width" value="83" />
+			<AssertPropertyValue target="getChildAt(4)" propertyName="width" value="83"/>
 			<AssertPropertyValue target="getChildAt(4)" propertyName="y" value="0" />
 			<AssertPropertyValue target="getChildAt(4)" propertyName="x" valueExpression="value=application.constraintColumns[0].width + application.constraintColumns[1].width + 10" />
 		</body>

@@ -188,9 +188,6 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *
  *  <pre>
  *  &lt;s:Label 
- *    <strong>Properties</strong>
- *    fontContext=""
- * 
  *    <strong>Styles</strong>
  *    alignmentBaseline="baseline"
  *    baselineShift="0"

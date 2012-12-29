@@ -75,14 +75,13 @@
 	    <body>
 		<DispatchMouseEvent type="mouseMove" target="" stageX="650" stageY="650"  />
 		<DispatchMouseEvent type="mouseDown" target="" stageX="650" stageY="650"  />
-		<DispatchMouseEvent type="mouseUp" target="" stageX="650" stageY="650"  />
-		<Pause timeout="10"/>
+		<DispatchMouseEvent type="mouseUp" target="" stageX="650" stageY="650" waitEvent="mouseUp" />
       		<!-- twObject.twWindow should be in inactive state -->
       		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID_inactive.png" numColorVariances="15" maxColorVariance="20"/>
       		
       		<DispatchMouseEvent type="mouseMove" target="twObject.moveArea" localX="5" localY="5"  />
 		<DispatchMouseEvent type="mouseDown" target="twObject.moveArea" localX="5" localY="5"  />
-		<DispatchMouseEvent type="mouseUp" target="twObject.moveArea" localX="5" localY="5"   />
+		<DispatchMouseEvent type="mouseUp" target="twObject.moveArea" localX="5" localY="5" waitEvent="mouseUp"  />
       		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID_active.png" numColorVariances="15" maxColorVariance="20"/>
             </body>
         </TestCase> 

@@ -33,24 +33,12 @@
 			<!-- because targets that run before flexTasks.jar gets built would fail. -->
 			<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 			<compc fork="true"
-				   output="${FLEX_HOME}/frameworks/locale/@{locale}/automation_rb.swc"
-				   locale="@{locale}">
+				   output="${FLEX_HOME}/frameworks/locale/@{locale}/automation_rb.swc">
 				<jvmarg line="${compc.jvm.args}"/>
-				<target-player>${playerglobal.version}</target-player>
-				<include-resource-bundles bundle="automation"/>
-				<include-namespaces/>
-				<include-classes/>
-				<source-path path-element="${basedir}/bundles/@{locale}"/>
-				<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/bundles/@{locale}"/>
-				<include-libraries/>
-				<library-path/>
-                <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-                    <include name="${playerglobal.version}/playerglobal.swc"/>
-                </external-library-path>
-				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-					<include name="framework.swc"/>
-					<include name="mx/mx.swc"/>
-				</external-library-path>
+                <load-config filename="bundle-config.xml" />
+                <arg value="+playerglobal.version=${playerglobal.version}" />
+                <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
+                <arg value="+locale=@{locale}" />
 			</compc>
 		</sequential>
 	</macrodef>	
@@ -113,6 +101,7 @@
 				<fat-swc locale="de_DE"/>
 			</run.fat.swc>
 		</bundler>
+		<bundler locale="de_CH"/><!-- Swiss German resources -->
 		<bundler locale="es_ES"/><!-- Spanish resources -->
 		<bundler locale="fi_FI"/><!--  Finnish resources-->
 		<bundler locale="fr_FR"><!-- French resources -->
@@ -166,25 +155,11 @@
 		-->
 	
 		<compc fork="true"
-			   output="${FLEX_HOME}/frameworks/libs/automation/automation.swc"
-			   resource-bundle-list="${basedir}/bundles.properties">
+			   output="${FLEX_HOME}/frameworks/libs/automation/automation.swc">
 			<jvmarg line="${compc.jvm.args}"/>
-			<target-player>${playerglobal.version}</target-player>
-			<include-classes>AutomationClasses</include-classes>
-			<source-path path-element="${basedir}/src"/>
-			<library-path/>
-            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-                <include name="${playerglobal.version}/playerglobal.swc"/>
-            </external-library-path>
-            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="framework.swc"/>
-				<include name="mx/mx.swc"/>
-				<include name="automation/automation_agent.swc"/>
-				<include name="tool.swc"/>
-				<include name="tool_air.swc"/>
-			</external-library-path>
-			<locale/>
-			<accessible>true</accessible>
+            <load-config filename="compile-config.xml" />
+            <arg value="+playerglobal.version=${playerglobal.version}" />
+            <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
 		</compc>
 	</target>
 		
@@ -207,9 +182,9 @@
 
 		<!-- Call asdoc to generate dita xml files -->
 		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
-		     <compiler.source-path path-element="${basedir}/src"/>
-			 <doc-classes>AutomationClasses</doc-classes>
-			
+		    <compiler.source-path path-element="${basedir}/src"/>
+			<doc-classes>AutomationClasses</doc-classes>
+			<external-library-path dir="${FLEX_HOME}/frameworks/libs/automation/automation_agent.swc"/>
 		    <namespace uri="http://www.adobe.com/2006/automation_mxml" manifest="${basedir}/manifest_automation.xml"/>
 		    <jvmarg line="${asdoc.jvm.args}"/>
 		</asdoc>

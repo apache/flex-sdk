@@ -465,8 +465,8 @@
 
 			<setup>
 
-				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
-				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea"/>
 
 				<SetProperty target="textArea" propertyName="text" value="Silver Musican" waitTarget="textArea" waitEvent="updateComplete" />
 
@@ -478,9 +478,7 @@
 
 				<RunCode code="application.textArea.insertText('eth');" waitTarget="textArea" waitEvent="selectionChange" />
 
-				<Pause timeout="10" />
-
-				<AssertPropertyValue target="textArea" propertyName="text" value="Silver Musican"/>
+				<AssertPropertyValue target="textArea" propertyName="text" value="Silvethr Musican"/>
 
 				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
 
@@ -560,7 +558,7 @@
 
 				<SetProperty target="textArea" propertyName="text" value="Silver Musican" waitTarget="textArea" waitEvent="updateComplete" />
 
-				<RunCode code="application.textArea.selectRange(6, 12)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.selectRange(6, 14)" waitTarget="textArea" waitEvent="selectionChange" />
 
 			</setup>
 
@@ -568,10 +566,13 @@
 
 				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({fontWeight:FontWeight.BOLD}))" />
 				<AssertMethodValue method="value=TextFlowUtil.export(application.textArea.textFlow).children()" valueExpression="value = Gumbo_TextArea_setAttributes_method_bold_XML.children()" />
+				
 				<RunCode code="application.textArea.selectRange(4,4)" waitTarget="textArea" waitEvent="selectionChange" />
 				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['fontWeight']).fontWeight" value="normal" />
+				
 				<RunCode code="application.textArea.selectRange(8,8);" waitTarget="textArea" waitEvent="selectionChange" />
 				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['fontWeight']).fontWeight" value="bold" />
+				
 				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
 
 			</body>
@@ -590,7 +591,7 @@
 
 				<SetProperty target="textArea" propertyName="text" value="Silver Musican" waitTarget="textArea" waitEvent="updateComplete" />
 
-				<RunCode code="application.textArea.selectRange(6, 12)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.selectRange(6, 14)" waitTarget="textArea" waitEvent="selectionChange" />
 
 			</setup>
 
@@ -660,10 +661,8 @@
 			<body>
 				<RunCode code="scrollToRange1(application.textArea)" />
 				<Pause timeout="500"/>
-				<AssertPropertyValue target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="111.8" />
-				<CompareBitmap   url="../Methods/baselines/" target="textArea">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<AssertPropertyValue target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="97.464453" />
+				<CompareBitmap   url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 
@@ -674,10 +673,8 @@
 			</setup>
 			<body>
 				<RunCode code="application.textArea.scrollToRange(application.textArea.text.length, application.textArea.text.length);" waitTarget="textArea" waitEvent="enterFrame" />
-				<AssertPropertyValue target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="1177.4" />
-				<CompareBitmap   url="../Methods/baselines/" target="textArea">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<AssertPropertyValue target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="1062.264453" />
+				<CompareBitmap   url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 
@@ -690,9 +687,7 @@
 				<SetProperty target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="500" waitTarget="textArea" waitEvent="enterFrame" />
 				<RunCode code="application.textArea.scrollToRange(0, 0);" waitTarget="textArea.scroller.verticalScrollBar" waitEvent="valueCommit" />
 				<AssertPropertyValue target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="5" />
-				<CompareBitmap   url="../Methods/baselines/" target="textArea">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap   url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 
@@ -939,7 +934,7 @@
 
 				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="0" />
 
-				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="12" />
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="14" />
 
 				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
 

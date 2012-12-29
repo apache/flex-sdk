@@ -106,6 +106,9 @@
 	    <body>
 
 		<SetProperty target="myWin" propertyName="title" value="a" waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			
 		<MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 
 	    </body>
@@ -119,6 +122,8 @@
 	    <body>
 
 		<SetProperty target="myWin" propertyName="title" value="I am the very model of a modern major general." waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 
 	    </body>
@@ -131,6 +136,8 @@
 	    </setup>
 	    <body>
 		<SetProperty target="myWin" propertyName="title" value="I am the very model of a modern major general.  I've information vegetable animal and mineral." waitEvent="updateComplete" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="myWin" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 
 	    </body>

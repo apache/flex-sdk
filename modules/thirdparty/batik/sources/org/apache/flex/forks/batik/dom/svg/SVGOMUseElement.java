@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,31 +18,49 @@
  */
 package org.apache.flex.forks.batik.dom.svg;
 
-import org.apache.flex.forks.batik.css.engine.CSSImportNode;
-import org.apache.flex.forks.batik.css.engine.CSSImportedElementRoot;
 import org.apache.flex.forks.batik.dom.AbstractDocument;
 import org.apache.flex.forks.batik.dom.util.XLinkSupport;
 import org.apache.flex.forks.batik.dom.util.XMLSupport;
+import org.apache.flex.forks.batik.util.DoublyIndexedTable;
+import org.apache.flex.forks.batik.util.SVGTypes;
+
 import org.w3c.dom.Node;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedLength;
-import org.w3c.flex.forks.dom.svg.SVGElementInstance;
-import org.w3c.flex.forks.dom.svg.SVGUseElement;
+import org.w3c.dom.svg.SVGAnimatedLength;
+import org.w3c.dom.svg.SVGElementInstance;
+import org.w3c.dom.svg.SVGUseElement;
 
 /**
- * This class implements {@link org.w3c.flex.forks.dom.svg.SVGUseElement}.
+ * This class implements {@link org.w3c.dom.svg.SVGUseElement}.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGOMUseElement.java,v 1.10 2004/08/18 07:13:18 vhardy Exp $
+ * @version $Id: SVGOMUseElement.java 592621 2007-11-07 05:58:12Z cam $
  */
 public class SVGOMUseElement
     extends    SVGURIReferenceGraphicsElement
-    implements SVGUseElement,
-               CSSImportNode {
+    implements SVGUseElement {
+
+    /**
+     * Table mapping XML attribute names to TraitInformation objects.
+     */
+    protected static DoublyIndexedTable xmlTraitInformation;
+    static {
+        DoublyIndexedTable t =
+            new DoublyIndexedTable(SVGURIReferenceGraphicsElement.xmlTraitInformation);
+        t.put(null, SVG_X_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_LENGTH, PERCENTAGE_VIEWPORT_WIDTH));
+        t.put(null, SVG_Y_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_LENGTH, PERCENTAGE_VIEWPORT_HEIGHT));
+        t.put(null, SVG_WIDTH_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_LENGTH, PERCENTAGE_VIEWPORT_WIDTH));
+        t.put(null, SVG_HEIGHT_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_LENGTH, PERCENTAGE_VIEWPORT_HEIGHT));
+        xmlTraitInformation = t;
+    }
 
     /**
      * The attribute initializer.
      */
-    protected final static AttributeInitializer attributeInitializer;
+    protected static final AttributeInitializer attributeInitializer;
     static {
         attributeInitializer = new AttributeInitializer(4);
         attributeInitializer.addAttribute(XMLSupport.XMLNS_NAMESPACE_URI,
@@ -56,9 +75,29 @@ public class SVGOMUseElement
     }
 
     /**
-     * Store the imported element.
+     * The 'x' attribute value.
      */
-    protected CSSImportedElementRoot cssImportedElementRoot;
+    protected SVGOMAnimatedLength x;
+
+    /**
+     * The 'y' attribute value.
+     */
+    protected SVGOMAnimatedLength y;
+
+    /**
+     * The 'width' attribute value.
+     */
+    protected SVGOMAnimatedLength width;
+
+    /**
+     * The 'height' attribute value.
+     */
+    protected SVGOMAnimatedLength height;
+
+    /**
+     * Store the shadow tree of the use element.
+     */
+    protected SVGOMUseShadowRoot shadowTree;
 
     /**
      * Creates a new SVGOMUseElement object.
@@ -73,6 +112,35 @@ public class SVGOMUseElement
      */
     public SVGOMUseElement(String prefix, AbstractDocument owner) {
         super(prefix, owner);
+        initializeLiveAttributes();
+    }
+
+    /**
+     * Initializes all live attributes for this element.
+     */
+    protected void initializeAllLiveAttributes() {
+        super.initializeAllLiveAttributes();
+        initializeLiveAttributes();
+    }
+
+    /**
+     * Initializes the live attribute values of this element.
+     */
+    private void initializeLiveAttributes() {
+        x = createLiveAnimatedLength
+            (null, SVG_X_ATTRIBUTE, SVG_USE_X_DEFAULT_VALUE,
+             SVGOMAnimatedLength.HORIZONTAL_LENGTH, false);
+        y = createLiveAnimatedLength
+            (null, SVG_Y_ATTRIBUTE, SVG_USE_Y_DEFAULT_VALUE,
+             SVGOMAnimatedLength.VERTICAL_LENGTH, false);
+        width =
+            createLiveAnimatedLength
+                (null, SVG_WIDTH_ATTRIBUTE, null,
+                 SVGOMAnimatedLength.HORIZONTAL_LENGTH, true);
+        height =
+            createLiveAnimatedLength
+                (null, SVG_HEIGHT_ATTRIBUTE, null,
+                 SVGOMAnimatedLength.VERTICAL_LENGTH, true);
     }
 
     /**
@@ -86,66 +154,81 @@ public class SVGOMUseElement
      * <b>DOM</b>: Implements {@link SVGUseElement#getX()}.
      */
     public SVGAnimatedLength getX() {
-        return getAnimatedLengthAttribute
-            (null, SVG_X_ATTRIBUTE, SVG_USE_X_DEFAULT_VALUE,
-             SVGOMAnimatedLength.HORIZONTAL_LENGTH);
+        return x;
     }
 
     /**
      * <b>DOM</b>: Implements {@link SVGUseElement#getY()}.
      */
     public SVGAnimatedLength getY() {
-        return getAnimatedLengthAttribute
-            (null, SVG_Y_ATTRIBUTE, SVG_USE_Y_DEFAULT_VALUE,
-             SVGOMAnimatedLength.VERTICAL_LENGTH);
+        return y;
     }
 
     /**
      * <b>DOM</b>: Implements {@link SVGUseElement#getWidth()}.
      */
     public SVGAnimatedLength getWidth() {
-        return getAnimatedLengthAttribute
-            (null, SVG_WIDTH_ATTRIBUTE, SVG_USE_WIDTH_DEFAULT_VALUE,
-             SVGOMAnimatedLength.HORIZONTAL_LENGTH);
-    } 
+        return width;
+    }
 
     /**
      * <b>DOM</b>: Implements {@link SVGUseElement#getHeight()}.
      */
     public SVGAnimatedLength getHeight() {
-        return getAnimatedLengthAttribute
-            (null, SVG_HEIGHT_ATTRIBUTE, SVG_USE_HEIGHT_DEFAULT_VALUE,
-             SVGOMAnimatedLength.VERTICAL_LENGTH);
-    } 
+        return height;
+    }
 
     /**
      * <b>DOM</b>: Implements {@link SVGUseElement#getInstanceRoot()}.
      */
     public SVGElementInstance getInstanceRoot() {
-	throw new RuntimeException(" !!! TODO: getInstanceRoot()");
+        throw new UnsupportedOperationException
+            ("SVGUseElement.getInstanceRoot is not implemented"); // XXX
     }
- 
+
     /**
      * <b>DOM</b>: Implements {@link SVGUseElement#getAnimatedInstanceRoot()}.
      */
     public SVGElementInstance getAnimatedInstanceRoot() {
-	throw new RuntimeException(" !!! TODO: getAnimatedInstanceRoot()");
+        throw new UnsupportedOperationException
+            ("SVGUseElement.getAnimatedInstanceRoot is not implemented"); // XXX
     }
 
-    // CSSImportNode //////////////////////////////////////////////////
+    // CSSNavigableNode ///////////////////////////////////////////////
 
     /**
-     * The CSSImportedElementRoot.
+     * Returns the CSS first child node of this node.
      */
-    public CSSImportedElementRoot getCSSImportedElementRoot() {
-        return cssImportedElementRoot;
+    public Node getCSSFirstChild() {
+        if (shadowTree != null) {
+            return shadowTree.getFirstChild();
+        }
+        return null;
     }
 
     /**
-     * Sets the CSSImportedElementRoot.
+     * Returns the CSS last child of this stylable element.
      */
-    public void setCSSImportedElementRoot(CSSImportedElementRoot r) {
-        cssImportedElementRoot = r;
+    public Node getCSSLastChild() {
+        // use element shadow trees only ever have a single element
+        return getCSSFirstChild();
+    }
+
+    /**
+     * Returns whether this node is the root of a (conceptual) hidden tree
+     * that selectors will not work across.  Returns true here, since CSS
+     * selectors cannot work in the conceptual cloned sub-tree of the
+     * content referenced by the 'use' element.
+     */
+    public boolean isHiddenFromSelectors() {
+        return true;
+    }
+
+    /**
+     * Sets the shadow tree for this 'use' element.
+     */
+    public void setUseShadowTree(SVGOMUseShadowRoot r) {
+        shadowTree = r;
     }
 
     /**
@@ -161,5 +244,12 @@ public class SVGOMUseElement
      */
     protected Node newNode() {
         return new SVGOMUseElement();
+    }
+
+    /**
+     * Returns the table of TraitInformation objects for this element.
+     */
+    protected DoublyIndexedTable getTraitInformationTable() {
+        return xmlTraitInformation;
     }
 }

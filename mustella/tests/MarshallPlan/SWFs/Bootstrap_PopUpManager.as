@@ -117,7 +117,7 @@ public class Bootstrap_PopUpManager extends Sprite
         addChild(loader);
         loader.contentLoaderInfo.addEventListener(
             Event.COMPLETE, completeHandler);
-        loader.load(new URLRequest(applicationURL+"?port=" + portNumber));
+        loader.load(new URLRequest(applicationURL));
         loader.addEventListener("mx.managers.SystemManager.isBootstrapRoot", bootstrapRootHandler);
         loader.addEventListener("mx.managers.SystemManager.isStageRoot", stageRootHandler);
 

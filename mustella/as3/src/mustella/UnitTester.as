@@ -150,6 +150,12 @@ public class UnitTester extends EventDispatcher
 
 		}
 
+		if (cv.device == null)
+		{
+			if (Security.sandboxType == Security.APPLICATION)
+				cv.device = "air";
+		}
+		
 		if(root.loaderInfo != null && root.loaderInfo.parameters != null)
 		{
 			for (var ix:String in root.loaderInfo.parameters) 
@@ -306,6 +312,16 @@ public class UnitTester extends EventDispatcher
 			_root.addEventListener("deactivate", activateBlockingHandler, true);
 			_root.addEventListener("activate", activateBlockingHandler, true);
 		}
+		
+		if (appdom.hasDefinition("spark.components.supportClasses.RichEditableTextContainerManager"))
+		{
+			g = Class(appdom.getDefinition("spark.components.supportClasses.RichEditableTextContainerManager"));
+			if (g)
+			{
+				var q:QName = new QName(mx_internal, "hideCursor");
+				g[q] = true;
+			}
+		}		
 	}
 
 	/**
@@ -575,6 +591,26 @@ public class UnitTester extends EventDispatcher
 				while (!(root.parent is Stage))
 				{
 					root = root.parent.root;
+				}
+			}
+			catch (e:Error)
+			{
+				// in another sandbox, start from our root.
+				// probably won't work in an AIR window with
+				// loaded content.
+				root = _root;
+			}
+		}
+		else if (root != _root && (root is Stage))
+		{
+			// seems to happen in AIR windows
+			root = target;
+			try
+			{
+				// Walk up as high as you can get
+				while (!(root.parent is Stage))
+				{
+					root = root.parent;
 				}
 			}
 			catch (e:Error)
@@ -1162,6 +1198,34 @@ public class UnitTester extends EventDispatcher
 	 */
 	private static function scriptsCompleteHandler(event:Event):void
 	{
+		cleanUpAndExit();
+	}
+	
+	private static function cleanUpAndExit():void
+	{
+		if (pendingOutput > 0)
+		{
+			if (lastPendingOutput == 0)
+				lastPendingOutput = pendingOutput;
+			if (pendingOutput == lastPendingOutput)
+			{
+				if (frameWaitCount < 30) // wait about 30 frames to see if results come back
+				{
+					trace("waiting on pending output", pendingOutput);
+					frameWaitCount++;
+					callback = cleanUpAndExit;
+					return;
+				}
+			}
+			else
+			{
+				lastPendingOutput = pendingOutput;
+				frameWaitCount = 0;
+				callback = cleanUpAndExit;
+				return;
+			}
+		}
+
 		var allDone:Boolean = true;
 		var n:int = scripts.length;
 		for (var i:int = 0; i < n; i++)
@@ -1197,10 +1261,14 @@ public class UnitTester extends EventDispatcher
 
 		if (exitWhenDone) 
 		{
-			setTimeout(exit, UnitTester.coverageTimeout);
+			setTimeout(exit, UnitTester.coverageTimeout);				
 		}
 	}
-
+	
+	public static var pendingOutput:int = 0;
+	public static var lastPendingOutput:int = 0;
+	public static var frameWaitCount:int = 0;
+	
 	private static var frameCounter:int = 0;
 
 	/**
@@ -1576,6 +1644,10 @@ public class UnitTester extends EventDispatcher
 					{
 						obj = obj.getTextFormat();
 					}
+					else if (s is String && s == "getInstance()")
+					{
+						obj = obj.getInstance();
+					}
                     else if (s is String && s == "info()")
                     {
                         obj = obj.info();
@@ -1801,6 +1873,8 @@ public class UnitTester extends EventDispatcher
 				var tr:TestResult = currentTest.testResult;
 				if (!tr.hasStatus())
 					tr.result = TestResult.PASS;
+				if (hasRTE)
+					tr.result = TestResult.FAIL;
 				tr.endTime = new Date().time;
 				TestOutput.logResult (tr.toString());
 				if (hasRTE)

@@ -126,6 +126,8 @@
 
 		<SetProperty target="windowObj" propertyName="enabled" value="false" waitEvent="updateComplete"/>
 
+		<WaitForLayoutManager />
+
 		<MyCompareBitmap target="windowObj.skin.titleBar"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
 
 	    </body>
@@ -147,11 +149,14 @@
 	    </setup>
 
 	    <body>
-
+		
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 
 		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
 
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	
 		<MyCompareBitmap target="windowObj.skin.titleBar"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
 
 	    </body>
@@ -178,6 +183,9 @@
 
 		<DispatchMouseEvent target="windowObj.skin.titleBar.maximizeButton" type="rollOver" localX="5" localY="5" waitEvent="updateComplete" />
 
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			
 		<MyCompareBitmap target="windowObj.skin.titleBar.maximizeButton"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
 
 	    </body>
@@ -203,6 +211,9 @@
 		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
 
 		<DispatchMouseEvent target="windowObj.skin.titleBar.minimizeButton" type="rollOver" localX="5" localY="5" waitEvent="updateComplete" />
+
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 
 		<MyCompareBitmap target="windowObj.skin.titleBar.minimizeButton"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
 
@@ -230,6 +241,9 @@
 
 		<DispatchMouseEvent target="windowObj.skin.titleBar.closeButton" type="rollOver" localX="5" localY="5" waitEvent="updateComplete" />
 
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			
 		<MyCompareBitmap target="windowObj.skin.titleBar.closeButton"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
 
 	    </body>
@@ -370,6 +384,9 @@
 
 		<WaitForEffectsToEnd />
 
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			
 		<MyCompareBitmap target="windowObj.skin.titleBar.maximizeButton"  numColorVariances="10" maxColorVariance="10" url="../skin/baselines/$testID.png"  mac_url="../skin/baselines/$testID_mac.png"/>
 
 	    </body>

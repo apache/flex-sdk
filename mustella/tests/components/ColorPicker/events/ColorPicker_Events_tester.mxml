@@ -119,7 +119,7 @@
 				</setup>
 				<body>
     			    <RunCode code="application.myColorPicker.open()" waitTarget="myColorPicker" waitEvent="open" />
-                    <RunCode code="application.myColorPicker.mx_internal::dropdown.mx_internal::textInput.text = ''" />
+                    <RunCode code="application.myColorPicker.mx_internal::dropdown.mx_internal::textInput.text = ''"/>
                     <Pause timeout="1" />
                     <DispatchKeyEvent char="FF0000" />
 					<DispatchKeyEvent key="ENTER"/>

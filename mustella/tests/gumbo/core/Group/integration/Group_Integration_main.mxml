@@ -45,6 +45,7 @@
 		<setup>
 			<RunCode code="application.openPopUp(true)" />
 			<WaitForEffectsToEnd />
+			<WaitForLayoutManager />
 		</setup>
 		<body>
 			<CompareBitmap url="../integration/baselines/group_integration_PopUpManager.png" target="" timeout="2000" />
@@ -64,7 +65,7 @@
 			<WaitForEffectsToEnd />
 		</setup>
 		<body>
-			<CompareBitmap url="../integration/baselines/group_integration_PopUpButton_mix.png" target="" timeout="2000" />
+			<CompareBitmap url="../integration/baselines/group_integration_PopUpButton_mix.png" target="" timeout="2000" numColorVariances="5" maxColorVariance="1" />
 			<SetProperty target="popUpButton" propertyName="visible"  value="false"  />
 			<RunCode code="application.popUpButton.close()" />
 			<WaitForEffectsToEnd />
@@ -79,7 +80,7 @@
 			<WaitForEffectsToEnd />
 		</setup>
 		<body>
-			<CompareBitmap url="../integration/baselines/group_integration_PopUpButton_subgroups.png" target="" timeout="2000" />
+			<CompareBitmap url="../integration/baselines/group_integration_PopUpButton_subgroups.png" target="" timeout="2000" numColorVariances="5" maxColorVariance="1" />
 			<SetProperty target="popUpButton" propertyName="visible"  value="false"  />
 			<RunCode code="application.popUpButton.close()" />
 			<WaitForEffectsToEnd />

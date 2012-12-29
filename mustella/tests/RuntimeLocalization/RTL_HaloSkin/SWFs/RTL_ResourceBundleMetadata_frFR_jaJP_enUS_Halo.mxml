@@ -17,7 +17,7 @@
   limitations under the License.
 
 -->
-<mx:Application width="800" height="800" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:Components="Components.*" backgroundColor="0x008800" backgroundImage="" >
+<mx:Application width="800" height="1000" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:Components="Components.*" backgroundColor="0x008800" backgroundImage="" >
 
 <mx:Metadata>
     [ResourceBundle("bundle1")]

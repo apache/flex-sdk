@@ -257,7 +257,7 @@
                 <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.colorPicker1"
                     waitEvent="open" waitTarget="swf1.content.document.colorPicker1"/>
                 <WaitForEffectsToEnd />
-                <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="332" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="230" propertyName="x" />
                 <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="278" propertyName="y" />
            </body>
          </TestCase>
@@ -278,7 +278,7 @@
                 <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.colorPicker1"
                     waitEvent="open" waitTarget="swf1.content.document.colorPicker1"/>
                 <WaitForEffectsToEnd />
-                <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="332" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="230" propertyName="x" />
                 <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="278" propertyName="y" />
            </body>
          </TestCase>
@@ -299,7 +299,7 @@
 			  	<DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.colorPicker1"
                     waitEvent="open" waitTarget="swf1.content.document.colorPicker1"/>
                 <WaitForEffectsToEnd />
-                <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="113" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="220" propertyName="x" />
                 <AssertPropertyValue target="swf1.content.document.colorPicker1.mx_internal:dropdown" value="228" propertyName="y" />
            </body>
          </TestCase>
@@ -449,7 +449,7 @@
                 <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.dateField1"
                     waitEvent="open" waitTarget="swf1.content.document.dateField1"/>
                 <WaitForEffectsToEnd />
-                <AssertPropertyValue target="swf1.content.document.dateField1.dropdown" value="340" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.dateField1.dropdown" value="238" propertyName="x" />
                 <AssertPropertyValue target="swf1.content.document.dateField1.dropdown" value="320" propertyName="y" />
            </body>
          </TestCase>
@@ -470,7 +470,7 @@
                 <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.dateField1"
                     waitEvent="open" waitTarget="swf1.content.document.dateField1"/>
                 <WaitForEffectsToEnd />
-                <AssertPropertyValue target="swf1.content.document.dateField1.dropdown" value="340" propertyName="x" />
+                <AssertPropertyValue target="swf1.content.document.dateField1.dropdown" value="238" propertyName="x" />
                 <AssertPropertyValue target="swf1.content.document.dateField1.dropdown" value="320" propertyName="y" />
            </body>
          </TestCase>
@@ -491,8 +491,8 @@
 			  	<DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.dateField1"
                     waitEvent="open" waitTarget="swf1.content.document.dateField1"/>
                 <WaitForEffectsToEnd />
-                <AssertMethodValue method="value=Math.round(application.swf1.content.document.dateField1.dropdown.x)" value="171" />
-                <AssertPropertyValue target="swf1.content.document.dateField1.dropdown" value="292" propertyName="y" />
+                <AssertMethodValue method="value=Math.round(application.swf1.content.document.dateField1.dropdown.x)" value="82" />
+                <AssertPropertyValue target="swf1.content.document.dateField1.dropdown" value="294" propertyName="y" />
            </body>
          </TestCase>
         <TestCase testID="MP_DateField_closeOnMouseDown_trusted" description="Test that the location of the DateField's calendar." keywords="[DateField, Marshall Plan, calendar]">

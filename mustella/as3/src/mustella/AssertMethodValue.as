@@ -60,7 +60,7 @@ use namespace mx_internal;
 public class AssertMethodValue extends Assert
 {
 	public var conditionalValues:Vector.<ConditionalValue> = null;
-	
+
 	/**
 	 *  Test the value of a property, log result if failure.
 	 */
@@ -68,9 +68,9 @@ public class AssertMethodValue extends Assert
 	{
 		var cv:ConditionalValue = null;
 		var dispatcher:EventDispatcher = this;
-		
+
 		context.resetValue();
-		
+
 		// Use MultiResult to determine the proper value (or valueExpression, below).
 		if(conditionalValues){
 			cv = new MultiResult().chooseCV(conditionalValues);
@@ -81,9 +81,9 @@ public class AssertMethodValue extends Assert
 		}
 
 		// Execute the method.
-		try 
+		try
 		{
-			dispatchEvent(new RunCodeEvent("method", root["document"], context, testCase, testResult));				
+			dispatchEvent(new RunCodeEvent("method", root["document"], context, testCase, testResult));
 		}
 		catch (e:Error)
 		{
@@ -106,7 +106,7 @@ public class AssertMethodValue extends Assert
 			catch (e1:Error)
 			{
 				TestOutput.logResult("Exception thrown evaluating value expression.");
-				testResult.doFail (e1.getStackTrace());	
+				testResult.doFail (e1.getStackTrace());
 				return;
 			}
 			value = context.value;
@@ -114,16 +114,20 @@ public class AssertMethodValue extends Assert
 				TestOutput.logResult("WARNING: value was not set by valueExpression.  'value=' missing from expression?");
 		}
 
-		if (valueToString(methodValue) != valueToString(value))
-		{
-			testResult.doFail ( "method returned " + valueToString(methodValue) + ", expected " + valueToString(value));
-		} 
+        if (errorArray) {
+            var errors:ErrorArray = new ErrorArray(errorArray);
+            if (!contains(methodValue, errors))
+                testResult.doFail("method returned " + valueToString(methodValue) + ", expected it contains " + valueToString(errors));
+        } else if (valueToString(methodValue) != valueToString(value))
+            testResult.doFail("method returned " + valueToString(methodValue) + ", expected " + valueToString(value));
 	}
 
 	/**
 	 *  The value the method should return
 	 */
-	public var value:Object;
+	public var value:*;
+
+    public var errorArray:Array;
 
 	/**
 	 *  customize string representation

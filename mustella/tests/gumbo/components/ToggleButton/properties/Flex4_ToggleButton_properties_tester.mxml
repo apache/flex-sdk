@@ -172,7 +172,7 @@
 				<ResetComponent target="myTB" className="spark.components.ToggleButton" />
 			</setup>
 			<body>
-				<AssertPropertyValue propertyName="baselinePosition" value="14.55" target="myTB"/>
+				<AssertPropertyValue propertyName="baselinePosition" value="16" target="myTB"/>
 			</body>
 		</TestCase>
 		<TestCase testID="ToggleButton_baselinePosition_postValidation" description="baselinePosition test" keywords="[ToggleButton, baselinePosition, property]">
@@ -180,7 +180,7 @@
 				<ResetComponent target="myTB" className="spark.components.ToggleButton" waitTarget="myTB" waitEvent="updateComplete"/>
 			</setup>
 			<body>
-				<AssertPropertyValue propertyName="baselinePosition" value="14.55" target="myTB"/>
+				<AssertPropertyValue propertyName="baselinePosition" value="16" target="myTB"/>
 			</body>
 		</TestCase>
 

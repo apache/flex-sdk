@@ -55,9 +55,7 @@
 	<list paddingRight="24" paddingLeft="24" listStyleType="decimal"><li>decimal item</li></list>
 	<list paddingRight="24" paddingLeft="24" listStyleType="decimalLeadingZero"><li>decimalLeadingZero item</li></list>
 
-	<list paddingRight="24" paddingLeft="24" listStyleType="lowerGreek"><li>lowerGreek item</li></list>
 	<list paddingRight="24" paddingLeft="24" listStyleType="lowerLatin"><li>lowerLatin item</li></list>
-	<list paddingRight="24" paddingLeft="24" listStyleType="upperGreek"><li>upperGreek item</li></list>
 	<list paddingRight="24" paddingLeft="24" listStyleType="upperLatin"><li>upperLatin item</li></list>
 	<p>AFTER</p>
 	

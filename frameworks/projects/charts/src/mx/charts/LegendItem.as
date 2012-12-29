@@ -23,6 +23,8 @@ package mx.charts
 import flash.display.DisplayObject;
 import flash.events.MouseEvent;
 import flash.geom.Rectangle;
+import flash.utils.Dictionary;
+
 import mx.charts.chartClasses.IChartElement;
 import mx.charts.renderers.BoxItemRenderer;
 import mx.charts.styles.HaloDefaults;
@@ -194,7 +196,7 @@ public class LegendItem extends UIComponent
 	/**
 	 *  @private
 	 */
-	private var _moduleFactoryInitialized:Boolean = false;
+	private static var _moduleFactoryInitialized:Dictionary = new Dictionary(true);
 	
 	/**
 	 *  @private
@@ -409,10 +411,10 @@ public class LegendItem extends UIComponent
 	{
 		super.moduleFactory = factory;
 		
-		if (_moduleFactoryInitialized)
+		if (_moduleFactoryInitialized[factory])
 			return;
 		
-		_moduleFactoryInitialized = true;
+		_moduleFactoryInitialized[factory] = true;
 	}
 	
 	/**

@@ -155,7 +155,7 @@
 			   <ResetComponent target="comboTList" className="comps.TListCombobox"  waitTarget="comboTList"  waitEvent="updateComplete"/>
 			</setup>
 			<body>
-				 <CompareBitmap url="../baselines/comboBoxRenderer.png" target="comboTList.mx_internal:rendererArray.1.0" />
+				 <CompareBitmap url="../baselines/comboBoxRenderer.png" target="comboTList.mx_internal:rendererArray.1.0" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		 <TestCase testID="ComboBoxRenderer_ASVisualCheck" description="Visual Check of a ComboBox CellRenderer set at runtime" keywords="[TileList, Runtime, ComboBox, itemRenderers]">
@@ -168,7 +168,7 @@
 			    <SetProperty target="TListBasic" propertyName="columnWidth" value="50" />
 			    <SetProperty propertyName="labelField" target="TListBasic" value="color" waitTarget="TListBasic" waitEvent="updateComplete" />
 			    <SetProperty propertyName="itemRenderer" target="TListBasic" valueExpression="value=new ClassFactory(MyComboBox)" waitTarget="TListBasic" waitEvent="updateComplete" />
-				<CompareBitmap url="../baselines/comboBoxRendererAS.png" target="TListBasic.mx_internal:rendererArray.0.1" />
+				<CompareBitmap url="../baselines/comboBoxRendererAS.png" target="TListBasic.mx_internal:rendererArray.0.1" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 <!--DateField renderer-->

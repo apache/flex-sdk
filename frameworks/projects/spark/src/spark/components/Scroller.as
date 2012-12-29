@@ -49,6 +49,7 @@ import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.TouchInteractionEvent;
+import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
 import mx.styles.IStyleClient;
 
@@ -412,6 +413,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *   <strong>Properties</strong>
  *    measuredSizeIncludesScrollBars="true"
  *    minViewportInset="0"
+ *    pageScrollingEnabled="false"
+ *    scrollSnappingMode="none"
  *    viewport="null"
  *  
  *    <strong>Styles</strong>
@@ -2141,10 +2144,12 @@ public class Scroller extends SkinnableComponent
     {
         super.focusInHandler(event);
         
+		var fm:IFocusManager = focusManager;
+		
         // When we gain focus, make sure the focused element is visible
-        if (viewport && ensureElementIsVisibleForSoftKeyboard)
+        if (fm && viewport && ensureElementIsVisibleForSoftKeyboard)
         {
-            var elt:IVisualElement = focusManager.getFocus() as IVisualElement; 
+            var elt:IVisualElement = fm.getFocus() as IVisualElement; 
             lastFocusedElement = elt;
         }
     }

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,49 +26,107 @@ import org.w3c.dom.events.Event;
  * This class implements the behavior of DocumentEvent.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: DocumentEventSupport.java,v 1.7 2005/02/22 09:12:59 cam Exp $
+ * @version $Id: DocumentEventSupport.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class DocumentEventSupport {
     
     /**
      * The Event type.
      */
-    public static final String EVENT_TYPE = "Events";
+    public static final String EVENT_TYPE = "Event";
     
     /**
      * The MutationEvent type.
      */
-    public static final String MUTATION_EVENT_TYPE = "MutationEvents";
+    public static final String MUTATION_EVENT_TYPE = "MutationEvent";
+    
+    /**
+     * The MutationNameEvent type.
+     */
+    public static final String MUTATION_NAME_EVENT_TYPE = "MutationNameEvent";
     
     /**
      * The MouseEvent type.
      */
-    public static final String MOUSE_EVENT_TYPE = "MouseEvents";
+    public static final String MOUSE_EVENT_TYPE = "MouseEvent";
 
     /**
      * The UIEvent type.
      */
-    public static final String UI_EVENT_TYPE = "UIEvents";
+    public static final String UI_EVENT_TYPE = "UIEvent";
 
     /**
      * The KeyEvent type.
      */
-    public static final String KEY_EVENT_TYPE = "KeyEvents";
+    public static final String KEYBOARD_EVENT_TYPE = "KeyboardEvent";
+    
+    /**
+     * The TextEvent type.
+     */
+    public static final String TEXT_EVENT_TYPE = "TextEvent";
+    
+    /**
+     * The CustomEvent type.
+     */
+    public static final String CUSTOM_EVENT_TYPE = "CustomEvent";
+
+    /**
+     * The Event type.
+     */
+    public static final String EVENT_DOM2_TYPE = "Events";
+    
+    /**
+     * The MutationEvent type.
+     */
+    public static final String MUTATION_EVENT_DOM2_TYPE = "MutationEvents";
+    
+    /**
+     * The MouseEvent type.
+     */
+    public static final String MOUSE_EVENT_DOM2_TYPE = "MouseEvents";
+
+    /**
+     * The UIEvent type.
+     */
+    public static final String UI_EVENT_DOM2_TYPE = "UIEvents";
+
+    /**
+     * The KeyEvent type.
+     */
+    public static final String KEY_EVENT_DOM2_TYPE = "KeyEvents";
 
     /**
      * The event factories table.
      */
     protected HashTable eventFactories = new HashTable();
     {
+        // DOM 3 event names:
         eventFactories.put(EVENT_TYPE.toLowerCase(),
                            new SimpleEventFactory());
         eventFactories.put(MUTATION_EVENT_TYPE.toLowerCase(),
                            new MutationEventFactory());
+        eventFactories.put(MUTATION_NAME_EVENT_TYPE.toLowerCase(),
+                           new MutationNameEventFactory());
         eventFactories.put(MOUSE_EVENT_TYPE.toLowerCase(),
                            new MouseEventFactory());
-        eventFactories.put(KEY_EVENT_TYPE.toLowerCase(),
-                           new KeyEventFactory());
+        eventFactories.put(KEYBOARD_EVENT_TYPE.toLowerCase(),
+                           new KeyboardEventFactory());
         eventFactories.put(UI_EVENT_TYPE.toLowerCase(),
+                           new UIEventFactory());
+        eventFactories.put(TEXT_EVENT_TYPE.toLowerCase(),
+                           new TextEventFactory());
+        eventFactories.put(CUSTOM_EVENT_TYPE.toLowerCase(),
+                           new CustomEventFactory());
+        // DOM 2 event names:
+        eventFactories.put(EVENT_DOM2_TYPE.toLowerCase(),
+                           new SimpleEventFactory());
+        eventFactories.put(MUTATION_EVENT_DOM2_TYPE.toLowerCase(),
+                           new MutationEventFactory());
+        eventFactories.put(MOUSE_EVENT_DOM2_TYPE.toLowerCase(),
+                           new MouseEventFactory());
+        eventFactories.put(KEY_EVENT_DOM2_TYPE.toLowerCase(),
+                           new KeyEventFactory());
+        eventFactories.put(UI_EVENT_DOM2_TYPE.toLowerCase(),
                            new UIEventFactory());
     }
 
@@ -101,7 +160,7 @@ public class DocumentEventSupport {
      *   type of <code>Event</code> interface requested
      */
     public Event createEvent(String eventType)
-	    throws DOMException {
+            throws DOMException {
         EventFactory ef = (EventFactory)eventFactories.get(eventType.toLowerCase());
         if (ef == null) {
             throw new DOMException(DOMException.NOT_SUPPORTED_ERR,
@@ -154,6 +213,18 @@ public class DocumentEventSupport {
     }
 
     /**
+     * To create a mutation name event.
+     */
+    protected static class MutationNameEventFactory implements EventFactory {
+        /**
+         * Creates a new Event object.
+         */
+        public Event createEvent() {
+            return new DOMMutationNameEvent();
+        }
+    }
+
+    /**
      * To create a mouse event.
      */
     protected static class MouseEventFactory implements EventFactory {
@@ -178,6 +249,18 @@ public class DocumentEventSupport {
     }
 
     /**
+     * To create a keyboard event.
+     */
+    protected static class KeyboardEventFactory implements EventFactory {
+        /**
+         * Creates a new Event object.
+         */
+        public Event createEvent() {
+            return new DOMKeyboardEvent();
+        }
+    }
+
+    /**
      * To create a UI event.
      */
     protected static class UIEventFactory implements EventFactory {
@@ -186,6 +269,30 @@ public class DocumentEventSupport {
          */
         public Event createEvent() {
             return new DOMUIEvent();
+        }
+    }
+
+    /**
+     * To create a Text event.
+     */
+    protected static class TextEventFactory implements EventFactory {
+        /**
+         * Creates a new Event object.
+         */
+        public Event createEvent() {
+            return new DOMTextEvent();
+        }
+    }
+
+    /**
+     * To create a Custom event.
+     */
+    protected static class CustomEventFactory implements EventFactory {
+        /**
+         * Creates a new Event object.
+         */
+        public Event createEvent() {
+            return new DOMCustomEvent();
         }
     }
 }

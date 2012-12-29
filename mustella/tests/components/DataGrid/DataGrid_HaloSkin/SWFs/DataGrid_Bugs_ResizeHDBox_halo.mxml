@@ -67,10 +67,10 @@
 			embedAsCFF: false;
 		}
 		
-        global{
-            fontFamily: EmbeddedVerdana;
-            fontAntiAliasType: normal;
-        }
+		global{
+			fontFamily: EmbeddedVerdana;
+			fontAntiAliasType: normal;
+		}
     </mx:Style>
 
     <mx:HDividedBox id="HDBox" width="100%" height="100%">

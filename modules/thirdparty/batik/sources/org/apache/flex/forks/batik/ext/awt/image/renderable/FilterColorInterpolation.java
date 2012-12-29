@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,7 +26,7 @@ import java.awt.color.ColorSpace;
  * operation should take place in.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: FilterColorInterpolation.java,v 1.3 2004/08/18 07:13:59 vhardy Exp $
+ * @version $Id: FilterColorInterpolation.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public interface FilterColorInterpolation extends Filter {
 
@@ -34,7 +35,7 @@ public interface FilterColorInterpolation extends Filter {
      * the linear sRGB colorspace, returns false if the
      * operation is performed in gamma corrected sRGB.
      */
-    public boolean isColorSpaceLinear();
+    boolean isColorSpaceLinear();
 
     /**
      * Sets the colorspace the operation will be performed in.
@@ -42,11 +43,11 @@ public interface FilterColorInterpolation extends Filter {
      * linear sRGB colorspace, if false the operation will be performed in
      * gamma corrected sRGB.
      */
-    public void setColorSpaceLinear(boolean csLinear);
+    void setColorSpaceLinear(boolean csLinear);
 
     /**
      * Returns the ColorSpace that the object will perform
      * it's work in.
      */
-    public ColorSpace getOperationColorSpace();
+    ColorSpace getOperationColorSpace();
 }

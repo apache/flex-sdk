@@ -21,29 +21,56 @@
     xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
         xmlns:comps="comps.*"     backgroundColor="0xFFFFFF" >
 
-    <fx:Style source="assets/myStyles.css" />
+    <fx:Style>
+        @font-face{
+            src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+            fontFamily: myArial;
+            embedAsCFF: true;
+        }
+
+
+        @font-face{
+            src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+            fontWeight: bold;
+            embedAsCFF:true;
+            fontFamily: myArial;
+ 
+        }
+
+        @font-face{
+            src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+            fontStyle: italic;
+            fontFamily: myArial;
+            embedAsCFF: true;
+         }
+
+        global {
+            fontFamily: "myArial";
+            fontAntiAliasType: "normal";
+        } 
+            
+    </fx:Style>
     <fx:Script>
     <![CDATA[
-    import comps.*;
-    import mx.collections.*;
+        import comps.*;
+        import mx.collections.*;
 
-
-          public function createPlayersAC():ArrayCollection
-                {
-                    var players:ArrayCollection = new ArrayCollection([
-                    {team:"ATeam",jerseyNumber:80, lastName:"BroPlayer",    firstName:"TrName"},
-                    {team:"JTeam", jerseyNumber:7,  lastName:"LePlayer", firstName:"ByName"},
-                    {team:"ATeam",jerseyNumber:12, lastName:"BryPlayer",    firstName:"ToName"},
-                    {team:"ATeam",jerseyNumber:21, lastName:"GaPlayer",      firstName:"RaName"},
-                    {team:"RTeam", jerseyNumber:34, lastName:"OrPlayer",    firstName:"DaName"},
-                    {team:"ATeam",jerseyNumber:12, lastName:"ViPlayer",firstName:"AdName"},
-                    {team:"JTeam", jerseyNumber:7,  lastName:"BoPlayer",     firstName:"ByName"},
+        public function createPlayersAC():ArrayCollection
+        {
+            var players:ArrayCollection = new ArrayCollection([
+                {team:"ATeam",jerseyNumber:80, lastName:"BroPlayer",    firstName:"TrName"},
+                {team:"JTeam", jerseyNumber:7,  lastName:"LePlayer", firstName:"ByName"},
+                {team:"ATeam",jerseyNumber:12, lastName:"BryPlayer",    firstName:"ToName"},
+                {team:"ATeam",jerseyNumber:21, lastName:"GaPlayer",      firstName:"RaName"},
+                {team:"RTeam", jerseyNumber:34, lastName:"OrPlayer",    firstName:"DaName"},
+                {team:"ATeam",jerseyNumber:12, lastName:"ViPlayer",firstName:"AdName"},
+                {team:"JTeam", jerseyNumber:7,  lastName:"BoPlayer",     firstName:"ByName"},
                 ]);
-                return players;
-                }
+            return players;
+        }
 
-           public function sortAC():ArrayCollection
-                {
+        public function sortAC():ArrayCollection
+        {
                 var ac:ArrayCollection = new ArrayCollection([
                     {team:"ATeam",jerseyNumber:80, lastName:"BroPlayer",    firstName:"TrName"},
                     {team:"JTeam", jerseyNumber:7,  lastName:"LePlayer", firstName:"ByName"},
@@ -53,33 +80,32 @@
                     {team:"ATeam",jerseyNumber:12, lastName:"ViPlayer",firstName:"AdName"},
                     {team:"JTeam", jerseyNumber:7,  lastName:"BoPlayer",     firstName:"ByName"},
                     ]);
-                var s:Sort = new Sort();
-                    var f:SortField = new SortField("jerseyNumber");
-                    ac.filterFunction = function (item:Object):Boolean
-                    {
-                        return item.jerseyNumber >= 12 && item.jerseyNumber <= 34;
-                    }
-                    s.fields = [f];
-                    ac.sort = s;
-                    ac.refresh();
-                    return ac;
+            var s:Sort = new Sort();
+            var f:SortField = new SortField("jerseyNumber");
+            ac.filterFunction = function (item:Object):Boolean
+            {
+                return item.jerseyNumber >= 12 && item.jerseyNumber <= 34;
+            }
+            s.fields = [f];
+            ac.sort = s;
+            ac.refresh();
+            return ac;
         }
 
-    public function createAbc():ArrayList
-    {
-        var col:ArrayList =
-            new ArrayList(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']);
-        return (col);
-    }
-    public function createNullDupData():ArrayList
-    {
-        var col:ArrayList =
-            new ArrayList([null,'A',null,'A','a','a1','a','B','C','D','E','F','G','H','I','J','K',
-            'L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','a1','aa','aa1',null,null]);
-        return (col);
-    }
-
-
+        public function createAbc():ArrayList
+        {
+            var col:ArrayList =
+                new ArrayList(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']);
+            return (col);
+        }
+        
+        public function createNullDupData():ArrayList
+        {
+            var col:ArrayList =
+                new ArrayList([null,'A',null,'A','a','a1','a','B','C','D','E','F','G','H','I','J','K',
+                'L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','a1','aa','aa1',null,null]);
+            return (col);
+        }
     ]]>
     </fx:Script>
 	<s:HGroup id="hg" paddingLeft="10" paddingTop="10" paddingRight="10" paddingBottom="10">

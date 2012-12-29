@@ -34,7 +34,6 @@ import mx.core.IFactory;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.formatters.NumberFormatter;
 import mx.managers.IFocusManagerComponent;
 
 import spark.effects.animation.Animation;
@@ -42,6 +41,7 @@ import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
 import spark.effects.easing.Sine;
 import spark.events.TrackBaseEvent;
+import spark.formatters.NumberFormatter;
 
 use namespace mx_internal;
 
@@ -572,9 +572,13 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
         else
         {
             if (dataFormatter == null)
+            {
                 dataFormatter = new NumberFormatter();
+                addStyleClient(dataFormatter);
+            }
                 
-            dataFormatter.precision = dataTipPrecision;
+            dataFormatter.fractionalDigits = dataTipPrecision;
+            dataFormatter.trailingZeros = true;
             
             formattedValue = dataFormatter.format(value);   
         }
@@ -697,7 +701,11 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
         }
         
         if (dataTipInstance && showDataTip)
-        { 
+        {
+            // If showing the dataTip, we need to validate to
+            // make sure the thumb is in the right position.
+            //validateNow();
+            
             dataTipInstance.data = formatDataTipText(pendingValue);
             
             // Force the dataTip to render so that we have the correct size since

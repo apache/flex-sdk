@@ -27,19 +27,8 @@
 				<SetProperty target="myNS_B2" propertyName="baseline" value="100" waitEvent="updateComplete" waitTarget="myNS_B2"/>
 		    </setup>
 		    <body>
-				<!--CompareBitmap target="" url="../Properties/Baselines/$testID.png"/-->
 				<SetProperty value="30" target="myNS_B2" propertyName="height" waitEvent="updateComplete" waitTarget="myNS_B2"/>
-				<AssertPropertyValue target="myNS_B2" propertyName="y" value="85" />
-		    </body>
-    	</TestCase>
-		<TestCase testID="NumericStepper_baseline_Mac" keywords="[FxNumericStepper, Default]" description="Test Default Values for Spark NumericStepper">
-		    <setup>
-				<ResetComponent target="myNS_B2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS_B2"/>
-				<SetProperty target="myNS_B2" propertyName="baseline" value="100" waitEvent="updateComplete" waitTarget="myNS_B2"/>
-		    </setup>
-		    <body>
-				<SetProperty value="30" target="myNS_B2" propertyName="height" waitEvent="updateComplete" waitTarget="myNS_B2"/>
-				<AssertPropertyValue target="myNS_B2" propertyName="y" value="85" />
+				<AssertPropertyValue target="myNS_B2" propertyName="y" value="84" />
 		    </body>
     	</TestCase>
     </testCases>

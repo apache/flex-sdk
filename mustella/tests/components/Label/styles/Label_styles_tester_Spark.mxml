@@ -665,8 +665,8 @@
 		</TestCase>
 
 
-
 		<TestCase testID="Spark_fontSize_100_Style_Label" description="Tests setting the fontSize of Label to 100" keywords="[fontSize, Label, Style]">
+
 
 			<setup>
 
@@ -682,7 +682,7 @@
 
 				<AssertStyleValue styleName="fontSize" target="myLabel" value="100"/>
 
-				<CompareBitmap url="../styles/baselines/fontSize_100_Style_Label_Spark.png" target="myLabel"/>
+				<CompareBitmap url="../styles/baselines/fontSize_100_Style_Label_Spark.png" target="myLabel" numColorVariances="2" maxColorVariance="1"/>
 
 			</body>
 

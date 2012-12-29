@@ -20,19 +20,19 @@
 <UnitTester testDir="resources/ResourceBundle/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceBundleApp.mxml">
 
 	<!-- this set of lines form a template that must be in each unit test -->
-	
+
 	<mx:Script><![CDATA[
 		public static function init(o:DisplayObject):void{}
 	]]></mx:Script>
 
 	<mx:Metadata><![CDATA[
 		[Mixin]
-	]]></mx:Metadata>	
-	
+	]]></mx:Metadata>
+
 	<!-- end of set of lines that must be in each unit test -->
-	
+
 	<mx:Script><![CDATA[
-	
+
 		public function testGetStringArrayError(key:String):String
 		{
 			try
@@ -45,7 +45,7 @@
 			}
 			return null;
 		}
-	
+
 		public function testGetStringArray(key:String, expectedValue:Array):Boolean
 		{
 			var a1:Array = application.resourceBundle.getStringArray(key);
@@ -53,7 +53,7 @@
 
 			var n1:int = a1.length;
 			var n2:int = a2.length;
-			
+
 			if (n1 != n2)
 				return false;
 
@@ -67,7 +67,7 @@
 		}
 
 	]]></mx:Script>
-	
+
 	<testCases>
 
 		<TestCase frequency="all" testID="ResourceBundle_getStringArray_NO_SUCH_KEY" description="Tests that the getStringArray() method of ResourceBundle throws an Error when accessing a non-existent resource" keywords="[resources,ResourceBundle,getStringArray]">
@@ -150,7 +150,7 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getStringArray_STRING_TRUE_UPPERCASE" description="Tests the getStringArray() method of ResourceBundle for a resource value which is the String 'TRUE'" keywords="[resources,ResourceBundle,getStringArray]">
 			<setup>
 				<RunCode code="application.setup()"/>
@@ -160,7 +160,7 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getStringArray_STRING_FALSE_LOWERCASE" description="Tests the getStringArray() method of ResourceBundle for a resource value which is the String 'false'" keywords="[resources,ResourceBundle,getStringArray]">
 			<setup>
 				<RunCode code="application.setup()"/>
@@ -170,7 +170,7 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getStringArray_STRING_FALSE_MIXEDCASE" description="Tests the getStringArray() method of ResourceBundle for a resource value which is the String 'False'" keywords="[resources,ResourceBundle,getStringArray]">
 			<setup>
 				<RunCode code="application.setup()"/>
@@ -180,7 +180,7 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getStringArray_STRING_FALSE_UPPERCASE" description="Tests the getStringArray() method of ResourceBundle for a resource value which is the String 'FALSE'" keywords="[resources,ResourceBundle,getStringArray]">
 			<setup>
 				<RunCode code="application.setup()"/>
@@ -230,7 +230,7 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getStringArray_STRING_FIXEDPOINT" description="Tests the getStringArray() method of ResourceBundle for a resource value which is the String rep of a typical fractional Number" keywords="[resources,ResourceBundle,getStringArray]">
 			<setup>
 				<RunCode code="application.setup()"/>
@@ -261,7 +261,7 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getStringArray_UNDEFINED" description="Tests the getStringArray() method of ResourceBundle for a resource value which is undefined" keywords="[resources,ResourceBundle,getStringArray]">
 			<setup>
 				<RunCode code="application.setup()"/>
@@ -278,7 +278,7 @@
 				<RunCode code="application.setup()"/>
 			</setup>
 			<body>
-				<AssertMethodValue method="value=testGetStringArrayError('TRUE')" value="TypeError: Error #1006: value is not a function."/>
+				<AssertMethodValue method="value=testGetStringArrayError('TRUE')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
@@ -315,13 +315,13 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getStringArray_POSITIVE_INTEGER" description="Tests the getStringArray() method of ResourceBundle for a resource value which is a typical positive integer" keywords="[resources,ResourceBundle,getStringArray]">
 			<setup>
 				<RunCode code="application.setup()"/>
 			</setup>
 			<body>
-				<AssertMethodValue method="value=testGetStringArrayError('POSITIVE_INTEGER')" value="TypeError: Error #1006: value is not a function."/>
+				<AssertMethodValue method="value=testGetStringArrayError('POSITIVE_INTEGER')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
@@ -331,7 +331,7 @@
 				<RunCode code="application.setup()"/>
 			</setup>
 			<body>
-				<AssertMethodValue method="value=testGetStringArrayError('NEGATIVE_INTEGER')" value="TypeError: Error #1006: value is not a function."/>
+				<AssertMethodValue method="value=testGetStringArrayError('NEGATIVE_INTEGER')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
@@ -341,51 +341,51 @@
 				<RunCode code="application.setup()"/>
 			</setup>
 			<body>
-				<AssertMethodValue method="value=testGetStringArrayError('FIXEDPOINT')" value="TypeError: Error #1006: value is not a function."/>
+				<AssertMethodValue method="value=testGetStringArrayError('FIXEDPOINT')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getStringArray_FLOATINGPOINT" description="Tests the getStringArray() method of ResourceBundle for a resource value which is a typical fractional Number in exponential notation" keywords="[resources,ResourceBundle,getStringArray]">
 			<setup>
 				<RunCode code="application.setup()"/>
 			</setup>
 			<body>
-				<AssertMethodValue method="value=testGetStringArrayError('FLOATINGPOINT')" value="TypeError: Error #1006: value is not a function."/>
+				<AssertMethodValue method="value=testGetStringArrayError('FLOATINGPOINT')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getStringArray_CLASS" description="Tests the getStringArray() method of ResourceBundle for a resource value which is a Class reference" keywords="[resources,ResourceBundle,getStringArray]">
 			<setup>
 				<RunCode code="application.setup()"/>
 			</setup>
 			<body>
-				<AssertMethodValue method="value=testGetStringArrayError('CLASS')" value="TypeError: Error #1006: split is not a function."/>
+				<AssertMethodValue method="value=testGetStringArrayError('CLASS')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getStringArray_ARRAY" description="Tests the getStringArray() method of ResourceBundle for a resource value which is an Array of Strings" keywords="[resources,ResourceBundle,getStringArray]">
 			<setup>
 				<RunCode code="application.setup()"/>
 			</setup>
 			<body>
-				<AssertMethodValue method="value=testGetStringArrayError('ARRAY')" value="TypeError: Error #1006: split is not a function."/>
+				<AssertMethodValue method="value=testGetStringArrayError('ARRAY')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase frequency="all" testID="ResourceBundle_getStringArray_OBJECT" description="Tests the getStringArray() method of ResourceBundle for a resource value which is a plain Object" keywords="[resources,ResourceBundle,getStringArray]">
 			<setup>
 				<RunCode code="application.setup()"/>
 			</setup>
 			<body>
-				<AssertMethodValue method="value=testGetStringArrayError('OBJECT')" value="TypeError: Error #1006: split is not a function."/>
+				<AssertMethodValue method="value=testGetStringArrayError('OBJECT')" errorArray="['TypeError: Error #1006:']"/>
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
-		
+
 	</testCases>
 
 	<!--

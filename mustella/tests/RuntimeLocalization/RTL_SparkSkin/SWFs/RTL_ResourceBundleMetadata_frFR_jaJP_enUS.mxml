@@ -103,8 +103,12 @@
 <s:layout>
     <s:VerticalLayout />
 </s:layout>
+<s:states>
+	<s:State name="setOne" />
+	<s:State name="setTwo" />
+</s:states>
 
-    <mx:HBox>
+    <mx:HBox includeIn="setOne">
         <mx:Label text="Feel free to change the locale chain manually here." />
         <mx:TextInput id="tiLocaleChain" width="100" />
         <mx:Button label="Apply!" click="{resourceManager.localeChain=tiLocaleChain.text.split(',')}" />
@@ -123,45 +127,45 @@ ResourceBundle Metadata Properties
 ===================================================================
 -->
 
-    <mx:Label color="0xffffff" text="Property ResourceBundle Metadata tests (resourceManager.getXX()):" />
+    <mx:Label includeIn="setOne" color="0xffffff" text="Property ResourceBundle Metadata tests (resourceManager.getXX()):" />
 
-    <mx:HBox>
+    <mx:HBox includeIn="setOne">
         <mx:Label text="Framework string:" />
         <Components:CLabelTextGetStringFramework id="lbl1" />
     </mx:HBox>
 
-    <mx:HBox>
+    <mx:HBox includeIn="setOne">
         <mx:Label text="Non-framework string, as a property:" />
         <Components:CLabelTextGetStringCustom id="lbl2" />
     </mx:HBox>
 
-    <mx:HBox>
+    <mx:HBox includeIn="setOne">
         <mx:Label text="Number (alpha=0.3 for French, 0.7 for English, 0.5 for Japanese):"  />
         <Components:CTextInputAlphaGetNumber id="ti1" />
     </mx:HBox>
 
-    <mx:HBox>
+    <mx:HBox includeIn="setOne">
         <mx:Label text="int (maxChars=7 for French, 12 for English, 3 for Japanese):"  />
         <Components:CTextInputMaxCharsGetInt id="ti2" />
     </mx:HBox>
 
-    <mx:HBox>
+    <mx:HBox includeIn="setOne">
         <mx:Label text="uint (selectedColor=blue for French, green for English, red for Japanese):"  />
         <Components:CColorPickerSelectedColorGetUint id="cp1" />
     </mx:HBox>
     
-    <mx:HBox>
+    <mx:HBox includeIn="setOne">
         <mx:Label text="Boolean (unchecked/checked for French, checked/unchecked for English, both checked for Japanese):"  />
         <Components:CCheckBoxSelectedGetBooleanLeft id="ck1" />
         <Components:CCheckBoxSelectedGetBooleanRight id="ck2" />
     </mx:HBox>    
 
-    <mx:HBox>
+    <mx:HBox includeIn="setOne">
         <mx:Label text="StringArray (month names begin with fr, en, or ja):"  />
         <Components:CDateChooserMonthNamesGetStringArray id="dc1" />
     </mx:HBox>
 
-    <mx:HBox id="img1Container">
+    <mx:HBox id="img1Container" includeIn="setOne">
         <mx:Label text="Class with Embed (image is the country's flag.):"  />
         <Components:CImageSourceGetClass id="img1"  />
     </mx:HBox>
@@ -171,26 +175,26 @@ ResourceBundle Metadata Properties
 ResourceBundle Metadata Styles
 ===================================================================
 -->
-    <mx:Label color="0xffffff" text="Style ResourceBundle Metadata tests (resourceManager.getXX()):" />
+    <mx:Label includeIn="setTwo" color="0xffffff" text="Style ResourceBundle Metadata tests (resourceManager.getXX()):" />
     
-    <mx:HBox>
+    <mx:HBox includeIn="setTwo">
         <mx:Label text="String (right italicized for French, left one for English, both for Japanese):"  />
         <Components:CLabelFontStyleGetStringLeft id="lbl3" />
         <Components:CLabelFontStyleGetStringRight id="lbl4" />
     </mx:HBox>    
 
-    <mx:HBox>
+    <mx:HBox includeIn="setTwo">
         <mx:Label text="Number (right tiny for French, left tiny for English, both tiny for Japanese):"  />
         <Components:CLabelFontSizeGetNumberLeft id="lbl5" />
         <Components:CLabelFontSizeGetNumberRight id="lbl6" />
     </mx:HBox>
 
-    <mx:HBox>
+    <mx:HBox includeIn="setTwo">
         <mx:Label text="int (3 zeroes for French, 4 for English, 6 for Japanese):"  />
         <Components:CSliderPrecisionGetInt id="slider1" />
     </mx:HBox>
    
-    <mx:HBox>
+    <mx:HBox includeIn="setTwo">
         <mx:Label text="uint (Red for French, blue for English, green for Japanese):"  />
         <Components:CLabelColorGetUint id="lbl7" />
     </mx:HBox>
@@ -198,7 +202,7 @@ ResourceBundle Metadata Styles
     <!-- Left's lineThrough is false, right's lineThrough is true, for French. -->
     <!-- Left's lineThrough is true, right's lineThrough is false, for English. -->
     <!-- Both have lineThrough = true for Japanese. -->
-    <mx:HBox>
+    <mx:HBox includeIn="setTwo">
         <mx:Label text="Boolean:."  />
         <mx:HBox>
             <Components:CFxButtonLineThroughGetBooleanLeft id="btn1" />
@@ -206,17 +210,17 @@ ResourceBundle Metadata Styles
         </mx:HBox>
     </mx:HBox>
 
-     <mx:HBox>
+     <mx:HBox includeIn="setTwo">
          <mx:Label text="StringArray (alternating colors are green/blue for French, red/blue for English, white/red for Japanese):"  />
          <Components:CListAlternatingColorsGetStringArray id="list1" />
     </mx:HBox>    
  
-    <mx:HBox>
+    <mx:HBox includeIn="setTwo">
          <mx:Label text="Class style using Embed (Button skins are the country's flag):"  />
          <Components:CButtonOverSkinGetClass id="btn3" />
     </mx:HBox>
     
-    <mx:HBox>
+    <mx:HBox includeIn="setTwo">
         <mx:Label text="Class style using ClassReference (French has a backwards check, English has a forwards one, Japanese has a square):"  />
         <Components:CCheckBoxSelectedIconsGetClass id="ck3" />
     </mx:HBox>

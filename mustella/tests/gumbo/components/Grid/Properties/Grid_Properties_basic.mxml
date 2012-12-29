@@ -107,10 +107,10 @@
 			</setup>
 			<body>
 				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="6"/>
-				<AssertPropertyValue target="myGrid" propertyName="width" value="251" />
+				<AssertPropertyValue target="myGrid" propertyName="width" value="258" />
 				<RunCode code="FlexGlobals.topLevelApplication.myGrid.addFixedSizeColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>
 				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="7"/>								
-				<AssertPropertyValue target="myGrid" propertyName="width" value="351" />
+				<AssertPropertyValue target="myGrid" propertyName="width" value="358" />
 			</body>
 		</TestCase>	
   		
@@ -121,21 +121,21 @@
 			</setup>
 			<body>
 				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="6"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(0).width" value="39"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(0).width" value="38"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(1).width" value="37"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(2).width" value="55"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(3).width" value="33"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(4).width" value="60"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(5).width" value="27"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(2).width" value="58"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(3).width" value="32"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(4).width" value="64"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(5).width" value="29"/>
 				<RunCode code="FlexGlobals.topLevelApplication.myGrid.addFixedSizeColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>
 				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="7"/>								
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(0).width" value="39"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(0).width" value="38"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(1).width" value="100"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(2).width" value="37"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(3).width" value="55"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(4).width" value="33"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(5).width" value="60"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(6).width" value="27"/>															
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(3).width" value="58"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(4).width" value="32"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(5).width" value="64"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(6).width" value="29"/>															
 			</body>
 		</TestCase>			
 					
@@ -160,7 +160,7 @@
                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
             </setup>
             <body>
-                <AssertPropertyValue target="myGrid" propertyName="width" value="251"/>
+                <AssertPropertyValue target="myGrid" propertyName="width" value="258"/>
             </body>
         </TestCase>
         
@@ -170,7 +170,7 @@
                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
             </setup>
             <body>
-                <AssertPropertyValue target="myGrid" propertyName="height" value="270"/>
+                <AssertPropertyValue target="myGrid" propertyName="height" value="260"/>
             </body>
         </TestCase>        
 
@@ -291,8 +291,8 @@
             	<AssertPropertyValue target="myGrid" propertyName="rowHeight" value="125"/>
             	<AssertPropertyValue target="myGrid" propertyName="width" value="500"/>                
                 <AssertPropertyValue target="myGrid" propertyName="height" value="300"/>				
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,0)" value="(x=0, y=0, w=81, h=125)"/>              
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(2,3)" value="(x=257, y=250, w=75, h=125)"/>              
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,0)" value="(x=0, y=0, w=79, h=125)"/>              
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(2,3)" value="(x=256, y=250, w=73, h=125)"/>              
             </body>
         </TestCase>
         		        
@@ -343,16 +343,16 @@
              	<AssertPropertyValue target="myGrid" propertyName="width" value="500"/>                
                 <AssertPropertyValue target="myGrid" propertyName="height" value="300"/>				
                 <AssertPropertyValue target="myGrid" propertyName="variableRowHeight" value="true"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,0).height" value="27"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,2).height" value="27"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(1,0).height" value="27"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(2,0).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,0).height" value="26"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,2).height" value="26"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(1,0).height" value="26"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(2,0).height" value="26"/>
 				<RunCode code="FlexGlobals.topLevelApplication.myGrid.dp1.getItemAt(0,0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';" waitEvent="enterFrame" waitTarget="stage"/>
 				<RunCode code="FlexGlobals.topLevelApplication.myGrid.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>				
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,0).height" value="153"/>  
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,2).height" value="153"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(1,0).height" value="27"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(2,0).height" value="27"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,0).height" value="128"/>  
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,2).height" value="128"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(1,0).height" value="26"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(2,0).height" value="26"/>                
              </body>
         </TestCase>
  	        
@@ -364,16 +364,16 @@
              </setup>
              <body>             	             	
                 <AssertPropertyValue target="myGrid" propertyName="variableRowHeight" value="true"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(0).height" value="27"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(0).height" value="26"/>                
 				<RunCode code="FlexGlobals.topLevelApplication.myGrid.dp1.getItemAt(0,0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';" waitEvent="enterFrame" waitTarget="stage"/>
 				<RunCode code="FlexGlobals.topLevelApplication.myGrid.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(0).height" value="459"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(0).height" value="298"/>
                 <SetProperty target="myGrid" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" />
                 <AssertPropertyValue target="myGrid" propertyName="variableRowHeight" value="false"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(0).height" value="27"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(0).height" value="26"/>                
                 <SetProperty target="myGrid" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" />
                 <AssertPropertyValue target="myGrid" propertyName="variableRowHeight" value="true"/>                
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(0).height" value="459"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(0).height" value="298"/>
              </body>
         </TestCase>    
          	          

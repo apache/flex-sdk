@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/AdvancedDataGrid/Properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Formatters_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+ <mx:Script>
+    <![CDATA[
+     import mx.controls.AdvancedDataGrid;
+     import mx.controls.advancedDataGridClasses.*; 
+     import mx.collections.*;
+     import mx.styles.StyleManager;     
+     import mx.formatters.*;
+    import mx.managers.SystemManager;   
+
+public function myStyleFunction1(data:Object,col:AdvancedDataGridColumn):Object          {
+           return { color:0xFF0000};
+}
+		
+
+public function myStyleFunction2(data:Object,col:AdvancedDataGridColumn):Object          {
+           var regExp:RegExp = new RegExp("321456789");
+	           var regExp2:RegExp = new RegExp("21344321")
+	    	   if (regExp.test(data["col3"])) 
+	    		return { color:0xFF0000}; 
+	    	   if (regExp2.test(data["col2"])) 
+	    		return { color:0xFFCC99}; 	    
+	              return null;	
+                             }
+public function myStyleFunction3(data:Object,col:AdvancedDataGridColumn):Object          {
+           var regExp:RegExp = new RegExp("321456789");
+	           var regExp2:RegExp = new RegExp("21344321")
+	    	   if (regExp.test(data["col3"])) 
+	    		return {alpha:0.5, color:0xFFFF00}; 
+	    	   if (regExp2.test(data["col2"])) 
+	    		return {alpha:0.2, color:0xBBEE99}; 
+	    
+	              return null;	
+
+}
+	public function applymystyle1():void {
+
+	application.myCustomADG.mydatagrid.styleFunction = myStyleFunction1;
+        application.myCustomADG.mydata.refresh();
+
+	}
+public function applymystyle2():void {
+
+application.myCustomADG.mydatagrid.styleFunction = myStyleFunction2;
+application.myCustomADG.mydata.refresh();
+					}
+
+public function applymystyle3():void {
+
+application.myCustomADG.mydatagrid.styleFunction = myStyleFunction3;
+application.myCustomADG.mydata.refresh();
+
+
+}
+
+public function run():void
+{
+	trace("formatter="+application.col1.formatter);
+	trace("MD= " + application.mydatagrid);
+	application.myCustomADG.mydatagrid.invalidateDisplayList();
+}
+
+
+
+//Function for currency formatter
+
+
+public function setcurrencyformatter():void {
+
+		var forms:CurrencyFormatter = new CurrencyFormatter();
+		forms.currencySymbol = "$";
+		application.myCustomADG.col1.formatter = forms;
+		application.myCustomADG.mydata.refresh();
+					}
+
+//Function for col2 Number Formatter
+
+public function setnumberformatter():void {
+
+          var forms:NumberFormatter = new NumberFormatter();
+	  forms.rounding = "up";
+	  forms.thousandsSeparatorTo = ",";
+	  forms.useThousandsSeparator = true;
+          application.myCustomADG.col2.formatter = forms;
+	  application.myCustomADG.mydata.refresh();
+					  }
+          
+
+public function setphoneformatter():void {
+		
+		var forms:PhoneFormatter = new PhoneFormatter();
+		forms.areaCode=-1;
+		forms.areaCodeFormat="(###)";
+		forms.formatString="####-####";
+		application.myCustomADG.col2.formatter = forms;
+		application.myCustomADG.mydata.refresh();
+
+			}
+
+public function setdateformatter():void {
+
+			var forms:DateFormatter = new DateFormatter();
+			var today:Date = new Date(2000, 0, 1, 0, 0, 0, 0);
+			forms.formatString = "YYYY.MM.DD at HH:NN:SS ";			
+			for (var i:int =0; i <5;i++)
+			{
+			application.myCustomADG.mydata.getItemAt(i)["col1"] = today;
+			}
+			application.myCustomADG.mydatagrid.dataProvider = application.myCustomADG.mydata;
+			application.myCustomADG.col1.formatter = forms;
+			application.myCustomADG.mydata.refresh();
+	                    }
+
+public function setzipcodeformatter():void {
+
+			var forms:ZipCodeFormatter = new ZipCodeFormatter();
+			forms.formatString = "#####-####";
+			application.myCustomADG.col3.formatter = forms;
+			application.myCustomADG.mydata.refresh();
+
+								}   
+								
+ private function applytreeview():void
+        {
+            var fs2:Object = 
+	   	       
+	   			   {fileName:"mxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmxmx", Summary:"true", children: [
+	   
+	   			   {fileName: "utils", children: [
+	   
+	   			   {fileName: "StringUtil.as", Summary:"true", size:"5563  bytes", lastModified:"October 6, 2006", type:"File", attributes:"Read Only"},
+	   
+	   			   {fileName: "ArrayUtil.as", size:"2509  bytes", lastModified:"June 12, 2006", type:"File", attributes:"Read Only"}]},
+	   
+	   			   {fileName:"accessibility", size:"1724 bytes", lastModified:"October 6, 2006", Summary:"false", children: [
+	   
+	   			   {fileName:"DataGridAccImpl.as DataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.asDataGridAccImpl.as", size:"17045  bytes", lastModified:"November 2, 2006", type:"File", attributes:"Read Only"},
+	   
+	   			   {fileName:"AccImpl.as", Summary:"true", size:"7263 bytes", lastModified:"June 1, 2006", type:"File", attributes:"Read Only"}]},
+	   
+	   			   {fileName: "controls", children: [
+	   
+	   			   {fileName: "DataGrid.as", size:"169825  bytes", lastModified:"December 6, 2006", type:"File", attributes:"Read Only"},
+	   
+	   			   {fileName: "dataGridClasses", children: [
+	   
+	   		           {fileName: "DataGridItemRenderer.as", size:"18587  bytes", lastModified:"November 20, 2006", type:"File", attributes:"Read Only"},
+	   
+	   		           {fileName: "DataGridBase.as", size:"36419  bytes", lastModified:"December 6, 2006", type:"File", attributes:"Read Only"}]}]}
+	   
+	   
+	   
+		       ]};
+		       var hc:HierarchicalData = new HierarchicalData(fs2)
+		       application.myCustomADG.mydatagrid.columns[0].dataField = "fileName"
+		       application.myCustomADG.mydatagrid.columns[1].dataField = "size"
+		       application.myCustomADG.mydatagrid.columns[2].dataField = "lastModified"
+		       //Force dataField change
+		       application.myCustomADG.mydatagrid.dataProvider.refresh();
+		       application.myCustomADG.mydatagrid.dataProvider= hc;
+			var forms:CurrencyFormatter = new CurrencyFormatter();
+					forms.currencySymbol = "$";
+					application.myCustomADG.mydatagrid.columns[1].formatter = forms;
+					application.myCustomADG.mydatagrid.columns[0].formatter = forms;
+					application.myCustomADG.mydata.refresh();
+					application.myCustomADG.mydatagrid.expandAll();	
+			
+       }
+       
+       public function groupit():void {
+        var mygroup:GroupingCollection=new GroupingCollection;
+       		//mygroup.groupLabelField = "Venom"; 
+       		mygroup.source = application.myCustomADG.mydata;
+       		var group:Grouping = new Grouping();
+       		group.fields = [new GroupingField("col2"), new GroupingField("col3")];
+       		group.label = "Venom";
+       		mygroup.grouping = group;
+       		mygroup.refresh();
+       		
+       		application.myCustomADG.mydatagrid.dataProvider = mygroup;
+       		application.myCustomADG.mydatagrid.validateNow();
+       		
+		var forms:CurrencyFormatter = new CurrencyFormatter();
+							forms.currencySymbol = "$";
+							application.myCustomADG.mydatagrid.columns[1].formatter = forms;
+							application.myCustomADG.mydatagrid.columns[0].formatter = forms;
+							application.myCustomADG.mydata.refresh();
+							application.myCustomADG.mydatagrid.expandAll();	
+			
+       }
+       
+        public function setsimplecolumnspan():void {
+       	 	var renders:AdvancedDataGridRendererProvider = new AdvancedDataGridRendererProvider();		
+       	 	renders.column = application.myCustomADG.col1;
+       	 	var renderarr:Array = new Array();
+       	 	renders.dataField = "col1";
+       	 	renders.columnSpan = 2;
+       	 	renders.renderer = new ClassFactory(mx.controls.NumericStepper);
+       	 	renderarr.push(renders);
+       	 	application.myCustomADG.mydatagrid.rendererProviders = renderarr;
+       	 	var forms:CurrencyFormatter = new CurrencyFormatter();
+									forms.currencySymbol = "$";
+									application.myCustomADG.mydatagrid.columns[2].formatter = forms;
+									application.myCustomADG.mydatagrid.columns[0].formatter = forms;
+									application.myCustomADG.mydata.refresh();
+									application.myCustomADG.mydatagrid.expandAll();	
+		
+       	 }
+
+       	
+  ]]>
+    </mx:Script>
+
+<testCases>
+<TestCase testID="use_style_function1" keywords="[Style function application]">
+		<setup>
+			
+			<RunCode  code="applymystyle1()"  /> 
+
+	<Pause timeout="1000"/>
+
+   </setup>
+<body>
+<WaitForEffectsToEnd />
+      	<CompareBitmap target="myCustomADG.mydatagrid" url="../Properties/Baselines/style1.png" timeout="5000" />
+</body>
+
+	</TestCase>
+      <TestCase testID="use_style_function2" keywords="[Style function application2]">
+		<setup>
+		
+		<RunCode code="applymystyle2()" />
+			<Pause timeout="1000"/>
+
+   </setup>
+<body>
+ <WaitForEffectsToEnd />
+      	<CompareBitmap target="myCustomADG.mydatagrid" url="../Properties/Baselines/style2.png" timeout="5000" />
+</body>
+
+	</TestCase>
+		<TestCase testID="use_style_function3" keywords="[Style function application3]" >
+		<setup>	
+		
+			<RunCode code="applymystyle3()" /> 
+			<Pause timeout="1000"/>
+
+   </setup>
+<body>
+<WaitForEffectsToEnd />
+      	<CompareBitmap target="myCustomADG.mydatagrid" url="../Properties/Baselines/style3.png" timeout="5000" />
+</body>
+
+	</TestCase>
+
+   <TestCase testID="use_currency_formatter" keywords="[Currency formatter test]" >
+   <setup>
+     <ResetComponent waitTarget="myCustomADG" waitEvent="updateComplete" target="myCustomADG" className="CustomADG" /> 
+	
+      <RunCode code="setcurrencyformatter()"  />
+			<Pause timeout="1000"/>
+  </setup>
+  <body>
+  <WaitForEffectsToEnd />
+        	<CompareBitmap target="myCustomADG.mydatagrid" url="../Properties/Baselines/currency.png" timeout="5000" />
+</body>
+   </TestCase>
+<TestCase testID="use_number_formatter" keywords="[Number formatter test]" >
+    <setup>
+      <ResetComponent target="myCustomADG" className="CustomADG" waitEvent="updateComplete" waitTarget="myCustomADG"/> 
+      <RunCode code="setnumberformatter()" />
+      		<Pause timeout="1000"/>
+	
+   </setup>
+<body>
+<WaitForEffectsToEnd />
+      	<CompareBitmap target="myCustomADG.mydatagrid" url="../Properties/Baselines/number.png" timeout="5000" />
+</body>
+</TestCase>
+<TestCase testID="use_phone_formatter" keywords="[Phone formatter test]" >
+    <setup>
+      <ResetComponent target="myCustomADG" className="CustomADG" waitEvent="updateComplete" waitTarget="myCustomADG"/> 
+      <RunCode code="setphoneformatter()" />
+     		<Pause timeout="1000"/>
+	
+   </setup>
+<body>
+<WaitForEffectsToEnd />
+      	<CompareBitmap target="myCustomADG.mydatagrid" url="../Properties/Baselines/phone.png" timeout="5000" />
+</body>
+
+</TestCase>
+<TestCase testID="use_date_formatter" keywords="[Date formatter test]" >
+    <setup>
+      <ResetComponent target="myCustomADG" className="CustomADG" waitEvent="updateComplete" waitTarget="myCustomADG"/> 
+      <RunCode code="setdateformatter()" />
+     		<Pause timeout="1000"/>
+	
+   </setup>
+<body>
+<WaitForEffectsToEnd />
+      	<CompareBitmap target="myCustomADG.mydatagrid" url="../Properties/Baselines/date.png" timeout="5000" />
+</body>
+
+</TestCase>
+<TestCase testID="use_zipcode_formatter" keywords="[ZipCode formatter test]" >
+    <setup>
+      <ResetComponent target="myCustomADG" className="CustomADG" waitEvent="updateComplete" waitTarget="myCustomADG"/> 
+      <RunCode code="setzipcodeformatter()" />
+     		<Pause timeout="1000"/>
+	
+   </setup>
+<body>
+<WaitForEffectsToEnd />
+      	<CompareBitmap target="myCustomADG.mydatagrid" url="../Properties/Baselines/zipcode.png" timeout="5000" />
+</body>
+
+</TestCase>
+<!--
+<TestCase testID="use_tree_view" keywords="[Tree view with formatter test]" >
+    <setup>
+      <ResetComponent target="myCustomADG" className="CustomADG" waitEvent="updateComplete" waitTarget="myCustomADG"/> 
+      <RunCode code="applytreeview()" />
+     		<Pause timeout="1000"/>
+	
+   </setup>
+<body>
+      	<CompareBitmap target="myCustomADG.mydatagrid" url="../Properties/Baselines/treeview.png" timeout="5000" />
+</body>
+
+</TestCase>
+
+-->
+<TestCase testID="use_grouped_view" keywords="[grouped view with formatter test]" >
+    <setup>
+      <ResetComponent target="myCustomADG" className="CustomADG" waitEvent="updateComplete" waitTarget="myCustomADG"/> 
+      <RunCode code="groupit()" />
+     <Pause timeout="1000"/>
+	
+   </setup>
+<body>
+<WaitForEffectsToEnd />
+      	<CompareBitmap target="myCustomADG.mydatagrid" url="../Properties/Baselines/groupview.png" timeout="5000" numColorVariances="2" maxColorVariance="2"/>
+</body>
+
+</TestCase>
+
+<TestCase testID="use_columnspan" keywords="[ColumnSpan  with formatter test]" >
+    <setup>
+      <ResetComponent target="myCustomADG" className="CustomADG" waitEvent="updateComplete" waitTarget="myCustomADG"/> 
+      <RunCode code="setsimplecolumnspan()" />
+     	<Pause timeout="1000"/>
+	
+   </setup>
+<body>
+<WaitForEffectsToEnd />
+      	<CompareBitmap target="myCustomADG.mydatagrid" url="../Properties/Baselines/columnspan.png" timeout="5000" />
+</body>
+
+</TestCase>
+
+</testCases>   
+</UnitTester>

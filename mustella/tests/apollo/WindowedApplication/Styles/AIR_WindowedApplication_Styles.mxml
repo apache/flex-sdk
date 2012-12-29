@@ -115,7 +115,7 @@
     }
     </mx:Style>
     <testCases>
-        <TestCase testID="Window_Style_buttonAlignment_auto" keywords="[Window,Style, buttonAlignment]">
+        <TestCase testID="buttonAlignment_auto" keywords="[Window,Style, buttonAlignment]">
             <setup>
                 <RunCode code="set()"/>
                 <SetProperty propertyName="height" value="500" target="" waitEvent="updateComplete" waitTarget=""/>
@@ -124,28 +124,34 @@
             <body>
                 <AssertStyleValue target="" styleName="buttonAlignment" value="auto" />
                 <AssertStyleValue target="" styleName="titleAlignment" value="auto" />
-                <CompareBitmap target="" url="../Styles/baselines/buttonAlignment_auto.png" />
+                <CompareBitmap target="" url="../Styles/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_Style_buttonAlignment_right" keywords="[Window,Style, buttonAlignment]">
+        <TestCase testID="buttonAlignment_right" keywords="[Window,Style, buttonAlignment]">
             <setup>
                 <SetStyle target="" styleName="buttonAlignment" value="right" waitEvent="updateComplete" waitTarget=""/>
             </setup>
             <body>
                 <AssertStyleValue target="" styleName="buttonAlignment" value="right" />
-                <CompareBitmap target="titleBar" url="../Styles/baselines/buttonAlignment_right.png"  />
+				<CompareBitmap target="titleBar" url="../Styles/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_Style_buttonAlignment_left" keywords="[Window,Style, buttonAlignment]">
+        <TestCase testID="buttonAlignment_left" keywords="[Window,Style, buttonAlignment]">
             <setup>
                 <SetStyle target="" styleName="buttonAlignment" value="left" waitEvent="updateComplete" waitTarget=""/>
             </setup>
             <body>
                 <AssertStyleValue target="" styleName="buttonAlignment" value="left" />
-                <CompareBitmap target="titleBar" url="../Styles/baselines/buttonAlignment_left.png"/>
+				<CompareBitmap target="titleBar" url="../Styles/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_Style_headerHeight_large" keywords="[Window,Style, headerHeight]">
+        <TestCase testID="headerHeight_large" keywords="[Window,Style, headerHeight]">
             <setup>
                 <SetStyle styleName="buttonAlignment" value="auto" target="" waitEvent="updateComplete" waitTarget=""/>
                 <SetStyle target="" styleName="headerHeight" value="30" waitEvent="updateComplete" waitTarget=""/>
@@ -153,16 +159,20 @@
             </setup>
             <body>
                 <AssertStyleValue target="" styleName="headerHeight" value="30" />
-                <CompareBitmap target="titleBar" url="../Styles/baselines/headerHeight_large.png"/>
+				<CompareBitmap target="titleBar" url="../Styles/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_Style_headerHeight_small" keywords="[Window,Style, headerHeight]">
+        <TestCase testID="headerHeight_small" keywords="[Window,Style, headerHeight]">
             <setup>
                 <SetStyle target="" styleName="headerHeight" value="0.5" waitEvent="updateComplete" waitTarget=""/>
             </setup>
             <body>
                 <AssertStyleValue target="" styleName="headerHeight" value="0.5" />
-                <CompareBitmap target="" url="../Styles/baselines/headerHeight_small.png" />
+				<CompareBitmap target="" url="../Styles/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Window_Style_showFlexChrome_true" keywords="[Window,Style, showFlexChrome ]">
@@ -183,24 +193,28 @@
                 <CompareBitmap target="" url="../Styles/baselines/showFlexChrome_false.png"  />
             </body>
         </TestCase>-->
-        <TestCase testID="Window_Style_statusBarBackgroundColor" keywords="[Window,Style, statusBarBackgroundColor ]">
+        <TestCase testID="statusBarBackgroundColor" keywords="[Window,Style, statusBarBackgroundColor ]">
             <setup>
                 <SetStyle target="" styleName="statusBarBackgroundColor" value="red" waitEvent="updateComplete" waitTarget=""/>
             </setup>
             <body>
                 <AssertStyleValue target="" styleName="statusBarBackgroundColor" value="16711680" />
-                <CompareBitmap target="" url="../Styles/baselines/statusBarBackgroundColor.png"  />
+				<CompareBitmap target="" url="../Styles/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_Style_statusBackgroundSkin" keywords="[Window,Style, statusBackgroundSkin ]">
+        <TestCase testID="statusBackgroundSkin" keywords="[Window,Style, statusBackgroundSkin ]">
             <setup>
                 <SetStyle target="" styleName="statusBarBackgroundSkin" value="{kb}" waitEvent="updateComplete" waitTarget=""/>
             </setup>
             <body>
-                <CompareBitmap target="" url="../Styles/baselines/statusBackgroundSkin.png" />
+				<CompareBitmap target="" url="../Styles/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_Style_statusTextStyleName" keywords="[Window,Style, statusTextStyleName]">
+        <TestCase testID="statusTextStyleName" keywords="[Window,Style, statusTextStyleName]">
             <setup>
                 <SetStyle target="" styleName="statusBarBackgroundColor" value="0xC0C0C0" waitEvent="updateComplete" waitTarget=""/>
                 <SetStyle target="" styleName="statusTextStyleName" value="myStyle" waitEvent="updateComplete" waitTarget=""/>
@@ -208,54 +222,66 @@
             </setup>
             <body>
                 <AssertStyleValue target="" styleName="statusTextStyleName" value="myStyle" />
-                <CompareBitmap target="" url="../Styles/baselines/statusTextStyleName.png" />
+				<CompareBitmap target="" url="../Styles/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_Style_titleAlignment_left" keywords="[Window,Style, titleAlignment]">
+        <TestCase testID="titleAlignment_left" keywords="[Window,Style, titleAlignment]">
             <setup>
                 <SetProperty target="" propertyName="title" value="Title Alignment Check" waitEvent="updateComplete" waitTarget=""/>
                 <SetStyle target="" styleName="titleAlignment" value="left" waitEvent="updateComplete" waitTarget=""/>
             </setup>
             <body>
                 <AssertStyleValue target="" styleName="titleAlignment" value="left" />
-                <CompareBitmap target="titleBar" url="../Styles/baselines/titleAlignment_left.png" />
+				<CompareBitmap target="titleBar" url="../Styles/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_Style_titleAlignment_center" keywords="[Window,Style, titleAlignment]">
+        <TestCase testID="titleAlignment_center" keywords="[Window,Style, titleAlignment]">
             <setup>
                 <SetStyle target="" styleName="titleAlignment" value="center" waitEvent="updateComplete" waitTarget=""/>
             </setup>
             <body>
                 <AssertStyleValue target="" styleName="titleAlignment" value="center" />
-                <CompareBitmap target="titleBar" url="../Styles/baselines/titleAlignment_center.png" />
+				<CompareBitmap target="titleBar" url="../Styles/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_Style_titleTextStyleName" keywords="[Window,Style, titleTextStyleName]">
+        <TestCase testID="titleTextStyleName" keywords="[Window,Style, titleTextStyleName]">
             <setup>
                 <SetStyle target="" styleName="titleTextStyleName" value="myStyle" waitEvent="updateComplete" waitTarget=""/>
                 <SetProperty target="" propertyName="title" value="Hello World!" waitEvent="updateComplete" waitTarget=""/>
             </setup>
             <body>
                 <AssertStyleValue target="" styleName="titleTextStyleName" value="myStyle" />
-                <CompareBitmap target="titleBar" url="../Styles/baselines/titleTextStyleName.png" />
+				<CompareBitmap target="titleBar" url="../Styles/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_Style_titleBarColors" keywords="[Window,Style, titleBarColors]">
+        <TestCase testID="titleBarColors" keywords="[Window,Style, titleBarColors]">
             <setup>
                 <SetStyle target="" styleName="titleBarColors" value="['red','green']" waitEvent="updateComplete" waitTarget=""/>
             </setup>
             <body>
                 <AssertStyleValue target="" styleName="titleBarColors" value="[ 16711680,32768]" />
-                <CompareBitmap target="titleBar" url="../Styles/baselines/titleBarColors.png"  />
+				<CompareBitmap target="titleBar" url="../Styles/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_Style_titleBarBackgroundSkin" keywords="[Window,Style, titleBarBackgroundSkin]">
+        <TestCase testID="titleBarBackgroundSkin" keywords="[Window,Style, titleBarBackgroundSkin]">
             <setup>
                 <SetStyle target="" styleName="titleBarBackgroundSkin" valueExpression="value=kb" waitEvent="updateComplete" waitTarget=""/>
             </setup>
             <body>
                 <AssertStyleValue target="" styleName="titleBarBackgroundSkin" valueExpression="value=kb" />
-                <CompareBitmap target="titleBar" url="../Styles/baselines/titleBarBackgroundSkin.png" />
+				<CompareBitmap target="titleBar" url="../Styles/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
 

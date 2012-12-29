@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2005 The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -15,7 +16,6 @@
    limitations under the License.
 
 */
-
 package org.apache.flex.forks.batik.dom.svg;
 
 import java.awt.geom.Point2D;
@@ -24,12 +24,24 @@ import java.awt.geom.Point2D;
  * Context class for the SVG path element to support extra
  * methods.
  *
- * @author <a href="mailto:deweese@apache.org">deweese</a>
- * @version $Id: SVGPathContext.java,v 1.2 2005/03/27 08:58:32 cam Exp $
+ * @author <a href="mailto:deweese@apache.org">Thomas DeWeese</a>
+ * @version $Id: SVGPathContext.java 475477 2006-11-15 22:44:28Z cam $
  */
 public interface SVGPathContext extends SVGContext {
 
-    public float getTotalLength();
+    /**
+     * Returns the total length of the path.
+     */
+    float getTotalLength();
 
-    public Point2D getPointAtLength(float distance);
-};
+    /**
+     * Returns the point at the given distance along the path.
+     */
+    Point2D getPointAtLength(float distance);
+
+    /**
+     * Returns the index of the path segment at the given distance along the
+     * path.
+     */
+    int getPathSegAtLength(float distance);
+}

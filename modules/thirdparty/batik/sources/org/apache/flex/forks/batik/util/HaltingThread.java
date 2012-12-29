@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2004 The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,7 +25,7 @@ package org.apache.flex.forks.batik.util;
  * checked periodically during expensive processing.
  *
  * @author <a href="mailto:deweese@apache.org">deweese</a>
- * @version $Id: HaltingThread.java,v 1.2 2005/03/27 08:58:36 cam Exp $
+ * @version $Id: HaltingThread.java 478169 2006-11-22 14:23:24Z dvholten $
  */
 public class HaltingThread extends Thread {
     /**
@@ -74,7 +75,7 @@ public class HaltingThread extends Thread {
      * HaltingThread otherwise it does nothing.
      */
     public static void haltThread(Thread t) {
-        if (t instanceof HaltingThread) 
+        if (t instanceof HaltingThread)
             ((HaltingThread)t).halt();
     }
 
@@ -88,14 +89,14 @@ public class HaltingThread extends Thread {
     }
 
     /**
-     * Returns the result of calling hasBeenHalted on <tt>t</tt>, 
+     * Returns the result of calling hasBeenHalted on <tt>t</tt>,
      * if it is an instance of HaltingThread otherwise it returns false.
      */
     public static boolean hasBeenHalted(Thread t) {
-        if (t instanceof HaltingThread) 
+        if (t instanceof HaltingThread)
             return ((HaltingThread)t).isHalted();
         return false;
     }
 
 
-};
+}

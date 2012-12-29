@@ -56,7 +56,7 @@
                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
             </setup>
             <body>                
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0)" value="(x=0, y=0, w=39, h=27)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0)" value="(x=0, y=0, w=38, h=26)"/>                
             </body>
         </TestCase>
         
@@ -68,7 +68,7 @@
                 <SetProperty target="myComp1.dataGrid1" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>                 
             </setup>
             <body>                
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0)" value="(x=0, y=0, w=81, h=27)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0)" value="(x=0, y=0, w=80, h=26)"/>                
             </body>
         </TestCase>
         
@@ -79,8 +79,8 @@
                 <SetProperty target="myComp1.dataGrid1" propertyName="rowHeight" value="80" waitEvent="enterFrame" waitTarget="stage"/>                
             </setup>
             <body>                
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0)" value="(x=0, y=0, w=39, h=80)"/>                
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(2,3)" value="(x=131, y=160, w=33, h=80)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0)" value="(x=0, y=0, w=38, h=80)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(2,3)" value="(x=129, y=160, w=32, h=80)"/>
             </body>
         </TestCase>   
         
@@ -91,7 +91,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.myComp1.c1_1.width = 100" waitEvent="enterFrame" waitTarget="stage"/>                
             </setup>
             <body>                
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0)" value="(x=0, y=0, w=100, h=27)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0)" value="(x=0, y=0, w=100, h=26)"/>                
             </body>
         </TestCase> 
         
@@ -113,12 +113,12 @@
                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
             </setup>
             <body>                
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0)" value="(x=0, y=0, w=39, h=648)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1)" value="(x=39, y=0, w=46, h=648)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2)" value="(x=85, y=0, w=46, h=648)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3)" value="(x=131, y=0, w=33, h=648)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4)" value="(x=164, y=0, w=46, h=648)"/>                
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5)" value="(x=210, y=0, w=27, h=648)"/>                           
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0)" value="(x=0, y=0, w=38, h=624)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1)" value="(x=38, y=0, w=46, h=624)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2)" value="(x=84, y=0, w=45, h=624)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3)" value="(x=129, y=0, w=32, h=624)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4)" value="(x=161, y=0, w=44, h=624)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5)" value="(x=205, y=0, w=29, h=624)"/>                           
             </body>
         </TestCase>
         
@@ -132,12 +132,12 @@
             <body>
                 <AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="500"/>
                 <AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="300"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0)" value="(x=0, y=0, w=81, h=648)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1)" value="(x=81, y=0, w=88, h=648)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2)" value="(x=169, y=0, w=88, h=648)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3)" value="(x=257, y=0, w=75, h=648)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4)" value="(x=332, y=0, w=88, h=648)"/>                
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5)" value="(x=420, y=0, w=64, h=648)"/>                           
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0)" value="(x=0, y=0, w=80, h=624)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1)" value="(x=80, y=0, w=88, h=624)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2)" value="(x=168, y=0, w=87, h=624)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3)" value="(x=255, y=0, w=74, h=624)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4)" value="(x=329, y=0, w=86, h=624)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5)" value="(x=415, y=0, w=69, h=624)"/>                           
             </body>
         </TestCase> 
         
@@ -148,12 +148,12 @@
                 <SetProperty target="myComp1.dataGrid1" propertyName="rowHeight" value="50" waitEvent="enterFrame" waitTarget="stage"/>
             </setup>
             <body>                
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0)" value="(x=0, y=0, w=39, h=1200)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1)" value="(x=39, y=0, w=46, h=1200)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2)" value="(x=85, y=0, w=46, h=1200)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3)" value="(x=131, y=0, w=33, h=1200)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4)" value="(x=164, y=0, w=46, h=1200)"/>                
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5)" value="(x=210, y=0, w=27, h=1200)"/>                           
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0)" value="(x=0, y=0, w=38, h=1200)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1)" value="(x=38, y=0, w=46, h=1200)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2)" value="(x=84, y=0, w=45, h=1200)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3)" value="(x=129, y=0, w=32, h=1200)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4)" value="(x=161, y=0, w=44, h=1200)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5)" value="(x=205, y=0, w=29, h=1200)"/>                           
             </body>
         </TestCase>        
  
@@ -164,12 +164,12 @@
                 <RunCode code="FlexGlobals.topLevelApplication.myComp1.c1_1.width = 100" waitEvent="enterFrame" waitTarget="stage"/>                
             </setup>
             <body>                
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0)" value="(x=0, y=0, w=100, h=648)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1)" value="(x=100, y=0, w=46, h=648)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2)" value="(x=146, y=0, w=46, h=648)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3)" value="(x=192, y=0, w=33, h=648)"/>
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4)" value="(x=225, y=0, w=46, h=648)"/>                
-                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5)" value="(x=271, y=0, w=27, h=648)"/>                                                     
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0)" value="(x=0, y=0, w=100, h=624)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1)" value="(x=100, y=0, w=46, h=624)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2)" value="(x=146, y=0, w=45, h=624)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3)" value="(x=191, y=0, w=32, h=624)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4)" value="(x=223, y=0, w=44, h=624)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5)" value="(x=267, y=0, w=29, h=624)"/>                                                     
             </body>
         </TestCase>           
  
@@ -179,10 +179,10 @@
                  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
              </setup>
              <body>                
-                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsHeight()" value="27"/>
-                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).height" value="20"/>
-                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsWidth()" value="39"/>
-                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).width" value="29"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsHeight()" value="26"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).height" value="19"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsWidth()" value="38"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).width" value="28"/>
              </body>
          </TestCase>
          
@@ -194,8 +194,8 @@
                 <SetProperty target="myComp1.dataGrid1" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>                 
              </setup>
              <body>                
-                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsHeight()" value="27"/>
-                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsWidth()" value="81"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsHeight()" value="26"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsWidth()" value="80"/>
              </body>
          </TestCase>
          
@@ -207,9 +207,9 @@
              </setup>
              <body>                
                  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsHeight()" value="80"/>                
-                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsWidth()" value="39"/>                
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsWidth()" value="38"/>                
                  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(2,3).height" value="73"/>
-                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(2,3).width" value="23"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(2,3).width" value="22"/>
              </body>
          </TestCase>   
          
@@ -220,7 +220,7 @@
  				<RunCode code="FlexGlobals.topLevelApplication.myComp1.c1_1.width = 100" waitEvent="enterFrame" waitTarget="stage"/>                
              </setup>
              <body>                
-                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsHeight()" value="27"/>                
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsHeight()" value="26"/>                
                  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsWidth()" value="100"/>
              </body>
          </TestCase> 

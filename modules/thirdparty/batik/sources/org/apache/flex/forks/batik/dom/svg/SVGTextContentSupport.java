@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,22 +23,20 @@ import java.awt.geom.Rectangle2D;
 
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
-import org.w3c.flex.forks.dom.svg.SVGMatrix;
-import org.w3c.flex.forks.dom.svg.SVGPoint;
-import org.w3c.flex.forks.dom.svg.SVGRect;
+import org.w3c.dom.svg.SVGPoint;
+import org.w3c.dom.svg.SVGRect;
 
 /**
  * This class provides support for the SVGTextContentElement interface.
  *
  * @author nicolas.socheleau@bitflash.com
- * @version $Id: SVGTextContentSupport.java,v 1.6 2004/08/18 07:13:19 vhardy Exp $
+ * @version $Id: SVGTextContentSupport.java 475477 2006-11-15 22:44:28Z cam $
  */
-public class SVGTextContentSupport
-{
+public class SVGTextContentSupport {
 
     /**
      * To implement {@link
-     * org.w3c.flex.forks.dom.svg.SVGTextContentElement#getNumberOfChars()}.
+     * org.w3c.dom.svg.SVGTextContentElement#getNumberOfChars()}.
      */
     public static int getNumberOfChars(Element elt)
     {
@@ -46,10 +45,9 @@ public class SVGTextContentSupport
         return (((SVGTextContent)svgelt.getSVGContext()).getNumberOfChars());
     }
 
-
     /**
      * To implement {@link
-     * org.w3c.flex.forks.dom.svg.SVGTextContentElement#getExtentOfChar(int charnum)}.
+     * org.w3c.dom.svg.SVGTextContentElement#getExtentOfChar(int charnum)}.
      */
     public static SVGRect getExtentOfChar(Element elt, final int charnum ) {
         final SVGOMElement svgelt = (SVGOMElement)elt;
@@ -62,8 +60,7 @@ public class SVGTextContentSupport
         }
         
         final SVGTextContent context = (SVGTextContent)svgelt.getSVGContext();
-        Rectangle2D r2d = getExtent(svgelt, context, charnum);
-            
+        
         return new SVGRect() {
                 public float getX() {
                     return (float)SVGTextContentSupport.getExtent
@@ -117,7 +114,7 @@ public class SVGTextContentSupport
     
     /**
      * To implement {@link
-     * org.w3c.flex.forks.dom.svg.SVGTextContentElement#getStartPositionOfChar(int charnum)}.
+     * org.w3c.dom.svg.SVGTextContentElement#getStartPositionOfChar(int charnum)}.
      */
     public static SVGPoint getStartPositionOfChar
         (Element elt, final int charnum) throws DOMException {
@@ -132,7 +129,6 @@ public class SVGTextContentSupport
         }
         
         final SVGTextContent context = (SVGTextContent)svgelt.getSVGContext();
-        Point2D p2d = getStartPos(svgelt, context, charnum);
 
         return new SVGTextPoint(svgelt){
                 public float getX(){
@@ -156,7 +152,7 @@ public class SVGTextContentSupport
     
     /**
      * To implement {@link
-     * org.w3c.flex.forks.dom.svg.SVGTextContentElement#getEndPositionOfChar(int charnum)}.
+     * org.w3c.dom.svg.SVGTextContentElement#getEndPositionOfChar(int charnum)}.
      */
     public static SVGPoint getEndPositionOfChar
         (Element elt,final int charnum) throws DOMException {
@@ -171,7 +167,6 @@ public class SVGTextContentSupport
         }
         
         final SVGTextContent context = (SVGTextContent)svgelt.getSVGContext();
-        Point2D p2d = getEndPos(svgelt, context, charnum);
 
         return new SVGTextPoint(svgelt){
                 public float getX(){
@@ -195,7 +190,7 @@ public class SVGTextContentSupport
 
     /**
      * To implement {@link
-     * org.w3c.flex.forks.dom.svg.SVGTextContentElement#selectSubString(int charnum, int nchars)}.
+     * org.w3c.dom.svg.SVGTextContentElement#selectSubString(int charnum, int nchars)}.
      */
     public static void selectSubString(Element elt, int charnum, int nchars){
 
@@ -215,7 +210,7 @@ public class SVGTextContentSupport
 
     /**
      * To implement {@link
-     * org.w3c.flex.forks.dom.svg.SVGTextContentElement#getRotationOfChar(int charnum)}.
+     * org.w3c.dom.svg.SVGTextContentElement#getRotationOfChar(int charnum)}.
      */
     public static float getRotationOfChar(Element elt, final int charnum ) {
         final SVGOMElement svgelt = (SVGOMElement)elt;
@@ -234,7 +229,7 @@ public class SVGTextContentSupport
 
     /**
      * To implement {@link
-     * org.w3c.flex.forks.dom.svg.SVGTextContentElement#selectSubString(int charnum, int nchars)}.
+     * org.w3c.dom.svg.SVGTextContentElement#selectSubString(int charnum, int nchars)}.
      */
     public static float getComputedTextLength(Element elt){
 
@@ -247,7 +242,7 @@ public class SVGTextContentSupport
 
     /**
      * To implement {@link
-     * org.w3c.flex.forks.dom.svg.SVGTextContentElement#selectSubString(int charnum, int nchars)}.
+     * org.w3c.dom.svg.SVGTextContentElement#selectSubString(int charnum, int nchars)}.
      */
     public static float getSubStringLength(Element elt, int charnum, int nchars){
 
@@ -267,7 +262,7 @@ public class SVGTextContentSupport
 
     /**
      * To implement {@link
-     * org.w3c.flex.forks.dom.svg.SVGTextContentElement#getCharNumAtPosition(SVGPoint point)}.
+     * org.w3c.dom.svg.SVGTextContentElement#getCharNumAtPosition(SVGPoint point)}.
      */
     public static int getCharNumAtPosition(Element elt, final float x, final float y) throws DOMException {
 
@@ -294,5 +289,4 @@ public class SVGTextContentSupport
                  "readonly.point", null);
         }
     }
-
 }

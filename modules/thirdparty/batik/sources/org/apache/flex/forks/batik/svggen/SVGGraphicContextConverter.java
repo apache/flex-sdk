@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -32,7 +33,7 @@ import org.apache.flex.forks.batik.ext.awt.g2d.TransformStackElement;
  * SVG attributes.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: SVGGraphicContextConverter.java,v 1.14 2004/08/18 07:15:00 vhardy Exp $
+ * @version $Id: SVGGraphicContextConverter.java 478176 2006-11-22 14:50:50Z dvholten $
  */
 public class SVGGraphicContextConverter {
     private static final int GRAPHIC_CONTEXT_CONVERTER_COUNT = 6;
@@ -44,7 +45,7 @@ public class SVGGraphicContextConverter {
     private SVGClip clipConverter;
     private SVGRenderingHints hintsConverter;
     private SVGFont fontConverter;
-    private SVGConverter converters[] =
+    private SVGConverter[] converters =
         new SVGConverter[GRAPHIC_CONTEXT_CONVERTER_COUNT];
 
     public SVGTransform getTransformConverter() { return transformConverter; }
@@ -84,7 +85,7 @@ public class SVGGraphicContextConverter {
      * @return a String containing the transform attribute value
      *         equivalent of the input transform stack.
      */
-    public String toSVG(TransformStackElement transformStack[]) {
+    public String toSVG(TransformStackElement[] transformStack) {
         return transformConverter.toSVGTransform(transformStack);
     }
 

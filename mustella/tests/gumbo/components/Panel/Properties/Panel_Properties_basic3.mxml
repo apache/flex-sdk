@@ -49,6 +49,7 @@
                 <SetProperty target="mySimplePanel" propertyName="toolTip" value="The panel tool tip"/>
                 <SetProperty target="mySimplePanel.myBtn" propertyName="toolTip" value="The button tool tip"/>
                 <SetProperty target="mySimplePanel" propertyName="errorString" value="THE ERROR STRING!!" waitEvent="updateComplete" waitTarget="mySimplePanel"/>
+				<WaitForLayoutManager />
             </setup>
             <body>             	            	
 				<CompareBitmap target="myBox" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>   				

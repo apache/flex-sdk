@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,7 +27,8 @@ import org.apache.flex.forks.batik.gvt.event.EventDispatcher;
 import org.apache.flex.forks.batik.gvt.text.Mark;
 import org.apache.flex.forks.batik.util.ParsedURL;
 import org.w3c.dom.Element;
-import org.w3c.flex.forks.dom.svg.SVGAElement;
+import org.w3c.dom.svg.SVGAElement;
+import org.w3c.dom.svg.SVGDocument;
 
 /**
  * An interface that provides access to the User Agent informations
@@ -34,7 +36,7 @@ import org.w3c.flex.forks.dom.svg.SVGAElement;
  *
  * @author <a href="mailto:cjolif@ilog.fr">Christophe Jolif</a>
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: UserAgent.java,v 1.32 2005/03/27 08:58:30 cam Exp $
+ * @version $Id: UserAgent.java 475477 2006-11-15 22:44:28Z cam $
  */
 public interface UserAgent {
 
@@ -285,4 +287,16 @@ public interface UserAgent {
     void checkLoadExternalResource(ParsedURL resourceURL,
                                    ParsedURL docURL) throws SecurityException;
 
+
+    /**
+     * This method should return an image to be displayed when an image
+     * can't be loaded.  If it returns 'null' then a BridgeException will
+     * be thrown.
+     *
+     * @param e   The &lt;image> element that can't be loaded.
+     * @param url The resolved url that can't be loaded.
+     * @param message As best as can be determined the reason it can't be
+     *                loaded (not available, corrupt, unknown format, ...).
+     */
+    SVGDocument getBrokenLinkDocument(Element e, String url, String message);
 }

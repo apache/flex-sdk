@@ -80,6 +80,18 @@ use namespace tlf_internal;
  */
 public class RichEditableTextContainerManager extends TextContainerManager
 {
+	//--------------------------------------------------------------------------
+	//
+	//  Class Variables
+	//
+	//--------------------------------------------------------------------------
+	/**
+	 *  @private
+	 *  Disables blinking cursor so mustella test snapshots don't get intermittent
+	 *  cursors.
+	 */
+	mx_internal static var hideCursor:Boolean = false;
+	
     /**
      *  Constructor. 
      *  
@@ -251,7 +263,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         // If not editable, then no insertion point.        
         return new SelectionFormat(
             selectionColor, 1.0, BlendMode.NORMAL, 
-            0x000000, focusedPointAlpha, BlendMode.INVERT);
+            0x000000, hideCursor ? 0 : focusedPointAlpha, BlendMode.INVERT);
     }
     
     /**
@@ -282,16 +294,23 @@ public class RichEditableTextContainerManager extends TextContainerManager
         var inactiveSelectionColor:* = textDisplay.getStyle(
                                             "inactiveTextSelectionColor"); 
 
+        var inactivePointAlpha:Number =
+            editingMode == EditingMode.READ_WRITE ?
+            1.0 :
+            0.0;
+        
         var inactiveAlpha:Number =
             textDisplay.selectionHighlighting == 
             TextSelectionHighlighting.ALWAYS ?
             1.0 :
             0.0;
 
-        // No insertion point when not active.
+        // Inactive is not unfocused so show an insertion point if there is one.
+        // This is consistent with TextField.
+        
         return new SelectionFormat(
             inactiveSelectionColor, inactiveAlpha, BlendMode.NORMAL,
-            inactiveSelectionColor, 0.0);
+            inactiveSelectionColor, inactivePointAlpha, BlendMode.INVERT);
     }   
     
     /**
@@ -364,7 +383,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
             
             controller.requiredFocusInHandler(null);
             
-            if (!textDisplay.preserveSelectionOnSetText)
+            if (!preserveSelectionOnSetText)
                 im.selectRange(0, 0);
             
             endInteraction();

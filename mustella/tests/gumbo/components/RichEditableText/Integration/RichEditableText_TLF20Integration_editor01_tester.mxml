@@ -83,7 +83,6 @@
 
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				<RunCode code="FlexGlobals.topLevelApplication.doPrintTextFlow=false"  />
-				<RunCode code="FlexGlobals.topLevelApplication.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor"/>
@@ -104,10 +103,8 @@
 				<SetProperty target="customRETEditor.editor" propertyName="width" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				<SetProperty target="customRETEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				<SetProperty target="customRETEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
-
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListOrderedAlphaGreekLatinRomanFontFallback.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				<RunCode code="FlexGlobals.topLevelApplication.doPrintTextFlow=false"  />
-				<RunCode code="FlexGlobals.topLevelApplication.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="btnDummy" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor"/>
@@ -138,7 +135,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -182,8 +178,7 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"/>
@@ -217,7 +212,6 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[ENTER,ENTER,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -267,7 +261,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -293,7 +286,6 @@
 
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				<RunCode code="FlexGlobals.topLevelApplication.doPrintTextFlow=false"  />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor"/>
@@ -313,7 +305,6 @@
 				<SetProperty target="customRETEditor.editor" propertyName="width" value="500" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListOrderedAlphaGreekLatinRomanFontFallback.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				<RunCode code="FlexGlobals.topLevelApplication.doPrintTextFlow=false"  />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor"/>
@@ -344,7 +335,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
 
@@ -388,8 +378,7 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor" numColorVariances="15" maxColorVariance="30"/>
@@ -421,7 +410,6 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[ENTER,ENTER,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
 
@@ -449,7 +437,6 @@
 
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				<RunCode code="FlexGlobals.topLevelApplication.doPrintTextFlow=false"  />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor"/>
@@ -472,7 +459,6 @@
 
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListOrderedAlphaGreekLatinRomanFontFallback.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				<RunCode code="FlexGlobals.topLevelApplication.doPrintTextFlow=false"  />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor"/>
@@ -503,7 +489,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -547,8 +532,7 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor"/>
@@ -581,7 +565,6 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[ENTER,ENTER,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -631,7 +614,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -659,7 +641,6 @@
 
 				<SetProperty target="customRETEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 				<RunCode code="FlexGlobals.topLevelApplication.doPrintTextFlow=false"  />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.editor" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor"/>
@@ -691,7 +672,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -735,8 +715,7 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customRETEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor.editor"/>
@@ -768,7 +747,6 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[ENTER,ENTER,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
 				
@@ -818,7 +796,6 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customRETEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END]" waitTarget="customRETEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customRETEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor.btnDummy" />
 			</setup>
 			<body>
 				

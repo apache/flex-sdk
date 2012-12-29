@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,7 +25,7 @@ import org.w3c.dom.Node;
  * for children, parent and siblings.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: AbstractParentChildNode.java,v 1.5 2004/08/18 07:13:07 vhardy Exp $
+ * @version $Id: AbstractParentChildNode.java 475685 2006-11-16 11:16:05Z cam $
  */
 public abstract class AbstractParentChildNode extends AbstractParentNode {
     /**
@@ -47,21 +48,21 @@ public abstract class AbstractParentChildNode extends AbstractParentNode {
      * @return {@link #parentNode}
      */
     public Node getParentNode() {
-	return parentNode;
+        return parentNode;
     }
 
     /**
      * Sets the parent node.
      */
     public void setParentNode(Node v) {
-	parentNode = v;
+        parentNode = v;
     }
 
     /**
      * Sets the node immediately preceding this node.
      */
     public void setPreviousSibling(Node v) {
-	previousSibling = v;
+        previousSibling = v;
     }
 
     /**
@@ -69,14 +70,14 @@ public abstract class AbstractParentChildNode extends AbstractParentNode {
      * @return {@link #previousSibling}.
      */
     public Node getPreviousSibling() {
-	return previousSibling;
+        return previousSibling;
     }
 
     /**
      * Sets the node immediately following this node.
      */
     public void setNextSibling(Node v) {
-	nextSibling = v;
+        nextSibling = v;
     }
 
     /**
@@ -84,6 +85,6 @@ public abstract class AbstractParentChildNode extends AbstractParentNode {
      * @return {@link #nextSibling}.
      */
     public Node getNextSibling() {
-	return nextSibling;
+        return nextSibling;
     }
 }

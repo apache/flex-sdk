@@ -23,6 +23,7 @@ package mx.charts
 import flash.display.DisplayObject;
 import flash.filters.DropShadowFilter;
 import flash.system.ApplicationDomain;
+import flash.utils.Dictionary;
 
 import mx.charts.chartClasses.CartesianChart;
 import mx.charts.chartClasses.CartesianTransform;
@@ -202,7 +203,7 @@ public class BarChart extends CartesianChart
     /**
      *  @private
      */
-    private var _moduleFactoryInitialized:Boolean = false;
+    private static var _moduleFactoryInitialized:Dictionary = new Dictionary(true);
     
     /**
      *  @private
@@ -344,10 +345,10 @@ public class BarChart extends CartesianChart
     {
         super.moduleFactory = factory;
         
-        if (_moduleFactoryInitialized)
+        if (_moduleFactoryInitialized[factory])
             return;
         
-        _moduleFactoryInitialized = true;
+        _moduleFactoryInitialized[factory] = true;
         
         // our style settings
         initStyles();

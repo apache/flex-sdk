@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -15,10 +16,6 @@
    limitations under the License.
 
  */
- 
- /**
-  *  Modified by Adobe Flex.  Added Certificate.
-  */
 package org.apache.flex.forks.batik.script.rhino;
 
 import java.io.File;
@@ -26,13 +23,11 @@ import java.io.FilePermission;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.security.AccessController;
 import java.security.AccessControlContext;
 import java.security.CodeSource;
 import java.security.Permission;
 import java.security.PermissionCollection;
 import java.security.ProtectionDomain;
-import java.security.PrivilegedAction;
 import java.security.cert.Certificate;
 
 import org.mozilla.javascript.GeneratedClassLoader;
@@ -42,7 +37,7 @@ import org.mozilla.javascript.GeneratedClassLoader;
  * documentURL is null.
  *
  * @author <a href="mailto:vincent.hardy@sun.com">Vincent Hardy</a>
- * @version $Id: RhinoClassLoader.java,v 1.10 2004/08/18 07:14:57 vhardy Exp $
+ * @version $Id: RhinoClassLoader.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class RhinoClassLoader extends URLClassLoader implements GeneratedClassLoader {
     /**
@@ -73,7 +68,7 @@ public class RhinoClassLoader extends URLClassLoader implements GeneratedClassLo
               parent);
         this.documentURL = documentURL;
         if (documentURL != null){
-            codeSource = new CodeSource(documentURL, (Certificate[])null);
+            codeSource = new CodeSource(documentURL, (Certificate [])null);
         }
 
         //
@@ -170,4 +165,3 @@ public class RhinoClassLoader extends URLClassLoader implements GeneratedClassLo
         return perms;
     }
 }
-

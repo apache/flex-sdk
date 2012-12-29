@@ -68,6 +68,12 @@
 			embedAsCFF: false;
 		}	
 					
+		mx|Label{
+			fontAntiAliasType: "normal";
+			fontFamily: MyArialHalo;
+			fontSize: 12;
+		}
+		
 		global{
 			fontAntiAliasType: "normal";
 			fontFamily: MyArial;

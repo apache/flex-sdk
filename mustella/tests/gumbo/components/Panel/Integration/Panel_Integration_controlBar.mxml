@@ -244,7 +244,7 @@ Scrolling:
             <body>
                 <SetProperty target="controlBarIntegration.panel1" propertyName="controlBarContent" valueExpression="value=application.controlBarIntegration.contentArray2" waitEvent="updateComplete" />
 				<RunCode code="application.controlBarIntegration.panel1.addElement(application.controlBarIntegration.bigButton)" waitTarget="controlBarIntegration.panel1" waitEvent="updateComplete" />
-                <CompareBitmap target="controlBarIntegration.screen1" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+                <CompareBitmap target="controlBarIntegration.screen1" url="../Integration/Baselines/$testID.png" numColorVariances="15" maxColorVariance="1" />
             </body>
         </TestCase>  
         

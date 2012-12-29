@@ -96,7 +96,7 @@
     <body>
 		<DispatchMouseEvent type="mouseOver" target="tn1.list1" localX="10" localY="10"/>
 		<WaitForEffectsToEnd />
-        <CompareBitmap target="tn1.list1" url="../styles/baselines/$testID.png" />
+        <CompareBitmap target="tn1.list1" url="../styles/baselines/$testID.png" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -171,7 +171,7 @@
 		<SetStyle target="tn2" styleName="lineThrough" value="true" waitEvent="updateComplete" />
 		<DispatchMouseEvent type="mouseOver" target="tn2.list1" localX="10" localY="10"/>
 		<WaitForEffectsToEnd />
-        <CompareBitmap target="tn2.list1" url="../styles/baselines/$testID.png" />
+        <CompareBitmap target="tn2.list1" url="../styles/baselines/$testID.png" numColorVariances="5" maxColorVariance="1"/>
     </body>
 </TestCase>
 

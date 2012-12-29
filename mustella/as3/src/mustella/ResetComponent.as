@@ -25,6 +25,8 @@ import flash.events.KeyboardEvent;
 import flash.events.FocusEvent;
 import flash.net.LocalConnection;
 import flash.system.ApplicationDomain;
+import flash.system.Capabilities;
+import flash.system.System;
 import flash.ui.Keyboard;
 import flash.utils.getQualifiedClassName;
 import flash.utils.getTimer;
@@ -427,6 +429,11 @@ public class ResetComponent extends TestStep
 
     private function attemptGC():void
     {
+		if (Capabilities.isDebugger)
+		{
+			System.gc();
+			return;
+		}
         // unsupported hack that seems to force a full GC
         try 
         {

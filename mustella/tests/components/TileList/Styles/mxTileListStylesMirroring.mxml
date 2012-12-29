@@ -339,7 +339,7 @@
 				<Pause timeout="20"/>
 				<DispatchMouseEvent  target="list_m2"  type="mouseMove" buttonDown="true"  localX="80" localY="60" />
 				<Pause timeout="100"/>
-				<CompareBitmap target="list_m2" url="../Styles/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<CompareBitmap target="list_m2" url="../Styles/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
     </testCases>

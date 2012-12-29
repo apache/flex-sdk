@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -36,21 +37,21 @@ import org.apache.flex.forks.batik.gvt.text.TextLayoutFactory;
  *
  * @author <a href="mailto:bill.haneman@ireland.sun.com">Bill Haneman</a>
  * @author <a href="mailto:vincent.hardy@sun.com">Vincent Hardy</a>
- * @version $Id: BasicTextPainter.java,v 1.19 2005/03/27 08:58:34 cam Exp $
+ * @version $Id: BasicTextPainter.java 475685 2006-11-16 11:16:05Z cam $
  */
 public abstract class BasicTextPainter implements TextPainter {
 
     private static TextLayoutFactory textLayoutFactory =
-	new ConcreteTextLayoutFactory();
+        new ConcreteTextLayoutFactory();
 
     /**
      * The font render context to use.
      */
     protected FontRenderContext fontRenderContext =
-	new FontRenderContext(new AffineTransform(), true, true);
+        new FontRenderContext(new AffineTransform(), true, true);
 
     protected FontRenderContext aaOffFontRenderContext =
-	new FontRenderContext(new AffineTransform(), false, true);
+        new FontRenderContext(new AffineTransform(), false, true);
 
     protected TextLayoutFactory getTextLayoutFactory() {
         return textLayoutFactory;
@@ -73,11 +74,11 @@ public abstract class BasicTextPainter implements TextPainter {
      * selectAt(); [selectTo(),...], selectTo(); getSelection().
      */
     public Mark selectTo(double x, double y, Mark beginMark) {
-	if (beginMark == null) {
-	    return null;
-	} else {
-	    return hitTest(x, y, beginMark.getTextNode());
-	}
+        if (beginMark == null) {
+            return null;
+        } else {
+            return hitTest(x, y, beginMark.getTextNode());
+        }
     }
 
 
@@ -103,13 +104,13 @@ public abstract class BasicTextPainter implements TextPainter {
      * This TextPainter's implementation of the Mark interface.
      */
     protected static class BasicMark implements Mark {
-	
+        
         private TextNode       node;
         private TextHit        hit;
 
-	/**
-	 * Constructs a new Mark with the specified parameters.
-	 */
+        /**
+         * Constructs a new Mark with the specified parameters.
+         */
         protected BasicMark(TextNode node,
                             TextHit hit) {
             this.hit    = hit;

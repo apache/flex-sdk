@@ -78,7 +78,8 @@
                 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
             </setup>
             <body>
-                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+                <WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_6" waitEvent="updateComplete" />
                 
                 <AssertPropertyValue target="navigator.activeView.target" propertyName="selectedIndex" value="0" />
@@ -126,11 +127,11 @@
                 <SetProperty target="navigator.activeView.target" propertyName="labelField" value="firstName" waitEvent="updateComplete" />
                 
                 <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
-                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2).label" value="Daniel" />
-                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1).label" value="Christian" />
-                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label"  value="Roberto" />
-                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label"  value="Pavel" />
-                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label"  value="Trevor" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2).label" value="DanFN" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1).label" value="ChrFN" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label"  value="RobFN" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label"  value="PavFN" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label"  value="TreFN" />
             </body>
         </TestCase>
         
@@ -144,11 +145,11 @@
                 <SetProperty target="navigator.activeView.target" propertyName="labelFunction" valueExpression="value=application.navigator.activeView.customLabelFunction" waitEvent="updateComplete" />
                 
                 <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
-                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2).label" value="Sedin" />
-                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1).label" value="Ehrhoff" />
-                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label"  value="Luongo" />
-                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label"  value="Bure" />
-                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label"  value="Linden" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2).label" value="SedLN" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1).label" value="EhrLN" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label"  value="LuoLN" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label"  value="BurLN" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label"  value="LinLN" />
             </body>
         </TestCase>
         

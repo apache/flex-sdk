@@ -200,11 +200,6 @@
 			<setup>
 			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
 			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="dc" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="dc" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="canvas1" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="canvas1"/>
-			    <SetStyle styleName="verticalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
-				<SetStyle styleName="horizontalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
 			    <SetStyle styleName="focusThickness" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
 			</setup>
 			<body>
@@ -220,11 +215,6 @@
 			<setup>
 			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
 			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="dc" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="dc" propertyName="width" value="110" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="canvas1" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="canvas1"/>
-			    <SetStyle styleName="verticalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
-				<SetStyle styleName="horizontalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
 			    <SetStyle styleName="focusThickness" target="dc" value="8" waitEvent="updateComplete" waitTarget="dc" />
 			</setup>
 			<body>
@@ -240,11 +230,6 @@
 			<setup>
 			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
 			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="dc" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="dc" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="canvas1" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="canvas1"/>
-			    <SetStyle styleName="verticalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
-				<SetStyle styleName="horizontalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
 			    <SetStyle styleName="focusSkin" target="dc" valueExpression="value=RedFocusRect" waitEvent="updateComplete" waitTarget="dc" />
 			</setup>
 			<body>
@@ -260,11 +245,6 @@
 			<setup>
 			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
 			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="dc" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="dc" propertyName="width" value="95" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="canvas1" propertyName="height" value="75" waitEvent="updateComplete" waitTarget="canvas1"/>
-			    <SetStyle styleName="verticalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
-				<SetStyle styleName="horizontalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
 			    <SetStyle styleName="focusBlend" target="dc" valueExpression="value=BlendMode.SCREEN" waitEvent="updateComplete" waitTarget="dc" />
 			    <SetStyle styleName="focusThickness" target="dc" value="8" waitEvent="updateComplete" waitTarget="dc" />
 			</setup>
@@ -281,11 +261,6 @@
 			<setup>
 			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
 			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="dc" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="dc" propertyName="width" value="99" waitEvent="updateComplete" waitTarget="dc"/>
-			    <SetProperty target="canvas1" propertyName="height" value="78" waitEvent="updateComplete" waitTarget="canvas1"/>
-			    <SetStyle styleName="verticalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
-				<SetStyle styleName="horizontalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
 			    <SetStyle styleName="focusBlend" target="dc" valueExpression="value=BlendMode.SUBTRACT" waitEvent="updateComplete" waitTarget="dc" />
 			    <SetStyle styleName="focusThickness" target="dc" value="8" waitEvent="updateComplete" waitTarget="dc" />
 			</setup>

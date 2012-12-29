@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,7 +25,7 @@ import org.w3c.dom.Node;
  * org.w3c.dom.ProcessingInstruction} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: GenericProcessingInstruction.java,v 1.4 2004/08/18 07:13:08 vhardy Exp $
+ * @version $Id: GenericProcessingInstruction.java 475685 2006-11-16 11:16:05Z cam $
  */
 
 public class GenericProcessingInstruction
@@ -49,32 +50,32 @@ public class GenericProcessingInstruction
      * Creates a new ProcessingInstruction object.
      */
     public GenericProcessingInstruction(String           target,
-					String           data,
-					AbstractDocument owner) {
-	ownerDocument = owner;
-	setTarget(target);
-	setData(data);
+                                        String           data,
+                                        AbstractDocument owner) {
+        ownerDocument = owner;
+        setTarget(target);
+        setData(data);
     }
 
     /**
      * Sets the node name.
      */
     public void setNodeName(String v) {
-	setTarget(v);
+        setTarget(v);
     }
 
     /**
      * Tests whether this node is readonly.
      */
     public boolean isReadonly() {
-	return readonly;
+        return readonly;
     }
 
     /**
      * Sets this node readonly attribute.
      */
     public void setReadonly(boolean v) {
-	readonly = v;
+        readonly = v;
     }
 
     /**
@@ -83,34 +84,34 @@ public class GenericProcessingInstruction
      * @return {@link #target}.
      */
     public String getTarget() {
-	return target;
+        return target;
     }
 
     /**
      * Sets the target value.
      */
     public void setTarget(String v) {
-	target = v;
+        target = v;
     }
 
     /**
      * Exports this node to the given document.
      */
     protected Node export(Node n, AbstractDocument d) {
-	GenericProcessingInstruction p;
-	p = (GenericProcessingInstruction)super.export(n, d);
-	p.setTarget(getTarget());
-	return p;
+        GenericProcessingInstruction p;
+        p = (GenericProcessingInstruction)super.export(n, d);
+        p.setTarget(getTarget());
+        return p;
     }
 
     /**
      * Deeply exports this node to the given document.
      */
     protected Node deepExport(Node n, AbstractDocument d) {
-	GenericProcessingInstruction p;
-	p = (GenericProcessingInstruction)super.deepExport(n, d);
-	p.setTarget(getTarget());
-	return p;
+        GenericProcessingInstruction p;
+        p = (GenericProcessingInstruction)super.deepExport(n, d);
+        p.setTarget(getTarget());
+        return p;
     }
 
     /**
@@ -118,10 +119,10 @@ public class GenericProcessingInstruction
      * @param n a node of the type of this.
      */
     protected Node copyInto(Node n) {
-	GenericProcessingInstruction p;
-	p = (GenericProcessingInstruction)super.copyInto(n);
-	p.setTarget(getTarget());
-	return p;
+        GenericProcessingInstruction p;
+        p = (GenericProcessingInstruction)super.copyInto(n);
+        p.setTarget(getTarget());
+        return p;
     }
 
     /**
@@ -129,10 +130,10 @@ public class GenericProcessingInstruction
      * @param n a node of the type of this.
      */
     protected Node deepCopyInto(Node n) {
-	GenericProcessingInstruction p;
-	p = (GenericProcessingInstruction)super.deepCopyInto(n);
-	p.setTarget(getTarget());
-	return p;
+        GenericProcessingInstruction p;
+        p = (GenericProcessingInstruction)super.deepCopyInto(n);
+        p.setTarget(getTarget());
+        return p;
     }
 
     /**

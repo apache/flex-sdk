@@ -21,6 +21,7 @@ package mx.charts
 {
 
 import flash.filters.DropShadowFilter;
+import flash.utils.Dictionary;
 
 import mx.charts.chartClasses.CartesianChart;
 import mx.charts.chartClasses.DataTip;
@@ -114,7 +115,7 @@ public class LineChart extends CartesianChart
     /**
      *  @private
      */
-    private var _moduleFactoryInitialized:Boolean = false;
+    private static var _moduleFactoryInitialized:Dictionary = new Dictionary(true);
     
     //--------------------------------------------------------------------------
     //
@@ -198,10 +199,10 @@ public class LineChart extends CartesianChart
     {
         super.moduleFactory = factory;
         
-        if (_moduleFactoryInitialized)
+        if (_moduleFactoryInitialized[factory])
             return;
         
-        _moduleFactoryInitialized = true;
+        _moduleFactoryInitialized[factory] = true;
         
         // our style settings
         initStyles();

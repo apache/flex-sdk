@@ -53,8 +53,8 @@
 			</setup>
 			<body>
 			    <DispatchMouseClickEvent target="checkList2.mx_internal:rendererArray.0.0" localX="10" localY="5" waitEvent="itemClick" waitTarget="checkList2" />
-	            <DispatchMouseClickEvent target="checkList2.itemEditorInstance" localX="5" localY="5" waitEvent="click" waitTarget="checkList2.itemEditorInstance" />
-	            <DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="checkList2" />
+	            <DispatchMouseClickEvent target="checkList2.itemEditorInstance" localX="10" localY="10" waitEvent="click" waitTarget="checkList2.itemEditorInstance" />
+				<DispatchKeyEvent key="TAB" waitEvent="itemEditEnd" waitTarget="checkList2" />
 			    <AssertEvent eventName="itemEditEnd" eventClass="mx.events::ListEvent" target="checkList2"/>
 			    <AssertPropertyValue target="checkList2.dataProvider.0" propertyName="available" value="true" />
 			</body>
@@ -66,7 +66,7 @@
 			</setup>
 			<body>
 			    <DispatchMouseClickEvent target="checkList2.mx_internal:rendererArray.0.0" localX="10" localY="5" waitEvent="itemFocusIn" waitTarget="checkList2" />
-	            <DispatchMouseClickEvent target="checkList2.itemEditorInstance" localX="5" localY="5" waitEvent="click" waitTarget="checkList2.itemEditorInstance" />
+	            <DispatchMouseClickEvent target="checkList2.itemEditorInstance" localX="10" localY="10" waitEvent="click" waitTarget="checkList2.itemEditorInstance" />
 	            <DispatchMouseClickEvent target="checkList2.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="scroll" waitTarget="checkList2" />
                 <DispatchMouseClickEvent target="checkList2.getChildAt(3).getChildAt(0)" localX="4" localY="4" waitEvent="scroll" waitTarget="checkList2" />
                 <AssertPropertyValue target="checkList2.dataProvider.0" propertyName="available" value="true" />
@@ -210,7 +210,7 @@
 			<body>
 			   <DispatchMouseClickEvent target="comboList2.mx_internal:rendererArray.2.0" localX="4" localY="4" waitEvent="itemFocusIn" waitTarget="comboList2" />
 			   <WaitForEffectsToEnd />
-			   <CompareBitmap url="../baselines/comboBoxItemEditor.png" target="comboList2.mx_internal:rendererArray.2.0" />
+			   <CompareBitmap url="../baselines/comboBoxItemEditor.png" target="comboList2.mx_internal:rendererArray.2.0" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 	</testCases>

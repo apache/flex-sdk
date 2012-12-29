@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/AdvancedDataGrid/Styles/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AdvancedDataGridMain.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.DateChooser;
+	import mx.controls.AdvancedDataGrid;
+	import mx.containers.Canvas;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	public var mydatagrid:AdvancedDataGrid
+	public var mybox:Canvas;
+	public function genericCleanUp():void
+	{
+	 mydatagrid= stringToObject ("mydatagrid") as AdvancedDataGrid;
+	 mybox = stringToObject ("box") as Canvas;
+	 mybox = new Canvas();
+		mydatagrid = new AdvancedDataGrid();
+
+		application.startIt();
+
+	}
+	public function addItems():void
+	{
+	   for(var i:int=0;i<15;i++)
+	   {
+	      var obj:Object={col1:'one'+i,col2:i,col3:'three'+i}
+	      application.mydatagrid.dataProvider.addItem(obj);
+	   }
+        }
+        public function setAIcolors():void
+        {
+            application.mydatagrid.setStyle("alternatingItemColors",[0xFFCC00,0x00FF00]);
+        }
+         public function setHeadercolors():void
+	{
+	            application.mydatagrid.setStyle("headerColors",[0xFFCC00,0xFFCC00]);
+        }
+        public function setBg():void
+        {
+            application.mydatagrid.setStyle("backgroundColor",0xFF0000);
+        }
+        public function startApp():void
+        {
+          application.startIt();
+        }
+	]]>
+	</mx:Script>
+
+	<testCases>
+			<TestCase testID="style_headerColors"  keywords="[AdvancedDataGrid, headerColors]">
+				     <setup>
+
+				        <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				        <RunCode code="startApp()"/>
+
+
+
+				     </setup>
+				     <body>
+					  <RunCode code="setHeadercolors()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+					  <WaitForEffectsToEnd />
+					  <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_headercolors.png" timeout="5000"  />
+
+				     </body>
+	                </TestCase>
+		        <TestCase testID="style_verticalGridLines" keywords="[AdvancedDataGrid, verticalGridLines]">
+				     <setup>
+
+				        <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				       				        <RunCode code="startApp()"/>
+
+				       <!-- no specific test is written for dataprovider since all the tests fail if the Runcode addItems() fail-->
+
+
+				     </setup>
+				     <body>
+					  <SetStyle target="mydatagrid" styleName="verticalGridLines" value="true"/>
+					  <SetStyle target="mydatagrid" styleName="verticalGridLines" value="false" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+					  <WaitForEffectsToEnd />
+					  <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_verticalgridlinestrue.png" timeout="5000" />
+				     </body>
+	                </TestCase>
+	                <TestCase testID="style_verticalGridLinesColor_string" keywords="[AdvancedDataGrid, verticalGridLineColor]">
+				     <setup>
+
+				     <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				    				        <RunCode code="startApp()"/>
+
+				       <!-- no specific test is written for dataprovider since all the tests fail if the Runcode addItems() fail-->
+
+				     </setup>
+				     <body>
+					  <SetStyle target="mydatagrid" styleName="verticalGridLines" value="true" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+					  <SetStyle target="mydatagrid" styleName="verticalGridLineColor" value="red" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+					 <!-- <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_verticalgridlinecolor.png" />-->
+					  <AssertPixelValue target="mydatagrid" x="201" y="147" value="0xFF0000" />
+				     </body>
+	                </TestCase>
+	                <TestCase testID="style_verticalGridLinesColor_0x" keywords="[AdvancedDataGrid, verticalGridLineColor, verticalGridLines]">
+				     <setup>
+
+				      <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				     				        <RunCode code="startApp()"/>
+
+				       <!-- no specific test is written for dataprovider since all the tests fail if the Runcode addItems() fail-->
+
+
+				     </setup>
+				     <body>
+					  <SetStyle target="mydatagrid" styleName="verticalGridLines" value="true" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+					  <SetStyle target="mydatagrid" styleName="verticalGridLineColor" value="0xFFCCDD" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+					 <!-- <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_verticalgridlinecolor.png" />-->
+					    <AssertPixelValue target="mydatagrid" x="201" y="147" value="0xFFCCDD" />
+				     </body>
+	                </TestCase>
+	                 <TestCase testID="style_verticalGridLinesColor_pound" keywords="[AdvancedDataGrid, verticalGridLineColor, verticalGridLines]">
+				     <setup>
+
+				        <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				       				        <RunCode code="startApp()"/>
+
+				       <!-- no specific test is written for dataprovider since all the tests fail if the Runcode addItems() fail-->
+
+
+				     </setup>
+				     <body>
+					  <SetStyle target="mydatagrid" styleName="verticalGridLines" value="true" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+					  <SetStyle target="mydatagrid" styleName="verticalGridLineColor" value="#FF0000" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+					 <!-- <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_verticalgridlinecolor.png" />-->
+					  <AssertPixelValue target="mydatagrid" x="201" y="147" value="0xFF0000" />
+				     </body>
+	                </TestCase>
+	                       <TestCase testID="style_rollOverColor" keywords="[AdvancedDataGrid, mouseOver, rollOverColor]">
+				     <setup>
+
+				     <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				    				        <RunCode code="startApp()"/>
+
+				       <!-- no specific test is written for dataprovider since all the tests fail if the Runcode addItems() fail-->
+
+
+				     </setup>
+				     <body>
+				          <!-- not working for me, help needed-->
+					  <SetStyle target="mydatagrid" styleName="rollOverColor" value="0xFF0000" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+					  <DispatchMouseEvent target="mydatagrid" type="mouseOver" localX="72" localY="14"/>
+					  <DispatchMouseEvent target="mydatagrid" type="mouseMove" localX="72" localY="14"/>
+
+				     </body>
+	                </TestCase>
+		<!--	<TestCase testID="style_selectionColor_0x" keywords="[AdvancedDataGrid, mouseOver, mouseDown, selectionColor]">
+				     <setup>
+
+				       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				      				        <RunCode code="startApp()"/>
+
+
+
+
+				     </setup>
+				     <body>
+
+					  <SetStyle target="mydatagrid" styleName="selectionColor" value="0xFF0000" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+					  <DispatchMouseEvent target="mydatagrid" type="mouseOver" localX="26" localY="36"/>
+					  <DispatchMouseEvent target="mydatagrid" type="mouseDown" localX="26" localY="36"/>
+			                  <DispatchMouseEvent target="mydatagrid" type="mouseUp" localX="26" localY="36"/>
+			                  <WaitForEffectsToEnd />
+			                  <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_style_selectionColor_0x.png" timeout="5000" />
+                          </body>
+	                </TestCase>
+	                	<TestCase testID="style_selectionColor_#" keywords="[AdvancedDataGrid, mouseOver, mouseDown, selectionColor]">
+				     <setup>
+				     <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+    				        <RunCode code="startApp()"/>
+				     </setup>
+				     <body>
+
+					  <SetStyle target="mydatagrid" styleName="selectionColor" value="#FF0000" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+					 <DispatchMouseEvent target="mydatagrid" type="mouseOver" localX="26" localY="36"/>
+					  <DispatchMouseEvent target="mydatagrid" type="mouseDown" localX="26" localY="36"/>
+					  <DispatchMouseEvent target="mydatagrid" type="mouseUp" localX="26" localY="36"  waitTarget="mydatagrid" waitEvent="updateComplete" />
+					  <SetProperty  target="mydatagrid" propertyName="selectedIndex" value="2" waitTarget="mydatagrid"
+					  waitEvent="updateComplete"/>
+					  <WaitForEffectsToEnd />
+					  <CompareBitmap target="mydatagrid" url="style_selectionColor.png" timeout="5000"/>
+
+				     </body>
+				</TestCase>-->
+
+	</testCases>
+
+</UnitTester>

@@ -92,7 +92,7 @@ with a static set of data.
         <SetProperty target="box1.group1" propertyName="width" value="53" waitEvent="updateComplete" />
         <SetProperty target="box1.group1" propertyName="width" value="52" waitEvent="updateComplete" />
         <SetProperty target="box1.group1" propertyName="width" value="51" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
     </body>
@@ -175,7 +175,7 @@ with a static set of data.
         <SetProperty target="box1.group1" propertyName="height" value="53" waitEvent="updateComplete" />        
         <SetProperty target="box1.group1" propertyName="height" value="52" waitEvent="updateComplete" />        
         <SetProperty target="box1.group1" propertyName="height" value="51" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
     </body>

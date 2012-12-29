@@ -171,6 +171,7 @@
 			<body> 
 				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<CompareBitmap url="../properties/baselines/DateField_DayNames1.png" target=""/>
 			</body>
 		</TestCase>
@@ -183,6 +184,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<CompareBitmap url="../properties/baselines/DateField_DayNames2.png" target=""/>
 			</body>
 		</TestCase>
@@ -205,6 +207,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
  				<CompareBitmap url="../properties/baselines/DateField_disabledDays1.png" target=""/>
 			</body>
 		</TestCase>
@@ -217,6 +220,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
  				<AssertPropertyValue target="df" propertyName="disabledDays" value="[0,4]" />
 				<CompareBitmap url="../properties/baselines/DateField_disabledDays2.png" target=""/>
 			</body>
@@ -242,6 +246,7 @@
 				<DispatchKeyEvent key="TAB"/>
 				<DispatchKeyEvent key="TAB"/>
 				<DispatchKeyEvent key="DOWN" ctrlKey="true" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<CompareBitmap url="../properties/baselines/DateField_yearNavigationEnabled1.png" target=""/>
 			</body>
 		</TestCase>
@@ -255,6 +260,7 @@
  				<DispatchKeyEvent key="TAB"/>
 				<DispatchKeyEvent key="TAB"/>
 				<DispatchKeyEvent key="DOWN" ctrlKey="true" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<CompareBitmap url="../properties/baselines/DateField_yearNavigationEnabled2.png" target=""/>
 			</body>
 		</TestCase>
@@ -281,6 +287,7 @@
  				<AssertPropertyValue target="df" propertyName="showToday" value="false"/>
 				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<CompareBitmap url="../properties/baselines/DateField_Property_showToday1.png" target=""/>
  			</body>
 		</TestCase>
@@ -294,6 +301,7 @@
  				<AssertPropertyValue target="df" propertyName="showToday" value="false"/>
 				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<CompareBitmap url="../properties/baselines/DateField_Property_showToday2.png" target=""/>
  			</body>
 		</TestCase>	
@@ -317,6 +325,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="firstDayOfWeek" value="2"/>
 				<CompareBitmap url="../properties/baselines/DateField_Property_firstDayOfWeek1.png" target=""/>
 			</body>
@@ -330,6 +339,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="firstDayOfWeek" value="4" />
 				<CompareBitmap url="../properties/baselines/DateField_Property_firstDayOfWeek2.png" target=""/>
 			</body>
@@ -352,6 +362,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="displayedYear" value="2005"/>
 				<CompareBitmap url="../properties/baselines/DateField_Property_displayedYear1.png" target=""/>
 			</body>
@@ -366,6 +377,7 @@
 				<AssertPropertyValue target="df" propertyName="displayedYear" value="2005" />
 				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<CompareBitmap url="../properties/baselines/DateField_Property_displayedYear2.png" target=""/>
 			</body>
 		</TestCase>
@@ -389,6 +401,7 @@
 				<AssertPropertyValue target="df" propertyName="displayedMonth" value="9"/>
 				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<CompareBitmap url="../properties/baselines/DateField_Property_displayedMonth1.png" target=""/>
 			</body>
 		</TestCase>
@@ -402,6 +415,7 @@
  				<AssertPropertyValue target="df" propertyName="displayedMonth" value="5" />
 				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<CompareBitmap url="../properties/baselines/DateField_Property_displayedMonth2.png" target=""/>
 			</body>
 		</TestCase>
@@ -424,6 +438,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="monthNames" value="['Ja','Fe','Ma','Ap','Ma','Ju','Ju','Au','Se','Oc','No','De']"/>
 				<CompareBitmap url="../properties/baselines/DateField_Property_MonthNames1.png" target=""/>
 			</body>
@@ -437,6 +452,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="monthNames" value="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']" />
 				<CompareBitmap url="../properties/baselines/DateField_Property_MonthNames2.png" target=""/>
 			</body>
@@ -462,6 +478,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="scaleY" value="1.5"/>
 				<CompareBitmap url="../properties/baselines/DateField_Property_scaleY1.png" target=""/>
 			</body>
@@ -475,6 +492,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="scaleY" value="1.2"/>
 				<CompareBitmap url="../properties/baselines/DateField_Property_scaleY2.png" target=""/>
 			</body>
@@ -499,6 +517,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="scaleX" value="1.5"/>
 				<CompareBitmap url="../properties/baselines/DateField_Property_scaleX1.png" target=""/>
 			</body>
@@ -512,6 +531,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="scaleX" value="1.2"/>
 				<CompareBitmap url="../properties/baselines/DateField_Property_scaleX2.png" target=""/>
 			</body>
@@ -525,6 +545,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<CompareBitmap url="../properties/baselines/DateField_Property_selectedDate1.png" target=""/>
 			</body>
 		</TestCase>
@@ -538,6 +559,7 @@
 			<body> 
  			<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<CompareBitmap url="../properties/baselines/DateField_Property_selectedDate2.png" target=""/>
 			</body>
 		</TestCase>
@@ -560,6 +582,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="x" value="300"/>
 				<CompareBitmap url="../properties/baselines/DateField_Property_x1.png" target=""/>
 			</body>
@@ -573,6 +596,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="x" value="200"/>
 				<CompareBitmap url="../properties/baselines/DateField_Property_x2.png" target=""/>
 			</body>
@@ -597,6 +621,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="y" value="300"/>
 				<CompareBitmap url="../properties/baselines/DateField_Property_y1.png" target=""/>
 			</body>
@@ -610,6 +635,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="y" value="200"/>
 				<CompareBitmap url="../properties/baselines/DateField_Property_y2.png" target=""/>
 			</body>
@@ -623,6 +649,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="disabledRanges" valueExpression="value=[{rangeStart: new Date(2005, 2, 7), rangeEnd: new Date(2005, 2, 11)}]"/>
 				<CompareBitmap url="../properties/baselines/DateField_Property_disabledRanges1.png" target=""/>
 			</body>
@@ -636,6 +663,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>	
+				<WaitForLayoutManager />
 				<AssertPropertyValue target="df" propertyName="disabledRanges" valueExpression="value=[{rangeStart: new Date(2005, 2, 7), rangeEnd: new Date(2005, 2, 11)}]"/>
 				<CompareBitmap url="../properties/baselines/DateField_Property_disabledRanges2.png" target=""/>
 			</body>
@@ -872,6 +900,7 @@
 			<body> 
 				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<!-- This clicks on the year navigation button twice, because minYear is 2004 the displayed yr should be 2004-->
 				<DispatchMouseClickEvent target="df.dropdown.getChildAt(7)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(7)" waitEvent="updateComplete"/>
 				<DispatchMouseClickEvent target="df.dropdown.getChildAt(7)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(7)" waitEvent="updateComplete"/>
@@ -888,6 +917,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<!-- This clicks on the year navigation button twice, because minYear is 2004 the displayed yr should be 2004-->
 				<DispatchMouseClickEvent target="df.dropdown.getChildAt(7)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(7)" waitEvent="updateComplete"/>
 				<DispatchMouseClickEvent target="df.dropdown.getChildAt(7)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(7)" waitEvent="updateComplete"/>
@@ -904,6 +934,7 @@
 			<body> 
 				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<!-- This clicks on the year navigation button twice, because minYear is 2004 the displayed yr should be 2004-->
 				<DispatchMouseClickEvent target="df.dropdown.getChildAt(7)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(7)" waitEvent="updateComplete"/>
 				<DispatchMouseClickEvent target="df.dropdown.getChildAt(7)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(7)" waitEvent="updateComplete"/>
@@ -931,6 +962,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<!-- This clicks on the year navigation button twice, because maxYear is 2007 the displayed yr should be 2007-->
 				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>
 				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>
@@ -948,6 +980,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<!-- This clicks on the year navigation button twice, because maxYear is 2007 the displayed yr should be 2007-->
 				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>
 				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>
@@ -965,6 +998,7 @@
 			<body> 
  				<!-- Open DateChooser -->
 				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<WaitForLayoutManager />
 				<!-- This clicks on the year navigation button twice, because maxYear is 2007 the displayed yr should be 2007-->
 				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>
 				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,15 +18,17 @@
  */
 package org.apache.flex.forks.batik.bridge;
 
+import org.apache.flex.forks.batik.dom.svg.LiveAttributeException;
 import org.apache.flex.forks.batik.gvt.GraphicsNode;
+
 import org.w3c.dom.Element;
-import org.w3c.flex.forks.dom.svg.SVGDocument;
+import org.w3c.dom.svg.SVGDocument;
 
 /**
  * Thrown when the bridge has detected an error.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: BridgeException.java,v 1.8 2004/08/18 07:12:30 vhardy Exp $
+ * @version $Id: BridgeException.java 501922 2007-01-31 17:47:47Z dvholten $
  */
 public class BridgeException extends RuntimeException {
 
@@ -34,6 +37,11 @@ public class BridgeException extends RuntimeException {
 
     /** The error code. */
     protected String code;
+
+    /**
+     * The message.
+     */
+    protected String message;
 
     /** The paramters to use for the error message. */
     protected Object [] params;
@@ -45,16 +53,94 @@ public class BridgeException extends RuntimeException {
     protected GraphicsNode node;
 
     /**
+     * Constructs a new <tt>BridgeException</tt> based on the specified
+     * <tt>LiveAttributeException</tt>.
+     *
+     * @param ctx the bridge context to use for determining the element's
+     *            source position
+     * @param ex the {@link LiveAttributeException}
+     */
+    public BridgeException(BridgeContext ctx, LiveAttributeException ex) {
+        switch (ex.getCode()) {
+            case LiveAttributeException.ERR_ATTRIBUTE_MISSING:
+                this.code = ErrorConstants.ERR_ATTRIBUTE_MISSING;
+                break;
+            case LiveAttributeException.ERR_ATTRIBUTE_MALFORMED:
+                this.code = ErrorConstants.ERR_ATTRIBUTE_VALUE_MALFORMED;
+                break;
+            case LiveAttributeException.ERR_ATTRIBUTE_NEGATIVE:
+                this.code = ErrorConstants.ERR_LENGTH_NEGATIVE;
+                break;
+            default:
+                throw new IllegalStateException
+                    ("Unknown LiveAttributeException error code "
+                     + ex.getCode());
+        }
+        this.e = ex.getElement();
+        this.params = new Object[] { ex.getAttributeName(), ex.getValue() };
+        if (e != null && ctx != null) {
+            this.line = ctx.getDocumentLoader().getLineNumber(e);
+        }
+    }
+
+     /**
      * Constructs a new <tt>BridgeException</tt> with the specified parameters.
      *
-     * @param e the element on which the error occured
+     * @param ctx the bridge context to use for determining the element's
+     *            source position
+     * @param e the element on which the error occurred
      * @param code the error code
      * @param params the parameters to use for the error message
      */
-    public BridgeException(Element e, String code, Object [] params) {
+    public BridgeException(BridgeContext ctx, Element e, String code,
+                           Object[] params) {
+
         this.e = e;
         this.code = code;
         this.params = params;
+        if (e != null && ctx != null) {
+            this.line = ctx.getDocumentLoader().getLineNumber(e);
+        }
+    }
+
+    /**
+     * Constructs a new <tt>BridgeException</tt> with the specified parameters.
+     *
+     * @param ctx the bridge context to use for determining the element's
+     *            source position
+     * @param e the element on which the error occurred
+     * @param ex the exception which was the root-cause for this exception
+     * @param code the error code
+     * @param params the parameters to use for the error message
+     */
+    public BridgeException(BridgeContext ctx, Element e, Exception ex, String code,
+                           Object[] params) {
+
+        // todo ex can be chained in jdk >= 1.4
+        this.e = e;
+
+        message = ex.getMessage();
+        this.code = code;
+        this.params = params;
+        if (e != null && ctx != null) {
+            this.line = ctx.getDocumentLoader().getLineNumber(e);
+        }
+    }
+
+    /**
+     * Constructs a new <tt>BridgeException</tt> with the specified parameters.
+     *
+     * @param ctx the bridge context to use for determining the element's
+     *            source position
+     * @param e the element on which the error occurred
+     * @param message the error message
+     */
+    public BridgeException(BridgeContext ctx, Element e, String message) {
+        this.e = e;
+        this.message = message;
+        if (e != null && ctx != null) {
+            this.line = ctx.getDocumentLoader().getLineNumber(e);
+        }
     }
 
     /**
@@ -62,13 +148,6 @@ public class BridgeException extends RuntimeException {
      */
     public Element getElement() {
         return e;
-    }
-
-    /**
-     * Returns the line number on which the error occurred.
-     */
-    public void setLineNumber(int line) {
-        this.line = line;
     }
 
     /**
@@ -91,6 +170,10 @@ public class BridgeException extends RuntimeException {
      * Returns the error message according to the error code and parameters.
      */
     public String getMessage() {
+        if (message != null) {
+            return message;
+        }
+
         String uri;
         String lname = "<Unknown Element>";
         SVGDocument doc = null;
@@ -104,9 +187,7 @@ public class BridgeException extends RuntimeException {
         fullparams[0] = uri;
         fullparams[1] = new Integer(line);
         fullparams[2] = lname;
-        for (int i=0; i < params.length; ++i) {
-            fullparams[i+3] = params[i];
-        }
+        System.arraycopy( params, 0, fullparams, 3, params.length );
         return Messages.formatMessage(code, fullparams);
     }
 

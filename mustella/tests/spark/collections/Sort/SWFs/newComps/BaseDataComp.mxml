@@ -19,12 +19,56 @@
 -->
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" >
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 initialize="setFrenchOrder()" >
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
 			import mx.collections.IList; 
+			import flash.globalization.*;
+			
+			private var frenchWords:Array = [
+				'fr côté', 
+				'fr côte', 
+				'fr coté', 
+				'fr cöte'
+			];
+			
+			private var frenchMap:Object = {
+				"fr côte": "Izzy",
+				"fr coté": "TJ",
+				"fr cöte": "barmen",
+				"fr côté": "Bo"
+			}
+			
+			public function setFrenchOrder():void
+			{
+				var sortingCollator:Collator = new Collator("fr-FR", CollatorMode.SORTING);
+				frenchWords.sort(sortingCollator.compare);
+				var final:Array = [];
+				for each (var s:String in frenchWords)
+				{
+					final.push(frenchMap[s]);
+				}
+				
+				sortByAgeAddressFrArr[6] = final[0];
+				sortByAgeAddressFrArr[7] = final[1];
+				sortByAgeAddressFrArr[8] = final[2];
+				sortByAgeAddressFrArr[9] = final[3];
+				
+				sortByAddressAgeRevFrArr[1] = final[3];
+				sortByAddressAgeRevFrArr[2] = final[2];
+				sortByAddressAgeRevFrArr[3] = final[1];
+				sortByAddressAgeRevFrArr[4] = final[0];
+
+				sortByAgeAddressNumFrTrdArr[11] = final[0];
+				sortByAgeAddressNumFrTrdArr[12] = final[1];
+				sortByAgeAddressNumFrTrdArr[13] = final[2];
+				sortByAgeAddressNumFrTrdArr[14] = final[3];
+				
+				
+			}
 			
 			//Add some simple array data for testing when sort.filed is null
 			public var mySimpleStrArr:ArrayList = new  ArrayList([null,'A',null,'A','a','a1','a','B','C','D','E','F','G','H','I','J','K',
@@ -122,7 +166,7 @@ for example, cote < côte < coté < côté instead of cote < coté < côte < cô
 				'cadbury', 
 				'Danny', 
 				'Umbra', 
-			]);
+			]); 
 			
 			public var sortByAgeAddressFrArr:ArrayCollection = new ArrayCollection([
 				'Imari', 
@@ -131,9 +175,9 @@ for example, cote < côte < coté < côté instead of cote < coté < côte < cô
 				'Matisse', 
 				'Molly', 
 				'Moe', 
-				'Izzy',
+				'Izzy', 
 				'barmen', 
-				'TJ', 
+				'TJ',
 				'Bo', 
 				'Chumley', 
 				'Ted', 
@@ -142,6 +186,24 @@ for example, cote < côte < coté < côté instead of cote < coté < côte < cô
 				'Umbra', 
 			]);
 			
+			public var sortByAddressAgeRevFrArr:ArrayCollection = new ArrayCollection([
+				'cadbury', 
+				'Bo', 
+				'TJ',
+				'barmen', 
+				'Izzy', 
+				'Moe', 
+				'Molly', 
+				'Matisse', 
+				'Bunny', 
+				'Daisy', 
+				'Imari', 
+				'Umbra', 
+				'Danny', 
+				'Ted', 
+				'Chumley', 
+			]);
+				
 			public var sortByAgeAddressNumTrdArr:ArrayCollection = new ArrayCollection([
 				'Chumley', 
 				'Ted', 

@@ -40,7 +40,7 @@
 		 		<Pause timeout="1000"/>
 		   	</setup>
 		   	<body>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="mainModule" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="mainModule" maxColorVariance="1" numColorVariances="10"/>
 				<RunCode code="FlexGlobals.topLevelApplication.doUnloadModule()"/>	
 		   	</body>
 	   	</TestCase>

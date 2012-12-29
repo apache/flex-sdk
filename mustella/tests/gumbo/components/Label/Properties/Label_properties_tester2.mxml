@@ -191,7 +191,7 @@
 
 			<body>
 
-				<AssertPropertyValue propertyName="height" value="12" target="myLabel"/>
+				<AssertPropertyValue propertyName="height" value="16" target="myLabel"/>
 
 			</body>
 
@@ -1286,7 +1286,7 @@
 
 			<body>
 
-				<AssertPropertyValue propertyName="width" value="30" target="myLabel"/>
+				<AssertPropertyValue propertyName="width" value="29" target="myLabel"/>
 
 			</body>
 

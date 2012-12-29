@@ -18,5 +18,5 @@
 
 -->
     <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
-        <mx:Image width="200" height="200" source="@Embed('assets/unknown.jpg')"/>
+        <mx:Image width="200" height="200" source="@Embed('../../../../Assets/Images/unknown.jpg')"/>
     </mx:VBox>

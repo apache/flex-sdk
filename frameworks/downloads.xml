@@ -52,7 +52,7 @@
        clean does not remove these since they don't change often and the downloads take time.
     -->
     <target name="main" 
-        depends="swfobject-download,swfobject-fabridge-download,textLayout-download,osmf-download,optional-downloads" 
+        depends="swfobject-download,swfobject-fabridge-download,osmf-download,optional-downloads" 
         description="Copies third-party software into place for build">
         <echo message="Use thirdparty-clean or super-clean to remove these."/> 
     </target>
@@ -66,7 +66,6 @@
         <delete failonerror="false">
             <fileset dir="${basedir}/libs">
                 <include name="osmf.swc"/>
-                <include name="textLayout.swc"/>
             </fileset>
         </delete>
         <delete includeEmptyDirs="true" failonerror="false">
@@ -74,7 +73,6 @@
                 <include name="${adobe.flex.zip.file}"/>
                 <include name="OSMF*/**"/>
                 <include name="osmf*/**"/>
-                <include name="textLayout*/**"/>
                 <include name="swfobject*/**"/>
             </fileset>
         </delete>
@@ -193,41 +191,6 @@
             </fileset>
         </delete>
     </target>
-
-    <!-- textLayout.swc (Version 2.0.232) -->
-    <!-- Because this requires a network connection it downloads TLF only if it doesn't already exist. -->
-    <target name="textLayout-check" description="Checks if the Text Layout Framework has been downloaded.">
-        <available file="${basedir}/libs/textLayout.swc" property="textLayout.swc.present"/>
-    </target>
-
-    <!-- 
-        Notify before downloading file with MPL1.1 license.
-    -->
-    <target name="ask-tlf" unless="build.noprompt">
-        <echo message="The Adobe Text Layout Framework (TLF) used by the Spark text components"/>
-        <echo message="is licensed under the Mozilla Public License Version 1.1."/>
-        <antcall target="echo-mpl1.1-license"/>
-    </target>
-
-    <target name="textLayout-download" depends="textLayout-check" unless="textLayout.swc.present">
-        <antcall target="ask-tlf"/>
-        
-        <available file="${download.dir}/textLayout_build.zip" type="file" property="tlf.zip.exists"/>
-        <antcall target="download-tlf-zip" />
-        
-        <unzip src="${download.dir}/textLayout_build.zip" dest="${basedir}">
-            <patternset>
-                <include name="libs/textLayout.swc"/>
-            </patternset>
-        </unzip>
-    </target>
-
-    <target name="download-tlf-zip" unless="tlf.zip.exists">
-        <mkdir dir="${download.dir}"/>
-        <get src="http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip/download" 
-            dest="${download.dir}/textLayout_build.zip" 
-            verbose="false"/>
-    </target>
     
 	<!--============================================================================= -->
 	<!--      Optional Jars.  Licenses are not compatible with Apache v2 license.     -->
@@ -235,6 +198,7 @@
 	
 	<!--
         flex-messaging-common.jar - BlazeDS interface for -service compiler option
+        This does not get installed if build.noprompt is set.
     -->
     
     <target name="blazeds-jar-check" unless="blazeds.donot.ask"
@@ -253,7 +217,7 @@
         description="Prompt the user before downloading BlaseDS">
 
         <property name="blazeds.prompt.text" 
-            value="Apache Flex can optionally integrate with Adobe BlazeDS..
+            value="Apache Flex can optionally integrate with Adobe BlazeDS.
             ${line.separator}This feature requires flex-messaging-common.jar from the Adobe Flex SDK.
             ${line.separator}The Adobe SDK license agreement for Adobe Flex 4.6 applies to this jar.
             ${line.separator}This license is not compatible with the Apache v2 license.
@@ -286,6 +250,7 @@
 
 	<!--
         Embedded Font Support
+        This does not get installed if build.noprompt is set.
     -->
     
     <target name="font-jars-check" unless="font.donot.ask"

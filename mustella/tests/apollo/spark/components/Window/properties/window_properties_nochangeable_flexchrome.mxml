@@ -59,7 +59,9 @@
 		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete" />
 		    <AssertPropertyValue target="windowObj" propertyName="minimizable" value ="true" />
 		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.minimizable=true"/>
+			<WaitForLayoutManager />
 		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		    <AssertPropertyValue target="windowObj" propertyName="minimizable" value ="true" />         
 		    <MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"  numColorVariances="15" maxColorVariance="20"/>
 
@@ -96,6 +98,8 @@
 		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete" />
 		    <AssertPropertyValue target="windowObj" propertyName="maximizable" value ="true" />
 		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.maximizable=true"/>
+			<WaitForLayoutManager />
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		    <AssertPropertyValue target="windowObj" propertyName="maximizable" value ="true" />         
 		    <MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"  numColorVariances="15" maxColorVariance="20"/>
@@ -135,6 +139,8 @@
 		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete" />
 		    <AssertPropertyValue target="windowObj" propertyName="resizable" value ="true" />
 		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.resizable=true"/>
+			<WaitForLayoutManager />
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		    <AssertPropertyValue target="windowObj" propertyName="resizable" value ="true" />         
 		    <MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"  numColorVariances="15" maxColorVariance="20"/>
@@ -172,6 +178,8 @@
 		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete" />
 		    <AssertPropertyValue target="windowObj" propertyName="transparent" value ="true" />
 		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.transparent=true"/>
+			<WaitForLayoutManager />
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		    <AssertPropertyValue target="windowObj" propertyName="transparent" value ="true" />         
 		    <MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"  numColorVariances="15" maxColorVariance="20"/>
@@ -207,6 +215,8 @@
 		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete" />
 		    <AssertPropertyValue target="windowObj" propertyName="type" value ="normal" />
 		    <RunCode code="FlexGlobals.topLevelApplication.windowObj.type=NativeWindowType.UTILITY"/>
+			<WaitForLayoutManager />
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		    <AssertPropertyValue target="windowObj" propertyName="type" value ="normal" />         
 		    <MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"  numColorVariances="15" maxColorVariance="20"/>

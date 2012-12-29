@@ -47,8 +47,8 @@
 
     <body>
         <SetProperty target="" propertyName="currentState" value="state1" waitTarget="" waitEvent="currentStateChange" />
-        <Pause timeout="200"/>
-        <CompareBitmap url="../integration/baselines/$testID.png" target="vg" />
+        <WaitForEvent target="vg" eventName="updateComplete"/>
+        <CompareBitmap url="../integration/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -56,7 +56,7 @@
 <TestCase testID="HaloScrollBar_all" keywords="[States]" description="Check the button's label in defaultState.">
     <body>
         <SetProperty target="" propertyName="currentState" value="all" waitTarget="" waitEvent="currentStateChange" />
-        <CompareBitmap url="../integration/baselines/$testID.png" target="vg" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 

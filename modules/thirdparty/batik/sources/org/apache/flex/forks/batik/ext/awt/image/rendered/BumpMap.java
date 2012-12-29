@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,11 +28,11 @@ import java.awt.image.SinglePixelPackedSampleModel;
  * Default BumpMap implementation.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: BumpMap.java,v 1.7 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: BumpMap.java 501495 2007-01-30 18:00:36Z dvholten $
  */
 public final class BumpMap {
     /**
-     * Image whose alpha channel is used for the 
+     * Image whose alpha channel is used for the
      * normal calculation
      */
     private RenderedImage texture;
@@ -48,7 +49,7 @@ public final class BumpMap {
 
     /**
      * Stores the normals for this bumpMap.
-     * scaleX and scaleY are the user space to device 
+     * scaleX and scaleY are the user space to device
      * space scales.
      */
     public BumpMap(RenderedImage texture,
@@ -65,7 +66,7 @@ public final class BumpMap {
     /**
      * @return surface scale used by this bump map.
      */
-    public final double getSurfaceScale(){
+    public double getSurfaceScale(){
         return surfaceScale;
     }
 
@@ -73,8 +74,8 @@ public final class BumpMap {
      * @param x x-axis coordinate for which the normal is computed
      * @param y y-axis coordinate for which the normal is computed
      */
-    public final double[][][] getNormalArray
-        (final int x, final int y, 
+    public double[][][] getNormalArray
+        (final int x, final int y,
          final int w, final int h)
     {
         final double[][][] N = new double[h][w][4];
@@ -84,16 +85,16 @@ public final class BumpMap {
             (texture.getMinX(), texture.getMinY(),
              texture.getWidth(), texture.getHeight());
 
-        if (srcRect.intersects(srcBound) == false)
+        if ( ! srcRect.intersects(srcBound) )
             return N;
-        
+
         srcRect = srcRect.intersection(srcBound);
         final Raster r = texture.getData(srcRect);
 
         srcRect = r.getBounds();
 
         // System.out.println("SrcRect: " + srcRect);
-        // System.out.println("rect: [" + 
+        // System.out.println("rect: [" +
         //                    x + ", " + y + ", " +
         //                    w + ", " + h + "]");
 
@@ -133,9 +134,9 @@ public final class BumpMap {
 
         final int xEnd   = Math.min(srcRect.x+srcRect.width -1, x+w);
         final int yEnd   = Math.min(srcRect.y+srcRect.height-1, y+h);
-        final int offset = 
+        final int offset =
             (db.getOffset() +
-             sppsm.getOffset(srcRect.x -r.getSampleModelTranslateX(), 
+             sppsm.getOffset(srcRect.x -r.getSampleModelTranslateX(),
                              srcRect.y -r.getSampleModelTranslateY()));
 
         int yloc=y;
@@ -151,20 +152,20 @@ public final class BumpMap {
                 int xloc=x;
                 if (xloc < srcRect.x)
                     xloc = srcRect.x;
-                int p  = (offset + (xloc-srcRect.x) + 
+                int p  = (offset + (xloc-srcRect.x) +
                           scanStride*(yloc-srcRect.y));
 
                 crcc = (pixels[p] >>> 24)*pixelScale;
 
                 if (xloc != srcRect.x) {
                     crpc = (pixels[p - 1] >>> 24)*pixelScale;
-                } 
+                }
                 else if (xloc < xEnd) {
                     // Top left pixel, in src (0, 0);
                     crnc = (pixels[p+1] >>> 24)*pixelScale;
 
                     final double [] n = NRow[xloc-x];
-        
+
                     n[0] = 2*surfaceScaleX*(crcc - crnc);
                     invNorm = 1.0/Math.sqrt(n[0]*n[0] + 1);
                     n[0] *= invNorm;
@@ -196,7 +197,7 @@ public final class BumpMap {
                     crcc = crnc;
                 }
 
-                if ((xloc < x+w) && 
+                if ((xloc < x+w) &&
                     (xloc == srcRect.x+srcRect.width-1)) {
                     // Last pixel of top row
                     final double [] n = NRow[xloc-x];
@@ -231,7 +232,7 @@ public final class BumpMap {
                 nrnc = (pixels[p + scanStridePP] >>> 24)*pixelScale;
 
                 final double [] n = NRow[xloc-x];
-        
+
                 n[0] = - twoThirdSurfaceScaleX *
                     ((2*crnc + nrnc - 2*crcc - nrcc));
                 n[1] = - twoThirdSurfaceScaleY *
@@ -264,7 +265,7 @@ public final class BumpMap {
                                                - (2*crpc + nrpc));
                 n[1] = - halfSurfaceScaleY *(( nrpc + 2*nrcc + nrnc)
                                              - (crpc + 2*crcc + crnc));
-            
+
                 invNorm = 1.0/Math.sqrt(n[0]*n[0] + n[1]*n[1] + 1);
                 n[0] *= invNorm;
                 n[1] *= invNorm;
@@ -277,7 +278,7 @@ public final class BumpMap {
                 nrcc = nrnc;
             }
 
-            if ((xloc < x+w) && 
+            if ((xloc < x+w) &&
                 (xloc == srcRect.x+srcRect.width-1)) {
                 // Last pixel of top row
                 final double [] n = NRow[xloc-x];
@@ -286,7 +287,7 @@ public final class BumpMap {
                                                  - (2*crpc + nrpc));
                 n[1] = - twoThirdSurfaceScaleY *(( 2*nrcc + nrpc)
                                                  - (2*crcc + crpc));
-            
+
                 invNorm = 1.0/Math.sqrt(n[0]*n[0] + n[1]*n[1] + 1);
                 n[0] *= invNorm;
                 n[1] *= invNorm;
@@ -309,12 +310,12 @@ public final class BumpMap {
             prcc = (pixels[p - scanStride] >>> 24)*pixelScale;
             crcc = (pixels[p] >>> 24)*pixelScale;
             nrcc = (pixels[p + scanStride] >>> 24)*pixelScale;
-            
+
             if (xloc != srcRect.x) {
                 prpc = (pixels[p - scanStridePP] >>> 24)*pixelScale;
                 crpc = (pixels[p - 1] >>> 24)*pixelScale;
                 nrpc = (pixels[p + scanStrideMM] >>> 24)*pixelScale;
-            } 
+            }
             else if (xloc < xEnd) {
                 // Now, process left column, from (0, 1) to (0, h-1)
                 crnc = (pixels[p+1] >>> 24)*pixelScale;
@@ -327,7 +328,7 @@ public final class BumpMap {
                                              - (prcc + 2*crcc + nrcc));
                 n[1] = - thirdSurfaceScaleY *(( 2*prcc + prnc)
                                               - ( 2*crcc + crnc));
-            
+
                 invNorm = 1.0/Math.sqrt(n[0]*n[0] + n[1]*n[1] + 1);
                 n[0] *= invNorm;
                 n[1] *= invNorm;
@@ -362,7 +363,7 @@ public final class BumpMap {
                                                 - (prpc + 2*crpc + nrpc));
                 n[1] = - quarterSurfaceScaleY *(( nrpc + 2*nrcc + nrnc)
                                                 - (prpc + 2*prcc + prnc));
-                    
+
                 invNorm = 1.0/Math.sqrt(n[0]*n[0] + n[1]*n[1] + 1);
                 n[0] *= invNorm;
                 n[1] *= invNorm;
@@ -378,7 +379,7 @@ public final class BumpMap {
                 nrcc = nrnc;
             }
 
-            if ((xloc < x+w) && 
+            if ((xloc < x+w) &&
                 (xloc == srcRect.x+srcRect.width-1)) {
                 // Now, proces right column, from (w-1, 1) to (w-1, h-1)
                 final double [] n = NRow[xloc-x];
@@ -387,7 +388,7 @@ public final class BumpMap {
                                              -(prpc + 2*crpc + nrpc));
                 n[1] = - thirdSurfaceScaleY *(( nrpc + 2*nrcc)
                                               - ( prpc + 2*prcc));
-            
+
                 invNorm = 1.0/Math.sqrt(n[0]*n[0] + n[1]*n[1] + 1);
                 n[0] *= invNorm;
                 n[1] *= invNorm;
@@ -396,7 +397,7 @@ public final class BumpMap {
             }
         }
 
-        if ((yloc < y+h) && 
+        if ((yloc < y+h) &&
             (yloc == srcRect.y+srcRect.height-1)) {
             final double [][] NRow = N[yloc-y];
             int p  = offset + scanStride*(yloc-srcRect.y);
@@ -439,23 +440,23 @@ public final class BumpMap {
                 crpc = crcc;
                 prpc = prcc;
             }
-            
+
             for (; xloc<xEnd; xloc++) {
                 // Middle of Bottom row...
                 crnc = (pixels[p + 1] >>> 24)*pixelScale;
                 prnc = (pixels[p - scanStrideMM] >>> 24)*pixelScale;
 
-                // System.out.println("Vals: " + 
+                // System.out.println("Vals: " +
                 //                    prpc + "," + prcc + "," + prnc + "  " +
                 //                    crpc + "," + crcc + "," + crnc );
-                                   
+
                 final double [] n = NRow[xloc-x];
 
                 n[0] = - thirdSurfaceScaleX *(( 2*crnc + prnc)
                                               - (2*crpc + prpc));
                 n[1] = - halfSurfaceScaleY *(( crpc + 2*crcc + crnc)
                                              - (prpc + 2*prcc + prnc));
-            
+
                 invNorm = 1.0/Math.sqrt(n[0]*n[0] + n[1]*n[1] + 1);
                 n[0] *= invNorm;
                 n[1] *= invNorm;
@@ -469,7 +470,7 @@ public final class BumpMap {
                 prcc = prnc;
             }
 
-            if ((xloc < x+w) && 
+            if ((xloc < x+w) &&
                 (xloc == srcRect.x+srcRect.width-1)) {
                 // Bottom right corner
                 final double [] n = NRow[xloc-x];
@@ -478,7 +479,7 @@ public final class BumpMap {
                                                  - (2*crpc + prpc));
                 n[1] = - twoThirdSurfaceScaleY *(( 2*crcc + crpc)
                                                  - (2*prcc + prpc));
-            
+
                 invNorm = 1.0/Math.sqrt(n[0]*n[0] + n[1]*n[1] + 1);
                 n[0] *= invNorm;
                 n[1] *= invNorm;

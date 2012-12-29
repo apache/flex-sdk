@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003 The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -28,7 +29,7 @@ import java.util.Iterator;
 /**
  * A class representing a list of path segments.
  *
- * @version $Id: SegmentList.java,v 1.4 2005/04/02 14:26:09 deweese Exp $
+ * @version $Id: SegmentList.java 522271 2007-03-25 14:42:45Z dvholten $
  */
 public class SegmentList {
     List segments = new LinkedList();
@@ -38,7 +39,7 @@ public class SegmentList {
 
     public SegmentList(Shape s) {
         PathIterator pi = s.getPathIterator(null);
-        float pts [] = new float[6];
+        float[] pts  = new float[6];
         int type;
         Point2D.Double loc = null;
         Point2D.Double openLoc = null;
@@ -105,23 +106,20 @@ public class SegmentList {
 
     public SegmentList.SplitResults split(double y) {
         Iterator iter = segments.iterator();
-        SegmentList above = null;
-        SegmentList below = null;
+        SegmentList above = new SegmentList();
+        SegmentList below = new SegmentList();
         while (iter.hasNext()) {
             Segment seg = (Segment)iter.next();
             Segment.SplitResults results = seg.split(y);
             if (results == null) {
-		Rectangle2D bounds = seg.getBounds2D();
+                Rectangle2D bounds = seg.getBounds2D();
                 if (bounds.getY() > y) {
-		    if (below == null) below = new SegmentList();
-		    below.add(seg);
-		} else if (bounds.getY() == y) {
-		    if (bounds.getHeight() != 0) {
-			if (below == null) below = new SegmentList();
-			below.add(seg);
-		    }
+                    below.add(seg);
+                } else if (bounds.getY() == y) {
+                    if (bounds.getHeight() != 0) {
+                        below.add(seg);
+                    }
                 } else {
-                    if (above == null) above = new SegmentList();
                     above.add(seg);
                 }
                 continue;
@@ -129,27 +127,51 @@ public class SegmentList {
 
             Segment [] resAbove = results.getAbove();
             for(int i=0; i<resAbove.length; i++) {
-                if (above == null) above = new SegmentList();
                 above.add(resAbove[i]);
             }
 
             Segment [] resBelow = results.getBelow();
             for(int i=0; i<resBelow.length; i++) {
-                if (below == null) below = new SegmentList();
                 below.add(resBelow[i]);
             }
         }
         return new SegmentList.SplitResults(above, below);
     }
 
+    /**
+     * read-only helper class to represent a split-result.
+     * So far, used only by FlowRegions.
+     */
     public static class SplitResults {
-        SegmentList above, below;
+
+        /**
+         * is <code>null</code>, when the list is empty.
+         */
+        final SegmentList above;
+        final SegmentList below;
+
         public SplitResults(SegmentList above, SegmentList below) {
-            this.above = above;
-            this.below = below;
+
+            if ( above != null && above.size() > 0 ){
+                this.above = above;
+            } else {
+                this.above = null;
+            }
+            if ( below != null && below.size() > 0 ){
+                this.below = below;
+            } else {
+                this.below = null;
+            }
         }
 
+        /**
+         * @return the list of segments above some split-point - can be null
+         */
         public SegmentList getAbove() { return above; }
+
+        /**
+         * @return the list of segments below some split-point - can be null
+         */
         public SegmentList getBelow() { return below; }
     }
 }

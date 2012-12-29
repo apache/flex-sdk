@@ -86,7 +86,7 @@ the WindowedApplication component is different.
     </setup>
     <body>
         <SetProperty target="" propertyName="width" value="800" waitEvent="resize" />
-        <AssertPropertyValue target="" propertyName="width" value="750" />
+        <AssertPropertyValue target="" propertyName="width" value="734" />
     </body>
 </TestCase>
 

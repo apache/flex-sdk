@@ -28,7 +28,10 @@
 
 			public function loadCSS(): void
 			{
-				eventDispatcher = StyleManager.loadStyleDeclarations("assets/globalStyles2.swf");
+				if (!eventDispatcher)
+					eventDispatcher = StyleManager.loadStyleDeclarations("assets/globalStyles2.swf");
+				else
+					eventDispatcher.dispatchEvent(new Event(Event.COMPLETE));
 			}
 
         ]]>

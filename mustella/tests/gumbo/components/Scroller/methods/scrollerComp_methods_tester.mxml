@@ -98,7 +98,7 @@ import spark.layouts.*;
 	    <Pause timeout="100"/>
             <AssertPropertyValue target="sc2.verticalScrollBar" propertyName="value"    value="250" />
 
-            <AssertPropertyValue target="sc2.verticalScrollBar" propertyName="maximum"    value="446" />
+            <AssertPropertyValue target="sc2.verticalScrollBar" propertyName="maximum"    value="576" />
 
            </body>
 
@@ -134,7 +134,7 @@ import spark.layouts.*;
             <Pause timeout="100"/>
             <RunCode code="application.sc1.verticalScrollBar.changeValueByPage(false);" waitEvent="valueCommit" waitTarget="sc1.verticalScrollBar"/>
             <Pause timeout="100"/>
-            <AssertPropertyValue target="sc1.verticalScrollBar" propertyName="value"    value="0" />
+            <AssertPropertyValue target="sc1.verticalScrollBar" propertyName="value"    value="76" />
 
             <AssertPropertyValue target="sc1.verticalScrollBar" propertyName="pageSize"    value="250" />
 
@@ -172,7 +172,7 @@ import spark.layouts.*;
 
             <RunCode code="application.sc1.horizontalScrollBar.changeValueByPage(false);" waitEvent="valueCommit" waitTarget="sc1.horizontalScrollBar"/>
 		<Pause timeout="100"/>
-            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="2098" />
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="2154" />
 
            </body>
 
@@ -203,7 +203,7 @@ import spark.layouts.*;
 
             <RunCode code="application.sc1.horizontalScrollBar.changeValueByPage(false);" waitEvent="valueCommit" waitTarget="sc1.horizontalScrollBar"/>
 		<Pause timeout="100"/>
-            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="2098" />
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="2154" />
 
            </body>
 
@@ -233,7 +233,7 @@ import spark.layouts.*;
             <RunCode code="application.sc1.horizontalScrollBar.changeValueByPage(false);" waitEvent="valueCommit" waitTarget="sc1.horizontalScrollBar"/>
 
    	    <Pause timeout="100"/>
-            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="2098" />
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="2154" />
 
            </body>
 

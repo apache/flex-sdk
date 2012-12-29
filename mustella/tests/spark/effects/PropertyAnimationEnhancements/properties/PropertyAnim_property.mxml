@@ -21,8 +21,8 @@
             /** ********** ********** ********** **********
              * left and right constraints bounds, state 1
              ********** ********** ********** ********** */
-            public const B1_S1_BOUNDS:String = "b1:s1:(x=9, y=99, w=91, h=23)";
-            public const B2_S1_BOUNDS:String = "b2:s1:(x=200, y=149, w=91, h=23)";
+            public const B1_S1_BOUNDS:String = "b1:s1:(x=9, y=99, w=83, h=23)";
+            public const B2_S1_BOUNDS:String = "b2:s1:(x=208, y=149, w=83, h=23)";
             public const B3_S1_BOUNDS:String = "b3:s1:(x=9, y=199, w=282, h=23)";
             public const B4_S1_BOUNDS:String = "b4:s1:(x=9, y=249, w=72, h=23)";
             public const B5_S1_BOUNDS:String = "b5:s1:(x=219, y=299, w=72, h=23)";
@@ -30,9 +30,9 @@
             /** ********** ********** ********** **********
              * left and right constraints bounds, state 2
              ********** ********** ********** ********** */
-            public const B1_S2_BOUNDS:String = "b1:s2:(x=200, y=99, w=91, h=23)";
-            public const B2_S2_BOUNDS:String = "b2:s2:(x=9, y=149, w=91, h=23)";
-            public const B3_S2_BOUNDS:String = "b3:s2:(x=9, y=199, w=77, h=23)";
+            public const B1_S2_BOUNDS:String = "b1:s2:(x=208, y=99, w=83, h=23)";
+            public const B2_S2_BOUNDS:String = "b2:s2:(x=9, y=149, w=83, h=23)";
+            public const B3_S2_BOUNDS:String = "b3:s2:(x=9, y=199, w=72, h=23)";
             public const B4_S2_BOUNDS:String = "b4:s2:(x=99, y=249, w=72, h=23)";
             public const B5_S2_BOUNDS:String = "b5:s2:(x=129, y=299, w=72, h=23)";
             
@@ -40,18 +40,18 @@
             /** ********** ********** ********** **********
              * top and bottom constraints bounds, state 1
              ********** ********** ********** ********** */
-            public const B6_S1_BOUNDS:String =  "b6:s1:(x=-1, y=99, w=101, h=23)";
-            public const B7_S1_BOUNDS:String =  "b7:s1:(x=99, y=258, w=101, h=23)";
-            public const B8_S1_BOUNDS:String =  "b8:s1:(x=199, y=99, w=87, h=182)";
+            public const B6_S1_BOUNDS:String =  "b6:s1:(x=-1, y=99, w=96, h=23)";
+            public const B7_S1_BOUNDS:String =  "b7:s1:(x=99, y=258, w=96, h=23)";
+            public const B8_S1_BOUNDS:String =  "b8:s1:(x=199, y=99, w=85, h=182)";
             public const B9_S1_BOUNDS:String =  "b9:s1:(x=199, y=-1, w=72, h=23)";
             public const B10_S1_BOUNDS:String = "b10:s1:(x=199, y=358, w=72, h=23)";
             
             /** ********** ********** ********** **********
              * top and bottom constraints bounds, state 2
              ********** ********** ********** ********** */
-            public const B6_S2_BOUNDS:String =  "b6:s2:(x=-1, y=258, w=101, h=23)";
-            public const B7_S2_BOUNDS:String =  "b7:s2:(x=99, y=99, w=101, h=23)";
-            public const B8_S2_BOUNDS:String =  "b8:s2:(x=199, y=99, w=87, h=23)";
+            public const B6_S2_BOUNDS:String =  "b6:s2:(x=-1, y=258, w=96, h=23)";
+            public const B7_S2_BOUNDS:String =  "b7:s2:(x=99, y=99, w=96, h=23)";
+            public const B8_S2_BOUNDS:String =  "b8:s2:(x=199, y=99, w=85, h=23)";
             public const B9_S2_BOUNDS:String =  "b9:s2:(x=199, y=49, w=72, h=23)";
             public const B10_S2_BOUNDS:String = "b10:s2:(x=199, y=308, w=72, h=23)";
             
@@ -61,20 +61,20 @@
              ********** ********** ********** ********** */
             public const B11_S1_BOUNDS:String = "b11:s1:(x=114, y=49, w=72, h=23)";
             public const B12_S1_BOUNDS:String = "b12:s1:(x=114, y=79, w=72, h=23)";
-            public const B13_S1_BOUNDS:String = "b13:s1:(x=110, y=109, w=80, h=23)";
+            public const B13_S1_BOUNDS:String = "b13:s1:(x=113, y=109, w=75, h=23)";
             public const B14_S1_BOUNDS:String = "b14:s1:(x=-1, y=179, w=72, h=23)";
             public const B15_S1_BOUNDS:String = "b15:s1:(x=99, y=179, w=72, h=23)";
-            public const B16_S1_BOUNDS:String = "b16:s1:(x=199, y=179, w=105, h=23)";
+            public const B16_S1_BOUNDS:String = "b16:s1:(x=199, y=179, w=98, h=23)";
             
             /** ********** ********** ********** **********
              * horizontalCenter and verticalCenter constraints bounds, state 2
              ********** ********** ********** ********** */
             public const B11_S2_BOUNDS:String = "b11:s2:(x=164, y=49, w=72, h=23)";
             public const B12_S2_BOUNDS:String = "b12:s2:(x=64, y=79, w=72, h=23)";
-            public const B13_S2_BOUNDS:String = "b13:s2:(x=9, y=109, w=80, h=23)";
+            public const B13_S2_BOUNDS:String = "b13:s2:(x=9, y=109, w=75, h=23)";
             public const B14_S2_BOUNDS:String = "b14:s2:(x=-1, y=229, w=72, h=23)";
             public const B15_S2_BOUNDS:String = "b15:s2:(x=99, y=129, w=72, h=23)";
-            public const B16_S2_BOUNDS:String = "b16:s2:(x=199, y=258, w=105, h=23)";
+            public const B16_S2_BOUNDS:String = "b16:s2:(x=199, y=258, w=98, h=23)";
             
             
             /** ********** ********** ********** **********
@@ -95,16 +95,16 @@
             /** ********** ********** ********** **********
              * percentHeight constraint bounds, state 1
              ********** ********** ********** ********** */
-            public const B20_S1_BOUNDS:String = "b20:s1:(x=-1, y=-1, w=74, h=40)";
-            public const B21_S1_BOUNDS:String = "b21:s1:(x=79, y=-1, w=74, h=382)";
-            public const B22_S1_BOUNDS:String = "b22:s1:(x=159, y=-1, w=126, h=192)";
+            public const B20_S1_BOUNDS:String = "b20:s1:(x=-1, y=-1, w=72, h=40)";
+            public const B21_S1_BOUNDS:String = "b21:s1:(x=79, y=-1, w=72, h=382)";
+            public const B22_S1_BOUNDS:String = "b22:s1:(x=159, y=-1, w=115, h=192)";
             
             /** ********** ********** ********** **********
              * percentHeight constraint bounds, state 2
              ********** ********** ********** ********** */
-            public const B20_S2_BOUNDS:String = "b20:s2:(x=-1, y=-1, w=74, h=192)";
-            public const B21_S2_BOUNDS:String = "b21:s2:(x=79, y=94, w=74, h=192)";
-            public const B22_S2_BOUNDS:String = "b22:s2:(x=159, y=-1, w=126, h=302)";
+            public const B20_S2_BOUNDS:String = "b20:s2:(x=-1, y=-1, w=72, h=192)";
+            public const B21_S2_BOUNDS:String = "b21:s2:(x=79, y=94, w=72, h=192)";
+            public const B22_S2_BOUNDS:String = "b22:s2:(x=159, y=-1, w=115, h=302)";
         ]]>
     </fx:Script>
     

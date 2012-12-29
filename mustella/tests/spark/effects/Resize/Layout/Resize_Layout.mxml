@@ -52,7 +52,7 @@ import spark.effects.Resize;
             </setup>
             <body>
                 <RunCode code="application.resizeBy.play([application.testBox.btn00], false)" waitTarget="resizeBy" waitEvent="effectEnd"/>
-                <CompareBitmap target="testBox" url="../Layout/baseline/$testID.png" />
+                <CompareBitmap target="testBox" url="../Layout/baseline/$testID.png" numColorVariances="4" maxColorVariance="1" />
             </body>
         </TestCase>
 
@@ -62,7 +62,7 @@ import spark.effects.Resize;
             </setup>
             <body>
                 <RunCode code="application.resizeBy.play([application.testBox.btn01], false)" waitTarget="resizeBy" waitEvent="effectEnd"/>
-                <CompareBitmap target="testBox" url="../Layout/baseline/$testID.png" />
+                <CompareBitmap target="testBox" url="../Layout/baseline/$testID.png" numColorVariances="4" maxColorVariance="1" />
             </body>
         </TestCase>
 
@@ -72,7 +72,7 @@ import spark.effects.Resize;
             </setup>
             <body>
                 <RunCode code="application.resizeBy.play([application.testBox.btn04], false)" waitTarget="resizeBy" waitEvent="effectEnd"/>
-                <CompareBitmap target="testBox" url="../Layout/baseline/$testID.png" />
+                <CompareBitmap target="testBox" url="../Layout/baseline/$testID.png" numColorVariances="4" maxColorVariance="1" />
             </body>
         </TestCase>
         

@@ -82,7 +82,7 @@
 		<s:ArrayList id="products">
 			<fx:Object myItemIndex="0" label="ProductFB45" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Designed to help software developers rapidly develop cross-platform rich Internet applications and content using the open source Flex framework"/>
 			<fx:Object myItemIndex="1" label="ProductCF" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Build enterprise applications" />
-			<fx:Object myItemIndex="2" label="SmallIcon" iconField=../../../../Assets/Images/smallbluerect.jpg" message="Mystery Product"/>
+			<fx:Object myItemIndex="2" label="SmallIcon" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Mystery Product"/>
 			<fx:Object myItemIndex="3" label="ProductDW" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Empowers designers and developers to build standards-based websites with confidence" />
 			<fx:Object myItemIndex="4" label="ProductFB40" iconField="../../../../Assets/Images/smallbluerect.jpg" message="The spark architecture" />
 			<fx:Object myItemIndex="5" label="ProductFC" iconField="../../../../Assets/Images/smallbluerect.jpg" message="An approachable new interaction design tool" />
@@ -117,7 +117,7 @@
                 <fx:Script>
                     <![CDATA[
                         
-                        [Embed(source="../assets/loading.png")]
+                        [Embed(source="../../../../../../Assets/Images/smallredrect.jpg")]
                         [Bindable]
                         public var loadingIcon:Class;
                         
@@ -248,7 +248,7 @@
                 <fx:Script>
                     <![CDATA[
                         // Use a custom iconContentLoader that won't load the images so we can see the loadingIcon
-                        [Embed(source="../assets/loading.png")]
+                        [Embed(source="../../../../../../Assets/Images/smallredrect.jpg")]
                         [Bindable]
                         public var loadingIcon:Class;
                     ]]>

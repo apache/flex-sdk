@@ -46,7 +46,7 @@
 			embedAsCFF: false;
         }
 
-        @font-face {
+       @font-face {
 			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
             fontWeight: bold;
             fontFamily: EmbeddedVerdana;
@@ -59,7 +59,7 @@
             fontFamily: EmbeddedVerdana;
 			embedAsCFF: false;
         }
-
+		
         global{
             fontFamily: EmbeddedVerdana;
             fontAntiAliasType: normal;

@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/AdvancedDataGrid/Properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AdvancedDataGridColumnGroupMain.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    
+        import mx.collections.*;
+        import mx.controls.NumericStepper;
+        [Bindable]
+        private var ac:ArrayCollection = new ArrayCollection(); 
+        import mx.formatters.CurrencyFormatter;
+        import mx.styles.StyleManager;  
+        [Embed(source="Assets/horizontal_Separator_Skin.gif")]public var myhorskin:Class; 
+        import mx.controls.advancedDataGridClasses.*;
+        public var companies:AdvancedDataGridColumn = new AdvancedDataGridColumn("Company");
+        public  var quarters:AdvancedDataGridColumn = new AdvancedDataGridColumn("Quarter");
+        public  var india:AdvancedDataGridColumn = new AdvancedDataGridColumn("India");
+        public  var veeranistan:AdvancedDataGridColumn = new AdvancedDataGridColumn("Veeranistan");
+        public  var pareestan:AdvancedDataGridColumn = new AdvancedDataGridColumn("Pareestan");
+        public  var licenses:AdvancedDataGridColumn = new AdvancedDataGridColumn("Licenses");
+        public var countries:AdvancedDataGridColumnGroup = new AdvancedDataGridColumnGroup();
+        public var toplevel:AdvancedDataGridColumnGroup = new AdvancedDataGridColumnGroup();
+        [Bindable]
+                public var hierarch_data:Array = [ 
+        
+        { feature:"ADG", children:[ 
+                { feature:"ADG", subFeature:"Multi column sorting", startDate:{day:"Monday", Year:2007}, endDate:"1/07/07" },
+                { feature:"ADG", subFeature:"Custom rows", startDate:{day:"Monday", Year:2009}, endDate:"01/18/07" },
+                { feature:"ADG", subFeature:"Tree Views", startDate:{day:"Monday", Year:2006}, endDate:"01/29/07" }, 
+                { feature:"ADG", subFeature:"Collections", startDate:{day:"Monday", Year:2004},  endDate:"04/25/07" }
+        ] }
+        
+        ];
+
+        [Bindable]
+                private var mydata:ArrayCollection = new ArrayCollection ([
+                {Company:"Adobe", Quarter:1, India:"2 million", Veeranistan:"2 million", Pareestan:"3 million", Licenses:433764538},
+                {Company:"IBM", Quarter:1, India:"9 million", Veeranistan:"1 million", Pareestan:"5 million", Licenses:456789002},
+                {Company:"KaashifSoft", Quarter:1, India:"99 million", Veeranistan:"99 million", Pareestan:"99 million", Licenses:456712340},
+                {Company:"NisheetSoft", Quarter:1, India:"0 million", Veeranistan:"0 million", Pareestan:"0 million", Licenses:456782313},
+                {Company:"Microsoft", Quarter:1, India:"6 million", Veeranistan:"5 million", Pareestan:"6 million", Licenses:354216789},
+                {Company:"Satyam", Quarter:1, India:"1 million", Veeranistan:"3 million", Pareestan:"2 million", Licenses:325146789},
+                {Company:"Subex", Quarter:1, India:"2 million", Veeranistan:"9 million", Pareestan:"1 million", Licenses:321456978},
+                {Company:"Infosys", Quarter:1, India:"0.89 million", Veeranistan:"12 million", Pareestan:"4.5 million", Licenses:321475689},        
+                {Company:"MCAfee", Quarter:1, India:"3 million", Veeranistan:"5.98 million", Pareestan:"6.2 million", Licenses:321467589},
+                {Company:"MPhasis", Quarter:1, India:"2 million", Veeranistan:"1.5 million", Pareestan:"6.7 million", Licenses:123456789},
+                {Company:"Symphony", Quarter:1, India:"3.4 million", Veeranistan:"6.1 million", Pareestan:"7.8 million", Licenses:341256789},
+                {Company:"Wipro", Quarter:1, India:"5 million", Veeranistan:"2 million", Pareestan:"7 million", Licenses:321654789},
+                {Company:"Google", Quarter:1, India:"3 million", Veeranistan:"4 million", Pareestan:"1 million", Licenses:321458769 } ]);
+        
+        public function createColumnGroups():void {
+        
+        countries.headerText="Countries";
+        
+        toplevel.headerText="Top Level";
+                
+                var countriesarr:Array = new Array();
+                var toplevelarr:Array = new Array();
+                countriesarr.push(india);
+                countriesarr.push(pareestan);
+                countriesarr.push(veeranistan);
+                toplevelarr.push(quarters);
+                application.mydatagrid.dataProvider=mydata;
+                countries.children = countriesarr;
+                toplevelarr.push(countries);
+                toplevel.children=toplevelarr;
+        application.mydatagrid.groupedColumns=[companies, toplevel, licenses]; 
+        application.mydatagrid.dataProvider.refresh();
+        companies.dataField="Company";
+        quarters.dataField="Quarter";
+        licenses.dataField="Licenses";
+        }
+        
+        public function groupedData():void {
+        
+        var mygroup:GroupingCollection2 = new GroupingCollection2();
+        mygroup.source=mydata;
+        var group:Grouping = new Grouping();
+        group.fields = [new GroupingField("Company"), new GroupingField("Licenses")];
+        group.label = "Company";
+        mygroup.grouping = group; 
+        mygroup.refresh();
+        application.mydatagrid.dataProvider = mygroup;
+        application.mydatagrid.validateNow();
+        }
+        
+        public function insertColumns():void {
+        
+        var mycols:AdvancedDataGridColumn = new AdvancedDataGridColumn("ggg");
+                var mycolsarr:Array = application.mydatagrid.groupedColumns;
+                mycolsarr.push(mycols);
+        application.mydatagrid.groupedColumns = mycolsarr;
+        }
+        
+        public function insertColumngroups():void
+                 {
+                var mycolgroup:AdvancedDataGridColumnGroup = new AdvancedDataGridColumnGroup();
+                mycolgroup.headerText = "topmost ";
+                var mycolsarr:Array = new Array(application.mydatagrid.groupedColumns[0]);
+                    mycolgroup.children = mycolsarr;            
+                    var tempCols:Array = application.mydatagrid.groupedColumns.slice(1,application.mydatagrid.groupedColumns.length); 
+                    application.mydatagrid.groupedColumns = [mycolgroup].concat(tempCols); 
+                    
+                }
+                
+                public function hierarchicaldata_setter():void {
+                    var hierarchs:HierarchicalData = new HierarchicalData();
+                hierarchs.source = hierarch_data;
+                    application.mydatagrid..dataProvider = hierarchs;
+                companies.dataField = "feature";    
+                quarters.dataField = "subFeature";
+                licenses.dataField = "endDate";
+                }
+                
+                public function vrHeight():void {
+                         
+                           for(var i:int=0;i<20;i++)
+                           {
+                             var rnd:* = Math.random();
+                             var obj:Object = {Company:"column-A0",Quarter:"column-B"+rnd,India:"column-C"+rnd,Veeranistan:"Column-D"+rnd,Pareestan:"Column-E"+rnd,Licenses:"Column-F"+rnd}
+                             ac.addItem(obj);
+                           }
+                           
+                             application.mydatagrid.dataProvider = ac;
+                             application.mydatagrid.variableRowHeight = true;
+                             application.mydatagrid.wordWrap = true;
+                            }
+                            
+                            public function headerRenderer():void {
+                            
+                            countries.headerRenderer = new ClassFactory(mx.controls.NumericStepper);
+                            toplevel.headerRenderer = new ClassFactory(mx.controls.TextArea);
+                            quarters.headerRenderer = new ClassFactory(mx.controls.TextInput);
+                            
+                            }
+                            
+                            public function customHeaderRenderer():void {
+                            
+                            toplevel.headerRenderer = new ClassFactory(myheads);
+                            
+                            }
+                            public function visibleColumns():void {
+                            
+                            toplevel.visible = false;
+                            }
+                            
+                            public function headerSkin():void {
+                            StyleManager.getStyleDeclaration("AdvancedDataGrid").setStyle("headerHorizontalSeparatorSkin",myhorskin);
+                            }
+                            public function myStyleFunction(data:Object,col:AdvancedDataGridColumn):Object          {
+                                   return { color:0xFF0000};
+                        }
+
+                            public function myFormatting():void {
+                            
+                            application.mydatagrid.styleFunction = myStyleFunction;
+                            mydata.refresh();
+                        var forms:CurrencyFormatter = new CurrencyFormatter();
+                        forms.currencySymbol = "$";
+                        createColumnGroups();
+                        licenses.formatter = forms;
+                        application.mydatagrid.dataProvider.refresh();
+
+                            }
+                            public function myColumnSpan():void {
+                            
+                                var renders:AdvancedDataGridRendererProvider = new AdvancedDataGridRendererProvider();      
+                                renders.column = companies;
+                                var renderarr:Array = new Array();
+                                renders.dataField = "Company";
+                                renders.columnSpan = 2;
+                                renders.renderer = new ClassFactory(mx.controls.NumericStepper);
+                                renderarr.push(renders);
+                        application.mydatagrid.rendererProviders = renderarr;
+                            
+                            }
+                            
+                            public function generateXML():void {
+                             
+                             application.mydatagrid.dataProvider = application.comps;
+                            }
+                            
+        ]]>
+    </mx:Script>
+    <testCases>
+    
+    <TestCase testID="use_grouped_data_mirroring" keywords="[Grouped_data_mirroring]">
+            <setup>
+            <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            <RunCode code="groupedData()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <RunCode code="application.mydatagrid.expandAll()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            <WaitForEffectsToEnd />
+              <SetStyle styleName="layoutDirection" value="rtl" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+             <CompareBitmap target="mydatagrid" url="../Properties/Baselines/use_grouped_data_mirroring.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+            
+            </body>
+            </TestCase>
+
+              
+                                                  
+    <!--
+            <TestCase testID="create_column_group" keywords="[dsdsf]">
+                <setup>
+                <RunCode code="createColumnGroups()" />
+                </setup>
+                <body>
+                 <WaitForEffectsToEnd />
+                <DispatchMouseEvent target="mydatagrid" type="mouseOver" stageX="230.65" stageY="125"/>
+                <WaitForEffectsToEnd />
+                <Pause timeout = "1000"/>
+                 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/adg_columngroups.png" numColorVariances="1" maxColorVariance="2"/>
+                </body>
+            </TestCase>
+            -->
+            <TestCase testID="use_grouped_data" keywords="[Grouped_data]">
+            <setup>
+            <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            <RunCode code="groupedData()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <RunCode code="application.mydatagrid.expandAll()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            <WaitForEffectsToEnd />
+             
+            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_groupedview_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+            </body>
+            </TestCase>
+            
+            <TestCase testID="set_editable_item" keywords="[Item editable]">
+            <setup>
+            <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete" /> 
+                        <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            <SetProperty target="mydatagrid" propertyName="editable" value="item" />
+            </setup>
+            <body>
+            <WaitForEffectsToEnd />
+            
+            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_itemeditable_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+            <AssertPropertyValue target="mydatagrid" propertyName="editable" value="item"/>
+            </body>
+            </TestCase>
+            
+            
+            <TestCase testID="set_group_item" keywords="[group editable]">
+            <setup>
+              <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/> 
+            <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            <RunCode code="groupedData()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                        <RunCode code="application.mydatagrid.expandAll()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+
+              <SetProperty target="mydatagrid" propertyName="editable" value="group" />
+            </setup>
+                <body>
+                <WaitForEffectsToEnd />
+                
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_groupeditable_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+                <AssertPropertyValue target="mydatagrid" propertyName="editable" value="group"/>
+                </body>
+            </TestCase>
+            
+            <TestCase testID="set_both_editable" keywords="[both editable]">
+                <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/> 
+            <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" /><RunCode code="groupedData()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <RunCode code="application.mydatagrid.expandAll()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+
+                  <SetProperty target="mydatagrid" propertyName="editable" value="item group" />
+                </setup>
+                    <body>
+                    <WaitForEffectsToEnd />
+                    
+                    <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_groupeditable_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+                    <AssertPropertyValue target="mydatagrid" propertyName="editable" value="item group"/>
+                    </body>
+                </TestCase>
+
+            <TestCase testID="insert_columns" keywords="[insert columns]">
+            <setup>
+            <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            <RunCode code="insertColumns()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            <WaitForEffectsToEnd />
+            
+            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_insertcolumn_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+            </body>
+            </TestCase>
+            
+            <TestCase testID="insert_columngroup" keywords="[insert columns]">
+            <setup>
+            <RunCode code="insertColumngroups()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            <WaitForEffectsToEnd />
+            
+            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_insertcolumngroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+            </body>
+            </TestCase>
+            
+            <TestCase testID="hierarchical_data" keywords="[hierarchical data]">
+            <setup>
+            <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            <RunCode code="hierarchicaldata_setter()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <RunCode code="application.mydatagrid.expandAll()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            <WaitForEffectsToEnd />
+            
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_hierarch_data_colgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+            </body>
+            </TestCase>
+            <!--
+            <TestCase testID="XML_DataProvider_setter" keywords="[XML Data]">
+            <setup>
+            <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            <RunCode code="generateXML()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            <WaitForEffectsToEnd />
+            <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_hierarch_data_colgroups.png" numColorVariances="1" maxColorVariance="2"/>
+            </body>
+            </TestCase>
+             -->
+            
+                 <TestCase testID="Row_Count_with_ColumnGroups" keywords="[RowCount]">
+                 <setup>
+                 <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+                 </setup>
+                 <body>
+                 <SetProperty propertyName="rowCount" value="2" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                 <WaitForEffectsToEnd />
+                 
+                  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_rowcount_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+                 </TestCase>
+                 
+                                 
+               <!--  <TestCase testID="Header_horizontal_separator_skin" keywords="[Header horizontal separator skin]" >
+                 <setup>
+                 <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            <RunCode code="headerSkin()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+                 </setup>
+                 <body>
+                 <WaitForEffectsToEnd />
+                 
+                   <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_headerSkin_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+                 </TestCase> -->
+                 
+                 <TestCase testID="Formatting_with_column_groups" keywords="[Formatters]">
+                 <setup>
+                 <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            <RunCode code="myFormatting()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+                 </setup>
+                 <body>
+                 <WaitForEffectsToEnd />
+                 
+                  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_formatting_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+                 </TestCase>
+                 
+                 <TestCase testID="Column_Span" keywords="[ColumnSpan]">
+                 <setup>
+                 <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            <RunCode code="myColumnSpan()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+                 </setup>
+                 <body>
+                 <WaitForEffectsToEnd />
+                 
+                 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_columnspanning_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+            
+            </TestCase>
+            <!--
+            <TestCase testID="Variable_Row_Height" keywords="[VR Height]">
+            <setup>
+            <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            <RunCode code="vrHeight()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                  <SetProperty propertyName="variableRowHeight" value="true" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <SetProperty propertyName="wordWrap" value="true" target="mydatagrid" />
+                  <WaitForEffectsToEnd />
+                  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_variablerowheight_wordwrap_withcolgroups.png" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+                 </TestCase>
+                 
+                   -->   
+                 
+        <TestCase testID="Header_Renderer" keywords="[Header Renderer]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+                <RunCode code="headerRenderer()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_headerrenderer_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+            </body>
+            </TestCase>
+            
+            <TestCase testID="Custom_Header_Renderer" keywords="[Custom header renderer]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="createColumnGroups()" />
+                <RunCode code="customHeaderRenderer()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_customheaderrenderer_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+            </body>
+        </TestCase>
+                 
+        <TestCase testID="Visibility_of_columns" keywords="[Visiblity]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="createColumnGroups()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+                <RunCode code="visibleColumns()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_visible_withcolgroups.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

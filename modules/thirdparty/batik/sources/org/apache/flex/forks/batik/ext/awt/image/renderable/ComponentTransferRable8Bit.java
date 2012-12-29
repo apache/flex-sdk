@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -34,7 +35,7 @@ import org.apache.flex.forks.batik.ext.awt.image.rendered.ComponentTransferRed;
  * transfer operation.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: ComponentTransferRable8Bit.java,v 1.8 2004/08/18 07:13:58 vhardy Exp $
+ * @version $Id: ComponentTransferRable8Bit.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public class ComponentTransferRable8Bit
     extends    AbstractColorInterpolationRable
@@ -49,15 +50,15 @@ public class ComponentTransferRable8Bit
      * Array of transfer functions. There are four
      * elements. Elements may be null.
      */
-    private ComponentTransferFunction
-        functions[] = new ComponentTransferFunction[4];
+    private ComponentTransferFunction[]
+        functions = new ComponentTransferFunction[4];
 
     /**
      * Array of transfer functions. Elements are computed
      * lazily.
      */
-    private TransferFunction
-        txfFunc[] = new TransferFunction[4];
+    private TransferFunction[]
+        txfFunc = new TransferFunction[4];
 
     public ComponentTransferRable8Bit(Filter src,
                                       ComponentTransferFunction alphaFunction,
@@ -172,10 +173,10 @@ public class ComponentTransferRable8Bit
         // Copy array to avoid multi-thread conflicts on
         // array access.
         //
-        TransferFunction txfFunc[] = new TransferFunction[4];
+        TransferFunction[] txfFunc = new TransferFunction[4];
         System.arraycopy(this.txfFunc, 0, txfFunc, 0, 4);
 
-        ComponentTransferFunction functions[];
+        ComponentTransferFunction[] functions;
         functions = new ComponentTransferFunction[4];
         System.arraycopy(this.functions, 0, functions, 0, 4);
 
@@ -235,8 +236,8 @@ public class ComponentTransferRable8Bit
     /**
      * Converts a intensity values (0-1) to code values (0-255)
      */
-    private static int[] tableFloatToInt(float tableValues[]){
-        int values[] = new int[tableValues.length];
+    private static int[] tableFloatToInt(float[] tableValues){
+        int[] values = new int[tableValues.length];
         for(int i=0; i<tableValues.length; i++){
             values[i] = (int)(tableValues[i]*255f);
         }

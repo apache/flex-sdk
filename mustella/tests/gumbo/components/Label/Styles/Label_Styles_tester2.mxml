@@ -200,8 +200,8 @@
 			</setup>
 			<body>
 				<AssertStyleValue target="textBoxComp.textBox" styleName="baselineShift" value="subscript" />
-				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/" target="container" >
-				    <ConditionalValue os="mac" />
+				<CompareBitmap  url="../Styles/baselines/" target="container">
+					<ConditionalValue os="mac"/>
 				</CompareBitmap>
 			</body>
 		</TestCase>
@@ -214,8 +214,8 @@
 			</setup>
 			<body>
 				<AssertStyleValue target="textBoxComp.textBox" styleName="baselineShift" value="superscript" />
-				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/" target="container" >
-				    <ConditionalValue os="mac" />
+				<CompareBitmap url="../Styles/baselines/" target="container">
+					<ConditionalValue os="mac"/>
 				</CompareBitmap>
 			</body>
 		</TestCase>
@@ -253,9 +253,7 @@
 			</setup>
 			<body>
 				<AssertStyleValue target="textBoxComp.textBox" styleName="cffHinting" value="none" />
-				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/" target="container" >
-				    <ConditionalValue os="mac" />
-				</CompareBitmap>
+				<CompareBitmap url="../Styles/baselines/$testID@mac.png" target="container" />
 			</body>
 		</TestCase>
 

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,10 +27,10 @@ import org.apache.flex.forks.batik.xml.XMLUtilities;
  * fragment identifiers.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: FragmentIdentifierParser.java,v 1.14 2005/03/27 08:58:35 cam Exp $
+ * @version $Id: FragmentIdentifierParser.java 502167 2007-02-01 09:26:51Z dvholten $
  */
 public class FragmentIdentifierParser extends NumberParser {
-    
+
     /**
      * The buffer used for numbers.
      */
@@ -81,7 +82,7 @@ public class FragmentIdentifierParser extends NumberParser {
      */
     protected void doParse() throws ParseException, IOException {
         bufferSize = 0;
-                
+
         current = reader.read();
 
         fragmentIdentifierHandler.startFragmentIdentifier();
@@ -142,30 +143,22 @@ public class FragmentIdentifierParser extends NumberParser {
                 bufferSize = 0;
                 current = reader.read();
                 if (current != 'i') {
-                    reportError("character.expected",
-                                new Object[] { new Character('i'),
-                                                new Integer(current) });
+                    reportCharacterExpectedError( 'i', current );
                     break ident;
                 }
                 current = reader.read();
                 if (current != 'd') {
-                    reportError("character.expected",
-                                new Object[] { new Character('d'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'd', current );
                     break ident;
                 }
                 current = reader.read();
                 if (current != '(') {
-                    reportError("character.expected",
-                                new Object[] { new Character('('),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( '(', current );
                     break ident;
                 }
                 current = reader.read();
                 if (current != '"' && current != '\'') {
-                    reportError("character.expected",
-                                new Object[] { new Character('\''),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( '\'', current );
                     break ident;
                 }
                 char q = (char)current;
@@ -177,23 +170,17 @@ public class FragmentIdentifierParser extends NumberParser {
                 fragmentIdentifierHandler.idReference(id);
 
                 if (current != q) {
-                    reportError("character.expected",
-                                new Object[] { new Character(q),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( q, current );
                     break ident;
                 }
                 current = reader.read();
                 if (current != ')') {
-                    reportError("character.expected",
-                                new Object[] { new Character(')'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( ')', current );
                     break ident;
                 }
                 current = reader.read();
                 if (current != ')') {
-                    reportError("character.expected",
-                                new Object[] { new Character(')'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( ')', current );
                 }
                 break ident;
 
@@ -245,9 +232,7 @@ public class FragmentIdentifierParser extends NumberParser {
                 parseViewAttributes();
 
                 if (current != ')') {
-                    reportError("character.expected",
-                                new Object[] { new Character(')'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( ')', current );
                 }
                 break ident;
 
@@ -277,16 +262,15 @@ public class FragmentIdentifierParser extends NumberParser {
             case -1:
             case ')':
                 if (first) {
-                    reportError("character.unexpected",
-                                new Object[] { new Integer(current) });
+                    reportUnexpectedCharacterError( current );
                     break loop;
                 }
+                // fallthrough
             default:
                 break loop;
             case ';':
                 if (first) {
-                    reportError("character.unexpected",
-                                new Object[] { new Integer(current) });
+                    reportUnexpectedCharacterError( current );
                     break loop;
                 }
                 current = reader.read();
@@ -295,23 +279,17 @@ public class FragmentIdentifierParser extends NumberParser {
                 first = false;
                 current = reader.read();
                 if (current != 'i') {
-                    reportError("character.expected",
-                                new Object[] { new Character('i'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'i', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'e') {
-                    reportError("character.expected",
-                                new Object[] { new Character('e'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'e', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'w') {
-                    reportError("character.expected",
-                                new Object[] { new Character('w'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'w', current );
                     break loop;
                 }
                 current = reader.read();
@@ -320,67 +298,51 @@ public class FragmentIdentifierParser extends NumberParser {
                 case 'B':
                     current = reader.read();
                     if (current != 'o') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('o'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'o', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 'x') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('x'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'x', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != '(') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('('),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( '(', current );
                         break loop;
                     }
                     current = reader.read();
 
                     float x = parseFloat();
                     if (current != ',') {
-                        reportError("character.expected",
-                                    new Object[] { new Character(','),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( ',', current );
                         break loop;
                     }
                     current = reader.read();
-                    
+
                     float y = parseFloat();
                     if (current != ',') {
-                        reportError("character.expected",
-                                    new Object[] { new Character(','),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( ',', current );
                         break loop;
                     }
                     current = reader.read();
-                    
+
                     float w = parseFloat();
                     if (current != ',') {
-                        reportError("character.expected",
-                                    new Object[] { new Character(','),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( ',', current );
                         break loop;
                     }
                     current = reader.read();
-                    
+
                     float h = parseFloat();
                     if (current != ')') {
-                        reportError("character.expected",
-                                    new Object[] { new Character(')'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( ')', current );
                         break loop;
                     }
                     current = reader.read();
                     fragmentIdentifierHandler.viewBox(x, y, w, h);
                     if (current != ')' && current != ';') {
-                        reportError("character.expected",
-                                    new Object[] { new Character(')'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( ')', current );
                         break loop;
                     }
                     break;
@@ -388,44 +350,32 @@ public class FragmentIdentifierParser extends NumberParser {
                 case 'T':
                     current = reader.read();
                     if (current != 'a') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('a'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'a', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 'r') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('r'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'r', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 'g') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('g'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'g', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 'e') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('e'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'e', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 't') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('t'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 't', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != '(') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('('),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( '(', current );
                         break loop;
                     }
                     current = reader.read();
@@ -436,8 +386,7 @@ public class FragmentIdentifierParser extends NumberParser {
                         bufferSize = 0;
                         if (current == -1 ||
                             !XMLUtilities.isXMLNameFirstCharacter((char)current)) {
-                            reportError("character.unexpected",
-                                        new Object[] { new Integer(current) });
+                            reportUnexpectedCharacterError( current );
                             break loop;
                         }
                         bufferize();
@@ -457,8 +406,7 @@ public class FragmentIdentifierParser extends NumberParser {
                             current = reader.read();
                             break;
                         default:
-                            reportError("character.unexpected",
-                                        new Object[] { new Integer(current) });
+                            reportUnexpectedCharacterError( current );
                             break loop;
                         }
                     }
@@ -467,8 +415,7 @@ public class FragmentIdentifierParser extends NumberParser {
                     break;
 
                 default:
-                    reportError("character.unexpected",
-                                new Object[] { new Integer(current) });
+                    reportUnexpectedCharacterError( current );
                     break loop;
                 }
                 break;
@@ -476,135 +423,97 @@ public class FragmentIdentifierParser extends NumberParser {
                 first = false;
                 current = reader.read();
                 if (current != 'r') {
-                    reportError("character.expected",
-                                new Object[] { new Character('r'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'r', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'e') {
-                    reportError("character.expected",
-                                new Object[] { new Character('e'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'e', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 's') {
-                    reportError("character.expected",
-                                new Object[] { new Character('s'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 's', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'e') {
-                    reportError("character.expected",
-                                new Object[] { new Character('e'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'e', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'r') {
-                    reportError("character.expected",
-                                new Object[] { new Character('r'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'r', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'v') {
-                    reportError("character.expected",
-                                new Object[] { new Character('v'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'v', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'e') {
-                    reportError("character.expected",
-                                new Object[] { new Character('e'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'e', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'A') {
-                    reportError("character.expected",
-                                new Object[] { new Character('A'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'A', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 's') {
-                    reportError("character.expected",
-                                new Object[] { new Character('s'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 's', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'p') {
-                    reportError("character.expected",
-                                new Object[] { new Character('p'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'p', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'e') {
-                    reportError("character.expected",
-                                new Object[] { new Character('e'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'e', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'c') {
-                    reportError("character.expected",
-                                new Object[] { new Character('c'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'c', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 't') {
-                    reportError("character.expected",
-                                new Object[] { new Character('t'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 't', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'R') {
-                    reportError("character.expected",
-                                new Object[] { new Character('R'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'R', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'a') {
-                    reportError("character.expected",
-                                new Object[] { new Character('a'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'a', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 't') {
-                    reportError("character.expected",
-                                new Object[] { new Character('t'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 't', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'i') {
-                    reportError("character.expected",
-                                new Object[] { new Character('i'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'i', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'o') {
-                    reportError("character.expected",
-                                new Object[] { new Character('o'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'o', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != '(') {
-                    reportError("character.expected",
-                                new Object[] { new Character('('),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( '(', current );
                     break loop;
                 }
                 current = reader.read();
@@ -612,9 +521,7 @@ public class FragmentIdentifierParser extends NumberParser {
                 parsePreserveAspectRatio();
 
                 if (current != ')') {
-                    reportError("character.expected",
-                                new Object[] { new Character(')'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( ')', current );
                     break loop;
                 }
                 current = reader.read();
@@ -624,65 +531,47 @@ public class FragmentIdentifierParser extends NumberParser {
                 first = false;
                 current = reader.read();
                 if (current != 'r') {
-                    reportError("character.expected",
-                                new Object[] { new Character('r'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'r', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'a') {
-                    reportError("character.expected",
-                                new Object[] { new Character('a'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'a', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'n') {
-                    reportError("character.expected",
-                                new Object[] { new Character('n'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'n', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 's') {
-                    reportError("character.expected",
-                                new Object[] { new Character('s'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 's', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'f') {
-                    reportError("character.expected",
-                                new Object[] { new Character('f'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'f', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'o') {
-                    reportError("character.expected",
-                                new Object[] { new Character('o'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'o', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'r') {
-                    reportError("character.expected",
-                                new Object[] { new Character('r'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'r', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'm') {
-                    reportError("character.expected",
-                                new Object[] { new Character('m'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'm', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != '(') {
-                    reportError("character.expected",
-                                new Object[] { new Character('('),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( '(', current );
                     break loop;
                 }
 
@@ -713,9 +602,7 @@ public class FragmentIdentifierParser extends NumberParser {
                                 parseSkew();
                                 break;
                             default:
-                                reportError("character.unexpected",
-                                            new Object[] {
-                                                new Integer(current) });
+                                reportUnexpectedCharacterError( current );
                                 skipTransform();
                             }
                             break;
@@ -735,72 +622,52 @@ public class FragmentIdentifierParser extends NumberParser {
                 first = false;
                 current = reader.read();
                 if (current != 'o') {
-                    reportError("character.expected",
-                                new Object[] { new Character('o'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'o', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'o') {
-                    reportError("character.expected",
-                                new Object[] { new Character('o'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'o', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'm') {
-                    reportError("character.expected",
-                                new Object[] { new Character('m'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'm', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'A') {
-                    reportError("character.expected",
-                                new Object[] { new Character('A'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'A', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'n') {
-                    reportError("character.expected",
-                                new Object[] { new Character('n'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'n', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'd') {
-                    reportError("character.expected",
-                                new Object[] { new Character('d'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'd', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'P') {
-                    reportError("character.expected",
-                                new Object[] { new Character('P'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'P', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'a') {
-                    reportError("character.expected",
-                                new Object[] { new Character('a'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'a', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != 'n') {
-                    reportError("character.expected",
-                                new Object[] { new Character('n'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'n', current );
                     break loop;
                 }
                 current = reader.read();
                 if (current != '(') {
-                    reportError("character.expected",
-                                new Object[] { new Character('('),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( '(', current );
                     break loop;
                 }
                 current = reader.read();
@@ -809,44 +676,32 @@ public class FragmentIdentifierParser extends NumberParser {
                 case 'm':
                     current = reader.read();
                     if (current != 'a') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('a'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'a', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 'g') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('g'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'g', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 'n') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('n'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'n', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 'i') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('i'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'i', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 'f') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('f'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'f', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 'y') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('y'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'y', current );
                         break loop;
                     }
                     current = reader.read();
@@ -856,44 +711,32 @@ public class FragmentIdentifierParser extends NumberParser {
                 case 'd':
                     current = reader.read();
                     if (current != 'i') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('i'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'i', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 's') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('s'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 's', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 'a') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('a'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'a', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 'b') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('b'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'b', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 'l') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('l'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'l', current );
                         break loop;
                     }
                     current = reader.read();
                     if (current != 'e') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('e'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'e', current );
                         break loop;
                     }
                     current = reader.read();
@@ -901,15 +744,12 @@ public class FragmentIdentifierParser extends NumberParser {
                     break;
 
                 default:
-                    reportError("character.unexpected",
-                                new Object[] { new Integer(current) });
+                    reportUnexpectedCharacterError( current );
                     break loop;
                 }
 
                 if (current != ')') {
-                    reportError("character.expected",
-                                new Object[] { new Character(')'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( ')', current );
                     break loop;
                 }
                 current = reader.read();
@@ -940,13 +780,12 @@ public class FragmentIdentifierParser extends NumberParser {
 
     /**
      * Adds the current character to the buffer.
+     * If necessary, the buffer grows.
      */
     protected void bufferize() {
         if (bufferSize >= buffer.length) {
             char[] t = new char[buffer.length * 2];
-            for (int i = 0; i < bufferSize; i++) {
-                t[i] = buffer[i];
-            }
+            System.arraycopy( buffer, 0, t, 0, bufferSize );
             buffer = t;
         }
         buffer[bufferSize++] = (char)current;
@@ -978,50 +817,38 @@ public class FragmentIdentifierParser extends NumberParser {
 
         // Parse 'atrix wsp? ( wsp?'
         if (current != 'a') {
-            reportError("character.expected",
-                        new Object[] { new Character('a'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'a', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 't') {
-            reportError("character.expected",
-                        new Object[] { new Character('t'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 't', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 'r') {
-            reportError("character.expected",
-                        new Object[] { new Character('r'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'r', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 'i') {
-            reportError("character.expected",
-                        new Object[] { new Character('i'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'i', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 'x') {
-            reportError("character.expected",
-                        new Object[] { new Character('x'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'x', current );
             skipTransform();
             return;
         }
         current = reader.read();
         skipSpaces();
         if (current != '(') {
-            reportError("character.expected",
-                        new Object[] { new Character('('),
-                                       new Integer(current) });
+            reportCharacterExpectedError( '(', current );
             skipTransform();
             return;
         }
@@ -1039,12 +866,10 @@ public class FragmentIdentifierParser extends NumberParser {
         float e = parseFloat();
         skipCommaSpaces();
         float f = parseFloat();
-        
+
         skipSpaces();
         if (current != ')') {
-            reportError("character.expected",
-                        new Object[] { new Character(')'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( ')', current );
             skipTransform();
             return;
         }
@@ -1060,41 +885,31 @@ public class FragmentIdentifierParser extends NumberParser {
 
         // Parse 'otate wsp? ( wsp?'
         if (current != 'o') {
-            reportError("character.expected",
-                        new Object[] { new Character('o'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'o', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 't') {
-            reportError("character.expected",
-                        new Object[] { new Character('t'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 't', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 'a') {
-            reportError("character.expected",
-                        new Object[] { new Character('a'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'a', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 't') {
-            reportError("character.expected",
-                        new Object[] { new Character('t'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 't', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 'e') {
-            reportError("character.expected",
-                        new Object[] { new Character('e'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'e', current );
             skipTransform();
             return;
         }
@@ -1102,9 +917,7 @@ public class FragmentIdentifierParser extends NumberParser {
         skipSpaces();
 
         if (current != '(') {
-            reportError("character.expected",
-                        new Object[] { new Character('('),
-                                       new Integer(current) });
+            reportCharacterExpectedError( '(', current );
             skipTransform();
             return;
         }
@@ -1122,16 +935,14 @@ public class FragmentIdentifierParser extends NumberParser {
             current = reader.read();
             skipSpaces();
         }
-        
+
         float cx = parseFloat();
         skipCommaSpaces();
         float cy = parseFloat();
 
         skipSpaces();
         if (current != ')') {
-            reportError("character.expected",
-                        new Object[] { new Character(')'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( ')', current );
             skipTransform();
             return;
         }
@@ -1148,74 +959,56 @@ public class FragmentIdentifierParser extends NumberParser {
 
         // Parse 'ranslate wsp? ( wsp?'
         if (current != 'r') {
-            reportError("character.expected",
-                        new Object[] { new Character('r'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'r', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 'a') {
-            reportError("character.expected",
-                        new Object[] { new Character('a'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'a', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 'n') {
-            reportError("character.expected",
-                        new Object[] { new Character('n'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'n', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 's') {
-            reportError("character.expected",
-                        new Object[] { new Character('s'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 's', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 'l') {
-            reportError("character.expected",
-                        new Object[] { new Character('l'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'l', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 'a') {
-            reportError("character.expected",
-                        new Object[] { new Character('a'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'a', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 't') {
-            reportError("character.expected",
-                        new Object[] { new Character('t'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 't', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 'e') {
-            reportError("character.expected",
-                        new Object[] { new Character('e'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'e', current );
             skipTransform();
             return;
         }
         current = reader.read();
         skipSpaces();
         if (current != '(') {
-            reportError("character.expected",
-                        new Object[] { new Character('('),
-                                       new Integer(current) });
+            reportCharacterExpectedError( '(', current );
             skipTransform();
             return;
         }
@@ -1238,9 +1031,7 @@ public class FragmentIdentifierParser extends NumberParser {
 
         skipSpaces();
         if (current != ')') {
-            reportError("character.expected",
-                        new Object[] { new Character(')'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( ')', current );
             skipTransform();
             return;
         }
@@ -1256,34 +1047,26 @@ public class FragmentIdentifierParser extends NumberParser {
 
         // Parse 'ale wsp? ( wsp?'
         if (current != 'a') {
-            reportError("character.expected",
-                        new Object[] { new Character('a'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'a', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 'l') {
-            reportError("character.expected",
-                        new Object[] { new Character('l'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'l', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 'e') {
-            reportError("character.expected",
-                        new Object[] { new Character('e'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'e', current );
             skipTransform();
             return;
         }
         current = reader.read();
         skipSpaces();
         if (current != '(') {
-            reportError("character.expected",
-                        new Object[] { new Character('('),
-                                       new Integer(current) });
+            reportCharacterExpectedError( '(', current );
             skipTransform();
             return;
         }
@@ -1306,9 +1089,7 @@ public class FragmentIdentifierParser extends NumberParser {
 
         skipSpaces();
         if (current != ')') {
-            reportError("character.expected",
-                        new Object[] { new Character(')'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( ')', current );
             skipTransform();
             return;
         }
@@ -1324,17 +1105,13 @@ public class FragmentIdentifierParser extends NumberParser {
 
         // Parse 'ew[XY] wsp? ( wsp?'
         if (current != 'e') {
-            reportError("character.expected",
-                        new Object[] { new Character('e'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'e', current );
             skipTransform();
             return;
         }
         current = reader.read();
         if (current != 'w') {
-            reportError("character.expected",
-                        new Object[] { new Character('w'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'w', current );
             skipTransform();
             return;
         }
@@ -1344,21 +1121,18 @@ public class FragmentIdentifierParser extends NumberParser {
         switch (current) {
         case 'X':
             skewX = true;
+            // fall-through
         case 'Y':
             break;
         default:
-            reportError("character.expected",
-                        new Object[] { new Character('X'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( 'X', current );
             skipTransform();
             return;
         }
         current = reader.read();
         skipSpaces();
         if (current != '(') {
-            reportError("character.expected",
-                        new Object[] { new Character('('),
-                                       new Integer(current) });
+            reportCharacterExpectedError( '(', current );
             skipTransform();
             return;
         }
@@ -1369,9 +1143,7 @@ public class FragmentIdentifierParser extends NumberParser {
 
         skipSpaces();
         if (current != ')') {
-            reportError("character.expected",
-                        new Object[] { new Character(')'),
-                                       new Integer(current) });
+            reportCharacterExpectedError( ')', current );
             skipTransform();
             return;
         }
@@ -1411,25 +1183,19 @@ public class FragmentIdentifierParser extends NumberParser {
         case 'n':
             current = reader.read();
             if (current != 'o') {
-                reportError("character.expected",
-                            new Object[] { new Character('o'),
-                                           new Integer(current) });
+                reportCharacterExpectedError( 'o', current );
                 skipIdentifier();
                 break align;
             }
             current = reader.read();
             if (current != 'n') {
-                reportError("character.expected",
-                            new Object[] { new Character('n'),
-                                           new Integer(current) });
+                reportCharacterExpectedError( 'n', current );
                 skipIdentifier();
                 break align;
             }
             current = reader.read();
             if (current != 'e') {
-                reportError("character.expected",
-                            new Object[] { new Character('e'),
-                                           new Integer(current) });
+                reportCharacterExpectedError( 'e', current );
                 skipIdentifier();
                 break align;
             }
@@ -1437,13 +1203,11 @@ public class FragmentIdentifierParser extends NumberParser {
             skipSpaces();
             fragmentIdentifierHandler.none();
             break;
-                
+
         case 'x':
             current = reader.read();
             if (current != 'M') {
-                reportError("character.expected",
-                            new Object[] { new Character('M'),
-                                           new Integer(current) });
+                reportCharacterExpectedError( 'M', current );
                 skipIdentifier();
                 break;
             }
@@ -1452,25 +1216,19 @@ public class FragmentIdentifierParser extends NumberParser {
             case 'a':
                 current = reader.read();
                 if (current != 'x') {
-                    reportError("character.expected",
-                                new Object[] { new Character('x'),
-                                                 new Integer(current) });
+                    reportCharacterExpectedError( 'x', current );
                     skipIdentifier();
                     break align;
                 }
                 current = reader.read();
                 if (current != 'Y') {
-                    reportError("character.expected",
-                                new Object[] { new Character('Y'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'Y', current );
                     skipIdentifier();
                     break align;
                 }
                 current = reader.read();
                 if (current != 'M') {
-                    reportError("character.expected",
-                                new Object[] { new Character('M'),
-                                               new Integer(current) });
+                    reportCharacterExpectedError( 'M', current );
                     skipIdentifier();
                     break align;
                 }
@@ -1479,9 +1237,7 @@ public class FragmentIdentifierParser extends NumberParser {
                 case 'a':
                     current = reader.read();
                     if (current != 'x') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('x'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'x', current );
                         skipIdentifier();
                         break align;
                     }
@@ -1500,8 +1256,7 @@ public class FragmentIdentifierParser extends NumberParser {
                         current = reader.read();
                         break;
                     default:
-                        reportError("character.unexpected",
-                                    new Object[] { new Integer(current) });
+                        reportUnexpectedCharacterError( current );
                         skipIdentifier();
                         break align;
                     }
@@ -1513,17 +1268,13 @@ public class FragmentIdentifierParser extends NumberParser {
                 case 'd':
                     current = reader.read();
                     if (current != 'Y') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('Y'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'Y', current );
                         skipIdentifier();
                         break align;
                     }
                     current = reader.read();
                     if (current != 'M') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('M'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'M', current );
                         skipIdentifier();
                         break align;
                     }
@@ -1532,10 +1283,7 @@ public class FragmentIdentifierParser extends NumberParser {
                     case 'a':
                         current = reader.read();
                         if (current != 'x') {
-                            reportError
-                                ("character.expected",
-                                 new Object[] { new Character('x'),
-                                                    new Integer(current) });
+                            reportCharacterExpectedError( 'x', current );
                             skipIdentifier();
                             break align;
                         }
@@ -1554,8 +1302,7 @@ public class FragmentIdentifierParser extends NumberParser {
                             current = reader.read();
                             break;
                         default:
-                            reportError("character.unexpected",
-                                        new Object[] { new Integer(current) });
+                            reportUnexpectedCharacterError( current );
                             skipIdentifier();
                             break align;
                         }
@@ -1564,17 +1311,13 @@ public class FragmentIdentifierParser extends NumberParser {
                 case 'n':
                     current = reader.read();
                     if (current != 'Y') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('Y'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'Y', current );
                         skipIdentifier();
                         break align;
                     }
                     current = reader.read();
                     if (current != 'M') {
-                        reportError("character.expected",
-                                    new Object[] { new Character('M'),
-                                                   new Integer(current) });
+                        reportCharacterExpectedError( 'M', current );
                         skipIdentifier();
                         break align;
                     }
@@ -1583,10 +1326,7 @@ public class FragmentIdentifierParser extends NumberParser {
                     case 'a':
                         current = reader.read();
                         if (current != 'x') {
-                            reportError
-                                ("character.expected",
-                                 new Object[] { new Character('x'),
-                                                new Integer(current) });
+                            reportCharacterExpectedError( 'x', current );
                             skipIdentifier();
                             break align;
                         }
@@ -1605,31 +1345,26 @@ public class FragmentIdentifierParser extends NumberParser {
                             current = reader.read();
                             break;
                         default:
-                            reportError
-                                ("character.unexpected",
-                                 new Object[] { new Integer(current) });
+                            reportUnexpectedCharacterError( current );
                             skipIdentifier();
                             break align;
                         }
                     }
                     break;
                 default:
-                    reportError("character.unexpected",
-                                new Object[] { new Integer(current) });
+                    reportUnexpectedCharacterError( current );
                     skipIdentifier();
                     break align;
                 }
                 break;
             default:
-                reportError("character.unexpected",
-                            new Object[] { new Integer(current) });
+                reportUnexpectedCharacterError( current );
                 skipIdentifier();
             }
             break;
         default:
             if (current != -1) {
-                reportError("character.unexpected",
-                            new Object[] { new Integer(current) });
+                reportUnexpectedCharacterError( current );
                 skipIdentifier();
             }
         }
@@ -1640,25 +1375,19 @@ public class FragmentIdentifierParser extends NumberParser {
         case 'm':
             current = reader.read();
             if (current != 'e') {
-                reportError("character.expected",
-                            new Object[] { new Character('e'),
-                                           new Integer(current) });
+                reportCharacterExpectedError( 'e', current );
                 skipIdentifier();
                 break;
             }
             current = reader.read();
             if (current != 'e') {
-                reportError("character.expected",
-                            new Object[] { new Character('e'),
-                                            new Integer(current) });
+                reportCharacterExpectedError( 'e', current );
                 skipIdentifier();
                 break;
             }
             current = reader.read();
             if (current != 't') {
-                reportError("character.expected",
-                            new Object[] { new Character('t'),
-                                           new Integer(current) });
+                reportCharacterExpectedError( 't', current );
                 skipIdentifier();
                 break;
             }
@@ -1668,33 +1397,25 @@ public class FragmentIdentifierParser extends NumberParser {
         case 's':
             current = reader.read();
             if (current != 'l') {
-                reportError("character.expected",
-                            new Object[] { new Character('l'),
-                                           new Integer(current) });
+                reportCharacterExpectedError( 'l', current );
                 skipIdentifier();
                 break;
             }
             current = reader.read();
             if (current != 'i') {
-                reportError("character.expected",
-                            new Object[] { new Character('i'),
-                                           new Integer(current) });
+                reportCharacterExpectedError( 'i', current );
                 skipIdentifier();
                 break;
             }
             current = reader.read();
             if (current != 'c') {
-                reportError("character.expected",
-                            new Object[] { new Character('c'),
-                                           new Integer(current) });
+                reportCharacterExpectedError( 'c', current );
                 skipIdentifier();
                 break;
             }
             current = reader.read();
             if (current != 'e') {
-                reportError("character.expected",
-                            new Object[] { new Character('e'),
-                                           new Integer(current) });
+                reportCharacterExpectedError( 'e', current );
                 skipIdentifier();
                 break;
             }
@@ -1719,4 +1440,5 @@ public class FragmentIdentifierParser extends NumberParser {
           }
       }
     }
+
 }

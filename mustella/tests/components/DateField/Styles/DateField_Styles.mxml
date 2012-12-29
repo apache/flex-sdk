@@ -160,6 +160,7 @@
 			</setup>
 			<body>
 			    <DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df" />
+			    <WaitForLayoutManager />
 				<CompareBitmap target="df.dropdown" url="../Styles/baselines/selectionColor_0x_toplevel.png" />
 			</body>
 		</TestCase>
@@ -446,7 +447,7 @@
 			</setup>
 			<body>
 			    <DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df" />
-				<WaitForEffectsToEnd />
+			    <WaitForLayoutManager />
 				<CompareBitmap target="df.dropdown" url="../Styles/baselines/borderColor_dropDown_toplevel.png" timeout="5000" />
 				<AssertPixelValue x="2" y="2" target="df" value="0xFF0000" />
 			</body>

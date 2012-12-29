@@ -86,7 +86,7 @@
 -->
 
 <!-- width: DG width * num columns of DGs + width of space between DGs.  Same idea for height. -->
-<mx:ViewStack id="vs" selectedIndex="{ns.value}" x="0" y="0" width="620" height="460" >
+<mx:ViewStack id="vs" selectedIndex="{ns.value}" x="0" y="0" width="620" height="560" >
 
     <!--=========================================================
     Basic lockedRowCount tests, default lockedRowCount.

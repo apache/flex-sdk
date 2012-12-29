@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,11 +18,9 @@
  */
 package org.apache.flex.forks.batik.bridge;
 
+import java.awt.Color;
 import java.awt.geom.Rectangle2D;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +31,10 @@ import org.apache.flex.forks.batik.ext.awt.image.PadMode;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.Filter;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.FilterChainRable;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.FilterChainRable8Bit;
+import org.apache.flex.forks.batik.ext.awt.image.renderable.FloodRable8Bit;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.PadRable8Bit;
 import org.apache.flex.forks.batik.gvt.GraphicsNode;
+import org.apache.flex.forks.batik.util.ParsedURL;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -41,10 +42,15 @@ import org.w3c.dom.Node;
  * Bridge class for the &lt;filter> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGFilterElementBridge.java,v 1.20 2004/11/18 01:46:53 deweese Exp $
+ * @version $Id: SVGFilterElementBridge.java 579230 2007-09-25 12:52:48Z cam $
  */
-public class SVGFilterElementBridge extends AbstractSVGBridge
-    implements FilterBridge, ErrorConstants {
+public class SVGFilterElementBridge extends AnimatableGenericSVGBridge
+        implements FilterBridge, ErrorConstants {
+
+    /**
+     * Transparent black color.
+     */
+    protected static final Color TRANSPARENT_BLACK = new Color(0, true);
 
     /**
      * Constructs a new bridge for the &lt;filter> element.
@@ -74,11 +80,14 @@ public class SVGFilterElementBridge extends AbstractSVGBridge
         // get filter chain region
         Rectangle2D filterRegion = SVGUtilities.convertFilterChainRegion
             (filterElement, filteredElement, filteredNode, ctx);
+        if (filterRegion == null) {
+            return null;
+        }
 
         // make the initial source as a RenderableImage
         Filter sourceGraphic = filteredNode.getGraphicsNodeRable(true);
         // Pad out to filterRegion
-        sourceGraphic = new PadRable8Bit(sourceGraphic, filterRegion, 
+        sourceGraphic = new PadRable8Bit(sourceGraphic, filterRegion,
                                          PadMode.ZERO_PAD);
 
         // build a FilterChainRable8Bit
@@ -103,12 +112,37 @@ public class SVGFilterElementBridge extends AbstractSVGBridge
                                           sourceGraphic,
                                           filterNodeMap,
                                           ctx);
-        if ((in == null) || (in == sourceGraphic)) {
-            return null; // no filter primitives found, disable the filter.
-        } else {
-            filterChain.setSource(in);
-            return filterChain;
+        if (in == null) {
+            // error in one of the primitives, disable the filter
+            return null;
+        } else if (in == sourceGraphic) {
+            // no filter primitive found, so output transparent black
+            in = createEmptyFilter(filterElement, filterRegion, filteredElement,
+                                   filteredNode, ctx);
         }
+        filterChain.setSource(in);
+        return filterChain;
+    }
+
+    /**
+     * Creates a new returns a new filter that fills its output with
+     * transparent black.  This is used when a &lt;filter&gt; element
+     * has no filter primitive children.
+     */
+    protected static Filter createEmptyFilter(Element filterElement,
+                                              Rectangle2D filterRegion,
+                                              Element filteredElement,
+                                              GraphicsNode filteredNode,
+                                              BridgeContext ctx) {
+        Rectangle2D primitiveRegion
+            = SVGUtilities.convertFilterPrimitiveRegion(null,
+                                                        filterElement,
+                                                        filteredElement,
+                                                        filteredNode,
+                                                        filterRegion,
+                                                        filterRegion,
+                                                        ctx);
+        return new FloodRable8Bit(primitiveRegion, TRANSPARENT_BLACK);
     }
 
     /**
@@ -153,17 +187,9 @@ public class SVGFilterElementBridge extends AbstractSVGBridge
             }
             // check if there is circular dependencies
             SVGOMDocument doc = (SVGOMDocument)filterElement.getOwnerDocument();
-            URL url;
-            try {
-                url = new URL(doc.getURLObject(), uri);
-            } catch (MalformedURLException ex) {
-                throw new BridgeException(filterElement,
-                                          ERR_URI_MALFORMED,
-                                          new Object[] {uri});
-
-            }
-            if (contains(refs, url)) {
-                throw new BridgeException(filterElement,
+            ParsedURL url = new ParsedURL(doc.getURLObject(), uri);
+            if (refs.contains(url)) {
+                throw new BridgeException(ctx, filterElement,
                                           ERR_XLINK_HREF_CIRCULAR_DEPENDENCIES,
                                           new Object[] {uri});
             }
@@ -222,22 +248,5 @@ public class SVGFilterElementBridge extends AbstractSVGBridge
             }
         }
         return in;
-    }
-
-    /**
-     * Returns true if the specified list of URLs contains the specified url.
-     *
-     * @param urls the list of URLs
-     * @param key the url to search for
-     */
-    private static boolean contains(List urls, URL key) {
-        Iterator iter = urls.iterator();
-        while (iter.hasNext()) {
-            URL url = (URL)iter.next();
-            if (url.sameFile(key) && url.getRef().equals(key.getRef())) {
-                return true;
-            }
-        }
-        return false;
     }
 }

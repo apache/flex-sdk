@@ -60,11 +60,11 @@
 		fontFamily: EmbeddedVerdana;
 		embedAsCFF: false;
 	}
-	
-    global{
-        fontFamily: EmbeddedVerdana;
-        fontAntiAliasType: normal;
-    }
+		
+	global{
+		fontFamily: EmbeddedVerdana;
+		fontAntiAliasType: normal;
+	}
 </mx:Style>
 
 <!-- 

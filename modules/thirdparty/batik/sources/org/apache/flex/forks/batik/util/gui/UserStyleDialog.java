@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,10 +19,7 @@
 
 package org.apache.flex.forks.batik.util.gui;
 
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
@@ -48,30 +46,30 @@ import javax.swing.event.ChangeListener;
 import org.apache.flex.forks.batik.util.gui.resource.ActionMap;
 import org.apache.flex.forks.batik.util.gui.resource.ButtonFactory;
 import org.apache.flex.forks.batik.util.gui.resource.MissingListenerException;
-import org.apache.flex.forks.batik.util.gui.resource.ResourceManager;
+import org.apache.flex.forks.batik.util.resources.ResourceManager;
 
 /**
  * This class represents a dialog to select the user style sheet.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: UserStyleDialog.java,v 1.7 2004/10/30 18:38:06 deweese Exp $
+ * @version $Id: UserStyleDialog.java 592619 2007-11-07 05:47:24Z cam $
  */
 public class UserStyleDialog extends JDialog implements ActionMap {
 
     /**
      * The return value if 'OK' is chosen.
      */
-    public final static int OK_OPTION = 0;
+    public static final int OK_OPTION = 0;
 
     /**
      * The return value if 'Cancel' is chosen.
      */
-    public final static int CANCEL_OPTION = 1;
+    public static final int CANCEL_OPTION = 1;
 
     /**
      * The resource file name
      */
-    protected final static String RESOURCES =
+    protected static final String RESOURCES =
         "org.apache.flex.forks.batik.util.gui.resources.UserStyleDialog";
 
     /**
@@ -116,7 +114,7 @@ public class UserStyleDialog extends JDialog implements ActionMap {
         listeners.put("CancelButtonAction",    new CancelButtonAction());
 
         getContentPane().add(panel = new Panel());
-        getContentPane().add("South", createButtonsPanel());
+        getContentPane().add( createButtonsPanel(), BorderLayout.SOUTH );
         pack();
     }
 
@@ -126,7 +124,7 @@ public class UserStyleDialog extends JDialog implements ActionMap {
      */
     public int showDialog() {
         pack();
-        show();
+        setVisible(true);
         return returnCode;
     }
 
@@ -252,7 +250,7 @@ public class UserStyleDialog extends JDialog implements ActionMap {
             ExtendedGridBagConstraints constraints =
                 new ExtendedGridBagConstraints();
             constraints.insets = new Insets(5, 5, 5, 5);
-            
+
             fileCheckBox =
                 new JCheckBox(resources.getString("PanelFileCheckBox.text"));
             fileCheckBox.addChangeListener(new FileCheckBoxChangeListener());
@@ -285,7 +283,7 @@ public class UserStyleDialog extends JDialog implements ActionMap {
             browseButton = bf.createJButton("PanelFileBrowseButton");
             this.add(browseButton, constraints);
             browseButton.addActionListener(new FileBrowseButtonAction());
-        
+
             fileLabel.setEnabled(false);
             fileTextField.setEnabled(false);
             browseButton.setEnabled(false);
@@ -302,7 +300,7 @@ public class UserStyleDialog extends JDialog implements ActionMap {
                 return null;
             }
         }
-        
+
         /**
          * Sets the current dialog path.
          */

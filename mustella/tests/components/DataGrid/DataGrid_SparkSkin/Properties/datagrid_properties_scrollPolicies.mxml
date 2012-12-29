@@ -155,7 +155,8 @@ vertical, becomes (un)needed: Change the data provider.
                 <RunCode code="FlexGlobals.topLevelApplication.dg1.dataProvider.removeItemAt(0)" waitTarget="dg1" waitEvent="updateComplete" />
                 <RunCode code="FlexGlobals.topLevelApplication.dg1.dataProvider.removeItemAt(0)" waitTarget="dg1" waitEvent="updateComplete" />
                 <AssertPropertyValue target="dg1.mx_internal:vScrollBar" propertyName="visible" value="true" />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/verticalScrollPolicy_notVisibleBitmapCalibration2.png" />
+                <CompareBitmap target="dg1" url="../Properties/Baselines/verticalScrollPolicy_notVisibleBitmapCalibration2.png" 
+							   numColorVariances="2" maxColorVariance="1"/>
             </body>
         </TestCase>
 

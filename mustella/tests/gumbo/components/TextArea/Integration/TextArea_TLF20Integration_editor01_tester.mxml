@@ -85,8 +85,8 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
-			</body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
+ 			</body>
 		</TestCase>
 		
 		<TestCase testID="TA_01_LSP_OUTSIDE_last_position" keywords="[TextArea, ordered, list, last item, listStyleType]" 
@@ -112,12 +112,10 @@
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -146,14 +144,10 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -193,13 +187,10 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -227,15 +218,11 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30">
-					<ConditionalValue os="mac"/>
-				</CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -261,7 +248,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -282,9 +269,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" >
-				    <ConditionalValue os="mac" />
-				</CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -308,7 +293,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -335,12 +320,10 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -369,11 +352,10 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -413,11 +395,10 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
-			</setup>
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+		    </setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -445,13 +426,11 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
 
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -497,11 +476,10 @@
 				
 				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 			
@@ -528,7 +506,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -552,9 +530,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" >
-				    <ConditionalValue os="mac" />
-				</CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -578,7 +554,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -604,12 +580,10 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput"/>
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -638,11 +612,10 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -682,11 +655,10 @@
 				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -716,13 +688,11 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -748,7 +718,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -771,9 +741,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" >
-				    <ConditionalValue os="mac" />
-				</CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -797,7 +765,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -824,12 +792,10 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -858,11 +824,10 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -886,27 +851,27 @@
 				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				
-				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 03" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				
-				<DispatchKeyEvent char="NEW ITEM 04" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 03" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 04" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<DispatchKeyEvent keys="[DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 05" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 05" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor"></CompareBitmap>
+				<!--CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"-->
 			</body>
 		</TestCase>
 		
@@ -935,12 +900,10 @@
 				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				
 				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		
@@ -984,11 +947,10 @@
 				
 				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
 				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
-				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
 			</setup>
 			<body>
 				
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="1"/>
 			</body>
 		</TestCase>
 		

@@ -73,8 +73,9 @@
 				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="center" />
 				<RunCode code="application.navigator.activeView.itemList.scroller.snapElement(14,false)" />
 				<RunCode code="application.navigator.stage.setOrientation(StageOrientation.ROTATED_RIGHT)" waitTarget="stage" waitEvent="orientationChange" timeout="6000"/>
+				<WaitForLayoutManager />
 				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
-				<AssertMethodValue method="value=ItemSnapping.getCenterInView(application.navigator.activeView.itemList.dataGroup) - 14" value="0" />
+				<AssertMethodValue method="value=ItemSnapping.getCenterInView(application.navigator.activeView.itemList.dataGroup) - 14" value="-2" />
 			</body>
 		</TestCase>
 		
@@ -106,6 +107,7 @@
 				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="trailingEdge" />
 				<RunCode code="application.navigator.activeView.itemList.ensureIndexIsVisible(12)" waitTarget="navigator.activeView.itemList.dataGroup" waitEvent="propertyChange"/>
 				<RunCode code="application.navigator.stage.setOrientation(StageOrientation.ROTATED_RIGHT)" waitTarget="stage" waitEvent="orientationChange" timeout="6000"/>
+				<WaitForLayoutManager />
 				<!-- ensure scroll position aligns with the starting of first element in view -->
 				<AssertMethodValue method="value=(application.navigator.activeView.itemList.layout as VerticalLayout).fractionOfElementInView((application.navigator.activeView.itemList.layout as VerticalLayout).lastIndexInView)" value="1" /> 
 			</body>
@@ -151,6 +153,7 @@
 				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="trailingEdge" />
 				<RunCode code="application.navigator.activeView.itemList.ensureIndexIsVisible(12)" waitTarget="navigator.activeView.itemList.dataGroup" waitEvent="propertyChange"/>
 				<RunCode code="application.navigator.stage.setOrientation(StageOrientation.ROTATED_RIGHT)" waitTarget="stage" waitEvent="orientationChange" timeout="6000"/>
+				<WaitForLayoutManager />
 				<!-- ensure scroll position aligns with the starting of first element in view -->
 				<AssertMethodValue method="value=(application.navigator.activeView.itemList.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.itemList.layout as HorizontalLayout).lastIndexInView)" value="1" /> 
 			</body>
@@ -222,6 +225,7 @@
 				<!-- use delta to index insted -->
 				<SimulateMouseGesture target="navigator.activeView.imageScroller" valueExpression="value=application.mouseSequences.throw_large_right" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />
 				<RunCode code="application.navigator.stage.setOrientation(StageOrientation.ROTATED_RIGHT)" waitTarget="stage" waitEvent="orientationChange" timeout="6000"/>
+				<WaitForLayoutManager />
 				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
 				<AssertMethodValue method="value=ItemSnapping.isTrailing(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
 				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).lastIndexInView)" value="1" /> 
@@ -244,6 +248,7 @@
 				<!-- use delta to index insted -->
 				<SimulateMouseGesture target="navigator.activeView.imageScroller" dragXFrom="60%" dragXTo="0" dragYFrom="100" dragYTo="100" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd"/>			
 				<RunCode code="application.navigator.stage.setOrientation(StageOrientation.ROTATED_RIGHT)" waitTarget="stage" waitEvent="orientationChange" timeout="6000"/>
+				<WaitForLayoutManager />
 				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
 				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).lastIndexInView)" value="1" /> 
 				<!-- Max allowable transition for a page change based on item width -->
@@ -312,6 +317,7 @@
 				<!-- use delta to index insted -->
 				<SimulateMouseGesture target="navigator.activeView.imageScroller" valueExpression="value=application.mouseSequences.throw_large_right" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />
 				<RunCode code="application.navigator.stage.setOrientation(StageOrientation.ROTATED_RIGHT)" waitTarget="stage" waitEvent="orientationChange" timeout="6000"/>
+				<WaitForLayoutManager />
 				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
 				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).firstIndexInView)" value="1" /> 
 				<!-- Max allowable transition for a page change based on item width -->
@@ -335,6 +341,7 @@
 				<!-- use delta to index insted -->
 				<SimulateMouseGesture target="navigator.activeView.imageScroller" dragXFrom="60%" dragXTo="0" dragYFrom="100" dragYTo="100" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd"/>			
 				<RunCode code="application.navigator.stage.setOrientation(StageOrientation.ROTATED_RIGHT)" waitTarget="stage" waitEvent="orientationChange" timeout="6000"/>
+				<WaitForLayoutManager />
 				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
 				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).firstIndexInView)" value="1" /> 
 				<!-- Max allowable transition for a page change based on item width -->

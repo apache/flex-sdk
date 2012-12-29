@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -15,6 +16,7 @@
    limitations under the License.
 
 */
+
 package org.apache.flex.forks.batik.transcoder.wmf.tosvg;
 
 import java.awt.Dimension;
@@ -24,51 +26,70 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
-import org.apache.flex.forks.batik.dom.svg.SVGDOMImplementation;
 import org.apache.flex.forks.batik.svggen.SVGGraphics2D;
-import org.apache.flex.forks.batik.transcoder.AbstractTranscoder;
+import org.apache.flex.forks.batik.transcoder.ToSVGAbstractTranscoder;
 import org.apache.flex.forks.batik.transcoder.TranscoderException;
 import org.apache.flex.forks.batik.transcoder.TranscoderInput;
 import org.apache.flex.forks.batik.transcoder.TranscoderOutput;
-import org.apache.flex.forks.batik.util.SVGConstants;
-import org.w3c.dom.DOMImplementation;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.XMLFilter;
 
-
-/**
- * This class implements the <tt>Transcoder</tt> interface and
- * can convert a WMF input document into an SVG document.
+/** This class implements the <tt>Transcoder</tt> interface and
+ *  can convert a WMF input document into an SVG document.
+ *  <p>This class is copied from
+ *  batik org.apache.flex.forks.batik.transcoder.wmf.tosvg.WMFTranscoder class.</p>
+ *  <p>It can use <tt>TranscoderInput</tt> that are either a URI
+ *  or a <tt>InputStream</tt> or a <tt>Reader</tt>. The
+ *  <tt>XMLReader</tt> and <tt>Document</tt> <tt>TranscoderInput</tt>
+ *  types are not supported.</p>
  *
- * It can use <tt>TranscoderInput</tt> that are either a URI
- * or a <tt>InputStream</tt> or a <tt>Reader</tt>. The
- * <tt>XMLReader</tt> and <tt>Document</tt> <tt>TranscoderInput</tt>
- * types are not supported.
+ *  <p>This transcoder can use <tt>TranscoderOutputs</tt> that are
+ *  of any type except the <tt>XMLFilter</tt> type.</p>
  *
- * This transcoder can use <tt>TranscoderOutputs</tt> that are
- * of any type except the <tt>XMLFilter</tt> type.
+ *  <p>Corrected bugs from the original class:</p>
+ *  <ul>
+ *  <li> Manage images size</li>
+ *  </ul>
+ *  <p>Exemple of use :</p>
+ *  <pre>
+ *    WMFTranscoder transcoder = new WMFTranscoder();
+ *    try {
+ *       TranscoderInput wmf = new TranscoderInput(wmffile.toURL().toString());
+ *       FileOutputStream fos = new FileOutputStream(svgFile);
+ *       TranscoderOutput svg =
+ *           new TranscoderOutput(new OutputStreamWriter(fos, "UTF-8"));
+ *       transcoder.transcode(wmf, svg);
+ *    } catch (MalformedURLException e){
+ *       throw new TranscoderException(e);
+ *    } catch (IOException e){
+ *       throw new TranscoderException(e);
+ *    }
+ *  </pre>
+ *  <p>Several transcoding hints are available for this transcoder :</p>
+ *  <ul>
+ *  <li>KEY_INPUT_WIDTH, KEY_INPUT_HEIGHT, KEY_XOFFSET, KEY_YOFFSET : this Integer values allows to
+ *  set the  portion of the image to transcode, defined by the width, height, and offset
+ *  of this portion in Metafile units.
+ *  </ul>
+ *  <pre>
+ *     transcoder.addTranscodingHint(FromWMFTranscoder.KEY_INPUT_WIDTH, new Integer(input_width));
+ *  </pre>
+ *  </li>
+ *  <li>KEY_WIDTH, KEY_HEIGHT : this Float values allows to force the width and height of the output:
+ *  </ul>
+ *  <pre>
+ *     transcoder.addTranscodingHint(FromWMFTranscoder.KEY_WIDTH, new Float(width));
+ *  </pre>
+ *  </li>
+ *  </ul>
  *
- * @version $Id: WMFTranscoder.java,v 1.7 2004/11/18 01:47:02 deweese Exp $
- * @author <a href="mailto:luano@asd.ie">Luan O'Carroll</a>
+ * @version $Id: WMFTranscoder.java 577540 2007-09-20 04:26:59Z cam $
  */
-public class WMFTranscoder extends AbstractTranscoder
-    implements SVGConstants{
-
-    /**
-     * Error codes for the WMFTranscoder
-     */
-    public static final int WMF_TRANSCODER_ERROR_BASE = 0xff00;
-    public static final int ERROR_NULL_INPUT = WMF_TRANSCODER_ERROR_BASE + 0;
-    public static final int ERROR_INCOMPATIBLE_INPUT_TYPE = WMF_TRANSCODER_ERROR_BASE + 1;
-    public static final int ERROR_INCOMPATIBLE_OUTPUT_TYPE = WMF_TRANSCODER_ERROR_BASE + 2;
+public class WMFTranscoder extends ToSVGAbstractTranscoder {
 
     /**
      * Default constructor
@@ -93,107 +114,88 @@ public class WMFTranscoder extends AbstractTranscoder
         // Build a RecordStore from the input
         //
         WMFRecordStore currentStore = new WMFRecordStore();
-        try{
+        try {
             currentStore.read(is);
-        }catch(IOException e){
+        } catch (IOException e){
             handler.fatalError(new TranscoderException(e));
             return;
         }
 
-        //
+        // determines the width and height of output image
+        float wmfwidth; // width in pixels
+        float wmfheight; // height in pixels
+        float conv = 1.0f; // conversion factor
+
+        if (hints.containsKey(KEY_INPUT_WIDTH)) {
+            wmfwidth = ((Integer)hints.get(KEY_INPUT_WIDTH)).intValue();
+            wmfheight = ((Integer)hints.get(KEY_INPUT_HEIGHT)).intValue();
+        } else {
+            wmfwidth = currentStore.getWidthPixels();
+            wmfheight = currentStore.getHeightPixels();
+        }
+        float width = wmfwidth;
+        float height = wmfheight;
+
+        // change the output width and height if required
+        if (hints.containsKey(KEY_WIDTH)) {
+            width = ((Float)hints.get(KEY_WIDTH)).floatValue();
+            conv = width / wmfwidth;
+            height = height * width / wmfwidth;
+        }
+
+        // determine the offset values
+        int xOffset = 0;
+        int yOffset = 0;
+        if (hints.containsKey(KEY_XOFFSET)) {
+            xOffset = ((Integer)hints.get(KEY_XOFFSET)).intValue();
+        }
+        if (hints.containsKey(KEY_YOFFSET)) {
+            yOffset = ((Integer)hints.get(KEY_YOFFSET)).intValue();
+        }
+
+        // Set the size and viewBox on the output document
+        float sizeFactor = currentStore.getUnitsToPixels() * conv;
+
+        int vpX = (int)(currentStore.getVpX() * sizeFactor);
+        int vpY = (int)(currentStore.getVpY() * sizeFactor);
+
+        int vpW;
+        int vpH;
+        // if we took only a part of the image, we use its dimension for computing
+        if (hints.containsKey(KEY_INPUT_WIDTH)) {
+            vpW = (int)(((Integer)hints.get(KEY_INPUT_WIDTH)).intValue() * conv);
+            vpH = (int)(((Integer)hints.get(KEY_INPUT_HEIGHT)).intValue() * conv);
+        // else we took the whole image dimension
+        } else {
+            vpW = (int)(currentStore.getWidthUnits() * sizeFactor);
+            vpH = (int)(currentStore.getHeightUnits() * sizeFactor);
+        }
+
         // Build a painter for the RecordStore
-        //
-        WMFPainter painter = new WMFPainter(currentStore);
+        WMFPainter painter = new WMFPainter(currentStore, xOffset, yOffset, conv);
 
-        //
         // Use SVGGraphics2D to generate SVG content
-        //
-        DOMImplementation domImpl
-            = SVGDOMImplementation.getDOMImplementation();
+        Document doc = this.createDocument(output);
+        svgGenerator = new SVGGraphics2D(doc);
 
-        Document doc = domImpl.createDocument(SVG_NAMESPACE_URI,
-                                              SVG_SVG_TAG, null);
-
-        SVGGraphics2D svgGenerator = new SVGGraphics2D(doc);
+        /** set precision
+         ** otherwise Ellipses aren't working (for example) (because of Decimal format
+         * modifications ins SVGGenerator Context
+         */
+        svgGenerator.getGeneratorContext().setPrecision(4);
 
         painter.paint(svgGenerator);
 
-        //
-        // Set the size and viewBox on the output document
-        //
-        int vpX = currentStore.getVpX();
-        int vpY = currentStore.getVpY();
-        int vpW = currentStore.getVpW();
-        int vpH = currentStore.getVpH();
         svgGenerator.setSVGCanvasSize(new Dimension(vpW, vpH));
 
         Element svgRoot = svgGenerator.getRoot();
+
         svgRoot.setAttributeNS(null, SVG_VIEW_BOX_ATTRIBUTE,
-                               "" + vpX + " " + vpY + " " +
-                               vpW + " " + vpH );
+                                String.valueOf( vpX ) + ' ' + vpY + ' ' +
+                               vpW + ' ' + vpH );
 
-        //
         // Now, write the SVG content to the output
-        //
         writeSVGToOutput(svgGenerator, svgRoot, output);
-    }
-
-    /**
-     * Writes the SVG content held by the svgGenerator to the
-     * <tt>TranscoderOutput</tt>.
-     */
-    private void writeSVGToOutput(SVGGraphics2D svgGenerator,
-                                  Element svgRoot,
-                                  TranscoderOutput output)
-        throws TranscoderException {
-        // XMLFilter
-        XMLFilter xmlFilter = output.getXMLFilter();
-        if(xmlFilter != null){
-            handler.fatalError(new TranscoderException("" + ERROR_INCOMPATIBLE_OUTPUT_TYPE));
-        }
-
-        // <!> FIX ME: SHOULD HANDLE DOCUMENT INPUT
-        Document doc = output.getDocument();
-        if(doc != null){
-            handler.fatalError(new TranscoderException("" + ERROR_INCOMPATIBLE_OUTPUT_TYPE));
-        }
-
-        try{
-            // Output stream
-            OutputStream os = output.getOutputStream();
-            if( os != null ){
-                svgGenerator.stream(svgRoot, new OutputStreamWriter(os));
-                return;
-            }
-
-            // Writer
-            Writer wr = output.getWriter();
-            if( wr != null ){
-                svgGenerator.stream(svgRoot, wr);
-                return;
-            }
-
-            // URI
-            String uri = output.getURI();
-            if( uri != null ){
-                try{
-                    URL url = new URL(uri);
-                    URLConnection urlCnx = url.openConnection();
-                    os = urlCnx.getOutputStream();
-                    svgGenerator.stream(svgRoot, new OutputStreamWriter(os));
-                    return;
-                }catch(MalformedURLException e){
-                    handler.fatalError(new TranscoderException(e));
-                }catch(IOException e){
-                    handler.fatalError(new TranscoderException(e));
-                }
-            }
-        }catch(IOException e){
-            throw new TranscoderException(e);
-        }
-
-        throw new TranscoderException("" + ERROR_INCOMPATIBLE_OUTPUT_TYPE);
-
     }
 
     /**
@@ -203,38 +205,33 @@ public class WMFTranscoder extends AbstractTranscoder
     private DataInputStream getCompatibleInput(TranscoderInput input)
         throws TranscoderException {
         // Cannot deal with null input
-        if(input == null){
-            handler.fatalError(new TranscoderException("" + ERROR_NULL_INPUT));
+        if (input == null){
+            handler.fatalError(new TranscoderException( String.valueOf( ERROR_NULL_INPUT ) ));
         }
 
         // Can deal with InputStream
         InputStream in = input.getInputStream();
-        if(in != null){
+        if (in != null){
             return new DataInputStream(new BufferedInputStream(in));
         }
 
         // Can deal with URI
         String uri = input.getURI();
-        if(uri != null){
+        if (uri != null){
             try{
                 URL url = new URL(uri);
                 in = url.openStream();
                 return new DataInputStream(new BufferedInputStream(in));
-            }catch(MalformedURLException e){
+            } catch (MalformedURLException e){
                 handler.fatalError(new TranscoderException(e));
-            }catch(IOException e){
+            } catch (IOException e){
                 handler.fatalError(new TranscoderException(e));
             }
         }
 
-        handler.fatalError(new TranscoderException("" + ERROR_INCOMPATIBLE_INPUT_TYPE));
+        handler.fatalError(new TranscoderException( String.valueOf( ERROR_INCOMPATIBLE_INPUT_TYPE ) ));
         return null;
     }
-
-    public static final String USAGE = "The WMFTranscoder converts a WMF document into an SVG document. \n" +
-        "This simple application generates SVG documents that have the same name, but a where the .wmf extension \n" +
-        "is replaced with .svg. To run the application, type the following at the command line: \n" +
-        "java org.apache.flex.forks.batik.transcoder.wmf.tosvg.WMFTranscoder fileName [fileName]+";
 
     public static final String WMF_EXTENSION = ".wmf";
     public static final String SVG_EXTENSION = ".svg";
@@ -242,9 +239,9 @@ public class WMFTranscoder extends AbstractTranscoder
     /**
      * Unit testing : Illustrates how the transcoder might be used.
      */
-    public static void main(String args[]) throws TranscoderException {
+    public static void main(String[] args) throws TranscoderException {
         if(args.length < 1){
-            System.err.println(USAGE);
+            System.out.println("Usage : WMFTranscoder.main <file 1> ... <file n>");
             System.exit(1);
         }
 
@@ -261,7 +258,7 @@ public class WMFTranscoder extends AbstractTranscoder
                 String outputFileName = fileName.substring(0, fileName.toLowerCase().indexOf(WMF_EXTENSION)) + SVG_EXTENSION;
                 File inputFile = new File(fileName);
                 File outputFile = new File(outputFileName);
-                try{
+                try {
                     TranscoderInput input = new TranscoderInput(inputFile.toURL().toString());
                     TranscoderOutput output = new TranscoderOutput(new FileOutputStream(outputFile));
                     transcoder.transcode(input, output);

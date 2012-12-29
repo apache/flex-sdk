@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -35,7 +36,8 @@ import java.util.Vector;
  * It essentially ignores the dependency and dirty region methods.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: RenderedImageCachableRed.java,v 1.4 2004/08/18 07:14:08 vhardy Exp $ */
+ * @version $Id: RenderedImageCachableRed.java 478363 2006-11-22 23:01:13Z dvholten $
+ */
 public class RenderedImageCachableRed implements CachableRed {
 
     public static CachableRed wrap(RenderedImage ri) {
@@ -60,8 +62,8 @@ public class RenderedImageCachableRed implements CachableRed {
         return srcs; // should always be empty...
     }
 
-    public Rectangle getBounds() {
-        return new Rectangle(getMinX(),
+    public Rectangle getBounds() { 
+        return new Rectangle(getMinX(),    // could we cache the rectangle??
                              getMinY(),
                              getWidth(),
                              getHeight());

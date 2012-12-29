@@ -21,8 +21,8 @@
 
 # This script should be used to create an Apache Flex SDK that has the
 # directory structure that the Adobe Flash Builder IDE expects.  If this is a
-# source package, you must build the binaries first.  See the README at the root
-# for instructions.
+# source package, you must build the binaries and the RSLs first.  See the README at the 
+# root for instructions.
 #
 # The Adobe AIR SDK and the Adobe Flash Player playerglobal.swc are integrated
 # into the new directory structure.  The paths in the framework configuration files are 
@@ -38,7 +38,7 @@
 APACHE_FLEX_BIN_DIR="$( cd $( dirname -- "$0" ) > /dev/null ; pwd )"/../..
 
 # Adobe AIR SDK Version 3.1
-ADOBE_AIR_SDK_MAC_URL=http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2
+ADOBE_AIR_SDK_MAC_URL=http://airdownload.adobe.com/air/mac/download/3.4/AdobeAIRSDK.tbz2
 
 # Adobe Flash Player Version 11.1
 ADOBE_FLASHPLAYER_GLOBALPLAYER_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
@@ -57,6 +57,13 @@ fi
 if [ ! -f "${APACHE_FLEX_BIN_DIR}/lib/mxmlc.jar" ]
 then
     echo You must build the binaries for this SDK first.  See the README at the root.
+    exit 1;
+fi
+
+# quick check to see if the RSLs are there
+if [ ! -d "${APACHE_FLEX_BIN_DIR}/frameworks/rsls" ]
+then
+    echo You must build the RSLs for this SDK first.  See the README at the root.
     exit 1;
 fi
 

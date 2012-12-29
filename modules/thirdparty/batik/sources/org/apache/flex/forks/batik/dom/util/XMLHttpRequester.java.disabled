@@ -1,0 +1,947 @@
+/*
+
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+ */
+package org.apache.batik.dom.util;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.InterruptedIOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.batik.util.ParsedURL;
+import org.apache.batik.util.ParsedURLData;
+import org.apache.batik.util.ParsedURLDefaultProtocolHandler;
+
+import org.xml.sax.InputSource;
+
+import org.w3c.dom.Document;
+
+/**
+ * An implementation of the {@link XMLHttpRequest} interface, used for fetching
+ * resources from the network.
+ *
+ * @see <a href="http://www.w3.org/TR/XMLHttpRequest/">The XMLHttpRequest Object</a>
+ * @author <a href="mailto:cam%40mcc%2eid%2eau">Cameron McCormack</a>
+ * @version $Id$
+ */
+public class XMLHttpRequester implements XMLHttpRequest, NodeEventTarget {
+
+    /**
+     * The default resource bundle base name.
+     */
+    public static final String BUNDLE_CLASSNAME =
+        "org.apache.batik.parser.resources.Messages";
+
+    /**
+     * The localizable support.
+     */
+    protected LocalizableSupport localizableSupport =
+        new LocalizableSupport(BUNDLE_CLASSNAME,
+                               XMLHttpRequester.class.getClassLoader());
+
+    /**
+     * Bitfield of valid HTTP method character.
+     */
+    protected static long[] TOKEN_CHARS = {
+        0x00000000, 0x03ff6cfa, 0xc7fffffe, 0x57ffffff
+    };
+
+    /**
+     * Map of HTTP method names that must be converted to uppercase.
+     */
+    protected static Map CASE_FOLDING_METHODS = new HashMap();
+    static {
+        CASE_FOLDING_METHODS.add("GET");
+        CASE_FOLDING_METHODS.add("POST");
+        CASE_FOLDING_METHODS.add("HEAD");
+        CASE_FOLDING_METHODS.add("PUT");
+        CASE_FOLDING_METHODS.add("DELETE");
+        CASE_FOLDING_METHODS.add("OPTIONS");
+    }
+
+    /**
+     * Set of HTTP headers to ignore in {@link setRequestHeader}.
+     */
+    protected static Set IGNORED_HEADERS = new HashSet();
+    static {
+        IGNORED_HEADERS.add("accept-charset");
+        IGNORED_HEADERS.add("accept-encoding");
+        IGNORED_HEADERS.add("connection");
+        IGNORED_HEADERS.add("content-length");
+        IGNORED_HEADERS.add("content-transfer-encoding");
+        IGNORED_HEADERS.add("date");
+        IGNORED_HEADERS.add("expect");
+        IGNORED_HEADERS.add("host");
+        IGNORED_HEADERS.add("keep-alive");
+        IGNORED_HEADERS.add("referer");
+        IGNORED_HEADERS.add("te");
+        IGNORED_HEADERS.add("trailer");
+        IGNORED_HEADERS.add("transfer-encoding");
+        IGNORED_HEADERS.add("upgrade");
+        IGNORED_HEADERS.add("via ");
+    }
+
+    /**
+     * Strings corresponding to the five states.
+     */
+    protected static String[] READY_STATE_NAMES = {
+        "UNSENT", "OPENED", "HEADERS_RECEIVED", "LOADING", "DONE"
+    };
+
+//     // Constants for 'allowedOrigin'.
+//     public static final int ORIGIN_ANY = 0;
+//     public static final int ORIGIN_SAME_HOST = 1;
+// 
+//     /**
+//      * The allowed origin of resources to retrieve.  Must be one of the
+//      * ORIGIN_* constants defined in this class.  XXX currently ignored
+//      */
+//     protected int allowedOrigin;
+
+    /**
+     * The DocumentBuilder to use to parse XML documents.
+     */
+    protected DocumentBuilder documentBuilder;
+
+    /**
+     * The EventListener to be invoked when the <code>readyState</code>
+     * attribute has changed.
+     */
+    protected EventListener onreadystatechange;
+
+    /**
+     * The state of the request.  One of the constants defined on the
+     * {@link XMLHttpRequest} interface.
+     */
+    protected short readyState;
+
+    /**
+     * The base URL.
+     */
+    protected URL baseURL;
+
+    /**
+     * The URL.
+     */
+    protected ParsedURL purl;
+
+    /**
+     * The HTTP method to use.
+     */
+    protected String method;
+
+    /**
+     * Whether requests should be made asynchronously.
+     */
+    protected boolean async;
+    
+    /**
+     * Map of HTTP request headers to send.
+     */
+    protected Map requestHeaders = new HashMap();
+
+    /**
+     * The HTTP status code.
+     */
+    protected int status;
+
+    /**
+     * The HTTP status text.
+     */
+    protected String statusText;
+
+    /**
+     * The HTTP response headers.
+     */
+    protected Map responseHeaders;
+
+    /**
+     * The request response.
+     */
+    protected StringBuffer responseText;
+
+    /**
+     * The request response parsed as a {@link Document}.
+     */
+    protected Document responseXML;
+
+    /**
+     * The thread performing the request when in async mode.
+     */
+    protected Thread thread;
+
+    /**
+     * Event support object for managing listeners on this object.
+     */
+    protected EventSupport eventSupport = new EventSupport(null);
+
+    /**
+     * Creates a new XMLHttpRequester with no base URL for resolving
+     * relative URLs.
+     */
+    public XMLHttpRequester(//int allowedOrigin,
+                            DocumentBuilder documentBuilder) {
+        //this.allowedOrigin = allowedOrigin;
+        this.documentBuilder = documentBuilder;
+    }
+
+    /**
+     * Creates a new XMLHttpRequester with the given base URL for resolving
+     * relative URLs.
+     */
+    public XMLHttpRequester(/*int allowedOrigin,*/ String baseURL) {
+        //this.allowedOrigin = allowedOrigin;
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+        try {
+            this.documentBuilder = factory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+        }
+    }
+
+    /**
+     * Creates a new XMLHttpRequester with the given base URL for resolving
+     * relative URLs.
+     */
+    public XMLHttpRequester(/*int allowedOrigin,*/ DocumentBuilder documentBuilder,
+                            String baseURL) {
+        //this.allowedOrigin = allowedOrigin;
+        this.documentBuilder = documentBuilder;
+        try {
+            this.baseURL = new URL(baseURL);
+        } catch (MalformedURLException e) {
+        }
+    }
+
+    /**
+     * Returns the Runnable that will be invoked when the
+     * <code>readyState</code> attribute has changed.
+     */
+    public Runnable getOnreadystatechange() {
+        return onreadystatechange;
+    }
+
+    /**
+     * Sets the Runnable that will be invoked when the
+     * <code>readyState</code> attribute has changed.
+     */
+    public void setOnreadystatechange(EventListener l) {
+        onreadystatechange = l;
+    }
+
+    /**
+     * Returns the state of the request.
+     * @see #readyState
+     */
+    public short getReadyState() {
+        return readyState;
+    }
+
+    /**
+     * Returns the request response received so far.
+     */
+    public synchronized String getResponseText() {
+        if (readyState != LOADING && readyState != DONE) {
+            throw createDOMException(DOMException.INVALID_STATE_ERR,
+                                     "state.invalid",
+                                     new Object[] { READY_STATE_NAMES[readyState] });
+        }
+        return responseText.toString();
+    }
+
+    /**
+     * Returns the response XML document.
+     */
+    public Document getResponseXML() {
+        if (readyState != DONE) {
+            throw createDOMException(DOMException.INVALID_STATE_ERR,
+                                     "state.invalid",
+                                     new Object[] { READY_STATE_NAMES[readyState] });
+        }
+        return responseXML;
+    }
+
+    /**
+     * Returns the HTTP status of the response.
+     */
+    public int getStatus() {
+        if (readyState == UNSENT || readyState == OPENED) {
+            throw createDOMException(DOMException.INVALID_STATE_ERR,
+                                     "state.invalid",
+                                     new Object[] { READY_STATE_NAMES[readyState] });
+        }
+        return status;
+    }
+
+    /**
+     * Returns the HTTP status text of the response.
+     */
+    public String getStatusText() {
+        if (readyState == UNSENT || readyState == OPENED) {
+            throw createDOMException(DOMException.INVALID_STATE_ERR,
+                                     "state.invalid",
+                                     new Object[] { READY_STATE_NAMES[readyState] });
+        }
+        return statusText;
+    }
+
+    /**
+     * Sets the connection details that are to be used in a subsequent call
+     * to {@link #send}.
+     */
+    public void open(String method, String uriStr) {
+        open(method, uriStr, true);
+    }
+
+    /**
+     * Sets the connection details that are to be used in a subsequent call
+     * to {@link #send}.
+     */
+    public void open(String method, String uriStr, boolean async) {
+        System.err.println("open");
+        this.method = validateMethod(method);
+        this.purl = baseURL == null ? new ParsedURL(uriStr)
+                                    : new ParsedURL(baseURL, uriStr);
+        this.async = async;
+        String protocol = this.purl.getProtocol();
+        System.err.println("protocol is " + protocol);
+        if (protocol == null
+                || !protocol.equals("http") && !protocol.equals("https")) {
+            throw createDOMException(DOMException.NOT_SUPPORTED_ERR,
+                                     "unsupported.scheme",
+                                     new Object[] { protocol });
+        }
+        reset();
+        sendFlag = false;
+        setReadyState(OPENED);
+    }
+
+    /**
+     * Sets the connection details that are to be used in a subsequent call
+     * to {@link #send}.
+     */
+    public void open(String method, String uriStr, boolean async,
+                     String username) {
+        this.method = validateMethod(method);
+        this.async = async;
+        try {
+            URI uri = new URI(uriStr);
+            String userInfo = uri.getUserInfo();
+            if (userInfo != null) {
+                if (username == null) {
+                    userInfo = null;
+                } else if (username.indexOf(':') != -1) {
+                    throw createDOMException(DOMException.SYNTAX_ERR,
+                                             "username.invalid",
+                                             new Object[] { username });
+                } else {
+                    int idx = userinfo.indexOf(':');
+                    String password = null;
+                    if (idx != -1) {
+                        userInfo = username + ':' + userinfo.substring(idx + 1);
+                    } else {
+                        userInfo = username;
+                    }
+                }
+                uri = new URI(uri.getScheme(),
+                              userInfo,
+                              uri.getHost(),
+                              uri.getPort(),
+                              uri.getPath(),
+                              uri.getQuery(),
+                              uri.getFragment());
+                uriStr = uri.toString();
+            }
+            this.purl = baseURL == null ? new ParsedURL(uriStr)
+                                        : new ParsedURL(baseURL, uriStr);
+            String protocol = this.purl.getProtocol();
+            System.err.println("protocol is " + protocol);
+            if (protocol == null || !protocol.equals("http") && !protocol.equals("https")) {
+                throw createDOMException(DOMException.NOT_SUPPORTED_ERR,
+                                         "unsupported.scheme",
+                                         new Object[] { protocol });
+            }
+        } catch (URISyntaxException e) {
+            throw createDOMException(DOMException.SYNTAX_ERR,
+                                     "cannot.resolve.url",
+                                     new Object[] { uriStr });
+        }
+        reset();
+        sendFlag = false;
+        setReadyState(OPENED);
+    }
+
+    /**
+     * Sets the connection details that are to be used in a subsequent call
+     * to {@link #send}.
+     */
+    public void open(String method, String uriStr, boolean async,
+                     String username, String password) {
+        this.method = validateMethod(method);
+        this.async = async;
+        if (username != null && username.indexOf(':') != -1) {
+            throw createDOMException(DOMException.SYNTAX_ERR,
+                                     "username.invalid",
+                                     new Object[] { username });
+        }
+        try {
+            String userInfo;
+            if (username == null) {
+                userInfo = null;
+            } else {
+                userInfo = username;
+                if (password != null) {
+                    userInfo = userInfo + ':' + password;
+                }
+            }
+            URI uri = new URI(uriStr);
+            uri = new URI(uri.getScheme(),
+                          userInfo,
+                          uri.getHost(),
+                          uri.getPort(),
+                          uri.getPath(),
+                          uri.getQuery(),
+                          uri.getFragment());
+            uriStr = uri.toString();
+            this.purl = baseURL == null ? new ParsedURL(uriStr)
+                                        : new ParsedURL(baseURL, uriStr);
+            String protocol = this.purl.getProtocol();
+            System.err.println("protocol is " + protocol);
+            if (protocol == null || !protocol.equals("http") && !protocol.equals("https")) {
+                throw createDOMException(DOMException.NOT_SUPPORTED_ERR,
+                                         "unsupported.scheme",
+                                         new Object[] { protocol });
+            }
+        } catch (URISyntaxException e) {
+            throw createDOMException(DOMException.SYNTAX_ERR,
+                                     "cannot.resolve.url",
+                                     new Object[] { uriStr });
+        }
+        reset();
+        sendFlag = false;
+        setReadyState(OPENED);
+    }
+
+    /**
+     * Checks that the given string is a syntactically correct HTTP method,
+     * and throws a SYNTAX_ERR DOMException if not.
+     */
+    protected String validateMethod(String method) {
+        boolean invalid = false;
+        int len = method.length();
+        for (int i = 0; i < len; i++) {
+            char c = method.charAt(0);
+            if (TOKEN_CHARS[c / 32] & (1 << c % 32) == 0) {
+                invalid = true;
+                break;
+            }
+        }
+        if (len == 0 || invalid) {
+            throw createDOMException(DOMException.SYNTAX_ERR,
+                                     "method.invalid",
+                                     new Object[] { method });
+        }
+        String uc = method.toUpperCase();
+        return CASE_FOLDING_METHODS.contains(uc) ? uc : method;
+    }
+
+    protected boolean validateHeaderName(String headerName) {
+        int len = method.length();
+        if (len == 0) {
+            return false;
+        }
+        for (int i = 0; i < len; i++) {
+            char c = method.charAt(0);
+            if (TOKEN_CHARS[c / 32] & (1 << c % 32) == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected void validateHeaderValue(String value) {
+        boolean invalid = false;
+        int len = method.length();
+outer:  for (int i = 0; i < len; i++) {
+            char c = method.charAt(0);
+            if (c == '"') {
+                if (++i >= len) {
+                    invalid = true;
+                    break;
+                }
+                while (i < len) {
+                    c = method.charAt(i);
+                    if (c == '\r') {
+                        if (++i >= len
+                                || method.charAt(i) != '\n'
+                                || ++i >= len
+                                || (c = method.charAt(i)) != ' '
+                                    && c != '\t') {
+                            invalid = true;
+                            break outer;
+                        }
+                        i++;
+                        while (i < len
+                                && (c = method.charAt(i)) == ' '
+                                    || c == '\t') {
+                            i++;
+                        }
+                    } else if (c == '\\') {
+                        if (++i >= len) {
+                            invalid = true;
+                            break outer;
+                        }
+                        i++;
+                    } else if (c == '"') {
+                        continue outer;
+                    } else if (c < 32 || c > 126) {
+                        invalid = true;
+                        break outer;
+                    }
+                    i++;
+                }
+                invalid = true;
+                break;
+            } else if (c == '\r') {
+                if (++i >= len
+                        || method.charAt(i) != '\n'
+                        || ++i >= len
+                        || (c = method.charAt(i)) != ' '
+                            && c != '\t') {
+                    invalid = true;
+                    break;
+                }
+                i++;
+                while (i < len
+                        && (c = method.charAt(i)) == ' '
+                            || c == '\t') {
+                    i++;
+                }
+            } else if (c < 32 && c != 9 || c > 126) {
+                invalid = true;
+                break;
+            }
+        }
+        if (invalid) {
+            throw createDOMException(DOMException.SYNTAX_ERR,
+                                     "header.name.invalid",
+                                     new Object[] { headerName });
+        }
+    }
+
+    /**
+     * Sets an HTTP request header to be sent.
+     */
+    public void setRequestHeader(String header, String value) {
+        if (readyState != OPENED) {
+            throw createDOMException(DOMException.INVALID_STATE_ERR,
+                                     "state.invalid",
+                                     new Object[] { READY_STATE_NAMES[readyState] });
+        }
+        if (sendFlag) {
+            throw createDOMException(DOMException.INVALID_STATE_ERR,
+                                     "state.invalid.send.flag",
+                                     new Object[0]);
+        }
+        if (!validateHeaderName(header)) {
+            throw createDOMException(DOMException.SYNTAX_ERR,
+                                     "header.name.invalid",
+                                     new Object[] { headerName });
+        }
+        String headerLC = header.toLowerCase();
+        if (IGNORED_HEADERS.contains(headerLC)
+                || headerLC.startsWith("Proxy-")
+                || value == null) {
+            return;
+        }
+        validateHeaderValue(value);
+        String oldValue = (String) requestHeaders.get(headerLC);
+        if (oldValue != null) {
+            value = oldValue + ", " + value;
+        }
+        requestHeaders.put(headerLC, value);
+    }
+
+    /**
+     * Sends some data over the connection.
+     */
+    public void send() {
+        send((String) null);
+    }
+
+    /**
+     * Sends some data over the connection.
+     */
+    public void send(final String data) {
+        if (readyState != OPENED) {
+            throw createDOMException(DOMException.INVALID_STATE_ERR,
+                                     "state.invalid",
+                                     new Object[] { READY_STATE_NAMES[readyState] });
+        }
+        if (sendFlag) {
+            throw createDOMException(DOMException.INVALID_STATE_ERR,
+                                     "state.invalid.send.flag",
+                                     new Object[0]);
+        }
+        final Map connectionHints = new HashMap();
+        connectionHints.put
+            (ParsedURLDefaultProtocolHandler.KEY_REQUEST_HEADERS,
+             requestHeaders);
+        connectionHints.put
+            (ParsedURLDefaultProtocolHandler.KEY_METHOD,
+             method);
+        connectionHints.put
+            (ParsedURLDefaultProtocolHandler.KEY_FOLLOW_REDIRECTS,
+             Boolean.FALSE);
+        setReadyState(readyState);
+        Runnable connectionRunnable = new Runnable() {
+            public void run() {
+                try {
+                    InputStream is;
+                    OutputStream os = null;
+                    if (data == null) {
+                        is = purl.openStream
+                            (false, null, (Iterator) null, connectionHints, true);
+                    } else {
+                        Object[] streams = purl.openStreamIO
+                            (false, null, (Iterator) null, connectionHints, true);
+                        if (streams == null) {
+                            return;
+                        }
+                        is = (InputStream) streams[0];
+                        os = (OutputStream) streams[1];
+                    }
+                    if (is == null) {
+                        // No stream available, consider it an IOException.
+                        throw new IOException("No input stream available");
+                    }
+                    if (data != null) {
+                        OutputStreamWriter writer =
+                            new OutputStreamWriter(os, "UTF-8");
+                        writer.write(data);
+                        writer.flush();
+                        writer.close();
+                    }
+                    os.close();
+                    String encoding = purl.getContentEncoding();
+                    String type = purl.getContentType();
+                    if (type == null) {
+                        type = "text/plain";
+                        encoding = "ASCII";
+                    }
+                    if (encoding == null) {
+                        encoding = "UTF-8";
+                    }
+                    Reader reader =
+                        new BufferedReader(new InputStreamReader(is, encoding));
+                    synchronized (this) {
+                        responseText = new StringBuffer();
+                    }
+                    Map outputHints = purl.getOutputHints();
+                    Integer statusInteger = (Integer) outputHints.get
+                        (ParsedURLDefaultProtocolHandler.KEY_STATUS_CODE);
+                    if (statusInteger == null) {
+                        status = 0;
+                    } else {
+                        status = statusInteger.intValue();
+                    }
+                    statusText = (String) outputHints.get
+                        (ParsedURLDefaultProtocolHandler.KEY_REASON_PHRASE);
+                    responseHeaders = new TreeMap(new Comparator() {
+                        public int compare(Object o1, Object o2) {
+                            return ((String) o1).compareToIgnoreCase((String) o2);
+                        }
+                    });
+                    Map headers = (Map) outputHints.get
+                        (ParsedURLDefaultProtocolHandler.KEY_RESPONSE_HEADERS);
+                    if (headers != null) {
+                        responseHeaders.putAll(headers);
+                    }
+                    setReadyState(HEADERS_RECEIVED);
+                    int read;
+                    char[] buf = new char[4096];
+                    boolean first = true;
+                    while ((read = reader.read(buf, 0, buf.length)) != -1) {
+                        if (first) {
+                            setReadyState(LOADING);
+                            first = false;
+                        }
+                        synchronized (this) {
+                            responseText.append(buf, 0, read);
+                        }
+                    }
+                    responseXML = null;
+                    if (type.equals("text/xml") || type.equals("application/xml")
+                            || type.endsWith("+xml")) {
+                        try {
+                            Reader sReader;
+                            synchronized (this) {
+                                sReader =
+                                    new StringReader(responseText.toString());
+                            }
+                            responseXML = documentBuilder.parse
+                                (new InputSource(sReader));
+                        } catch (Exception e) {
+                        }
+                    }
+                    setReadyState(DONE);
+                } catch (InterruptedIOException e) {
+                    // Thread was interrupted, just return.
+                } catch (IOException e) {
+                    requestHeaders.clear();
+                    responseHeaders = null;
+                    responseText = null;
+                    responseXML = null;
+                    errorFlag = true;
+                    if (!async) {
+                        readyState = DONE;
+                        throw createDOMException(DOMException.NETWORK_ERR,
+                                                 "network.error",
+                                                 new Object[] { e.getMessage() });
+                    } else {
+                        setReadyState(DONE);
+                    }
+                }
+            }
+        };
+        if (async) {
+            thread = new Thread(connectionRunnable);
+            thread.start();
+        } else {
+            connectionRunnable.run();
+        }
+    }
+
+    /**
+     * Sends some data over the connection.
+     */
+    public void send(Document document) {
+        StringWriter sw = new StringWriter();
+        try {
+            DOMUtilities.writeNode(document, sw);
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        send(sw.getBuffer().toString());
+    }
+
+    /**
+     * Aborts the request.
+     */
+    public void abort() {
+        reset();
+        errorFlag = true;
+        if (!(readyState == UNSENT
+                    || readyState == OPENED && !sendFlag
+                    || readyState == DONE)) {
+            sendFlag = false;
+            setReadyState(DONE);
+        }
+        readyState = UNSENT;
+    }
+
+    /**
+     * Returns the HTTP headers from the request response.
+     */
+    public String getAllResponseHeaders() {
+        if (readyState == UNSENT || readyState == OPENED) {
+            throw createDOMException(DOMException.INVALID_STATE_ERR,
+                                     "state.invalid",
+                                     new Object[] { READY_STATE_NAMES[readyState] });
+        }
+        if (errorFlag) {
+            return null;
+        }
+        StringBuffer sb = new StringBuffer();
+        if (responseHeaders != null) {
+            Iterator i = responseHeaders.entrySet().iterator();
+            while (i.hasNext()) {
+                Map.Entry e = (Map.Entry) i.next();
+                sb.append((String) e.getKey());
+                sb.append(": ");
+                sb.append((String) e.getValue());
+                sb.append("\r\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Returns an HTTP header from the request response.
+     */
+    public String getResponseHeader(String header) {
+        if (readyState == UNSENT || readyState == OPENED) {
+            throw createDOMException(DOMException.INVALID_STATE_ERR,
+                                     "state.invalid",
+                                     new Object[] { READY_STATE_NAMES[readyState] });
+        }
+        if (!validateHeaderName(header)) {
+            return "";
+        }
+        if (errorFlag) {
+            return null;
+        }
+        String value = (String) responseHeaders.get(header.toLowerCase());
+        if (value == null) {
+            return null;
+        }
+        return value;
+    }
+
+    /**
+     * Resets the state of this object.
+     */
+    protected synchronized void reset() {
+        if (thread != null) {
+            thread.interrupt();
+            thread = null;
+        }
+        requestHeaders.clear();
+        responseHeaders = null;
+        responseText = null;
+        responseXML = null;
+    }
+
+    /**
+     * Sets the <code>readyState</code> of this object and runs the
+     * {@link #onreadystatechange} {@link Runnable}.
+     */
+    protected void setReadyState(int newState) {
+        readyState = newState;
+        DOMEvent evt = new DOMEvent();
+        evt.initEvent("readystatechange", false, false);
+        dispatchReadyStateChangeEvent(evt);
+    }
+
+    /**
+     * Dispatches the event object to the current onreadystatechange
+     * listener.  Override this method if event dispatch must occur
+     * in a particular thread.
+     */
+    protected void dispatchReadyStateChangeEvent(Event evt) {
+        if (onreadystatechange != null) {
+            onreadystatechange.handleEvent(evt);
+        }
+        dispatchEvent(evt);
+    }
+
+    /**
+     * Creates an exception with the appropriate error message.
+     */
+    protected DOMException createDOMException(short    type,
+                                              String   key,
+                                              Object[] args) {
+        try {
+            return new DOMException(type, Messages.formatMessage(key, args));
+        } catch (Exception e) {
+            return new DOMException(type, key);
+        }
+    }
+
+    // NodeEventTarget ///////////////////////////////////////////////////////
+
+    public EventSupport getEventSupport() {
+        return eventSupport;
+    }
+
+    public NodeEventTarget getParentNodeEventTarget() {
+        return null;
+    }
+
+    public void addEventListenerNS(String namespaceURI,
+                                   String type,
+                                   EventListener listener,
+                                   boolean useCapture,
+                                   Object evtGroup) {
+        if (eventSupport == null) {
+            initializeEventSupport();
+        }
+        if (namespaceURI != null && namespaceURI.length() == 0) {
+            namespaceURI = null;
+        }
+        eventSupport.addEventListenerNS(namespaceURI,
+                                        type,
+                                        listener,
+                                        useCapture,
+                                        evtGroup);
+    }
+
+    public void removeEventListenerNS(String namespaceURI,
+                                      String type,
+                                      EventListener listener,
+                                      boolean useCapture) {
+        if (eventSupport != null) {
+            if (namespaceURI != null && namespaceURI.length() == 0) {
+                namespaceURI = null;
+            }
+            eventSupport.removeEventListenerNS(namespaceURI,
+                                               type,
+                                               listener,
+                                               useCapture);
+        }
+    }
+
+    // EventTarget ///////////////////////////////////////////////////////////
+
+    public void addEventListener(String type,
+                                 EventListener listener,
+                                 boolean useCapture) {
+        if (eventSupport == null) {
+            eventSupport = new EventSupport(null);
+        }
+        eventSupport.addEventListener(type, listener, useCapture);
+    }
+
+    public boolean dispatchEvent(Event evt) throws EventException,
+                                                   DOMException {
+        if (eventSupport == null) {
+            eventSupport = new EventSupport(null);
+        }
+        eventSupport.dispatchEvent(evt);
+    }
+
+    public void removeEventListener(String type,
+                                    EventListener listener,
+                                    boolean useCapture) {
+        if (eventSupport == null) {
+            eventSupport = new EventSupport(null);
+        }
+        eventSupport.removeEventListener(type, listener, useCapture);
+    }
+}

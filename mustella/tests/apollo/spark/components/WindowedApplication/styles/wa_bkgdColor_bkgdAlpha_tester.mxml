@@ -65,7 +65,8 @@
 		  		
 		<TestCase testID="window_backgroundColor_backgroundAlpha_setStyle_runtime" keywords="[Window, backgroundColor]" description="Get backgroundColor of Window">
 			<body>
-				<RunCode code="application.createAWindow()" waitEvent="updateComplete" waitTarget=""/>
+				<RunCode code="application.createAWindow()"/>
+				<WaitForLayoutManager />
 				<SetProperty propertyName="visible" target="" value="false"/>
 				<AssertStyleValue styleName="backgroundColor" target="myWin" value="16711680" />
 				<AssertStyleValue styleName="backgroundAlpha" target="myWin" value="0.2" />			

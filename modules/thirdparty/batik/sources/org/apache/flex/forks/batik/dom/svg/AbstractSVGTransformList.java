@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,46 +23,39 @@ import java.awt.geom.AffineTransform;
 import org.apache.flex.forks.batik.parser.ParseException;
 import org.apache.flex.forks.batik.parser.TransformListHandler;
 import org.apache.flex.forks.batik.parser.TransformListParser;
+
 import org.w3c.dom.DOMException;
-import org.w3c.flex.forks.dom.svg.SVGException;
-import org.w3c.flex.forks.dom.svg.SVGMatrix;
-import org.w3c.flex.forks.dom.svg.SVGTransform;
-import org.w3c.flex.forks.dom.svg.SVGTransformList;
+import org.w3c.dom.svg.SVGException;
+import org.w3c.dom.svg.SVGMatrix;
+import org.w3c.dom.svg.SVGTransform;
+import org.w3c.dom.svg.SVGTransformList;
 
 /**
  * This class is the implementation of
  * <code>SVGTransformList</code>.
  *
- * @author nicolas.socheleau@bitflash.com
- * @version $Id: AbstractSVGTransformList.java,v 1.4 2004/08/18 07:13:13 vhardy Exp $
+ * @author <a href="mailto:nicolas.socheleau@bitflash.com">Nicolas Socheleau</a>
+ * @version $Id: AbstractSVGTransformList.java 498484 2007-01-21 23:13:31Z cam $
  */
-public abstract class AbstractSVGTransformList 
-    extends AbstractSVGList 
+public abstract class AbstractSVGTransformList
+    extends AbstractSVGList
     implements SVGTransformList {
 
     /**
      * Separator for a point list.
      */
-    public final static String SVG_TRANSFORMATION_LIST_SEPARATOR
+    public static final String SVG_TRANSFORMATION_LIST_SEPARATOR
         = "";
-
-    /**
-     * Creates a new SVGTransformationList.
-     */
-    protected AbstractSVGTransformList() {
-        super();
-    }
 
     /**
      * Return the separator between transform in the list.
      */
-    protected String getItemSeparator(){
+    protected String getItemSeparator() {
         return SVG_TRANSFORMATION_LIST_SEPARATOR;
     }
 
     /**
      * Create an SVGException when the checkItemType fails.
-     *
      * @return SVGException
      */
     protected abstract SVGException createSVGException(short type,
@@ -69,137 +63,154 @@ public abstract class AbstractSVGTransformList
                                                        Object[] args);
 
     /**
+     * <b>DOM</b>: Implements {@link SVGTransformList#initialize(SVGTransform)}.
      */
-    public SVGTransform initialize ( SVGTransform newItem )
-        throws DOMException, SVGException {
-
-        return (SVGTransform)initializeImpl(newItem);
-    }
-    /**
-     */
-    public SVGTransform getItem ( int index )
-        throws DOMException {
-
-        return (SVGTransform)getItemImpl(index);
+    public SVGTransform initialize(SVGTransform newItem)
+            throws DOMException, SVGException {
+        return (SVGTransform) initializeImpl(newItem);
     }
 
     /**
+     * <b>DOM</b>: Implements {@link SVGTransformList#getItem(int)}.
      */
-    public SVGTransform insertItemBefore ( SVGTransform newItem, int index )
-        throws DOMException, SVGException {
-
-        return (SVGTransform)insertItemBeforeImpl(newItem,index);
+    public SVGTransform getItem(int index) throws DOMException {
+        return (SVGTransform) getItemImpl(index);
     }
 
     /**
+     * <b>DOM</b>: Implements {@link
+     * SVGTransformList#insertItemBefore(SVGTransform,int)}.
      */
-    public SVGTransform replaceItem ( SVGTransform newItem, int index )
-        throws DOMException, SVGException {
-
-        return (SVGTransform)replaceItemImpl(newItem,index);
+    public SVGTransform insertItemBefore(SVGTransform newItem, int index)
+            throws DOMException, SVGException {
+        return (SVGTransform) insertItemBeforeImpl(newItem, index);
     }
 
     /**
+     * <b>DOM</b>: Implements {@link
+     * SVGTransformList#replaceItem(SVGTransform,int)}.
      */
-    public SVGTransform removeItem ( int index )
-        throws DOMException {
-
-        return (SVGTransform)removeItemImpl(index);
+    public SVGTransform replaceItem(SVGTransform newItem, int index)
+            throws DOMException, SVGException {
+        return (SVGTransform) replaceItemImpl(newItem, index);
     }
 
     /**
+     * <b>DOM</b>: Implements {@link SVGTransformList#removeItem(int)}.
      */
-    public SVGTransform appendItem ( SVGTransform newItem )
-        throws DOMException, SVGException {
+    public SVGTransform removeItem(int index) throws DOMException {
+        return (SVGTransform) removeItemImpl(index);
+    }
 
+    /**
+     * <b>DOM</b>: Implements {@link SVGTransformList#appendItem(SVGTransform)}.
+     */
+    public SVGTransform appendItem(SVGTransform newItem)
+            throws DOMException, SVGException {
         return (SVGTransform) appendItemImpl(newItem);
     }
 
     /**
+     * <b>DOM</b>: Implements {@link
+     * SVGTransformList#createSVGTransformFromMatrix(SVGMatrix)}.
      */
-    public SVGTransform createSVGTransformFromMatrix ( SVGMatrix matrix ){
+    public SVGTransform createSVGTransformFromMatrix(SVGMatrix matrix) {
         SVGOMTransform transform = new SVGOMTransform();
         transform.setMatrix(matrix);
         return transform;
     }
 
     /**
+     * <b>DOM</b>: Implements {@link SVGTransformList#consolidate()}.
      */
-    public SVGTransform consolidate (  ){
+    public SVGTransform consolidate() {
         revalidate();
 
-        if ( itemList.size() == 0 ){
+        int size = itemList.size();
+        if (size == 0) {
             return null;
-        }
-        if ( itemList.size() == 1 ){
+        } else if (size == 1) {
             return getItem(0);
         }
 
-        SVGTransform view = (SVGTransform)getItemImpl(0);
+        SVGTransformItem t = (SVGTransformItem) getItemImpl(0);
+        AffineTransform at = (AffineTransform) t.affineTransform.clone();
 
-        AffineTransform transform = (AffineTransform)
-            ((SVGTransformItem)view).affineTransform.clone();
-
-        for(int i = 1 ; i < itemList.size() ; i++ ){
-            view = (SVGTransform)getItemImpl(i);
-            transform.concatenate(((SVGTransformItem)view).affineTransform);
+        for (int i = 1; i < size; i++) {
+            t = (SVGTransformItem) getItemImpl(i);
+            at.concatenate(t.affineTransform);
         }
-        SVGOMMatrix matrix = new SVGOMMatrix(transform);
+        SVGOMMatrix matrix = new SVGOMMatrix(at);
         return initialize(createSVGTransformFromMatrix(matrix));
     }
 
     /**
+     * Returns an {@link AffineTransform} that represents the same transform
+     * as that specified by this transform list.
      */
-    protected SVGItem createSVGItem(Object newItem){
-        
-        SVGTransform transform= (SVGTransform)newItem;
-
-        return new SVGTransformItem(transform);
+    public AffineTransform getAffineTransform() {
+        AffineTransform at = new AffineTransform();
+        for (int i = 0; i < getNumberOfItems(); i++) {
+            SVGTransformItem item = (SVGTransformItem) getItem(i);
+            at.concatenate(item.affineTransform);
+        }
+        return at;
     }
 
     /**
-     * Parse the 'points' attribute.
+     * Creates a new {@link SVGItem} object from the given {@link SVGTransform}.
+     */
+    protected SVGItem createSVGItem(Object newItem) {
+        return new SVGTransformItem((SVGTransform) newItem);
+    }
+
+    /**
+     * Parse the attribute associated with this SVGTransformList.
      *
-     * @param value 'points' attribute value
-     * @param handler : list handler
+     * @param value the transform list attribute value
+     * @param handler transform list handler
      */
     protected void doParse(String value, ListHandler handler)
-        throws ParseException{
+            throws ParseException {
 
         TransformListParser transformListParser = new TransformListParser();
-        
         TransformListBuilder builder = new TransformListBuilder(handler);
-        
         transformListParser.setTransformListHandler(builder);
         transformListParser.parse(value);
-        
     }
 
     /**
-     * Check if the item is an SVGPoint.
+     * Asserts that the given item is an {@link SVGTransformList}.
      */
-    protected void checkItemType(Object newItem){
-        if ( !( newItem instanceof SVGTransform ) ){
+    protected void checkItemType(Object newItem) {
+        if (!(newItem instanceof SVGTransform)) {
             createSVGException(SVGException.SVG_WRONG_TYPE_ERR,
-                               "expected SVGTransform",
-                               null);
+                               "expected.transform", null);
         }
     }
 
     /**
-     * Internal representation of the item SVGPoint.
+     * An {@link SVGTransform} in the list.
      */
-    protected class SVGTransformItem extends AbstractSVGTransform 
-        implements SVGItem {
+    protected class SVGTransformItem
+            extends AbstractSVGTransform
+            implements SVGItem {
 
+        /**
+         * Whether the transform value specifies only an x value, no y value.
+         */
         protected boolean xOnly;
+
+        /**
+         * Whether the rotation transform value specifies only an angle.
+         */
         protected boolean angleOnly;
 
         /**
          * List the item belongs to.
          */
         protected AbstractSVGList parent;
-        
+
         /**
          * String representation of the item.
          *
@@ -208,144 +219,190 @@ public abstract class AbstractSVGTransformList
          */
         protected String itemStringValue;
 
-        protected SVGTransformItem(){            
+        /**
+         * Creates a new, uninitialized SVGTransformItem.
+         */
+        protected SVGTransformItem() {
         }
 
         /**
-         * Notifies the parent list that
-         * the item has changed.
-         *
-         * Discard the cached representation
-         * of the item.
+         * Creates a new SVGTransformItem from the given {@link SVGTransform}.
          */
-        protected void resetAttribute(){
-            if ( parent != null ){
+        protected SVGTransformItem(SVGTransform transform) {
+            assign(transform);
+        }
+
+        /**
+         * Notifies the parent list that this item has changed.  This also
+         * discards the cached representation of the item.
+         */
+        protected void resetAttribute() {
+            if (parent != null) {
                 itemStringValue = null;
                 parent.itemChanged();
             }
         }
 
         /**
-         * Assign a parent list to this item.
-         *
-         * @param list : list the item belongs.
+         * Assigns a parent list to this item.
+         * @param list The list the item belongs.
          */
-        public void setParent(AbstractSVGList list){
+        public void setParent(AbstractSVGList list) {
             parent = list;
         }
-        
+
         /**
-         * Return the parent list of the item.
-         *
-         * @return list the item belongs.
+         * Returns the parent list of this item.
          */
-        public AbstractSVGList getParent(){
+        public AbstractSVGList getParent() {
             return parent;
         }
 
         /**
-         * Return the cached representation
-         * of the item if valid otherwise
-         * re-computes the String representation
-         * of the item.
+         * Returns the cached representation of the item if valid, otherwise
+         * recomputes the String representation of the item.
          */
-        public String getValueAsString(){
-            if ( itemStringValue == null ){
+        public String getValueAsString() {
+            if (itemStringValue == null) {
                 itemStringValue = getStringValue();
             }
             return itemStringValue;
         }
 
-        protected SVGTransformItem(SVGTransform transform){
-            super();
+        /**
+         * Copies the values from the given {@link SVGTransform} into this
+         * {@link SVGTransformItem}.
+         */
+        public void assign(SVGTransform transform) {
             type = transform.getType();
             SVGMatrix matrix = transform.getMatrix();
-            switch(type){
-            case SVGTransform.SVG_TRANSFORM_TRANSLATE:
-                setTranslate(matrix.getE(),matrix.getF());
-                break;
-            case SVGTransform.SVG_TRANSFORM_SCALE:
-                setScale(matrix.getA(),matrix.getD());
-                break;
-            case SVGTransform.SVG_TRANSFORM_ROTATE:
-                if (matrix.getE() == 0.0f ){
-                    rotate(transform.getAngle());
-                }
-                else{
-                    angleOnly = false;
-                    if ( matrix.getA() == 1.0f ){
-                        setRotate(transform.getAngle(),matrix.getE(),matrix.getF());
-                    }
-                    else{
-                        if ( transform instanceof AbstractSVGTransform){
-                            AbstractSVGTransform internal = (AbstractSVGTransform)transform;
-                            setRotate(internal.getAngle(),internal.getX(),internal.getY());
+            switch (type) {
+                case SVGTransform.SVG_TRANSFORM_TRANSLATE:
+                    setTranslate(matrix.getE(), matrix.getF());
+                    break;
+                case SVGTransform.SVG_TRANSFORM_SCALE:
+                    setScale(matrix.getA(), matrix.getD());
+                    break;
+                case SVGTransform.SVG_TRANSFORM_ROTATE:
+                    if (matrix.getE() == 0.0f) {
+                        rotate(transform.getAngle());
+                    } else {
+                        angleOnly = false;
+                        if (matrix.getA() == 1.0f) {
+                            setRotate(transform.getAngle(),
+                                      matrix.getE(), matrix.getF());
+                        } else if (transform instanceof AbstractSVGTransform) {
+                            AbstractSVGTransform internal =
+                                (AbstractSVGTransform) transform;
+                            setRotate(internal.getAngle(),
+                                      internal.getX(), internal.getY());
+                        } else {
+                            // XXX Should extract the angle, x and y from the
+                            //     matrix.
                         }
                     }
-                }
-                break;
-            case SVGTransform.SVG_TRANSFORM_SKEWX:
-                setSkewX(transform.getAngle());
-                break;
-            case SVGTransform.SVG_TRANSFORM_SKEWY:
-                setSkewY(transform.getAngle());
-                break;
-            case SVGTransform.SVG_TRANSFORM_MATRIX:
-                setMatrix(matrix);
-                break;
+                    break;
+                case SVGTransform.SVG_TRANSFORM_SKEWX:
+                    setSkewX(transform.getAngle());
+                    break;
+                case SVGTransform.SVG_TRANSFORM_SKEWY:
+                    setSkewY(transform.getAngle());
+                    break;
+                case SVGTransform.SVG_TRANSFORM_MATRIX:
+                    setMatrix(matrix);
+                    break;
             }
-            
         }
 
-        protected void translate(float x){
+        /**
+         * Sets the transform to be an x translation.
+         */
+        protected void translate(float x) {
             xOnly = true;
-            setTranslate(x,0.0f);
+            setTranslate(x, 0.0f);
         }
-        protected void rotate(float angle){
+
+        /**
+         * Sets the transform to be rotation.
+         */
+        protected void rotate(float angle) {
             angleOnly = true;
-            setRotate(angle,0.0f,0.0f);
+            setRotate(angle, 0.0f, 0.0f);
         }
-        protected void scale(float x){
+
+        /**
+         * Sets the transform to be an x scale.
+         */
+        protected void scale(float x) {
             xOnly = true;
-            setScale(x,x);
-        }
-        protected void matrix(float a,float b,float c,
-                              float d,float e,float f){
-            setMatrix(new SVGOMMatrix(new AffineTransform(a,b,c,d,e,f)));
+            setScale(x, x);
         }
 
+        /**
+         * Sets the transform to be a matrix transform.
+         */
+        protected void matrix(float a, float b, float c,
+                              float d, float e, float f) {
+            setMatrix(new SVGOMMatrix(new AffineTransform(a, b, c, d, e, f)));
+        }
 
-        public void setMatrix ( SVGMatrix matrix ){
+        /**
+         * <b>DOM</b>: Implements {@link SVGTransform#setMatrix(SVGMatrix)}.
+         */
+        public void setMatrix(SVGMatrix matrix) {
             super.setMatrix(matrix);
             resetAttribute();
         }
-        public void setTranslate ( float tx, float ty ){
-            super.setTranslate(tx,ty);
+
+        /**
+         * <b>DOM</b>: Implements {@link SVGTransform#setTranslate(float,float)}.
+         */
+        public void setTranslate(float tx, float ty) {
+            super.setTranslate(tx, ty);
             resetAttribute();
         }
-        public void setScale ( float sx, float sy ){
-            super.setScale(sx,sy);
+
+        /**
+         * <b>DOM</b>: Implements {@link SVGTransform#setScale(float,float)}.
+         */
+        public void setScale(float sx, float sy) {
+            super.setScale(sx, sy);
             resetAttribute();
         }
-        public void setRotate ( float angle, float cx, float cy ){
-            super.setRotate(angle,cx,cy);
+
+        /**
+         * <b>DOM</b>: Implements {@link
+         * SVGTransform#setRotate(float,float,float)}.
+         */
+        public void setRotate(float angle, float cx, float cy) {
+            super.setRotate(angle, cx, cy);
             resetAttribute();
         }
-        public void setSkewX ( float angle ){
+
+        /**
+         * <b>DOM</b>: Implements {@link SVGTransform#setSkewX(float)}.
+         */
+        public void setSkewX(float angle) {
             super.setSkewX(angle);
             resetAttribute();
         }
-        public void setSkewY ( float angle ){
+
+        /**
+         * <b>DOM</b>: Implements {@link SVGTransform#setSkewY(float)}.
+         */
+        public void setSkewY(float angle) {
             super.setSkewY(angle);
             resetAttribute();
         }
 
-        protected SVGMatrix createMatrix(){
-            return new AbstractSVGMatrix(){
-                protected AffineTransform getAffineTransform(){
+        /**
+         * Creates the {@link SVGMatrix} used to store the transform.
+         */
+        protected SVGMatrix createMatrix() {
+            return new AbstractSVGMatrix() {
+                protected AffineTransform getAffineTransform() {
                     return SVGTransformItem.this.affineTransform;
                 }
-
                 public void setA(float a) throws DOMException {
                     SVGTransformItem.this.type = SVGTransform.SVG_TRANSFORM_MATRIX;
                     super.setA(a);
@@ -379,206 +436,183 @@ public abstract class AbstractSVGTransformList
             };
         }
 
+        /**
+         * Returns the string representation of this transform.
+         */
         protected String getStringValue(){
             StringBuffer buf = new StringBuffer();
-            switch(type){
-            case SVGTransform.SVG_TRANSFORM_TRANSLATE:
-                buf.append("translate(");
-                buf.append(affineTransform.getTranslateX());
-                if( !xOnly ){
-                    buf.append(' ');
-                    buf.append(affineTransform.getTranslateY());
-                }
-                buf.append(')');
-                break;
-            case SVGTransform.SVG_TRANSFORM_ROTATE:
-                buf.append("rotate(");
-                buf.append(angle);
-                if ( !angleOnly ){
-                    buf.append(' ');
-                    buf.append(x);
-                    buf.append(' ');
-                    buf.append(y);
-                }
-                buf.append(')');
-                break;
-            case SVGTransform.SVG_TRANSFORM_SCALE:
-                buf.append("scale(");
-                buf.append(affineTransform.getScaleX());
-                if ( !xOnly ){
-                    buf.append(' ');
-                    buf.append(affineTransform.getScaleY());
-                }
-                buf.append(')');
-                break;
-            case SVGTransform.SVG_TRANSFORM_SKEWX:
-                buf.append("skewX(");
-                buf.append(angle);
-                buf.append(')');
-                break;
-            case SVGTransform.SVG_TRANSFORM_SKEWY:
-                buf.append("skewY(");
-                buf.append(angle);
-                buf.append(')');
-                break;
-            case SVGTransform.SVG_TRANSFORM_MATRIX:
-                buf.append("matrix(");
-                double[] matrix = new double[6];
-                affineTransform.getMatrix(matrix);
-                for(int i = 0 ; i < 6 ; i++ ){
-                    if ( i != 0 ){
+            switch(type) {
+                case SVGTransform.SVG_TRANSFORM_TRANSLATE:
+                    buf.append("translate(");
+                    buf.append((float) affineTransform.getTranslateX());
+                    if (!xOnly) {
                         buf.append(' ');
+                        buf.append((float) affineTransform.getTranslateY());
                     }
-                    buf.append((float)matrix[i]);
-                }
-                buf.append(')');
-                break;                    
+                    buf.append(')');
+                    break;
+                case SVGTransform.SVG_TRANSFORM_ROTATE:
+                    buf.append("rotate(");
+                    buf.append(angle);
+                    if (!angleOnly) {
+                        buf.append(' ');
+                        buf.append(x);
+                        buf.append(' ');
+                        buf.append(y);
+                    }
+                    buf.append(')');
+                    break;
+                case SVGTransform.SVG_TRANSFORM_SCALE:
+                    buf.append("scale(");
+                    buf.append((float) affineTransform.getScaleX());
+                    if (!xOnly) {
+                        buf.append(' ');
+                        buf.append((float) affineTransform.getScaleY());
+                    }
+                    buf.append(')');
+                    break;
+                case SVGTransform.SVG_TRANSFORM_SKEWX:
+                    buf.append("skewX(");
+                    buf.append(angle);
+                    buf.append(')');
+                    break;
+                case SVGTransform.SVG_TRANSFORM_SKEWY:
+                    buf.append("skewY(");
+                    buf.append(angle);
+                    buf.append(')');
+                    break;
+                case SVGTransform.SVG_TRANSFORM_MATRIX:
+                    buf.append("matrix(");
+                    double[] matrix = new double[6];
+                    affineTransform.getMatrix(matrix);
+                    for(int i = 0; i < 6; i++) {
+                        if (i != 0) {
+                            buf.append(' ');
+                        }
+                        buf.append((float) matrix[i]);
+                    }
+                    buf.append(')');
+                    break;
             }
             return buf.toString();
         }
     }
 
     /**
-     * Helper class to interface the <code>PointsParser</code>
-     * and the <code>ListHandler</code>
+     * Helper class to interface the {@link TransformListParser} and the
+     * {@link ListHandler}.
      */
-    protected class TransformListBuilder
-        implements TransformListHandler {
+    protected class TransformListBuilder implements TransformListHandler {
 
         /**
-         * list handler.
+         * The {@link ListHandler} to pass newly created
+         * {@link SVGTransformItem} objects to.
          */
         protected ListHandler listHandler;
-        
-        public TransformListBuilder(ListHandler listHandler){
+
+        /**
+         * Creates a new TransformListBuilder.
+         */
+        public TransformListBuilder(ListHandler listHandler) {
             this.listHandler = listHandler;
         }
 
-        public void startTransformList() throws ParseException{
+        /**
+         * Implements {@link TransformListHandler#startTransformList()}.
+         */
+        public void startTransformList() throws ParseException {
             listHandler.startList();
         }
 
-    /**
-     * Invoked when 'matrix(a, b, c, d, e, f)' has been parsed.
-     *
-     * @exception ParseException if an error occured while processing
-     * the transform 
-     */
-        public void matrix(float a, float b, float c, 
-                           float d, float e, float f)
-            throws ParseException{
+        /**
+         * Implements {@link
+         * TransformListHandler#matrix(float,float,float,float,float,float)}.
+         */
+        public void matrix(float a, float b, float c, float d, float e, float f)
+                throws ParseException {
             SVGTransformItem item  = new SVGTransformItem();
-            item.matrix(a,b,c,d,e,f);
+            item.matrix(a, b, c, d, e, f);
             listHandler.item(item);
         }
 
-    /**
-     * Invoked when 'rotate(theta)' has been parsed.
-     *
-     * @exception ParseException if an error occured while processing
-     * the transform 
-     */
-        public void rotate(float theta) throws ParseException{
-            SVGTransformItem item  = new SVGTransformItem();
+        /**
+         * Implements {@link TransformListHandler#rotate(float)}.
+         */
+        public void rotate(float theta) throws ParseException {
+            SVGTransformItem item = new SVGTransformItem();
             item.rotate(theta);
             listHandler.item(item);
         }
 
-    /**
-     * Invoked when 'rotate(theta, cx, cy)' has been parsed.
-     *
-     * @exception ParseException if an error occured while processing
-     * the transform 
-     */
-        public void rotate(float theta, float cx, float cy) throws ParseException{
-            SVGTransformItem item  = new SVGTransformItem();
-            item.setRotate(theta,cx,cy);
+        /**
+         * Implements {@link TransformListHandler#rotate(float,float,float)}.
+         */
+        public void rotate(float theta, float cx, float cy)
+                throws ParseException {
+            SVGTransformItem item = new SVGTransformItem();
+            item.setRotate(theta, cx, cy);
             listHandler.item(item);
         }
 
-    /**
-     * Invoked when 'translate(tx)' has been parsed.
-     *
-     * @exception ParseException if an error occured while processing
-     * the transform 
-     */
-        public void translate(float tx) throws ParseException{
-            SVGTransformItem item  = new SVGTransformItem();
+        /**
+         * Implements {@link TransformListHandler#translate(float)}.
+         */
+        public void translate(float tx) throws ParseException {
+            SVGTransformItem item = new SVGTransformItem();
             item.translate(tx);
             listHandler.item(item);
-
         }
 
-    /**
-     * Invoked when 'translate(tx, ty)' has been parsed.
-     *
-     * @exception ParseException if an error occured while processing
-     * the transform 
-     */
-        public void translate(float tx, float ty) throws ParseException{
-            SVGTransformItem item  = new SVGTransformItem();
-            item.setTranslate(tx,ty);
+        /**
+         * Implements {@link TransformListHandler#translate(float,float)}.
+         */
+        public void translate(float tx, float ty) throws ParseException {
+            SVGTransformItem item = new SVGTransformItem();
+            item.setTranslate(tx, ty);
             listHandler.item(item);
         }
 
-    /**
-     * Invoked when 'scale(sx)' has been parsed.
-     *
-     * @exception ParseException if an error occured while processing
-     * the transform 
-     */
-        public void scale(float sx) throws ParseException{
+        /**
+         * Implements {@link TransformListHandler#scale(float)}.
+         */
+        public void scale(float sx) throws ParseException {
             SVGTransformItem item  = new SVGTransformItem();
             item.scale(sx);
             listHandler.item(item);
-
         }
 
-    /**
-     * Invoked when 'scale(sx, sy)' has been parsed.
-     *
-     * @exception ParseException if an error occured while processing
-     * the transform 
-     */
-        public void scale(float sx, float sy) throws ParseException{
-            SVGTransformItem item  = new SVGTransformItem();
-            item.setScale(sx,sy);
+        /**
+         * Implements {@link TransformListHandler#scale(float,float)}.
+         */
+        public void scale(float sx, float sy) throws ParseException {
+            SVGTransformItem item = new SVGTransformItem();
+            item.setScale(sx, sy);
             listHandler.item(item);
         }
 
-    /**
-     * Invoked when 'skewX(skx)' has been parsed.
-     *
-     * @exception ParseException if an error occured while processing
-     * the transform 
-     */
-        public void skewX(float skx) throws ParseException{
-            SVGTransformItem item  = new SVGTransformItem();
+        /**
+         * Implements {@link TransformListHandler#skewX(float)}.
+         */
+        public void skewX(float skx) throws ParseException {
+            SVGTransformItem item = new SVGTransformItem();
             item.setSkewX(skx);
             listHandler.item(item);
         }
 
-    /**
-     * Invoked when 'skewY(sky)' has been parsed.
-     *
-     * @exception ParseException if an error occured while processing
-     * the transform
-     */
-        public void skewY(float sky) throws ParseException{
+        /**
+         * Implements {@link TransformListHandler#skewY(float)}.
+         */
+        public void skewY(float sky) throws ParseException {
             SVGTransformItem item  = new SVGTransformItem();
             item.setSkewY(sky);
             listHandler.item(item);
         }
 
-    /**
-     * Invoked when the transform ends.
-     *
-     * @exception ParseException if an error occured while processing
-     * the transform
-     */
-        public void endTransformList() throws ParseException{
+        /**
+         * Implements {@link TransformListHandler#endTransformList()}.
+         */
+        public void endTransformList() throws ParseException {
             listHandler.endList();
         }
     }
-    
 }

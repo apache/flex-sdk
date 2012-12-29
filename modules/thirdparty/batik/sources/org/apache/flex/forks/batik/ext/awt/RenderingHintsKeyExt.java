@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2002,2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -20,13 +21,14 @@ package org.apache.flex.forks.batik.ext.awt;
 import java.awt.RenderingHints;
 
 /**
- * Contains additional RenderingHints Keys, such as 
+ * Contains additional RenderingHints Keys, such as
  * KEY_AREA_OF_INTEREST
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: RenderingHintsKeyExt.java,v 1.9 2004/09/06 00:01:58 deweese Exp $
+ * @version $Id: RenderingHintsKeyExt.java 489226 2006-12-21 00:05:36Z cam $
  */
 public final class RenderingHintsKeyExt {
+
     public static final int KEY_BASE;
 
     /**
@@ -34,11 +36,9 @@ public final class RenderingHintsKeyExt {
      */
     public static final RenderingHints.Key KEY_TRANSCODING;
 
-    public static final String VALUE_TRANSCODING_PRINTING = 
-        new String("Printing");
+    public static final String VALUE_TRANSCODING_PRINTING = "Printing";
 
-    public static final String VALUE_TRANSCODING_VECTOR = 
-        new String("Vector");
+    public static final String VALUE_TRANSCODING_VECTOR = "Vector";
 
     /**
      * Key for the AOI hint. This hint is used to propagate the AOI to Paint
@@ -94,7 +94,7 @@ public final class RenderingHintsKeyExt {
                     ("You have loaded the Batik jar files more than once\n" +
                      "in the same JVM this is likely a problem with the\n" +
                      "way you are loading the Batik jar files.");
-                
+
                 base = (int)(Math.random()*2000000);
                 continue;
             }

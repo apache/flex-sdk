@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -31,7 +32,7 @@ import org.w3c.dom.Element;
  * Bridge class for the &lt;feTurbulence> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGFeTurbulenceElementBridge.java,v 1.11 2004/08/18 07:12:34 vhardy Exp $
+ * @version $Id: SVGFeTurbulenceElementBridge.java 501922 2007-01-31 17:47:47Z dvholten $
  */
 public class SVGFeTurbulenceElementBridge
     extends AbstractSVGFilterPrimitiveElementBridge {
@@ -97,23 +98,23 @@ public class SVGFeTurbulenceElementBridge
 
         // 'baseFrequency' attribute - default is [0, 0]
         float [] baseFrequency
-            = convertBaseFrenquency(filterElement);
+            = convertBaseFrenquency(filterElement, ctx);
 
         // 'numOctaves' attribute - default is 1
         int numOctaves
-            = convertInteger(filterElement, SVG_NUM_OCTAVES_ATTRIBUTE, 1);
+            = convertInteger(filterElement, SVG_NUM_OCTAVES_ATTRIBUTE, 1, ctx);
 
         // 'seed' attribute - default is 0
         int seed
-            = convertInteger(filterElement, SVG_SEED_ATTRIBUTE, 0);
+            = convertInteger(filterElement, SVG_SEED_ATTRIBUTE, 0, ctx);
 
         // 'stitchTiles' attribute - default is 'noStitch'
         boolean stitchTiles
-            = convertStitchTiles(filterElement);
+            = convertStitchTiles(filterElement, ctx);
 
         // 'fractalNoise' attribute - default is 'turbulence'
         boolean isFractalNoise
-            = convertType(filterElement);
+            = convertType(filterElement, ctx);
 
         // create the filter primitive
         TurbulenceRable turbulenceRable
@@ -140,8 +141,10 @@ public class SVGFeTurbulenceElementBridge
      * feTurbulence element.
      *
      * @param e the feTurbulence element
+     * @param ctx the BridgeContext to use for error information
      */
-    protected static float [] convertBaseFrenquency(Element e) {
+    protected static float[] convertBaseFrenquency(Element e,
+                                                   BridgeContext ctx) {
         String s = e.getAttributeNS(null, SVG_BASE_FREQUENCY_ATTRIBUTE);
         if (s.length() == 0) {
             return new float[] {0.001f, 0.001f};
@@ -157,17 +160,17 @@ public class SVGFeTurbulenceElementBridge
             }
             if (tokens.hasMoreTokens()) {
                 throw new BridgeException
-                    (e, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                    (ctx, e, ERR_ATTRIBUTE_VALUE_MALFORMED,
                      new Object[] {SVG_BASE_FREQUENCY_ATTRIBUTE, s});
             }
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException nfEx ) {
             throw new BridgeException
-                (e, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                (ctx, e, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
                  new Object[] {SVG_BASE_FREQUENCY_ATTRIBUTE, s});
         }
         if (v[0] < 0 || v[1] < 0) {
             throw new BridgeException
-                (e, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                (ctx, e, ERR_ATTRIBUTE_VALUE_MALFORMED,
                  new Object[] {SVG_BASE_FREQUENCY_ATTRIBUTE, s});
         }
         return v;
@@ -178,9 +181,10 @@ public class SVGFeTurbulenceElementBridge
      * feTurbulence element.
      *
      * @param e the feTurbulence element
+     * @param ctx the BridgeContext to use for error information
      * @return true if stitchTiles attribute is 'stitch', false otherwise
      */
-    protected static boolean convertStitchTiles(Element e) {
+    protected static boolean convertStitchTiles(Element e, BridgeContext ctx) {
         String s = e.getAttributeNS(null, SVG_STITCH_TILES_ATTRIBUTE);
         if (s.length() == 0) {
             return false;
@@ -191,7 +195,7 @@ public class SVGFeTurbulenceElementBridge
         if (SVG_NO_STITCH_VALUE.equals(s)) {
             return false;
         }
-        throw new BridgeException(e, ERR_ATTRIBUTE_VALUE_MALFORMED,
+        throw new BridgeException(ctx, e, ERR_ATTRIBUTE_VALUE_MALFORMED,
                                   new Object[] {SVG_STITCH_TILES_ATTRIBUTE, s});
     }
 
@@ -199,9 +203,10 @@ public class SVGFeTurbulenceElementBridge
      * Converts the 'type' attribute of the specified feTurbulence element.
      *
      * @param e the feTurbulence element
+     * @param ctx the BridgeContext to use for error information
      * @return true if type attribute value is 'fractalNoise', false otherwise
      */
-    protected static boolean convertType(Element e) {
+    protected static boolean convertType(Element e, BridgeContext ctx) {
         String s = e.getAttributeNS(null, SVG_TYPE_ATTRIBUTE);
         if (s.length() == 0) {
             return false;
@@ -212,7 +217,7 @@ public class SVGFeTurbulenceElementBridge
         if (SVG_TURBULENCE_VALUE.equals(s)) {
             return false;
         }
-        throw new BridgeException(e, ERR_ATTRIBUTE_VALUE_MALFORMED,
+        throw new BridgeException(ctx, e, ERR_ATTRIBUTE_VALUE_MALFORMED,
                                   new Object[] {SVG_TYPE_ATTRIBUTE, s});
     }
 }

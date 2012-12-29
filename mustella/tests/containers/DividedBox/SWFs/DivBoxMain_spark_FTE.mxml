@@ -22,7 +22,7 @@
     xmlns:s="library://ns.adobe.com/flex/spark" 
     xmlns:mx="library://ns.adobe.com/flex/mx"  xmlns="*"  width="600" height="600">   
 
-    <fx:Style source="../../../../Assets/Fonts/myStyles.css" />
+    <fx:Style source="../../../../Assets/Fonts/VeraFontStyles.css" />
     <fx:Style>
 
         global {

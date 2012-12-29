@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,10 +28,11 @@ import org.apache.flex.forks.batik.css.engine.value.Value;
 import org.apache.flex.forks.batik.css.engine.value.ValueConstants;
 import org.apache.flex.forks.batik.css.engine.value.ValueManager;
 import org.apache.flex.forks.batik.util.CSSConstants;
+import org.apache.flex.forks.batik.util.SVGTypes;
 
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.DOMException;
-import org.w3c.flex.forks.css.sac.LexicalUnit;
+import org.w3c.css.sac.LexicalUnit;
 
 /**
  * One line Class Desc
@@ -38,16 +40,16 @@ import org.w3c.flex.forks.css.sac.LexicalUnit;
  * Complete Class Desc
  *
  * @author <a href="mailto:deweese@apache.org">l449433</a>
- * @version $Id: SrcManager.java,v 1.8 2005/03/27 08:58:31 cam Exp $
+ * @version $Id: SrcManager.java 478160 2006-11-22 13:35:06Z dvholten $
  */
 public class SrcManager extends IdentifierManager {
 
     /**
      * The identifier values.
      */
-    protected final static StringMap values = new StringMap();
+    protected static final StringMap values = new StringMap();
     static {
-	values.put(CSSConstants.CSS_NONE_VALUE,
+        values.put(CSSConstants.CSS_NONE_VALUE,
                    ValueConstants.NONE_VALUE);
     }
 
@@ -59,7 +61,28 @@ public class SrcManager extends IdentifierManager {
      * org.apache.flex.forks.batik.css.engine.value.ValueManager#isInheritedProperty()}.
      */
     public boolean isInheritedProperty() {
-	return false;
+        return false;
+    }
+
+    /**
+     * Implements {@link ValueManager#isAnimatableProperty()}.
+     */
+    public boolean isAnimatableProperty() {
+        return false;
+    }
+
+    /**
+     * Implements {@link ValueManager#isAdditiveProperty()}.
+     */
+    public boolean isAdditiveProperty() {
+        return false;
+    }
+
+    /**
+     * Implements {@link ValueManager#getPropertyType()}.
+     */
+    public int getPropertyType() {
+        return SVGTypes.TYPE_FONT_DESCRIPTOR_SRC_VALUE;
     }
 
     /**
@@ -67,9 +90,9 @@ public class SrcManager extends IdentifierManager {
      * org.apache.flex.forks.batik.css.engine.value.ValueManager#getPropertyName()}.
      */
     public String getPropertyName() {
-	return CSSConstants.CSS_SRC_PROPERTY;
+        return CSSConstants.CSS_SRC_PROPERTY;
     }
-    
+
     /**
      * Implements {@link
      * org.apache.flex.forks.batik.css.engine.value.ValueManager#getDefaultValue()}.
@@ -84,7 +107,7 @@ public class SrcManager extends IdentifierManager {
      */
     public Value createValue(LexicalUnit lu, CSSEngine engine)
         throws DOMException {
-        
+
         switch (lu.getLexicalUnitType()) {
         case LexicalUnit.SAC_INHERIT:
             return ValueConstants.INHERIT_VALUE;
@@ -108,24 +131,24 @@ public class SrcManager extends IdentifierManager {
                 break;
 
             case LexicalUnit.SAC_URI:
-                String uri = resolveURI(engine.getCSSBaseURI(), 
+                String uri = resolveURI(engine.getCSSBaseURI(),
                                         lu.getStringValue());
-                
+
                 result.append(new URIValue(lu.getStringValue(), uri));
                 lu = lu.getNextLexicalUnit();
-                if ((lu != null) && 
+                if ((lu != null) &&
                     (lu.getLexicalUnitType() == LexicalUnit.SAC_FUNCTION)) {
                     if (!lu.getFunctionName().equalsIgnoreCase("format")) {
                         break;
                     }
                     // Format really does us no good so just ignore it.
 
-                    // TODO: Should probably turn this into a ListValue 
+                    // TODO: Should probably turn this into a ListValue
                     // and append the format function CSS Value.
                     lu = lu.getNextLexicalUnit();
                 }
                 break;
-                
+
             case LexicalUnit.SAC_IDENT:
                 StringBuffer sb = new StringBuffer(lu.getStringValue());
                 lu = lu.getNextLexicalUnit();

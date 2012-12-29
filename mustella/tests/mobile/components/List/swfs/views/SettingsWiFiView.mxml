@@ -73,7 +73,7 @@
                 <fx:Script>
                     <![CDATA[
 						import mx.events.FlexEvent;
-                        [Embed(source="../assets/settingsIconWifi.png")]
+                        [Embed(source="../../../../../../Assets/Images/greenrect.jpg")]
                         [Bindable]
                         public var wifiIcon:Class;
                     ]]>

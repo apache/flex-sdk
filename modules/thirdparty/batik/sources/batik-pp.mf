@@ -1,9 +1,10 @@
 Manifest-Version: 1.0
-Main-Class: org.apache.flex.forks.batik.apps.svgpp.Main
+Main-Class: org.apache.batik.apps.svgpp.Main
 Class-Path: lib/batik-ext.jar \
             lib/batik-dom.jar \
             lib/batik-parser.jar \
             lib/batik-transcoder.jar \
             lib/batik-util.jar \
             lib/batik-xml.jar \
-            lib/xml-apis.jar
+            lib/xml-apis.jar \
+            lib/xml-apis-ext.jar

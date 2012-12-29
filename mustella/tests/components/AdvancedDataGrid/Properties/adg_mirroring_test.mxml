@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/AdvancedDataGrid/Properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AdvancedDataGridMain.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.DateChooser;
+    import mx.controls.AdvancedDataGrid;
+    import mx.containers.Canvas;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    public var mydatagrid:AdvancedDataGrid
+    public var mybox:Canvas;
+    public function genericCleanUp():void
+    {
+     mydatagrid= stringToObject ("mydatagrid") as AdvancedDataGrid;
+     mybox = stringToObject ("box") as Canvas;
+     mybox = new Canvas();
+        mydatagrid = new AdvancedDataGrid();
+
+        application.startIt();
+
+    }
+
+    public function mirroringApplication():void
+    {
+        application.setStyle('layoutDirection','rtl');
+    }
+
+    public function mirroringApplication_ltr():void
+    {
+        application.setStyle('layoutDirection','ltr');
+    }
+    public function addItems():void
+    {
+       for(var i:int=0;i<15;i++)
+       {
+          var obj:Object={col1:'one'+i,col2:i,col3:'three'+i}
+          application.mydatagrid.dataProvider.addItem(obj);
+       }
+
+    }
+        public function addBigItems():void
+        {
+           application.mydatagrid.height=250;
+            application.mydatagrid.dataProvider.removeAll()
+            var str1:String=" "
+            var str2:String="two two "
+            var str3:String=" "
+            var dummytext:String ="The Quick Brown Fox Jumped over the lazy dog"
+            for(var i:int=0;i<25;i++)
+            {
+                for(var j:int=0;j<5;j++)
+                {
+                   str1+=dummytext;
+                   str3+=dummytext;
+                }
+                var obj:Object = {col1:str1,col2:str2+i,col3:str3}
+                application.mydatagrid.dataProvider.addItem(obj);
+            }
+
+        }
+          public function startApp():void
+    {
+              application.startIt();
+           }
+           
+       private function getFocusManager():void
+       {
+       
+          application.ti.text=application.mydatagrid.focusManager.toString();
+       }
+       private function getFocusPane():void
+       {
+         application.ti.text=application.mydatagrid.focusPane.toString();
+       }
+    ]]>
+    </mx:Script>
+
+    <testCases>
+            
+         
+               <TestCase testID="property_layoutDirection_ltr" keywords="['layoutDirection']">
+	      		       <setup>
+	      		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+	      		       <RunCode code="startApp()"/>
+	      		       <RunCode code="addItems()"/>
+	      			      
+	      		      </setup>
+	      		      <body>
+	                        <SetStyle styleName="layoutDirection" value="ltr" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd/>
+	       	                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/property_layoutDirection_ltr.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>			  
+
+	      		      </body>
+               </TestCase>
+
+	        <TestCase testID="property_layoutDirection_rtl" keywords="['layoutDirection_rtl']">
+	      		       <setup>
+	      		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+	      		       <RunCode code="startApp()"/>
+	      		       <RunCode code="addItems()"/>
+	      			      
+	      		      </setup>
+	      		      <body>
+	                        <SetStyle styleName="layoutDirection" value="rtl" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				 <WaitForEffectsToEnd/>
+				 
+				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/property_layoutDirection_rtl.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+
+	      		      </body>
+               </TestCase>
+
+	        <TestCase testID="property_layoutDirection_application" keywords="['layoutDirection_application_rtl']">
+	      		       <setup>
+	      		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+	      		       <RunCode code="startApp()"/>
+	      		       <RunCode code="addItems()"/>
+	      			      
+	      		      </setup>
+	      		      <body>
+	                        <SetStyle styleName="layoutDirection" value="ltr" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				<RunCode code="mirroringApplication()"/>
+				 <WaitForEffectsToEnd/>
+								  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/property_layoutDirection_application.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+
+
+	      		      </body>
+               </TestCase>
+
+	        <TestCase testID="property_layoutDirection_application_ltr" keywords="['layoutDirection_application_rtl']">
+	      		       <setup>
+	      		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+	      		       <RunCode code="startApp()"/>
+	      		       <RunCode code="addItems()"/>
+	      			      
+	      		      </setup>
+	      		      <body>
+	                        <SetStyle styleName="layoutDirection" value="rtl" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+				<RunCode code="mirroringApplication_ltr()"/>
+				 <WaitForEffectsToEnd/>
+	       	     	       	               
+            				  <CompareBitmap target="mydatagrid" url="../Properties/Baselines/property_layoutDirection_application_ltr.png" timeout="5000" numColorVariances="1" maxColorVariance="2"/>
+
+	      		      </body>
+               </TestCase>
+
+
+             
+    </testCases>
+
+</UnitTester>

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -51,7 +52,7 @@ import org.apache.flex.forks.batik.ext.awt.image.GraphicsUtil;
  * the subclass implementation.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: AbstractRed.java,v 1.12 2005/03/27 08:58:33 cam Exp $
+ * @version $Id: AbstractRed.java 489226 2006-12-21 00:05:36Z cam $
  */
 public abstract class AbstractRed implements CachableRed {
 
@@ -96,8 +97,8 @@ public abstract class AbstractRed implements CachableRed {
      * @param props this initializes the props Map.  */
     protected AbstractRed(CachableRed src, Map props) {
         init(src, src.getBounds(), src.getColorModel(), src.getSampleModel(),
-             (src==null)?0:src.getTileGridXOffset(),
-             (src==null)?0:src.getTileGridYOffset(),
+             src.getTileGridXOffset(),
+             src.getTileGridYOffset(),
              props);
     }
 
@@ -111,17 +112,17 @@ public abstract class AbstractRed implements CachableRed {
      * @param props this initializes the props Map.  */
     protected AbstractRed(CachableRed src, Rectangle bounds, Map props) {
         init(src, bounds, src.getColorModel(), src.getSampleModel(),
-             (src==null)?0:src.getTileGridXOffset(),
-             (src==null)?0:src.getTileGridYOffset(),
+             src.getTileGridXOffset(),
+             src.getTileGridYOffset(),
              props);
     }
 
     /**
      * Construct an Abstract RenderedImage from a source image, bounds
      * rect and props (may be null).
-     * @param src will be the first (and only) member of the srcs
-     * Vector. Src is also used to set the ColorModel, SampleModel,
-     * and tile grid offsets.
+     * @param src if not null, will be the first (and only) member
+     * of the srcs Vector. Also if it is not null it provides the
+     * tile grid offsets, otherwise they are zero.
      * @param bounds The bounds of this image.
      * @param cm The ColorModel to use. If null it will default to
      * ComponentColorModel.
@@ -444,21 +445,24 @@ public abstract class AbstractRed implements CachableRed {
 
     public String [] getPropertyNames() {
         Set keys = props.keySet();
-        Iterator iter = keys.iterator();
-        String [] ret  = new String[keys.size()];
-        int i=0;
-        while (iter.hasNext()) {
-            ret[i++] = (String)iter.next();
-        }
+        String[] ret  = new String[keys.size()];
+        keys.toArray( ret );
 
-        iter = srcs.iterator();
+//        Iterator iter = keys.iterator();
+//        int i=0;
+//        while (iter.hasNext()) {
+//            ret[i++] = (String)iter.next();
+//        }
+
+        Iterator iter = srcs.iterator();
         while (iter.hasNext()) {
             RenderedImage ri = (RenderedImage)iter.next();
             String [] srcProps = ri.getPropertyNames();
             if (srcProps.length != 0) {
                 String [] tmp = new String[ret.length+srcProps.length];
-                System.arraycopy(tmp,0,tmp,0,ret.length);
-                System.arraycopy(tmp,ret.length,srcProps,0,srcProps.length);
+                System.arraycopy(ret,0,tmp,0,ret.length);
+                /// ??? System.arraycopy((tmp,ret.length,srcProps,0,srcProps.length);
+                System.arraycopy( srcProps, 0, tmp, ret.length, srcProps.length);
                 ret = tmp;
             }
         }
@@ -472,7 +476,7 @@ public abstract class AbstractRed implements CachableRed {
                 ("Nonexistant source requested.");
 
         // Return empty rect if they don't intersect.
-        if (outputRgn.intersects(bounds) == false)
+        if ( ! outputRgn.intersects(bounds) )
             return new Rectangle();
 
         // We only depend on our source for stuff that is inside
@@ -486,7 +490,7 @@ public abstract class AbstractRed implements CachableRed {
                 ("Nonexistant source requested.");
 
         // Return empty rect if they don't intersect.
-        if (inputRgn.intersects(bounds) == false)
+        if ( ! inputRgn.intersects(bounds) )
             return new Rectangle();
 
         // Changes in the input region don't propogate outside our
@@ -568,7 +572,7 @@ public abstract class AbstractRed implements CachableRed {
         if (tx1 >= minTileX+numXTiles) tx1 = minTileX+numXTiles-1;
         if (ty1 >= minTileY+numYTiles) ty1 = minTileY+numYTiles-1;
 
-        final boolean is_INT_PACK = 
+        final boolean is_INT_PACK =
             GraphicsUtil.is_INT_PACK_Data(getSampleModel(), false);
 
         for (int y=ty0; y<=ty1; y++)
@@ -598,7 +602,7 @@ public abstract class AbstractRed implements CachableRed {
         if ((tileX < minTileX) || (tileX >= minTileX+numXTiles) ||
             (tileY < minTileY) || (tileY >= minTileY+numYTiles))
             throw new IndexOutOfBoundsException
-                ("Requested Tile (" + tileX + "," + tileY +
+                ("Requested Tile (" + tileX + ',' + tileY +
                  ") lies outside the bounds of image");
 
         Point pt = new Point(tileGridXOff+tileX*tileWidth,
@@ -606,19 +610,19 @@ public abstract class AbstractRed implements CachableRed {
 
         WritableRaster wr;
         wr = Raster.createWritableRaster(sm, pt);
-        // if (!(sm instanceof SinglePixelPackedSampleModel)) 
+        // if (!(sm instanceof SinglePixelPackedSampleModel))
         //     wr = Raster.createWritableRaster(sm, pt);
         // else {
         //     SinglePixelPackedSampleModel sppsm;
         //     sppsm = (SinglePixelPackedSampleModel)sm;
         //     int stride = sppsm.getScanlineStride();
         //     int sz = stride*sppsm.getHeight();
-        // 
+        //
         //     int [] data = reclaim.request(sz);
         //     DataBuffer db = new DataBufferInt(data, sz);
-        // 
+        //
         //     reclaim.register(db);
-        // 
+        //
         //     wr = Raster.createWritableRaster(sm, db, pt);
         // }
 
@@ -644,7 +648,7 @@ public abstract class AbstractRed implements CachableRed {
         return wr;
     }
 
-    public static void copyBand(Raster         src, int srcBand, 
+    public static void copyBand(Raster         src, int srcBand,
                                 WritableRaster dst, int dstBand) {
         Rectangle srcR = new Rectangle(src.getMinX(),  src.getMinY(),
                                        src.getWidth(), src.getHeight());

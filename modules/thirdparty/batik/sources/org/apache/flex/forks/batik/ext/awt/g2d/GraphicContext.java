@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -33,7 +34,8 @@ import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.NoninvertibleTransformException;
 import java.util.Map;
-import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Handles the attributes in a graphic context:<br>
@@ -47,7 +49,7 @@ import java.util.Vector;
  *
  * @author <a href="mailto:cjolif@ilog.fr">Christophe Jolif</a>
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: GraphicContext.java,v 1.10 2005/04/02 14:26:09 deweese Exp $
+ * @version $Id: GraphicContext.java 479564 2006-11-27 09:56:57Z dvholten $
  */
 public class GraphicContext implements Cloneable{
     /**
@@ -66,7 +68,7 @@ public class GraphicContext implements Cloneable{
     /**
      * Transform stack
      */
-    protected Vector transformStack = new Vector();
+    protected List transformStack = new ArrayList();
 
     /**
      * Defines whether the transform stack is valide or not.
@@ -136,7 +138,7 @@ public class GraphicContext implements Cloneable{
         defaultTransform = new AffineTransform(defaultDeviceTransform);
         transform = new AffineTransform(defaultTransform);
         if (!defaultTransform.isIdentity())
-            transformStack.addElement(TransformStackElement.createGeneralTransformElement(defaultTransform));
+            transformStack.add(TransformStackElement.createGeneralTransformElement(defaultTransform));
     }
 
     /**
@@ -156,11 +158,11 @@ public class GraphicContext implements Cloneable{
         copyGc.transform = new AffineTransform(this.transform);
 
         // Transform stack
-        copyGc.transformStack = new Vector();
+        copyGc.transformStack = new ArrayList( transformStack.size() );
         for(int i=0; i<this.transformStack.size(); i++){
             TransformStackElement stackElement =
-                (TransformStackElement)this.transformStack.elementAt(i);
-            copyGc.transformStack.addElement(stackElement.clone());
+                (TransformStackElement)this.transformStack.get(i);
+            copyGc.transformStack.add(stackElement.clone());
         }
 
         // Transform stack validity
@@ -321,7 +323,7 @@ public class GraphicContext implements Cloneable{
      * @return      a <code>Shape</code> object representing the
      *              current clipping area, or <code>null</code> if
      *              no clip is set.
-     * @see         java.awt.Graphics#getClipBounds
+     * @see         java.awt.Graphics#getClipBounds()
      * @see         java.awt.Graphics#clipRect
      * @see         java.awt.Graphics#setClip(int, int, int, int)
      * @see         java.awt.Graphics#setClip(Shape)
@@ -373,12 +375,13 @@ public class GraphicContext implements Cloneable{
      * there is a security manager, its <code>checkPermission</code>
      * method is called with an <code>AWTPermission("readDisplayPixels")</code>
      * permission.
+     *
+     * @param comp the <code>Composite</code> object to be used for rendering
      * @throws SecurityException
      *         if a custom <code>Composite</code> object is being
      *         used to render to the screen and a security manager
      *         is set and its <code>checkPermission</code> method
      *         does not allow the operation.
-     * @param comp the <code>Composite</code> object to be used for rendering
      * @see java.awt.Graphics#setXORMode
      * @see java.awt.Graphics#setPaintMode
      * @see java.awt.AlphaComposite
@@ -520,7 +523,7 @@ public class GraphicContext implements Cloneable{
     public void translate(int x, int y){
         if(x!=0 || y!=0){
             transform.translate(x, y);
-            transformStack.addElement(TransformStackElement.createTranslateElement(x, y));
+            transformStack.add(TransformStackElement.createTranslateElement(x, y));
         }
     }
 
@@ -543,7 +546,7 @@ public class GraphicContext implements Cloneable{
      */
     public void translate(double tx, double ty){
         transform.translate(tx, ty);
-        transformStack.addElement(TransformStackElement.createTranslateElement(tx, ty));
+        transformStack.add(TransformStackElement.createTranslateElement(tx, ty));
     }
 
     /**
@@ -564,7 +567,7 @@ public class GraphicContext implements Cloneable{
      */
     public void rotate(double theta){
         transform.rotate(theta);
-        transformStack.addElement(TransformStackElement.createRotateElement(theta));
+        transformStack.add(TransformStackElement.createRotateElement(theta));
     }
 
     /**
@@ -588,9 +591,9 @@ public class GraphicContext implements Cloneable{
      */
     public void rotate(double theta, double x, double y){
         transform.rotate(theta, x, y);
-        transformStack.addElement(TransformStackElement.createTranslateElement(x, y));
-        transformStack.addElement(TransformStackElement.createRotateElement(theta));
-        transformStack.addElement(TransformStackElement.createTranslateElement(-x, -y));
+        transformStack.add(TransformStackElement.createTranslateElement(x, y));
+        transformStack.add(TransformStackElement.createRotateElement(theta));
+        transformStack.add(TransformStackElement.createTranslateElement(-x, -y));
     }
 
     /**
@@ -614,7 +617,7 @@ public class GraphicContext implements Cloneable{
      */
     public void scale(double sx, double sy){
         transform.scale(sx, sy);
-        transformStack.addElement(TransformStackElement.createScaleElement(sx, sy));
+        transformStack.add(TransformStackElement.createScaleElement(sx, sy));
     }
 
     /**
@@ -637,7 +640,7 @@ public class GraphicContext implements Cloneable{
      */
     public void shear(double shx, double shy){
         transform.shear(shx, shy);
-        transformStack.addElement(TransformStackElement.createShearElement(shx, shy));
+        transformStack.add(TransformStackElement.createShearElement(shx, shy));
     }
 
     /**
@@ -659,7 +662,7 @@ public class GraphicContext implements Cloneable{
      */
     public void transform(AffineTransform Tx){
         transform.concatenate(Tx);
-        transformStack.addElement(TransformStackElement.createGeneralTransformElement(Tx));
+        transformStack.add(TransformStackElement.createGeneralTransformElement(Tx));
     }
 
     /**
@@ -674,7 +677,7 @@ public class GraphicContext implements Cloneable{
         transform = new AffineTransform(Tx);
         invalidateTransformStack();
         if(!Tx.isIdentity())
-            transformStack.addElement(TransformStackElement.createGeneralTransformElement(Tx));
+            transformStack.add(TransformStackElement.createGeneralTransformElement(Tx));
     }
 
     /**
@@ -699,8 +702,8 @@ public class GraphicContext implements Cloneable{
      *         were concatenated with the original one.
      */
     public TransformStackElement[] getTransformStack(){
-        TransformStackElement stack[] = new TransformStackElement[transformStack.size()];
-        transformStack.copyInto(stack);
+        TransformStackElement[] stack = new TransformStackElement[transformStack.size()];
+        transformStack.toArray( stack );
         return stack;
     }
 
@@ -711,7 +714,7 @@ public class GraphicContext implements Cloneable{
      * can override this memento
      */
     protected void invalidateTransformStack(){
-        transformStack.removeAllElements();
+        transformStack.clear();
         transformStackValid = false;
     }
 
@@ -846,7 +849,7 @@ public class GraphicContext implements Cloneable{
      *
      * @return a reference to an instance of FontRenderContext.
      * @see java.awt.font.FontRenderContext
-     * @see java.awt.Font#createGlyphVector
+     * @see java.awt.Font#createGlyphVector(FontRenderContext,char[])
      * @see java.awt.font.TextLayout
      * @since     JDK1.2
      */

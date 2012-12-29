@@ -645,7 +645,7 @@
                 <DispatchKeyEvent keys="[DOWN]"  ctrlKey="true" waitTarget="list1" waitEvent="caretChange"/>
                 <DispatchKeyEvent keys="[DOWN]"  ctrlKey="true" waitTarget="list1" waitEvent="caretChange"/>
                 <DispatchKeyEvent keys="[DOWN]"  ctrlKey="true" waitTarget="list1" waitEvent="caretChange"/>
-                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="3" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="2" />
                 <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="list1" />
             </body>
         </TestCase>

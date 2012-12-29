@@ -23,7 +23,7 @@
                 <ResetComponent target="uiCustomComp" className="assets.CustomCompFormat" waitEvent="updateComplete" waitTarget="uiCustomComp"/>
             </setup>
             <body>
-				<RunCode code="application.uiCustomComp.testSpark()" waitTarget="uiCustomComp.uiResultTI" waitEvent="updateComplete"/>
+				<RunCode code="application.uiCustomComp.testSpark()" waitTarget="uiCustomComp.uiResultTI" waitEvent="valueCommit"/>
 				<AssertPropertyValue target="uiCustomComp.uiResultTI" propertyName="text" value="0"/>
             </body>
         </TestCase>

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,7 +28,7 @@ import java.awt.image.renderable.RenderableImage;
  * dependancies.
  *
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: Filter.java,v 1.4 2004/08/18 07:13:59 vhardy Exp $
+ * @version $Id: Filter.java 478276 2006-11-22 18:33:37Z dvholten $
  */
 public interface Filter extends RenderableImage {
 
@@ -35,7 +36,7 @@ public interface Filter extends RenderableImage {
      * Returns the bounds of the current image.
      * This should be 'in sync' with getMinX, getMinY, getWidth, getHeight
      */
-    public Rectangle2D getBounds2D();
+    Rectangle2D getBounds2D();
 
     /**
      * Returns the current modification timestamp on this Renderable
@@ -43,7 +44,7 @@ public interface Filter extends RenderableImage {
      * invalid.
      * @return Current modification timestamp value.
      */
-    public long getTimeStamp();
+    long getTimeStamp();
 
     /**
      * Returns the region of input data is is required to generate
@@ -55,7 +56,7 @@ public interface Filter extends RenderableImage {
      * @return The region of input required.  This is in the user
      * coordinate system for the source indicated by srcIndex.
      */
-    public Shape getDependencyRegion(int srcIndex, Rectangle2D outputRgn);
+    Shape getDependencyRegion(int srcIndex, Rectangle2D outputRgn);
 
     /**
      * This calculates the region of output that is affected by a change
@@ -68,6 +69,6 @@ public interface Filter extends RenderableImage {
      *  a change to inputRgn of the source selected by srcIndex.
      *  this is in the user coordinate system of this node.
      */
-    public Shape getDirtyRegion(int srcIndex, Rectangle2D inputRgn);
+    Shape getDirtyRegion(int srcIndex, Rectangle2D inputRgn);
 }
 

@@ -53,9 +53,7 @@
 	<list listStyleType="upperRoman"><li><p><span>upperRoman item<span></p></li></list>
 	<list listStyleType="lowerRoman"><li><p><span>lowerRoman item<span></p></li></list>
 	<list listStyleType="decimal"><li><p><span>decimal item<span></p></li></list>
-	<list listStyleType="lowerGreek"><li><p><span>lowerGreek item<span></p></li></list>
 	<list listStyleType="lowerLatin"><li><p><span>lowerLatin item<span></p></li></list>
-	<list listStyleType="upperGreek"><li><p><span>upperGreek item<span></p></li></list>
 	<list listStyleType="upperLatin"><li><p><span>upperLatin item<span></p></li></list>
 
 </TextFlow>

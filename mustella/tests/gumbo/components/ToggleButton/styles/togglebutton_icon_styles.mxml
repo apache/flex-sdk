@@ -263,7 +263,7 @@
 <TestCase testID="togglebutton_icon_button_down" keywords="[ToggleButton,icon]" description="Test down button skin with icon">
 	<setup>
 		<ResetComponent target="btn1" className="spark.components.ToggleButton" waitEvent="updateComplete" waitTarget="btn1" />
-		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngClsLarge}" waitEvent="updateComplete" waitTarget="btn1"/>
 	</setup>
 	<body>
 		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
@@ -277,7 +277,7 @@
 <TestCase testID="togglebutton_icon_with_label_button_down" keywords="[ToggleButton,icon]" description="Test down button skin with icon and label">
 	<setup>
 		<ResetComponent target="btn1" className="spark.components.ToggleButton" waitEvent="updateComplete" waitTarget="btn1" />
-		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngClsLarge}" waitEvent="updateComplete" waitTarget="btn1"/>
 		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>
 	</setup>
 	<body>
@@ -400,7 +400,7 @@
 <TestCase testID="togglebutton_icon_down_alpha_0.5" keywords="[ToggleButton, alpha, property]" description="Test alpha 0.5 on a button with icon on mouse down.">
 	<setup>
 		<ResetComponent target="btn1" className="spark.components.ToggleButton" waitEvent="updateComplete" waitTarget="btn1"/>
-		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngClsLarge}" waitEvent="updateComplete" waitTarget="btn1"/>
 		<SetProperty propertyName="label" value="Alpha Button" target="btn1" waitEvent="contentChange" waitTarget="btn1"/>
 		<SetProperty propertyName="alpha" value=".5" target="btn1" waitEvent="alphaChanged" waitTarget="btn1"/>
 	</setup>
@@ -1140,7 +1140,7 @@ Combine with various other styles and properties.
 		<ResetComponent target="btn1" className="spark.components.ToggleButton" waitEvent="updateComplete" waitTarget="btn1" />
 		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
 		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
-		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngClsLarge}" waitEvent="updateComplete" waitTarget="btn1"/>
 	</setup>
 	<body>
 		<SetStyle target="btn1" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="btn1"/>
@@ -1173,7 +1173,7 @@ Combine with various other styles and properties.
 		<ResetComponent target="btn1" className="spark.components.ToggleButton" waitEvent="updateComplete" waitTarget="btn1" />
 		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
 		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
-		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngClsLarge}" waitEvent="updateComplete" waitTarget="btn1"/>
 	</setup>
 	<body>
 		<AssertStyleValue target="btn1" styleName="fontSize" value="12" />		
@@ -1207,7 +1207,7 @@ Combine with various other styles and properties.
 		<SetStyle target="btn1" styleName="fontWeight" value="normal"/>
 		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
 		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
-		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngClsLarge}" waitEvent="updateComplete" waitTarget="btn1"/>
 	</setup>
 	<body>
 		<AssertStyleValue target="btn1" styleName="fontWeight" value="normal" />		
@@ -1239,7 +1239,7 @@ Combine with various other styles and properties.
 		<ResetComponent target="btn1" className="spark.components.ToggleButton" waitEvent="updateComplete" waitTarget="btn1" />
 		<SetProperty target="btn1" propertyName="label" value="Text Decoration" waitEvent="contentChange" waitTarget="btn1"/>
 		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
-		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngClsLarge}" waitEvent="updateComplete" waitTarget="btn1"/>
 	</setup>
 	<body>
 		<AssertStyleValue target="btn1" styleName="textDecoration" value="none" />		
@@ -1273,7 +1273,7 @@ Combine with various other styles and properties.
 		<ResetComponent target="btn1" className="spark.components.ToggleButton" waitEvent="updateComplete" waitTarget="btn1" />
 		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
 		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
-		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngClsLarge}" waitEvent="updateComplete" waitTarget="btn1"/>
 	</setup>
 	<body>
 		<AssertStyleValue target="btn1" styleName="fontStyle" value="normal" />		
@@ -1315,7 +1315,7 @@ Combine with various other styles and properties.
 <TestCase testID="togglebutton_icon_chromeColor_down" keywords="[ToggleButton,icon, chromeColor]" description="Test down skin on chromeColor change on button with icon">
 	<setup>
 		<ResetComponent target="btn1" className="spark.components.ToggleButton" waitEvent="updateComplete" waitTarget="btn1" />
-		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngClsLarge}" waitEvent="updateComplete" waitTarget="btn1"/>
 	</setup>
 	<body>
 		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
@@ -1332,7 +1332,7 @@ Combine with various other styles and properties.
 	<setup>
 		<ResetComponent target="btn1" className="spark.components.ToggleButton" waitEvent="updateComplete" waitTarget="btn1" />
 		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
-		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngClsLarge}" waitEvent="updateComplete" waitTarget="btn1"/>
 	</setup>
 	<body>
 		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
@@ -1387,7 +1387,7 @@ Combine with various other styles and properties.
 	<setup>
 		<ResetComponent target="btn1" className="spark.components.ToggleButton" waitEvent="updateComplete" waitTarget="btn1" />
 		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
-		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngClsLarge}" waitEvent="updateComplete" waitTarget="btn1"/>
 	</setup>
 	<body>
 		<SetStyle target="btn1" styleName="chromeColor" value="#004e4e" waitEvent="updateComplete"/>

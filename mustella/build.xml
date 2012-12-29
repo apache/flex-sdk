@@ -23,7 +23,10 @@
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
 
-    <property name="mustella.dir" value="${basedir}" />
+    <pathconvert property="mustella.dir" dirsep="/" >
+       <path location="${basedir}" />
+    </pathconvert>
+
     <property name="tmp.dir" value="${mustella.dir}/tmp" />
 
     <property name="feature" value=""/>
@@ -39,10 +42,8 @@
     
     <property name="HOMEPATH" value="${env.HOMEDRIVE}${env.HOMEPATH}" />
 
-    <pathconvert property="mustella.dir" dirsep="/" >
-       <path location="${basedir}" />
-    </pathconvert>
-
+    <property name="mustella.swc.dir" value="${mustella.dir}" />
+    <property name="mustella.swc.name" value="mustella.swc" />
 
     <!-- default version file -->
     <property name="build.version.file" value="successfulBuild.properties" />
@@ -62,6 +63,7 @@
     <property name="previous.generated.testfiles" value="**/*.swf,**/*.output,**/SWFs/${apollo_transform_prefix}*.mxml,**/swfs/${apollo_transform_prefix}*.mxml,**/SWFs/${apollo_transform_prefix2}*.mxml,**/swfs/${apollo_transform_prefix2}*.mxml" />
     
     <property name="sdk.mustella.dir" value="${mustella.dir}/tests" />
+    <mkdir dir="${sdk.mustella.dir}" />
 
     <property name="root.dir" value="${basedir}/.."/>
     <property name="sdk.dir" value="${basedir}/.." />
@@ -79,6 +81,8 @@
     <property name="aschartspath" value="."/>
     <property name="frameworks.dir1" value="${frameworks}" />
     <property name="librarypath" value="${frameworks.dir1}/libs/framework.swc,${frameworks.dir1}/libs/charts.swc,${frameworks.dir1}/libs/rpc.swc"/>
+    <!-- this seems to passed to CompileMustellaSwc but unused -->
+    <!-- probably the flex-config.xml file used determines which playerglobal.swc is used -->
     <property name="external.librarypath" value="${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc"/>
     <property name="rsl" value="" />
 
@@ -157,19 +161,41 @@
     <property name="target_os_name" value="${host_os_name}" />
 
     <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListWin.txt" >
-        <equals arg1="${target_os_name}" arg2="windows" />
+        <and>
+            <equals arg1="${target_os_name}" arg2="windows" />
+            <not>
+                <istrue value="${use_apollo}" />
+            </not>
+        </and>
     </condition>
 
     <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListMac.txt" >
-        <equals arg1="${target_os_name}" arg2="mac" />
+        <and>
+            <equals arg1="${target_os_name}" arg2="mac" />
+            <not>
+                <istrue value="${use_apollo}" />
+            </not>
+        </and>
+    </condition>
+    
+    <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListMacAIR.txt" >
+        <and>
+            <equals arg1="${target_os_name}" arg2="mac" />
+            <istrue value="${use_apollo}" />
+        </and>
+    </condition>
+
+    <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListWinAIR.txt" >
+        <and>
+            <equals arg1="${target_os_name}" arg2="windows" />
+            <istrue value="${use_apollo}" />
+        </and>
     </condition>
 
     <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListLinux.txt" >
         <equals arg1="${target_os_name}" arg2="Linux" />
     </condition>
 
-    <echo>exclude file will be: ${exclude_filename}</echo>
-    
     <!-- Whether a run will spawn its own baseline server.  With multiple runs on a machine, they will collide. -->
     <property name="prevent_baseline_server" value="${prevent_baseline_server}" />
     
@@ -287,12 +313,11 @@
         </or>
     </condition>
 
-    <condition property="do_mustellaswc_compile" value="true" >
-        <not>
-            <available file="${mustella.dir}/${mustella.swc.name}" />
-        </not>
-    </condition>
-
+    <!-- Only recompile mustella.swc if it doesn't exist or if any of the its .as files have changed. -->
+    <uptodate property="compilemustellaswc.notRequired" targetfile="${mustella.dir}/${mustella.swc.name}" >
+        <srcfiles dir="${mustella.dir}/as3/src/mustella" includes="**/*.as"/>
+    </uptodate>
+    
     <condition property="vetting" value="Vetting" >
         <equals arg1="${run_type}" arg2="mini"/>
     </condition>
@@ -332,6 +357,8 @@
     <!-- default location of AIR stuff if apollo_location not explicitly set -->
     <property name="apollo_location" value="${env.AIR_HOME}"/>
     <property name="air.sdk.dir" value="${apollo_location}" />
+
+
 
     <condition property="apollo_specific_excludes" value="${apollo_only_excludes}" >
         <istrue value="${use_apollo}" />
@@ -452,7 +479,29 @@
         <echo>apollo_location is ${apollo_location}</echo>        
     </target>
 
-    <target name="setup" depends="get_date,get_os,setup_mac,setup_windows,setup_linux,db_time,handle_mobile_config,echo-browser,echo-apollo"  description="--> set platform specific properties">
+    <target name="echo-info">
+        <!-- Summary Info -->
+        <echo message="    JAVA_HOME:               ${env.JAVA_HOME}"/>
+        <echo message="    FLASHPLAYER_DEBUGGER:    ${env.FLASHPLAYER_DEBUGGER}"/>
+        <echo message="    sdk.dir:                 ${sdk.dir}"/>
+    
+        <echo message="    mustella exclude file:   ${exclude_filename}"/> 
+    </target>
+    
+    <target name="check-fonts">
+        <!-- Check that Adobe's embedded font jars exist and fail if any are missing.  -->
+        <condition property="fonts.exist">
+        <and>
+            <available file="${sdk.dir}/lib/external/optional/afe.jar" />
+            <available file="${sdk.dir}/lib/external/optional/aglj40.jar" />
+            <available file="${sdk.dir}/lib/external/optional/flex-fontkit.jar" />
+            <available file="${sdk.dir}/lib/external/optional/rideau.jar" />
+         </and>
+        </condition>       
+        <fail message="Mustella uses embedded fonts.  Please install Adobe's embedded font support." unless="fonts.exist"/>
+    </target>
+    
+    <target name="setup" depends="echo-info,get_date,get_os,setup_mac,setup_windows,setup_linux,db_time,handle_mobile_config,echo-browser,echo-apollo"  description="--> set platform specific properties">
         <!-- antcall target="db_time">
             <param name="no_quote" value="true" />
             <param name="db_time_vetting_file" value="${tmp.dir}/.db.time.mini" />
@@ -557,6 +606,7 @@
             </filtermapper>
             <map from="${mustella.dir}/" to="" />
         </pathconvert>
+        <echo>shell_file_mxml_equivs is ${shell_file_mxml_equivs}</echo>
         
         <!-- this does likewise for the excluded ones -->
         <pathconvert property="shell_file_mxml_excludes" pathsep="," dirsep="/" >
@@ -570,6 +620,7 @@
         <!-- build the fileset -->
         <fileset id="mxml_equiv_shells" dir="${sdk.mustella.dir}" includes="${shell_file_mxml_equivs}" excludes="${shell_file_mxml_excludes}">
         </fileset>
+        <echo>mxml_equiv_shells is ${mxml_equiv_shells}</echo>
               
         <property name="showx0" refid="mxml_equiv_shells" />
         
@@ -585,6 +636,7 @@
         it seemed unreachable -->
         <taskdef name="getSiblingSwfs" classname="mustella.CousinPreCompile" classpathref="flex.test.classpath"/>
         <getSiblingSwfs files="${tmp111}${path.separator}${tmp111a}" root="${sdk.mustella.dir}" property="tmp.sdk.mustella.scripts2"  />
+        <echo>tmp.sdk.mustella.scripts2 is ${tmp.sdk.mustella.scripts2}</echo>
 
      </target>
 
@@ -598,15 +650,16 @@
         </pathconvert>
         <exec  executable="${shell}" failonerror="${exit_on_compile_error}">
             <arg value="${sdk.mustella.dir}/../scripts/shellrunner.sh" />
-                <arg value="${sdk.mustella.scripts2}" />
+            <env key="MUSTELLA_SCRIPTS2" value="${sdk.mustella.scripts2}" />
             <env key="SDK_DIR" value="${sdk.dir}" />
-                <env key="MUSTELLA_DIR" value="${mustella.dir}" />
-                <env key="USE_APOLLO" value="${use_apollo}" />
-                <env key="APOLLO_TRANSFORM" value="${apollo_transform}" />
+            <env key="MUSTELLA_DIR" value="${mustella.dir}" />
+            <env key="USE_APOLLO" value="${use_apollo}" />
+            <env key="APOLLO_TRANSFORM" value="${apollo_transform}" />
         </exec>
      </target>
 
-     <target name="chmod_shells" depends="build_shell_set" description=" make user-defined shells executatble">
+     <target name="chmod_shells" depends="build_shell_set" unless="chmod_shells.notRequired"
+            description=" make user-defined shells executatble">
         <echo>changing user shell files to executable </echo>
         <chmod perm="555" maxparallel="50">
             <fileset dir="${mustella.dir}" >
@@ -676,6 +729,9 @@
         <echo>target_os_name: ${target_os_name}</echo>
         <echo>os_version: ${os_version}</echo>
         <echo>device_name: ${device_name}</echo>
+        <echo>get_results_from_log: ${get_results_from_log}</echo>
+        <echo>step_timeout: ${step_timeout}</echo>
+        <echo>run_mobile_tests: ${run_mobile_tests}</echo>
         <echo>use_android_runner: ${use_android_runner}</echo>
         <echo>use_ios_runner: ${use_ios_runner}</echo>
         <echo>use_qnx_runner: ${use_qnx_runner}</echo>
@@ -832,6 +888,7 @@
             <fileset dir="${mustella.dir}">
                 <include name="test_files.tmp"/>
                 <include name="results.txt"/>
+                <include name="*.log"/>
             </fileset>
         </delete>
     </target>
@@ -840,7 +897,7 @@
         <istrue value="${run_mobile_tests}" />
     </condition>
 
-    <target name="prepare" unless="already_prepared" depends="handle_adt_jar" description="--> create test suite directories" >
+    <target name="prepare" unless="already_prepared" depends="check-fonts,handle_adt_jar" description="--> create test suite directories" >
         <echo message="Preparing testsuite."/>
         <mkdir dir="${sdk.dir}/lib"/>
         <mkdir dir="${classes.dir}"/>
@@ -853,11 +910,36 @@
 
     <target name="cleanswfs" unless="noclean.set" description="--> deletes all swfs and tag files">
         <delete quiet="true">
-            <fileset dir="${sdk.mustella.dir}" includes="${previous.generated.testfiles},**/*.log,**/bin-debug/*.swf,**/bin-release/*.swf" excludes="**/Assets/*.swf,**/small.swf,**/undo-redo_icons.swf,**/focusSkinSWF.swf,**/atEmbed/images/*.swf,**/atEmbed/**/assets/*.swf,**/Components/Assets/Skinning/ImageAssets/*.swf,**/CellRenderers/assets/*.swf,**/player/**/assets/*.swf,**/atEmbed/PathResolution/**/box.swf,**/Assets/*.swf,**/assets/*.swf"/>
+            <fileset dir="${sdk.mustella.dir}" casesensitive="false">
+                <include name="${previous.generated.testfiles}"/>
+                <include name="**/*.sh.*.log"/>
+                <include name="**/swfs/**/*.log"/>
+                <include name="**/swfs/**/*.lnk.xml"/>
+                <include name="**/swfs/**/*l*nkreport*.xml"/>
+                <include name="**/*.png.bad.png*"/>
+                <include name="**/swfs/**/*.swf"/>
+                <include name="**/swfs/**/*.swc"/>
+                <!-- all the special case swf files that need to be kept -->
+                <exclude name="**/swfs/assets/SwfSymbolSkinStates.swf"/>
+                <exclude name="mx/controls/MovieClipSWFLoader/SWFs/assets/quickMovie.swf"/>
+                <exclude name="mx/controls/MovieClipSWFLoader/SWFs/assets/test.swf"/>
+                <exclude name="mx/controls/MovieClipSWFLoader/SWFs/assets/test3.swf"/>
+                <exclude name="components/SWFLoader/SWFs/assets/FlashSWF.swf"/>
+                <exclude name="components/ProgressBar/SWFs/assets/flex_skins.swf"/>
+                <exclude name="States/CurrentSyntax/Integration/CrossVersion/SWFs/assets/Flex320App1.swf"/>
+                <exclude name="States/CurrentSyntax/Integration/CrossVersion/SWFs/assets/Flex330App1.swf"/>
+                <exclude name="gumbo/components/Application/SWFs/assets/BasicApplicationFlex34.swf"/>
+                <!-- all the special case swc files that need to be kept -->
+                <exclude name="gumbo/core/DesignLayer/swfs/assets/FCKAssets.swc"/>
+                <exclude name="gumbo/FCK/swfs/assets/*.swc"/>
+                <exclude name="mx/controls/MovieClipSWFLoader/SWFs/assets/FlashCS5_MovClip1.swc"/>
+                <exclude name="RuntimeLocalization/RTL_SparkSkin/SWFs/Assets/bundles/flex20/enCustomBundle2_Flex20.swc"/>
+            </fileset>
         </delete>
+        <delete dir="tests/MarshallPlan/SWFs/assets/MyUtils"/>
     </target>
 
-    <property name="exclude_flag" value="" />
+   <property name="exclude_flag" value="" />
     <property name="cmd_line_scriptName" value="" />
     <property name="cmd_line_testcaseName" value="" />
     <property name="bugId" value="" />
@@ -980,10 +1062,10 @@
     <property name="result_include" value="-includes=SendFormattedResultsToLog" />
     <property name="exit_include" value="" />
 
-    <condition property="get_results_from_log" value="true" else="false" >
-        <not>
-            <isset property="${run_mobile_tests}" />
-        </not>
+   <condition property="get_results_from_log" value="true" else="false" >
+		<not>
+			<isset property="${run_mobile_tests}" />
+		</not>
     </condition>
 
     <property name="build_version" value="${server}" />
@@ -1016,8 +1098,8 @@
     
         <condition property="apollo_excludes" value="apollo/**/*.mxml" >
             <istrue value="${use_browser}" />
-        </condition>
     
+        </condition>
         <fileset id="sdk.mustella.fileset" dir="${sdk.mustella.dir}" 
             includes="${sdk.mustella.includes}" 
             excludes="${sdk.mustella.excludes},**/baselines/,**/Baselines/,**/comps/*.mxml,**/Assets/**/*.swf,**/assets/**/*.swf, ${browser_excludes},${apollo_excludes},${other.mustella.excludes},${apollo_specific_excludes}" >
@@ -1137,6 +1219,7 @@
         </antcall>    
     </target>
 
+    <!-- this seems to be the same as the compileswfs target -->
     <target name="compileLite" depends="prepare,setup,getRunId,getExcludes,realCompile" description="- compile the mustella tests into swfs">
 
     <antcall target="continue_always_send" />
@@ -1693,15 +1776,9 @@
     <property name="test_interval" value="15" />
 
     <!-- make the mustella swc. Defaulting to putting that in the suites area for the moment -->
-    <property name="mustella.swc.dir" value="${mustella.dir}" />
-    <property name="mustella.swc.name" value="mustella.swc" />
-
-
     <target name="makemustellaswc" depends="setup">
-        <condition property="do_mustellaswc_compile" value="true" >
-            <not>
-                <equals arg1="${use_mustella_framework_dir}" arg2="true"/>
-            </not>
+        <condition property="compilemustellaswc.notRequired">
+            <equals arg1="${use_mustella_framework_dir}" arg2="true"/>
         </condition>
         <antcall target="compilemustellaswc" />
     </target>
@@ -1710,7 +1787,7 @@
         <delete file="${mustella.swc.dir}/${mustella.swc.name}"/>
     </target>
         
-    <target name="compilemustellaswc" if="do_mustellaswc_compile" >
+    <target name="compilemustellaswc" unless="compilemustellaswc.notRequired" >
         <exec  executable="${compc.dir}/${compc.exe}" >
             <!-- output swc name    -->
             <arg value="-output=${mustella.swc.dir}/${mustella.swc.name}" />
@@ -1745,6 +1822,7 @@
             <arg value="ExitWhenDone"/>
             <arg value="IncludeListTextFile" />
             <arg value="IncludeFileLocation" />
+            <arg value="Localhost8080" />
             <arg value="MustellaPNGEncoder"/>
             <arg value="Pause"/>
             <arg value="ResetComponent"/>
@@ -1768,6 +1846,7 @@
             <arg value="VerboseMode"/>
             <arg value="WaitForEffectsToEnd"/>
             <arg value="WaitForEvent"/>
+            <arg value="WaitForLayoutManager"/>
             <arg value="WaitForSandboxApp"/>
             <arg value="WaitForWindow"/>
         </exec>

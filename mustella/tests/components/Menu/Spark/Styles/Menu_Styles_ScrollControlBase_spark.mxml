@@ -49,6 +49,9 @@
 
     public function createAMenu2(): void
     {
+        if (application.menu1)
+            application.menu1.hide();
+            
         myDP2 = new MenuDataXML();
         application.menu1 = Menu.createMenu(null, myDP2.myData, false);
         application.menu1.labelField = "@label";
@@ -79,21 +82,24 @@
     </mx:Script>
 
     <testCases>
-        <TestCase testID="fontFamily_Arial" description="Menu style fontFamily=Arial." keywords="[styles, fontFamily, Menu]">
+        <TestCase testID="fontFamily_Verdana" description="Menu style fontFamily=Verdana." keywords="[styles, fontFamily, Menu]">
             <setup>
                 <RunCode code="createAMenu2()" />
-                <SetStyle styleName="fontFamily" target="menu1" value="Arial" />
+                <SetStyle styleName="fontFamily" target="menu1" value="MyVerdana" />
             </setup>
             <body>
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                 <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" waitTarget="menu1" waitEvent="menuShow" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.1.0" url="../Styles/baselines/menu_fontFamily_Arial.png" timeout="2500" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.1.0" url="../Styles/baselines/menu_fontFamily_Verdana.png" timeout="2500" />
             </body>
         </TestCase>
+<!--
+FIXME: Hancock relies on a font swf file which doesn't exist - for Apache we must use font2swf to generate one or create an AS file which uses the metadata Embed to embed the font
+       in the swf.
+
         <TestCase testID="fontFamily_flashType" description="Menu style fontFamily = flashtype font Hancock." keywords="[styles, fontFamily, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -104,13 +110,13 @@
                 <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.1.0" url="../Styles/baselines/fontFamily_flashtype.png" timeout="2500" />
             </body>
         </TestCase>
-        <TestCase testID="fontFamily_emenu1edded" description="Menu style fontFamily=emenu1edded font Comic Sans." keywords="[styles, fontFamily, Menu]">
+-->
+        <TestCase testID="fontFamily_emenu1edded" description="Menu style fontFamily=emenu1edded font Cousine." keywords="[styles, fontFamily, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
-                <SetStyle styleName="fontFamily" value="ComicSansMS" target="menu1" />
+                <SetStyle styleName="fontFamily" value="Cousine" target="menu1" />
                 <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
                 <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" waitTarget="menu1" waitEvent="menuShow" />
                 <WaitForEffectsToEnd />
@@ -119,7 +125,6 @@
         </TestCase>
         <TestCase testID="fontSize_25" description="Menu style fontSize=25." keywords="[styles, fontSize, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -131,7 +136,6 @@
         </TestCase>
         <TestCase testID="fontSize_9" description="Menu style fontSize=9." keywords="[styles, fontSize, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -143,7 +147,6 @@
         </TestCase>
         <TestCase testID="fontSize_80" description="Menu style fontSize=80." keywords="[styles, fontSize, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -155,7 +158,6 @@
         </TestCase>
         <TestCase testID="fontStyle_normal" description="Menu style fontStyle=normal." keywords="[styles, fontStyle, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="fontStyle" target="menu1" value="italic" />
                 <SetStyle styleName="fontStyle" target="menu1" value="normal"/>
@@ -168,7 +170,6 @@
         </TestCase>
         <TestCase testID="fontStyle_normal_submenu" description="Menu style fontStyle=normal." keywords="[styles, fontStyle, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="fontStyle" target="menu1" value="italic" />
                 <SetStyle styleName="fontStyle" target="menu1" value="normal" />
@@ -182,7 +183,6 @@
         </TestCase>
         <TestCase testID="fontStyle_italics" description="Menu style fontStyle=italics." keywords="[styles, fontStyle, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="fontStyle" target="menu1" value="italic" />
             </setup>
@@ -194,7 +194,6 @@
         </TestCase>
         <TestCase testID="fontWeight_normal" description="Menu style fontWeight=bold." keywords="[styles, fontWeight, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="fontWeight" target="menu1" value="bold" />
                 <SetStyle styleName="fontWeight" target="menu1" value="normal" />
@@ -207,7 +206,6 @@
         </TestCase>
         <TestCase testID="fontWeight_normal_submenu" description="Menu style fontWeight=bold." keywords="[styles, fontWeight, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="fontWeight" target="menu1" value="bold" />
                 <SetStyle styleName="fontWeight" target="menu1" value="normal" />
@@ -221,7 +219,6 @@
         </TestCase>
         <TestCase testID="fontWeight_bold" description="Menu style fontWeight=bold." keywords="[styles, fontWeight, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="fontWeight" target="menu1" value="bold" />
             </setup>
@@ -233,7 +230,6 @@
         </TestCase>
         <TestCase testID="fontWeight_bold_submenu" description="Menu style fontWeight=bold." keywords="[styles, fontWeight, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="fontWeight" target="menu1" value="bold" />
             </setup>
@@ -246,7 +242,6 @@
         </TestCase>
         <TestCase testID="textAlign_center" description="Menu style textAlign=bold." keywords="[styles, textAlign, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="textAlign" target="menu1" value="center" />
             </setup>
@@ -258,7 +253,6 @@
         </TestCase>
         <TestCase testID="textAlign_right" description="Menu style textAlign=bold." keywords="[styles, textAlign, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="textAlign" target="menu1" value="right" />
             </setup>
@@ -270,7 +264,6 @@
         </TestCase>
         <TestCase testID="textAlign_left" description="Menu style textAlign=bold." keywords="[styles, textAlign, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="textAlign" target="menu1" value="left" />
             </setup>
@@ -282,7 +275,6 @@
         </TestCase>
         <TestCase testID="textDecoration_none_submenu" description="Menu style textDecoration=bold." keywords="[styles, textDecoration, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="textDecoration" target="menu1" value="underline" />
                 <SetStyle styleName="textDecoration" target="menu1" value="none" />
@@ -296,7 +288,6 @@
         </TestCase>
         <TestCase testID="textDecoration_underline" description="Menu style textDecoration=underline." keywords="[styles, textDecoration, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="textDecoration" target="menu1" value="underline" />
             </setup>
@@ -308,7 +299,6 @@
         </TestCase>
         <TestCase testID="textDecoration_underline_submenu" description="Menu style textDecoration=underline." keywords="[styles, textDecoration, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="textDecoration" target="menu1" value="underline" />
             </setup>
@@ -321,7 +311,6 @@
         </TestCase>
         <TestCase testID="leading_default1" description="Menu style leading=default." keywords="[styles, leading, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
             </setup>
             <body>
@@ -332,7 +321,6 @@
         </TestCase>
         <TestCase testID="leading_15" description="Menu style leading=15." keywords="[styles, leading, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="leading" target="menu1" value="15" />
             </setup>
@@ -344,7 +332,6 @@
         </TestCase>
         <TestCase testID="paddingLeft_0" description="Menu style paddingLeft=0." keywords="[styles, paddingLeft, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="paddingLeft" target="menu1" value="0" />
             </setup>
@@ -356,7 +343,6 @@
         </TestCase>
         <TestCase testID="paddingLeft_20" description="Menu style paddingLeft=0." keywords="[styles, paddingLeft, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="paddingLeft" target="menu1" value="20" />
             </setup>
@@ -368,7 +354,6 @@
         </TestCase>
         <TestCase testID="paddingRight_0" description="Menu style paddingRight=0." keywords="[styles, paddingRight, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="paddingRight" target="menu1" value="0" />
                 <SetStyle styleName="textAlign" target="menu1" value="right" />
@@ -381,7 +366,6 @@
         </TestCase>
         <TestCase testID="paddingRight_20" description="Menu style paddingRight=0." keywords="[styles, paddingRight, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="paddingRight" target="menu1" value="20" />
                 <SetStyle styleName="textAlign" target="menu1" value="right" />
@@ -394,7 +378,6 @@
         </TestCase>
         <TestCase testID="paddingTop_0" description="Menu style paddingTop=0." keywords="[styles, paddingTop, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="paddingTop" target="menu1" value="0" />
             </setup>
@@ -406,7 +389,6 @@
         </TestCase>
         <TestCase testID="paddingTop_20" description="Menu style paddingTop=0." keywords="[styles, paddingTop, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="paddingTop" target="menu1" value="20" />
             </setup>
@@ -418,7 +400,6 @@
         </TestCase>
         <TestCase testID="textIndent_0" description="Menu style textIndent=0." keywords="[styles, textIndent, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="textIndent" target="menu1" value="0" />
             </setup>
@@ -430,7 +411,6 @@
         </TestCase>
         <TestCase testID="textIndent_20" description="Menu style textIndent=0." keywords="[styles, textIndent, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="textIndent" target="menu1" value="20" />
             </setup>
@@ -442,7 +422,6 @@
         </TestCase>
         <TestCase testID="paddingBottom_0" description="Menu style paddingBottom=0." keywords="[styles, paddingBottom, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="paddingBottom" target="menu1" value="0" />
             </setup>
@@ -454,7 +433,6 @@
         </TestCase>
         <TestCase testID="paddingBottom_20" description="Menu style paddingBottom=0." keywords="[styles, paddingBottom, Menu]">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="paddingBottom" target="menu1" value="20" />
             </setup>
@@ -466,7 +444,6 @@
         </TestCase>
         <TestCase testID="useRollOver_true" keywords="[Menu, useRollOver]" description="useRollOver is set to true for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="useRollOver" target="menu1" value="true" />
                 <SetStyle target="menu1" styleName="rollOverColor" value="0x00FF00" />
@@ -481,7 +458,6 @@
         </TestCase>
         <TestCase testID="useRollOver_false" keywords="[Menu, useRollOver]" description="useRollOver is set to false for Menu.">
             <setup>
-                <RunCode code="application.menu1.hide()" />
                 <RunCode code="createAMenu2()" />
                 <SetStyle styleName="useRollOver" target="menu1" value="false" />
                 <SetStyle target="menu1" styleName="rollOverColor" value="0x00FF00" />

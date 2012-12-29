@@ -820,7 +820,7 @@
             <RunCode code="Object(application.bx2.sl2.content).document.skin.scroller1.setStyle('verticalScrollPolicy','on')" />
             <RunCode code="Object(application.bx2.sl2.content).document.skin.scroller1.setStyle('horizontalScrollPolicy','on')" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
             <Pause timeout="1000"/>
-            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" numColorVariances="10" maxColorVariance="1" />
         </body>
     </TestCase>
 

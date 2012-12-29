@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,27 +18,24 @@
  */
 package org.apache.flex.forks.batik.bridge;
 
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.font.TextAttribute;
 import java.text.AttributedCharacterIterator;
 
+import org.apache.flex.forks.batik.dom.AbstractNode;
 import org.apache.flex.forks.batik.dom.svg.SVGOMDocument;
-import org.apache.flex.forks.batik.dom.svg.XMLBaseSupport;
 import org.apache.flex.forks.batik.dom.util.XLinkSupport;
 import org.apache.flex.forks.batik.gvt.font.Glyph;
 import org.apache.flex.forks.batik.gvt.text.GVTAttributedCharacterIterator;
 import org.apache.flex.forks.batik.gvt.text.TextPaintInfo;
+import org.apache.flex.forks.batik.util.XMLConstants;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 
 /**
  * Bridge class for the &lt;altGlyph> element.
  *
  * @author <a href="mailto:bella.robinson@cmis.csiro.au">Bella Robinson</a>
- * @version $Id: SVGAltGlyphElementBridge.java,v 1.18 2005/03/03 01:19:52 deweese Exp $
+ * @version $Id: SVGAltGlyphElementBridge.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class SVGAltGlyphElementBridge extends AbstractSVGBridge
                                       implements ErrorConstants {
@@ -126,10 +124,10 @@ public class SVGAltGlyphElementBridge extends AbstractSVGBridge
             if (!isLocal) {
                 // need to attach the imported element to the document and
                 // then compute the styles and uris
-                String base = XMLBaseSupport.getCascadedXMLBase(altGlyphElement);
+                String base = AbstractNode.getBaseURI(altGlyphElement);
                 Element g = document.createElementNS(SVG_NAMESPACE_URI, SVG_G_TAG);
                 g.appendChild(localRefElement);
-                g.setAttributeNS(XMLBaseSupport.XML_NAMESPACE_URI,
+                g.setAttributeNS(XMLConstants.XML_NAMESPACE_URI,
                                  "xml:base",
                                  base);
                 CSSUtilities.computeStyleAndURIs(refElement, 
@@ -156,7 +154,7 @@ public class SVGAltGlyphElementBridge extends AbstractSVGBridge
 
                 NodeList glyphRefNodes
                     = localRefElement.getElementsByTagNameNS(SVG_NAMESPACE_URI,
-							     SVG_GLYPH_REF_TAG);
+                                                             SVG_GLYPH_REF_TAG);
                 int numGlyphRefNodes = glyphRefNodes.getLength();
                 Glyph[] glyphArray = new Glyph[numGlyphRefNodes];
                 for (int i = 0; i < numGlyphRefNodes; i++) {
@@ -178,7 +176,7 @@ public class SVGAltGlyphElementBridge extends AbstractSVGBridge
 
                 NodeList altGlyphItemNodes
                     = localRefElement.getElementsByTagNameNS
-		    (SVG_NAMESPACE_URI, SVG_ALT_GLYPH_ITEM_TAG);
+                    (SVG_NAMESPACE_URI, SVG_ALT_GLYPH_ITEM_TAG);
                 int numAltGlyphItemNodes = altGlyphItemNodes.getLength();
                 if (numAltGlyphItemNodes > 0) {
                     boolean foundMatchingGlyph = false;
@@ -193,7 +191,7 @@ public class SVGAltGlyphElementBridge extends AbstractSVGBridge
                         Element altGlyphItemElement = (Element)altGlyphItemNodes.item(i);
                         NodeList altGlyphRefNodes
                             = altGlyphItemElement.getElementsByTagNameNS
-			    (SVG_NAMESPACE_URI, SVG_GLYPH_REF_TAG);
+                            (SVG_NAMESPACE_URI, SVG_GLYPH_REF_TAG);
                         int numAltGlyphRefNodes = altGlyphRefNodes.getLength();
 
                         glyphArray = new Glyph[numAltGlyphRefNodes];
@@ -296,7 +294,7 @@ public class SVGAltGlyphElementBridge extends AbstractSVGBridge
             localFontElement = (Element)localGlyphElement.getParentNode();
             NodeList fontFaceElements
                 = localFontElement.getElementsByTagNameNS
-		(SVG_NAMESPACE_URI, SVG_FONT_FACE_TAG);
+                (SVG_NAMESPACE_URI, SVG_FONT_FACE_TAG);
             if (fontFaceElements.getLength() > 0) {
                 localFontFaceElement = (Element)fontFaceElements.item(0);
             }
@@ -305,10 +303,10 @@ public class SVGAltGlyphElementBridge extends AbstractSVGBridge
             // import the whole font
             localFontElement = (Element)document.importNode
                 (refGlyphElement.getParentNode(), true);
-            String base = XMLBaseSupport.getCascadedXMLBase(altGlyphElement);
+            String base = AbstractNode.getBaseURI(altGlyphElement);
             Element g = document.createElementNS(SVG_NAMESPACE_URI, SVG_G_TAG);
             g.appendChild(localFontElement);
-            g.setAttributeNS(XMLBaseSupport.XML_NAMESPACE_URI,
+            g.setAttributeNS(XMLConstants.XML_NAMESPACE_URI,
                              "xml:base",
                              base);
             CSSUtilities.computeStyleAndURIs(
@@ -319,7 +317,7 @@ public class SVGAltGlyphElementBridge extends AbstractSVGBridge
             String glyphId = refGlyphElement.getAttributeNS
                 (null, SVG_ID_ATTRIBUTE);
             NodeList glyphElements = localFontElement.getElementsByTagNameNS
-		(SVG_NAMESPACE_URI, SVG_GLYPH_TAG);
+                (SVG_NAMESPACE_URI, SVG_GLYPH_TAG);
             for (int i = 0; i < glyphElements.getLength(); i++) {
                 Element glyphElem = (Element)glyphElements.item(i);
                 if (glyphElem.getAttributeNS(null, SVG_ID_ATTRIBUTE).equals(glyphId)) {
@@ -330,7 +328,7 @@ public class SVGAltGlyphElementBridge extends AbstractSVGBridge
             // get the local font-face element
             NodeList fontFaceElements
                 = localFontElement.getElementsByTagNameNS
-		(SVG_NAMESPACE_URI, SVG_FONT_FACE_TAG);
+                (SVG_NAMESPACE_URI, SVG_FONT_FACE_TAG);
             if (fontFaceElements.getLength() > 0) {
                 localFontFaceElement = (Element)fontFaceElements.item(0);
             }

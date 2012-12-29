@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,17 +19,19 @@
 package org.apache.flex.forks.batik.dom.svg12;
 
 import org.apache.flex.forks.batik.dom.AbstractDocument;
-import org.apache.flex.forks.batik.dom.svg.SVGStylableElement;
+import org.apache.flex.forks.batik.dom.svg.SVGOMTextPositioningElement;
 import org.apache.flex.forks.batik.util.SVG12Constants;
+
 import org.w3c.dom.Node;
 
 /**
  * This class implements a regular polygon extension to SVG
  *
  * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
- * @version $Id: SVGOMFlowParaElement.java,v 1.1 2004/11/18 01:46:57 deweese Exp $
+ * @version $Id: SVGOMFlowParaElement.java 496989 2007-01-17 11:06:49Z cam $
  */
-public class SVGOMFlowParaElement extends SVGStylableElement {
+public class SVGOMFlowParaElement 
+    extends    SVGOMTextPositioningElement {
 
     /**
      * Creates a new BatikRegularPolygonElement object.

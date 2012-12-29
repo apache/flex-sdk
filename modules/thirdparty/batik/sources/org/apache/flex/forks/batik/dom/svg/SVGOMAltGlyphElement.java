@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -20,15 +21,16 @@ package org.apache.flex.forks.batik.dom.svg;
 import org.apache.flex.forks.batik.dom.AbstractDocument;
 import org.apache.flex.forks.batik.dom.util.XLinkSupport;
 import org.apache.flex.forks.batik.dom.util.XMLSupport;
+
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
-import org.w3c.flex.forks.dom.svg.SVGAltGlyphElement;
+import org.w3c.dom.svg.SVGAltGlyphElement;
 
 /**
  * This class implements {@link SVGAltGlyphElement}.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGOMAltGlyphElement.java,v 1.6 2004/08/18 07:13:14 vhardy Exp $
+ * @version $Id: SVGOMAltGlyphElement.java 489964 2006-12-24 01:30:23Z cam $
  */
 public class SVGOMAltGlyphElement
     extends    SVGURIReferenceTextPositioningElement
@@ -37,7 +39,7 @@ public class SVGOMAltGlyphElement
     /**
      * The attribute initializer.
      */
-    protected final static AttributeInitializer attributeInitializer;
+    protected static final AttributeInitializer attributeInitializer;
     static {
         attributeInitializer = new AttributeInitializer(4);
         attributeInitializer.addAttribute(XMLSupport.XMLNS_NAMESPACE_URI,
@@ -50,6 +52,20 @@ public class SVGOMAltGlyphElement
         attributeInitializer.addAttribute(XLinkSupport.XLINK_NAMESPACE_URI,
                                           "xlink", "actuate", "onLoad");
     }
+
+//     /**
+//      * Table mapping XML attribute names to TraitInformation objects.
+//      */
+//     protected static DoublyIndexedTable xmlTraitInformation;
+//     static {
+//         DoublyIndexedTable t =
+//             new DoublyIndexedTable(SVGURIReferenceTextPositioningElement.xmlTraitInformation);
+//         t.put(null, SVG_FORMAT_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_CDATA));
+//         t.put(null, SVG_GLYPH_REF_ATTRIBUTE,
+//                 new TraitInformation(false, SVGTypes.TYPE_CDATA));
+//         xmlTraitInformation = t;
+//     }
 
     /**
      * Creates a new SVGOMAltGlyphElement object.
@@ -64,7 +80,6 @@ public class SVGOMAltGlyphElement
      */
     public SVGOMAltGlyphElement(String prefix, AbstractDocument owner) {
         super(prefix, owner);
-
     }
 
     /**
@@ -116,4 +131,11 @@ public class SVGOMAltGlyphElement
     protected Node newNode() {
         return new SVGOMAltGlyphElement();
     }
+
+//     /**
+//      * Returns the table of TraitInformation objects for this element.
+//      */
+//     protected DoublyIndexedTable getTraitInformationTable() {
+//         return xmlTraitInformation;
+//     }
 }

@@ -42,7 +42,7 @@
             import assets.MyTargetFilter;
             
             [Bindable]
-            private var myDP:ArrayCollection = new ArrayCollection(['A','B','C']);
+            public var myDP:ArrayCollection = new ArrayCollection(['A','B','C']);
 
             public function hitProtected():void
             {

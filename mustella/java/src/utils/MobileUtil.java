@@ -31,11 +31,11 @@ public class MobileUtil {
 
 	// OSs
 	public static final String ANDROID_OS = "android";
-	public static final String IOS = "iphone";	// "iPhone OS" is what the iPod Touch 4G returns, anyway.
+	public static final String IOS = "ios";	// "iPhone OS" is what the iPod Touch 4G returns, anyway.
 	public static final String QNX = "qnx";
 	public static final String MAC = "mac";
-	public static final String WIN = "windows";
-	public static final String WIN2 = "win";
+	public static final String WIN = "win";
+	public static final String WINDOWS = "windows";
 
 	// devices
 	// Get rid of these two when we do device types (soon).
@@ -54,19 +54,22 @@ public class MobileUtil {
 	public static final String SDCARD_DIR = "/sdcard/mustella";
 	public static final String IPAD = "iPad";
 	public static final String IPAD2 = "iPad2";
+	public static final String IPAD3 = "iPad3";
+	public static final String IPAD4 = "iPad4";
 	public static final String IPOD_TOUCH_3GS = "iPodTouch3GS";
 	public static final String IPOD_TOUCH_4G = "iPodTouch4G";
+	public static final String IPOD_TOUCH_5G = "iPodTouch5G";
 	public static final String ANDROID_TABLET = "androidTablet"; // not used anywhere yet, not sure if this is a good name.
 
 
 	// Useful collections
     public static final String[] DEVICES_USING_ANDROID = {ANDROID, ANDROID2, DESIRE, DROID, DROID_2, DROID_X, DROID_PRO, NEXUS_ONE, EVO, INCREDIBLE, ANDROID_TABLET, XOOM};
-	public static final String[] DEVICES_USING_IOS = {IPAD, IPAD2, IPOD_TOUCH_3GS, IPOD_TOUCH_4G};
+	public static final String[] DEVICES_USING_IOS = {IPAD, IPAD2, IPOD_TOUCH_3GS, IPOD_TOUCH_4G, IPOD_TOUCH_5G};
 	public static final String[] DEVICES_USING_QNX = {PLAYBOOK};
     public static final String[] DEVICES_USING_SDCARD = {ANDROID, ANDROID2, DESIRE, DROID, DROID_2, DROID_X, DROID_PRO, NEXUS_ONE, EVO, INCREDIBLE, ANDROID_TABLET, XOOM};
-    public static final String[] DEVICES_AROUND_160PPI = {DROID_PRO, ANDROID_TABLET, XOOM, IPOD_TOUCH_3GS, IPAD, IPAD2, PLAYBOOK};
+    public static final String[] DEVICES_AROUND_160PPI = {WIN, DROID_PRO, ANDROID_TABLET, XOOM, IPOD_TOUCH_3GS, IPAD, IPAD2, PLAYBOOK};
 	public static final String[] DEVICES_AROUND_240PPI = {ANDROID, ANDROID2, DESIRE, DROID, DROID_2, DROID_X, NEXUS_ONE, EVO, INCREDIBLE};
-	public static final String[] DEVICES_AROUND_320PPI = {IPOD_TOUCH_4G};
+	public static final String[] DEVICES_AROUND_320PPI = {WIN, IPOD_TOUCH_4G, IPOD_TOUCH_5G, IPAD3, IPAD4};
 
 	// Other
 	public static final String MOBILE_FRAMEWORK_DIR = "MobileConfig";
@@ -111,7 +114,7 @@ public class MobileUtil {
 				return MobileUtil.MAC;
 			else if( device_name.compareToIgnoreCase( MobileUtil.WIN ) == 0 )
 				return MobileUtil.WIN;
-			else if( device_name.compareToIgnoreCase( MobileUtil.WIN2 ) == 0 )
+			else if( device_name.compareToIgnoreCase( MobileUtil.WINDOWS ) == 0 )
 				return MobileUtil.WIN;
 		}
 

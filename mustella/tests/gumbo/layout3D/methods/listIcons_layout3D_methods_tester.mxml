@@ -75,46 +75,24 @@ xmlns="*" testSWF="Layout3DListIcons.mxml">
 
     <testCases>
 
-        <TestCase testID="Layout3D_method_transformAround_icons_0" keywords="[Layout3D,method,transformAround]" description="">
+         <TestCase testID="Layout3D_method_transformAround_icons_0" keywords="[Layout3D,method,transformAround]" description="">
             <setup>
                  <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
             </setup>
             <body>
                 <RunCode code="application.icons.transformAround(new Vector3D(10,10,0),new Vector3D(0.5,0.5,1),new Vector3D(10,10,10))" />
                 <SetProperty target="icons" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="25" maxColorVariance="5"/>
             </body>
         </TestCase>
-
-         <TestCase testID="Layout3D_method_transformAround_icons_0_mac" keywords="[Layout3D,method,transformAround]" description="">
-            <setup>
-                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <RunCode code="application.icons.transformAround(new Vector3D(10,10,0),new Vector3D(0.5,0.5,1),new Vector3D(10,10,10))" />
-                <SetProperty target="icons" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5"/>
-            </body>
-        </TestCase>
-        <TestCase testID="Layout3D_method_transformAround_icons1" keywords="[Layout3D,method,transformAround]" description="">
+         <TestCase testID="Layout3D_method_transformAround_icons1" keywords="[Layout3D,method,transformAround]" description="">
             <setup>
                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
              </setup>
             <body>
                 <RunCode code="application.icons.transformAround(new Vector3D(10,10,10),new Vector3D(1,1.2,1.5),new Vector3D(30,10,0))" />
                 <SetProperty target="icons" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5" />
-            </body>
-        </TestCase>
-
-        <TestCase testID="Layout3D_method_transformAround_icons1_mac" keywords="[Layout3D,method,transformAround]" description="">
-            <setup>
-                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
-             </setup>
-            <body>
-                <RunCode code="application.icons.transformAround(new Vector3D(10,10,10),new Vector3D(1,1.2,1.5),new Vector3D(30,10,0))" />
-                <SetProperty target="icons" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5" />
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="25" maxColorVariance="5" />
             </body>
         </TestCase>
 
@@ -125,13 +103,12 @@ xmlns="*" testSWF="Layout3DListIcons.mxml">
             <body>
                 <RunCode code="application.icons.transformAround(new Vector3D(10,10,10),new Vector3D(1,1.2,2),new Vector3D(30,30,30))" />
                 <SetProperty target="icons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/" target="vg" numColorVariances="5" maxColorVariance="5">
-                    <ConditionalValue os="mac" />
-                </CompareBitmap>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="100" maxColorVariance="1"/>
             </body>
         </TestCase>
 
-        <TestCase testID="Layout3D_method_transformAround_icons_offsets_rotation" keywords="[Layout3D,method,transformAround]" description="">
+
+            <TestCase testID="Layout3D_method_transformAround_icons_offsets_rotation" keywords="[Layout3D,method,transformAround]" description="">
             <setup>
                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
              </setup>
@@ -145,25 +122,7 @@ xmlns="*" testSWF="Layout3DListIcons.mxml">
                 <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationZ" value="-5" />
                 <RunCode code="application.icons.transformAround(new Vector3D(10,10,10),new Vector3D(1.2,1.2,1.2),new Vector3D(10,10,30))" />
                 <SetProperty target="icons" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
-               <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5"/>
-            </body>
-        </TestCase>
-
-                <TestCase testID="Layout3D_method_transformAround_icons_offsets_rotation_mac" keywords="[Layout3D,method,transformAround]" description="">
-            <setup>
-                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
-             </setup>
-            <body>
-                <RunCode code="application.icons.postLayoutTransformOffsets = new TransformOffsets();"/>
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="x" value="10" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="y" value="10" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="z" value="10" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationX" value="-5" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationY" value="-5" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationZ" value="-5" />
-                <RunCode code="application.icons.transformAround(new Vector3D(10,10,10),new Vector3D(1.2,1.2,1.2),new Vector3D(10,10,30))" />
-                <SetProperty target="icons" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
-               <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5"/>
+               <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="25" maxColorVariance="5"/>
             </body>
         </TestCase>
 
@@ -181,13 +140,10 @@ xmlns="*" testSWF="Layout3DListIcons.mxml">
                 <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationZ" value="9" />
                 <RunCode code="application.icons.transformAround(new Vector3D(10,10,10),new Vector3D(1.2,1.2,1.2),new Vector3D(10,10,30))" />
                 <SetProperty target="icons" propertyName="selectedIndex" value="4" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/" target="vg" numColorVariances="10" maxColorVariance="5">
-                    <ConditionalValue os="mac" />
-                </CompareBitmap>
-
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="10" maxColorVariance="1"/>
             </body>
         </TestCase>
-        <TestCase testID="Layout3D_method_transformAround_icons2_offsets_rotation" keywords="[Layout3D,method,transformAround]" description="">
+		<TestCase testID="Layout3D_method_transformAround_icons2_offsets_rotation" keywords="[Layout3D,method,transformAround]" description="">
             <setup>
                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
             </setup>
@@ -201,26 +157,7 @@ xmlns="*" testSWF="Layout3DListIcons.mxml">
                 <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationZ" value="10" />
                 <RunCode code="application.icons.transformAround(new Vector3D(20,20,0),new Vector3D(1.5,1.5,1.5),new Vector3D(10,10,30))" />
                 <SetProperty target="icons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5" />
-
-            </body>
-        </TestCase>
-
-		<TestCase testID="Layout3D_method_transformAround_icons2_offsets_rotation_mac" keywords="[Layout3D,method,transformAround]" description="">
-            <setup>
-                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
-            </setup>
-            <body>
-                <RunCode code="application.icons.postLayoutTransformOffsets = new TransformOffsets();"/>
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="x" value="10" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="y" value="10" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="z" value="10" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationX" value="-10" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationY" value="-10" />
-                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationZ" value="10" />
-                <RunCode code="application.icons.transformAround(new Vector3D(20,20,0),new Vector3D(1.5,1.5,1.5),new Vector3D(10,10,30))" />
-                <SetProperty target="icons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5" />
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="50" maxColorVariance="1" />
 
             </body>
         </TestCase>
@@ -244,7 +181,7 @@ xmlns="*" testSWF="Layout3DListIcons.mxml">
                 <RunCode code="iRenderer=application.getItemRenderer(1);" />
                 <RunCode code="iRenderer.transformAround(new Vector3D(10,10,0),new Vector3D(1.5,1.5,1.5),new Vector3D(0,0,30))" />
                 <SetProperty target="icons" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" />
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="Layout3D_method_transformAround_iconRenderer_2" keywords="[Layout3D,method,transformAround]" description="">

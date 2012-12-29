@@ -66,7 +66,7 @@
             <body>
                 <AssertPropertyValue target="textBoxComp.textBox" propertyName="className" value="Label" />
                 <AssertPropertyValue target="textBoxComp.textBox" propertyName="width" value="0" />
-                <AssertPropertyValue target="textBoxComp.textBox" propertyName="height" value="11" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="height" value="16" />
             </body>
         </TestCase>
 
@@ -127,7 +127,7 @@
             <body>
                 <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" value="" />
                 <AssertPropertyValue target="textBoxComp.textBox" propertyName="width" value="0" />
-                <AssertPropertyValue target="textBoxComp.textBox" propertyName="height" value="12" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="height" value="16" />
             </body>
         </TestCase>
 
@@ -139,7 +139,7 @@
             <body>
                 <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
                 <AssertPropertyValue target="textBoxComp.textBox" propertyName="width" value="241" />
-                <AssertPropertyValue target="textBoxComp.textBox" propertyName="height" value="12" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="height" value="16" />
                 <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
             </body>
         </TestCase>
@@ -152,7 +152,7 @@
             <body>
                 <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
                 <AssertPropertyValue target="textBoxComp.textBox" propertyName="width" value="89" />
-                <AssertPropertyValue target="textBoxComp.textBox" propertyName="height" value="41" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="height" value="45" />
                 <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
                 <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
             </body>

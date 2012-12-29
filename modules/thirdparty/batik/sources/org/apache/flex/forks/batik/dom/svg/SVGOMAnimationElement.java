@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,23 +18,44 @@
  */
 package org.apache.flex.forks.batik.dom.svg;
 
+import org.apache.flex.forks.batik.anim.timing.TimedElement;
 import org.apache.flex.forks.batik.dom.AbstractDocument;
+import org.apache.flex.forks.batik.util.DoublyIndexedTable;
+import org.apache.flex.forks.batik.util.SVGTypes;
+
 import org.w3c.dom.DOMException;
-import org.w3c.flex.forks.dom.svg.SVGAnimatedBoolean;
-import org.w3c.flex.forks.dom.svg.SVGAnimationElement;
-import org.w3c.flex.forks.dom.svg.SVGElement;
-import org.w3c.flex.forks.dom.svg.SVGStringList;
+import org.w3c.dom.svg.SVGAnimatedBoolean;
+import org.w3c.dom.svg.SVGAnimationElement;
+import org.w3c.dom.svg.SVGElement;
+import org.w3c.dom.svg.SVGStringList;
 
 /**
- * This class provides an implementation of the SVGAnimationElement interface.
+ * This class provides an implementation of the {@link SVGAnimationElement} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: SVGOMAnimationElement.java,v 1.5 2004/08/18 07:13:14 vhardy Exp $
+ * @version $Id: SVGOMAnimationElement.java 592621 2007-11-07 05:58:12Z cam $
  */
 public abstract class SVGOMAnimationElement
     extends SVGOMElement
     implements SVGAnimationElement {
-    
+
+    /**
+     * Table mapping XML attribute names to TraitInformation objects.
+     */
+    protected static DoublyIndexedTable xmlTraitInformation;
+    static {
+        DoublyIndexedTable t =
+            new DoublyIndexedTable(SVGOMElement.xmlTraitInformation);
+        t.put(null, SVG_EXTERNAL_RESOURCES_REQUIRED_ATTRIBUTE,
+                new TraitInformation(true, SVGTypes.TYPE_BOOLEAN));
+        xmlTraitInformation = t;
+    }
+
+    /**
+     * The 'externalResourcesRequired' attribute value.
+     */
+    protected SVGOMAnimatedBoolean externalResourcesRequired;
+
     /**
      * Creates a new SVGOMAnimationElement.
      */
@@ -47,113 +69,151 @@ public abstract class SVGOMAnimationElement
      */
     protected SVGOMAnimationElement(String prefix, AbstractDocument owner) {
         super(prefix, owner);
+        initializeLiveAttributes();
+    }
 
+    /**
+     * Initializes all live attributes for this element.
+     */
+    protected void initializeAllLiveAttributes() {
+        super.initializeAllLiveAttributes();
+        initializeLiveAttributes();
+    }
+
+    /**
+     * Initializes the live attribute values of this element.
+     */
+    private void initializeLiveAttributes() {
+        externalResourcesRequired =
+            createLiveAnimatedBoolean
+                (null, SVG_EXTERNAL_RESOURCES_REQUIRED_ATTRIBUTE, false);
     }
 
     /**
      * <b>DOM</b>: Implements {@link SVGAnimationElement#getTargetElement()}.
      */
     public SVGElement getTargetElement() {
-        throw new RuntimeException("!!! TODO: getTargetElement()");
+        return ((SVGAnimationContext) getSVGContext()).getTargetElement();
     }
 
     /**
      * <b>DOM</b>: Implements {@link SVGAnimationElement#getStartTime()}.
      */
     public float getStartTime() {
-        throw new RuntimeException("!!! TODO: getStartTime()");
+        return ((SVGAnimationContext) getSVGContext()).getStartTime();
     }
 
     /**
      * <b>DOM</b>: Implements {@link SVGAnimationElement#getCurrentTime()}.
      */
     public float getCurrentTime() {
-        throw new RuntimeException("!!! TODO: getCurrentTime()");
+        return ((SVGAnimationContext) getSVGContext()).getCurrentTime();
     }
 
     /**
      * <b>DOM</b>: Implements {@link SVGAnimationElement#getSimpleDuration()}.
      */
     public float getSimpleDuration() throws DOMException {
-        throw new RuntimeException("!!! TODO: getSimpleDuration()");
+        float dur = ((SVGAnimationContext) getSVGContext()).getSimpleDuration();
+        if (dur == TimedElement.INDEFINITE) {
+            throw createDOMException(DOMException.NOT_SUPPORTED_ERR,
+                                     "animation.dur.indefinite",
+                                     null);
+        }
+        return dur;
+    }
+
+    /**
+     * Returns the time that the document would seek to if this animation
+     * element were hyperlinked to, or <code>NaN</code> if there is no
+     * such begin time.
+     */
+    public float getHyperlinkBeginTime() {
+        return ((SVGAnimationContext) getSVGContext()).getHyperlinkBeginTime();
     }
 
     // ElementTimeControl ////////////////////////////////////////////////
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.smil.ElementTimeControl#beginElement()}.
+     * org.w3c.dom.smil.ElementTimeControl#beginElement()}.
      */
     public boolean beginElement() throws DOMException {
-        throw new RuntimeException("!!! TODO: beginElement()");
+        return ((SVGAnimationContext) getSVGContext()).beginElement();
     }
     
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.smil.ElementTimeControl#beginElementAt(float)}.
+     * org.w3c.dom.smil.ElementTimeControl#beginElementAt(float)}.
      */
     public boolean beginElementAt(float offset) throws DOMException {
-        throw new RuntimeException("!!! TODO: beginElementAt()");
+        return ((SVGAnimationContext) getSVGContext()).beginElementAt(offset);
     }
     
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.smil.ElementTimeControl#endElement()}.
+     * org.w3c.dom.smil.ElementTimeControl#endElement()}.
      */
     public boolean endElement() throws DOMException {
-        throw new RuntimeException("!!! TODO: endElement()");
+        return ((SVGAnimationContext) getSVGContext()).endElement();
     }
     
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.smil.ElementTimeControl#endElementAt(float)}.
+     * org.w3c.dom.smil.ElementTimeControl#endElementAt(float)}.
      */
     public boolean endElementAt(float offset) throws DOMException {
-        throw new RuntimeException("!!! TODO: endElementAt(float)");
+        return ((SVGAnimationContext) getSVGContext()).endElementAt(offset);
     }
 
     // SVGExternalResourcesRequired support /////////////////////////////
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGExternalResourcesRequired#getExternalResourcesRequired()}.
+     * org.w3c.dom.svg.SVGExternalResourcesRequired#getExternalResourcesRequired()}.
      */
     public SVGAnimatedBoolean getExternalResourcesRequired() {
-	return SVGExternalResourcesRequiredSupport.
-            getExternalResourcesRequired(this);
+        return externalResourcesRequired;
     }
 
     // SVGTests support ///////////////////////////////////////////////////
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGTests#getRequiredFeatures()}.
+     * org.w3c.dom.svg.SVGTests#getRequiredFeatures()}.
      */
     public SVGStringList getRequiredFeatures() {
-	return SVGTestsSupport.getRequiredFeatures(this);
+        return SVGTestsSupport.getRequiredFeatures(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGTests#getRequiredExtensions()}.
+     * org.w3c.dom.svg.SVGTests#getRequiredExtensions()}.
      */
     public SVGStringList getRequiredExtensions() {
-	return SVGTestsSupport.getRequiredExtensions(this);
+        return SVGTestsSupport.getRequiredExtensions(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGTests#getSystemLanguage()}.
+     * org.w3c.dom.svg.SVGTests#getSystemLanguage()}.
      */
     public SVGStringList getSystemLanguage() {
-	return SVGTestsSupport.getSystemLanguage(this);
+        return SVGTestsSupport.getSystemLanguage(this);
     }
 
     /**
      * <b>DOM</b>: Implements {@link
-     * org.w3c.flex.forks.dom.svg.SVGTests#hasExtension(String)}.
+     * org.w3c.dom.svg.SVGTests#hasExtension(String)}.
      */
     public boolean hasExtension(String extension) {
-	return SVGTestsSupport.hasExtension(this, extension);
+        return SVGTestsSupport.hasExtension(this, extension);
+    }
+
+    /**
+     * Returns the table of TraitInformation objects for this element.
+     */
+    protected DoublyIndexedTable getTraitInformationTable() {
+        return xmlTraitInformation;
     }
 }

@@ -256,7 +256,8 @@
                 <RunCode code="setItemRenderer()"/>          
             </setup>
             <body>
-                <Pause timeout="100"/>
+                <WaitForEffectsToEnd/>
+                <WaitForLayoutManager/>
                 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_itemrenderer.png"/>        
             </body>
         </TestCase>
@@ -268,7 +269,8 @@
                 <RunCode code="setLabelFunction()"/>          
             </setup>
             <body>
-                <Pause timeout="100"/>
+                <WaitForEffectsToEnd/>
+                <WaitForLayoutManager/>
                 <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_labelfunc.png"/>        
             </body>
         </TestCase>
@@ -345,10 +347,8 @@
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="105" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="115" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="125" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-        <WaitForEffectsToEnd />
-                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
+        		<WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/$testID.png"/>
             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -50,7 +51,7 @@ import org.w3c.dom.css.CSSValue;
  * concrete objects regarding to CSS properties.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: CSSUtilities.java,v 1.51 2004/08/20 19:29:46 deweese Exp $
+ * @version $Id: CSSUtilities.java 498740 2007-01-22 18:35:57Z dvholten $
  */
 public abstract class CSSUtilities
     implements CSSConstants, ErrorConstants, XMLConstants {
@@ -78,7 +79,7 @@ public abstract class CSSUtilities
     public static Value getComputedStyle(Element e, int property) {
         CSSEngine engine = getCSSEngine(e);
         if (engine == null) return null;
-        return engine.getComputedStyle((CSSStylableElement)e, 
+        return engine.getComputedStyle((CSSStylableElement)e,
                                        null, property);
     }
 
@@ -115,7 +116,8 @@ public abstract class CSSUtilities
                 case 's':
                     return GraphicsNode.VISIBLE_STROKE;
                 default:
-                    throw new Error(); // can't be reached
+                    // can't be reached
+                    throw new IllegalStateException("unexpected event, must be one of (p,f,s) is:" + s.charAt(7) );
                 }
             }
         case 'p':
@@ -129,7 +131,8 @@ public abstract class CSSUtilities
         case 'n':
             return GraphicsNode.NONE;
         default:
-            throw new Error(); // can't be reached
+            // can't be reached
+            throw new IllegalStateException("unexpected event, must be one of (v,p,f,s,a,n) is:" + s.charAt(0) );
         }
     }
 
@@ -162,7 +165,7 @@ public abstract class CSSUtilities
             return new Rectangle2D.Float(x, y, w, h);
 
         default:
-            throw new InternalError(); // Cannot happen
+            throw new IllegalStateException("Unexpected length:" + length ); // Cannot happen
         }
     }
 
@@ -209,8 +212,8 @@ public abstract class CSSUtilities
      * Checks if the cursor property on the input element is set to auto
      */
     public static boolean isAutoCursor(Element e) {
-        Value cursorValue = 
-            CSSUtilities.getComputedStyle(e, 
+        Value cursorValue =
+            CSSUtilities.getComputedStyle(e,
                                           SVGCSSEngine.CURSOR_INDEX);
 
         boolean isAuto = false;
@@ -229,9 +232,9 @@ public abstract class CSSUtilities
                        cursorValue.getLength() == 1) {
                 Value lValue = cursorValue.item(0);
                 if (lValue != null
-                    && 
+                    &&
                     lValue.getCssValueType() == CSSValue.CSS_PRIMITIVE_VALUE
-                    && 
+                    &&
                     lValue.getPrimitiveType() == CSSPrimitiveValue.CSS_IDENT
                     &&
                     lValue.getStringValue().charAt(0) == 'a') {
@@ -306,7 +309,7 @@ public abstract class CSSUtilities
 
         if (hints == null)
             hints = new RenderingHints(null);
-        
+
         switch(s.charAt(0)) {
         case 'o': // optimizeSpeed
             hints.put(RenderingHints.KEY_RENDERING,
@@ -555,6 +558,9 @@ public abstract class CSSUtilities
      * @param e the element
      */
     public static boolean convertDisplay(Element e) {
+        if (!(e instanceof CSSStylableElement)) {
+            return true;
+        }
         Value v = getComputedStyle(e, SVGCSSEngine.DISPLAY_INDEX);
         return v.getStringValue().charAt(0) != 'n';
     }
@@ -578,7 +584,7 @@ public abstract class CSSUtilities
     // 'opacity'
     /////////////////////////////////////////////////////////////////////////
 
-    public final static Composite TRANSPARENT =
+    public static final Composite TRANSPARENT =
         AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0);
 
     /**
@@ -592,7 +598,7 @@ public abstract class CSSUtilities
         float f = v.getFloatValue();
         if (f <= 0f) {
             return TRANSPARENT;
-        } else if (f >= 1f) {
+        } else if (f >= 1.0f) {
             return AlphaComposite.SrcOver;
         } else {
             return AlphaComposite.getInstance(AlphaComposite.SRC_OVER, f);
@@ -626,7 +632,8 @@ public abstract class CSSUtilities
      */
     public static float[] convertClip(Element e) {
         Value v = getComputedStyle(e, SVGCSSEngine.CLIP_INDEX);
-        switch (v.getPrimitiveType()) {
+        int primitiveType = v.getPrimitiveType();
+        switch ( primitiveType ) {
         case CSSPrimitiveValue.CSS_RECT:
             float [] off = new float[4];
             off[0] = v.getTop().getFloatValue();
@@ -637,7 +644,8 @@ public abstract class CSSUtilities
         case CSSPrimitiveValue.CSS_IDENT:
             return null; // 'auto' means no offsets
         default:
-            throw new Error(); // can't be reached
+            // can't be reached
+            throw new IllegalStateException("Unexpected primitiveType:" + primitiveType );
         }
     }
 
@@ -659,7 +667,8 @@ public abstract class CSSUtilities
                                        GraphicsNode filteredNode,
                                        BridgeContext ctx) {
         Value v = getComputedStyle(filteredElement, SVGCSSEngine.FILTER_INDEX);
-        switch (v.getPrimitiveType()) {
+        int primitiveType = v.getPrimitiveType();
+        switch ( primitiveType ) {
         case CSSPrimitiveValue.CSS_IDENT:
             return null; // 'filter:none'
 
@@ -668,7 +677,7 @@ public abstract class CSSUtilities
             Element filter = ctx.getReferencedElement(filteredElement, uri);
             Bridge bridge = ctx.getBridge(filter);
             if (bridge == null || !(bridge instanceof FilterBridge)) {
-                throw new BridgeException(filteredElement,
+                throw new BridgeException(ctx, filteredElement,
                                           ERR_CSS_URI_BAD_TARGET,
                                           new Object[] {uri});
             }
@@ -677,8 +686,8 @@ public abstract class CSSUtilities
                                                        filteredElement,
                                                        filteredNode);
         default:
-            throw new InternalError(); // can't be reached
-            
+            throw new IllegalStateException("Unexpected primitive type:" + primitiveType ); // can't be reached
+
         }
     }
 
@@ -700,7 +709,8 @@ public abstract class CSSUtilities
                                             BridgeContext ctx) {
         Value v = getComputedStyle(clippedElement,
                                    SVGCSSEngine.CLIP_PATH_INDEX);
-        switch (v.getPrimitiveType()) {
+        int primitiveType = v.getPrimitiveType();
+        switch ( primitiveType ) {
         case CSSPrimitiveValue.CSS_IDENT:
             return null; // 'clip-path:none'
 
@@ -709,7 +719,7 @@ public abstract class CSSUtilities
             Element cp = ctx.getReferencedElement(clippedElement, uri);
             Bridge bridge = ctx.getBridge(cp);
             if (bridge == null || !(bridge instanceof ClipBridge)) {
-                throw new BridgeException(clippedElement,
+                throw new BridgeException(ctx, clippedElement,
                                           ERR_CSS_URI_BAD_TARGET,
                                           new Object[] {uri});
             }
@@ -718,8 +728,7 @@ public abstract class CSSUtilities
                                                    clippedElement,
                                                    clippedNode);
         default:
-            throw new InternalError(); // can't be reached
-            
+            throw new IllegalStateException("Unexpected primitive type:" + primitiveType ); // can't be reached
         }
     }
 
@@ -753,7 +762,8 @@ public abstract class CSSUtilities
                                    GraphicsNode maskedNode,
                                    BridgeContext ctx) {
         Value v = getComputedStyle(maskedElement, SVGCSSEngine.MASK_INDEX);
-        switch (v.getPrimitiveType()) {
+        int primitiveType = v.getPrimitiveType();
+        switch ( primitiveType ) {
         case CSSPrimitiveValue.CSS_IDENT:
             return null; // 'mask:none'
 
@@ -762,7 +772,7 @@ public abstract class CSSUtilities
             Element m = ctx.getReferencedElement(maskedElement, uri);
             Bridge bridge = ctx.getBridge(m);
             if (bridge == null || !(bridge instanceof MaskBridge)) {
-                throw new BridgeException(maskedElement,
+                throw new BridgeException(ctx, maskedElement,
                                           ERR_CSS_URI_BAD_TARGET,
                                           new Object[] {uri});
             }
@@ -771,8 +781,7 @@ public abstract class CSSUtilities
                                                    maskedElement,
                                                    maskedNode);
         default:
-            throw new InternalError(); // can't be reached
-            
+            throw new IllegalStateException("Unexpected primitive type:" + primitiveType ); // can't be reached
         }
     }
 
@@ -875,12 +884,12 @@ public abstract class CSSUtilities
     public static void computeStyleAndURIs(Element refElement,
                                            Element localRefElement,
                                            String  uri) {
-	// Pull fragement id off first...
+        // Pull fragement id off first...
         int idx = uri.indexOf('#');
         if (idx != -1)
             uri = uri.substring(0,idx);
 
-	// Only set xml:base if we have a real URL.
+        // Only set xml:base if we have a real URL.
         if (uri.length() != 0)
             localRefElement.setAttributeNS(XML_NAMESPACE_URI,
                                            "base",
@@ -888,7 +897,7 @@ public abstract class CSSUtilities
 
         CSSEngine engine    = CSSUtilities.getCSSEngine(localRefElement);
         CSSEngine refEngine = CSSUtilities.getCSSEngine(refElement);
-        
+
         engine.importCascadedStyleMaps(refElement, refEngine, localRefElement);
     }
 

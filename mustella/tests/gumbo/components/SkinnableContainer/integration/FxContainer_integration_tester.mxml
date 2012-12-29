@@ -63,7 +63,7 @@
                 <SetProperty target = "fc" propertyName="height" value="100" waitEvent="updateComplete"/>
                 <AssertPropertyValue target = "fc" propertyName="numElements" value="4" />
                 <AssertMethodValue   method="value=application.fc.getElementAt(0).width" value="40" />
-                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" />
+                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="FxContainer_integration_skinChange" keywords="[FxContainer, integration]" description="">
@@ -82,7 +82,7 @@
                 <RunCode code="application.addEllipseAt(application.fc,0,0x00FF00);"  />
                 <AssertPropertyValue target = "fc" propertyName="numElements" value="3" />
                 <SetProperty target = "fc" propertyName="height" value="90" waitEvent="updateComplete"/>
-                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" />
+                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="FxContainer_integration_addRemove_skinChange" keywords="[FxContainer, integration]" description="">
@@ -101,7 +101,7 @@
                 <RunCode code="application.addEllipseAt(application.fc,0,0x00FF00);"  waitEvent="elementAdd" waitTarget="fc"/>
                 <SetProperty target = "fc" propertyName="width" value="100" waitEvent="updateComplete"/>
                 <SetProperty target = "fc" propertyName="height" value="100" waitEvent="updateComplete"/>
-                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" />
+                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="FxContainer_integration_addElement_skinChange" keywords="[FxContainer, integration]" description="">
@@ -115,7 +115,7 @@
                 <SetProperty target = "fc" propertyName="width" value="110" waitEvent="updateComplete"/>
 
                 <SetProperty target = "fc" propertyName="width" value="100" waitEvent="updateComplete"/>
-                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" />
+                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="FxContainer_integration_horizontalSkin1" keywords="[FxContainer, integration]" description="">
@@ -137,7 +137,8 @@
                 <AssertPropertyValue target = "fc" propertyName="numElements" value="4" />
                 <AssertMethodValue   method="value=application.fc.getElementAt(0).width" value="50" />
                 <AssertPropertyValue target = "fc.contentGroup" propertyName="contentWidth" value="258" />
-                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" />
+				<WaitForLayoutManager />
+                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
         <TestCase testID="FxContainer_integration_horizontalSkin2" keywords="[FxContainer, integration]" description="">

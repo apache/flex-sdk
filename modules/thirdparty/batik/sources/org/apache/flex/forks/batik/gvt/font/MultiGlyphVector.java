@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -31,6 +32,10 @@ import java.util.List;
 
 import org.apache.flex.forks.batik.gvt.text.AttributedCharacterSpanIterator;
 
+/**
+ *
+ * @version $Id: MultiGlyphVector.java 501495 2007-01-30 18:00:36Z dvholten $
+ */
 public class MultiGlyphVector implements GVTGlyphVector {
 
     GVTGlyphVector [] gvs;
@@ -40,9 +45,10 @@ public class MultiGlyphVector implements GVTGlyphVector {
     int nGlyph;
 
     public MultiGlyphVector(List gvs) {
-        this.gvs     = new GVTGlyphVector[gvs.size()];
-        this.nGlyphs = new int[gvs.size()];
-        this.off     = new int[gvs.size()];
+        int nSlots = gvs.size();
+        this.gvs     = new GVTGlyphVector[ nSlots ];
+        this.nGlyphs = new int[ nSlots ];
+        this.off     = new int[ nSlots ];
 
         Iterator iter = gvs.iterator();
         int i=0;
@@ -133,6 +139,15 @@ public class MultiGlyphVector implements GVTGlyphVector {
     }
 
     /**
+     * Returns the bounding box of the specified glyph, considering only the
+     * glyph's metrics (ascent, descent, advance) rather than the actual glyph
+     * shape.
+     */
+    public Rectangle2D getGlyphCellBounds(int glyphIndex) {
+        return getGlyphLogicalBounds(glyphIndex).getBounds2D();
+    }
+
+    /**
      * Returns the position of the specified glyph within this GlyphVector.
      */
     public Point2D getGlyphPosition(int glyphIndex) {
@@ -193,7 +208,7 @@ public class MultiGlyphVector implements GVTGlyphVector {
     /**
      * Returns an array of glyphcodes for the specified glyphs.
      */
-    public int[] getGlyphCodes(int beginGlyphIndex, int numEntries, 
+    public int[] getGlyphCodes(int beginGlyphIndex, int numEntries,
                         int[] codeReturn) {
         int [] ret = codeReturn;
         if (ret == null)
@@ -210,14 +225,13 @@ public class MultiGlyphVector implements GVTGlyphVector {
                 len = nGlyphs[gvIdx]-gi;
             gv = gvs[gvIdx];
             if (i == 0) {
-                gv.getGlyphCodes(gi, len, ret);                
+                gv.getGlyphCodes(gi, len, ret);
             } else {
                 if ((tmp == null) || (tmp.length < len))
                     tmp = new int[len];
 
                 gv.getGlyphCodes(gi, len, tmp);
-                for (int j=0; j<len; j++)
-                    ret[i+j] = tmp[j];
+                System.arraycopy( tmp, 0, ret, i, len );
             }
             gi=0;
             gvIdx++;
@@ -231,7 +245,7 @@ public class MultiGlyphVector implements GVTGlyphVector {
     /**
      * Returns an array of glyph positions for the specified glyphs
      */
-    public float[] getGlyphPositions(int beginGlyphIndex, 
+    public float[] getGlyphPositions(int beginGlyphIndex,
                               int numEntries,
                               float[] positionReturn) {
         float [] ret = positionReturn;
@@ -256,8 +270,7 @@ public class MultiGlyphVector implements GVTGlyphVector {
                     tmp = new float[len*2];
 
                 gv.getGlyphPositions(gi, len, tmp);
-                for (int j=0; j<len*2; j++)
-                    ret[i+j] = tmp[j];
+                System.arraycopy( tmp, 0, ret, i, len * 2 );
             }
             gi=0;
             gvIdx++;
@@ -276,7 +289,8 @@ public class MultiGlyphVector implements GVTGlyphVector {
         for (int idx=0; idx<gvs.length; idx++) {
             Rectangle2D b = gvs[idx].getLogicalBounds();
             if (ret == null) ret = b;
-            else ret = ret.createUnion(b);
+            //else ret = ret.createUnion(b);
+            else ret.add( b );   //  same as union
         }
         return ret;
     }
@@ -319,7 +333,8 @@ public class MultiGlyphVector implements GVTGlyphVector {
             Rectangle2D b = gvs[idx].getBounds2D
                 (new AttributedCharacterSpanIterator(aci, begin, end));
             if (ret == null) ret = b;
-            else ret = ret.createUnion(b);
+            //else ret = ret.createUnion(b);
+            else ret.add(b);
             begin = end;
         }
         return ret;
@@ -335,7 +350,8 @@ public class MultiGlyphVector implements GVTGlyphVector {
         for (int idx=0; idx<gvs.length; idx++) {
             Rectangle2D b = gvs[idx].getGeometricBounds();
             if (ret == null) ret = b;
-            else ret = ret.createUnion(b);
+            //else ret = ret.createUnion(b);
+            else ret.add(b);
         }
         return ret;
     }
@@ -385,5 +401,5 @@ public class MultiGlyphVector implements GVTGlyphVector {
         }
     }
 
-    
+
 }

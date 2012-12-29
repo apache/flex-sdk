@@ -19,7 +19,7 @@
 -->
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" height="48" >
 
-    <mx:Image source="assets/orb.jpg"/>
-    <mx:Label id="updatedText" text="hello" color="0xFF0000" />
+    <mx:Image source="../../../../../Assets/Images/smallyellowrect.jpg"/>
+    <mx:Label id="updatedText" text="hello" color="0x0000FF" />
 
 </mx:HBox>

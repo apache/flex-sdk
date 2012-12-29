@@ -64,15 +64,6 @@
         dropShadowEnabled: true;
         dropShadowColor: #FF0000;
    }
-   .ltrStyle{
-   layoutDirection: "ltr";
-   direction:"ltr";
-   }
-   
-      .rtlStyle{
-      layoutDirection: "rtl";
-      direction:"rtl";
-   }
 </mx:Style>
 
 <mx:Style source="assets/myStyles2.css" />
@@ -82,22 +73,28 @@
     <mx:TextInput id="ta" />
     <mx:Button id="btn" label="click" />
 </mx:TitleWindow>
+<mx:Spacer height="25" width="25"/>
 <mx:HBox>
-    <mx:TitleWindow id="tw2" showCloseButton="true" close="ta.text='close'" >
+    <mx:TitleWindow id="tw2" layoutDirection="rtl" showCloseButton="true" close="ta.text='close'" >
     	<mx:TextInput id="ta2" />
         <mx:CheckBox id="chk1" label="test checkBox"/>
     </mx:TitleWindow>
 
-    <mx:TitleWindow id="tw3" showCloseButton="true"  >
+    <mx:Spacer height="25" width="25"/>
+
+    <mx:TitleWindow id="tw3" layoutDirection="rtl" showCloseButton="true"  >
     	<mx:CheckBox id="chk31" label="outter checkBox"/>
-    	<mx:VBox id="vbox1" styleName="ltrStyle">
+    	<mx:VBox id="vbox1" layoutDirection="ltr">
     	    <mx:TextInput id="ti1" text="this is a test"/>
             <mx:CheckBox id="chk2" label="inner checkBox"/>
         </mx:VBox>
     </mx:TitleWindow>
 </mx:HBox>
+<mx:Spacer height="25" width="25"/>
 <mx:VBox>
     <MyLayoutTestTW id="tw4" />	
+
+    <mx:Spacer height="25" width="25"/>
     
     <mx:Canvas id="canvas1" width="375" height="165" >
         	<MyTw5 id="tw5" />

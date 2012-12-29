@@ -46,11 +46,35 @@
 		embedAsCFF: false;
 	}
 	
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		fontFamily: EmbeddedVerdanaCFF;
+		embedAsCFF: true;
+	}
+	
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		fontWeight: bold;
+		fontFamily: EmbeddedVerdanaCFF;
+		embedAsCFF: true;
+	}
+	
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		fontStyle: italic;
+		fontFamily: EmbeddedVerdanaCFF;
+		embedAsCFF: true;
+	}
 
     global{
         fontFamily: EmbeddedVerdana;
         fontAntiAliasType: normal;
     }
+	
+	mx|DataGrid
+	{
+		fontFamily: EmbeddedVerdanaCFF;
+	}
 
 </fx:Style>
 

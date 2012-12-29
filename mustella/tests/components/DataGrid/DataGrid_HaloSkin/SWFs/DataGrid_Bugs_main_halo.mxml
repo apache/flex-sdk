@@ -92,10 +92,10 @@
 			embedAsCFF: false;
 		}
 		
-        global{
-            fontFamily: EmbeddedVerdana;
-            fontAntiAliasType: normal;
-        }
+		global{
+			fontFamily: EmbeddedVerdana;
+			fontAntiAliasType: normal;
+		}
     </mx:Style>
 
 <mx:DataGrid id="dg" dataProvider="{smallArray}" headerHeight="0" />

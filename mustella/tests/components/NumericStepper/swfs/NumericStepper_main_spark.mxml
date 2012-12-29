@@ -25,6 +25,20 @@
 
 	<mx:Style source="../../../../Assets/Fonts/myStyles.css" />
 
+	<mx:Style>		
+		@font-face {
+            src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+            fontFamily: EmbeddedArial;
+            embedAsCFF: false;
+		}
+		
+		@font-face {
+            src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+            fontFamily: EmbeddedGeorgia;
+            embedAsCFF: false;
+		}
+	</mx:Style>
+	
 	<mx:NumericStepper id="myNumericStepper"/>
 	<mx:TextInput/>
 </mx:Application>

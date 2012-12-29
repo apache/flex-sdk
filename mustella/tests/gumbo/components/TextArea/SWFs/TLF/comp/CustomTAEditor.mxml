@@ -109,7 +109,4 @@
 				>
 		
 	</s:TextArea>
-	<mx:Spacer width="150"/>
-	<s:Button id="btnDummy" label="move focus from RET"/>
-	
 </s:Panel>

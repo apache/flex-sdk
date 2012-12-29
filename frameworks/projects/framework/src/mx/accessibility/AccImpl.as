@@ -271,7 +271,9 @@ public class AccImpl extends AccessibilityImplementation
     private static var typeMap:Object =
     {
         "Container": [
+			"spark.components.Scroller",
             "spark.components.SkinnableContainer",
+			"spark.components.supportClasses.GroupBase",
             "mx.core.Container"
         ],
         "Form": [

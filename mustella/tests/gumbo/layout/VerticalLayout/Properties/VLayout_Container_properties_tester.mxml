@@ -64,7 +64,7 @@
 				<SetProperty propertyName="height" target="cont.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="cont.skin"/>
 				<SetProperty propertyName="width" target="cont.getElementAt(0)" value="150" waitEvent="updateComplete" waitTarget="cont.skin"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -82,7 +82,7 @@
 				<SetProperty propertyName="height" target="cont.getElementAt(0)" value="250" waitEvent="updateComplete" waitTarget="cont.skin"/>
 				<SetProperty propertyName="width" target="cont.getElementAt(0)" value="250" waitEvent="updateComplete" waitTarget="cont.skin"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -101,7 +101,7 @@
 				<SetProperty propertyName="width" value="215" target="myScroll.cont" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="215" target="myScroll.cont" waitEvent="updateComplete"/>
 				<Pause timeout="1000"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
         
@@ -119,7 +119,7 @@
 				<SetProperty propertyName="width" value="550" target="cont" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="550" target="cont" waitEvent="updateComplete"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
         
@@ -137,7 +137,7 @@
 				<SetProperty propertyName="width" value="115" target="myScroll.cont" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="115" target="myScroll.cont" waitEvent="updateComplete"/>
 				<Pause timeout="1000"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -158,7 +158,7 @@
 				<SetProperty propertyName="width" value="400" target="myScroll.cont" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="400" target="myScroll.cont" waitEvent="updateComplete"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -179,7 +179,7 @@
 				<SetProperty propertyName="width" value="400" target="myScroll.cont" waitEvent="updateComplete" />
 				<SetProperty propertyName="height" value="400" target="myScroll.cont" waitEvent="updateComplete"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -552,7 +552,7 @@
 				<SetProperty propertyName="height" target="cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="cont.skin"/>
 				<SetProperty propertyName="width" target="cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="cont.skin"/>
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -569,7 +569,7 @@
 				<SetProperty propertyName="height" target="cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="cont.skin"/>
 				<SetProperty propertyName="width" target="cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="cont.skin"/>
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -587,7 +587,7 @@
 				<SetProperty propertyName="width" target="cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="cont.skin"/>
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont"/>
 				<SetProperty propertyName="gap" value="50" target="cont.layout" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -620,7 +620,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -643,7 +643,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" />
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 
@@ -666,7 +666,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" />
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -690,7 +690,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -715,7 +715,7 @@
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="left" target="cont.vl" waitEvent="updateComplete" waitTarget="cont.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 
@@ -770,7 +770,7 @@
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="right" target="cont.vl" waitEvent="updateComplete" waitTarget="cont.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 
@@ -797,7 +797,7 @@
 				<SetProperty propertyName="horizontalAlign" value="right" target="cont.vl" waitEvent="updateComplete" waitTarget="cont.skin.contentGroup"/>
 				<SetProperty propertyName="text" target="cont.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="cont.getElementAt(2)"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -823,7 +823,7 @@
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="contentJustify" target="cont.vl" waitEvent="updateComplete" waitTarget="cont.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 
@@ -850,7 +850,7 @@
 				<SetProperty propertyName="horizontalAlign" value="contentJustify" target="cont.vl" waitEvent="updateComplete" waitTarget="cont.skin.contentGroup"/>
 				<SetProperty propertyName="text" target="cont.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="cont.getElementAt(2)"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -876,7 +876,7 @@
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="justify" target="cont.vl" waitEvent="updateComplete" waitTarget="cont.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 
@@ -903,7 +903,7 @@
 				<SetProperty propertyName="horizontalAlign" value="justify" target="cont.vl" waitEvent="updateComplete" waitTarget="cont.skin.contentGroup"/>
 				<SetProperty propertyName="text" target="cont.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="cont.getElementAt(2)"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -927,7 +927,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -955,7 +955,7 @@
 				<SetProperty propertyName="horizontalAlign" value="left" target="cont.vl" waitEvent="updateComplete" waitTarget="cont.skin.contentGroup"/>
 				<AssertPropertyValue propertyName="height" value="200" target="cont"/>
 				<AssertPropertyValue propertyName="width" value="200" target="cont"/>
-				<AssertPropertyValue propertyName="contentHeight" value="377" target="cont.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="392" target="cont.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="cont.contentGroup"/>
 			</body>
 		</TestCase>
@@ -982,7 +982,7 @@
 				<SetProperty propertyName="height" value="200" target="myScroll.cont" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -1042,7 +1042,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="cont"/>
 				<AssertPropertyValue propertyName="width" value="200" target="cont"/>
-				<AssertPropertyValue propertyName="contentHeight" value="261" target="cont.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="cont.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="80" target="cont.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1068,7 +1068,7 @@
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="right" target="cont.vl" waitEvent="updateComplete" waitTarget="cont.skin.contentGroup"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 
@@ -1097,7 +1097,7 @@
 
 				<AssertPropertyValue propertyName="height" value="200" target="cont"/>
 				<AssertPropertyValue propertyName="width" value="200" target="cont"/>
-				<AssertPropertyValue propertyName="contentHeight" value="261" target="cont.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="291" target="cont.contentGroup"/>
 				<AssertPropertyValue propertyName="contentWidth" value="200" target="cont.contentGroup"/>
 			</body>
 		</TestCase>
@@ -1122,7 +1122,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -1146,7 +1146,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" />
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -1170,7 +1170,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" />
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -1194,7 +1194,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" />
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -1218,7 +1218,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -1243,7 +1243,7 @@
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="left" target="cont.vl" waitEvent="updateComplete" waitTarget="cont.skin.contentGroup"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 
@@ -1270,7 +1270,7 @@
 				<SetProperty propertyName="horizontalAlign" value="left" target="cont.vl" waitEvent="updateComplete" waitTarget="cont.skin.contentGroup"/>
 				<SetProperty propertyName="text" target="cont.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="cont.getElementAt(2)"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 
@@ -1295,7 +1295,7 @@
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
 				<SetProperty propertyName="horizontalAlign" value="right" target="cont.vl" waitEvent="updateComplete" waitTarget="cont.skin.contentGroup"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 
@@ -1322,7 +1322,7 @@
 				<SetProperty propertyName="horizontalAlign" value="right" target="cont.vl" waitEvent="updateComplete" waitTarget="cont.skin.contentGroup"/>
 				<SetProperty propertyName="text" target="cont.getElementAt(2)" value="New text string for re-laid out label.  The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="cont.getElementAt(2)"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -1346,7 +1346,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -1370,7 +1370,7 @@
 					<SetProperty propertyName="height" value="200" target="cont" />
 
 					<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-					<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+					<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 				</body>
 		</TestCase>
 		
@@ -1394,7 +1394,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" />
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 
@@ -1418,7 +1418,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" />
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 
@@ -1442,7 +1442,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" waitEvent="updateComplete"/>
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -1465,7 +1465,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" />
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 
@@ -1488,7 +1488,7 @@
 				<SetProperty propertyName="height" value="200" target="cont" />
 
 				<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 			</body>
 		</TestCase>
 		
@@ -1923,7 +1923,7 @@
 			<SetProperty propertyName="height" target="cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<SetProperty propertyName="width" target="cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -1940,7 +1940,7 @@
 			<SetProperty propertyName="height" target="cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<SetProperty propertyName="width" target="cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -1957,7 +1957,7 @@
 			<SetProperty propertyName="height" target="cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<SetProperty propertyName="width" target="cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 				
@@ -1974,7 +1974,7 @@
 			<SetProperty propertyName="height" target="cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<SetProperty propertyName="width" target="cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -1991,7 +1991,7 @@
 			<SetProperty propertyName="height" target="cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<SetProperty propertyName="width" target="cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2008,7 +2008,7 @@
 			<SetProperty propertyName="height" target="cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<SetProperty propertyName="width" target="cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2025,7 +2025,7 @@
 			<SetProperty propertyName="height" target="cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<SetProperty propertyName="width" target="cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2042,7 +2042,7 @@
 			<SetProperty propertyName="height" target="cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<SetProperty propertyName="width" target="cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.cont)" waitEvent="updateComplete" waitTarget="cont"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -2062,7 +2062,7 @@
 			<SetProperty propertyName="height" target="myScroll.cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<SetProperty propertyName="width" target="myScroll.cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.cont)" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2082,7 +2082,7 @@
 			<SetProperty propertyName="height" target="myScroll.cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<SetProperty propertyName="width" target="myScroll.cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.cont)" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2102,7 +2102,7 @@
 			<SetProperty propertyName="height" target="myScroll.cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<SetProperty propertyName="width" target="myScroll.cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.cont)" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2122,7 +2122,7 @@
 			<SetProperty propertyName="height" target="myScroll.cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<SetProperty propertyName="width" target="myScroll.cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.cont)" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2142,7 +2142,7 @@
 			<SetProperty propertyName="height" target="myScroll.cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<SetProperty propertyName="width" target="myScroll.cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.cont)" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2162,7 +2162,7 @@
 			<SetProperty propertyName="height" target="myScroll.cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<SetProperty propertyName="width" target="myScroll.cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.cont)" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2182,7 +2182,7 @@
 			<SetProperty propertyName="height" target="myScroll.cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<SetProperty propertyName="width" target="myScroll.cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.cont)" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 
@@ -2202,7 +2202,7 @@
 			<SetProperty propertyName="height" target="myScroll.cont.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<SetProperty propertyName="width" target="myScroll.cont.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 			<RunCode code="application.addSparkBtn(application.myScroll.cont)" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
-			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>
+			<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>
 		    </body>
 		</TestCase>
 		
@@ -2241,7 +2241,7 @@
 				<RunCode code="application.addRect(application.myScroll.cont)"/>
 				<SetProperty propertyName="height" target="myScroll.cont.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 				<SetProperty propertyName="width" target="myScroll.cont.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.cont.skin.contentGroup"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>				
 			</body>
 		</TestCase>
 		
@@ -2272,7 +2272,7 @@
 				<RunCode code="application.addRect(application.myScroll.cont)"/>
 				<SetProperty propertyName="height" target="myScroll.cont.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 				<SetProperty propertyName="width" target="myScroll.cont.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.cont.skin.contentGroup"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>								
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>								
 				<AssertPropertyValue propertyName="rowCount" value="3" target="myScroll.cont.vl"/>
 
 
@@ -2313,7 +2313,7 @@
 				<SetProperty propertyName="height" target="myScroll.cont.getElementAt(5)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin.contentGroup"/>
 				<SetProperty propertyName="width" target="myScroll.cont.getElementAt(5)" value="80" waitEvent="updateComplete" waitTarget="myScroll.cont.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>				
 			</body>
 		</TestCase>
 		
@@ -2334,7 +2334,7 @@
 				<RunCode code="application.addSparkBtn(application.myScroll.cont)"/>
 				<RunCode code="application.addSparkBtn(application.myScroll.cont)" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>				
 			</body>
 		</TestCase>
 		
@@ -2377,7 +2377,7 @@
 				<SetProperty propertyName="width" target="myScroll.cont.getElementAt(5)" value="80" waitEvent="updateComplete" waitTarget="myScroll.cont.skin.contentGroup"/>
 				
 				<AssertPropertyValue propertyName="rowCount" value="6" target="myScroll.cont.vl"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>				
 			</body>
 		</TestCase>
 		
@@ -2478,7 +2478,7 @@
 				<SetProperty propertyName="height" target="myScroll.cont.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 				<SetProperty propertyName="width" target="myScroll.cont.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.cont.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>				
 			</body>
 		</TestCase>
 
@@ -2510,7 +2510,7 @@
 				<SetProperty propertyName="height" target="myScroll.cont.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 				<SetProperty propertyName="width" target="myScroll.cont.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.cont.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>				
 			</body>
 		</TestCase>
 		
@@ -2541,7 +2541,7 @@
 				<SetProperty propertyName="height" target="myScroll.cont.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 				<SetProperty propertyName="width" target="myScroll.cont.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.cont.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>				
 			</body>
 		</TestCase>
 		
@@ -2583,7 +2583,7 @@
 				<SetProperty propertyName="height" target="myScroll.cont.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 				<SetProperty propertyName="width" target="myScroll.cont.getElementAt(3)" value="100" waitEvent="updateComplete" waitTarget="myScroll.cont.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>				
 			</body>
 		</TestCase>
 		<TestCase testID="VLayout_container_rowHeight_typicalLayoutElement_UIComponent" keywords="[VerticalLayout, rowHeight]" description="rowHeight has no effect when variableRowHeight is true">
@@ -2619,7 +2619,7 @@
 				<SetProperty propertyName="height" target="myScroll.cont.getElementAt(4)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 				<SetProperty propertyName="width" target="myScroll.cont.getElementAt(4)" value="100" waitEvent="updateComplete" waitTarget="myScroll.cont.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>				
 			</body>
 		</TestCase>
 
@@ -2656,7 +2656,7 @@
 				<SetProperty propertyName="height" target="myScroll.cont.getElementAt(4)" value="60" waitEvent="updateComplete" waitTarget="myScroll.cont.skin"/>
 				<SetProperty propertyName="width" target="myScroll.cont.getElementAt(4)" value="100" waitEvent="updateComplete" waitTarget="myScroll.cont.skin.contentGroup"/>
 
-				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"  target=""/>				
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target=""/>				
 			</body>
 		</TestCase>
 		

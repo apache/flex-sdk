@@ -21,7 +21,7 @@
         xmlns:s="library://ns.adobe.com/flex/spark" title="Market">
     
     <s:actionContent>
-        <s:Button icon="@Embed('../assets/search48x48.png')" skinClass="spark.skins.spark.ButtonSkin" />
+        <s:Button icon="@Embed('../../../../../../Assets/Images/ButtonImages/save48x48.png')" skinClass="spark.skins.spark.ButtonSkin" />
     </s:actionContent>
 
     <s:Scroller id="target" width="100%" height="100%" contentBackgroundColor="red">
@@ -55,7 +55,7 @@
                             </fx:Style>
                             <fx:Script>
                                 <![CDATA[
-                                    [Embed(source="../assets/rating5.png")]
+                                    [Embed(source="../../../../../../Assets/Images/smallorangerect.jpg")]
                                     [Bindable]
                                     public var decoratorClass:Class;
                                 ]]>

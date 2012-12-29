@@ -81,7 +81,7 @@
 			fontLookup: "embeddedCFF";
 		}
 
-		mx|Panel, mx|NumericStepper, mx|List, mx|TextArea, mx|TextInput, mx|TabNavigator, mx|DateChooser {
+		mx|Panel, mx|NumericStepper, mx|List, mx|TextArea, mx|TextInput, mx|TabNavigator, mx|DateChooser, mx|Label {
 			fontAntiAliasType: "normal";
 			fontFamily: HaloVera;
 		}

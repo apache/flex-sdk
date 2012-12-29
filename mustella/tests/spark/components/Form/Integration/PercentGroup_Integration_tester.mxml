@@ -50,7 +50,7 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="currentState" value="fixedState" target="psg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg"/>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="PercentGroup_States_percentWidths_percentHeights" keywords="[Group, States, skin]" description="Different widths and heights in different states">
@@ -59,7 +59,7 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="currentState" value="percentState" target="psg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg"/>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="PercentGroup_States_fixedandPercentWidths_fixedandPercentHeights" keywords="[Group, States, skin]" description="Different widths and heights in different states">
@@ -68,7 +68,7 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="currentState" value="fixedPerState" target="psg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg"/>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="PercentGroup_States_fixedtoPercents" keywords="[Group, States, skin]" description="Different widths and heights in different states">
@@ -77,13 +77,13 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="currentState" value="fixedState" target="psg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg"/>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg" numColorVariances="5" maxColorVariance="1" />
 				
 				<SetProperty propertyName="currentState" value="percentState" target="psg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID_2.png" target="psg"/>
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" target="psg" numColorVariances="5" maxColorVariance="1" />
 			
 				<SetProperty propertyName="currentState" value="defaultState" target="psg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID_3.png" target="psg"/>
+				<CompareBitmap url="../Integration/baselines/$testID_3.png" target="psg" numColorVariances="5" maxColorVariance="1" />
 				
 			</body>
 		</TestCase>
@@ -93,13 +93,13 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="currentState" value="percentState" target="psg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg"/>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="psg" numColorVariances="5" maxColorVariance="1" />
 				
 				<SetProperty propertyName="currentState" value="fixedState" target="psg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID_2.png" target="psg"/>
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" target="psg" numColorVariances="5" maxColorVariance="1" />
 
 				<SetProperty propertyName="currentState" value="fixedPerState" target="psg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID_3.png" target="psg"/>
+				<CompareBitmap url="../Integration/baselines/$testID_3.png" target="psg" numColorVariances="5" maxColorVariance="1" />
 				
 			</body>
 		</TestCase>
@@ -110,16 +110,16 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="currentState" value="percentState" target="psgState" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID_default.png" target="psgState"/>
+				<CompareBitmap url="../Integration/baselines/$testID_default.png" target="psgState" numColorVariances="5" maxColorVariance="1" />
 				
 				<SetProperty propertyName="currentState" value="wh500" target="" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID_500.png" target="psgState"/>
+				<CompareBitmap url="../Integration/baselines/$testID_500.png" target="psgState" numColorVariances="5" maxColorVariance="1" />
 
 				<SetProperty propertyName="currentState" value="wh600" target="" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID_600.png" target="psgState"/>
+				<CompareBitmap url="../Integration/baselines/$testID_600.png" target="psgState" numColorVariances="5" maxColorVariance="1" />
 
 				<SetProperty propertyName="currentState" value="wh300" target="" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID_300.png" target="psgState"/>
+				<CompareBitmap url="../Integration/baselines/$testID_300.png" target="psgState" numColorVariances="5" maxColorVariance="1" />
 
 			</body>
 		</TestCase>
@@ -136,22 +136,22 @@
 				<SetProperty propertyName="visible" value="false" target="psgState" waitEvent="updateComplete" waitTarget=""/>
 				
 				<SetProperty propertyName="currentState" value="percentState" target="pscg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID_percentState1.png" target="pscg"/>
+				<CompareBitmap url="../Integration/baselines/$testID_percentState1.png" target="pscg" numColorVariances="5" maxColorVariance="1" />
 
 				<SetProperty propertyName="currentState" value="defaultState" target="pscg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID_defaultState.png" target="pscg"/>
+				<CompareBitmap url="../Integration/baselines/$testID_defaultState.png" target="pscg" numColorVariances="5" maxColorVariance="1" />
 
 				<SetProperty propertyName="currentState" value="percentState" target="pscg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID_percentState2.png" target="pscg"/>
+				<CompareBitmap url="../Integration/baselines/$testID_percentState2.png" target="pscg" numColorVariances="5" maxColorVariance="1" />
 				
 				<SetProperty propertyName="currentState" value="fixedState" target="pscg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID_fixedState.png" target="pscg"/>
+				<CompareBitmap url="../Integration/baselines/$testID_fixedState.png" target="pscg" numColorVariances="5" maxColorVariance="1" />
 				
 				<SetProperty propertyName="currentState" value="fixedPerState" target="pscg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID_fixedPerState.png" target="pscg"/>
+				<CompareBitmap url="../Integration/baselines/$testID_fixedPerState.png" target="pscg" numColorVariances="5" maxColorVariance="1" />
 				
 				<SetProperty propertyName="currentState" value="defaultState" target="pscg" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Integration/baselines/$testID_defaultState_2.png" target="pscg"/>
+				<CompareBitmap url="../Integration/baselines/$testID_defaultState_2.png" target="pscg" numColorVariances="5" maxColorVariance="1" />
 
 			</body>
 		</TestCase>

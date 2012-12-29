@@ -64,7 +64,7 @@
 	public var closeBtn:Button;
 
 	[Bindable]
-	[Embed(source="../../../../Assets/Images/redrect.jpg")]
+	[Embed(source="../../../../Assets/Images/redrect.png")]
 	public var extraButtonSkin:Class;
 
 	public function setButtons():void

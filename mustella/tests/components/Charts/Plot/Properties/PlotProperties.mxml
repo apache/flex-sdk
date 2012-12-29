@@ -1,0 +1,426 @@
+<UnitTester testDir="components/Charts/Plot/Properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="GenericPlot.mxml">
+
+    <mx:Script>
+    <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }       
+
+        import mx.collections.ArrayCollection;
+
+        [Bindable]
+        private var companyBAC:ArrayCollection = new ArrayCollection( [
+            { Date: "25-Jul", open: 18.50,  high: 19, close:18.86, low:18.2},
+            { Date: "26-Jul", open: 19.56,  high: 19.98,  close:11.69, low:13.79},                       
+            { Date: "27-Jul", open: 20.81,  high: 20.99,  close:20.12, low:19.87}, 
+            { Date: "28-Jul", open: 20.70,  high: 21.00,  close:23.84, low:19.87}, 
+            { Date: "29-Jul", open: 21.7,  high: 21.79, close:15.6, low:13.79}, 
+            { Date: "1-Aug", open: 22.45,  high: 22.65, close:21.95, low:20.87 },
+            { Date: "2-Aug", open: 22.56,  high: 22.6, close:12.98, low:13.79},
+            { Date: "3-Aug", open: 22.42,  high: 22.70, close:23.63, low:15.67},
+            { Date: "4-Aug", open: 21.67,  high: 22.82, close:26.34, low:20},
+            { Date: "5-Aug", open: 22.44,  high: 22.85, close:16.31, low:13.79} ]);
+
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+
+    <mx:Script>
+    <![CDATA[
+    import mx.charts.series.*;
+    import mx.charts.series.items.*;
+    import mx.charts.chartClasses.Series;
+    import mx.charts.renderers.*;
+    import mx.charts.*;
+    import mx.core.ClassFactory;
+    import mx.graphics.*;
+    import mx.controls.Alert;
+    import mx.controls.Button;
+    
+    
+     public function myParseFunction(s:String):Date 
+     { 
+        var a:Array = s.split(",");
+        var newDate:Date = new Date(a[0],a[1]-1,a[2]);
+        return newDate;
+     }
+            
+     public function setDisabledDays(disabledDaysType:String): void
+     {
+        var myDateTimeAxis:DateTimeAxis;
+        application.comp.showDataTips = true;       
+        myDateTimeAxis = application.comp.horizontalAxis as DateTimeAxis;
+        myDateTimeAxis.dataUnits="days";
+        myDateTimeAxis.labelUnits="days";
+        myDateTimeAxis.parseFunction=myParseFunction;
+        myDateTimeAxis.displayLocalTime=true;
+        
+        switch(disabledDaysType)
+        {
+            case "ALL_DAYS_DISABLED":               
+                myDateTimeAxis.disabledDays = [0,1,2,3,4,5,6];              
+                break;
+            case "VALID_DISABLED_DAYS":
+                myDateTimeAxis.disabledDays = [4,0];
+                break;
+            case "NULL_DISABLED_DAYS":
+                myDateTimeAxis.disabledDays = [];
+                break;
+            case "REPEATED_DISABLED_DAYS":
+                myDateTimeAxis.disabledDays = [1,1,5,5];
+                break;
+            case "OUT_OF_BOUNDS_DISABLED_DAYS":
+                myDateTimeAxis.disabledDays = [-1, 9];                  
+                break;
+            case "INVALID_DISABLED_DAYS":
+                var disDaysobj:Object = {day:"3", day2:"4"};
+                myDateTimeAxis.disabledDays = ["a","disDaysobj"];
+                break;
+            case "DISABLED_DAYS_NOT_SET":
+                break;  
+        }        
+     }
+
+     public function setDisabledRange(disabledRangesType:String): void
+     {
+        var myDateTimeAxis:DateTimeAxis;
+        application.comp.showDataTips = true;       
+        myDateTimeAxis = application.comp.horizontalAxis as DateTimeAxis;
+        myDateTimeAxis.dataUnits="days";
+        myDateTimeAxis.labelUnits="days";
+        myDateTimeAxis.parseFunction=myParseFunction;
+        myDateTimeAxis.displayLocalTime=true;
+        
+        switch(disabledRangesType)
+            {
+                case "NULL_DISABLED_RANGE":
+                    myDateTimeAxis.disabledRanges = [];
+                    break;
+                case "REPEATED_DISABLED_RANGE":
+                    myDateTimeAxis.disabledRanges = [new Date(2006, 6, 27),new Date(2006, 6, 27)];
+                    break;
+                case "OUT_OF_BOUNDS_DISABLED_RANGES":
+                    myDateTimeAxis.disabledRanges = [new Date(2006, 7, 6)];
+                    break;
+                case "INVALID_DISABLED_RANGES":
+                    var disDaysobj:Object = {day:"3", day2:"4"};
+                    myDateTimeAxis.disabledRanges = [new Date("a"),{rangeStart:new Date("disDaysobj")}];
+                    break;
+                case "DISABLED_RANGE_NOT_SET":
+                    break;  
+            case "DISABLED_RANGE_ONLY_DATE_OBJECTS":
+                myDateTimeAxis.disabledRanges = [new Date(2006, 6, 30)];
+                break;
+            case "DISABLED_RANGE_ONLY_RANGE_START":
+                myDateTimeAxis.disabledRanges = [{rangeStart:new Date(2006, 6, 29)}];
+                break;
+            case "DISABLED_RANGE_ONLY_RANGE_END":
+                myDateTimeAxis.disabledRanges = [{rangeEnd:new Date(2006, 6, 29)}];
+                break;
+            case "DISABLED_RANGE_WITH_RANGE_START_AND_END":
+                myDateTimeAxis.disabledRanges = [{rangeStart: new Date(2006,6,29), rangeEnd: new Date(2006,6,31)}]; 
+                break;
+            case "DISABLED_RANGE_MULTIPLE_START_AND_END":
+                myDateTimeAxis.disabledRanges = [{rangeStart:new Date(2006, 6, 28), rangeEnd:new Date(2006, 6, 30)}, {rangeStart:new Date(2006, 7, 1)}]
+                break;
+            case "DISABLED_RANGE_AND_DAYS":
+                myDateTimeAxis.disabledDays = [0,6]
+                myDateTimeAxis.disabledRanges = [{rangeStart:new Date(2006, 6, 31)}]
+                break;          
+            case "DISABLED_RANGE_BEFORE_DATAPOINT":
+                myDateTimeAxis.disabledRanges = [new Date(2006, 6, 25)]
+                break;  
+            case "DISABLED_RANGE_AFTER_START_DATE":
+                myDateTimeAxis.disabledRanges = [new Date(2006, 6, 28)]
+                break;
+            case "DISABLED_RANGE_BEFORE_END_DATE":
+                myDateTimeAxis.disabledRanges = [new Date(2006, 7, 4)]
+                break;
+            case "DISABLED_RANGE_BEFORE_END_DATE":
+                myDateTimeAxis.disabledRanges = [new Date(2006, 7, 2)]
+                break;
+            }         
+     }
+
+    public function scriptFunction(a:String, b:int):String
+    {
+        return a + ":" + b.toString();
+    }
+
+    // public var styleDecl:Object;
+    // public var styleObj:Object;
+
+
+    public function createLegend():void
+    {
+        var legend1:Legend = new Legend();      
+            legend1.dataProvider = application.comp;        
+        application.addChildAt(legend1,0);
+    }
+
+
+    ]]>
+    </mx:Script>
+
+    <testCases>
+            
+        <TestCase  testID="PlotSeries_change_Dataprovider_SeriesAndAxis_Level" keywords="[PlotChart, change Dataprovider, Series level, Axis Level]">
+            <setup>
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <RunCode code="AllSeriesData.setDefault('plot', application.comp)" />
+                <SetProperty target="comp" propertyName="horizontalAxis" valueExpression="value=new CategoryAxis()" waitEvent="updateComplete" />
+                <SetProperty target="comp.horizontalAxis" propertyName="categoryField" value="open" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DataGraphicsData().getDataAsXMLList()" waitEvent="updateComplete" />
+                <SetProperty target="comp.series.0" propertyName="dataProvider" value="{companyBAC}" waitTarget="comp"  waitEvent="updateComplete" />               
+                <SetProperty target="comp.horizontalAxis" propertyName="dataProvider" value="{companyBAC}" waitTarget="comp" waitEvent="updateComplete" />
+        
+            </setup>
+            <body>
+                <CompareBitmap target=""   url="../Properties/Baselines/PlotSeries_change_Dataprovider_SeriesAndAxis_Level.png" timeout="5000"/>
+            </body> 
+        </TestCase> 
+
+
+      <TestCase  testID="PlotSeries_selectionMode_Single" keywords="[PlotChart, Selection mode, single]">
+            <setup>
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new AdbeStockData().getDataAsArray()" waitEvent="updateComplete" />
+                <RunCode code="AllSeriesData.setDefault('plot', application.comp)" waitEvent="updateComplete" waitTarget="comp.series.0" />
+                <SetProperty target="comp.verticalAxis" propertyName="minimum" value="24"  waitTarget="comp.verticalAxis"  />
+                <SetProperty target="comp" waitEvent="updateComplete" waitTarget="comp" propertyName="selectionMode" value="single" />
+                <SetProperty target="comp.series.0" waitTarget="comp.series.0" propertyName="selectable" value="true" /> 
+                <SetProperty target="comp.series.0" waitEvent="updateComplete" waitTarget="comp.series.0" propertyName="selectedIndex" value="15"  />
+            </setup>
+            <body>
+                <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_selectionMode_Single.png"  timeout="5000"/>
+            </body> 
+        </TestCase>
+
+        <TestCase  testID="PlotSeries_selectionMode_None" keywords="[PlotChart, Selection mode, none]">
+            <setup>
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new AdbeStockData().getDataAsArray()" waitEvent="updateComplete" />
+                <RunCode code="AllSeriesData.setDefault('plot', application.comp)" waitEvent="updateComplete" waitTarget="comp.series.0" />
+                <SetProperty target="comp.verticalAxis" propertyName="minimum" value="24"  waitTarget="comp.verticalAxis"  />
+                <SetProperty target="comp" waitTarget="comp" propertyName="selectionMode" value="none" />               
+                <SetProperty target="comp.series.0" waitTarget="comp.series.0" propertyName="selectable" value="true" /> 
+                <SetProperty target="comp.series.0" waitEvent="updateComplete" waitTarget="comp.series.0" propertyName="selectedIndex" value="3" />
+
+            </setup>
+            <body>
+                <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_selectionMode_None.png"  timeout="5000"/> 
+            </body> 
+        </TestCase> 
+
+        <TestCase  testID="PlotSeries_selectionMode_Multiple" keywords="[PlotChart, Selection mode, multiple]">
+            <setup>
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new AdbeStockData().getDataAsArray()" waitEvent="updateComplete" />
+                <RunCode code="AllSeriesData.setDefault('plot', application.comp)" waitEvent="updateComplete" waitTarget="comp.series.0" />
+                <SetProperty target="comp.verticalAxis" propertyName="minimum" value="24"  waitTarget="comp.verticalAxis"  />
+                <SetProperty target="comp" waitEvent="updateComplete" waitTarget="comp" propertyName="selectionMode" value="multiple" />
+                <SetProperty target="comp.series.0" waitTarget="comp.series.0" propertyName="selectable" value="true" /> 
+                <SetProperty target="comp.series.0" waitEvent="updateComplete" waitTarget="comp.series.0" propertyName="selectedIndices" value="[3,15,9,20]" />
+            </setup>
+            <body>
+                <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_selectionMode_Multiple.png"  timeout="5000"/>
+            </body> 
+        </TestCase> 
+
+
+
+    <TestCase  testID="PlotSeries_ChangeMinAndMax_DateTimeAxis" keywords="[PlotChart, minimum, maximum, DateTimeAxis]">
+        <setup>
+            <ResetComponent target="comp" className="mx.charts::PlotChart" />
+            <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DisabledDaysStockData().getDataAsXMLList()" waitEvent="updateComplete" />
+            <SetProperty target="comp" propertyName="horizontalAxis" valueExpression="value=new DateTimeAxis()" waitEvent="updateComplete" />
+            <RunCode code="AllSeriesDisabledDaysData.setDefault('plot', application.comp)" waitTarget="comp.series.0" />
+            <RunCode code="setDisabledDays('NULL_DISABLED_DAYS')" waitEvent="updateComplete" waitTarget="comp" />           
+    
+                <SetProperty target="comp.horizontalAxis" propertyName="minimum" valueExpression="value=new Date(2006, 6, 29)"  waitTarget="comp.horizontalAxis"  /> 
+            <Pause timeout="20" />
+                  <SetProperty target="comp.horizontalAxis" propertyName="maximum" valueExpression="value=new Date(2006, 7, 2)"  waitTarget="comp.horizontalAxis"  /> 
+                  <Pause timeout="20" />
+            </setup>
+        <body>
+            <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_ChangeMinAndMax_DateTimeAxis.png" />
+        </body> 
+    </TestCase>  
+
+
+    <TestCase  testID="PlotSeries_ChangeMinAndMax_LinearAxis" keywords="[PlotChart, minimum, maximum, LinearAxis]">
+            <setup>
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new MultipleAxesData().getDataAsArray()" waitEvent="updateComplete" />
+                <RunCode code="MultipleAxesUtils.axisTest('diffAxisType', application.comp)" waitEvent="updateComplete" waitTarget="comp"/>
+           
+                <SetProperty target="comp.verticalAxis" propertyName="minimum" value="15"  waitTarget="comp.verticalAxis"  />
+                <Pause timeout="20" />
+                        <SetProperty target="comp.verticalAxis" propertyName="maximum" value="30"  waitTarget="comp.verticalAxis"  /> 
+                <Pause timeout="20" />
+            </setup>
+            <body>
+                <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_ChangeMinAndMax_LinearAxis.png" timeout="5000" />
+            </body> 
+    </TestCase>  
+
+
+       <TestCase  testID="PlotSeries_filterData_filterDataValues" keywords="[PlotChart, minimum, maximum, LinearAxis, filterData, filterDataValues]">
+            <setup>
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new MultipleAxesData().getDataAsArray()" waitEvent="updateComplete" />
+                <RunCode code="MultipleAxesUtils.axisTest('diffAxisType', application.comp)" waitEvent="updateComplete" waitTarget="comp"/>
+                <Pause timeout="20" />   
+                <SetProperty target="comp.verticalAxis" propertyName="minimum" value="15"  waitTarget="comp.verticalAxis"  />
+                    <Pause timeout="20" /> 
+                        <SetProperty target="comp.verticalAxis" propertyName="maximum" value="30"  waitTarget="comp.verticalAxis"  /> 
+               <Pause timeout="20" />
+                <SetProperty target="comp.series.0" propertyName="filterData" value="false"  waitTarget="comp.verticalAxis"  /> 
+               <Pause timeout="20" />
+                <SetProperty target="comp.series.0" propertyName="filterDataValues" value="outsideRange"  waitTarget="comp.verticalAxis"  /> 
+               <Pause timeout="20" />
+                <SetProperty target="comp.series.0" propertyName="filterDataValues" value="nulls"  waitTarget="comp.verticalAxis"  /> 
+               <Pause timeout="20" />   
+            </setup>
+            <body>
+                <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_filterData_filterDataValues.png" timeout="5000" />
+            </body> 
+    </TestCase> 
+
+        <TestCase  testID="PlotSeries_legend" keywords="[PlotChart, Legend, multiple series]">
+            <setup>
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <RunCode code="AllSeriesData.setDefault('plot', application.comp)" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DataGraphicsData().getDataAsXMLList()" waitEvent="updateComplete" />
+
+                <SetProperty target="comp.series.0" propertyName="displayName" value="Open" waitTarget="comp.series.0" />
+
+            
+                <Pause timeout="200"/>
+                <RunCode code="createLegend()" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target=""   url="../Properties/Baselines/PlotSeries_legend.png" />
+            </body> 
+        </TestCase> 
+
+    
+    <TestCase  testID="PlotSeries_ChangeDataProvider_AtChartLevel" keywords="[PlotChart, Dataprovider, chartLevel]">
+        <setup>
+            <ResetComponent target="comp" className="mx.charts::PlotChart" />
+            <RunCode code="AllSeriesData.setDefault('plot', application.comp)" />
+            <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new DataGraphicsData().getDataAsXMLList()" waitEvent="updateComplete" />
+        
+            <Pause timeout="20"/>
+            <SetProperty target="comp" propertyName="dataProvider" value="{companyBAC}" waitEvent="updateComplete" /> 
+            <Pause timeout="20"/>
+
+        </setup>
+        <body>
+            <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_ChangeDataProvider_AtChartLevel.png"  />
+        </body>
+    </TestCase>  
+
+        
+        <!--default tests not setting fillfunction or fills array-->
+    
+        <TestCase  testID="PlotSeries_valid_horizontal_vertical_axis" keywords="[PlotChart,valid, horizontal and vertical Axis]">
+            <setup>
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new MultipleAxesData().getDataAsArray()" waitEvent="updateComplete" />
+                <RunCode code="MultipleAxesUtils.axisTest('validHorVerAxis', application.comp)" waitEvent="updateComplete" waitTarget="comp"/>
+            </setup>
+            <body>
+                <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_valid_horizontal_vertical_axis.png" />
+            </body> 
+        </TestCase>
+        
+        <TestCase  testID="PlotSeries_Canvas_MultipleAxes_AxisSet_Background" keywords="[PlotChart,MultipleAxes, Canvas axis set]">
+            <setup>
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new MultipleAxesData().getDataAsArray()" waitEvent="updateComplete" />
+                <RunCode code="DataGraphicsUtils.CanvasOnMultipleAxes('axisSet', application.comp, 'background')" waitEvent="updateComplete" waitTarget="comp"/> 
+
+            </setup>
+            <body>
+                <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_Canvas_MultipleAxes_AxisSet_Background.png"  />
+            </body>
+        </TestCase>
+        <TestCase  testID="PlotSeries_multipleAxes_disabledDays" keywords="[PlotChart,multipleAxes, disabled days]">
+            <setup>
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new MultipleAxesData().getDataAsArray()" waitEvent="updateComplete" />
+                <RunCode code="MultipleAxesUtils.axisTest('disabledDays', application.comp)" waitEvent="updateComplete" waitTarget="comp"/>
+            </setup>
+            <body>
+                <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_multipleAxes_disabledDays.png" />
+            </body> 
+        </TestCase>
+        <TestCase  testID="PlotSeries_axisRenderer_withPlacement" keywords="[PlotChart,axis Renderers, with Placement specified]">
+            <setup>
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new MultipleAxesData().getDataAsArray()" waitEvent="updateComplete" />
+                <RunCode code="MultipleAxesUtils.AxisRenderers('axisRendererWithPlacement', application.comp)" waitEvent="updateComplete" waitTarget="comp" />          
+            </setup>
+            <body>
+                <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_axisRenderer_withPlacement.png" />
+            </body> 
+        </TestCase>
+        <TestCase  testID="PlotSeries_MultipleCanvas_MultipleAxes_Annotation" keywords="[PlotChart, MultipleAxes, Multiple canvas]">
+            <setup>
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new MultipleAxesData().getDataAsArray()" waitEvent="updateComplete" />
+                <RunCode code="DataGraphicsUtils.CanvasOnMultipleAxes('multipleCanvas', application.comp, 'annotation')" waitEvent="updateComplete" waitTarget="comp"/> 
+
+            </setup>
+            <body>
+                <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_MultipleCanvas_MultipleAxes_Annotation.png"  />
+            </body>
+        </TestCase>
+        <TestCase  testID="PlotSeries_sameAxis_diffRenderers" keywords="[PlotChart,same Axis, on different AxisRenderers]">
+            <setup>         
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new MultipleAxesData().getDataAsArray()" waitEvent="updateComplete" />
+                <RunCode code="MultipleAxesUtils.axisAndRendererTests('sameAxisOnDiffRenderers', application.comp)" waitEvent="updateComplete" waitTarget="comp"/>
+            </setup>
+            <body>
+                <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_sameAxis_diffRenderers.png" />
+            </body> 
+        </TestCase>
+        <TestCase  testID="PlotSeries_sameRenderer_withDiffAxis" keywords="[PlotChart,same Renderer, different Axis]">
+            <setup>     
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new MultipleAxesData().getDataAsArray()" waitEvent="updateComplete" />
+                <RunCode code="MultipleAxesUtils.axisAndRendererTests('sameRendererWithDiffAxis', application.comp)" waitEvent="updateComplete" waitTarget="comp"/>
+            </setup>
+            <body>
+                <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_sameRenderer_withDiffAxis.png" />
+            </body> 
+        </TestCase>
+        <TestCase  testID="PlotSeries_valid_horizontal_vertical_axis" keywords="[PlotChart,valid, horizontal and vertical Axis]">
+            <setup>
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new MultipleAxesData().getDataAsArray()" waitEvent="updateComplete" />
+                <RunCode code="MultipleAxesUtils.axisTest('validHorVerAxis', application.comp)" waitEvent="updateComplete" waitTarget="comp"/>
+            </setup>
+            <body>
+                <CompareBitmap target="comp"   url="../Properties/Baselines/PlotSeries_valid_horizontal_vertical_axis.png" />
+            </body> 
+        </TestCase>
+        <TestCase  testID="PlotSeries_axisAtSeriesLevel" keywords="[PlotChart,axis specified at Series level]">
+            <setup>
+                <ResetComponent target="comp" className="mx.charts::PlotChart" />
+                <SetProperty target="comp" propertyName="dataProvider" valueExpression="value=new MultipleAxesData().getDataAsArray()" waitEvent="updateComplete" />
+                <RunCode code="MultipleAxesUtils.AxisRenderers('axisAtSeries', application.comp)" waitEvent="updateComplete" waitTarget="comp"/>            
+            </setup>
+            <body>
+                <CompareBitmap target="comp" url="../Properties/Baselines/PlotSeries_axisAtSeriesLevel.png" ignoreMaxColorVariance="true" numColorVariances="25" />
+            </body> 
+        </TestCase>
+    </testCases>
+</UnitTester>
+        

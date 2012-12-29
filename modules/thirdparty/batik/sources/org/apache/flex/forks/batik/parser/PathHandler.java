@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,7 +24,7 @@ package org.apache.flex.forks.batik.parser;
  * notified of parsing events.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: PathHandler.java,v 1.4 2005/03/27 08:58:35 cam Exp $
+ * @version $Id: PathHandler.java 475685 2006-11-16 11:16:05Z cam $
  */
 public interface PathHandler {
     /**
@@ -125,8 +126,8 @@ public interface PathHandler {
      * @exception ParseException if an error occured while processing the path
      */
     void curvetoCubicRel(float x1, float y1, 
-			 float x2, float y2, 
-			 float x, float y) throws ParseException;
+                         float x2, float y2, 
+                         float x, float y) throws ParseException;
 
 
     /**
@@ -141,8 +142,8 @@ public interface PathHandler {
      * @exception ParseException if an error occured while processing the path
      */
     void curvetoCubicAbs(float x1, float y1, 
-			 float x2, float y2, 
-			 float x, float y) throws ParseException;
+                         float x2, float y2, 
+                         float x, float y) throws ParseException;
 
     /**
      * Invoked when a relative smooth cubic bezier curve command has
@@ -157,7 +158,7 @@ public interface PathHandler {
      * @exception ParseException if an error occured while processing the path
      */
     void curvetoCubicSmoothRel(float x2, float y2, 
-			       float x, float y) throws ParseException;
+                               float x, float y) throws ParseException;
 
     /**
      * Invoked when an absolute smooth cubic bezier curve command has
@@ -172,7 +173,7 @@ public interface PathHandler {
      * @exception ParseException if an error occured while processing the path
      */
     void curvetoCubicSmoothAbs(float x2, float y2, 
-			       float x, float y) throws ParseException;
+                               float x, float y) throws ParseException;
 
     /**
      * Invoked when a relative quadratic bezier curve command has been parsed.
@@ -184,7 +185,7 @@ public interface PathHandler {
      * @exception ParseException if an error occured while processing the path
      */
     void curvetoQuadraticRel(float x1, float y1, 
-			     float x, float y) throws ParseException;
+                             float x, float y) throws ParseException;
 
     /**
      * Invoked when an absolute quadratic bezier curve command has been parsed.
@@ -196,7 +197,7 @@ public interface PathHandler {
      * @exception ParseException if an error occured while processing the path
      */
     void curvetoQuadraticAbs(float x1, float y1, 
-			     float x, float y) throws ParseException;
+                             float x, float y) throws ParseException;
 
     /**
      * Invoked when a relative smooth quadratic bezier curve command
@@ -236,9 +237,9 @@ public interface PathHandler {
      * @exception ParseException if an error occured while processing the path
      */
     void arcRel(float rx, float ry, 
-		float xAxisRotation, 
-		boolean largeArcFlag, boolean sweepFlag, 
-		float x, float y) throws ParseException;
+                float xAxisRotation, 
+                boolean largeArcFlag, boolean sweepFlag, 
+                float x, float y) throws ParseException;
 
 
     /**
@@ -255,7 +256,7 @@ public interface PathHandler {
      * @exception ParseException if an error occured while processing the path
      */
     void arcAbs(float rx, float ry, 
-		float xAxisRotation, 
-		boolean largeArcFlag, boolean sweepFlag, 
-		float x, float y) throws ParseException;
+                float xAxisRotation, 
+                boolean largeArcFlag, boolean sweepFlag, 
+                float x, float y) throws ParseException;
 }

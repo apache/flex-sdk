@@ -142,7 +142,7 @@ import spark.layouts.*;
 
             <AssertPropertyValue target = "sc2.verticalScrollBar" propertyName="visible" value="true" />
 
-            <SetProperty    target="sc1" propertyName="height"  value="750" waitEvent="updateComplete"/>
+            <SetProperty    target="sc1" propertyName="height"  value="1000" waitEvent="updateComplete"/>
 
             <SetProperty    target="sc1" propertyName="width"  value="100" waitEvent="updateComplete"/>
 
@@ -214,7 +214,7 @@ import spark.layouts.*;
 
                 <SetProperty    target="sc3" propertyName="width"   value="100" waitEvent="updateComplete"/>
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" numColorVariances="5" maxColorVariance="1" />
 
            </body>
 
@@ -250,7 +250,7 @@ import spark.layouts.*;
 
                 <SetProperty    target="sc3" propertyName="width"   value="100" waitEvent="updateComplete"/>
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" numColorVariances="5" maxColorVariance="1" />
 
            </body>
 

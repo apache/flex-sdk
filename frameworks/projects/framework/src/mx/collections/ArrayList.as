@@ -429,10 +429,28 @@ public class ArrayList extends EventDispatcher
      */
     public function addAllAt(addList:IList, index:int):void
     {
-        var length:int = addList.length;
-        for (var i:int = 0; i < length; i++)
+        const addListLength:int = addList.length;
+        if (addListLength == 0)
+            return;
+
+        const addedItems:Array = new Array();
+        
+        disableEvents();
+        for (var i:int = 0; i < addListLength; i++)
         {
-            this.addItemAt(addList.getItemAt(i), i+index);
+            var item:Object = addList.getItemAt(i);
+            this.addItemAt(item, i + index);
+            addedItems.push(item);
+        }
+        enableEvents();
+        
+        if (_dispatchEvents == 0)
+        {
+            const event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            event.kind = CollectionEventKind.ADD;
+            event.location = index;
+            event.items = addedItems;
+            dispatchEvent(event);
         }
     }
     

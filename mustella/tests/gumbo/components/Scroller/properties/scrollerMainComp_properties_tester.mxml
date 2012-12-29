@@ -92,7 +92,7 @@
 
             <SetProperty    target="sc1" propertyName="width"   value="70" waitEvent="updateComplete"/>
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="sc2" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="sc2" numColorVariances="5" maxColorVariance="1" />
 
            </body>
 
@@ -122,7 +122,7 @@
 
             <SetProperty    target="sc1" propertyName="width"   value="70" waitEvent="updateComplete"/>
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="sc2" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="sc2" numColorVariances="5" maxColorVariance="1" />
 
            </body>
 
@@ -152,7 +152,7 @@
 
             <SetProperty    target="sc2" propertyName="width"   value="200" waitEvent="updateComplete"/>
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" numColorVariances="5" maxColorVariance="1" />
 
            </body>
 
@@ -174,7 +174,7 @@
 
             <SetProperty    target="sc1" propertyName="width"   value="200" waitEvent="updateComplete"/>
 
-            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" numColorVariances="5" maxColorVariance="1" />
 
            </body>
 

@@ -1491,7 +1491,7 @@
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1)" value="string 2" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2)" value="string 0" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(3)" value="string 1" />
-			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_data.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_data_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>
 
@@ -1516,7 +1516,7 @@
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0)" value="test2" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1)" value="test" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).width" value="100" />
-			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_mix.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_mix_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>
 
@@ -1531,7 +1531,7 @@
 			<RunCode code="application.group1.dataProvider.addItem(application.createButton('halo button 2'));" />
 			<RunCode code="application.group1.dataProvider.addItem('data string 3');" />
 			<RunCode code="application.group1.dataProvider.addItem(application.createFxButton('spark button 4', 99, 21));" />
-			<Pause timeout="100" />
+			<WaitForLayoutManager />
 		</setup>
 		<body>
 
@@ -1543,7 +1543,7 @@
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1)" value="data string 3" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).label" value="halo button 1" />
 			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(3).label" value="halo button 2" />
-			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_buttons.png" target="group1" timeout="2000" />
+			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_buttons_virtual.png" target="group1" timeout="2000" />
 		</body>
 	</TestCase>
 
@@ -1591,11 +1591,11 @@
         <body>
             <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3" />
             <SetProperty target="group1" propertyName="verticalScrollPosition" value="656" waitEvent="propertyChange" />
-            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="23,24,25,26" />
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="20,21,22,23" />
             <SetProperty target="group1" propertyName="verticalScrollPosition" value="-50" waitEvent="propertyChange" />
             <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1" />
             <SetProperty target="group1" propertyName="verticalScrollPosition" value="2750" waitEvent="propertyChange" />
-            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="98,99" />
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="86,87,88,89" />
         </body>
     </TestCase>
 
@@ -1613,7 +1613,7 @@
         <body>
             <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3" />
             <SetProperty target="group1" propertyName="height" value="200" waitEvent="updateComplete" />
-            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3,4,5,6,7" />
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3,4,5,6" />
         </body>
     </TestCase>
 
@@ -1631,7 +1631,7 @@
             <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3" />
         </body>
     </TestCase>
-    <TestCase testID="DataGroup_method_clearFreeRenderers " keywords="[DataGroup, method, clearFreeRenderers ]" description="call clearFreeRenderers ">
+    <TestCase testID="DataGroup_method_clearFreeRenderers" keywords="[DataGroup, method, clearFreeRenderers ]" description="call clearFreeRenderers ">
         <setup>
             <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
             <SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" />
@@ -1645,7 +1645,7 @@
         <body>
             <RunCode code="application.group1.clearFreeRenderers()"/>
             <SetProperty target="group1" propertyName="height" value="200" waitEvent="updateComplete" />
-            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3,4,5,6,7" />
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3,4,5,6" />
         </body>
     </TestCase>
 

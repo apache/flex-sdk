@@ -90,8 +90,9 @@
 		<TestCase testID="ViewStack_Event_showToolTip" description="ViewStack mouseDown event." keywords="[event, showToolTip, ViewStack]">
 			<setup>
  				<ResetComponent target="vs" className="VSComp"  waitEvent="updateComplete" waitTarget="vs"/>
-				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="2" waitTarget="vs.viewS" waitEvent="updateComplete" />			    	<SetProperty target="vs.viewS" propertyName="toolTip" value="I am a ViewStack" />
-			    	<WaitForEffectsToEnd />
+				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="2" waitTarget="vs.viewS" waitEvent="updateComplete" />			    	
+				<SetProperty target="vs.viewS" propertyName="toolTip" value="I am a ViewStack" />
+			    <WaitForEffectsToEnd />
 			</setup>
 			<body>
 				
@@ -128,15 +129,16 @@
 		<TestCase testID="ViewStack_Event_hideToolTip" description="ViewStack mouseDown event." keywords="[event, hideToolTip, ViewStack]">
 			<setup>
  				<ResetComponent target="vs" className="VSComp"  waitEvent="updateComplete" waitTarget="vs"/>
-				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="2" waitTarget="vs.viewS" waitEvent="updateComplete" />			    	<SetProperty target="vs.viewS" propertyName="toolTip" value="I am a ViewStack" />
-			    	<WaitForEffectsToEnd />
+				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="2" waitTarget="vs.viewS" waitEvent="updateComplete" />			    	
+				<SetProperty target="vs.viewS" propertyName="toolTip" value="I am a ViewStack" />
+			    <WaitForEffectsToEnd />
 			</setup>
 			<body>
-				
-				<DispatchMouseEvent target="vs.viewS" type="mouseOver" localX="22" localY="5" />
+				<DispatchMouseEvent target="vs.viewS" type="mouseOver" localX="22" localY="5" waitEvent="toolTipShow"/>
 				<DispatchMouseEvent target="vs.viewS" type="mouseMove" localX="22" localY="5"/>
-				<AssertEvent target="vs.viewS" eventName="toolTipHide" eventClass="mx.events::ToolTipEvent" timeout="15000" />
-				<WaitForEffectsToEnd />
+				<DispatchMouseEvent target="vs.viewS" type="mouseOut" localX="22" localY="5"/>
+				<AssertEvent target="vs.viewS" eventName="toolTipHide" eventClass="mx.events::ToolTipEvent"/>
+				<WaitForEffectsToEnd/>
 			</body>
 		</TestCase> 
  
@@ -145,9 +147,9 @@
 		<TestCase testID="ViewStack_Event_move" description="ViewStack move event." keywords="[event, move, ViewStack]">
 			<setup>
  				<ResetComponent target="vs" className="VSComp"  waitEvent="updateComplete" waitTarget="vs"/>
-				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="2" waitTarget="vs.viewS" waitEvent="updateComplete" />			    	<SetProperty target="vs.viewS" propertyName="toolTip" value="I am a ViewStack" />
-			    	<WaitForEffectsToEnd />
-			    	
+				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="2" waitTarget="vs.viewS" waitEvent="updateComplete" />			    	
+				<SetProperty target="vs.viewS" propertyName="toolTip" value="I am a ViewStack" />
+			    <WaitForEffectsToEnd />
 			</setup>
 			<body>
 				<RunCode code="application.vs.viewS.move(10,10)"/>	

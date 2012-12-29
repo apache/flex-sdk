@@ -58,7 +58,7 @@
 		<TestCase testID="AIR_HTML_Event_htmlDOMInitialize " description="checks htmlDOMInitialize  event" keywords="[AIR, HTML, event, htmlDOMInitialize]">			
 			 <setup>
 			      <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML"/>
-			      <SetProperty propertyName="location" value="http://www.blackle.com/" target="myHTML"/>
+			      <SetProperty propertyName="location" value="http://incubator.apache.org/flex" target="myHTML"/>
 	  		</setup>
 			<body>
 				<WaitForEffectsToEnd />
@@ -69,7 +69,7 @@
 		<TestCase testID="AIR_HTML_Event_complete" description="checks complete event" keywords="[AIR, HTML, event, complete]">			
 			 <setup>
 			      <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML"/>
-			      <SetProperty propertyName="location" value="http://www.blackle.com/" target="myHTML"/>
+			      <SetProperty propertyName="location" value="http://incubator.apache.org/flex" target="myHTML"/>
 	  		</setup>
 			<body>
 				
@@ -80,7 +80,7 @@
 		<TestCase testID="AIR_HTML_Event_htmlRender" description="checks htmlRender event" keywords="[AIR, HTML, event, htmlRender]">			
 			 <setup>
 			      <ResetComponent target="myHTML" className="mx.controls::HTML" waitEvent="updateComplete" waitTarget="myHTML"/>
-			      <SetProperty propertyName="location" value="http://www.blackle.com/" target="myHTML"/>
+			      <SetProperty propertyName="location" value="http://incubator.apache.org/flex" target="myHTML"/>
 	  		</setup>
 			<body>
 				

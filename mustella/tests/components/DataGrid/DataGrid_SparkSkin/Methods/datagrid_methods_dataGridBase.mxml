@@ -125,7 +125,7 @@ to avoid a screen shot.
         <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
     </setup>
     <body>
-        <AssertPropertyValue target="dg2.mx_internal:rendererArray.2.1" propertyName="source" value="assets/image1.jpg" />
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.2.1" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" />
     </body>
 </TestCase>
 

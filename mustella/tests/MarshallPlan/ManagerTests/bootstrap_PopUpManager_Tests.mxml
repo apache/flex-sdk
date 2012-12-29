@@ -206,7 +206,7 @@
                <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
                <Pause timeout="100" />
                <SetProperty target="swf1" propertyName="autoLoad" value="false" />
-               <SetProperty target="swf1" propertyName="source" value="http://localhost/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?191_15" waitTarget="swf1" waitEvent="updateComplete"  timeout="6000"/>
+               <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/MarshallPlan/SWFs/assets/MP_PopUpManager_Child.swf?191_15" waitTarget="swf1" waitEvent="updateComplete"  timeout="6000"/>
                <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete" timeout="5000" />
             </setup>
             <body>

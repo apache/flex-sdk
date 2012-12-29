@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -15,20 +16,15 @@
    limitations under the License.
 
  */
- 
-/**
- *  Modified by Adobe Flex.
- */
-
 package org.apache.flex.forks.batik.css.parser;
 
-import org.w3c.flex.forks.css.sac.LexicalUnit;
+import org.w3c.css.sac.LexicalUnit;
 
 /**
  * This class implements the {@link LexicalUnit} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: CSSLexicalUnit.java,v 1.5 2004/08/18 07:13:02 vhardy Exp $
+ * @version $Id: CSSLexicalUnit.java 475477 2006-11-15 22:44:28Z cam $
  */
 public abstract class CSSLexicalUnit implements LexicalUnit {
 
@@ -53,6 +49,10 @@ public abstract class CSSLexicalUnit implements LexicalUnit {
          public static final String UNIT_TEXT_DPCM        = "dpcm";
          
 
+    public static final String TEXT_RGBCOLOR          = "rgb";
+    public static final String TEXT_RECT_FUNCTION     = "rect";
+    public static final String TEXT_COUNTER_FUNCTION  = "counter";
+    public static final String TEXT_COUNTERS_FUNCTION = "counters";
 
     /**
      * The lexical unit type.
@@ -504,6 +504,19 @@ public abstract class CSSLexicalUnit implements LexicalUnit {
                                              LexicalUnit prev, int lineNumber) {
             super(t, prev, lineNumber);
             parameters = params;
+        }
+        /**
+         * <b>SAC</b>: Implements {@link LexicalUnit#getFunctionName()}.
+         */
+        public String getFunctionName() {
+            switch (lexicalUnitType) {
+            case SAC_RGBCOLOR:          return TEXT_RGBCOLOR;
+            case SAC_RECT_FUNCTION:     return TEXT_RECT_FUNCTION;
+            case SAC_COUNTER_FUNCTION:  return TEXT_COUNTER_FUNCTION;
+            case SAC_COUNTERS_FUNCTION: return TEXT_COUNTERS_FUNCTION;
+            default: break;
+            }
+            return super.getFunctionName();
         }
 
         /**

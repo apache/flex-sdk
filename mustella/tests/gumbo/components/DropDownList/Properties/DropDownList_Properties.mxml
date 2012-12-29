@@ -203,9 +203,9 @@
 			<body>			
 				<CompareBitmap target="focusBox" url="../Properties/Baselines/$testID.png"/>
 				
-				<DispatchMouseEvent type="rollOver" target="myDDL1" localX="140" localY="10" waitEvent="rollOver" waitTarget="myDDL1"/>
-			    <DispatchMouseEvent type="mouseDown" target="myDDL1" localX="140" localY="10" waitEvent="mouseDown" waitTarget="myDDL1"/>
-				<DispatchMouseEvent type="mouseUp" target="myDDL1" localX="140" localY="10" waitEvent="mouseUp" waitTarget="myDDL1"/>				
+				<DispatchMouseEvent type="rollOver" target="myDDL1" localX="140" localY="10" />
+			    <DispatchMouseEvent type="mouseDown" target="myDDL1" localX="140" localY="10" />
+				<DispatchMouseEvent type="mouseUp" target="myDDL1" localX="140" localY="10" />				
 				
 				<CompareBitmap target="focusBox" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>								
 			</body>
@@ -554,7 +554,7 @@
 			</setup>
 			<body>			
 				<SetProperty target="myDDL_LF" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myDDL_LF"/>								
-				<CompareBitmap target="myDDL_LF" url="../Properties/Baselines/DropDownList_Properties_labelField1.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
+				<CompareBitmap target="myDDL_LF" url="../Properties/Baselines/DropDownList_Properties_labelField3.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 			</body>
 		</TestCase>		
 		
@@ -584,7 +584,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.myDDL_LFnc.closeDropDown(false);" waitEvent="close" waitTarget="myDDL_LFnc"/>
 				<RunCode code="FlexGlobals.topLevelApplication.myDDL_LFnc.changeLabelFunc();"/>
 				<Pause timeout="100"/>
-				<CompareBitmap target="myDDL_LFnc" url="../Properties/Baselines/$testID_1.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
+				<CompareBitmap target="myDDL_LFnc" url="../Properties/Baselines/$testID_3.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
 			</body>
 		</TestCase>		
 		
@@ -658,8 +658,8 @@
 				
 				<DispatchMouseClickEvent target="stage" stageX="140" stageY="155" waitEvent="click" waitTarget="stage"/>				
 				
-				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="3"/>
-				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductD"/>					
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductC"/>					
 				
 				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
 				<Pause timeout="100"/>
@@ -1065,7 +1065,7 @@
 				<ResetComponent target="myDDL" className="spark.components.DropDownList" />				
 			</setup>
 			<body>
-				<AssertPropertyValue target="myDDL" propertyName="baselinePosition" value="14.35"/>
+				<AssertPropertyValue target="myDDL" propertyName="baselinePosition" value="16"/>
 			</body>
 		</TestCase>			
 		<TestCase testID="DropDownList_Properties_baselinePosition_postValidation" keywords="[DropDownList, Property, baselinePosition]" description="Test baselinePosition property on DropDownList">
@@ -1073,7 +1073,7 @@
 				<ResetComponent target="myDDL" className="spark.components.DropDownList" waitEvent="creationComplete" waitTarget="myDDL"/>				
 			</setup>
 			<body>
-				<AssertPropertyValue target="myDDL" propertyName="baselinePosition" value="14.35"/>
+				<AssertPropertyValue target="myDDL" propertyName="baselinePosition" value="16"/>
 			</body>
 		</TestCase>		
 	</testCases>

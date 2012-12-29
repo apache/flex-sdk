@@ -3,7 +3,7 @@
 
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
+  this work for additional information regarding copyright ownership.s
   The ASF licenses this file to You under the Apache License, Version 2.0
   (the "License"); you may not use this file except in compliance with
   the License.  You may obtain a copy of the License at
@@ -38,7 +38,7 @@
 	<testCases>
 		<TestCase testID="testModuleStyleManager" keywords="[Styles,Module]" description="Test to make sure getStyleDeclaration return local only styles" >
 		    <body>	
-			<RunCode code="application.iniit();"  waitTarget="mod_loader" waitEvent="ready" />	
+			<RunCode code="application.iniit();"  waitTarget="mod_loader" waitEvent="ready" timeout="8000"/>	
 			<Pause timeout="1000" />		
 			<DispatchMouseClickEvent target="mod_loader.child.checkTopLevelStyleManager" waitEvent="click" waitTarget="mod_loader.child.checkTopLevelStyleManager" />
 			<AssertPropertyValue target="mod_loader.child.result" propertyName="text" value="pass" />

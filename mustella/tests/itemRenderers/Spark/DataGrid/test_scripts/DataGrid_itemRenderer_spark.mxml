@@ -205,7 +205,7 @@
                <RunCode code="createData(application.comboDataGrid);" waitTarget="comboDataGrid" waitEvent="updateComplete" />
             </setup>
             <body>
-               <CompareBitmap url="../baselines/comboBoxRenderer.png" target="comboDataGrid.mx_internal:rendererArray.2.1" />
+               <CompareBitmap url="../baselines/comboBoxRenderer.png" target="comboDataGrid.mx_internal:rendererArray.2.1" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
 <!--DateField renderer-->

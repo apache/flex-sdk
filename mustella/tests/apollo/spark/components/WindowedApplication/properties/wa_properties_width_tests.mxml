@@ -133,7 +133,7 @@ Test width
     <body>
         <SetStyle target="" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin" waitEvent="updateComplete" />
         <SetProperty target="" propertyName="width" value="30" waitEvent="resize" />
-        <AssertPropertyValue target="" propertyName="width" value="30" />
+        <AssertPropertyValue target="" propertyName="width" value="140" />
         <CompareBitmap target="" url="../properties/baselines/$testID.png" />
     </body>
 </TestCase>
@@ -157,7 +157,7 @@ Test width
     </setup>
     <body>
         <SetProperty target="" propertyName="width" value="33" waitEvent="resize" />
-        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.assertValueBasedOnOS(FlexGlobals.topLevelApplication.width, 140, 33, 2)" value="pass" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.assertValueBasedOnOS(FlexGlobals.topLevelApplication.width, 140, 140, 2)" value="pass" />
     </body>
 </TestCase>
 

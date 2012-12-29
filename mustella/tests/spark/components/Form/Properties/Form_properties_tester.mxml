@@ -60,7 +60,7 @@
 			</setup>
 			<body>
 				<AssertPropertyValue propertyName="enabled" target="basicFrm" value="true"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="Form_disabled_runtime" keywords="[Form, enabled]" description="Form looks disabled when setting enabled false at runtime">
@@ -70,7 +70,7 @@
 			</setup>
 			<body>
 				<AssertPropertyValue propertyName="enabled" target="basicFrm" value="false"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="Form_toggle_enabled_FormItems_disabled" keywords="[Form, enabled]" description="Form looks disabled when setting enabled false at runtime">
@@ -86,7 +86,7 @@
 				<AssertPropertyValue propertyName="enabled" target="basicFrm" value="true"/>
 				<AssertPropertyValue propertyName="enabled" target="basicFrm.ti1" value="false"/>
 				<AssertPropertyValue propertyName="enabled" target="basicFrm.fi2" value="false"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />	
 			</body>
 		</TestCase>
 		<TestCase testID="FormItem_defaultSkin_StackedSkin_defaults" keywords="[Form, FormHeading, FormItem, defaults]" description="Verify the default values of various Form components">
@@ -119,7 +119,7 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="enabled" value="false" target="basicFrm.fh" waitEvent="updateComplete" />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>			
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />			
 			</body>
 		</TestCase>
 		
@@ -130,7 +130,7 @@
 			<body>
 				<SetProperty propertyName="label" value="StackedFormHeading" target="fhStack" waitEvent="updateComplete" />
 				<SetProperty propertyName="enabled" value="false" target="fhStack" waitEvent="updateComplete" />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="frmStack"/>			
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="frmStack" numColorVariances="5" maxColorVariance="1" />			
 			</body>
 		</TestCase>
 		
@@ -140,9 +140,9 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="enabled" value="false" target="basicFrm.fh" waitEvent="updateComplete" />
-				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm"/>	
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />	
 				<SetProperty propertyName="enabled" value="true" target="basicFrm.fh" waitEvent="updateComplete" />
-				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm"/>	
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />	
 			</body>
 		</TestCase>
 		
@@ -153,9 +153,9 @@
 			<body>
 				<SetProperty propertyName="label" value="StackedFormHeading" target="fhStack" waitEvent="updateComplete" />
 				<SetProperty propertyName="enabled" value="false" target="fhStack" waitEvent="updateComplete" />
-				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="frmStack"/>	
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="frmStack" numColorVariances="5" maxColorVariance="1" />	
 				<SetProperty propertyName="enabled" value="true" target="fhStack" waitEvent="updateComplete" />
-				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="frmStack"/>	
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="frmStack" numColorVariances="5" maxColorVariance="1" />	
 			</body>
 		</TestCase>
 		
@@ -165,7 +165,7 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="label" value="This is a very long string for FormHeading with FormHeadingSkin" target="basicFrm.fh" waitEvent="updateComplete" />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>			
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />			
 			</body>
 		</TestCase>
 		
@@ -175,7 +175,7 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="label" value="This is a very long string for StackedFormHeading with StackedFormHeadingSkin" target="fhStack" waitEvent="updateComplete" />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="frmStack"/>			
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="frmStack" numColorVariances="5" maxColorVariance="1" />			
 			</body>
 		</TestCase>
 		
@@ -186,7 +186,7 @@
 			<body>
 				<SetProperty propertyName="styleName" target="basicFrm.fh" value="myStyle" waitEvent="updateComplete"/>
 				<SetProperty propertyName="label" value="This is a very long string for FormHeading with FormHeadingSkin" target="basicFrm.fh" waitEvent="updateComplete" />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>			
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />			
 			</body>
 		</TestCase>
 		
@@ -197,7 +197,7 @@
 			<body>
 				<SetProperty propertyName="styleName" target="fhStack" value="myStyle" waitEvent="updateComplete" />
 				<SetProperty propertyName="label" value="This is a very long string for StackedFormHeading with StackedFormHeadingSkin" target="fhStack" waitEvent="updateComplete" />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="frmStack"/>			
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="frmStack" numColorVariances="5" maxColorVariance="1" />			
 			</body>
 		</TestCase>
 		
@@ -206,9 +206,9 @@
 				<ResetComponent target="stateFrm" className="comps.StateForm" waitEvent="updateComplete"/>
 			</setup>
 			<body>
-				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="stateFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="stateFrm" numColorVariances="5" maxColorVariance="1" />
 				<SetProperty propertyName="currentState" target="stateFrm" value="state2" waitEvent="updateComplete" waitTarget="stateFrm.fh.skin.labelDisplay"/>
-				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="stateFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="stateFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -218,9 +218,9 @@
 			</setup>
 			<body>
 				<RunCode code="application.basicFrm.addElement(application.newFI)" waitEvent="updateComplete" waitTarget="basicFrm"/>
-				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 				<RunCode code="application.basicFrm.removeElement(application.newFI)" waitEvent="updateComplete" waitTarget="basicFrm"/>
-				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -238,9 +238,9 @@
 				<AssertPropertyValue propertyName="y" value="110" target="frmlayoutGrp.rowBtn"/>
 				<AssertPropertyValue propertyName="x" value="0" target="frmlayoutGrp.btmBtn"/>
 				<AssertPropertyValue propertyName="y" value="149" target="frmlayoutGrp.btmBtn"/>
-				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 				<RunCode code="application.basicFrm.removeElement(application.frmlayoutGrp)" waitEvent="updateComplete" waitTarget="basicFrm"/>
-				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="Form_addComponent_runtime" keywords="[Form]" description="Add Component at runtime verify it's not in the FormItemLayout">
@@ -251,7 +251,7 @@
 				<RunCode code="application.basicFrm.addElement(application.sparkLbl)" waitEvent="updateComplete" waitTarget="basicFrm"/>
 				<RunCode code="application.basicFrm.addElement(application.haloLbl)" waitEvent="updateComplete" waitTarget="basicFrm"/>
 				<RunCode code="application.basicFrm.addElement(application.newBtn)" waitEvent="updateComplete" waitTarget="basicFrm"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="Form_addImage_runtime" keywords="[Form]" description="Add Image at runtime verify it's not in the FormItemLayout">
@@ -260,7 +260,7 @@
 			</setup>
 			<body>
 				<RunCode code="application.basicFrm.addElement(application.img)" waitEvent="updateComplete" waitTarget="basicFrm"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -270,7 +270,7 @@
 			</setup>
 			<body>
 				<RunCode code="application.basicFrm.fi1.contentGroup.addElement(application.img)" waitEvent="updateComplete" waitTarget="basicFrm.fi1"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="Form_tabOrder_basic" keywords="[Form, tab]" description="Tab through Form verify tab order is logical">
@@ -303,14 +303,14 @@
 			<body>
 				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti1" waitEvent="selectionChange" />
 				<Pause timeout="200"/>
-				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 				<SetProperty propertyName="enabled" value="false" target="basicFrm.fi3" waitEvent="updateComplete"/>
 				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.cb1" waitEvent="focusIn" />
 				<Pause timeout="200"/>
-				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 				<DispatchKeyEvent keys="[TAB]" waitTarget="basicFrm.ti2" waitEvent="focusIn" />
 				<Pause timeout="200"/>
-				<CompareBitmap url="../Properties/baselines/$testID_3.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID_3.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="Form_tabOrder_basic_horizontalLayout" keywords="[Form, tab]" description="Tab through Form verify tab order is logical">
@@ -391,7 +391,7 @@
 				<DispatchMouseEvent type="mouseOver" target="basicFrm.fi4.skin.indicatorDisplay.skin" localX="1" localY="1" waitEvent="mouseOver" />
 				<DispatchMouseEvent type="mouseOver" target="basicFrm.fi4.skin.indicatorDisplay.skin" localX="1" localY="1"  />
 				<DispatchMouseEvent type="mouseMove" target="basicFrm.fi4.skin.indicatorDisplay.skin" localX="3" localY="3" waitEvent="toolTipShow" waitTarget="basicFrm.fi4.skin.indicatorDisplay" />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -401,7 +401,7 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="label" target="basicFrm.fi1"  value="A very long FormItem label to make sure layout renders correctly" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -411,7 +411,7 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="sequenceLabel" value="1." target="basicFrm.fi1" waitEvent="updateComplete"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 	
@@ -422,7 +422,7 @@
 			<body>
 				<SetProperty propertyName="width" value="700" target="basicFrm" waitEvent="updateComplete"/>
 				<RunCode code="application.basicFrm.addElement(application.newFI)" waitEvent="updateComplete" waitTarget="basicFrm"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>		
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />		
 			</body>
 		</TestCase>
 		
@@ -436,7 +436,7 @@
 				<SetProperty propertyName="includeInLayout" value="false" target="newFI" />
 				<RunCode code="application.basicFrm.addElement(application.newFI)" waitEvent="elementAdd" waitTarget="basicFrm" />
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>		
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="" numColorVariances="5" maxColorVariance="1" />		
 			</body>
 		</TestCase>
 
@@ -449,7 +449,7 @@
 				<SetProperty propertyName="width" value="700" target="basicFrm" waitEvent="updateComplete"/>
 				<SetProperty propertyName="height" value="100" target="newFI.skin.helpContentGroup" />
 				<RunCode code="application.basicFrm.addElement(application.newFI)" waitEvent="updateComplete" waitTarget="basicFrm"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>		
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />		
 			</body>
 		</TestCase>
 		
@@ -463,7 +463,7 @@
 				<SetProperty propertyName="width" value="700" target="newFI.ta" />
 				<SetProperty propertyName="width" value="500" target="newFI.skin.helpContentGroup" />
 				<RunCode code="application.basicFrm.addElement(application.newFI)" waitEvent="updateComplete" waitTarget="basicFrm"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>		
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />		
 			</body>
 		</TestCase>
 		
@@ -476,7 +476,7 @@
 				<SetProperty propertyName="width" value="700" target="basicFrm" waitEvent="updateComplete"/>
 				<SetProperty propertyName="width" value="300" target="newFI.ta" />
 				<RunCode code="application.basicFrm.addElement(application.newFI)" waitEvent="updateComplete" waitTarget="basicFrm"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>		
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />		
 			</body>
 		</TestCase>
 		
@@ -489,7 +489,7 @@
 				<Pause timeout="200"/>
 				<DispatchKeyEvent keys="[ENTER]" waitTarget="basicFrm.btn" waitEvent="click" />
 				<Pause timeout="500"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>		
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />		
 			</body>
 		</TestCase>
 		
@@ -499,7 +499,7 @@
 			</setup>
 			<body>
 				<RunCode code="application.basicFrm.fi4.removeElement(application.basicFrm.ti2)" waitEvent="updateComplete" waitTarget="basicFrm.fi4"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -510,7 +510,7 @@
 			<body>
 				<SetProperty propertyName="includeInLayout" value="true" target="basicFrm.ti3" />
 				<SetProperty propertyName="visible" value="true" target="basicFrm.ti3" waitEvent="updateComplete" waitTarget="basicFrm" />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -522,7 +522,7 @@
 				<SetProperty propertyName="width" value="200" target="basicFrm.fi1.contentGroup" />
 				<SetProperty propertyName="height" value="300" target="basicFrm.fi1.contentGroup" waitEvent="updateComplete" waitTarget="basicFrm.fi1" />
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -534,7 +534,7 @@
 				<SetProperty propertyName="width" value="200" target="basicFrm.ti2" />
 				<SetProperty propertyName="height" value="300" target="basicFrm.ti2" waitEvent="propertyChange" waitTarget="basicFrm.skin" />
 				
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -545,7 +545,7 @@
 				<SetStyle styleName="direction" value="rtl" target="basicFrm" waitEvent="updateComplete" waitTarget="basicFrm" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -556,7 +556,7 @@
 				<SetStyle styleName="direction" value="rtl" target="basicFrm.fi1" waitEvent="updateComplete" waitTarget="basicFrm.fi1" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 
@@ -565,7 +565,7 @@
 				<ResetComponent target="basicFrm" className="comps.BasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
 			</setup>
 			<body>
-				<AssertPropertyValue propertyName="baselinePosition" target="basicFrm.fi1" value="25.1"/>
+				<AssertPropertyValue propertyName="baselinePosition" target="basicFrm.fi1" value="25.15"/>
 			</body>
 		</TestCase>
 		
@@ -575,7 +575,7 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="paddingRight" value="-50" target="basicFrm.layout" waitEvent="propertyChange" waitTarget="basicFrm.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -585,7 +585,7 @@
 			</setup> 
 			<body>
 				<SetProperty propertyName="paddingLeft" value="-50" target="basicFrm.layout" waitEvent="propertyChange" waitTarget="basicFrm.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		
@@ -595,7 +595,7 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="paddingTop" value="-50" target="basicFrm.layout" waitEvent="propertyChange" waitTarget="basicFrm.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 
@@ -605,7 +605,7 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="paddingBottom" value="-50" target="basicFrm.layout" waitEvent="propertyChange" waitTarget="basicFrm.skin"/>
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicFrm" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		

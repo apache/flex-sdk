@@ -23,7 +23,7 @@
     
     <fx:Declarations>
         <s:ArrayList id="largerList">
-            <fx:String>Billy Jean</fx:String>
+            <fx:String>Barbara</fx:String>
             <fx:String>Cecilia</fx:String>
             <fx:String>Amanda</fx:String>
             <fx:String>Vera</fx:String>
@@ -32,10 +32,10 @@
             <fx:String>Lola</fx:String>
             <fx:String>Rebecca</fx:String>
             <fx:String>Jenny</fx:String>
-            <fx:String>Rosalita</fx:String>
-            <fx:String>Layla</fx:String>
+            <fx:String>Rosario</fx:String>
+            <fx:String>Lyle</fx:String>
             <fx:String>Ruby</fx:String>
-            <fx:String>Maggie Mae</fx:String>
+            <fx:String>Margaret</fx:String>
             <fx:String>Gloria</fx:String>
             <fx:String>Eileen</fx:String>
         </s:ArrayList>
@@ -50,7 +50,7 @@
             <s:dataProvider>
                 <s:ArrayList>
                     <fx:String>Short</fx:String>
-                    <fx:String>Roberto Luongo</fx:String>
+                    <fx:String>FirstName Long</fx:String>
                     <fx:String>Another long name</fx:String>
                     <fx:String>Ok</fx:String>
                     <fx:String>No</fx:String>

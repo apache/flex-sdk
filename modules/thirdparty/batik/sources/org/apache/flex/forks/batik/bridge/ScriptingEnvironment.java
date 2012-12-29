@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,37 +19,39 @@
 package org.apache.flex.forks.batik.bridge;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-
 import java.net.URL;
 import java.net.URLConnection;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.zip.GZIPOutputStream;
 import java.util.zip.DeflaterOutputStream;
+import java.util.zip.GZIPOutputStream;
 
 import org.apache.flex.forks.batik.dom.GenericDOMImplementation;
+import org.apache.flex.forks.batik.dom.events.NodeEventTarget;
 import org.apache.flex.forks.batik.dom.svg.SAXSVGDocumentFactory;
 import org.apache.flex.forks.batik.dom.svg.SVGOMDocument;
+import org.apache.flex.forks.batik.dom.util.DOMUtilities;
 import org.apache.flex.forks.batik.dom.util.SAXDocumentFactory;
 import org.apache.flex.forks.batik.dom.util.XLinkSupport;
 import org.apache.flex.forks.batik.script.Interpreter;
 import org.apache.flex.forks.batik.script.InterpreterException;
+import org.apache.flex.forks.batik.script.ScriptEventWrapper;
 import org.apache.flex.forks.batik.util.EncodingUtilities;
 import org.apache.flex.forks.batik.util.ParsedURL;
 import org.apache.flex.forks.batik.util.RunnableQueue;
 import org.apache.flex.forks.batik.util.SVGConstants;
+import org.apache.flex.forks.batik.util.XMLConstants;
 import org.apache.flex.forks.batik.util.XMLResourceDescriptor;
 
 import org.w3c.dom.Document;
@@ -56,44 +59,30 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
-import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.events.MutationEvent;
-import org.w3c.flex.forks.dom.svg.SVGDocument;
+import org.w3c.dom.svg.SVGDocument;
 
 /**
  * This class contains the informations needed by the SVG scripting.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: ScriptingEnvironment.java,v 1.49 2005/04/02 14:26:09 deweese Exp $
+ * @version $Id: ScriptingEnvironment.java 594367 2007-11-13 00:40:53Z cam $
  */
 public class ScriptingEnvironment extends BaseScriptingEnvironment {
 
-    /**
-     * Used in 'parseXML()'.
-     */
-    protected final static String FRAGMENT_PREFIX =
-        "<svg xmlns='" +
-        SVGConstants.SVG_NAMESPACE_URI +
-        "' xmlns:xlink='" +
-        XLinkSupport.XLINK_NAMESPACE_URI +
-        "'>";
-
-    protected final static String FRAGMENT_SUFFIX =
-        "</svg>";
-
-    public final static String [] SVG_EVENT_ATTRS = {
+    public static final String [] SVG_EVENT_ATTRS = {
         "onabort",     // SVG element
         "onerror",     // SVG element
         "onresize",    // SVG element
         "onscroll",    // SVG element
         "onunload",    // SVG element
         "onzoom",      // SVG element
-        
+
         "onbegin",     // SMIL
         "onend",       // SMIL
         "onrepeat",    // SMIL
 
-        "onfocusin",   // UI Events 
+        "onfocusin",   // UI Events
         "onfocusout",  // UI Events
         "onactivate",  // UI Events
         "onclick",     // UI Events
@@ -106,22 +95,22 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
 
         "onkeypress",  // UI Events
         "onkeydown",   // UI Events
-        "onkeyup"      // UI Events 
+        "onkeyup"      // UI Events
     };
 
-    public final static String [] SVG_DOM_EVENT = {
+    public static final String [] SVG_DOM_EVENT = {
         "SVGAbort",    // SVG element
         "SVGError",    // SVG element
         "SVGResize",   // SVG element
         "SVGScroll",   // SVG element
         "SVGUnload",   // SVG element
         "SVGZoom",     // SVG element
-        
+
         "beginEvent",  // SMIL
         "endEvent",    // SMIL
         "repeatEvent", // SMIL
 
-        "DOMFocusIn",  // UI Events 
+        "DOMFocusIn",  // UI Events
         "DOMFocusOut", // UI Events
         "DOMActivate", // UI Events
         "click",       // UI Events
@@ -132,7 +121,7 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
         "mousemove",   // UI Events
         "keypress",    // UI Events
         "keydown",     // UI Events
-        "keyup"        // UI Events 
+        "keyup"        // UI Events
     };
 
     /**
@@ -153,20 +142,17 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
     /**
      * The DOMNodeInserted event listener.
      */
-    protected EventListener domNodeInsertedListener 
-        = new DOMNodeInsertedListener();
+    protected EventListener domNodeInsertedListener;
 
     /**
      * The DOMNodeRemoved event listener.
      */
-    protected EventListener domNodeRemovedListener
-        = new DOMNodeRemovedListener();
+    protected EventListener domNodeRemovedListener;
 
     /**
      * The DOMAttrModified event listener.
      */
-    protected EventListener domAttrModifiedListener 
-        = new DOMAttrModifiedListener();
+    protected EventListener domAttrModifiedListener;
 
     /**
      * The SVGAbort event listener.
@@ -294,7 +280,7 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
     protected EventListener keyupListener =
         new ScriptingEventListener("onkeyup");
 
-    
+
     protected EventListener [] listeners = {
         svgAbortListener,
         svgErrorListener,
@@ -340,21 +326,47 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
         super(ctx);
         updateManager = ctx.getUpdateManager();
         updateRunnableQueue = updateManager.getUpdateRunnableQueue();
-        
+
         // Add the scripting listeners.
         addScriptingListeners(document.getDocumentElement());
 
         // Add the listeners responsible of updating the event attributes
-        EventTarget et = (EventTarget)document;
-        et.addEventListener("DOMNodeInserted",
-                            domNodeInsertedListener,
-                            false);
-        et.addEventListener("DOMNodeRemoved",
-                            domNodeRemovedListener,
-                            false);
-        et.addEventListener("DOMAttrModified",
-                            domAttrModifiedListener,
-                            false);
+        addDocumentListeners();
+    }
+
+    /**
+     * Adds DOM listeners to the document.
+     */
+    protected void addDocumentListeners() {
+        domNodeInsertedListener = new DOMNodeInsertedListener();
+        domNodeRemovedListener = new DOMNodeRemovedListener();
+        domAttrModifiedListener = new DOMAttrModifiedListener();
+        NodeEventTarget et = (NodeEventTarget) document;
+        et.addEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMNodeInserted",
+             domNodeInsertedListener, false, null);
+        et.addEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMNodeRemoved",
+             domNodeRemovedListener, false, null);
+        et.addEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMAttrModified",
+             domAttrModifiedListener, false, null);
+    }
+
+    /**
+     * Removes DOM listeners from the document.
+     */
+    protected void removeDocumentListeners() {
+        NodeEventTarget et = (NodeEventTarget) document;
+        et.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMNodeInserted",
+             domNodeInsertedListener, false);
+        et.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMNodeRemoved",
+             domNodeRemovedListener, false);
+        et.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMAttrModified",
+             domAttrModifiedListener, false);
     }
 
     /**
@@ -368,7 +380,7 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
     /**
      * Runs an event handler.
      */
-    public void runEventHandler(String script, Event evt, 
+    public void runEventHandler(String script, Event evt,
                                 String lang, String desc) {
         Interpreter interpreter = getInterpreter(lang);
         if (interpreter == null)
@@ -377,8 +389,14 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
         try {
             checkCompatibleScriptURL(lang, docPURL);
 
-            interpreter.bindObject(EVENT_NAME, evt);
-            interpreter.bindObject(ALTERNATE_EVENT_NAME, evt);
+            Object event;
+            if (evt instanceof ScriptEventWrapper) {
+                event = ((ScriptEventWrapper) evt).getEventObject();
+            } else {
+                event = evt;
+            }
+            interpreter.bindObject(EVENT_NAME, event);
+            interpreter.bindObject(ALTERNATE_EVENT_NAME, event);
             interpreter.evaluate(new StringReader(script), desc);
         } catch (IOException ioe) {
             // Do nothing, can't really happen with StringReader
@@ -398,117 +416,16 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
         removeScriptingListeners(document.getDocumentElement());
 
         // Remove the listeners responsible of updating the event attributes
-        EventTarget et = (EventTarget)document;
-        et.removeEventListener("DOMNodeInserted",
-                               domNodeInsertedListener,
-                               false);
-        et.removeEventListener("DOMNodeRemoved",
-                               domNodeRemovedListener,
-                               false);
-        et.removeEventListener("DOMAttrModified",
-                               domAttrModifiedListener,
-                               false);
+        removeDocumentListeners();
     }
 
     /**
-     * Adds the scripting listeners to the given element.
+     * Adds the scripting listeners to the given element and all of
+     * its descendants.
      */
-    protected void addScriptingListeners(Node node) {
+    public void addScriptingListeners(Node node) {
         if (node.getNodeType() == Node.ELEMENT_NODE) {
-            // Attach the listeners
-            Element elt = (Element)node;
-            EventTarget target = (EventTarget)elt;
-            if (SVGConstants.SVG_NAMESPACE_URI.equals(elt.getNamespaceURI())) {
-                if (SVGConstants.SVG_SVG_TAG.equals(elt.getLocalName())) {
-                    // <svg> listeners
-                    if (elt.hasAttributeNS(null, "onabort")) {
-                        target.addEventListener("SVGAbort",
-                                                svgAbortListener, false);
-                    }
-                    if (elt.hasAttributeNS(null, "onerror")) {
-                        target.addEventListener("SVGError",
-                                                svgErrorListener, false);
-                    }
-                    if (elt.hasAttributeNS(null, "onresize")) {
-                        target.addEventListener("SVGResize",
-                                                svgResizeListener, false);
-                    }
-                    if (elt.hasAttributeNS(null, "onscroll")) {
-                        target.addEventListener("SVGScroll",
-                                            svgScrollListener, false);
-                    }
-                    if (elt.hasAttributeNS(null, "onunload")) {
-                        target.addEventListener("SVGUnload",
-                                                svgUnloadListener, false);
-                    }
-                    if (elt.hasAttributeNS(null, "onzoom")) {
-                        target.addEventListener("SVGZoom",
-                                                svgZoomListener, false);
-                    }
-                } else {
-                    String name = elt.getLocalName();
-                    if (name.equals(SVGConstants.SVG_SET_TAG) ||
-                        name.startsWith("animate")) {
-                        // animation listeners
-                        if (elt.hasAttributeNS(null, "onbegin")) {
-                            target.addEventListener("beginEvent",
-                                                    beginListener ,
-                                                    false);
-                        }
-                        if (elt.hasAttributeNS(null, "onend")) {
-                            target.addEventListener("endEvent",
-                                                    endListener,
-                                                    false);
-                        }
-                        if (elt.hasAttributeNS(null, "onrepeat")) {
-                            target.addEventListener("repeatEvent",
-                                                    repeatListener ,
-                                                    false);
-                        }
-                        return;
-                    }
-                }
-            }
-
-            // UI listeners
-            if (elt.hasAttributeNS(null, "onfocusin")) {
-                target.addEventListener("DOMFocusIn", focusinListener, false);
-            }
-            if (elt.hasAttributeNS(null, "onfocusout")) {
-                target.addEventListener("DOMFocusOut", focusoutListener,
-                                        false);
-            }
-            if (elt.hasAttributeNS(null, "onactivate")) {
-                target.addEventListener("DOMActivate", activateListener,
-                                        false);
-            }
-            if (elt.hasAttributeNS(null, "onclick")) {
-                target.addEventListener("click", clickListener, false);
-            } 
-            if (elt.hasAttributeNS(null, "onmousedown")) {
-                target.addEventListener("mousedown", mousedownListener, false);
-            }
-            if (elt.hasAttributeNS(null, "onmouseup")) {
-                target.addEventListener("mouseup", mouseupListener, false);
-            }
-            if (elt.hasAttributeNS(null, "onmouseover")) {
-                target.addEventListener("mouseover", mouseoverListener, false);
-            }
-            if (elt.hasAttributeNS(null, "onmouseout")) {
-                target.addEventListener("mouseout", mouseoutListener, false);
-            }
-            if (elt.hasAttributeNS(null, "onmousemove")) {
-                target.addEventListener("mousemove", mousemoveListener, false);
-            }
-            if (elt.hasAttributeNS(null, "onkeypress")) {
-                target.addEventListener("keypress", keypressListener, false);
-            }
-            if (elt.hasAttributeNS(null, "onkeydown")) {
-                target.addEventListener("keydown", keydownListener, false);
-            }
-            if (elt.hasAttributeNS(null, "onkeyup")) {
-                target.addEventListener("keyup", keyupListener, false);
-            }
+            addScriptingListenersOn((Element) node);
         }
 
         // Adds the listeners to the children
@@ -520,60 +437,140 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
     }
 
     /**
-     * Removes the scripting listeners from the given element.
+     * Adds the scripting listeners to the given element.
+     */
+    protected void addScriptingListenersOn(Element elt) {
+        // Attach the listeners
+        NodeEventTarget target = (NodeEventTarget)elt;
+        if (SVGConstants.SVG_NAMESPACE_URI.equals(elt.getNamespaceURI())) {
+            if (SVGConstants.SVG_SVG_TAG.equals(elt.getLocalName())) {
+                // <svg> listeners
+                if (elt.hasAttributeNS(null, "onabort")) {
+                    target.addEventListenerNS
+                        (XMLConstants.XML_EVENTS_NAMESPACE_URI, "SVGAbort",
+                         svgAbortListener, false, null);
+                }
+                if (elt.hasAttributeNS(null, "onerror")) {
+                    target.addEventListenerNS
+                        (XMLConstants.XML_EVENTS_NAMESPACE_URI, "SVGError",
+                         svgErrorListener, false, null);
+                }
+                if (elt.hasAttributeNS(null, "onresize")) {
+                    target.addEventListenerNS
+                        (XMLConstants.XML_EVENTS_NAMESPACE_URI, "SVGResize",
+                         svgResizeListener, false, null);
+                }
+                if (elt.hasAttributeNS(null, "onscroll")) {
+                    target.addEventListenerNS
+                        (XMLConstants.XML_EVENTS_NAMESPACE_URI, "SVGScroll",
+                         svgScrollListener, false, null);
+                }
+                if (elt.hasAttributeNS(null, "onunload")) {
+                    target.addEventListenerNS
+                        (XMLConstants.XML_EVENTS_NAMESPACE_URI, "SVGUnload",
+                         svgUnloadListener, false, null);
+                }
+                if (elt.hasAttributeNS(null, "onzoom")) {
+                    target.addEventListenerNS
+                        (XMLConstants.XML_EVENTS_NAMESPACE_URI, "SVGZoom",
+                         svgZoomListener, false, null);
+                }
+            } else {
+                String name = elt.getLocalName();
+                if (name.equals(SVGConstants.SVG_SET_TAG) ||
+                    name.startsWith("animate")) {
+                    // animation listeners
+                    if (elt.hasAttributeNS(null, "onbegin")) {
+                        target.addEventListenerNS
+                            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "beginEvent",
+                             beginListener, false, null);
+                    }
+                    if (elt.hasAttributeNS(null, "onend")) {
+                        target.addEventListenerNS
+                            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "endEvent",
+                             endListener, false, null);
+                    }
+                    if (elt.hasAttributeNS(null, "onrepeat")) {
+                        target.addEventListenerNS
+                            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "repeatEvent",
+                             repeatListener, false, null);
+                    }
+                    return;
+                }
+            }
+        }
+
+        // UI listeners
+        if (elt.hasAttributeNS(null, "onfocusin")) {
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMFocusIn",
+                 focusinListener, false, null);
+        }
+        if (elt.hasAttributeNS(null, "onfocusout")) {
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMFocusOut",
+                 focusoutListener, false, null);
+        }
+        if (elt.hasAttributeNS(null, "onactivate")) {
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMActivate",
+                 activateListener, false, null);
+        }
+        if (elt.hasAttributeNS(null, "onclick")) {
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "click",
+                 clickListener, false, null);
+        }
+        if (elt.hasAttributeNS(null, "onmousedown")) {
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "mousedown",
+                 mousedownListener, false, null);
+        }
+        if (elt.hasAttributeNS(null, "onmouseup")) {
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "mouseup",
+                 mouseupListener, false, null);
+        }
+        if (elt.hasAttributeNS(null, "onmouseover")) {
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "mouseover",
+                 mouseoverListener, false, null);
+        }
+        if (elt.hasAttributeNS(null, "onmouseout")) {
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "mouseout",
+                 mouseoutListener, false, null);
+        }
+        if (elt.hasAttributeNS(null, "onmousemove")) {
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "mousemove",
+                 mousemoveListener, false, null);
+        }
+        if (elt.hasAttributeNS(null, "onkeypress")) {
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "keypress",
+                 keypressListener, false, null);
+        }
+        if (elt.hasAttributeNS(null, "onkeydown")) {
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "keydown",
+                 keydownListener, false, null);
+        }
+        if (elt.hasAttributeNS(null, "onkeyup")) {
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "keyup",
+                 keyupListener, false, null);
+        }
+    }
+
+    /**
+     * Removes the scripting listeners from the given element and all
+     * of its descendants.
      */
     protected void removeScriptingListeners(Node node) {
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             // Detach the listeners
-            Element elt = (Element)node;
-            EventTarget target = (EventTarget)elt;
-            if (SVGConstants.SVG_NAMESPACE_URI.equals(elt.getNamespaceURI())) {
-                if (SVGConstants.SVG_SVG_TAG.equals(elt.getLocalName())) {
-                    // <svg> listeners
-                    target.removeEventListener("SVGAbort",
-                                               svgAbortListener, false);
-                    target.removeEventListener("SVGError",
-                                               svgErrorListener, false);
-                    target.removeEventListener("SVGResize",
-                                               svgResizeListener, false);
-                    target.removeEventListener("SVGScroll",
-                                               svgScrollListener, false);
-                    target.removeEventListener("SVGUnload",
-                                               svgUnloadListener, false);
-                    target.removeEventListener("SVGZoom",
-                                               svgZoomListener, false);
-                } else {
-                    String name = elt.getLocalName();
-                    if (name.equals(SVGConstants.SVG_SET_TAG) ||
-                        name.startsWith("animate")) {
-                        // animation listeners
-                        target.removeEventListener("beginEvent",
-                                                   beginListener ,
-                                                   false);
-                        target.removeEventListener("endEvent",
-                                                   endListener,
-                                                   false);
-                        target.removeEventListener("repeatEvent",
-                                                   repeatListener ,
-                                                   false);
-                        return;
-                    }
-                }
-            }
-
-            // UI listeners
-            target.removeEventListener("DOMFocusIn", focusinListener, false);
-            target.removeEventListener("DOMFocusOut", focusoutListener, false);
-            target.removeEventListener("DOMActivate", activateListener, false);
-            target.removeEventListener("click", clickListener, false);
-            target.removeEventListener("mousedown", mousedownListener, false);
-            target.removeEventListener("mouseup", mouseupListener, false);
-            target.removeEventListener("mouseover", mouseoverListener, false);
-            target.removeEventListener("mouseout", mouseoutListener, false);
-            target.removeEventListener("mousemove", mousemoveListener, false);
-            target.removeEventListener("keypress", keypressListener, false);
-            target.removeEventListener("keydown", keydownListener, false);
-            target.removeEventListener("keyup", keyupListener, false);
+            removeScriptingListenersOn((Element) node);
         }
 
         // Removes the listeners from the children
@@ -585,19 +582,110 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
     }
 
     /**
+     * Removes the scripting listeners from the given element.
+     */
+    protected void removeScriptingListenersOn(Element elt) {
+        NodeEventTarget target = (NodeEventTarget)elt;
+        if (SVGConstants.SVG_NAMESPACE_URI.equals(elt.getNamespaceURI())) {
+            if (SVGConstants.SVG_SVG_TAG.equals(elt.getLocalName())) {
+                // <svg> listeners
+                target.removeEventListenerNS
+                    (XMLConstants.XML_EVENTS_NAMESPACE_URI, "SVGAbort",
+                     svgAbortListener, false);
+                target.removeEventListenerNS
+                    (XMLConstants.XML_EVENTS_NAMESPACE_URI, "SVGError",
+                     svgErrorListener, false);
+                target.removeEventListenerNS
+                    (XMLConstants.XML_EVENTS_NAMESPACE_URI, "SVGResize",
+                     svgResizeListener, false);
+                target.removeEventListenerNS
+                    (XMLConstants.XML_EVENTS_NAMESPACE_URI, "SVGScroll",
+                     svgScrollListener, false);
+                target.removeEventListenerNS
+                    (XMLConstants.XML_EVENTS_NAMESPACE_URI, "SVGUnload",
+                     svgUnloadListener, false);
+                target.removeEventListenerNS
+                    (XMLConstants.XML_EVENTS_NAMESPACE_URI, "SVGZoom",
+                     svgZoomListener, false);
+            } else {
+                String name = elt.getLocalName();
+                if (name.equals(SVGConstants.SVG_SET_TAG) ||
+                    name.startsWith("animate")) {
+                    // animation listeners
+                    target.removeEventListenerNS
+                        (XMLConstants.XML_EVENTS_NAMESPACE_URI, "beginEvent",
+                         beginListener, false);
+                    target.removeEventListenerNS
+                        (XMLConstants.XML_EVENTS_NAMESPACE_URI, "endEvent",
+                         endListener, false);
+                    target.removeEventListenerNS
+                        (XMLConstants.XML_EVENTS_NAMESPACE_URI, "repeatEvent",
+                         repeatListener , false);
+                    return;
+                }
+            }
+        }
+
+        // UI listeners
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMFocusIn",
+             focusinListener, false);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMFocusOut",
+             focusoutListener, false);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMActivate",
+             activateListener, false);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "click",
+             clickListener, false);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "mousedown",
+             mousedownListener, false);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "mouseup",
+             mouseupListener, false);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "mouseover",
+             mouseoverListener, false);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "mouseout",
+             mouseoutListener, false);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "mousemove",
+             mousemoveListener, false);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "keypress",
+             keypressListener, false);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "keydown",
+             keydownListener, false);
+        target.removeEventListenerNS
+            (XMLConstants.XML_EVENTS_NAMESPACE_URI, "keyup",
+             keyupListener, false);
+    }
+
+    /**
      * Updates the registration of a listener on the given element.
      */
     protected void updateScriptingListeners(Element elt, String attr) {
-        String        domEvt   = (String)       attrToDOMEvent.get(attr);
-        if (domEvt == null) return;  // Not an event attr.
-        EventListener listener = (EventListener)attrToListener.get(attr);
-        EventTarget   target   = (EventTarget)  elt;
-        if (elt.hasAttributeNS(null, attr))
-            target.addEventListener(domEvt, listener, false);
-        else
-            target.removeEventListener(domEvt, listener, false);
+        String domEvt = (String) attrToDOMEvent.get(attr);
+        if (domEvt == null) {
+            return;  // Not an event attr.
+        }
+        EventListener listener = (EventListener) attrToListener.get(attr);
+        NodeEventTarget target = (NodeEventTarget) elt;
+        if (elt.hasAttributeNS(null, attr)) {
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, domEvt,
+                 listener, false, null);
+        } else {
+            target.removeEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, domEvt,
+                 listener, false);
+        }
     }
-    
+
 
     /**
      * To interpret a script.
@@ -690,7 +778,7 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
                 } else {
                     e.printStackTrace(); // No UA so just output...
                 }
-                synchronized (this) { 
+                synchronized (this) {
                     error = true;
                 }
             }
@@ -773,7 +861,7 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
                         }
                     }
                 };
-            
+
             timer.schedule(tt, interval, interval);
             return tt;
         }
@@ -842,32 +930,23 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
          * org.apache.flex.forks.batik.script.Window#parseXML(String,Document)}.
          */
         public Node parseXML(String text, Document doc) {
-            // System.err.println("Text: " + text);
             // Try and parse it as an SVGDocument
             SAXSVGDocumentFactory df = new SAXSVGDocumentFactory
                 (XMLResourceDescriptor.getXMLParserClassName());
             URL urlObj = null;
-            if ((doc != null) && (doc instanceof SVGOMDocument)) 
-                urlObj = ((SVGOMDocument)doc).getURLObject();
+            if (doc instanceof SVGOMDocument) {
+                urlObj = ((SVGOMDocument) doc).getURLObject();
+            }
             if (urlObj == null) {
-                urlObj = ((SVGOMDocument)bridgeContext.getDocument()).
-                    getURLObject();
+                urlObj = ((SVGOMDocument) bridgeContext.getDocument())
+                        .getURLObject();
             }
-            String uri = (urlObj==null)?"":urlObj.toString();
-            try {
-                Document d = df.createDocument(uri, new StringReader(text));
-                if (doc == null)
-                    return d;
-
-                Node result = doc.createDocumentFragment();
-                result.appendChild(doc.importNode(d.getDocumentElement(),
-                                                  true));
-                return result;
-            } catch (Exception ex) {
-                /* nothing  */
+            String uri = (urlObj == null) ? "" : urlObj.toString();
+            Node res = DOMUtilities.parseXML(text, doc, uri, null, null, df);
+            if (res != null) {
+                return res;
             }
-            
-            if ((doc != null) && (doc instanceof SVGOMDocument)) {
+            if (doc instanceof SVGOMDocument) {
                 // Try and parse with an 'svg' element wrapper - for
                 // things like '<rect ../>' - ensure that rect ends up
                 // in SVG namespace - xlink namespace is declared etc...
@@ -875,60 +954,28 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
                 // Only do this when generating a doc fragment, since
                 // a 'rect' element can not be root of SVG Document
                 // (only an svg element can be).
-                StringBuffer sb = new StringBuffer(FRAGMENT_PREFIX.length() +
-                                                   text.length() +
-                                                   FRAGMENT_SUFFIX.length());
-                sb.append(FRAGMENT_PREFIX);
-                sb.append(text);
-                sb.append(FRAGMENT_SUFFIX);
-                String newText = sb.toString();
-                try {
-                    Document d = df.createDocument
-                        (uri, new StringReader(newText));
-                    // No document given so make doc fragment from our
-                    // new Document.
-                    if (doc == null) doc = d;
-                    for (Node n = d.getDocumentElement().getFirstChild();
-                         n != null;
-                         n = n.getNextSibling()) {
-                        if (n.getNodeType() == Node.ELEMENT_NODE) {
-                            n = doc.importNode(n, true);
-                            Node result = doc.createDocumentFragment();
-                            result.appendChild(n);
-                            return result;
-                        }
-                    }
-                } catch (Exception exc) {
-                    /* nothing - try something else*/
+                Map prefixes = new HashMap();
+                prefixes.put(XMLConstants.XMLNS_PREFIX,
+                        XMLConstants.XMLNS_NAMESPACE_URI);
+                prefixes.put(XMLConstants.XMLNS_PREFIX + ':'
+                        + XMLConstants.XLINK_PREFIX,
+                        XLinkSupport.XLINK_NAMESPACE_URI);
+                res = DOMUtilities.parseXML(text, doc, uri, prefixes,
+                        SVGConstants.SVG_SVG_TAG, df);
+                if (res != null) {
+                    return res;
                 }
             }
-
             // Parse as a generic XML document.
             SAXDocumentFactory sdf;
             if (doc != null) {
-                sdf = new SAXDocumentFactory
-                    (doc.getImplementation(),
-                     XMLResourceDescriptor.getXMLParserClassName());
+                sdf = new SAXDocumentFactory(doc.getImplementation(),
+                        XMLResourceDescriptor.getXMLParserClassName());
             } else {
-                sdf = new SAXDocumentFactory
-                    (new GenericDOMImplementation(),
-                     XMLResourceDescriptor.getXMLParserClassName());
+                sdf = new SAXDocumentFactory(new GenericDOMImplementation(),
+                        XMLResourceDescriptor.getXMLParserClassName());
             }
-            try {
-                Document d = sdf.createDocument(uri, new StringReader(text));
-                if (doc == null) 
-                    return d;
-
-                Node result = doc.createDocumentFragment();
-                result.appendChild(doc.importNode(d.getDocumentElement(), 
-                                                  true));
-                return result;
-            } catch (Exception ext) {
-                if (userAgent != null)
-                    userAgent.displayError(ext);
-            }
-            
-            return null;
+            return DOMUtilities.parseXML(text, doc, uri, null, null, sdf);
         }
 
         /**
@@ -939,9 +986,9 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
             getURL(uri, h, null);
         }
 
-        final static String DEFLATE="deflate";
-        final static String GZIP   ="gzip";
-        final static String UTF_8  ="UTF-8";
+        static final String DEFLATE="deflate";
+        static final String GZIP   ="gzip";
+        static final String UTF_8  ="UTF-8";
         /**
          * Implements {@link
          * org.apache.flex.forks.batik.script.Window#getURL(String,org.apache.flex.forks.batik.script.Window.URLResponseHandler,String)}.
@@ -952,8 +999,8 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
             Thread t = new Thread() {
                     public void run() {
                         try {
-                            URL burl;
-                            burl = ((SVGOMDocument)document).getURLObject();
+                            ParsedURL burl;
+                            burl = ((SVGOMDocument)document).getParsedURL();
                             final ParsedURL purl = new ParsedURL(burl, uri);
                             String e = null;
                             if (enc != null) {
@@ -1020,37 +1067,40 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
         }
 
 
-        public void postURL(String uri, String content, 
+        public void postURL(String uri, String content,
                             org.apache.flex.forks.batik.script.Window.URLResponseHandler h) {
             postURL(uri, content, h, "text/plain", null);
         }
 
-        public void postURL(String uri, String content, 
-                            org.apache.flex.forks.batik.script.Window.URLResponseHandler h, 
+        public void postURL(String uri, String content,
+                            org.apache.flex.forks.batik.script.Window.URLResponseHandler h,
                      String mimeType) {
             postURL(uri, content, h, mimeType, null);
         }
 
-        public void postURL(final String uri, 
-                            final String content, 
-                            final org.apache.flex.forks.batik.script.Window.URLResponseHandler h, 
-                            final String mimeType, 
+        public void postURL(final String uri,
+                            final String content,
+                            final org.apache.flex.forks.batik.script.Window.URLResponseHandler h,
+                            final String mimeType,
                             final String fEnc) {
             Thread t = new Thread() {
                     public void run() {
                         try {
-                            URL burl;
-                            burl = ((SVGOMDocument)document).getURLObject();
+                            String base =
+                                ((SVGOMDocument)document).getDocumentURI();
                             URL url;
-                            if (burl != null)
-                                url = new URL(burl, uri);
-                            else url = new URL(uri);
+                            if (base == null) {
+                                url = new URL(uri);
+                            } else {
+                                url = new URL(new URL(base), uri);
+                            }
+                            // TODO: Change this to use ParsedURL for the POST?
                             final URLConnection conn = url.openConnection();
                             conn.setDoOutput(true);
                             conn.setDoInput(true);
                             conn.setUseCaches(false);
                             conn.setRequestProperty("Content-Type", mimeType);
-                            
+
                             OutputStream os = conn.getOutputStream();
                             String e=null, enc = fEnc;
                             if (enc != null) {
@@ -1075,13 +1125,13 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
                                 }
                                 if (enc.length() != 0) {
                                     e = EncodingUtilities.javaEncoding(enc);
-                                    if (e == null) e = UTF_8; 
+                                    if (e == null) e = UTF_8;
                                 } else {
                                     e = UTF_8;
                                 }
                             }
                             Writer w;
-                            if (e == null) 
+                            if (e == null)
                                 w = new OutputStreamWriter(os);
                             else
                                 w = new OutputStreamWriter(os, e);
@@ -1093,7 +1143,7 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
                             InputStream is = conn.getInputStream();
                             Reader r;
                             e = UTF_8;
-                            if (e == null) 
+                            if (e == null)
                                 r = new InputStreamReader(is);
                             else
                                 r = new InputStreamReader(is, e);
@@ -1233,7 +1283,7 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
          * The script attribute.
          */
         protected String attribute;
-        
+
         /**
          * Creates a new ScriptingEventListener.
          */

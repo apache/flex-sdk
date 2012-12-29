@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2002  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,11 +26,14 @@ import org.apache.flex.forks.batik.script.InterpreterFactory;
 /**
  * Allows to create instances of <code>JaclInterpreter</code> class.
  * @author <a href="mailto:cjolif@ilog.fr">Christophe Jolif</a>
- * @version $Id: JaclInterpreterFactory.java,v 1.7 2004/08/27 00:42:07 deweese Exp $
+ * @version $Id: JaclInterpreterFactory.java 482913 2006-12-06 05:57:52Z cam $
  */
 public class JaclInterpreterFactory implements InterpreterFactory {
 
-    final static String TEXT_TCL = "text/tcl";
+    /**
+     * The MIME types that jacl can handle.
+     */
+    private static final String[] JACL_MIMETYPES = { "text/tcl" };
 
     /**
      * Builds a <code>JaclInterpreterFactory</code>.
@@ -38,16 +42,19 @@ public class JaclInterpreterFactory implements InterpreterFactory {
     }
 
     /**
-     * Returns the mime-type to register this interpereter with.
+     * Returns the mime-types to register this interpereter with.
      */
-    public String getMimeType() { return TEXT_TCL; }
+    public String[] getMimeTypes() {
+        return JACL_MIMETYPES;
+    }
 
     /**
      * Creates an instance of <code>JaclInterpreter</code> class.
-     * 
+     *
      * @param documentURL the url for the document which will be scripted
+     * @param svg12 whether the document is an SVG 1.2 document
      */
-    public Interpreter createInterpreter(URL documentURL) {
+    public Interpreter createInterpreter(URL documentURL, boolean svg12) {
         return new JaclInterpreter();
     }
 }

@@ -88,10 +88,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" localX="2" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
-                <Pause timeout="1" />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/" numColorVariances="5" ignoreMaxColorVariance="true">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
+                <WaitForLayoutManager/>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="25" maxColorVariance="1"/>
             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
@@ -155,10 +153,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
-                <Pause timeout="1" />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/" numColorVariances="5" ignoreMaxColorVariance="true">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
+                <WaitForLayoutManager/>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="25" maxColorVariance="1"/>
             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
@@ -232,7 +228,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="0" />
                 <WaitForEffectsToEnd />       
-                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <WaitForLayoutManager />
+                <!--WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/-->
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config1_dragDropLockedToUnlockedRow.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
             </body>
             <cleanup>
@@ -311,11 +308,9 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" localX="2" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
-                <Pause timeout="1" />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/" numColorVariances="2" ignoreMaxColorVariance="true">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
-            </body>
+                <WaitForLayoutManager/>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="25" maxColorVariance="1"/>
+             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
             </cleanup>
@@ -350,7 +345,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" localX="2" localY="30" />
                 <WaitForEffectsToEnd />
-                <Pause timeout="50" />
+                <WaitForLayoutManager />
+                <!--Pause timeout="50" /-->
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config2_dragDropInLockedRowArea_dropComplete.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
             </body>
             <cleanup>
@@ -380,11 +376,9 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <WaitForEffectsToEnd />
-                <Pause timeout="1" />
-                <CompareBitmap target="dg1" url="../Properties/Baselines/" numColorVariances="5" ignoreMaxColorVariance="true">
-                	<ConditionalValue os="mac"/>
-                </CompareBitmap>
-            </body>
+                <WaitForLayoutManager/>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/$testID.png" numColorVariances="25" maxColorVariance="1"/>
+             </body>
             <cleanup>
                 <DispatchMouseEvent type="mouseUp" stageX="5" stageY="5" />
             </cleanup>
@@ -417,9 +411,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="0" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-                <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="0" />
+                <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="0"  waitTarget="dg1.mx_internal:rendererArray.3.0" waitEvent="updateComplete" />
                 <WaitForEffectsToEnd />
-		<Pause timeout="50"/>
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config2_dragDropInUnlockedRowArea_dropComplete.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
             </body>
             <cleanup>
@@ -499,9 +492,8 @@ is still in "drag mode".  It's a known Mustella issue.  Be aware!
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" localX="2" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" localX="2" localY="0" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
-                <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" localX="2" localY="2" />
+                <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" localX="2" localY="2"  waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete" />
                 <WaitForEffectsToEnd />
-		<Pause timeout="50"/>
                 <CompareBitmap target="dg1" url="../Properties/Baselines/lockedRowCount_config2_dragDropUnlockedToLockedRowArea.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
             </body>
             <cleanup>
@@ -571,7 +563,7 @@ multiple drags and scrolling
                 <SetProperty target="dg3" propertyName="width" value="600" />
                 <SetProperty target="dg3" propertyName="height" value="250" waitEvent="updateComplete" />
 
-                <Pause timeout="1000" />
+                <WaitForLayoutManager />
 
             </setup>
             <body>
@@ -1656,7 +1648,6 @@ some locked rows.
                 <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="3" />
                 <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="4" />
                 <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="5" />
-                <Pause timeout="25000" />
                 <AssertPropertyValue target="dg1.mx_internal:rendererArray.4.0" propertyName="text" value="6" />
             </body>
         </TestCase>
@@ -1938,16 +1929,16 @@ some locked rows.
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <RunCode code="application.initializeWaitForEvents(4, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="26" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="18" waitTarget="dg1" waitEvent="waitForEventsFinished" />
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" propertyName="text" value="1" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" propertyName="text" value="2" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" propertyName="text" value="3" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="8" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="9" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="0" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="0" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="8" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="9" />
             </body>
         </TestCase>
 
@@ -1982,7 +1973,7 @@ some locked rows.
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <RunCode code="application.initializeWaitForEvents(4, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="26" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="18" waitTarget="dg1" waitEvent="waitForEventsFinished" />
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
@@ -2027,16 +2018,16 @@ some locked rows.
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <RunCode code="application.initializeWaitForEvents(4, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="26" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="18" waitTarget="dg1" waitEvent="waitForEventsFinished" />
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" propertyName="text" value="0" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" propertyName="text" value="2" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" propertyName="text" value="3" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="8" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="9" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="1" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="1" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="8" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="9" />
             </body>
         </TestCase>
 
@@ -2070,7 +2061,7 @@ some locked rows.
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <RunCode code="application.initializeWaitForEvents(4, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="26" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="18" waitTarget="dg1" waitEvent="waitForEventsFinished" />
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
@@ -2114,16 +2105,16 @@ some locked rows.
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <RunCode code="application.initializeWaitForEvents(4, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="26" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="18" waitTarget="dg1" waitEvent="waitForEventsFinished" />
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" propertyName="text" value="0" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" propertyName="text" value="1" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" propertyName="text" value="3" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="8" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="9" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="2" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="2" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="8" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="9" />
             </body>
         </TestCase>
 
@@ -2156,7 +2147,7 @@ some locked rows.
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <RunCode code="application.initializeWaitForEvents(4, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="26" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="18" waitTarget="dg1" waitEvent="waitForEventsFinished" />
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
@@ -2199,16 +2190,16 @@ some locked rows.
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="10" />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <RunCode code="application.initializeWaitForEvents(4, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="26" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="18" waitTarget="dg1" waitEvent="waitForEventsFinished" />
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" propertyName="text" value="0" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" propertyName="text" value="1" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" propertyName="text" value="2" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="8" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="9" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="3" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="3" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="8" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="9" />
             </body>
         </TestCase>
 
@@ -2240,7 +2231,7 @@ some locked rows.
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="10" />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <RunCode code="application.initializeWaitForEvents(4, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="26" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="18" waitTarget="dg1" waitEvent="waitForEventsFinished" />
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
@@ -2282,15 +2273,15 @@ some locked rows.
                 <WaitForEffectsToEnd />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" />
                 <RunCode code="application.initializeWaitForEvents(4, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="26" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="18" waitTarget="dg1" waitEvent="waitForEventsFinished" />
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" propertyName="text" value="0" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" propertyName="text" value="1" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" propertyName="text" value="2" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="8" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="9" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="4" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="4" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="8" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="9" />
             </body>
         </TestCase>
 
@@ -2322,7 +2313,7 @@ some locked rows.
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="9" />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <RunCode code="application.initializeWaitForEvents(4, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="26" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="18" waitTarget="dg1" waitEvent="waitForEventsFinished" />
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
@@ -2367,16 +2358,16 @@ some locked rows.
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="9"/>
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <RunCode code="application.initializeWaitForEvents(3, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="20" waitTarget="dg1" waitEvent="waitForEventsFinished" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="4" localY="26" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="12" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="4" localY="18" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="20" />
                 <WaitForEffectsToEnd />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" propertyName="text" value="0" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" propertyName="text" value="1" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" propertyName="text" value="2" />
                 <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="8" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="9" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="5" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="5" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="9" />
             </body>
         </TestCase>
 
@@ -2408,8 +2399,8 @@ some locked rows.
                 <WaitForEffectsToEnd />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" />
                 <RunCode code="application.initializeWaitForEvents(3, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="20" waitTarget="dg1" waitEvent="waitForEventsFinished" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="4" localY="26" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="12" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="4" localY="18" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
@@ -2454,16 +2445,16 @@ some locked rows.
                 <WaitForEffectsToEnd />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" />
                 <RunCode code="application.initializeWaitForEvents(2, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="20" waitTarget="dg1" waitEvent="waitForEventsFinished" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="4" localY="26" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="12" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="4" localY="18" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" propertyName="text" value="0" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" propertyName="text" value="1" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" propertyName="text" value="2" />
                 <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="8" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="9" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="6" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="6" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="9" />
             </body>
         </TestCase>
 
@@ -2496,7 +2487,7 @@ some locked rows.
                 <WaitForEffectsToEnd />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" />
                 <RunCode code="application.initializeWaitForEvents(2, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="26" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="18" waitTarget="dg1" waitEvent="waitForEventsFinished" />
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
@@ -2506,9 +2497,9 @@ some locked rows.
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" propertyName="text" value="0" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" propertyName="text" value="1" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" propertyName="text" value="2" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="3" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="4" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="5" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="4" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="5" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="6" />
             </body>
         </TestCase>
 
@@ -2542,16 +2533,16 @@ some locked rows.
                 <WaitForEffectsToEnd />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" />
                 <RunCode code="application.initializeWaitForEvents(1, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="20" waitTarget="dg1" waitEvent="waitForEventsFinished" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="4" localY="26" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="12" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="4" localY="18" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" propertyName="text" value="0" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" propertyName="text" value="1" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" propertyName="text" value="2" />
                 <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="8" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="9" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="7" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="7" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="9" />
             </body>
         </TestCase>
 
@@ -2585,7 +2576,7 @@ some locked rows.
                 <WaitForEffectsToEnd />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" />
                 <RunCode code="application.initializeWaitForEvents(1, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="26" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="18" waitTarget="dg1" waitEvent="waitForEventsFinished" />
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="10" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
@@ -4540,8 +4531,8 @@ some locked rows.
                 <WaitForEffectsToEnd />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" />
                 <RunCode code="application.initializeWaitForEvents(4, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="20" waitTarget="dg1" waitEvent="waitForEventsFinished" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="4" localY="26" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="12" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="4" localY="18" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="20" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
@@ -4549,9 +4540,9 @@ some locked rows.
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" propertyName="text" value="0" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" propertyName="text" value="1" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" propertyName="text" value="4" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="9" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="2" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="3" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="2" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="3" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="9" />
             </body>
         </TestCase>
 
@@ -4585,8 +4576,8 @@ some locked rows.
                 <WaitForEffectsToEnd />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" />
                 <RunCode code="application.initializeWaitForEvents(4, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="20" waitTarget="dg1" waitEvent="waitForEventsFinished" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="4" localY="26" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="12" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="4" localY="18" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="20" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
@@ -4595,9 +4586,9 @@ some locked rows.
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.0.0" propertyName="text" value="3" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.1.0" propertyName="text" value="4" />
                 <AssertPropertyValue target="dg1.mx_internal:dataGridLockedRows.listItems.2.0" propertyName="text" value="5" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="0" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="1" />
-                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="2" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="1" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.0" propertyName="text" value="2" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.0" propertyName="text" value="9" />
             </body>
         </TestCase>
 
@@ -4631,8 +4622,8 @@ some locked rows.
                 <WaitForEffectsToEnd />
                 <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="10" />
                 <RunCode code="application.initializeWaitForEvents(4, 'scroll', application.dg1)" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="20" waitTarget="dg1" waitEvent="waitForEventsFinished" />
-                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="4" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="12" waitTarget="dg1" waitEvent="waitForEventsFinished" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1.mx_internal:rendererArray.3.0" localX="4" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
                 <DispatchMouseEvent type="mouseUp" target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="20" />
                 <WaitForEffectsToEnd />
                 <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>

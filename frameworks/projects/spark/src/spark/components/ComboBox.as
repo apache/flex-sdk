@@ -29,6 +29,7 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
+import flashx.textLayout.operations.CompositeOperation;
 import flashx.textLayout.operations.CutOperation;
 import flashx.textLayout.operations.DeleteTextOperation;
 import flashx.textLayout.operations.FlowOperation;
@@ -140,7 +141,7 @@ use namespace mx_internal;
  *  <p>The ComboBox control also searches the item list as the user 
  *  enters characters into the prompt area. As the user enters characters, 
  *  the drop-down area of the control opens. 
- *  It then and scrolls to and highlights the closest match in the item list.</p>
+ *  It then scrolls to and highlights the closest match in the item list.</p>
  *
  *  <p>To use this component in a list-based component, such as a List or DataGrid, 
  *  create an item renderer.
@@ -553,6 +554,23 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     }
     
     //--------------------------------------------------------------------------
+    //  selectedItem
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set selectedItem(value:*):void
+    {
+        // If selectedItem set to null or undefined make sure the label display gets cleared.
+        // The code at the bottom of commitProperties checks for this case.
+        if (value == null)
+            selectedIndex = NO_SELECTION;
+        
+        super.selectedItem = value;
+    }
+
+    //--------------------------------------------------------------------------
     //  typicalItem
     //--------------------------------------------------------------------------
     
@@ -731,7 +749,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
         {
             _proposedSelectedIndex = NO_PROPOSED_SELECTION;
         }
-                
+        
         super.commitProperties();
         
         if (textInput)
@@ -863,6 +881,22 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     override mx_internal function findKey(eventCode:int):Boolean
     {
         return false;
+    }
+    
+    /**
+     * @private
+     */
+    override mx_internal function setSelectedIndex(value:int, dispatchChangeEvent:Boolean = false, changeCaret:Boolean = true):void
+    {
+        // It is possible that the label display changed but the selection didn't.  If this is
+        // the case, the label has to be updated since the setSelectedIndex code will short-circuit
+        // and not commit the selection.
+        // An example is if the label is deleted and then the first item is chosen from the
+        // dropdown, the selectedIndex is still 0.
+        if (userTypedIntoText && value == selectedIndex)
+            updateLabelDisplay();
+        
+        super.setSelectedIndex(value, dispatchChangeEvent, changeCaret);
     }
     
     // If the TextInput is in focus, listen for keyDown events in the capture phase so that 
@@ -1048,12 +1082,28 @@ public class ComboBox extends DropDownListBase implements IIMESupport
         userTypedIntoText = true;
         
         var operation:FlowOperation = event.operation;
-
-        // Close the dropDown if we press delete or cut the selected text
-        if (operation is DeleteTextOperation || operation is CutOperation)
+        
+        // TLF is batching some operations so it can undo them.  If it is a composite operation
+        // look at the last one to figure out if it was a delete.
+        var deleteText:Boolean = (operation is DeleteTextOperation || operation is CutOperation);
+        if (operation is CompositeOperation)
         {
-            super.changeHighlightedSelection(CUSTOM_SELECTED_ITEM);
+            const operations:Array = CompositeOperation(operation).operations;
+            if (operations.length && operations[operations.length-1] is DeleteTextOperation)
+                deleteText = true;
         }
+        
+        // If deleting text do not want to do item completion or it isn't possible to delete
+        // individual characters.  If the combo is open, leave it open, even if all the text
+        // is deleted.
+        if (deleteText)
+        {
+            // To commit the selection correctly on close, applySelection needs this set. 
+            actualProposedSelectedIndex = CUSTOM_SELECTED_ITEM; 
+            
+            // Update the selected item in the list.
+            super.changeHighlightedSelection(CUSTOM_SELECTED_ITEM);
+        }        
         else if (previousTextInputText != textInput.text)
         {
             if (openOnInput)
@@ -1068,7 +1118,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
             }
             
             processInputField();
-        }
+        }  
     }
     
     /**

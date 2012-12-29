@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,23 +20,34 @@ package org.apache.flex.forks.batik.bridge;
 
 import java.awt.Cursor;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.flex.forks.batik.dom.events.AbstractEvent;
-import org.apache.flex.forks.batik.dom.util.XLinkSupport;
+import org.apache.flex.forks.batik.dom.events.NodeEventTarget;
+import org.apache.flex.forks.batik.dom.svg.SVGOMAElement;
+import org.apache.flex.forks.batik.dom.svg.SVGOMAnimationElement;
+import org.apache.flex.forks.batik.dom.svg.SVGOMDocument;
 import org.apache.flex.forks.batik.gvt.GraphicsNode;
+import org.apache.flex.forks.batik.util.ParsedURL;
+import org.apache.flex.forks.batik.util.XMLConstants;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
-import org.w3c.dom.events.EventTarget;
-import org.w3c.dom.events.UIEvent;
-import org.w3c.flex.forks.dom.svg.SVGAElement;
+import org.w3c.dom.svg.SVGAElement;
 
 /**
  * Bridge class for the &lt;a> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGAElementBridge.java,v 1.27 2004/08/18 07:12:32 vhardy Exp $
+ * @version $Id: SVGAElementBridge.java 582031 2007-10-05 00:01:09Z cam $
  */
 public class SVGAElementBridge extends SVGGElementBridge {
+
+    protected AnchorListener          al;
+    protected CursorMouseOverListener bl;
+    protected CursorMouseOutListener  cl;
 
     /**
      * Constructs a new bridge for the &lt;a> element.
@@ -71,19 +83,59 @@ public class SVGAElementBridge extends SVGGElementBridge {
         super.buildGraphicsNode(ctx, e, node);
 
         if (ctx.isInteractive()) {
-            EventTarget target = (EventTarget)e;
-            EventListener l = new AnchorListener(ctx.getUserAgent());
-            target.addEventListener(SVG_EVENT_CLICK, l, false);
-            ctx.storeEventListener(target, SVG_EVENT_CLICK, l, false);
+            NodeEventTarget target = (NodeEventTarget)e;
+            CursorHolder ch = new CursorHolder(CursorManager.DEFAULT_CURSOR);
 
-            l = new CursorMouseOverListener(ctx.getUserAgent());
-            target.addEventListener(SVG_EVENT_MOUSEOVER, l, false);
-            ctx.storeEventListener(target, SVG_EVENT_MOUSEOVER, l, false);
+            al = new AnchorListener(ctx.getUserAgent(), ch);
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, SVG_EVENT_CLICK,
+                 al, false, null);
+            ctx.storeEventListenerNS
+                (target, 
+                 XMLConstants.XML_EVENTS_NAMESPACE_URI, SVG_EVENT_CLICK,
+                 al, false);
 
-            l = new CursorMouseOutListener(ctx.getUserAgent());
-            target.addEventListener(SVG_EVENT_MOUSEOUT, l, false);
-            ctx.storeEventListener(target, SVG_EVENT_MOUSEOUT, l, false);
+            bl = new CursorMouseOverListener(ctx.getUserAgent(), ch);
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, SVG_EVENT_MOUSEOVER,
+                 bl, false, null);
+            ctx.storeEventListenerNS
+                (target, 
+                 XMLConstants.XML_EVENTS_NAMESPACE_URI, SVG_EVENT_MOUSEOVER,
+                 bl, false);
+
+            cl = new CursorMouseOutListener(ctx.getUserAgent(), ch);
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, SVG_EVENT_MOUSEOUT,
+                 cl, false, null);
+            ctx.storeEventListenerNS
+                (target, 
+                 XMLConstants.XML_EVENTS_NAMESPACE_URI, SVG_EVENT_MOUSEOUT,
+                 cl, false);
         }
+    }
+
+    public void dispose() {
+        NodeEventTarget target = (NodeEventTarget)e;
+        if (al != null) {
+            target.removeEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, SVG_EVENT_CLICK, 
+                 al, false);
+            al = null;
+        }
+        if (bl != null) {
+            target.removeEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, SVG_EVENT_MOUSEOVER, 
+                 bl, false);
+            bl = null;
+        }
+        if (cl != null) {
+            target.removeEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, SVG_EVENT_MOUSEOUT, 
+                 cl, false);
+            cl = null;
+        }
+        super.dispose();
     }
 
     /**
@@ -93,25 +145,93 @@ public class SVGAElementBridge extends SVGGElementBridge {
         return true;
     }
 
+    public static class CursorHolder {
+        Cursor cursor = null;
+
+        public CursorHolder(Cursor c) {
+            cursor = c;
+        }
+
+        public void holdCursor(Cursor c) {
+            cursor = c;
+        }
+        public Cursor getCursor() {
+            return cursor;
+        }
+    }
+
     /**
      * To handle a click on an anchor.
      */
     public static class AnchorListener implements EventListener {
-
         protected UserAgent userAgent;
+        protected CursorHolder holder;
 
-        public AnchorListener(UserAgent ua) {
+        public AnchorListener(UserAgent ua, CursorHolder ch) {
             userAgent = ua;
+            holder    = ch;
         }
 
         public void handleEvent(Event evt) {
-            if (AbstractEvent.getEventPreventDefault(evt))
-                return;
+            if (!(evt instanceof AbstractEvent)) return;
+            final AbstractEvent ae = (AbstractEvent)evt;
+
+            List l = ae.getDefaultActions();
+            if (l != null) {
+                Iterator i = l.iterator();
+                while (i.hasNext()) {
+                    Object o = i.next();
+                    if (o instanceof AnchorDefaultActionable)
+                        return; // only one anchor in default list...
+                }
+            }
+
+
             SVGAElement elt = (SVGAElement)evt.getCurrentTarget();
-            Cursor cursor = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
-            userAgent.setSVGCursor(cursor);
+            ae.addDefaultAction(new AnchorDefaultActionable
+                                (elt, userAgent, holder));
+        }
+    }
+
+
+    public static class AnchorDefaultActionable implements Runnable {
+
+        protected SVGOMAElement elt;
+        protected UserAgent     userAgent;
+        protected CursorHolder  holder;
+
+        public AnchorDefaultActionable(SVGAElement   e, 
+                                       UserAgent     ua, 
+                                       CursorHolder  ch) {
+            elt       = (SVGOMAElement) e;
+            userAgent = ua;
+            holder    = ch;
+        }
+        
+        public void run() {
+            userAgent.setSVGCursor(holder.getCursor());
+            String href = elt.getHref().getAnimVal();
+            ParsedURL purl = new ParsedURL(elt.getBaseURI(), href);
+            SVGOMDocument doc = (SVGOMDocument) elt.getOwnerDocument();
+            ParsedURL durl = doc.getParsedURL();
+            if (purl.sameFile(durl)) {
+                String frag = purl.getRef();
+                if (frag != null && frag.length() != 0) {
+                    Element refElt = doc.getElementById(frag);
+                    if (refElt instanceof SVGOMAnimationElement) {
+                        SVGOMAnimationElement aelt =
+                            (SVGOMAnimationElement) refElt;
+                        float t = aelt.getHyperlinkBeginTime();
+                        if (Float.isNaN(t)) {
+                            aelt.beginElement();
+                        } else {
+                            doc.getRootElement().setCurrentTime(t);
+                        }
+                        return;
+                    }
+                }
+            }
             userAgent.openLink(elt);
-            evt.stopPropagation();
         }
     }
 
@@ -121,15 +241,53 @@ public class SVGAElementBridge extends SVGGElementBridge {
     public static class CursorMouseOverListener implements EventListener {
 
         protected UserAgent userAgent;
+        protected CursorHolder holder;
 
-        public CursorMouseOverListener(UserAgent ua) {
+        public CursorMouseOverListener(UserAgent ua, CursorHolder ch) {
             userAgent = ua;
+            holder    = ch;
         }
 
         public void handleEvent(Event evt) {
-            if (AbstractEvent.getEventPreventDefault(evt))
-                return;
-            //
+            if (!(evt instanceof AbstractEvent)) return;
+            final AbstractEvent ae = (AbstractEvent)evt;
+
+            List l = ae.getDefaultActions();
+            if (l != null) {
+                Iterator i = l.iterator();
+                while (i.hasNext()) {
+                    Object o = i.next();
+                    if (o instanceof MouseOverDefaultActionable)
+                        return; // only one anchor in default list...
+                }
+            }
+
+            Element     target     = (Element)ae.getTarget();
+            SVGAElement elt        = (SVGAElement)ae.getCurrentTarget();
+            
+            ae.addDefaultAction(new MouseOverDefaultActionable
+                                (target, elt, userAgent, holder));
+        }
+    }
+
+    public static class MouseOverDefaultActionable implements Runnable {
+
+        protected Element       target;
+        protected SVGAElement   elt;
+        protected UserAgent     userAgent;
+        protected CursorHolder  holder;
+
+        public MouseOverDefaultActionable(Element       t,
+                                          SVGAElement   e,
+                                          UserAgent     ua, 
+                                          CursorHolder  ch) {
+            target    = t;
+            elt       = e;
+            userAgent = ua;
+            holder    = ch;
+        }
+        
+        public void run() {
             // Only modify the cursor if the target's cursor property is 
             // 'auto'. Note that we do not need to check the value of 
             // anchor element as the target's cursor value is resulting
@@ -147,9 +305,8 @@ public class SVGAElementBridge extends SVGGElementBridge {
             // The cursor on the inside rect will be set to the hand cursor and
             // not the wait cursor
             //
-            Element target = (Element)evt.getTarget();
-            
             if (CSSUtilities.isAutoCursor(target)) {
+                holder.holdCursor(CursorManager.DEFAULT_CURSOR);
                 // The target's cursor value is 'auto': use the hand cursor
                 userAgent.setSVGCursor(CursorManager.ANCHOR_CURSOR);
             }
@@ -157,10 +314,8 @@ public class SVGAElementBridge extends SVGGElementBridge {
             // 
             // In all cases, display the href in the userAgent
             //
-
-            SVGAElement elt = (SVGAElement)evt.getCurrentTarget();
             if (elt != null) {
-                String href = XLinkSupport.getXLinkHref(elt);
+                String href = elt.getHref().getAnimVal();
                 userAgent.displayMessage(href);
             }
         }
@@ -172,19 +327,52 @@ public class SVGAElementBridge extends SVGGElementBridge {
     public static class CursorMouseOutListener implements EventListener {
 
         protected UserAgent userAgent;
+        protected CursorHolder holder;
 
-        public CursorMouseOutListener(UserAgent ua) {
+        public CursorMouseOutListener(UserAgent ua, CursorHolder ch) {
             userAgent = ua;
+            holder    = ch;
         }
 
         public void handleEvent(Event evt) {
-            if (AbstractEvent.getEventPreventDefault(evt))
-                return;
+            if (!(evt instanceof AbstractEvent)) return;
+            final AbstractEvent ae = (AbstractEvent)evt;
+            
+            List l = ae.getDefaultActions();
+            if (l != null) {
+                Iterator i = l.iterator();
+                while (i.hasNext()) {
+                    Object o = i.next();
+                    if (o instanceof MouseOutDefaultActionable)
+                        return; // only one anchor in default list...
+                }
+            }
+
+            SVGAElement elt = (SVGAElement)evt.getCurrentTarget();
+            ae.addDefaultAction(new MouseOutDefaultActionable
+                                (elt, userAgent, holder));
+        }
+    }
+    
+    public static class MouseOutDefaultActionable implements Runnable {
+
+        protected SVGAElement   elt;
+        protected UserAgent     userAgent;
+        protected CursorHolder  holder;
+
+        public MouseOutDefaultActionable(SVGAElement   e,
+                                         UserAgent     ua, 
+                                         CursorHolder  ch) {
+            elt       = e;
+            userAgent = ua;
+            holder    = ch;
+        }
+        
+        public void run() {
             // No need to set the cursor on out events: this is taken care of
-            // by the BridgeContext
+            // by the BridgeContext(?)
             
             // Hide the href in the userAgent
-            SVGAElement elt = (SVGAElement)evt.getCurrentTarget();
             if (elt != null) {
                 userAgent.displayMessage("");
             }

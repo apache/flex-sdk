@@ -23,7 +23,19 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
- 	<fx:Style source="../../../../Assets/Fonts/myStyles.css" />
+ 	<fx:Style source="../../../../Assets/Fonts/VeraFontStyles.css" />
+    <fx:Style>
+   		@namespace s "library://ns.adobe.com/flex/spark";
+   		
+        s|Label {
+            fontFamily: "MyVeraSpark";
+            fontAntiAliasType: "normal";
+        }
+        s|RichEditableText {
+            fontFamily: "MyVeraSpark";
+            fontAntiAliasType: "normal";
+        }
+    </fx:Style>
 	<fx:Script>
 		<![CDATA[
 			public function doUnloadModule():void

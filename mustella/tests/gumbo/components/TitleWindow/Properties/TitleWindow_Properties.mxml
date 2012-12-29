@@ -121,7 +121,7 @@
 	        <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
 	    </setup>
 	    <body>
-	    	<AssertPropertyValue target="twObject" propertyName="width" valueExpression="value=124"/>
+	    	<AssertPropertyValue target="twObject" propertyName="width" valueExpression="value=146"/>
 	    	<AssertPropertyValue target="twObject" propertyName="height" valueExpression="value=100"/>
             </body>
         </TestCase>

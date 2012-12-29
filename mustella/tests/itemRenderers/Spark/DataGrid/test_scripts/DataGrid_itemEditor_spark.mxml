@@ -57,7 +57,7 @@
 			    <DispatchMouseClickEvent target="checkDataGrid2" localX="170" localY="50" waitEvent="itemFocusIn" waitTarget="checkDataGrid2" />
 	            <!--Pause timeout="200" /-->
 	            <!--DispatchKeyEvent key="SPACE" waitEvent="keyUp" waitTarget="checkDataGrid2" /-->
-	            <DispatchMouseClickEvent target="checkDataGrid2.itemEditorInstance" localX="5" localY="5" waitEvent="click" waitTarget="checkDataGrid2.itemEditorInstance" />
+	            <DispatchMouseClickEvent target="checkDataGrid2.itemEditorInstance" localX="10" localY="10" waitEvent="click" waitTarget="checkDataGrid2.itemEditorInstance" />
 	            <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitEvent="itemEditEnd" waitTarget="checkDataGrid2" />
 			    <AssertEvent eventName="itemEditEnd" eventClass="mx.events::DataGridEvent" target="checkDataGrid2"/>
 			    <AssertPropertyValue target="checkDataGrid2.dataProvider.0" propertyName="available" value="true" />
@@ -70,7 +70,7 @@
 			</setup>
 			<body>
 			    <DispatchMouseClickEvent target="checkDataGrid2" localX="150" localY="50" waitEvent="itemFocusIn" waitTarget="checkDataGrid2" />
-	            <DispatchMouseClickEvent target="checkDataGrid2.itemEditorInstance" localX="5" localY="5" waitEvent="click" waitTarget="checkDataGrid2.itemEditorInstance" />
+	            <DispatchMouseClickEvent target="checkDataGrid2.itemEditorInstance" localX="10" localY="10" waitEvent="click" waitTarget="checkDataGrid2.itemEditorInstance" />
 	            <DispatchMouseClickEvent target="checkDataGrid2.mx_internal:vScrollBar.getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" waitTarget="checkDataGrid2" />
                 <DispatchMouseClickEvent target="checkDataGrid2.mx_internal:vScrollBar.getChildAt(0)" localX="4" localY="4" waitEvent="scroll" waitTarget="checkDataGrid2" />
                 <AssertPropertyValue target="checkDataGrid2.dataProvider.0" propertyName="available" value="true" />
@@ -84,7 +84,7 @@
 			<body>
 			   <DispatchMouseClickEvent target="checkDataGrid2" localX="150" localY="60" waitEvent="itemFocusIn" waitTarget="checkDataGrid2" />
 			   <WaitForEffectsToEnd />
-			   <CompareBitmap url="../baselines/checkBoxItemEditor.png" target="checkDataGrid2.mx_internal:rendererArray.2.1" />
+			   <CompareBitmap url="../baselines/checkBoxItemEditor.png" target="checkDataGrid2.mx_internal:rendererArray.2.1" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
         <!--NumericStepper renderer-->
@@ -216,7 +216,7 @@
                <DispatchMouseClickEvent target="comboDataGrid2.mx_internal:rendererArray.2.1" localX="4" localY="4" waitEvent="itemFocusIn" waitTarget="comboDataGrid2" />
                <!--Pause timeout="200" /-->
                <WaitForEffectsToEnd />
-               <CompareBitmap url="../baselines/comboBoxItemEditor.png" target="comboDataGrid2.mx_internal:rendererArray.2.1" />
+               <CompareBitmap url="../baselines/comboBoxItemEditor.png" target="comboDataGrid2.mx_internal:rendererArray.2.1" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
 

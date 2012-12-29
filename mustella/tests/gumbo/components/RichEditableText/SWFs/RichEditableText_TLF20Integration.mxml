@@ -42,23 +42,28 @@
 				U+0041-005A, /* Upper-Case [A..Z] */
 				U+0061-007A, /* Lower-Case a-z */
 				U+0030-0039, /* Numbers [0..9] */
-				U+002E-002E; /* Period [.] */
+				U+002E-002E, /* Period [.] */
+				U+0374-03FB; /* Greek unicode characters */
 		}
 		
 		@font-face{
-			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
 			fontFamily: MeiryoEmbedded;
 			embedAsCFF: true;
 		}
 		
 		
 		@font-face{
-			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
 			fontWeight: bold;
 			fontFamily: MeiryoEmbedded;
 			embedAsCFF: true;
 		}
 		
+		/* 
+		    Need to use OpenSans to get Greek characters.  If you need Hebrew/Arabic you 
+		    will need to embed each of those fonts as well.
+		*/
 		s|RichEditableText{
 			fontAntiAliasType: "normal";
 			fontFamily: MeiryoEmbedded;
@@ -214,6 +219,5 @@
 			<tflow:TextFlowGroup id="TextFlowGroup" fontFamily="MeiryoEmbedded"/>
 		</fx:Array>
 	</fx:Declarations>
-	<s:Button id="btnDummy"/>
 	<comp:CustomRETEditor id="customRETEditor" title="s:RichEditableText"  />
 </s:Application>

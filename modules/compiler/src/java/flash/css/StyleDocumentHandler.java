@@ -23,7 +23,7 @@ import org.apache.flex.forks.batik.css.parser.CSSLexicalUnit;
 import org.apache.flex.forks.batik.css.parser.DefaultConditionalSelector;
 import org.apache.flex.forks.batik.css.parser.DefaultDescendantSelector;
 import org.apache.flex.forks.batik.css.parser.DefaultElementSelector;
-import org.w3c.flex.forks.css.sac.*;
+import org.w3c.css.sac.*;
 
 /**
  * An implementation of DocumentHandler, which creates rules, hands

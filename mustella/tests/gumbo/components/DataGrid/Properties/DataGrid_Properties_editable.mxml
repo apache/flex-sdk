@@ -1254,6 +1254,7 @@
 		  <DispatchMouseClickEvent target="dataGrid2.columnHeaderGroup" localX="100" localY="10" waitEvent="click" waitTarget="dataGrid2"/>
 		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+			<WaitForLayoutManager />
 		  <CompareBitmap url="../Properties/baselines/$testID_sort_selection.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
 	      </body>
 	   </TestCase>  
@@ -1493,6 +1494,8 @@
 	   </TestCase> 		
 	   <TestCase testID="key_input_ComboBoxEditor_test001" keywords="[DataGrid, Property,Editable]" description="verify input text in editable combobox editor, verify combobox value tried to match the input">
 	     	       <setup>
+					   <SetProperty propertyName="currentState" value="setTwo" />
+					   <WaitForLayoutManager />
 	     		  <ResetComponent target="dataGrid7" className="components.DataGrid_ComboBoxEditor" waitEvent="updateComplete"/> 
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	     		  
@@ -1524,6 +1527,8 @@
 	         
 	               <TestCase testID="key_navigation_on_ComboBoxEditor" keywords="[DataGrid, Property,Editable]" description="verify key navigation on combobox editor, verify up/down arrow, ctrl+down arrow works as expected">
 	     	       <setup>
+					   <SetProperty propertyName="currentState" value="setTwo" />
+					   <WaitForLayoutManager />
 	     		  <ResetComponent target="dataGrid7" className="components.DataGrid_ComboBoxEditor" waitEvent="updateComplete"/> 
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	     		  
@@ -1538,7 +1543,7 @@
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	     		  <DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN]"  waitEvent="enterFrame" waitTarget="stage" />
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-	     		  <CompareBitmap url="../Properties/baselines/$testID_index3.png" numColorVariances="20" maxColorVariance="20" target="dataGrid7.itemEditorInstance.comboBox.dropDown"/>
+	     		  <CompareBitmap url="../Properties/baselines/$testID_index3.png" numColorVariances="30" maxColorVariance="1" target="dataGrid7.itemEditorInstance.comboBox.dropDown"/>
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
 	     		  <DispatchKeyEvent keys="[ENTER]"  waitEvent="enterFrame" waitTarget="stage"   />
 	     		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid7.dataProvider.getItemAt(0).state" value="Arkansas"/>
@@ -1558,6 +1563,8 @@
 	     	   </TestCase>   
 	     	  <TestCase testID="comboBoxEditor_close_open" keywords="[DataGrid, Property,Editable]" description="verify combobox can be closed/open with key navigation">
 	     	       <setup>
+					   <SetProperty propertyName="currentState" value="setTwo" />
+					   <WaitForLayoutManager />
 	     		  <ResetComponent target="dataGrid7" className="components.DataGrid_ComboBoxEditor" waitEvent="updateComplete"/> 
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	     	       </setup>
@@ -1585,6 +1592,8 @@
 	     
 	     	  <TestCase testID="mouse_interacting_on_comboBoxEditor" keywords="[DataGrid, Property,Editable]" description="verify mouse clicking navigation on combobox cell editor">
 	     	       <setup>
+					   <SetProperty propertyName="currentState" value="setTwo" />
+					   <WaitForLayoutManager />
 	     		  <ResetComponent target="dataGrid7" className="components.DataGrid_ComboBoxEditor" waitEvent="updateComplete"/> 
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	     	       </setup>
@@ -1610,6 +1619,8 @@
 	     
 	      		<TestCase testID="mouse_interacting_on_comboBoxEditor_test2" keywords="[DataGrid, Property,Editable]" description="verify mouse clicks on the same selected value">
 	     	       <setup>
+					   <SetProperty propertyName="currentState" value="setTwo" />
+					   <WaitForLayoutManager />
 	     		  <ResetComponent target="dataGrid7" className="components.DataGrid_ComboBoxEditor" waitEvent="updateComplete"/> 
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	     	       </setup>
@@ -1622,7 +1633,8 @@
 	     		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	     		  <!-- mouse on the same, selected value -->
-	     		  <DispatchMouseClickEvent target="dataGrid7.itemEditorInstance.comboBox.dropDown" localX="22" localY="10"  />
+	     		  <DispatchMouseEvent type="mouseDown" target="dataGrid7.itemEditorInstance.comboBox.dropDown" localX="22" localY="10"  />
+				  <DispatchMouseEvent type="mouseUp" target="dataGrid7" localX="31" localY="81"/>
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	     		  <!-- verify value is committed -->
 	     		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid7.dataProvider.getItemAt(1).state" value="Alaska"/>
@@ -1632,6 +1644,8 @@
 	     
 	     	  <TestCase testID="mouse_comboBoxEditor_verticalScrollBar_test" keywords="[DataGrid, Property,Editable]" description="verify mouse clicks on verticalScrollbar of Combobox editor will scroll the dropdown list, verify clicking on the scrollbar scrolls the list">
 	     	       <setup>
+					   <SetProperty propertyName="currentState" value="setTwo" />
+					   <WaitForLayoutManager />
 	     		  <ResetComponent target="dataGrid7" className="components.DataGrid_ComboBoxEditor" waitEvent="updateComplete"/> 
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	     	       </setup>
@@ -1660,6 +1674,8 @@
 	     	   
 	               <TestCase testID="mouse_comboBoxEditor_horizontalScrollBar_test" keywords="[DataGrid, Property,Editable]" description="verify mouse clicks on horizontalScrollbar of Combobox editor will scroll the dropdown list, verify clicking on the scrollbar scrolls the list">
 	     	       <setup>
+					   <SetProperty propertyName="currentState" value="setTwo" />
+					   <WaitForLayoutManager />
 	     		  <ResetComponent target="dataGrid7" className="components.DataGrid_ComboBoxEditor" waitEvent="updateComplete"/> 
 	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	     	       </setup>

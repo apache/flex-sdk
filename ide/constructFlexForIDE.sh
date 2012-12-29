@@ -70,7 +70,7 @@ copyFileOrDirectory()
     fi
 
     if [ -d "${ADOBE_FLEX_SDK_DIR}/$f" ] ; then
-        rsync --archive --ignore-existing "${ADOBE_FLEX_SDK_DIR}/$f" "${dir}"
+        rsync --archive --ignore-existing --force "${ADOBE_FLEX_SDK_DIR}/$f" "${dir}"
     fi
 }
 
@@ -99,6 +99,15 @@ then
     echo ${IDE_SDK_DIR} does not appear to be a Apache Flex distribution with binaries.
     echo If this is a source distribution of Apache Flex you must build the binaries first.
     echo See the README.
+    exit 1;
+fi
+
+# FlashBuilder requires the frameworks/rsls directory.
+
+if [ ! -d "${IDE_SDK_DIR}/frameworks/rsls" ]
+then
+    echo ${IDE_SDK_DIR} does not appear to be a Apache Flex distribution with rsls.
+    echo If this is a source distribution of Apache Flex you must first build the rsls.
     exit 1;
 fi
 

@@ -105,22 +105,21 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar" />
-				<Pause timeout="300" />
-				
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<AssertPropertyValue target="navigator.actionBar" propertyName="height">
 					<ConditionalValue deviceDensity="160" os="win" value="45"/>
 					<ConditionalValue deviceDensity="240" os="android" value="67"/>
 					<ConditionalValue deviceDensity="320" os="win" value="90"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="90"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="90"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="45"/>
 				</AssertPropertyValue>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -143,7 +142,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 
@@ -164,11 +163,12 @@
 			</setup>
 			<body>
 				<AssertPropertyValue target="navigator.actionBar" propertyName="height" value="50"/>
+				<WaitForLayoutManager />
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 				
@@ -182,22 +182,22 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="height" value="67" waitEvent="updateComplete"/>
-
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<AssertPropertyValue target="navigator.actionBar" propertyName="height" value="67" />
 				<AssertPropertyValue target="navigator.actionBar" propertyName="width">
 					<ConditionalValue deviceDensity="160" os="win" value="320"/>
-					<ConditionalValue deviceDensity="240" os="android" value="480"/>
+					<ConditionalValue deviceDensity="240" os="android" value="640"/>
 					<ConditionalValue deviceDensity="320" os="win" value="640"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="640"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="640"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="1024"/>
 				</AssertPropertyValue>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 
@@ -224,7 +224,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -244,7 +244,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 				
@@ -265,7 +265,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -276,7 +276,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>			
-<Pause timeout="300" />
+				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="title" value="c" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
 			</setup>
 			<body>
@@ -285,7 +285,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -307,7 +307,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -329,7 +329,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -341,16 +341,16 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>								
-				<RunCode code="FlexGlobals.topLevelApplication.setTitle()" waitTarget="navigator" waitEvent="updateComplete"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.actionBar.title='xhellox'" waitTarget="navigator" waitEvent="updateComplete"/>
 				
 			</setup>
 			<body>
-				<AssertPropertyValue target="navigator.actionBar" propertyName="title" value="hello"/>
+				<AssertPropertyValue target="navigator.actionBar" propertyName="title" value="xhellox"/>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -396,7 +396,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -416,7 +416,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -436,7 +436,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -457,7 +457,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -480,7 +480,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -496,12 +496,13 @@
 				
 			</setup>
 			<body>
+				<Pause timeout="300" />
 				<AssertPropertyValue target="navigator.actionBar.titleContent" propertyName="length" value="2" />
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -525,7 +526,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -547,7 +548,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -568,7 +569,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -589,7 +590,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -600,16 +601,16 @@
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
-				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>			
-				<Pause timeout="300" />			
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<WaitForLayoutManager />			
 			</setup>
-			<body>
+			<body>	
 				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="verticalAlign" value="middle" />
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 
@@ -625,19 +626,20 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
 				<Pause timeout="300" />
 			</setup>
-			<body>
+			<body>	
+				<Pause timeout="300" />
 				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingLeft">
 <ConditionalValue deviceDensity="160" os="win" value="13"/>
 					<ConditionalValue deviceDensity="240" os="android" value="20"/>
 					<ConditionalValue deviceDensity="320" os="win" value="26"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="26"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="26"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="13"/>
 </AssertPropertyValue>
 				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingRight">
 					<ConditionalValue deviceDensity="160" os="win" value="13"/>
 					<ConditionalValue deviceDensity="240" os="android" value="20"/>
 					<ConditionalValue deviceDensity="320" os="win" value="26"/>
-					<ConditionalValue deviceDensity="320" os="iphone" value="26"/>
+					<ConditionalValue deviceDensity="320" os="ios" value="26"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="13"/>
 </AssertPropertyValue>
 				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingTop" value="0"/>
@@ -646,7 +648,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 
@@ -672,7 +674,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -681,15 +683,17 @@
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
-				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>		
-				<Pause timeout="300" /></setup>
-			<body>
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+			</setup>
+			<body>		
+				<WaitForLayoutManager />
+				<Pause timeout="300" />
 				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="gap" value="0"/>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 
@@ -714,7 +718,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 				
@@ -734,7 +738,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -753,7 +757,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -774,7 +778,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -797,7 +801,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -818,7 +822,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -838,7 +842,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -851,7 +855,8 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>									
 				<Pause timeout="300" />
 			</setup>
-			<body>
+			<body>									
+				<Pause timeout="300" />
 				<AssertPropertyValue target="navigator.actionBar.actionLayout" propertyName="paddingLeft" value="0"/>
 				<AssertPropertyValue target="navigator.actionBar.actionLayout" propertyName="paddingRight" value="0"/>
 				<AssertPropertyValue target="navigator.actionBar.actionLayout" propertyName="paddingTop" value="0"/>
@@ -860,7 +865,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 
@@ -882,7 +887,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -903,7 +908,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -925,7 +930,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -948,7 +953,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -971,7 +976,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -993,7 +998,7 @@
 						<ConditionalValue deviceDensity="160" os="win"/>
 						<ConditionalValue deviceDensity="240" os="android"/>
 						<ConditionalValue deviceDensity="320" os="win"/>
-						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="320" os="ios"/>
 						<ConditionalValue deviceDensity="160" os="qnx"/>
 					</CompareBitmap>
 				</body>
@@ -1013,7 +1018,7 @@
 						<ConditionalValue deviceDensity="160" os="win"/>
 						<ConditionalValue deviceDensity="240" os="android"/>
 						<ConditionalValue deviceDensity="320" os="win"/>
-						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="320" os="ios"/>
 						<ConditionalValue deviceDensity="160" os="qnx"/>
 					</CompareBitmap>
 				</body>
@@ -1033,7 +1038,7 @@
 						<ConditionalValue deviceDensity="160" os="win"/>
 						<ConditionalValue deviceDensity="240" os="android"/>
 						<ConditionalValue deviceDensity="320" os="win"/>
-						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="320" os="ios"/>
 						<ConditionalValue deviceDensity="160" os="qnx"/>
 					</CompareBitmap>
 				</body>
@@ -1054,7 +1059,7 @@
 						<ConditionalValue deviceDensity="160" os="win"/>
 						<ConditionalValue deviceDensity="240" os="android"/>
 						<ConditionalValue deviceDensity="320" os="win"/>
-						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="320" os="ios"/>
 						<ConditionalValue deviceDensity="160" os="qnx"/>
 					</CompareBitmap>
 				</body>
@@ -1077,7 +1082,7 @@
 						<ConditionalValue deviceDensity="160" os="win"/>
 						<ConditionalValue deviceDensity="240" os="android"/>
 						<ConditionalValue deviceDensity="320" os="win"/>
-						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="320" os="ios"/>
 						<ConditionalValue deviceDensity="160" os="qnx"/>
 					</CompareBitmap>
 				</body>
@@ -1098,7 +1103,7 @@
 						<ConditionalValue deviceDensity="160" os="win"/>
 						<ConditionalValue deviceDensity="240" os="android"/>
 						<ConditionalValue deviceDensity="320" os="win"/>
-						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="320" os="ios"/>
 						<ConditionalValue deviceDensity="160" os="qnx"/>
 					</CompareBitmap>
 				</body>
@@ -1119,7 +1124,7 @@
 						<ConditionalValue deviceDensity="160" os="win"/>
 						<ConditionalValue deviceDensity="240" os="android"/>
 						<ConditionalValue deviceDensity="320" os="win"/>
-						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="320" os="ios"/>
 						<ConditionalValue deviceDensity="160" os="qnx"/>
 					</CompareBitmap>
 				</body>
@@ -1140,7 +1145,7 @@
 						<ConditionalValue deviceDensity="160" os="win"/>
 						<ConditionalValue deviceDensity="240" os="android"/>
 						<ConditionalValue deviceDensity="320" os="win"/>
-						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="320" os="ios"/>
 						<ConditionalValue deviceDensity="160" os="qnx"/>
 					</CompareBitmap>
 				</body>
@@ -1154,14 +1159,14 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=twoEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
-				<Pause timeout="300" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -1171,7 +1176,8 @@
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
-				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>									
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<WaitForLayoutManager />								
 				<Pause timeout="300" />
 			</setup>
 			<body>
@@ -1183,7 +1189,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 
@@ -1205,7 +1211,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -1226,7 +1232,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>
@@ -1237,7 +1243,6 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
-				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
 				<SetProperty target="navigator.actionBar" propertyName="navigationLayout" valueExpression="value=basic" />
 				<Pause timeout="300" />
@@ -1247,7 +1252,7 @@
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>
-					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="320" os="ios"/>
 					<ConditionalValue deviceDensity="160" os="qnx"/>
 				</CompareBitmap>
 			</body>

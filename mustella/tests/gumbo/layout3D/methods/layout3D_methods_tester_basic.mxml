@@ -112,21 +112,7 @@ xmlns="*" testSWF="Layout3DBasic.mxml">
                 <RunCode code="application.rg.r3.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
                 <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
                 <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
-            </body>
-        </TestCase>
-
-		 <TestCase testID="Layout3D_method_transformAround_r3_mac" keywords="[Layout3D,method,transformAround]" description="">
-            <setup>
-                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
-                <SetProperty target="rg" propertyName="x" value="150" waitEvent="updateComplete"/>
-                <SetProperty target="rg" propertyName="y" value="150" waitEvent="updateComplete"/>
-            </setup>
-            <body>
-                <RunCode code="application.rg.r3.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
-                <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
-                <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
                
@@ -162,7 +148,7 @@ xmlns="*" testSWF="Layout3DBasic.mxml">
                 <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
             </body>
         </TestCase>
-        <TestCase testID="Layout3D_method_transformAround_r3_offsets" keywords="[Layout3D,method,transformAround]" description="">
+		<TestCase testID="Layout3D_method_transformAround_r3_offsets" keywords="[Layout3D,method,transformAround]" description="">
             <setup>
                 <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
                 <SetProperty target="rg" propertyName="x" value="150" waitEvent="updateComplete"/>
@@ -175,24 +161,7 @@ xmlns="*" testSWF="Layout3DBasic.mxml">
                 <RunCode code="application.rg.r3.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
                 <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
                 <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
-            </body>
-        </TestCase>
-		
-		<TestCase testID="Layout3D_method_transformAround_r3_offsets_mac" keywords="[Layout3D,method,transformAround]" description="">
-            <setup>
-                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
-                <SetProperty target="rg" propertyName="x" value="150" waitEvent="updateComplete"/>
-                <SetProperty target="rg" propertyName="y" value="150" waitEvent="updateComplete"/>
-            </setup>
-            <body>
-                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="x" value="10" />
-                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="y" value="10" />
-                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="z" value="10" />
-                <RunCode code="application.rg.r3.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
-                <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
-                <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
-                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" numColorVariances="5" maxColorVariance="1" />
             </body>
         </TestCase>
 

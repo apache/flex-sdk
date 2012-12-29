@@ -63,6 +63,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/> 
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<AssertPropertyValue target="windowObj.titleBar.skin.titleText" propertyName="text" valueExpression="value=titleStr" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 	    </body>
 	</TestCase>
@@ -79,6 +81,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.windowObj.open(true)" waitTarget="" waitEvent="myWindowComplete"/> 
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<AssertPropertyValue target="windowObj.titleBar.skin.titleText" propertyName="text" valueExpression="value=longTitle" />
+		<WaitForLayoutManager />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png" />
 	   </body>
 	</TestCase>

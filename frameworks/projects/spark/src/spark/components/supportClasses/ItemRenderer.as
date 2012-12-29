@@ -349,6 +349,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
+    [Bindable]     
     public var labelDisplay:TextBase;
     
     //----------------------------------

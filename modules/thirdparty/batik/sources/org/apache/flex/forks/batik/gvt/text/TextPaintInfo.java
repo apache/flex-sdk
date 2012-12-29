@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,7 +20,6 @@ package org.apache.flex.forks.batik.gvt.text;
 
 import java.awt.Composite;
 import java.awt.Paint;
-import java.awt.Shape;
 import java.awt.Stroke;
 
 /**
@@ -28,7 +28,7 @@ import java.awt.Stroke;
  * Complete Class Desc
  *
  * @author <a href="mailto:deweese@apache.org">deweese</a>
- * @version $Id: TextPaintInfo.java,v 1.4 2005/03/27 08:58:35 cam Exp $
+ * @version $Id: TextPaintInfo.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class TextPaintInfo {
     public boolean   visible;
@@ -48,6 +48,8 @@ public class TextPaintInfo {
     public Paint  strikethroughPaint;
     public Paint  strikethroughStrokePaint;
     public Stroke strikethroughStroke;
+
+    public int    startChar, endChar;
 
     public TextPaintInfo() { }
     

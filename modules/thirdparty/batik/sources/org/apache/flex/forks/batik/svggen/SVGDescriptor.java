@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,7 +26,7 @@ import java.util.Map;
  * related definitions.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: SVGDescriptor.java,v 1.6 2004/08/18 07:15:00 vhardy Exp $
+ * @version $Id: SVGDescriptor.java 478176 2006-11-22 14:50:50Z dvholten $
  * @see           org.apache.flex.forks.batik.ext.awt.g2d.GraphicContext
  */
 public interface SVGDescriptor{
@@ -37,7 +38,7 @@ public interface SVGDescriptor{
      * @return a map containing the SVG attributes needed by the
      *         descriptor.
      */
-    public Map getAttributeMap(Map attrMap);
+    Map getAttributeMap(Map attrMap);
 
     /**
      * @param defSet if not null, definitions required to provide
@@ -48,5 +49,5 @@ public interface SVGDescriptor{
      * @return a set containing Elements that represent the definition
      *         of the descriptor's attribute values
      */
-    public List getDefinitionSet(List defSet);
+    List getDefinitionSet(List defSet);
 }

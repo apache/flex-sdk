@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,37 +23,46 @@ import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
-import org.apache.flex.forks.batik.css.engine.CSSEngine;
-import org.apache.flex.forks.batik.dom.svg.SVGOMCSSImportedElementRoot;
+import org.apache.flex.forks.batik.dom.events.NodeEventTarget;
+import org.apache.flex.forks.batik.dom.svg.AbstractSVGAnimatedLength;
+import org.apache.flex.forks.batik.dom.svg.AnimatedLiveAttributeValue;
+import org.apache.flex.forks.batik.dom.svg.LiveAttributeException;
+import org.apache.flex.forks.batik.dom.svg.SVGOMAnimatedLength;
 import org.apache.flex.forks.batik.dom.svg.SVGOMDocument;
 import org.apache.flex.forks.batik.dom.svg.SVGOMUseElement;
-import org.apache.flex.forks.batik.dom.util.XLinkSupport;
+import org.apache.flex.forks.batik.dom.svg.SVGOMUseShadowRoot;
 import org.apache.flex.forks.batik.gvt.CompositeGraphicsNode;
 import org.apache.flex.forks.batik.gvt.GraphicsNode;
+import org.apache.flex.forks.batik.util.XMLConstants;
+
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
-import org.w3c.dom.events.EventTarget;
-import org.w3c.dom.events.MutationEvent;
+import org.w3c.dom.svg.SVGTransformable;
+import org.w3c.dom.svg.SVGUseElement;
 
 /**
  * Bridge class for the &lt;use> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGUseElementBridge.java,v 1.47 2005/03/03 01:19:53 deweese Exp $
+ * @version $Id: SVGUseElementBridge.java 580678 2007-09-30 05:10:20Z cam $
  */
 public class SVGUseElementBridge extends AbstractGraphicsNodeBridge {
-    /*
+
+    /**
      * Used to handle mutation of the referenced content. This is
      * only used in dynamic context and only for reference to local
      * content.
      */
     protected ReferencedElementMutationListener l;
 
-    protected BridgeContext subCtx=null;
+    /**
+     * The bridge context for the referenced document.
+     */
+    protected BridgeContext subCtx;
 
     /**
      * Constructs a new bridge for the &lt;use> element.
@@ -86,6 +96,7 @@ public class SVGUseElementBridge extends AbstractGraphicsNodeBridge {
             return null;
 
         CompositeGraphicsNode gn = buildCompositeGraphicsNode(ctx, e, null);
+        associateSVGContext(ctx, e, gn);
 
         return gn;
     }
@@ -101,41 +112,40 @@ public class SVGUseElementBridge extends AbstractGraphicsNodeBridge {
      *        before appending new content.
      */
     public CompositeGraphicsNode buildCompositeGraphicsNode
-        (BridgeContext ctx, Element e,
-         CompositeGraphicsNode gn) {
+            (BridgeContext ctx, Element e, CompositeGraphicsNode gn) {
         // get the referenced element
-        String uri = XLinkSupport.getXLinkHref(e);
+        SVGOMUseElement ue = (SVGOMUseElement) e;
+        String uri = ue.getHref().getAnimVal();
         if (uri.length() == 0) {
-            throw new BridgeException(e, ERR_ATTRIBUTE_MISSING,
+            throw new BridgeException(ctx, e, ERR_ATTRIBUTE_MISSING,
                                       new Object[] {"xlink:href"});
         }
 
         Element refElement = ctx.getReferencedElement(e, uri);
 
-        SVGOMDocument document
-            = (SVGOMDocument)e.getOwnerDocument();
-        SVGOMDocument refDocument
-            = (SVGOMDocument)refElement.getOwnerDocument();
+        SVGOMDocument document, refDocument;
+        document    = (SVGOMDocument)e.getOwnerDocument();
+        refDocument = (SVGOMDocument)refElement.getOwnerDocument();
         boolean isLocal = (refDocument == document);
 
         BridgeContext theCtx = ctx;
         subCtx = null;
         if (!isLocal) {
-            CSSEngine eng = refDocument.getCSSEngine();
             subCtx = (BridgeContext)refDocument.getCSSEngine().getCSSContext();
             theCtx = subCtx;
         }
             
         // import or clone the referenced element in current document
-        Element localRefElement = 
-            (Element)document.importNode(refElement, true, true);
+        Element localRefElement;
+        localRefElement = (Element)document.importNode(refElement, true, true);
 
         if (SVG_SYMBOL_TAG.equals(localRefElement.getLocalName())) {
             // The referenced 'symbol' and its contents are deep-cloned into
             // the generated tree, with the exception that the 'symbol'  is
             // replaced by an 'svg'.
-            Element svgElement
-                = document.createElementNS(SVG_NAMESPACE_URI, SVG_SVG_TAG);
+            Element svgElement = document.createElementNS(SVG_NAMESPACE_URI, 
+                                                          SVG_SVG_TAG);
+
             // move the attributes from <symbol> to the <svg> element
             NamedNodeMap attrs = localRefElement.getAttributes();
             int len = attrs.getLength();
@@ -159,37 +169,43 @@ public class SVGUseElementBridge extends AbstractGraphicsNodeBridge {
             // generated tree. If attributes width and/or height are provided
             // on the 'use' element, then these values will override the
             // corresponding attributes on the 'svg' in the generated tree.
-            String wStr = e.getAttributeNS(null, SVG_WIDTH_ATTRIBUTE);
-            if (wStr.length() != 0) {
-                localRefElement.setAttributeNS
-                    (null, SVG_WIDTH_ATTRIBUTE, wStr);
-            }
-            String hStr = e.getAttributeNS(null, SVG_HEIGHT_ATTRIBUTE);
-            if (hStr.length() != 0) {
-                localRefElement.setAttributeNS
-                    (null, SVG_HEIGHT_ATTRIBUTE, hStr);
+            try {
+                SVGOMAnimatedLength al = (SVGOMAnimatedLength) ue.getWidth();
+                if (al.isSpecified()) {
+                    localRefElement.setAttributeNS
+                        (null, SVG_WIDTH_ATTRIBUTE,
+                         al.getAnimVal().getValueAsString());
+                }
+                al = (SVGOMAnimatedLength) ue.getHeight();
+                if (al.isSpecified()) {
+                    localRefElement.setAttributeNS
+                        (null, SVG_HEIGHT_ATTRIBUTE,
+                         al.getAnimVal().getValueAsString());
+                }
+            } catch (LiveAttributeException ex) {
+                throw new BridgeException(ctx, ex);
             }
         }
 
         // attach the referenced element to the current document
-        SVGOMCSSImportedElementRoot root;
-        root = new SVGOMCSSImportedElementRoot(document, e, isLocal);
+        SVGOMUseShadowRoot root;
+        root = new SVGOMUseShadowRoot(document, e, isLocal);
         root.appendChild(localRefElement);
 
         if (gn == null) {
             gn = new CompositeGraphicsNode();
+            associateSVGContext(ctx, e, node);
         } else {
             int s = gn.size();
             for (int i=0; i<s; i++)
                 gn.remove(0);
         }
 
-        SVGOMUseElement ue = (SVGOMUseElement)e;
-        Node oldRoot = ue.getCSSImportedElementRoot();
+        Node oldRoot = ue.getCSSFirstChild();
         if (oldRoot != null) {
             disposeTree(oldRoot);
         }
-        ue.setCSSImportedElementRoot(root);
+        ue.setUseShadowTree(root);
 
         Element g = localRefElement;
 
@@ -203,7 +219,7 @@ public class SVGUseElementBridge extends AbstractGraphicsNodeBridge {
 
         gn.getChildren().add(refNode);
 
-        gn.setTransform(computeTransform(e, ctx));
+        gn.setTransform(computeTransform((SVGTransformable) e, ctx));
 
         // set an affine transform to take into account the (x, y)
         // coordinates of the <use> element
@@ -223,11 +239,19 @@ public class SVGUseElementBridge extends AbstractGraphicsNodeBridge {
 
         if (l != null) {
             // Remove event listeners
-            EventTarget target = l.target;
-            target.removeEventListener("DOMAttrModified", l, true);
-            target.removeEventListener("DOMNodeInserted", l, true);
-            target.removeEventListener("DOMNodeRemoved", l, true);
-            target.removeEventListener("DOMCharacterDataModified",l, true);
+            NodeEventTarget target = l.target;
+            target.removeEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMAttrModified",
+                 l, true);
+            target.removeEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMNodeInserted",
+                 l, true);
+            target.removeEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMNodeRemoved",
+                 l, true);
+            target.removeEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMCharacterDataModified",
+                 l, true);
             l = null;
         }
 
@@ -238,21 +262,36 @@ public class SVGUseElementBridge extends AbstractGraphicsNodeBridge {
         if (isLocal && ctx.isDynamic()) {
             l = new ReferencedElementMutationListener();
         
-            EventTarget target = (EventTarget)refElement;
+            NodeEventTarget target = (NodeEventTarget)refElement;
             l.target = target;
             
-            target.addEventListener("DOMAttrModified", l, true);
-            theCtx.storeEventListener(target, "DOMAttrModified", l, true);
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMAttrModified",
+                 l, true, null);
+            theCtx.storeEventListenerNS
+                (target, XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMAttrModified",
+                 l, true);
             
-            target.addEventListener("DOMNodeInserted", l, true);
-            theCtx.storeEventListener(target, "DOMNodeInserted", l, true);
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMNodeInserted",
+                 l, true, null);
+            theCtx.storeEventListenerNS
+                (target, XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMNodeInserted",
+                 l, true);
             
-            target.addEventListener("DOMNodeRemoved", l, true);
-            theCtx.storeEventListener(target, "DOMNodeRemoved", l, true);
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMNodeRemoved",
+                 l, true, null);
+            theCtx.storeEventListenerNS
+                (target, XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMNodeRemoved",
+                 l, true);
             
-            target.addEventListener("DOMCharacterDataModified", l, true);
-            theCtx.storeEventListener
-                (target, "DOMCharacterDataModified", l, true);
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMCharacterDataModified",
+                 l, true, null);
+            theCtx.storeEventListenerNS
+                (target, XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMCharacterDataModified",
+                 l, true);
         }
         
         return gn;
@@ -261,17 +300,25 @@ public class SVGUseElementBridge extends AbstractGraphicsNodeBridge {
     public void dispose() {
         if (l != null) {
             // Remove event listeners
-            EventTarget target = l.target;
-            target.removeEventListener("DOMAttrModified", l, true);
-            target.removeEventListener("DOMNodeInserted", l, true);
-            target.removeEventListener("DOMNodeRemoved", l, true);
-            target.removeEventListener("DOMCharacterDataModified",l, true);
+            NodeEventTarget target = l.target;
+            target.removeEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMAttrModified",
+                 l, true);
+            target.removeEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMNodeInserted",
+                 l, true);
+            target.removeEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMNodeRemoved",
+                 l, true);
+            target.removeEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, "DOMCharacterDataModified",
+                 l, true);
             l = null;
         }
 
         SVGOMUseElement ue = (SVGOMUseElement)e;
-        if ((ue != null) && (ue.getCSSImportedElementRoot() != null)) {
-            disposeTree(ue.getCSSImportedElementRoot());
+        if (ue != null && ue.getCSSFirstChild() != null) {
+            disposeTree(ue.getCSSFirstChild());
         }
 
         super.dispose();
@@ -280,39 +327,30 @@ public class SVGUseElementBridge extends AbstractGraphicsNodeBridge {
     }
 
     /**
-     * Computes the AffineTransform for the node
+     * Returns an {@link AffineTransform} that is the transformation to
+     * be applied to the node.
      */
-    protected AffineTransform computeTransform(Element e, BridgeContext ctx) {
-        UnitProcessor.Context uctx = UnitProcessor.createContext(ctx, e);
+    protected AffineTransform computeTransform(SVGTransformable e,
+                                               BridgeContext ctx) {
+        AffineTransform at = super.computeTransform(e, ctx);
+        SVGUseElement ue = (SVGUseElement) e;
+        try {
+            // 'x' attribute - default is 0
+            AbstractSVGAnimatedLength _x =
+                (AbstractSVGAnimatedLength) ue.getX();
+            float x = _x.getCheckedValue();
 
-        // 'x' attribute - default is 0
-        float x = 0;
-        String s = e.getAttributeNS(null, SVG_X_ATTRIBUTE);
-        if (s.length() != 0) {
-            x = UnitProcessor.svgHorizontalCoordinateToUserSpace
-                (s, SVG_X_ATTRIBUTE, uctx);
+            // 'y' attribute - default is 0
+            AbstractSVGAnimatedLength _y =
+                (AbstractSVGAnimatedLength) ue.getY();
+            float y = _y.getCheckedValue();
+
+            AffineTransform xy = AffineTransform.getTranslateInstance(x, y);
+            xy.preConcatenate(at);
+            return xy;
+        } catch (LiveAttributeException ex) {
+            throw new BridgeException(ctx, ex);
         }
-
-        // 'y' attribute - default is 0
-        float y = 0;
-        s = e.getAttributeNS(null, SVG_Y_ATTRIBUTE);
-        if (s.length() != 0) {
-            y = UnitProcessor.svgVerticalCoordinateToUserSpace
-                (s, SVG_Y_ATTRIBUTE, uctx);
-        }
-
-        // set an affine transform to take into account the (x, y)
-        // coordinates of the <use> element
-        s = e.getAttributeNS(null, SVG_TRANSFORM_ATTRIBUTE);
-        AffineTransform at = AffineTransform.getTranslateInstance(x, y);
-
-        // 'transform'
-        if (s.length() != 0) {
-            at.preConcatenate
-                (SVGUtilities.convertTransform(e, SVG_TRANSFORM_ATTRIBUTE, s));
-        }
-
-        return at;
      }
 
     /**
@@ -320,7 +358,7 @@ public class SVGUseElementBridge extends AbstractGraphicsNodeBridge {
      * implementation.
      */
     protected GraphicsNode instantiateGraphicsNode() {
-        return null; // nothing to do, createGraphicsNode is fully overriden
+        return null; // nothing to do, createGraphicsNode is fully overridden
     }
 
     /**
@@ -345,10 +383,14 @@ public class SVGUseElementBridge extends AbstractGraphicsNodeBridge {
         super.buildGraphicsNode(ctx, e, node);
 
         if (ctx.isInteractive()) {
-            EventTarget target = (EventTarget)e;
+            NodeEventTarget target = (NodeEventTarget)e;
             EventListener l = new CursorMouseOverListener(ctx);
-            target.addEventListener(SVG_EVENT_MOUSEOVER, l, false);
-            ctx.storeEventListener(target, SVG_EVENT_MOUSEOVER, l, false);
+            target.addEventListenerNS
+                (XMLConstants.XML_EVENTS_NAMESPACE_URI, SVG_EVENT_MOUSEOVER,
+                 l, false, null);
+            ctx.storeEventListenerNS
+                (target, XMLConstants.XML_EVENTS_NAMESPACE_URI, SVG_EVENT_MOUSEOVER,
+                 l, false);
         }
     }
 
@@ -382,8 +424,8 @@ public class SVGUseElementBridge extends AbstractGraphicsNodeBridge {
     /**
      * Used to handle modifications to the referenced content
      */
-    public class ReferencedElementMutationListener implements EventListener {
-        EventTarget target;
+    protected class ReferencedElementMutationListener implements EventListener {
+        protected NodeEventTarget target;
 
         public void handleEvent(Event evt) {
             // We got a mutation in the referenced content. We need to 
@@ -398,25 +440,29 @@ public class SVGUseElementBridge extends AbstractGraphicsNodeBridge {
     // BridgeUpdateHandler implementation //////////////////////////////////
 
     /**
-     * Invoked when an MutationEvent of type 'DOMAttrModified' is fired.
+     * Invoked when the animated value of an animatable attribute has changed.
      */
-    public void handleDOMAttrModifiedEvent(MutationEvent evt) {
-        String attrName = evt.getAttrName();
-        Node evtNode = evt.getRelatedNode();
-
-        if ((evtNode.getNamespaceURI() == null) &&
-            (attrName.equals(SVG_X_ATTRIBUTE) ||
-             attrName.equals(SVG_Y_ATTRIBUTE) ||
-             attrName.equals(SVG_TRANSFORM_ATTRIBUTE))) {
-            node.setTransform(computeTransform(e, ctx));
-            handleGeometryChanged();
-        } else if (((evtNode.getNamespaceURI() == null) && 
-                   (attrName.equals(SVG_WIDTH_ATTRIBUTE) ||
-                    attrName.equals(SVG_HEIGHT_ATTRIBUTE))) ||
-                   (( XLinkSupport.XLINK_NAMESPACE_URI.equals
-                     (evtNode.getNamespaceURI()) ) &&  
-                    SVG_HREF_ATTRIBUTE.equals(evtNode.getLocalName()))) {
-            buildCompositeGraphicsNode(ctx, e, (CompositeGraphicsNode)node);
+    public void handleAnimatedAttributeChanged
+            (AnimatedLiveAttributeValue alav) {
+        try {
+            String ns = alav.getNamespaceURI();
+            String ln = alav.getLocalName();
+            if (ns == null
+                    && (ln.equals(SVG_X_ATTRIBUTE)
+                        || ln.equals(SVG_Y_ATTRIBUTE)
+                        || ln.equals(SVG_TRANSFORM_ATTRIBUTE))) {
+                node.setTransform(computeTransform((SVGTransformable) e, ctx));
+                handleGeometryChanged();
+            } else if (ns == null
+                    && (ln.equals(SVG_WIDTH_ATTRIBUTE)
+                        || ln.equals(SVG_HEIGHT_ATTRIBUTE))
+                    || ns.equals(XLINK_NAMESPACE_URI)
+                        && (ln.equals(XLINK_HREF_ATTRIBUTE))) {
+                buildCompositeGraphicsNode(ctx, e, (CompositeGraphicsNode)node);
+            }
+        } catch (LiveAttributeException ex) {
+            throw new BridgeException(ctx, ex);
         }
+        super.handleAnimatedAttributeChanged(alav);
     }
 }

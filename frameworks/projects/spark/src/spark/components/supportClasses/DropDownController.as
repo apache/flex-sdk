@@ -105,7 +105,8 @@ public class DropDownController extends EventDispatcher
             
         _openButton = value;
         
-        _openButton.disableMinimumDownStateTime = true;
+        if (_openButton)
+        	_openButton.disableMinimumDownStateTime = true;
         
         addOpenTriggers();
         

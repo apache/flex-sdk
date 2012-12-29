@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2000-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -20,7 +21,9 @@ package org.apache.flex.forks.batik.dom;
 import java.io.Serializable;
 
 import org.apache.flex.forks.batik.dom.events.DocumentEventSupport;
+import org.apache.flex.forks.batik.dom.events.EventSupport;
 import org.apache.flex.forks.batik.dom.util.HashTable;
+
 import org.w3c.dom.DOMImplementation;
 
 /**
@@ -28,24 +31,31 @@ import org.w3c.dom.DOMImplementation;
  * {@link org.w3c.dom.css.DOMImplementationCSS} interfaces.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: AbstractDOMImplementation.java,v 1.13 2005/02/22 09:12:57 cam Exp $
+ * @version $Id: AbstractDOMImplementation.java 475685 2006-11-16 11:16:05Z cam $
  */
 
 public abstract class AbstractDOMImplementation
-    implements DOMImplementation,
-               Serializable {
+        implements DOMImplementation,
+                   Serializable {
 
     /**
      * The supported features.
      */
     protected final HashTable features = new HashTable();
     {
-	registerFeature("XML",            new String[] { "1.0", "2.0" });
-	registerFeature("Events",         "2.0");
-	registerFeature("MouseEvents",    "2.0");
-	registerFeature("MutationEvents", "2.0");
-	registerFeature("Traversal",      "2.0");
-	registerFeature("UIEvents",       "2.0");
+        // registerFeature("BasicEvents",        "3.0");
+        registerFeature("Core",               new String[] { "2.0", "3.0" });
+        registerFeature("XML",                new String[] { "1.0", "2.0",
+                                                             "3.0" });
+        registerFeature("Events",             new String[] { "2.0", "3.0" });
+        registerFeature("UIEvents",           new String[] { "2.0", "3.0" });
+        registerFeature("MouseEvents",        new String[] { "2.0", "3.0" });
+        registerFeature("TextEvents",         "3.0");
+        registerFeature("KeyboardEvents",     "3.0");
+        registerFeature("MutationEvents",     new String[] { "2.0", "3.0" });
+        registerFeature("MutationNameEvents", "3.0");
+        registerFeature("Traversal",          "2.0");
+        registerFeature("XPath",              "3.0");
     }
     
     /**
@@ -66,13 +76,20 @@ public abstract class AbstractDOMImplementation
      * org.w3c.dom.DOMImplementation#hasFeature(String,String)}.
      */
     public boolean hasFeature(String feature, String version) {
-	Object v = features.get(feature.toLowerCase());
-	if (v == null) {
-	    return false;
-	}
-	if (version == null || version.length() == 0) {
-	    return true;
-	}
+        if (feature == null || feature.length() == 0) {
+            return false;
+        }
+        if (feature.charAt(0) == '+') {
+            // All features are directly castable.
+            feature = feature.substring(1);
+        }
+        Object v = features.get(feature.toLowerCase());
+        if (v == null) {
+            return false;
+        }
+        if (version == null || version.length() == 0) {
+            return true;
+        }
         if (v instanceof String) {
             return version.equals(v);
         } else {
@@ -87,9 +104,29 @@ public abstract class AbstractDOMImplementation
     }
 
     /**
+     * <b>DOM</b>: Implements
+     * {@link org.w3c.dom.DOMImplementation#getFeature(String,String)}.
+     * No compound document support, so just return this DOMImlpementation
+     * where appropriate.
+     */
+    public Object getFeature(String feature, String version) {
+        if (hasFeature(feature, version)) {
+            return this;
+        }
+        return null;
+    }
+
+    /**
      * Creates an DocumentEventSupport object suitable for use with this implementation.
      */
     public DocumentEventSupport createDocumentEventSupport() {
         return new DocumentEventSupport();
+    }
+
+    /**
+     * Creates an EventSupport object for a given node.
+     */
+    public EventSupport createEventSupport(AbstractNode n) {
+        return new EventSupport(n);
     }
 }

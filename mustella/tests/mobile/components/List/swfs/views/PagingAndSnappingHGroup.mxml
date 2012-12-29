@@ -102,49 +102,49 @@
 <!--		<components:myHGroup id="imageGroup" height="100%" width="100%" clipAndEnableScrolling="true" gap="0" verticalAlign="middle"/>
 -->		<s:HGroup id="imageGroup" width="100%" clipAndEnableScrolling="true" gap="0">
 			<s:Image width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" 
-					 source="@Embed('../../../../Assets/Images/smallbluerect.jpg')"/>
+					 source="@Embed('../../../../../../Assets/Images/smallbluerect.jpg')"/>
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle" horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg" />
+					 source="../../../../../../Assets/Images/smallbluerect.jpg" />
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg"/>
+					 source="../../../../../../Assets/Images/smallbluerect.jpg"/>
 			<s:Image width="{imageGroup.width/5}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg" />
+					 source="../../../../../../Assets/Images/smallbluerect.jpg" />
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle"  horizontalAlign="center"  
-					 source="../../../../Assets/Images/smallbluerect.jpg"/>
+					 source="../../../../../../Assets/Images/smallbluerect.jpg"/>
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg" />
+					 source="../../../../../../Assets/Images/smallbluerect.jpg" />
 			<s:Image width="{imageGroup.width/4}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg"/>
+					 source="../../../../../../Assets/Images/smallbluerect.jpg"/>
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg" />
+					 source="../../../../../../Assets/Images/smallbluerect.jpg" />
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle" horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg"/>
+					 source="../../../../../../Assets/Images/smallbluerect.jpg"/>
 			<s:Image width="{imageGroup.width/5}" height="100%" verticalAlign="middle" horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg" />
+					 source="../../../../../../Assets/Images/smallbluerect.jpg" />
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg"/>
+					 source="../../../../../../Assets/Images/smallbluerect.jpg"/>
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg" />
+					 source="../../../../../../Assets/Images/smallbluerect.jpg" />
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle"  horizontalAlign="center"  
-					 source="../../../../Assets/Images/smallbluerect.jpg"/>
+					 source="../../../../../../Assets/Images/smallbluerect.jpg"/>
 			<s:Image width="{imageGroup.width/4}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg" />
+					 source="../../../../../../Assets/Images/smallbluerect.jpg" />
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg"/>
+					 source="../../../../../../Assets/Images/smallbluerect.jpg"/>
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg" />
+					 source="../../../../../../Assets/Images/smallbluerect.jpg" />
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg" />
+					 source="../../../../../../Assets/Images/smallbluerect.jpg" />
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg" />
+					 source="../../../../../../Assets/Images/smallbluerect.jpg" />
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg" />
+					 source="../../../../../../Assets/Images/smallbluerect.jpg" />
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg" />
+					 source="../../../../../../Assets/Images/smallbluerect.jpg" />
 			<s:Image width="{imageGroup.width/4}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg" />
+					 source="../../../../../../Assets/Images/smallbluerect.jpg" />
 			<s:Image width="{imageGroup.width/2}" height="100%" verticalAlign="middle"  horizontalAlign="center" 
-					 source="../../../../Assets/Images/smallbluerect.jpg" />
+					 source="../../../../../../Assets/Images/smallbluerect.jpg" />
 		</s:HGroup>
 	</s:Scroller>
 	

@@ -162,7 +162,7 @@
 			<tflow:ListOrderedDecimal id="ListOrderedDecimal" label="Decimal" fontFamily="MeiryoEmbedded"/>
 			<tflow:ListOrderedDecimalShort id="ListOrderedDecimalShort" label="Decimal Short" fontFamily="MeiryoEmbedded"/>
 			<tflow:ListOrderedDecimalLeadingZero id="ListOrderedDecimalLeadingZero" label="Leading Zero (-9/9)" fontFamily="MeiryoEmbedded"/>
-			<tflow:ListOrderedAlphaGreekLatinRoman id="ListOrderedAlphaGreekLatinRomanFontFallback" label="Alpha/Greek/Latin/Roman" fontFamily="VeraMoBdEmbedded"/>
+			<!--tflow:ListOrderedAlphaGreekLatinRoman id="ListOrderedAlphaGreekLatinRomanFontFallback" label="Alpha/Greek/Latin/Roman" fontFamily="VeraMoBdEmbedded"/-->
 			<tflow:ListOrderedNonAlpha id="ListOrderedNonAlpha" label="Non-Alpha" fontFamily="VeraMoBdEmbedded" />
 			<tflow:ListOrderedParentAlphaChildDecimal id="ListOrderedParentAlphaChildDecimal" label="list-in-list" fontFamily="MeiryoEmbedded"/>
 			<tflow:ListMultiLingualSalutation id="ListMultiLingualSalutation" label="the 'Hello' list" fontFamily="MeiryoEmbedded"/>

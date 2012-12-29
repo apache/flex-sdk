@@ -86,7 +86,7 @@
 	    	          <RunCode code="FlexGlobals.topLevelApplication.dg4.setFocus()" waitEvent="focusIn" waitTarget="dg4"/>
 	    		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.setSelectedCell(1,2)" value="true"/>
 	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
-	    		  <DispatchMouseClickEvent target="dg4.grid" localX="265" localY="120" waitEvent="click" waitTarget="dg4.grid"/>
+	    		  <DispatchMouseClickEvent target="dg4.grid" localX="265" localY="70" waitEvent="click" waitTarget="dg4.grid"/>
 	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	    		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditEvent.rowIndex" value="1"/>
 				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditEvent.columnIndex" value="2"/>

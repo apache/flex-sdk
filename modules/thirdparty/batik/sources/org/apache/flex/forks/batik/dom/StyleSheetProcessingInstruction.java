@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -30,7 +31,7 @@ import org.w3c.dom.stylesheets.StyleSheet;
  * instructions.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: StyleSheetProcessingInstruction.java,v 1.8 2004/10/30 18:38:04 deweese Exp $
+ * @version $Id: StyleSheetProcessingInstruction.java 475685 2006-11-16 11:16:05Z cam $
  */
 public class StyleSheetProcessingInstruction
     extends AbstractProcessingInstruction
@@ -66,25 +67,25 @@ public class StyleSheetProcessingInstruction
      * Creates a new ProcessingInstruction object.
      */
     public StyleSheetProcessingInstruction(String            data,
-					   AbstractDocument  owner,
-					   StyleSheetFactory f) {
-	ownerDocument = owner;
-	setData(data);
-	factory = f;
+                                           AbstractDocument  owner,
+                                           StyleSheetFactory f) {
+        ownerDocument = owner;
+        setData(data);
+        factory = f;
     }
 
     /**
      * Tests whether this node is readonly.
      */
     public boolean isReadonly() {
-	return readonly;
+        return readonly;
     }
 
     /**
      * Sets this node readonly attribute.
      */
     public void setReadonly(boolean v) {
-	readonly = v;
+        readonly = v;
     }
 
     /**
@@ -99,17 +100,17 @@ public class StyleSheetProcessingInstruction
      * @return "xml-stylesheet".
      */
     public String getTarget() {
-	return "xml-stylesheet";
+        return "xml-stylesheet";
     }
 
     /**
      *  The style sheet. 
      */
     public StyleSheet getSheet() {
-	if (sheet == null) {
-	    sheet = factory.createStyleSheet(this, getPseudoAttributes());
-	}
-	return sheet;
+        if (sheet == null) {
+            sheet = factory.createStyleSheet(this, getPseudoAttributes());
+        }
+        return sheet;
     }
 
     /**
@@ -130,8 +131,8 @@ public class StyleSheetProcessingInstruction
      * org.w3c.dom.ProcessingInstruction#setData(String)}.
      */
     public void setData(String data) throws DOMException {
-	super.setData(data);
-	sheet = null;
+        super.setData(data);
+        sheet = null;
         pseudoAttributes = null;
     }
 

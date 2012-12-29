@@ -66,9 +66,7 @@
             <body>
                 <RunCode code="FlexGlobals.topLevelApplication.addMixedComponents()" waitTarget="skin" waitEvent="updateComplete" />                
                 
-                <CompareBitmap url="../Integration/baselines/" target="" >
-						<ConditionalValue os="mac" />
-				</CompareBitmap>	                              
+                <CompareBitmap url="../Integration/baselines/$testID.png" />
             </body>
 		</TestCase>
 

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -34,8 +35,9 @@ import java.io.Serializable;
  * be removed or changed in future releases of JAI.</b>
  *
  * @see TIFFDirectory
+ * @version $Id: TIFFField.java 501495 2007-01-30 18:00:36Z dvholten $
  */
-public class TIFFField extends Object implements Comparable, Serializable {
+public class TIFFField implements Comparable, Serializable {
 
     /** Flag for 8 bit unsigned integers. */
     public static final int TIFF_BYTE      =  1;
@@ -84,7 +86,7 @@ public class TIFFField extends Object implements Comparable, Serializable {
 
     /** The field data. */
     Object data;
-    
+
     /** The default constructor. */
     TIFFField() {}
 
@@ -217,7 +219,7 @@ public class TIFFField extends Object implements Comparable, Serializable {
     }
 
     /**
-     * Returns TIFF_FLOAT data as an array of floats. 
+     * Returns TIFF_FLOAT data as an array of floats.
      *
      * <p> A ClassCastException will be thrown if the field is not
      * of type TIFF_FLOAT.
@@ -227,7 +229,7 @@ public class TIFFField extends Object implements Comparable, Serializable {
     }
 
     /**
-     * Returns TIFF_DOUBLE data as an array of doubles. 
+     * Returns TIFF_DOUBLE data as an array of doubles.
      *
      * <p> A ClassCastException will be thrown if the field is not
      * of type TIFF_DOUBLE.
@@ -317,7 +319,7 @@ public class TIFFField extends Object implements Comparable, Serializable {
             throw new ClassCastException();
         }
     }
-    
+
     /**
      * Returns data in any numerical format as a float.  Data in
      * TIFF_SRATIONAL or TIFF_RATIONAL format are evaluated by

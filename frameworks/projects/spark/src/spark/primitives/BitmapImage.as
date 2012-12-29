@@ -242,6 +242,8 @@ public class BitmapImage extends GraphicElement
      */
     public function get bitmapData():BitmapData
     {
+		//We return a copy because when the source of the data changes we destroy the bitmap
+		//If a developer is holding a reference to the actual bitmap they will have an invalid reference
         return _bitmapData ? _bitmapData.clone() : _bitmapData;
     }
 

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -29,7 +30,7 @@ import org.python.util.PythonInterpreter;
  * A simple implementation of <code>Interpreter</code> interface to use
  * JPython python parser.
  * @author <a href="mailto:cjolif@ilog.fr">Christophe Jolif</a>
- * @version $Id: JPythonInterpreter.java,v 1.10 2005/03/27 08:58:35 cam Exp $
+ * @version $Id: JPythonInterpreter.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class JPythonInterpreter implements org.apache.flex.forks.batik.script.Interpreter {
     private PythonInterpreter interpreter = null;
@@ -41,12 +42,12 @@ public class JPythonInterpreter implements org.apache.flex.forks.batik.script.In
     // org.apache.flex.forks.batik.script.Intepreter implementation
 
     public Object evaluate(Reader scriptreader)
-        throws InterpreterException, IOException {
+        throws IOException {
         return evaluate(scriptreader, "");
     }
 
     public Object evaluate(Reader scriptreader, String description)
-        throws InterpreterException, IOException {
+        throws IOException {
 
         // oups jpython doesn't accept reader in its eval method :-(
         StringBuffer sbuffer = new StringBuffer();
@@ -59,8 +60,7 @@ public class JPythonInterpreter implements org.apache.flex.forks.batik.script.In
         return evaluate(str);
     }
 
-    public Object evaluate(String script)
-        throws InterpreterException {
+    public Object evaluate(String script) {
         try {
             interpreter.exec(script);
         } catch (org.python.core.PyException e) {

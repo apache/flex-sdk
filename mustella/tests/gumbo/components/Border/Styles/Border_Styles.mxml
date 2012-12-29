@@ -399,6 +399,7 @@
 		<setup>
 			<ResetComponent target="myBorderGrpM2" className="comps.customBorderM2" waitEvent="updateComplete" />
 			<SetProperty target="myBorderGrpM1.myBorder.contentGroup" propertyName="clipAndEnableScrolling" value="true"/>
+			<WaitForLayoutManager />
 		</setup>
 		<body>
 			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrpM2" />

@@ -93,8 +93,10 @@
         <symbol>spark.scripts.NumberValidatorTestScript</symbol>
 	<symbol>spark.scripts.SortTestScript</symbol>
     <!--
+        From mustella.swc
     -->
         <symbol>ExitWhenDone</symbol>
+        <symbol>SetShowRTE</symbol>
         <symbol>SendFormattedResultsToLog</symbol>
     </includes>
 </flex-config>

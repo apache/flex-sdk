@@ -293,7 +293,7 @@
 		   <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_useRollOver_false.png"  />
 	     </body>
 	  </TestCase>
-	  <TestCase testID="list_listbase_styles_verticalAlign " keywords="[listbase, styles, verticalAlign]">
+	  <TestCase testID="list_listbase_styles_verticalAlign" keywords="[listbase, styles, verticalAlign]">
 	      <setup>
 		   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>		
 	     </setup>

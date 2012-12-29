@@ -693,7 +693,7 @@ Properties not tested via Mustella:
                 <SetProperty target="ti1" propertyName="text" value="0123456789" waitEvent="updateComplete" />
             </setup>
             <body>
-                <AssertPropertyValue target="ti1" propertyName="textHeight" value="14.100000" />
+                <AssertPropertyValue target="ti1" propertyName="textHeight" value="15.550000" />
             </body>         
         </TestCase>
 
@@ -704,7 +704,7 @@ Properties not tested via Mustella:
                 <SetStyle target="ti1" styleName="fontSize" value="20" waitEvent="updateComplete" />
             </setup>
             <body>
-                <AssertPropertyValue target="ti1" propertyName="textHeight" value="26.250000" />
+                <AssertPropertyValue target="ti1" propertyName="textHeight" value="29.20000" />
             </body>         
         </TestCase>     
 
@@ -715,7 +715,7 @@ Properties not tested via Mustella:
                 <SetStyle target="ti1" styleName="fontSize" value="8" waitEvent="updateComplete" />
             </setup>
             <body>
-                <AssertPropertyValue target="ti1" propertyName="textHeight" value="11.650000" />
+                <AssertPropertyValue target="ti1" propertyName="textHeight" value="12.850000" />
             </body>         
         </TestCase>     
 
@@ -725,7 +725,7 @@ Properties not tested via Mustella:
                 <SetProperty target="ti1" propertyName="text" value="hello" waitEvent="updateComplete" />
             </setup>
             <body>
-                <AssertPropertyValue target="ti1" propertyName="textWidth" value="23.700000" />
+                <AssertPropertyValue target="ti1" propertyName="textWidth" value="22.700000" />
             </body>         
         </TestCase>
 
@@ -736,7 +736,7 @@ Properties not tested via Mustella:
                 <SetStyle target="ti1" styleName="fontSize" value="20" waitEvent="updateComplete" />
             </setup>
             <body>
-                <AssertPropertyValue target="ti1" propertyName="textWidth" value="47.550000" />
+                <AssertPropertyValue target="ti1" propertyName="textWidth" value="45.600000" />
             </body>         
         </TestCase>     
         
@@ -747,7 +747,7 @@ Properties not tested via Mustella:
                 <SetStyle target="ti1" styleName="fontSize" value="8" waitEvent="updateComplete" />
             </setup>
             <body>
-                <AssertPropertyValue target="ti1" propertyName="textWidth" value="18.950000" />
+                <AssertPropertyValue target="ti1" propertyName="textWidth" value="18.150000" />
             </body>         
         </TestCase>     
 

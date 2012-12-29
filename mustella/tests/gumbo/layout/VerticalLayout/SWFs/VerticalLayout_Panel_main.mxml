@@ -63,52 +63,56 @@
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
 		@namespace mx "library://ns.adobe.com/flex/mx";
-			@font-face{
-				src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
-				fontFamily: myArial;
-				embedAsCFF: true;
-			}
-	
-	
-			@font-face{
-				src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
-				fontWeight: bold;
-				fontFamily: myArial;
-				embedAsCFF: true;
-			}
-	
-			@font-face{
-				src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
-				fontStyle: italic;
-				fontFamily: myArial;
-				embedAsCFF: true;
-	
-			}
-	
-			s|Button{
-				fontAntiAliasType: "normal";
-				fontFamily: myArial;
-				fontSize: 12;
-	                        fontLookup: "embeddedCFF";
-			}
-	
-			.redText {
-			    color: #FF0000;
-			    fontWeight: "bold";
-			}
-	
-			.greenFill {
-			    fillColors: #FFFFFF, #0022DD;
-			}
-	
-			.redFill {
-			    fillColors: #FFFFFF, #DD2200;
-			    cornerRadius: 6;
-			}
-			
-			global{
-				kerning: "off";
-			}
+        @font-face{
+            src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+            fontFamily: myArial;
+            embedAsCFF: true;
+        }
+
+
+        @font-face{
+            src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+            fontWeight: bold;
+            fontFamily: myArial;
+            embedAsCFF: true;
+        }
+
+        @font-face{
+            src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+            fontStyle: italic;
+            fontFamily: myArial;
+            embedAsCFF: true;
+
+        }
+
+        s|Button{
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontSize: 12;
+            fontLookup: "embeddedCFF";
+        }
+
+        .redText {
+            color: #FF0000;
+            fontWeight: "bold";
+        }
+
+        .greenFill {
+            fillColors: #FFFFFF, #0022DD;
+        }
+
+        .redFill {
+            fillColors: #FFFFFF, #DD2200;
+            cornerRadius: 6;
+        }
+        
+        global{
+			fontAntiAliasType: "normal";
+			fontFamily: myArial;
+			fontSize: 12;
+			fontLookup: "embeddedCFF";
+            kerning: "off";
+        }
 	</fx:Style>
 	
    <local:MyPanel id="pnl"/>

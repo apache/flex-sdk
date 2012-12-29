@@ -72,7 +72,7 @@ public static function init(o:DisplayObject):void
 			    <DispatchKeyEvent keys="[DOWN,RIGHT]" waitEvent="itemOpen" waitTarget="treeCustomNodes1" />
 			    <WaitForEffectsToEnd/>
 
-			    <CompareBitmap url="../baselines/TreeCustomNodesUpdated.png" target="treeCustomNodes1" />
+			    <CompareBitmap url="../baselines/TreeCustomNodesUpdated.png" target="treeCustomNodes1" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 	</testCases>

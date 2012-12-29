@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,7 +18,7 @@
  */
 package org.apache.flex.forks.batik.css.engine;
 
-import java.net.URL;
+import org.apache.flex.forks.batik.util.ParsedURL;
 
 import org.w3c.dom.Element;
 
@@ -26,7 +27,7 @@ import org.w3c.dom.Element;
  * CSS support.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: CSSStylableElement.java,v 1.3 2004/08/18 07:12:48 vhardy Exp $
+ * @version $Id: CSSStylableElement.java 579230 2007-09-25 12:52:48Z cam $
  */
 public interface CSSStylableElement extends Element {
     
@@ -53,11 +54,17 @@ public interface CSSStylableElement extends Element {
     /**
      * Returns the CSS base URL of this element.
      */
-    URL getCSSBase();
+    ParsedURL getCSSBase();
 
     /**
      * Tells whether this element is an instance of the given pseudo
      * class.
      */
     boolean isPseudoInstanceOf(String pseudoClass);
+
+    /**
+     * Returns the object that gives access to the underlying
+     * {@link StyleDeclaration} for the override style of this element.
+     */
+    StyleDeclarationProvider getOverrideStyleDeclarationProvider();
 }

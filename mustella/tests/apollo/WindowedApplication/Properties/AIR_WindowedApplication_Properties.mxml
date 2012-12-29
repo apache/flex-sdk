@@ -81,12 +81,20 @@
 			</body>
 		</TestCase>
 		
-		<TestCase testID="Window_Property_height_negative" keywords="[Window,property, height]">
+		<TestCase testID="Window_Property_height_negative_mac" keywords="[Window,property, height]">
 			<setup>
 				<SetProperty target="" propertyName="height" value="-800" waitEvent="updateComplete" waitTarget=""/>
 			</setup>
 			<body>
 				<AssertPropertyValue target="" propertyName="height" value="34" />
+			</body>
+		</TestCase>
+		<TestCase testID="Window_Property_height_negative_win" keywords="[Window,property, height]">
+			<setup>
+				<SetProperty target="" propertyName="height" value="-800" waitEvent="updateComplete" waitTarget=""/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="" propertyName="height" value="38" />
 			</body>
 		</TestCase>
 		
@@ -101,7 +109,7 @@
 				<AssertPropertyValue target="" propertyName="height" value="375" />
 			</body> 
 		</TestCase>
-		<TestCase testID="Window_Property_maxHeight_negative" keywords="[Window,property, maximumHeight]">
+		<TestCase testID="Window_Property_maxHeight_negative_mac" keywords="[Window,property, maximumHeight]">
 			<setup>
 				<SetProperty target="" propertyName="maxHeight" value="-300"/> 
 				<SetProperty target="" propertyName="height" value="375" waitTarget="" waitEvent="updateComplete"/>
@@ -110,6 +118,17 @@
 			<body>  
 				<AssertPropertyValue target="" propertyName="maxHeight" value="34" /> 
 				<AssertPropertyValue target="" propertyName="height" value="34" />
+			</body> 
+		</TestCase>		
+		<TestCase testID="Window_Property_maxHeight_negative_win" keywords="[Window,property, maximumHeight]">
+			<setup>
+				<SetProperty target="" propertyName="maxHeight" value="-300"/> 
+				<SetProperty target="" propertyName="height" value="375" waitTarget="" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd/>
+			</setup>  
+			<body>  
+				<AssertPropertyValue target="" propertyName="maxHeight" value="38" /> 
+				<AssertPropertyValue target="" propertyName="height" value="38" />
 			</body> 
 		</TestCase>		
 		<TestCase testID="Window_Property_width_positive" keywords="[Window,width, Property]">
@@ -135,7 +154,7 @@
 			</body> 
 		</TestCase>
 	
-				<TestCase testID="Window_Property_showStatusBar_true" keywords="[Window,property, showStatusBar]">
+				<TestCase testID="showStatusBarTrue" keywords="[Window,property, showStatusBar]">
 			<setup>
 				<SetProperty target="" propertyName="status" value="Hello World!" waitEvent="updateComplete" waitTarget=""/> 
 				<WaitForEffectsToEnd/>
@@ -143,11 +162,13 @@
 			<body>  
 				<AssertPropertyValue target="" propertyName="status" value="Hello World!" /> 
 				<AssertPropertyValue target="" propertyName="showStatusBar" value="true" />
-				<CompareBitmap target="" url="../Properties/baselines/showStatusBarTrue.png" timeout="5000" />
+				<CompareBitmap target="" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body> 
 		</TestCase>
 		
-		<TestCase testID="Window_Property_showStatusBar_false" keywords="[Window,property, showStatusBar]">
+		<TestCase testID="showStatusBarFalse" keywords="[Window,property, showStatusBar]">
 			<setup>
 				<SetProperty target="" propertyName="status" value="Hello World!" waitEvent="updateComplete" waitTarget=""/> 
 				<SetProperty target="" propertyName="showStatusBar" value="false" waitEvent="updateComplete" waitTarget=""/> 
@@ -156,38 +177,46 @@
 			<body>  
 				<AssertPropertyValue target="" propertyName="status" value="Hello World!" /> 
 				<AssertPropertyValue target="" propertyName="showStatusBar" value="false" />
-				<CompareBitmap target="" url="../Properties/baselines/showStatusBarFalse.png" timeout="5000" />
+				<CompareBitmap target="" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body> 
 		</TestCase>		
-		<TestCase testID="Window_Property_title" keywords="[Window,property, title]">
+		<TestCase testID="title1" keywords="[Window,property, title]">
 			<setup>
 				<SetProperty target="" propertyName="title" value="Hello World!" waitEvent="updateComplete" waitTarget=""/> 
 				<WaitForEffectsToEnd/>
 			</setup>  
 			<body>  
 				<AssertPropertyValue target="" propertyName="title" value="Hello World!" /> 
-				<CompareBitmap target="" url="../Properties/baselines/title1.png" timeout="5000" />
+				<CompareBitmap target="" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body> 
 		</TestCase>
-		<TestCase testID="Window_Property_title_null" keywords="[Window,property, title]">
+		<TestCase testID="title2" keywords="[Window,property, title, null]">
 			<setup>
 				<SetProperty target="" propertyName="title" value="" waitEvent="updateComplete" waitTarget=""/> 
 			</setup>  
 			<body>  
-				<CompareBitmap target="" url="../Properties/baselines/title2.png" timeout="5000" />
+				<CompareBitmap target="" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 				<AssertPropertyValue target="" propertyName="title" value="" /> 
 			</body> 
 		</TestCase>		
-        	<TestCase testID="Window_Property_title_doubleByte" keywords="[Window,property, title]">
+        	<TestCase testID="title3" keywords="[Window,property, title, doubleByte]">
 			<setup>
 				<SetProperty target="" propertyName="title" value="???" waitEvent="updateComplete" waitTarget=""/> 
 			</setup>  
 			<body>  
-				<CompareBitmap target="" url="../Properties/baselines/title3.png" timeout="5000" />
+				<CompareBitmap target="" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 				<AssertPropertyValue target="" propertyName="title" value="???" /> 
 			</body> 
 		</TestCase>	
-		<TestCase testID="Window_Property_status" keywords="[Window,property, status]">
+		<TestCase testID="status1" keywords="[Window,property, status]">
 			<setup>
 				<SetProperty target="" propertyName="status" value="Hello World!" waitEvent="updateComplete" waitTarget=""/> 
 				<SetProperty target="" propertyName="showStatusBar" value="true" waitEvent="updateComplete" waitTarget=""/>
@@ -195,36 +224,44 @@
 			</setup>  
 			<body>  
 				<AssertPropertyValue target="" propertyName="status" value="Hello World!" /> 
-				<CompareBitmap target="" url="../Properties/baselines/status1.png" timeout="5000" />
+				<CompareBitmap target="" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 			</body> 
 		</TestCase>
-		<TestCase testID="Window_Property_statu_null" keywords="[Window,property, status]">
+		<TestCase testID="status2" keywords="[Window,property, status, null]">
 			<setup>
 				<SetProperty target="" propertyName="showStatusBar" value="true" />
 				<SetProperty target="" propertyName="status" value="" waitEvent="updateComplete" waitTarget=""/> 
 			</setup>  
 			<body>  
-				<CompareBitmap target="" url="../Properties/baselines/status2.png" timeout="5000" />
+				<CompareBitmap target="" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 				<AssertPropertyValue target="" propertyName="status" value="" /> 
 			</body> 
 		</TestCase>		
-        	<TestCase testID="Window_Property_status_doubleByte" keywords="[Window,property, status]">
+        	<TestCase testID="status3" keywords="[Window,property, status, doublebyte]">
 			<setup>
 				<SetProperty target="" propertyName="showStatusBar" value="true" />
 				<SetProperty target="" propertyName="status" value="???" waitEvent="updateComplete" waitTarget=""/> 
 			</setup>  
 			<body>  
-				<CompareBitmap target="" url="../Properties/baselines/status3.png" timeout="5000" />
+				<CompareBitmap target="" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 				<AssertPropertyValue target="" propertyName="status" value="???" /> 
 			</body> 
 		</TestCase>	
 		
-		<TestCase testID="Window_Property_titleIcon" keywords="[Window,property, titleIcon]">
+		<TestCase testID="titleIcon" keywords="[Window,property, titleIcon]">
 			<setup>
 				<SetProperty target="" propertyName="titleIcon" valueExpression="value=kb" waitEvent="updateComplete" waitTarget=""/> 
 			</setup>  
 			<body>  
-				<CompareBitmap target="" url="../Properties/baselines/titleIcon.png" timeout="5000" />
+				<CompareBitmap target="" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
 				<AssertPropertyValue target="" propertyName="titleIcon" valueExpression="value=kb" /> 
 			</body> 
 		</TestCase>

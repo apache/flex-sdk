@@ -87,7 +87,7 @@
             </setup>
             <body>
                 <RunCode code="application.fxac.play()" waitTarget="fxac" waitEvent="effectEnd" />
-                <CompareBitmap target="textArea" url="../style/baseline/$testID.png" />
+                <CompareBitmap target="textArea" url="../style/baseline/$testID.png" numColorVariances="4" maxColorVariance="1" />							   
             </body>
         </TestCase>
 

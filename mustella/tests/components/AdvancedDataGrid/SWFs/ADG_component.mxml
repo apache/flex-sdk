@@ -1,0 +1,25 @@
+<mx:AdvancedDataGrid xmlns:mx="http://www.adobe.com/2006/mxml" height="800" width="900" initialize="this.dataProvider = dataGridData"  horizontalLockedSeparatorSkin="{dg_h_s_skin}" lockedRowCount="3" verticalLockedSeparatorSkin="{dg_v_s_skin}" lockedColumnCount="1" dragEnabled="true" dropEnabled="true" dragMoveEnabled="true">
+    <mx:Style source="../../../../Assets/Fonts/MyStyles.css" />
+
+    <mx:Script source="assets/data.as"/>
+    <mx:Script>   
+        <![CDATA[
+            [Bindable]
+            [Embed(source="assets/horizontal_Separator_Skin.gif")]
+            private var dg_h_s_skin:Class;
+            
+            [Bindable]
+            [Embed(source="assets/vertical_Separator_Skin.gif")]
+            private var dg_v_s_skin:Class;
+        ]]>
+    </mx:Script>
+    
+    <mx:columns>
+        <mx:Array>
+            <mx:AdvancedDataGridColumn dataField="EmpName" headerText="Employee Name" width="180"/>
+            <mx:AdvancedDataGridColumn dataField="Department" headerText="Department Name" width="180"/>
+            <mx:AdvancedDataGridColumn dataField="EmpCode" headerText="Employee Code" width="180"/>
+            <mx:AdvancedDataGridColumn dataField="Rating" headerText="Rating" width="180"/>
+        </mx:Array>
+    </mx:columns>
+</mx:AdvancedDataGrid>

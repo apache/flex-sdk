@@ -39,23 +39,11 @@
 	<testCases>
 	<TestCase testID="descendantSelector_noninheriting_styleSetOnParent_style" keywords="[CSS, descendant selector, noninheriting styles]"
 	    description="Be sure that non inheriting styles are still applied to descendant children.">
-	    <setup>
-	    	<ResetComponent target="accordionComp2" className="comps.AccordionComp" waitEvent="updateComplete" />
-	    </setup>
-	    <body>
-		    <CompareBitmap target="accordionComp2" url="../descendantSelectors/baselines/$testID.png" timeout="2500" />
-		    <SetProperty propertyName="selectedIndex" value="1" target="accordionComp2" waitEvent="updateComplete" />
-		    <WaitForEffectsToEnd />
-		    <Pause timeout="50"/>
-		    <CompareBitmap target="accordionComp2" url="../descendantSelectors/baselines/$testID_2.png" timeout="2500" />
-		</body>
-	</TestCase>
-	<TestCase testID="descendantSelector_noninheriting_styleSetOnParent_style_mac" keywords="[CSS, descendant selector, noninheriting styles]"
-	    description="Be sure that non inheriting styles are still applied to descendant children.">
 	    <body>
 		    <CompareBitmap target="accordionComp2" url="../descendantSelectors/baselines/$testID.png" timeout="2500" />
 		    <SetProperty propertyName="selectedIndex" value="1" target="accordionComp2" waitTarget="accordionComp2" waitEvent="updateComplete" />
 		    <WaitForEffectsToEnd />
+			<WaitForLayoutManager />
 		    <CompareBitmap target="accordionComp2" url="../descendantSelectors/baselines/$testID_2.png" timeout="2500" />
 		</body>
 	</TestCase>
@@ -69,7 +57,7 @@
 		    <CompareBitmap target="accordionComp2" url="../descendantSelectors/baselines/$testID.png" timeout="2500" />
 		    <SetProperty propertyName="selectedIndex" value="1" target="accordionComp2" waitTarget="accordionComp2" waitEvent="updateComplete" />
 		    <WaitForEffectsToEnd />
-		    <Pause timeout="500"/>
+			<WaitForLayoutManager />
 		    <CompareBitmap target="accordionComp2" url="../descendantSelectors/baselines/$testID_2.png" timeout="2500" />
 		</body>
 	</TestCase>

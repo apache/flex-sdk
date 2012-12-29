@@ -1825,6 +1825,10 @@ public class Application extends SkinnableContainer
      */    
     private function softKeyboardActivateHandler(event:SoftKeyboardEvent):void
     {        
+        // Add a listener for the softKeyboard deactivate event to the event target
+        event.target.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
+                                      softKeyboardDeactivateHandler);
+        
         if (this === FlexGlobals.topLevelApplication)
         {
             if (softKeyboardTarget && softKeyboardTarget != event.target)

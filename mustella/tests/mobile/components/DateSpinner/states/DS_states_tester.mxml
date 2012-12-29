@@ -73,7 +73,7 @@
                 
                 <ChangeState changeTarget="navigator.activeView" toState="secondSt" 
                              waitTarget="navigator.activeView" waitEvent="stateChangeComplete" />
-                <Pause timeout="3000"/>
+                <WaitForLayoutManager />
 				<AssertPropertyValue target="navigator.activeView" propertyName="currentState" 
 									 valueExpression="value='secondSt'" />
 				
@@ -93,7 +93,7 @@
                     <ConditionalValue deviceDensity="320" os="win" />
                     <ConditionalValue deviceDensity="160" os="qnx" />
                     <ConditionalValue deviceDensity="240" os="android" />
-                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="320" os="ios" />
                 </CompareBitmap>
             </body>
         </TestCase>

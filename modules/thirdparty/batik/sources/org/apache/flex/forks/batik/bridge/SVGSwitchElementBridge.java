@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,18 +20,24 @@ package org.apache.flex.forks.batik.bridge;
 
 import org.apache.flex.forks.batik.gvt.CompositeGraphicsNode;
 import org.apache.flex.forks.batik.gvt.GraphicsNode;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.flex.forks.dom.svg.SVGTests;
+import org.w3c.dom.svg.SVGTests;
 
 /**
  * Bridge class for the &lt;switch> element.
  *
  * @author <a href="mailto:tkormann@apache.org">Thierry Kormann</a>
- * @version $Id: SVGSwitchElementBridge.java,v 1.17 2004/08/18 07:12:35 vhardy Exp $
+ * @version $Id: SVGSwitchElementBridge.java 491178 2006-12-30 06:18:34Z cam $
  */
-public class SVGSwitchElementBridge extends AbstractSVGBridge
-    implements GraphicsNodeBridge {
+public class SVGSwitchElementBridge extends SVGGElementBridge {
+
+    /**
+     * The child element that was chosen for rendering according to the
+     * test attributes.
+     */
+    protected Element selectedChild;
 
     /**
      * Constructs a new bridge for the &lt;switch> element.
@@ -44,8 +51,11 @@ public class SVGSwitchElementBridge extends AbstractSVGBridge
         return SVG_SWITCH_TAG;
     }
 
-    public Bridge getInstance(){
-        return this;
+    /**
+     * Returns a new instance of this bridge.
+     */
+    public Bridge getInstance() {
+        return new SVGSwitchElementBridge();
     }
 
     /**
@@ -58,59 +68,110 @@ public class SVGSwitchElementBridge extends AbstractSVGBridge
     public GraphicsNode createGraphicsNode(BridgeContext ctx, Element e) {
         GraphicsNode refNode = null;
         GVTBuilder builder = ctx.getGVTBuilder();
+        selectedChild = null;
         for (Node n = e.getFirstChild(); n != null; n = n.getNextSibling()) {
             if (n.getNodeType() == Node.ELEMENT_NODE) {
                 Element ref = (Element)n;
-                if (n instanceof SVGTests
-                    && SVGUtilities.matchUserAgent(ref, ctx.getUserAgent())) {
+                if (n instanceof SVGTests &&
+                        SVGUtilities.matchUserAgent(ref, ctx.getUserAgent())) {
+                    selectedChild = ref;
                     refNode = builder.build(ctx, ref);
                     break;
                 }
             }
         }
+
         if (refNode == null) {
             return null;
         }
-        CompositeGraphicsNode group = new CompositeGraphicsNode();
-        group.add(refNode);
-        // 'transform'
-        String s = e.getAttributeNS(null, SVG_TRANSFORM_ATTRIBUTE);
-        if (s.length() != 0) {
-            group.setTransform
-                (SVGUtilities.convertTransform(e, SVG_TRANSFORM_ATTRIBUTE, s));
+
+        CompositeGraphicsNode group =
+            (CompositeGraphicsNode) super.createGraphicsNode(ctx, e);
+        if (group == null) {
+            return null;
         }
+
+        group.add(refNode);
+
         return group;
     }
 
     /**
-     * Builds using the specified BridgeContext and element, the
-     * specified graphics node.
-     *
-     * @param ctx the bridge context to use
-     * @param e the element that describes the graphics node to build
-     * @param node the graphics node to build
+     * Returns true as the &lt;switch> element is not a container.
      */
-    public void buildGraphicsNode(BridgeContext ctx,
-                                  Element e,
-                                  GraphicsNode node) {
-        // bind the specified element and its associated graphics node if needed
-        if (ctx.isInteractive()) {
-            ctx.bind(e, node);
+    public boolean isComposite() {
+        return false;
+    }
+
+    // BridgeUpdateHandler implementation //////////////////////////////////
+
+    /**
+     * Disposes this BridgeUpdateHandler and releases all resources.
+     */
+    public void dispose() {
+        selectedChild = null;
+        super.dispose();
+    }
+
+    /**
+     * Responds to the insertion of a child element by re-evaluating the
+     * test attributes.
+     */
+    protected void handleElementAdded(CompositeGraphicsNode gn, 
+                                      Node parent, 
+                                      Element childElt) {
+        for (Node n = childElt.getPreviousSibling(); n
+                != null;
+                n = n.getPreviousSibling()) {
+            if (n == childElt) {
+                return;
+            }
+        }
+        if (childElt instanceof SVGTests
+                && SVGUtilities.matchUserAgent(childElt, ctx.getUserAgent())) {
+            if (selectedChild != null) {
+                gn.remove(0);
+                disposeTree(selectedChild);
+            }
+            selectedChild = childElt;
+            GVTBuilder builder = ctx.getGVTBuilder();
+            GraphicsNode refNode = builder.build(ctx, childElt);
+            if (refNode != null) {
+                gn.add(refNode);
+            }
         }
     }
 
     /**
-     * Returns true if the graphics node has to be displayed, false
-     * otherwise.
+     * Responds to the removal of a child element by re-evaluating the
+     * test attributes.
      */
-    public boolean getDisplay(Element e) {
-        return CSSUtilities.convertDisplay(e);
-    }
+    protected void handleChildElementRemoved(Element e) {
+        CompositeGraphicsNode gn = (CompositeGraphicsNode) node;
+        if (selectedChild == e) {
+            gn.remove(0);
+            disposeTree(selectedChild);
+            selectedChild = null;
+            GraphicsNode refNode = null;
+            GVTBuilder builder = ctx.getGVTBuilder();
+            for (Node n = e.getNextSibling();
+                    n != null;
+                    n = n.getNextSibling()) {
+                if (n.getNodeType() == Node.ELEMENT_NODE) {
+                    Element ref = (Element) n;
+                    if (n instanceof SVGTests &&
+                            SVGUtilities.matchUserAgent
+                                (ref, ctx.getUserAgent())) {
+                        refNode = builder.build(ctx, ref);
+                        selectedChild = ref;
+                        break;
+                    }
+                }
+            }
 
-    /**
-     * Returns false as the &lt;switch> element is not a container.
-     */
-    public boolean isComposite() {
-        return false;
+            if (refNode != null) {
+                gn.add(refNode);
+            }
+        }
     }
 }

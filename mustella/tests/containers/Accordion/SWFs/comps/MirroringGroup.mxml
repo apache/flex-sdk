@@ -3,13 +3,13 @@
          xmlns:mx="library://ns.adobe.com/flex/mx">
 
     <mx:Accordion id="target" width="200" height="250">
-        <s:NavigatorContent label="111" icon="@Embed('../../../../../Assets/Images/yellowrect.jpg')">
+        <s:NavigatorContent label="111" icon="@Embed('../../../../../Assets/Images/accept.png')">
             <s:Button />
         </s:NavigatorContent>
-        <s:NavigatorContent label="222" icon="@Embed('../../../../../Assets/Images/yellowrect.jpg')">
+        <s:NavigatorContent label="222" icon="@Embed('../../../../../Assets/Images/accept.png')">
             <s:Button />
         </s:NavigatorContent>
-        <s:NavigatorContent label="333" icon="@Embed('../../../../../Assets/Images/yellowrect.jpg')">
+        <s:NavigatorContent label="333" icon="@Embed('../../../../../Assets/Images/accept.png')">
             <s:Button />
         </s:NavigatorContent>
     </mx:Accordion>

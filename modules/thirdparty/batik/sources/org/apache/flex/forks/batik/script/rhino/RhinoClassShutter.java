@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -20,22 +21,20 @@ package org.apache.flex.forks.batik.script.rhino;
 import org.mozilla.javascript.ClassShutter;
 
 /**
- * One line Class Desc
+ * Class shutter that restricts access to Batik internals from script.
  *
- * Complete Class Desc
- *
- * @author <a href="mailto:deweese@apache.org">deweese</a>
- * @version $Id: RhinoClassShutter.java,v 1.3 2005/03/27 08:58:35 cam Exp $
+ * @author <a href="mailto:deweese@apache.org">Thomas DeWeese</a>
+ * @version $Id: RhinoClassShutter.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class RhinoClassShutter implements ClassShutter {
     
+    /*
     public RhinoClassShutter() {
         // I suspect that we might want to initialize this
         // from a resource file.
         // test();
     }
 
-    /*
     public void test() {
         test("org.mozilla.javascript.Context");
         test("org.mozilla.javascript");
@@ -52,6 +51,9 @@ public class RhinoClassShutter implements ClassShutter {
     }
     */
 
+    /**
+     * Returns whether the given class is visible to scripts.
+     */
     public boolean visibleToScripts(String fullClassName) {
         // Don't let them mess with script engine's internals.
         if (fullClassName.startsWith("org.mozilla.javascript"))
@@ -81,5 +83,4 @@ public class RhinoClassShutter implements ClassShutter {
 
         return true;
     }
-    
-};
+}

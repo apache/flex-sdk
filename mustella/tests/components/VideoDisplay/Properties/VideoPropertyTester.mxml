@@ -58,7 +58,7 @@
         <TestCase testID="myTest_property_autoPlay_True" keywords="[VideoDisplay, property, autoPlay, true]">
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd"/>
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" waitEvent="ready" waitTarget="vd" />
             </setup>
             <body>
                 <AssertPropertyValue target="vd" propertyName="state" value="playing"  />               
@@ -68,7 +68,7 @@
         <TestCase testID="myTest_property_autoPlay_True_airOnly" keywords="[VideoDisplay, property, autoPlay, true]">
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd"/>
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" waitEvent="ready" waitTarget="vd" />
             </setup>
             <body>
             	<!--
@@ -84,10 +84,10 @@
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd"/>
                 <SetProperty target="vd" propertyName="autoPlay" value="false" />
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv"/>
             </setup>
             <body>
-                <RunCode code="application.vd.load()" waitEvent="ready" waitTarget="vd" />
+                <RunCode code="application.vd.load()" waitEvent="ready" waitTarget="vd" timeout="50000"/>
                 <AssertPropertyValue target="vd" propertyName="state" value="stopped" />
             </body>
         </TestCase>
@@ -95,7 +95,7 @@
         <TestCase testID="myTest_property_bytesLoaded" keywords="[VideoDisplay, property, bytesLoaded]">
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd"/>
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" waitEvent="ready" waitTarget="vd" />
             </setup>
             <body>
                 <AssertPropertyValue target="vd"  propertyName="bytesLoaded" valueExpression ="value=application.vd.bytesTotal" />
@@ -105,7 +105,7 @@
         <TestCase testID="myTest_property_default_height_width" keywords="[VideoDisplay, property, default, height, width]">
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv"  waitEvent="updateComplete" waitTarget="vd"/>
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv"  waitEvent="updateComplete" waitTarget="vd"/>
             </setup>
             <body>
                 <WaitForEffectsToEnd/>                  
@@ -118,7 +118,7 @@
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
                 <SetProperty target="vd" propertyName="autoPlay" value="false" />
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" />
             </setup>
             <body>
                 <AssertPropertyValue target="vd" propertyName="playheadTime" value="0" />
@@ -134,7 +134,7 @@
                 <SetProperty target="vd" propertyName="autoPlay" value="false" />
                 <SetProperty target="vd" propertyName="width" value="400" />
                 <SetProperty target="vd" propertyName="height" value="400" />
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" />
             </setup>
             <body>
                 <SetProperty target="vd" propertyName="maintainAspectRatio" value="true" waitEvent="updateComplete" waitTarget="vd" />
@@ -149,7 +149,7 @@
                 <SetProperty target="vd" propertyName="autoPlay" value="false" />
                 <SetProperty target="vd" propertyName="width" value="400" />
                 <SetProperty target="vd" propertyName="height" value="400" />
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" />
             </setup>
             <body>
                 <SetProperty target="vd" propertyName="maintainAspectRatio" value="false" />
@@ -165,7 +165,7 @@
                 <SetProperty target="vd" propertyName="maintainAspectRatio" value="false" />
                 <SetProperty target="vd" propertyName="width" value="250" />
                 <SetProperty target="vd" propertyName="height" value="275" />
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" />
                 <RunCode code="application.vd.load()" waitEvent="ready" waitTarget="vd"/>
             </setup>
             <body>
@@ -177,7 +177,7 @@
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
                 <SetProperty target="vd" propertyName="autoPlay" value="false" />
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" />
                 <RunCode code="application.vd.load()" waitEvent="ready" waitTarget="vd"/>
             </setup>
             <body>
@@ -192,7 +192,7 @@
         <TestCase testID="myTest_property_state" keywords="[VideoDisplay, property, state]">
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" waitEvent="ready" waitTarget="vd" />
             </setup>
             <body>
                 <AssertPropertyValue target="vd" propertyName="state" value="playing" />
@@ -210,7 +210,7 @@
         <TestCase testID="myTest_property_state_airOnly" keywords="[VideoDisplay, property, state]">
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" waitEvent="ready" waitTarget="vd" />
             </setup>
             <body>
             	<!--
@@ -235,7 +235,7 @@
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
                 <SetProperty target="vd" propertyName="width" value="400" />
                 <SetProperty target="vd" propertyName="height" value="400" />
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" waitEvent="ready" waitTarget="vd" />
             </setup>
             <body>
                 <AssertPropertyValue target="vd" propertyName="height" value="400" />
@@ -249,7 +249,7 @@
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
                 <SetProperty target="vd" propertyName="autoPlay" value="false" />
                 <SetProperty target="vd" propertyName="autoRewind" value="false" />
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/short.flv" />
+                <SetProperty target="vd" propertyName="source" value="assets/short.flv" />
             </setup>
             <body>
                 <RunCode code="application.vd.play()" waitEvent="stateChange" waitTarget="vd" timeout="3000" />
@@ -260,7 +260,7 @@
         <TestCase testID="myTest_property_volume" keywords="[VideoDisplay, property, volume]">
             <setup>
                 <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
-                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="assets/video.flv" waitEvent="ready" waitTarget="vd" />
             </setup>
             <body>
                 <AssertPropertyValue target="vd" propertyName="volume" value="0.75" />

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 1999-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -40,7 +41,7 @@ import org.apache.flex.forks.batik.ext.awt.geom.PathLength;
  * <li> The layout code works, but it's definitely not perfect.
  * </ul>
  * @author <a href="mailto:dean.jackson@cmis.csiro.au">Dean Jackson</a>
- * @version $Id: TextPathLayout.java,v 1.4 2004/10/30 18:38:04 deweese Exp $
+ * @version $Id: TextPathLayout.java 522271 2007-03-25 14:42:45Z dvholten $
  */
 
 public class TextPathLayout {
@@ -48,24 +49,24 @@ public class TextPathLayout {
     /**
      * Align the text at the start of the path.
      */
-    static public final int ALIGN_START = 0;
+    public static final int ALIGN_START = 0;
     /**
      * Align the text at the middle of the path.
      */
-    static public final int ALIGN_MIDDLE = 1;
+    public static final int ALIGN_MIDDLE = 1;
     /**
      * Align the text at the end of the path.
      */
-    static public final int ALIGN_END = 2;
+    public static final int ALIGN_END = 2;
 
     /**
      * Use the spacing between the glyphs to adjust for textLength.
      */
-    static public final int ADJUST_SPACING = 0;
+    public static final int ADJUST_SPACING = 0;
     /**
      * Use the entire glyph to adjust for textLength.
      */
-    static public final int ADJUST_GLYPHS = 1;
+    public static final int ADJUST_GLYPHS = 1;
 
     /**
      * Wraps the GlyphVector around the given path. The results
@@ -73,7 +74,7 @@ public class TextPathLayout {
      * the size of the font that created the GlyphVector, as
      * well as the "curvyness" of the path (really dynamic curves
      * don't look so great, abrupt changes/vertices look worse).
-     * 
+     *
      * @param glyphs The GlyphVector to layout.
      * @param path The path (or shape) to wrap around
      * @param align The text alignment to use. Should be one
@@ -88,128 +89,131 @@ public class TextPathLayout {
      */
 
 
-    static public Shape layoutGlyphVector(GlyphVector glyphs, 
-					  Shape path, int align,
-					  float startOffset,
-					  float textLength,
-					  int lengthAdjustMode) {
+    public static Shape layoutGlyphVector(GlyphVector glyphs,
+                                          Shape path, int align,
+                                          float startOffset,
+                                          float textLength,
+                                          int lengthAdjustMode) {
 
-	GeneralPath newPath = new GeneralPath();
-	PathLength pl = new PathLength(path);
-	float pathLength = pl.lengthOfPath();
-	float glyphsLength = (float) glyphs.getVisualBounds().getWidth();
+        GeneralPath newPath = new GeneralPath();
+        PathLength pl = new PathLength(path);
+        float pathLength = pl.lengthOfPath();
 
-	// return from the ugly cases
-	if (path == null ||
-	    glyphs == null ||
-	    glyphs.getNumGlyphs() == 0 ||
-	    pl.lengthOfPath() == 0f ||
-	    glyphsLength == 0f) {
-	    return newPath;
-	}
+        if ( glyphs == null ){
+            return newPath;
+        }
+        float glyphsLength = (float) glyphs.getVisualBounds().getWidth();
 
-	// work out the expansion/contraction per character
-	float lengthRatio = textLength / glyphsLength;
+        // return from the ugly cases
+        if (path == null ||
+            glyphs.getNumGlyphs() == 0 ||
+            pl.lengthOfPath() == 0f ||
+            glyphsLength == 0f) {
+            return newPath;
+        }
 
-	// the current start point of the character on the path
-	float currentPosition = startOffset;
+        // work out the expansion/contraction per character
+        float lengthRatio = textLength / glyphsLength;
 
-	// if align is START then a currentPosition of 0f
-	// is correct. 
-	// if align is END then the currentPosition should
-	// be enough to place the last character on the end
-	// of the path
-	// if align is MIDDLE then the currentPosition should
-	// be enough to center the glyphs on the path
+        // the current start point of the character on the path
+        float currentPosition = startOffset;
 
-	if (align == ALIGN_END) {
-	    currentPosition += pathLength - textLength;
-	} else if (align == ALIGN_MIDDLE) {
-	    currentPosition += (pathLength - textLength) / 2;
-	}
+        // if align is START then a currentPosition of 0f
+        // is correct.
+        // if align is END then the currentPosition should
+        // be enough to place the last character on the end
+        // of the path
+        // if align is MIDDLE then the currentPosition should
+        // be enough to center the glyphs on the path
 
-	// iterate through the GlyphVector placing each glyph
+        if (align == ALIGN_END) {
+            currentPosition += pathLength - textLength;
+        } else if (align == ALIGN_MIDDLE) {
+            currentPosition += (pathLength - textLength) / 2;
+        }
 
-	for (int i = 0; i < glyphs.getNumGlyphs(); i++) {
-	    
-	    GlyphMetrics gm = glyphs.getGlyphMetrics(i);
+        // iterate through the GlyphVector placing each glyph
 
-	    float charAdvance = gm.getAdvance();
+        for (int i = 0; i < glyphs.getNumGlyphs(); i++) {
 
-	    Shape glyph = glyphs.getGlyphOutline(i);
+            GlyphMetrics gm = glyphs.getGlyphMetrics(i);
 
-	    // if lengthAdjust was GLYPHS, then scale the glyph
-	    // by the lengthRatio in the X direction
-	    // FIXME: for vertical text this will be the Y direction
-	    if (lengthAdjustMode == ADJUST_GLYPHS) {
-		AffineTransform scale = AffineTransform.getScaleInstance(lengthRatio, 1f);
-		glyph = scale.createTransformedShape(glyph);
+            float charAdvance = gm.getAdvance();
 
-		// charAdvance has to scale accordingly
-		charAdvance *= lengthRatio;
-	    }
+            Shape glyph = glyphs.getGlyphOutline(i);
 
-	    float glyphWidth = (float) glyph.getBounds2D().getWidth();
-	    
-	    // Use either of these to calculate the mid point
-	    // of the character along the path.
-	    // If you change this, you must also change the 
-	    // transform on the glyph down below
-	    // In some case this gives better layout, but
-	    // the way it is at the moment is a closer match
-	    // to the textPath layout from the SVG spec
+            // if lengthAdjust was GLYPHS, then scale the glyph
+            // by the lengthRatio in the X direction
+            // FIXME: for vertical text this will be the Y direction
+            if (lengthAdjustMode == ADJUST_GLYPHS) {
+                AffineTransform scale = AffineTransform.getScaleInstance(lengthRatio, 1.0f);
+                glyph = scale.createTransformedShape(glyph);
 
-	    //float charMidPos = currentPosition + charAdvance / 2f;
-	    float charMidPos = currentPosition + glyphWidth / 2f;
+                // charAdvance has to scale accordingly
+                charAdvance *= lengthRatio;
+            }
 
-	    // Calculate the actual point to place the glyph around
-	    Point2D charMidPoint = pl.pointAtLength(charMidPos);
+            float glyphWidth = (float) glyph.getBounds2D().getWidth();
 
-	    // Check if the glyph is actually on the path
+            // Use either of these to calculate the mid point
+            // of the character along the path.
+            // If you change this, you must also change the
+            // transform on the glyph down below
+            // In some case this gives better layout, but
+            // the way it is at the moment is a closer match
+            // to the textPath layout from the SVG spec
 
-	    if (charMidPoint != null) {
+            //float charMidPos = currentPosition + charAdvance / 2f;
+            float charMidPos = currentPosition + glyphWidth / 2f;
 
-		// Calculate the normal to the path (midline of glyph)
-		float angle = pl.angleAtLength(charMidPos);
+            // Calculate the actual point to place the glyph around
+            Point2D charMidPoint = pl.pointAtLength(charMidPos);
 
-		// Define the transform of the glyph
-		AffineTransform glyphTrans = new AffineTransform();
+            // Check if the glyph is actually on the path
 
-		// translate to the point on the path
-		glyphTrans.translate(charMidPoint.getX(), charMidPoint.getY());
+            if (charMidPoint != null) {
 
-		// rotate midline of glyph to be normal to path
-		glyphTrans.rotate(angle);
+                // Calculate the normal to the path (midline of glyph)
+                float angle = pl.angleAtLength(charMidPos);
 
-		// translate glyph backwards so we rotate about the 
-		// center of the glyph
-		// Choose one of these translations - see the comments
-		// in the charMidPos calculation above
-		glyphTrans.translate(charAdvance / -2f, 0f);
-		//glyphTrans.translate(glyphWidth / -2f, 0f);
+                // Define the transform of the glyph
+                AffineTransform glyphTrans = new AffineTransform();
 
-		glyph = glyphTrans.createTransformedShape(glyph);
-		newPath.append(glyph, false);
+                // translate to the point on the path
+                glyphTrans.translate(charMidPoint.getX(), charMidPoint.getY());
 
-	    }
-	    
-	    // move along by the advance value
-	    // if the lengthAdjustMode was SPACING then
-	    // we have to take this into account here
-	    if (lengthAdjustMode == ADJUST_SPACING) {
-		currentPosition += (charAdvance * lengthRatio);
-	    } else {
-		currentPosition += charAdvance;
-	    }
-	    
-	}
+                // rotate midline of glyph to be normal to path
+                glyphTrans.rotate(angle);
 
-	return newPath;
+                // translate glyph backwards so we rotate about the
+                // center of the glyph
+                // Choose one of these translations - see the comments
+                // in the charMidPos calculation above
+                glyphTrans.translate(charAdvance / -2f, 0f);
+                //glyphTrans.translate(glyphWidth / -2f, 0f);
+
+                glyph = glyphTrans.createTransformedShape(glyph);
+                newPath.append(glyph, false);
+
+            }
+
+            // move along by the advance value
+            // if the lengthAdjustMode was SPACING then
+            // we have to take this into account here
+            if (lengthAdjustMode == ADJUST_SPACING) {
+                currentPosition += (charAdvance * lengthRatio);
+            } else {
+                currentPosition += charAdvance;
+            }
+
+        }
+
+        return newPath;
     }
 
     /**
-     * Wraps the GlyphVector around the given path. 
-     * 
+     * Wraps the GlyphVector around the given path.
+     *
      * @param glyphs The GlyphVector to layout.
      * @param path The path (or shape) to wrap around
      * @param align The text alignment to use. Should be one
@@ -218,27 +222,27 @@ public class TextPathLayout {
      * wrapped along the path
      */
 
-    static public Shape layoutGlyphVector(GlyphVector glyphs, 
-					  Shape path, int align) {
+    public static Shape layoutGlyphVector(GlyphVector glyphs,
+                                          Shape path, int align) {
 
-	return layoutGlyphVector(glyphs, path, align, 0f,
-				 (float) glyphs.getVisualBounds().getWidth(),
-				 ADJUST_SPACING);
+        return layoutGlyphVector(glyphs, path, align, 0f,
+                                 (float) glyphs.getVisualBounds().getWidth(),
+                                 ADJUST_SPACING);
     }
 
     /**
-     * Wraps the GlyphVector around the given path. 
-     * 
+     * Wraps the GlyphVector around the given path.
+     *
      * @param glyphs The GlyphVector to layout.
      * @param path The path (or shape) to wrap around
      * @return A shape that is the outline of the glyph vector
      * wrapped along the path
      */
 
-    static public Shape layoutGlyphVector(GlyphVector glyphs, 
-					  Shape path) {
+    public static Shape layoutGlyphVector(GlyphVector glyphs,
+                                          Shape path) {
 
-	return layoutGlyphVector(glyphs, path, ALIGN_START);
+        return layoutGlyphVector(glyphs, path, ALIGN_START);
     }
 
 

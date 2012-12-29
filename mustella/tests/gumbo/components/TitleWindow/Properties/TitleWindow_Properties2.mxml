@@ -192,7 +192,7 @@
  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithCloseBtnShow,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
  	    </setup>
  	    <body>
- 	    	<DispatchMouseEvent type="rollOver" target="twObject.closeButton" localX="2" localY="2" />
+ 	    	<DispatchMouseEvent type="rollOver" target="twObject.closeButton" localX="2" localY="2" waitEvent="rollOver" />
  		<WaitForEffectsToEnd />
  		<CompareBitmap target="twObject.moveArea" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
              </body>
@@ -205,7 +205,7 @@
   	    </setup>
   	    <body>
   	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.closeButton.enabled='false'" waitEvent="updateComplete" waitTarget="twObject.closeButton" />
-  	    	<DispatchMouseEvent type="rollOver" target="twObject.closeButton" localX="2" localY="2" />
+  	    	<DispatchMouseEvent type="rollOver" target="twObject.closeButton" localX="2" localY="2" waitEvent="rollOver" />
   		<WaitForEffectsToEnd />
   		<CompareBitmap target="twObject.closeButton" url="../Properties/Baselines/$testID_1.png" numColorVariances="10" maxColorVariance="20"/>
   		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>

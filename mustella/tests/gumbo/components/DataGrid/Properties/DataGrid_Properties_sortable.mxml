@@ -309,7 +309,7 @@
 		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg1.selectionLength" value="9"/>
 		 <DispatchMouseClickEvent target="dg1.grid" localX="0" localY="5" />
 		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
-		 <DispatchMouseClickEvent target="dg1.grid" shiftKey="true" localX="110" localY="80" />
+		 <DispatchMouseClickEvent target="dg1.grid" shiftKey="true" localX="180" localY="50" />
 		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
 		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg1.selectionLength" value="6"/>
               	 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg1.selectedCells.length" value="6" />
@@ -1085,7 +1085,7 @@
               	  
               	<!-- click on columnHeader column=firstName which is sortable -->
               	<RunCode code="FlexGlobals.topLevelApplication.dg2.setFocus()" waitEvent="focusIn" waitTarget="dg2"/>
-                 <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="180" localY="10" waitEvent="click" waitTarget="dg2"/>
+                 <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="188" localY="10" waitEvent="click" waitTarget="dg2"/>
   		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
   		
  		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="JamFN"/>
@@ -1093,14 +1093,14 @@
  		<RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dg2.columns.getItemAt(2))).sortable=false"  waitEvent="enterFrame" waitTarget="stage"/>
  		
  		<!-- sort on the column -->
-  	        <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="180" localY="10" waitEvent="click" waitTarget="dg2"/>
+  	        <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="188" localY="10" waitEvent="click" waitTarget="dg2"/>
   	        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
   	        <!-- verify sort is disabled, no data update -->
   	        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="RicFN"/>
   	        
   	        <!-- enable the column sortable again -->
   	        <RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dg2.columns.getItemAt(2))).sortable=true"  waitEvent="enterFrame" waitTarget="stage"/>
- 		<DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="180" localY="10" waitEvent="click" waitTarget="dg2"/>
+ 		<DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="188" localY="10" waitEvent="click" waitTarget="dg2"/>
  		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
  		<!-- verify sort is enabled,data is updated-->
  		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="JamFN"/>
@@ -1108,7 +1108,7 @@
   	        <!-- disable sortable on DataGrid level -->
   	        <SetProperty target="dg2" propertyName="sortableColumns" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
   	        
-  	        <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="180" localY="10" waitEvent="click" waitTarget="dg2"/>
+  	        <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="188" localY="10" waitEvent="click" waitTarget="dg2"/>
  		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
   	        <!-- verify sort is disabled, no data update -->
  		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="JamFN"/>
@@ -1116,7 +1116,7 @@
   	       <!-- verify sort is disabled, no data updated -->
  		<SetProperty target="dg2" propertyName="sortableColumns" value="true"  waitEvent="enterFrame" waitTarget="stage"/>
   	       
-  	        <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="180" localY="10" waitEvent="click" waitTarget="dg2"/>
+  	        <DispatchMouseClickEvent target="dg2.columnHeaderGroup" localX="188" localY="10" waitEvent="click" waitTarget="dg2"/>
  		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
   	        <!-- verify sort is enabled, data is updated -->
  		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.dataProvider.getItemAt(0).firstName" value="RicFN"/>

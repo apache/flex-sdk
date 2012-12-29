@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,20 +19,19 @@
 package org.apache.flex.forks.batik.script.rhino;
 
 import java.lang.ref.SoftReference;
-import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.WeakHashMap;
 
+import org.apache.flex.forks.batik.dom.AbstractNode;
+import org.apache.flex.forks.batik.script.ScriptEventWrapper;
 import org.mozilla.javascript.Context;
+import org.mozilla.javascript.ContextAction;
 import org.mozilla.javascript.Function;
-import org.mozilla.javascript.JavaScriptException;
 import org.mozilla.javascript.NativeJavaObject;
 import org.mozilla.javascript.NativeObject;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 import org.mozilla.javascript.Undefined;
-import org.mozilla.javascript.WrappedException;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
@@ -46,7 +46,7 @@ import org.w3c.dom.events.EventTarget;
  * a parameter instead of a function provided the fact that this object
  * has a <code>handleEvent</code> method.
  * @author <a href="mailto:cjolif@ilog.fr">Christophe Jolif</a>
- * @version $Id: EventTargetWrapper.java,v 1.18 2005/02/22 09:13:02 cam Exp $
+ * @version $Id: EventTargetWrapper.java 489226 2006-12-21 00:05:36Z cam $
  */
 class EventTargetWrapper extends NativeJavaObject {
 
@@ -54,54 +54,52 @@ class EventTargetWrapper extends NativeJavaObject {
      * The Java function object calling the Rhino function.
      */
     static class FunctionEventListener implements EventListener {
-        private Function function;
-        private RhinoInterpreter interpreter;
+        protected Function function;
+        protected RhinoInterpreter interpreter;
         FunctionEventListener(Function f, RhinoInterpreter i) {
             function = f;
             interpreter = i;
         }
         public void handleEvent(Event evt) {
-            try {
-                interpreter.callHandler(function, evt);
-            } catch (JavaScriptException e) {
-                // the only simple solution is to forward it as a
-                // RuntimeException to be catched by event dispatching
-                // in BridgeEventSupport.java
-                // another solution will to give UserAgent to interpreters
-                throw new WrappedException(e);
+            Object event;
+            if (evt instanceof ScriptEventWrapper) {
+                event = ((ScriptEventWrapper) evt).getEventObject();
+            } else {
+                event = evt;
             }
+            interpreter.callHandler(function, event);
         }
     }
 
     static class HandleEventListener implements EventListener {
-        private final static String HANDLE_EVENT = "handleEvent";
+        public static final String HANDLE_EVENT = "handleEvent";
 
-        private Scriptable scriptable;
-        private Object[] array = new Object[1];
-        private RhinoInterpreter interpreter;
+        public Scriptable scriptable;
+        public Object[] array = new Object[1];
+        public RhinoInterpreter interpreter;
 
         HandleEventListener(Scriptable s, RhinoInterpreter interpreter) {
             scriptable = s;
             this.interpreter = interpreter;
         }
         public void handleEvent(Event evt) {
-            try {
+            if (evt instanceof ScriptEventWrapper) {
+                array[0] = ((ScriptEventWrapper) evt).getEventObject();
+            } else {
                 array[0] = evt;
-                interpreter.enterContext();
-                ScriptableObject.callMethod(scriptable, HANDLE_EVENT, array);
-            } catch (JavaScriptException e) {
-                // the only simple solution is to forward it as a
-                // RuntimeException to be catched by event dispatching
-                // in BridgeEventSupport.java
-                // another solution will to give UserAgent to interpreters
-                throw new WrappedException(e);
-            } finally {
-                Context.exit();
             }
+            ContextAction handleEventAction = new ContextAction() {
+                public Object run(Context cx) {
+                    ScriptableObject.callMethod
+                        (scriptable, HANDLE_EVENT, array);
+                    return null;
+                }
+            };
+            interpreter.call(handleEventAction);
         }
     }
 
-    static abstract class FunctionProxy implements Function {
+    abstract static class FunctionProxy implements Function {
         protected Function delegate;
 
         public FunctionProxy(Function delegate) {
@@ -109,8 +107,7 @@ class EventTargetWrapper extends NativeJavaObject {
         }
 
         public Scriptable construct(Context cx,
-                                    Scriptable scope, Object[] args)
-            throws JavaScriptException {
+                                    Scriptable scope, Object[] args) {
             return this.delegate.construct(cx, scope, args);
         }
 
@@ -189,43 +186,54 @@ class EventTargetWrapper extends NativeJavaObject {
      * cases.
      */
     static class FunctionAddProxy extends FunctionProxy {
-        private Map listenerMap;
-
-        FunctionAddProxy(Function delegate, Map listenerMap) {
+        protected Map              listenerMap;
+        protected RhinoInterpreter interpreter;
+        FunctionAddProxy(RhinoInterpreter interpreter,
+                         Function delegate, Map listenerMap) {
             super(delegate);
             this.listenerMap = listenerMap;
+            this.interpreter = interpreter;
         }
 
         public Object call(Context ctx, Scriptable scope,
-                           Scriptable thisObj, Object[] args)
-            throws JavaScriptException {
-            NativeJavaObject  njo = (NativeJavaObject)thisObj;
+                           Scriptable thisObj, Object[] args) {
+            NativeJavaObject njo = (NativeJavaObject)thisObj;
             if (args[1] instanceof Function) {
-                EventListener evtListener = new FunctionEventListener
-                    ((Function)args[1],
-                     ((RhinoInterpreter.ExtendedContext)ctx).getInterpreter());
-                listenerMap.put(args[1], new SoftReference(evtListener));
+                EventListener evtListener = null;
+                SoftReference sr = (SoftReference)listenerMap.get(args[1]);
+                if (sr != null)
+                    evtListener = (EventListener)sr.get();
+                if (evtListener == null) {
+                    evtListener = new FunctionEventListener
+                        ((Function)args[1], interpreter);
+                    listenerMap.put(args[1], new SoftReference(evtListener));
+                }
                 // we need to marshall args
                 Class[] paramTypes = { String.class, Function.class,
                                        Boolean.TYPE };
                 for (int i = 0; i < args.length; i++)
-                    args[i] = Context.toType(args[i], paramTypes[i]);
+                    args[i] = Context.jsToJava(args[i], paramTypes[i]);
                 ((EventTarget)njo.unwrap()).addEventListener
                     ((String)args[0], evtListener,
                      ((Boolean)args[2]).booleanValue());
                 return Undefined.instance;
             }
             if (args[1] instanceof NativeObject) {
-                EventListener evtListener =
-                    new HandleEventListener((Scriptable)args[1],
-                                            ((RhinoInterpreter.ExtendedContext)
-                                             ctx).getInterpreter());
-                listenerMap.put(args[1], new SoftReference(evtListener));
+                EventListener evtListener = null;
+                SoftReference sr = (SoftReference)listenerMap.get(args[1]);
+                if (sr != null)
+                    evtListener = (EventListener)sr.get();
+                if (evtListener == null) {
+                    evtListener = new HandleEventListener((Scriptable)args[1],
+                                                          interpreter);
+                    listenerMap.put(args[1], new SoftReference(evtListener));
+                }
+
                 // we need to marshall args
                 Class[] paramTypes = { String.class, Scriptable.class,
                                        Boolean.TYPE };
                 for (int i = 0; i < args.length; i++)
-                    args[i] = Context.toType(args[i], paramTypes[i]);
+                    args[i] = Context.jsToJava(args[i], paramTypes[i]);
                 ((EventTarget)njo.unwrap()).addEventListener
                     ((String)args[0], evtListener,
                      ((Boolean)args[2]).booleanValue());
@@ -236,7 +244,7 @@ class EventTargetWrapper extends NativeJavaObject {
     }
 
     static class FunctionRemoveProxy extends FunctionProxy {
-        private Map listenerMap;
+        public Map listenerMap;
 
         FunctionRemoveProxy(Function delegate, Map listenerMap) {
             super(delegate);
@@ -244,9 +252,8 @@ class EventTargetWrapper extends NativeJavaObject {
         }
 
         public Object call(Context ctx, Scriptable scope,
-                           Scriptable thisObj, Object[] args)
-            throws JavaScriptException {
-            NativeJavaObject  njo = (NativeJavaObject)thisObj;
+                           Scriptable thisObj, Object[] args) {
+            NativeJavaObject njo = (NativeJavaObject)thisObj;
             if (args[1] instanceof Function) {
                 SoftReference sr = (SoftReference)listenerMap.get(args[1]);
                 if (sr == null)
@@ -254,11 +261,12 @@ class EventTargetWrapper extends NativeJavaObject {
                 EventListener el = (EventListener)sr.get();
                 if (el == null)
                     return Undefined.instance;
+
                 // we need to marshall args
                 Class[] paramTypes = { String.class, Function.class,
                                        Boolean.TYPE };
                 for (int i = 0; i < args.length; i++)
-                    args[i] = Context.toType(args[i], paramTypes[i]);
+                    args[i] = Context.jsToJava(args[i], paramTypes[i]);
                 ((EventTarget)njo.unwrap()).removeEventListener
                     ((String)args[0], el, ((Boolean)args[2]).booleanValue());
                 return Undefined.instance;
@@ -274,10 +282,121 @@ class EventTargetWrapper extends NativeJavaObject {
                 Class[] paramTypes = { String.class, Scriptable.class,
                                        Boolean.TYPE };
                 for (int i = 0; i < args.length; i++)
-                    args[i] = Context.toType(args[i], paramTypes[i]);
-
+                    args[i] = Context.jsToJava(args[i], paramTypes[i]);
                 ((EventTarget)njo.unwrap()).removeEventListener
                     ((String)args[0], el, ((Boolean)args[2]).booleanValue());
+                return Undefined.instance;
+            }
+            return delegate.call(ctx, scope, thisObj, args);
+        }
+    }
+
+    static class FunctionAddNSProxy extends FunctionProxy {
+        protected Map              listenerMap;
+        protected RhinoInterpreter interpreter;
+
+        FunctionAddNSProxy(RhinoInterpreter interpreter,
+                           Function delegate, Map listenerMap) {
+            super(delegate);
+            this.listenerMap = listenerMap;
+            this.interpreter = interpreter;
+        }
+
+        public Object call(Context ctx, Scriptable scope,
+                           Scriptable thisObj, Object[] args) {
+            NativeJavaObject njo = (NativeJavaObject)thisObj;
+            if (args[2] instanceof Function) {
+                EventListener evtListener = new FunctionEventListener
+                    ((Function)args[2], interpreter);
+                listenerMap.put(args[2], new SoftReference(evtListener));
+                // we need to marshall args
+                Class[] paramTypes = { String.class, String.class,
+                                       Function.class, Boolean.TYPE,
+                                       Object.class };
+                for (int i = 0; i < args.length; i++)
+                    args[i] = Context.jsToJava(args[i], paramTypes[i]);
+                AbstractNode target = (AbstractNode) njo.unwrap();
+                target.addEventListenerNS
+                    ((String)args[0],
+                     (String)args[1],
+                     evtListener,
+                     ((Boolean)args[3]).booleanValue(),
+                     args[4]);
+                return Undefined.instance;
+            }
+            if (args[2] instanceof NativeObject) {
+                EventListener evtListener =
+                    new HandleEventListener((Scriptable)args[2], interpreter);
+                listenerMap.put(args[2], new SoftReference(evtListener));
+                // we need to marshall args
+                Class[] paramTypes = { String.class, String.class,
+                                       Scriptable.class, Boolean.TYPE,
+                                       Object.class };
+                for (int i = 0; i < args.length; i++)
+                    args[i] = Context.jsToJava(args[i], paramTypes[i]);
+                AbstractNode target = (AbstractNode) njo.unwrap();
+                target.addEventListenerNS
+                    ((String)args[0],
+                     (String)args[1],
+                     evtListener,
+                     ((Boolean)args[3]).booleanValue(),
+                     args[4]);
+                return Undefined.instance;
+            }
+            return delegate.call(ctx, scope, thisObj, args);
+        }
+    }
+
+    static class FunctionRemoveNSProxy extends FunctionProxy {
+        protected Map listenerMap;
+
+        FunctionRemoveNSProxy(Function delegate, Map listenerMap) {
+            super(delegate);
+            this.listenerMap = listenerMap;
+        }
+
+        public Object call(Context ctx, Scriptable scope,
+                           Scriptable thisObj, Object[] args) {
+            NativeJavaObject njo = (NativeJavaObject)thisObj;
+            if (args[2] instanceof Function) {
+                SoftReference sr = (SoftReference)listenerMap.get(args[2]);
+                if (sr == null)
+                    return Undefined.instance;
+                EventListener el = (EventListener)sr.get();
+                if (el == null)
+                    return Undefined.instance;
+                // we need to marshall args
+                Class[] paramTypes = { String.class, String.class,
+                                       Function.class, Boolean.TYPE };
+                for (int i = 0; i < args.length; i++)
+                    args[i] = Context.jsToJava(args[i], paramTypes[i]);
+                AbstractNode target = (AbstractNode) njo.unwrap();
+                target.removeEventListenerNS
+                    ((String)args[0],
+                     (String)args[1],
+                     el,
+                     ((Boolean)args[3]).booleanValue());
+                return Undefined.instance;
+            }
+            if (args[2] instanceof NativeObject) {
+                SoftReference sr = (SoftReference)listenerMap.get(args[2]);
+                if (sr == null)
+                    return Undefined.instance;
+                EventListener el = (EventListener)sr.get();
+                if (el == null)
+                    return Undefined.instance;
+                // we need to marshall args
+                Class[] paramTypes = { String.class, String.class,
+                                       Scriptable.class, Boolean.TYPE };
+                for (int i = 0; i < args.length; i++)
+                    args[i] = Context.jsToJava(args[i], paramTypes[i]);
+
+                AbstractNode target = (AbstractNode) njo.unwrap();
+                target.removeEventListenerNS
+                    ((String)args[0],
+                     (String)args[1],
+                     el,
+                     ((Boolean)args[3]).booleanValue());
                 return Undefined.instance;
             }
             return delegate.call(ctx, scope, thisObj, args);
@@ -287,18 +406,19 @@ class EventTargetWrapper extends NativeJavaObject {
     // the keys are the underlying Java object, in order
     // to remove potential memory leaks use a WeakHashMap to allow
     // to collect entries as soon as the underlying Java object is
-    // not anymore available.
-    private static WeakHashMap mapOfListenerMap;
+    // not available anymore.
+    protected static WeakHashMap mapOfListenerMap;
 
-    private final static String ADD_NAME    = "addEventListener";
-    private final static String REMOVE_NAME = "removeEventListener";
-    private final static Class[] ARGS_TYPE = { String.class,
-                                               EventListener.class,
-                                               Boolean.TYPE };
-    private final static String NAME = "name";
+    public static final String ADD_NAME      = "addEventListener";
+    public static final String ADDNS_NAME    = "addEventListenerNS";
+    public static final String REMOVE_NAME   = "removeEventListener";
+    public static final String REMOVENS_NAME = "removeEventListenerNS";
 
-    EventTargetWrapper(Scriptable scope, EventTarget object) {
+    protected RhinoInterpreter interpreter;
+    EventTargetWrapper(Scriptable scope, EventTarget object,
+                       RhinoInterpreter interpreter) {
         super(scope, object, null);
+        this.interpreter = interpreter;
     }
 
     /**
@@ -309,12 +429,18 @@ class EventTargetWrapper extends NativeJavaObject {
         if (name.equals(ADD_NAME)) {
             // prevent creating a Map for all JavaScript objects
             // when we need it only from time to time...
-            method = new FunctionAddProxy((Function)method, initMap());
-        }
-        if (name.equals(REMOVE_NAME)) {
+            method = new FunctionAddProxy(interpreter,
+                                          (Function)method, initMap());
+        } else if (name.equals(REMOVE_NAME)) {
             // prevent creating a Map for all JavaScript objects
             // when we need it only from time to time...
-            method = new FunctionRemoveProxy((Function)method, initMap());
+            method = new FunctionRemoveProxy
+                ((Function)method, initMap());
+        } else if (name.equals(ADDNS_NAME)) {
+            method = new FunctionAddNSProxy(interpreter,
+                                            (Function) method, initMap());
+        } else if (name.equals(REMOVENS_NAME)) {
+            method = new FunctionRemoveNSProxy((Function) method, initMap());
         }
         return method;
     }

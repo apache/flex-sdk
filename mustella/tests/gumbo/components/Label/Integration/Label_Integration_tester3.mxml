@@ -70,7 +70,8 @@ verify Label created at runtime in various halo containers
 	<TestCase testID="create_label_in_HBox_test1" keywords="[Label,integration]" description="create label  inside mxHBox,verify its UI" >
 	    <setup>
 	    	<RunCode code="FlexGlobals.topLevelApplication.removeLabel()" waitEvent="labelReset" waitTarget=""/>
-	    	<RunCode code="FlexGlobals.topLevelApplication.addNewLabel(FlexGlobals.topLevelApplication.myHBox,'this is a label in HBox')" />
+	    	<RunCode code="FlexGlobals.topLevelApplication.addNewLabel(FlexGlobals.topLevelApplication.myHBox,'this is a label in HBox')" 
+	    	    waitEvent="updateComplete" waitTarget="myHBox"/>
 	    </setup>
 	    <body>
 	        <AssertPropertyValue target="labelAtRuntime" propertyName="text" value="this is a label in HBox" />
@@ -81,7 +82,8 @@ verify Label created at runtime in various halo containers
 	<TestCase testID="create_label_in_Panel_test1" keywords="[Label,integration]" description="create label  inside mxPanel,verify its UI" >
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.removeLabel()" waitEvent="labelReset" waitTarget=""/>
-		<RunCode code="FlexGlobals.topLevelApplication.addNewLabel(FlexGlobals.topLevelApplication.myPanel,'this is a label in Panel')" />
+		<RunCode code="FlexGlobals.topLevelApplication.addNewLabel(FlexGlobals.topLevelApplication.myPanel,'this is a label in Panel')" 
+		    waitEvent="updateComplete" waitTarget="myPanel"/>
 	    </setup>
 	    <body>
 	        <AssertPropertyValue target="labelAtRuntime" propertyName="text" value="this is a label in Panel" />
@@ -92,7 +94,8 @@ verify Label created at runtime in various halo containers
 	<TestCase testID="create_label_in_Form_test1" keywords="[Label,integration]" description="create label  inside mxForm,verify its UI" >
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.removeLabel()" waitEvent="labelReset" waitTarget=""/>
-		<RunCode code="FlexGlobals.topLevelApplication.addNewLabel(FlexGlobals.topLevelApplication.myForm,'this is a label in Form')" />
+		<RunCode code="FlexGlobals.topLevelApplication.addNewLabel(FlexGlobals.topLevelApplication.myForm,'this is a label in Form')" 
+		    waitEvent="updateComplete" waitTarget="myForm"/>
 	    </setup>
 	    <body>
 	        <AssertPropertyValue target="labelAtRuntime" propertyName="text" value="this is a label in Form" />
@@ -103,7 +106,8 @@ verify Label created at runtime in various halo containers
 	<TestCase testID="create_label_in_ControlBar_test1" keywords="[Label,integration]" description="create label  inside mxControlBar,verify its UI" >
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.removeLabel()" waitEvent="labelReset" waitTarget=""/>
-		<RunCode code="FlexGlobals.topLevelApplication.addNewLabel(FlexGlobals.topLevelApplication.myControlBar,'inside of controlBar')" />
+		<RunCode code="FlexGlobals.topLevelApplication.addNewLabel(FlexGlobals.topLevelApplication.myControlBar,'inside of controlBar')"
+		    waitEvent="updateComplete" waitTarget="myControlBar" />
 	    </setup>
 	    <body>
 	        <AssertPropertyValue target="labelAtRuntime" propertyName="text" value="inside of controlBar" />

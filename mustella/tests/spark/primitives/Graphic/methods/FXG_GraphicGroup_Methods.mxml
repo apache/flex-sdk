@@ -268,7 +268,7 @@
             <body>
                 <RunCode code="addGroupToGraphic(application.graphic_empty)" waitTarget="graphic_empty" waitEvent="updateComplete" />
                 <AssertPropertyValue value="1" propertyName="numElements" target="graphic_empty" />
-                <AssertPixelValue value="0x4D4D4D" x="456" y="328" target="" />
+                <AssertPixelValue value="0x4D4D4D" x="456" y="528" target="" />
             </body>
         </TestCase>
         <TestCase testID="Graphic_methods_addElement_Text" description="Verify that you can add a RichText to a Graphic" keywords="[Group, addElement, Graphic]">

@@ -148,6 +148,7 @@
                 <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=xmlListColl"/>
                 <SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5"/>
                 <SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" />
+				<WaitForLayoutManager />
             </setup>
             <body>
             	 

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,132 +20,166 @@ package org.apache.flex.forks.batik.dom.svg;
 
 import java.awt.geom.AffineTransform;
 
-import org.w3c.flex.forks.dom.svg.SVGMatrix;
-import org.w3c.flex.forks.dom.svg.SVGTransform;
+import org.w3c.dom.svg.SVGMatrix;
+import org.w3c.dom.svg.SVGTransform;
 
 /**
- * Abstract implementation for SVGTransform.
- *
- * This is the base implementation for SVGTransform
+ * Abstract implementation of {@link SVGTransform}.
  * 
  * @author nicolas.socheleau@bitflash.com
- * @version $Id :$
+ * @version $Id: AbstractSVGTransform.java 475477 2006-11-15 22:44:28Z cam $
  */
 public abstract class AbstractSVGTransform implements SVGTransform {
 
     /**
-     * Type of the transformation.
-     * 
-     * By default, the type is unknown
+     * Type of the transformation.  Before any values are set, the type
+     * is unknown.
      */
     protected short type = SVG_TRANSFORM_UNKNOWN;
 
     /**
-     * AffineTranform associated to the SVGTransform
-     *
-     * Java2D representation of the SVGTransform.
+     * The transformation as a Java2D {link AffineTransform}.
      */
     protected AffineTransform affineTransform;
 
     /**
-     * Angle associated to the transform.
-     * This value is not necessary since the AffineTransform
-     * will contain it but it is easier to have it than
-     * extracting it from the AffineTransform.
+     * The angle of the transformation, if this transformation is a rotation
+     * or a skew.  This is stored to avoid extracting the angle from the
+     * transformation matrix.
      */
     protected float angle;
 
+    /**
+     * The x coordinate of the center of the rotation, if this transformation
+     * is a rotation.
+     */
     protected float x;
 
+    /**
+     * The y coordinate of the center of the rotation, if this transformation
+     * is a rotation.
+     */
     protected float y;
 
     /**
-     * Create a SVGMatrix associated to the transform.
-     *
+     * Creates and returns a new {@link SVGMatrix} for exposing the
+     * transformation as a matrix.
      * @return SVGMatrix representing the transformation
      */
     protected abstract SVGMatrix createMatrix();
 
     /**
-     * Default constructor.
+     * Sets the type of transformation.
      */
-    protected AbstractSVGTransform(){
-    }
-
-    /**
-     */
-    protected void setType(short type){
+    protected void setType(short type) {
         this.type = type;
     }
 
-    protected float getX(){
+    /**
+     * Returns the x coordinate of the center of the rotation, if this
+     * transformation is a rotation.
+     */
+    public float getX() {
         return x;
     }
 
-    protected float getY(){
+    /**
+     * Returns the y coordinate of the center of the rotation, if this
+     * transformation is a rotation.
+     */
+    public float getY() {
         return y;
     }
 
     /**
+     * Copies the value of the specified transformation into this object.
      */
-    public short getType( ){
+    public void assign(AbstractSVGTransform t) {
+        this.type = t.type;
+        this.affineTransform = t.affineTransform;
+        this.angle = t.angle;
+        this.x = t.x;
+        this.y = t.y;
+    }
+
+    /**
+     * <b>DOM</b>: Implements {@link SVGTransform#getType()}.
+     */
+    public short getType() {
         return type;
     }
 
     /**
+     * <b>DOM</b>: Implements {@link SVGTransform#getMatrix()}.
      */
-    public SVGMatrix getMatrix( ){
+    public SVGMatrix getMatrix() {
         return createMatrix();
     }
+
     /**
+     * <b>DOM</b>: Implements {@link SVGTransform#getAngle()}.
      */
-    public float getAngle( ){
+    public float getAngle() {
         return angle;
     }
+
     /**
+     * <b>DOM</b>: Implements {@link SVGTransform#setMatrix(SVGMatrix)}.
      */
-    public void setMatrix ( SVGMatrix matrix ){
+    public void setMatrix(SVGMatrix matrix) {
         type = SVG_TRANSFORM_MATRIX;
-        affineTransform = new AffineTransform(matrix.getA(),matrix.getB(),matrix.getC(),
-                                              matrix.getD(),matrix.getE(),matrix.getF());
+        affineTransform =
+            new AffineTransform(matrix.getA(), matrix.getB(), matrix.getC(),
+                                matrix.getD(), matrix.getE(), matrix.getF());
     }
+
     /**
+     * <b>DOM</b>: Implements {@link SVGTransform#setTranslate(float,float)}.
      */
-    public void setTranslate ( float tx, float ty ){
+    public void setTranslate(float tx, float ty) {
         type = SVG_TRANSFORM_TRANSLATE;
-        affineTransform = AffineTransform.getTranslateInstance(tx,ty);
+        affineTransform = AffineTransform.getTranslateInstance(tx, ty);
     }
+
     /**
+     * <b>DOM</b>: Implements {@link SVGTransform#setScale(float,float)}.
      */
-    public void setScale ( float sx, float sy ){
+    public void setScale(float sx, float sy) {
         type = SVG_TRANSFORM_SCALE;
-        affineTransform = AffineTransform.getScaleInstance(sx,sy);
+        affineTransform = AffineTransform.getScaleInstance(sx, sy);
     }
+
     /**
+     * <b>DOM</b>: Implements {@link SVGTransform#setRotate(float,float,float)}.
      */
-    public void setRotate ( float angle, float cx, float cy ){
+    public void setRotate(float angle, float cx, float cy) {
         type = SVG_TRANSFORM_ROTATE;
-        affineTransform = AffineTransform.getRotateInstance(Math.toRadians(angle),cx,cy);
+        affineTransform =
+            AffineTransform.getRotateInstance(Math.toRadians(angle), cx, cy);
         this.angle = angle;
         this.x = cx;
         this.y = cy;
     }
+
     /**
+     * <b>DOM</b>: Implements {@link SVGTransform#setSkewX(float)}.
      */
-    public void setSkewX ( float angle ){
+    public void setSkewX(float angle) {
         type = SVG_TRANSFORM_SKEWX;
-        affineTransform = new AffineTransform(1.0,Math.tan(Math.toRadians(angle)),0.0,
-                                              1.0,0.0,0.0);
+        affineTransform =
+            AffineTransform.getShearInstance(Math.tan(Math.toRadians(angle)),
+                                             0.0);
         this.angle = angle;
     }
+
     /**
+     * <b>DOM</b>: Implements {@link SVGTransform#setSkewY(float)}.
      */
-    public void setSkewY ( float angle ){
+    public void setSkewY(float angle) {
         type = SVG_TRANSFORM_SKEWY;
+        affineTransform =
+            AffineTransform.getShearInstance(0.0,
+                                             Math.tan(Math.toRadians(angle)));
         this.angle = angle;
-        affineTransform = new AffineTransform(1.0,0.0,Math.tan(Math.toRadians(angle)),
-                                              1.0,0.0,0.0);
     }
-
 }
-

@@ -57,25 +57,32 @@
 		    <CompareBitmap target="tw" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
+	    
 	    <TestCase testID="TitleWindow_layout_closeButtonClosed1" description="TitleWindow showCloseButton=false,layoutDirection=rtl " keywords="[TitleWindow, Mirroring]">
 		<setup>
 		    <ResetComponent target="tw" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw" />
-		<SetProperty propertyName="title" value="My Title" target="tw" />
-		<SetProperty propertyName="showCloseButton" value="true" target="tw" />
-		<SetProperty propertyName="showCloseButton" value="false" target="tw" waitEvent="updateComplete" waitTarget="tw"/>
+            <SetProperty propertyName="title" value="My Title" target="tw" />
+            <SetProperty propertyName="showCloseButton" value="true" target="tw" />
+            <SetProperty propertyName="showCloseButton" value="false" target="tw" waitEvent="updateComplete" waitTarget="tw"/>
 		</setup>
 		<body>
 		    <CompareBitmap target="tw" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
+	
 	    <TestCase testID="TitleWindow_layout_rtl1" description="TitleWindow with layoutDirection=rtl " keywords="[TitleWindow, Mirroring]">
 		<setup>
 		    <ResetComponent target="tw2" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw2" />
 		    <SetProperty propertyName="title" value="My Title" target="tw2" />
-		    <SetProperty propertyName="showCloseButton" value="false" target="tw2"/>
+		    <SetProperty propertyName="showCloseButton" value="false" target="tw2" waitEvent="updateComplete"/>
+		    <WaitForLayoutManager/>
 		</setup>
 		<body>
+		    <AssertPropertyValue target="tw2" propertyName="layoutDirection" value="rtl"/>
+		    <AssertPropertyValue target="ta2" propertyName="layoutDirection" value="rtl"/>
+		    <AssertPropertyValue target="chk1" propertyName="layoutDirection" value="rtl"/>
 		    <CompareBitmap target="tw2" url="../Mirroring/baselines/$testID.png" timeout="2500" />
+		    <ResetComponent target="tw2" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw2" />
 		</body>
 	    </TestCase>
 	   
@@ -84,32 +91,38 @@
 		    <ResetComponent target="tw3" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw3" />
 		    <SetProperty propertyName="title" value="My Title3" target="tw3" />
 		    <SetProperty propertyName="showCloseButton" value="false" target="tw3" waitEvent="updateComplete" waitTarget="tw3"/>
+		    <WaitForLayoutManager/>
 		</setup>
 		<body>
+		    <AssertPropertyValue target="chk31" propertyName="layoutDirection" value="rtl"/>
+		    <AssertPropertyValue target="vbox1" propertyName="layoutDirection" value="ltr"/>
+		    <AssertPropertyValue target="ti1" propertyName="layoutDirection" value="ltr"/>
+		    <AssertPropertyValue target="chk2" propertyName="layoutDirection" value="ltr"/>
 		    <CompareBitmap target="tw3" url="../Mirroring/baselines/$testID.png" timeout="2500" />
+		    <ResetComponent target="tw3" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw3" />
 		</body>
 	    </TestCase>
-	    
+    
 	   <TestCase testID="TitleWindow_layout_rtl3" description="TitleWindow with layoutDirection=rtl, has content with ltr layout" keywords="[TitleWindow, Mirroring]">
 		<setup>
 		    <ResetComponent target="tw4" className="MyLayoutTestTW" waitEvent="updateComplete" waitTarget="tw4" />
 		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
-		    <Pause timeout="300"/>
+		    <WaitForLayoutManager/>
+		    <WaitForLayoutManager/>
 		</setup>
 		<body>
 		    <AssertPropertyValue target="chk1" propertyName="layoutDirection" value="rtl"/>
 		    <AssertPropertyValue target="chk2" propertyName="layoutDirection" value="ltr"/>
 		    <AssertPropertyValue target="chk31" propertyName="layoutDirection" value="rtl"/>
-		    <Pause timeout="200"/>
 		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
-	    
+    
 	   <TestCase testID="TitleWindow_layout_style1" description="TitleWindow with layout style set" keywords="[TitleWindow, Mirroring]">
 		<setup>
 		    <ResetComponent target="tw3" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw3" />
 		    <SetProperty propertyName="width" value="200" target="tw3" waitEvent="updateComplete" waitTarget="tw3"/>
-         	    <SetProperty propertyName="height" value="150" target="tw3" waitEvent="updateComplete" waitTarget="tw3"/>
+         	<SetProperty propertyName="height" value="150" target="tw3" waitEvent="updateComplete" waitTarget="tw3"/>
 		</setup>
 		<body>
 		    <SetStyle target="tw3" styleName="styleName" value="myTWStyle1" waitEvent="updateComplete"/>
@@ -128,11 +141,11 @@
 		<setup>
 		    <ResetComponent target="tw3" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw3" />
 		    <SetProperty propertyName="width" value="200" target="tw3" waitEvent="updateComplete" waitTarget="tw3"/>
-         	    <SetProperty propertyName="height" value="150" target="tw3" waitEvent="updateComplete" waitTarget="tw3"/>
+         	<SetProperty propertyName="height" value="150" target="tw3" waitEvent="updateComplete" waitTarget="tw3"/>
 		</setup>
 		<body>
 		    <SetProperty propertyName="text" value="test test" target="ta" waitEvent="updateComplete" waitTarget="ta"/>
-         	    <SetStyle target="tw3" styleName="headerHeight" value="24"  waitEvent="updateComplete"/>
+         	<SetStyle target="tw3" styleName="headerHeight" value="24"  waitEvent="updateComplete"/>
 		    <SetStyle target="tw3" styleName="styleName" value="myTWStyle2" waitEvent="updateComplete"/>
 		    <AssertPropertyValue target="chk31" propertyName="layoutDirection" value="rtl"/>
 		    <AssertPropertyValue target="chk2" propertyName="layoutDirection" value="ltr"/>
@@ -148,7 +161,7 @@
 		</setup>
 		<body>
 		    <RunCode code="FlexGlobals.topLevelApplication.tw5.chk1.move(50,60)" waitTarget="tw5.chk1" waitEvent="move"/>
-		    <Pause timeout="100"/>
+		    <WaitForLayoutManager/>
 		    <CompareBitmap target="tw5" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>
@@ -159,7 +172,7 @@
 		</setup>
 		<body>
 		    <SetStyle target="tw5" styleName="styleName" value="myTWStyle2" waitEvent="updateComplete"/>
-		   <Pause timeout="100"/>
+		    <WaitForLayoutManager/>
 		    <CompareBitmap target="tw5" url="../Mirroring/baselines/$testID.png" timeout="2500" />
 		</body>
 	    </TestCase>

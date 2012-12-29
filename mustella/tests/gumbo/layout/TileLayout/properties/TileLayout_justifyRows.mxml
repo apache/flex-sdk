@@ -96,7 +96,7 @@ none
         <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -113,7 +113,7 @@ none
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="rollOver" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -134,7 +134,7 @@ none
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="rollOver" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -149,7 +149,7 @@ none
         <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -171,7 +171,7 @@ none
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -200,7 +200,7 @@ none
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -215,7 +215,7 @@ none
         <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 45)" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -233,7 +233,7 @@ none
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="rollOver" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -254,7 +254,7 @@ none
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="rollOver" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -269,7 +269,7 @@ none
         <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 45)" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -293,7 +293,7 @@ none
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -326,7 +326,7 @@ none
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -349,7 +349,7 @@ justifyUsingGap
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 55)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 55)" waitTarget="box1.group1" waitEvent="updateComplete" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="verticalGap" value="6" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -369,7 +369,7 @@ justifyUsingGap
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="verticalGap" value="6" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -392,7 +392,7 @@ justifyUsingGap
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="verticalGap" value="6" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -408,7 +408,7 @@ justifyUsingGap
         <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="verticalGap" value="9" />
     </body>
 </TestCase>
@@ -429,7 +429,7 @@ justifyUsingGap
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.thumb" type="mouseDown" localY="10" localX="2" waitTarget="box1.scroller1.verticalScrollBar.thumb.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.thumb" type="mouseMove" localY="12" localX="2" waitTarget="box1.scroller1.verticalScrollBar" waitEvent="updateComplete" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="verticalGap" value="9" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -453,7 +453,7 @@ justifyUsingGap
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="verticalGap" value="9" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
     </body>
 </TestCase>
 
@@ -488,7 +488,7 @@ justifyUsingGap
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 26)" waitTarget="box1.group1" waitEvent="updateComplete" />
         <SetProperty target="box1.group1" propertyName="width" value="58" waitTarget="box1.group1" waitEvent="updateComplete" />
         <SetProperty target="box1.group1" propertyName="height" value="58" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="verticalGap" value="31" />
     </body>
 </TestCase>
@@ -511,7 +511,7 @@ justifyUsingHeight
         <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 55)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 55)" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowHeight" value="56" />
     </body>
 </TestCase>
@@ -531,7 +531,7 @@ justifyUsingHeight
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="rollOver" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowHeight" value="56" />
     </body>
 </TestCase>
@@ -554,7 +554,7 @@ justifyUsingHeight
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="rollOver" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowHeight" value="56" />
     </body>
 </TestCase>
@@ -571,7 +571,7 @@ justifyUsingHeight
         <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowHeight" value="50" />
     </body>
 </TestCase>
@@ -593,7 +593,7 @@ justifyUsingHeight
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowHeight" value="50" />
     </body>
 </TestCase>
@@ -618,7 +618,7 @@ justifyUsingHeight
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowHeight" value="50" />
     </body>
 </TestCase>
@@ -652,7 +652,7 @@ justifyUsingHeight
         <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowHeight" value="70" />
     </body>
 </TestCase>
@@ -674,7 +674,7 @@ justifyUsingHeight
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowHeight" value="70" />
     </body>
 </TestCase>
@@ -699,7 +699,7 @@ justifyUsingHeight
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
         <DispatchMouseEvent target="box1.scroller1.verticalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.verticalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowHeight" value="70" />
     </body>
 </TestCase>
@@ -735,7 +735,7 @@ justifyUsingHeight
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
         <SetProperty target="box1.group1" propertyName="width" value="70" waitTarget="box1.group1" waitEvent="updateComplete" />
-        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="1" />
         <AssertPropertyValue target="box1.group1.layout" propertyName="rowHeight" value="70" />
     </body>
 </TestCase>

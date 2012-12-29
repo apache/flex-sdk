@@ -28,6 +28,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
+import flash.utils.Dictionary;
 
 import mx.charts.HitData;
 import mx.charts.chartClasses.DataDescription;
@@ -370,7 +371,7 @@ public class PieSeries extends Series
 	/**
 	 *  @private
 	 */
-	private var _moduleFactoryInitialized:Boolean = false; 
+	private static var _moduleFactoryInitialized:Dictionary = new Dictionary(true); 
 	
     /**
      *  @private
@@ -1203,10 +1204,10 @@ public class PieSeries extends Series
 	{
 		super.moduleFactory = factory;
 		
-		if (_moduleFactoryInitialized)
+		if (_moduleFactoryInitialized[factory])
 			return;
 		
-		_moduleFactoryInitialized = true;
+		_moduleFactoryInitialized[factory] = true;
 		
 		// our style settings
 		initStyles();

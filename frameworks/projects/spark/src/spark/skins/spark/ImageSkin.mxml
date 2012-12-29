@@ -90,6 +90,7 @@
     <s:BitmapImage id="imageDisplay" left="0" top="0" right="0" bottom="0"/>
     
     <!--- Progress indicator skin part. -->
+    <!--- ToDo: replace with ProgressBar. Range is meant to be a base class and shouldn't be used directly.  -->
     <s:Range id="progressIndicator" skinClass="spark.skins.spark.ImageLoadingSkin" verticalCenter="0" horizontalCenter="0" includeIn="loading" layoutDirection="ltr" />
     
     <!--- Icon that appears in place of the image when an invalid image is loaded. -->

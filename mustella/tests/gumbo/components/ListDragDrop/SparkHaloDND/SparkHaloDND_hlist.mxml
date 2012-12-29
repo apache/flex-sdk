@@ -200,8 +200,9 @@
 		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
 		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
 		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="l1"/>
-		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="120" />
-		<DispatchMouseClickEvent target="l1"  shiftKey="true"  localX="120" localY="10" waitEvent="change" waitTarget="l1"/>
+		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="70" localY="10" />
+		<DispatchMouseClickEvent target="l1"  shiftKey="true"  localX="70" localY="10" waitEvent="change" waitTarget="l1"/>
+		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
 
  		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
  		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" waitEvent="dragStart"/>
@@ -235,7 +236,7 @@
 		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
 		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="l1"/>
 		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="15" />
-		<DispatchMouseClickEvent target="l1"  shiftKey="true"  localX="120" localY="10" waitEvent="change" waitTarget="l1"/>
+		<DispatchMouseClickEvent target="l1"  shiftKey="true"  localX="70" localY="10" waitEvent="change" waitTarget="l1"/>
 		<DispatchKeyEvent keys="[END]"  waitTarget="l1"  waitEvent="updateComplete"/>
 		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="50" localY="10" />
  		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="50" localY="10" />

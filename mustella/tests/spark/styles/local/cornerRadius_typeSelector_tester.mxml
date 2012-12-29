@@ -34,7 +34,7 @@
   				<ResetComponent target="ci" className="comps.cornerItems" waitEvent="updateComplete" waitTarget="ci"/>
 			</setup>
  			<body>
-  				<CompareBitmap url="../local/baselines/$testID.png" target="ci" numColorVariances="5" ignoreMaxColorVariance="true"/>
+  				<CompareBitmap url="../local/baselines/$testID.png" target="ci" numColorVariances="15" ignoreMaxColorVariance="true"/>
   			</body>
   		</TestCase>
   		<TestCase testID="cornerRadius_classSelector_sparkButton" keywords="[cornerRadius, Button]" description="cornerRadius set with class selector applies to Spark Button">

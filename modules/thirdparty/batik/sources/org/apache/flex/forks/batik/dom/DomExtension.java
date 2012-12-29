@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -20,7 +21,10 @@ package org.apache.flex.forks.batik.dom;
 /**
  * This is a Service interface for classes that want to extend the
  * functionality of the AbstractDocument, to support new tags in the
- * DOM tree.  
+ * DOM tree.
+ *
+ * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
+ * @version $Id: DomExtension.java 478249 2006-11-22 17:29:37Z dvholten $
  */
 public interface DomExtension {
 
@@ -28,33 +32,33 @@ public interface DomExtension {
      * Return the priority of this Extension.  Extensions are
      * registered from lowest to highest priority.  So if for some
      * reason you need to come before/after another existing extension
-     * make sure your priority is lower/higher than theirs.  
+     * make sure your priority is lower/higher than theirs.
      */
-    public float getPriority();
+    float getPriority();
 
     /**
      * This should return the individual or company name responsible
      * for the this implementation of the extension.
      */
-    public String getAuthor();
+    String getAuthor();
 
     /**
      * This should return a contact address (usually an e-mail address).
      */
-    public String getContactAddress();
+    String getContactAddress();
 
     /**
      * This should return a URL where information can be obtained on
      * this extension.
      */
-    public String getURL();
+    String getURL();
 
     /**
      * Human readable description of the extension.
      * Perhaps that should be a resource for internationalization?
      * (although I suppose it could be done internally)
      */
-    public String getDescription();
+    String getDescription();
 
     /**
      * This method should update the DOMImplementation with support
@@ -66,5 +70,5 @@ public interface DomExtension {
      *
      * @param di The DOMImplementation instance to be updated
      */
-    public void registerTags(ExtensibleDOMImplementation di);
+    void registerTags(ExtensibleDOMImplementation di);
 }

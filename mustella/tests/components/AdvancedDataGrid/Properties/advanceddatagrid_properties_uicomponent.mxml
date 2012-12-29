@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/AdvancedDataGrid/Properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AdvancedDataGridMain.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.DateChooser;
+    import mx.controls.AdvancedDataGrid;
+    import mx.containers.Canvas;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    public var mydatagrid:AdvancedDataGrid
+    public var mybox:Canvas;
+    public function genericCleanUp():void
+    {
+     mydatagrid= stringToObject ("mydatagrid") as AdvancedDataGrid;
+     mybox = stringToObject ("box") as Canvas;
+     mybox = new Canvas();
+        mydatagrid = new AdvancedDataGrid();
+
+        application.startIt();
+
+    }
+    public function addItems():void
+    {
+       for(var i:int=0;i<15;i++)
+       {
+          var obj:Object={col1:'one'+i,col2:i,col3:'three'+i}
+          application.mydatagrid.dataProvider.addItem(obj);
+       }
+
+    }
+        public function addBigItems():void
+        {
+           application.mydatagrid.height=250;
+            application.mydatagrid.dataProvider.removeAll()
+            var str1:String=" "
+            var str2:String="two two "
+            var str3:String=" "
+            var dummytext:String ="The Quick Brown Fox Jumped over the lazy dog"
+            for(var i:int=0;i<25;i++)
+            {
+                for(var j:int=0;j<5;j++)
+                {
+                   str1+=dummytext;
+                   str3+=dummytext;
+                }
+                var obj:Object = {col1:str1,col2:str2+i,col3:str3}
+                application.mydatagrid.dataProvider.addItem(obj);
+            }
+
+        }
+          public function startApp():void
+    {
+              application.startIt();
+           }
+           
+       private function getFocusManager():void
+       {
+       
+          application.ti.text=application.mydatagrid.focusManager.toString();
+       }
+       private function getFocusPane():void
+       {
+         application.ti.text=application.mydatagrid.focusPane.toString();
+       }
+    ]]>
+    </mx:Script>
+
+    <testCases>
+             <!--     -->
+              <TestCase testID="property_enabled" keywords="['enabled']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="enabled" value="false" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		  <AssertPropertyValue target="mydatagrid" propertyName="enabled" value="false"/>	
+                 </body>
+                  </TestCase>
+                  <TestCase testID="property_enabled_withdisabledcolor" keywords="['enabled']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetStyle styleName="disabledColor" value="#FFCC00" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <SetProperty propertyName="enabled" value="false" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <WaitForEffectsToEnd />
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_enabled2.png" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+                  </TestCase>
+                  <TestCase testID="property_explicitheight_400" keywords="['explicitheight']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="explicitHeight" value="400" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="height" value="400"/>
+                 </body>
+                  </TestCase>
+                  <TestCase testID="property_explicitheight_200" keywords="['explicitheight_200']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="explicitHeight" value="200" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="height" value="200"/>
+                 </body>
+                  </TestCase>
+                  <TestCase testID="property_explicitwidth_500" keywords="['explicitheight_500']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="explicitWidth" value="500" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="width" value="500"/>
+                 </body>
+                  </TestCase>
+                  <TestCase testID="property_explicitwidth_200" keywords="['explicitwidth_200']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="explicitWidth" value="200" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="width" value="200"/>
+                 </body>
+                  </TestCase>
+                   <TestCase testID="property_explicitmaxwidth_300" keywords="['explicitmaxwidth_300']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="explicitMaxWidth" value="300" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="width" value="300"/>
+                 </body>
+                  </TestCase>
+                   <TestCase testID="property_maxwidth_300" keywords="['maxwidth_300']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="maxWidth" value="300" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="width" value="300"/>
+                 </body>
+                  </TestCase>
+
+                <TestCase testID="property_maxheight" keywords="['maxheight_500']">
+                    <setup>
+                        <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                        <RunCode code="startApp()"/>
+                        <RunCode code="addItems()"/>
+   		<WaitForEffectsToEnd/>
+                 </setup>
+                    <body>
+                        <!--<Pause timeout="5000" />  -->
+                        <SetProperty propertyName="maxHeight" value="500" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                        <!-- <Pause timeout="5000" /> -->
+                        <AssertPropertyValue target="mydatagrid" propertyName="maxHeight" value="500"/>
+                        
+                    </body>
+                </TestCase>
+			
+                   <TestCase testID="property_width" keywords="['width_700']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="width" value="700" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="width" value="700"/>
+                  <WaitForEffectsToEnd/>
+                  <WaitForEffectsToEnd />
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_width_700.png"/>
+                 </body>
+                  </TestCase>                
+                  <TestCase testID="property_width_200" keywords="['width_200']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="width" value="200" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="width" value="200"/>
+                  <WaitForEffectsToEnd/>
+                  <WaitForEffectsToEnd />
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_width_200.png" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+                  </TestCase>
+                  
+                  <TestCase testID="property_width_30" keywords="['width_30']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="width" value="30" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="width" value="30"/>
+                  <WaitForEffectsToEnd/>
+                  <WaitForEffectsToEnd />
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_width_30.png" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+                  </TestCase>
+		
+              <TestCase testID="property_height" keywords="['height_120']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="height" value="120" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="height" value="120"/>
+                  <WaitForEffectsToEnd/>
+                  <WaitForEffectsToEnd />
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_height_120.png" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+              </TestCase>
+              <TestCase testID="property_height_200" keywords="['height_200']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="height" value="200" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="height" value="200"/>
+                  <WaitForEffectsToEnd/>
+                  <WaitForEffectsToEnd />
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_height_200.png" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+              </TestCase>
+              <TestCase testID="property_height_30" keywords="['height_30']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="height" value="30" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="height" value="30"/>
+                  <WaitForEffectsToEnd/>
+                  <WaitForEffectsToEnd />
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_height_30.png" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+                 </TestCase>
+                 <TestCase testID="property_scalex_3" keywords="['scalex_3']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		  <WaitForEffectsToEnd/>
+                  <SetProperty propertyName="scaleX" value="3" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  
+                  <WaitForEffectsToEnd/>
+                  
+                 </setup>
+                 <body>
+                  <AssertPropertyValue target="mydatagrid" propertyName="scaleX" value="3"/>
+                 </body>
+                </TestCase>
+                <TestCase testID="property_scalex_7" keywords="['scalex_7']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="scaleX" value="7" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="scaleX" value="7"/>
+                  <WaitForEffectsToEnd/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="scaleX" value="7"/>
+                 </body>
+                </TestCase>
+                <TestCase testID="property_scalex_05" keywords="['scalex_0_5']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="scaleX" value="0.5" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="scaleX" value="0.5"/>
+                 </body>
+                </TestCase>
+				
+                <TestCase testID="property_scaley_05" keywords="['scaley_0_5']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="scaleY" value="0.5" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="scaleY" value="0.5"/>
+                  <WaitForEffectsToEnd/>
+                 </body>
+                </TestCase>
+				
+                <TestCase testID="property_scaley_1" keywords="['scaley_1']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="scaleY" value="1" target="mydatagrid"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="scaleY" value="1"/>
+                  <WaitForEffectsToEnd/>
+                 </body>
+                </TestCase>
+                <TestCase testID="property_visible_true" keywords="['visible_true']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="visible" value="true" target="mydatagrid"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="visible" value="true"/>
+                  <WaitForEffectsToEnd/>
+                 </body>
+                </TestCase>
+            <TestCase testID="property_visible_false" keywords="['visible_false']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+				  <SetProperty propertyName="visible" value="false" target="mydatagrid" waitEvent="updateComplete" waitTarget="mydatagrid" />
+				  
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <AssertPropertyValue target="mydatagrid" propertyName="visible" value="false"/>
+              
+                  <WaitForEffectsToEnd />
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_visible_false.png"/>
+                 </body>
+                </TestCase>
+                <TestCase testID="property_x_50" keywords="['x_50']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="x" value="50" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="x" value="50"/>
+                  <WaitForEffectsToEnd/>
+                  <WaitForEffectsToEnd />
+                  <CompareBitmap timeout="5000"   target="mydatagrid" url="../Properties/Baselines/datagrid_x_50.png" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+                </TestCase>
+                <TestCase testID="property_x_minus10" keywords="['x_minus_10']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="x" value="-10" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		  <WaitForEffectsToEnd/>
+		  <WaitForEffectsToEnd />
+                  <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_x_minus10.png" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+                </TestCase>
+                <TestCase testID="property_y_50" keywords="['y_50']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="y" value="50" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <AssertPropertyValue target="mydatagrid" propertyName="y" value="50"/>
+                  <WaitForEffectsToEnd/>
+                  <WaitForEffectsToEnd />
+                  <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_y_50.png" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+            </TestCase>
+            <TestCase testID="property_y_minus10" keywords="['y_minus_10']">
+                  <setup>
+                  <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                  <RunCode code="startApp()"/>
+                  <RunCode code="addItems()"/>
+		<WaitForEffectsToEnd/>
+                 </setup>
+                 <body>
+                  <SetProperty propertyName="y" value="-10" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		  <WaitForEffectsToEnd/>
+		   <WaitForEffectsToEnd />
+                  <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_y_minus10.png" numColorVariances="1" maxColorVariance="2"/>
+                 </body>
+                </TestCase>
+
+            
+             <TestCase testID="property_focusEnabled_true" keywords="['focusEnabled_true']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+		      </setup>
+		      <body>
+		       <SetProperty propertyName="focusEnabled" value="true" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <DispatchKeyEvent key="TAB"/>
+		       <WaitForEffectsToEnd/>
+		       <WaitForEffectsToEnd />
+		       <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_focusenabledtrue.png" numColorVariances="1" maxColorVariance="2"/>
+
+		      </body>
+               </TestCase>
+               <TestCase testID="property_focusEnabled_false" keywords="['focusEnabled_false']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+		      </setup>
+		      <body>
+		       <SetProperty propertyName="focusEnabled" value="false" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <DispatchKeyEvent key="TAB"/>
+		       <WaitForEffectsToEnd/>
+		       <WaitForEffectsToEnd />
+		       <CompareBitmap timeout="5000"   target="box" url="../Properties/Baselines/datagrid_focusenabledfalse.png" numColorVariances="1" maxColorVariance="2"/>
+
+		      </body>
+               </TestCase>
+               
+                <TestCase testID="property_focusManager" keywords="['focusManager']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+		      </setup>
+		      <body>
+		        <RunCode code="getFocusManager()"/>
+                        <AssertPropertyValue target="ti" propertyName="text" value="AdvancedDataGridMain0.focusManager"/>
+		      </body>
+               </TestCase>
+               
+              
+               
+                <TestCase testID="property_includeInLayout_default" keywords="['includeInLayout_default']">
+	       		       <setup>
+	       		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+	       		       <RunCode code="startApp()"/>
+	       		       <RunCode code="addItems()"/>
+	       		      </setup>
+	       		      <body>
+	       		        
+	                               <AssertPropertyValue target="mydatagrid" propertyName="includeInLayout" value="true"/>
+	       		      </body>
+               </TestCase>
+                <TestCase testID="property_includeInLayout_default" keywords="['includeInLayout_true']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+		       <SetProperty propertyName="includeInLayout" value="true" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		      </setup>
+		      <body>
+
+			       <AssertPropertyValue target="mydatagrid" propertyName="includeInLayout" value="true"/>
+		      </body>
+               </TestCase>
+                <TestCase testID="property_includeInLayout_default" keywords="['includeInLayout_true']">
+	       		       <setup>
+	       		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+	       		       <RunCode code="startApp()"/>
+	       		       <RunCode code="addItems()"/>
+	       		       <SetProperty propertyName="includeInLayout" value="false" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+	       		      </setup>
+	       		      <body>
+	       
+	       			       <AssertPropertyValue target="mydatagrid" propertyName="includeInLayout" value="false"/>
+	       		      </body>
+               </TestCase>
+               
+               <TestCase testID="property_measuredHeight" keywords="['measuredHeight']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+		       
+		      </setup>
+		      <body>
+
+			       <AssertPropertyValue target="mydatagrid" propertyName="measuredHeight" value="142"/>
+		      </body>
+               </TestCase>
+               <TestCase testID="property_measuredWidth" keywords="['measuredWidth']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+
+		      </setup>
+		      <body>
+
+			       <AssertPropertyValue target="mydatagrid" propertyName="measuredWidth" value="160"/>
+		      </body>
+               </TestCase>
+              
+               <TestCase testID="property_measuredMinWidth" keywords="['measuredMinWidth']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+
+		      </setup>
+		      <body>
+
+			       <AssertPropertyValue target="mydatagrid" propertyName="measuredMinWidth" value="40"/>
+		      </body>
+               </TestCase>
+                <TestCase testID="property_measuredMinHeight" keywords="['measuredMinHeight']">
+			       <setup>
+			       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+			       <RunCode code="startApp()"/>
+			       <RunCode code="addItems()"/>
+
+			      </setup>
+			      <body>
+
+				       <AssertPropertyValue target="mydatagrid" propertyName="measuredMinHeight" value="42"/>
+			      </body>
+               </TestCase>
+                
+               <TestCase testID="property_minWidth_default" keywords="['minWidth']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+
+		      </setup>
+		      <body>
+
+			       <AssertPropertyValue target="mydatagrid" propertyName="minWidth" value="40"/>
+		      </body>
+               </TestCase>
+               <TestCase testID="property_minHeight_default" keywords="['minHeight']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+
+		      </setup>
+		      <body>
+
+			       <AssertPropertyValue target="mydatagrid" propertyName="minHeight" value="42"/>
+		      </body>
+               </TestCase>
+                
+                 <TestCase testID="property_minWidth" keywords="['minWidth']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+			<SetProperty propertyName="minWidth" value="100" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		      </setup>
+		      <body>
+
+			       <AssertPropertyValue target="mydatagrid" propertyName="minWidth" value="100"/>
+		      </body>
+		  </TestCase>
+		  <TestCase testID="property_minHeight" keywords="['minHeight']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+                       <SetProperty propertyName="minHeight" value="100" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		      </setup>
+		      <body>
+
+			       <AssertPropertyValue target="mydatagrid" propertyName="minHeight" value="100"/>
+		      </body>
+               </TestCase>
+               <TestCase testID="property_owner" keywords="['owner']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+
+		      </setup>
+		      <body>
+
+			       <AssertPropertyValue target="mydatagrid" propertyName="owner" value="AdvancedDataGridMain0.box"/>
+		      </body>
+               </TestCase>
+                
+                <TestCase testID="property_parent" keywords="['parent']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+			      <SetProperty propertyName="minHeight" value="100" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		      </setup>
+		      <body>
+
+			<AssertPropertyValue target="mydatagrid" propertyName="parent" value="AdvancedDataGridMain0.box"/>
+		      </body>
+               </TestCase>
+               
+                <TestCase testID="property_parentApplication" keywords="['parentApplication']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+			      <SetProperty propertyName="minHeight" value="100" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		      </setup>
+		      <body>
+
+			<AssertPropertyValue target="mydatagrid" propertyName="parentApplication" value="AdvancedDataGridMain0"/>
+		      </body>
+               </TestCase>
+               
+               <TestCase testID="property_parentDocument" keywords="['parentDocument']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+			      <SetProperty propertyName="minHeight" value="100" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		      </setup>
+		      <body>
+
+			<AssertPropertyValue target="mydatagrid" propertyName="parentDocument" value="AdvancedDataGridMain0"/>
+		      </body>
+               </TestCase>
+             
+                <TestCase testID="property_styleDeclaration" keywords="['styleDeclaration']">
+	      		       <setup>
+	      		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+	      		       <RunCode code="startApp()"/>
+	      		       <RunCode code="addItems()"/>
+	      			      
+	      		      </setup>
+	      		      <body>
+	      
+	      			<AssertPropertyValue target="mydatagrid" propertyName="styleDeclaration" value="null"/>
+	      		      </body>
+               </TestCase>
+              
+               <!--
+               <TestCase testID="property_focusPane" keywords="['focusEnabled_true']">
+		       <setup>
+		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+		      </setup>
+		      <body>
+		       <SetProperty propertyName="focusEnabled" value="true" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		       <DispatchKeyEvent key="TAB"/>
+		       <Pause timeout="100"/>
+		       <RunCode code="getFocusPane()"/>
+
+		      </body>
+               </TestCase>
+               <TestCase testID="property_toolTip" keywords="['toolTip']">
+	       	       		       <setup>
+	       	       		       <ResetComponent target="mydatagrid" className="mx.controls.AdvancedDataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+	       	       		       <RunCode code="startApp()"/>
+	       	       		       <RunCode code="addItems()"/>
+	       	                              <SetProperty propertyName="toolTip" value="tip" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+	       	       		      </setup>
+	       	       		      <body>
+	       	                              <DispatchMouseEvent target="mydatagrid" type="mouseOver" localX="100" localY="100"/>
+	       	                              <WaitForEffectsToEnd/>
+	       	                              <CompareBitmap timeout="5000"   target="application" url="../Properties/Baselines/datagrid_tooltip.png"/>
+	       	       			       
+	       		            </ body>
+               </TestCase>
+                -->
+    </testCases>
+
+</UnitTester>

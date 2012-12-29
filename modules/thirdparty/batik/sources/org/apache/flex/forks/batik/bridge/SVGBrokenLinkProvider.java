@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,53 +18,27 @@
  */
 package org.apache.flex.forks.batik.bridge;
 
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.flex.forks.batik.dom.util.DOMUtilities;
 import org.apache.flex.forks.batik.ext.awt.image.renderable.Filter;
 import org.apache.flex.forks.batik.ext.awt.image.spi.DefaultBrokenLinkProvider;
-import org.apache.flex.forks.batik.gvt.GraphicsNode;
+import org.apache.flex.forks.batik.gvt.CompositeGraphicsNode;
 import org.apache.flex.forks.batik.gvt.filter.GraphicsNodeRable8Bit;
-import org.apache.flex.forks.batik.util.SVGConstants;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.flex.forks.dom.svg.SVGDocument;
+
 /**
  * This interface is to be used to provide alternate ways of 
  * generating a placeholder image when the ImageTagRegistry
  * fails to handle a given reference.
+ *
+ * @author <a href="mailto:thomas.deweese@kodak.com">Thomas DeWeese</a>
+ * @version $Id: SVGBrokenLinkProvider.java 475477 2006-11-15 22:44:28Z cam $
  */
 public class SVGBrokenLinkProvider 
     extends    DefaultBrokenLinkProvider 
     implements ErrorConstants {
 
-    public final static String SVG_BROKEN_LINK_DOCUMENT_PROPERTY = 
-        "org.apache.flex.forks.batik.bridge.BrokenLinkDocument";
-
-    UserAgent      userAgent;
-    DocumentLoader loader;
-    BridgeContext  ctx;
-    GraphicsNode   gvtRoot = null;
-    SVGDocument       svgDoc;
-    
     public SVGBrokenLinkProvider() {
-        userAgent = new UserAgentAdapter();
-        loader    = new DocumentLoader(userAgent);
-        ctx       = new BridgeContext(userAgent, loader);
-
-        Class cls = SVGBrokenLinkProvider.class;
-        URL blURL = cls.getResource("BrokenLink.svg");
-        if (blURL == null) return;
-
-        GVTBuilder builder = new GVTBuilder();
-        try {
-            svgDoc  = (SVGDocument)loader.loadDocument(blURL.toString());
-            gvtRoot = builder.build(ctx, svgDoc);
-        } catch (Exception ex) {
-            // t.printStackTrace();
-        }
     }
 
     /**
@@ -81,38 +56,11 @@ public class SVGBrokenLinkProvider
      *        the circumstances of the failure.  */
     public Filter getBrokenLinkImage(Object base, String code, 
                                      Object[] params) {
-        if (gvtRoot == null) 
-            return null;
-
         String message = formatMessage(base, code, params);
-        Document doc = getBrokenLinkDocument(message);
         Map props = new HashMap();
         props.put(BROKEN_LINK_PROPERTY, message);
-        props.put(SVG_BROKEN_LINK_DOCUMENT_PROPERTY, doc);
-        
-        return new GraphicsNodeRable8Bit(gvtRoot, props);
-    }
 
-    public SVGDocument getBrokenLinkDocument(Object base, 
-                                          String code, Object [] params) {
-        String message = formatMessage(base, code, params);
-        return getBrokenLinkDocument(message);
-    }
-
-    public SVGDocument getBrokenLinkDocument(String message) {
-        SVGDocument doc = (SVGDocument)DOMUtilities.deepCloneDocument
-            (svgDoc, svgDoc.getImplementation());
-        Element infoE = doc.getElementById("__More_About");
-        Element title = doc.createElementNS(SVGConstants.SVG_NAMESPACE_URI,
-                                            SVGConstants.SVG_TITLE_TAG);
-        title.appendChild(doc.createTextNode
-                          (Messages.formatMessage
-                           (MSG_BROKEN_LINK_TITLE, null)));
-        Element desc = doc.createElementNS(SVGConstants.SVG_NAMESPACE_URI,
-                                           SVGConstants.SVG_DESC_TAG);
-        desc.appendChild(doc.createTextNode(message));
-        infoE.insertBefore(desc, infoE.getFirstChild());
-        infoE.insertBefore(title, desc);
-        return doc;
+        CompositeGraphicsNode cgn = new CompositeGraphicsNode();
+        return new GraphicsNodeRable8Bit(cgn, props);
     }
 }

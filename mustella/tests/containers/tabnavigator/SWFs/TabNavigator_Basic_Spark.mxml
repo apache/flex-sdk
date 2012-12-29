@@ -54,21 +54,21 @@
 		}
 		@font-face {
 		    src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
-		    fontFamily: EmbeddedVeraCFFON;
+		    fontFamily: EmbeddedVeraCFF;
 		    embedAsCFF: true;
 		}
 
 		@font-face {
 		    src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
 		    fontWeight: bold;
-		    fontFamily: EmbeddedVeraCFFON;
+		    fontFamily: EmbeddedVeraCFF;
 		    embedAsCFF: true;
 		}
 
 		@font-face {
 		    src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
 		    fontStyle: italic;
-		    fontFamily: EmbeddedVeraCFFON;
+		    fontFamily: EmbeddedVeraCFF;
 		    embedAsCFF: true;
 		}
 

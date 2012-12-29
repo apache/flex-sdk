@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -29,25 +30,25 @@ import org.apache.flex.forks.batik.ext.awt.g2d.GraphicContext;
  * corresponding SVG attributes.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: SVGColor.java,v 1.14 2004/08/18 07:14:59 vhardy Exp $
+ * @version $Id: SVGColor.java 511565 2007-02-25 18:04:46Z dvholten $
  * @see                 org.apache.flex.forks.batik.svggen.DOMTreeManager
  */
 public class SVGColor extends AbstractSVGConverter{
     /**
      * Predefined CSS colors
      */
-    public static final Color aqua = new Color(0x00, 0xff, 0xff);
+    public static final Color aqua = Color.cyan;
     public static final Color black = Color.black;
     public static final Color blue = Color.blue;
-    public static final Color fuchsia = new Color(0xff, 0x00, 0xff);
-    public static final Color gray = new Color(0x80, 0x80, 0x80);
-    public static final Color green = new Color(0x00, 0x80, 0x00);
-    public static final Color lime = new Color(0x00, 0xff, 0x00);
+    public static final Color fuchsia = Color.magenta;
+    public static final Color gray = Color.gray;
+    public static final Color green = new Color(0x00, 0x80, 0x00); // NOT Color.green!
+    public static final Color lime = Color.green;
     public static final Color maroon = new Color(0x80, 0x00, 0x00);
     public static final Color navy = new Color(0x00, 0x00, 0x80);
-    public static final Color olive = new Color(0x80, 0x80, 00);
+    public static final Color olive = new Color(0x80, 0x80, 0x00);
     public static final Color purple = new Color(0x80, 0x00, 0x80);
-    public static final Color red = new Color(0xff, 0x00, 0x00);
+    public static final Color red = Color.red;
     public static final Color silver = new Color(0xc0, 0xc0, 0xc0);
     public static final Color teal = new Color(0x00, 0x80, 0x80);
     public static final Color white = Color.white;

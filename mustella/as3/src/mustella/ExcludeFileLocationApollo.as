@@ -89,10 +89,10 @@ public class ExcludeFileLocationApollo
 
 			if (os.indexOf ("Windows") != -1) 
 			{
-				excludeFile = "ExcludeListWin.txt";
+				excludeFile = "ExcludeListWinAIR.txt";
 			} else if (os.indexOf ("Mac") != -1) 
 			{
-				excludeFile = "ExcludeListMac.txt";
+				excludeFile = "ExcludeListMacAIR.txt";
 			} else if (os.indexOf ("Linux") != -1) 
 			{
 				excludeFile = "ExcludeListLinux.txt";

@@ -203,11 +203,11 @@
         <TestCase testID="MaskEffect_xFrom_Play" keywords="[MaskEffect, Properties, xFrom]" description="Test the output look of the xFrom property.">
             <setup>
                 <RunCode code="application.ResetImage()"/>
-                <RunCode code="application.ResetEffectSize(50, 200, 50, 150)"/>
+                <RunCode code="application.ResetEffectSize(0, 0, 50, 50)"/>
             </setup>
             <body>
                 <RunCode code="application.testEffect.play()" waitTarget="testEffect" waitEvent="tweenUpdate"/>
-                <AssertPixelValue target="testImage" x="40" y="40" value="0"/>
+	            <AssertPixelValue target="testImage" x="60" y="60" value="#3E48CC"/>
             </body>
         </TestCase>
 
@@ -250,7 +250,7 @@
         <TestCase testID="MaskEffect_xTo_Play" keywords="[MaskEffect, Properties, xTo]" description="Test the output look of the xTo property.">
             <setup>
                 <RunCode code="application.ResetImage()"/>
-                <RunCode code="application.ResetEffectSize(50, 100, 50, 150)"/>
+                <RunCode code="application.ResetEffectSize(0, 0, 50, 50)"/>
             </setup>
             <body>
                 <RunCode code="application.testEffect.play()" waitTarget="testEffect" waitEvent="effectEnd"/>

@@ -24,14 +24,16 @@
     <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 
+    <property name="source.dir" value="${basedir}/${tlf.version}"/>
 	<property name="output.file" value="${FLEX_HOME}/frameworks/libs/textLayout.swc"/>
 	<property name="output.docs" value="${FLEX_HOME}/tempDoc"/>
 	<property name="flexTasks.location" value="${FLEX_HOME}/lib/flexTasks.jar"/>
 	<property name="project.uri" value="library://ns.adobe.com/flashx/textLayout"/>
 
-        <!-- We use abbreviated token names here as, the 'release' 
-             and 'debug' tokens conflict with those specified in 
-             build.properties -->
+    <!-- We use abbreviated token names here as, the 'release' 
+         and 'debug' tokens conflict with those specified in 
+         build.properties 
+    -->
 	<property name="dbg" value="false"/>
 	<property name="rel" value="true"/>
 	
@@ -44,22 +46,14 @@
 			<!-- because targets that run before flexTasks.jar gets built would fail. -->
 			<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 			<compc fork="true"
-				   output="${FLEX_HOME}/frameworks/locale/@{locale}/textLayout_rb.swc"
-				   locale="@{locale}">
+				   output="${FLEX_HOME}/frameworks/locale/@{locale}/textLayout_rb.swc">
 				<jvmarg line="${compc.jvm.args}"/>
-				<target-player>${playerglobal.version}</target-player>
-				<include-resource-bundles bundle="textLayout"/>
-				<include-namespaces/>
-				<include-classes/>
-				<source-path path-element="${basedir}/bundles/@{locale}"/>
-				<include-libraries/>
-				<library-path/>
-				<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-					<include name="${playerglobal.version}/playerglobal.swc"/>
-				</external-library-path>
-				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-					<include name="framework.swc"/>
-				</external-library-path>
+                <load-config filename="bundle-config.xml" />
+                <arg value="+playerglobal.version=${playerglobal.version}" />
+                <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
+                <arg value="+locale=@{locale}" />
+                <!-- this is the directory the bundles dir is in -->
+                <arg value="+srcdir=${basedir}" />
 			</compc>
 		</sequential>
 	</macrodef>	
@@ -68,9 +62,9 @@
 		<attribute name="locale"/>
 		<sequential>
 			<echo message="creating 'fat-swc' in textLayout_rb.swc for @{locale}"/>
-			<mkdir dir="${basedir}/bundles/@{locale}/docs" />
+			<mkdir dir="${source.dir}/bundles/@{locale}/docs" />
 			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/textLayout_rb.swc" update="true">
-				<zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
+				<zipfileset dir="${source.dir}/bundles/@{locale}/docs" prefix="docs">
 					<include name="*.*"/>
 					<exclude name="ASDoc_Config.xml"/>
 					<exclude name="overviews.xml"/>
@@ -100,7 +94,7 @@
 	</macrodef>
 		
 				
-	<target name="main" depends="clean" description="Clean build of automation_dmv.swc and en_US">
+	<target name="main" depends="clean,compile" description="Clean build of textLayout.swc">
 		<bundle locale="${locale}"/>
 	</target>
 	
@@ -110,9 +104,6 @@
 	<!-- The targets below set the 'locale' parameter  -->
 	<target name="bundles">
 		<!-- these languages do not have localized docs-->
-		<bundler locale="en_AU"/><!-- Australian resources -->
-		<bundler locale="en_GB"/><!-- United Kingdom resources -->
-		<bundler locale="en_CA"/><!-- Canadian resources -->
 		<bundler locale="da_DK"/><!-- Danish resources -->
 		<bundler locale="de_DE"><!-- German resources -->
 			<run.fat.swc>
@@ -124,9 +115,10 @@
 				<fat-swc locale="en_US"/>
 			</run.fat.swc>
 		</bundler>
-		<bundler locale="en_AU"/>
-		<bundler locale="en_GB"/>
-		<bundler locale="en_CA"/>
+		<!--bundler locale="el_GR"/--><!-- Greek Language  resources -->
+		<!--bundler locale="en_AU"/--><!-- Australian resources -->
+		<!--bundler locale="en_GB"/--><!-- United Kingdom resources -->
+		<!--bundler locale="en_CA"/--><!-- Canadian resources -->
 		<bundler locale="es_ES"/><!-- Spanish resources -->
 		<bundler locale="fi_FI"/><!--  Finnish resources-->
 		<bundler locale="fr_FR"><!-- French resources -->
@@ -144,7 +136,7 @@
 		<bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
 		<bundler locale="nl_NL"/><!-- Dutch resources -->
 		<bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
-		<bundler locale="pt_PT"/><!-- Portugal Portuguese resources -->
+		<!--bundler locale="pt_PT"/--><!-- Portugal Portuguese resources -->
 		<bundler locale="ru_RU"><!-- Russian resources -->
 			<run.fat.swc>
 				<fat-swc locale="ru_RU"/>
@@ -157,11 +149,14 @@
 			</run.fat.swc>
 		</bundler>
 		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
-		<bundler locale="el_GR"/><!-- Greek Language  resources -->
 	</target>
 	
 	<target name="clean" depends="bundles-clean" description="Deletes the combined swc">
 		<delete failonerror="false">
+			<fileset dir="${basedir}">
+				<include name="bundles.properties"/>
+			    <include name="bundles/en_US/packages.dita"/>
+			</fileset>
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
 				<include name="textLayout.swc"/>
 				<include name="combined_link.xml"/>
@@ -180,24 +175,66 @@
 	
 	<target name="compile" description="Compiles textLayout.swc">
 		<taskdef resource="flexTasks.tasks" classpath="${flexTasks.location}"/>
-		<compc fork="true"
-			   output="${output.file}"
-			   compute-digest="true"
-			   include-classes="flashx.textLayout.CoreClasses flashx.textLayout.EditClasses flashx.textLayout.ConversionClasses">
-			<jvmarg line="${compc.jvm.args}"/>
-			<keep-as3-metadata>IMXMLObject</keep-as3-metadata>
-			<include-namespaces uri="${project.uri}"/>
-			<namespace uri="${project.uri}" manifest="manifest.xml"/>
-			<source-path path-element="src"/>
-			<library-path/>
-			<include-file name="manifest.xml" path="${basedir}/manifest.xml"/>
+		<compc fork="true" 
+		       output="${output.file}">
+            <jvmarg line="${compc.jvm.args}"/>
+            <load-config filename="compile-config.xml" />
+            <arg value="+playerglobal.version=${playerglobal.version}" />
+            <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
+            <arg value="+source.dir=${source.dir}" />
+            <define name="CONFIG::debug" value="${dbg}"/>
+			<define name="CONFIG::release" value="${rel}"/>
+        </compc>
+     </target>
+
+    <target name="clean-temp-docs">
+        <delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+        <delete file="${basedir}/bundles/en_US/packages.dita" failonerror="false"/>
+    </target>
+
+    <target name="doc" depends="clean-temp-docs" description="updates textLayout.swc with asdoc xml">
+        <available file="${FLEX_HOME}/frameworks/locale/en_US/textLayout_rb.swc" property="resource.exists"/>
+        <fail message="${FLEX_HOME}/frameworks/locale/en_US/textLayout_rb.swc does not exist." unless="resource.exists"/> 
+        
+        <!-- Load the <asdoc> task. We can't do this at the <project> level -->
+        <!-- because targets that run before flexTasks.jar gets built would fail. -->
+        <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+
+        <condition property="asdoc.jvm.args" value="-Xmx384m">
+            <os family="windows"/>
+        </condition>
+
+        <condition property="asdoc.jvm.args" value="-Xmx512m">
+            <os family="mac"/>
+        </condition>
+
+        <condition property="asdoc.jvm.args" value="-Xmx512m">
+            <os family="unix"/>
+        </condition>
+
+        <!-- Call asdoc to generate dita xml files -->
+        <asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+            <compiler.source-path path-element="${source.dir}/src"/>
+			<compiler.show-actionscript-warnings>false</compiler.show-actionscript-warnings>
+			<doc-classes class="flashx.textLayout.CoreClasses"/>
+			<doc-classes class="flashx.textLayout.EditClasses"/>
+			<doc-classes class="flashx.textLayout.ConversionClasses"/>
+            <doc-namespaces uri="library://ns.adobe.com/flashx/textLayout"/>
+            <namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${source.dir}/manifest.xml"/>
+            <jvmarg line="${asdoc.jvm.args}"/>
 			<static-link-runtime-shared-libraries/>
 			<define name="CONFIG::debug" value="${dbg}"/>
 			<define name="CONFIG::release" value="${rel}"/>
-		</compc>
-     </target>
+        </asdoc>
 
-	<target name="doc" description="Updates textLayout.swc with ASDoc XML">
-	    <echo message="Docs are currently included in TLF drop."/>
+        <!-- updates textLayout_rb.swc with asdoc xml -->
+        <zip destfile="${FLEX_HOME}/frameworks/locale/en_US/textLayout_rb.swc" update="true">
+            <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+                <include name="*.*"/>
+                <exclude name="ASDoc_Config.xml"/>
+                <exclude name="overviews.xml"/>
+            </zipfileset>
+        </zip>
+        <copy file="${FLEX_HOME}/tempDoc/tempdita/packages.dita" tofile="${basedir}/bundles/en_US/packages.dita"/> 
     </target>
 </project>

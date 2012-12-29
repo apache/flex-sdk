@@ -136,7 +136,7 @@ verticalAlign and horizontalAlign.
         <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.MIDDLE" />
         <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" waitTarget="box1.group1" waitEvent="updateComplete" />
         <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
-        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
         <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
     </body>
 </TestCase>

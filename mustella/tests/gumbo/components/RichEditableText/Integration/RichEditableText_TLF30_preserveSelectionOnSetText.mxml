@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RichEditableText/Integration/" xmlns:mx="http://www.adobe.com/2006/mxml"
+			xmlns="*" testSWF="RichEditableText_Selection.mxml">
+	
+	<mx:Script>
+		<!-- Necessary for test runner. -->
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!-- ################################################################## -->
+	
+	<!--
+		Tests TextField-like behavior which preserves the selection when text is set.
+		If the new text is shorter than the exisiting text, the selection may change.
+	-->
+	
+	<testCases>
+		<TestCase testID="RichEditableText_TLF30_preserveSelectionOnSetText_test1" 
+				  description="Preserve selection when setting text." 
+				  keywords="[RichEditableText, selection]">			
+			<setup>				
+				<ResetComponent target="ret" className="spark.components.RichEditableText" waitTarget="ret" waitEvent="updateComplete" />
+				<SetProperty target="ret" propertyName="text" value="Hello" waitTarget="ret" waitEvent="updateComplete" />
+				<RunCode code="application.ret.selectAll()" waitTarget="ret" waitEvent="selectionChange" />				
+			</setup>			
+			<body>				
+				<AssertPropertyValue target="ret" propertyName="text" value="Hello"/>
+				<AssertPropertyValue target="ret" propertyName="selectionAnchorPosition" value="0" />
+				<AssertPropertyValue target="ret" propertyName="selectionActivePosition" value="5" />
+
+				<SetProperty target="ret" propertyName="text" value="Hello Flex" waitTarget="ret" waitEvent="updateComplete" />
+
+				<AssertNoEvent target="ret" eventName="selectionChange" eventClass="mx.events::FlexEvent" /> 
+				<AssertPropertyValue target="ret" propertyName="selectionAnchorPosition" value="0" />
+				<AssertPropertyValue target="ret" propertyName="selectionActivePosition" value="5" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="RichEditableText_TLF30_preserveSelectionOnSetText_test2" 
+				  description="Preserve selection when setting text." 
+				  keywords="[RichEditableText, selection]">			
+			<setup>				
+				<ResetComponent target="ret" className="spark.components.RichEditableText" waitTarget="ret" waitEvent="updateComplete" />
+				<SetProperty target="ret" propertyName="text" value="Hello Apache" waitTarget="ret" waitEvent="updateComplete" />
+				<RunCode code="application.ret.selectRange(6,12)" waitTarget="ret" waitEvent="selectionChange" />	
+			</setup>			
+			<body>				
+				<SetProperty target="ret" propertyName="text" value="Hello Apache Flex" waitTarget="ret" waitEvent="updateComplete" />
+
+				<AssertNoEvent target="ret" eventName="selectionChange" eventClass="mx.events::FlexEvent" /> 
+				<AssertPropertyValue target="ret" propertyName="selectionAnchorPosition" value="6" />
+				<AssertPropertyValue target="ret" propertyName="selectionActivePosition" value="12" />			
+			</body>
+		</TestCase>
+
+		<TestCase testID="RichEditableText_TLF30_preserveSelectionOnSetText_test3" 
+				  description="Preserve selection up to the length of the text." 
+				  keywords="[RichEditableText, selection]">			
+			<setup>				
+				<ResetComponent target="ret" className="spark.components.RichEditableText" waitTarget="ret" waitEvent="updateComplete" />
+				<SetProperty target="ret" propertyName="text" value="Hello Flex" waitTarget="ret" waitEvent="updateComplete" />
+				<RunCode code="application.ret.selectAll()" waitTarget="ret" waitEvent="selectionChange" />				
+			</setup>			
+			<body>								
+				<AssertPropertyValue target="ret" propertyName="text" value="Hello Flex"/>
+				<AssertPropertyValue target="ret" propertyName="selectionAnchorPosition" value="0" />
+				<AssertPropertyValue target="ret" propertyName="selectionActivePosition" value="10" />
+
+				<SetProperty target="ret" propertyName="text" value="Hello" waitTarget="ret" waitEvent="updateComplete" />
+
+				<AssertEvent target="ret" eventName="selectionChange" eventClass="mx.events::FlexEvent" /> 				
+				<AssertPropertyValue target="ret" propertyName="text" value="Hello"/>
+				<AssertPropertyValue target="ret" propertyName="selectionAnchorPosition" value="0" />
+				<AssertPropertyValue target="ret" propertyName="selectionActivePosition" value="5" />				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RichEditableText_TLF30_preserveSelectionOnSetText_passwd_test1" 
+				  description="Preserve selection when setting text (displayed as password)." 
+				  keywords="[RichEditableText, selection]">			
+			<setup>				
+				<ResetComponent target="ret" className="spark.components.RichEditableText" waitTarget="ret" waitEvent="updateComplete" />
+				<SetProperty target="ret" propertyName="text" value="Hello"/>
+				<SetProperty target="ret" propertyName="displayAsPassword" value="true" waitTarget="ret" waitEvent="updateComplete" />
+				<RunCode code="application.ret.selectAll()" waitTarget="ret" waitEvent="selectionChange" />				
+			</setup>			
+			<body>				
+				<AssertPropertyValue target="ret" propertyName="text" value="Hello"/>
+				<AssertPropertyValue target="ret" propertyName="selectionAnchorPosition" value="0" />
+				<AssertPropertyValue target="ret" propertyName="selectionActivePosition" value="5" />
+				
+				<SetProperty target="ret" propertyName="text" value="Hello Flex" waitTarget="ret" waitEvent="updateComplete" />
+
+				<AssertNoEvent target="ret" eventName="selectionChange" eventClass="mx.events::FlexEvent" /> 
+				<AssertPropertyValue target="ret" propertyName="selectionAnchorPosition" value="0" />
+				<AssertPropertyValue target="ret" propertyName="selectionActivePosition" value="5" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RichEditableText_TLF30_preserveSelectionOnSetText_passwd_test2" 
+				  description="Preserve selection when setting text (displayed as password)." 
+				  keywords="[RichEditableText, selection]">			
+			<setup>				
+				<ResetComponent target="ret" className="spark.components.RichEditableText" waitTarget="ret" waitEvent="updateComplete" />
+				<SetProperty target="ret" propertyName="text" value="Hello Apache" />
+				<SetProperty target="ret" propertyName="displayAsPassword" value="true" waitTarget="ret" waitEvent="updateComplete" />
+				<RunCode code="application.ret.selectRange(6,12)" waitTarget="ret" waitEvent="selectionChange" />	
+			</setup>			
+			<body>				
+				<SetProperty target="ret" propertyName="text" value="Hello Apache Flex" waitTarget="ret" waitEvent="updateComplete" />
+				
+				<AssertNoEvent target="ret" eventName="selectionChange" eventClass="mx.events::FlexEvent" /> 
+				<AssertPropertyValue target="ret" propertyName="selectionAnchorPosition" value="6" />
+				<AssertPropertyValue target="ret" propertyName="selectionActivePosition" value="12" />			
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RichEditableText_TLF30_preserveSelectionOnSetText_passwd_test3" 
+				  description="Preserve selection up to the length of the text (displayed as password)." 
+				  keywords="[RichEditableText, selection]">			
+			<setup>				
+				<ResetComponent target="ret" className="spark.components.RichEditableText" waitTarget="ret" waitEvent="updateComplete" />
+				<SetProperty target="ret" propertyName="text" value="Hello Flex" />
+				<SetProperty target="ret" propertyName="displayAsPassword" value="true" waitTarget="ret" waitEvent="updateComplete" />
+				<RunCode code="application.ret.selectAll()" waitTarget="ret" waitEvent="selectionChange" />				
+			</setup>			
+			<body>								
+				<AssertPropertyValue target="ret" propertyName="text" value="Hello Flex"/>
+
+				<AssertPropertyValue target="ret" propertyName="selectionAnchorPosition" value="0" />
+				<AssertPropertyValue target="ret" propertyName="selectionActivePosition" value="10" />
+				
+				<SetProperty target="ret" propertyName="text" value="Hello" waitTarget="ret" waitEvent="updateComplete" />
+
+				<AssertEvent target="ret" eventName="selectionChange" eventClass="mx.events::FlexEvent" /> 
+				<AssertPropertyValue target="ret" propertyName="text" value="Hello"/>
+				<AssertPropertyValue target="ret" propertyName="selectionAnchorPosition" value="0" />
+				<AssertPropertyValue target="ret" propertyName="selectionActivePosition" value="5" />				
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

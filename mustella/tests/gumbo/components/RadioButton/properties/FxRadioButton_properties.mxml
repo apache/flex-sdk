@@ -213,7 +213,7 @@ value property
 				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
 			</setup>
 			<body>
-				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchMouseClickEvent target="srg.s1" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s1"/>
 				<AssertPropertyValue propertyName="selected" value="true" target="srg.s1"/>
 				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
 			</body>
@@ -304,7 +304,7 @@ value property
 				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<DispatchMouseClickEvent target="rb1" localX="5" localY="5" waitEvent="updateComplete" waitTarget="rb1"/>
+				<DispatchMouseClickEvent target="rb1" localX="4" localY="8" waitEvent="updateComplete" waitTarget="rb1"/>
 				<DispatchKeyEvent key="SPACE" />
 				<DispatchMouseEvent type="mouseMove" stageX="100" stageY="100" />
 				<AssertPropertyValue propertyName="selected" value="true" target="rb1"/>
@@ -335,7 +335,7 @@ value property
 				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchMouseClickEvent target="srg.s1" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s1"/>
 				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s2" />
 				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s3" />
 				<AssertPropertyValue propertyName="selected" value="true" target="srg.s3"/>
@@ -355,7 +355,7 @@ value property
 				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchMouseClickEvent target="srg.s1" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s1"/>
 				<DispatchKeyEvent key="LEFT" waitEvent="updateComplete" waitTarget="srg.s1" />
 				<AssertPropertyValue propertyName="selected" value="true" target="srg.s1"/>
 				<DispatchKeyEvent key="RIGHT" waitEvent="updateComplete" waitTarget="srg.s2" />
@@ -377,7 +377,7 @@ value property
 				<SetProperty propertyName="visible" value="false" target="srg.s3"/>
 			</setup>
 			<body>
-				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchMouseClickEvent target="srg.s1" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s1"/>
 				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s2" />
 				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s3" />
 				<AssertPropertyValue propertyName="selected" value="true" target="srg.s3"/>
@@ -485,7 +485,7 @@ value property
 				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchMouseClickEvent target="srg.s1" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s1"/>
 				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s2" />
 				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s3" />
 				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s4" />
@@ -509,7 +509,7 @@ value property
 				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchMouseClickEvent target="srg.s1" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s1"/>
 				<DispatchKeyEvent key="RIGHT" waitEvent="updateComplete" waitTarget="srg.s2" />
 				<DispatchKeyEvent key="RIGHT" waitEvent="updateComplete" waitTarget="srg.s3" />
 				<DispatchKeyEvent key="RIGHT" waitEvent="updateComplete" waitTarget="srg.s4" />
@@ -602,7 +602,7 @@ value property
 				<DispatchMouseClickEvent target="srg" localX="10" localY="10" waitEvent="updateComplete" waitTarget="srg.s1"/>
 			</setup>
 			<body>
-				<DispatchMouseClickEvent target="srg.s2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="srg.s2"/>
+				<DispatchMouseClickEvent target="srg.s2" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s2"/>
 				<AssertPropertyValue propertyName="selected" value="false" target="srg.s1"/>
 				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
 			</body>
@@ -625,7 +625,8 @@ value property
 				<SetProperty propertyName="enabled" target="srg.s2" value="false" waitEvent="updateComplete" waitTarget="srg.s2"/>
 			</setup>
 			<body>
-				<DispatchMouseClickEvent target="srg.s2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="srg.s2"/>
+				<DispatchMouseClickEvent target="srg.s2" localX="4" localY="8" />
+				<AssertNoEvent target="srg.s2" eventName="click" />
 				<AssertPropertyValue propertyName="enabled" value="false" target="srg.s2"/>
 				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
 			</body>
@@ -664,11 +665,11 @@ value property
 				<SetProperty target="rb1" propertyName="autoRepeat" value="true"/>			
 			</setup>
 			<body>
-				<DispatchMouseEvent target="rb1" type="rollOver" localX="5" localY="5"/>
-				<DispatchMouseEvent target="rb1" type="mouseOver" localX="5" localY="5"/>
-				<DispatchMouseEvent target="rb1" type="mouseDown" localX="5" localY="5" waitEvent="updateComplete" waitTarget="rb1"/>
+				<DispatchMouseEvent target="rb1" type="rollOver" localX="5" localY="8"/>
+				<DispatchMouseEvent target="rb1" type="mouseOver" localX="5" localY="8"/>
+				<DispatchMouseEvent target="rb1" type="mouseDown" localX="5" localY="8" waitEvent="updateComplete" waitTarget="rb1"/>
 				<AssertEvent target="rb1" eventName="buttonDown" eventClass="mx.events::FlexEvent" />		
-				<DispatchMouseEvent target="rb1" type="mouseUp" localX="5" localY="5"/>
+				<DispatchMouseEvent target="rb1" type="mouseUp" localX="5" localY="8"/>
 				<AssertPropertyValue target="rb1" propertyName="autoRepeat" value="true"/>
 			</body>
 		</TestCase>
@@ -681,11 +682,11 @@ value property
 				<SetStyle target="rb1" styleName="repeatInterval" value="500"/>
 			</setup>
 			<body>
-				<DispatchMouseEvent target="rb1" type="rollOver" localX="5" localY="5"/>
-				<DispatchMouseEvent target="rb1" type="mouseOver" localX="5" localY="5"/>
-				<DispatchMouseEvent target="rb1" type="mouseDown" localX="5" localY="5" waitEvent="updateComplete" waitTarget="rb1"/>
+				<DispatchMouseEvent target="rb1" type="rollOver" localX="5" localY="8"/>
+				<DispatchMouseEvent target="rb1" type="mouseOver" localX="5" localY="8"/>
+				<DispatchMouseEvent target="rb1" type="mouseDown" localX="5" localY="8" waitEvent="updateComplete" waitTarget="rb1"/>
 				<AssertEvent target="rb1" eventName="buttonDown" numExpectedEvents="2" eventClass="mx.events::FlexEvent" />		
-				<DispatchMouseEvent target="rb1" type="mouseUp" localX="5" localY="5" />
+				<DispatchMouseEvent target="rb1" type="mouseUp" localX="5" localY="8" />
 				<AssertPropertyValue target="rb1" propertyName="autoRepeat" value="true"/>
 			</body>
 		</TestCase>
@@ -744,7 +745,7 @@ value property
 				<SetProperty propertyName="enabled" target="srg.sparkGrp" value="false" waitEvent="updateComplete" waitTarget="srg.s5"/>
 			</setup>
 			<body>	
-				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3"/>
+				<DispatchMouseClickEvent target="srg.s1" localX="4" localY="8"/>
 				<AssertNoEvent target="srg.sparkGrp" eventName="itemClick" eventClass="mx.events::ItemClickEvent" />
 				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
 			</body>
@@ -777,10 +778,10 @@ value property
 				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
 			</setup>
 			<body>	
-				<DispatchMouseClickEvent target="srg.s3" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<DispatchMouseClickEvent target="srg.s3" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s3"/>
 				<AssertPropertyValue propertyName="selected" target="srg.s3" value="true"/>
 				<SetProperty propertyName="enabled" target="srg.s3" value="false" waitEvent="updateComplete" waitTarget="srg.s3"/>
-				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchMouseClickEvent target="srg.s1" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s1"/>
 				<AssertPropertyValue propertyName="selected" target="srg.s1" value="true"/>
 				<AssertPropertyValue propertyName="selected" target="srg.s3" value="false"/>
 				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
@@ -798,7 +799,7 @@ value property
 				<SetProperty propertyName="selected" target="srg.s3" value="true" waitEvent="updateComplete" waitTarget="srg.s3"/>
 				<AssertPropertyValue propertyName="selected" target="srg.s3" value="true"/>
 				<SetProperty propertyName="enabled" target="srg.s3" value="false" waitEvent="updateComplete" waitTarget="srg.s3"/>
-				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchMouseClickEvent target="srg.s1" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s1"/>
 				<AssertPropertyValue propertyName="selected" target="srg.s1" value="true"/>
 				<AssertPropertyValue propertyName="selected" target="srg.s3" value="false"/>
 				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
@@ -959,7 +960,7 @@ value property
 				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
 			</setup>
 			<body>	
-				<DispatchMouseClickEvent target="srg.s3" localX="3" localY="5" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<DispatchMouseClickEvent target="srg.s3" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s3"/>
 				<AssertPropertyValue propertyName="selected" target="srg.s3" value="true"/>
 				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="Spark 3"/>
 				<SetProperty propertyName="selected" value="false" target="srg.s3" waitEvent="updateComplete" waitTarget="srg.s3"/>
@@ -989,7 +990,7 @@ value property
 				<SetProperty propertyName="selected" value="true" target="srg.s3" waitEvent="updateComplete" waitTarget="srg.s3"/>
 				<AssertPropertyValue propertyName="selected" target="srg.s3" value="true"/>
 				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="Spark 3"/>
-				<DispatchMouseClickEvent target="srg.s5" localX="3" localY="5" waitEvent="updateComplete" waitTarget="srg.s5"/>
+				<DispatchMouseClickEvent target="srg.s5" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s5"/>
 				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="Spark 5"/>
 			</body>
 		</TestCase>
@@ -999,10 +1000,10 @@ value property
 				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
 			</setup>
 			<body>	
-				<DispatchMouseClickEvent target="srg.s3" localX="3" localY="5" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<DispatchMouseClickEvent target="srg.s3" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s3"/>
 				<AssertPropertyValue propertyName="selected" target="srg.s3" value="true"/>
 				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="Spark 3"/>
-				<DispatchMouseClickEvent target="srg.s5" localX="3" localY="5" waitEvent="updateComplete" waitTarget="srg.s5"/>
+				<DispatchMouseClickEvent target="srg.s5" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s5"/>
 				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="Spark 5"/>
 			</body>
 		</TestCase>
@@ -1069,7 +1070,7 @@ value property
 				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
 				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
 				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
-				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchMouseClickEvent target="srg.s1" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s1"/>
 				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s2" />
 				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s3" />
 				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s4" />
@@ -1085,7 +1086,7 @@ value property
 				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
 				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
 				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
-				<DispatchMouseClickEvent target="srg.s4" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s4"/>
+				<DispatchMouseClickEvent target="srg.s4" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s4"/>
 			</setup>
 			<body>	
 				<SetProperty propertyName="selected" target="srg.s4" value="true" waitEvent="updateComplete" waitTarget="srg.s4"/>
@@ -1159,7 +1160,7 @@ value property
 				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
 				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
 				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
-				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchMouseClickEvent target="srg.s1" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s1"/>
 				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s2" />
 				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s3" />
 				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s4" />
@@ -1177,7 +1178,7 @@ value property
 				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
 				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
 				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
-				<DispatchMouseClickEvent target="srg.s4" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s4"/>
+				<DispatchMouseClickEvent target="srg.s4" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s4"/>
 			</setup>
 			<body>	
 				<SetProperty propertyName="selected" target="srg.s4" value="true" waitEvent="updateComplete" waitTarget="srg.s4"/>
@@ -1193,7 +1194,7 @@ value property
 				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
 				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
 				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
-				<DispatchMouseClickEvent target="srg.s4" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s4"/>
+				<DispatchMouseClickEvent target="srg.s4" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s4"/>
 			</setup>
 			<body>	
 				<SetProperty propertyName="selected" target="srg.s4" value="true" waitEvent="updateComplete" waitTarget="srg.s4"/>
@@ -1215,7 +1216,7 @@ value property
 				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
 				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
 				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
-				<DispatchMouseClickEvent target="hrg.r4" localX="3" localY="3" waitEvent="updateComplete" waitTarget="hrg.r4"/>
+				<DispatchMouseClickEvent target="hrg.r4" localX="4" localY="8" waitEvent="updateComplete" waitTarget="hrg.r4"/>
 			</setup>
 			<body>	
 				<SetProperty propertyName="selected" target="hrg.r4" value="true" waitEvent="updateComplete" waitTarget="hrg.r4"/>
@@ -1234,7 +1235,7 @@ value property
 				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
 				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
 				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
-				<DispatchMouseClickEvent target="srg.s4" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s4"/>
+				<DispatchMouseClickEvent target="srg.s4" localX="4" localY="8" waitEvent="updateComplete" waitTarget="srg.s4"/>
 			</setup>
 			<body>	
 				<SetProperty propertyName="selected" target="srg.s4" value="true" waitEvent="updateComplete" waitTarget="srg.s4"/>
@@ -1257,7 +1258,7 @@ value property
 				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
 				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
 				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
-				<DispatchMouseClickEvent target="hrg.r4" localX="3" localY="3" waitEvent="updateComplete" waitTarget="hrg.r4"/>
+				<DispatchMouseClickEvent target="hrg.r4" localX="4" localY="8" waitEvent="updateComplete" waitTarget="hrg.r4"/>
 			</setup>
 			<body>	
 				<SetProperty propertyName="selected" target="hrg.r4" value="true" waitEvent="updateComplete" waitTarget="hrg.r4"/>
@@ -1273,7 +1274,7 @@ value property
 			    <ResetComponent target="rb1" className="spark.components.RadioButton" />
 		        </setup>
 			<body>
-			    <AssertPropertyValue target="rb1" propertyName="baselinePosition" value="14.05" />
+			    <AssertPropertyValue target="rb1" propertyName="baselinePosition" value="17.5" />
 			</body>
 		</TestCase>
 		<TestCase testID="FxRadioButton_property_baselinePosition_postValidation" keywords="[FxRadioButton, property, baselinePosition]" description="check baselinePosition of RadioButton">
@@ -1281,7 +1282,7 @@ value property
 			    <ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
 		        </setup>
 			<body>
-			    <AssertPropertyValue target="rb1" propertyName="baselinePosition" value="14.05" />
+			    <AssertPropertyValue target="rb1" propertyName="baselinePosition" value="17.5" />
 			</body>
 		</TestCase>
 		

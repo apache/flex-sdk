@@ -83,7 +83,7 @@ fontFamily: Does not work; see bug SDK-18608
     </setup>
     <body>
         <SetStyle target="runtimeBB1" styleName="fontFamily" value="EmbeddedArial" waitEvent="updateComplete" />
-        <SetStyle target="runtimeBB1" styleName="fontFamily" value="EmbeddedArno" waitEvent="updateComplete" />
+        <SetStyle target="runtimeBB1" styleName="fontFamily" value="EmbeddedLobsterTwo" waitEvent="updateComplete" />
         <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
     </body>
 </TestCase>
@@ -320,7 +320,7 @@ direction: Blocked by bug SDK-18610.  Need to set textAlign to see it.
         <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac_hebrew" waitEvent="updateComplete" />
     </setup>
     <body>
-        <SetProperty target="runtimeBB1" propertyName="styleName" value="fontFamily1 direction1" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="hebrewRTL" waitEvent="updateComplete" />
 		<CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
     </body>
 </TestCase>
@@ -338,7 +338,7 @@ direction: Blocked by bug SDK-18610.  Need to set textAlign to see it.
         <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac_hebrew" />
     </setup>
     <body>
-        <SetProperty target="runtimeBB1" propertyName="styleName" value="fontFamily1 direction2" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="hebrewLTR" waitEvent="updateComplete" />
         <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
     </body>
 </TestCase>

@@ -136,7 +136,9 @@
             </setup>
             <body>
                 <WaitForEffectsToEnd />
-                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPG.png" timeout="5000" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkBar_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkBar]" >
@@ -148,7 +150,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab.png" timeout="5000" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkBar_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkBar]" >
@@ -160,7 +164,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkBar_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkBar]" >
@@ -173,7 +179,9 @@
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab.png" timeout="5000" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkBar_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkBar]" >
@@ -186,7 +194,9 @@
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
                 <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkBar_Styles_SkinStates_Embeding_JPG_Disabled" keywords="[disabled, SkinStates,EmbedJPG, LinkBar]" >
@@ -428,7 +438,9 @@
             </setup>
             <body>
                 <WaitForEffectsToEnd />
-                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_JPG.png" timeout="5000" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkBar_Styles_SkinStates_runtime_PNG" keywords="[enabled, SkinStates,runtimePNG, LinkBar]" >
@@ -522,7 +534,9 @@
             </setup>
             <body>
                 <WaitForEffectsToEnd />
-                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPGIcon.png" timeout="5000" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkBar]" >
@@ -535,7 +549,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab.png" timeout="5000" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkBar]" >
@@ -548,7 +564,9 @@
             <body>
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkBar]" >
@@ -561,7 +579,9 @@
                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab.png" timeout="5000" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkBar]" >
@@ -574,7 +594,9 @@
                 <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
                 <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
                 <WaitForEffectsToEnd />
-                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab.png" timeout="5000" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkBar_Styles_SkinStates_Embeding_JPGIcon_Disabled" keywords="[disabled, SkinStates,EmbedJPGIcon, LinkBar]" >
@@ -817,7 +839,9 @@
             </setup>
             <body>
                 <WaitForEffectsToEnd />
-                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_JPGIcon.png" timeout="5000" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/" timeout="5000" >
+					<ConditionalValue device="air" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="LinkBar_Styles_SkinStates_runtime_PNGIcon" keywords="[enabled, SkinStates,runtimePNGIcon, LinkBar]" >

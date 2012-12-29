@@ -18,7 +18,7 @@
 
 -->
 <mx:Application backgroundColor="0xFFFFFF"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*"  width="600" height="600"  layout="vertical" >
-    <mx:VideoDisplay id="vd" cuePointManagerClass="mx.controls.videoClasses.CuePointManager" autoPlay="false" source="../../../../Assets/Video/video.flv">
+    <mx:VideoDisplay id="vd" cuePointManagerClass="mx.controls.videoClasses.CuePointManager" autoPlay="false" source="assets/video.flv">
         <mx:cuePoints>
             <mx:Array>
                 <mx:Object name="CompileCue0" time="1.00"/>

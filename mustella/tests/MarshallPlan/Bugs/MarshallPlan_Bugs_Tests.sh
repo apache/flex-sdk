@@ -21,6 +21,4 @@ echo "Compiling loading app SWFs..."
 
 $SDK_DIR/bin/mxmlc -static-link-runtime-shared-libraries=true ../SWFs/ASLoaderApp.as
 
-fi
-
 

@@ -54,54 +54,64 @@
                 <AssertPropertyValue propertyName="alwaysInFront" value="false" target="aw"/>
             </body>
         </TestCase>
-        <TestCase testID="Window_properties_default_height" keywords="[Window, properties, height]">
+        <TestCase testID="Window_default_height_Spark" keywords="[Window, properties, height]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
                 <AssertPropertyValue propertyName="height" value="100" target="aw"/>
-                <CompareBitmap url="../Properties/baselines/Window_default_height_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_properties_height_500" keywords="[Window, properties, height]">
+        <TestCase testID="Window_properties_height_500_Spark" keywords="[Window, properties, height]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty propertyName="height" value="500" target="aw"/>
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Properties/baselines/Window_properties_height_500_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_properties_height_250_postOpen" keywords="[Window, properties, height]">
+        <TestCase testID="Window_properties_height_250_postOpen_Spark" keywords="[Window, properties, height]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
                 <SetProperty propertyName="height" value="250" target="aw" waitTarget="aw" waitEvent="updateComplete"/>
             </setup>
             <body>
-                <CompareBitmap url="../Properties/baselines/Window_properties_height_250_postOpen_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-      <TestCase testID="Window_properties_width_500" keywords="[Window, properties, width]">
+      <TestCase testID="Window_width_500_Spark" keywords="[Window, properties, width]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty propertyName="width" value="500" target="aw"/>
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Properties/baselines/Window_width_500_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_properties_width_250_postOpen" keywords="[Window, properties, width]">
+        <TestCase testID="Window_width_250_postOpen_Spark" keywords="[Window, properties, width]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
                 <SetProperty propertyName="width" value="250" target="aw" waitTarget="aw" waitEvent="updateComplete"/>
             </setup>
             <body>
-                <CompareBitmap url="../Properties/baselines/Window_width_250_postOpen_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Window_properties_maxHeight_default" keywords="[Window, properties, maxHeight]">
@@ -221,7 +231,7 @@
                 <AssertPropertyValue propertyName="width" value="400" target="aw"/>
             </body>
         </TestCase>
-        <TestCase testID="Window_properties_minHeight_default" keywords="[Window, properties, minHeight]">
+        <TestCase testID="Window_properties_minHeight_default_mac" keywords="[Window, properties, minHeight]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <RunCode code="application.aw.open()"/>
@@ -230,6 +240,15 @@
                 <AssertPropertyValue propertyName="minHeight" value="34" target="aw"/>
             </body>
         </TestCase>
+		<TestCase testID="Window_properties_minHeight_default_win" keywords="[Window, properties, minHeight]">
+			<setup>
+				<RunCode code="application.resetWindow()"/>
+				<RunCode code="application.aw.open()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="minHeight" value="38" target="aw"/>
+			</body>
+		</TestCase>
         <TestCase testID="Window_properties_minHeight_300_height_200" keywords="[Window, properties, minHeight]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
@@ -272,14 +291,16 @@
                 <AssertPropertyValue propertyName="showStatusBar" value="true" target="aw"/>
             </body>
         </TestCase>
-        <TestCase testID="Window_properties_showStatusBar_false" keywords="[Window, properties, showStatusBar]">
+        <TestCase testID="Window_properties_showStatusBar_false_Spark" keywords="[Window, properties, showStatusBar]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty propertyName="showStatusBar" value="false" target="aw"/>
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Properties/baselines/Window_properties_showStatusBar_false_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Window_properties_showStatusBar_true" keywords="[Window, properties, showStatusBar]">
@@ -302,17 +323,19 @@
             </body>
         </TestCase>
 
-        <TestCase testID="Window_properties_title" keywords="[Window, properties, title]">
+        <TestCase testID="Window_properties_title_Spark" keywords="[Window, properties, title]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty propertyName="title" value="Hello World!" target="aw"/>
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Properties/baselines/Window_properties_title_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
-        <TestCase testID="Window_properties_title_long" keywords="[Window, properties, title]">
+        <TestCase testID="Window_properties_title_long_Spark" keywords="[Window, properties, title]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty propertyName="title" value="0123456789012345678901234567890123456789012345678901234567890123456789" target="aw"/>
@@ -321,7 +344,9 @@
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Properties/baselines/Window_properties_title_long_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Window_properties_status_default" keywords="[Window, properties, status]">
@@ -353,14 +378,16 @@
                 <CompareBitmap url="../Properties/baselines/Window_properties_status_long_Spark.png" target="aw.statusBar"/>
             </body>
         </TestCase>
-        <TestCase testID="Window_properties_titleIcon" keywords="[Window,properties, titleIcon]">
+        <TestCase testID="Window_properties_titleIcon_Spark" keywords="[Window,properties, titleIcon]">
             <setup>
                 <RunCode code="application.resetWindow()"/>
                 <SetProperty target="aw" propertyName="titleIcon" valueExpression="value=kb" />
                 <RunCode code="application.aw.open()" waitEvent="windowComplete" waitTarget="aw"/>
             </setup>
             <body>
-                <CompareBitmap url="../Properties/baselines/Window_properties_titleIcon_Spark.png" target="aw"/>
+				<CompareBitmap target="aw" url="../Properties/baselines/" >
+					<ConditionalValue os="win" />
+				</CompareBitmap>
             </body>
         </TestCase>
         <TestCase testID="Window_properties_visible_default" keywords="[Window, properties, visible]">

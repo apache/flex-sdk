@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2003 The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,7 +18,6 @@
  */
 package org.apache.flex.forks.batik.ext.awt.geom;
 
-import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.QuadCurve2D;
 import java.awt.geom.Rectangle2D;
@@ -25,7 +25,7 @@ import java.awt.geom.Rectangle2D;
 /**
  * A class representing a quadratic path segment.
  *
- * @version $Id: Quadradic.java,v 1.3 2005/03/27 08:58:32 cam Exp $
+ * @version $Id: Quadradic.java 478249 2006-11-22 17:29:37Z dvholten $
  */
 public class Quadradic extends AbstractSegment {
     public Point2D.Double p1, p2, p3;
@@ -36,16 +36,16 @@ public class Quadradic extends AbstractSegment {
         p3 = new Point2D.Double();
     }
 
-    public Quadradic(double x1, double y1,  
-                     double x2, double y2, 
+    public Quadradic(double x1, double y1,
+                     double x2, double y2,
                      double x3, double y3) {
         p1 = new Point2D.Double(x1, y1);
         p2 = new Point2D.Double(x2, y2);
         p3 = new Point2D.Double(x3, y3);
     }
 
-    public Quadradic(Point2D.Double p1, 
-                     Point2D.Double p2, 
+    public Quadradic(Point2D.Double p1,
+                     Point2D.Double p2,
                      Point2D.Double p3) {
         this.p1 = p1;
         this.p2 = p2;
@@ -53,18 +53,18 @@ public class Quadradic extends AbstractSegment {
     }
 
     public Object clone() {
-        return new Quadradic(new Point2D.Double(p1.x, p1.y), 
-                             new Point2D.Double(p2.x, p2.y), 
+        return new Quadradic(new Point2D.Double(p1.x, p1.y),
+                             new Point2D.Double(p2.x, p2.y),
                              new Point2D.Double(p3.x, p3.y));
     }
 
     public Segment reverse() {
-        return new Quadradic(new Point2D.Double(p3.x, p3.y), 
-                             new Point2D.Double(p2.x, p2.y), 
+        return new Quadradic(new Point2D.Double(p3.x, p3.y),
+                             new Point2D.Double(p2.x, p2.y),
                              new Point2D.Double(p1.x, p1.y));
     }
 
-    private void getMinMax(double p1, double p2, 
+    private void getMinMax(double p1, double p2,
                            double p3, double [] minMax) {
         if (p3 > p1){
             minMax[0] = p1; minMax[1] = p3;
@@ -85,27 +85,27 @@ public class Quadradic extends AbstractSegment {
         else if (tv > minMax[1]) minMax[1] = tv;
     }
 
-    public double minX() { 
+    public double minX() {
         double [] minMax = {0, 0};
         getMinMax(p1.x, p2.x, p3.x, minMax);
         return minMax[0];
     }
-    public double maxX() {  
+    public double maxX() {
         double [] minMax = {0, 0};
         getMinMax(p1.x, p2.x, p3.x, minMax);
         return minMax[1];
     }
-    public double minY() { 
+    public double minY() {
         double [] minMax = {0, 0};
         getMinMax(p1.y, p2.y, p3.y, minMax);
         return minMax[0];
     }
-    public double maxY() { 
+    public double maxY() {
         double [] minMax = {0, 0};
         getMinMax(p1.y, p2.y, p3.y, minMax);
         return minMax[1];
     }
-    public Rectangle2D getBounds2D() { 
+    public Rectangle2D getBounds2D() {
         double [] minMaxX = {0, 0};
         getMinMax(p1.x, p2.x, p3.x, minMaxX);
         double [] minMaxY = {0, 0};
@@ -122,7 +122,7 @@ public class Quadradic extends AbstractSegment {
         // return solveQuad(eqn[2], eqn[1], eqn[0], roots);
     }
 
-    public Point2D.Double evalDt(double t) { 
+    public Point2D.Double evalDt(double t) {
         double x = 2*(p1.x-2*p2.x+p3.x)*t + 2*(p2.x-p1.x);
         double y = 2*(p1.y-2*p2.y+p3.y)*t + 2*(p2.y-p1.y);
         return new Point2D.Double(x, y);
@@ -140,7 +140,7 @@ public class Quadradic extends AbstractSegment {
 
         Point2D.Double np2 = new Point2D.Double
             (np1.x+.5*dt*dp1.x, np1.y+.5*dt*dp1.y);
-        
+
         Point2D.Double np3 = eval(t1);
         return new Quadradic(np1, np2, np3);
     }
@@ -246,7 +246,7 @@ public class Quadradic extends AbstractSegment {
         if (hullLen < maxErr) return (hullLen+cordLen)*.5;
 
         double err = (hullLen-cordLen);
-        if (err < maxErr) 
+        if (err < maxErr)
             return (hullLen+cordLen)*.5;
 
         Quadradic q  = new Quadradic();
@@ -255,14 +255,14 @@ public class Quadradic extends AbstractSegment {
 
         dx = .25*dx;
         dy = .25*dy;
-        
+
         q.p1.x = p1.x;
         q.p1.y = p1.y;
         q.p2.x = x-dx;
         q.p2.y = y-dy;
         q.p3.x = x;
         q.p3.y = y;
-        
+
         double midLen = .25*cordLen;
         double len = q.subLength(leftLegLen*.5, midLen, maxErr*.5);
 
@@ -289,16 +289,16 @@ public class Quadradic extends AbstractSegment {
         dx = p3.x-p2.x;
         dy = p3.y-p2.y;
         double rightLegLen = Math.sqrt(dx*dx+dy*dy);
-        
+
         double eps = maxErr*(leftLegLen+rightLegLen);
 
         return subLength(leftLegLen, rightLegLen, eps);
     }
 
-    public String toString() { 
-        return ("M" + p1.x + "," + p1.y + 
-                "Q" + p2.x + "," + p2.y + " " +
-                p3.x + "," + p3.y );
+    public String toString() {
+        return "M" + p1.x + ',' + p1.y +
+               'Q' + p2.x + ',' + p2.y + ' ' +
+                p3.x + ',' + p3.y;
     }
 
     /*
@@ -307,7 +307,7 @@ public class Quadradic extends AbstractSegment {
         return (((a + eps) > b) && ((a-eps) < b));
     }
 
-    public static void sub(Quadradic orig, Quadradic curr, 
+    public static void sub(Quadradic orig, Quadradic curr,
                            double t, double inc, int lev) {
         Quadradic left=new Quadradic();
         Quadradic right=new Quadradic();
@@ -349,7 +349,7 @@ public class Quadradic extends AbstractSegment {
             len += Math.sqrt(dx*dx + dy*dy);
             oldP = newP;
         }
-        System.err.println("Length(.1): " + q.getLength(.001) + 
+        System.err.println("Length(.1): " + q.getLength(.001) +
                            " x " + count); count = 0;
         System.err.println("Length    : " + q.getLength() +
                            " x " + count); count = 0;
@@ -367,7 +367,7 @@ public class Quadradic extends AbstractSegment {
         sub(q, q, .5, .25, 3);
         evalQuad(q);
 
-        
+
     }
 */
 }

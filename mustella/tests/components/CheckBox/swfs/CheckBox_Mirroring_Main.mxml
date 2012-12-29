@@ -21,7 +21,7 @@
                xmlns:s="library://ns.adobe.com/flex/spark"
                xmlns:mx="library://ns.adobe.com/flex/mx" >
 
-    <fx:Style source="../../../../Assets/Fonts/myStyles.css" />
+    <fx:Style source="../../../../Assets/Fonts/VeraFontStyles.css" />
     <fx:Style>
         @namespace comps "comps.*";
 

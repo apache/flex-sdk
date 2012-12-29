@@ -42,6 +42,7 @@
         ]]>
         </mx:Script>
     <testCases>
+		<!-- FIXME (aharui) Need alternative server 
         <TestCase testID="SWFLoader_security_bugSDK12812"  keywords="[SWFLoader, Security, Bugs]">
             <setup>
                 <ResetComponent target="SWFLoad" className="mx.controls::SWFLoader" waitEvent="updateComplete" waitTarget="SWFLoad"/>
@@ -53,6 +54,7 @@
                 <AssertEvent target="SWFLoad" eventName="complete" eventClass="flash.events::Event" timeout="50000"/>
            </body>
         </TestCase>
+		-->
     </testCases>
 </UnitTester>
 

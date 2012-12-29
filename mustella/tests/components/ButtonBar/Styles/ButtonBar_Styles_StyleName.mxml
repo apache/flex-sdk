@@ -130,22 +130,7 @@
                 <DispatchKeyEvent key="TAB"  />
                 <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
                 <AssertStyleValue target="bb" styleName="firstButtonStyleName" value="fontSizeCustom underLineStyle"/>
-                <CompareBitmap target="bb.getChildAt(0)" url="../Styles/baselines/firstButtonStyleName_multiple.png" timeout="5000" />
-            </body>
-        </TestCase>
-        
-          <TestCase testID="TB_Style_Basic_firstButtonStyleName_multiple_mac" description="ButtonBar Basic styles." keywords="[style, ButtonBar, firstButtonStyleName]">
-            <setup>
-                <ResetComponent target="bb" className="mx.controls.ButtonBar" />
-                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb"/>
-                <SetStyle target="bb" styleName="firstButtonStyleName"  value="fontSizeCustom underLineStyle" waitEvent="updateComplete" waitTarget="bb"/>
-            </setup>
-            <body>
-                <DispatchKeyEvent key="TAB"  />
-                <DispatchKeyEvent key="TAB"  />
-                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
-                <AssertStyleValue target="bb" styleName="firstButtonStyleName" value="fontSizeCustom underLineStyle"/>
-                <CompareBitmap target="bb.getChildAt(0)" url="../Styles/baselines/$testID.png" timeout="5000" />
+                <CompareBitmap target="bb.getChildAt(0)" url="../Styles/baselines/firstButtonStyleName_multiple.png"  numColorVariances="4" ignoreMaxColorVariance="true" />
             </body>
         </TestCase>
         
@@ -160,10 +145,10 @@
                 <DispatchKeyEvent key="TAB"  />
                 <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
                 <AssertStyleValue target="bb" styleName="lastButtonStyleName" value="fontSizeCustom underLineStyle"/>
-                <CompareBitmap target="bb.getChildAt(2)" url="../Styles/baselines/lastButtonStyleName_multiple.png" timeout="5000" />
+                <CompareBitmap target="bb.getChildAt(2)" url="../Styles/baselines/lastButtonStyleName_multiple.png"  numColorVariances="4" ignoreMaxColorVariance="true"/>
             </body>
         </TestCase>
-        <TestCase testID="TB_Style_Basic_buttonStyleName_multiple" description="ButtonBar Basic styles." keywords="[style, ButtonBar, buttonStyleName]">
+	 <TestCase testID="TB_Style_Basic_buttonStyleName_multiple" description="ButtonBar Basic styles." keywords="[style, ButtonBar, buttonStyleName]">
             <setup>
                 <ResetComponent target="bb" className="mx.controls.ButtonBar" />
                 <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb"/>
@@ -174,21 +159,7 @@
                 <DispatchKeyEvent key="TAB"  />
                 <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
                 <AssertStyleValue target="bb" styleName="buttonStyleName" value="fontSizeCustom underLineStyle"/>
-                <CompareBitmap target="bb.getChildAt(1)" url="../Styles/baselines/buttonStyleName_multiple.png" timeout="5000" />
-            </body>
-        </TestCase>
-	 <TestCase testID="TB_Style_Basic_buttonStyleName_multiple_mac" description="ButtonBar Basic styles." keywords="[style, ButtonBar, buttonStyleName]">
-            <setup>
-                <ResetComponent target="bb" className="mx.controls.ButtonBar" />
-                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb"/>
-                <SetStyle target="bb" styleName="buttonStyleName"  value="fontSizeCustom underLineStyle" waitEvent="updateComplete" waitTarget="bb"/>
-            </setup>
-            <body>
-                <DispatchKeyEvent key="TAB"  />
-                <DispatchKeyEvent key="TAB"  />
-                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
-                <AssertStyleValue target="bb" styleName="buttonStyleName" value="fontSizeCustom underLineStyle"/>
-                <CompareBitmap target="bb.getChildAt(1)" url="../Styles/baselines/$testID.png" timeout="5000" />
+                <CompareBitmap target="bb.getChildAt(1)" url="../Styles/baselines/buttonStyleName_multiple.png"  numColorVariances="8" ignoreMaxColorVariance="true" />
             </body>
         </TestCase>
 

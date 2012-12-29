@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -22,10 +23,10 @@ import org.w3c.dom.Element;
 
 /**
  * This class provides an implementation of the
- * {@link org.w3c.flex.forks.css.sac.AttributeCondition} interface.
+ * {@link org.w3c.css.sac.AttributeCondition} interface.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: CSSClassCondition.java,v 1.6 2004/08/18 07:12:51 vhardy Exp $
+ * @version $Id: CSSClassCondition.java 602579 2007-12-08 23:43:32Z cam $
  */
 public class CSSClassCondition extends CSSAttributeCondition {
 
@@ -35,41 +36,45 @@ public class CSSClassCondition extends CSSAttributeCondition {
     public CSSClassCondition(String localName,
                              String namespaceURI,
                              String value) {
-	super(localName, namespaceURI, true, value);
+        super(localName, namespaceURI, true, value);
     }
-    
+
     /**
      * <b>SAC</b>: Implements {@link
-     * org.w3c.flex.forks.css.sac.Condition#getConditionType()}.
-     */    
+     * org.w3c.css.sac.Condition#getConditionType()}.
+     */
     public short getConditionType() {
-	return SAC_CLASS_CONDITION;
+        return SAC_CLASS_CONDITION;
     }
-    
+
     /**
      * Tests whether this condition matches the given element.
      */
     public boolean match(Element e, String pseudoE) {
         if (!(e instanceof CSSStylableElement))
             return false;  // Can't match an unstylable element.
-	String attr = ((CSSStylableElement)e).getCSSClass();
-	String val = getValue();
-	int i = attr.indexOf(val);
-	if (i == -1) {
-	    return false;
-	}
-	if (i != 0 && !Character.isSpaceChar(attr.charAt(i - 1))) {
-	    return false;
-	}
-	int j = i + val.length();
-	return (j == attr.length() ||
-		(j < attr.length() && Character.isSpaceChar(attr.charAt(j))));
+        String attr = ((CSSStylableElement)e).getCSSClass();
+        String val = getValue();
+        int attrLen = attr.length();
+        int valLen = val.length();
+
+        int i = attr.indexOf(val);
+        while (i != -1) {
+            if (i == 0 || Character.isSpaceChar(attr.charAt(i - 1))) {
+                if (i + valLen == attrLen ||
+                        Character.isSpaceChar(attr.charAt(i + valLen))) {
+                    return true;
+                }
+            }
+            i = attr.indexOf(val, i + valLen);
+        }
+        return false;
     }
 
     /**
      * Returns a text representation of this object.
      */
     public String toString() {
-	return "." + getValue();
+        return '.' + getValue();
     }
 }

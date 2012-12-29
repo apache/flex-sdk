@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -49,7 +50,7 @@ import org.apache.flex.forks.batik.util.HaltingThread;
  * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
  * @author <a href="mailto:etissandier@ilog.fr">Emmanuel Tissandier</a>
  * @author <a href="mailto:Thomas.DeWeeese@Kodak.com">Thomas DeWeese</a>
- * @version $Id: AbstractGraphicsNode.java,v 1.58 2005/03/27 08:58:34 cam Exp $
+ * @version $Id: AbstractGraphicsNode.java 504084 2007-02-06 11:24:46Z dvholten $
  */
 public abstract class AbstractGraphicsNode implements GraphicsNode {
 
@@ -192,7 +193,7 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
                 inverseTransform = transform.createInverse();
             }catch(NoninvertibleTransformException e){
                 // Should never happen.
-                throw new Error();
+                throw new Error( e.getMessage() );
             }
         } else {
             // The transform is not invertible. Use the same
@@ -273,6 +274,9 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
     }
 
     public void setClip(ClipRable newClipper) {
+        if ((newClipper == null) && (this.clip == null))
+            return; // No change still no clip.
+
         fireGraphicsNodeChangeStarted();
         invalidateGeometryCache();
         this.clip = newClipper;
@@ -327,7 +331,7 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
      */
     public void setRenderingHints(RenderingHints newHints) {
         fireGraphicsNodeChangeStarted();
-        this.hints = newHints;
+        hints = newHints;
         fireGraphicsNodeChangeCompleted();
     }
 
@@ -344,9 +348,12 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
      * @param newMask the new mask of this node
      */
     public void setMask(Mask newMask) {
+        if ((newMask == null) && (mask == null))
+            return; // No change still no mask.
+
         fireGraphicsNodeChangeStarted();
         invalidateGeometryCache();
-        this.mask = newMask;
+        mask = newMask;
         fireGraphicsNodeChangeCompleted();
     }
 
@@ -363,9 +370,12 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
      * @param newFilter the new filter of this node
      */
     public void setFilter(Filter newFilter) {
+        if ((newFilter == null) && (filter == null))
+            return; // No change still no filter.
+
         fireGraphicsNodeChangeStarted();
         invalidateGeometryCache();
-        this.filter = newFilter;
+        filter = newFilter;
         fireGraphicsNodeChangeCompleted();
     }
 
@@ -379,7 +389,7 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
     /**
      * Returns the GraphicsNodeRable for this node.  This
      * GraphicsNodeRable is the Renderable (Filter) before any of the
-     * filter operations have been applied.  
+     * filter operations have been applied.
      */
     public Filter getGraphicsNodeRable(boolean createIfNeeded) {
         GraphicsNodeRable ret = null;
@@ -397,7 +407,7 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
     /**
      * Returns the GraphicsNodeRable for this node.  This
      * GraphicsNodeRable is the Renderable (Filter) after all of the
-     * filter operations have been applied.  
+     * filter operations have been applied.
      */
     public Filter getEnableBackgroundGraphicsNodeRable
         (boolean createIfNeeded) {
@@ -436,27 +446,38 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
         // Set up graphic context. It is important to setup the
         // transform first, because the clip is defined in this node's
         // user space.
-        Shape defaultClip = g2d.getClip();
-        Composite defaultComposite = g2d.getComposite();
-        AffineTransform defaultTransform = g2d.getTransform();
-        RenderingHints defaultHints = null;
+        Composite       defaultComposite = null;
+        AffineTransform defaultTransform = null;
+        RenderingHints  defaultHints     = null;
+        Graphics2D      baseG2d          = null;
 
-        if (hints != null) {
-            defaultHints = g2d.getRenderingHints();
-            g2d.addRenderingHints(hints);
-        }
-        if (transform != null) {
-            g2d.transform(transform);
-        }
-        if (composite != null) {
-            g2d.setComposite(composite);
-        }
-        if (clip != null){
+        if (clip != null)  {
+            baseG2d = g2d;
+            g2d = (Graphics2D)g2d.create();
+            if (hints != null)
+                g2d.addRenderingHints(hints);
+            if (transform != null)
+                g2d.transform(transform);
+            if (composite != null)
+                g2d.setComposite(composite);
             g2d.clip(clip.getClipPath());
+        } else {
+            if (hints != null) {
+                defaultHints = g2d.getRenderingHints();
+                g2d.addRenderingHints(hints);
+            }
+            if (transform != null) {
+                defaultTransform = g2d.getTransform();
+                g2d.transform(transform);
+            }
+            if (composite != null) {
+                defaultComposite = g2d.getComposite();
+                g2d.setComposite(composite);
+            }
         }
 
         Shape curClip = g2d.getClip();
-        g2d.setRenderingHint(RenderingHintsKeyExt.KEY_AREA_OF_INTEREST, 
+        g2d.setRenderingHint(RenderingHintsKeyExt.KEY_AREA_OF_INTEREST,
                              curClip);
 
         // Check if any painting is needed at all. Get the clip (in user space)
@@ -511,6 +532,12 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
                     filteredImage = clip;
                 }
 
+                baseG2d = g2d;
+                // Only muck with the clip on a 'child'
+                // graphics 2D otherwise when we restore the
+                // clip it might 'wander' by a pixel.
+                g2d = (Graphics2D)g2d.create();
+
                 if(antialiasedClip){
                     // Remove hard edged clip
                     g2d.setClip(null);
@@ -521,17 +548,24 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
 
                 org.apache.flex.forks.batik.ext.awt.image.GraphicsUtil.drawImage
                     (g2d, filteredImage);
+
+                g2d.dispose();
+                g2d = baseG2d;
+                baseG2d = null;// Don't leave null we need g2d restored...
             }
         }
 
         // Restore default rendering attributes
-        if (defaultHints != null) {
-            g2d.setRenderingHints(defaultHints);
-        }
-        g2d.setTransform(defaultTransform);
-        g2d.setClip(defaultClip);
-        if (composite != null) {
-            g2d.setComposite(defaultComposite);
+        if (baseG2d != null) {
+            g2d.dispose();
+        } else {
+            if (defaultHints != null)
+                g2d.setRenderingHints(defaultHints);
+            if (defaultTransform != null)
+                g2d.setTransform(defaultTransform);
+            if (defaultComposite != null) {
+                g2d.setComposite(defaultComposite);
+            }
         }
     }
 
@@ -541,11 +575,11 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
     private void traceFilter(Filter filter, String prefix){
         System.out.println(prefix + filter.getClass().getName());
         System.out.println(prefix + filter.getBounds2D());
-        java.util.Vector sources = filter.getSources();
+        List sources = filter.getSources();
         int nSources = sources != null ? sources.size() : 0;
         prefix += "\t";
         for(int i=0; i<nSources; i++){
-            Filter source = (Filter)sources.elementAt(i);
+            Filter source = (Filter)sources.get(i);
             traceFilter(source, prefix);
         }
 
@@ -754,7 +788,7 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
 
             // Check If we should halt early.
             if (HaltingThread.hasBeenHalted()) {
-                // The Thread has been 'halted'. 
+                // The Thread has been 'halted'.
                 // Invalidate any cached values and proceed.
                 invalidateGeometryCache();
             }
@@ -934,7 +968,7 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
     /**
      * This method makes sure that neither the width nor height of the
      * rectangle is zero.  But it tries to make them very small
-     * relatively speaking.  
+     * relatively speaking.
      */
     protected Rectangle2D normalizeRectangle(Rectangle2D bounds) {
         if (bounds == null) return null;
@@ -950,7 +984,7 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
                 if (tmpW < bounds.getWidth())
                     tmpW = bounds.getWidth();
                 return new Rectangle2D.Double
-                    (bounds.getX(), bounds.getY(), 
+                    (bounds.getX(), bounds.getY(),
                      tmpW, bounds.getHeight());
             }
         } else if (bounds.getHeight() < EPSILON) {
@@ -958,7 +992,7 @@ public abstract class AbstractGraphicsNode implements GraphicsNode {
             if (tmpH < bounds.getHeight())
                 tmpH = bounds.getHeight();
             return new Rectangle2D.Double
-                (bounds.getX(), bounds.getY(), 
+                (bounds.getX(), bounds.getY(),
                  bounds.getWidth(), tmpH);
         }
         return bounds;

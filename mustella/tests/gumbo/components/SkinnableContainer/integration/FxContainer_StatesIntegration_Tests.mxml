@@ -53,6 +53,7 @@ testSWF="FxContainer_StatesIntegration.mxml">
     <body>
         <SetProperty target="{FlexGlobals.topLevelApplication}" propertyName="currentState" value="state1" waitTarget="{FlexGlobals.topLevelApplication}" waitEvent="currentStateChange" />
         <AssertPropertyValue target="btn01" propertyName="parent" valueExpression="value=null" />
+		<WaitForLayoutManager />
         <CompareBitmap url="../integration/baselines/$testID.png" target="stage" numColorVariances="15"  ignoreMaxColorVariance="true"/>
     </body>
 </TestCase>

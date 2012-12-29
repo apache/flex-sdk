@@ -45,7 +45,7 @@
 			<setup>
 		       <ResetComponent target="dg" className="comps.DGComp" waitEvent="updateComplete" waitTarget="dg" />
 		   	   <SetProperty target="swf2" propertyName="autoLoad" value="true" />
-			   <SetProperty target="swf2" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf2" waitEvent="updateComplete"/>
+			   <SetProperty target="swf2" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitTarget="swf2" waitEvent="updateComplete"/>
 			   <SetProperty target="swf2" propertyName="autoLoad" value="false" />
 		   	   <SetProperty target="swf2" propertyName="loadForCompatibility" value="true" />
 		   	   <SetProperty target="swf2" propertyName="source" value="MP_DragManager_Events.swf" />
@@ -84,7 +84,7 @@
 			<setup>
 			   <ResetComponent target="dg" className="comps.DGComp" waitEvent="updateComplete" waitTarget="dg" />
                <SetProperty target="swf2" propertyName="autoLoad" value="true" />
-			   <SetProperty target="swf2" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf2" waitEvent="updateComplete"/>
+			   <SetProperty target="swf2" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitTarget="swf2" waitEvent="updateComplete"/>
 			   <Pause timeout="100" />
 			   <SetProperty target="swf2" propertyName="autoLoad" value="false" />
 			   <SetProperty target="swf2" propertyName="source" value="MP_DragManager_Events.swf" waitTarget="swf2" waitEvent="updateComplete"/>
@@ -121,7 +121,7 @@
 			<setup>
 			   <ResetComponent target="dg" className="comps.DGComp" waitEvent="updateComplete" waitTarget="dg" />
                <SetProperty target="swf2" propertyName="autoLoad" value="true" />
-			   <SetProperty target="swf2" propertyName="source" value="../../../Assets/Images/redrect.jpg" waitTarget="swf2" waitEvent="updateComplete"/>
+			   <SetProperty target="swf2" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitTarget="swf2" waitEvent="updateComplete"/>
 			   <Pause timeout="100" />
 			   <SetProperty target="swf2" propertyName="autoLoad" value="false" />
 			   <SetProperty target="swf2" propertyName="source" value="MP_DragManager_Events.swf" waitTarget="swf2" waitEvent="updateComplete"/>

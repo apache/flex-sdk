@@ -77,7 +77,7 @@ tested in the maximizable tests.
         <Pause timeout="400"/>
         <AssertPropertyValue target="nativeWindow" propertyName="displayState" value="maximized" />
         <AssertMethodValue method="value = (Capabilities.screenResolutionX >= FlexGlobals.topLevelApplication.width) &amp;&amp; (FlexGlobals.topLevelApplication.width >= FlexGlobals.topLevelApplication.screenWidthFudged)" value="true" />
-        <AssertMethodValue method="value = (Capabilities.screenResolutionY >= FlexGlobals.topLevelApplication.height) &amp;&amp; (FlexGlobals.topLevelApplication.height >= FlexGlobals.topLevelApplication.screenHeightFudged)" value="false" />
+        <AssertMethodValue method="value = (Capabilities.screenResolutionY >= FlexGlobals.topLevelApplication.height) &amp;&amp; (FlexGlobals.topLevelApplication.height >= FlexGlobals.topLevelApplication.screenHeightFudged)" value="true" />
         <AssertPropertyValue target="btn1" propertyName="top" value="0" />
         <AssertPropertyValue target="btn1" propertyName="left" value="0" />
         <AssertPropertyValue target="btn2" propertyName="top" value="0" />
@@ -106,7 +106,7 @@ tested in the maximizable tests.
         <Pause timeout="200" />
         <AssertPropertyValue target="nativeWindow" propertyName="displayState" value="maximized" />
         <AssertMethodValue method="value = (Capabilities.screenResolutionX >= FlexGlobals.topLevelApplication.width) &amp;&amp; (FlexGlobals.topLevelApplication.width >= FlexGlobals.topLevelApplication.screenWidthFudged)" value="true" />
-        <AssertMethodValue method="value = (Capabilities.screenResolutionY >= FlexGlobals.topLevelApplication.height) &amp;&amp; (FlexGlobals.topLevelApplication.height >= FlexGlobals.topLevelApplication.screenHeightFudged)" value="false" />
+        <AssertMethodValue method="value = (Capabilities.screenResolutionY >= FlexGlobals.topLevelApplication.height) &amp;&amp; (FlexGlobals.topLevelApplication.height >= FlexGlobals.topLevelApplication.screenHeightFudged)" value="true" />
         <AssertPropertyValue target="btn1" propertyName="top" value="0" />
         <AssertPropertyValue target="btn1" propertyName="left" value="0" />
         <AssertPropertyValue target="btn2" propertyName="top" value="0" />
@@ -134,7 +134,7 @@ tested in the maximizable tests.
         <Pause timeout="200"/>
         <AssertPropertyValue target="nativeWindow" propertyName="displayState" value="maximized" />
         <AssertMethodValue method="value = (Capabilities.screenResolutionX >= FlexGlobals.topLevelApplication.width) &amp;&amp; (FlexGlobals.topLevelApplication.width >= FlexGlobals.topLevelApplication.screenWidthFudged)" value="true" />
-        <AssertMethodValue method="value = (Capabilities.screenResolutionY >= FlexGlobals.topLevelApplication.height) &amp;&amp; (FlexGlobals.topLevelApplication.height >= FlexGlobals.topLevelApplication.screenHeightFudged)" value="false" />
+        <AssertMethodValue method="value = (Capabilities.screenResolutionY >= FlexGlobals.topLevelApplication.height) &amp;&amp; (FlexGlobals.topLevelApplication.height >= FlexGlobals.topLevelApplication.screenHeightFudged)" value="true" />
         <AssertPropertyValue target="btn1" propertyName="top" value="0" />
         <AssertPropertyValue target="btn1" propertyName="left" value="0" />
         <AssertPropertyValue target="btn2" propertyName="top" value="0" />
@@ -157,7 +157,7 @@ tested in the maximizable tests.
         <RunCode code="FlexGlobals.topLevelApplication.maximize()" waitTarget="" waitEvent="displayStateChange" />        
         <AssertPropertyValue target="nativeWindow" propertyName="displayState" value="maximized" />
         <AssertMethodValue method="value = (Capabilities.screenResolutionX >= FlexGlobals.topLevelApplication.width) &amp;&amp; (FlexGlobals.topLevelApplication.width >= FlexGlobals.topLevelApplication.screenWidthFudged)" value="true" />
-        <AssertMethodValue method="value = (Capabilities.screenResolutionY >= FlexGlobals.topLevelApplication.height) &amp;&amp; (FlexGlobals.topLevelApplication.height >= FlexGlobals.topLevelApplication.screenHeightFudged)" value="false" />
+        <AssertMethodValue method="value = (Capabilities.screenResolutionY >= FlexGlobals.topLevelApplication.height) &amp;&amp; (FlexGlobals.topLevelApplication.height >= FlexGlobals.topLevelApplication.screenHeightFudged)" value="true" />
         <AssertPropertyValue target="btn1" propertyName="top" value="0" />
         <AssertPropertyValue target="btn1" propertyName="left" value="0" />
         <AssertPropertyValue target="btn2" propertyName="top" value="0" />
@@ -184,7 +184,7 @@ tested in the maximizable tests.
         <Pause timeout="200" />
         <AssertPropertyValue target="nativeWindow" propertyName="displayState" value="maximized" />
         <AssertMethodValue method="value = (Capabilities.screenResolutionX >= FlexGlobals.topLevelApplication.width) &amp;&amp; (FlexGlobals.topLevelApplication.width >= FlexGlobals.topLevelApplication.screenWidthFudged)" value="true" />
-        <AssertMethodValue method="value = (Capabilities.screenResolutionY >= FlexGlobals.topLevelApplication.height) &amp;&amp; (FlexGlobals.topLevelApplication.height >= FlexGlobals.topLevelApplication.screenHeightFudged)" value="false" />
+        <AssertMethodValue method="value = (Capabilities.screenResolutionY >= FlexGlobals.topLevelApplication.height) &amp;&amp; (FlexGlobals.topLevelApplication.height >= FlexGlobals.topLevelApplication.screenHeightFudged)" value="true" />
         <AssertPropertyValue target="btn1" propertyName="top" value="0" />
         <AssertPropertyValue target="btn1" propertyName="left" value="0" />
         <AssertPropertyValue target="btn2" propertyName="top" value="0" />
@@ -212,7 +212,7 @@ tested in the maximizable tests.
         <RunCode code="FlexGlobals.topLevelApplication.maximize()" waitTarget="" waitEvent="displayStateChange" />
         <AssertPropertyValue target="nativeWindow" propertyName="displayState" value="maximized" />
         <AssertMethodValue method="value = (Capabilities.screenResolutionX >= FlexGlobals.topLevelApplication.width) &amp;&amp; (FlexGlobals.topLevelApplication.width >= FlexGlobals.topLevelApplication.screenWidthFudged)" value="true" />
-        <AssertMethodValue method="value = (Capabilities.screenResolutionY >= FlexGlobals.topLevelApplication.height) &amp;&amp; (FlexGlobals.topLevelApplication.height >= FlexGlobals.topLevelApplication.screenHeightFudged)" value="false" />
+        <AssertMethodValue method="value = (Capabilities.screenResolutionY >= FlexGlobals.topLevelApplication.height) &amp;&amp; (FlexGlobals.topLevelApplication.height >= FlexGlobals.topLevelApplication.screenHeightFudged)" value="true" />
         <AssertPropertyValue target="btn1" propertyName="top" value="0" />
         <AssertPropertyValue target="btn1" propertyName="left" value="0" />
         <AssertPropertyValue target="btn2" propertyName="top" value="0" />

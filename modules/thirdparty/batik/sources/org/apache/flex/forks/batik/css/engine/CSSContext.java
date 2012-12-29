@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2004  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,10 +27,10 @@ import org.w3c.dom.Element;
  * informations.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: CSSContext.java,v 1.11 2005/03/27 08:58:31 cam Exp $
+ * @version $Id: CSSContext.java 478160 2006-11-22 13:35:06Z dvholten $
  */
 public interface CSSContext {
-    
+
     /**
      * Returns the Value corresponding to the given system color.
      */
@@ -82,30 +83,30 @@ public interface CSSContext {
     /**
      * This method should throw a SecurityException if the resource
      * found at url and referenced from docURL should not be loaded.
-     * 
+     *
      * @param resourceURL url for the resource, as defined in
      *        the resource's xlink:href attribute. If that
      *        attribute was empty, then this parameter should
      *        be null
-     * @param docURL url for the document into which the 
+     * @param docURL url for the document into which the
      *        resource was found.
      */
-    public void 
+    void
         checkLoadExternalResource(ParsedURL resourceURL,
                                   ParsedURL docURL) throws SecurityException;
 
     /**
      * Returns true if the document is dynamic, false otherwise.
      */
-    public boolean isDynamic();
+    boolean isDynamic();
 
     /**
      * Returns true if the document is interactive, false otherwise.
      */
-    public boolean isInteractive();
+    boolean isInteractive();
 
     /**
      * Returns the CSS engine associated with given element.
      */
-    public CSSEngine getCSSEngineForElement(Element e);
+    CSSEngine getCSSEngineForElement(Element e);
 }

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -39,7 +40,7 @@ import org.w3c.dom.Element;
  * of the file created by this handler.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: AbstractImageHandlerEncoder.java,v 1.17 2005/03/27 08:58:35 cam Exp $
+ * @version $Id: AbstractImageHandlerEncoder.java 579230 2007-09-25 12:52:48Z cam $
  * @see             org.apache.flex.forks.batik.svggen.SVGGraphics2D
  * @see             org.apache.flex.forks.batik.svggen.ImageHandlerJPEGEncoder
  * @see             org.apache.flex.forks.batik.svggen.ImageHandlerPNGEncoder
@@ -60,7 +61,7 @@ public abstract class AbstractImageHandlerEncoder extends DefaultImageHandler {
     // for createGraphics method.
     private static Method createGraphics = null;
     private static boolean initDone = false;
-    private final static Class[] paramc = new Class[] {BufferedImage.class};
+    private static final Class[] paramc = new Class[] {BufferedImage.class};
     private static Object[] paramo = null;
 
     /**
@@ -78,7 +79,7 @@ public abstract class AbstractImageHandlerEncoder extends DefaultImageHandler {
             } catch (ThreadDeath td) {
                 throw td;
             } catch (Throwable t) {
-                // happen only if Batik extensions are not their
+                // happen only if Batik extensions are not there
             } finally {
                 initDone = true;
             }
@@ -213,7 +214,7 @@ public abstract class AbstractImageHandlerEncoder extends DefaultImageHandler {
 
         // Update HREF
         imageElement.setAttributeNS(XLINK_NAMESPACE_URI,
-                                    ATTR_XLINK_HREF, urlRoot + "/" +
+                                    XLINK_HREF_QNAME, urlRoot + "/" +
                                     imageFile.getName());
     }
 

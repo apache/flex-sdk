@@ -19,7 +19,7 @@
 -->
 <mx:Application backgroundColor="0xFFFFFF" backgroundImage="" height="375" width="500" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" >
 
-    <mx:Style source="../../../../Assets/Fonts/myStyles.css" />
+    <mx:Style source="../../../../Assets/Fonts/VeraFontStyles.css" />
     
     <mx:Canvas id="canvas1" width="200" height="200">
         <mx:DateChooser id="dc" />

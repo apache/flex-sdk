@@ -117,15 +117,6 @@
 			</body>
 		</TestCase>
 		
-	    <TestCase testID="Spark_height_property_default_of_CheckBox_macOnly" description="Test that the default height of CheckBox is 18" keywords="[CheckBox, height, property]">
-			<setup>
-				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
-			</setup>
-			<body>
-				<AssertPropertyValue target="myCheckBox" propertyName="height" value="21"/>
-			</body>
-		</TestCase>		
-
 		<TestCase testID="Spark_height_property_50_of_CheckBox" description="Test that the height of CheckBox is 50" keywords="[CheckBox, height, property]">
 			<setup>
 				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>

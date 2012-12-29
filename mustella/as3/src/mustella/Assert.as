@@ -42,14 +42,14 @@ public class Assert extends TestStep
 {
 	// list of properties we don't examine in determining equivalence
 	private static var excludeList:Array = [
-						"stage", 
-						"systemManager", 
-						"parent", 
-						"owner", 
-						"target", 
+						"stage",
+						"systemManager",
+						"parent",
+						"owner",
+						"target",
 						"currentTarget"
 			];
-	 
+
 	/**
 	 *  Called by the test case in case you need to set up before execute()
 	 */
@@ -150,7 +150,7 @@ public class Assert extends TestStep
 		if (value == null)
 			return "null";
 		var s:String;
-		
+
 		if (value is Number)
 		{
 			if ((value is int) || (value is uint))
@@ -165,6 +165,16 @@ public class Assert extends TestStep
 			s = ObjectUtil.toString(value, null, excludeList);
 		return s;
 	}
+
+    protected function contains(value:*, expectedError:ErrorArray):Boolean {
+        if (expectedError && expectedError.parts && expectedError.parts.length)
+            for (var i:uint = 0; i < expectedError.parts.length; i++) {
+                if (valueToString(value).indexOf(valueToString(expectedError.parts[i])) == -1)
+                    return false;
+            }
+
+        return true;
+    }
 }
 
 }

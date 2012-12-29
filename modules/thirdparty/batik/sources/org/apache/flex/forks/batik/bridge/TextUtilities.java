@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -34,7 +35,7 @@ import org.w3c.dom.css.CSSPrimitiveValue;
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
  * @author <a href="mailto:bill.haneman@ireland.sun.com">Bill Haneman</a>
- * @version $Id: TextUtilities.java,v 1.10 2005/03/27 08:58:30 cam Exp $
+ * @version $Id: TextUtilities.java 501922 2007-01-31 17:47:47Z dvholten $
  */
 public abstract class TextUtilities implements CSSConstants, ErrorConstants {
 
@@ -125,9 +126,9 @@ public abstract class TextUtilities implements CSSConstants, ErrorConstants {
                 values.add
                     (new Float(Math.toRadians
                                (SVGUtilities.convertSVGNumber(s))));
-            } catch (NumberFormatException ex) {
+            } catch (NumberFormatException nfEx ) {
                 throw new BridgeException
-                    (element, ERR_ATTRIBUTE_VALUE_MALFORMED,
+                    (ctx, element, nfEx, ERR_ATTRIBUTE_VALUE_MALFORMED,
                      new Object [] {attrName, valueStr});
             }
         }

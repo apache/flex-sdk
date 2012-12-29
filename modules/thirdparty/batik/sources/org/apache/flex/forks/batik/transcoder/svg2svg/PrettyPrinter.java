@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -34,14 +35,14 @@ import org.apache.flex.forks.batik.xml.XMLScanner;
  * This class represents an SVG source files pretty-printer.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: PrettyPrinter.java,v 1.9 2005/03/15 11:24:35 deweese Exp $
+ * @version $Id: PrettyPrinter.java 478176 2006-11-22 14:50:50Z dvholten $
  */
 public class PrettyPrinter {
 
     // The doctype options.
-    public final static int DOCTYPE_CHANGE = 0;
-    public final static int DOCTYPE_REMOVE = 1;
-    public final static int DOCTYPE_KEEP_UNCHANGED = 2;
+    public static final int DOCTYPE_CHANGE = 0;
+    public static final int DOCTYPE_REMOVE = 1;
+    public static final int DOCTYPE_KEEP_UNCHANGED = 2;
 
     /**
      * The document scanner.
@@ -251,7 +252,7 @@ public class PrettyPrinter {
             if (type != LexicalUnits.START_TAG) {
                 throw fatalError("element", null);
             }
-            
+
             printElement();
 
             misc3: for (;;) {
@@ -291,12 +292,12 @@ public class PrettyPrinter {
                     throw fatalError("space", null);
                 }
                 char[] space1 = getCurrentValue();
-                
+
                 if (scanner.next() != LexicalUnits.VERSION_IDENTIFIER) {
                     throw fatalError("token", new Object[] { "version" });
                 }
                 type = scanner.next();
-            
+
                 char[] space2 = null;
                 if (type == LexicalUnits.S) {
                     space2 = getCurrentValue();
@@ -306,13 +307,13 @@ public class PrettyPrinter {
                     throw fatalError("token", new Object[] { "=" });
                 }
                 type = scanner.next();
-                
+
                 char[] space3 = null;
                 if (type == LexicalUnits.S) {
                     space3 = getCurrentValue();
                     type = scanner.next();
                 }
-                
+
                 if (type != LexicalUnits.STRING) {
                     throw fatalError("string", null);
                 }
@@ -331,12 +332,12 @@ public class PrettyPrinter {
                 char[] standalone = null;
                 char standaloneDelim = 0;
                 char[] space10 = null;
-                
+
                 type = scanner.next();
                 if (type == LexicalUnits.S) {
                     space4 = getCurrentValue();
                     type = scanner.next();
-                    
+
                     if (type == LexicalUnits.ENCODING_IDENTIFIER) {
                         type = scanner.next();
                         if (type == LexicalUnits.S) {
@@ -364,7 +365,7 @@ public class PrettyPrinter {
                             type = scanner.next();
                         }
                     }
-            
+
                     if (type == LexicalUnits.STANDALONE_IDENTIFIER) {
                         type = scanner.next();
                         if (type == LexicalUnits.S) {
@@ -382,10 +383,10 @@ public class PrettyPrinter {
                         if (type != LexicalUnits.STRING) {
                             throw fatalError("string", null);
                         }
-                        
+
                         standalone = getCurrentValue();
                         standaloneDelim = scanner.getStringDelimiter();
-                        
+
                         type = scanner.next();
                         if (type == LexicalUnits.S) {
                             space10 = getCurrentValue();
@@ -416,12 +417,12 @@ public class PrettyPrinter {
                 if (scanner.next() != LexicalUnits.S) {
                     throw fatalError("space", null);
                 }
-                
+
                 if (scanner.next() != LexicalUnits.VERSION_IDENTIFIER) {
                     throw fatalError("token", new Object[] { "version" });
                 }
                 type = scanner.next();
-            
+
                 if (type == LexicalUnits.S) {
                     type = scanner.next();
                 }
@@ -429,11 +430,11 @@ public class PrettyPrinter {
                     throw fatalError("token", new Object[] { "=" });
                 }
                 type = scanner.next();
-                
+
                 if (type == LexicalUnits.S) {
                     type = scanner.next();
                 }
-                
+
                 if (type != LexicalUnits.STRING) {
                     throw fatalError("string", null);
                 }
@@ -441,7 +442,7 @@ public class PrettyPrinter {
                 type = scanner.next();
                 if (type == LexicalUnits.S) {
                     type = scanner.next();
-                    
+
                     if (type == LexicalUnits.ENCODING_IDENTIFIER) {
                         type = scanner.next();
                         if (type == LexicalUnits.S) {
@@ -463,7 +464,7 @@ public class PrettyPrinter {
                             type = scanner.next();
                         }
                     }
-            
+
                     if (type == LexicalUnits.STANDALONE_IDENTIFIER) {
                         type = scanner.next();
                         if (type == LexicalUnits.S) {
@@ -479,7 +480,7 @@ public class PrettyPrinter {
                         if (type != LexicalUnits.STRING) {
                             throw fatalError("string", null);
                         }
-                        
+
                         type = scanner.next();
                         if (type == LexicalUnits.S) {
                             type = scanner.next();
@@ -542,7 +543,7 @@ public class PrettyPrinter {
                 }
                 char[] space1 = getCurrentValue();
                 type = scanner.next();
-                
+
                 if (type != LexicalUnits.NAME) {
                     throw fatalError("name", null);
                 }
@@ -562,22 +563,22 @@ public class PrettyPrinter {
                 if (type == LexicalUnits.S) {
                     space2 = getCurrentValue();
                     type = scanner.next();
-                    
+
                     switch (type) {
                     case LexicalUnits.PUBLIC_IDENTIFIER:
                         externalId = "PUBLIC";
-                        
+
                         type = scanner.next();
                         if (type != LexicalUnits.S) {
                             throw fatalError("space", null);
                         }
                         space3 = getCurrentValue();
                         type = scanner.next();
-                        
+
                         if (type != LexicalUnits.STRING) {
                             throw fatalError("string", null);
                         }
-                    
+
                         string1 = getCurrentValue();
                         string1Delim = scanner.getStringDelimiter();
 
@@ -587,7 +588,7 @@ public class PrettyPrinter {
                         }
                         space4 = getCurrentValue();
                         type = scanner.next();
-                        
+
                         if (type != LexicalUnits.STRING) {
                             throw fatalError("string", null);
                         }
@@ -603,7 +604,7 @@ public class PrettyPrinter {
                         break;
                     case LexicalUnits.SYSTEM_IDENTIFIER:
                         externalId = "SYSTEM";
-                        
+
                         type = scanner.next();
                         if (type != LexicalUnits.S) {
                             throw fatalError("space", null);
@@ -652,7 +653,7 @@ public class PrettyPrinter {
                 if (type == LexicalUnits.LSQUARE_BRACKET) {
                     output.printCharacter('[');
                     type = scanner.next();
-                    
+
                     dtd: for (;;) {
                         switch (type) {
                         case LexicalUnits.S:
@@ -748,7 +749,7 @@ public class PrettyPrinter {
                     throw fatalError("space", null);
                 }
                 type = scanner.next();
-                
+
                 if (type != LexicalUnits.NAME) {
                     throw fatalError("name", null);
                 }
@@ -756,26 +757,26 @@ public class PrettyPrinter {
                 type = scanner.next();
                 if (type == LexicalUnits.S) {
                     type = scanner.next();
-                    
+
                     switch (type) {
                     case LexicalUnits.PUBLIC_IDENTIFIER:
-                        
+
                         type = scanner.next();
                         if (type != LexicalUnits.S) {
                             throw fatalError("space", null);
                         }
                         type = scanner.next();
-                        
+
                         if (type != LexicalUnits.STRING) {
                             throw fatalError("string", null);
                         }
-                    
+
                         type = scanner.next();
                         if (type != LexicalUnits.S) {
                             throw fatalError("space", null);
                         }
                         type = scanner.next();
-                        
+
                         if (type != LexicalUnits.STRING) {
                             throw fatalError("string", null);
                         }
@@ -786,7 +787,7 @@ public class PrettyPrinter {
                         }
                         break;
                     case LexicalUnits.SYSTEM_IDENTIFIER:
-                        
+
                         type = scanner.next();
                         if (type != LexicalUnits.S) {
                             throw fatalError("space", null);
@@ -904,7 +905,7 @@ public class PrettyPrinter {
             }
         }
         output.printElementStart(name, attributes, space);
-        
+
         switch (type) {
         default:
             throw fatalError("xml", null);
@@ -1069,7 +1070,7 @@ public class PrettyPrinter {
             string1 = getCurrentValue();
             string1Delim = scanner.getStringDelimiter();
             t = scanner.next();
-            
+
             if (t == LexicalUnits.S) {
                 space4 = getCurrentValue();
                 t = scanner.next();
@@ -1140,7 +1141,7 @@ public class PrettyPrinter {
         while (type == LexicalUnits.S) {
             space = getCurrentValue();
             type = scanner.next();
-            
+
             if (type != LexicalUnits.NAME) {
                 break;
             }
@@ -1176,7 +1177,7 @@ public class PrettyPrinter {
                 }
                 output.printSpaces(getCurrentValue(), false);
                 type = scanner.next();
-            
+
                 if (type != LexicalUnits.LEFT_BRACE) {
                     throw fatalError("left.brace", null);
                 }
@@ -1210,7 +1211,7 @@ public class PrettyPrinter {
                         break loop;
                     case LexicalUnits.PIPE:
                         type = scanner.next();
-                        
+
                         space = null;
                         if (type == LexicalUnits.S) {
                             space = getCurrentValue();
@@ -1228,7 +1229,7 @@ public class PrettyPrinter {
                             space2 = getCurrentValue();
                             type = scanner.next();
                         }
-                        
+
                         names.add(new OutputManager.NameInfo(space, name, space2));
                     }
                 }
@@ -1270,7 +1271,7 @@ public class PrettyPrinter {
                         break loop;
                     case LexicalUnits.PIPE:
                         type = scanner.next();
-                        
+
                         space = null;
                         if (type == LexicalUnits.S) {
                             space = getCurrentValue();
@@ -1288,7 +1289,7 @@ public class PrettyPrinter {
                             space2 = getCurrentValue();
                             type = scanner.next();
                         }
-                        
+
                         names.add(new OutputManager.NameInfo(space, name, space2));
                     }
                 }
@@ -1298,7 +1299,7 @@ public class PrettyPrinter {
 
                 output.printEnumeration(names);
                 type = scanner.next();
-                
+
             }
 
             if (type == LexicalUnits.S) {
@@ -1308,7 +1309,7 @@ public class PrettyPrinter {
 
             switch (type) {
             default:
-                throw fatalError("default.decl", null);                
+                throw fatalError("default.decl", null);
             case LexicalUnits.REQUIRED_IDENTIFIER:
             case LexicalUnits.IMPLIED_IDENTIFIER:
                 output.printCharacters(getCurrentValue());
@@ -1317,7 +1318,7 @@ public class PrettyPrinter {
             case LexicalUnits.FIXED_IDENTIFIER:
                 output.printCharacters(getCurrentValue());
                 type = scanner.next();
-                
+
                 if (type != LexicalUnits.S) {
                     throw fatalError("space", null);
                 }
@@ -1450,7 +1451,7 @@ public class PrettyPrinter {
                 writer.write(getCurrentValue());
                 type = scanner.next();
             }
-            
+
             if (type != LexicalUnits.END_CHAR) {
                 throw fatalError("end", null);
             }
@@ -1484,7 +1485,7 @@ public class PrettyPrinter {
             writer.write(getCurrentValue());
             writer.write('"');
             break;
-            
+
         case LexicalUnits.SYSTEM_IDENTIFIER:
             writer.write("SYSTEM");
             type = scanner.next();
@@ -1523,7 +1524,7 @@ public class PrettyPrinter {
                 type = scanner.next();
             }
         }
-        
+
         if (type != LexicalUnits.END_CHAR) {
             throw fatalError("end", null);
         }
@@ -1633,7 +1634,7 @@ public class PrettyPrinter {
                 }
             }
         }
-        
+
         if (type == LexicalUnits.S) {
             writer.write(getCurrentValue());
             type = scanner.next();
@@ -1737,9 +1738,7 @@ public class PrettyPrinter {
         int len = scanner.getEnd() + scanner.getEndOffset() - off;
         char[] result = new char[len];
         char[] buffer = scanner.getBuffer();
-        for (int i = 0; i < len; i++) {
-            result[i] = buffer[off + i];
-        }
+        System.arraycopy( buffer, off, result, 0, len );
         return result;
     }
 

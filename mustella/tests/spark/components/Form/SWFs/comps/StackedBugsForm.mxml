@@ -20,7 +20,7 @@
 <s:Form xmlns:fx="http://ns.adobe.com/mxml/2009" 
 	 xmlns:s="library://ns.adobe.com/flex/spark" 
 	 xmlns:mx="library://ns.adobe.com/flex/mx" defaultButton="{btn2}" skinClass="spark.skins.spark.StackedFormSkin" 
-	 backgroundColor="yellow" creationComplete="valAll();">
+	 backgroundColor="yellow">
 	<fx:Script>
 		<![CDATA[
 			import mx.validators.Validator;

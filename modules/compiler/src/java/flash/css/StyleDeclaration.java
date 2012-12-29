@@ -19,7 +19,7 @@
 
 package flash.css;
 
-import org.w3c.flex.forks.css.sac.LexicalUnit;
+import org.w3c.css.sac.LexicalUnit;
 
 import java.util.ArrayList;
 import java.util.HashMap;

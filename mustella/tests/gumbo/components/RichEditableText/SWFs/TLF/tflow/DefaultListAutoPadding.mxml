@@ -55,9 +55,7 @@
 	<list listStyleType="arabicIndic"><li>arabicIndic item</li></list>
 	<list listStyleType="decimal"><li>decimal item</li></list>
 	<list listStyleType="decimalLeadingZero"><li>decimalLeadingZero item</li></list>
-	<list listStyleType="lowerGreek"><li>lowerGreek item</li></list>
 	<list listStyleType="lowerLatin"><li>lowerLatin item</li></list>
-	<list listStyleType="upperGreek"><li>upperGreek item</li></list>
 	<list listStyleType="upperLatin"><li>upperLatin item</li></list>
 
 </TextFlow>

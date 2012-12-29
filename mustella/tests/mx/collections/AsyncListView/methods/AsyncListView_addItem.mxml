@@ -180,18 +180,19 @@ public function setup( responseDelay:int = 500,
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30))" value="30" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(savedObject)" value="30" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 pending" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(11)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(11).nameLabel.text" value="item 11 pending" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifySimulatorItems(0, 29, 'present', FlexGlobals.topLevelApplication.obj1.items)" value="pass" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.items.source[30].info" value="added item" />
 		<AssertPropertyValue target="obj1.alv" propertyName="length" value="31" />
-		
-		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(12)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
-		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(13)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
-		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(20)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
-		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(29)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'pending', FlexGlobals.topLevelApplication.obj1.alv)" value="pass" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30).info" value="added item" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyDataGroupItems(19, 29, 'pending', FlexGlobals.topLevelApplication.obj1.theList.dataGroup)" value="pass" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(30).nameLabel.text" value="added item" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0))" value="0" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(1))" value="1" />
@@ -223,14 +224,13 @@ public function setup( responseDelay:int = 500,
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.items.source[30].info" value="added item" />
 
 		<AssertPropertyValue target="obj1.alv" propertyName="length" value="31" />
-		
-		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(12)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
-		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(13)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
-		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(20)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
-		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(29)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'present', FlexGlobals.topLevelApplication.obj1.alv)" value="pass" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30).info" value="added item" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyDataGroupItems(19, 29, 'present', FlexGlobals.topLevelApplication.obj1.theList.dataGroup)" value="pass" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(30).nameLabel.text" value="added item" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0))" value="0" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(1))" value="1" />
@@ -264,10 +264,7 @@ public function setup( responseDelay:int = 500,
 
 		<AssertPropertyValue target="obj1.alv" propertyName="length" value="31" />
 
-		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(12)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
-		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(15)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
-		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(20)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
-		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(29)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'failed', FlexGlobals.topLevelApplication.obj1.alv)" value="pass" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30).info" value="added item" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0))" value="0" />
@@ -276,6 +273,8 @@ public function setup( responseDelay:int = 500,
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30))" value="30" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(savedObject)" value="30" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyDataGroupItems(19, 29, 'failed', FlexGlobals.topLevelApplication.obj1.theList.dataGroup)" value="pass" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
 		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(30).nameLabel.text" value="added item" />
 		<AssertPropertyValue target="obj1.alv" propertyName="length" value="31" />
 	</body>

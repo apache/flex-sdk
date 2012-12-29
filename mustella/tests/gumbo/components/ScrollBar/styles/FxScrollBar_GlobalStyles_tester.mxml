@@ -46,13 +46,13 @@
 		<TestCase testID="FxHScrollBar_Style_baseColor_mxml" keywords="[FxHScrollBar, baseColor]" description="Ensure that baseColor works in mxml.">
 			<body>
 				<AssertStyleValue target="baseColor_hscrollbar" styleName="chromeColor" value="0xFFFF00"/>
-				<CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_hscrollbar"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_hscrollbar" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="FxHScrollBar_Style_symbolColor_mxml" keywords="[FxHScrollBar, symbolColor]" description="Ensure that baseColor works in mxml.">
 			<body>
 				<AssertStyleValue target="symbolColor_hscrollbar" styleName="symbolColor" value="0x8800FF"/>
-				<CompareBitmap url="../styles/baselines/$testID.png" target="symbolColor_hscrollbar"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="symbolColor_hscrollbar" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="FxHScrollBar_Style_baseColor_as" keywords="[FxHScrollBar, baseColor]" description="Ensure that baseColor works at runtime.">
@@ -62,7 +62,7 @@
 			</setup>
 			<body>
 				<SetStyle target="baseColor_hscrollbar" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_hscrollbar"/>
-				<CompareBitmap url="../styles/baselines/FxHScrollBar_Style_baseColor_mxml.png" target="baseColor_hscrollbar"/>
+				<CompareBitmap url="../styles/baselines/FxHScrollBar_Style_baseColor_mxml.png" target="baseColor_hscrollbar" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="FxHScrollBar_Style_baseColor_disabled" keywords="[FxHScrollBar, baseColor]" description="Ensure that baseColor works at runtime.">
@@ -73,7 +73,7 @@
 			<body>
 				<SetStyle target="baseColor_hscrollbar" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_hscrollbar"/>
 				<SetProperty target="baseColor_hscrollbar" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="baseColor_hscrollbar"/>
-			    <CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_hscrollbar"/>
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_hscrollbar" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 		<TestCase testID="FxHScrollBar_Style_symbolColor_as" keywords="[FxHScrollBar, symbolColor]" description="Ensure that baseColor works in mxml.">
@@ -83,7 +83,7 @@
 			<body>
 				<SetStyle target="symbolColor_hscrollbar" styleName="symbolColor" value="0x8800FF"  waitEvent="updateComplete" waitTarget="symbolColor_hscrollbar"/>
 				<AssertStyleValue target="symbolColor_hscrollbar" styleName="symbolColor" value="0x8800FF"/>
-				<CompareBitmap url="../styles/baselines/FxHScrollBar_Style_symbolColor_mxml.png" target="symbolColor_hscrollbar"/>
+				<CompareBitmap url="../styles/baselines/FxHScrollBar_Style_symbolColor_mxml.png" target="symbolColor_hscrollbar" numColorVariances="5" maxColorVariance="1" />
 			</body>
 		</TestCase>
 	</testCases>

@@ -18,6 +18,28 @@
 
 -->
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"  paddingRight="0" paddingLeft="0" paddingTop="0" paddingBottom="0">	
+	<mx:Script>
+		<![CDATA[
+			private function airify(s:String):String
+			{
+				if (ApplicationDomain.currentDomain.hasDefinition("flash.filesystem.File"))
+				{
+					var c:Class = Class(ApplicationDomain.currentDomain.getDefinition("flash.filesystem.File"));
+					var f:Object = c.applicationDirectory;
+					var p:String = f.nativePath;
+					while (s.indexOf("../") == 0)
+					{
+						var dot:int = p.lastIndexOf("/");
+						p = p.substr(0, dot);
+						s = s.substr(3);
+					}
+					f.nativePath = p + "/" + s;
+					return f.url;
+				}
+				return s;				
+			}
+		]]>
+	</mx:Script>
 	<mx:states>
 		<mx:State name="notIconBase">
 			<mx:RemoveChild target="{baseIcon}"/>
@@ -25,39 +47,39 @@
 		<mx:State name="up" />
 		<mx:State name="over" basedOn="notIconBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image source="../../../../Assets/Images/ButtonImages/iconOver.jpg" maintainAspectRatio="false" width="13" height="13" /> 
+				<mx:Image source="{airify('../../../../Assets/Images/ButtonImages/iconOver.jpg')}" maintainAspectRatio="false" width="13" height="13" /> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="down" basedOn="notIconBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image source="../../../../Assets/Images/ButtonImages/iconDown.jpg" maintainAspectRatio="false" width="13" height="13" /> 
+				<mx:Image source="{airify('../../../../Assets/Images/ButtonImages/iconDown.jpg')}" maintainAspectRatio="false" width="13" height="13" /> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="disabled" basedOn="notIconBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image source="../../../../Assets/Images/ButtonImages/iconDisabled.jpg" maintainAspectRatio="false" width="13" height="13" /> 
+				<mx:Image source="{airify('../../../../Assets/Images/ButtonImages/iconDisabled.jpg')}" maintainAspectRatio="false" width="13" height="13" /> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedUp" basedOn="notIconBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image source="../../../../Assets/Images/ButtonImages/iconSelectedUp.jpg" maintainAspectRatio="false" width="13" height="13" /> 
+				<mx:Image source="{airify('../../../../Assets/Images/ButtonImages/iconSelectedUp.jpg')}" maintainAspectRatio="false" width="13" height="13" /> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedOver" basedOn="notIconBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image source="../../../../Assets/Images/ButtonImages/iconSelectedOver.jpg" maintainAspectRatio="false" width="13" height="13" /> 
+				<mx:Image source="{airify('../../../../Assets/Images/ButtonImages/iconSelectedOver.jpg')}" maintainAspectRatio="false" width="13" height="13" /> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedDown" basedOn="notIconBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image source="../../../../Assets/Images/ButtonImages/iconSelectedDown.jpg" maintainAspectRatio="false" width="13" height="13" /> 
+				<mx:Image source="{airify('../../../../Assets/Images/ButtonImages/iconSelectedDown.jpg')}" maintainAspectRatio="false" width="13" height="13" /> 
 			</mx:AddChild>
 		</mx:State>
 		<mx:State name="selectedDisabled" basedOn="notIconBase">
 			<mx:AddChild creationPolicy="all">
-				<mx:Image source="../../../../Assets/Images/ButtonImages/iconSelectedDisabled.jpg" maintainAspectRatio="false" width="13" height="13" /> 
+				<mx:Image source="{airify('../../../../Assets/Images/ButtonImages/iconSelectedDisabled.jpg')}" maintainAspectRatio="false" width="13" height="13" /> 
 			</mx:AddChild>
 		</mx:State>
 	</mx:states>
-	<mx:Image id="baseIcon" source="../../../../Assets/Images/ButtonImages/iconUp.jpg" maintainAspectRatio="false"  width="13" height="13"/>
+	<mx:Image id="baseIcon" source="{airify('../../../../Assets/Images/ButtonImages/iconUp.jpg')}" maintainAspectRatio="false"  width="13" height="13"/>
 </mx:VBox>

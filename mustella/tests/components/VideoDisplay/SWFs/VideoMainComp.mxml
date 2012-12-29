@@ -18,7 +18,7 @@
 
 -->
 <mx:VideoDisplay xmlns:mx="http://www.adobe.com/2006/mxml" cuePointManagerClass="mx.controls.videoClasses.CuePointManager" 
-    autoPlay="false" source="../../../../Assets/Video/video.flv">
+    autoPlay="false" source="assets/video.flv">
         <mx:cuePoints>
             <mx:Array>
                 <mx:Object name="CompileCue0" time="1.00"/>

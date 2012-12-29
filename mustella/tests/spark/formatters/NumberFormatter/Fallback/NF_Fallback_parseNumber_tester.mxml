@@ -17,30 +17,30 @@
   limitations under the License.
 
 -->
-<UnitTester testDir="spark/formatters/NumberFormatter/Fallback/"  
-			xmlns:mx="http://www.adobe.com/2006/mxml" 
-			xmlns:s="library://ns.adobe.com/flex/spark" 
-			xmlns="*" 
+<UnitTester testDir="spark/formatters/NumberFormatter/Fallback/"
+			xmlns:mx="http://www.adobe.com/2006/mxml"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			xmlns="*"
 			testSWF="NF_Fallback_parseNumber.mxml">
-	
+
 	<mx:Script>
 		<![CDATA[
 			import assets.NFConstants;
-			
+
 			public static function init(o:DisplayObject):void
 			{
-				
+
 			}
 		]]>
 	</mx:Script>
-	
+
 	<mx:Metadata>
 		<![CDATA[
 		[Mixin]
 		]]>
 	</mx:Metadata>
-	
-	
+
+
 	<testCases>
 		<TestCase testID="NF_Fallback_parseNumber_inline_test1" description="using inline NumberFormatter instance to parse normal number string " keywords="[NumberFormatter, parseNumber]">
 			<setup>
@@ -54,13 +54,13 @@
 				<AssertPropertyValue  target="nf_inline" propertyName="lastOperationStatus" value="noError"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase testID="NF_Fallback_parseNumber_inline_test2" description="using inline NumberFormatter instance to parse normal number string with white space" keywords="[NumberFormatter, parseNumber]">
 			<setup>
 				<ResetComponent target="nf_inline" className="assets.FallbackNF"/>
 				<RunCode code="application.nf_inline.initialized(null,'nf_inline')"/>
 				<Pause timeout="{NFConstants.pauseTime}"/>
-				
+
 				<RunCode code="application.addStyleClient(application.nf_inline)"/>
 				<Pause timeout="{NFConstants.pauseTime}"/>
 			</setup>
@@ -79,7 +79,7 @@
 				<ResetComponent target="nf_inline" className="assets.FallbackNF"/>
 				<RunCode code="application.nf_inline.initialized(null,'nf_inline')"/>
 				<Pause timeout="{NFConstants.pauseTime}"/>
-				
+
 				<RunCode code="application.addStyleClient(application.nf_inline)"/>
 				<Pause timeout="{NFConstants.pauseTime}"/>
 			</setup>
@@ -100,26 +100,26 @@
 				<AssertPropertyValue  target="nf_inline" propertyName="lastOperationStatus" value="parseError"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase testID="NF_Fallback_parseNumber_inline_test4" description="using inline NumberFormatter instance to parse null string" keywords="[NumberFormatter, parseNumber]">
 			<setup>
 				<ResetComponent target="nf_inline" className="assets.FallbackNF"/>
 				<RunCode code="application.nf_inline.initialized(null,'nf_inline')"/>
 				<Pause timeout="{NFConstants.pauseTime}"/>
-				
+
 				<RunCode code="application.addStyleClient(application.nf_inline)"/>
 				<Pause timeout="{NFConstants.pauseTime}"/>
-				
+
 				<RunCode code="application.testTypeError(application.nf_inline)" />
 				<Pause timeout="{NFConstants.pauseTime}"/>
 			</setup>
 			<body>
 				<AssertPropertyValue target="nf_inline" propertyName="lastOperationStatus" value="noError"/>
 				<AssertPropertyValue propertyName="text" target="testError"
-									 value="TypeError: Error #1009: Cannot access a property or method of a null object reference."/>
+									 errorArray="['TypeError: Error #1009:']"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase testID="NF_Fallback_parseNumber_script_test5" description="using script NumberFormatter instance to parse normal number string " keywords="[NumberFormatter, parseNumber]">
 			<setup>
 				<RunCode code="application.addStyleClient(application.nf)"/>
@@ -134,13 +134,13 @@
 				<AssertPropertyValue  target="nf" propertyName="lastOperationStatus" value="noError"/>-->
 			</body>
 		</TestCase>
-		
+
 		<TestCase testID="NF_Fallback_parseNumber_script_test6" description="using script NumberFormatter instance to parse normal number string with white space" keywords="[NumberFormatter, parseNumber]">
 			<setup>
 				<ResetComponent target="nf" className="assets.FallbackNF"/>
 				<RunCode code="application.nf.initialized(null,'nf')"/>
 				<Pause timeout="{NFConstants.pauseTime}"/>
-				
+
 				<RunCode code="application.addStyleClient(application.nf)"/>
 				<Pause timeout="{NFConstants.pauseTime}"/>
 			</setup>
@@ -153,13 +153,13 @@
 				<AssertPropertyValue  target="nf" propertyName="lastOperationStatus" value="noError"/>
 			</body>
 		</TestCase>
-		
+
 		<TestCase testID="NF_Fallback_parseNumber_scirpt_test7" description="using scirpt NumberFormatter instance to parse invalid string" keywords="[NumberFormatter, parseNumber]">
 			<setup>
 				<ResetComponent target="nf" className="assets.FallbackNF"/>
 				<RunCode code="application.nf.initialized(null,'nf')"/>
 				<Pause timeout="{NFConstants.pauseTime}"/>
-				
+
 				<RunCode code="application.addStyleClient(application.nf)"/>
 				<Pause timeout="{NFConstants.pauseTime}"/>
 			</setup>
@@ -186,19 +186,19 @@
 				<ResetComponent target="nf" className="assets.FallbackNF"/>
 				<RunCode code="application.nf.initialized(null,'nf')"/>
 				<Pause timeout="{NFConstants.pauseTime}"/>
-				
+
 				<RunCode code="application.addStyleClient(application.nf)"/>
 				<Pause timeout="{NFConstants.pauseTime}"/>
-				
+
 				<RunCode code="application.testTypeError(application.nf)" />
 				<Pause timeout="{NFConstants.pauseTime}"/>
 			</setup>
 			<body>
 				<AssertPropertyValue target="nf" propertyName="lastOperationStatus" value="noError"/>
 				<AssertPropertyValue propertyName="text" target="testError"
-									 value="TypeError: Error #1009: Cannot access a property or method of a null object reference."/>
+									 errorArray="['TypeError: Error #1009:']"/>
 			</body>
 		</TestCase>
-		
+
 	</testCases>
 </UnitTester>

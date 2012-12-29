@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2002-2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,18 +22,18 @@ package org.apache.flex.forks.batik.css.engine;
  * This interface represents a CSS rule.
  *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: Rule.java,v 1.4 2004/08/18 07:12:48 vhardy Exp $
+ * @version $Id: Rule.java 478160 2006-11-22 13:35:06Z dvholten $
  */
 public interface Rule {
-    
+
     /**
      * Returns a constant identifying the rule type.
      */
-    public short getType();
-    
+    short getType();
+
 
     /**
      * Returns a printable representation of this rule.
      */
-    public String toString(CSSEngine eng);
+    String toString(CSSEngine eng);
 }

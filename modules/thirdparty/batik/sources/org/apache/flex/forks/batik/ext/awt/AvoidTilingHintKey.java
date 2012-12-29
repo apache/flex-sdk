@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2004  The Apache Software Foundation
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -23,7 +24,7 @@ import java.awt.RenderingHints;
  * A transcoding Key represented as a boolean to indicate whether tiling of
  * bitmaps is undesired by the destination.
  *
- * @version $Id: AvoidTilingHintKey.java,v 1.1 2004/09/06 00:01:58 deweese Exp $
+ * @version $Id: AvoidTilingHintKey.java 489226 2006-12-21 00:05:36Z cam $
  */
 public class AvoidTilingHintKey extends RenderingHints.Key {
 

@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -41,7 +42,7 @@ import org.w3c.dom.Element;
  * opacity property on the nodes to be composited.
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @version $Id: SVGAlphaComposite.java,v 1.13 2004/08/18 07:14:59 vhardy Exp $
+ * @version $Id: SVGAlphaComposite.java 504084 2007-02-06 11:24:46Z dvholten $
  * @see                org.apache.flex.forks.batik.svggen.SVGAlphaComposite
  */
 public class SVGAlphaComposite extends AbstractSVGConverter {
@@ -138,7 +139,7 @@ public class SVGAlphaComposite extends AbstractSVGConverter {
                 // Process the filter value
                 StringBuffer filterAttrBuf = new StringBuffer(URL_PREFIX);
                 filterAttrBuf.append(SIGN_POUND);
-                filterAttrBuf.append(filterDef.getAttributeNS(null, ATTR_ID));
+                filterAttrBuf.append(filterDef.getAttributeNS(null, SVG_ID_ATTRIBUTE));
                 filterAttrBuf.append(URL_SUFFIX);
 
                 filterValue = filterAttrBuf.toString();
@@ -224,13 +225,13 @@ public class SVGAlphaComposite extends AbstractSVGConverter {
             id = ID_PREFIX_ALPHA_COMPOSITE_DST_OVER;
             break;
         default:
-            throw new Error();
+            throw new Error("invalid rule:" + composite.getRule() );
         }
 
         Element compositeFilter =
             generatorContext.domFactory.createElementNS(SVG_NAMESPACE_URI,
                                                         SVG_FILTER_TAG);
-        compositeFilter.setAttributeNS(null, ATTR_ID, id);
+        compositeFilter.setAttributeNS(null, SVG_ID_ATTRIBUTE, id);
         compositeFilter.setAttributeNS(null, SVG_FILTER_UNITS_ATTRIBUTE,
                                      SVG_OBJECT_BOUNDING_BOX_VALUE);
         compositeFilter.setAttributeNS(null, SVG_X_ATTRIBUTE, SVG_ZERO_PERCENT_VALUE);

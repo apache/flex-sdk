@@ -33,6 +33,6 @@
 		]]>
 	</fx:Script>
 	
-	<s:TextInput id="textInput" prompt="I'm a prompt in a popup window." />
+	<s:TextInput id="textInput" fontFamily="myVerdana2" prompt="I'm a prompt in a popup window." />
 	
 </s:TitleWindow>

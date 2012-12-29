@@ -80,7 +80,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
 	    </setup> 
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin "/>
+			<WaitForLayoutManager />
 		<SetProperty target="windowObj" propertyName="minHeight" value="-10"/>
 		<SetProperty target="windowObj" propertyName="height" value="-1" waitEvent="resize" />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,0,100,0)" value=""/>
@@ -107,7 +108,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
 	    </setup> 
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" /> 
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin "/> 
+			<WaitForLayoutManager />
 		<SetProperty target="windowObj" propertyName="minHeight" value="-10"/>
 		<SetProperty target="windowObj" propertyName="height" value="0" waitEvent="resize" />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,0,100,100)" value=""/>
@@ -124,6 +126,7 @@
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="minHeight" value="-10"/>
 		<SetProperty target="windowObj" propertyName="height" value="1" waitEvent="resize" />
+		<WaitForLayoutManager />
 		<AssertPropertyValue target="windowObj" propertyName="height" value="1" />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,1,1,1)" value=""/>
 		
@@ -137,7 +140,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
 	    </setup> 
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " />
+			<WaitForLayoutManager />
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="minHeight" value="-10"/>
 		<SetProperty target="windowObj" propertyName="height" value="1" waitEvent="resize" />
@@ -156,6 +160,7 @@
 		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="height" value="30" waitEvent="resize" />
+		<WaitForLayoutManager />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,30,30,30)" value=""/>
 		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
 	    </body>
@@ -168,7 +173,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
 	    </setup> 
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " />
+			<WaitForLayoutManager />			
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="height" value="33" waitEvent="resize" />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,33,33,33)" value=""/>
@@ -185,6 +191,7 @@
 		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = SparkChromeWindowedApplicationSkin " waitEvent="updateComplete" />
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="height" value="253" waitEvent="resize" />
+		<WaitForLayoutManager />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,253,253,253)" value=""/>
 		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
 	    </body>
@@ -197,7 +204,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
 	    </setup> 
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin "/>
+			<WaitForLayoutManager />			
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="height" value="183" waitEvent="resize" />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,183,183,183)" value=""/>
@@ -215,6 +223,7 @@
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="minHeight" value="150" />
 		<SetProperty target="windowObj" propertyName="height" value="130" waitEvent="resize" />
+		<WaitForLayoutManager />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,150,150,150)" value=""/>
 		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
 	    </body>
@@ -226,7 +235,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
 	    </setup> 
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " />
+			<WaitForLayoutManager />			
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="minHeight" value="150" />
 		<SetProperty target="windowObj" propertyName="height" value="130" waitEvent="resize" />
@@ -245,6 +255,7 @@
 		<SetProperty target="windowObj" propertyName="maxHeight" value="160" />
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="height" value="170" waitEvent="resize" />
+		<WaitForLayoutManager />
 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.assertValueBaseOnOS('height',FlexGlobals.topLevelApplication.windowObj.height,160,160,160)" value=""/>
 		<MyCompareBitmap target="windowObj" url="../properties/baselines/$testID.png" mac_url="../properties/baselines/$testID_mac.png"/>
 	    </body>
@@ -256,7 +267,8 @@
 		<RunCode code="FlexGlobals.topLevelApplication.createAWindow()" waitTarget="" waitEvent="myWindowComplete" />        
 	    </setup> 
 	    <body>
-		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " waitEvent="updateComplete" />
+		<SetStyle target="windowObj" styleName="skinClass" valueExpression="value = WindowedApplicationSkin " />
+			<WaitForLayoutManager />			
 		<SetProperty target="windowObj" propertyName="maxHeight" value="200" />
 		<SetProperty target="windowObj" propertyName="width" value="115"/>
 		<SetProperty target="windowObj" propertyName="height" value="250" waitEvent="resize" />

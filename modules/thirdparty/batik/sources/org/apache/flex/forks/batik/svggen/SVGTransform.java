@@ -1,10 +1,11 @@
 /*
 
-   Copyright 2001,2003  The Apache Software Foundation 
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -29,7 +30,7 @@ import org.apache.flex.forks.batik.ext.awt.g2d.TransformType;
  *
  * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
  * @author <a href="mailto:paul_evenblij@compuware.com">Paul Evenblij</a>
- * @version $Id: SVGTransform.java,v 1.9 2004/08/18 07:15:09 vhardy Exp $
+ * @version $Id: SVGTransform.java 501495 2007-01-30 18:00:36Z dvholten $
  */
 public class SVGTransform extends AbstractSVGConverter{
     /**
@@ -78,8 +79,8 @@ public class SVGTransform extends AbstractSVGConverter{
      * @param transformStack sequence of transform that should
      *        be converted to an SVG transform attribute equivalent
      */
-    public final String toSVGTransform(TransformStackElement transformStack[]){
-        StringBuffer transformStackBuffer = new StringBuffer();
+    public final String toSVGTransform(TransformStackElement[] transformStack){
+
         int nTransforms = transformStack.length;
         //
         // Append transforms in the presentation stack
@@ -102,7 +103,7 @@ public class SVGTransform extends AbstractSVGConverter{
                 }
                 return element;
             }
-            
+
             /**
              * Adapted pop implementation
              */
@@ -143,7 +144,7 @@ public class SVGTransform extends AbstractSVGConverter{
                 if(!canConcatenate)
                     break;
             }
-            // loop variable assertion: 
+            // loop variable assertion:
             // If "i" does not increment during this iteration, it is guaranteed
             // to do so in the next, since "i" can only keep the same value as a
             // result of "element" having a non-null value on starting this
@@ -153,7 +154,7 @@ public class SVGTransform extends AbstractSVGConverter{
             // unchanged and will be pushed onto the stack again. "element" will
             // then become null, so "i" will eventually increment.
             i = j;
- 
+
             // Get rid of identity transforms within the stack.
             // If an identity is pushed, it is immediately removed, and
             // the current top of stack will be returned to concatenate onto.
@@ -165,14 +166,15 @@ public class SVGTransform extends AbstractSVGConverter{
         if (element != null){
             presentation.push(element);
         }
- 
+
         //
         // Transform presentation stack to SVG
         //
         int nPresentations = presentation.size();
-        
+
+        StringBuffer transformStackBuffer = new StringBuffer( nPresentations * 8 );
         for(i = 0; i < nPresentations; i++) {
-            transformStackBuffer.append(convertTransform((TransformStackElement) presentation.elementAt(i)));
+            transformStackBuffer.append(convertTransform((TransformStackElement) presentation.get(i)));
             transformStackBuffer.append(SPACE);
         }
 
@@ -185,7 +187,7 @@ public class SVGTransform extends AbstractSVGConverter{
      */
     final String convertTransform(TransformStackElement transformElement){
         StringBuffer transformString = new StringBuffer();
-        double transformParameters[] = transformElement.getTransformParameters();
+        double[] transformParameters = transformElement.getTransformParameters();
         switch(transformElement.getType().toInt()){
         case TransformType.TRANSFORM_TRANSLATE:
             if(!transformElement.isIdentity()) {
