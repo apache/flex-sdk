@@ -280,6 +280,26 @@ Using the Binary Distribution
 
         cd <flex.dir>/frameworks
         ant thirdparty-downloads
+        
+	To use this SDK in a IDE like Flash Builder 4.6 or 4.7 the SDK needs several other files to be packaged
+	and integrated with the Apache Flex SDK.
+	
+	If you have an existing instalation of Flash Builder run:
+	
+		/ide/constructFlexForIDE.sh (on Mac)
+		/ide/constructFlexForIDE.bat (on Windows)
+		
+	This will create an Apache Flex 4.9 SDK that can be used with Flash Builder by copying the required files
+	from the Adobe Flex 4.6 SDK.
+	
+	To create an SDK for other IDE or if you want to use Adobe AIR 3.4 (rather than AIR 3.1 contained in
+	Adobe Flex 4.6) run:
+	
+		/ide/flashbuilder/makeApacheFlexForFlashbuilder.sh (on Mac)
+		/ide/flashbuilder/makeApacheFlexForFlashbuilder.bat (on Windows)
+		
+	This will create an Apache Flex 4.9 SDK that can be used by an IDE by downloading Adobe Flex 4.6 SDK and
+	Adobe AIR 3.4.
     
 Building the Framework in a Binary Distribution
 -----------------------------------------------
