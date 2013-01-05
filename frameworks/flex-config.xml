@@ -440,8 +440,8 @@
       <title>Apache Flex Application</title>
       <description>http://incubator.apache.org/flex</description>
       <publisher>Apache Software Foundation</publisher>
-      <creator>unknown</creator>
-      <language>EN</language>
+      <creator>Apache Software Foundation</creator>
+      <language>en_US</language>
    </metadata>
    
 </flex-config>
