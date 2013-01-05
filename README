@@ -10,7 +10,7 @@ Apache Flex (Flex)
     Adobe Flex 4.6.
 
     For detailed information about Apache Flex please visit 
-    http://incubator.apache.org/flex/
+    http://flex.apache.org/
 
     Apache Flex is a large project with many pieces.  The framework is implemented
     in ActionScript and the compiler is implemented in Java.
@@ -33,14 +33,14 @@ Getting the latest sources via Subversion
 =========================================
 
     This is the recommended way to get Apache Flex.  We offer an automated installer
-    along with binary distributions on our website at http://incubator.apache.org/flex.
+    along with binary distributions on our website at http://flex.apache.org/.
 
     You can always checkout the latest source via subversion using the following
     command:
 
-    svn co https://svn.apache.org/repos/asf/incubator/flex/trunk flex
+    svn co https://svn.apache.org/repos/asf/flex/trunk flex
 
-    For further information visit http://incubator.apache.org/flex/source.html
+    For further information visit http://flex.apache.org/source.html
 
 
 Getting the convenience packages for Apache Flex
@@ -56,12 +56,12 @@ Getting the convenience packages for Apache Flex
 
     You can get the SDK Installer from the Apache Flex website at
 
-      http://incubator.apache.org/flex/installer.html
+      http://flex.apache.org/installer.html
 
     You can also get just the binaries from our website as well.  These binaries do not
     include the dependencies, so additional software may need to be downloaded and installed.
 
-      http://incubator.apache.org/flex/download.html
+      http://flex.apache.org/download.html
 
 Building Apache Flex 4.9
 ========================
@@ -484,4 +484,4 @@ Building the Source in the Source Distribution
 Thanks for using Apache Flex.
 
                                           The Apache Flex Project
-                                          <http://incubator.apache.org/flex>
+                                          <http://flex.apache.org>

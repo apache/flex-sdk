@@ -18,7 +18,7 @@ Because of this, and various licensing constraints, there must be a few differen
   - Can use Java 7 to compile SDK (see README for instructions)
   - Many improvements and updates to Mustella tests
   - An SDK installer has also been created and is the recommended way of installing the Apache Flex SDK in an IDE.
-    For more information see http://incubator.apache.org/flex/installer.html
+    For more information see http://flex.apache.org/installer.html
   
   Several bug have also been fixed including (but not limited to):
   FLEX-33272 A #1010 error occurred while trying to hide columns of an AdvancedDataGrid having lockedColumnCount
@@ -60,4 +60,4 @@ Please report new issues to our bugbase at:
     https://issues.apache.org/jira/browse/FLEX
 
                                           The Apache Flex Project
-                                          <http://incubator.apache.org/flex/>
+                                          <http://flex.apache.org/>
