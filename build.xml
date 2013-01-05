@@ -43,7 +43,7 @@
     <property name="strict" value="true"/>
     <property name="javac.src" value="1.5"/>
     
-    <property name="kit.prefix" value="apache-flex-sdk-${release.version}-incubating"/>
+    <property name="kit.prefix" value="apache-flex-sdk-${release.version}"/>
     <property name="source.kit" value="${kit.prefix}-src"/>
     <property name="binary.kit" value="${kit.prefix}-bin"/>
       
@@ -516,7 +516,6 @@
 				<include name="env-template.properties"/>
                 <include name="flex-sdk-description.xml"/>
                 <include name="CHANGES"/>
-                <include name="DISCLAIMER"/>
                 <include name="LICENSE"/>
                 <include name="NOTICE"/>
                 <include name="README"/>
@@ -610,7 +609,6 @@
                 <exclude name="test*/**"/>
                 <exclude name="javascript/**"/>
                 <exclude name="projects/air/**"/>
-                <exclude name="projects/textLayout/**"/>
                 <exclude name="projects/spark/manifest.xml"/>
                 <exclude name="projects/*/bundles.properties"/>
                 <exclude name="projects/*/.settings/**"/>
@@ -1202,7 +1200,6 @@
             <fileset dir="${basedir}">
                 <include name="LICENSE" />
                 <include name="NOTICE" />
-                <include name="DISCLAIMER" />
             </fileset>
         </copy>
         <zip file="${basedir}/out/${kit.prefix}-asdocs.zip" basedir="${basedir}/temp"/>
@@ -1633,6 +1630,8 @@
                 <exclude name="**/*.jpg"/>
                 <exclude name="**/*.mp3"/>
                 <exclude name="**/*.flv"/>
+                <!-- exclude batik icon -->
+                <exclude name="modules/thirdparty/batik/sources/*.icns"/>
                 <!--          End of binary files           -->
                 <!-- exclude batik manifests -->
                 <exclude name="modules/thirdparty/batik/sources/*.mf"/>
@@ -1686,7 +1685,7 @@
         <ant dir="${basedir}/mustella" target="clean"/>
         
         <property name="rat.mustella.dir" value="${basedir}/mustella"/>
-        <property name="rat.mustella.report" value="${basedir}/rat.mustella.report"/>
+        <property name="rat.mustella.report" value="rat.mustella.report"/>
                 
         <echo message="Checking files at ${rat.mustella.dir}, report is ${basedir}/${rat.mustella.report}"/>
              
