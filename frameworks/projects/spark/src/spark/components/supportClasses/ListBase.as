@@ -625,15 +625,18 @@ public class ListBase extends SkinnableDataContainer
      */
     mx_internal var _proposedSelectedIndex:int = NO_PROPOSED_SELECTION;
     
-    /** 
-     *  @private
-     *  Flag that is set when the selectedIndex has been adjusted due to
-     *  items being added or removed. When this flag is true, the value
-     *  of the selectedIndex has changed, but the actual selected item
-     *  is the same. This flag is cleared in commitProperties().
-     */
-    mx_internal var selectedIndexAdjusted:Boolean = false;
-    
+	/** 
+	 *  @private
+	 *  Flag that is set when the selectedIndex has been adjusted due to
+	 *  items being added or removed. When this flag is true, the value
+	 *  of the selectedIndex has changed, but the actual selected item
+	 *  is the same. 
+     *  This flag can also be set if the selectedItem has changed to ensure
+     *  a valueCommit is dispatched even if the selectedIndex has not changed.
+     *  This flag is cleared in commitProperties().
+	 */
+	mx_internal var selectedIndexAdjusted:Boolean = false;
+	
     /** 
      *  @private
      *  Flag that is set when the caretIndex has been adjusted due to
@@ -822,7 +825,10 @@ public class ListBase extends SkinnableDataContainer
         
         if (dispatchChangeEvent)
             dispatchChangeAfterSelection = (dispatchChangeAfterSelection || dispatchChangeEvent);
-        
+		
+        // ensure that a "valueCommit" is dispatched even if the selectedIndex did not change.
+        selectedIndexAdjusted = true;
+	
         _pendingSelectedItem = value;
         invalidateProperties();
     }
@@ -947,8 +953,9 @@ public class ListBase extends SkinnableDataContainer
             changedSelection = commitSelection();
         
         // If the selectedIndex has been adjusted to account for items that
-        // have been added or removed, send out a "change" event 
-        // so any bindings to selectedIndex are updated correctly.
+        // have been added or removed, or the selectedItem has changed because of a dp collection
+        // event which didn't cause the selectedIndex to change, send out a "change" event so any 
+        // bindings to selectedIndex/selectedItem are updated correctly.
         if (selectedIndexAdjusted)
         {
             selectedIndexAdjusted = false;
@@ -1480,6 +1487,7 @@ public class ListBase extends SkinnableDataContainer
      */
     mx_internal function dataProviderRefreshed():void
     {
+        selectedItem = undefined;
         setSelectedIndex(NO_SELECTION, false);
         // TODO (rfrishbe): probably don't need the setCurrentCaretIndex below
         setCurrentCaretIndex(NO_CARET);
@@ -1666,7 +1674,9 @@ public class ListBase extends SkinnableDataContainer
             }
             else if (ce.kind == CollectionEventKind.RESET)
             {
-                // Data provider is being reset, clear out the selection
+                // Data provider is being reset, clear out the selection which includes the
+                // selectedItem so that any bindings on the selectedItem are triggered.
+                selectedItem = undefined;
                 if (dataProvider.length == 0)
                 {
                     setSelectedIndex(NO_SELECTION, false);
