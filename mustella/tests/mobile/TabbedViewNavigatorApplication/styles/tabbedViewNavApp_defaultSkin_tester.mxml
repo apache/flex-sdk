@@ -44,14 +44,14 @@
 			<body>
 				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tabbedNavigator != null" value="true" />
 				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tabbedNavigator.activeView == null" value="true" />
-				<AssertPropertyValue target="navigators" propertyName="length" value="0"/>				
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigators" value="null" />			
 			</body>
 		</TestCase>
 
 		<TestCase testID="tabbedViewNavigatorApp_change_skinClass_toCustom" keywords="[TabbedViewNavigatorApplication, TabbedViewNavigator]" description="Test changing skinClass at runtime">
 			<body>
 				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tabbedNavigator != null" value="true" />
-				<AssertPropertyValue target="navigators" propertyName="length" value="0"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigators" value="null" />
 				<AssertMethodValue method="value = getQualifiedClassName(FlexGlobals.topLevelApplication.getStyle('skinClass'))" value="spark.skins.mobile::TabbedViewNavigatorApplicationSkin"/> 
 				<RunCode code="FlexGlobals.topLevelApplication.setStyle('skinClass', skins.CustomTabbedViewNavigatorApplicationSkin)"/>
 				<Pause timeout="200"/>
