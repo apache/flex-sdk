@@ -21,6 +21,36 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   xmlns:comps="comps.*"> 
-	<fx:Style source="../../../../../Assets/Fonts/myStyles.css" />
-	<comps:ListEventsComp id="myListEventsComp" />
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: EmbeddedOpenSans;
+			embedAsCFF: true;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: EmbeddedOpenSans;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: EmbeddedOpenSans;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+
+		global{
+			fontAntiAliasType: "normal";
+			fontFamily: EmbeddedOpenSans;
+            fontLookup: "embeddedCFF";
+		}
+	</fx:Style>
+	
+	<comps:ListEventsComp id="myListEventsComp"/>
 </s:Application>
