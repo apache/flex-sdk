@@ -45,9 +45,7 @@ package org.apache.flex.components.sparkDividers
 
 		protected var _cursorID : int = CursorManager.NO_CURSOR;
 		protected var _currentActiveDivider : Divider;
-		protected var _typicalDividerWidth : Number;
-		protected var _typicalDividerHeight : Number;
-
+		
 		private var _isCreatingChildren : Boolean = false;
 
 		protected var _showTooltipOnDividers : Boolean = false;
@@ -85,14 +83,6 @@ package org.apache.flex.components.sparkDividers
 			result.addEventListener(MouseEvent.MOUSE_OVER , onDividerMouseOver);
 			result.addEventListener(MouseEvent.MOUSE_OUT , onDividerMouseOut);
 			result.addEventListener(MouseEvent.MOUSE_DOWN , onDividerMouseDown);
-			if (isNaN(_typicalDividerWidth))
-			{
-				_typicalDividerWidth = result.width;
-			}
-			if(isNaN(_typicalDividerHeight))
-			{
-				_typicalDividerHeight = result.height;
-			}
 			result.upOrRightNeighbour = firstChild;
 			result.downOrLeftNeighbour = secondChild;
 			dividers.push(result);
@@ -155,6 +145,12 @@ package org.apache.flex.components.sparkDividers
 			_currentActiveDivider = null;
 			systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_MOVE, onDividerMouseMove, true);
 			systemManager.deployMouseShields(false);
+			makePercentsOutOfWidths();
+		}
+		
+		protected function makePercentsOutOfWidths():void
+		{
+			
 		}
 
 		protected function onDividerMouseMove(e:MouseEvent):void

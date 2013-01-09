@@ -143,11 +143,37 @@ package org.apache.flex.components.sparkDividers
 			}
 		}
 		/**
+		 * @langversion 3.0
+		 *  @playerversion Flash 10.1
+		 *  @playerversion AIR 2.5
+		 *  @productversion Flex 4.5
+		 * 
+		 * After we finished dragging the divider, we need to recalculate percents
+		 * because otherwise resizing the parent of this group won't rezise elements in layout
+		 */
+		override protected function makePercentsOutOfWidths():void
+		{
+			if (!_children || _children.length <= 1)
+			{
+				return;
+			}
+			//we're sure that the element #1 is divider, since if we don't have at least two elements and a divider we're throwing an error
+			//@See createChildren method of the DividedGroup
+			var _typicalDividerHeight : int = verticalLayout.getElementBounds(1).height;
+			for (var j : int = 0 ; j < _children.length ; j++)
+			{
+				if (isNaN((_children[j] as IVisualElement).percentHeight))
+				{
+					(_children[j] as IVisualElement).percentHeight = (_children[j] as IVisualElement).height / (unscaledHeight - _typicalDividerHeight - verticalLayout.gap) * 100 ;
+				}
+			}			
+		}
+		/**
 		 *  @langversion 3.0
 		 *  @playerversion Flash 10.1
 		 *  @playerversion AIR 2.5
 		 *  @productversion Flex 4.5
-		 */
+		 */		
 		//----------------------------------
 		//  @private - internal
 		//----------------------------------
