@@ -1893,12 +1893,15 @@ public class DateSpinner extends SkinnableComponent
                     break;
                 case dateList:
                     // for DATE_AND_TIME mode data is a Date.time value
+                    // Must set date before the month to ensure the date is valid for the
+                    // month.  If newDate is Jan 31 and you set the month to Feb it will change
+                    // the month to March since Feb 31 is not a valid date.
                     if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
                     {
                         var spinnerDate:Date = new Date(newValue.data);
                         newDate.fullYear = spinnerDate.fullYear;
-                        newDate.month = spinnerDate.month;
                         newDate.date = spinnerDate.date;
+                        newDate.month = spinnerDate.month;
                     }
                     else if (!dateRolledBack) // don't tamper with date if we already rolled it back
                     {
