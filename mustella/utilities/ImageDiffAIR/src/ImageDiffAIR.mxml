@@ -65,6 +65,12 @@
 				{
 					lastFolder = lastFolder.substring(7);
 				}
+				if (lastFolder.charAt(0) == "/" && lastFolder.charAt(2) == ":")
+				{
+					// windows
+					lastFolder = lastFolder.substring(1);
+					lastFolder = lastFolder.replace(/\//g, "\\");
+				}
 				fs.openSubdirectory(lastFolder);
 				fs.selectedPath = lastFolder;
 				fs.validateNow();
