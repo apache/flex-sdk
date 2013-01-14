@@ -1900,8 +1900,7 @@ public class DateSpinner extends SkinnableComponent
                     {
                         var spinnerDate:Date = new Date(newValue.data);
                         newDate.fullYear = spinnerDate.fullYear;
-                        newDate.date = spinnerDate.date;
-                        newDate.month = spinnerDate.month;
+                        newDate.setMonth(spinnerDate.month, spinnerDate.date);
                     }
                     else if (!dateRolledBack) // don't tamper with date if we already rolled it back
                     {
