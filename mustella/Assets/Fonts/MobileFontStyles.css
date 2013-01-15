@@ -84,11 +84,6 @@ global {
     fontAntiAliasType: "normal";
 }
 
-s|SkinnableComponent {
-    fontFamily: "MyVeraSpark";
-    fontLookup: "embeddedCFF";
-}
-
 s|Label {
     fontFamily: "MyVeraSpark";
     fontLookup: "embeddedCFF";
