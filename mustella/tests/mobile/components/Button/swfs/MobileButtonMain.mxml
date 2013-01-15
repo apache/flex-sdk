@@ -22,6 +22,7 @@
 			  xmlns:mx="library://ns.adobe.com/flex/mx"
 			  xmlns:comps="comps.*">
 
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 	<s:layout>
 		<s:VerticalLayout gap="40" />
 	</s:layout>

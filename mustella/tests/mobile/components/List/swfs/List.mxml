@@ -125,6 +125,7 @@
             backgroundColor: #e3e3e3;
         }
     </fx:Style>
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
     
     <!-- root component -->
     <comps:QANavigator id="navigator" />

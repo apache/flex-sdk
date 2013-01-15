@@ -25,7 +25,7 @@
 			<name>watanabe</name>
 		</fx:XML>
 	</fx:Declarations>
-	
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Script>
 		<![CDATA[
 			public function setTitle():void{

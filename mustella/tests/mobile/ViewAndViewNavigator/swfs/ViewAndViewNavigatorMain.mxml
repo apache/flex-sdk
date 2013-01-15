@@ -22,6 +22,7 @@
 					firstView="views.Sect1View1"
 					initialize="onCreationComplete()">
 	
+	<fx:Style source="../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Script source="globalNotTabbed.as" />
 
 	<s:layout>

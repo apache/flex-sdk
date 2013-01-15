@@ -20,6 +20,7 @@
 <s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 	 xmlns:s="library://ns.adobe.com/flex/spark" 
 	 xmlns:skins="skins.*" firstView="views.ViewMenuCustomHomeView">
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
 		s|ViewMenu {

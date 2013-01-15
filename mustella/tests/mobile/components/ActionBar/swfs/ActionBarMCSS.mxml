@@ -22,6 +22,7 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
 		s|ViewNavigatorApplication
@@ -29,14 +30,14 @@
 			color: #0000FF;
 			fontSize: 25;
 			fontWeight: bold;
-			font-family:Arial;
+			font-family:MyVerdana;
 		}
 		s|ActionBar #titleDisplay
 		{
 			color: #AA6600;
 			fontSize: 15;
 			fontWeight: normal;
-			font-family:Verdana;
+			font-family:MyVerdana;
 			textShadowColor: #FFFFFF;
 		}
 	</fx:Style>

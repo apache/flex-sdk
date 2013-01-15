@@ -22,6 +22,7 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
 		s|ActionBar s|Button:down

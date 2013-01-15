@@ -19,6 +19,7 @@
 -->
 <s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					 xmlns:s="library://ns.adobe.com/flex/spark" firstView="views.ActionBarMainStyleHome">
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>

@@ -21,6 +21,7 @@
 			  xmlns:s="library://ns.adobe.com/flex/spark" 
 			  xmlns:mx="library://ns.adobe.com/flex/mx"
 			  xmlns:comps="comps.*">
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 
 	<s:layout>
 		<s:VerticalLayout gap="20" />

@@ -22,6 +22,7 @@
 							creationComplete="mobileapplication1_creationCompleteHandler(event)" 
 							firstView="components.ViewWithStates"
 							title="Default" > 
+	<fx:Style source="../../../../Assets/Fonts/MobileFontStyles.css" />
 	
 
 	

@@ -22,6 +22,7 @@
 			   xmlns:comps="comps.*"
 			   applicationComplete="init(event)"
 			   firstView="views.HomeView">
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;

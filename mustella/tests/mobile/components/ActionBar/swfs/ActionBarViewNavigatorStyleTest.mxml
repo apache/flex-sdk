@@ -21,7 +21,7 @@
 					 xmlns:s="library://ns.adobe.com/flex/spark"
 					 xmlns:components="components.*" firstView="components.BlankView">
 	
-	
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />	
 	<fx:Script>
 		
 			<![CDATA[

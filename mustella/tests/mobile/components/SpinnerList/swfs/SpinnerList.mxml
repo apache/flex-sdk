@@ -24,7 +24,8 @@
                splashScreenImage="@Embed('../../../../../Assets/Images/rgrect.jpg')"
                splashScreenScaleMode="none" 
                applicationComplete="init(event)">
-    
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
+
     <fx:Script>
         <![CDATA[
             import mx.core.IVisualElement;

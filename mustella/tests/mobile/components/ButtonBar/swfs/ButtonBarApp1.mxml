@@ -112,64 +112,7 @@
 ]]>
 </fx:Script>
 
-<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
-<fx:Style>
-@namespace s "library://ns.adobe.com/flex/spark";
-@namespace mx "library://ns.adobe.com/flex/mx";
-
-
-<!-- Disable embedding fonts for mobile tests -->
-
-
-  /*  @font-face {
-        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans_Regular.ttf");
-        fontFamily: EmbeddedVerdana;
-        embedAsCFF: true;
-    }
-
-    @font-face {
-        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
-        fontWeight: bold;
-        fontFamily: EmbeddedVerdana;
-        embedAsCFF: true;
-    }
-
-    @font-face {
-        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
-        fontStyle: italic;
-        fontFamily: EmbeddedVerdana;
-        embedAsCFF: true;
-    }
-
-
-    global{
-        kerning: "off";
-    }
-
-    s|ButtonBar{
-        fontFamily: EmbeddedVerdana;
-        fontLookup: embeddedCFF;
-        fontAntiAliasType: normal;
-    }
-
-    s|CheckBox{
-        fontFamily: EmbeddedVerdana;
-        fontLookup: embeddedCFF;
-        fontAntiAliasType: normal;
-    }
-
-    s|RadioButton{
-        fontFamily: EmbeddedVerdana;
-        fontLookup: embeddedCFF;
-        fontAntiAliasType: normal;
-    }
-
-    s|ToggleButton{
-        fontFamily: EmbeddedVerdana;
-        fontLookup: embeddedCFF;
-        fontAntiAliasType: normal;
-    }*/
-</fx:Style>
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 
 <fx:Declarations>
 

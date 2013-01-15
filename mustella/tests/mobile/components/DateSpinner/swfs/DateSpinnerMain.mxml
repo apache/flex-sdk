@@ -26,6 +26,7 @@
                preinitialize="DateSpinner.mx_internal::_todayDate=assets.DSConstants.today"
                applicationComplete="init(event)">
     
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
     <fx:Script>
         <![CDATA[
             import assets.DSConstants;

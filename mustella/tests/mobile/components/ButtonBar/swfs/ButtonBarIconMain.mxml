@@ -22,44 +22,7 @@
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   xmlns:comps="comps.*">
 	<s:layout> <s:VerticalLayout/> </s:layout>		   
-
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-/*
-		@font-face {
-			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
-			fontFamily: "MyVeraSpark";
-			embedAsCFF: true;
-		}
-
-		@font-face {
-			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
-			fontFamily: "MyVeraSpark";
-			fontWeight: bold;
-			embedAsCFF: true;
-		}
-
-		@font-face {
-			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
-			fontFamily: "MyVeraSpark";
-			fontStyle: italic;
-			embedAsCFF: true;
-		}
-
-		@font-face {
-			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
-			fontFamily: "MyVeraSpark";
-			fontWeight: bold;
-			fontStyle: italic;
-			embedAsCFF: true;
-		}
-		
-		s|ButtonBar{
-			fontFamily: "MyVeraSpark";
-		}
-		*/
-		
-	</fx:Style>
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 	
 		<fx:Script>
 			<![CDATA[

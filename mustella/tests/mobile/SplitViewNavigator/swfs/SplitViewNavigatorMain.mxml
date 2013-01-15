@@ -34,21 +34,7 @@
 		</s:ArrayCollection>
 	</fx:Declarations>
 	
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		
-		/*@font-face{
-			src: url("../../../../../Assets/Fonts/vera.ttf");
-			fontFamily: myEmbeddedFont;
-			embedAsCFF: true;
-		}
-		
-		s|Application {
-			fontAntiAliasType: "normal";
-			fontFamily: myEmbeddedFont;
-			fontLookup: "embeddedCFF";
-		}*/
-	</fx:Style>
+	<fx:Style source="../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Script>
 		<![CDATA[
 			import views.View3;

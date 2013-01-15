@@ -21,6 +21,7 @@
 			   	xmlns:s="library://ns.adobe.com/flex/spark"
 					xmlns:classes="classes.*"
 					skinClass="skins.ActionBarAnimationsSkin">
+	<fx:Style source="../../../../Assets/Fonts/MobileFontStyles.css" />
 	
 	<fx:Script source="globalNotTabbed.as" />
 
