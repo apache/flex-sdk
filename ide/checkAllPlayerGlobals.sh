@@ -47,8 +47,8 @@ fi
 agreeLicense()
 {
 	echo
-	echo playerglobal.swc is part of the Adobe Flash Player and is licensed
-	echo under the the Flash Player end user license agreement (EULA).
+	echo Playerglobal.swc is part of the Adobe Flash Player and is licensed
+	echo "under the the Flash Player end user license agreement (EULA)."
 	echo
 	echo The 10.2 and 10.3 Flash Player EULA is specified here:
 	echo http://www.adobe.com/products/eulas/pdfs/PlatformClients_PC_WWEULA_Combined_20100108_1657.pdf
