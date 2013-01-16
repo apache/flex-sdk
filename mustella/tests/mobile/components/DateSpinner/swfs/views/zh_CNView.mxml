@@ -39,7 +39,7 @@
 	<fx:Style>
 		@font-face {
 			src: url("../../../../../../Assets/Fonts/Droid/DroidSansFallback.ttf");
-			fontFamily: "MyVeraHalo";
+			fontFamily: "DroidSansFallback";
 			embedAsCFF: false;
 		}
 	</fx:Style>
