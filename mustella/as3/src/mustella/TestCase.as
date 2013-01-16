@@ -119,7 +119,7 @@ public class TestCase extends EventDispatcher
 	/**
 	 *  If non-zero, the time when we'll give up on waiting
 	 */
-	private var expirationTime:int;
+	public var expirationTime:int;
 
 	/**
 	 *  the last expected Error thrown by SetProperty
@@ -131,7 +131,7 @@ public class TestCase extends EventDispatcher
 	 */
 	public function setExpirationTime(time:int):void
 	{
-		expirationTime = time + UnitTester.timeout_plus;
+		expirationTime = (time > 0) ? time + UnitTester.timeout_plus : 0;
 	}
 
 	/**
