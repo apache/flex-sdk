@@ -44,6 +44,33 @@ then
     exit 1;
 fi
 
+agreeLicense()
+{
+	echo
+	echo The playerglobal.swc is part of the Adobe Flex SDK and covered by it's license.
+	echo
+	echo All files contained in the Adobe Flex SDK are subject to and governed by the
+	echo Adobe Flex SDK License Agreement specified here:
+	echo http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf
+	echo By downloading, modifying, distributing, using and/or accessing any files in this Adobe Flex SDK,
+	echo you agree to the terms and conditions of the applicable end user license agreement.
+	echo In addition to the Adobe license terms, you also agree to be bound by the third-party terms specified here:
+	echo http://www.adobe.com/products/eula/third_party/
+	echo Adobe recommends that you review these third-party terms.
+	echo
+	echo "Please type Y to agree to terms of the license >"
+	
+	read -n 1 accept
+	echo
+		
+	if [[ "${accept}" = "Y" || "${accept}" = "y" ]]
+	then
+	   echo License accepted
+	else
+		exit
+	fi
+}
+
 downloadPlayerGlobal()
 {
 	version=$1
@@ -71,6 +98,8 @@ downloadPlayerGlobal()
 	fi
 	
 }
+
+agreeLicense
 
 downloadPlayerGlobal 10.2 aa7d785dd5715626201f5e30fc1deb51 http://fpdownload.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_2.swc
 downloadPlayerGlobal 10.3 6092b3d4e2784212d174ca10904412bd http://fpdownload.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_3.swc
