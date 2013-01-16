@@ -41,21 +41,7 @@
 	
 	]]>
 	</fx:Script>	
-	<!--<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		
-		@font-face{
-			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
-			fontFamily: myEmbeddedFont;
-			embedAsCFF: false;
-		}
-		
-		s|Application {
-			fontAntiAliasType: "normal";
-			fontFamily: myEmbeddedFont;
-			fontLookup: "embeddedCFF";
-		}
-	</fx:Style>-->
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 	
 	<s:layout>
 		<s:VerticalLayout paddingTop="20" paddingLeft="20" gap="20"/>

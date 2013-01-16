@@ -30,7 +30,7 @@
 	<!-- textAlign="right" is excluded. What does that mean? -->
 	<s:ToggleSwitch id="target2" slideDuration="500" chromeColor="#ff6600" accentColor="#009900"  
 					 color="#ccffff" focusColor="#ff00ff" focusAlpha=".8" fontSize="40" fontStyle="italic" 
-					 fontFamily="Times New Roman" fontWeight="bold"
+					 fontFamily="MySerifHalo" fontWeight="bold"
 					 textAlpha=".8" textDecoration="underline" lineHeight="30" lineThrough="true"/>	
 	
 </s:VGroup>
