@@ -36,6 +36,14 @@
 		]]>
 	</fx:Script>
 	
+	<fx:Style>
+		@font-face {
+			src: url("../../../../../../Assets/Fonts/Droid/DroidSansFallback.ttf");
+			fontFamily: "MyVeraHalo";
+			embedAsCFF: false;
+		}
+	</fx:Style>
+	
 	<fx:Declarations>
 		<s:DateTimeFormatter id="df" locale="zh_CN" />		
 	</fx:Declarations>
@@ -43,9 +51,11 @@
 	<s:VGroup> 
 		<s:Label id="lb"  text="{df.format(mySelectedDate)}" /> 
 		
-		<s:DateSpinner id="ds_zh_CN"  locale="zh_CN" /> 
+		<s:DateSpinner id="ds_zh_CN"  locale="zh_CN"
+				fontFamily="DroidSansFallback" />
 		
 		<comps:InstrumentedDateSpinner id="ds_main" locale="zh_CN"
+				fontFamily="DroidSansFallback"
 				selectedDate="{mySelectedDate}"
 				displayMode="{dsMode}"
 				/>
