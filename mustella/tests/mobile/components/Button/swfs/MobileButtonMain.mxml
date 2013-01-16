@@ -23,6 +23,35 @@
 			  xmlns:comps="comps.*">
 
 	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
+		<fx:Style>
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+			fontFamily: "MyFixedHalo";
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Cousine/Cousine-Bold.ttf");
+			fontFamily: "MyFixedHalo";
+			fontWeight: bold;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Cousine/Cousine-Italic.ttf");
+			fontFamily: "MyFixedHalo";
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Cousine/Cousine-BoldItalic.ttf");
+			fontFamily: "MyFixedHalo";
+			fontWeight: bold;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}		
+	</fx:Style>
 	<s:layout>
 		<s:VerticalLayout gap="40" />
 	</s:layout>

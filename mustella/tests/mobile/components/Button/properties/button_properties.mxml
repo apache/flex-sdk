@@ -915,7 +915,7 @@
 								<SetProperty propertyName="rotationX" value="45" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
             </setup>
             <body>
-                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1" numColorVariances="2" maxColorVariance="1">
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />
@@ -932,7 +932,7 @@
 								<SetProperty propertyName="rotationY" value="-45" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
             </setup>
             <body>
-                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1" numColorVariances="2" maxColorVariance="1">
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />

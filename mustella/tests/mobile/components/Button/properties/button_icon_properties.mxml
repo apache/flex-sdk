@@ -150,7 +150,7 @@
 						<SetStyle target="btn1" styleName="icon" value="{fxgCls}" waitEvent="updateComplete" waitTarget="btn1"/>
 					</setup>
 					<body>
-						<CompareBitmap url="../properties/baselines" target="btn1" >
+						<CompareBitmap url="../properties/baselines" target="btn1" numColorVariances="15" maxColorVariance="1">
 							<ConditionalValue deviceDensity="160" os="win" />
 							<ConditionalValue deviceDensity="240" os="android" />
 							<ConditionalValue deviceDensity="320" os="win" />
@@ -166,7 +166,7 @@
 					</setup>
 					<body>
 						<RunCode code="application.btn1.setStyle('icon', comps.SaveFxgGraphics)" waitEvent="updateComplete" waitTarget="btn1"/>
-						<CompareBitmap url="../properties/baselines" target="btn1" >
+						<CompareBitmap url="../properties/baselines" target="btn1" numColorVariances="15" maxColorVariance="1">
 							<ConditionalValue deviceDensity="160" os="win" />
 							<ConditionalValue deviceDensity="240" os="android" />
 							<ConditionalValue deviceDensity="320" os="win" />

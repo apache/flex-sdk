@@ -35,7 +35,7 @@
 			}
 
 			.fontStyle {
-				fontFamily: 'Courier New';
+				fontFamily: 'MyFixedHalo';
 				fontSize: 18;
 				fontWeight: bold;
 			}			
@@ -673,10 +673,10 @@
 	<setup>
 		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
 		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Font Testing" waitEvent="contentChange" />
-		<SetStyle target="stylesRoot.b_skin_normal" styleName="fontFamily" value="Courier New" waitEvent="updateComplete" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="fontFamily" value="MyFixedHalo" waitEvent="updateComplete" />
 	</setup>
 	<body>
-		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="Courier New" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="MyFixedHalo" />
 		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
 			<ConditionalValue deviceDensity="160" os="win" />
 			<ConditionalValue deviceDensity="240" os="android" />
@@ -693,8 +693,8 @@
 		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Font Testing" waitEvent="contentChange" />
 	</setup>
 	<body>
-		<RunCode code="application.stylesRoot.b_skin_normal.setStyle('fontFamily','Courier New')" waitTarget="stylesRoot.b_skin_normal" waitEvent="updateComplete"/>
-		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="Courier New" />
+		<RunCode code="application.stylesRoot.b_skin_normal.setStyle('fontFamily','MyFixedHalo')" waitTarget="stylesRoot.b_skin_normal" waitEvent="updateComplete"/>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="MyFixedHalo" />
 		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
 			<ConditionalValue deviceDensity="160" os="win" />
 			<ConditionalValue deviceDensity="240" os="android" />
@@ -811,7 +811,7 @@
 	</setup>
 	<body>
 		<SetProperty target="stylesRoot.b_skin_normal" propertyName="styleName" value="fontStyle" waitEvent="updateComplete" />
-		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="Courier New" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="MyFixedHalo" />
 		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontSize" value="18" />
 		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontWeight" value="bold" />
 		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
@@ -891,7 +891,7 @@
 		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="rollOver" localX="27" localY="16" waitEvent="rollOver" />
 		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseMove" localX="27" localY="16" waitEvent="mouseMove" />
 		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseDown" localX="27" localY="16" waitEvent="mouseDown" />
-		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="Courier New" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="MyFixedHalo" />
 		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontSize" value="18" />
 		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontWeight" value="bold" />
 		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
@@ -913,7 +913,7 @@
 		<SetProperty target="stylesRoot.b_skin_normal" propertyName="styleName" value="fontStyle" waitEvent="updateComplete" />
 	</setup>
 	<body>
-		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="Courier New" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="MyFixedHalo" />
 		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontSize" value="18" />
 		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontWeight" value="bold" />
 		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
