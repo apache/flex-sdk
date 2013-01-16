@@ -262,8 +262,8 @@
 			image1Loaded = false;
 			image2Loaded = false;
 
-			image1.source = selectedImagesArray[currentIndex].url;
-			image2.source = selectedImagesArray[currentIndex].url.substring(0, selectedImagesArray[currentIndex].url.length - 8);
+			image1.source = decodeURIComponent(selectedImagesArray[currentIndex].url);
+			image2.source = decodeURIComponent(selectedImagesArray[currentIndex].url.substring(0, selectedImagesArray[currentIndex].url.length - 8));
 
 			progressLabel.text = (currentIndex+1) + " of " + selectedImagesArray.length;
         }
