@@ -37,8 +37,8 @@
 # Apache Flex binary distribution
 APACHE_FLEX_BIN_DIR="$( cd $( dirname -- "$0" ) > /dev/null ; pwd )"/../..
 
-# Adobe AIR SDK Version 3.4
-ADOBE_AIR_SDK_MAC_URL=http://airdownload.adobe.com/air/mac/download/3.4/AdobeAIRSDK.tbz2
+# Adobe AIR SDK Version 3.5
+ADOBE_AIR_SDK_MAC_URL=http://airdownload.adobe.com/air/mac/download/3.5/AdobeAIRSDK.tbz2
 
 # Adobe Flash Player Version 11.1
 ADOBE_FLASHPLAYER_GLOBALPLAYER_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc

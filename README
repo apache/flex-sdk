@@ -137,14 +137,14 @@ Install Prerequisites
          will get compile errors.
         
     *3) The Adobe AIR integration kit for Windows can be downloaded from:
-                http://airdownload.adobe.com/air/win/download/3.4/AdobeAIRSDK.zip
+           http://airdownload.adobe.com/air/win/download/3.5/AdobeAIRSDK.zip
         
          The Adobe AIR integration kit for Mac can be downloaded from:
-            http://airdownload.adobe.com/air/mac/download/3.4/AdobeAIRSDK.tbz2
+            http://airdownload.adobe.com/air/mac/download/3.5/AdobeAIRSDK.tbz2
 
-        This version of Apache Flex was certified for use with AIR 3.4, and should
+        This version of Apache Flex was certified for use with AIR 3.5, and should
         be compatible with other versions of AIR newer than 3.1. However it hasn't
-        been tested on AIR 3.2, 3.3 or 3.5.
+        been tested on AIR 3.2, 3.3 or 3.6.
 
         Download the AIR SDK for your platform and unzip it.  Set AIR_HOME to the absolute 
         path of the AIR SDK directory.
@@ -398,14 +398,14 @@ Using the Binary Distribution
 	This will create an Apache Flex 4.9 SDK that can be used with Flash Builder by copying the required files
 	from the Adobe Flex 4.6 SDK.
 	
-	To create an SDK for other IDE or if you want to use Adobe AIR 3.4 (rather than AIR 3.1 contained in
+	To create an SDK for other IDE or if you want to use Adobe AIR 3.5 (rather than AIR 3.1 contained in
 	Adobe Flex 4.6) run:
 	
 		/ide/flashbuilder/makeApacheFlexForFlashbuilder.sh (on Mac)
 		/ide/flashbuilder/makeApacheFlexForFlashbuilder.bat (on Windows)
 		
 	This will create an Apache Flex 4.9 SDK that can be used by an IDE by downloading Adobe Flex 4.6 SDK and
-	Adobe AIR 3.4.
+	Adobe AIR 3.5.
     
 Building the Framework in a Binary Distribution
 -----------------------------------------------
