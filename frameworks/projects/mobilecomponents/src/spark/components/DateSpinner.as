@@ -1254,8 +1254,12 @@ public class DateSpinner extends SkinnableComponent
     private function getLongestLabel(list:IList):Object
     {
         var idx:int = -1;
-        var maxWidth:Number = 0;
         var labelWidth:Number;
+
+        // Even if all 0 because font not embedded correctly, want to return 0 as the longest
+        // so the typicalItem is non-null.
+        var maxWidth:Number = -1; 
+        
         for (var i:int = 0; i < list.length; i++)
         {
             // note: measureText() measures UITextField while our labels will be
@@ -1271,7 +1275,8 @@ public class DateSpinner extends SkinnableComponent
         if (idx != -1)
             return list.getItemAt(idx);
         
-        return null;
+        // The case where the list is empty.  This shouldn't happen.
+        return {};
     }
     
     // set textAlign on list based on position, listType, or typicalItem content type:
