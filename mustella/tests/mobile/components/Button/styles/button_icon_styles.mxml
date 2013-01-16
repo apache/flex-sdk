@@ -402,7 +402,7 @@
 		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
 	</setup>
 	<body>
-		<AssertStyleValue target="btn1" styleName="fontFamily" value="_sans" />		
+		<AssertStyleValue target="btn1" styleName="fontFamily" value="MyVeraHalo" />		
 		<SetStyle target="btn1" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="btn1"/>
 		<AssertStyleValue target="btn1" styleName="fontFamily" value="myFontFamily" />		
 		<CompareBitmap url="../styles/baselines" target="btn1" >
@@ -423,7 +423,7 @@
 		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
 	</setup>
 	<body>
-		<AssertStyleValue target="btn1" styleName="fontFamily" value="_sans" />		
+		<AssertStyleValue target="btn1" styleName="fontFamily" value="MyVeraHalo" />		
 		<SetStyle target="btn1" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="btn1"/>
 		<AssertStyleValue target="btn1" styleName="fontFamily" value="myFontFamily" />		
 		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
@@ -641,6 +641,8 @@
 		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
 		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
 		<SetStyle target="btn1" styleName="icon" value="{swfCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<!-- wait for swf to load -->
+		<WaitForEvent target="" eventName="enterFrame" numExpectedEvents="2" />
 	</setup>
 	<body>
 		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
@@ -660,6 +662,8 @@
 		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
 		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
 		<SetStyle target="btn1" styleName="icon" value="{swfCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<!-- wait for swf to load -->
+		<WaitForEvent target="" eventName="enterFrame" numExpectedEvents="2" />
 	</setup>
 	<body>
 		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
@@ -701,6 +705,8 @@
 	<setup>
 		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
 		<SetStyle target="btn1" styleName="icon" value="{swfCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<!-- wait for swf to load -->
+		<WaitForEvent target="" eventName="enterFrame" numExpectedEvents="2" />
 	</setup>
 	<body>
 		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
@@ -719,6 +725,8 @@
 	<setup>
 		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
 		<SetStyle target="btn1" styleName="icon" value="{swfCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<!-- wait for swf to load -->
+		<WaitForEvent target="" eventName="enterFrame" numExpectedEvents="2" />
 	</setup>
 	<body>
 		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
@@ -742,6 +750,8 @@
 		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
 		<SetProperty target="btn1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="btn1"/>
 		<SetStyle target="btn1" styleName="icon" value="{swfCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<!-- wait for swf to load -->
+		<WaitForEvent target="" eventName="enterFrame" numExpectedEvents="2" />
 	</setup>
 	<body>
 		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>	

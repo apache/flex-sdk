@@ -665,7 +665,7 @@
 		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="FontFamily Testing" waitEvent="contentChange" />
 	</setup>
 	<body>
-		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="_sans" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="MyVeraHalo" />
 	</body>
 </TestCase>
 

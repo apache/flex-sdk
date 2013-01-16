@@ -129,6 +129,8 @@
 					<setup>
 						<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
 						<SetStyle target="btn1" styleName="icon" value="{swfCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+						<!-- wait for swf to load -->
+						<WaitForEvent target="" eventName="enterFrame" numExpectedEvents="2" />
 					</setup>
 					<body>
 						<!--Pause timeout="2000"/-->

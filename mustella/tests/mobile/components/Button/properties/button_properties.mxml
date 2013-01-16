@@ -303,7 +303,7 @@
             <body>
                 <AssertPropertyValue propertyName="width" target="propertiesRoot.button1">
 					<ConditionalValue deviceDensity="160" os="win" value="73"/>
-					<ConditionalValue deviceDensity="240" os="android" value="108" />
+					<ConditionalValue deviceDensity="240" os="android" value="115" />
 					<ConditionalValue deviceDensity="320" os="win" value="142"/>
 					<ConditionalValue deviceDensity="320" os="ios"  value="144"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="70"/>
