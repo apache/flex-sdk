@@ -47,16 +47,20 @@ fi
 agreeLicense()
 {
 	echo
-	echo "The playerglobal.swc is part of the Adobe Flex SDK and covered by it's license."
+	echo playerglobal.swc is part of the Adobe Flash Player and is licensed
+	echo under the the Flash Player end user license agreement (EULA).
 	echo
-	echo All files contained in the Adobe Flex SDK are subject to and governed by the
-	echo Adobe Flex SDK License Agreement specified here:
-	echo http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf
-	echo By downloading, modifying, distributing, using and/or accessing any files in this Adobe Flex SDK,
-	echo you agree to the terms and conditions of the applicable end user license agreement.
-	echo In addition to the Adobe license terms, you also agree to be bound by the third-party terms specified here:
+	echo The 10.2 and 10.3 Flash Player EULA is specified here:
+	echo http://www.adobe.com/products/eulas/pdfs/PlatformClients_PC_WWEULA_Combined_20100108_1657.pdf
+	echo
+	echo The 11.X Flash Player EULA is specified here:
+	echo http://www.adobe.com/products/eulas/pdfs/PlatformClients_PC_WWEULA-MULTI-20110809_1357.pdf
+	echo
+	echo In addition to the Adobe EULA license terms, you also agree to be bound by the third-party
+	echo terms specified here:
 	echo http://www.adobe.com/products/eula/third_party/
-	echo Adobe recommends that you review these third-party terms.
+	echo
+	echo Adobe recommends that you review all licensing terms.
 	echo
 	echo "Please type Y to agree to terms of the license >"
 	
