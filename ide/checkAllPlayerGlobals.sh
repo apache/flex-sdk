@@ -47,7 +47,7 @@ fi
 agreeLicense()
 {
 	echo
-	echo The playerglobal.swc is part of the Adobe Flex SDK and covered by it's license.
+	echo "The playerglobal.swc is part of the Adobe Flex SDK and covered by it's license."
 	echo
 	echo All files contained in the Adobe Flex SDK are subject to and governed by the
 	echo Adobe Flex SDK License Agreement specified here:
