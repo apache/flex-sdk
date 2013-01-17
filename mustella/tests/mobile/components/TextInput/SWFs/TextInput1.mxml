@@ -143,6 +143,11 @@
 			embedAsCFF: true;
 		}
 
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Droid/DroidSansFallback.ttf");
+			fontFamily: "DroidSansFallback";
+			embedAsCFF: false;
+		}
 
 		s|TextInput{
 			skinClass: ClassReference("spark.skins.mobile.TextInputSkin");

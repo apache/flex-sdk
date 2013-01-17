@@ -37,11 +37,6 @@
 	<s:VGroup x="10" y="10" id="grp1" height="200" percentWidth="100">
 		
 		<s:HGroup>
-			<s:Label text="CFF, TextInput:" color="0xff0000" />
-			<s:TextInput id="ti1" fontFamily="myVeraMonospaceCFF" text="TJ0" color="0xff0000" />
-		</s:HGroup>
-		
-		<s:HGroup>
 			<s:Label text="Non-CFF, TextInput:" color="0xff0000" />
 			<s:TextInput  id="ti2" fontFamily="myVeraMonospaceNoCFF" text="TJ0" color="0xff0000" />
 		</s:HGroup>

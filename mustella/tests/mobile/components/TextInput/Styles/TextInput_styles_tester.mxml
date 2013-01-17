@@ -644,7 +644,6 @@
 						<ResetComponent target="tic6" className="components.TextInputComp6" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<AssertStyleValue target="tic6.ti1" styleName="fontFamily" value="myVeraMonospaceCFF"/>
 				<AssertStyleValue target="tic6.lbl1" styleName="fontFamily" value="myVeraMonospaceCFF"/>
 				<AssertStyleValue target="tic6.ti2" styleName="fontFamily" value="myVeraMonospaceNoCFF"/>
 				<CompareBitmap numColorVariances="20" maxColorVariance="124" url="../Styles/baselines" target="tic6.grp1">

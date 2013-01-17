@@ -149,6 +149,11 @@
 			fontAntiAliasType: "normal";
 			fontFamily: myVeraNoCFF;
 		}
+		
+		s|Label{
+			fontFamily: myVeraMonospaceCFF;
+			fontLookup: embeddedCFF;
+		}
 
 	</fx:Style>
 
