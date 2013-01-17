@@ -25,9 +25,17 @@
 		<s:DateTimeFormatter id="dtf2" locale="ja-JP"/>
 	</fx:Declarations>
 	
+	<fx:Style>
+		@font-face {
+			src: url("../../../../../../Assets/Fonts/Droid/DroidSansFallback.ttf");
+			fontFamily: "DroidSansFallback";
+			embedAsCFF: false;
+		}
+	</fx:Style>
+	
     <s:VGroup> 
-		<s:DateSpinner id="ds1" /> 
-		<s:DateSpinner id="ds2" locale="ja-JP" accentColor="#112233" fontWeight="bold"/>
+		<s:DateSpinner id="ds1" fontFamily="DroidSansFallback" /> 
+		<s:DateSpinner id="ds2" locale="ja-JP" accentColor="#112233" fontWeight="bold" fontFamily="DroidSansFallback"/>
     </s:VGroup>
 
 </s:View>
