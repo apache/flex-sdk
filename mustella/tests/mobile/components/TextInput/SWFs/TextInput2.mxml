@@ -150,6 +150,11 @@
 			fontFamily: myVeraNoCFF;
 		}
 		
+		s|Button{
+			fontAntiAliasType: "normal";
+			fontFamily: myVeraNoCFF;
+		}
+		
 		s|Label{
 			fontFamily: myVeraMonospaceCFF;
 			fontLookup: embeddedCFF;
