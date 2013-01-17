@@ -149,14 +149,14 @@ do
 	
 	
 	# 3.2 needs FP 11.2 and swf version 15
-	if [ ${AIR_VERSION} = "3.4" ]
+	if [ ${AIR_VERSION} = "3.2" ]
 	then
 		updatePlayerVersion 11.2 "${configFile}"
 		updateSWFVersion 15 "${configFile}"
 	fi
 	
 	# 3.1 needs FP 11.1 and swf version 14
-	if [ ${AIR_VERSION} = "3.4" ]
+	if [ ${AIR_VERSION} = "3.1" ]
 	then
 		updatePlayerVersion 11.1 "${configFile}"
 		updateSWFVersion 14 "${configFile}"
