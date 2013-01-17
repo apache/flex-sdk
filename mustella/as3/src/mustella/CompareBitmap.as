@@ -24,9 +24,13 @@ import flash.net.*;
 import flash.events.*;
 import flash.display.*;
 import flash.text.*;
+import flash.text.engine.*;
+import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import mx.core.IChildList;
+import mx.core.IRawChildrenContainer;
 import mx.core.mx_internal;
 use namespace mx_internal;
 
@@ -57,7 +61,10 @@ use namespace mx_internal;
 public class CompareBitmap extends Assert
 { 
 	public static var useRemoteDiffer:Boolean = false;
-
+	
+	private static var identityMatrix:String = new Matrix().toString();
+	private static var identityColorTransform:String = new ColorTransform().toString();
+	
 	public static var DEFAULT_MAX_COLOR_VARIANCE:int = 0;
 	public static var DEFAULT_NUM_COLOR_VARIANCES:int = 0;
 
@@ -136,6 +143,7 @@ public class CompareBitmap extends Assert
 	public static var fileSuffix:String = "";
 
 	private var reader:Loader;
+	private var xmlreader:URLLoader;
 	private var writer:URLLoader;
 
 	private static var connection:LocalConnection;
@@ -275,7 +283,7 @@ public class CompareBitmap extends Assert
 				}
 			}
 
-			writePNG(actualTarget);
+			writeBaselines(actualTarget);
 			return false;
 		}
 		else
@@ -352,6 +360,8 @@ public class CompareBitmap extends Assert
 	private var MAX_LC:int = 12000;
 	private var screenBits:BitmapData;
 	private var baselineBits:BitmapData;
+
+	private var compareVal:Object;
 	
 	public function comparePNG(target:DisplayObject):Boolean 
 	{ 
@@ -374,7 +384,7 @@ public class CompareBitmap extends Assert
 			testResult.doFail ("CompareBitmap BIG FAIL! Content reader is null!");
 			return true;
 		}
-
+		
 		getScreenBits(target);
 
 		try
@@ -382,29 +392,83 @@ public class CompareBitmap extends Assert
 			baselineBits = new BitmapData(reader.content.width, reader.content.height);
 			baselineBits.draw(reader.content, new Matrix());
 
-			var compareVal:Object = baselineBits.compare (screenBits);
+			compareVal = baselineBits.compare (screenBits);
 		
 			if (compareVal is BitmapData && numColorVariances)
 				compareVal = compareWithVariances(compareVal as BitmapData)
 
 			if (compareVal != 0)
 			{
-				testResult.doFail ("compare returned" + compareVal, absolutePathResult(url) + ".bad.png");
-					
-				if (useRemoteDiffer)
+				trace ("compare returned" + compareVal);
+				
+				var req:URLRequest = new URLRequest();
+				if (UnitTester.isApollo) 
 				{
-					sendImagesToDiffer();
-					return false;
-				} else if (fileSuffix != "") { 
-					writePNG (target);
+					req.url = encodeURI2(CompareBitmap.adjustPath (url));
+				} 
+				else
+				{
+					req.url = url;
+					var base:String = normalizeURL(context.application.url);
+					base = base.substring(0, base.lastIndexOf("/"));
+					while (req.url.indexOf("../") == 0)
+					{
+						base = base.substring(0, base.lastIndexOf("/"));
+						req.url = req.url.substring(3);
+					}
+					
+					req.url = encodeURI2(base + "/" + req.url);
 				}
+				
+				req.url += ".xml";
+				xmlreader = new URLLoader();
+				xmlreader.addEventListener(Event.COMPLETE, readXMLCompleteHandler);
+				xmlreader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, readErrorHandler);
+				xmlreader.addEventListener(IOErrorEvent.IO_ERROR, readXMLIOErrorHandler);
+				xmlreader.load (req);	
+				return false;
 			}
-		} 
+		}
 		catch (e:Error) 
 		{ 
 			testResult.doFail (e.getStackTrace());	
 		}
 		return true;
+	}
+		
+	private function readXMLCompleteHandler(event:Event):void
+	{
+		var actualTarget:DisplayObject = DisplayObject(context.stringToObject(target));
+		var s:String = getDisplayListXML(actualTarget).toXMLString();
+		if (s !== xmlreader.data)
+		{
+			testResult.doFail ("compare returned" + compareVal, absolutePathResult(url) + ".bad.png");
+			
+			if (useRemoteDiffer)
+			{
+				sendImagesToDiffer();
+			} 
+			else if (fileSuffix != "") 
+			{ 
+				writeBaselines (actualTarget);
+			}
+		}
+		else
+			stepComplete();
+	}
+	
+	private function readXMLIOErrorHandler(event:Event):void
+	{
+		if (useRemoteDiffer)
+		{
+			sendImagesToDiffer();
+		} 
+		else if (fileSuffix != "") 
+		{ 
+			testResult.doFail ("compare returned" + compareVal, absolutePathResult(url) + ".bad.png");
+			var actualTarget:DisplayObject = DisplayObject(context.stringToObject(target));
+			writePNG (actualTarget);
+		}	
 	}
 	
 	private function mergeSandboxBitmap(target:DisplayObject, pt:Point, bm:BitmapData, obj:Object):void
@@ -501,31 +565,33 @@ public class CompareBitmap extends Assert
 
 	public function readPNG():void
 	{
-		reader = new Loader();
 		var req:URLRequest = new URLRequest();
 		if (UnitTester.isApollo) 
 		{
 			req.url = encodeURI2(CompareBitmap.adjustPath (url));
-		} else
-                {
-                        req.url = url;
-                        var base:String = normalizeURL(context.application.url);
-                        base = base.substring(0, base.lastIndexOf("/"));
-                        while (req.url.indexOf("../") == 0)
-                        {
-                                base = base.substring(0, base.lastIndexOf("/"));
-                                req.url = req.url.substring(3);
-                        }
+		} 
+		else
+        {
+            req.url = url;
+            var base:String = normalizeURL(context.application.url);
+            base = base.substring(0, base.lastIndexOf("/"));
+            while (req.url.indexOf("../") == 0)
+            {
+                    base = base.substring(0, base.lastIndexOf("/"));
+                    req.url = req.url.substring(3);
+            }
 
-                        req.url = encodeURI2(base + "/" + req.url);
-                }
+            req.url = encodeURI2(base + "/" + req.url);
+        }
 		//	req.url = encodeURI2(url);
 		// }
 	
+		reader = new Loader();
+
 		trace ("readPNG:requesting url: " + req.url);
-        	reader.contentLoaderInfo.addEventListener(Event.COMPLETE, readCompleteHandler);
-        	reader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, readErrorHandler);
-        	reader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, readErrorHandler);
+    	reader.contentLoaderInfo.addEventListener(Event.COMPLETE, readCompleteHandler);
+    	reader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, readErrorHandler);
+    	reader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, readErrorHandler);
 
 		reader.load (req);	
 	}
@@ -556,27 +622,66 @@ public class CompareBitmap extends Assert
 		return ba;
 	}
 
-	public function writePNG(target:DisplayObject):void 
+	public function writeBaselines(target:DisplayObject, writeDisplayList:Boolean = true):void 
 	{
-
-		var ba:ByteArray = getPngByteArray(target, screenBits);
-		trace ("image size: " + ba.length);
-
-
+		var req:URLRequest = new URLRequest();
+		writer = new URLLoader();
+		req.method = "POST";
+		
 		/**
 		 * either we got called here to write new baselines
-	 	 * or to save a .bad.png for investigation
+		 * or to save a .bad.png for investigation
 		 * in addition, with failures, we upload baseline and failure to a server
-	 	 */
+		 */
 		if (UnitTester.createBitmapReferences) 
 		{	
 			fileSuffix = "";
 		} 
+		
 
-
-		writer = new URLLoader();
+		if (writeDisplayList)
+		{
+			var s:String = getDisplayListXML(target).toXMLString();
+			// request data goes on the URL Request
+			req.data = s;
+			
+			req.contentType = "text/xml";
+			if (UnitTester.isApollo) 
+			{ 
+				req.url = encodeURI2(UnitTester.bitmapServerPrefix + adjustWriteURI(adjustPath(url))) + fileSuffix + ".xml";
+			} else 
+			{
+				req.url = encodeURI2(UnitTester.bitmapServerPrefix + absolutePath(url)) + fileSuffix + ".xml";
+			}
+			trace ("writing url: " + req.url);
+			writer.addEventListener(Event.COMPLETE, writeXMLCompleteHandler);
+			writer.addEventListener(SecurityErrorEvent.SECURITY_ERROR, writeErrorHandler);
+			writer.addEventListener(IOErrorEvent.IO_ERROR, writeErrorHandler);
+			
+			writer.load (req);	
+		}
+	}
+		
+	private function writeXMLCompleteHandler(event:Event):void
+	{
+		var actualTarget:DisplayObject = DisplayObject(context.stringToObject(target));
+		writePNG(actualTarget);
+	}
+	
+	private function writePNG(target:DisplayObject):void
+	{
 		var req:URLRequest = new URLRequest();
+		writer = new URLLoader();
 		req.method = "POST";
+		
+		var ba:ByteArray = getPngByteArray(target, screenBits);			
+		trace ("image size: " + ba.length);
+		// request data goes on the URL Request
+		req.data = ba;
+		// can't send this, don't need to anyway var rhArray:Array = new Array(new URLRequestHeader("Content-Length", new String(ba.length) ));
+		
+		req.contentType = "image/png";
+		
 		if (UnitTester.isApollo) 
 		{ 
 			req.url = encodeURI2(UnitTester.bitmapServerPrefix + adjustWriteURI(adjustPath(url))) + fileSuffix;
@@ -585,16 +690,12 @@ public class CompareBitmap extends Assert
 			req.url = encodeURI2(UnitTester.bitmapServerPrefix + absolutePath(url)) + fileSuffix;
 		}
 		trace ("writing url: " + req.url);
-        	writer.addEventListener(Event.COMPLETE, writeCompleteHandler);
-        	writer.addEventListener(SecurityErrorEvent.SECURITY_ERROR, writeErrorHandler);
-        	writer.addEventListener(IOErrorEvent.IO_ERROR, writeErrorHandler);
-
-		// request data goes on the URL Request
-		req.data = ba;
-		// can't send this, don't need to anyway var rhArray:Array = new Array(new URLRequestHeader("Content-Length", new String(ba.length) ));
-		
-		req.contentType = "image/png";
+		writer.addEventListener(Event.COMPLETE, writeCompleteHandler);
+		writer.addEventListener(SecurityErrorEvent.SECURITY_ERROR, writeErrorHandler);
+		writer.addEventListener(IOErrorEvent.IO_ERROR, writeErrorHandler);
+			
 		writer.load (req);	
+			
 
 		/// If this is about creating bitmaps, skip the upload, we're done
 		if (UnitTester.createBitmapReferences || UnitTester.run_id == "-1" || baselineMissing)
@@ -672,11 +773,8 @@ public class CompareBitmap extends Assert
 		if( baselineMissing ){
 			baselineMissing = false;
 			testResult.doFail( baselineMissingMessage );
-			stepComplete();
-		}else{		
-			if (UnitTester.createBitmapReferences)
-				stepComplete();
 		}
+		stepComplete();
 	}
 
 	private function uploadCompleteHandler(event:Event):void
@@ -965,6 +1063,157 @@ public class CompareBitmap extends Assert
 
 
 	}*/
+
+	/****** DisplayList Comparision ******/
+	protected function getDisplayListProperties(d:DisplayObject, noMask:Boolean = false):XML
+	{
+		var xml:XML;
+		var n:int;
+		var i:int;
+		var childXML:XML;
+		var s:String = getQualifiedClassName(d);
+		s = s.replace("::", ".");
+		xml = new XML("<" + s + "/>");
+		s = d.transform.concatenatedColorTransform.toString();
+		if (s != identityColorTransform)
+			xml.@concatenatedColorTransform = s;
+		if (d.transform.matrix)
+		{
+			s = d.transform.matrix.toString();
+			if (s != identityMatrix)
+			{
+				if (s.indexOf("(a=1, b=0, c=0, d=1, ") == -1)
+					xml.@matrix = s;
+			}
+		}
+		else
+		{
+			s = d.transform.matrix3D.rawData.toString();
+			xml.@matrix3D = s;
+		}
+		if (d.x != 0)
+			xml.@x = d.x;
+		if (d.y != 0)
+			xml.@y = d.y;
+		xml.@width = d.width;
+		xml.@height = d.height;
+		if (xml.visible == false)
+			xml.@visible = "false";
+		if (d.mask && !noMask)
+		{
+			xml.mask = <mask/>;
+			childXML = getDisplayListProperties(d.mask, true);
+			xml.mask.appendChild = childXML;
+		}
+		if (d.scrollRect)
+		{
+			s = d.scrollRect.toString();
+			xml.@scrollRect = s;
+		}
+		if (d.blendMode && d.blendMode != "normal")
+			xml.@blendMode = d.blendMode;
+		if (d.cacheAsBitmap)
+			xml.@cacheAsBitmap = "true";
+		if (d.filters && d.filters.length > 0)
+		{
+			s = d.filters.toString();
+			xml.@filters = s;
+		}
+		if (d.opaqueBackground)
+			xml.@opaqueBackground = "true";
+		if (d.scale9Grid)
+		{
+			s = d.scale9Grid.toString();
+			xml.@scale9Grid = s;
+		}
+		if (d is TextField)
+		{
+			xml.htmlText = TextField(d).htmlText;
+		}
+		if (d is Loader && Loader(d).contentLoaderInfo.contentType.indexOf("image") != -1)
+		{
+			s = Loader(d).contentLoaderInfo.url;
+			s = s.substring(s.lastIndexOf("/") + 1);
+			xml.@loaderbitmap = s;
+		}
+		if (d is TextLine)
+		{
+			var tl:TextLine = TextLine(d);
+			xml.@ascent = tl.ascent;
+			xml.@descent = tl.descent;
+			xml.@atomCount = tl.atomCount;
+			xml.@hasGraphicElement = tl.hasGraphicElement;
+			if (tl.textBlock)
+			{
+				var tb:TextBlock = TextLine(d).textBlock;
+				var ce:ContentElement = tb.content;
+				s = ce.rawText.substr(tl.textBlockBeginIndex, tl.rawTextLength);
+				xml.@text = s;
+			}
+		}
+		
+		if (d is IRawChildrenContainer)
+		{
+			var rawChildren:IChildList = IRawChildrenContainer(d).rawChildren;
+			n = rawChildren.numChildren;
+			for (i = 0; i < n; i++)
+			{
+				childXML = getDisplayListProperties(rawChildren.getChildAt(i));
+				xml.appendChild(childXML);				
+			}
+		}
+		else if (d is DisplayObjectContainer)
+		{
+			var doc:DisplayObjectContainer = d as DisplayObjectContainer;
+			n = doc.numChildren;
+			for (i = 0; i < n; i++)
+			{
+				childXML = getDisplayListProperties(doc.getChildAt(i));
+				xml.appendChild(childXML);				
+			}
+		}
+		return xml;
+	}
+	
+	// scan entire display list, but only dump objects intersecting target
+	protected function getDisplayListXML(target:DisplayObject):XML
+	{
+		var n:int;
+		var i:int;
+		var child:DisplayObject;
+		var childXML:XML;
+		
+		var doc:DisplayObjectContainer = DisplayObjectContainer(target.root);
+		var xml:XML = <DisplayList />;
+		if (doc is IRawChildrenContainer)
+		{
+			var rawChildren:IChildList = IRawChildrenContainer(doc).rawChildren;
+			n = rawChildren.numChildren;
+			for (i = 0; i < n; i++)
+			{
+				child = rawChildren.getChildAt(i);
+				if (target.hitTestObject(child))
+				{
+					childXML = getDisplayListProperties(child);
+					xml.appendChild(childXML);	
+				}
+			}
+		}
+		else 
+		{
+			n = doc.numChildren;
+			for (i = 0; i < n; i++)
+			{
+				child = doc.getChildAt(i);
+				if (target.hitTestObject(child))
+				{
+					childXML = getDisplayListProperties(child);
+					xml.appendChild(childXML);									
+				}
+			}
+		}
+		return xml;
+	}
 }
 
 }
