@@ -62,7 +62,7 @@
 			</setup>
 			<body>
 				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="enabled" value="false" waitEvent="updateComplete" />
-				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallorangerect.gif" waitEvent="ready" />
 				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
 					<ConditionalValue os="win" deviceDensity="160" />
 					<ConditionalValue os="win" deviceDensity="240" />
@@ -83,7 +83,7 @@
                 <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallorangerect.gif" waitEvent="ready" />
 				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="enabled" value="false" waitEvent="updateComplete" />
 				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
 					<ConditionalValue os="win" deviceDensity="160" />
@@ -183,8 +183,8 @@
                 <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/greenrect.jpg" waitEvent="ready" />
-				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/redrect.png" waitEvent="ready" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallorangerect.gif" waitEvent="ready" />
 				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
 					<ConditionalValue os="win" deviceDensity="160" />
 					<ConditionalValue os="win" deviceDensity="240" />
@@ -205,8 +205,8 @@
                 <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />
-				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/greenrect.jpg" waitEvent="ready" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallorangerect.gif" waitEvent="ready" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/redrect.png" waitEvent="ready" />
 				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
 					<ConditionalValue os="win" deviceDensity="160" />
 					<ConditionalValue os="win" deviceDensity="240" />
@@ -229,7 +229,7 @@
 				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="300" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallorangerect.gif" waitEvent="ready" />
 				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
 					<ConditionalValue os="win" deviceDensity="160" />
 					<ConditionalValue os="win" deviceDensity="240" />
@@ -252,7 +252,7 @@
 				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="200" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/greenrect.jpg" waitEvent="ready" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/redrect.png" waitEvent="ready" />
 				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
 					<ConditionalValue os="win" deviceDensity="160" />
 					<ConditionalValue os="win" deviceDensity="240" />
@@ -404,7 +404,7 @@
                 <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallorangerect.gif" waitEvent="ready" />
 				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
 					<ConditionalValue os="win" deviceDensity="160" />
 					<ConditionalValue os="win" deviceDensity="240" />
@@ -477,7 +477,7 @@
 			</setup>
 			<body>
 				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/doesNotExist.jpg" waitEvent="ioError" />
-				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallorangerect.gif" waitEvent="ready" />
 				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
 					<ConditionalValue os="win" deviceDensity="160" />
 					<ConditionalValue os="win" deviceDensity="240" />
@@ -503,7 +503,7 @@
 				<Pause timeout="1" />			
 				<SetProperty target="navigator.activeView.imgComp1.img1.skin" propertyName="currentState" value="loading" />
 				<RunCode code="FlexGlobals.topLevelApplication.waitForLoadingIndicator()" waitEvent="foundLoadingIndicator" />
-				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />				
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallorangerect.gif" waitEvent="ready" />				
 				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
 					<ConditionalValue os="win" deviceDensity="160" />
 					<ConditionalValue os="win" deviceDensity="240" />
@@ -526,7 +526,7 @@
 				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="200" waitEvent="updateComplete" />
 				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="fillMode" value="scale" />
         <SetProperty target="navigator.activeView.imgComp1.img1" propertyName="scaleMode" value="zoom" />
-        <SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />	
+        <SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallorangerect.gif" waitEvent="ready" />	
 			</setup>
 			<body>
 				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">

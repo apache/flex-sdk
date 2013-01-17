@@ -496,7 +496,7 @@
 		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
 	</setup>
 	<body>
-		<AssertStyleValue target="styleComp.cb1" styleName="fontFamily" value="_sans" />
+		<AssertStyleValue target="styleComp.cb1" styleName="fontFamily" value="MyVeraHalo" />
 		<SetStyle target="styleComp.cb1" styleName="fontFamily" value="Courier New" waitEvent="updateComplete" />
 		<AssertStyleValue target="styleComp.cb1" styleName="fontFamily" value="Courier New" />
 		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
@@ -517,7 +517,7 @@
 		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" />		
 	</setup>
 	<body>
-		<AssertStyleValue target="styleComp.cb1" styleName="fontFamily" value="_sans" />
+		<AssertStyleValue target="styleComp.cb1" styleName="fontFamily" value="MyVeraHalo" />
 		<SetStyle target="styleComp.cb1" styleName="fontFamily" value="Courier New" waitEvent="updateComplete" />
 		<AssertStyleValue target="styleComp.cb1" styleName="fontFamily" value="Courier New" />
 		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
