@@ -96,9 +96,9 @@ downloadAIR()
 	rm -rf "${airTempDir}"	
 }
 
-#agreeLicense
+agreeLicense
 
-#downloadAIR ${AIR_VERSION}
+downloadAIR ${AIR_VERSION}
 
 # update config file
 
