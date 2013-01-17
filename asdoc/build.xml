@@ -87,6 +87,9 @@
 			<compiler.source-path path-element="${flexlib}/projects/charts/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/mobilecomponents/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/spark_dmv/src"/>
+            <!--  added for Apache -->
+			<compiler.source-path path-element="${flexlib}/projects/apache/src"/>
+			<compiler.source-path path-element="${flexlib}/projects/experimental/src"/>
 						
 			<!-- namespaces to include in asdoc -->
 		    <doc-namespaces uri="http://www.adobe.com/2006/airmxml"/>
@@ -100,6 +103,9 @@
  			<doc-namespaces uri="http://www.adobe.com/2006/charts"/>
  			<doc-namespaces uri="library://ns.adobe.com/flex/spark-mobilecomponents"/>
  			<doc-namespaces uri="library://ns.adobe.com/flex/spark-dmv"/>
+            <!--  added for Apache -->
+ 			<doc-namespaces uri="http://flex.apache.org/ns"/>
+ 			<doc-namespaces uri="http://flex.apache.org/experimental/ns"/>
  			
 		    <namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${flexlib}/projects/textLayout/${tlf.version}/manifest.xml"/>
 
@@ -110,12 +116,16 @@
 		    <namespace uri="http://ns.adobe.com/2009/mx-mxml" manifest="${flexlib}/projects/mx/manifest.xml"/>
 		    <namespace uri="http://www.adobe.com/2006/advancedgridsmxml" manifest="${flexlib}/projects/advancedgrids/manifest_advancedgrids.xml"/>
 		    <namespace uri="http://www.adobe.com/2006/charts" manifest="${flexlib}/projects/charts/manifest_charts.xml"/>
-		    		    
+
 		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${flexlib}/mxml-manifest.xml"/>
 		    <namespace uri="library://ns.adobe.com/flex/spark" manifest="${flexlib}/projects/spark/manifest.xml"/>
 		    <namespace uri="library://ns.adobe.com/flex/mx" manifest="${flexlib}/mxml-manifest.xml"/>
 			<namespace uri="library://ns.adobe.com/flex/spark-mobilecomponents" manifest="${flexlib}/projects/mobilecomponents/manifest.xml"/>
 			<namespace uri="library://ns.adobe.com/flex/spark-dmv" manifest="${flexlib}/projects/spark_dmv/manifest_spark_dmv.xml"/>
+
+            <!--  added for Apache -->
+		    <namespace uri="http://flex.apache.org/ns" manifest="${flexlib}/projects/apache/manifest.xml"/>
+		    <namespace uri="http://flex.apache.org/experimental/ns" manifest="${flexlib}/projects/experimental/manifest.xml"/>
 
 			<library-path/>
             <external-library-path dir="${env.AIR_HOME}/frameworks/libs/air">

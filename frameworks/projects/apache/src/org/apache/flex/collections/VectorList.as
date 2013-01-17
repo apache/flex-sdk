@@ -17,7 +17,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.collections {
+package org.apache.flex.collections 
+{
     
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
@@ -29,6 +30,8 @@ import flash.utils.IExternalizable;
 import flash.utils.describeType;
 import flash.utils.getQualifiedClassName;
 
+import mx.collections.ICollectionView;
+import mx.collections.IList;
 import mx.core.IPropertyChangeNotifier;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
@@ -56,7 +59,6 @@ import mx.utils.UIDUtil;
 [ResourceBundle("collections")]
 
 /**
- *  @private
  *  A simple implementation of IList that uses a backing Vector.
  *  This base class will not throw ItemPendingErrors but it
  *  is possible that a subclass might.

@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.collections
+package org.apache.flex.collections
 {
 
 import flash.utils.IDataInput;
@@ -25,11 +25,20 @@ import flash.utils.IDataOutput;
 import flash.utils.IExternalizable;
 
 import mx.core.mx_internal;
+import mx.collections.ICollectionView;
+import mx.collections.ListCollectionView;
 
 use namespace mx_internal;
 
 [DefaultProperty("source")]
 
+/**
+ *  The VectorCollection class is a wrapper class that exposes a Vector as a collection 
+ *  that can be accessed and manipulated using the methods and properties of the 
+ *  ICollectionView or IList interfaces. Operations on a ArrayCollection instance modify 
+ *  the data source; for example, if you use the removeItemAt() method on  
+ *  VectorCollection, you remove the item from the underlying Vector.
+ */
 public class VectorCollection extends ListCollectionView implements ICollectionView
 {
 
@@ -43,10 +52,12 @@ public class VectorCollection extends ListCollectionView implements ICollectionV
      *  Constructor.
      *
      *  <p>Creates a new VectorCollection using the specified source vector.
-     *  If no Vector is specified an empty vector of type&lt;*&gt; will be used.</p>
-	 * 
-	 *  Due to the way the compiler (not the runtime) checks Vectors, we need to 
-	 *  leave the source as an &lt;*&gt; until a compiler change can be implemented.
+     *  If no Vector is specified an empty vector of type&lt;&#42;&gt; will be used.
+     *  </p>
+	 *
+	 *  <p>Due to the way the compiler (not the runtime) checks Vectors, we need to 
+	 *  leave the source as an &lt;&#42;&gt; until a compiler change can be implemented.
+	 *  </p>
      */
     public function VectorCollection(source:* = null)
     {		

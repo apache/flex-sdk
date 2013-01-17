@@ -28,8 +28,8 @@
     <component id="PostCodeFormatter" class="org.apache.flex.formatters.PostCodeFormatter"/>
     <component id="PostCodeValidator" class="org.apache.flex.validators.PostCodeValidator"/>
 
-	<component id="ArrayList" class="mx.collections.ArrayList"/>
-	<component id="VectorCollecton" class="mx.collections.VectorCollection"/>
-	<component id="VectorList" class="mx.collections.VectorList"/>
+	<component id="ArrayList" class="org.apache.flex.collections.ArrayList"/>
+	<component id="VectorCollecton" class="org.apache.flex.collections.VectorCollection"/>
+	<component id="VectorList" class="org.apache.flex.collections.VectorList"/>
 
 </componentPackage>

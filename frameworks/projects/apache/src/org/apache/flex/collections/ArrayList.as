@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.collections 
+package org.apache.flex.collections 
 {
     
 import flash.events.EventDispatcher;
@@ -27,6 +27,8 @@ import flash.utils.IDataOutput;
 import flash.utils.IExternalizable;
 import flash.utils.getQualifiedClassName;
 
+import mx.collections.ICollectionView;
+import mx.collections.IList;
 import mx.core.IPropertyChangeNotifier;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
