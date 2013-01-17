@@ -584,7 +584,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
 				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" value="こんにちは由香里。 御元気ですか?" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
-				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="mySerifCFF" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="DroidSansFallback" />
 				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="justificationRule" valueExpression="value=JustificationRule.SPACE" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
 			</setup>
 			<body>
@@ -605,7 +605,7 @@
 				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
 				<WaitForLayoutManager />
 				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" value="こんにちは由香里。 御元気ですか?" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
-				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="mySerifCFF" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="DroidSansFallback" />
 				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="justificationRule" valueExpression="value=JustificationRule.EAST_ASIAN" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
 			</setup>
 			<body>

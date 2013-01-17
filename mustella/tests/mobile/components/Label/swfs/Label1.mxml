@@ -120,6 +120,13 @@
 			embedAsCFF: true;
 		}
 
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Droid/DroidSansFallback.ttf");
+			fontFamily: "DroidSansFallback";
+			embedAsCFF: true;
+		}
+
 		@font-face{
 			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
 			fontFamily: myVeraMonospaceNoCFF;
