@@ -486,7 +486,7 @@
 			<body>
 				<SetStyle target="tic3.ti2" styleName="textDecoration" value="underline" />
 				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
-				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.ti2">
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
