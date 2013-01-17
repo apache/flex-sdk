@@ -74,17 +74,17 @@
 				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
 			</setup>
 			<body>
-				<AssertStyleValue target="actionBar.titleDisplay" styleName="fontFamily" value="_sans"/>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="fontFamily" value="MyVeraHalo"/>
 			</body>
 		</TestCase>		
 		<TestCase testID="ActionBar_TitleDisplay_FontFamily" keywords="[ActionBar, titleDisplay, fontFamily, style]" description="Setting the fontFamily of the ActionBar titleDisplay">
 			<setup>
 				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
 				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
-				<SetStyle target="actionBar.titleDisplay" styleName="fontFamily" value="Georgia" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
+				<SetStyle target="actionBar.titleDisplay" styleName="fontFamily" value="mySerifHalo" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
 			</setup>
 			<body>
-				<AssertStyleValue target="actionBar.titleDisplay" styleName="fontFamily" value="Georgia" />
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="fontFamily" value="mySerifHalo" />
 				<CompareBitmap url="../styles/baselines" target="actionBar">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>

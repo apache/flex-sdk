@@ -23,6 +23,36 @@
 	<fx:Declarations>
 	</fx:Declarations>
 	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace comps "comps.*";
+		
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: mySerifHalo;
+			embedAsCFF: false;
+		}
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontFamily: mySerifHalo;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontFamily: mySerifHalo;
+			fontWeight: bold;
+			embedAsCFF: false;
+		}
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-BoldItalic.ttf");
+			fontFamily: mySerifHalo;
+			fontWeight: bold;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		
+	</fx:Style>
 	<fx:Script>
 		<![CDATA[
 			import mx.managers.FocusManager;
