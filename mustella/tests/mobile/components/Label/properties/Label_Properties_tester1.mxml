@@ -68,7 +68,7 @@
 			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="width" value="0" />
 			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="height" >
 					<ConditionalValue deviceDensity="160" os="win" value="15" />
-					<ConditionalValue deviceDensity="240" value="22" />
+					<ConditionalValue deviceDensity="240" value="25" />
 					<ConditionalValue deviceDensity="320" value="30" />
 					<ConditionalValue deviceDensity="160" os="qnx" value="16" />
 				</AssertPropertyValue>
@@ -119,14 +119,14 @@
 			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
 			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="width" >
 					<ConditionalValue deviceDensity="160" os="win" value="277"/>
-					<ConditionalValue deviceDensity="240" value="445"/>
+					<ConditionalValue deviceDensity="240" value="504"/>
 					<ConditionalValue deviceDensity="320" value="579"/>
 					<ConditionalValue deviceDensity="320" os="ios" value="593"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="302"/>
 				</AssertPropertyValue>
 			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="height" >
 					<ConditionalValue deviceDensity="160" os="win" value="15" />
-					<ConditionalValue deviceDensity="240" value="22" />
+					<ConditionalValue deviceDensity="240" value="25" />
 					<ConditionalValue deviceDensity="320" value="30" />
 					<ConditionalValue deviceDensity="160" os="qnx" value="16"/>
 			    </AssertPropertyValue>
@@ -150,14 +150,14 @@
 			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
 			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="width" >
 					<ConditionalValue deviceDensity="160" os="win" value="103" />
-					<ConditionalValue deviceDensity="240" value="164" />
+					<ConditionalValue deviceDensity="240" value="185" />
 					<ConditionalValue deviceDensity="320" value="215" />
 					<ConditionalValue deviceDensity="320" os="ios" value="219"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="112"/>
 				</AssertPropertyValue>
 			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="height" value="82" >
 					<ConditionalValue deviceDensity="160" os="win" value="53" />
-					<ConditionalValue deviceDensity="240" value="80" />
+					<ConditionalValue deviceDensity="240" value="82" />
 					<ConditionalValue deviceDensity="320" value="106" />
 					<ConditionalValue deviceDensity="160" os="qnx" value="55"/>
 				</AssertPropertyValue>
