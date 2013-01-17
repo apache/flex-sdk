@@ -71,7 +71,7 @@ agreeLicense()
 	then
 	   echo License accepted
 	else
-		exit
+		exit 1;
 	fi
 }
 
@@ -100,7 +100,6 @@ downloadPlayerGlobal()
 	else
 		echo MD5 hash incorrect
 	fi
-	
 }
 
 agreeLicense
