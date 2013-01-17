@@ -1128,6 +1128,7 @@ public class CompareBitmap extends Assert
 		}
 		if (d is TextField)
 		{
+			xml.@underline = TextField(d).defaultTextFormat.underline;
 			xml.htmlText = TextField(d).htmlText;
 		}
 		if (d is Loader && Loader(d).contentLoaderInfo.contentType.indexOf("image") != -1)
