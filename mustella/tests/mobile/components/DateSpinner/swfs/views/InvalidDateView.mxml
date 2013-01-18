@@ -33,8 +33,8 @@
 	</fx:Script>
 	
     <s:VGroup> 
-		<s:DateSpinner id="dsD" displayMode="time" maxDate="{maxD}" minDate="{minD}"/> 
-		<s:DateSpinner id="dsDAT" displayMode="time" maxDate="{maxD}" minDate="{minD}"/>
+		<s:DateSpinner id="dsD" displayMode="time" maxDate="{maxD}" minDate="{minD}" locale="null"/> 
+		<s:DateSpinner id="dsDAT" displayMode="time" maxDate="{maxD}" minDate="{minD}" locale="null"/>
     </s:VGroup>
 
 </s:View>

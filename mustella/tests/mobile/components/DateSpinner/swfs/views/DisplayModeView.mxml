@@ -14,8 +14,8 @@
 		]]>
 	</fx:Script>
     <s:VGroup> 
-		<comps:InstrumentedDateSpinner id="ds" locale="en_US"/>
-		<comps:InstrumentedDateSpinner id="ds_binding" locale="en_US" selectedDate="{bindableDate}" displayMode="{bindableDisplayMode}"/>
+		<comps:InstrumentedDateSpinner id="ds" locale="null"/>
+		<comps:InstrumentedDateSpinner id="ds_binding" locale="null" selectedDate="{bindableDate}" displayMode="{bindableDisplayMode}"/>
     </s:VGroup>
     
 </s:View>

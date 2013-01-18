@@ -14,7 +14,7 @@
         <s:VerticalLayout />
     </s:layout>
     
-	<comps:InstrumentedDateSpinner id="ds" locale="en_US"/>
-	<s:DateSpinner id="ds_binding" locale="en_US" selectedDate="{bindableDate}"/>
+	<comps:InstrumentedDateSpinner id="ds" locale="null"/>
+	<s:DateSpinner id="ds_binding" locale="null" selectedDate="{bindableDate}"/>
     
 </s:View>

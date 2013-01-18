@@ -37,10 +37,12 @@
 		<comps:InstrumentedDateSpinner id="ds1" displayMode="{DateSelectorDisplayMode.DATE}" 
 					   minDate="{DSConstants.minDLarge}" 
 					   maxDate="{DSConstants.maxDLarge}"
+					   locale="null"
 					   /> 
 		<comps:InstrumentedDateSpinner id="ds2" displayMode="{DateSelectorDisplayMode.DATE_AND_TIME}" 
 					   minDate="{DSConstants.minDdetail}" 
 					   maxDate="{DSConstants.maxDdetail}"
+					   locale="null"
 					   /> 
 
     </s:VGroup>
