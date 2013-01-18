@@ -18,17 +18,29 @@
 ////////////////////////////////////////////////////////////////////////////////
 package  { 
 
+import flash.display.BitmapData;
+import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.display.IBitmapDrawable;
-import flash.utils.*;
-import flash.net.*;
-import flash.events.*;
-import flash.display.*;
-import flash.text.*;
-import flash.text.engine.*;
+import flash.display.Loader;
+import flash.events.Event;
+import flash.events.IOErrorEvent;
+import flash.events.SecurityErrorEvent;
+import flash.events.StatusEvent;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.net.LocalConnection;
+import flash.net.URLLoader;
+import flash.net.URLRequest;
+import flash.text.TextField;
+import flash.text.engine.ContentElement;
+import flash.text.engine.TextBlock;
+import flash.text.engine.TextLine;
+import flash.utils.ByteArray;
+import flash.utils.getQualifiedClassName;
+
 import mx.core.IChildList;
 import mx.core.IRawChildrenContainer;
 import mx.core.mx_internal;
@@ -440,8 +452,13 @@ public class CompareBitmap extends Assert
 	{
 		var actualTarget:DisplayObject = DisplayObject(context.stringToObject(target));
 		var s:String = getDisplayListXML(actualTarget).toXMLString();
-		if (s !== xmlreader.data)
+		var t:String = xmlreader.data;
+		s = s.replace(/\r/g, "");
+		t = t.replace(/\r/g, "");		
+		if (s !== t)
 		{
+			differ(s, t);
+			
 			testResult.doFail ("compare returned" + compareVal, absolutePathResult(url) + ".bad.png");
 			
 			if (useRemoteDiffer)
@@ -1179,8 +1196,8 @@ public class CompareBitmap extends Assert
 	// scan entire display list, but only dump objects intersecting target
 	protected function getDisplayListXML(target:DisplayObject):XML
 	{
-		var n:int;
 		var i:int;
+		var n:int;
 		var child:DisplayObject;
 		var childXML:XML;
 		
@@ -1214,6 +1231,34 @@ public class CompareBitmap extends Assert
 			}
 		}
 		return xml;
+	}
+
+	private function differ(s:String, t:String):void
+	{
+		var sl:Array = s.split("\n");
+		var tl:Array = t.split("\n");
+		trace(sl.length, tl.length);
+		var n:int = Math.max(sl.length, tl.length);
+		for (var i:int = 0; i < n; i++)
+		{
+			var a:String = (i < sl.length) ? sl[i] : "";
+			var b:String = (i < tl.length) ? tl[i] : "";
+			if (a != b)
+			{
+				var c:String = "";
+				var d:String = "";
+				trace(i, "cur: ", a);
+				trace(i, "xml: ", b);
+				var m:int = Math.max(a.length, b.length);
+				for (var j:int = 0; j < m; j++)
+				{
+					c += a.charCodeAt(j) + " ";
+					d += b.charCodeAt(j) + " ";
+				}
+				trace(i, "cur: ", c);
+				trace(i, "xml: ", d);
+			}
+		}
 	}
 }
 
