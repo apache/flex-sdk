@@ -422,7 +422,7 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.MarketView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
-                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="50" dragXTo="50" dragYFrom="285" dragYTo="385" waitEvent="touchInteractionEnd"/>
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="50" dragXTo="50" dragYFrom="285" dragYTo="385" />
                 <AssertPropertyValue target="navigator.activeView.list1" propertyName="selectedIndex" value="-1" />
                 <AssertPixelValue target="navigator.activeView.list1.dataGroup.getElementAt(0)" value="0xFFFFFF" x="10" y="10" /> 
                 <AssertPixelValue target="navigator.activeView.list1.dataGroup.getElementAt(1)" value="0xFFFFFF" x="10" y="10" />
