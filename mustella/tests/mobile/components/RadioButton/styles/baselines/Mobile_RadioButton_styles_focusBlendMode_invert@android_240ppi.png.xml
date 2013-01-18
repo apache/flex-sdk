@@ -152,10 +152,10 @@
                     <flash.display.Shape width="44" height="44"/>
                     <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.59765625, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="46" height="46"/>
                   </spark.skins.mobile240.assets.RadioButton_up>
-                  <spark.skins.mobile240.assets.RadioButton_upSymbol width="37" height="36" blendMode="auto">
+                  <spark.skins.mobile240.assets.RadioButton_upSymbolSelected width="37" height="36" blendMode="auto">
                     <flash.display.Shape width="24" height="24"/>
                     <flash.display.Shape width="22" height="22"/>
-                  </spark.skins.mobile240.assets.RadioButton_upSymbol>
+                  </spark.skins.mobile240.assets.RadioButton_upSymbolSelected>
                 </spark.skins.mobile.RadioButtonSkin>
               </spark.components.RadioButton>
             </spark.components.VGroup>
