@@ -33,7 +33,7 @@
 	</fx:Script>
 	<s:VGroup> 
 		<s:Label id="lb" /> 
-		<s:DateSpinner id="ds_layout_size"  /> 
+		<s:DateSpinner id="ds_layout_size" locale="null"  /> 
 	</s:VGroup>
 	
 </s:View>
