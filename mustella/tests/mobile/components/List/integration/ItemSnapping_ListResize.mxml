@@ -446,8 +446,9 @@
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.ListResizeWithTransition)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
-				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="trailingEdge" waitTarget="navigator.activeView.itemList.scroller" waitEvent="updateComplete"/>
 				<SetProperty target="navigator.activeView.itemList" propertyName="selectedIndex" value="2" />
+				<Pause timeout="1000" /><!-- effect on IR.  Spark effects do not register with EffectsManager -->			
 				<SimulateMouseGesture target="navigator.activeView.itemList" dragXFrom="100" dragXTo="100" dragYFrom="85%" dragYTo="0" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />
 				<Pause timeout="300" />			
 				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
