@@ -50,9 +50,9 @@ public function onResetComplete(e:Event):void {
 public function doPopAll():void{
 	
 	//trace('doPopAll - - - ' + ViewNavigator(navigator.selectedNavigator).length);
-	if(ViewNavigator(tabbedNavigator.selectedNavigator).length == 0) {
+	if(tabbedNavigator == null || tabbedNavigator.selectedNavigator == null || ViewNavigator(tabbedNavigator.selectedNavigator).length == 0) {
 		trace('a ----');
-		// this isn't called yet, so leaving empty for now
+		onResetComplete(null);
 	} else {	
 		trace('b ----');
 		ViewNavigator(tabbedNavigator.selectedNavigator).addEventListener("viewChangeComplete", onResetComplete)

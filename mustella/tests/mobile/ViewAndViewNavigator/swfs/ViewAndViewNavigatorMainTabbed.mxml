@@ -125,10 +125,15 @@
 		}
 		
 		public function setEmptyNavigatorsVector():void
-    {
+    	{
 			FlexGlobals.topLevelApplication.navigators = new Vector.<ViewNavigatorBase>();
-    }
+    	}
 
+		public function restoreNavigatorsVector():void
+		{
+			buildNavigators();
+			tabbedNavigator.selectedIndex = 0;
+		}
 		]]>
 	</fx:Script>
 	
