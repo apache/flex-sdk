@@ -945,6 +945,31 @@
 		    </body>
     	</TestCase>
 
+		<TestCase testID="NumericStepper_NaN" keywords="[NumericStepper,FLEX-33064]" description="Test NumericStepper handling of NaN values">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete"/>
+		        <SetProperty target="myNS" propertyName="minimum" value="10" />
+		        <SetProperty target="myNS" propertyName="value" value="20" />
+		        <SetProperty target="myNS" propertyName="maximum" value="50" waitEvent="updateComplete" waitTarget="myNS"/>
+		    </setup>
+		    <body>
+		        <!-- focusIn to NumericStepper and delete the current value then focusOut to commit NaN -->
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNS" />
+				<DispatchKeyEvent keys="[DELETE, DELETE, TAB]" waitEvent="focusOut" waitTarget="myNS" />
+                <AssertPropertyValue target="myNS" propertyName="value" value="NaN" />
+
+                <!-- focus back in and enter 777 which is more than max of 50 -->
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myNS" />
+				<DispatchKeyEvent char="777" waitEvent="updateComplete" waitTarget="myNS.textDisplay"/>
+				<AssertPropertyValue target="myNS.textDisplay" propertyName="text" value="777"/>
+				
+				<!-- TAB will focusOut which will commit the value of 777 -->
+				<DispatchKeyEvent key="TAB" waitEvent="valueCommit" waitTarget="myNS" />
+				<!-- which is changed to the max of 50 -->
+                <AssertPropertyValue target="myNS" propertyName="value" value="50" />
+		    </body>
+		</TestCase>
+
     </testCases>
 
 </UnitTester>

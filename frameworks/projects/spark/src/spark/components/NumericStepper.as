@@ -798,25 +798,37 @@ public class NumericStepper extends Spinner
 
             inputValue = dataFormatter.parseNumber(textDisplay.text);
         }
-        
-        if ((textDisplay.text && textDisplay.text.length != value.toString().length)
-            || textDisplay.text == "" || (inputValue != value && 
-            (Math.abs(inputValue - value) >= 0.000001 || isNaN(inputValue))))
+                
+        if ((textDisplay.text && textDisplay.text.length != value.toString().length) || 
+            textDisplay.text == "" ||
+            (isNaN(inputValue) && !isNaN(value)) ||
+            (!isNaN(inputValue) && isNaN(value)) ||
+            (inputValue != value && (Math.abs(inputValue - value) >= 0.000001)))
         {
-            setValue(nearestValidValue(inputValue, snapInterval));
-            
+            var newValue:Number = !isNaN(inputValue) ? nearestValidValue(inputValue, snapInterval) : NaN;
+            setValue(newValue);
+
             // Dispatch valueCommit if the display needs to change.
-            if (value == prevValue && inputValue != prevValue)
+            if (!valuesEqual(value, prevValue) || !valuesEqual(inputValue, prevValue))
                 dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         }
         
         if (dispatchChange)
         {
-            if (value != prevValue)
+            if (!valuesEqual(value, prevValue))
                 dispatchEvent(new Event(Event.CHANGE));
         }
     }
-        
+      
+    /**
+     *  @private
+     *  Helper method that returns true if num1 equal to  num2.
+     */
+    private function valuesEqual(num1:Number, num2:Number):Boolean
+    {
+        return ((!isNaN(num1) && !isNaN(num2) && num1 == num2) || (isNaN(num1) && isNaN(num2)));
+    }
+    
     /**
      *  @private
      *  Helper method that returns a number corresponding
