@@ -1443,7 +1443,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 				for (var i:int = 0; i < n; i++)
 				{
 					var o:PopUpData = popupInfo[i];
-					if (o && o != p)
+					if (o && o != p && o.owner.accessibilityProperties)
 					{
 						o.owner.accessibilityProperties.silent	= true;
 					}
