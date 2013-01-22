@@ -1285,7 +1285,10 @@ public class GridDimensions
         while (node && node.rowIndex < maxRow)  
         {
             if (node.rowIndex < startRowIndex)
+            {
+                node = node.next;
                 continue;
+            }
             contentHeight += getRowHeight(node.rowIndex);
             numRows++;
             node = node.next;
