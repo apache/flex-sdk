@@ -40,6 +40,8 @@
 			import spark.components.DataGroup;
 			import flashx.textLayout.edit.SelectionState;
 			import mx.core.UIComponent;
+			import mx.core.mx_internal;
+			use namespace mx_internal;
         ]]>
     </fx:Script>
     
@@ -50,11 +52,11 @@
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
 				<!-- callouts dont close on view deactivation if this is too quick ?!!-->
-				<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
-				<Pause timeout="500" />
+				<WaitForLayoutManager />
 				<!--<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
 				-->
 				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
@@ -70,7 +72,7 @@
 			<setup>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
-			<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
@@ -87,7 +89,7 @@
 			<setup>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
-			<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
@@ -106,7 +108,7 @@
 			<setup>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
-			<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
@@ -123,7 +125,7 @@
 			<setup>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
-			<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
@@ -142,7 +144,7 @@
 			<setup>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
-			<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
@@ -160,7 +162,7 @@
 			<setup>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
-			<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
@@ -171,8 +173,8 @@
 				<AssertMethodValue method="value =application.navigator.activeView.callout.isOpen == true" value="true"/>
 				<!-- softkeyboardActivate does not wait for the animation -->
 				<Pause timeout="1000" />
-				<AssertMethodValue method="value=application.stage.softKeyboardRect.top&gt;0" value="true"/>
-				<AssertMethodValue method="value=(application.navigator.activeView.callout.height+application.navigator.activeView.callout.bottom)&lt;application.stage.softKeyboardRect.top" value="true"/>
+				<AssertMethodValue method="value=application.softKeyboardRect.top&gt;0" value="true"/>
+				<AssertMethodValue method="value=(application.navigator.activeView.callout.height+application.navigator.activeView.callout.bottom)&lt;application.softKeyboardRect.top" value="true"/>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
 			</body>
 		</TestCase>	
@@ -181,7 +183,7 @@
 			<setup>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
-				<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
@@ -189,16 +191,16 @@
 				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
 				<SimulateMouseGesture target="navigator.activeView.textInput" dragXFrom="10%" dragXTo="11%" dragYFrom="50%" dragYTo="50%" waitTarget="navigator.activeView.textInput" waitEvent="softKeyboardActivate" timeout="6000"/>
 				<Pause timeout="1000" />
-				<AssertMethodValue method="value=application.stage.softKeyboardRect.top&gt;0" value="true"/>
-				<AssertMethodValue method="value=(application.navigator.activeView.callout.height+application.navigator.activeView.callout.bottom)&lt;application.stage.softKeyboardRect.top" value="true"/>
+				<AssertMethodValue method="value=application.softKeyboardRect.top&gt;0" value="true"/>
+				<AssertMethodValue method="value=(application.navigator.activeView.callout.height+application.navigator.activeView.callout.bottom)&lt;application.softKeyboardRect.top" value="true"/>
 				<RunCode code="application.stage.focus=null" />
 				<Pause timeout="500" />
 				<DispatchMouseClickEvent target="navigator.activeView.calloutText" localX="20" localY="20" />
 <!--				<SimulateMouseGesture target="navigator.activeView.calloutText" dragXFrom="10%" dragXTo="11%" dragYFrom="50%" dragYTo="50%" timeout="6000"/>
 -->				<!-- Somehow closes the Callout instead of text focus -->
 				<Pause timeout="1000"/>
-				<AssertMethodValue method="value=application.stage.softKeyboardRect.top&gt;0" value="true"/>
-				<AssertMethodValue method="value=(application.navigator.activeView.callout.height+application.navigator.activeView.callout.bottom)&lt;=application.stage.softKeyboardRect.top" value="true"/>
+				<AssertMethodValue method="value=application.softKeyboardRect.top&gt;0" value="true"/>
+				<AssertMethodValue method="value=(application.navigator.activeView.callout.height+application.navigator.activeView.callout.bottom)&lt;=application.softKeyboardRect.top" value="true"/>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
 			</body>
 		</TestCase>
@@ -222,7 +224,7 @@
 				<AssertMethodValue method="value =application.navigator.activeView.callout.isOpen == true" value="true"/>
 			-->	<!-- softkeyboardActivate does not wait for the animation -->
 			<!--	<Pause timeout="1000" />
-				<AssertMethodValue method="value=application.stage.softKeyboardRect.top&gt;0" value="true"/>
+				<AssertMethodValue method="value=application.softKeyboardRect.top&gt;0" value="true"/>
 				<AssertMethodValue method="value=(application.navigator.activeView.callout.height+application.navigator.activeView.callout.bottom)&lt;application.stage.softKeyboardRect.top" value="true"/>
 			-->	<!-- Close the Callout using its Close button -->
 			<!--	<DispatchMouseClickEvent target="navigator.activeView.Close" localX="10" localY="10"/>

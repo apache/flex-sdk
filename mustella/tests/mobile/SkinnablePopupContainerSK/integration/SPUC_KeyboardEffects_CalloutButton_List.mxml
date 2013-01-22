@@ -38,6 +38,8 @@
 			import spark.layouts.HorizontalLayout;
 			import mx.core.FlexGlobals;
 			import spark.components.DataGroup;
+			import mx.core.mx_internal;
+			use namespace mx_internal;
 			
 		]]>
 	</fx:Script>
@@ -47,7 +49,7 @@
 			<setup>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
-				<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutButton_WithList)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
@@ -65,7 +67,7 @@
 			<setup>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
-				<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutButton_WithList)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
@@ -83,7 +85,7 @@
 			<setup>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
-				<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutButton_WithList)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
@@ -102,7 +104,7 @@
 			<setup>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
-				<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutButton_WithList)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
@@ -121,7 +123,7 @@
 			<setup>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
-				<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutButton_WithList)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
@@ -139,7 +141,7 @@
 			<setup>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
-				<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutButton_WithList)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
@@ -159,7 +161,7 @@
 			<setup>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
-				<Pause timeout="3000" />
+				<WaitForLayoutManager />
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutButton_WithList)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
@@ -174,10 +176,10 @@
 				<AssertMethodValue method="value = application.navigator.activeView.calloutButton_ForResize.isDropDownOpen" value="true"/>
 				<!-- keyboard did come up -->
 				<Pause timeout="1000" />
-				<AssertMethodValue method="value=application.stage.softKeyboardRect.top&gt;0" value="true"/>
+				<AssertMethodValue method="value=application.softKeyboardRect.top&gt;0" value="true"/>
 				<!-- validate resizing -->
 				<Pause timeout="500" />
-				<AssertMethodValue method="value=(application.navigator.activeView.calloutButton_ForResize.callout.height+application.navigator.activeView.calloutButton_ForResize.callout.y)&lt;=application.stage.softKeyboardRect.top" 
+				<AssertMethodValue method="value=(application.navigator.activeView.calloutButton_ForResize.callout.height+application.navigator.activeView.calloutButton_ForResize.callout.y)&lt;=application.softKeyboardRect.top" 
 								   value="true"/>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
