@@ -222,7 +222,7 @@
                 <DispatchMouseEvent type="rollOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="rollOver" />
                 <DispatchMouseEvent type="mouseOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseOver" />
                 <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
-				<WaitForLayoutManager />
+				<Pause timeout="500" /><!-- wait for touch interaction timer -->
 				<AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xCE0000"><!-- pure red plus a bit of gradient -->
                     <ConditionalValue screenDPI="170" value="0xCF0000" /><!-- PlayBook is slightly different size so the gradient is slightly different -->
                 </AssertPixelValue>
@@ -243,7 +243,7 @@
                 <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
                 <DispatchMouseEvent type="mouseUp" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseUp" />
                 <DispatchMouseEvent type="click" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="click" />
-				<WaitForLayoutManager />
+				<Pause timeout="500" /><!-- wait for touch interaction timer -->
 				<AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0x0000CE"><!-- pure blue plus a bit of gradient -->
                     <ConditionalValue screenDPI="170" value="0x0000CF" /><!-- PlayBook is slightly different size so the gradient is slightly different -->
                 </AssertPixelValue>

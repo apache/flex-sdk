@@ -571,8 +571,8 @@
                 <DispatchMouseEvent type="rollOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="rollOver" />
                 <DispatchMouseEvent type="mouseOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseOver" />
                 <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
-				<WaitForLayoutManager />
-                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xCD0000" /><!-- pure red plus a little black gradient -->
+				<Pause timeout="500" /><!-- wait for touch interaction timer -->
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xCE0000" /><!-- pure red plus a little black gradient -->
             </body>
         </TestCase>
         
@@ -590,8 +590,8 @@
                 <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
                 <DispatchMouseEvent type="mouseUp" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseUp" />
                 <DispatchMouseEvent type="click" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="click" />
-				<WaitForLayoutManager />
-                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0x0000CD" />
+				<Pause timeout="500" /><!-- wait for touch interaction timer -->
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0x0000CE" />
             </body>
         </TestCase>
         
@@ -610,7 +610,7 @@
                 <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
                 <DispatchMouseEvent type="mouseUp" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseUp" />
                 <DispatchMouseEvent type="click" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="click" />
-				<WaitForLayoutManager />
+				<Pause timeout="500" /><!-- wait for touch interaction timer -->
                 <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xCE0000">
                     <ConditionalValue screenDPI="326" value="0xCD0000" />
                 </AssertPixelValue>
