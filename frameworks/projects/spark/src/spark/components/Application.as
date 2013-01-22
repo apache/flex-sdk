@@ -1156,7 +1156,7 @@ public class Application extends SkinnableContainer
 		// softKeyboard becoming visible, we need to compare against
 		// the height without the keyboard active
 		if (isSoftKeyboardActive && softKeyboardBehavior == "none" && resizeForSoftKeyboard)
-			actualHeight += stage.softKeyboardRect.height;
+			actualHeight += softKeyboardRect.height;
 		
         return width > actualHeight ? "landscape" : "portrait";
     }
@@ -1855,7 +1855,7 @@ public class Application extends SkinnableContainer
             }
             
             // Get the keyboard size
-            var keyboardRect:Rectangle = stage.softKeyboardRect;
+            var keyboardRect:Rectangle = softKeyboardRect;
      
             if (keyboardRect.height > 0)
                 isSoftKeyboardActive = true;
@@ -2147,6 +2147,16 @@ public class Application extends SkinnableContainer
         if (!dispatchEvent(event))
             event.preventDefault();
     }
+	
+	mx_internal var _softKeyboardRect:Rectangle;
+	
+	mx_internal function get softKeyboardRect():Rectangle
+	{
+		if (_softKeyboardRect == null)
+			return stage.softKeyboardRect;
+		
+		return _softKeyboardRect;
+	}
 }
 
 }
