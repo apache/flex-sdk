@@ -87,7 +87,8 @@ public class FakeSoftKeyboard
 			}
 			
 			// root is actually a systemManager
-			root["popUpChildren"].addChild(kbd);
+			if (kbd.parent == null)
+				root["popUpChildren"].addChild(kbd);
 			if (root.stage.stageHeight > root.stage.stageWidth)
 			{
 				kbd.height = portraitHeight;
