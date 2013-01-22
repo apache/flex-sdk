@@ -151,7 +151,8 @@
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.LabelItemRendererStylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(renderers.InstrumentedLabelItemRenderer)" waitEvent="itemRenderer1SetData" />
+				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(renderers.InstrumentedLabelItemRenderer)"/>
+				<WaitForLayoutManager />
 				<AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="alternatingItemColors" valueExpression="value=0xFFFFFF" />
 				<AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="focusColor" valueExpression="value=0x70B2EE" />
 				<AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="downColor" valueExpression="value=0xE0E0E0" />
@@ -185,7 +186,7 @@
         	<body>
         		<RunCode code="application.navigator.pushView(views.LabelItemRendererStylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
         		<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_alternatingItemColors)" />
-        		<Pause timeout="200" /><!-- must pause to wait for all renderers to be created, no guarantee on order -->
+				<WaitForLayoutManager />
         		<AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" x="5" y="5" value="0xFF0000" />
         		<AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0x0000FF" />
         		<AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" x="5" y="5" value="0xFF0000" />
@@ -199,8 +200,8 @@
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.LabelItemRendererStylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_padding)" waitEvent="itemRenderer1SetData" timeout="9000" />
-                <WaitForEvent target="navigator.activeView.target.dataGroup.getElementAt(1)" eventName="creationComplete" timeout="9000" />
+				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_padding)" />
+				<WaitForLayoutManager />
 				<CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
 					<ConditionalValue os="android" />
 					<ConditionalValue deviceDensity="320" os="ios" />
@@ -215,13 +216,13 @@
 			</setup>    
 			<body>
 				<RunCode code="application.navigator.pushView(views.LabelItemRendererStylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_downColor)" waitEvent="itemRenderer1SetData" timeout="9000" />
-                <Pause timeout="1000" /><!-- TODO: Why does this test + related hate me!?-->
+				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_downColor)" />
+				<WaitForLayoutManager />
                 <DispatchMouseEvent type="mouseMove" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseMove" />
                 <DispatchMouseEvent type="rollOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="rollOver" />
                 <DispatchMouseEvent type="mouseOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseOver" />
                 <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
-                <Pause timeout="1000" /><!-- must pause to wait for the down color to show up -->
+				<WaitForLayoutManager />
 				<AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xCE0000"><!-- pure red plus a bit of gradient -->
                     <ConditionalValue screenDPI="170" value="0xCF0000" /><!-- PlayBook is slightly different size so the gradient is slightly different -->
                 </AssertPixelValue>
@@ -234,15 +235,15 @@
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.LabelItemRendererStylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_selectionColor)" waitEvent="itemRenderer1SetData" timeout="9000" />
-                <Pause timeout="1000" /><!-- TODO: Why does this test + related hate me!? -->
+				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_selectionColor)"/>
+				<WaitForLayoutManager />
                 <DispatchMouseEvent type="mouseMove" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseMove" />
                 <DispatchMouseEvent type="rollOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="rollOver" />
                 <DispatchMouseEvent type="mouseOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseOver" />
                 <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
                 <DispatchMouseEvent type="mouseUp" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseUp" />
                 <DispatchMouseEvent type="click" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="click" />
-                <Pause timeout="1000" /><!-- must pause to wait for the down color to show up -->
+				<WaitForLayoutManager />
 				<AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0x0000CE"><!-- pure blue plus a bit of gradient -->
                     <ConditionalValue screenDPI="170" value="0x0000CF" /><!-- PlayBook is slightly different size so the gradient is slightly different -->
                 </AssertPixelValue>
@@ -255,8 +256,8 @@
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.LabelItemRendererStylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_verticalAlign_top)" waitEvent="itemRenderer1SetData" timeout="9000" />
-                <Pause timeout="250" /><!-- TODO: For iOS interpreter -->
+				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_verticalAlign_top)"/>
+				<WaitForLayoutManager />
 				<CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
 					<ConditionalValue os="android" />
 					<ConditionalValue deviceDensity="320" os="ios" />
@@ -271,8 +272,8 @@
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.LabelItemRendererStylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_verticalAlign_bottom)" waitEvent="itemRenderer1SetData" timeout="9000" />
-                <Pause timeout="250" /><!-- TODO: For iOS interpreter --> 
+				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_verticalAlign_bottom)" />
+				<WaitForLayoutManager />
 				<CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
 					<ConditionalValue os="android" />
 					<ConditionalValue deviceDensity="320" os="ios" />

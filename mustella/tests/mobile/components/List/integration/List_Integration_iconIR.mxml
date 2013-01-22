@@ -275,7 +275,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(renderers.InstrumentedIconItemRenderer)" waitEvent="itemRenderer1SetData" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(renderers.InstrumentedIconItemRenderer)" />
+				<WaitForLayoutManager />
                 <AssertStyleValue target="navigator.activeView.target" styleName="contentBackgroundColor" value="0xF0F0F0" />
                 <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="contentBackgroundColor" value="0xF0F0F0" />
                 <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="fontWeight" value="normal" />
@@ -322,7 +323,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)"/>
+				<WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="iconField" valueExpression="value=null" waitEvent="updateComplete" />
                 <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getIconDisplay() == null" value="true" />
                 <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getDecoratorDisplay() == null" value="false" />
@@ -337,7 +339,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" />
+				<WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="decorator" valueExpression="value=null" waitEvent="updateComplete" />
                 <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getIconDisplay() == null" value="false" />
                 <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getDecoratorDisplay() == null" value="true" />
@@ -352,7 +355,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" />
+				<WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="labelFunction" valueExpression="value=null" />
                 <SetProperty target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="labelField" valueExpression="value=''" />
                 <Pause timeout="500" /><!-- TODO: Can we get rid of this? -->
@@ -369,7 +373,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" />
+				<WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="messageFunction" valueExpression="value=null" waitEvent="updateComplete" />
                 <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getIconDisplay() == null" value="false" />
                 <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getDecoratorDisplay() == null" value="false" />
@@ -384,7 +389,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" />
+				<WaitForLayoutManager />
                 <SetStyle target="navigator.activeView.target" styleName="color" value="0xFF0000" waitTarget="navigator.activeView.target.dataGroup.getElementAt(1)" waitEvent="updateComplete" timeout="9000" />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
@@ -425,8 +431,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_horizontalGap_0)" waitEvent="itemRenderer1IconReady" timeout="9000" />
-                <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_horizontalGap_0)"/>
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
                     <ConditionalValue deviceDensity="320" os="ios" />
@@ -441,8 +447,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_horizontalGap_20)" waitEvent="itemRenderer1IconReady" timeout="9000" />
-                <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_horizontalGap_20)" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
                     <ConditionalValue deviceDensity="320" os="ios" />
@@ -457,8 +463,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalGap_0)" waitEvent="itemRenderer1IconReady" timeout="9000" />
-                <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalGap_0)" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/" numColorVariances="4" maxColorVariance="20">
                     <ConditionalValue os="android" />
                     <ConditionalValue deviceDensity="320" os="ios" />
@@ -473,8 +479,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalGap_20)" waitEvent="itemRenderer1IconReady" timeout="9000" />
-                <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalGap_20)" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
                     <ConditionalValue deviceDensity="320" os="ios" />
@@ -489,8 +495,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_alternatingItemColors_multiple)" waitEvent="itemRenderer3SetData" timeout="9000" />
-                <Pause timeout="1000" /><!-- TODO: if we had WaitForEvents we could get rid of this pause right? -->
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_alternatingItemColors_multiple)" />
+				<WaitForLayoutManager />
                 <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" x="5" y="5" value="0xFF0000" />
                 <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0x0000FF" />
                 <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" x="5" y="5" value="0xFF0000" />
@@ -516,8 +522,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_alternatingItemColors_single)" waitEvent="itemRenderer3SetData" timeout="9000" />
-                <Pause timeout="1000" /><!-- TODO: if we had WaitForEvents we could get rid of this pause right? -->
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_alternatingItemColors_single)" />
+				<WaitForLayoutManager />
                 <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" x="5" y="5" value="0xFF0000" />
                 <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xFF0000" />
                 <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" x="5" y="5" value="0xFF0000" />
@@ -543,8 +549,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_padding)" waitEvent="itemRenderer0IconReady" timeout="9000" />
-                <Pause timeout="500" /><!-- TODO: iOS interpreter seems to need a bit of extra time here -->
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_padding)" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/" numColorVariances="2" ignoreMaxColorVariance="true">
                     <ConditionalValue os="android" />
 					<ConditionalValue deviceDensity="320" os="ios" />
@@ -559,13 +565,13 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_downColor)" waitEvent="itemRenderer1IconReady" timeout="9000" />
-                <Pause timeout="1000" /><!--TODO: For some reason we need to pause before sending the first mouseEvent on device, look into why that is -->
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_downColor)" />
+				<WaitForLayoutManager />
                 <DispatchMouseEvent type="mouseMove" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseMove" />
                 <DispatchMouseEvent type="rollOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="rollOver" />
                 <DispatchMouseEvent type="mouseOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseOver" />
                 <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
-                <Pause timeout="1000" /><!-- must pause to wait for the down color to show up -->
+				<WaitForLayoutManager />
                 <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xCD0000" /><!-- pure red plus a little black gradient -->
             </body>
         </TestCase>
@@ -576,15 +582,15 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_selectionColor)" waitEvent="itemRenderer1IconReady" timeout="9000" />
-                <Pause timeout="1000" /><!--TODO: For some reason we need to pause before sending the first mouseEvent on device, look into why that is -->
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_selectionColor)" />
+				<WaitForLayoutManager />
                 <DispatchMouseEvent type="mouseMove" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseMove" />
                 <DispatchMouseEvent type="rollOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="rollOver" />
                 <DispatchMouseEvent type="mouseOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseOver" />
                 <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
                 <DispatchMouseEvent type="mouseUp" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseUp" />
                 <DispatchMouseEvent type="click" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="click" />
-                <Pause timeout="1000" /><!-- must pause to wait for the down color to show up -->
+				<WaitForLayoutManager />
                 <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0x0000CD" />
             </body>
         </TestCase>
@@ -595,16 +601,16 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" />
                 <SetStyle target="navigator.activeView.target" styleName="selectionColor" value="0xFF0000" />
-                <Pause timeout="1000" /><!--TODO: For some reason we need to pause before sending the first mouseEvent on device, look into why that is -->
+				<WaitForLayoutManager />
                 <DispatchMouseEvent type="mouseMove" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseMove" />
                 <DispatchMouseEvent type="rollOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="rollOver" />
                 <DispatchMouseEvent type="mouseOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseOver" />
                 <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
                 <DispatchMouseEvent type="mouseUp" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseUp" />
                 <DispatchMouseEvent type="click" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="click" />
-                <Pause timeout="1000" /><!-- must pause to wait for the down color to show up -->
+				<WaitForLayoutManager />
                 <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xCE0000">
                     <ConditionalValue screenDPI="326" value="0xCD0000" />
                 </AssertPixelValue>
@@ -617,7 +623,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalAlign_top)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalAlign_top)" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
                     <ConditionalValue deviceDensity="320" os="ios" />
@@ -632,8 +639,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalAlign_top)" waitEvent="itemRenderer2IconReady" timeout="9000" />
-                <Pause timeout="500" /><!-- TODO: For iOS interpreter -->
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalAlign_top)" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(2)" url="../integration/baselines/" numColorVariances="1" maxColorVariance="10">
                     <ConditionalValue os="android" />
 					<ConditionalValue deviceDensity="320" os="ios" />
@@ -649,8 +656,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalAlign_bottom)" waitEvent="itemRenderer1IconReady" timeout="9000" />
-                <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalAlign_bottom)" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
                     <ConditionalValue deviceDensity="320" os="ios" />
@@ -665,7 +672,8 @@
             </setup>
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
-                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalAlign_bottom)" waitEvent="itemRenderer2IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalAlign_bottom)" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(2)" url="../integration/baselines/" numColorVariances="1" maxColorVariance="10">
                     <ConditionalValue os="android" />
 					<ConditionalValue deviceDensity="320" os="ios" />
@@ -885,7 +893,7 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_basic)" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
 					<ConditionalValue deviceDensity="320" os="ios" />
@@ -901,7 +909,7 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_scale)" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/" numColorVariances="2" maxColorVariance="20">
                     <ConditionalValue os="android"/>
 					<ConditionalValue deviceDensity="320" os="ios" />
@@ -917,7 +925,7 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_clip)" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
 					<ConditionalValue deviceDensity="320" os="ios" />
@@ -933,7 +941,7 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_repeat)" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
 					<ConditionalValue deviceDensity="320" os="ios" />
@@ -949,7 +957,7 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_letterbox)" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
     				<ConditionalValue deviceDensity="320" os="ios" />
@@ -965,7 +973,7 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_function)" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/" numColorVariances="2" maxColorVariance="20">
                     <ConditionalValue os="android" />
                     <ConditionalValue deviceDensity="320" os="ios" />
@@ -981,7 +989,7 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_function_field)" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/" numColorVariances="2" maxColorVariance="20">
                     <ConditionalValue os="android" />
                     <ConditionalValue deviceDensity="320" os="ios" />
@@ -997,13 +1005,13 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_repeat)" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="800" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer5IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1600" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer7IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
                     <ConditionalValue deviceDensity="320" os="ios" />
@@ -1019,13 +1027,13 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_scale)" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="800" />
                 <Pause timeout="1000" /><!-- TODO: This test needs WaitForEvents.  Since these renderer heights are different on mobile OSes its really hard to find the right renderer to key off of.  Pause may have to be required here. -->
                 <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1600" />
                 <Pause timeout="1000" /><!-- TODO: This test needs WaitForEvents.  Since these renderer heights are different on mobile OSes its really hard to find the right renderer to key off of.  Pause may have to be required here. -->
                 <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <Pause timeout="500" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
@@ -1042,13 +1050,13 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_clip)" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="800" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer9IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1600" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer17IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
                     <ConditionalValue deviceDensity="320" os="ios" />
@@ -1064,14 +1072,13 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_letterbox)" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="800" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer5IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1600" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer10IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
-                <Pause timeout="1000" /><!-- TODO: Why is this needed to run on device all of a sudden?   Do I need to upgrade InstrumentedBitmapImage? -->
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
                     <ConditionalValue deviceDensity="320" os="ios" />
@@ -1087,7 +1094,7 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_CustomContentCache)" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
                     <ConditionalValue deviceDensity="320" os="ios" />
@@ -1103,8 +1110,7 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
                 <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_iconPlaceholder)" />
-                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1SetData" />
-                <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
+				<WaitForLayoutManager />
                 <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
                     <ConditionalValue os="android" />
                     <ConditionalValue deviceDensity="320" os="ios" />
