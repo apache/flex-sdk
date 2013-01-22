@@ -166,9 +166,9 @@
 				<Pause timeout="100"/>
 				<SetProperty    target="navigator.activeView.scroller.viewport" propertyName="verticalScrollPosition"
 								valueExpression="value=application.navigator.activeView.scroller.viewport.contentHeight - application.navigator.activeView.scroller.viewport.height" waitEvent="propertyChange" waitTarget="navigator.activeView.scroller.viewport"/>
-				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &gt; 500 " value = "true" />
+				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &gt; 300 " value = "true" />
 				<RunCode code="application.stage.focus=null"  waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.fn" />
-				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &gt; 500 " value = "true" />
+				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &gt; 300 " value = "true" />
 			</body>
 		</TestCase>
 		<TestCase testID="SoftKeyboard_Contact_scrollToBottom_TextInput" keywords="[SoftKeyboard, integration]" description="ScrollTo Bottom. Open the soft keyboard. Close the soft keyboard. Verify the Scroller restores the scroll positions back to 0.">
@@ -184,9 +184,9 @@
 				<DispatchMouseClickEvent target="navigator.activeView.tiMore" localX="50" localY="10" waitEvent="softKeyboardActivate" />
 				<Pause timeout="100"/>
 				<SetProperty target="navigator.activeView.tiMore" propertyName="text" value="TEST" waitEvent="updateComplete"/>
-				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &gt; 500 " value = "true" />
+				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &gt; 300 " value = "true" />
 				<RunCode code="application.stage.focus=null"  waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.tiMore" />
-				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &gt; 500 " value = "true" />
+				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &gt; 300 " value = "true" />
 			</body>
 		</TestCase>
 		<TestCase testID="SoftKeyboard_TextArea_grow" keywords="[SoftKeyboard, integration]" description="add text to the TextArea">
