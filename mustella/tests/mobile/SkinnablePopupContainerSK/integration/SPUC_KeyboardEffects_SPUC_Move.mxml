@@ -134,7 +134,7 @@
 			</body>
 		</TestCase>	
 		
-	<!--todo : Leaves callout open failing other remaining tests, should close any open pop ups as a part of setup in all tests -->
+	<!--todo : Leaves callout open failing other remaining tests, should close any open pop ups as a part of setup in all tests
 		<TestCase testID="SPUC_skEffects_needsSoftKeyboard" keywords="[SPUC, SK, Callout]" description="verifies needsSoftKeyboard keeps sk open on SPUC ">
 			<bugs>
 				<Bug bugID="SDK-" />
@@ -154,6 +154,7 @@
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
 			</body>
 		</TestCase>	
+		-->
 		
 		<TestCase testID="SPUC_skEffects_focusonSpuc" keywords="[SPUC, SK, Callout]" description="verifies SK remains activated when focus is on Textinput inside callout">
 			<bugs>

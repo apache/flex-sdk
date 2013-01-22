@@ -38,9 +38,9 @@
 			import spark.layouts.HorizontalLayout;
 			import mx.core.FlexGlobals;
 			import spark.components.DataGroup;
+
 			import mx.core.mx_internal;
 			use namespace mx_internal;
-			
 		]]>
 	</fx:Script>
 	
@@ -180,9 +180,10 @@
 				<AssertMethodValue method="value=application.softKeyboardRect.top&gt;0" value="true"/>
 				<!-- validate resizing -->
 				<Pause timeout="500" />
-				<AssertMethodValue method="value=(application.navigator.activeView.calloutButton_ForResize.callout.height+application.navigator.activeView.calloutButton_ForResize.callout.y)&lt;=application.stage.softKeyboardRect.top" 
+				<AssertMethodValue method="value=(application.navigator.activeView.calloutButton_ForResize.callout.height+application.navigator.activeView.calloutButton_ForResize.callout.y)&lt;=application.softKeyboardRect.top" 
 								   valueExpression="value=true"/>
-				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="5999" /> 
 
 			</body>
 		</TestCase>	
@@ -205,7 +206,7 @@
 		<!--		<AssertMethodValue method="value = application.navigator.activeView.calloutButton_GreaterMinHeight.isDropDownOpen" value="true"/>
 			-->	<!-- keyboard did come up -->
 		<!--		<Pause timeout="1000" />
-				<AssertMethodValue method="value=application.stage.softKeyboardRect.top&gt;0" value="true"/>
+				<AssertMethodValue method="value=application.softKeyboardRect.top&gt;0" value="true"/>
 				<RunCode code="application.stage.focus=null" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
 			</body>
