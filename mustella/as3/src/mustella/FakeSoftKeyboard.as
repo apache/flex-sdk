@@ -92,15 +92,15 @@ public class FakeSoftKeyboard
 			{
 				kbd.height = portraitHeight;
 				kbd.width = root.stage.stageWidth;
-				root["document"][kbdrect] = new Rectangle(0, 0, kbd.width, kbd.height);
 				kbd.y = root.stage.stageHeight - portraitHeight;
+				root["document"][kbdrect] = new Rectangle(0, kbd.y, kbd.width, kbd.height);
 			}
 			else
 			{
 				kbd.height = landscapeHeight;
 				kbd.width = root.stage.stageWidth;
-				root["document"][kbdrect] = new Rectangle(0, 0, kbd.width, kbd.height);
 				kbd.y = root.stage.stageHeight - landscapeHeight;
+				root["document"][kbdrect] = new Rectangle(0, kbd.y, kbd.width, kbd.height);
 			}
 			trace("sent softKeyboardActivate from", comp);
 			comp.dispatchEvent(new SoftKeyboardEvent(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, 
