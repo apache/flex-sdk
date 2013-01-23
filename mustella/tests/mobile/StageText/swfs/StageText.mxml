@@ -33,6 +33,91 @@
 		s|TextArea {
 			skinClass: ClassReference("spark.skins.mobile.StageTextAreaSkin");
 		}
+		
+		@font-face {
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: "_sans";
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: "_sans";
+			fontWeight: bold;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: "_sans";
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+			fontFamily: "_sans";
+			fontWeight: bold;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: "_serif";
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontFamily: "_serif";
+			fontWeight: bold;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontFamily: "_serif";
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-BoldItalic.ttf");
+			fontFamily: "_serif";
+			fontWeight: bold;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+			fontFamily: "_typewriter";
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../Assets/Fonts/Cousine/Cousine-Bold.ttf");
+			fontFamily: "_typewriter";
+			fontWeight: bold;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../Assets/Fonts/Cousine/Cousine-Italic.ttf");
+			fontFamily: "_typewriter";
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../Assets/Fonts/Cousine/Cousine-BoldItalic.ttf");
+			fontFamily: "_typewriter";
+			fontWeight: bold;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+
 	</fx:Style>
 
 	<fx:Script>
