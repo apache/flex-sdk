@@ -35,6 +35,7 @@ import flash.net.LocalConnection;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
 import flash.text.TextField;
+import flash.text.TextFormat;
 import flash.text.engine.ContentElement;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextLine;
@@ -44,6 +45,7 @@ import flash.utils.getQualifiedClassName;
 import mx.core.IChildList;
 import mx.core.IRawChildrenContainer;
 import mx.core.mx_internal;
+
 use namespace mx_internal;
 
 /**
@@ -280,6 +282,9 @@ public class CompareBitmap extends Assert
 			return true;
 		}
 
+		if (stageText)
+			updateStageTexts(actualTarget);
+		
 		this.root = root;
 		this.context = context;
 		this.testResult = testResult;
@@ -306,6 +311,54 @@ public class CompareBitmap extends Assert
 
 	}
 
+	// there are a few mobile tests that use StageText in the bitmaps
+	// which are TextFields in the emulator.  This makes them use
+	// embedded fonts to get consistency across platforms.
+	private function updateStageTexts(target:DisplayObject):void
+	{
+		var doc:DisplayObjectContainer = target as DisplayObjectContainer;
+		var tf:Object;
+		tf = findTextWidget(doc);
+		if (tf)
+		{
+			var n:int = target.stage.numChildren;
+			for (var i:int = 0; i < n; i++)
+			{
+				var stf:TextField = target.stage.getChildAt(i) as TextField;
+				if (stf)
+				{
+					var stfm:TextFormat = new TextFormat(tf.getStyle("fontFamily"),
+															tf.getStyle("fontSize"),
+															tf.getStyle("color"),
+															tf.getStyle("fontWeight") == "bold",
+															tf.getStyle("fontStyle") == "italic"
+															);
+					stf.defaultTextFormat = stfm;
+					stf.embedFonts = true;
+				}
+			}
+		}
+	}
+	
+	private function findTextWidget(doc:DisplayObjectContainer):Object
+	{
+		if (!doc) return null;
+		var n:int = doc.numChildren;
+		for (var i:int = 0; i < n; i++)
+		{
+			var child:DisplayObject = doc.getChildAt(i);
+			var className:String = getQualifiedClassName(child);
+			if (className.indexOf("StyleableStageText") > -1)
+				return child;
+			else if (child is DisplayObjectContainer)
+			{
+				var tf:Object = findTextWidget(child as DisplayObjectContainer);
+				if (tf) return tf;
+			}
+		}
+		return null;
+	}
+	
 	private function getTargetSize(target:DisplayObject):Point
 	{
 		var width:Number;
