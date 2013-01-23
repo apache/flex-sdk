@@ -242,8 +242,9 @@ public class EmailValidator extends Validator
 				}
 			}
 			
-			// Check that the character immediately after the @ is not a period.
-			if (domain.charAt(0) == ".")
+			// Check that the character immediately after the @ is not a period or an hyphen.
+			// And check that the character before the period is not an hyphen.
+			if (domain.charAt(0) == "." || domain.charAt(0) == "-" || domain.charAt(periodPos - 1) == "-")
 			{
 				results.push(new ValidationResult(
 					true, baseField, "invalidDomain",
