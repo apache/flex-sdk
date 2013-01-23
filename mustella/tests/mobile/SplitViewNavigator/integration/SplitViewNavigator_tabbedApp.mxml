@@ -65,6 +65,7 @@
 			</setup>
 			<body>
 				<AssertPropertyValue target="svn.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+				<Pause timeout="500" />
 				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../integration/baselines" target="svn.viewNavigatorPopUp">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
