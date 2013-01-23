@@ -451,7 +451,8 @@
 					{
 						if (file.url.indexOf(".png.bad.png") != -1)
 						{
-							filesArray.push(file);
+							if (file.url.indexOf(".png.bad.png.xml") == -1)
+								filesArray.push(file);
 						}
 					}
 				}
