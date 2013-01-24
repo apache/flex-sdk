@@ -21,8 +21,8 @@
                xmlns:s="library://ns.adobe.com/flex/spark" 
                xmlns:comps="comps.*"
                backgroundColor="0xe3e3e3"
-               splashScreenImage="@Embed('assets/splashScreen.png')"
-               splashScreenScaleMode="none" 
+			   splashScreenImage="@Embed('../../../../../Assets/Images/rgrect.jpg')"
+			   splashScreenScaleMode="none" 
                preinitialize="DateSpinner.mx_internal::_todayDate=assets.DSConstants.today"
                applicationComplete="init(event)">
     
