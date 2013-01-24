@@ -737,7 +737,7 @@ do
             done
 
             # local.properties should be optional
-            if [ -f "local.properties" ] && "${run_mobile_tests}" != "true" ]
+            if [ -f "local.properties" ] && [ "${run_mobile_tests}" != "true" ]
                 then
                 run_mobile_tests=`egrep "run_mobile_tests" local.properties | egrep -v "^#" | awk -F"=" '{print $2}'`
             fi
