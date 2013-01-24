@@ -22,8 +22,7 @@
 #
 # Usage: setFlashPlayerVersion "Apache Flex directory" "Flash Player version" 
 #
-# This script will download and add the specified version of AIR to an SDK and
-# update it's configuration.
+# This script will configure an Apache Flex SDK to use a minimum version of the FLash Player
 
 # Process the parameters.
 
