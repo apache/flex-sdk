@@ -287,10 +287,10 @@ public class DateSpinner extends SkinnableComponent
     private var populateMinuteDataProvider:Boolean = true;
     private var populateMeridianDataProvider:Boolean = true;
     
-    private var refreshDateTimeFormatter:Boolean = true;
+    mx_internal var refreshDateTimeFormatter:Boolean = true;
     
     // the internal DateTimeFormatter that provides a set of extended functionalities
-    private var dateTimeFormatterEx:DateTimeFormatterEx = new DateTimeFormatterEx();
+    mx_internal var dateTimeFormatterEx:DateTimeFormatterEx = new DateTimeFormatterEx();
     
     private var dateTimeFormatter:DateTimeFormatter = new DateTimeFormatter();
     
