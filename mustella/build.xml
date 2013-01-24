@@ -141,6 +141,10 @@
 
     <property name="require_this_directory_too" value="" />
 
+    <condition property="adl_extras" value="-screensize 640x960:640x960 -profile mobileDevice -XscreenDPI 240" >
+        <istrue value="${run_mobile_tests}" />
+    </condition>
+    
     <!-- host_os_name (formerly real_os_name) is the machine which is compiling. -->
     <condition property="host_os_name" value="mac" >
         <os family="mac" />
@@ -1066,12 +1070,6 @@
     <!-- the default. Mini run will override this. Server runs will not -->
     <property name="result_include" value="-includes=SendFormattedResultsToLog" />
     <property name="exit_include" value="" />
-
-   <condition property="get_results_from_log" value="true" else="false" >
-		<not>
-			<isset property="${run_mobile_tests}" />
-		</not>
-    </condition>
 
     <property name="build_version" value="${server}" />
 

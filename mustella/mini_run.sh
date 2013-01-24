@@ -304,12 +304,6 @@ do
             continue
         fi
 
-        if [ "$run_mobile_tests" = "true" ]
-            then
-            use_wire=false
-        fi
-
-
         if [ "$i" = "-keep" ]
             then
             keep=true
@@ -320,6 +314,13 @@ do
             then
             apollo_run=" -Duse_apollo=true"
             check_air=true
+            continue
+        fi
+
+        if [ "$i" = "-mobile" ]
+            then
+            apollo_run=" -Duse_apollo=true -Drun_mobile_tests=true"
+            run_mobile_tests=true
             continue
         fi
 
@@ -736,7 +737,7 @@ do
             done
 
             # local.properties should be optional
-            if [ -f "local.properties" ]
+            if [ -f "local.properties" ] && "${run_mobile_tests}" != "true" ]
                 then
                 run_mobile_tests=`egrep "run_mobile_tests" local.properties | egrep -v "^#" | awk -F"=" '{print $2}'`
             fi
