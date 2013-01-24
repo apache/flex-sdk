@@ -192,7 +192,7 @@
 				<CompareBitmap target="" url="../Properties/baselines/invalidHyphensInDomainError1.png" timeout="2000" />				
 			</body>  
 		</TestCase>
-				<TestCase testID="EmailValidator_invalidHyphensInDomainError2"  keywords="[invalidHyphensInDomainError, EmailValidator]">
+		<TestCase testID="EmailValidator_invalidHyphensInDomainError2"  keywords="[invalidHyphensInDomainError, EmailValidator]">
 			<setup>
 				
 				<ResetComponent target="myCustomEm" className="CustomEm"  waitEvent="updateComplete" waitTarget="myCustomEm"/>
@@ -207,6 +207,19 @@
 				<DispatchMouseEvent target="myCustomEm.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomEm.ti1"/>
 				<WaitForEffectsToEnd />
 				<CompareBitmap target="" url="../Properties/baselines/invalidHyphensInDomainError2.png" timeout="2000" />				
+			</body>  
+		</TestCase>
+		<TestCase testID="EmailValidator_validHyphensInDomain"  keywords="[EmailValidator]">
+			<setup>
+				<ResetComponent target="myCustomEm" className="CustomEm"  waitEvent="updateComplete" waitTarget="myCustomEm"/>
+				<SetProperty target="myCustomEm.myEm" propertyName="property" value="text"/>
+				<SetProperty target="myCustomEm.ti1" propertyName="text" value="mavenkisatd@y-d-o-m-a-i-n.com" waitEvent="updateComplete" waitTarget="myCustomEm.ti1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]"/>
+				<AssertNoEvent target="myCustomEm.myEm" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertEvent target="myCustomEm.myEm" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
 			</body>  
 		</TestCase>
 		<TestCase testID="EmailValidator_missingPeriodInDomainError"  keywords="[missingPeriodInDomainError, EmailValidator]">
