@@ -54,6 +54,11 @@
 				
 				<RunCode code="application.navigator.pushView(views.InvalidDateView)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				
+				<SetProperty target="navigator.activeView.dsD.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::refreshDateTimeFormatter = true" />
 			</setup>
 			<body>
 				<SetProperty target="navigator.activeView.dsD" propertyName="minDate" 
@@ -88,6 +93,10 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.InvalidDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty target="navigator.activeView.dsD.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::refreshDateTimeFormatter = true" />
 			</setup>
 			<body>
 				<SetProperty target="navigator.activeView.dsD" propertyName="minDate" 
@@ -124,6 +133,10 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.InvalidDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty target="navigator.activeView.dsD.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::refreshDateTimeFormatter = true" />
 			</setup>
 			<body>
 				<SetProperty target="navigator.activeView.dsD" propertyName="minDate" 
@@ -160,6 +173,10 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.InvalidDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty target="navigator.activeView.dsD.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::refreshDateTimeFormatter = true" />
 			</setup>
 			<body>
 				<SetProperty target="navigator.activeView.dsD" propertyName="minDate" 
@@ -306,6 +323,10 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.InvalidDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty target="navigator.activeView.dsD.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::refreshDateTimeFormatter = true" />
 			</setup>
 			<body>
 				<SetProperty target="navigator.activeView.dsD" propertyName="minDate" 
@@ -446,6 +467,10 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.InvalidDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty target="navigator.activeView.dsD.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::refreshDateTimeFormatter = true" />
 			</setup>
 			<body>
 				<SetProperty target="navigator.activeView.dsD" propertyName="minDate" 
@@ -668,6 +693,10 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.InvalidDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty target="navigator.activeView.dsD.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::refreshDateTimeFormatter = true" />
 			</setup>
 			<body>
 				<SetProperty target="navigator.activeView.dsD" propertyName="minDate" 
@@ -705,6 +734,10 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.InvalidDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty target="navigator.activeView.dsD.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.dsD.mx_internal::refreshDateTimeFormatter = true" />
 			</setup>
 			<body>
 				<SetProperty target="navigator.activeView.dsD" propertyName="minDate" 
