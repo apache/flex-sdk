@@ -172,6 +172,9 @@
         <antcall target="tool_air_bundles-clean">
             <param name="locale" value="fi_FI"/>
         </antcall>
+		<antcall target="tool_air_bundles-clean">
+            <param name="locale" value="fr_CH"/>
+        </antcall>
         <antcall target="tool_air_bundles-clean">
             <param name="locale" value="fr_FR"/>
         </antcall>

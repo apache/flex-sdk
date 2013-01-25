@@ -104,6 +104,7 @@
 		<bundler locale="de_CH"/><!-- Swiss German resources -->
 		<bundler locale="es_ES"/><!-- Spanish resources -->
 		<bundler locale="fi_FI"/><!--  Finnish resources-->
+		<bundler locale="fr_CH"/><!-- Swiss French resources -->
 		<bundler locale="fr_FR"><!-- French resources -->
 			<run.fat.swc>
 				<fat-swc locale="fr_FR"/>

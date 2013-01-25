@@ -107,6 +107,9 @@
             <antcall target="automation_agent_bundles">
                 <param name="locale" value="fi_FI"/>
             </antcall>
+			<antcall target="automation_agent_bundles">
+                <param name="locale" value="fr_CH"/>
+            </antcall>
             <antcall target="automation_agent_bundles">
                 <param name="locale" value="fr_FR"/>
             </antcall>
