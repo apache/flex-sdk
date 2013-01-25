@@ -73,7 +73,7 @@
         <touch file="winFonts.ser"/>
     </target>
         
-    <target name="thirdparty-downloads" unless="no.thirdparty-clean" description="Downloads all the required thirdparty code.">
+    <target name="thirdparty-downloads" unless="no.thirdparty-downloads" description="Downloads all the required thirdparty code.">
         <ant antfile="${basedir}/downloads.xml" dir="${basedir}"/>
     </target>
 
@@ -216,7 +216,7 @@
 
     <target name="super-clean" depends="thirdparty-clean,clean" description="Cleans everything including thirdparty downloads."/>
 	
-    <target name="thirdparty-clean" description="Removes all thirdparty downloads.">
+    <target name="thirdparty-clean" unless="no.thirdparty-clean" description="Removes all thirdparty downloads.">
         <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}"/>
     </target>
     
