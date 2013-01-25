@@ -134,6 +134,12 @@
 				<SetStyle target="navigator.activeView.ds1" styleName="locale" value="ja-JP"/>
 				<SetStyle target="navigator.activeView.ds1" styleName="accentColor" value="#004488"/>
 				<SetStyle target="navigator.activeView.ds1" styleName="fontWeight" value="normal"/>
+				
+				<SetProperty target="navigator.activeView.ds1.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="y年M月d日 H:mm:ss:z" />
+				<RunCode code="application.navigator.activeView.ds1.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds1.mx_internal::refreshDateTimeFormatter = true" />
+				
 				<SetProperty target="navigator.activeView.ds1" propertyName="displayMode" value="time" waitEvent="updateComplete"/> 
 				
 				<CompareBitmap url="../styles/baselines/" target="navigator.activeView.ds1">
@@ -146,6 +152,7 @@
 			</body>
 		</TestCase>
 		
+		<!-- we don't have a bold chinese font
 		<TestCase testID="DateSpinner_visual_style_test5" keywords="[DateSpinner, style, visual]" 
 				  description="Test visual style for DateSpinner component">
 			<setup>
@@ -169,7 +176,8 @@
 				</CompareBitmap>
 			</body>
 		</TestCase>
-
+		-->
+		
 		<TestCase testID="DateSpinner_custom_skin_style_test6" keywords="[DateSpinner, style, skin]" 
 				  
 				  description="Test custom skinning for DateSpinner component">
