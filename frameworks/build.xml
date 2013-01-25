@@ -73,7 +73,7 @@
         <touch file="winFonts.ser"/>
     </target>
         
-    <target name="thirdparty-downloads" description="Downloads all the required thirdparty code.">
+    <target name="thirdparty-downloads" unless="no.thirdparty-clean" description="Downloads all the required thirdparty code.">
         <ant antfile="${basedir}/downloads.xml" dir="${basedir}"/>
     </target>
 
