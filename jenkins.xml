@@ -44,7 +44,7 @@
         <echo message="Be patient.  This takes a few minutes..." />
         <mkdir dir="${FLEX_HOME}/air"/>
         <mkdir dir="${FLEX_HOME}/temp"/>
-        <get src="http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip" 
+        <get src="http://airdownload.adobe.com/air/win/download/3.4/AdobeAIRSDK.zip" 
             dest="${FLEX_HOME}/temp/AIR Integration Kit.zip" 
             verbose="false"/>
         <unzip dest="${FLEX_HOME}/air/AIR Integration Kit" src="${FLEX_HOME}/temp/AIR Integration Kit.zip" />
@@ -55,10 +55,13 @@
 
     <!-- playerglobal.swc -->
     <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->	
-	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal10.3-download,playerglobal11.0-download,playerglobal11.1-download,playerglobal11.2-download,playerglobal11.3-download" description="Copies playerglobal.swc from the Adobe website">
+	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal10.2-download,playerglobal10.3-download,playerglobal11.0-download,playerglobal11.1-download,playerglobal11.2-download,playerglobal11.3-download,playerglobal11.4-download,playerglobal11.5-download" description="Copies playerglobal.swc from the Adobe website">
     </target>
 	
 	<target name="playerglobal-settarget" unless="playerglobal.swc.present">
+		<condition property="target10.2">
+			<equals arg1="${playerglobal.version}" arg2="10.2" />
+		</condition>
 		<condition property="target10.3">
 			<equals arg1="${playerglobal.version}" arg2="10.3" />
 		</condition>
@@ -74,8 +77,21 @@
 		<condition property="target11.3">
 			<equals arg1="${playerglobal.version}" arg2="11.3" />
 		</condition>
+		<condition property="target11.4">
+			<equals arg1="${playerglobal.version}" arg2="11.4" />
+		</condition>
+		<condition property="target11.5">
+			<equals arg1="${playerglobal.version}" arg2="11.5" />
+		</condition>
 	 </target>
-	 
+
+    <target name="playerglobal10.2-download" if="target10.2">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/10/playerglobal10_2.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
+    	
     <target name="playerglobal10.3-download" if="target10.3">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
         <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/10/playerglobal10_3.swc" 
@@ -106,7 +122,21 @@
 	
     <target name="playerglobal11.3-download" if="target11.3">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
-        <get src="http://labsdownload.adobe.com/pub/labs/flashplatformruntimes/flashplayer11-3/flashplayer11-3_p3_playerglobal_050412.swc" 
+        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_3.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
+	
+    <target name="playerglobal11.4-download" if="target11.4">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_4.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
+	
+    <target name="playerglobal11.5-download" if="target11.5">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_5.swc" 
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
