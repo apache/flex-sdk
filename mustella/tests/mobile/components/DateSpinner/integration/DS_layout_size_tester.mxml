@@ -92,11 +92,6 @@
 				<RunCode code="application.navigator.pushView(views.Layout_size)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
 				
-				<SetProperty target="navigator.activeView.ds_layout_size.mx_internal:dateTimeFormatterEx"
-							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
-				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
-				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::refreshDateTimeFormatter = true" />
-				
 				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
 							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
 				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
@@ -194,10 +189,15 @@
 				<RunCode code="application.navigator.pushView(views.Layout_size)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
 				
+				<!-- set to some other display mode so when set to final it resets everything -->
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
 				<SetProperty target="navigator.activeView.ds_layout_size.mx_internal:dateTimeFormatterEx"
 							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
 				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
 				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
 				
 				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
 							 propertyName="width" value="250"  />
@@ -294,10 +294,15 @@
 				<RunCode code="application.navigator.pushView(views.Layout_size)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
 				
+				<!-- set to some other display mode so when set to final it resets everything -->
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
 				<SetProperty target="navigator.activeView.ds_layout_size.mx_internal:dateTimeFormatterEx"
 							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
 				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
 				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
 				
 				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
 							 propertyName="width" value="500"  />
@@ -329,11 +334,6 @@
 								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
 				<RunCode code="application.navigator.pushView(views.Layout_size)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
-				
-				<SetProperty target="navigator.activeView.ds_layout_size.mx_internal:dateTimeFormatterEx"
-							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
-				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
-				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::refreshDateTimeFormatter = true" />
 				
 				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
 							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
@@ -400,10 +400,15 @@
 				<RunCode code="application.navigator.pushView(views.Layout_size)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
 				
+				<!-- set to some other display mode so when set to final it resets everything -->
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
 				<SetProperty target="navigator.activeView.ds_layout_size.mx_internal:dateTimeFormatterEx"
 							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
 				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
 				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
 				
 				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
 							 propertyName="width" value="200"  />
@@ -434,11 +439,6 @@
 								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
 				<RunCode code="application.navigator.pushView(views.Layout_size)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
-				
-				<SetProperty target="navigator.activeView.ds_layout_size.mx_internal:dateTimeFormatterEx"
-							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
-				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
-				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::refreshDateTimeFormatter = true" />
 				
 				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
 							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
@@ -501,10 +501,15 @@
 				<RunCode code="application.navigator.pushView(views.Layout_size)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
 				
+				<!-- set to some other display mode so when set to final it resets everything -->
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
 				<SetProperty target="navigator.activeView.ds_layout_size.mx_internal:dateTimeFormatterEx"
 							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
 				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
 				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
 				
 				<SetProperty  target="navigator.activeView.ds_layout_size" 
 							 propertyName="percentWidth" valueExpression="value=100"  />
@@ -535,11 +540,6 @@
 								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
 				<RunCode code="application.navigator.pushView(views.Layout_size)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
-				
-				<SetProperty target="navigator.activeView.ds_layout_size.mx_internal:dateTimeFormatterEx"
-							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
-				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
-				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::refreshDateTimeFormatter = true" />
 				
 				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
 							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
@@ -636,11 +636,6 @@
 								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
 				<RunCode code="application.navigator.pushView(views.Layout_size)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
-				
-				<SetProperty target="navigator.activeView.ds_layout_size.mx_internal:dateTimeFormatterEx"
-							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
-				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
-				<RunCode code="application.navigator.activeView.ds_layout_size.mx_internal::refreshDateTimeFormatter = true" />
 				
 				<SetProperty  target="navigator.activeView.ds_layout_size" 
 							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
