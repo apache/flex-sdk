@@ -543,6 +543,12 @@
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.DisplayModeViewZH)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+						 
+			   <SetProperty target="navigator.activeView.ds_zh.mx_internal:dateTimeFormatterEx"
+                             propertyName="dateTimePattern" value="y年M月d日 ah时mm分ss秒z" />
+               <RunCode code="application.navigator.activeView.ds_zh.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+                <RunCode code="application.navigator.activeView.ds_zh.mx_internal::refreshDateTimeFormatter = true" />
+				
 				<SetProperty propertyName="displayMode" target="navigator.activeView.ds_zh" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
 				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds_zh" valueExpression="value=new Date('2011/5/9 3:00 PM')" waitEvent="valueCommit"/>
 			</setup>
@@ -593,6 +599,12 @@
 				<!--no change event is dispatched when locale changed (Bug SDK-31183 is field to track it)-->
 				<SetStyle styleName="locale" target="navigator.activeView.ds" value="zh_CN"/>
 				<Pause timeout="500"/>
+						 
+			   <SetProperty target="navigator.activeView.ds.mx_internal:dateTimeFormatterEx"
+                             propertyName="dateTimePattern" value="y年M月d日 ah时mm分ss秒z" />
+               <RunCode code="application.navigator.activeView.ds.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+                <RunCode code="application.navigator.activeView.ds.mx_internal::refreshDateTimeFormatter = true" />
+				
 				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
 				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date('2011/5/9 3:00 PM')" waitEvent="valueCommit"/>
 			</setup>
