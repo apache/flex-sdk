@@ -270,12 +270,13 @@
 				<RunCode code="application.navigator.pushView(views.zh_CNView)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
 						 
-				<SetProperty target="navigator.activeView.ds_zh_CN.mx_internal:dateTimeFormatterEx"
-                             propertyName="dateTimePattern" value="y年M月d日 ah时mm分ss秒z" />
-               <RunCode code="application.navigator.activeView.ds_zh_CN.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
-                <RunCode code="application.navigator.activeView.ds_zh_CN.mx_internal::refreshDateTimeFormatter = true" />
-                
 				<SetStyle target="navigator.activeView.ds_main" styleName="locale" value="ja_JP"/>
+				
+				<SetProperty target="navigator.activeView.ds_main.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="y年M月d日 ah时mm分ss秒z" />
+				<RunCode code="application.navigator.activeView.ds_main.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds_main.mx_internal::refreshDateTimeFormatter = true" />
+				
 				<SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
 							 valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"
 							 waitEvent="updateComplete"
@@ -359,10 +360,10 @@
 				<RunCode code="application.navigator.pushView(views.zh_CNView)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
 						 
-				<SetProperty target="navigator.activeView.ds_zh_CN.mx_internal:dateTimeFormatterEx"
-                             propertyName="dateTimePattern" value="y年M月d日 ah时mm分ss秒z" />
-               <RunCode code="application.navigator.activeView.ds_zh_CN.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
-                <RunCode code="application.navigator.activeView.ds_zh_CN.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty target="navigator.activeView.ds_main.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="y年M月d日 ah时mm分ss秒z" />
+				<RunCode code="application.navigator.activeView.ds_main.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds_main.mx_internal::refreshDateTimeFormatter = true" />
 				
 				<SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
 							 valueExpression="value=DateSelectorDisplayMode.TIME"
@@ -398,10 +399,10 @@
 				<RunCode code="application.navigator.pushView(views.zh_CNView)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
 						 
-				<SetProperty target="navigator.activeView.ds_zh_CN.mx_internal:dateTimeFormatterEx"
-                             propertyName="dateTimePattern" value="y年M月d日 ah时mm分ss秒z" />
-               <RunCode code="application.navigator.activeView.ds_zh_CN.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
-                <RunCode code="application.navigator.activeView.ds_zh_CN.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty target="navigator.activeView.ds_main.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="y年M月d日 ah时mm分ss秒z" />
+				<RunCode code="application.navigator.activeView.ds_main.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds_main.mx_internal::refreshDateTimeFormatter = true" />
                 
 				<SetStyle target="navigator.activeView.ds_main" styleName="locale" value="ja_JP"/>
 				
@@ -497,10 +498,10 @@
 				<RunCode code="application.navigator.pushView(views.zh_CNView)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
 						 
-				<SetProperty target="navigator.activeView.ds_zh_CN.mx_internal:dateTimeFormatterEx"
-                             propertyName="dateTimePattern" value="y年M月d日 ah时mm分ss秒z" />
-               <RunCode code="application.navigator.activeView.ds_zh_CN.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
-                <RunCode code="application.navigator.activeView.ds_zh_CN.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty target="navigator.activeView.ds_main.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="y年M月d日 ah时mm分ss秒z" />
+				<RunCode code="application.navigator.activeView.ds_main.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds_main.mx_internal::refreshDateTimeFormatter = true" />
 				
 				<SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
 							 valueExpression="value=DateSelectorDisplayMode.TIME"
@@ -545,10 +546,10 @@
 				<RunCode code="application.navigator.pushView(views.zh_CNView)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
 						 
-				<SetProperty target="navigator.activeView.ds_zh_CN.mx_internal:dateTimeFormatterEx"
-                             propertyName="dateTimePattern" value="y年M月d日 ah时mm分ss秒z" />
-               <RunCode code="application.navigator.activeView.ds_zh_CN.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
-                <RunCode code="application.navigator.activeView.ds_zh_CN.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty target="navigator.activeView.ds_main.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="y年M月d日 ah时mm分ss秒z" />
+				<RunCode code="application.navigator.activeView.ds_main.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds_main.mx_internal::refreshDateTimeFormatter = true" />
 				
 				<SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
 							 valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"
