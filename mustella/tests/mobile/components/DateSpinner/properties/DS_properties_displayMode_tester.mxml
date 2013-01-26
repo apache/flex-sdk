@@ -89,6 +89,8 @@
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<!-- remove binding from display list -->
+				<RunCode code="application.navigator.activeView.ds_binding.parent.removeElement(application.navigator.activeView.ds_binding)" />
 				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
 				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date(2011,7,15,3,28)" waitEvent="valueCommit"/>
 			</setup>
@@ -149,6 +151,8 @@
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<!-- remove binding from display list -->
+				<RunCode code="application.navigator.activeView.ds_binding.parent.removeElement(application.navigator.activeView.ds_binding)" />
 				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
 				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date('2011/7/9 2:00 AM')" waitEvent="valueCommit"/>
 			</setup>
@@ -169,6 +173,8 @@
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<!-- remove binding from display list -->
+				<RunCode code="application.navigator.activeView.ds_binding.parent.removeElement(application.navigator.activeView.ds_binding)" />
 				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
 				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date('2011/5/9 3:00 PM')" waitEvent="valueCommit"/>
 				<WaitForEvent target="navigator.activeView.ds" eventName="enterFrame" />
@@ -311,6 +317,15 @@
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<!-- set to some other display mode so when set to final it resets everything -->
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_binding" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty target="navigator.activeView.ds_binding.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.ds_binding.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds_binding.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_binding" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
 				<!--Programatically change month and day spinner list-->
 				<RunCode code="application.navigator.activeView.bindableDate = new Date(2011,2,2,13,30)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
 			</setup>
@@ -522,6 +537,8 @@
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<!-- remove binding from display list -->
+				<RunCode code="application.navigator.activeView.ds_binding.parent.removeElement(application.navigator.activeView.ds_binding)" />
 				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
 				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date(2011,7,15,3,28)" waitEvent="valueCommit"/>
 			</setup>
@@ -723,6 +740,8 @@
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<!-- remove binding from display list -->
+				<RunCode code="application.navigator.activeView.ds_binding.parent.removeElement(application.navigator.activeView.ds_binding)" />
 				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
 			</setup>
 			<body>
