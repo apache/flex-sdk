@@ -30,6 +30,7 @@
 			import assets.DSConstants;
 			
 			import assets.skins.MySkin;
+			import spark.components.calendarClasses.DateSelectorDisplayMode;
 			
 			import views.*;					
 				
@@ -188,6 +189,15 @@
 				
 				<RunCode code="application.navigator.pushView(views.VisualStyleView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="19999" />
 				
+				<!-- set to some other display mode so when set to final it resets everything -->
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds1" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty target="navigator.activeView.ds1.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.ds1.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds1.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds1" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
 			</setup>
 			
 			<body>
