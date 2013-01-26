@@ -23,6 +23,7 @@
                splashScreenMinimumDisplayTime="5000"
                initialize="captureSplashScreen()">
     
+	<fx:Style source="../../../../Assets/Fonts/MobileFontStyles.css" />
     <fx:Script>
         <![CDATA[
             import mx.core.FlexGlobals;
