@@ -675,6 +675,15 @@
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
 						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<!-- set to some other display mode so when set to final it resets everything -->
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty target="navigator.activeView.ds.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.ds.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
 			</setup>
 			<body>
 				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE" />

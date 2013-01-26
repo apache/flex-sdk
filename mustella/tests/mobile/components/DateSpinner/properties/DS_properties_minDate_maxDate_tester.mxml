@@ -52,6 +52,15 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />				
+				<!-- set to some other display mode so when set to final it resets everything -->
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds1" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty target="navigator.activeView.ds1.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.ds1.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds1.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds1" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
 				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date('2000/1/1') " waitEvent="updateComplete" />
 				<SetProperty target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date('2099/12/31') " waitEvent="updateComplete"/>
 				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date('2000/1/2') " waitEvent="valueCommit"/>
@@ -118,6 +127,15 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />	
 				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<!-- set to some other display mode so when set to final it resets everything -->
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds1" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty target="navigator.activeView.ds1.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.ds1.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds1.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds1" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
 				
 				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(1975,1,1,8,34,56)" waitEvent="updateComplete" />
 				<SetProperty target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date(2099,2,3,23,00,00)" waitEvent="updateComplete"/>
@@ -221,6 +239,15 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />			
 				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<!-- set to some other display mode so when set to final it resets everything -->
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds1" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty target="navigator.activeView.ds1.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.ds1.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds1.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds1" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
 				
 				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(2011,6,1 )" waitEvent="updateComplete" />
 				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2013,5,1 )" waitEvent="valueCommit"/>
@@ -244,6 +271,15 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />			
 				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<!-- set to some other display mode so when set to final it resets everything -->
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds1" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty target="navigator.activeView.ds1.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.ds1.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds1.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds1" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
 				
 				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(2011,6,1 )"  waitEvent="updateComplete"/>
 				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2010,3,1 )" waitEvent="updateComplete"/>
@@ -350,6 +386,15 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<!-- set to some other display mode so when set to final it resets everything -->
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds2" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty target="navigator.activeView.ds2.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.ds2.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds2.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds2" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
 				<SetProperty target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date(2012,11,29 )"  waitEvent="updateComplete"/>
 				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date(2012,11,30,20,12 )" waitEvent="updateComplete" />
 			</setup>
@@ -406,6 +451,13 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<!-- set to some other display mode so when set to final it resets everything -->
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds2" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty target="navigator.activeView.ds2.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.ds2.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds2.mx_internal::refreshDateTimeFormatter = true" />
 				<SetProperty target="navigator.activeView.ds2" propertyName="displayMode" valueExpression="value='date'" waitEvent="updateComplete" />
 				<SetProperty target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date ( 2010,5,3, 12, 30 )" waitEvent="updateComplete" />	
 				<SetProperty target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date ( 2011,5,3, 12, 30 )" waitEvent="updateComplete" />
@@ -440,6 +492,15 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete"  />
 				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<!-- set to some other display mode so when set to final it resets everything -->
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds1" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty target="navigator.activeView.ds1.mx_internal:dateTimeFormatterEx"
+							 propertyName="dateTimePattern" value="MMMM d, yyyy h:mm:ss a z" />
+				<RunCode code="application.navigator.activeView.ds1.mx_internal::dateTimeFormatterEx.styleChanged(null)" />
+				<RunCode code="application.navigator.activeView.ds1.mx_internal::refreshDateTimeFormatter = true" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds1" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
 				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date ( 2011,6,7)"  waitEvent="updateComplete" />
 				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date ( 2011,6,8,4,30)" waitEvent="updateComplete"/>
 			</setup>
