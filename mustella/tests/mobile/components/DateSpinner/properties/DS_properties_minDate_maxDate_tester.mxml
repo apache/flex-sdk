@@ -386,6 +386,8 @@
 			<setup>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
 				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<!-- remove ds1 from display list -->
+				<RunCode code="application.navigator.activeView.ds1.parent.removeElement(application.navigator.activeView.ds1)" />
 				<!-- set to some other display mode so when set to final it resets everything -->
 				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds2" 
 							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
