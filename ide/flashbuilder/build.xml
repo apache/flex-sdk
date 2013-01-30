@@ -51,7 +51,7 @@
          
          There is no clean for this operation.
     -->
-    <target name="make-sdk" depends="check-rsls,install-config,install-playerglobal,install-air"
+    <target name="make-sdk" depends="build-rsls,install-config,install-playerglobal,install-air"
         description="Converts this SDK into the layout FlashBuilder expects."/>
     
     <target name="create-config-files" 
@@ -107,8 +107,6 @@
 
     <target name="check-rsls">
         <available file="${frameworks.dir}/rsls" type="dir" property="rsls.dir.exists"/>
-        <!--fail message="The ${frameworks.dir}/rsls directory must be created. Use the frameworks-rsls ant target in ${FLEX_HOME}." 
-            unless="rsls.dir.exists"/-->
     </target>
     
     <target name="build-rsls" depends="check-rsls" unless="rsls.dir.exists">
