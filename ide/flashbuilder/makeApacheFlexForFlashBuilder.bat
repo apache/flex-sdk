@@ -119,7 +119,7 @@ REM
 REM         Remove zipped kits.
 REM
 rmdir /s /q "%tempDir%"
-rmdir /s /q "%FLEX_HOME/in%"
+rmdir /s /q "%FLEX_HOME%\in"
 goto :eof
 
 :errorExit
