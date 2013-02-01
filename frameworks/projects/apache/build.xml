@@ -93,12 +93,49 @@
 	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
 	<target name="bundles">
 		<!-- these languages have localized docs -->
-		<!-- TODO add misisng locales -->
-		<bundler locale="en_AU"/><!-- Australian resources -->
-		<bundler locale="en_GB"/><!-- United Kingdom resources -->
-		<bundler locale="en_CA"/><!-- Canadian resources -->
-		<bundler locale="de_CH"/><!-- Swiss German resources -->
-		<bundler locale="es_ES"/><!-- Spanish resources -->
+        <!-- these languages do not have localized docs-->
+        <bundler locale="en_AU"/><!-- Australian resources -->
+        <bundler locale="en_GB"/><!-- United Kingdom resources -->
+        <bundler locale="en_CA"/><!-- Canadian resources -->
+        <bundler locale="da_DK"/><!-- Danish resources -->
+        <bundler locale="de_DE"><!-- German resources -->
+            <run.fat.swc>
+                <fat-swc locale="de_DE"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="de_CH"/><!-- Swiss German resources -->
+        <bundler locale="es_ES"/><!-- Spanish resources -->
+        <bundler locale="fi_FI"/><!--  Finnish resources-->
+		<bundler locale="fr_CH"/><!-- Swiss French resources -->
+        <bundler locale="fr_FR"><!-- French resources -->
+            <run.fat.swc>
+                <fat-swc locale="fr_FR"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="it_IT"/><!-- Italian resources -->
+        <bundler locale="ja_JP"><!-- Japanese resources -->
+            <run.fat.swc>
+                <fat-swc locale="ja_JP"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="ko_KR"/><!-- Korean resources -->
+        <bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
+        <bundler locale="nl_NL"/><!-- Dutch resources -->
+        <bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
+        <bundler locale="pt_PT"/><!-- Portugal Portuguese resources -->
+        <bundler locale="ru_RU"><!-- Russian resources -->
+            <run.fat.swc>
+                <fat-swc locale="ru_RU"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="sv_SE"/><!-- Swedish resources -->
+        <bundler locale="zh_CN"><!-- Simplified Chinese resources -->
+            <run.fat.swc>
+                <fat-swc locale="zh_CN"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
+        <bundler locale="el_GR"/><!-- Greek Language  resources -->
 	</target>
 	
 	<target name="clean" depends="bundles-clean">
