@@ -1759,7 +1759,7 @@ public class ComboBox extends ComboBase
         if (!initialized || show == _showingDropdown)
             return;
 
-        if (inTween)
+        if (inTween && tween)
             tween.endTween();
 
         // Subclasses may extend to do pre-processing
@@ -1916,7 +1916,7 @@ public class ComboBox extends ComboBase
      */
     private function destroyDropdown():void
     {
-        if (inTween)
+        if (inTween && tween)
             tween.endTween();
         
         displayDropdown(false, null, false);
