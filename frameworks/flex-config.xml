@@ -80,7 +80,7 @@
       <library-path>
          <path-element>libs</path-element>
          <path-element>libs/mx</path-element>
-         <path-element>locale/en_US</path-element>
+         <path-element>locale/{locale}</path-element>
          <path-element>{playerglobalHome}/{targetPlayerMajorVersion}.{targetPlayerMinorVersion}</path-element>
       </library-path>
 
