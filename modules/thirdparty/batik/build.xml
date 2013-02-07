@@ -157,6 +157,8 @@ To display the available targets type:
         <include name="xml-apis-ext.jar"/>
       </fileset>
     </path>
+	
+	<mkdir dir="lib"/>
   
     <available property="rhino.present" classname="org.mozilla.javascript.Context">
       <classpath refid="libs-classpath"/>
