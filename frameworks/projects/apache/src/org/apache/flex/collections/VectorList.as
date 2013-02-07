@@ -64,21 +64,21 @@ import mx.utils.UIDUtil;
  *  is possible that a subclass might.
  */
 public class VectorList extends EventDispatcher
-	   implements IList, IPropertyChangeNotifier {
-	   
+       implements IList, IPropertyChangeNotifier {
+       
     //--------------------------------------------------------------------------
     //
     // Static Initializer
     // 
     //--------------------------------------------------------------------------
-	   /*    {
+       /*    {
         //If one attempt to serialize a Vector in any way, the type of the Vector is not retained unless the types are also aliased
         //This should really be handled in the VM in my opinion, however, it is being done here to make it more pay as you go
         //Unfortunately the consequence is that one must either do this manually or in some way reference a VectorList to ensure
         //proper serialization of their Vectors
 
-	//This is commented out pending the outcome of discussion abotu serialization	
-		registerClassAlias( "Boolean", Boolean );
+    //This is commented out pending the outcome of discussion abotu serialization   
+        registerClassAlias( "Boolean", Boolean );
         registerClassAlias( "int", int );
         registerClassAlias( "Number", Number );
         registerClassAlias( "String", String );
@@ -89,9 +89,9 @@ public class VectorList extends EventDispatcher
 
         registerClassAlias( "Vector", Vector );
     }
-		*/	 
-	private static const VECTOR_PREFIX:String = "__AS3__.vec::Vector.";
-	private var fixedLengthVector:Boolean = false;
+        */   
+    private static const VECTOR_PREFIX:String = "__AS3__.vec::Vector.";
+    private var fixedLengthVector:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -105,7 +105,7 @@ public class VectorList extends EventDispatcher
      */
     public function VectorList(source:* = null)
     {
-		super();
+        super();
 
         disableEvents();
         this.source = source;
@@ -113,12 +113,12 @@ public class VectorList extends EventDispatcher
         _uid = UIDUtil.createUID();
     }
 
-	/**
-	 *  @private
-	 *  Used for accessing localized Error messages.
-	 */
-	private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+    /**
+     *  @private
+     *  Used for accessing localized Error messages.
+     */
+    private var resourceManager:IResourceManager =
+                                    ResourceManager.getInstance();
 
     //--------------------------------------------------------------------------
     //
@@ -139,7 +139,7 @@ public class VectorList extends EventDispatcher
      */
     public function get length():int
     {
-       	return source.length;
+        return source.length;
     }
     
     //----------------------------------
@@ -155,7 +155,7 @@ public class VectorList extends EventDispatcher
      *  <code>theList.source.pop()</code> will not cause <code>CollectionEvents</code> 
      *  to be dispatched.
      *
-	 *  @return An Vector that represents the underlying source.
+     *  @return An Vector that represents the underlying source.
      */
     public function get source():*
     {
@@ -174,18 +174,20 @@ public class VectorList extends EventDispatcher
                 stopTrackUpdates(_source[i]);
             }
         }
-		
-		if ( s && !isVector( s ) ) {
-			//Move me to the resource manager
-			throw new TypeError("The source of a VectorList must be a Vector" );
-		} 
+        
+        if ( s && !isVector( s ) ) 
+        {
+            //Move me to the resource manager
+            throw new TypeError("The source of a VectorList must be a Vector" );
+        } 
 
-		_source  = s ? s : new Vector.<*>();
+        _source  = s ? s : new Vector.<*>();
 
-		if ( _source.fixed ) {
-			fixedLengthVector = true;
-		}
-		
+        if ( _source.fixed ) 
+        {
+            fixedLengthVector = true;
+        }
+        
         len = _source.length;
         for (i = 0; i < len; i++)
         {
@@ -195,7 +197,7 @@ public class VectorList extends EventDispatcher
         if (_dispatchEvents == 0)
         {
            var event:CollectionEvent =
-			new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
            event.kind = CollectionEventKind.RESET;
            dispatchEvent(event);
         }
@@ -212,43 +214,44 @@ public class VectorList extends EventDispatcher
      */  
     public function get uid():String
     {
-    	return _uid;
+        return _uid;
     }
     
     public function set uid(value:String):void
     {
-    	_uid = value;
-	}
+        _uid = value;
+    }
 
     //--------------------------------------------------------------------------
     //
     // Methods
     // 
     //--------------------------------------------------------------------------
-	private function isVector( value:* ):Boolean {
-		//I am rather ashamed of doing this, but it seems the only reliable way we have to ensure we were given a Vector 
-		//is to compare it against a string
-		var sourceClassName:String = getQualifiedClassName( value );
+    private function isVector( value:* ):Boolean 
+    {
+        //I am rather ashamed of doing this, but it seems the only reliable way we have to ensure we were given a Vector 
+        //is to compare it against a string
+        var sourceClassName:String = getQualifiedClassName( value );
 
-		return ( sourceClassName.indexOf( VECTOR_PREFIX ) >= 0 );
-	}
-	
+        return ( sourceClassName.indexOf( VECTOR_PREFIX ) >= 0 );
+    }
+    
     /**
      *  Get the item at the specified index.
      * 
-     *  @param 	index the index in the list from which to retrieve the item
-     *  @param	Not used in this implementation at this time
+     *  @param  index the index in the list from which to retrieve the item
+     *  @param  Not used in this implementation at this time
      *  @return the item at that index, null if there is none
-     *  @throws RangeError if the index < 0 or index >= length
+     *  @throws RangeError if the index less than 0 or index &gt;= length
      */
     public function getItemAt(index:int, prefetch:int = 0):Object
     {
         if (index < 0 || index >= length)
-		{
-			var message:String = resourceManager.getString(
-				"collections", "outOfBounds", [ index ]);
-        	throw new RangeError(message);
-		}
+        {
+            var message:String = resourceManager.getString(
+                "collections", "outOfBounds", [ index ]);
+            throw new RangeError(message);
+        }
             
         return source[index];
     }
@@ -258,19 +261,19 @@ public class VectorList extends EventDispatcher
      *  If an item was already at that index the new item will replace it and it 
      *  will be returned.
      *
-     *  @param 	item the new value for the index
-     *  @param 	index the index at which to place the item
+     *  @param  item the new value for the index
+     *  @param  index the index at which to place the item
      *  @return the item that was replaced, null if none
      *  @throws RangeError if index is less than 0 or greater than or equal to length
      */
     public function setItemAt(item:Object, index:int):Object
     {
         if (index < 0 || index >= length) 
-		{
-			var message:String = resourceManager.getString(
-				"collections", "outOfBounds", [ index ]);
-        	throw new RangeError(message);
-		}
+        {
+            var message:String = resourceManager.getString(
+                "collections", "outOfBounds", [ index ]);
+            throw new RangeError(message);
+        }
         
         var oldItem:Object = source[index];
         source[index] = item;
@@ -280,35 +283,35 @@ public class VectorList extends EventDispatcher
         //dispatch the appropriate events 
         if (_dispatchEvents == 0)
         {
-        	var hasCollectionListener:Boolean = 
-        		hasEventListener(CollectionEvent.COLLECTION_CHANGE);
-        	var hasPropertyListener:Boolean = 
-        		hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE);
-        	var updateInfo:PropertyChangeEvent; 
-        	
-        	if (hasCollectionListener || hasPropertyListener)
-        	{
-        		updateInfo = new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
-        		updateInfo.kind = PropertyChangeEventKind.UPDATE;
-            	updateInfo.oldValue = oldItem;
-            	updateInfo.newValue = item;
-            	updateInfo.property = index;
-        	}
-        	
-        	if (hasCollectionListener)
-        	{
-           		var event:CollectionEvent =
-					new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
-            	event.kind = CollectionEventKind.REPLACE;
-            	event.location = index;
-            	event.items.push(updateInfo);
-            	dispatchEvent(event);
-         	}
-         	
-         	if (hasPropertyListener)
-         	{
-            	dispatchEvent(updateInfo);
-          	}
+            var hasCollectionListener:Boolean = 
+                hasEventListener(CollectionEvent.COLLECTION_CHANGE);
+            var hasPropertyListener:Boolean = 
+                hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE);
+            var updateInfo:PropertyChangeEvent; 
+            
+            if (hasCollectionListener || hasPropertyListener)
+            {
+                updateInfo = new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
+                updateInfo.kind = PropertyChangeEventKind.UPDATE;
+                updateInfo.oldValue = oldItem;
+                updateInfo.newValue = item;
+                updateInfo.property = index;
+            }
+            
+            if (hasCollectionListener)
+            {
+                var event:CollectionEvent =
+                    new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+                event.kind = CollectionEventKind.REPLACE;
+                event.location = index;
+                event.items.push(updateInfo);
+                dispatchEvent(event);
+            }
+            
+            if (hasPropertyListener)
+            {
+                dispatchEvent(updateInfo);
+            }
         }
         return oldItem;    
     }
@@ -334,18 +337,18 @@ public class VectorList extends EventDispatcher
      */
     public function addItemAt(item:Object, index:int):void
     {
-		if ( fixedLengthVector ) {
-			//Make a message in manager
-			throw new RangeError( "Fixed Length Vector");
-		}
+        if ( fixedLengthVector ) {
+            //Make a message in manager
+            throw new RangeError( "Fixed Length Vector");
+        }
 
-		if ( index < 0 || index > length) 
-		{
-			var message:String = resourceManager.getString(
-				"collections", "outOfBounds", [ index ]);
-        	throw new RangeError(message);
-		}
-        	
+        if ( index < 0 || index > length) 
+        {
+            var message:String = resourceManager.getString(
+                "collections", "outOfBounds", [ index ]);
+            throw new RangeError(message);
+        }
+            
         source.splice(index, 0, item);
 
         startTrackUpdates(item);
@@ -376,17 +379,17 @@ public class VectorList extends EventDispatcher
     /**
      *  Removes the specified item from this list, should it exist.
      *
-     *	@param	item Object reference to the item that should be removed.
-     *  @return	Boolean indicating if the item was removed.
+     *  @param  item Object reference to the item that should be removed.
+     *  @return Boolean indicating if the item was removed.
      */
     public function removeItem(item:Object):Boolean
     {
-    	var index:int = getItemIndex(item);
-    	var result:Boolean = index >= 0;
-    	if (result)
-    		removeItemAt(index);
+        var index:int = getItemIndex(item);
+        var result:Boolean = index >= 0;
+        if (result)
+            removeItemAt(index);
 
-    	return result;
+        return result;
     }
     
     /**
@@ -395,21 +398,21 @@ public class VectorList extends EventDispatcher
      *
      *  @param index the index from which to remove the item
      *  @return the item that was removed
-     *  @throws RangeError is index < 0 or index >= length
+     *  @throws RangeError is index less than 0 or index greater than or equal to length
      */
     public function removeItemAt(index:int):Object
     {
-		if ( fixedLengthVector ) {
-			//Make a message in manager
-			throw new RangeError( "Fixed Length Vector");
-		}
+        if ( fixedLengthVector ) {
+            //Make a message in manager
+            throw new RangeError( "Fixed Length Vector");
+        }
 
-		if (index < 0 || index >= length)
-		{
-			var message:String = resourceManager.getString(
-				"collections", "outOfBounds", [ index ]);
-        	throw new RangeError(message);
-		}
+        if (index < 0 || index >= length)
+        {
+            var message:String = resourceManager.getString(
+                "collections", "outOfBounds", [ index ]);
+            throw new RangeError(message);
+        }
 
         var removed:Object = source.splice(index, 1)[0];
         stopTrackUpdates(removed);
@@ -431,7 +434,7 @@ public class VectorList extends EventDispatcher
             }
 
             source.splice(0, length);
-			internalDispatchEvent(CollectionEventKind.RESET);
+            internalDispatchEvent(CollectionEventKind.RESET);
         }    
     }
     
@@ -444,16 +447,16 @@ public class VectorList extends EventDispatcher
      *  Otherwise it may choose to simply refresh the whole view.
      *
      *  @param item The item within the view that was updated.
-	 *
+     *
      *  @param property A String, QName, or int
-	 *  specifying the property that was updated.
-	 *
+     *  specifying the property that was updated.
+     *
      *  @param oldValue The old value of that property.
-	 *  (If property was null, this can be the old value of the item.)
-	 *
+     *  (If property was null, this can be the old value of the item.)
+     *
      *  @param newValue The new value of that property.
-	 *  (If property was null, there's no need to specify this
-	 *  as the item is assumed to be the new value.)
+     *  (If property was null, there's no need to specify this
+     *  as the item is assumed to be the new value.)
      *
      *  @see mx.events.CollectionEvent
      *  @see mx.core.IPropertyChangeNotifier
@@ -464,21 +467,21 @@ public class VectorList extends EventDispatcher
                                  newValue:Object = null):void
     {
         var event:PropertyChangeEvent =
-			new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
+            new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
         
-		event.kind = PropertyChangeEventKind.UPDATE;
+        event.kind = PropertyChangeEventKind.UPDATE;
         event.source = item;
         event.property = property;
         event.oldValue = oldValue;
         event.newValue = newValue;
         
-		internalDispatchEvent(CollectionEventKind.UPDATE, event);
-		
-		// need to dispatch object event now
-		if (_dispatchEvents == 0 && hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
-		{
-			dispatchPropertyChangeEventClone( event, item );
-		}
+        internalDispatchEvent(CollectionEventKind.UPDATE, event);
+        
+        // need to dispatch object event now
+        if (_dispatchEvents == 0 && hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+        {
+            dispatchPropertyChangeEventClone( event, item );
+        }
     }    
 
     /**
@@ -490,22 +493,23 @@ public class VectorList extends EventDispatcher
      */ 
     public function toArray():Array
     {
-    	var ar:Array = new Array( source.length );
-    	
-    	for ( var i:int=0;i<source.length; i++ ) {
-    		ar[ i ] = source[ i ];
-    	}
+        var ar:Array = new Array( source.length );
+        
+        for ( var i:int=0;i<source.length; i++ ) 
+        {
+            ar[ i ] = source[ i ];
+        }
 
         return ar;
     }
 
-	/**
+    /**
      *  Pretty prints the contents of this VectorList to a string and returns it.
      */
     override public function toString():String
-	{
-		return source.toString();
-	}	
+    {
+        return source.toString();
+    }   
     
     //--------------------------------------------------------------------------
     //
@@ -513,83 +517,83 @@ public class VectorList extends EventDispatcher
     // 
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Dispatches a PropertyChangeEvent clone either from a child object whose event needs to be redispatched
-	 *  or when a PropertyChangeEvent is faked inside of this class for the purposes of informing the view
-	 *  of an update to underlying data.
-	 *
-	 *  @param event The PropertyChangeEvent to be cloned and dispatched
-	 *  @param item The item within the view that was updated.
-	 *
-	 *  @see mx.core.IPropertyChangeNotifier
-	 *  @see mx.events.PropertyChangeEvent
-	 */
-	
-	private function dispatchPropertyChangeEventClone( event:PropertyChangeEvent, item:Object ):void {
-		var objEvent:PropertyChangeEvent = PropertyChangeEvent(event.clone());
-		
-		var index:int = getItemIndex( item );
-		objEvent.property = index.toString() + "." + event.property;
-		dispatchEvent(objEvent);
-	} 
+    /**
+     *  Dispatches a PropertyChangeEvent clone either from a child object whose event needs to be redispatched
+     *  or when a PropertyChangeEvent is faked inside of this class for the purposes of informing the view
+     *  of an update to underlying data.
+     *
+     *  @param event The PropertyChangeEvent to be cloned and dispatched
+     *  @param item The item within the view that was updated.
+     *
+     *  @see mx.core.IPropertyChangeNotifier
+     *  @see mx.events.PropertyChangeEvent
+     */
+    
+    private function dispatchPropertyChangeEventClone( event:PropertyChangeEvent, item:Object ):void {
+        var objEvent:PropertyChangeEvent = PropertyChangeEvent(event.clone());
+        
+        var index:int = getItemIndex( item );
+        objEvent.property = index.toString() + "." + event.property;
+        dispatchEvent(objEvent);
+    } 
 
-	/**
-	 *  Enables event dispatch for this list.
-	 */
-	private function enableEvents():void
-	{
-		_dispatchEvents++;
-		if (_dispatchEvents > 0)
-			_dispatchEvents = 0;
-	}
-	
-	/**
-	 *  Disables event dispatch for this list.
-	 *  To re-enable events call enableEvents(), enableEvents() must be called
-	 *  a matching number of times as disableEvents().
-	 */
-	private function disableEvents():void
-	{
-		_dispatchEvents--;
-	}
-	
-	/**
-	 *  Dispatches a collection event with the specified information.
-	 *
-	 *  @param kind String indicates what the kind property of the event should be
-	 *  @param item Object reference to the item that was added or removed
-	 *  @param location int indicating where in the source the item was added.
-	 */
-	private function internalDispatchEvent(kind:String, item:Object = null, location:int = -1):void
-	{
-    	if (_dispatchEvents == 0)
-    	{
-    		if (hasEventListener(CollectionEvent.COLLECTION_CHANGE))
-    		{
-		        var event:CollectionEvent =
-					new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
-		        event.kind = kind;
-		        event.items.push(item);
-		        event.location = location;
-		        dispatchEvent(event);
-		    }
+    /**
+     *  Enables event dispatch for this list.
+     */
+    private function enableEvents():void
+    {
+        _dispatchEvents++;
+        if (_dispatchEvents > 0)
+            _dispatchEvents = 0;
+    }
+    
+    /**
+     *  Disables event dispatch for this list.
+     *  To re-enable events call enableEvents(), enableEvents() must be called
+     *  a matching number of times as disableEvents().
+     */
+    private function disableEvents():void
+    {
+        _dispatchEvents--;
+    }
+    
+    /**
+     *  Dispatches a collection event with the specified information.
+     *
+     *  @param kind String indicates what the kind property of the event should be
+     *  @param item Object reference to the item that was added or removed
+     *  @param location int indicating where in the source the item was added.
+     */
+    private function internalDispatchEvent(kind:String, item:Object = null, location:int = -1):void
+    {
+        if (_dispatchEvents == 0)
+        {
+            if (hasEventListener(CollectionEvent.COLLECTION_CHANGE))
+            {
+                var event:CollectionEvent =
+                    new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+                event.kind = kind;
+                event.items.push(item);
+                event.location = location;
+                dispatchEvent(event);
+            }
 
-	    	// now dispatch a complementary PropertyChangeEvent
-	    	if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE) && 
-	    	   (kind == CollectionEventKind.ADD || kind == CollectionEventKind.REMOVE))
-	    	{
-	    		var objEvent:PropertyChangeEvent =
-					new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
-	    		objEvent.property = location;
-	    		if (kind == CollectionEventKind.ADD)
-	    			objEvent.newValue = item;
-	    		else
-	    			objEvent.oldValue = item;
-	    		dispatchEvent(objEvent);
-	    	}
-	    }
-	}
-	
+            // now dispatch a complementary PropertyChangeEvent
+            if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE) && 
+               (kind == CollectionEventKind.ADD || kind == CollectionEventKind.REMOVE))
+            {
+                var objEvent:PropertyChangeEvent =
+                    new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
+                objEvent.property = location;
+                if (kind == CollectionEventKind.ADD)
+                    objEvent.newValue = item;
+                else
+                    objEvent.oldValue = item;
+                dispatchEvent(objEvent);
+            }
+        }
+    }
+    
     /**
      *  Called whenever any of the contained items in the list fire an
      *  ObjectChange event.  
@@ -597,12 +601,12 @@ public class VectorList extends EventDispatcher
      */    
     protected function itemUpdateHandler(event:PropertyChangeEvent):void
     {
-		internalDispatchEvent(CollectionEventKind.UPDATE, event);
-		// need to dispatch object event now
-    	if (_dispatchEvents == 0 && hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
-    	{
-			dispatchPropertyChangeEventClone( event, event.target );
-    	}
+        internalDispatchEvent(CollectionEventKind.UPDATE, event);
+        // need to dispatch object event now
+        if (_dispatchEvents == 0 && hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+        {
+            dispatchPropertyChangeEventClone( event, event.target );
+        }
     }
     
     /** 
@@ -615,7 +619,7 @@ public class VectorList extends EventDispatcher
         if (item && (item is IEventDispatcher))
         {
             IEventDispatcher(item).addEventListener(
-				                        PropertyChangeEvent.PROPERTY_CHANGE, 
+                                        PropertyChangeEvent.PROPERTY_CHANGE, 
                                         itemUpdateHandler, false, 0, true);
         }
     }
@@ -630,7 +634,7 @@ public class VectorList extends EventDispatcher
         if (item && item is IEventDispatcher)
         {
             IEventDispatcher(item).removeEventListener(
-				                        PropertyChangeEvent.PROPERTY_CHANGE, 
+                                        PropertyChangeEvent.PROPERTY_CHANGE, 
                                         itemUpdateHandler);    
         }
     }
@@ -641,12 +645,12 @@ public class VectorList extends EventDispatcher
     // 
     //--------------------------------------------------------------------------
 
-	/**
-	 *  indicates if events should be dispatched.
-	 *  calls to enableEvents() and disableEvents() effect the value when == 0
-	 *  events should be dispatched. 
-	 */
-	private var _dispatchEvents:int = 0;
+    /**
+     *  indicates if events should be dispatched.
+     *  calls to enableEvents() and disableEvents() effect the value when == 0
+     *  events should be dispatched. 
+     */
+    private var _dispatchEvents:int = 0;
     private var _source:*;
     private var _uid:String;
 }
