@@ -40,7 +40,7 @@ Getting the latest sources via Subversion
 
     svn co https://svn.apache.org/repos/asf/flex/trunk flex
 
-    For further information visit http://flex.apache.org/source.html
+    For further information visit http://flex.apache.org/download-source.html
 
 
 Getting the convenience packages for Apache Flex
@@ -61,7 +61,7 @@ Getting the convenience packages for Apache Flex
     You can also get just the binaries from our website as well.  These binaries do not
     include the dependencies, so additional software may need to be downloaded and installed.
 
-      http://flex.apache.org/download.html
+      http://flex.apache.org/download-binaries.html
 
 Building Apache Flex 4.9
 ========================
