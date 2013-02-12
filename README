@@ -4,6 +4,8 @@ Apache Flex (Flex)
     Apache Flex is an application framework for easily building Flash-based applications 
     for mobile devices, the browser and desktop.
 
+	Apache Flex 4.9.1 is a minor update to Apache Flex 4.9.
+
     Apache Flex 4.9 is a follow up release to Apache Flex 4.8 which was a parity release
     of Adobe Flex 4.6.  This version adds new features and implements bug fixes that were
     unavailable in previous versions.  It is compatible with most code written to target
