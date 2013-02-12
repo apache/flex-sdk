@@ -130,7 +130,7 @@
         <copy todir="${FLEX_HOME}" preservelastmodified="true" verbose="true">
             <fileset dir="${air.dir}"/>
         </copy>
-        <chmod dir="${basedir}" perm="755" includes="bin/*, **/*.bat, **/*.sh" />
+        <chmod dir="${FLEX_HOME}" perm="755" includes="bin/*, **/*.bat, **/*.sh" />
     </target>
 
     <target name="zip-project-files">
