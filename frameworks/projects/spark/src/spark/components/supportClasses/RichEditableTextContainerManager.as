@@ -30,6 +30,14 @@ import flash.geom.Rectangle;
 import flash.ui.ContextMenu;
 import flash.ui.Keyboard;
 
+import mx.core.mx_internal;
+import mx.events.SandboxMouseEvent;
+import mx.styles.IStyleClient;
+
+import spark.components.RichEditableText;
+import spark.components.TextSelectionHighlighting;
+
+import flashx.textLayout.tlf_internal;
 import flashx.textLayout.container.ContainerController;
 import flashx.textLayout.container.TextContainerManager;
 import flashx.textLayout.edit.EditManager;
@@ -52,16 +60,8 @@ import flashx.textLayout.formats.TextLayoutFormat;
 import flashx.textLayout.operations.ApplyFormatOperation;
 import flashx.textLayout.operations.InsertTextOperation;
 import flashx.textLayout.property.Property;
-import flashx.textLayout.tlf_internal;
 import flashx.undo.IUndoManager;
 import flashx.undo.UndoManager;
-
-import mx.core.mx_internal;
-import mx.events.SandboxMouseEvent;
-import mx.styles.IStyleClient;
-
-import spark.components.RichEditableText;
-import spark.components.TextSelectionHighlighting;
 
 use namespace mx_internal;
 use namespace tlf_internal;
@@ -294,23 +294,22 @@ public class RichEditableTextContainerManager extends TextContainerManager
         var inactiveSelectionColor:* = textDisplay.getStyle(
                                             "inactiveTextSelectionColor"); 
 
-        var inactivePointAlpha:Number =
-            editingMode == EditingMode.READ_WRITE ?
-            1.0 :
-            0.0;
+        var inactivePointAlpha:Number = 0.0;
         
-        var inactiveAlpha:Number =
+        var inactiveRangeAlpha:Number =
             textDisplay.selectionHighlighting == 
             TextSelectionHighlighting.ALWAYS ?
             1.0 :
             0.0;
 
-        // Inactive is not unfocused so show an insertion point if there is one.
-        // This is consistent with TextField.
+        
+        // This doesn't really matter since inactivePointAlpha is 0.
+        var pointBlinkRate:Number = 0.0;
         
         return new SelectionFormat(
-            inactiveSelectionColor, inactiveAlpha, BlendMode.NORMAL,
-            inactiveSelectionColor, inactivePointAlpha, BlendMode.INVERT);
+            inactiveSelectionColor, inactiveRangeAlpha, BlendMode.NORMAL,
+            inactiveSelectionColor, inactivePointAlpha, BlendMode.INVERT,
+            pointBlinkRate);
     }   
     
     /**
