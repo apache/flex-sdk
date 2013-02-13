@@ -29,9 +29,9 @@
 
 AIR_VERSION="$1"
 
-if [[ "${AIR_VERSION}" != "3.5" && "${AIR_VERSION}" != "3.4"  && "${AIR_VERSION}" != "3.3"  && "${AIR_VERSION}" != "3.2" && "${AIR_VERSION}" != "3.1" ]]
+if [[ "${AIR_VERSION}" != "3.6" && "${AIR_VERSION}" != "3.5" && "${AIR_VERSION}" != "3.4"  && "${AIR_VERSION}" != "3.3"  && "${AIR_VERSION}" != "3.2" && "${AIR_VERSION}" != "3.1" ]]
 then
-	echo Unknown version ${AIR_VERISON} of AIR. Versions 3.1, 3.2, 3.3, 3.4 and 3.5 are supported.
+	echo Unknown version ${AIR_VERISON} of AIR. Versions 3.1, 3.2, 3.3, 3.4, 3.5 and 3.6 are supported.
 	exit 1;
 fi
 
@@ -91,7 +91,7 @@ downloadAIR()
 	curl ${airDownload} > "${airTempDir}/air.tbz2"
 	
 	echo Extracting into SDK  
-	tar xf "${airTempDir}/air.tbz2" -C "${IDE_SDK_DIR}/frameworks/"
+	tar xf "${airTempDir}/air.tbz2" -C "${IDE_SDK_DIR}"
 
 	rm -rf "${airTempDir}"	
 }
@@ -125,6 +125,12 @@ configFiles=(
 for configFile in "${configFiles[@]}"
 do
 	echo Updating ${configFile}
+	# 3.6 needs FP 11.6 and swf version 19
+	if [ ${AIR_VERSION} = "3.6" ]
+	then
+		updatePlayerVersion 11.6 "${configFile}"
+		updateSWFVersion 19 "${configFile}"
+	fi
 
 	# 3.5 needs FP 11.5 and swf version 18
 	if [ ${AIR_VERSION} = "3.5" ]
@@ -146,8 +152,7 @@ do
 		updatePlayerVersion 11.3 "${configFile}"
 		updateSWFVersion 16 "${configFile}"
 	fi
-	
-	
+		
 	# 3.2 needs FP 11.2 and swf version 15
 	if [ ${AIR_VERSION} = "3.2" ]
 	then

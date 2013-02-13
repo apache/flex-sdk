@@ -104,12 +104,13 @@ downloadPlayerGlobal()
 
 agreeLicense
 
-downloadPlayerGlobal 10.2 aa7d785dd5715626201f5e30fc1deb51 http://fpdownload.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_2.swc
-downloadPlayerGlobal 10.3 6092b3d4e2784212d174ca10904412bd http://fpdownload.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_3.swc
-downloadPlayerGlobal 11.0 5f5a291f02105cd83fb582b76646e603 http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_0.swc
-downloadPlayerGlobal 11.1 e3a0e0e8c703ae5b1847b8ac25bbdc5f http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
-downloadPlayerGlobal 11.2 c544a069518897880e0d732457b6fdeb http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
-downloadPlayerGlobal 11.3 e2a9ee439d9660feaf756aa05e7e6412 http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
-downloadPlayerGlobal 11.4 e15587856cdb5e21fa1acb6b0610a032 http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
-downloadPlayerGlobal 11.5 54bb87668ae9d6b6e61cc61fd487b6a0 http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
+downloadPlayerGlobal 10.2 aa7d785dd5715626201f5e30fc1deb51 http://download.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_2.swc
+downloadPlayerGlobal 10.3 6092b3d4e2784212d174ca10904412bd http://download.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_3.swc
+downloadPlayerGlobal 11.0 5f5a291f02105cd83fb582b76646e603 http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_0.swc
+downloadPlayerGlobal 11.1 e3a0e0e8c703ae5b1847b8ac25bbdc5f http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
+downloadPlayerGlobal 11.2 c544a069518897880e0d732457b6fdeb http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
+downloadPlayerGlobal 11.3 e2a9ee439d9660feaf756aa05e7e6412 http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
+downloadPlayerGlobal 11.4 e15587856cdb5e21fa1acb6b0610a032 http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
+downloadPlayerGlobal 11.5 54bb87668ae9d6b6e61cc61fd487b6a0 http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
+downloadPlayerGlobal 11.6 5d41f7a3a61da52a66bb46a4844c7914 http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_6.swc
 

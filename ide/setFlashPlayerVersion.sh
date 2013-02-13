@@ -95,13 +95,13 @@ determineVersion()
         then 
             FLASH_VERSION="11.1"
         else
-            FLASH_VERSION="11.5"
+            FLASH_VERSION="11.6"
         fi
     fi
     
     if [ ${latest} = "Y" ]
     then
-    	FLASH_VERSION="11.5"
+    	FLASH_VERSION="11.6"
     fi
     
     echo "Setting minimum Flash Player version to ${FLASH_VERSION}"
@@ -114,9 +114,9 @@ then
 	determineVersion
 fi
 
-if [[ "${FLASH_VERSION}" != "10.2" && "${FLASH_VERSION}" != "10.2"  && "${FLASH_VERSION}" != "11.0"  && "${FLASH_VERSION}" != "11.1" && "${FLASH_VERSION}" != "11.2" && "${FLASH_VERSION}" != "11.3" && "${FLASH_VERSION}" != "11.4" && "${FLASH_VERSION}" != "11.5" ]]
+if [[ "${FLASH_VERSION}" != "10.2" && "${FLASH_VERSION}" != "10.2"  && "${FLASH_VERSION}" != "11.0"  && "${FLASH_VERSION}" != "11.1" && "${FLASH_VERSION}" != "11.2" && "${FLASH_VERSION}" != "11.3" && "${FLASH_VERSION}" != "11.4" && "${FLASH_VERSION}" != "11.5" && "${FLASH_VERSION}" != "11.6" ]]
 then
-	echo Unknown version ${FLASH_VERSION} of Flash Player. Versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3, 11.4 and 11.5 are supported.
+	echo Unknown version ${FLASH_VERSION} of Flash Player. Versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5 and 11.6 are supported.
 	exit 1;
 fi
 
@@ -137,9 +137,9 @@ then
 	echo Installing AIR
 	echo
 
-    if [[ $FLASH_VERSION = "11.5" ]]
+    if [[ $FLASH_VERSION = "11.6" ]]
     then
-        ./addAIRtoSDK.sh 3.5 "$IDE_SDK_DIR"
+        ./addAIRtoSDK.sh 3.6 "$IDE_SDK_DIR"
     fi
     
     if [[ $FLASH_VERSION = "11.1" ]]
@@ -174,6 +174,12 @@ for configFile in "${configFiles[@]}"
 do
 	echo Updating ${configFile}
 
+	if [ ${FLASH_VERSION} = "11.6" ]
+	then
+		updatePlayerVersion 11.6 "${configFile}"
+		updateSWFVersion 19 "${configFile}"
+	fi
+	
 	if [ ${FLASH_VERSION} = "11.5" ]
 	then
 		updatePlayerVersion 11.5 "${configFile}"
