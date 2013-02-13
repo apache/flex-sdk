@@ -55,7 +55,7 @@
 
     <!-- playerglobal.swc -->
     <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->	
-	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal10.2-download,playerglobal10.3-download,playerglobal11.0-download,playerglobal11.1-download,playerglobal11.2-download,playerglobal11.3-download,playerglobal11.4-download,playerglobal11.5-download" description="Copies playerglobal.swc from the Adobe website">
+	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal10.2-download,playerglobal10.3-download,playerglobal11.0-download,playerglobal11.1-download,playerglobal11.2-download,playerglobal11.3-download,playerglobal11.4-download,playerglobal11.5-download,playerglobal11.6-download" description="Copies playerglobal.swc from the Adobe website">
     </target>
 	
 	<target name="playerglobal-settarget" unless="playerglobal.swc.present">
@@ -83,60 +83,70 @@
 		<condition property="target11.5">
 			<equals arg1="${playerglobal.version}" arg2="11.5" />
 		</condition>
+		<condition property="target11.6">
+			<equals arg1="${playerglobal.version}" arg2="11.6" />
+		</condition>
 	 </target>
 
     <target name="playerglobal10.2-download" if="target10.2">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
-        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/10/playerglobal10_2.swc" 
+        <get src="http://download.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_2.swc" 
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
     	
     <target name="playerglobal10.3-download" if="target10.3">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
-        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/10/playerglobal10_3.swc" 
+        <get src="http://download.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_3.swc" 
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
 	
     <target name="playerglobal11.0-download" if="target11.0">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
-        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_0.swc" 
+        <get src="http://download.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_0.swc" 
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target> 
 	
     <target name="playerglobal11.1-download" if="target11.1">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
-        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_1.swc" 
+        <get src="http://download.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_1.swc" 
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target> 
     
     <target name="playerglobal11.2-download" if="target11.2">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
-        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_2.swc" 
+        <get src="http://download.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_2.swc" 
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
 	
     <target name="playerglobal11.3-download" if="target11.3">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
-        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_3.swc" 
+        <get src="http://download.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_3.swc" 
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
 	
     <target name="playerglobal11.4-download" if="target11.4">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
-        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_4.swc" 
+        <get src="http://download.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_4.swc" 
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
 	
     <target name="playerglobal11.5-download" if="target11.5">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
-        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_5.swc" 
+        <get src="http://download.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_5.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
+	
+    <target name="playerglobal11.6-download" if="target11.6">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://download.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_6.swc" 
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
