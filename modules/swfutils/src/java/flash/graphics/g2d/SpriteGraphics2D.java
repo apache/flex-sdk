@@ -97,7 +97,8 @@ public class SpriteGraphics2D extends AbstractGraphics2D
 	private SpriteGraphics2D(SpriteGraphics2D swf2d)
 	{
 		super((GraphicContext)swf2d.graphicContext.clone());
-		defineTags = new TagList();
+		bounds = new Rect();
+		defineTags = swf2d.getTags();
 	}
 
 	/**
