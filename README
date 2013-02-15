@@ -115,7 +115,7 @@ Install Prerequisites
         
     Adobe Pixel Bender Toolkit (*5)             PIXELBENDER_HOME
     
-    Adobe Flash Player (*6)                     PLAYERGLOBAL_HOME
+    Adobe Flash Player playerglobal swcs (*6)   PLAYERGLOBAL_HOME
 
     Adobe Extension Manager CS5 (*7)            ADOBE_EXTENSION_MANAGER
 
@@ -153,7 +153,7 @@ Install Prerequisites
             http://www.adobe.com/support/flashplayer/downloads.html
 
         This version of Apache Flex was certified for use with Adobe Flash Player 11.1, and
-        is compatible with versions 10.2 through 11.5. It has been tested with versions 11.1
+        is compatible with versions 10.2 through 11.6. It has been tested with versions 11.1
         and 11.5 on Windows and Mac. It has been compiled against other Adobe Flash Player
         versions but has not been fully tested.
             
@@ -174,7 +174,7 @@ Install Prerequisites
         Set PIXELBENDER_HOME to the absolute path of the Pixel Bender Toolkit directory.
 
     *6) The Adobe Flash Player playerglobal.swc for 11.1 can be downloaded from:
-            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc 
+            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc 
         
         Use URL above to download playerglobal11_1.swc. Create the directory, player/11.1
         and copy playerglobal11_1.swc to player/11.1/playerglobal.swc.
@@ -184,10 +184,11 @@ Install Prerequisites
         PLAYERGLOBAL_HOME subdirectory is used.
 
         Other more recent versions of Adode Flash Player playergloal.swc can be downloaded from:
-            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
-            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
-            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
-            http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
+            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
+            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
+            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
+            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
+            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_6.swc
             
         These can be used with Apache Flex but have not been fully tested.
         
@@ -246,7 +247,8 @@ Adobe Flash Player Version Support
 ----------------------------------
 
     The Apache Flex SDK defaults to using the Adobe Flash Player 11.1. The SDK can be
-    compiled for Flash Player versions 10.2, 10.3, 11.0, 11.0, 11.1, 11.2, 11.3, 11.4 and 11.5.
+    compiled for Flash Player versions 10.2, 10.3, 11.0, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5
+    and 11.6.
 
     To compile the SDK for another version of the Adobe Flash Player either:
 
@@ -266,14 +268,15 @@ Adobe Flash Player Version Support
     
     These can be found at:
     
-    http://fpdownload.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_2.swc
-    http://fpdownload.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_3.swc
-    http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_0.swc 
-    http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
-    http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
-    http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
-    http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
-    http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
+    http://download.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_2.swc
+    http://download.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_3.swc
+    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_0.swc 
+    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
+    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
+    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
+    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
+    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
+    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_6.swc
     
     Copy the target playerglobal.swc to the directory:
     
@@ -303,7 +306,9 @@ Adobe Flash Player Version Support
                     /11.4
                          /playerglobal.swc
                     /11.5
-                         /playerglobal.swc     
+                         /playerglobal.swc 
+                    /11.6
+                         /playerglobal.swc                              
                                                                                                                                 
     Apache Flex has been tested with Adobe Flash Player 11.1 and 11.5 on Windows and Mac.
     
