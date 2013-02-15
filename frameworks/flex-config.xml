@@ -438,7 +438,7 @@
    <!-- Metadata added to SWFs via the SWF Metadata tag. -->
    <metadata>
       <title>Apache Flex Application</title>
-      <description>http://incubator.apache.org/flex</description>
+      <description>http://flex.apache.org/</description>
       <publisher>Apache Software Foundation</publisher>
       <creator>unknown</creator>
       <language>EN</language>
