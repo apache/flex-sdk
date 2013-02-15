@@ -30,30 +30,10 @@
 	</mx:Script>
 	<mx:Style>
 
-	    @font-face {
-		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
-		fontFamily: EmbeddedFont;
-			embedAsCFF: false;
-	    }
-
-	    @font-face {
-		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
-		fontStyle: italic;
-		fontFamily: EmbeddedFont;
-			embedAsCFF: false;
-	    }    
-
-	    @font-face {
-		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
-		fontWeight: bold;
-		fontFamily: EmbeddedFont;
-			embedAsCFF: false;
-	    }
-
-	    @font-face {
-		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
-		fontWeight: bold;
-		fontStyle: italic;
+        @namespace mx "library://ns.adobe.com/flex/mx";
+        
+        @font-face {
+		src: url("../../../../Assets/Fonts/Droid/DroidSansFallback.ttf");
 		fontFamily: EmbeddedFont;
 			embedAsCFF: false;
 	    }
@@ -68,6 +48,16 @@
 		fontAntiAliasType: normal;
 		fontFamily: EmbeddedFont;
 	    }
+
+        mx|DateChooser
+        {
+            weekDayStyleName: "noBoldWeekDayStyle";
+        }
+        
+        .noBoldWeekDayStyle
+        {
+            textAlign: "center";
+        }
 
 	</mx:Style>
 
