@@ -1,7 +1,17 @@
 Apache Flex 4.9.1
 =================
 
-Minor change to fix issue with changing locale
+Apache Flex 4.9.1 is a minor update to Apache Flex 4.9.
+
+Differences from Apache Flex 4.8.0: 
+  - Minor change to fix issue with changing locale.
+  - Added AeonGraphical missing theme assets.
+  - Fixed non debug compiler RTE (see ASC-2993)
+ 
+Bugs fixed:
+  FLEX-33390 Can't embed SVG asset
+  FLEX-33384 Caret visible in all textinputs after they've been selected once.
+  FLEX-33381 Setting s:ComboBox#typicalItem produces unnecessarily long width
 
 Apache Flex 4.9.0
 =================
