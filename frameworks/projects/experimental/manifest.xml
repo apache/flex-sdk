@@ -24,31 +24,31 @@
 
 -->
 <componentPackage>
-	<!-- Alert class and it's skin -->
-	<component id="Alert" class="org.apache.flex.components.sparkAlert.Alert"/>
-	<component id="AlertSkin" class="org.apache.flex.components.sparkAlert.skin.AlertSkin"/>
-	<!-- ColorPicker class and it's skins -->
-	<component id="ColorPicker" class="org.apache.flex.components.sparkColorPicker.ColorPicker"/>
-	<component id="ColorPickerSkin" class="org.apache.flex.components.sparkColorPicker.skin.ColorPickerSkin"/>
-	<component id="ColorButtonPickerSkin" class="org.apache.flex.components.sparkColorPicker.skin.ColorPickerButtonSkin"/>
-	<component id="ColorChangeEvent" class="org.apache.flex.components.sparkColorPicker.events.ColorChangeEvent"/>
-	<!-- Horizontal and Vertical dividers and their groups -->
-	<component id="Divider" class="org.apache.flex.components.sparkDividers.Divider"/>
-	<component id="HDivider" class="org.apache.flex.components.sparkDividers.HDivider"/>
-	<component id="VDivider" class="org.apache.flex.components.sparkDividers.VDivider"/>
-	<component id="DividerGroup" class="org.apache.flex.components.sparkDividers.DividedGroup"/>
-	<component id="HDividerGroup" class="org.apache.flex.components.sparkDividers.HDividerGroup"/>
-	<component id="VDividerGroup" class="org.apache.flex.components.sparkDividers.VDividerGroup"/>
-	<!-- Menu classes and skins -->
-	<component id="Menu" class="org.apache.flex.components.sparkMenu.Menu"/>
-	<component id="MenuEvent" class="org.apache.flex.components.sparkMenu.events.MenuEvent"/>
-	<component id="MenuSkin" class="org.apache.flex.components.sparkMenu.skin.MenuSkin"/>
-	<component id="MenuItemRenderer" class="org.apache.flex.components.sparkMenu.skin.MenuItemRenderer"/>
-	<component id="MenuBar" class="org.apache.flex.components.sparkMenu.MenuBar"/>
-	<component id="MenuBarSkin" class="org.apache.flex.components.sparkMenu.skin.MenuBarSkin"/>
-	<component id="MenuBarItemRenderer" class="org.apache.flex.components.sparkMenu.skin.MenuBarItemRenderer"/>
-	<component id="IListItemRenderer" class="org.apache.flex.components.sparkMenu.IListItemRenderer"/>
-	<!-- ProgressBar classes and skins -->
-	<component id="ProgressBar" class="org.apache.flex.components.sparkProgressBar.ProgressBar"/>
-	<component id="ProgressBarSkin" class="org.apache.flex.components.sparkProgressBar.skin.ProgressBarSkin"/>
+    <!-- Alert class and it's skin -->
+    <component id="Alert" class="spark.components.Alert"/>
+    <component id="AlertSkin" class="spark.skins.AlertSkin"/>
+    <!-- ColorPicker class and it's skins -->
+    <component id="ColorPicker" class="spark.components.ColorPicker"/>
+    <component id="ColorPickerSkin" class="spark.skins.ColorPickerSkin"/>
+    <component id="ColorButtonPickerSkin" class="spark.skins.ColorPickerButtonSkin"/>
+    <component id="ColorChangeEvent" class="spark.events.ColorChangeEvent"/>
+    <!-- Horizontal and Vertical dividers and their groups -->
+    <component id="Divider" class="spark.containers.Divider"/>
+    <component id="HDivider" class="spark.containers.HDivider"/>
+    <component id="VDivider" class="spark.containers.VDivider"/>
+    <component id="DividerGroup" class="spark.containers.DividedGroup"/>
+    <component id="HDividerGroup" class="spark.containers.HDividerGroup"/>
+    <component id="VDividerGroup" class="spark.containers.VDividerGroup"/>
+    <!-- Menu classes and skins -->
+    <component id="Menu" class="spark.components.Menu"/>
+    <component id="MenuEvent" class="spark.events.MenuEvent"/>
+    <component id="MenuSkin" class="spark.skins.MenuSkin"/>
+    <component id="MenuItemRenderer" class="spark.components.itemRenderers.MenuItemRenderer"/>
+    <component id="MenuBar" class="spark.components.MenuBar"/>
+    <component id="MenuBarSkin" class="spark.skins.MenuBarSkin"/>
+    <component id="MenuBarItemRenderer" class="spark.components.itemRenderers.MenuBarItemRenderer"/>
+    <component id="IListItemRenderer" class="spark.components.listClasses.IListItemRenderer"/>
+    <!-- ProgressBar classes and skins -->
+    <component id="ProgressBar" class="spark.components.ProgressBar"/>
+    <component id="ProgressBarSkin" class="spark.skins.ProgressBarSkin"/>
 </componentPackage>
