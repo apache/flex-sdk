@@ -3,15 +3,23 @@ Apache Flex 4.9.1
 
 Apache Flex 4.9.1 is a minor update to Apache Flex 4.9.
 
-Differences from Apache Flex 4.8.0: 
+Differences from Apache Flex 4.9.0: 
+  - Updated README and RELEASE_NOTES.
   - Minor change to fix issue with changing locale.
   - Added AeonGraphical missing theme assets.
-  - Fixed non debug compiler RTE (see ASC-2993)
+  - Fixed non debug compiler RTE (see ASC-2993).
+  - Updated ASDocs to use correct logo.
+  - Updated Mustella Japanese language pack tests to pass.
  
 Bugs fixed:
   FLEX-33390 Can't embed SVG asset
-  FLEX-33384 Caret visible in all textinputs after they've been selected once.
+  FLEX-33377 Focus can be transferred from a modal window to a non-modal window
+             open in the background if clicked on some specific dimension of the
+             non-modal window in the background i.e. by clicking on the extreme
+             left i.e. x=0 dimension of the application
+  FLEX-33384 Caret visible in all textinputs after they've been selected once
   FLEX-33381 Setting s:ComboBox#typicalItem produces unnecessarily long width
+  FLEX-33231 Null pointer exception in PopUpManagerImpl
 
 Apache Flex 4.9.0
 =================
@@ -75,4 +83,4 @@ Please report new issues to our bugbase at:
     https://issues.apache.org/jira/browse/FLEX
 
                                           The Apache Flex Project
-                                          <http://incubator.apache.org/flex/>
+                                          <http://flex.apache.org/>
