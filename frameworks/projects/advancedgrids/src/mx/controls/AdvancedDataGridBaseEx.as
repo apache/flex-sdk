@@ -2333,10 +2333,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             // no need to call it everytime columnsInvalid becomes true
             if(columnsChanged && !headerInfoInitialized)
             {
-                headerInfoInitialized = true;
                 headerInfos = initializeHeaderInfo(columns);
-                headerInfoInitialized = false;
-                columnsChanged = false;
+                headerInfoInitialized = true;
             }
 
             columnsChanged = false;
