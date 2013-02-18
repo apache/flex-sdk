@@ -10,7 +10,6 @@ Differences from Apache Flex 4.9.0:
   - Fixed non debug compiler RTE (see ASC-2993).
   - Updated ASDocs to use correct logo.
   - Updated Mustella Japanese language pack tests to pass.
-  - Fix null pointer exception in PopUpManagerImpl
  
 Bugs fixed:
   FLEX-33390 Can't embed SVG asset
@@ -20,6 +19,8 @@ Bugs fixed:
              left i.e. x=0 dimension of the application
   FLEX-33384 Caret visible in all textinputs after they've been selected once
   FLEX-33381 Setting s:ComboBox#typicalItem produces unnecessarily long width
+  FLEX-29002 RunTime Error #1009 at mx.managers::PopUpManagerImpl/addModalPopUpAccessibility()
+             when displaying more than one modal popup via PopUpManager on top of each other
 
 Apache Flex 4.9.0
 =================
