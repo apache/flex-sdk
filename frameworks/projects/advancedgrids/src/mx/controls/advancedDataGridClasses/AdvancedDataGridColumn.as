@@ -1727,7 +1727,7 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
         var headerInfo:AdvancedDataGridHeaderInfo  = owner.mx_internal::getHeaderInfo(this);
         //In case of Column grouping, when a column has a parent with dataField/labelFunction set, this column is
         //supposed to take value from what its parent supplies it
-        if(headerInfo.internalLabelFunction!=null)
+        if(headerInfo && headerInfo.internalLabelFunction!=null)
             data = headerInfo.internalLabelFunction(data, this);
    
         if (!data)
