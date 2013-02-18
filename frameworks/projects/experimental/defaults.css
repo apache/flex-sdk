@@ -18,3 +18,23 @@
 */
 
 @namespace "http://flex.apache.org/experimental/ns";
+
+Alert {
+    skinClass: ClassReference("spark.skins.AlertSkin");
+}
+
+ColorPicker {
+    skinClass: ClassReference("spark.skins.ColorPickerSkin");
+}
+
+Menu {
+    skinClass: ClassReference("spark.skins.MenuSkin");
+}
+
+MenuBar {
+    skinClass: ClassReference("spark.skins.MenuBarSkin");
+}
+
+ProgressBar {
+    skinClass: ClassReference("spark.skins.ProgressBarSkin");
+}
