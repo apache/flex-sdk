@@ -45,6 +45,7 @@
 
 	    .errorTip {
 		fontStyle: normal;
+        fontWeight: normal;
 		fontAntiAliasType: normal;
 		fontFamily: EmbeddedFont;
 	    }
