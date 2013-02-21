@@ -51,13 +51,19 @@
 	    }
 
         mx|DateChooser
-        {
+        {	
             weekDayStyleName: "noBoldWeekDayStyle";
+			headerStyleName: "noBoldHeaderStyle"
         }
         
         .noBoldWeekDayStyle
         {
+			fontWeight: normal;
             textAlign: "center";
+        }
+		
+        .noBoldHeaderStyle {
+            fontWeight: normal;
         }
 
 	</mx:Style>
