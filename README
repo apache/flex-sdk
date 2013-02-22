@@ -247,7 +247,7 @@ Adobe Flash Player Version Support
 ----------------------------------
 
     The Apache Flex SDK defaults to using the Adobe Flash Player 11.1. The SDK can be
-    compiled for Flash Player versions 10.2, 10.3, 11.0, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5
+    compiled for Flash Player versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5
     and 11.6.
 
     To compile the SDK for another version of the Adobe Flash Player either:
