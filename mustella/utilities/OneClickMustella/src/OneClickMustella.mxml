@@ -13,6 +13,8 @@
 		<![CDATA[
 			import mx.events.FlexEvent;
 			
+			public static const IS_MAC:Boolean = Capabilities.os.indexOf("Windows") == -1;
+			
 			[Bindable] protected var _pathSVNStr:String;
 			[Bindable] protected var  _pathFlexStr:String;
 			[Bindable] protected var  _pathMustellaTestStr:String;
@@ -37,15 +39,15 @@
 				}
 				if(so.data[LSO_SHELL] != null)
 				{
-					_shellPathStr = 	so.data[LSO_SHELL];
-					terminal.shellPathStr = _shellPathStr;
-				}
+					_shellPathStr = (IS_MAC) ? "/bin/bash" : "c:\\windows\\system32\\cmd.exe";
+				}						
 				
+				terminal.shellPathStr = _shellPathStr;
 			}
 			
 			protected function setFlexSDKPaths(path:String):void
 			{
-				_pathFlexStr = 	path;
+				_pathFlexStr = so.data[LSO_APACHE_FLEX_SDK] = path;
 				_pathMustellaStr = _pathFlexStr + File.separator + "mustella";
 				_pathMustellaTestStr = _pathMustellaStr + File.separator + "tests";
 				webserver.setWebRoot(_pathMustellaTestStr);
@@ -97,21 +99,10 @@
 				terminal.shellPathStr = _shellPathStr;
 			}
 			
-			protected function handleRunAllBtnClick():void
-			{
-				terminal.run("./mini_run.sh -all");
-			}
-			
-			protected function handleRunFailuresBtnClick():void
+			protected function handleRun(type:String):void
 			{
 				terminal.cd(_pathMustellaStr);
-				terminal.run("./mini_run.sh -rerun");
-			}
-			
-			protected function handleRunOnlyChangesBtnClick():void
-			{
-				terminal.cd(_pathMustellaStr);
-				terminal.run("./mini_run.sh -changes");
+				terminal.run("./mini_run.sh -" + type);
 			}
 			
 			protected function handleStopBtnClick():void
@@ -169,10 +160,10 @@
 	</s:VGroup>
 	<s:VGroup width="50%" height="100%">
 		<s:HGroup width="100%">
-			<s:Button label="Run All" click="handleRunAllBtnClick()" />
-			<s:Button label="Run Failures" click="handleRunFailuresBtnClick()" />
+			<s:Button label="Run All" click="handleRun('all')" />
+			<s:Button label="Run Failures" click="handleRun('rerun')" />
 			<s:Button label="Get Modified Files" click="handleGetModifiedFilesBtnClick()" />
-			<s:Button label="Run only changes" click="handleRunOnlyChangesBtnClick()" />
+			<s:Button label="Run only changes" click="handleRun('changes')" />
 			<s:Button label="Stop" click="handleStopBtnClick()" />
 		</s:HGroup>
 		<oneclick:CommandTerminal id="terminal" width="100%" height="100%" />

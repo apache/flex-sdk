@@ -60,10 +60,13 @@
 				_commandTerminal = new File(shellPathStr);
 				var startupInfo:NativeProcessStartupInfo = new NativeProcessStartupInfo();
 				
-				var arguments:Vector.<String> = new Vector.<String>();
-				arguments.push(_cygwinArg1);
-				arguments.push(_cygwinArg2);
-				startupInfo.arguments = arguments; 
+				if (!OneClickMustella.IS_MAC)
+				{
+					var arguments:Vector.<String> = new Vector.<String>();
+					arguments.push(_cygwinArg1);
+					arguments.push(_cygwinArg2);
+					startupInfo.arguments = arguments; 
+				}
 				
 				startupInfo.executable = _commandTerminal;
 				
@@ -72,7 +75,16 @@
 				_nativeProcess.addEventListener(ProgressEvent.STANDARD_ERROR_DATA, nativeProcessStdErrorData);
 				_nativeProcess.addEventListener(NativeProcessExitEvent.EXIT, nativeProcessExit); 
 				_nativeProcess.start(startupInfo);
-				cd(_shellPathStr);
+				
+				if (OneClickMustella.IS_MAC)
+				{
+					run("export ANT_HOME=/usr/share/java/apache-ant-1.7.1");
+					run("export AIR_HOME=/Users/erik/Documents/ApacheFlex/dependencies/AdobeAIRSDK");
+				}
+				else
+				{
+					cd(_shellPathStr);
+				}
 			}
 			
 			private function nativeProcessStdOutputData(e:ProgressEvent):void
