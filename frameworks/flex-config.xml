@@ -80,7 +80,7 @@
       <library-path>
          <path-element>libs</path-element>
          <path-element>libs/mx</path-element>
-         <path-element>locale/en_US</path-element>
+         <path-element>locale/{locale}</path-element>
          <path-element>{playerglobalHome}/{targetPlayerMajorVersion}.{targetPlayerMinorVersion}</path-element>
       </library-path>
 
@@ -438,7 +438,7 @@
    <!-- Metadata added to SWFs via the SWF Metadata tag. -->
    <metadata>
       <title>Apache Flex Application</title>
-      <description>http://incubator.apache.org/flex</description>
+      <description>http://flex.apache.org/</description>
       <publisher>Apache Software Foundation</publisher>
       <creator>unknown</creator>
       <language>EN</language>
