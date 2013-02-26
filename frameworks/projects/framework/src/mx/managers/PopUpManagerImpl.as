@@ -796,7 +796,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         
         if (visibleFlag)
             showModalWindow(o, sm, false);
-        else if(popup)
+        else if (popup)
             popup.visible = visibleFlag;
 
         if (hasEventListener("createdModalWindow"))
