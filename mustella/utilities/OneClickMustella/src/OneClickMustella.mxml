@@ -39,8 +39,12 @@
 				}
 				if(so.data[LSO_SHELL] != null)
 				{
-					_shellPathStr = (IS_MAC) ? "/bin/bash" : "c:\\windows\\system32\\cmd.exe";
+					_shellPathStr = so.data[LSO_SHELL];
 				}						
+				else
+				{
+					_shellPathStr = (IS_MAC) ? "/bin/bash" : "c:\\windows\\system32\\cmd.exe";
+				}
 				
 				terminal.shellPathStr = _shellPathStr;
 			}

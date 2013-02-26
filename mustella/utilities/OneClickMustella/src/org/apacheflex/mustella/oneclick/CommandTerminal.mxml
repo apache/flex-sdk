@@ -81,10 +81,6 @@
 					run("export ANT_HOME=/usr/share/java/apache-ant-1.7.1");
 					run("export AIR_HOME=/Users/erik/Documents/ApacheFlex/dependencies/AdobeAIRSDK");
 				}
-				else
-				{
-					cd(_shellPathStr);
-				}
 			}
 			
 			private function nativeProcessStdOutputData(e:ProgressEvent):void
