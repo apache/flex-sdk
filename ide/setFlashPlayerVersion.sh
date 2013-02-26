@@ -114,7 +114,7 @@ then
 	determineVersion
 fi
 
-if [[ "${FLASH_VERSION}" != "10.2" && "${FLASH_VERSION}" != "10.2"  && "${FLASH_VERSION}" != "11.0"  && "${FLASH_VERSION}" != "11.1" && "${FLASH_VERSION}" != "11.2" && "${FLASH_VERSION}" != "11.3" && "${FLASH_VERSION}" != "11.4" && "${FLASH_VERSION}" != "11.5" && "${FLASH_VERSION}" != "11.6" ]]
+if [[ "${FLASH_VERSION}" != "10.2" && "${FLASH_VERSION}" != "10.3"  && "${FLASH_VERSION}" != "11.0"  && "${FLASH_VERSION}" != "11.1" && "${FLASH_VERSION}" != "11.2" && "${FLASH_VERSION}" != "11.3" && "${FLASH_VERSION}" != "11.4" && "${FLASH_VERSION}" != "11.5" && "${FLASH_VERSION}" != "11.6" ]]
 then
 	echo Unknown version ${FLASH_VERSION} of Flash Player. Versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5 and 11.6 are supported.
 	exit 1;
