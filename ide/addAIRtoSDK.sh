@@ -28,14 +28,24 @@
 # Process the parameters.
 
 AIR_VERSION="$1"
+OS=`uname`
 
-if [[ "${AIR_VERSION}" != "3.6" && "${AIR_VERSION}" != "3.5" && "${AIR_VERSION}" != "3.4"  && "${AIR_VERSION}" != "3.3"  && "${AIR_VERSION}" != "3.2" && "${AIR_VERSION}" != "3.1" ]]
+if [[ "${AIR_VERSION}" != "3.6" && "${AIR_VERSION}" != "3.5" && "${AIR_VERSION}" != "3.4"  
+  && "${AIR_VERSION}" != "3.3"  && "${AIR_VERSION}" != "3.2" && "${AIR_VERSION}" != "3.1"
+  && "${AIR_VERSION}" != "3.0" && "${AIR_VERSION}" != "2.7" && "${AIR_VERSION}" != "2.6" ]]
 then
-	echo Unknown version ${AIR_VERISON} of AIR. Versions 3.1, 3.2, 3.3, 3.4, 3.5 and 3.6 are supported.
+	echo Unknown version ${AIR_VERISON} of AIR. Versions 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5 and 3.6 are supported.
+	exit 1;
+fi
+
+if [[ "${OS}" != "Darwin" && "${AIR_VERSION}" != "2.6" ]]
+then
+	echo "Only AIR version 2.6 is supported on Linux"
 	exit 1;
 fi
 
 IDE_SDK_DIR="$2"
+
 if [ "${IDE_SDK_DIR}" = "" ]
 then
     echo Usage: $0 "AIR version" "Apache Flex directory"
@@ -85,7 +95,12 @@ downloadAIR()
    	airTempDir="${IDE_SDK_DIR}/frameworks/temp"
 	mkdir -p "${airTempDir}"
 
-    airDownload="http://airdownload.adobe.com/air/mac/download/${version}/AdobeAIRSDK.tbz2"
+    if [[ "${OS}" == "Darwin" ]]
+    then
+        airDownload="http://airdownload.adobe.com/air/mac/download/${version}/AdobeAIRSDK.tbz2"
+    else
+        airDownload="http://airdownload.adobe.com/air/lin/download/${version}/AdobeAIRSDK.tbz2"
+    fi
     
 	echo Downloading AIR ${version}
 	curl ${airDownload} > "${airTempDir}/air.tbz2"
@@ -165,6 +180,27 @@ do
 	then
 		updatePlayerVersion 11.1 "${configFile}"
 		updateSWFVersion 14 "${configFile}"
+	fi
+	
+	# 3.0 needs FP 11.0 and swf version 13
+	if [ ${AIR_VERSION} = "3.0" ]
+	then
+		updatePlayerVersion 11.0 "${configFile}"
+		updateSWFVersion 13 "${configFile}"
+	fi
+	
+	# 2.7 needs FP 10.3 and swf version 12
+	if [ ${AIR_VERSION} = "2.7" ]
+	then
+		updatePlayerVersion 10.3 "${configFile}"
+		updateSWFVersion 12 "${configFile}"
+	fi
+	
+	# 2.6 needs FP 10.2 and swf version 11
+	if [ ${AIR_VERSION} = "2.6" ]
+	then
+		updatePlayerVersion 10.2 "${configFile}"
+		updateSWFVersion 11 "${configFile}"
 	fi
 done
 
