@@ -20,13 +20,7 @@
 
     <compiler>
 		<accessible>true</accessible>
-               
-        <external-library-path>
-            <path-element>${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc</path-element>
-            <path-element>../../libs/framework.swc</path-element>
-            <path-element>../../libs/textLayout.swc</path-element>
-        </external-library-path>
-                
+ 
         <locale/>
         
         <library-path/>
