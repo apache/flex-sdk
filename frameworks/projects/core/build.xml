@@ -68,13 +68,6 @@
             <arg value="+playerglobal.version=${playerglobal.version}" />
             <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
             <load-config filename="${FLEX_HOME}/frameworks/projects/framework/framework-config.xml"/>
-            <!-- 
-            	 For some reason core.swc doesn't package correctly if this
-            	 external-library-path is moved to compile-config.xml.
-        	-->		   
-			<external-library-path dir="${env.PLAYERGLOBAL_HOME}">
-                <include name="${playerglobal.version}/playerglobal.swc"/>
-            </external-library-path>
 		</compc>
 	</target>
 
