@@ -620,8 +620,8 @@ public class GridSelection
     
     /**
      *  If the <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_ROWS</code>, 
-     *  replaces the current selection with the rows starting at 
-     *  <code>startRowIndex</code> and ending with <code>endRowIndex</code>.
+     *  replaces the current selection with the <code>rowCount</code> rows starting at 
+     *  <code>rowIndex</code>.
      * 
      *  @param rowIndex 0-based row index of the first row in the selection.
      *  @param rowCount Number of rows in the selection.
@@ -1172,11 +1172,12 @@ public class GridSelection
 
     /**
      *  @private
-     *  This should only be used for setCellRegion.  The selection should
-     *  be cleared first.  This will add a cellRegion to the list of cellRegions.
+     *  This should only be called by setCellRegion after the selection has been
+     *  removed.
+     *  This will add a cellRegion to the list of cellRegions.
      *  This allows the special-handling needed for setting a cell region 
-     *  which has one of more columns which are not visible and not to be
-     *  included in the selection.
+     *  which has one of more columns which are not visible since only visible columns should
+     *  be included in the selection.
      *  
      *  The code is not equipped to handle the general case of overlapping
      *  cell regions.
@@ -1596,7 +1597,7 @@ public class GridSelection
 
     /**
      *  @private
-     *  Add an column to the columns collection.
+     *  Add a column to the columns collection.
      */
     private function columnsCollectionAdd(event:CollectionEvent):Boolean
     {

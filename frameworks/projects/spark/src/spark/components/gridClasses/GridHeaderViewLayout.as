@@ -34,6 +34,7 @@ import spark.components.Grid;
 import spark.components.GridColumnHeaderGroup;
 import spark.components.Group;
 import spark.components.supportClasses.GroupBase;
+import spark.core.NavigationUnit;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -380,6 +381,11 @@ public class GridHeaderViewLayout extends LayoutBase
         var visibleLeft:Number = 0;
         var visibleRight:Number = 0;
         
+        const dataGrid:DataGrid = grid.dataGrid;
+        const vsbVisible:Boolean =
+            (dataGrid && dataGrid.scroller && 
+             dataGrid.scroller.verticalScrollBar && dataGrid.scroller.verticalScrollBar.visible);
+        
         // This isn't quite as simple as: 
         //     for each (var columnIndex:int in visibleColumnIndices)
         // since the GridColumnHeaderGroup may be wider than the grid because it
@@ -424,9 +430,19 @@ public class GridHeaderViewLayout extends LayoutBase
 			var rendererX:Number = gridViewLayout.gridDimensionsView.getCellX(0, headerViewColumnIndex);
             var rendererWidth:Number = grid.getColumnWidth(columnIndex);
             
-			if (isLastColumn)
+            // If this is the last visible column and there is a visible vertical scroll bar then
+            // adjust the width of the last visible column header so it includes the small space 
+            // on top of the vertical scroll bar.
+
+            // ToDo: This needs more work. I'm not sure what the correct behavior should be.  With
+            // the adjustment below the width of the last visible renderer seems to include most of 
+            // the space over the sb but not all of it.  What is the correct width?
+            // The default header renderer will truncate the text if it doesn't fit in the width.
+            // If we're scrolling horizontally to the right, and there are more columns to the right 
+            // should the header be truncated or clipped if it doesn't all fit in the width?
+            if (isLastColumn && vsbVisible)
                 rendererWidth = horizontalScrollPosition + unscaledWidth - rendererX - 1; // TODO: this is a temporary hack
-			
+            
             renderer.setLayoutBoundsSize(rendererWidth, rendererHeight);
             renderer.setLayoutBoundsPosition(rendererX, rendererY);
             
