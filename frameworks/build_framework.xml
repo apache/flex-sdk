@@ -884,7 +884,7 @@
 
     <target name="textLayout_rb" description="Builds default locale textLayout_rb.swc">
         <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" 
-            output="${basedir}/locale/${locale}/mx_rb.swc">
+            output="${basedir}/locale/${locale}/textLayout_rb.swc">
             <include-resource-bundles bundle="textLayout"/>
             <source-path path-element="${textLayout.dir}/bundles/${locale}"/>
             <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
@@ -933,43 +933,6 @@
             <external-library-path dir="${airsdk.dir}/frameworks/libs">
                 <include name="air/airglobal.swc"/>
             </external-library-path>
-        </compc>
-    </target>
-	
-    <target name="experimental" description="Builds experimental.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" accessible="true"
-            show-deprecation-warnings="false"
-            include-classes="ExperimentalClasses"
-             output="${basedir}/libs/experimental.swc" 
-            resource-bundle-list="${experimental.dir}/bundles.properties">
-            <namespace uri="http://flex.apache.org/experimental/ns" manifest="${experimental.dir}/manifest.xml"/>
-            <namespace uri="library://ns.adobe.com/flex/spark" manifest="${experimental.dir}/spark-manifest.xml"/>
-            <include-namespaces uri="http://flex.apache.org/experimental/ns"/>
-            <source-path path-element="${experimental.dir}/src"/>
-            <library-path/>
-            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
-            <external-library-path dir="${basedir}/libs">
-                <include name="framework.swc"/>
-                <include name="spark.swc"/>
-             </external-library-path>
-            <include-file name="experimental.css" path="${experimental.dir}/defaults.css"/>
-            <keep-as3-metadata name="SkinPart"/>
-			<show-deprecation-warnings>false</show-deprecation-warnings>
-			<warn-no-constructor>false</warn-no-constructor>
-            <jvmarg line="${compc.jvm.args}"/>
-        </compc>
-    </target>
-    
-    <target name="experimental_rb" description="Builds default locale experimental_rb.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}"
-            output="${basedir}/locale/${locale}/experimental_rb.swc">          
-            <include-resource-bundles bundle="alert"/>         
-            <include-resource-bundles bundle="dividers"/>
-            <source-path path-element="${experimental.dir}/bundles/${locale}"/>
-            <source-path path-element="${framework.dir}/src"/>
-            <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>
-            <library-path/>
-            <jvmarg line="${compc.jvm.args}"/>
         </compc>
     </target>
 
