@@ -32,7 +32,6 @@ import mx.styles.IStyleClient;
 import spark.components.DataGrid;
 import spark.components.Grid;
 import spark.components.Group;
-import spark.components.IItemRenderer;
 
 use namespace mx_internal;
 
