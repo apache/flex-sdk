@@ -104,10 +104,6 @@ Install Prerequisites
         
     Ant 1.7.1 or greater (*1)                   ANT_HOME
         (for Java 1.7 see note at (*2))
-        
-    Cygwin, git bash 
-    or other unix-like shell
-    (if Windows)
     
     Adobe AIR Integration Kit (*3)              AIR_HOME 
     
