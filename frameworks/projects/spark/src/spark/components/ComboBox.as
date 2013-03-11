@@ -787,13 +787,14 @@ public class ComboBox extends DropDownListBase implements IIMESupport
                 
                 typicalItemChanged = false;
             }
-        }
         
-        // Clear the TextInput because we were programmatically set to NO_SELECTION
-        // We call this after super.commitProperties because commitSelection might have
-        // changed the value to NO_SELECTION
-        if (selectedIndexChanged && selectedIndex == NO_SELECTION)
-            textInput.text = "";
+			// Clear the TextInput because we were programmatically set to NO_SELECTION
+			// We call this after super.commitProperties because commitSelection might have
+			// changed the value to NO_SELECTION
+			if (selectedIndexChanged && selectedIndex == NO_SELECTION)
+				textInput.text = "";
+		}
+        
     }    
     
     /**
