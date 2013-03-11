@@ -107,6 +107,7 @@ if [ ! -d "${IDE_SDK_DIR}/frameworks/rsls" ]
 then
     echo ${IDE_SDK_DIR} does not appear to be a Apache Flex distribution with rsls.
     echo If this is a source distribution of Apache Flex you must first build the rsls.
+    echo Build rsls via 'ant frameworks-rsls' in the Apache Flex directory.
     exit 1;
 fi
 
