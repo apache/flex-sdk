@@ -62,6 +62,7 @@ import spark.collections.Sort;
 import spark.components.gridClasses.CellPosition;
 import spark.components.gridClasses.CellRegion;
 import spark.components.gridClasses.DataGridEditor;
+import spark.components.gridClasses.GridDoubleClickMode;
 import spark.components.gridClasses.GridColumn;
 import spark.components.gridClasses.GridHeaderLayout;
 import spark.components.gridClasses.GridItemEditorActivationMouseEvent;
@@ -643,6 +644,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *    dataProvider="null"  
  *    dataTipField="null"  
  *    dataTipFunction="null"
+ *    doubleClickMode="row"
  *    editable="false"
  *    editorColumnIndex="-1"
  *    editorRowIndex="-1"
@@ -1553,7 +1555,48 @@ public class DataGrid extends SkinnableContainerBase
         if (setGridProperty("dataTipFunction", value))
             dispatchChangeEvent("dataTipFunctionChanged");
     }
-    
+
+
+    //----------------------------------
+    //  doubleClickMode
+    //----------------------------------
+
+    [Bindable("doubleClickModeChanged")]
+    [Inspectable(category="General", enumeration="cell,grid,row", defaultValue="row")]
+
+    /**
+    *  @copy spark.components.Grid#doubleClickMode
+    *
+    *  @default GridDoubleClickMode.ROW
+    * 
+    *  @see spark.components.gridClasses.GridDoubleClickMode
+    * 
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 2.5
+    *  @productversion Flex 4.5
+    */
+
+    public function get doubleClickMode():String
+    {
+        return grid.doubleClickMode;
+    }
+
+    /**
+    *  @private
+    */
+    public function set doubleClickMode(newValue:String):void
+    {
+        if (grid.doubleClickMode == newValue)
+        {
+           return;
+        }
+
+        grid.doubleClickMode = newValue;
+        dispatchChangeEvent("selectionModeChanged");
+    }
+
+
     //----------------------------------
     //  draggableColumns
     //----------------------------------

@@ -42,6 +42,7 @@ import mx.utils.ObjectUtil;
 
 import spark.collections.SubListView;
 import spark.components.gridClasses.CellPosition;
+import spark.components.gridClasses.GridDoubleClickMode;
 import spark.components.gridClasses.GridColumn;
 import spark.components.gridClasses.GridDimensions;
 import spark.components.gridClasses.GridDimensionsView;
@@ -189,6 +190,9 @@ use namespace mx_internal;
  *  with the value of the data provider item for that row.
  *  Item renderers are created as needed and then, to keep creation
  *  overhead to a minimum, pooled and recycled.</p>
+ *
+ *  <p>The Grid control supports a doubleClick event, according the <code>doubleClickMode</code>
+ *  property.  
  * 
  *  <p>The Grid control supports selection, according the <code>selectionMode</code>
  *  property.  The set of selected row or cell indices can be modified or
@@ -1184,7 +1188,65 @@ public class Grid extends Group implements IDataGridElement
         invalidateDisplayList();        
         dispatchChangeEvent("dataTipFunctionChanged");
     }    
+
+
+    //----------------------------------
+    //  doubleClickMode
+    //----------------------------------
+    private var _doubleClickMode:String = GridDoubleClickMode.ROW;
+
+    [Bindable("doubleClickModeChanged")]
+    [Inspectable(category="General", enumeration="cell,grid,row", defaultValue="row")]
     
+    /**
+     *  The doubleClick mode of the control.  Possible values are:
+     *  <code>GridSelectionMode.CELL</code>, 
+     *  <code>GridSelectionMode.GRID</code>, 
+     *  <code>GridSelectionMode.ROW</code>, 
+     * 
+     *  <p>Changing the doubleClickMode changes the double click
+     *  criteria for firing the doubleClick event</p>
+     *
+     *  @default GridDoubleClickMode.ROW
+     * 
+     *  @see spark.components.gridClasses.GridDoubleClickMode
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get doubleClickMode():String
+    {
+        return _doubleClickMode;
+    }
+
+    /**
+    *  @private
+    */
+    public function set doubleClickMode(newValue:String):void
+    {
+        if (newValue == _doubleClickMode)
+        {
+            return;
+        }
+
+        switch(newValue)
+        {
+            case GridDoubleClickMode.CELL:
+            case GridDoubleClickMode.GRID:
+            case GridDoubleClickMode.ROW:
+            {
+                _doubleClickMode = newValue;
+
+                dispatchChangeEvent("doubleClickModeChanged");
+
+                break;
+            }
+        }
+    }
+
+
     //----------------------------------
     //  gridDimensions (mx_internal)
     //----------------------------------
@@ -4687,6 +4749,8 @@ public class Grid extends Group implements IDataGridElement
     private var rollColumnIndex:int = -1;
     private var mouseDownRowIndex:int = -1;
     private var mouseDownColumnIndex:int = -1;
+    private var lastClickedColumnIndex:int = -1;
+    private var lastClickedRowIndex:int = -1;
     private var lastClickTime:Number;
     
     // default max time between clicks for a double click is 480ms.
@@ -4915,17 +4979,53 @@ public class Grid extends Group implements IDataGridElement
     {
         const dispatchGridClick:Boolean = ((rowIndex == mouseDownRowIndex) && (columnIndex == mouseDownColumnIndex));
         const newClickTime:Number = getTimer();
-        
+        var isDoubleClick:Boolean = false;
+
         // In the case that we dispatched a click last time, check if we
-        // should dispatch a double click this time.
-        // This isn't stricly adequate, since the mouse might have been on a different cell for 
-        // the first click.  It's not clear that the extra checking would be worthwhile.
+        // should dispatch a double click this time.  The type of check will be based on the double click mode.
         if (doubleClickEnabled && dispatchGridClick && !isNaN(lastClickTime) &&
             (newClickTime - lastClickTime <= DOUBLE_CLICK_TIME))
         {
-            dispatchGridEvent(mouseEvent, GridEvent.GRID_DOUBLE_CLICK, gridXY, rowIndex, columnIndex);
-            lastClickTime = NaN;
-            return;
+            switch(_doubleClickMode)
+            {
+                case GridDoubleClickMode.CELL:
+                {
+                    if (rowIndex != -1 && columnIndex != -1 && rowIndex == lastClickedRowIndex && columnIndex == lastClickedColumnIndex)
+                    {
+                        isDoubleClick = true;
+                    }
+
+                    break;
+                }
+
+                case GridDoubleClickMode.GRID:
+                {
+                    isDoubleClick = true;
+
+                    break;
+                }
+
+                case GridDoubleClickMode.ROW:
+                {
+                    if (rowIndex != -1 && rowIndex == lastClickedRowIndex)
+                    {
+                        isDoubleClick = true;
+                    }
+
+                    break;
+                }
+            }
+
+            if (isDoubleClick == true)
+            {
+                dispatchGridEvent(mouseEvent, GridEvent.GRID_DOUBLE_CLICK, gridXY, rowIndex, columnIndex);
+                lastClickTime = NaN;
+                lastClickedColumnIndex = -1;
+                lastClickedRowIndex = -1;
+                isDoubleClick = false;
+
+                return;
+            }
         }
         
         // Otherwise, just dispatch the click event.
@@ -4933,6 +5033,9 @@ public class Grid extends Group implements IDataGridElement
         {
             dispatchGridEvent(mouseEvent, GridEvent.GRID_CLICK, gridXY, rowIndex, columnIndex);
             lastClickTime = newClickTime;
+            lastClickedColumnIndex = columnIndex;
+            lastClickedRowIndex = rowIndex;
+            isDoubleClick = false;
         }
     }
     

@@ -1249,8 +1249,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         
         if ((eventSeparatorIndex != -1) && (pressSeparatorIndex == eventSeparatorIndex))
             dispatchGridEvent(event, GridEvent.SEPARATOR_DOUBLE_CLICK, eventHeaderXY, eventSeparatorIndex);
-        else if ((eventColumnIndex != -1) && (pressColumnIndex == eventColumnIndex))
-            dispatchGridEvent(event, GridEvent.GRID_DOUBLE_CLICK, eventHeaderXY, eventColumnIndex);
+//Commented out because it completely bypasses the grids normal doubleclick handler, yet it calls a doubleclick.
+//        else if ((eventColumnIndex != -1) && (pressColumnIndex == eventColumnIndex))
+//            dispatchGridEvent(event, GridEvent.GRID_DOUBLE_CLICK, eventHeaderXY, eventColumnIndex);
     }    
     
     /**
