@@ -29,16 +29,18 @@ Apache Flex (Flex)
     levels of proficiency in software development. It is estimated that there are between 
     350,000 and 500,000 Flex developers worldwide. 
 
-Getting the latest sources via Subversion
+Getting the latest sources via git
 =========================================
 
     This is the recommended way to get Apache Flex.  We offer an automated installer
     along with binary distributions on our website at http://flex.apache.org/.
 
-    You can always checkout the latest source via subversion using the following
+    You can always checkout the latest source via git using the following
     command:
 	
-	git clone https://git-wip-us.apache.org/repos/asf/flex-sdk.git
+	git clone https://git-wip-us.apache.org/repos/asf/flex-sdk.git sdk
+	cd sdk
+	git checkout develop
 
     For further information visit http://flex.apache.org/download-source.html
 
