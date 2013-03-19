@@ -68,7 +68,7 @@
     </include-classes>
 
     <include-file>
-        <name>experimental.css</name>
+        <name>defaults.css</name>
         <path>defaults.css</path>
     </include-file>
 
