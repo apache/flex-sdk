@@ -37,8 +37,8 @@ Getting the latest sources via Subversion
 
     You can always checkout the latest source via subversion using the following
     command:
-
-    svn co https://svn.apache.org/repos/asf/flex/trunk flex
+	
+	git clone https://git-wip-us.apache.org/repos/asf/flex-sdk.git
 
     For further information visit http://flex.apache.org/download-source.html
 
@@ -441,6 +441,21 @@ Building the Source in the Source Distribution
     The source for both the Flex compiler and the Flex framework is included in the
     source distribution.  The compiler is in the modules directory and the framework
     is in the frameworks directory.
+	
+	Because the sdk uses the Text Layout Framework, you will have to clone it too
+	and link it to the textLayout project of the sdk:
+	
+	cd <flex.dir>/..
+	git clone https://git-wip-us.apache.org/repos/asf/flex-tlf.git tlf
+	cd tlf
+	git checkout master
+	cd <flex.dir>/frameworks/projects/textLayout
+	
+	On windows:
+	mklink /j 3.0.33 ../../../../tlf/textLayout
+	
+	On linux:
+	ln -s ../../../../ApacheFlexTLFGit/textLayout 3.0.33
     
     When you have all the prerequisites in place and the environment variables set
     (see Install Prerequisites above), use
