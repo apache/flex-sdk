@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Licensed to the Apache Software Foundation (ASF) under one or more
+//  contributor license agreements.  See the NOTICE file distributed with
+//  this work for additional information regarding copyright ownership.
+//  The ASF licenses this file to You under the Apache License, Version 2.0
+//  (the "License"); you may not use this file except in compliance with
+//  the License.  You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//
+////////////////////////////////////////////////////////////////////////////////
+-->
+
+<!--- The default skin class for the Spark HScrollBar component. The thumb and track skins are defined by the
+HScrollBarThumbSkin and HScrollBarTrackSkin classes, respectively.  
+
+       @see spark.components.HScrollBar
+       @see spark.skins.spark.HScrollBarThumbSkin
+       @see spark.skins.spark.HScrollBarTrackSkin
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" minWidth="36"
+    alpha.disabled="0.5" alpha.inactive="0.5">
+
+    <fx:Metadata>
+    <![CDATA[ 
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
+        [HostComponent("spark.components.HScrollBar")]
+    ]]>
+    </fx:Metadata> 
+    
+    <fx:Script fb:purpose="styling">
+        /* Define the skin elements that should not be colorized. 
+           For scroll bar, the skin itself is colorized but the individual parts are not. */
+        static private const exclusions:Array = ["track", "thumb", "decrementButton", "incrementButton"];
+
+        /**
+         * @private
+         */
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useChromeColor = true;
+            super.initializationComplete();
+        }
+    </fx:Script>
+    
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="disabled" />
+        <s:State name="inactive" />
+    </s:states>
+    
+    <!--- The default skin class is ScrollBarLeftButtonSkin.
+            @copy spark.components.supportClasses.ScrollBarBase#decrementButton
+            @see spark.skins.spark.ScrollBarLeftButtonSkin -->
+    <s:Button id="decrementButton" left="0" top="0" bottom="0"
+			  minWidth="16" minHeight="10"
+              focusEnabled="false" enabled.inactive="false"
+              skinClass="spark.skins.spark.ScrollBarLeftButtonSkin" />
+    
+    <!--- The default skin class is ScrollBarRightButtonSkin. 
+            @copy spark.components.supportClasses.ScrollBarBase#incrementButton
+            @see spark.skins.spark.ScrollBarRightButtonSkin -->
+    <s:Button id="incrementButton" right="0" top="0" bottom="0"
+			  minWidth="16" minHeight="10"
+              focusEnabled="false" enabled.inactive="false"
+              skinClass="spark.skins.spark.ScrollBarRightButtonSkin" />
+
+</s:SparkSkin>

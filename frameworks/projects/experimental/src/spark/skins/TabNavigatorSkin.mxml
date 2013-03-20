@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Licensed to the Apache Software Foundation (ASF) under one or more
+//  contributor license agreements.  See the NOTICE file distributed with
+//  this work for additional information regarding copyright ownership.
+//  The ASF licenses this file to You under the Apache License, Version 2.0
+//  (the "License"); you may not use this file except in compliance with
+//  the License.  You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//
+////////////////////////////////////////////////////////////////////////////////
+-->
+
+<!--- The default skin class for a Spark Navigator container.  
+
+@see spark.containers.Navigator
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009"
+			 xmlns:s="library://ns.adobe.com/flex/spark" 
+			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
+			 xmlns:ns="http://flex.apache.org/experimental/ns"
+			 alpha.disabled="0.5">
+	
+	<fx:Script fb:purpose="styling">
+		
+		/* Define the skin elements that should not be colorized. 
+		For list, the skin itself is colorized but the individual parts are not. */
+		static private const exclusions:Array = [ "contentGroup", "background" ];
+		
+		/**
+		 * @private
+		 */
+		override public function get colorizeExclusions():Array { return exclusions; }
+		
+		/* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
+		static private const contentFill:Array = [ "bgFill" ];
+		
+		/**
+		 * @private
+		 */
+		override public function get contentItems():Array { return contentFill };
+		
+		/**
+		 * @private
+		 */
+		override protected function initializationComplete():void
+		{
+			useChromeColor = true;
+			super.initializationComplete();
+		}
+		
+		/**
+		 * @private
+		 */
+		override protected function updateDisplayList( unscaledWidth:Number, unscaledHeight:Number ):void
+		{
+			if( getStyle( "borderVisible" ) == true )
+			{
+				border.visible = true;
+				background.left = background.top = background.right = background.bottom = 1;
+				contentGroup.left = contentGroup.top = contentGroup.right = contentGroup.bottom = 1;
+			}
+			else
+			{
+				border.visible = false;
+				background.left = background.top = background.right = background.bottom = 0;
+				contentGroup.left = contentGroup.top = contentGroup.right = contentGroup.bottom = 0;
+			}
+			
+			borderStroke.color = getStyle( "borderColor" );
+			borderStroke.alpha = getStyle( "borderAlpha" );
+			
+			super.updateDisplayList( unscaledWidth, unscaledHeight );
+		}
+		
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="disabled" />
+	</s:states>
+	
+
+	<s:layout>
+		<s:VerticalLayout gap="0"/>
+	</s:layout>
+	
+	<s:TabBar dataProvider="{contentGroup}"/>
+	
+	
+	<!--- @private -->
+	<s:Group width="100%" height="100%">
+		
+		<!-- border -->
+		<!--- @private -->
+		<s:Rect left="0" right="0" top="0" bottom="0" id="border">
+			<s:stroke>
+				<!--- @private -->
+				<s:SolidColorStroke id="borderStroke" weight="1"/>
+			</s:stroke>
+		</s:Rect>
+		
+		<!-- fill -->
+		<!--- Defines the background appearance of the list-based component. -->
+		<s:Rect id="background" left="1" right="1" top="1" bottom="1" >
+			<s:fill>
+				<!--- Defines the color of the background. The default color is 0xFFFFFF. -->
+				<s:SolidColor id="bgFill" color="0xFFFFFF" />
+			</s:fill>
+		</s:Rect>
+		
+		<!--
+		Note: setting the minimum size to 0 here so that changes to the host component's
+		size will not be thwarted by this skin part's minimum size.   This is a compromise,
+		more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
+		-->
+		<!--- @copy spark.containers.Navigator#contentGroup -->
+		<ns:NavigatorGroup id="contentGroup" left="0" right="0" top="0" bottom="0" minWidth="0" minHeight="0"/>
+		
+	</s:Group>
+	
+
+</s:SparkSkin>
