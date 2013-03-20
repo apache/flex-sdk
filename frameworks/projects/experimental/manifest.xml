@@ -35,6 +35,10 @@
     <component id="DataNavigatorGroup" class="spark.components.DataNavigatorGroup"/>
     <!-- InlineScroller -->
     <component id="InlineScroller" class="spark.components.InlineScroller"/>
+    <!-- CallOut -->
+    <component id="CallOut" class="spark.components.CallOut"/>
+    <!-- CallOutButton -->
+    <component id="CallOutButton" class="spark.components.CallOutButton"/>
     <!-- ColorPicker -->
     <component id="ColorPicker" class="spark.components.ColorPicker"/>
     <!-- Menu -->

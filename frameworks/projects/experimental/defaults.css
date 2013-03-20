@@ -39,6 +39,16 @@ BorderDataNavigator
 	skinClass: ClassReference("spark.skins.BorderDataNavigatorSkin");
 }
 
+CallOut
+{
+	skinClass: ClassReference("spark.skins.spark.CallOutSkin");
+}
+
+CallOutArrow
+{
+	skinClass: ClassReference("spark.skins.spark.CallOutArrowSkin");
+}
+
 ColorPicker 
 {
     skinClass: ClassReference("spark.skins.ColorPickerSkin");
