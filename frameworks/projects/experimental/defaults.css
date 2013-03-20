@@ -44,10 +44,10 @@ CallOut
 	skinClass: ClassReference("spark.skins.spark.CallOutSkin");
 }
 
-CallOutArrow
+/*CallOutArrow
 {
 	skinClass: ClassReference("spark.skins.spark.CallOutArrowSkin");
-}
+}*/
 
 ColorPicker 
 {
