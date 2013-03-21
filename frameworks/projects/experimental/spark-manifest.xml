@@ -27,6 +27,7 @@
 
     <!-- Special Components -->
     <component id="State" class="mx.states.State" lookupOnly="true"/>
+    <component id="Transition" class="mx.states.Transition" lookupOnly="true"/>
 
     <!-- Flex 3 Graphics -->
     <component id="BitmapFill" class="mx.graphics.BitmapFill" lookupOnly="true"/>
