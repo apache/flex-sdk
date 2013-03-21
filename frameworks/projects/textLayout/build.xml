@@ -30,6 +30,10 @@
 	<property name="flexTasks.location" value="${FLEX_HOME}/lib/flexTasks.jar"/>
 	<property name="project.uri" value="library://ns.adobe.com/flashx/textLayout"/>
 
+    <available file="${source.dir}" 
+            type="dir" 
+            property="src.folder.exists"/>
+
     <!-- We use abbreviated token names here as, the 'release' 
          and 'debug' tokens conflict with those specified in 
          build.properties 
@@ -94,7 +98,7 @@
 	</macrodef>
 		
 				
-	<target name="main" depends="clean,compile" description="Clean build of textLayout.swc">
+	<target name="main" depends="clean,compile,compile.external" description="Clean build of textLayout.swc">
 		<bundle locale="${locale}"/>
 	</target>
 	
@@ -151,7 +155,7 @@
 		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
 	</target>
 	
-	<target name="clean" depends="bundles-clean" description="Deletes the combined swc">
+	<target name="clean" depends="bundles-clean,clean-external" description="Deletes the combined swc">
 		<delete failonerror="false">
 			<fileset dir="${basedir}">
 				<include name="bundles.properties"/>
@@ -173,7 +177,7 @@
 		</delete>
 	</target>
 	
-	<target name="compile" description="Compiles textLayout.swc">
+	<target name="compile" description="Compiles textLayout.swc" if="src.folder.exists">
 		<taskdef resource="flexTasks.tasks" classpath="${flexTasks.location}"/>
 		<compc fork="true" 
 		       output="${output.file}">
@@ -186,6 +190,16 @@
 			<define name="CONFIG::release" value="${rel}"/>
         </compc>
      </target>
+
+    <target name="compile.external" description="Compile textLayout.swc in flex-tlf repo" unless="src.folder.exists">
+        <ant dir="${FLEX_HOME}/../flex-tlf/" target="textLayout_flex"/>
+        <copy file="${FLEX_HOME}/../flex-tlf/bin/textLayout.swc" toDir="${FLEX_HOME}/frameworks/libs" />
+    </target>
+    
+    <target name="clean-external" description="clean in flex-tlf repo" unless="src.folder.exists">
+        <echo message="cleaning flex-tlf" />
+        <ant dir="${FLEX_HOME}/../flex-tlf/" target="clean"/>
+    </target>
 
     <target name="clean-temp-docs">
         <delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
