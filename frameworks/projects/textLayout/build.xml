@@ -30,6 +30,16 @@
 	<property name="flexTasks.location" value="${FLEX_HOME}/lib/flexTasks.jar"/>
 	<property name="project.uri" value="library://ns.adobe.com/flashx/textLayout"/>
 
+    <available file="${FLEX_HOME}/../flex-tlf" 
+            type="dir" 
+            property="tlf.branch"
+            value="${FLEX_HOME}/../flex-tlf" />
+
+    <available file="${FLEX_HOME}/../tlf" 
+            type="dir" 
+            property="tlf.branch"
+            value="${FLEX_HOME}/../tlf" />
+
     <available file="${source.dir}" 
             type="dir" 
             property="src.folder.exists"/>
@@ -192,13 +202,13 @@
      </target>
 
     <target name="compile.external" description="Compile textLayout.swc in flex-tlf repo" unless="src.folder.exists">
-        <ant dir="${FLEX_HOME}/../flex-tlf/" target="textLayout_flex"/>
-        <copy file="${FLEX_HOME}/../flex-tlf/bin/textLayout.swc" toDir="${FLEX_HOME}/frameworks/libs" />
+        <ant dir="${tlf.branch}" target="textLayout_flex"/>
+        <copy file="${tlf.branch}/bin/textLayout.swc" toDir="${FLEX_HOME}/frameworks/libs" />
     </target>
     
     <target name="clean-external" description="clean in flex-tlf repo" unless="src.folder.exists">
-        <echo message="cleaning flex-tlf" />
-        <ant dir="${FLEX_HOME}/../flex-tlf/" target="clean"/>
+        <echo message="cleaning ${tlf.branch}" />
+        <ant dir="${tlf.branch}" target="clean"/>
     </target>
 
     <target name="clean-temp-docs">
