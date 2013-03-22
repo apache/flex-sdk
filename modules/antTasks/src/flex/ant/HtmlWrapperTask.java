@@ -58,7 +58,7 @@ public final class HtmlWrapperTask extends Task implements DynamicAttribute
     private static final String HISTORY_CSS = "history/history.css";
     private static final String HISTORY_JS = "history/history.js";
     private static final String HISTORY_FRAME_HTML = "history/historyFrame.html";
-    private static final String PLAYERPRODUCTINSTALL_SWF = "playerProductInstall.swf";
+    private static final String EXPRESSINSTALL_SWF = "expressInstall.swf";
     private static final String HTML_COMMENT_DELIMITER = "--";
     
     private String application;
@@ -174,8 +174,8 @@ public final class HtmlWrapperTask extends Task implements DynamicAttribute
         {
         	if(expressInstall)
         	{
-        		expressInstallSwf = PLAYERPRODUCTINSTALL_SWF;
-        		resources = new String[] {SWFOBJECT_JS, HISTORY_FRAME_HTML, HISTORY_JS, HISTORY_CSS, PLAYERPRODUCTINSTALL_SWF};
+        		expressInstallSwf = EXPRESSINSTALL_SWF;
+        		resources = new String[] {SWFOBJECT_JS, HISTORY_FRAME_HTML, HISTORY_JS, HISTORY_CSS, EXPRESSINSTALL_SWF};
         		versionDetection = true;
         	}
         	else 
@@ -189,8 +189,8 @@ public final class HtmlWrapperTask extends Task implements DynamicAttribute
         {
         	if(expressInstall)
         	{
-        		expressInstallSwf = PLAYERPRODUCTINSTALL_SWF;
-        		resources = new String[] {SWFOBJECT_JS, PLAYERPRODUCTINSTALL_SWF};
+        		expressInstallSwf = EXPRESSINSTALL_SWF;
+        		resources = new String[] {SWFOBJECT_JS, EXPRESSINSTALL_SWF};
         		versionDetection = true;
         	}
         	else 

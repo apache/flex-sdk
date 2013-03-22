@@ -82,22 +82,4 @@
         </delete>
     </target>
 
-    <target name="test" depends="test-clean">
-        <exec executable="ant">
-            <arg value="-lib"/>
-            <arg value="classes"/>
-            <arg value="-file"/>
-            <arg value="/home/preilly/PFServer/flex/sdk/modules/antTasks/tests/html-wrapper-build.xml"/>
-        </exec>
-    </target>
-
-    <target name="test-clean">
-        <exec executable="ant">
-            <arg value="-lib"/>
-            <arg value="classes"/>
-            <arg value="-file"/>
-            <arg value="/home/preilly/PFServer/flex/sdk/modules/antTasks/tests/html-wrapper-build.xml"/>
-            <arg value="clean"/>
-        </exec>
-    </target>
 </project>

@@ -19,14 +19,17 @@
 -->
 
 
-<project default="main" basedir=".">
+<project default="test-html-wrapper" basedir=".">
 
-    <taskdef resource="flexTasks-internal.tasks" />
-
-    <target name="main">
-        <mkdir dir="default"/>
-        <html-wrapper swf="bar" output="default"/>
-        <mkdir dir="client-side-detection"/>
+	<taskdef resource="flexTasks.tasks" 
+		classpath="../../../lib/flexTasks.jar"/>
+		
+    <target name="test-html-wrapper" depends="clean-test-html-wrapper">
+		<!-- history = false, expressInstall = false -->
+        <mkdir dir="html-wrapper-tests/default"/>
+        <html-wrapper swf="bar" output="html-wrapper-tests/default"/>
+        <!-- history = false, expressInstall = true -->
+		<mkdir dir="html-wrapper-tests/express-installation"/>
         <html-wrapper title="foo"
                       height="100"
                       width="100"
@@ -37,9 +40,10 @@
                       version-minor="0"
                       version-revision="0"
                       history="false"
-                      template="client-side-detection"
-                      output="client-side-detection"/>
-        <mkdir dir="client-side-detection-with-history"/>
+					  express-install="true"
+                      output="html-wrapper-tests/express-installation"/>
+		<!-- history = true, expressInstall = true -->
+        <mkdir dir="html-wrapper-tests/express-installation-with-history"/>
         <html-wrapper title="foo"
                       height="100"
                       width="100"
@@ -50,9 +54,10 @@
                       version-minor="0"
                       version-revision="0"
                       history="true"
-                      template="client-side-detection"
-                      output="client-side-detection-with-history"/>
-        <mkdir dir="express-installation"/>
+                      express-install="true"
+                      output="html-wrapper-tests/express-installation-with-history"/>
+        <mkdir dir="html-wrapper-tests/history"/>
+		<!-- history = true, expressInstall = false -->		
         <html-wrapper title="foo"
                       height="100"
                       width="100"
@@ -62,58 +67,17 @@
                       version-major="9"
                       version-minor="0"
                       version-revision="0"
-                      history="false"
-                      template="express-installation"
-                      output="express-installation"/>
-        <mkdir dir="express-installation-with-history"/>
-        <html-wrapper title="foo"
-                      height="100"
-                      width="100"
-                      bgcolor="red"
-                      application="bar"
-                      swf="bar"
-                      version-major="9"
-                      version-minor="0"
-                      version-revision="0"
+					  express-install="false"
                       history="true"
-                      template="express-installation"
-                      output="express-installation-with-history"/>
-        <mkdir dir="no-player-detection"/>
-        <html-wrapper title="foo"
-                      height="100"
-                      width="100"
-                      bgcolor="red"
-                      application="bar"
-                      swf="bar"
-                      version-major="9"
-                      version-minor="0"
-                      version-revision="0"
-                      history="false"
-                      template="no-player-detection"
-                      output="no-player-detection"/>
-        <mkdir dir="no-player-detection-with-history"/>
-        <html-wrapper title="foo"
-                      height="100"
-                      width="100"
-                      bgcolor="red"
-                      application="bar"
-                      swf="bar"
-                      version-major="9"
-                      version-minor="0"
-                      version-revision="0"
-                      history="true"
-                      template="no-player-detection"
-                      output="no-player-detection-with-history"/>
+                      output="html-wrapper-tests/history"/>
+   
     </target>
 
-    <target name="clean">
-        <delete dir="default" />
-        <delete dir="client-side-detection" />
-        <delete dir="client-side-detection-with-history" />
-        <delete dir="express-installation" />
-        <delete dir="express-installation-with-history" />
-        <delete dir="no-player-detection" />
-        <delete dir="no-player-detection-with-history" />
+    <target name="clean-test-html-wrapper">
+        <delete dir="html-wrapper-tests/default" />
+        <delete dir="html-wrapper-tests/history" />
+        <delete dir="html-wrapper-tests/express-installation" />
+        <delete dir="html-wrapper-tests/express-installation-with-history" />
     </target>
 
 </project>
