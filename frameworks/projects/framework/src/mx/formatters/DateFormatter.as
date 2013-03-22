@@ -339,16 +339,20 @@ public class DateFormatter extends Formatter
 
     /**
      *  Constructor.
+
+  	 * 	@param formatString Date format pattern is set to this DateFormatter.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function DateFormatter()
+    public function DateFormatter(formatString : String = null)
     {
         super();
-    }
+
+		this.formatString = formatString;
+	}
 
     //--------------------------------------------------------------------------
     //
