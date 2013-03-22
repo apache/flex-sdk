@@ -1593,7 +1593,7 @@ public class DataGrid extends SkinnableContainerBase
         }
 
         grid.doubleClickMode = newValue;
-        dispatchChangeEvent("selectionModeChanged");
+        dispatchChangeEvent("doubleClickModeChanged");
     }
 
 
