@@ -449,15 +449,6 @@ Building the Source in the Source Distribution
 	
 	cd <flex.dir>/..
 	git clone https://git-wip-us.apache.org/repos/asf/flex-tlf.git tlf
-	cd tlf
-	git checkout master
-	cd <flex.dir>/frameworks/projects/textLayout
-	
-	On windows:
-	mklink /j 3.0.33 ../../../../tlf/textLayout
-	
-	On linux:
-	ln -s ../../../../ApacheFlexTLFGit/textLayout 3.0.33
     
     When you have all the prerequisites in place and the environment variables set
     (see Install Prerequisites above), use
