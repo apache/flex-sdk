@@ -347,11 +347,11 @@ public class DateFormatter extends Formatter
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function DateFormatter(formatString : String = null)
+    public function DateFormatter(formatString:String = null)
     {
         super();
 
-		this.formatString = formatString;
+        this.formatString = formatString;
 	}
 
     //--------------------------------------------------------------------------
