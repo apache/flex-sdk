@@ -1531,6 +1531,24 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         navigators = null;
     }
     
+	/**
+	 *  Removes the specified item from this list, should it exist.
+	 *  Relies on ArrayList implementation
+	 *
+	 *  @param  item Object reference to the item that should be removed.
+	 *  @return Boolean indicating if the item was removed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Apache Flex 4.10
+	 */
+	public function removeItem( item:Object ):Boolean
+	{
+		var element:IVisualElement = removeElement(item as ViewNavigatorBase);
+		return element != null;
+	}
+	
     /**
      *  Remove the view navigator at the specified index and return it.  
      *  The index of any items that were after this index are decreased by one.

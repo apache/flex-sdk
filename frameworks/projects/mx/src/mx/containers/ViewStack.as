@@ -1594,6 +1594,16 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
     {
         removeAllChildren();
     }
+	
+	/**
+	 *  @private
+	 *  IList implementation of removeItem calls removeChild
+	 */
+	public function removeItem(item:Object):Boolean
+	{
+		var displayObject:DisplayObject = removeChild(item as DisplayObject);
+		return displayObject != null;
+	}
 
     /**
      *  @private

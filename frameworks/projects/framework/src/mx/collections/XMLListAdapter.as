@@ -401,7 +401,25 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
             }
         }
     }
-
+	
+	/**
+	 *  Removes the specified item from this list, should it exist.
+	 *  Relies on ArrayList implementation
+	 *
+	 *  @param  item Object reference to the item that should be removed.
+	 *  @return Boolean indicating if the item was removed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Apache Flex 4.10
+	 */
+	public function removeItem( item:Object ):Boolean
+	{
+		var item:Object = removeItemAt[getItemIndex(item)];
+		return item != null;
+	}
+	
     /**
      *  Remove the item at the specified index and return it.  Any items
      *  that were after this index are now one index earlier.
