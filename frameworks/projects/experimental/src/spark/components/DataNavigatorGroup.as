@@ -469,6 +469,23 @@ package spark.components
 		}
 		
 		/**
+		 *  Removes the specified item from the list.
+		 *
+		 *  @param the item to remove.
+		 *
+		 *  @return boolean true if the item was removed
+		 *
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10
+		 *  @playerversion AIR 1.5
+		 *  @productversion Flex 4.10
+		 */
+		public function removeItem( item:Object ):Boolean
+		{
+			return dataProvider.removeItem(item);
+		}
+		
+		/**
 		 *  Removes the item at the specified index and returns it.  
 		 *  Any items that were after this index are now one index earlier.
 		 *

@@ -1015,6 +1015,19 @@ package spark.components
 		}
 		
 		/**
+		 *  @copy spark.components.DataNavigatorGroup#removeItem
+		 *  
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10
+		 *  @playerversion AIR 1.5
+		 *  @productversion Flex 4.10
+		 */
+		public function removeItem( item:Object ):Boolean
+		{
+			return dataProvider.removeItem( item );
+		}
+		
+		/**
 		 *  @copy spark.components.DataNavigatorGroup#removeItemAt
 		 *  
 		 *  @langversion 3.0

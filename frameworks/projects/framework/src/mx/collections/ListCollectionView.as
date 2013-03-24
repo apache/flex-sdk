@@ -757,8 +757,24 @@ public class ListCollectionView extends Proxy
         //turns out that there are no neighbors of item in the filtered 
         //list, so item is the 1st item 
         return 0; 
-    } 
-
+    }
+    
+    /**
+	 *  Removes the specified item from this list, should it exist.
+	 *  Relies on ArrayList implementation
+	 *
+	 *  @param  item Object reference to the item that should be removed.
+	 *  @return Boolean indicating if the item was removed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Apache Flex 4.10
+	 */
+	public function removeItem( item:Object ):Boolean
+	{
+		return list.removeItem( item );
+	}
 
     /**
      * @inheritDoc 

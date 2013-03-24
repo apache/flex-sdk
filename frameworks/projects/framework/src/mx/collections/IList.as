@@ -212,7 +212,21 @@ public interface IList extends IEventDispatcher
      *  @productversion Flex 3
      */
     function removeAll():void;
-
+	
+	/**
+	 *  Removes the specified item from this list, should it exist.
+	 *  Relies on ArrayList implementation
+	 *
+	 *  @param  item Object reference to the item that should be removed.
+	 *  @return Boolean indicating if the item was removed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Apache Flex 4.10
+	 */
+	function removeItem( item:Object ):Boolean;
+		
     /**
      *  Removes the item at the specified index and returns it.  
      *  Any items that were after this index are now one index earlier.

@@ -940,6 +940,19 @@ package spark.containers
 		}
 		
 		/**
+		 *  @copy spark.containers.NavigatorGroup#removeItem
+		 *  
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10
+		 *  @playerversion AIR 1.5
+		 *  @productversion Flex 4.10
+		 */
+		public function removeItem( item:Object ):Boolean
+		{
+			return currentContentGroup.removeItem( item );
+		}
+	
+		/**
 		 *  @copy spark.containers.NavigatorGroup#removeItemAt
 		 *  
 		 *  @langversion 3.0
