@@ -507,10 +507,22 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         
         // If we don't find the pop owner or if the owner's parent is not specified or is not on the
         // stage, then center based on the popUp's current parent.
-        var popUpParent:DisplayObject = (o && o.parent && o.parent.stage) ? o.parent : popUp.parent;
-        if (popUpParent)
-        {
-            var systemManager:ISystemManager = o.systemManager;
+		var popUpParent:DisplayObject = (o && o.parent && o.parent.stage) ? o.parent : popUp.parent;
+		if (popUpParent)
+		{
+			//FLEX-28967 : https://issues.apache.org/jira/browse/FLEX-28967. Fix by miroslav.havrlent
+			var systemManager:ISystemManager;
+			if (o != null) {
+				systemManager = o.systemManager;
+			} else if (popUpParent.hasOwnProperty("systemManager")) {
+				systemManager = popUpParent["systemManager"];
+			} else if (popUpParent is ISystemManager) {
+				systemManager = popUpParent as ISystemManager;
+			}
+			
+			if (!systemManager)
+				return; // or throw exception maybe ?
+			
             var x:Number;
             var y:Number;
             var appWidth:Number;
