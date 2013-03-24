@@ -13067,8 +13067,6 @@ public class UIComponent extends FlexSprite
 
 
     /**
-     *  @private
-     *
      *  Get the bounds of this object that are visible to the user
      *  on the screen.
      *
