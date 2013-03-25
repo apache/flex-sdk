@@ -1817,8 +1817,8 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         if ( !obj2 )
             return -1;
         
-        var obj1Data:String = deriveComplexColumnData( obj1 ).toString();
-        var obj2Data:String = deriveComplexColumnData( obj2 ).toString();
+        var obj1Data:String = String(deriveComplexColumnData( obj1 ));
+        var obj2Data:String = String(deriveComplexColumnData( obj2 ));
         
         if ( obj1Data < obj2Data )
             return -1;
