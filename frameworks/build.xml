@@ -213,7 +213,10 @@
         <ant dir="${basedir}/projects/automation" target="doc" />
         -->
         <ant dir="${basedir}/projects/apache" target="doc" />
+        <!-- removed until until errors resolved -->
+        <!--
     	<ant dir="${basedir}/projects/experimental" target="doc" />
+        -->
     </target>
    
     <!--
