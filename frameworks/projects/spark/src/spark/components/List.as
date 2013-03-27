@@ -1458,7 +1458,7 @@ public class List extends ListBase implements IFocusManagerComponent
         // its x,y "offset" relative to the dataGroup's position and then scroll
         // so that the new caret item renderer appears at the same offset.
         
-        if ((caretItem !== undefined) && dataGroup && dataGroup.dataProvider)
+        if ((caretItem !== undefined) && (dataGroup != null) && dataGroup.dataProvider)
         {
             const newCaretIndex:int = dataGroup.dataProvider.getItemIndex(caretItem);
             const caretItemRenderer:IVisualElement = dataGroup.getElementAt(caretIndex);
@@ -1476,9 +1476,17 @@ public class List extends ListBase implements IFocusManagerComponent
                 // their responses to the refresh event.
                 
                 const updateCompleteListenerA:Function = function():void {
-                    dataGroup.removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteListenerA);
-                    ensureCaretVisibility(newCaretIndex);
-                    dataGroup.addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteListenerB);                    
+					if(dataGroup != null)
+					{
+                    	dataGroup.removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteListenerA, false);
+					}
+                    
+					ensureCaretVisibility(newCaretIndex);
+					
+					if(dataGroup != null)
+					{
+						dataGroup.addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteListenerB, false, 0, true);                    
+					}
                     
                 };
 
@@ -1486,11 +1494,14 @@ public class List extends ListBase implements IFocusManagerComponent
                 // so that layout bounds for the caret item renderer will have been computed.
                 
                 const updateCompleteListenerB:Function = function():void {
-                    dataGroup.removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteListenerB);                    
+					if(dataGroup != null)
+					{
+						dataGroup.removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteListenerB, false);                    
+					}
                     restoreCaretScrollPosition(newCaretIndex, caretOffsetX, caretOffsetY);
                 };
                 
-                dataGroup.addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteListenerA);
+                dataGroup.addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteListenerA, false, 0, true);
                 
                 return;
             }
