@@ -416,8 +416,8 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
 	 */
 	public function removeItem( item:Object ):Boolean
 	{
-		var item:Object = removeItemAt[getItemIndex(item)];
-		return item != null;
+		var _item:Object = removeItemAt[getItemIndex(item)];
+		return _item != null;
 	}
 	
     /**
