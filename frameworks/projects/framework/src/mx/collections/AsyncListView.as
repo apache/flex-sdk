@@ -834,10 +834,10 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
 	 *  @playerversion AIR 1.1
 	 *  @productversion Apache Flex 4.10
 	 */
-	public function removeItem( item:Object ):Boolean
+	public function removeItem(item:Object):Boolean
 	{
-		var item:Object = removeItemAt(getItemIndex(item));
-		return item != null;
+		var _item:Object = removeItemAt(getItemIndex(item));
+		return _item != null;
 	}
     
     /**
