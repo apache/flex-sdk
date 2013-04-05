@@ -30,15 +30,15 @@
 	<property name="flexTasks.location" value="${FLEX_HOME}/lib/flexTasks.jar"/>
 	<property name="project.uri" value="library://ns.adobe.com/flashx/textLayout"/>
 
-    <available file="${FLEX_HOME}/../flex-tlf" 
+    <available file="${FLEX_HOME}/../flex-tlf/textLayout" 
             type="dir" 
             property="tlf.branch"
-            value="${FLEX_HOME}/../flex-tlf" />
+            value="${FLEX_HOME}/../flex-tlf/textLayout" />
 
-    <available file="${FLEX_HOME}/../tlf" 
+    <available file="${FLEX_HOME}/../tlf/textLayout" 
             type="dir" 
             property="tlf.branch"
-            value="${FLEX_HOME}/../tlf" />
+            value="${FLEX_HOME}/../tlf/textLayout" />
 
     <available file="${source.dir}" 
             type="dir" 
@@ -76,9 +76,9 @@
 		<attribute name="locale"/>
 		<sequential>
 			<echo message="creating 'fat-swc' in textLayout_rb.swc for @{locale}"/>
-			<mkdir dir="${source.dir}/bundles/@{locale}/docs" />
+			<mkdir dir="${tlf.branch}/bundles/@{locale}/docs" />
 			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/textLayout_rb.swc" update="true">
-				<zipfileset dir="${source.dir}/bundles/@{locale}/docs" prefix="docs">
+				<zipfileset dir="${tlf.branch}/bundles/@{locale}/docs" prefix="docs">
 					<include name="*.*"/>
 					<exclude name="ASDoc_Config.xml"/>
 					<exclude name="overviews.xml"/>
@@ -195,20 +195,20 @@
             <load-config filename="compile-config.xml" />
             <arg value="+playerglobal.version=${playerglobal.version}" />
             <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
-            <arg value="+source.dir=${source.dir}" />
+            <arg value="+source.dir=${tlf.branch}" />
             <define name="CONFIG::debug" value="${dbg}"/>
 			<define name="CONFIG::release" value="${rel}"/>
         </compc>
      </target>
 
     <target name="compile.external" description="Compile textLayout.swc in flex-tlf repo" unless="src.folder.exists">
-        <ant dir="${tlf.branch}" target="textLayout_flex"/>
-        <copy file="${tlf.branch}/bin/textLayout.swc" toDir="${FLEX_HOME}/frameworks/libs" />
+        <ant dir="${tlf.branch}/.." target="textLayout_flex"/>
+        <copy file="${tlf.branch}/../bin/textLayout.swc" toDir="${FLEX_HOME}/frameworks/libs" />
     </target>
     
     <target name="clean-external" description="clean in flex-tlf repo" unless="src.folder.exists">
         <echo message="cleaning ${tlf.branch}" />
-        <ant dir="${tlf.branch}" target="clean"/>
+        <ant dir="${tlf.branch}/.." target="clean"/>
     </target>
 
     <target name="clean-temp-docs">
@@ -238,13 +238,13 @@
 
         <!-- Call asdoc to generate dita xml files -->
         <asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
-            <compiler.source-path path-element="${source.dir}/src"/>
+            <compiler.source-path path-element="${tlf.branch}/src"/>
 			<compiler.show-actionscript-warnings>false</compiler.show-actionscript-warnings>
 			<doc-classes class="flashx.textLayout.CoreClasses"/>
 			<doc-classes class="flashx.textLayout.EditClasses"/>
 			<doc-classes class="flashx.textLayout.ConversionClasses"/>
             <doc-namespaces uri="library://ns.adobe.com/flashx/textLayout"/>
-            <namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${source.dir}/manifest.xml"/>
+            <namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${tlf.branch}/manifest.xml"/>
             <jvmarg line="${asdoc.jvm.args}"/>
 			<static-link-runtime-shared-libraries/>
 			<define name="CONFIG::debug" value="${dbg}"/>
