@@ -25,10 +25,11 @@ package spark.events
 	public class ColorChangeEvent extends Event
 	{
 		public static const CHOOSE:String = "choose";
-
+		public static const NO_COLOR:String = "nocolor";
 		public static const HOVER:String = "hover";
 
 		public var color : uint;
+		public var colorObject:Object;
 
 		public function ColorChangeEvent(type:String, aColor : uint, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
@@ -47,7 +48,9 @@ package spark.events
 		 */
 		override public function clone():Event
 		{
-			return new ColorChangeEvent(type, color, bubbles, cancelable);
+			var ev:ColorChangeEvent = new ColorChangeEvent(type, color, bubbles, cancelable);
+			ev.colorObject = colorObject;
+			return ev;
 		}
 	}
 }
