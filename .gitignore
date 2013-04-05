@@ -24,9 +24,6 @@ build.log
 release
 out
 gen
-flex-sdk-description.xml
-frameworks/projects/*/bundles.properties
-frameworks/projects/spark/manifest.xml
 
 #Apache Flex Projects
 lib/
