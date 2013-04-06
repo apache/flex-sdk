@@ -192,7 +192,7 @@ use namespace mx_internal;
  *  overhead to a minimum, pooled and recycled.</p>
  *
  *  <p>The Grid control supports a doubleClick event, according the <code>doubleClickMode</code>
- *  property.  
+ *  property.</p>  
  * 
  *  <p>The Grid control supports selection, according the <code>selectionMode</code>
  *  property.  The set of selected row or cell indices can be modified or
@@ -210,7 +210,7 @@ use namespace mx_internal;
  *  <p>The Grid control supports smooth scrolling.  
  *  Their vertical and horizontal scroll positions define the pixel origin 
  *  of the visible part of the grid and the grid's layout only displays 
- *  as many cell item renderers as are needed to fill the available space.  </p>
+ *  as many cell item renderers as are needed to fill the available space.</p>
  *
  *  <p>The Grid control supports variable height rows that automatically compute 
  *  their height based on the item renderers' contents.  
@@ -2271,7 +2271,7 @@ public class Grid extends Group implements IDataGridElement
      *  <p> This property is intended to be used to initialize or bind to the
      *  selection in MXML markup.  The setSelectedCell() method should be used
      *  for programatic selection updates, for example when writing a keyboard
-     *  or mouse event handler. </p> > 
+     *  or mouse event handler. </p>
      *
      *  <p>The default value is an empty <code>Vector.&lt;int&gt;</code></p>
      * 
