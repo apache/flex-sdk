@@ -81,7 +81,7 @@
 			<compiler.source-path path-element="${flexlib}/projects/mx/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/sparkskins/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/rpc/src"/>
-		    <compiler.source-path path-element="${flexlib}/projects/textLayout/${tlf.version}/src"/>
+		    <compiler.source-path path-element="${tlf.branch}/src"/>
 			<!--compiler.source-path path-element="${flexlib}/projects/osmf/src"/-->
 			<compiler.source-path path-element="${flexlib}/projects/advancedgrids/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/charts/src"/>
@@ -107,7 +107,7 @@
  			<doc-namespaces uri="http://flex.apache.org/ns"/>
  			<doc-namespaces uri="http://flex.apache.org/experimental/ns"/>
  			
-		    <namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${flexlib}/projects/textLayout/${tlf.version}/manifest.xml"/>
+		    <namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${tlf.branch}/manifest.xml"/>
 
 			<!-- namespace declaration for asdoc -->
 		    <namespace uri="http://www.adobe.com/2006/airmxml" manifest="${flexlib}/projects/airframework/manifest.xml"/>
