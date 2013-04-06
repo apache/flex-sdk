@@ -887,7 +887,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     /**
      * @private
      */
-    override mx_internal function setSelectedIndex(value:int, dispatchChangeEvent:Boolean = false, changeCaret:Boolean = true):void
+    override public function setSelectedIndex(value:int, dispatchChangeEvent:Boolean = false, changeCaret:Boolean = true):void
     {
         // It is possible that the label display changed but the selection didn't.  If this is
         // the case, the label has to be updated since the setSelectedIndex code will short-circuit

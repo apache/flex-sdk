@@ -710,19 +710,25 @@ public class ListBase extends SkinnableDataContainer
     }
     
     /**
-     *  @private
-     *  Used internally to specify whether the selectedIndex changed programmatically or due to 
-     *  user interaction. 
+     *  <p>The <code>rowIndex</code> is the index in the data provider
+     *  of the item containing the selected cell.</p>
+     *
+     *  @param rowIndex The 0-based row index of the cell.
      * 
      *  @param dispatchChangeEvent if true, the component will dispatch a "change" event if the
-     *  value has changed. Otherwise, it will dispatch a "valueCommit" event. 
+     *  rowIndex has changed. Otherwise, it will dispatch a "valueCommit" event. 
      * 
      *  @param changeCaret if true, the caret will be set to the selectedIndex as a side-effect of calling 
      *  this method.  If false, caretIndex won't change.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    mx_internal function setSelectedIndex(value:int, dispatchChangeEvent:Boolean = false, changeCaret:Boolean = true):void
+    public function setSelectedIndex(rowIndex:int, dispatchChangeEvent:Boolean = false, changeCaret:Boolean = true):void
     {
-        if (value == selectedIndex)
+        if (rowIndex == selectedIndex)
         {
             // this should short-circuit, but we should check to make sure 
             // that caret doesn't need to be changed either, as that's a side
@@ -736,7 +742,7 @@ public class ListBase extends SkinnableDataContainer
         if (dispatchChangeEvent)
             dispatchChangeAfterSelection = (dispatchChangeAfterSelection || dispatchChangeEvent);
         changeCaretOnSelection = changeCaret;
-        _proposedSelectedIndex = value;
+        _proposedSelectedIndex = rowIndex;
         invalidateProperties();
     }
 
