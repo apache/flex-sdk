@@ -58,8 +58,7 @@
 	<property name="spark_dmv.dir" value="${projects.dir}/spark_dmv"/>
 	<property name="apache.dir" value="${projects.dir}/apache"/>
 	<property name="experimental.dir" value="${projects.dir}/experimental"/>
-    <property name="textLayout.dir" value="${projects.dir}/textLayout"/>
-    <property name="textLayout.ver.dir" value="${textLayout.dir}/${tlf.version}"/>
+    <property name="textLayout.dir" value="${tlf.branch}"/>
     <property name="experimental.dir" value="${projects.dir}/experimental"/>
 
     <!-- automation -->
@@ -872,10 +871,10 @@
 			<jvmarg line="${compc.jvm.args}"/>
 			<keep-as3-metadata>IMXMLObject</keep-as3-metadata>
 			<include-namespaces uri="library://ns.adobe.com/flashx/textLayout"/>
-			<namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${textLayout.ver.dir}/manifest.xml"/>
-			<source-path path-element="${textLayout.ver.dir}/src"/>
+			<namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${textLayout.dir}/manifest.xml"/>
+			<source-path path-element="${textLayout.dir}/src"/>
 			<library-path/>
-			<include-file name="manifest.xml" path="${textLayout.ver.dir}/manifest.xml"/>
+			<include-file name="manifest.xml" path="${textLayout.dir}/manifest.xml"/>
 			<static-link-runtime-shared-libraries/>
 			<define name="CONFIG::debug" value="false"/>
 			<define name="CONFIG::release" value="true"/>
