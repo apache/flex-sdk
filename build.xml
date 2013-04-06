@@ -74,7 +74,7 @@
 
     <target name="main" depends="prebuild,modules,frameworks,post-build" description="Full build">
         <tstamp>
-            <format property="build.datetime" pattern="MM/dd/yyyy hh:mm:ss aa" />
+        	<format property="build.datetime" pattern="MM/dd/yyyy hh:mm:ss aa" />
         </tstamp>
         <echo>ant main target completed on ${build.datetime}</echo>
     </target>
@@ -218,7 +218,10 @@
     </target>
 
     <target name="create-description" description="Generate flex-sdk-description.xml">
-        <echo message="build.number is ${build.number}"/>
+        <tstamp>
+        	<format property="build.number.date" pattern="yyyyMMdd" />
+        </tstamp>
+        <echo message="build.number is ${build.number.date}"/>
         <echo file="${basedir}/flex-sdk-description.xml">&lt;?xml version="1.0"?&gt;
 &lt;!--
 
@@ -241,7 +244,7 @@
 &lt;flex-sdk-description&gt;
 &lt;name&gt;${release} FP${playerglobal.version} ${locale}&lt;/name&gt;
 &lt;version&gt;${release.version}&lt;/version&gt;
-&lt;build&gt;${build.number}&lt;/build&gt;
+&lt;build&gt;${build.number.date}&lt;/build&gt;
 &lt;/flex-sdk-description&gt;
         </echo>
     </target>
@@ -411,27 +414,27 @@
 
 	<target name="frameworks-rsls" description="Build signed framework RSLs">
 		<!-- textLayout RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="textLayout" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="textLayout" build-number="${release.version}.${build.number.date}"/>
 		<!-- framework RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="framework" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="framework" build-number="${release.version}.${build.number.date}"/>
 		<!-- mx RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs/mx" swc-name="mx" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs/mx" swc-name="mx" build-number="${release.version}.${build.number.date}"/>
 		<!-- rpc RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="rpc" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="rpc" build-number="${release.version}.${build.number.date}"/>
 		<!-- Spark -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="spark" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="spark" build-number="${release.version}.${build.number.date}"/>
     	<!-- sparkskins RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="sparkskins" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="sparkskins" build-number="${release.version}.${build.number.date}"/>
 		<!-- charts RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="charts" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="charts" build-number="${release.version}.${build.number.date}"/>
 		<!-- advancedgrids RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="advancedgrids" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="advancedgrids" build-number="${release.version}.${build.number.date}"/>
 		<!-- spark_dmv RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="spark_dmv" build-number="${release.version}.${build.number}"/>		
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="spark_dmv" build-number="${release.version}.${build.number.date}"/>		
 		<!-- apache RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="apache" build-number="${release.version}.${build.number}"/>		
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="apache" build-number="${release.version}.${build.number.date}"/>		
 		<!-- experimental RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="experimental" build-number="${release.version}.${build.number}"/>		
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="experimental" build-number="${release.version}.${build.number.date}"/>		
 	</target>
 
     <target name="other.locales" description="Build resource SWCs for additional locales">
@@ -967,7 +970,7 @@
                         value="&lt;warn-no-explicit-super-call-in-constructor&gt;false"/>
                     <replacefilter
                         token="$${build.number}"
-                        value="${release.version}.${build.number}"/>
+                        value="${release.version}.${build.number.date}"/>
                 </replace>
         </sequential>
     </macrodef>
@@ -1025,12 +1028,12 @@
 		<taskdef name="grep" classname="ise.antelope.tasks.Find"
                  classpathref="anttask.classpath"/>                 
 
-        <echo message="Updating all frameworks/projects/**/Version.as files with version ${release.version}.${build.number}"/>
+        <echo message="Updating all frameworks/projects/**/Version.as files with version ${release.version}.${build.number.date}"/>
 		
         <!-- Update all Version.as files in the kit frameworks directory-->
         <replaceregexp>
             <regexp pattern='"[0-9].[0-9].[0-9].[0-9]";'/>
-            <substitution expression='"${release.version}.${build.number}";'/>
+            <substitution expression='"${release.version}.${build.number.date}";'/>
             <fileset dir="${FLEX_HOME}/temp/frameworks/projects">
                 <include name="**/Version.as"/>
             </fileset>
