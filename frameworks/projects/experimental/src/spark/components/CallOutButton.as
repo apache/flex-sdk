@@ -28,11 +28,11 @@ package spark.components
 	import mx.utils.BitFlagUtil;
 	
 	import spark.components.Button;
-	import spark.components.supportClasses.DropDownController;
 	import spark.events.DropDownEvent;
 	import spark.events.PopUpEvent;
 	import spark.layouts.supportClasses.LayoutBase;
 	
+	import spark.components.supportClasses.CallOutDropDownController;
 	import spark.components.supportClasses.IDropDownContainer;
 	
 	use namespace mx_internal;
@@ -73,6 +73,8 @@ package spark.components
 		[SkinPart(required="false")]
 		public var dropDown:IFactory;
 		
+		public var topCallOut:CallOut;
+		public var subCallOut:CallOut;
 		
 		private var _callout:CallOut;
 		[Bindable("calloutChanged")]
@@ -115,7 +117,7 @@ package spark.components
 		[Inspectable(category="General", enumeration="rollOver,click", defaultValue="rollOver")] //mouseOver
 		public var triggerEvent:String = MouseEvent.ROLL_OVER;
 		
-		private var dropDownController:DropDownController;
+		private var dropDownController:CallOutDropDownController;
 		
 		//--------------------------------------------------------------------------
 		//
@@ -219,7 +221,7 @@ package spark.components
 		
 		override public function initialize():void
 		{
-			dropDownController = new DropDownController();
+			dropDownController = new CallOutDropDownController();
 			dropDownController.closeOnResize = false;
 			dropDownController.addEventListener(DropDownEvent.OPEN, handleDropDownOpen);
 			dropDownController.addEventListener(DropDownEvent.CLOSE, handleDropDownClose);
@@ -294,6 +296,10 @@ package spark.components
 			if (!callout) setCallout(createDynamicPartInstance("dropDown") as CallOut);
 			if (!callout) return;
 			
+			if(topCallOut != null)
+				if(topCallOut.owner != null)
+					(this.topCallOut.owner as CallOutButton).subCallOut = callout;
+			
 			addEventListener(Event.REMOVED_FROM_STAGE, handleButtonRemoved);
 			callout.open(this, false);
 		}
@@ -345,5 +351,9 @@ package spark.components
 			dropDownController.closeDropDown(false);
 		}
 		
+		public function updatePopUpPosition():void
+		{
+			callout.updatePopUpPosition();
+		}
 	}
 }
