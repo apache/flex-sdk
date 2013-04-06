@@ -24,7 +24,7 @@
     <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 
-    <property name="source.dir" value="${basedir}/${tlf.version}"/>
+    <property name="source.dir" value="${tlf.branch}"/>
 	<property name="output.file" value="${FLEX_HOME}/frameworks/libs/textLayout.swc"/>
 	<property name="output.docs" value="${FLEX_HOME}/tempDoc"/>
 	<property name="flexTasks.location" value="${FLEX_HOME}/lib/flexTasks.jar"/>
