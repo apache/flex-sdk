@@ -1212,9 +1212,9 @@ public class Grid extends Group implements IDataGridElement
      *  @see spark.components.gridClasses.GridDoubleClickMode
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @playerversion Flash 11.1
+     *  @playerversion AIR 3.4
+     *  @productversion Flex 4.10
      */
     public function get doubleClickMode():String
     {
