@@ -722,9 +722,9 @@ public class ListBase extends SkinnableDataContainer
      *  this method.  If false, caretIndex won't change.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion Flash 11.1
+     *  @playerversion AIR 3.4
+     *  @productversion Flex 4.10
      */
     public function setSelectedIndex(rowIndex:int, dispatchChangeEvent:Boolean = false, changeCaret:Boolean = true):void
     {

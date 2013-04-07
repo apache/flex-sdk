@@ -888,9 +888,9 @@ public class ComboBox extends DropDownListBase implements IIMESupport
      *  @copy spark.components.supportClasses.ListBase#setSelectedIndex()
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion Flash 11.1
+     *  @playerversion AIR 3.4
+     *  @productversion Flex 4.10
      */
     override public function setSelectedIndex(value:int, dispatchChangeEvent:Boolean = false, changeCaret:Boolean = true):void
     {
