@@ -740,17 +740,6 @@ public class NumericStepper extends Spinner
     /**
      *  @private
      */
-    override public function set value(newValue:Number):void
-    {
-    	if(isNaN(newValue))
-    		newValue = 0;
-    	
-    	super.value = newValue;
-    }
-
-    /**
-     *  @private
-     */
     override protected function setValue(newValue:Number):void
     {
         super.setValue(newValue);

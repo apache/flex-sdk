@@ -445,7 +445,10 @@ public class Range extends SkinnableComponent
      *  @productversion Flex 4
      */
     protected function nearestValidValue(value:Number, interval:Number):Number
-    { 
+    {
+		if(isNaN(value))
+			value = 0;
+		
         if (interval == 0)
             return Math.max(minimum, Math.min(maximum, value));
         
