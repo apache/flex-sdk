@@ -51,6 +51,7 @@ env.properties
 local.properties
 flex-sdk-description.xml
 packages.dita
+rat.report
 
 #OS junk files
 [Tt]humbs.db
