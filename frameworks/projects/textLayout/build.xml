@@ -129,10 +129,10 @@
 				<fat-swc locale="en_US"/>
 			</run.fat.swc>
 		</bundler>
-		<!--bundler locale="el_GR"/--><!-- Greek Language  resources -->
-		<!--bundler locale="en_AU"/--><!-- Australian resources -->
-		<!--bundler locale="en_GB"/--><!-- United Kingdom resources -->
-		<!--bundler locale="en_CA"/--><!-- Canadian resources -->
+		<bundler locale="el_GR"/><!-- Greek Language  resources -->
+		<bundler locale="en_AU"/><!-- Australian resources -->
+		<bundler locale="en_GB"/><!-- United Kingdom resources -->
+		<bundler locale="en_CA"/><!-- Canadian resources -->
 		<bundler locale="es_ES"/><!-- Spanish resources -->
 		<bundler locale="fi_FI"/><!--  Finnish resources-->
 		<bundler locale="fr_FR"><!-- French resources -->
@@ -150,7 +150,7 @@
 		<bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
 		<bundler locale="nl_NL"/><!-- Dutch resources -->
 		<bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
-		<!--bundler locale="pt_PT"/--><!-- Portugal Portuguese resources -->
+		<bundler locale="pt_PT" /><!-- Portugal Portuguese resources -->
 		<bundler locale="ru_RU"><!-- Russian resources -->
 			<run.fat.swc>
 				<fat-swc locale="ru_RU"/>
