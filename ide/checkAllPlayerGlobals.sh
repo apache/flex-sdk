@@ -77,7 +77,7 @@ agreeLicense()
 
 downloadPlayerGlobal()
 {
-	version=$1
+    version=$1
     playerGlobalDir="${IDE_SDK_DIR}/frameworks/libs/player/${version}"
     playerGlobalSWC="${playerGlobalDir}/playerglobal.swc"
     MD5check=$2
@@ -99,6 +99,8 @@ downloadPlayerGlobal()
 		echo MD5 hash correct
 	else
 		echo MD5 hash incorrect
+            echo Downloading player global ${version}
+            curl ${AdobeURL} > "${playerGlobalSWC}"
 	fi
 }
 
