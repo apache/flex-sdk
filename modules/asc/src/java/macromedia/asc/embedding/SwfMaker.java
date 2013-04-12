@@ -31,6 +31,7 @@ public class SwfMaker
 	public static final int stagFileAttributes	= 69;
 	public static final int stagDoABC           = 72;
 	public static final int stagSymbolClass     = 76;
+	public static final int stagEnableTelemetry	= 93;
 
 
 	// Flags for stagFileAttributes
