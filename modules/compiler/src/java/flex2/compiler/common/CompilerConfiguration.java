@@ -3259,6 +3259,27 @@ public class CompilerConfiguration implements As3Configuration,
         };
     }
     
+    //
+    // 'compiler.advanced-telemetry' option
+    //
+
+    private boolean advancedTelemetry;
+
+    public boolean getAdvancedTelemetry()
+    {
+        return advancedTelemetry;
+    }
+
+    public void setAdvancedTelemetry(boolean accessible)
+    {
+        this.advancedTelemetry = advancedTelemetry;
+    }
+
+    public void cfgAdvancedTelemetry( ConfigurationValue cv, boolean advancedTelemetry )
+    {
+        this.advancedTelemetry = advancedTelemetry;
+    }
+    
     @Override
     public Object clone()
         throws CloneNotSupportedException
