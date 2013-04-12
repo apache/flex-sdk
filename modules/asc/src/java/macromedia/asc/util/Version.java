@@ -19,27 +19,61 @@
 
 package macromedia.asc.util;
 
-// build version info
+import java.io.InputStream;
+import java.io.IOException;
+import java.util.Properties;
 
-// build number counts 1-n for development builds, and restarts at 1-n for release builds
+/**
+ * Version information for the asc tool.
+ */
+public class Version
+{
+    private static final String VERSION = "1.0";
 
-// the visible build code d for development, r for release candidate
+    /**
+     * The version string displayed in the asc help.
+     */
+    public static String getVersion()
+    {
+        return VERSION;
+    }
 
-public class Version {
-    public static final String ASC_BUILD_CODE ="cyclone";
+    /**
+     * The build string displayed in the asc help.
+     */
+    public static String getBuild()
+    {
+        String build = "cyclone";
 
-    public static final String ASC_VERSION_USER = "1.0";
+        // Read the build number out of the version.properties file.
+        InputStream in = null;
+        try
+        {
+            in = Version.class.getResourceAsStream("version.properties");
+            if (in != null)
+            {
+                Properties p = new Properties();
+                p.load(in);                
+                build = p.getProperty("build");
+            }
+        }
+        catch (Throwable t)
+        {
+        }
+        finally
+        {
+            if (in != null)
+            {
+                try
+                {
+                    in.close();
+                }
+                catch (IOException ex)
+                {
+                }
+            }
+        }
 
-    // Version codes
-    // Major version, minor version, build number high order value, build number low order value
-    public static final String ASC_VERSION_NUMBER = "1,0,0,100";
-    public static final String ASC_VERSION_STRING = "1,0,0,100";
-    public static final int ASC_MAJOR_VERSION = 1;
-    public static final int ASC_MINOR_VERSION = 0;
-    public static final int ASC_BUILD_NUMBER = 0;
-
-    // Define Mac only resource change to 'vers' resource so that player installer will
-    // replace previous player versions
-    public static final int ASC_MAC_RESOURCE_MINOR_VERSION	= 0x00;
+        return build;
+    }
 }
-
