@@ -264,6 +264,15 @@ public class MovieDecoder extends TagHandler
 		}
 		m.fileAttributes = tag;
 	}
+    
+    public void enableTelemetry(EnableTelemetry tag)
+	{
+		if (m.enableTelemetry != null)
+		{
+			error("duplicate EnableTelemetry");
+		}
+		m.enableTelemetry = tag;
+	}
 
 	public void defineButtonCxform(DefineButtonCxform tag)
 	{
