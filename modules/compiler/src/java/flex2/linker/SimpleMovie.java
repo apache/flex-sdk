@@ -121,12 +121,17 @@ public class SimpleMovie extends Movie
         if (version >= 8)
         {
             fileAttributes = new FileAttributes();
-            fileAttributes.actionScript3 = (version >= 9);
+            enableTelemetry = new EnableTelemetry();
+            fileAttributes.actionScript3 = (version >= 9);    
 
             if (configuration.useNetwork())
             {
                 fileAttributes.useNetwork = true;
 	            fileAttributes.actionScript3 = (version >= 9);
+            }
+            
+            if (configuration.getAdvancedTelemetry()) {
+            	enableTelemetry.enabled = true;
             }
             
             fileAttributes.useDirectBlit = configuration.getUseDirectBlit();
