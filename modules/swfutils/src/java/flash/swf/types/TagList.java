@@ -375,4 +375,9 @@ public class TagList extends TagHandler
     {
         tags.add(tag);
     }
+    
+    public void enableTelemetry(EnableTelemetry tag)
+    {
+        tags.add(tag);
+    }
 }
