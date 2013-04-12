@@ -235,6 +235,14 @@ public final class SwfxPrinter extends TagHandler
 		}
 		
 		
+		public void enableTelemetry(EnableTelemetry tag)
+		{
+			open(tag);
+			out.print(" advancedTelemetry='" + tag.enabled + "'");
+			close();
+		}
+		
+		
 		private final PrintWriter out;
 		
 		private Dictionary dict;
