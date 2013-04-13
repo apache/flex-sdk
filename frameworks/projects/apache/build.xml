@@ -144,7 +144,7 @@
 				<include name="bundles.properties"/>
 			    <include name="bundles/en_US/packages.dita"/>
 			</fileset>
-			<fileset dir="${FLEX_HOME}/frameworks/libs/apache">
+			<fileset dir="${FLEX_HOME}/frameworks/libs">
 				<include name="apache.swc"/>
 				<include name="apache.swc.incr"/>
 			</fileset>

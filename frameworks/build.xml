@@ -230,6 +230,7 @@
     </target>
     
     <target name="clean" depends="automation-clean,airsdk-clean" description="Cleans all SWCs and their resource bundles">
+        <delete file="${basedir}/flex-config.xml"/>
         <!-- Delete output from SWC projects -->
         <ant dir="${basedir}/projects/textLayout" target="clean"/>
         <ant dir="${basedir}/projects/framework" target="clean"/>
@@ -260,6 +261,7 @@
             </fileset>
         </delete> 
         <!-- Delete empty folders -->
+        <delete dir="${basedir}/libs"/>
         <delete dir="${basedir}/locale">
             <exclude name="**/metadata.properties"/>
         </delete>

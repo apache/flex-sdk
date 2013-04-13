@@ -218,6 +218,7 @@
 			<fileset file="${root.dir}/lib/global.abc"/>
 		</delete>
 		<delete dir="${basedir}/classes" failonerror="false"/>
+        <delete dir="${lib.dir}"/>
 	</target>
 	<target name="with.clover">
 		<taskdef resource="cloverlib.xml" classpath="${clover.jar}"/>

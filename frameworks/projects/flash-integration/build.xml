@@ -92,6 +92,7 @@
 				<include name="flash-integration.swc.incr"/>
 			</fileset>
 			<fileset dir="${FLEX_HOME}/frameworks/flash-integration"/>
+			<fileset dir="${FLEX_HOME}/frameworks/projects/flash-integration/libs"/>
 		</delete>
 	</target>
 	

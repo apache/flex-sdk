@@ -900,6 +900,7 @@
                 <include name="*.log"/>
             </fileset>
         </delete>
+        <delete dir="${tmp.dir}"/>
     </target>
 
     <condition property="copy_adt_jar" value="true" >

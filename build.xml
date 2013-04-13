@@ -290,11 +290,14 @@
             <include name="nai/**"/>
             <include name="win/**"/>
         </delete>
+        <delete dir="${basedir}/in"/>
+        <delete dir="${basedir}/lib"/>
         <delete dir="${basedir}/out" failonerror="false" includeEmptyDirs="true"/>
         <delete dir="${basedir}/temp" failonerror="false" includeEmptyDirs="true"/>
         <delete dir="${basedir}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
         <ant dir="${basedir}/asdoc" target="clean" />
         <ant dir="${basedir}/ide/flashbuilder" target="clean" />
+        <ant dir="${basedir}/mustella" target="clean"/>
     </target>
 
     <target name="modules-clean">
