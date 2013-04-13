@@ -24,6 +24,7 @@ build.log
 release
 out
 gen
+frameworks/flex-config.xml
 
 #Apache Flex Projects
 lib/
