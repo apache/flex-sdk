@@ -55,6 +55,7 @@ local.properties
 flex-sdk-description.xml
 packages.dita
 rat.report
+airsdk.xml
 
 #OS junk files
 [Tt]humbs.db
