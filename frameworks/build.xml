@@ -313,6 +313,7 @@
         </delete>
         <delete includeEmptyDirs="true" failonerror="false">
             <fileset dir="${FLEX_HOME}/templates">
+            	<include name="sdk/**" />
                 <include name="air/**" />
                 <include name="extensions/**" />
             </fileset>
