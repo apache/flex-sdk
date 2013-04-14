@@ -25,6 +25,8 @@ release
 out
 gen
 frameworks/flex-config.xml
+frameworks/air-config.xml
+frameworks/airconfig-config.xml
 
 #Apache Flex Projects
 lib/
