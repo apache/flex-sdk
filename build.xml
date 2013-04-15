@@ -90,7 +90,7 @@
         description="Creates source and binary kits for Apache Flex."/>
         
     <target name="source-release" 
-        depends="super-clean,create-description,source-package" 
+        depends="super-clean,create-description,create-config,source-package" 
         description="Packages the source release kit which is the official Apache release."/>
         
     <target name="binary-release" 
@@ -247,6 +247,10 @@
 &lt;build&gt;${build.number.date}&lt;/build&gt;
 &lt;/flex-sdk-description&gt;
         </echo>
+    </target>
+	
+    <target name="create-config" description="Create flex config file">
+        <ant dir="${basedir}/frameworks" target="flex-config" />
     </target>
 	
 	<target name="build-properties">
