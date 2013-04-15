@@ -26,7 +26,7 @@ out
 gen
 frameworks/flex-config.xml
 frameworks/air-config.xml
-frameworks/airconfig-config.xml
+frameworks/airmobile-config.xml
 
 #Apache Flex Projects
 lib/
