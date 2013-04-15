@@ -120,7 +120,7 @@
 	    <property name="build.noprompt" value="set" />
     </target>
 
-    <target name="prebuild" depends="check-compile-env,thirdparty-downloads,create-description" 
+    <target name="prebuild" depends="check-compile-env,thirdparty-downloads,create-description,build-properties" 
         description="Stuff that needs to be done before any builds." />
 
     <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-pixelbender-home"
@@ -248,6 +248,12 @@
 &lt;/flex-sdk-description&gt;
         </echo>
     </target>
+	
+	<target name="build-properties">
+        <copy overwrite="false" failonerror="true" verbose="true"
+			file="${basedir}/build.properties.template" 
+            tofile="${basedir}/build.properties" />
+	</target>
 
     <target name="setup-binary-release" depends="thirdparty-clean"
         description="Set properties needed to turn on features for release sdk">       
