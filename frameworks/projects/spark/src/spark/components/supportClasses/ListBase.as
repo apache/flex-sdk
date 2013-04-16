@@ -1322,6 +1322,10 @@ public class ListBase extends SkinnableDataContainer
                 // The event was cancelled. Cancel the selection change and return.
                 itemSelected(_proposedSelectedIndex, false);
                 _proposedSelectedIndex = NO_PROPOSED_SELECTION;
+
+                //Reset back to false to resolve selectedIndex
+                dispatchChangeAfterSelection = false;
+
                 return false;
             }
         }
