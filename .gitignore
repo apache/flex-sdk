@@ -27,7 +27,7 @@ gen
 frameworks/flex-config.xml
 frameworks/air-config.xml
 frameworks/airmobile-config.xml
-build.properties
+local.properties
 
 #Apache Flex Projects
 lib/
