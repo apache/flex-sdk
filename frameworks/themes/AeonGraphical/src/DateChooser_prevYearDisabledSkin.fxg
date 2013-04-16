@@ -17,13 +17,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<Graphic flm:originalName="DateChooser/DateChooser_selectionIndicatorSkin" version="2.0" afx:className="DateChooser_selectionIndicatorSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+<Graphic flm:originalName="DateChooser/DateChooser_prevYearDisabledSkin" version="2.0" afx:className="DateChooser_prevYearDisabledSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
   <Group>
     <Group aaa:type="layer" aaa:userLabel="Layer 1" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
+      <Path data="M12 0 12 12 0 12 0 0 12 0">
+        <fill>
+          <SolidColor color="#5A6165" alpha="0"/>
+        </fill>
+      </Path>
       <Group>
-        <Path data="M19.975 20 -0.025 20 -0.025 0 19.975 0 19.975 20">
+        <Path x="-672.55" y="-1056" data="M676.525 1058 675.525 1058 675.525 1057 674.525 1057 674.525 1056 681.5 1056 681.5 1057 680.5 1057 680.5 1058 679.525 1058 679.525 1059 678.525 1059 678.525 1060 677.525 1060 677.525 1059 676.525 1059 676.525 1058">
           <fill>
-            <SolidColor color="#9AD8FF"/>
+            <SolidColor alpha="0.3019608"/>
           </fill>
         </Path>
       </Group>

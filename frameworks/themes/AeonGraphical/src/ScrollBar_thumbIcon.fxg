@@ -17,16 +17,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<Graphic flm:originalName="DateChooser/DateChooser_selectionIndicatorSkin" version="2.0" afx:className="DateChooser_selectionIndicatorSkin" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
+<Graphic flm:originalName="Scrollbars/ScrollBar_thumbIcon" version="2.0" afx:className="ScrollBar_thumbIcon" afx:baseClassName="flash.display.Sprite" xmlns:afx="http://ns.apache.org/flex/2012" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
   <Group>
     <Group aaa:type="layer" aaa:userLabel="Layer 1" xmlns:aaa="http://ns.adobe.com/fxg/2008/dt">
-      <Group>
-        <Path data="M19.975 20 -0.025 20 -0.025 0 19.975 0 19.975 20">
-          <fill>
-            <SolidColor color="#9AD8FF"/>
-          </fill>
-        </Path>
-      </Group>
+      <Path x="-1" data="M5 3 0 3 0 2 5 2 5 3M5 1 0 1 0 0 5 0 5 1M0 4 5 4 5 5 0 5 0 4M5 6 5 7 0 7 0 6 5 6">
+        <fill>
+          <SolidColor color="#5A6165"/>
+        </fill>
+      </Path>
     </Group>
   </Group>
 </Graphic>

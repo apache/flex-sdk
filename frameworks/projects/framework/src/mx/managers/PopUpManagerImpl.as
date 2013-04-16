@@ -776,7 +776,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         // trace("createModalWindow: drawing modal " + s);
         g.clear();
         g.beginFill(c, 100);
-        g.drawRect(screen.x, screen.y, screen.width, screen.height);
+		g.drawRect(screen.x-1, screen.y-1, screen.width+2, screen.height+2);
         g.endFill();
 
         if (hasEventListener("updateModalMask"))
