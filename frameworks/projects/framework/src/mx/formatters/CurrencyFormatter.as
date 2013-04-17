@@ -724,8 +724,13 @@ public class CurrencyFormatter extends Formatter
         	// Handle leading zero if we got one give one if not don't
         	var position:Number = numStr.indexOf(".");
         	var leading:String = position > 0 ? "0" : "";
-            numStr = leading + decimalSeparatorTo +
-					 numStr.substring(position + 1);
+			
+			// must be zero ("0") if no "." and >= 0 and < 1
+			if (position != -1)
+			{
+	            numStr = leading + decimalSeparatorTo +
+						 numStr.substring(position + 1);
+			}
         }
         
         numStr = dataFormatter.formatPrecision(numStr, int(precision));
