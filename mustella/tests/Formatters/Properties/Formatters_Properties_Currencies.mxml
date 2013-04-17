@@ -50,6 +50,15 @@
 	public function FormatCurrencyMinusZero():void{
 		application.ti.text= application.cf.format("-0");
 	}
+	public function FormatCurrencyUnderOne():void{
+		application.ti.text= application.cf.format(0.98765);
+	}
+	public function FormatCurrencyNegativeUnderOne():void{
+		application.ti.text= application.cf.format(-0.98765);
+	}
+	public function FormatCurrencyZeroPadding():void{
+		application.ti.text= application.cf.format("000000000.98765");
+	}
     public function FormatCurrencySimple():void{
         application.ti.text= application.cf.format(98765);
     }
@@ -161,7 +170,37 @@
 			<body>
 				<AssertPropertyValue target="ti" propertyName="text" value="$0.000" />
 			</body>
+		</TestCase>	
+		<TestCase testID="Formatters_Currency_Under_One" description="Test the properties of Currency Formatters." keywords="[Simple, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+				<RunCode code="FormatCurrencyUnderOne();" waitEvent="updateComplete" waitTarget="ti"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="ti" propertyName="text" value="$0.988" />
+			</body>
 		</TestCase>
+		<TestCase testID="Formatters_Currency_Negative_Under_One" description="Test the properties of Currency Formatters." keywords="[Simple, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+				<RunCode code="FormatCurrencyNegativeUnderOne();" waitEvent="updateComplete" waitTarget="ti"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="ti" propertyName="text" value="-$0.987" />
+			</body>
+		</TestCase>
+		<TestCase testID="Formatters_Currency_Zero_padding" description="Test the properties of Currency Formatters." keywords="[Simple, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+				<RunCode code="FormatCurrencyZeroPadding();" waitEvent="updateComplete" waitTarget="ti"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="ti" propertyName="text" value="$0.988" />
+			</body>
+		</TestCase>	
 		<TestCase testID="Formatters_Currency_Simple" description="Test the properties of Currency Formatters." keywords="[Simple, Currency, Formatter]">
 			<setup>
 				<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
