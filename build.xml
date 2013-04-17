@@ -133,7 +133,7 @@
     <target name="prebuild" depends="check-compile-env,thirdparty-downloads,create-description" 
         description="Stuff that needs to be done before any builds." />
 
-    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-pixelbender-home"
+    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-pixelbender-home,check-tlf-home"
         description="Check for the required environment variables for compilation.">
             <echo>OS: ${os.name} / ${os.version} / ${os.arch}</echo>
             <echo>VM: ${java.vm.name} / ${java.vm.version}</echo>
@@ -212,6 +212,19 @@
 
         <fail message="The directory ${env.PIXELBENDER_HOME} does not contain the pbutil executable" 
             unless="pbutil.exe.exists"/>
+    </target>
+
+    <target name="check-tlf-home" unless="TLF_HOME.set"
+        description="Check TLF_HOME is a directory.">
+        
+        <echo message="TLF_HOME is ${env.TLF_HOME}"/>
+
+        <available file="${env.TLF_HOME}" 
+            type="dir" 
+            property="TLF_HOME.set"/>
+
+        <fail message="TLF_HOME must be set correctly for a release build" 
+            unless="TLF_HOME.set"/>
     </target>
 
     <target name="check-adobe-extension-manager-env" unless="ADOBE_EXTENSION_MANAGER.set"
