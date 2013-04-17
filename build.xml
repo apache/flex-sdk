@@ -225,6 +225,8 @@
 
         <fail message="TLF_HOME must be set correctly for a release build" 
             unless="TLF_HOME.set"/>
+    	
+    	<property name="TLF_HOME" value="${env.TLF_HOME}"/>
     </target>
 
     <target name="check-adobe-extension-manager-env" unless="ADOBE_EXTENSION_MANAGER.set"
