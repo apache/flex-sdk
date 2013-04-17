@@ -104,7 +104,7 @@ curl "$ADOBE_FLASHPLAYER_GLOBALPLAYER_SWC_URL" --output "$FLEX_HOME/frameworks/l
 
 # copy the config files formatted for Flash Builder to frameworks 
 echo "Installing the frameworks config files configured for use with Adobe Flash Builder"
-cp -p -v "$FLEX_HOME"/ide/flashbuilder/config/*-config.xml "$FLEX_HOME/frameworks"
+cp -p -v "$FLEX_HOME/ide/flashbuilder/config/*-config.xml" "$FLEX_HOME/frameworks"
 
 # remove the zipped kits
 rm -rf "$tempDir"
