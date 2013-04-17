@@ -44,6 +44,22 @@ Getting the latest sources via git
 	cd sdk
 	git checkout develop
 
+    An Apache Flex SDK also includes source code from other Apache Flex git
+    repositories.  To get the latest source via git for the Text Layout Framework
+    use the following command:
+
+	git clone https://git-wip-us.apache.org/repos/asf/flex-tlf.git tlf
+
+    In an Apache Flex source code package hosted on the distribution server or
+    one of its mirrors, the Text Layout Framework code is already included in
+    the package.  THis is also true for the convenience package.
+
+    The build scripts assume that the tlf folder is a sibling of the sdk folder.  If
+    this is not true, then set the TLF_HOME environment variable to point to the
+    tlf folder.  Instead of setting an environment variable you may also set it in
+    env.properties.  See the "Install Prerequisites" section for more information
+    on environment variables and env.properties.
+
     For further information visit http://flex.apache.org/download-source.html
 
 

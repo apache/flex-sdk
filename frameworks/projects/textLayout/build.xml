@@ -22,9 +22,9 @@
 	
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
+	<property file="${FLEX_HOME}/local.properties"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 
-    <property name="source.dir" value="${tlf.branch}"/>
 	<property name="output.file" value="${FLEX_HOME}/frameworks/libs/textLayout.swc"/>
 	<property name="output.docs" value="${FLEX_HOME}/tempDoc"/>
 	<property name="flexTasks.location" value="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -32,17 +32,22 @@
 
     <available file="${FLEX_HOME}/../flex-tlf/textLayout" 
             type="dir" 
-            property="tlf.branch"
-            value="${FLEX_HOME}/../flex-tlf/textLayout" />
+            property="TLF_HOME"
+            value="${FLEX_HOME}/../flex-tlf" />
 
     <available file="${FLEX_HOME}/../tlf/textLayout" 
             type="dir" 
-            property="tlf.branch"
-            value="${FLEX_HOME}/../tlf/textLayout" />
+            property="TLF_HOME"
+            value="${FLEX_HOME}/../tlf" />
 
-    <available file="${source.dir}" 
+    <available file="src" 
             type="dir" 
             property="src.folder.exists"/>
+
+    <available file="src" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${FLEX_HOME}/frameworks/projects" />
 
     <!-- We use abbreviated token names here as, the 'release' 
          and 'debug' tokens conflict with those specified in 
@@ -76,9 +81,9 @@
 		<attribute name="locale"/>
 		<sequential>
 			<echo message="creating 'fat-swc' in textLayout_rb.swc for @{locale}"/>
-			<mkdir dir="${tlf.branch}/bundles/@{locale}/docs" />
+			<mkdir dir="bundles/@{locale}/docs" />
 			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/textLayout_rb.swc" update="true">
-				<zipfileset dir="${tlf.branch}/bundles/@{locale}/docs" prefix="docs">
+				<zipfileset dir="bundles/@{locale}/docs" prefix="docs">
 					<include name="*.*"/>
 					<exclude name="ASDoc_Config.xml"/>
 					<exclude name="overviews.xml"/>
@@ -195,20 +200,20 @@
             <load-config filename="compile-config.xml" />
             <arg value="+playerglobal.version=${playerglobal.version}" />
             <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
-            <arg value="+source.dir=${tlf.branch}" />
+            <!--<arg value="+source.dir=${tlf.branch}" />-->
             <define name="CONFIG::debug" value="${dbg}"/>
 			<define name="CONFIG::release" value="${rel}"/>
         </compc>
      </target>
 
     <target name="compile.external" description="Compile textLayout.swc in flex-tlf repo" unless="src.folder.exists">
-        <ant dir="${tlf.branch}/.." target="textLayout_flex"/>
-        <copy file="${tlf.branch}/../bin/textLayout.swc" toDir="${FLEX_HOME}/frameworks/libs" />
+        <ant dir="${TLF_HOME}" target="textLayout_flex"/>
+        <copy file="${TLF_HOME}/bin/textLayout.swc" toDir="${FLEX_HOME}/frameworks/libs" />
     </target>
     
     <target name="clean-external" description="clean in flex-tlf repo" unless="src.folder.exists">
-        <echo message="cleaning ${tlf.branch}" />
-        <ant dir="${tlf.branch}/.." target="clean"/>
+        <echo message="cleaning ${TLF_HOME}" />
+        <ant dir="${TLF_HOME}" target="clean"/>
     </target>
 
     <target name="clean-temp-docs">
@@ -238,13 +243,13 @@
 
         <!-- Call asdoc to generate dita xml files -->
         <asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
-            <compiler.source-path path-element="${tlf.branch}/src"/>
+            <compiler.source-path path-element="${TLF_HOME}/textLayout/src"/>
 			<compiler.show-actionscript-warnings>false</compiler.show-actionscript-warnings>
 			<doc-classes class="flashx.textLayout.CoreClasses"/>
 			<doc-classes class="flashx.textLayout.EditClasses"/>
 			<doc-classes class="flashx.textLayout.ConversionClasses"/>
             <doc-namespaces uri="library://ns.adobe.com/flashx/textLayout"/>
-            <namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${tlf.branch}/manifest.xml"/>
+            <namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${TLF_HOME}/textLayout/manifest.xml"/>
             <jvmarg line="${asdoc.jvm.args}"/>
 			<static-link-runtime-shared-libraries/>
 			<define name="CONFIG::debug" value="${dbg}"/>

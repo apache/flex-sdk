@@ -47,6 +47,16 @@
     <property name="source.kit" value="${kit.prefix}-src"/>
     <property name="binary.kit" value="${kit.prefix}-bin"/>
       
+    <available file="${FLEX_HOME}/../flex-tlf/textLayout" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${FLEX_HOME}/../flex-tlf" />
+
+    <available file="${FLEX_HOME}/../tlf/textLayout" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${FLEX_HOME}/../tlf" />
+
     <!-- 
         Optional jars but should be in place for a real release build.
         
@@ -120,7 +130,7 @@
 	    <property name="build.noprompt" value="set" />
     </target>
 
-    <target name="prebuild" depends="check-compile-env,thirdparty-downloads,create-description,build-properties" 
+    <target name="prebuild" depends="check-compile-env,thirdparty-downloads,create-description" 
         description="Stuff that needs to be done before any builds." />
 
     <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-pixelbender-home"
@@ -253,12 +263,6 @@
         <ant dir="${basedir}/frameworks" target="flex-config" />
     </target>
 	
-	<target name="build-properties">
-        <copy overwrite="false" failonerror="true" verbose="true"
-			file="${basedir}/build.properties.template" 
-            tofile="${basedir}/build.properties" />
-	</target>
-
     <target name="setup-binary-release" depends="thirdparty-clean"
         description="Set properties needed to turn on features for release sdk">       
 	    <!-- 
@@ -545,6 +549,9 @@
         <!-- frameworks -->
         <antcall target="stage-frameworks"/>
 
+        <!-- tlf -->
+        <antcall target="stage-tlf"/>
+
         <!-- modules -->
         <antcall target="stage-modules"/>
         
@@ -662,6 +669,16 @@
         <copy todir="${basedir}/temp/frameworks" includeEmptyDirs="false">
             <fileset dir="${basedir}/frameworks">
                 <include name="test*/**"/>
+            </fileset>
+        </copy>
+    </target>
+    
+    <!-- tlf -->
+    <target name="stage-tlf">
+        <copy todir="${basedir}/temp/frameworks/projects/textLayout" includeEmptyDirs="false">
+            <fileset dir="${TLF_HOME}/textLayout">
+                <include name="src/**"/>
+                <include name="manifest.xml"/>
             </fileset>
         </copy>
     </target>
