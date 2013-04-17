@@ -40,7 +40,16 @@
     import mx.controls.TextInput;
     import mx.formatters.CurrencyFormatter;
     import mx.managers.SystemManager;
-    
+ 
+	public function FormatCurrencyZero():void{
+		application.ti.text= application.cf.format(0);
+	}
+	public function FormatCurrencyZeroPointZero():void{
+		application.ti.text= application.cf.format("0.0");
+	}
+	public function FormatCurrencyMinusZero():void{
+		application.ti.text= application.cf.format("-0");
+	}
     public function FormatCurrencySimple():void{
         application.ti.text= application.cf.format(98765);
     }
@@ -123,16 +132,46 @@
     </mx:Script>
 
     <testCases>
-        <TestCase testID="Formatters_Currency" description="Test the properties of Currency Formatters." keywords="[Simple, Currency, Formatter]">
-            <setup>
-                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
-                <RunCode code="FormatCurrencySimple();" waitEvent="updateComplete" waitTarget="ti"/>
-                
-            </setup>
-            <body>
-                <AssertPropertyValue target="ti" propertyName="text" value="$98,765.000" />
-            </body>
-        </TestCase>
+		<TestCase testID="Formatters_Currency_Zero" description="Test the properties of Currency Formatters." keywords="[Simple, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+				<RunCode code="FormatCurrencyZero();" waitEvent="updateComplete" waitTarget="ti"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="ti" propertyName="text" value="$0.000" />
+			</body>
+		</TestCase>
+		<TestCase testID="Formatters_Currency_Zero_Point_Zero" description="Test the properties of Currency Formatters." keywords="[Simple, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+				<RunCode code="FormatCurrencyZeroPointZero();" waitEvent="updateComplete" waitTarget="ti"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="ti" propertyName="text" value="$0.000" />
+			</body>
+		</TestCase>
+		<TestCase testID="Formatters_Currency_Minus_Zero" description="Test the properties of Currency Formatters." keywords="[Simple, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+				<RunCode code="FormatCurrencyMinusZero();" waitEvent="updateComplete" waitTarget="ti"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="ti" propertyName="text" value="$0.000" />
+			</body>
+		</TestCase>
+		<TestCase testID="Formatters_Currency_Simple" description="Test the properties of Currency Formatters." keywords="[Simple, Currency, Formatter]">
+			<setup>
+				<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+				<RunCode code="FormatCurrencySimple();" waitEvent="updateComplete" waitTarget="ti"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="ti" propertyName="text" value="$98,765.000" />
+			</body>
+		</TestCase>
         <TestCase testID="Formatters_Currency_currencySymbol" description="Test the properties of Currency Formatters." keywords="[currencySymbol, inline, Currency, Formatter]">
             <setup>
                 <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
