@@ -1497,10 +1497,17 @@ public class ListBase extends SkinnableDataContainer
      */
     mx_internal function dataProviderRefreshed():void
     {
-        selectedItem = undefined;
-        setSelectedIndex(NO_SELECTION, false);
-        // TODO (rfrishbe): probably don't need the setCurrentCaretIndex below
-        setCurrentCaretIndex(NO_CARET);
+        if (requireSelection == true)
+        {
+            setSelectedIndex(0, false);
+        }
+        else
+        {
+            selectedItem = undefined;
+            setSelectedIndex(NO_SELECTION, false);
+            // TODO (rfrishbe): probably don't need the setCurrentCaretIndex below
+            setCurrentCaretIndex(NO_CARET);
+        }
     }
     
     /**
