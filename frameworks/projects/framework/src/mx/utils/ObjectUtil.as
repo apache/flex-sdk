@@ -325,7 +325,10 @@ public class ObjectUtil
      *  -1 if <code>a</code> is before <code>b</code>
      *  (or <code>b</code> is <code>null</code>);
      *  1 if <code>a</code> is after <code>b</code>
-     *  (or <code>a</code> is <code>null</code>).     
+     *  (or <code>a</code> is <code>null</code>);
+	 *  0 is both dates getTime's are NaN;
+     *  1 if only <code>a</code> getTime is a NaN;
+     *  -1 if only <code>b</code> getTime is a NaN.    
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
