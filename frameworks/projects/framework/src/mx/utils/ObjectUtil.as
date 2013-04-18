@@ -351,6 +351,15 @@ public class ObjectUtil
 
         if (na > nb)
             return 1;
+		
+		if (isNaN(na) && isNaN(nb))
+			return 0;
+		
+		if (isNaN(na))
+			return 1;
+		
+		if (isNaN(nb))
+			return -1;
 
         return 0;
     }
