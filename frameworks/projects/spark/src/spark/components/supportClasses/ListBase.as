@@ -1497,7 +1497,7 @@ public class ListBase extends SkinnableDataContainer
      */
     mx_internal function dataProviderRefreshed():void
     {
-        if (requireSelection == true)
+        if (dataProvider && dataProvider.length > 0 && requireSelection == true)
         {
             setSelectedIndex(0, false);
         }
