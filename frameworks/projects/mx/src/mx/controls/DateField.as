@@ -465,7 +465,12 @@ public class DateField extends ComboBase
 		var dateParts:Array = [];
 		var maskParts:Array = [];
         var part:int = 0;
-		var length:int = valueString.length;
+		var length:int;
+		
+		if (valueString == null || inputFormat == null)
+			return null;
+		
+		length = valueString.length;
 		
 		dateParts[part] = "";
         for (var i:int = 0; i < length; i++)
@@ -572,16 +577,14 @@ public class DateField extends ComboBase
     {
 		var maskChar:String;
 		var maskParts:Array = [];
-		var part:int = 0;
-		var length:int = outputFormat.length;
+		var part:int = -1;
+		var length:int;
+		var lastChar:String;
 		
-		if (!value || isNaN(value.getTime()))
+		if (!value || isNaN(value.getTime()) || !outputFormat)
 			return "";
 		
 		length = outputFormat.length;
-		part = -1;
-
-		var lastChar:String;
 		
 		for (var i:int = 0; i < length; i++)
 		{
