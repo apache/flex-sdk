@@ -173,8 +173,10 @@ Install Prerequisites
         and 11.5 on Windows and Mac. It has been compiled against other Adobe Flash Player
         versions but has not been fully tested.
             
-        On Windows, set FLASHPLAYER_DEBUGGER to the absolute path of FlashPlayerDebugger.exe
-        
+        On Windows, set FLASHPLAYER_DEBUGGER to the absolute path including the filename of
+        the FlashPlayerDebugger.exe.  Note the filename of flash player debugger maybe different.
+           e.g. C:\MyPath\FlashPlayerDebugger.exe
+
         On the Mac, set FLASHPLAYER_DEBUGGER to the absolute path of 
         Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger
         
