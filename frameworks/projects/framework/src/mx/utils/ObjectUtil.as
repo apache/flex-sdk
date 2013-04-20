@@ -1134,7 +1134,8 @@ public class ObjectUtil
         }
 
         // For normal, non-dynamic classes we cache the class info
-        if (!dynamic)
+		// Don't cache XML as it can be dynamic
+        if (!dynamic && className != "XML")
         {
             cacheKey = getCacheKey(obj, excludes, options);
             CLASS_INFO_CACHE[cacheKey] = result;
