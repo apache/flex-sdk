@@ -194,7 +194,7 @@ use namespace mx_internal;
  *  overhead to a minimum, pooled and recycled.</p>
  *
  *  <p>The Grid control supports a doubleClick event, according the <code>doubleClickMode</code>
- *  property.  
+ *  property.</p>
  * 
  *  <p>The Grid control supports selection, according the <code>selectionMode</code>
  *  property.  The set of selected row or cell indices can be modified or
@@ -212,7 +212,7 @@ use namespace mx_internal;
  *  <p>The Grid control supports smooth scrolling.  
  *  Their vertical and horizontal scroll positions define the pixel origin 
  *  of the visible part of the grid and the grid's layout only displays 
- *  as many cell item renderers as are needed to fill the available space.  </p>
+ *  as many cell item renderers as are needed to fill the available space.</p>
  *
  *  <p>The Grid control supports variable height rows that automatically compute 
  *  their height based on the item renderers' contents.  
@@ -1279,9 +1279,9 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
      *  @see spark.components.gridClasses.GridDoubleClickMode
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @playerversion Flash 11.1
+     *  @playerversion AIR 3.4
+     *  @productversion Flex 4.10
      */
     public function get doubleClickMode():String
     {
