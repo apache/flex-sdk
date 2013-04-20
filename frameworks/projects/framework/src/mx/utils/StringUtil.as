@@ -134,6 +134,12 @@ public class StringUtil
             case "\r":
             case "\n":
             case "\f":
+			// non breaking space
+			case "\u00A0":
+			// line seperator
+			case "\u2028":
+			// paragraph seperator
+			case "\u2029":
                 return true;
 
             default:
