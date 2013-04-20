@@ -137,7 +137,7 @@ updatePlayerDescription() {
 	
 	echo Updating ${configFile}
 	
-	sed "s/AIR[0-9]\.[0-9]/FP${airversion}/" < "${configFile}"  > "${configFile}.tmp"
+	sed "s/AIR[0-9]\.[0-9]/AIR${airversion}/" < "${configFile}"  > "${configFile}.tmp"
 	mv "${configFile}.tmp" "${configFile}"
 }
 
