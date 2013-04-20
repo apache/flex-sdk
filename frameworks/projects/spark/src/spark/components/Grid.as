@@ -54,6 +54,8 @@ import spark.components.gridClasses.GridViewLayout;
 import spark.components.gridClasses.IDataGridElement;
 import spark.components.gridClasses.IGridItemRenderer;
 import spark.components.supportClasses.GroupBase;
+import spark.components.supportClasses.IDataProviderEnhance;
+import spark.components.supportClasses.RegExPatterns;
 import spark.events.GridCaretEvent;
 import spark.events.GridEvent;
 import spark.layouts.VerticalLayout;
@@ -192,7 +194,7 @@ use namespace mx_internal;
  *  overhead to a minimum, pooled and recycled.</p>
  *
  *  <p>The Grid control supports a doubleClick event, according the <code>doubleClickMode</code>
- *  property.</p>  
+ *  property.  
  * 
  *  <p>The Grid control supports selection, according the <code>selectionMode</code>
  *  property.  The set of selected row or cell indices can be modified or
@@ -210,7 +212,7 @@ use namespace mx_internal;
  *  <p>The Grid control supports smooth scrolling.  
  *  Their vertical and horizontal scroll positions define the pixel origin 
  *  of the visible part of the grid and the grid's layout only displays 
- *  as many cell item renderers as are needed to fill the available space.</p>
+ *  as many cell item renderers as are needed to fill the available space.  </p>
  *
  *  <p>The Grid control supports variable height rows that automatically compute 
  *  their height based on the item renderers' contents.  
@@ -242,7 +244,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class Grid extends Group implements IDataGridElement
+public class Grid extends Group implements IDataGridElement, IDataProviderEnhance
 {
     include "../core/Version.as";
 	
@@ -743,7 +745,72 @@ public class Grid extends Group implements IDataGridElement
                 
         _horizontalScrollPosition = value;
     }
-    
+
+
+    //----------------------------------
+    //  isFirstRow
+    //----------------------------------
+
+    /**
+    *  Returns if the selectedIndex is equal to the first row.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function get isFirstRow():Boolean
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            if (selectedIndex == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false
+        }
+    }
+
+
+    //----------------------------------
+    //  isLastRow
+    //----------------------------------
+
+    /**
+    *  Returns if the selectedIndex is equal to the last row.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function get isLastRow():Boolean
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            if (selectedIndex == dataProvider.length - 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
     //----------------------------------
     //  verticalScrollPosition (private override)
     //----------------------------------
@@ -1212,9 +1279,9 @@ public class Grid extends Group implements IDataGridElement
      *  @see spark.components.gridClasses.GridDoubleClickMode
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 11.1
-     *  @playerversion AIR 3.4
-     *  @productversion Flex 4.10
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get doubleClickMode():String
     {
@@ -2271,7 +2338,7 @@ public class Grid extends Group implements IDataGridElement
      *  <p> This property is intended to be used to initialize or bind to the
      *  selection in MXML markup.  The setSelectedCell() method should be used
      *  for programatic selection updates, for example when writing a keyboard
-     *  or mouse event handler. </p>
+     *  or mouse event handler. </p> > 
      *
      *  <p>The default value is an empty <code>Vector.&lt;int&gt;</code></p>
      * 
@@ -4693,6 +4760,156 @@ public class Grid extends Group implements IDataGridElement
     {
         return new GridSelection();    
     }
+
+
+    /**
+    *  This will search through a dataprovider checking the given field and for the given value and return the index for the match.
+    *  It can start the find from a given startingIndex;
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function findRowIndex(field:String, value:String, startingIndex:int = 0, patternType:String = RegExPatterns.EXACT):int
+    {
+        var pattern:RegExp; 
+        var currentObject:Object = null;
+        var dataProviderTotal:int = 0;
+        var loopingIndex:int = startingIndex;
+
+        
+        pattern = RegExPatterns.createRegExp(value, patternType);
+
+
+        if (dataProvider && dataProvider.length > 0)
+        {
+            dataProviderTotal = dataProvider.length;
+
+            if (startingIndex >= dataProviderTotal)
+            {
+                return -1;
+            }
+
+
+            for (loopingIndex; loopingIndex < dataProviderTotal; loopingIndex++)
+            {
+                currentObject = dataProvider.getItemAt(loopingIndex);
+
+                if (currentObject.hasOwnProperty(field) == true && currentObject[field].search(pattern) != -1)
+                {
+                    return loopingIndex;
+                }
+            }
+
+        }
+
+        return -1;
+    }
+
+
+    /**
+    *  This will search through a dataprovider checking the given field and will set the selectedIndex to a matching value.
+    *  It can start the search from the startingIndex;
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    *
+    */
+    public function moveIndexFindRow(field:String, value:String, startingIndex:int = 0, patternType:String = RegExPatterns.EXACT):Boolean
+    {
+        var indexFound:int = -1;
+
+        indexFound = findRowIndex(field, value, startingIndex, patternType);
+
+        if (indexFound != -1)
+        {
+            selectedIndex = indexFound;
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the first row of the dataProvider.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexFirstRow():void
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            selectedIndex = 0;
+        }
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the last row of the dataProvider.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexLastRow():void
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            selectedIndex = dataProvider.length - 1;
+        }
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the next row of the dataProvider.  If there isn't a current selectedIndex, it silently returns.
+    *  If the selectedIndex is on the first row, it does not wrap around.  However the <code>isFirstRow</code> property returns true.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexNextRow():void
+    {
+        if (dataProvider && dataProvider.length > 0 && selectedIndex >= 0)
+        {
+            if (isLastRow == false)
+            {
+                selectedIndex += 1;
+            }
+        }
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the previous row of the dataProvider.  If there isn't a current selectedIndex, it silently returns.
+    *  If the selectedIndex is on the last row, it does not wrap around.  However the <code>isLastRow</code> property returns true.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexPreviousRow():void
+    {
+        if (dataProvider && dataProvider.length > 0 && selectedIndex >= 0)
+        {
+            if (isFirstRow == false)
+            {
+                selectedIndex -= 1;
+            }
+        }
+    }
+
 
     //--------------------------------------------------------------------------
     //

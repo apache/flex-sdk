@@ -35,6 +35,8 @@ import mx.events.FlexEvent;
 import spark.components.IItemRenderer;
 import spark.components.IItemRendererOwner;
 import spark.components.SkinnableDataContainer;
+import spark.components.supportClasses.IDataProviderEnhance;
+import spark.components.supportClasses.RegExPatterns;
 import spark.events.IndexChangeEvent;
 import spark.events.ListEvent;
 import spark.events.RendererExistenceEvent;
@@ -163,7 +165,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class ListBase extends SkinnableDataContainer 
+public class ListBase extends SkinnableDataContainer implements IDataProviderEnhance
 {
     include "../../core/Version.as";
 
@@ -456,7 +458,72 @@ public class ListBase extends SkinnableDataContainer
      *  selection/caret stability after a dataProvider refresh.
      */
     mx_internal var caretItem:* = undefined;
-    
+
+
+    //----------------------------------
+    //  isFirstRow
+    //----------------------------------
+
+    /**
+    *  Returns if the selectedIndex is equal to the first row.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function get isFirstRow():Boolean
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            if (selectedIndex == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false
+        }
+    }
+
+
+    //----------------------------------
+    //  isLastRow
+    //----------------------------------
+
+    /**
+    *  Returns if the selectedIndex is equal to the last row.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function get isLastRow():Boolean
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            if (selectedIndex == dataProvider.length - 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
     //----------------------------------
     //  labelField
     //----------------------------------
@@ -722,9 +789,9 @@ public class ListBase extends SkinnableDataContainer
      *  this method.  If false, caretIndex won't change.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 11.1
-     *  @playerversion AIR 3.4
-     *  @productversion Flex 4.10
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setSelectedIndex(rowIndex:int, dispatchChangeEvent:Boolean = false, changeCaret:Boolean = true):void
     {
@@ -1157,6 +1224,52 @@ public class ListBase extends SkinnableDataContainer
     //--------------------------------------------------------------------------
 
     /**
+    *  This will search through a dataprovider checking the given field and for the given value and return the index for the match.
+    *  It can start the find from a given startingIndex;
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function findRowIndex(field:String, value:String, startingIndex:int = 0, patternType:String = RegExPatterns.EXACT):int
+    {
+        var pattern:RegExp; 
+        var currentObject:Object = null;
+        var dataProviderTotal:int = 0;
+        var loopingIndex:int = startingIndex;
+
+
+        pattern = RegExPatterns.createRegExp(value, patternType);
+
+
+        if (dataProvider && dataProvider.length > 0)
+        {
+            dataProviderTotal = dataProvider.length;
+
+            if (startingIndex >= dataProviderTotal)
+            {
+                return -1;
+            }
+
+
+            for (loopingIndex; loopingIndex < dataProviderTotal; loopingIndex++)
+            {
+                currentObject = dataProvider.getItemAt(loopingIndex);
+
+                if (currentObject.hasOwnProperty(field) == true && currentObject[field].search(pattern) != -1)
+                {
+                    return loopingIndex;
+                }
+            }
+
+        }
+
+        return -1;
+    }
+
+
+    /**
      *  Called when an item is selected or deselected. 
      *  Subclasses must override this method to display the selection.
      *
@@ -1243,7 +1356,111 @@ public class ListBase extends SkinnableDataContainer
     {        
         return index == caretIndex;
     }
-    
+
+
+    /**
+    *  This will search through a dataprovider checking the given field and will set the selectedIndex to a matching value.
+    *  It can start the search from the startingIndex;
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    *
+    */
+    public function moveIndexFindRow(field:String, value:String, startingIndex:int = 0, patternType:String = RegExPatterns.EXACT):Boolean
+    {
+        var indexFound:int = -1;
+
+        indexFound = findRowIndex(field, value, startingIndex, patternType);
+
+        if (indexFound != -1)
+        {
+            selectedIndex = indexFound;
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the first row of the dataProvider.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexFirstRow():void
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            selectedIndex = 0;
+        }
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the last row of the dataProvider.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexLastRow():void
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            selectedIndex = dataProvider.length - 1;
+        }
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the next row of the dataProvider.  If there isn't a current selectedIndex, it silently returns.
+    *  If the selectedIndex is on the first row, it does not wrap around.  However the <code>isFirstRow</code> property returns true.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexNextRow():void
+    {
+        if (dataProvider && dataProvider.length > 0 && selectedIndex >= 0)
+        {
+            if (isLastRow == false)
+            {
+                selectedIndex += 1;
+            }
+        }
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the previous row of the dataProvider.  If there isn't a current selectedIndex, it silently returns.
+    *  If the selectedIndex is on the last row, it does not wrap around.  However the <code>isLastRow</code> property returns true.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexPreviousRow():void
+    {
+        if (dataProvider && dataProvider.length > 0 && selectedIndex >= 0)
+        {
+            if (isFirstRow == false)
+            {
+                selectedIndex -= 1;
+            }
+        }
+    }
+
+
     /**
      *  @private
      *  Set current caret index. This function takes the item that was
@@ -1322,10 +1539,7 @@ public class ListBase extends SkinnableDataContainer
                 // The event was cancelled. Cancel the selection change and return.
                 itemSelected(_proposedSelectedIndex, false);
                 _proposedSelectedIndex = NO_PROPOSED_SELECTION;
-
-                //Reset back to false to resolve selectedIndex
                 dispatchChangeAfterSelection = false;
-
                 return false;
             }
         }
