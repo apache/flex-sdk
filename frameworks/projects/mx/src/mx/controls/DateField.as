@@ -837,7 +837,10 @@ public class DateField extends ComboBase
         else if (_listData is ListData && ListData(_listData).labelField in _data)
             newDate = _data[ListData(_listData).labelField];
         else if (_data is String)
-            newDate = new Date(Date.parse(data as String));
+			if (_parseFunction != null)
+           	    newDate = _parseFunction(data as String, formatString);
+			else
+				newDate = new Date(Date.parse(data as String));
         else
             newDate = _data as Date;
 
