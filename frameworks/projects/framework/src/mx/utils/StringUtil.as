@@ -150,6 +150,9 @@ public class StringUtil
     /**
      *  Substitutes "{n}" tokens within the specified string
      *  with the respective arguments passed in.
+	 * 
+	 *  Note that this uses String.replace and "$" can have special
+	 *  meaning in the argument strings escape by using "$$".
      *
      *  @param str The string to make substitutions in.
      *  This string can contain special tokens of the form
