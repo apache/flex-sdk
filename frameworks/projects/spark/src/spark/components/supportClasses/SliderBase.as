@@ -125,6 +125,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *    dataTipPrecision="2"
  *    maximum="10"
  *    showDataTip="true"
+ *    maxDragRate=30
  * 
  *    <strong>Styles</strong>
  *    alignmentBaseline="USE_DOMINANT_BASELINE"
@@ -232,6 +233,17 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
 
+	/**
+	 *  Maximum number of times per second we will change the slider position
+	 *  and update the display while dragging.
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	protected var maxDragRate:Number = 30;
+
     /**
      *  @private
      */
@@ -288,13 +300,6 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
      */
     private var dragPending:Boolean = false;
 
-    /**
-     *  @private
-     *  Maximum number of times per second we will change the slider position 
-     *  and update the display while dragging.
-     */
-    private static const MAX_DRAG_RATE:Number = 30;
-    
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -732,7 +737,7 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
         mostRecentMousePoint = track.globalToLocal(new Point(event.stageX, event.stageY));
         if (!dragTimer)
         {
-            dragTimer = new Timer(1000/MAX_DRAG_RATE, 0);
+            dragTimer = new Timer(1000/maxDragRate, 0);
             dragTimer.addEventListener(TimerEvent.TIMER, dragTimerHandler);
         }
         
