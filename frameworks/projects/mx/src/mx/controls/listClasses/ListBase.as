@@ -7179,7 +7179,11 @@ public class ListBase extends ScrollControlBase
             if (!selectedData[uid])
             {
                 if (listContent && UIDToItemRenderer(uid))
+                {
+                    //Calling validateNow to make sure the item renderers have had a chance to update before selectItem references one to set as the new selectedIndex.
+                    validateNow();
                     selectItem(UIDToItemRenderer(uid), false, false);
+                }
                 else
                 {
                     clearSelected();
