@@ -1312,7 +1312,7 @@ public class ObjectUtil
                 key += flag;
                 var value:String = options[flag] as String;
                 if (value != null)
-                    key += value;
+					key += options[flag].toString();
             }
         }
         return key;
