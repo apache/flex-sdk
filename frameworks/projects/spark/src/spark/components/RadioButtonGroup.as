@@ -320,6 +320,8 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         if (newValue == -1)
         {
             setSelection(null, false);
+            dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+
             return;
         }
 
