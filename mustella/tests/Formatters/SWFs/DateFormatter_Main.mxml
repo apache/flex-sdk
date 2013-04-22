@@ -17,7 +17,7 @@
   limitations under the License.
 
 -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" width="800" height="700" horizontalAlign="center">
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" width="850" height="700" horizontalAlign="center">
 
 <!--
 	http://livedocs.adobe.com/flex/3/langref/mx/formatters/DateFormatter.html
@@ -175,6 +175,7 @@
 
 					// millisec
 					dateFormatOutputDefaultMaskMillisec.text = dtFormatterMaskMillisec.format(aDate);
+					dateFormatOutputDefaultMaskAltMillisec.text = dtFormatterMaskALtMillisec.format(aDate);
 
 				  	//deafult toDateString
 				  	dateStringOutput.text = aDateString;
@@ -233,6 +234,7 @@
 	<mx:DateFormatter id="dtFormatterMaskMedium" formatString="MMM. D, YYYY"/>
 	<mx:DateFormatter id="dtFormatterMaskTime" formatString="L:NN A"/>
 	<mx:DateFormatter id="dtFormatterMaskMillisec" formatString="EEEE, MMMM DD, YYYY at HH:NN:SS:QQQ A"/>
+	<mx:DateFormatter id="dtFormatterMaskALtMillisec" formatString="EEEE, MMMM DD, YYYY at HH:NN:SS.QQQ A"/>
 
 	<!-- set up some anal date part formats-->
 	<mx:DateFormatter id="dtFormatterDatePartYY" formatString="YY"/>
@@ -279,17 +281,17 @@
 		<mx:Panel layout="horizontal" title="Results" verticalGap="10" height="100%" width="100%" horizontalAlign="center" verticalAlign="middle">
 			<mx:VBox horizontalAlign="center" verticalAlign="top" width="60%" paddingLeft="5">
 				<mx:Label text="Standard Date Masks"/>
-				<mx:TextInput id="dateFormatOutputDefaultStr" width="215"/>
-				<mx:TextInput id="dateFormatOutputDefaultObj"  width="215"/>
+				<mx:TextInput id="dateFormatOutputDefaultStr" width="300"/>
+				<mx:TextInput id="dateFormatOutputDefaultObj"  width="300"/>
 
-				<mx:TextInput id="dateFormatOutputDefaultMaskFull"  width="215"/>
-				<mx:TextInput id="dateFormatOutputDefaultMaskLong"  width="215"/>
-				<mx:TextInput id="dateFormatOutputDefaultMaskMedium"  width="215"/>
-				<mx:TextInput id="dateFormatOutputDefaultMaskTime"  width="215"/>
-				<mx:TextInput id="dateFormatOutputDefaultMaskMillisec"  width="215"/>
+				<mx:TextInput id="dateFormatOutputDefaultMaskFull"  width="300"/>
+				<mx:TextInput id="dateFormatOutputDefaultMaskLong"  width="300"/>
+				<mx:TextInput id="dateFormatOutputDefaultMaskMedium"  width="300"/>
+				<mx:TextInput id="dateFormatOutputDefaultMaskTime"  width="300"/>
+				<mx:TextInput id="dateFormatOutputDefaultMaskMillisec"  width="300"/>
+				<mx:TextInput id="dateFormatOutputDefaultMaskAltMillisec"  width="300"/>
 				
-
-				<mx:TextInput id="dateStringOutput" width="215"/>
+				<mx:TextInput id="dateStringOutput" width="300"/>
 			</mx:VBox>
 
 			<mx:VBox horizontalAlign="center" width="40%" paddingTop="5" paddingBottom="5">
