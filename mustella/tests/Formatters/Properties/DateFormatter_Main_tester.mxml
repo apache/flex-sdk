@@ -373,6 +373,8 @@
 		  <AssertPropertyValue propertyName="text" value="Nov. 28, 2008" target="dateFormatOutputDefaultMaskMedium"/>
 		  <AssertPropertyValue propertyName="text" value="2:34 PM" target="dateFormatOutputDefaultMaskTime"/>
 		  <AssertPropertyValue propertyName="text" value="Fri Nov 28 2008" target="dateStringOutput"/>
+		  <AssertPropertyValue propertyName="text" value="Friday, November. 28, 2008 at 2:34:00:000 PM" target="dateFormatOutputDefaultMaskMillisec"/> 
+		  <AssertPropertyValue propertyName="text" value="Friday, November. 28, 2008 at 2:34:00.000 PM" target="dateFormatOutputDefaultMaskAltMillisec"/> 
   	  </body>
   </TestCase>
  
@@ -387,7 +389,8 @@
 		<AssertPropertyValue propertyName="text" value="Sep. 17, 2009" target="dateFormatOutputDefaultMaskMedium"/>
 		<AssertPropertyValue propertyName="text" value="3:39 PM" target="dateFormatOutputDefaultMaskTime"/>
 		<AssertPropertyValue propertyName="text" value="Thu Sep 17 2009" target="dateStringOutput"/>
-		<AssertPropertyValue propertyName="text" value="Thursday, September 17, 2009 at 15:39:20:789 PM" target="dateFormatOutputDefaultMaskMillisec"/>            
+		<AssertPropertyValue propertyName="text" value="Thursday, September 17, 2009 at 15:39:20:789 PM" target="dateFormatOutputDefaultMaskMillisec"/> 
+		<AssertPropertyValue propertyName="text" value="Thursday, September 17, 2009 at 15:39:20.789 PM" target="dateFormatOutputDefaultMaskAltMillisec"/> 
 	</body>
   </TestCase>  
 
