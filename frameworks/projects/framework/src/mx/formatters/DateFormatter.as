@@ -129,6 +129,7 @@ public class DateFormatter extends Formatter
         var hour:int = -1;
         var min:int = -1;
         var sec:int = -1;
+		var milli:int = -1;
         
         var letter:String = "";
         var marker:Object = 0;
@@ -154,7 +155,8 @@ public class DateFormatter extends Formatter
             // If the letter is a key punctuation character,
             // cache it for the next time around.
             if (letter == "/" || letter == ":" ||
-                letter == "+" || letter == "-")
+                letter == "+" || letter == "-" ||
+				letter == ".")
             {
                 marker = letter;
                 continue;
@@ -162,23 +164,27 @@ public class DateFormatter extends Formatter
 
             // Scan for groups of numbers and letters
             // and match them to Date parameters
-            if ("a" <= letter && letter <= "z" ||
-                "A" <= letter && letter <= "Z")
+            if (!("0" <= letter && letter <= "9" ||
+				  letter == "/" || letter == ":" ||
+			      letter == "+" || letter == "-" ||
+				  letter == "." || letter == " "))
             {
                 // Scan for groups of letters
                 var word:String = letter;
                 while (count < len) 
                 {
                     letter = str.charAt(count);
-                    if (!("a" <= letter && letter <= "z" ||
-                          "A" <= letter && letter <= "Z"))
+					if ("0" <= letter && letter <= "9"||
+						letter == "/" || letter == ":" ||
+						letter == "+" || letter == "-" ||
+						letter == "." || letter == " ")
                     {
                         break;
                     }
                     word += letter;
                     count++;
                 }
-
+				
                 // Allow for an exact match
                 // or a match to the first 3 letters as a prefix.
                 var n:int = DateBase.defaultStringKey.length;
@@ -233,7 +239,8 @@ public class DateFormatter extends Formatter
                 var num:int = int(numbers);
 
                 // If num is a number greater than 70, assign num to year.
-                if (num >= 70)
+				// if after seconds and a dot or colon more likly milliseconds
+                if (num >= 70 && !((marker == "." || marker == ":") && sec >= 0))
                 {
                     if (year != -1)
                     {
@@ -251,25 +258,29 @@ public class DateFormatter extends Formatter
                 }
 
                 // If the current letter is a slash or a dash,
-                // assign num to month or day.
+                // assign num to month or day or sec.
                 else if (letter == "/" || letter == "-" || letter == ".")
                 {
                     if (mon < 0)
                         mon = (num - 1);
-                    else if (day < 0)
-                        day = num;
+					else if (day < 0)
+						day = num;
+					else if (sec < 0)
+						sec = num;
                     else
                         break; //error
                 }
 
                 // If the current letter is a colon,
-                // assign num to hour or minute.
+                // assign num to hour or minute or sec.
                 else if (letter == ":")
                 {
                     if (hour < 0)
                         hour = num;
                     else if (min < 0)
                         min = num;
+					else if (sec < 0)
+						sec = num;
                     else
                         break; //error
                 }
@@ -281,12 +292,19 @@ public class DateFormatter extends Formatter
                     min = num;
                 }
 
-                // If minutes are defined and seconds are not,
-                // assign num to seconds.
-                else if (min >= 0 && sec < 0)
-                {
-                    sec = num;
-                }
+				// If minutes are defined and seconds are not,
+				// assign num to seconds.
+				else if (min >= 0 && sec < 0)
+				{
+					sec = num;
+				}
+				
+				// If seconds are defined and millis are not,
+				// assign num to mills.
+				else if (sec >= 0 && milli < 0)
+				{
+					milli = num;
+				}
 
                 // If day is not defined, assign num to day.
                 else if (day < 0)
@@ -315,6 +333,8 @@ public class DateFormatter extends Formatter
             return null; // error - needs to be a date
 
         // Time is set to 0 if null.
+		if (milli < 0)
+			milli = 0;
         if (sec < 0)
             sec = 0;
         if (min < 0)
@@ -324,7 +344,7 @@ public class DateFormatter extends Formatter
 
         // create a date object and check the validity of the input date
         // by comparing the result with input values.
-        var newDate:Date = new Date(year, mon, day, hour, min, sec);
+        var newDate:Date = new Date(year, mon, day, hour, min, sec, milli);
         if (day != newDate.getDate() || mon != newDate.getMonth())
             return null;
 
