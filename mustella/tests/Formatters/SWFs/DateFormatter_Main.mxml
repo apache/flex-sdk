@@ -224,7 +224,7 @@
 					// S
 					datePartS.text = dtFormatterDatePartS.format(aDate);
 					// Q
-					datePartS.text = dtFormatterDatePartQ.format(aDate);
+					datePartQ.text = dtFormatterDatePartQ.format(aDate);
 	        }
 		]]>
 	</mx:Script>
@@ -318,6 +318,7 @@
 				<mx:TextInput id="datePartN"/>
 				<mx:TextInput id="datePartNN"/>
 				<mx:TextInput id="datePartS"/>
+				<mx:TextInput id="datePartQ"/>
 			</mx:VBox>
 		</mx:Panel>
 	</mx:HBox>
