@@ -279,7 +279,7 @@ public class DateFormatter extends Formatter
                 {
 					// FIXME assumes month come before day ie US style
 					// dates MM/DD/YYYY or year first dates YYYY/MM/DD
-i					if (mon < 0)
+					if (mon < 0)
                         mon = (num - 1);
 					else if (day < 0)
 						day = num;
