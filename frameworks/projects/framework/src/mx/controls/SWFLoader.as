@@ -1691,8 +1691,10 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             // we're on the free list
             try
             {
-                if (contentHolder.parent == this)
-                    removeChild(contentHolder);
+                if (contentHolder.parent == this) {
+					contentHolder.removeEventListener(Event.ADDED, contentHolder_addedHandler);
+					removeChild(contentHolder);
+				}
             }
             catch(error:Error)
             {
@@ -2509,7 +2511,8 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                 contentHolder_getFlexModuleFactoryRequestHandler);            
         }
         
-        contentHolder.removeEventListener(Event.ADDED, contentHolder_addedHandler);
+		if (contentHolder)
+            contentHolder.removeEventListener(Event.ADDED, contentHolder_addedHandler);
     }
     
     /**
