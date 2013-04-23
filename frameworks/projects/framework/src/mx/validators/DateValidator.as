@@ -167,7 +167,10 @@ public class DateValidator extends Validator
 		var i:int;
 		var temp:String;
 		
-		n = allowedFormatChars.length;
+		
+		if (allowedFormatChars != null)
+			n = allowedFormatChars.length;
+		
 		for (i = 0; i < n; i++)
 		{
 			if (DECIMAL_DIGITS.indexOf(allowedFormatChars.charAt(i)) != -1)
