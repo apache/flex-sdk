@@ -285,11 +285,13 @@ public class DateFormatter extends Formatter
 						day = num;
 					else if (sec < 0)
 						sec = num;
+					else if (milli < 0)
+						milli = num;
                     else
                         break; //error
                 }
 
-                // If the current letter is a colon,
+                // If the current letter is a colon or a dot,
                 // assign num to hour or minute or sec.
                 else if (punctuation.hasOwnProperty(letter) && punctuation[letter].time)
                 {
@@ -299,6 +301,8 @@ public class DateFormatter extends Formatter
                         min = num;
 					else if (sec < 0)
 						sec = num;
+					else if (milli < 0)
+						milli = num;
                     else
                         break; //error
                 }
