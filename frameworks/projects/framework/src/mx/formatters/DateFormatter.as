@@ -136,7 +136,27 @@ public class DateFormatter extends Formatter
         
         var count:int = 0;
         var len:int = str.length;
-        
+		
+		var punctuation:Object = {};
+			
+		punctuation["/"] = {general:true, date:true, time:false};
+		punctuation[":"] = {general:true, date:false, time:true};
+		punctuation[" "] = {general:true, date:true, time:false};
+		punctuation["."] = {general:true, date:true, time:true};
+		punctuation[","] = {general:true, date:true, time:false};
+		punctuation["+"] = {general:true, date:false, time:false};
+		punctuation["-"] = {general:true, date:true, time:false};
+		// Chinese and Japanese
+		punctuation["年"] = {general:true, date:true, time:false};
+		punctuation["月"] = {general:true, date:true, time:false};
+		punctuation["日"] = {general:true, date:true, time:false};
+		punctuation["午"] = {general:false, date:false, time:true};
+		
+		// Korean
+		punctuation["년"] = {general:true, date:true, time:false};
+		punctuation["월"] = {general:true, date:true, time:false};
+		punctuation["일"] = {general:true, date:true, time:false};
+		
         // Strip out the Timezone. It is not used by the DateFormatter
         var timezoneRegEx:RegExp = /(GMT|UTC)((\+|-)\d\d\d\d )?/ig;
         
@@ -154,9 +174,7 @@ public class DateFormatter extends Formatter
 
             // If the letter is a key punctuation character,
             // cache it for the next time around.
-            if (letter == "/" || letter == ":" ||
-                letter == "+" || letter == "-" ||
-				letter == ".")
+            if (punctuation.hasOwnProperty(letter) && punctuation[letter].general)
             {
                 marker = letter;
                 continue;
@@ -165,19 +183,15 @@ public class DateFormatter extends Formatter
             // Scan for groups of numbers and letters
             // and match them to Date parameters
             if (!("0" <= letter && letter <= "9" ||
-				  letter == "/" || letter == ":" ||
-			      letter == "+" || letter == "-" ||
-				  letter == "." || letter == " "))
+				punctuation.hasOwnProperty(letter) && punctuation[letter].general))
             {
                 // Scan for groups of letters
                 var word:String = letter;
                 while (count < len) 
                 {
                     letter = str.charAt(count);
-					if ("0" <= letter && letter <= "9"||
-						letter == "/" || letter == ":" ||
-						letter == "+" || letter == "-" ||
-						letter == "." || letter == " ")
+					if ("0" <= letter && letter <= "9" ||
+						punctuation.hasOwnProperty(letter) && punctuation[letter].general)
                     {
                         break;
                     }
@@ -240,14 +254,16 @@ public class DateFormatter extends Formatter
 
                 // If num is a number greater than 70, assign num to year.
 				// if after seconds and a dot or colon more likly milliseconds
-                if (num >= 70 && !((marker == "." || marker == ":") && sec >= 0))
+                if (num >= 70 && !(punctuation.hasOwnProperty(letter)
+					&& punctuation[letter].time && sec >= 0))
                 {
                     if (year != -1)
                     {
                         break; // error
                     }
-                    else if (letter <= " " || letter == "," || letter == "." ||
-                             letter == "/" || letter == "-" || count >= len)
+                    else if (punctuation.hasOwnProperty(letter)
+						&& punctuation[letter].date
+						|| count >= len)
                     {
                         year = num;
                     }
@@ -258,10 +274,12 @@ public class DateFormatter extends Formatter
                 }
 
                 // If the current letter is a slash or a dash,
-                // assign num to month or day or sec.
-                else if (letter == "/" || letter == "-" || letter == ".")
+                // assign num to year or month or day or sec.
+                else if (punctuation.hasOwnProperty(letter) && punctuation[letter].date)
                 {
-                    if (mon < 0)
+					// FIXME assumes month come before day ie US style
+					// dates MM/DD/YYYY or year first dates YYYY/MM/DD
+i					if (mon < 0)
                         mon = (num - 1);
 					else if (day < 0)
 						day = num;
@@ -273,7 +291,7 @@ public class DateFormatter extends Formatter
 
                 // If the current letter is a colon,
                 // assign num to hour or minute or sec.
-                else if (letter == ":")
+                else if (punctuation.hasOwnProperty(letter) && punctuation[letter].time)
                 {
                     if (hour < 0)
                         hour = num;
@@ -328,7 +346,7 @@ public class DateFormatter extends Formatter
                 marker = 0
             }
         }
-
+		
         if (year < 0 || mon < 0 || mon > 11 || day < 1 || day > 31)
             return null; // error - needs to be a date
 
