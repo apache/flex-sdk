@@ -144,8 +144,8 @@
 					  	break;
 
 					  case 20:
-						aDate =  new Date(2009,08,17,15,39,20,789);
-						break;
+						  aDate =  new Date(2009,08,17,15,39,20,789);
+						  break;
 
 					  default:
 						aDate =  new Date();
@@ -223,6 +223,8 @@
 					datePartNN.text = dtFormatterDatePartNN.format(aDate);
 					// S
 					datePartS.text = dtFormatterDatePartS.format(aDate);
+					// Q
+					datePartS.text = dtFormatterDatePartQ.format(aDate);
 	        }
 		]]>
 	</mx:Script>
@@ -256,6 +258,7 @@
 	<mx:DateFormatter id="dtFormatterDatePartN" formatString="N"/>
 	<mx:DateFormatter id="dtFormatterDatePartNN" formatString="NN"/>
 	<mx:DateFormatter id="dtFormatterDatePartS" formatString="S"/>
+	<mx:DateFormatter id="dtFormatterDatePartQ" formatString="QQQQ"/>
 
 	<mx:Label text="DateFormatter Tests" fontSize="16" fontWeight="bold"/>
 
