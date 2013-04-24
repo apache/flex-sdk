@@ -235,8 +235,8 @@
 	<mx:DateFormatter id="dtFormatterMaskLong" formatString="MMM. D, YYYY at L:NN A"/>
 	<mx:DateFormatter id="dtFormatterMaskMedium" formatString="MMM. D, YYYY"/>
 	<mx:DateFormatter id="dtFormatterMaskTime" formatString="L:NN A"/>
-	<mx:DateFormatter id="dtFormatterMaskMillisec" formatString="EEEE, MMMM DD, YYYY at HH:NN:SS:QQQ A"/>
-	<mx:DateFormatter id="dtFormatterMaskALtMillisec" formatString="EEEE, MMMM DD, YYYY at HH:NN:SS.QQQ A"/>
+	<mx:DateFormatter id="dtFormatterMaskMillisec" formatString="EEEE, MMMM DD, YYYY at L:NN:SS:QQQ A"/>
+	<mx:DateFormatter id="dtFormatterMaskALtMillisec" formatString="EEEE, MMMM DD, YYYY at L:NN:SS.QQQ A"/>
 
 	<!-- set up some anal date part formats-->
 	<mx:DateFormatter id="dtFormatterDatePartYY" formatString="YY"/>
