@@ -136,8 +136,10 @@ public class DateFormatter extends Formatter
         
         var count:int = 0;
         var len:int = str.length;
+		var isPM:Boolean = false;
 		
 		var punctuation:Object = {};
+		var ampm:Object = {};
 			
 		punctuation["/"] = {general:true, date:true, time:false};
 		punctuation[":"] = {general:true, date:false, time:true};
@@ -151,11 +153,18 @@ public class DateFormatter extends Formatter
 		punctuation["月"] = {general:true, date:true, time:false};
 		punctuation["日"] = {general:true, date:true, time:false};
 		punctuation["午"] = {general:false, date:false, time:true};
-		
 		// Korean
 		punctuation["년"] = {general:true, date:true, time:false};
 		punctuation["월"] = {general:true, date:true, time:false};
 		punctuation["일"] = {general:true, date:true, time:false};
+		
+		ampm["PM"] = true;
+		ampm["pm"] = true;
+		ampm["\u33D8"] = true; // unicode pm
+		ampm["μμ"] = true; // Greek
+		ampm["午後"] = true; // Japanese
+		ampm["上午"] = true; // Chinese
+		ampm["오후"] = true; // Korean
 		
         // Strip out the Timezone. It is not used by the DateFormatter
         var timezoneRegEx:RegExp = /(GMT|UTC)((\+|-)\d\d\d\d )?/ig;
@@ -237,6 +246,17 @@ public class DateFormatter extends Formatter
                     }
                 }
                 marker = 0;
+				
+				// Other lacales AM/PM 
+				if (ampm.hasOwnProperty(word))
+				{
+					isPM = true;
+					
+					if (hour > 12)
+						break; // error
+					else if (hour >= 0)
+						hour += 12;
+				}
             }
             
             else if ("0" <= letter && letter <= "9")
@@ -296,7 +316,17 @@ public class DateFormatter extends Formatter
                 else if (punctuation.hasOwnProperty(letter) && punctuation[letter].time)
                 {
                     if (hour < 0)
+					{
                         hour = num;
+						
+						if (isPM)
+						{
+							if (hour > 12)
+								break; //error
+							else
+								hour += 12;
+						}
+					}
                     else if (min < 0)
                         min = num;
 					else if (sec < 0)
