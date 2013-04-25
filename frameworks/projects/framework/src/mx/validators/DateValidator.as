@@ -143,10 +143,7 @@ public class DateValidator extends Validator
 
 		var validInput:String = DECIMAL_DIGITS + allowedFormatChars;
 		
-		var dateObj:Object = {};
-		dateObj.month = "";
-		dateObj.day = "";
-		dateObj.year = "";
+		var dateObj:Object = {day:"", month:"", year:""};
 		
 		var dayProp:String = baseField;
 		var yearProp:String = baseField;
@@ -284,8 +281,7 @@ public class DateValidator extends Validator
 			else
 			{
 				var len:Number = stringValue.length;
-				if (len > inputFormat.length ||
-					len + 2 < inputFormat.length)
+				if (len < inputFormat.length - 2 || len > inputFormat.length + 2)
 				{
 					results.push(new ValidationResult(
 						true, baseField, "wrongLength",
@@ -479,9 +475,9 @@ public class DateValidator extends Validator
 				yearCounter++;
 		}
 
-		if ((monthCounter == 2 &&
+		if ((monthCounter >= 1 &&  monthCounter <= 2 &&
 			 (yearCounter == 2 || yearCounter == 4)) ||
-			(monthCounter == 2 && dayCounter == 2 &&
+			(monthCounter >= 1 &&  monthCounter <= 2  && dayCounter >= 1 &&  dayCounter <= 2  &&
 			 (yearCounter == 0 || yearCounter == 2 || yearCounter == 4)))
 		{
 			return null; // Passes format validation
