@@ -1310,9 +1310,9 @@ public class ObjectUtil
             for (var flag:String in options)
             {
                 key += flag;
-				var value:String = options[flag].toString();
+				var value:String = options[flag];
 				if (value != null)
-					key += value;
+					key += value.toString();
 			}
         }
         return key;
