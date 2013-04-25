@@ -76,6 +76,19 @@ public class ActionBarButtonSkinBase extends ButtonSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				layoutBorderSize = 1;
+				layoutPaddingTop = 18;
+				layoutPaddingBottom = 16;
+				layoutPaddingLeft = 32;
+				layoutPaddingRight = 32;
+				measuredDefaultWidth = 162;
+				measuredDefaultHeight = 130;
+				
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 layoutBorderSize = 1;

@@ -68,6 +68,19 @@ public class TabbedViewNavigatorTabBarTabSkinBase extends ButtonBarButtonSkinBas
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				layoutBorderSize = 3;
+				layoutPaddingTop = 18;
+				layoutPaddingBottom = 18;
+				layoutPaddingLeft = 18;
+				layoutPaddingRight = 18;
+				layoutGap = 14;
+				measuredDefaultHeight = 152;
+				
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 layoutBorderSize = 2;

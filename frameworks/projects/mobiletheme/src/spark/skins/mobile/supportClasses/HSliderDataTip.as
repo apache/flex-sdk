@@ -191,6 +191,19 @@ public class HSliderDataTip extends UIComponent implements IDataRenderer
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				fontSize = "40";
+				leftTextPadding = 22;
+				leftRightTextPadding = 44;
+				topTextPadding = 10;
+				topBottomTextPadding = 20;
+				tooltipOffset = 14;
+				cornerRadius = 12;
+				
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 fontSize = "30";
