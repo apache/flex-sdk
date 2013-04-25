@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
+  <Path x="4" y="4" data="M0 4C0 2 2 0 4 0L52 0C54 0 56 2 56 4L56 52C56 54 56 56 54 56L2 56C0 56 0 54 0 52L0 4Z">
+    <fill>
+      <LinearGradient x="28" y="8" scaleX="40.0004" rotation="90">
+        <GradientEntry ratio="0" color="#FFFFFF" alpha="0.8"/>
+        <GradientEntry ratio="1" color="#FFFFFF" alpha="0.0470588"/>
+      </LinearGradient>
+    </fill>
+  </Path>
+  <Path x="4" y="4" data="M2 6C2 4 4 2 6 2L50 2C52 2 54 4 54 6L54 50C54 52 54 54 52 54L4 54C2 54 2 52 2 50L2 6ZM0 4 0 52C0 54 0 56 2 56L54 56C56 56 56 54 56 52L56 4C56 2 54 0 52 0L4 0C2 0 0 2 0 4Z">
+    <fill>
+      <LinearGradient x="28" y="0" scaleX="56.0005" rotation="90">
+        <GradientEntry ratio="0" color="#FFFFFF" alpha="0.35"/>
+        <GradientEntry ratio="1" alpha="0"/>
+      </LinearGradient>
+    </fill>
+  </Path>
+  <Path x="2" y="2" alpha="0.6" data="M2 6C2 4 4 2 6 2L54 2C56 2 58 4 58 6L58 54C58 56 58 58 56 58L4 58C2 58 2 56 2 54L2 6ZM0 4 0 56C0 58 2 60 4 60L56 60C58 60 60 58 60 56L60 4C60 2 58 0 56 0L4 0C2 0 0 4 0 4Z">
+    <fill>
+      <SolidColor/>
+    </fill>
+  </Path>
+  <Path alpha="0.06" data="M2 6C2 4 4 2 6 2L58 2C60 2 62 4 62 6L62 58C62 60 62 62 60 62L4 62C2 62 2 60 2 58L2 6ZM0 4 0 60C0 62 2 64 4 64L60 64C62 64 64 62 64 60L64 4C64 2 62 0 60 0L4 0C2 0 0 4 0 4Z">
+    <fill>
+      <SolidColor/>
+    </fill>
+  </Path>
+  <Rect x="6" y="4" alpha="0.15" width="52" height="2">
+    <fill>
+      <SolidColor color="#FFFFFF"/>
+    </fill>
+  </Rect>
+  <Rect x="4" y="62" alpha="0.1" width="56" height="2">
+    <fill>
+      <SolidColor/>
+    </fill>
+  </Rect>
+</Graphic>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<Graphic version="2.0" viewHeight="86" viewWidth="292" xmlns="http://ns.adobe.com/fxg/2008"
+	scaleGridLeft="20" scaleGridRight="272" scaleGridTop="20" scaleGridBottom="66">
+  	<!-- Border --> 
+	<Path data="M12 2 280 2C286 2 290 6 290 12L290 74C290 80 286 84 280 84L12 84C6 84 2 80 2 74L2 12C2 6 6 2 12 2ZM12 0C6 0 0 6 0 12L0 74C0 80 6 86 12 86L280 86C286 86 292 80 292 74L292 12C292 6 286 0 280 0L12 0Z">
+    	<fill>
+      		<SolidColor color="#464646"/>
+    	</fill>
+  	</Path>
+	<!-- Fill Shadow -->
+  	<Path x="2" y="2" data="M10 0 278 0C284 0 288 4 288 10L288 72C288 78 284 82 278 82L10 82C4 82 0 78 0 72L0 10C0 4 4 0 10 0Z">
+	    <fill>
+      		<LinearGradient x="144" y="0" scaleX="82.0005" rotation="90">
+        		<GradientEntry ratio="0" alpha="0.05"/>
+        		<GradientEntry ratio="1" alpha="0.25"/>
+      		</LinearGradient>
+    	</fill>
+  	</Path>
+  	<!-- Inner Shadow -->
+	<Path x="2" y="2" data="M2 10C2 6 6 2 10 2L278 2C282 2 286 6 286 10L286 72C286 76 282 80 278 80L10 80C6 80 2 76 2 72L2 10ZM10 0C4 0 0 4 0 10L0 72C0 78 4 82 10 82L278 82C284 82 288 78 288 72L288 10C288 4 284 0 278 0L10 0Z">
+	    <fill>
+      		<SolidColor alpha="0.2"/>
+    	</fill>
+  	</Path>
+  	<!-- Inner Inner Shadow -->
+	<Path x="4" y="4" data="M2 8C2 4 4 2 8 2L276 2C280 2 282 4 282 8L282 70C282 74 280 76 276 76L8 76C4 76 2 74 2 70L2 8ZM0 8 0 70C0 74 4 78 8 78L276 78C280 78 284 74 284 70L284 8C284 4 280 0 276 0L8 0C4 0 0 4 0 8Z">
+	    <fill>
+      		<SolidColor color="#646464" alpha="0.1"/>
+    	</fill>
+  	</Path>
+</Graphic>
