@@ -36,6 +36,8 @@ import spark.skins.mobile240.assets.Button_down;
 import spark.skins.mobile240.assets.Button_up;
 import spark.skins.mobile320.assets.Button_down;
 import spark.skins.mobile320.assets.Button_up;
+import spark.skins.mobile480.assets.Button_down;
+import spark.skins.mobile480.assets.Button_up;
 
 
 use namespace mx_internal;

@@ -37,7 +37,9 @@ import spark.skins.mobile240.assets.SpinnerListContainerShadow;
 import spark.skins.mobile320.assets.SpinnerListContainerBackground;
 import spark.skins.mobile320.assets.SpinnerListContainerSelectionIndicator;
 import spark.skins.mobile320.assets.SpinnerListContainerShadow;
-
+import spark.skins.mobile480.assets.SpinnerListContainerBackground;
+import spark.skins.mobile480.assets.SpinnerListContainerSelectionIndicator;
+import spark.skins.mobile480.assets.SpinnerListContainerShadow;
 /**
  *  ActionScript-based skin for the SpinnerListContainer in mobile applications. 
  * 

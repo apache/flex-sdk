@@ -26,6 +26,8 @@ import spark.skins.mobile.assets.TabbedViewNavigatorButtonBarFirstButton_up;
 import spark.skins.mobile.supportClasses.TabbedViewNavigatorTabBarTabSkinBase;
 import spark.skins.mobile320.assets.TabbedViewNavigatorButtonBarFirstButton_down;
 import spark.skins.mobile320.assets.TabbedViewNavigatorButtonBarFirstButton_up;
+import spark.skins.mobile480.assets.TabbedViewNavigatorButtonBarFirstButton_down;
+import spark.skins.mobile480.assets.TabbedViewNavigatorButtonBarFirstButton_up;
 
 /**
  *  Skin for the left-most button in the TabbedViewNavigator ButtonBar skin

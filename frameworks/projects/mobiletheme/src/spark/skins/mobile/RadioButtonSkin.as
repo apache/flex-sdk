@@ -43,7 +43,12 @@ import spark.skins.mobile320.assets.RadioButton_downSymbolSelected;
 import spark.skins.mobile320.assets.RadioButton_up;
 import spark.skins.mobile320.assets.RadioButton_upSymbol;
 import spark.skins.mobile320.assets.RadioButton_upSymbolSelected;
-
+import spark.skins.mobile480.assets.RadioButton_down;
+import spark.skins.mobile480.assets.RadioButton_downSymbol;
+import spark.skins.mobile480.assets.RadioButton_downSymbolSelected;
+import spark.skins.mobile480.assets.RadioButton_up;
+import spark.skins.mobile480.assets.RadioButton_upSymbol;
+import spark.skins.mobile480.assets.RadioButton_upSymbolSelected;
 /**
  *  ActionScript-based skin for RadioButton controls in mobile applications. 
  * 

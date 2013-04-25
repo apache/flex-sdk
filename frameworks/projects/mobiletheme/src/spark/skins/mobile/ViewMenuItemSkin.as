@@ -32,6 +32,10 @@ import spark.skins.mobile.supportClasses.ButtonSkinBase;
 import spark.skins.mobile320.assets.ViewMenuItem_down;
 import spark.skins.mobile320.assets.ViewMenuItem_showsCaret;
 import spark.skins.mobile320.assets.ViewMenuItem_up;
+import spark.skins.mobile480.assets.ViewMenuItem_down;
+import spark.skins.mobile480.assets.ViewMenuItem_showsCaret;
+import spark.skins.mobile480.assets.ViewMenuItem_up;
+
 
 use namespace mx_internal;
 

@@ -31,6 +31,8 @@ import spark.skins.mobile240.assets.HSliderThumb_normal;
 import spark.skins.mobile240.assets.HSliderThumb_pressed;
 import spark.skins.mobile320.assets.HSliderThumb_normal;
 import spark.skins.mobile320.assets.HSliderThumb_pressed;
+import spark.skins.mobile480.assets.HSliderThumb_normal;
+import spark.skins.mobile480.assets.HSliderThumb_pressed;
 
 /**
  *  ActionScript-based skin for the HSlider thumb skin part in mobile applications.

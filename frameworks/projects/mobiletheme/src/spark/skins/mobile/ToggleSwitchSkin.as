@@ -39,6 +39,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile160.assets.ToggleSwitch_contentShadow;
 import spark.skins.mobile240.assets.ToggleSwitch_contentShadow;
 import spark.skins.mobile320.assets.ToggleSwitch_contentShadow;
+import spark.skins.mobile480.assets.ToggleSwitch_contentShadow;
 
 use namespace mx_internal;
 

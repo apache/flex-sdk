@@ -31,6 +31,8 @@ import spark.skins.mobile.supportClasses.ActionBarButtonSkinBase;
 import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile320.assets.TransparentActionButton_down;
 import spark.skins.mobile320.assets.TransparentActionButton_up;
+import spark.skins.mobile480.assets.TransparentActionButton_down;
+import spark.skins.mobile480.assets.TransparentActionButton_up;
 
 use namespace mx_internal;
 

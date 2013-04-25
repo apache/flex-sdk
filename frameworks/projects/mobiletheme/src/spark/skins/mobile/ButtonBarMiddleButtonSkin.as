@@ -31,6 +31,9 @@ import spark.skins.mobile240.assets.ButtonBarMiddleButton_up;
 import spark.skins.mobile320.assets.ButtonBarMiddleButton_down;
 import spark.skins.mobile320.assets.ButtonBarMiddleButton_selected;
 import spark.skins.mobile320.assets.ButtonBarMiddleButton_up;
+import spark.skins.mobile480.assets.ButtonBarMiddleButton_down;
+import spark.skins.mobile480.assets.ButtonBarMiddleButton_selected;
+import spark.skins.mobile480.assets.ButtonBarMiddleButton_up;
 
 /**
  *  Button skin for middle Buttons in a ButtonBar.

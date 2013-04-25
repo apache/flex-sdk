@@ -42,6 +42,12 @@ import spark.skins.mobile320.assets.CheckBox_downSymbolSelected;
 import spark.skins.mobile320.assets.CheckBox_up;
 import spark.skins.mobile320.assets.CheckBox_upSymbol;
 import spark.skins.mobile320.assets.CheckBox_upSymbolSelected;
+import spark.skins.mobile480.assets.CheckBox_down;
+import spark.skins.mobile480.assets.CheckBox_downSymbol;
+import spark.skins.mobile480.assets.CheckBox_downSymbolSelected;
+import spark.skins.mobile480.assets.CheckBox_up;
+import spark.skins.mobile480.assets.CheckBox_upSymbol;
+import spark.skins.mobile480.assets.CheckBox_upSymbolSelected;
 
 /**
  *  ActionScript-based skin for CheckBox components in mobile applications. 

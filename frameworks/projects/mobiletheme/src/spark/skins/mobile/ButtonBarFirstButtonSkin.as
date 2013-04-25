@@ -31,7 +31,9 @@ import spark.skins.mobile240.assets.ButtonBarFirstButton_up;
 import spark.skins.mobile320.assets.ButtonBarFirstButton_down;
 import spark.skins.mobile320.assets.ButtonBarFirstButton_selected;
 import spark.skins.mobile320.assets.ButtonBarFirstButton_up;
-
+import spark.skins.mobile480.assets.ButtonBarFirstButton_down;
+import spark.skins.mobile480.assets.ButtonBarFirstButton_selected;
+import spark.skins.mobile480.assets.ButtonBarFirstButton_up;
 /**
  *  Button skin for the first Button in a ButtonBar.
  * 

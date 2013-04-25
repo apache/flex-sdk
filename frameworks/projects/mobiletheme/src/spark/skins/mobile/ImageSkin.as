@@ -32,6 +32,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile160.assets.ImageInvalid;
 import spark.skins.mobile240.assets.ImageInvalid;
 import spark.skins.mobile320.assets.ImageInvalid;
+import spark.skins.mobile480.assets.ImageInvalid;
 
 /**
  *  ActionScript-based skin for the Image component in mobile applications.

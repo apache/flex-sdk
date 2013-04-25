@@ -28,6 +28,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile160.assets.HSliderTrack;
 import spark.skins.mobile240.assets.HSliderTrack;
 import spark.skins.mobile320.assets.HSliderTrack;
+import spark.skins.mobile480.assets.HSliderTrack;
 
 /**
  *  ActionScript-based skin for the HSlider track skin part in mobile applications. 

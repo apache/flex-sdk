@@ -44,6 +44,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile160.assets.CalloutContentBackground;
 import spark.skins.mobile240.assets.CalloutContentBackground;
 import spark.skins.mobile320.assets.CalloutContentBackground;
+import spark.skins.mobile480.assets.CalloutContentBackground;
 
 use namespace mx_internal;
 

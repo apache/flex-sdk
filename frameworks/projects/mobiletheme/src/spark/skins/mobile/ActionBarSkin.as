@@ -38,6 +38,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile160.assets.ActionBarBackground;
 import spark.skins.mobile240.assets.ActionBarBackground;
 import spark.skins.mobile320.assets.ActionBarBackground;
+import spark.skins.mobile480.assets.ActionBarBackground;
 
 use namespace mx_internal;
 

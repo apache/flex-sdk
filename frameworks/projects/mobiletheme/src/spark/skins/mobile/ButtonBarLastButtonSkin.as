@@ -31,6 +31,9 @@ import spark.skins.mobile240.assets.ButtonBarLastButton_up;
 import spark.skins.mobile320.assets.ButtonBarLastButton_down;
 import spark.skins.mobile320.assets.ButtonBarLastButton_selected;
 import spark.skins.mobile320.assets.ButtonBarLastButton_up;
+import spark.skins.mobile480.assets.ButtonBarLastButton_down;
+import spark.skins.mobile480.assets.ButtonBarLastButton_selected;
+import spark.skins.mobile480.assets.ButtonBarLastButton_up;
 
 /**
  *  Button skin for the last Button in a ButtonBar.

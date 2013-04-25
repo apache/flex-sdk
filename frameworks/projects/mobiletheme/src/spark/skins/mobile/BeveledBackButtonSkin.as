@@ -33,6 +33,8 @@ import spark.skins.mobile240.assets.BeveledBackButton_fill;
 import spark.skins.mobile240.assets.BeveledBackButton_up;
 import spark.skins.mobile320.assets.BeveledBackButton_down;
 import spark.skins.mobile320.assets.BeveledBackButton_up;
+import spark.skins.mobile480.assets.BeveledBackButton_down;
+import spark.skins.mobile480.assets.BeveledBackButton_up;
 
 use namespace mx_internal;
 
