@@ -93,7 +93,7 @@
 			
 		</TestCase>
 
-		<TestCase testID="Check_bitmap_320" description="" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
+		<TestCase testID="Check_bitmap_480" description="" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
 					
 			<body>
 				<!-- Noticed pixel differences between win 160 and qnx 160. These really shouldn't be happening. -->		
