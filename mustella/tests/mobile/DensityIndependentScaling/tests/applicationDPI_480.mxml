@@ -45,7 +45,7 @@
 	
 	<testCases>
 		
-		<TestCase testID="Get_applicationDPI" description="applicationDPI is set to  in MXML" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
+		<TestCase testID="Get_applicationDPI" description="applicationDPI is set to 480 in MXML" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
 
 			<body>
 				<AssertPropertyValue target="" propertyName="applicationDPI" value="480" />
