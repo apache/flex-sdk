@@ -104,7 +104,8 @@ use namespace mx_internal;
  *     <tr><th>Characteristic</th><th>Description</th></tr>
  *     <tr><td>Default size</td><td>160 DPI: 26x26 pixels<br>
  *                                  240 DPI: 40x40 pixels<br>
- *                                  320 DPI: 52x52 pixels</td></tr>
+ *                                  320 DPI: 52x52 pixels<br>
+ * 									380 DPI: 80x80 pixels<br></td></tr>
  *     <tr><td>Minimum size</td><td>20x20 pixels</td></tr>
  *     <tr><td>Maximum size</td><td>No limit</td></tr>
  *  </table>
@@ -323,7 +324,12 @@ public class BusyIndicator extends UIComponent
         
         // Set the default measured size depending on the
         // applicationDPI
-        if (applicationDPI == DPIClassification.DPI_320)
+		if (applicationDPI == DPIClassification.DPI_480)
+		{
+			measuredWidth = 80;
+			measuredHeight = 80;
+		}
+		else if (applicationDPI == DPIClassification.DPI_320)
         {
             measuredWidth = 52;
             measuredHeight = 52;

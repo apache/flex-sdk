@@ -912,7 +912,7 @@ public class Application extends SkinnableContainer
      */
     private var _applicationDPI:Number = NaN;
     
-    [Inspectable(category="General", enumeration="160,240,320")]
+    [Inspectable(category="General", enumeration="160,240,320,480")]
     
     /**
      *  The DPI of the application.
@@ -985,7 +985,8 @@ public class Application extends SkinnableContainer
      *     <table class="innertable">
      *        <tr><td>160 DPI</td><td>&lt;200 DPI</td></tr>
      *        <tr><td>240 DPI</td><td>&gt;=200 DPI and &lt;280 DPI</td></tr>
-     *        <tr><td>320 DPI</td><td>&gt;=280 DPI</td></tr>
+     *        <tr><td>320 DPI</td><td>&gt;=280 DPI and &lt;400 DPI</td></tr>
+	 *        <tr><td>480 DPI</td><td>&gt;=400 DPI</td></tr>
      *     </table>
      *  </p>
      * 
