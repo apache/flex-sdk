@@ -18,7 +18,7 @@
 
 -->
 <UnitTester testDir="mobile/DensityIndependentScaling/tests/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns="*" 
-			testSWF="ViewNavigatorApplication160dpi.mxml">
+			testSWF="ViewNavigatorApplication480dpi.mxml">
 	<!-- this set of lines form a template that must be in each unit test -->
 	<fx:Script>
 		<![CDATA[
@@ -45,10 +45,10 @@
 	
 	<testCases>
 		
-		<TestCase testID="Get_applicationDPI" description="applicationDPI is set to 160 in MXML" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
-		
+		<TestCase testID="Get_applicationDPI" description="applicationDPI is set to  in MXML" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
+
 			<body>
-				<AssertPropertyValue target="" propertyName="applicationDPI" value="160" />
+				<AssertPropertyValue target="" propertyName="applicationDPI" value="480" />
 			</body>
 		
 		</TestCase>
@@ -59,7 +59,7 @@
 				<SetProperty target="" propertyName="applicationDPI" value="777" />
 			</setup>
 			<body>
-			<AssertPropertyValue target="" propertyName="applicationDPI" value="160" />
+			<AssertPropertyValue target="" propertyName="applicationDPI" value="480" />
 			</body>
 			
 		</TestCase>
@@ -68,11 +68,11 @@
 			
 			<body>
 				
-				<AssertPropertyValue target="" propertyName="scalingFactor" value="1" >
-					<ConditionalValue deviceDensity="160" value="1"/>
-					<ConditionalValue deviceDensity="240" value="1.5"/>
-					<ConditionalValue deviceDensity="320" value="2"/>
-					<ConditionalValue deviceDensity="480" value="4"/>
+				<AssertPropertyValue target="" propertyName="scalingFactor" value="0.500000" >
+					<ConditionalValue deviceDensity="160" value="0.25"/>
+					<ConditionalValue deviceDensity="240" value="0.5"/>
+					<ConditionalValue deviceDensity="320" value="0.75"/>
+					<ConditionalValue deviceDensity="480" value="1"/>
 				</AssertPropertyValue>	
 			
 			</body>
@@ -83,21 +83,20 @@
 			
 			<body>
 				
-				<AssertPropertyValue target="" propertyName="screenWidth" value="500">
-					<ConditionalValue deviceDensity="160" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth"/>
-					<ConditionalValue deviceDensity="240" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/1.5"/>
-					<ConditionalValue deviceDensity="320" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/2"/>
+				<AssertPropertyValue target="" propertyName="screenWidth" value="1000">
+					<ConditionalValue deviceDensity="160" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/0.25"/>
+					<ConditionalValue deviceDensity="240" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/0.5"/>
+					<ConditionalValue deviceDensity="320" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/0.75"/>
 					<ConditionalValue deviceDensity="480" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth"/>
 				</AssertPropertyValue>	
 			</body>
 			
 		</TestCase>
-		
-		
-		<TestCase testID="Check_bitmap_160" description="" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
+
+		<TestCase testID="Check_bitmap_320" description="" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
 					
 			<body>
-						
+				<!-- Noticed pixel differences between win 160 and qnx 160. These really shouldn't be happening. -->		
 				<CompareBitmap target="navigator.activeView.redSquare" url="../tests/baselines">
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="160" os="win" />
@@ -110,6 +109,7 @@
 			</body>
 					
 		</TestCase>
+
 		
 		
 	</testCases>
