@@ -614,6 +614,105 @@ global
     }
 }
 
+@media (application-dpi: 480)
+{
+	ActionBar
+	{
+		paddingBottom: 4;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 4;
+	}
+	
+	ActionBar.beveled
+	{
+		paddingLeft: 15;
+		paddingRight: 15;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 54;
+	}
+	
+	ActionBar.beveled Group#navigationGroup Button
+	{
+		fontSize: 36;
+	}
+	
+	ActionBar.beveled Group#actionGroup Button
+	{
+		fontSize: 36;
+	}
+	
+	Callout
+	{
+		gap: 24;
+	}
+	
+	IconItemRenderer
+	{
+		paddingBottom: 24;
+		paddingTop: 24;
+		horizontalGap: 24;
+		verticalGap: 18;
+	}
+	
+	.iconItemRendererMessageStyle
+	{
+		fontSize: 42;
+	}
+	
+	LabelItemRenderer
+	{
+		paddingBottom: 48;
+		paddingLeft: 30;
+		paddingRight: 30;
+		paddingTop: 48;
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 36;
+		paddingBottom : 36;
+		paddingLeft : 24;
+		paddingRight : 24;
+	}
+	
+	TextArea
+	{
+		paddingBottom: 18;
+		paddingLeft: 18;
+		paddingRight: 18;
+		paddingTop: 18;
+	}
+	
+	TextInput
+	{
+		paddingBottom: 18;
+		paddingLeft: 18;
+		paddingRight: 18;
+		paddingTop: 18;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 42;
+	}
+	
+	ToggleSwitch
+	{
+		fontSize: 54;
+	}
+	
+	global
+	{
+		fontSize: 48;
+		focusThickness: 6;
+	}
+}
+
+
 @media (application-dpi: 160) AND (os-platform:"IOS")
 {
     TextArea
