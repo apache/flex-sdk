@@ -41,7 +41,8 @@ use namespace mx_internal;
  *     <table class="innertable">
  *        <tr><td>160 DPI</td><td>&lt;200 DPI</td></tr>
  *        <tr><td>240 DPI</td><td>&gt;=200 DPI and &lt;280 DPI</td></tr>
- *        <tr><td>320 DPI</td><td>&gt;=280 DPI</td></tr>
+ *        <tr><td>320 DPI</td><td>&gt;=280 DPI and &lt;400 DPI</td></tr>
+ *        <tr><td>480 DPI</td><td>&gt;=400 DPI</td></tr>
  *     </table>
  *  </p>
  * 
@@ -121,8 +122,11 @@ public class RuntimeDPIProvider
         
         if (dpi <= 280)
             return DPIClassification.DPI_240;
+		
+		if (dpi <= 400)
+			return DPIClassification.DPI_320;
         
-        return DPIClassification.DPI_320;
+        return DPIClassification.DPI_480;
     }
 }
 }
