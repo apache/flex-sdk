@@ -52,6 +52,13 @@ public class TabbedViewNavigatorTabBarFirstTabSkin extends TabbedViewNavigatorTa
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				upBorderSkin = spark.skins.mobile480.assets.TabbedViewNavigatorButtonBarFirstButton_up;
+				downBorderSkin = spark.skins.mobile480.assets.TabbedViewNavigatorButtonBarFirstButton_down;
+				selectedBorderSkin = spark.skins.mobile480.assets.TabbedViewNavigatorButtonBarFirstButton_selected;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 upBorderSkin = spark.skins.mobile320.assets.TabbedViewNavigatorButtonBarFirstButton_up;

@@ -49,6 +49,8 @@ public class HScrollBarThumbSkin extends MobileSkin
     //--------------------------------------------------------------------------
     
     // These constants are also accessed from HScrollBarSkin
+	mx_internal static const PADDING_BOTTOM_480DPI:int = 8;
+	mx_internal static const PADDING_HORIZONTAL_480DPI:int = 6;
     mx_internal static const PADDING_BOTTOM_320DPI:int = 5;
     mx_internal static const PADDING_HORIZONTAL_320DPI:int = 4;
     mx_internal static const PADDING_BOTTOM_240DPI:int = 4;
@@ -76,6 +78,12 @@ public class HScrollBarThumbSkin extends MobileSkin
         // Depending on density set padding
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				paddingBottom = PADDING_BOTTOM_480DPI;
+				paddingHorizontal = PADDING_HORIZONTAL_480DPI;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 paddingBottom = PADDING_BOTTOM_320DPI;

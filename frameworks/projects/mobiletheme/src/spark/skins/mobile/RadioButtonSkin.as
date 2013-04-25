@@ -93,6 +93,24 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				upIconClass = spark.skins.mobile480.assets.RadioButton_up;
+				upSelectedIconClass = spark.skins.mobile480.assets.RadioButton_up;
+				downIconClass = spark.skins.mobile480.assets.RadioButton_down;
+				downSelectedIconClass = spark.skins.mobile480.assets.RadioButton_down;
+				upSymbolIconClass =  spark.skins.mobile480.assets.RadioButton_upSymbol;
+				downSymbolIconClass =  spark.skins.mobile480.assets.RadioButton_downSymbol;
+				upSymbolIconSelectedClass = spark.skins.mobile480.assets.RadioButton_upSymbolSelected;
+				downSymbolIconSelectedClass = spark.skins.mobile480.assets.RadioButton_downSymbolSelected;
+				
+				layoutGap = 30;
+				minWidth = 96;
+				minHeight = 96;
+				
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 upIconClass = spark.skins.mobile320.assets.RadioButton_up;

@@ -87,6 +87,18 @@ public class ActionBarSkin extends MobileSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				borderSize = 2;
+				layoutShadowHeight = 9;
+				layoutContentGroupHeight = 130;
+				layoutTitleGroupHorizontalPadding = 40;
+				
+				borderClass = spark.skins.mobile240.assets.ActionBarBackground;
+				
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 borderSize = 2;

@@ -59,6 +59,23 @@ public class ViewMenuItemSkin extends ButtonSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{   
+				// Note provisional may need changes
+				upBorderSkin = spark.skins.mobile.assets.ViewMenuItem_up;
+				downBorderSkin = spark.skins.mobile.assets.ViewMenuItem_down;
+				showsCaretBorderSkin = spark.skins.mobile.assets.ViewMenuItem_showsCaret;
+				
+				layoutGap = 16;
+				layoutPaddingLeft = 16;
+				layoutPaddingRight = 16;
+				layoutPaddingTop = 16;
+				layoutPaddingBottom = 16;
+				layoutBorderSize = 2;
+				
+				break;
+				
+			}
             case DPIClassification.DPI_320:
             {
                 

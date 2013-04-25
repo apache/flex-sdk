@@ -64,6 +64,13 @@ public class HScrollBarSkin extends MobileSkin
         // Depending on density set our measured height
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				minHeight = 18;   
+				paddingBottom = HScrollBarThumbSkin.PADDING_BOTTOM_480DPI;
+				paddingHorizontal = HScrollBarThumbSkin.PADDING_HORIZONTAL_480DPI;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 minHeight = 12;   

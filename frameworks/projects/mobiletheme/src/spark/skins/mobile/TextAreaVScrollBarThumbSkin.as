@@ -41,7 +41,9 @@ public class TextAreaVScrollBarThumbSkin extends VScrollBarThumbSkin
     //--------------------------------------------------------------------------
     
     // These constants are also accessed from TextAreaVScrollBarSkin
-    mx_internal static const PADDING_RIGHT_320DPI:int = 8;
+	mx_internal static const PADDING_RIGHT_480DPI:int = 12;
+	mx_internal static const PADDING_VERTICAL_480DPI:int = 12;
+	mx_internal static const PADDING_RIGHT_320DPI:int = 8;
     mx_internal static const PADDING_VERTICAL_320DPI:int = 12;
     mx_internal static const PADDING_RIGHT_240DPI:int = 6;
     mx_internal static const PADDING_VERTICAL_240DPI:int = 6;
@@ -69,6 +71,12 @@ public class TextAreaVScrollBarThumbSkin extends VScrollBarThumbSkin
         // Depending on density set padding
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				paddingRight = PADDING_RIGHT_480DPI;
+				paddingVertical = PADDING_VERTICAL_480DPI;
+				break;
+			}		
             case DPIClassification.DPI_320:
             {
                 paddingRight = PADDING_RIGHT_320DPI;

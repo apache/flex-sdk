@@ -61,6 +61,18 @@ public class HSliderTrackSkin extends MobileSkin
         // set the right assets and dimensions to use based on the screen density
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				trackWidth = 880;
+				trackHeight = 26;
+				
+				visibleTrackOffset = 32;
+				
+				trackClass = spark.skins.mobile480.assets.HSliderTrack;
+				
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 trackWidth = 600;

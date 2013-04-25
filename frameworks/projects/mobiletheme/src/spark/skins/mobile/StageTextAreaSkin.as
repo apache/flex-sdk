@@ -78,6 +78,11 @@ public class StageTextAreaSkin extends StageTextSkinBase
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				measuredDefaultHeight = 140;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 measuredDefaultHeight = 106;

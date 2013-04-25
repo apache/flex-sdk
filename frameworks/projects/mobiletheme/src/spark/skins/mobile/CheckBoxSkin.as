@@ -88,6 +88,25 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				upIconClass = spark.skins.mobile480.assets.CheckBox_up;
+				upSelectedIconClass = spark.skins.mobile480.assets.CheckBox_up;
+				downIconClass = spark.skins.mobile480.assets.CheckBox_down;
+				downSelectedIconClass = spark.skins.mobile480.assets.CheckBox_down;
+				upSymbolIconClass = spark.skins.mobile480.assets.CheckBox_upSymbol;
+				upSymbolIconSelectedClass = spark.skins.mobile480.assets.CheckBox_upSymbolSelected;
+				downSymbolIconClass = spark.skins.mobile480.assets.CheckBox_downSymbol;
+				downSymbolIconSelectedClass = spark.skins.mobile480.assets.CheckBox_downSymbolSelected;
+				
+				layoutGap = 30;
+				minWidth = 96;
+				minHeight = 96;
+				layoutBorderSize = 8;
+				
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 upIconClass = spark.skins.mobile320.assets.CheckBox_up;

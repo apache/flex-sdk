@@ -72,6 +72,17 @@ public class TextInputSkin extends TextSkinBase
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				borderClass = spark.skins.mobile480.assets.TextInput_border;
+				layoutCornerEllipseSize = 24;
+				measuredDefaultWidth = 880;
+				measuredDefaultHeight = 100;
+				layoutBorderSize = 2;
+				
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 borderClass = spark.skins.mobile320.assets.TextInput_border;

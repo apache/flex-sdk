@@ -58,6 +58,16 @@ public class ButtonBarMiddleButtonSkin extends ButtonBarButtonSkinBase
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				upBorderSkin = spark.skins.mobile480.assets.ButtonBarFirstButton_up;
+				downBorderSkin = spark.skins.mobile480.assets.ButtonBarFirstButton_down;
+				selectedBorderSkin = spark.skins.mobile480.assets.ButtonBarFirstButton_selected;
+				
+				cornerRadius = 16;
+				
+				break;
+			}
             case DPIClassification.DPI_320: 
             {
                 upBorderSkin = spark.skins.mobile320.assets.ButtonBarMiddleButton_up;

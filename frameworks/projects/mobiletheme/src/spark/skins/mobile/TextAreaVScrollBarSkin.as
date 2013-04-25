@@ -52,6 +52,13 @@ public class TextAreaVScrollBarSkin extends VScrollBarSkin
 
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				minWidth = 22;
+				paddingRight = TextAreaVScrollBarThumbSkin.PADDING_RIGHT_480DPI;
+				paddingVertical = TextAreaVScrollBarThumbSkin.PADDING_VERTICAL_480DPI;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 minWidth = 15;

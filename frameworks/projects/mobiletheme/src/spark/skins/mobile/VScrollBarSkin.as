@@ -66,6 +66,13 @@ public class VScrollBarSkin extends MobileSkin
         // Depending on density set our measured width
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				minWidth = 18;
+				paddingRight = VScrollBarThumbSkin.PADDING_RIGHT_480DPI;
+				paddingVertical = VScrollBarThumbSkin.PADDING_VERTICAL_480DPI;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 minWidth = 12;

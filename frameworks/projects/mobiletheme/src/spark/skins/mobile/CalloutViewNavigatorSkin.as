@@ -63,6 +63,13 @@ public class CalloutViewNavigatorSkin extends ViewNavigatorSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				contentBackgroundClass = spark.skins.mobile480.assets.CalloutContentBackground;
+				contentCornerRadius = 14;
+				gap = 24;
+				break;
+			}	
             case DPIClassification.DPI_320:
             {
                 contentBackgroundClass = spark.skins.mobile320.assets.CalloutContentBackground;

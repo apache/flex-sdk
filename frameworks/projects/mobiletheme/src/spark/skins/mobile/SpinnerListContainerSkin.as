@@ -68,6 +68,18 @@ public class SpinnerListContainerSkin extends MobileSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				borderClass = spark.skins.mobile480.assets.SpinnerListContainerBackground;
+				selectionIndicatorClass = spark.skins.mobile480.assets.SpinnerListContainerSelectionIndicator;
+				shadowClass = spark.skins.mobile480.assets.SpinnerListContainerShadow;
+				
+				cornerRadius = 16;
+				borderThickness = 2;
+				selectionIndicatorHeight = 144;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 borderClass = spark.skins.mobile320.assets.SpinnerListContainerBackground;

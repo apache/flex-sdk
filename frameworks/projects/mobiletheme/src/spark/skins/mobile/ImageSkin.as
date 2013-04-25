@@ -65,6 +65,11 @@ public class ImageSkin extends MobileSkin
         // set the right assets and dimensions to use based on the screen density
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				imageInvalidClass = spark.skins.mobile480.assets.ImageInvalid;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 imageInvalidClass = spark.skins.mobile320.assets.ImageInvalid;
