@@ -1209,7 +1209,7 @@ public class DataGrid extends SkinnableContainerBase
      *  
      *  See getPartProperty(), setPartProperty().
      */
-    private var gridProperties:Object = new Object();
+    private var gridProperties:Object = {};
     
     /**
      *  @private
@@ -3597,7 +3597,7 @@ public class DataGrid extends SkinnableContainerBase
             // Cover Properties
             
             const gridPropertyBits:uint = gridProperties.propertyBits;
-            gridProperties = new Object();
+            gridProperties = {};
             
             for (var propertyName:String in gridPropertyDefaults)
             {
@@ -4963,7 +4963,7 @@ public class DataGrid extends SkinnableContainerBase
      */
     private function createSortFields(columnIndices:Vector.<int>, previousFields:Array):Array 
     {
-        const fields:Array = new Array(); // return value
+        const fields:Array = []; // return value
         
         for each (var columnIndex:int in columnIndices)
         {

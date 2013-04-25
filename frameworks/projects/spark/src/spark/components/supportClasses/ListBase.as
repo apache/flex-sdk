@@ -307,7 +307,8 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
         if (isNull || isEmpty)
         {
             var originalProvider:IList = isEmpty ? dataProvider : null;
-            dataProvider = new mx.collections.ArrayList([ new Object() ]);
+			//TODO (jmclean) seems odd to me double check
+            dataProvider = new mx.collections.ArrayList([ {} ]);
             validateNow();
         }
         

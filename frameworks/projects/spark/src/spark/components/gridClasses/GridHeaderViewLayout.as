@@ -81,7 +81,7 @@ public class GridHeaderViewLayout extends LayoutBase
      *  Cached header renderer heights maintained by the measure() method, 
      *  and the current content height.
      */
-    private const rendererHeights:Array = new Array();
+    private const rendererHeights:Array = [];
     private var maxRendererHeight:Number = 0;
     
     /**

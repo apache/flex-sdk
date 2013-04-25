@@ -3095,7 +3095,7 @@ class StageTextPool
             // default value.
             if (!cleanProperties)
             {
-                cleanProperties = new Object();
+                cleanProperties = {};
                 
                 cleanProperties["autoCapitalize"] = result.autoCapitalize;
                 cleanProperties["autoCorrect"] = result.autoCorrect;

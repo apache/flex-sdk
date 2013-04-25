@@ -277,7 +277,7 @@ public class SlideViewTransition extends ViewTransitionBase
         
         // Initialize the property bag used to save some of our
         // properties that are then restored after the transition is over.
-        navigatorProps = new Object(); 
+        navigatorProps = {}; 
         navigatorProps.initialHeight = navigator.height;
         
         // Determine if we will be animating the tabBar as part of the
@@ -347,7 +347,7 @@ public class SlideViewTransition extends ViewTransitionBase
         // the start of our transition, ensuring that they are cached as 
         // surfaces, and adjust z-order if necessary.
 
-        var slideTargets:Array = new Array();
+        var slideTargets:Array = [];
         
         endViewNeedsValidations = false;
         startViewNeedsValidations = false;
@@ -485,7 +485,7 @@ public class SlideViewTransition extends ViewTransitionBase
         // Prepare our start and end view elements by positioning them prior to 
         // the start of our transition, ensuring that they are cached as 
         // surfaces, and adjust z-order if necessary.
-        var slideTargets:Array = new Array();
+        var slideTargets:Array = [];
         
         endViewNeedsValidations = false;
         startViewNeedsValidations = false;

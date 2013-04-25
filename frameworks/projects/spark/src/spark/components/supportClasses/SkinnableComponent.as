@@ -956,10 +956,10 @@ public class SkinnableComponent extends UIComponent
             
             // Add to the dynamic parts cache
             if (!dynamicPartsCache)
-                dynamicPartsCache = new Object();
+                dynamicPartsCache = {};
                 
             if (!dynamicPartsCache[partName])
-                dynamicPartsCache[partName] = new Array();
+                dynamicPartsCache[partName] = [];
             
             dynamicPartsCache[partName].push(instance);
             

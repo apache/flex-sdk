@@ -433,7 +433,7 @@ public class ArrayList extends EventDispatcher
         if (addListLength == 0)
             return;
 
-        const addedItems:Array = new Array();
+        const addedItems:Array = [];
         
         disableEvents();
         for (var i:int = 0; i < addListLength; i++)

@@ -69,7 +69,7 @@ use namespace mx_internal;
 public class SerializationFilter
 {
     // replaces/returns previous with that name or null
-    static mx_internal var filterForResultFormatTable:Object = new Object();
+    static mx_internal var filterForResultFormatTable:Object = {};
 
     /**
      * This static function is used to register a new SerializationFilter for a 

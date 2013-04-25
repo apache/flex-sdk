@@ -749,7 +749,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
     override public function saveViewData():Object
     {
         var object:Object = super.saveViewData();
-        var dataArray:Array = new Array();
+        var dataArray:Array = [];
         
         // Push each navigator's persistence object to the data array
         for (var i:int = 0; i < numViewNavigators; i++)
