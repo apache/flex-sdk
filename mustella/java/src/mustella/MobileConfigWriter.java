@@ -162,7 +162,7 @@ public class MobileConfigWriter {
 				ret += "		UnitTester.cv.targetOS = \"" + target_os + "\";\n";
 				ret += "		UnitTester.cv.osVersion = \"" + os_version + "\";\n";
 				
-				// If device, get the proper dpi bucket (160/240/320) for the device.
+				// If device, get the proper dpi bucket (160/240/320/480) for the device.
 				if( (target_os.compareToIgnoreCase(MobileUtil.MAC) == 0) || (target_os.compareToIgnoreCase(MobileUtil.WIN) == 0) ){
 					if( adl_extras_XscreenDPI == -1 ){
 						ret += "		UnitTester.cv.deviceDensity = flash.system.Capabilities.screenDPI;\n";
