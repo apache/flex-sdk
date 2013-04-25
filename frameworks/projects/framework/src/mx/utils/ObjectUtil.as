@@ -990,9 +990,8 @@ public class ObjectUtil
             }
         }
 
-        // TODO (pfarland): this seems slightly fragile, why not use the 'is' operator?
-        var isArray:Boolean = (className == "Array");
-        var isDict:Boolean  = (className == "flash.utils::Dictionary");
+        var isArray:Boolean = (obj is Array);
+        var isDict:Boolean  = (obj is Dictionary);
         
         if (isDict)
         {
