@@ -273,6 +273,11 @@ public class LabelItemRenderer extends UIComponent
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				minHeight = 132;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 minHeight = 88;
