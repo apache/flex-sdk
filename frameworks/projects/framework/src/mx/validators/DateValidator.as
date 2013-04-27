@@ -326,17 +326,17 @@ public class DateValidator extends Validator
 						&& (lastStringChar != "");
 					var curentIsDigit:Boolean = (DECIMAL_DIGITS.indexOf(stringChar) >= 0);
 					
-					if (lastIsDigit != curentIsDigit)
-					{
-						part++;
-						dateParts[part] = stringChar;
-					}
-					else if (validInput.indexOf(stringChar) == -1)
+					if (validInput.indexOf(stringChar) == -1)
 					{
 						results.push(new ValidationResult(
 							true, baseField, "invalidChar", 
 							validator.invalidCharError));
 						return results;
+					}
+					else if (lastIsDigit != curentIsDigit)
+					{
+						part++;
+						dateParts[part] = stringChar;
 					}
 					else
 					{
