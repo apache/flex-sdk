@@ -71,6 +71,7 @@ import mx.resources.ResourceManager;
  *    dayProperty="<i>No default</i>"
  *    daySource="<i>No default</i>"
  *    formatError= "Configuration error: Incorrect formatting string." 
+ *    includeFormatInError="true|false"
  *    inputFormat="MM/DD/YYYY" 
  *    invalidCharError="The date contains invalid characters."
  *    monthListener="<i>Object specified by monthSource</i>"
@@ -350,7 +351,8 @@ public class DateValidator extends Validator
 				{
 					results.push(new ValidationResult(
 						true, baseField, "wrongLength", 
-						validator.wrongLengthError + " " + inputFormat));
+						validator.wrongLengthError
+						+ (DateValidator._includeFormatInError?" " + inputFormat:"")));
 					return results;
 				}
 
@@ -383,7 +385,8 @@ public class DateValidator extends Validator
 				{
 					results.push(new ValidationResult(
 						true, baseField, "wrongLength", 
-						validator.wrongLengthError + " " + inputFormat));	
+						validator.wrongLengthError
+						+ (DateValidator._includeFormatInError?" " + inputFormat:"")));	
 				}
 				// MM or M format
 				if ((monthRequired && monthPart.length == 2 && dateObj.month.length != 2)
@@ -391,7 +394,8 @@ public class DateValidator extends Validator
 				{
 					results.push(new ValidationResult(
 						true, baseField, "wrongLength", 
-						validator.wrongLengthError + " " + inputFormat));	
+						validator.wrongLengthError
+						+ (DateValidator._includeFormatInError?" " + inputFormat:"")));	
 				}
 				// YY or YYYY format
 				if ((yearRequired && yearPart.length == 2 && dateObj.year.length != 2)
@@ -399,7 +403,8 @@ public class DateValidator extends Validator
 				{
 					results.push(new ValidationResult(
 						true, baseField, "wrongLength", 
-						validator.wrongLengthError + " " + inputFormat));	
+						validator.wrongLengthError
+						+ (DateValidator._includeFormatInError?" " + inputFormat:"")));	
 				}
 						
 				if ((monthRequired && dateObj.month == "") ||
@@ -408,8 +413,8 @@ public class DateValidator extends Validator
 				 {
 				 	results.push(new ValidationResult(
 						true, baseField, "wrongLength", 
-						validator.wrongLengthError + " " +
-						inputFormat));
+						validator.wrongLengthError
+						+ (DateValidator._includeFormatInError?" " + inputFormat:"")));
 					return results;
 				 }
 			}
@@ -771,6 +776,46 @@ public class DateValidator extends Validator
 		_daySource = value;
 		
 		addListenerHandler();
+	}
+	
+	//----------------------------------
+	//  includeFormatInError
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 *  Storage for the includeFormatInError property.
+	 * 
+	 * Note needs to be static as validate methods are static.
+	 */
+	static private var _includeFormatInError:Boolean = true;
+
+	
+	[Inspectable(category="General", defaultValue="true")]
+	
+	/** 
+	 *  If <code>true</code> the date format is shown in some
+	 *  validation error messages. Setting to false changes all
+	 *  DateValidators.
+	 *
+	 *  @default true
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion ApacheFlex 4.10
+	 */
+	public function get includeFormatInError():Boolean
+	{
+		return DateValidator._includeFormatInError;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set includeFormatInError(value:Boolean):void
+	{
+		DateValidator._includeFormatInError = value;
 	}
 	
 	//----------------------------------
