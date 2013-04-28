@@ -584,6 +584,8 @@ public class DateBase
 				if (offset >= 0)
 					tzStr = "+" + tzStr;
 				
+				result += tzStr;
+				
 				return result;
 			}
         }
