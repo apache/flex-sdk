@@ -88,7 +88,7 @@ public class DateFormatter extends Formatter
     /**
      *  @private    
      */
-    private static const VALID_PATTERN_CHARS:String = "Y,M,D,A,E,H,J,K,L,N,S,Q";
+    private static const VALID_PATTERN_CHARS:String = "Y,M,D,A,E,H,J,K,L,N,S,Q,O,Z";
     
     //--------------------------------------------------------------------------
     //
@@ -122,7 +122,7 @@ public class DateFormatter extends Formatter
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static function parseDateString (str:String, format:String = null):Date
+    public static function parseDateString(str:String, format:String = null):Date
     {
         if (!str || str == "")
             return null;
@@ -684,7 +684,7 @@ public class DateFormatter extends Formatter
             {
                 error = defaultInvalidValueError;
                 return "";
-            }
+			}
         }
         else if (!(value is Date))
         {
