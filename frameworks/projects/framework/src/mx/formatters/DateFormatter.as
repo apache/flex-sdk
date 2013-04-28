@@ -106,6 +106,10 @@ public class DateFormatter extends Formatter
      *
      *  <pre>
      *  var myDate:Date = DateFormatter.parseDateString("2009-12-02 23:45:30"); </pre>
+	 * 
+	 *  The optional format property is use to work out which is likly to be encountered
+	 *  first a month or a date of the month for date where it may not be obvious which
+	 *  comes first.
      *  
      *  @see mx.formatters.DateBase
      * 
@@ -118,7 +122,7 @@ public class DateFormatter extends Formatter
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static function parseDateString (str:String):Date
+    public static function parseDateString (str:String, format:String = null):Date
     {
         if (!str || str == "")
             return null;
@@ -297,12 +301,17 @@ public class DateFormatter extends Formatter
                 // assign num to year or month or day or sec.
                 else if (punctuation.hasOwnProperty(letter) && punctuation[letter].date)
                 {
-					// FIXME assumes month come before day ie US style
-					// dates MM/DD/YYYY or year first dates YYYY/MM/DD
-					if (mon < 0)
+					var monthFirst:Boolean = year != -1;
+					
+					if (format)
+						monthFirst = monthFirst || format.search("M") < format.search("D");
+							
+					if (monthFirst && mon < 0)
                         mon = (num - 1);
 					else if (day < 0)
 						day = num;
+					else if (!monthFirst && mon < 0)
+						mon = (num -1);
 					else if (sec < 0)
 						sec = num;
 					else if (milli < 0)
@@ -670,7 +679,7 @@ public class DateFormatter extends Formatter
 
         if (value is String)
         {
-            value = DateFormatter.parseDateString(String(value));
+            value = DateFormatter.parseDateString(String(value), formatString);
             if (!value)
             {
                 error = defaultInvalidValueError;
