@@ -795,8 +795,8 @@ public class DateValidator extends Validator
 	
 	/** 
 	 *  If <code>true</code> the date format is shown in some
-	 *  validation error messages. Setting to false changes all
-	 *  DateValidators.
+	 *  validation error messages. Setting to <code>false</code>
+	 *  changes all DateValidators.
 	 *
 	 *  @default true
 	 *  
