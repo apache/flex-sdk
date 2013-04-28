@@ -2035,7 +2035,6 @@ public class DateField extends ComboBase
         textInput.mouseChildren = true;
         textInput.mouseEnabled = true;
         textInput.addEventListener(TextEvent.TEXT_INPUT, textInput_textInputHandler);
-		textInput.addEventListener(Event.CHANGE, onTextInputChange);
 		
         // hide the border, we use the text input's border
         if (border)
@@ -2278,14 +2277,6 @@ public class DateField extends ComboBase
         monthSymbol = monthSymbolOverride;
         yearSymbol = yearSymbolOverride;
     }
-	
-	/**
-	 *  @private
-	 */
-	protected function onTextInputChange(event:Event = null):void
-	{
-		dispatchEvent(new ItemEditEvent(ItemEditEvent.DATA_CHANGE, true));
-	}
 
     //--------------------------------------------------------------------------
     //
