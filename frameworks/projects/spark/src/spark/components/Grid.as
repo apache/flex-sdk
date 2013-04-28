@@ -4827,7 +4827,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         var loopingValuesIndex:uint = 0;
 
 
-        if (dataProvider && dataProvider.length > 0 && values != null && values.length > 0)
+        if (dataProvider != null && dataProvider.length > 0 && values != null && values.length > 0)
         {
             dataProviderTotal = dataProvider.length;
             valuesTotal = values.length;
