@@ -4822,14 +4822,15 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         var regexList:Array = [];
         var matchedIndices:Array = [];
         var dataProviderTotal:uint = 0;
-        var valuesTotal:uint = values.length;
+        var valuesTotal:uint = 0;
         var loopingDataProviderIndex:uint = 0;
         var loopingValuesIndex:uint = 0;
 
 
-        if (dataProvider && dataProvider.length > 0 && valuesTotal > 0)
+        if (dataProvider != null && dataProvider.length > 0 && values != null && values.length > 0)
         {
             dataProviderTotal = dataProvider.length;
+            valuesTotal = values.length;
 
 
             //Set the regex patterns in an array once.
