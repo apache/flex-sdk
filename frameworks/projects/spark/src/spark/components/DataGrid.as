@@ -3983,6 +3983,27 @@ public class DataGrid extends SkinnableContainerBase
 
 
     /**
+    *  @copy spark.components.Grid#findRowIndices()
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function findRowIndices(field:String, values:Array, patternType:String = RegExPatterns.EXACT):Array
+    {
+        if (grid)
+        {
+            return grid.findRowIndices(field, values, patternType);
+        }
+        else
+        {
+            return [];
+        }
+    }
+
+
+    /**
      *  @copy spark.components.Grid#invalidateCell()
      *  
      *  @langversion 3.0
