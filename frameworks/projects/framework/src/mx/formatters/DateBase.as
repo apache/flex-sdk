@@ -578,7 +578,7 @@ public class DateBase
 				
 				if (key < 2 && mins == 0)
 					tzStr += setValue(hours, key);
-				else (key < 3)
+				else if (key < 3)
 					tzStr += setValue(hours, key) + ":" + setValue(mins, key);
 					
 				if (offset >= 0)
