@@ -89,6 +89,17 @@ package spark.components.supportClasses
 
 
         /**
+        *  This will search through a dataprovider checking the given field and for the given values and return an array of indexes that matched.
+        *
+        *  @langversion 3.0
+        *  @playerversion Flash 11.1
+        *  @playerversion AIR 3.4
+        *  @productversion Flex 4.10
+        */
+        function findRowIndices(field:String, values:Array, patternType:String = RegExPatterns.EXACT):Array;
+
+
+        /**
         *  Changes the selectedIndex to the first row of the dataProvider.
         *
         *  @langversion 3.0

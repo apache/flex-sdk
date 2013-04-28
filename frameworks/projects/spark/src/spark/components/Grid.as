@@ -4809,6 +4809,66 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
 
 
     /**
+    *  This will search through a dataprovider checking the given field and for the given values and return an array of indices that matched.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function findRowIndices(field:String, values:Array, patternType:String = RegExPatterns.EXACT):Array
+    {
+        var currentObject:Object = null;
+        var regexList:Array = [];
+        var matchedIndices:Array = [];
+        var dataProviderTotal:uint = 0;
+        var valuesTotal:uint = values.length;
+        var loopingDataProviderIndex:uint = 0;
+        var loopingValuesIndex:uint = 0;
+
+
+        if (dataProvider && dataProvider.length > 0 && valuesTotal > 0)
+        {
+            dataProviderTotal = dataProvider.length;
+
+
+            //Set the regex patterns in an array once.
+            for (loopingValuesIndex = 0; loopingValuesIndex < valuesTotal; loopingValuesIndex++)
+            {
+                regexList.push(RegExPatterns.createRegExp(values[loopingValuesIndex], patternType));
+            }
+
+
+            //Loop through dataprovider
+            for (loopingDataProviderIndex; loopingDataProviderIndex < dataProviderTotal; loopingDataProviderIndex++)
+            {
+                currentObject = dataProvider.getItemAt(loopingDataProviderIndex);
+
+                if (currentObject.hasOwnProperty(field) == false)
+                {
+                    continue;
+                }
+
+                //Loop through regex patterns from the values array.
+                for (loopingValuesIndex = 0; loopingValuesIndex < valuesTotal; loopingValuesIndex++)
+                {
+                    if (currentObject[field].search(regexList[loopingValuesIndex]) != -1)
+                    {
+                        matchedIndices.push(loopingDataProviderIndex);
+
+                        break;
+                    }
+                }
+            }
+
+        }
+
+
+        return matchedIndices;
+    }
+
+
+    /**
     *  This will search through a dataprovider checking the given field and will set the selectedIndex to a matching value.
     *  It can start the search from the startingIndex;
     *
