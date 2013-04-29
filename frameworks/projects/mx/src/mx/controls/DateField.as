@@ -435,6 +435,8 @@ public class DateField extends ComboBase
      *  It can contain <code>"M"</code>,<code>"MM"</code>,<code>"D"</code>,
 	 *  <code>"DD"</code>,<code>"YY"</code>,<code>"YYYY"</code>
      *  and delimiter and punctuation characters.
+	 * 
+	 *  <p>Only upper case characters are supported.</p>
      *
      *  <p>The function does not check for the validity of the Date object.
      *  If the value of the date, month, or year is NaN, this method returns null.</p>
@@ -559,6 +561,8 @@ public class DateField extends ComboBase
      *  It can contain <code>"M"</code>,<code>"MM"</code>,<code>"D"</code>,
 	 *  <code>"DD"</code>,<code>"YY"</code>,<code>"YYYY"</code>
      *  and delimiter and punctuation characters.
+	 * 
+	 *  <p>Only upper case characters are supported.</p>
      *
      *  @param value Date value to format.
      *
@@ -1298,9 +1302,12 @@ public class DateField extends ComboBase
     
     /**
      *  The format of the displayed date in the text field.
-     *  This property can contain any combination of <code>"MM"</code>, 
-     *  <code>"DD"</code>, <code>"YY"</code>, <code>"YYYY"</code>,
+     *  This property can contain any combination of <code>"M"</code>,
+	 *  <code>"MM"</code>, <code>"D"</code>, <code>"DD"</code>,
+	 *  <code>"YY"</code>, <code>"YYYY"</code>,
      *  delimiter, and punctuation characters.
+	 *  
+	 *  <p>Only upper case characters are supported.</p>
      * 
      *  @default "MM/DD/YYYY"
      *  
@@ -1694,7 +1701,7 @@ public class DateField extends ComboBase
      *  argument contains the format of the string. For example, if you 
      *  only allow the user to enter a text sting using two characters for 
      *  month, day, and year, then pass "MM/DD/YY" to 
-     *  the <code>inputFormat</code> argument. </p>
+     *  the <code>inputFormat</code> argument.</p>
      *
      *  @see mx.controls.DateField#labelFunction
      * 
