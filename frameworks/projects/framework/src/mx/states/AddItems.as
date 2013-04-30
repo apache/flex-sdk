@@ -685,7 +685,7 @@ public class AddItems extends OverrideBase
                 // For destinations like ArrayCollection we don't want to 
                 // affect the array in-place in some cases, as ListCollectionView a
                 // attempts to compare the "before" and "after" state of the array
-                assign(dest, propertyName, new Array());
+                assign(dest, propertyName, []);
             }      
         }
         
@@ -812,7 +812,7 @@ public class AddItems extends OverrideBase
         var tempArray:Array = isStyle ? dest.getStyle(propertyName) : dest[propertyName];
         
         if (!tempArray)
-            tempArray = new Array();
+            tempArray = [];
         
         if (startIndex == -1)
             startIndex = tempArray.length;

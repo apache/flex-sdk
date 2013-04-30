@@ -4,6 +4,8 @@ Apache Flex (Flex)
     Apache Flex is an application framework for easily building Flash-based applications 
     for mobile devices, the browser and desktop.
 
+	Apache Flex 4.9.1 is a minor update to Apache Flex 4.9.
+
     Apache Flex 4.9 is a follow up release to Apache Flex 4.8 which was a parity release
     of Adobe Flex 4.6.  This version adds new features and implements bug fixes that were
     unavailable in previous versions.  It is compatible with most code written to target
@@ -41,6 +43,22 @@ Getting the latest sources via git
 	git clone https://git-wip-us.apache.org/repos/asf/flex-sdk.git sdk
 	cd sdk
 	git checkout develop
+
+    An Apache Flex SDK also includes source code from other Apache Flex git
+    repositories.  To get the latest source via git for the Text Layout Framework
+    use the following command:
+
+	git clone https://git-wip-us.apache.org/repos/asf/flex-tlf.git tlf
+
+    In an Apache Flex source code package hosted on the distribution server or
+    one of its mirrors, the Text Layout Framework code is already included in
+    the package.  THis is also true for the convenience package.
+
+    The build scripts assume that the tlf folder is a sibling of the sdk folder.  If
+    this is not true, then set the TLF_HOME environment variable to point to the
+    tlf folder.  Instead of setting an environment variable you may also set it in
+    env.properties.  See the "Install Prerequisites" section for more information
+    on environment variables and env.properties.
 
     For further information visit http://flex.apache.org/download-source.html
 
@@ -135,10 +153,10 @@ Install Prerequisites
          will get compile errors.
         
     *3) The Adobe AIR integration kit for Windows can be downloaded from:
-           http://airdownload.adobe.com/air/win/download/3.5/AdobeAIRSDK.zip
+           http://airdownload.adobe.com/air/win/download/3.7/AdobeAIRSDK.zip
         
          The Adobe AIR integration kit for Mac can be downloaded from:
-            http://airdownload.adobe.com/air/mac/download/3.5/AdobeAIRSDK.tbz2
+            http://airdownload.adobe.com/air/mac/download/3.7/AdobeAIRSDK.tbz2
 
         This version of Apache Flex was certified for use with AIR 3.5, and should
         be compatible with other versions of AIR newer than 3.1. However it hasn't
@@ -155,8 +173,10 @@ Install Prerequisites
         and 11.5 on Windows and Mac. It has been compiled against other Adobe Flash Player
         versions but has not been fully tested.
             
-        On Windows, set FLASHPLAYER_DEBUGGER to the absolute path of FlashPlayerDebugger.exe
-        
+        On Windows, set FLASHPLAYER_DEBUGGER to the absolute path including the filename of
+        the FlashPlayerDebugger.exe.  Note the filename of flash player debugger maybe different.
+           e.g. C:\MyPath\FlashPlayerDebugger.exe
+
         On the Mac, set FLASHPLAYER_DEBUGGER to the absolute path of 
         Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger
         
@@ -187,6 +207,7 @@ Install Prerequisites
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_6.swc
+            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_7.swc
             
         These can be used with Apache Flex but have not been fully tested.
         
@@ -309,8 +330,8 @@ Adobe Flash Player Version Support
                     /11.6
                          /playerglobal.swc  
                     /11.7
-                         /playerglobal.swc                                                     
-                                                                                                                                
+                         /playerglobal.swc  
+    
     Apache Flex has been tested with Adobe Flash Player 11.1 and 11.5 on Windows and Mac.
     
     It compiles against other Adobe Flash Player versions and is expected to work but they 

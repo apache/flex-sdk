@@ -11164,7 +11164,7 @@ public class UIComponent extends FlexSprite
         else
         {
             if (!deferredSetStyles)
-                deferredSetStyles = new Object();
+                deferredSetStyles = {};
             deferredSetStyles[styleProp] = newValue;
         }   
     }
@@ -12534,8 +12534,8 @@ public class UIComponent extends FlexSprite
     {
         if (errorObjectArray === null)
         {
-            errorObjectArray = new Array();
-            errorArray = new Array();
+            errorObjectArray = [];
+            errorArray = [];
         }
         
         var validatorIndex:int = errorObjectArray.indexOf(event.target);

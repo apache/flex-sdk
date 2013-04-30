@@ -35,6 +35,8 @@ package mx.utils
 public class ArrayUtil
 {
     include "../core/Version.as";
+	
+	import mx.collections.IList;
 
     //--------------------------------------------------------------------------
     //
@@ -48,13 +50,15 @@ public class ArrayUtil
      *  <p>If the Object is already an Array, it returns the object. 
      *  If the object is not an Array, it returns an Array
      *  in which the only element is the Object.
+	 *  If the Object implements IList it returns the IList's array.
      *  As a special case, if the Object is null,
      *  it returns an empty Array.</p>
      *
      *  @param obj Object that you want to ensure is an array.
      *
      *  @return An Array. If the original Object is already an Array, 
-     *  the original Array is returned. Otherwise, a new Array whose
+     *  the original Array is returned. If the original Object is an
+	 *  IList then it's array is returned. Otherwise, a new Array whose
      *  only element is the Object is returned or an empty Array if 
      *  the Object was null. 
      *  
@@ -68,8 +72,11 @@ public class ArrayUtil
         if (obj == null) 
             return [];
         
-        else if (obj is Array)
-            return obj as Array;
+		else if (obj is Array)
+			return obj as Array;
+		
+		else if (obj is IList)
+			return (obj as IList).toArray();
         
         else
             return [ obj ];

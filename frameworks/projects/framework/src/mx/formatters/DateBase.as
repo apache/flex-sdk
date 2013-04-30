@@ -556,13 +556,38 @@ public class DateBase
                 return result;
             }
             
-            case "Q":
-            {
-                // milliseconds in second
-                var ms:int = int(date.getMilliseconds());
-                result += setValue(ms, key);
-                return result;
-            }
+			case "Q":
+			{
+				// milliseconds in second
+				var ms:int = int(date.getMilliseconds());
+				result += setValue(ms, key);
+				return result;
+			}
+				
+			case "Z":
+			case "O":
+			{
+				// timezone offset
+				var offset:int = int(date.timezoneOffset);
+				hours = offset/60;
+				mins = offset - hours*60;
+				var tzStr:String = "";
+				
+				if (tokenInfo.token == "Z")
+					tzStr = "Z";
+				
+				if (key < 2 && mins == 0)
+					tzStr += setValue(hours, key);
+				else if (key < 3)
+					tzStr += setValue(hours, key) + ":" + setValue(mins, key);
+					
+				if (offset >= 0)
+					tzStr = "+" + tzStr;
+				
+				result += tzStr;
+				
+				return result;
+			}
         }
 
         return result;

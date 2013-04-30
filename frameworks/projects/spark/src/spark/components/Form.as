@@ -141,7 +141,7 @@ public class Form extends SkinnableContainer
     //
     //--------------------------------------------------------------------------
     
-    mx_internal var _invalidElements:Array = new Array();
+    mx_internal var _invalidElements:Array = [];
     
     /**
      *  A sorted Array of descendant elements that are in an invalid state.

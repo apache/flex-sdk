@@ -153,6 +153,7 @@ fi
 updatePlayerVersion() {
 	playerversion=$1
 	configFile=$2
+	
 	sed "s/<target-player>[0-9][0-9]\.[0-9]<\/target-player>/<target-player>${playerversion}<\/target-player>/" < "${configFile}"  > "${configFile}.tmp"
 	mv "${configFile}.tmp" "${configFile}"
 }
@@ -160,7 +161,18 @@ updatePlayerVersion() {
 updateSWFVersion() {
 	swfversion=$1
 	configFile=$2
+	
 	sed "s/<swf-version>[0-9][0-9]<\/swf-version>/<swf-version>${swfversion}<\/swf-version>/" < "${configFile}"  > "${configFile}.tmp"
+	mv "${configFile}.tmp" "${configFile}"
+}
+
+updatePlayerDescription() {
+	playerversion=$1
+	configFile=$2
+	
+	echo Updating ${configFile}
+	
+	sed "s/FP[0-9][0-9]\.[0-9]/FP${playerversion}/" < "${configFile}"  > "${configFile}.tmp"
 	mv "${configFile}.tmp" "${configFile}"
 }
 
@@ -170,61 +182,56 @@ configFiles=(
 "${IDE_SDK_DIR}/frameworks/airmobile-config.xml"
 )
 
+updatePlayerDescription "${FLASH_VERSION}" "${IDE_SDK_DIR}/flex-sdk-description.xml"
+
 for configFile in "${configFiles[@]}"
 do
 	echo Updating ${configFile}
-
+	
+	updatePlayerVersion "${FLASH_VERSION}" "${configFile}"
+		
 	if [ ${FLASH_VERSION} = "11.7" ]
 	then
-		updatePlayerVersion 11.7 "${configFile}"
 		updateSWFVersion 20 "${configFile}"
 	fi
 	
 	if [ ${FLASH_VERSION} = "11.6" ]
 	then
-		updatePlayerVersion 11.6 "${configFile}"
 		updateSWFVersion 19 "${configFile}"
 	fi
 	
 	if [ ${FLASH_VERSION} = "11.5" ]
 	then
-		updatePlayerVersion 11.5 "${configFile}"
 		updateSWFVersion 18 "${configFile}"
 	fi
 	
 	if [ ${FLASH_VERSION} = "11.4" ]
 	then
-		updatePlayerVersion 11.4 "${configFile}"
 		updateSWFVersion 17 "${configFile}"
 	fi
 
 	if [ ${FLASH_VERSION} = "11.3" ]
 	then
-		updatePlayerVersion 11.3 "${configFile}"
 		updateSWFVersion 16 "${configFile}"
 	fi
 	
 	if [ ${FLASH_VERSION} = "11.2" ]
 	then
-		updatePlayerVersion 11.2 "${configFile}"
 		updateSWFVersion 15 "${configFile}"
 	fi
 	
 	if [ ${FLASH_VERSION} = "11.1" ]
 	then
-		updatePlayerVersion 11.1 "${configFile}"
 		updateSWFVersion 14 "${configFile}"
 	fi
 	
     if [ ${FLASH_VERSION} = "11.0" ]
 	then
-		updatePlayerVersion 11.0 "${configFile}"
 		updateSWFVersion 13 "${configFile}"
 	fi
 	
 	if [ ${FLASH_VERSION} = "10.3" ]
 	then
-		updatePlayerVersion 10.3 "${configFile}"
 		updateSWFVersion 12 "${configFile}"
 	fi
 	

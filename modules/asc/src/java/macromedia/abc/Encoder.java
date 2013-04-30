@@ -1109,14 +1109,6 @@ public class Encoder implements Visitor
 	{
 		if (opcodePass == 1)
 		{
-			if (opat(1) == OP_setlocal && readIntAt(1) == index)
-			{
-				rewind(1);
-				OP_dup();
-				OP_setlocal(index);
-				return;
-			}
-
 			beginop(OP_getlocal);
 			opcodes.writeU32(index);
 		}

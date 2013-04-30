@@ -20,7 +20,7 @@
 <Graphic version="2.0" ATE:version="1.0.0" flm:version="1.0.0" d:using="" 
 	xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" 
 	xmlns:flm="http://ns.adobe.com/flame/2008"
-	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="PopUpButton_disabledSkin" afx:baseClassName="flash.display.Sprite" >
+	xmlns:afx="http://ns.apache.org/flex/2012" afx:className="PopUpButton_DisabledSkin" afx:baseClassName="flash.display.Sprite" >
         <Group d:type="layer" d:userLabel="Layer 1">
           <Group>
             <Path data="M144.125 21 3.875 21Q1 20.936719 1 18L1 4Q1 1.0632812 3.875 1L144.125 1Q147 1.0632812 147 4L147 18Q147 20.936719 144.125 21">

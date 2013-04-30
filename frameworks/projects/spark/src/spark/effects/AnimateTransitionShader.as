@@ -316,9 +316,7 @@ public class AnimateTransitionShader extends Animate
         }
         // The effect instance will retrieve the bitmap and bounds from the object
         // stored here
-        var bmHolder:Object = new Object();
-        bmHolder["bitmap"] = bmData;
-        bmHolder["bounds"] = bounds;
+        var bmHolder:Object = {bitmap:bmData, bounds:bounds};
         
         target.filters = tempFilters;
         

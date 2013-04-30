@@ -2986,6 +2986,9 @@ public class DateChooser extends UIComponent implements IFocusManagerComponent, 
         var monthName:String = monthNames ?
                                monthNames[dateGrid.displayedMonth] :
                                "";
+		// month name could be null and want to display "null"
+		if (monthName == null)
+			monthName = "";
         monthDisplay.text = monthName + monthSymbol;
         yearDisplay.text = displayedYear.toString() + yearSymbol;
     }

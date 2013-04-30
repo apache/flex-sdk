@@ -589,7 +589,7 @@ are identical, save the superclass and constructor names.  This file contains th
         else
         {
             if (!deferredSetStyles)
-                deferredSetStyles = new Object();
+                deferredSetStyles = {};
             deferredSetStyles[styleProp] = newValue;
         }   
     }

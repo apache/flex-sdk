@@ -298,7 +298,7 @@ public class AdvancedStyleClient extends EventDispatcher
         else
         {
             if (!deferredSetStyles)
-                deferredSetStyles = new Object();
+                deferredSetStyles = {};
 
             deferredSetStyles[styleProp] = newValue;
         }

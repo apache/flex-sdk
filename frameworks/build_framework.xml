@@ -58,7 +58,7 @@
 	<property name="spark_dmv.dir" value="${projects.dir}/spark_dmv"/>
 	<property name="apache.dir" value="${projects.dir}/apache"/>
 	<property name="experimental.dir" value="${projects.dir}/experimental"/>
-    <property name="textLayout.dir" value="${tlf.branch}"/>
+    <property name="textLayout.dir" value="${projects.dir}/textLayout"/>
     <property name="experimental.dir" value="${projects.dir}/experimental"/>
 
     <!-- automation -->

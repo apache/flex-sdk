@@ -1361,7 +1361,7 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
             // <list>
             encodeSimpleList(definitionChild, parent, name, value, restriction);
         }
-        else if (definitionChild.name() == constants.listQName)
+        else if (definitionChild.name() == constants.unionQName)
         {
             // <union>
             encodeSimpleUnion(definitionChild, parent, name, value, restriction);

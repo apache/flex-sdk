@@ -444,7 +444,7 @@ public dynamic class ShaderFilter extends Proxy
         {
             // The shader has yet to be initialized, queue any properties,
             // the will be applied upon creation of the shader.
-            propertyQueue = propertyQueue ? propertyQueue : new Object();
+            propertyQueue = propertyQueue ? propertyQueue : {};
             propertyQueue[name] = value;
         }
     }
@@ -527,7 +527,7 @@ public dynamic class ShaderFilter extends Proxy
                 var index:int = indexForDimension(propertyInfo.type, dimension);
                 if (index != -1)
                 {
-                    var currentValue:Array = propertyInfo.value ? propertyInfo.value : new Array();
+                    var currentValue:Array = propertyInfo.value ? propertyInfo.value : [];
                     currentValue[index] = value;
                     propertyInfo.value = currentValue;
                     return;

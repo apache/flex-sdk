@@ -131,11 +131,23 @@ updateSWFVersion() {
 	mv "${configFile}.tmp" "${configFile}"
 }
 
+updatePlayerDescription() {
+	airversion=$1
+	configFile=$2
+	
+	echo Updating ${configFile}
+	
+	sed "s/AIR[0-9]\.[0-9]/AIR${airversion}/" < "${configFile}"  > "${configFile}.tmp"
+	mv "${configFile}.tmp" "${configFile}"
+}
+
 configFiles=(
 "${IDE_SDK_DIR}/frameworks/flex-config.xml"
 "${IDE_SDK_DIR}/frameworks/air-config.xml"
 "${IDE_SDK_DIR}/frameworks/airmobile-config.xml"
 )
+
+updatePlayerDescription "${AIR_VERSION}" "${IDE_SDK_DIR}/flex-sdk-description.xml"
 
 for configFile in "${configFiles[@]}"
 do

@@ -405,7 +405,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         // model and uses mxmlContent to manage children.  To maintain backwards 
         // compatibility, the return type for this method remained the same.
         // As a result, the value vector needs to be converted to an array
-        var contentArray:Array = new Array();
+        var contentArray:Array = [];
         
         for each (var navigator:ViewNavigatorBase in value)
         {

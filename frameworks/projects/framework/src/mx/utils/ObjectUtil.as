@@ -325,7 +325,10 @@ public class ObjectUtil
      *  -1 if <code>a</code> is before <code>b</code>
      *  (or <code>b</code> is <code>null</code>);
      *  1 if <code>a</code> is after <code>b</code>
-     *  (or <code>a</code> is <code>null</code>).     
+     *  (or <code>a</code> is <code>null</code>);
+	 *  0 is both dates getTime's are NaN;
+     *  1 if only <code>a</code> getTime is a NaN;
+     *  -1 if only <code>b</code> getTime is a NaN.    
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -351,6 +354,15 @@ public class ObjectUtil
 
         if (na > nb)
             return 1;
+		
+		if (isNaN(na) && isNaN(nb))
+			return 0;
+		
+		if (isNaN(na))
+			return 1;
+		
+		if (isNaN(nb))
+			return -1;
 
         return 0;
     }
@@ -978,9 +990,8 @@ public class ObjectUtil
             }
         }
 
-        // TODO (pfarland): this seems slightly fragile, why not use the 'is' operator?
-        var isArray:Boolean = (className == "Array");
-        var isDict:Boolean  = (className == "flash.utils::Dictionary");
+        var isArray:Boolean = (obj is Array);
+        var isDict:Boolean  = (obj is Dictionary);
         
         if (isDict)
         {
@@ -1122,7 +1133,8 @@ public class ObjectUtil
         }
 
         // For normal, non-dynamic classes we cache the class info
-        if (!dynamic)
+		// Don't cache XML as it can be dynamic
+        if (!dynamic && className != "XML")
         {
             cacheKey = getCacheKey(obj, excludes, options);
             CLASS_INFO_CACHE[cacheKey] = result;
@@ -1297,10 +1309,10 @@ public class ObjectUtil
             for (var flag:String in options)
             {
                 key += flag;
-                var value:String = options[flag] as String;
-                if (value != null)
-                    key += value;
-            }
+				var value:String = options[flag];
+				if (value != null)
+					key += value.toString();
+			}
         }
         return key;
     }

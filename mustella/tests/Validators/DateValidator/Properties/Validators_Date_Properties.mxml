@@ -125,6 +125,7 @@
 				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/>
 				
 				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="inputFormat" value="MM-DD-YYYY"/>
 				<SetProperty target="myCustomDt.ti1" propertyName="text" value="12-31-2006" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
 				<WaitForEffectsToEnd />
 			</setup>
@@ -141,6 +142,7 @@
 				
 				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
 				<SetProperty target="myCustomDt.myDt" propertyName="allowedFormatChars" value="#"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="inputFormat" value="MM#DD#YYYY"/>
 				<SetProperty target="myCustomDt.ti1" propertyName="text" value="12#31#2006" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
 				<WaitForEffectsToEnd />
 			</setup>
@@ -207,6 +209,7 @@
 				
 				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/>
 				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="inputFormat" value="MM/DD/YYYY"/>
 				<SetProperty target="myCustomDt.ti1" propertyName="text" value="31$12/2006" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
 				<WaitForEffectsToEnd />
 			</setup>

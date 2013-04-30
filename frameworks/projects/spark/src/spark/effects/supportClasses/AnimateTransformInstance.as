@@ -181,8 +181,8 @@ public class AnimateTransformInstance extends AnimateInstance
      * are populated when the effect instance is set up according to 
      * the properties/constraints affected by each transform effect.
      */
-    mx_internal var layoutConstraints:Object = new Object();
-    mx_internal var affectedProperties:Object = new Object();
+    mx_internal var layoutConstraints:Object = {};
+    mx_internal var affectedProperties:Object = {};
     
 
     //--------------------------------------------------------------------------
@@ -476,7 +476,7 @@ public class AnimateTransformInstance extends AnimateInstance
      */
     override public function play():void
     {
-        var autoProps:Object = new Object();
+        var autoProps:Object = {};
         var s:String;
         
         if (propertyChanges)

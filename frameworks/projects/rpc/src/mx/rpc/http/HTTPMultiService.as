@@ -487,7 +487,7 @@ public dynamic class HTTPMultiService extends AbstractService
         else
         {
             var op:AbstractOperation;
-            var ops:Object = new Object();
+            var ops:Object = {};
             for (var i:int = 0; i < ol.length; i++)
             {
                 op = AbstractOperation(ol[i]);
@@ -505,7 +505,7 @@ public dynamic class HTTPMultiService extends AbstractService
         // Note: does not preserve order of the elements
         if (operations == null)
             return null;
-        var ol:Array = new Array();
+        var ol:Array = [];
         for (var i:String in operations)
         {
             var op:AbstractOperation = operations[i];

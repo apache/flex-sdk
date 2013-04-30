@@ -56,7 +56,7 @@ public class GridDimensions
      *  Inserts specified elements starting from startIndex.
      *  
      *  <pre>Our implementation of:
-     *      var argArray:Array = new Array();
+     *      var argArray:Array = [];
      *      for each (var x:Number in values)
      *      {
      *          argArray.push(x);

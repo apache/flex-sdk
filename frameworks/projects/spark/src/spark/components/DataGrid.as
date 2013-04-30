@@ -73,6 +73,8 @@ import spark.components.gridClasses.GridSortField;
 import spark.components.gridClasses.GridView;
 import spark.components.gridClasses.IDataGridElement;
 import spark.components.gridClasses.IGridItemEditor;
+import spark.components.supportClasses.IDataProviderEnhance;
+import spark.components.supportClasses.RegExPatterns;
 import spark.components.supportClasses.SkinnableContainerBase;
 import spark.core.NavigationUnit;
 import spark.events.GridCaretEvent;
@@ -763,7 +765,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @productversion Flex 4.5
  */  
 public class DataGrid extends SkinnableContainerBase 
-    implements IFocusManagerComponent, IIMESupport
+    implements IDataProviderEnhance, IFocusManagerComponent, IIMESupport
 {
     include "../core/Version.as";
     
@@ -1207,7 +1209,7 @@ public class DataGrid extends SkinnableContainerBase
      *  
      *  See getPartProperty(), setPartProperty().
      */
-    private var gridProperties:Object = new Object();
+    private var gridProperties:Object = {};
     
     /**
      *  @private
@@ -1784,7 +1786,60 @@ public class DataGrid extends SkinnableContainerBase
     {
         return false;
     }
-    
+
+
+    //----------------------------------
+    //  isFirstRow
+    //----------------------------------
+
+    /**
+    *  @copy spark.components.Grid#isFirstRow
+    *  If a <code>grid</code> is not assigned, will always return false;
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function get isFirstRow():Boolean
+    {
+        if (grid)
+        {
+            return grid.isFirstRow;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    //----------------------------------
+    //  isLastRow
+    //----------------------------------
+
+    /**
+    *  @copy spark.components.Grid#isLastRow
+    *  If a <code>grid</code> is not assigned, will always return false;
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function get isLastRow():Boolean
+    {
+        if (grid)
+        {
+            return grid.isLastRow;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
     //----------------------------------
     //  multiColumnSortingEnabled
     //----------------------------------
@@ -3542,7 +3597,7 @@ public class DataGrid extends SkinnableContainerBase
             // Cover Properties
             
             const gridPropertyBits:uint = gridProperties.propertyBits;
-            gridProperties = new Object();
+            gridProperties = {};
             
             for (var propertyName:String in gridPropertyDefaults)
             {
@@ -3905,7 +3960,49 @@ public class DataGrid extends SkinnableContainerBase
     //  Public Methods
     //
     //--------------------------------------------------------------------------
-    
+
+    /**
+    *  @copy spark.components.Grid#findRowIndex()
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function findRowIndex(field:String, value:String, startingIndex:int = 0, patternType:String = RegExPatterns.EXACT):int
+    {
+        if (grid)
+        {
+            return grid.findRowIndex(field, value, startingIndex, patternType);
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+
+    /**
+    *  @copy spark.components.Grid#findRowIndices()
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function findRowIndices(field:String, values:Array, patternType:String = RegExPatterns.EXACT):Array
+    {
+        if (grid)
+        {
+            return grid.findRowIndices(field, values, patternType);
+        }
+        else
+        {
+            return [];
+        }
+    }
+
+
     /**
      *  @copy spark.components.Grid#invalidateCell()
      *  
@@ -3919,7 +4016,98 @@ public class DataGrid extends SkinnableContainerBase
         if (grid)
             grid.invalidateCell(rowIndex, columnIndex);
     }
-    
+
+
+    /**
+    *  @copy spark.components.Grid#moveIndexFindRow()
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    *
+    */
+    public function moveIndexFindRow(field:String, value:String, startingIndex:int = 0, patternType:String = RegExPatterns.EXACT):Boolean
+    {
+        if (grid)
+        {
+            return grid.moveIndexFindRow(field, value, startingIndex, patternType);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    /**
+    *  @copy spark.components.Grid#moveIndexFirstRow()
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexFirstRow():void
+    {
+        if (grid)
+        {
+            grid.moveIndexFirstRow();
+        }
+    }
+
+
+    /**
+    *  @copy spark.components.Grid#moveIndexLastRow()
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexLastRow():void
+    {
+        if (grid)
+        {
+            grid.moveIndexLastRow();
+        }
+    }
+
+
+    /**
+    *  @copy spark.components.Grid#moveIndexNextRow()
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexNextRow():void
+    {
+        if (grid)
+        {
+            grid.moveIndexNextRow();
+        }
+    }
+
+
+    /**
+    *  @copy spark.components.Grid#moveIndexPreviousRow()
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexPreviousRow():void
+    {
+        if (grid)
+        {
+            grid.moveIndexPreviousRow();
+        }
+    }
+
+
     /**
      *  @copy spark.components.Grid#selectAll()
      *  
@@ -4796,7 +4984,7 @@ public class DataGrid extends SkinnableContainerBase
      */
     private function createSortFields(columnIndices:Vector.<int>, previousFields:Array):Array 
     {
-        const fields:Array = new Array(); // return value
+        const fields:Array = []; // return value
         
         for each (var columnIndex:int in columnIndices)
         {

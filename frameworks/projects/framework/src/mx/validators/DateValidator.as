@@ -71,6 +71,7 @@ import mx.resources.ResourceManager;
  *    dayProperty="<i>No default</i>"
  *    daySource="<i>No default</i>"
  *    formatError= "Configuration error: Incorrect formatting string." 
+ *    includeFormatInError="true|false"
  *    inputFormat="MM/DD/YYYY" 
  *    invalidCharError="The date contains invalid characters."
  *    monthListener="<i>Object specified by monthSource</i>"
@@ -143,16 +144,19 @@ public class DateValidator extends Validator
 
 		var validInput:String = DECIMAL_DIGITS + allowedFormatChars;
 		
-		var dateObj:Object = {};
-		dateObj.month = "";
-		dateObj.day = "";
-		dateObj.year = "";
+		var dateObj:Object = {day:"", month:"", year:""};
 		
 		var dayProp:String = baseField;
-		var yearProp:String = baseField;
 		var monthProp:String = baseField;
+		var yearProp:String = baseField;
+		
+		var dateParts:Array = [];
+		var formatParts:Array = [];
+		
+		var dayPart:String = "";
+		var monthPart:String = "";
+		var yearPart:String = "";
 
-		var advanceValueCounter:Boolean = true;
 		var monthRequired:Boolean = false;
 		var dayRequired:Boolean = false
 		var yearRequired:Boolean = false;
@@ -167,15 +171,48 @@ public class DateValidator extends Validator
 		var i:int;
 		var temp:String;
 		
-		n = allowedFormatChars.length;
+		var part:int = -1;
+		var lastFormatChar:String = "";
+		
+		n = inputFormat.length;
 		for (i = 0; i < n; i++)
 		{
-			if (DECIMAL_DIGITS.indexOf(allowedFormatChars.charAt(i)) != -1)
+			var formatChar:String = inputFormat.charAt(i);
+			
+			if (lastFormatChar != formatChar)
 			{
-				var message:String = resourceManager.getString(
-					"validators", "invalidFormatChars");
-				throw new Error(message);
+				part++;
+				formatParts[part] = "";
 			}
+			
+			if (formatChar == "D" || formatChar == "d")
+			{
+				dayRequired = true;
+				formatParts[part] += "D"
+			}
+			else if (formatChar == "M" || formatChar == "m")
+			{
+				monthRequired = true;
+				formatParts[part] += "M"
+			}
+			else if (formatChar == "Y" || formatChar == "y")
+			{
+				yearRequired = true;
+				formatParts[part] += "Y"
+			}
+			else if (allowedFormatChars.indexOf(formatChar) == -1)
+			{
+				results.push(new ValidationResult(
+					true, baseField, "invalidChar", 
+					validator.invalidCharError));
+				return results;
+			}
+			else
+			{
+				formatParts[part] = formatChar;
+			}
+			
+			lastFormatChar = formatChar;
 		}
 		
 		if (value is String)
@@ -280,122 +317,106 @@ public class DateValidator extends Validator
 			}
 			else
 			{
-				var len:Number = stringValue.length;
-				if (len > inputFormat.length ||
-					len + 2 < inputFormat.length)
-				{
-					results.push(new ValidationResult(
-						true, baseField, "wrongLength",
-						validator.wrongLengthError + " " + inputFormat));
-					return results;
-				}
- 
- 				var j:int = 0;
-				n = inputFormat.length;
+				var lastStringChar:String = "";
+				n = stringValue.length;
+				part = -1;
 				for (i = 0; i < n; i++)
 				{
-					temp = "" + stringValue.substring(j, j + 1);
-					var mask:String = "" + inputFormat.substring(i, i + 1);
+					var stringChar:String = stringValue.charAt(i);
+					var lastIsDigit:Boolean = (DECIMAL_DIGITS.indexOf(lastStringChar) >= 0)
+						&& (lastStringChar != "");
+					var curentIsDigit:Boolean = (DECIMAL_DIGITS.indexOf(stringChar) >= 0);
 					
-					// Check each character to see if it is allowed.
-					if (validInput.indexOf(temp) == -1)
-					{
-						results.push(new ValidationResult(
-							true, baseField, "invalidChar",
-							validator.invalidCharError));
-						return results;
-					}
-					if (mask == "m" || mask == "M")
-					{
-						monthRequired = true;
-						if (isNaN(Number(temp)))
-							advanceValueCounter = false;
-						else
-							dateObj.month += temp;
-					}
-					else if (mask == "d" || mask == "D")
-					{
-						dayRequired = true;
-						if (isNaN(Number(temp)))
-							advanceValueCounter = false;
-						else
-							dateObj.day += temp;
-					}
-					else if (mask == "y" || mask == "Y")
-					{
-						yearRequired = true;
-						if (isNaN(Number(temp)))
-						{
-							results.push(new ValidationResult(
-								true, baseField, "wrongLength", 
-								validator.wrongLengthError + " " +
-								inputFormat));
-							return results;
-						}
-						else
-						{
-							dateObj.year += temp;
-						}
-					}
-					else if (allowedFormatChars.indexOf(temp) == -1)
+					if (validInput.indexOf(stringChar) == -1)
 					{
 						results.push(new ValidationResult(
 							true, baseField, "invalidChar", 
 							validator.invalidCharError));
 						return results;
 					}
-					
-					if (advanceValueCounter)
-						j++;
-					advanceValueCounter = true;	
+					else if (lastIsDigit != curentIsDigit)
+					{
+						part++;
+						dateParts[part] = stringChar;
+					}
+					else
+					{
+						dateParts[part] += stringChar;
+					}
+
+					lastStringChar = stringChar;
 				}
 				
+				if (formatParts.length != dateParts.length)
+				{
+					results.push(new ValidationResult(
+						true, baseField, "wrongLength", 
+						validator.wrongLengthError
+						+ (DateValidator._includeFormatInError?" " + inputFormat:"")));
+					return results;
+				}
+
+				var j:int = 0;
+				n = formatParts.length;
+				for (part = 0; part < n; part++)
+				{
+					var mask:String = formatParts[part].charAt(0);
+
+					if ( mask == "D")
+					{
+						dateObj.day = dateParts[part];
+						dayPart = formatParts[part];
+					}
+					else if (mask == "M")
+					{
+						dateObj.month = dateParts[part];
+						monthPart = formatParts[part];
+					}
+					else if (mask == "Y")
+					{
+						dateObj.year = dateParts[part];
+						yearPart = formatParts[part];
+					}
+				}
+				
+				// DD or D format
+				if ((dayRequired && dayPart.length == 2 && dateObj.day.length != 2)
+					|| (dayRequired && dayPart.length == 1 && dateObj.day.length > 2))
+				{
+					results.push(new ValidationResult(
+						true, baseField, "wrongLength", 
+						validator.wrongLengthError
+						+ (DateValidator._includeFormatInError?" " + inputFormat:"")));	
+				}
+				// MM or M format
+				if ((monthRequired && monthPart.length == 2 && dateObj.month.length != 2)
+					|| (monthRequired && monthPart.length == 1 && dateObj.month.length > 2))
+				{
+					results.push(new ValidationResult(
+						true, baseField, "wrongLength", 
+						validator.wrongLengthError
+						+ (DateValidator._includeFormatInError?" " + inputFormat:"")));	
+				}
+				// YY or YYYY format
+				if ((yearRequired && yearPart.length == 2 && dateObj.year.length != 2)
+					|| (yearRequired && yearPart.length == 4 && dateObj.year.length != 4))
+				{
+					results.push(new ValidationResult(
+						true, baseField, "wrongLength", 
+						validator.wrongLengthError
+						+ (DateValidator._includeFormatInError?" " + inputFormat:"")));	
+				}
+						
 				if ((monthRequired && dateObj.month == "") ||
 					(dayRequired && dateObj.day == "") ||
-					(yearRequired && dateObj.year == "") ||
-					(j != len))
+					(yearRequired && dateObj.year == ""))
 				 {
 				 	results.push(new ValidationResult(
 						true, baseField, "wrongLength", 
-						validator.wrongLengthError + " " +
-						inputFormat));
+						validator.wrongLengthError
+						+ (DateValidator._includeFormatInError?" " + inputFormat:"")));
 					return results;
 				 }
-			}
-		}
-
-		// Now, validate the sub-elements, which may have been set directly.
-		n = dateObj.month.length;
-		for (i = 0; i < n; i++)
-		{
-			temp = "" + dateObj.month.substring(i, i + 1);
-			if (DECIMAL_DIGITS.indexOf(temp) == -1)
-			{
-				results.push(new ValidationResult(
-					true, monthProp, "invalidChar",
-					validator.invalidCharError));
-			}
-		}
-		n = dateObj.day.length;
-		for (i = 0; i < n; i++)
-		{
-			temp = "" + dateObj.day.substring(i, i + 1);
-			if (DECIMAL_DIGITS.indexOf(temp) == -1)
-			{
-				results.push(new ValidationResult(
-					true, dayProp, "invalidChar",
-					validator.invalidCharError));
-			}
-		}
-		n = dateObj.year.length;
-		for (i = 0; i < n; i++)
-		{
-			temp = "" + dateObj.year.substring(i, i + 1);
-			if (DECIMAL_DIGITS.indexOf(temp) == -1)
-			{
-				results.push(new ValidationResult(
-					true, yearProp, "invalidChar",
-					validator.invalidCharError));
 			}
 		}
 
@@ -404,7 +425,7 @@ public class DateValidator extends Validator
 		
 		var monthNum:Number = Number(dateObj.month);
 		var dayNum:Number = Number(dateObj.day);
-		var yearNum:Number = Number(dateObj.year).valueOf();
+		var yearNum:Number = Number(dateObj.year);
 
 		if (monthNum > 12 || monthNum < 1)
 		{
@@ -476,9 +497,9 @@ public class DateValidator extends Validator
 				yearCounter++;
 		}
 
-		if ((monthCounter == 2 &&
+		if ((monthCounter >= 1 &&  monthCounter <= 2 &&
 			 (yearCounter == 2 || yearCounter == 4)) ||
-			(monthCounter == 2 && dayCounter == 2 &&
+			(monthCounter >= 1 &&  monthCounter <= 2  && dayCounter >= 1 &&  dayCounter <= 2  &&
 			 (yearCounter == 0 || yearCounter == 2 || yearCounter == 4)))
 		{
 			return null; // Passes format validation
@@ -755,6 +776,46 @@ public class DateValidator extends Validator
 		_daySource = value;
 		
 		addListenerHandler();
+	}
+	
+	//----------------------------------
+	//  includeFormatInError
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 *  Storage for the includeFormatInError property.
+	 * 
+	 * Note needs to be static as validate methods are static.
+	 */
+	static private var _includeFormatInError:Boolean = true;
+
+	
+	[Inspectable(category="General", defaultValue="true")]
+	
+	/** 
+	 *  If <code>true</code> the date format is shown in some
+	 *  validation error messages. Setting to <code>false</code>
+	 *  changes all DateValidators.
+	 *
+	 *  @default true
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion ApacheFlex 4.10
+	 */
+	public function get includeFormatInError():Boolean
+	{
+		return DateValidator._includeFormatInError;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set includeFormatInError(value:Boolean):void
+	{
+		DateValidator._includeFormatInError = value;
 	}
 	
 	//----------------------------------

@@ -246,7 +246,7 @@ public class ConstraintLayout extends LayoutBase
     
     private var _constraintColumns:Vector.<ConstraintColumn> = new Vector.<ConstraintColumn>(0, true);
     // An associative array of column id --> column index
-    private var columnsObject:Object = new Object();
+    private var columnsObject:Object = {};
     
     /**
      *  A Vector of ConstraintColumn instances that partition the target container.
@@ -273,14 +273,14 @@ public class ConstraintLayout extends LayoutBase
         if (value == null)
         {
             _constraintColumns = new Vector.<ConstraintColumn>(0, true);
-            columnsObject = new Object();
+            columnsObject = {};
             return;
         }
         
         var n:int = value.length;
         var col:ConstraintColumn;
         var temp:Vector.<ConstraintColumn> = value.slice();
-        var obj:Object = new Object();
+        var obj:Object = {};
         
         for (var i:int = 0; i < n; i++)
         {
@@ -305,7 +305,7 @@ public class ConstraintLayout extends LayoutBase
     
     private var _constraintRows:Vector.<ConstraintRow> = new Vector.<ConstraintRow>(0, true);
     // An associative array of row id --> row index
-    private var rowsObject:Object = new Object();
+    private var rowsObject:Object = {};
     
     /**
      *  A Vector of ConstraintRow instances that partition the target container.
@@ -331,14 +331,14 @@ public class ConstraintLayout extends LayoutBase
         if (value == null)
         {
             _constraintRows = new Vector.<ConstraintRow>(0, true);
-            rowsObject = new Object();
+            rowsObject = {};
             return;
         }
         
         var n:int = value.length;
         var row:ConstraintRow;
         var temp:Vector.<ConstraintRow> = value.slice();
-        var obj:Object = new Object();
+        var obj:Object = {};
         rowBaselines = new Vector.<Array>();
         
         for (var i:int = 0; i < n; i++)
@@ -1614,7 +1614,7 @@ public class ConstraintLayout extends LayoutBase
         // Populate rowBaselines with baseline information from rows.
         var n:int = _constraintRows.length;
         var row:ConstraintRow;
-        var obj:Object = new Object();
+        var obj:Object = {};
         if (rowBaselines == null)
             rowBaselines = new Vector.<Array>();
         else

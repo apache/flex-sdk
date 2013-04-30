@@ -426,7 +426,7 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      */
     private function sparseCopy(a:Array):Array
     {
-        const r:Array = new Array();
+        const r:Array = [];
         var index:int = 0;
         for each (var item:* in a)
         {
@@ -567,8 +567,8 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
     //
     //--------------------------------------------------------------------------
 
-    private const pendingResponders:Array = new Array();
-    private const failedItems:Array = new Array();
+    private const pendingResponders:Array = [];
+    private const failedItems:Array = [];
     
     /**
      *  @private

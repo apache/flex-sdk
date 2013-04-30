@@ -777,7 +777,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
                 if (typicalItem != null)
                 {
                     var itemString:String = LabelUtil.itemToLabel(typicalItem, labelField, labelFunction);
-                    textInput.widthInChars = itemString.length;
+                    textInput.typicalText = itemString;
                 }
                 else
                 {

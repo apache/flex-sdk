@@ -276,7 +276,7 @@ public class SubListView extends EventDispatcher implements IList
         const viewEvent:CollectionEvent = createCollectionEvent(event.kind);
         viewEvent.location = event.location - startIndex;
         
-        const items:Array = new Array();
+        const items:Array = [];
         viewEvent.items = items;
         
         var location:int = event.location;
@@ -312,7 +312,7 @@ public class SubListView extends EventDispatcher implements IList
         var viewLocation:int = Math.max(startIndex, event.location);
         viewEvent.location = viewLocation - startIndex;
         
-        const items:Array = new Array();
+        const items:Array = [];
         viewEvent.items = items;
         
         for each (var item:Object in event.items)
