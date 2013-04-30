@@ -140,6 +140,8 @@ public class StringUtil
 			case "\u2028":
 			// paragraph seperator
 			case "\u2029":
+			// ideographic space
+			case "\u3000":
                 return true;
 
             default:

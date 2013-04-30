@@ -74,12 +74,12 @@ public class EmailValidator extends Validator
 	 *  @private
 	 */
 	private static const DISALLOWED_LOCALNAME_CHARS:String =
-								"()<>,;:\\\"[] `~!#$%^&*={}|/?'";
+								"()<>,;:\\\"[] `~!#$%^&*={}|/?'\t\n\r";
 	/**
 	 *  @private
 	 */							
 	private static const DISALLOWED_DOMAIN_CHARS:String =
-								"()<>,;:\\\"[] `~!#$%^&*+={}|/?'";
+								"()<>,;:\\\"[] `~!#$%^&*+={}|/?'\t\n\r";
 	
 	//--------------------------------------------------------------------------
 	//
@@ -171,6 +171,15 @@ public class EmailValidator extends Validator
 					validator.invalidCharError));
 				return results;
 			}
+		}
+		
+		// name can't start with a dot
+		if (username.charAt(0) == '.')
+		{
+			results.push(new ValidationResult(
+				true, baseField, "invalidChar",
+				validator.invalidCharError));
+			return results;
 		}
 		
 		var domainLen:int = domain.length;
@@ -346,7 +355,7 @@ public class EmailValidator extends Validator
 				{
 					item = parseInt(ipArray[i], 16);
 					
-					if (isNaN(item) || item < 0 || item > 0xFFFF)
+					if (isNaN(item) || item < 0 || item > 0xFFFF || ipArray[i] == "")
 						return false;
 				}
 			}
@@ -381,7 +390,7 @@ public class EmailValidator extends Validator
 			for (i = 0; i < n; i++)
 			{
 				item = Number(ipArray[i]);
-				if (isNaN(item) || item < 0 || item > 255)
+				if (isNaN(item) || item < 0 || item > 255 || ipArray[i] == "")
 					return false;
 			}
 			
