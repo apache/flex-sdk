@@ -346,7 +346,7 @@ public class EmailValidator extends Validator
 				{
 					item = parseInt(ipArray[i], 16);
 					
-					if (isNaN(item) || item < 0 || item > 0xFFFF)
+					if (isNaN(item) || item < 0 || item > 0xFFFF || ipArray[i] == "")
 						return false;
 				}
 			}
@@ -381,7 +381,7 @@ public class EmailValidator extends Validator
 			for (i = 0; i < n; i++)
 			{
 				item = Number(ipArray[i]);
-				if (isNaN(item) || item < 0 || item > 255)
+				if (isNaN(item) || item < 0 || item > 255 || ipArray[i] == "")
 					return false;
 			}
 			
