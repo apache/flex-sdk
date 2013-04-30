@@ -173,6 +173,15 @@ public class EmailValidator extends Validator
 			}
 		}
 		
+		// name can't start with a dot
+		if (username.charAt(0) == '.')
+		{
+			results.push(new ValidationResult(
+				true, baseField, "invalidChar",
+				validator.invalidCharError));
+			return results;
+		}
+		
 		var domainLen:int = domain.length;
 		
 		// check for IP address
