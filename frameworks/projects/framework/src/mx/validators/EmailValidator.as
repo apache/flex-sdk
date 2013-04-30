@@ -74,12 +74,12 @@ public class EmailValidator extends Validator
 	 *  @private
 	 */
 	private static const DISALLOWED_LOCALNAME_CHARS:String =
-								"()<>,;:\\\"[] `~!#$%^&*={}|/?'	";
+								"()<>,;:\\\"[] `~!#$%^&*={}|/?'\t\n\r";
 	/**
 	 *  @private
 	 */							
 	private static const DISALLOWED_DOMAIN_CHARS:String =
-								"()<>,;:\\\"[] `~!#$%^&*+={}|/?' ";
+								"()<>,;:\\\"[] `~!#$%^&*+={}|/?'\t\n\r";
 	
 	//--------------------------------------------------------------------------
 	//
