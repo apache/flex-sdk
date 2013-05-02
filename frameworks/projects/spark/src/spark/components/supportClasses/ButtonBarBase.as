@@ -513,7 +513,203 @@ public class ButtonBarBase extends ListBase
     //  Methods
     //
     //--------------------------------------------------------------------------
-    
+
+    /**
+    *  Disable a ButtonBar's Button referencing it by the ButtonBarbutton's <code>label</code>. 
+    *
+    *  <p>The function takes a single argument which is the ButtonBarButtons label.</p>
+    *  <pre>myButtonBar.disableButton("My Button Label")</pre>
+    *
+    *  @param labelValue Is the ButtonBarButton label
+    *  @param fieldName Field used for comparing the label
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function disableButton(labelValue:String, fieldName:String = ""):void
+    {
+        var btnCurrent:ButtonBarButton = null;
+        var buttonIndex:int = -1;
+
+
+        if (!dataGroup || labelValue == "" || labelValue == null)
+        {
+            return;
+        }
+
+        if (fieldName == "" || fieldName == null)
+        {
+            buttonIndex = findRowIndex(labelField, labelValue);
+        }
+        else
+        {
+            buttonIndex = findRowIndex(fieldName, labelValue);
+        }
+
+        if (buttonIndex == -1)
+        {
+            return;
+        }
+
+
+        btnCurrent = dataGroup.getElementAt(buttonIndex) as ButtonBarButton;
+        btnCurrent.enabled = false;
+    }
+
+
+    /**
+    *  Disables several of a ButtonBar's Buttons, referencing them by the ButtonBarbutton's <code>label</code>. 
+    *
+    *  <p>The function takes a single argument which is the ButtonBarButtons label.</p>
+    *  <pre>myButtonBar.disableButtons(["My Button Label1", "My Label2"])</pre>
+    *
+    *  @param labelValues Is an array of ButtonBarButton labels.
+    *  @param fieldName Field used for comparing the label
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function disableButtons(labelValues:Array, fieldName:String = ""):void
+    {
+        var btnCurrent:ButtonBarButton = null;
+        var buttonIndices:Array;
+        var indicesTotal:uint = 0;
+        var loopingIndex:uint = 0;
+
+
+        if (!dataGroup || labelValues.length < 1 || labelValues == null)
+        {
+            return;
+        }
+
+        if (fieldName == "" || fieldName == null)
+        {
+            buttonIndices = findRowIndices(labelField, labelValues);
+        }
+        else
+        {
+            buttonIndices = findRowIndices(fieldName, labelValues);
+        }
+
+
+        indicesTotal = buttonIndices.length
+
+        if (indicesTotal == 0)
+        {
+            return;
+        }
+
+        
+        for (loopingIndex; loopingIndex < indicesTotal; loopingIndex++)
+        {
+            btnCurrent = dataGroup.getElementAt(buttonIndices[loopingIndex]) as ButtonBarButton;
+            btnCurrent.enabled = false;
+        }
+    }
+
+
+    /**
+    *  Enable a ButtonBar's Button referencing it by the ButtonBarbutton's <code>label</code>. 
+    *
+    *  <p>The function takes a single argument which is the ButtonBarButtons label.</p>
+    *  <pre>myButtonBar.enableButton("My Button Label")</pre>
+    *
+    *  @param labelValue Is the ButtonBarButton label
+    *  @param fieldName Field used for comparing the label
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function enableButton(labelValue:String, fieldName:String = ""):void
+    {
+        var btnCurrent:ButtonBarButton = null;
+        var buttonIndex:int = -1;
+
+
+        if (!dataGroup || labelValue == "" || labelValue == null)
+        {
+            return;
+        }
+
+        if (fieldName == "" || fieldName == null)
+        {
+            buttonIndex = findRowIndex(labelField, labelValue);
+        }
+        else
+        {
+            buttonIndex = findRowIndex(fieldName, labelValue);
+        }
+
+        if (buttonIndex == -1)
+        {
+            return;
+        }
+
+
+        btnCurrent = dataGroup.getElementAt(buttonIndex) as ButtonBarButton;
+        btnCurrent.enabled = true;
+    }
+
+
+    /**
+    *  Disables several of a ButtonBar's Buttons, referencing them by the ButtonBarbutton's <code>label</code>. 
+    *
+    *  <p>The function takes a single argument which is the ButtonBarButtons label.</p>
+    *  <pre>myButtonBar.enableButtons(["My Button Label1", "My Label2"])</pre>
+    *
+    *  @param labelValues Is an array of ButtonBarButton labels.
+    *  @param fieldName Field used for comparing the label
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function enableButtons(labelValues:Array, fieldName:String = ""):void
+    {
+        var btnCurrent:ButtonBarButton = null;
+        var buttonIndices:Array;
+        var indicesTotal:uint = 0;
+        var loopingIndex:uint = 0;
+
+
+        if (!dataGroup || labelValues.length < 1 || labelValues == null)
+        {
+            return;
+        }
+
+        if (fieldName == "" || fieldName == null)
+        {
+            buttonIndices = findRowIndices(labelField, labelValues);
+        }
+        else
+        {
+            buttonIndices = findRowIndices(fieldName, labelValues);
+        }
+
+
+        indicesTotal = buttonIndices.length
+
+        if (indicesTotal == 0)
+        {
+            return;
+        }
+
+        
+        for (loopingIndex; loopingIndex < indicesTotal; loopingIndex++)
+        {
+            btnCurrent = dataGroup.getElementAt(buttonIndices[loopingIndex]) as ButtonBarButton;
+            btnCurrent.enabled = true;
+        }
+    }
+
+
     /**
      *  @private
      */
