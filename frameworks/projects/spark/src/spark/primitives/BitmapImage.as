@@ -221,6 +221,7 @@ public class BitmapImage extends GraphicElement
     private var previousUnscaledHeight:Number;
     private var sourceInvalid:Boolean;
     private var loadFailed:Boolean;
+	private var dpiScale:Number = 1;
 
     //----------------------------------
     //  bitmapData
@@ -949,7 +950,6 @@ public class BitmapImage extends GraphicElement
      */
     override protected function measure():void
     {
-        var dpiScale:Number = 1;
         var app:Object = FlexGlobals.topLevelApplication;
         if ("applicationDPI" in app && "runtimeDPI" in app && source is MultiDPIBitmapSource)
             dpiScale = app.runtimeDPI / app.applicationDPI;
@@ -1107,8 +1107,8 @@ public class BitmapImage extends GraphicElement
 
         g.lineStyle();
         var repeatBitmap:Boolean = false;
-        var fillScaleX:Number = 1;
-        var fillScaleY:Number = 1;
+        var fillScaleX:Number = 1/dpiScale;
+        var fillScaleY:Number = 1/dpiScale;
         var roundedDrawX:Number = Math.round(drawX);
         var roundedDrawY:Number = Math.round(drawY);
         var fillWidth:Number = adjustedWidth;
