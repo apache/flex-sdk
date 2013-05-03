@@ -2480,7 +2480,7 @@ public class UIFTETextField extends FTETextField
         {
             // This should get us into the ballpark.
             var s:String = super.text = originalText;
-                originalText.slice(0,
+                s = originalText.slice(0,
                     Math.floor((w / (textWidth + TEXT_WIDTH_PADDING)) * originalText.length));
 
             while (s.length > 1 && textWidth + TEXT_WIDTH_PADDING > w)
