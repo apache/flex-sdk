@@ -273,7 +273,7 @@ public class RPCObjectUtil
                 else
                 {
                     var classInfo:Object = getClassInfo(value, exclude,
-                        { includeReadOnly: true, uris: namespaceURIs });
+                        { includeReadOnly: true, uris: namespaceURIs, includeTransient: false });
                         
                     var properties:Array = classInfo.properties;
                     
@@ -372,9 +372,7 @@ public class RPCObjectUtil
      */
     private static function newline(str:String, length:int = 0):String
     {
-        var result:String = str;
-        result += "\n";
-        
+        var result:String = str + "\n";      
         for (var i:int = 0; i < length; i++)
         {
             result += " ";
@@ -540,6 +538,10 @@ public class RPCObjectUtil
             var uris:Array = options.uris;
             var uri:String;
             var qName:QName;
+			var includeTransients:Boolean;
+			
+			includeTransients = options.hasOwnProperty(includeTransient) && options.includeTransient;
+			
             for (i = 0; i < length; i++)
             {
                 prop = properties[i];
@@ -549,7 +551,7 @@ public class RPCObjectUtil
                 if (excludeObject[p] == 1)
                     continue;
                     
-                if (!options.includeTransient && internalHasMetadata(metadataInfo, p, "Transient"))
+                if (!includeTransients && internalHasMetadata(metadataInfo, p, "Transient"))
                     continue;
                 
                 if (uris != null)
