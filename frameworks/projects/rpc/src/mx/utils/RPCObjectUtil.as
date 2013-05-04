@@ -57,7 +57,19 @@ public class RPCObjectUtil
     //
     //--------------------------------------------------------------------------
 
-        
+	/**
+	 *  Change deault set of strings to exclude.
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion ApacheFlex 4.10
+	 */
+    public static function setToStringExcludes(excludes:Array):void
+	{
+		defaultToStringExcludes = excludes;
+	}
+	
     /**
      *  Pretty-prints the specified Object into a String.
      *  All properties will be in alpha ordering.
@@ -230,6 +242,7 @@ public class RPCObjectUtil
     {
         var str:String;
         var type:String = value == null ? "null" : typeof(value);
+		
         switch (type)
         {
             case "boolean":
@@ -293,7 +306,8 @@ public class RPCObjectUtil
                     indent += 2;
                     
                     // Print all of the variable values.
-                    for (var j:int = 0; j < properties.length; j++)
+					var length:int = properties.length;
+                    for (var j:int = 0; j < length; j++)
                     {
                         str = newline(str, indent);
                         prop = properties[j];
@@ -356,12 +370,12 @@ public class RPCObjectUtil
      *  This method will append a newline and the specified number of spaces
      *  to the given string.
      */
-    private static function newline(str:String, n:int = 0):String
+    private static function newline(str:String, length:int = 0):String
     {
         var result:String = str;
         result += "\n";
         
-        for (var i:int = 0; i < n; i++)
+        for (var i:int = 0; i < length; i++)
         {
             result += " ";
         }
@@ -413,7 +427,7 @@ public class RPCObjectUtil
                                         excludes:Array = null,
                                         options:Object = null):Object
     {   
-        var n:int;
+        var length:int;
         var i:int;
 
 		// this version doesn't handle ObjectProxy
@@ -475,8 +489,8 @@ public class RPCObjectUtil
         var excludeObject:Object = {};
         if (excludes)
         {
-            n = excludes.length;
-            for (i = 0; i < n; i++)
+            length = excludes.length;
+            for (i = 0; i < length; i++)
             {
                 excludeObject[excludes[i]] = 1;
             }
@@ -512,8 +526,8 @@ public class RPCObjectUtil
         }
         else if (className == "XML")
         {
-            n = properties.length();
-            for (i = 0; i < n; i++)
+            length = properties.length();
+            for (i = 0; i < length; i++)
             {
                 p = properties[i].name();
                 if (excludeObject[p] != 1)
@@ -522,11 +536,11 @@ public class RPCObjectUtil
         }
         else
         {
-            n = properties.length();
+            length = properties.length();
             var uris:Array = options.uris;
             var uri:String;
             var qName:QName;
-            for (i = 0; i < n; i++)
+            for (i = 0; i < length; i++)
             {
                 prop = properties[i];
                 p = prop.@name.toString();
@@ -593,7 +607,8 @@ public class RPCObjectUtil
         propertyNames.sort(Array.CASEINSENSITIVE |
                            (numericIndex ? Array.NUMERIC : 0));
         // remove any duplicates, i.e. any items that can't be distingushed by toString()
-        for (i = 0; i < propertyNames.length - 1; i++)
+        length = propertyNames.length;
+		for (i = 0; i < length - 1; i++)
         {
             // the list is sorted so any duplicates should be adjacent
             // two properties are only equal if both the uri and local name are identical
@@ -706,7 +721,8 @@ public class RPCObjectUtil
 
         if (excludes != null)
         {
-            for (var i:uint = 0; i < excludes.length; i++)
+			var length:int = excludes.length;
+            for (var i:uint = 0; i < length; i++)
             {
                 var excl:String = excludes[i] as String;
                 if (excl != null)
