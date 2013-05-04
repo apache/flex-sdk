@@ -689,7 +689,8 @@ public class AbstractMessage implements IMessage
         }
         propertyNames.sort();
 
-        for (var i:uint = 0; i < propertyNames.length; i++)
+		var length:int = propertyNames.length;
+        for (var i:uint = 0; i < length; i++)
         {
             var name:String = String(propertyNames[i]);
             var value:String = RPCObjectUtil.toString(attributes[name]);
