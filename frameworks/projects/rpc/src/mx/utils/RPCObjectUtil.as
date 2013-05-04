@@ -735,9 +735,9 @@ public class RPCObjectUtil
             for (var flag:String in options)
             {
                 key += flag;
-                var value:String = options[flag] as String;
-                if (value != null)
-                    key += value;
+				var value:String = options[flag];
+				if (value != null)
+					key += value.toString();
             }
         }
         return key;
