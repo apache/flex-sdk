@@ -540,7 +540,7 @@ public class RPCObjectUtil
             var qName:QName;
 			var includeTransients:Boolean;
 			
-			includeTransients = options.hasOwnProperty(includeTransient) && options.includeTransient;
+			includeTransients = options.hasOwnProperty("includeTransient") && options.includeTransient;
 			
             for (i = 0; i < length; i++)
             {
