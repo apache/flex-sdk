@@ -594,7 +594,7 @@ public class NumberFormatter extends Formatter
 
         var numStr:String = value.toString();
         
-        numStr.toLowerCase();
+		numStr = numStr.toLowerCase();
         var e:int = numStr.indexOf("e");
         if (e != -1)  //deal with exponents
             numStr = dataFormatter.expandExponents(numStr);
@@ -626,7 +626,8 @@ public class NumberFormatter extends Formatter
         else if (Math.abs(numValue) > 0)
         {
             // Check if the string is in scientific notation
-            if (numStr.indexOf("e") != -1)
+			numStr = numStr.toLowerCase();
+			if (numStr.indexOf("e") != -1)
             {
                 var temp:Number = Math.abs(numValue) + 1;
                 numStr = temp.toString();
