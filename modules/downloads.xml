@@ -397,7 +397,7 @@
         description="Downloads and copies javacc.jar to the lib directory.">
 
         <antcall target="download-zip">
-          <param name="srcUrl" value="http://java.net/downloads/javacc"/>
+          <param name="srcUrl" value="https://java.net/downloads/javacc"/>
           <param name="zipFile" value="javacc-5.0.tar.gz"/>
           <param name="srcJarPath" value="javacc-5.0/bin/lib/javacc.jar"/>
           <param name="destJarFile" value="${lib.ext.dir}/javacc.jar"/>
