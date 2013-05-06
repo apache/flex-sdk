@@ -3120,14 +3120,14 @@ public class DateChooser extends UIComponent implements IFocusManagerComponent, 
         else if (value is Object) 
         {
             var range:Object = {};
-            if (value.rangeStart)
+            if (value.hasOwnProperty("rangeStart") && value.rangeStart is Date)
             {
                 range.rangeStart = new Date(value.rangeStart.getFullYear(), 
                                             value.rangeStart.getMonth(), 
                                             value.rangeStart.getDate());
             }
             
-            if (value.rangeEnd)
+            if (value.hasOwnProperty("rangeEnd") && value.rangeEnd is Date)
             {
                 range.rangeEnd = new Date(value.rangeEnd.getFullYear(), 
                                           value.rangeEnd.getMonth(), 
