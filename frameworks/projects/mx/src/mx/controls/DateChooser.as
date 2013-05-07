@@ -2244,7 +2244,7 @@ public class DateChooser extends UIComponent implements IFocusManagerComponent, 
         {
             calHeader = new UIComponent();
             addChild(calHeader);
-            UIComponent(calHeader).styleName = this;
+            calHeader.styleName = this;
         }
 
         createMonthDisplay(-1);
