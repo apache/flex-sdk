@@ -300,6 +300,8 @@
     <target name="thirdparty-clean" description="Removes all thirdparty downloads.">
         <ant dir="${basedir}/modules" target="thirdparty-clean"/>
         <ant dir="${basedir}/frameworks" target="thirdparty-clean"/>
+        <delete dir="${basedir}/in"/>
+        <delete dir="${basedir}/lib"/>
     </target>
 
     <target name="clean" depends="modules-clean,frameworks-clean,frameworks-clean,frameworks-rsls-clean,package-clean,checkintests-clean" 
@@ -319,8 +321,6 @@
             <include name="nai/**"/>
             <include name="win/**"/>
         </delete>
-        <delete dir="${basedir}/in"/>
-        <delete dir="${basedir}/lib"/>
         <delete dir="${basedir}/out" failonerror="false" includeEmptyDirs="true"/>
         <delete dir="${basedir}/temp" failonerror="false" includeEmptyDirs="true"/>
         <delete dir="${basedir}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
