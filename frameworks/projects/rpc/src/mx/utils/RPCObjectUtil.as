@@ -60,14 +60,40 @@ public class RPCObjectUtil
 	/**
 	 *  Change deault set of strings to exclude.
 	 * 
+	 *  @param excludes The array of strings to exclude.
+	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
 	 *  @productversion ApacheFlex 4.10
 	 */
-    public static function setToStringExcludes(excludes:Array):void
+	public static function setToStringExcludes(excludes:Array):void
 	{
 		defaultToStringExcludes = excludes;
+	}
+	
+	private static var _externalToString:Function = null;
+	
+	/**
+	 *  Assign an static external toString method rather than use the internal one.
+	 * 
+	 *  <p>The function passed in needs to have the same signature as toString.
+	 *  <code>
+	 *     public static function externalToString(value:Object, 
+     *                              namespaceURIs:Array = null, 
+     *                              exclude:Array = null):String
+	 *  </code></p>
+	 * 
+	 *  @param externalToString The function to call instead of internalToString.
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion ApacheFlex 4.10
+	 */
+	public static function externalToString(value:Function):void
+	{
+		_externalToString = value;
 	}
 	
     /**
@@ -226,7 +252,11 @@ public class RPCObjectUtil
         }
         
         refCount = 0;
-        return internalToString(value, 0, null, namespaceURIs, exclude);
+		
+		if (_externalToString != null) 
+			return _externalToString(value, namespaceURIs, exclude);
+		else
+        	return internalToString(value, 0, null, namespaceURIs, exclude);
     }
     
     /**
