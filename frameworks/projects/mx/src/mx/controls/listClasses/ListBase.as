@@ -1742,7 +1742,7 @@ public class ListBase extends ScrollControlBase
         if (offscreenExtraRowsTop > 0)
             makeRowsAndColumns(0, 0, listContent.width, listContent.height, 0, 0, true, offscreenExtraRowsTop);
 
-        var curY:Number = offscreenExtraRowsTop ? rowInfo[offscreenExtraRowsTop-1].y + rowHeight : 0;
+        var curY:Number = offscreenExtraRowsTop > 0 ? rowInfo[offscreenExtraRowsTop-1].y + rowHeight : 0;
         // make onscreen items
         pt = makeRowsAndColumns(0, curY, listContent.width, curY + listContent.heightExcludingOffsets, 0, offscreenExtraRowsTop);
 

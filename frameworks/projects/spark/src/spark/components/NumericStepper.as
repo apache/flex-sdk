@@ -689,7 +689,10 @@ public class NumericStepper extends Spinner
             textDisplay.maxChars = _maxChars;
             // Restrict to digits, minus sign, decimal point, and comma
             textDisplay.restrict = "0-9\\-\\.\\,";
-            textDisplay.text = value.toString();
+			if (dataFormatter != null)
+          		textDisplay.text = dataFormatter.format(value);
+			else
+				textDisplay.text = value.toString();
             // Set the the textDisplay to be wide enough to display
             // widest possible value. 
             textDisplay.widthInChars = calculateWidestValue(); 
@@ -857,8 +860,10 @@ public class NumericStepper extends Spinner
     {
         if (valueFormatFunction != null)
             textDisplay.text = valueFormatFunction(value);
-        else
-            textDisplay.text = value.toString();
+        else if (dataFormatter != null)
+            textDisplay.text = dataFormatter.format(value);
+		else
+			textDisplay.text = value.toString();
     }
     
     //--------------------------------------------------------------------------

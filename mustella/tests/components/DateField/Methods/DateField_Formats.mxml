@@ -111,11 +111,17 @@
 			return date;
 		}
 			
-		public function changeDateToExtraDigits():String
+		public function changeDateToShortMonth():String
 		{
 			var date:String = DateField.dateToString(application.df.selectedDate, "DDD MMM YYYYYY");
 			return date;
-		}	
+		}
+		
+		public function changeDateToLongMonth():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, "DDD MMMM YYYYYY");
+			return date;
+		}
 		
 		public function changeStringToNullFormat():Date
 		{
@@ -367,13 +373,22 @@
 				<AssertMethodValue target="df" method="value=changeDateToTotallyMixedUp()" value="19-13-04"/>
 			</body>
 		</TestCase>
-		<TestCase testID="DateField_Extra_Digits" keywords="[dateToString, DateChooser]">
+		<TestCase testID="DateField_Short_Month" keywords="[dateToString, DateChooser]">
 			<setup>
 				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
 				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
 			</setup>
 			<body> 
-				<AssertMethodValue target="df" method="value=changeDateToExtraDigits()" value="19 04 2013"/>
+				<AssertMethodValue target="df" method="value=changeDateToShortMonth()" value="19 Apr 2013"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Long_Month" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToLongMonth()" value="19 April 2013"/>
 			</body>
 		</TestCase>
 

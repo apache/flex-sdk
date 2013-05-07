@@ -480,7 +480,7 @@ public class NumberBase
 	 *  @productversion Flex 3
 	 */
 	public function parseNumberString(str:String):String
-	{
+	{	
 		// Check the decimal and thousands formatting for validity.
 		var splitDec:Array = str.split(decimalSeparatorFrom);
 		if (splitDec.length > 2)
@@ -492,6 +492,7 @@ public class NumberBase
 		var letter:String;
 		var num:String;
 		var isNegative:Boolean = false;
+		var hasExponent:Boolean = false
 
 		while (count < len)
 		{
@@ -513,11 +514,26 @@ public class NumberBase
 					letter = str.charAt(count);
 					count++;
 					if ("0" <= letter && letter <= "9")
+					{
 						num += letter;
+					}
 					else if (letter == decimalSeparatorFrom)
+					{
 						num += ".";
+					}
+					else if (letter == "e" || letter == "E")
+					{
+						num += letter;
+						hasExponent = true;
+					}
+					else if (hasExponent && (letter == "-" || letter == "+"))
+					{
+						num += letter;
+					}
 					else if (letter != thousandsSeparatorFrom || count >= len)
+					{
 						break;
+					}
 				}
 			}
 		}

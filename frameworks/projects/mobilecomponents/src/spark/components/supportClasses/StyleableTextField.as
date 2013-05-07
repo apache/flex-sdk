@@ -1225,9 +1225,8 @@ public class StyleableTextField extends FlexTextField
             // This should get us into the ballpark.
             var s:String = originalText;
             
-            // TODO (rfrishbe): why is this here below...it does nothing (see SDK-26438)
-            //originalText.slice(0,
-            //    Math.floor((w / (textWidth + TEXT_WIDTH_PADDING)) * originalText.length));
+            s = originalText.slice(0,
+                Math.floor((w / (textWidth + TEXT_WIDTH_PADDING)) * originalText.length));
             
             while (s.length > 1 && (measuredTextSize.x > w))
             {

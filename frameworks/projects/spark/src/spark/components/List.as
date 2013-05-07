@@ -1934,7 +1934,7 @@ public class List extends ListBase implements IFocusManagerComponent
             validateProperties();
         
         mouseDownPoint = event.target.localToGlobal(new Point(event.localX, event.localY));
-        mouseDownObject = event.target as DisplayObject;
+        mouseDownObject = event.currentTarget as DisplayObject;
         mouseDownIndex = newIndex;
         
         var listenForDrag:Boolean = (dragEnabled && getStyle("interactionMode") == InteractionMode.MOUSE && selectedIndices && this.selectedIndices.indexOf(newIndex) != -1);

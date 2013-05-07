@@ -461,7 +461,7 @@ public class DataGridItemRenderer extends UITextField
             else
                 wordWrap = dg.columnWordWrap(column);
             
-            if (DataGrid(_listData.owner).variableRowHeight)
+            if (dg.variableRowHeight)
                 multiline = true;
             
             var dataTips:Boolean = dg.showDataTips;

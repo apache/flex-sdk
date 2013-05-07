@@ -113,15 +113,13 @@ public class NumberValidator extends Validator
 		var minValue:Number = Number(validator.minValue);
 		var precision:int = int(validator.precision);
 		var thousandsSeparator:String = validator.thousandsSeparator;
-
         var input:String = String(value);
         var len:int = input.length;
-
         var isNegative:Boolean = false;
-		
 		var i:int;
 		var c:String;
-
+		var isNumber:Boolean = (value is Number);
+		
         // Make sure the formatting character parameters are unique,
 		// are not digits or the negative sign,
 		// and that the separators are one character.
@@ -266,35 +264,38 @@ public class NumberValidator extends Validator
         var end:int = decimalSeparatorIndex == -1 ?
 					  len :
 					  decimalSeparatorIndex;
-        for (i = 1; i < end; i++)
-        {
-            c = input.charAt(i);
-            if (c == thousandsSeparator)
-            {
-                if (c == thousandsSeparator)
-                {
-                    if ((end - i != 4 &&
-						 input.charAt(i + 4) != thousandsSeparator) ||
-                        DECIMAL_DIGITS.indexOf(input.charAt(i + 1)) == -1 ||
-                        DECIMAL_DIGITS.indexOf(input.charAt(i + 2)) == -1 ||
-                        DECIMAL_DIGITS.indexOf(input.charAt(i + 3)) == -1)
-                    {
-                        results.push(new ValidationResult(
-							true, baseField, "separation",
-							validator.separationError));
-						return results;
-                    }
-                }
-            }
-            else if (DECIMAL_DIGITS.indexOf(c) == -1)
-            {
-                results.push(new ValidationResult(
-					true, baseField,"invalidChar",
-					validator.invalidCharError));
-				return results;
-            }
-        }
-
+		if (!isNumber)
+		{
+	        for (i = 1; i < end; i++)
+	        {
+	            c = input.charAt(i);
+	            if (c == thousandsSeparator)
+	            {
+	                if (c == thousandsSeparator)
+	                {
+	                    if ((end - i != 4 &&
+							 input.charAt(i + 4) != thousandsSeparator) ||
+	                        DECIMAL_DIGITS.indexOf(input.charAt(i + 1)) == -1 ||
+	                        DECIMAL_DIGITS.indexOf(input.charAt(i + 2)) == -1 ||
+	                        DECIMAL_DIGITS.indexOf(input.charAt(i + 3)) == -1)
+	                    {
+	                        results.push(new ValidationResult(
+								true, baseField, "separation",
+								validator.separationError));
+							return results;
+	                    }
+	                }
+	            }
+	            else if (DECIMAL_DIGITS.indexOf(c) == -1)
+	            {
+	                results.push(new ValidationResult(
+						true, baseField,"invalidChar",
+						validator.invalidCharError));
+					return results;
+	            }
+	        }
+		}
+		
         // Make sure the input is within the specified range.
         if (!isNaN(minValue) || !isNaN(maxValue))
         {

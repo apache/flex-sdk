@@ -1293,10 +1293,11 @@ public class ObjectUtil
     private static function getCacheKey(o:Object, excludes:Array = null, options:Object = null):String
     {
         var key:String = getQualifiedClassName(o);
-
+		
         if (excludes != null)
         {
-            for (var i:uint = 0; i < excludes.length; i++)
+			var length:int = excludes.length;
+            for (var i:uint = 0; i < length; i++)
             {
                 var excl:String = excludes[i] as String;
                 if (excl != null)

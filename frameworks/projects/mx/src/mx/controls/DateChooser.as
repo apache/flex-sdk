@@ -2244,7 +2244,7 @@ public class DateChooser extends UIComponent implements IFocusManagerComponent, 
         {
             calHeader = new UIComponent();
             addChild(calHeader);
-            UIComponent(calHeader).styleName = this;
+            calHeader.styleName = this;
         }
 
         createMonthDisplay(-1);
@@ -3083,9 +3083,12 @@ public class DateChooser extends UIComponent implements IFocusManagerComponent, 
         var longestMonthName:String = monthNames ? monthNames[longestMonth] : "";
         var longestMonthText:String = longestMonthName + monthSymbol;
         var longestMonthUITextField:IUITextField = monthDisplay;
+		var oldMonth:String = monthDisplay.text;
+		
         longestMonthUITextField.text = longestMonthText
         monthDisplay.width = longestMonthWidth * longestMonthUITextField.getExplicitOrMeasuredWidth()
             / measureText(longestMonthText).width;
+		longestMonthUITextField.text = oldMonth;
     }
 
     /**
@@ -3120,14 +3123,14 @@ public class DateChooser extends UIComponent implements IFocusManagerComponent, 
         else if (value is Object) 
         {
             var range:Object = {};
-            if (value.rangeStart)
+            if (value.hasOwnProperty("rangeStart") && value.rangeStart is Date)
             {
                 range.rangeStart = new Date(value.rangeStart.getFullYear(), 
                                             value.rangeStart.getMonth(), 
                                             value.rangeStart.getDate());
             }
             
-            if (value.rangeEnd)
+            if (value.hasOwnProperty("rangeEnd") && value.rangeEnd is Date)
             {
                 range.rangeEnd = new Date(value.rangeEnd.getFullYear(), 
                                           value.rangeEnd.getMonth(), 
@@ -3214,10 +3217,12 @@ public class DateChooser extends UIComponent implements IFocusManagerComponent, 
             (dateGrid.selRangeMode == 1 || dateGrid.selRangeMode == 3))
         {
         	var newDate:Object = CalendarLayout.getNewIncrementDate(displayedYear, displayedMonth, 1, 0);
-            var testDate:Date = new Date(newDate.year, newDate.month,
+			
+			if (selectableRange.rangeEnd != null)
+           		var testDate:Date = new Date(newDate.year, newDate.month,
                                          selectableRange.rangeEnd.getDate());
 
-            if (selectableRange.rangeEnd >= testDate)
+            if (selectableRange.rangeEnd == null || selectableRange.rangeEnd >= testDate)
             {
                 dateGrid.stepDate(1, 0, event);
                 invalidateDisplayList();
@@ -3244,10 +3249,12 @@ public class DateChooser extends UIComponent implements IFocusManagerComponent, 
             (dateGrid.selRangeMode == 1 || dateGrid.selRangeMode == 2))
         {
         	var newDate:Object = CalendarLayout.getNewIncrementDate(displayedYear, displayedMonth, -1, 0);
-            var testDate:Date = new Date(newDate.year, newDate.month,
+			
+			if (selectableRange.rangeStart != null)
+            	var testDate:Date = new Date(newDate.year, newDate.month,
                                          selectableRange.rangeStart.getDate());
 
-            if (selectableRange.rangeStart <= testDate)
+            if (selectableRange.rangeStart == null || selectableRange.rangeStart <= testDate)
             {
                 dateGrid.stepDate(-1, 0, event);
                 invalidateDisplayList();
@@ -3274,10 +3281,12 @@ public class DateChooser extends UIComponent implements IFocusManagerComponent, 
             (dateGrid.selRangeMode == 1 || dateGrid.selRangeMode == 3))
         {
         	var newDate:Object = CalendarLayout.getNewIncrementDate(displayedYear, displayedMonth, 0, 1);
-            var testDate:Date = new Date(newDate.year, newDate.month,
+			
+			if (selectableRange.rangeEnd != null)
+           		var testDate:Date = new Date(newDate.year, newDate.month,
                                          selectableRange.rangeEnd.getDate());
 
-            if (selectableRange.rangeEnd >= testDate)
+            if (selectableRange.rangeEnd == null || selectableRange.rangeEnd >= testDate)
             {
                 dateGrid.stepDate(0, 1, event);
                 invalidateDisplayList();
@@ -3304,10 +3313,12 @@ public class DateChooser extends UIComponent implements IFocusManagerComponent, 
             (dateGrid.selRangeMode == 1 || dateGrid.selRangeMode == 2))
         {
         	var newDate:Object = CalendarLayout.getNewIncrementDate(displayedYear, displayedMonth, 0, -1);
-            var testDate:Date = new Date(newDate.year, newDate.month,
+			
+			if (selectableRange.rangeStart != null)
+            	var testDate:Date = new Date(newDate.year, newDate.month,
                                          selectableRange.rangeStart.getDate());
 
-            if (selectableRange.rangeStart <= testDate)
+            if (selectableRange.rangeStart == null || selectableRange.rangeStart <= testDate)
             {
                 dateGrid.stepDate(0, -1, event);
                 invalidateDisplayList();

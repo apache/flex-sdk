@@ -601,7 +601,7 @@ public class CalendarLayout extends UIComponent
         if (value < 0 || value > 11)
             return;
 
-        if (value == _displayedMonth)
+        if (value == _proposedDisplayedMonth)
             return;
 
         _proposedDisplayedMonth = value;
@@ -625,7 +625,7 @@ public class CalendarLayout extends UIComponent
      */
     private var _proposedDisplayedYear:int = -1;
 
-    [Inspectable(category="General", defaultValue="2006")]
+    [Inspectable(category="General", defaultValue="2013")]
 
     /**
      *  @private
