@@ -625,7 +625,7 @@ public class CalendarLayout extends UIComponent
      */
     private var _proposedDisplayedYear:int = -1;
 
-    [Inspectable(category="General", defaultValue="2006")]
+    [Inspectable(category="General", defaultValue="2013")]
 
     /**
      *  @private
