@@ -61,7 +61,6 @@
         <compc fork="true" 
                output="${FLEX_HOME}/frameworks/libs/sparkskins.swc">
             <jvmarg line="${compc.jvm.args}"/>
-            <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
             <load-config filename="compile-config.xml" />
             <arg value="+playerglobal.version=${playerglobal.version}" />
             <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
