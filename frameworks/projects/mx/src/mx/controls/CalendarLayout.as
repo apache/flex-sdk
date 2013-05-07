@@ -601,7 +601,7 @@ public class CalendarLayout extends UIComponent
         if (value < 0 || value > 11)
             return;
 
-        if (value == _displayedMonth)
+        if (value == _proposedDisplayedMonth)
             return;
 
         _proposedDisplayedMonth = value;
