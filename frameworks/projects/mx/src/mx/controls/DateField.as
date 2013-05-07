@@ -51,6 +51,7 @@ import mx.events.SandboxMouseEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
+import mx.resources.ResourceManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 import mx.styles.StyleProxy;
@@ -615,14 +616,21 @@ public class DateField extends ComboBase
         var month:String = String(value.getMonth() + 1);
         var year:String = String(value.getFullYear());
 
-        var mask:String;
+		var mask:String;
+		var fullMask:String;
 		var maskLength:int
 		var output:String = "";
-
+		
+		//TODO Support changing locale at runtime
+		var monthNames:Array =
+			ResourceManager.getInstance().getStringArray(
+				"SharedResources", "monthNames");
+		
         length = maskParts.length;
         for (i = 0; i < length; i++)
         {
-            mask = maskParts[i].charAt(0);
+			fullMask = maskParts[i];
+            mask = fullMask.charAt(0);
 			maskLength = maskParts[i].length;
 			
 			if (mask == "D")
@@ -631,6 +639,14 @@ public class DateField extends ComboBase
 					date = "0" + date;
 				
 				output += date;
+			}
+			else if (fullMask == "MMM")
+			{
+				output += monthNames[value.getMonth()].substr(0,3);
+			}
+			else if (fullMask == "MMMM")
+			{	
+				output += monthNames[value.getMonth()];
 			}
 			else if (mask == "M")
 			{
