@@ -19,6 +19,7 @@
 <flex-config>
 
     <compiler>
+
         <accessible>true</accessible>
         
         <external-library-path>
@@ -28,12 +29,22 @@
             <path-element>../../libs/textLayout.swc</path-element>
             <path-element>../../libs/mobile/mobilecomponents.swc</path-element>
         </external-library-path>
+
+        <library-path/>
+
+        <namespaces>
+            <namespace>
+                <uri>library://ns.adobe.com/flex/spark</uri>
+                <manifest>../../spark-manifest.xml</manifest>
+            </namespace>
+        </namespaces>
         
         <source-path>
             <path-element>src</path-element>
         </source-path>
         
         <warn-no-constructor>false</warn-no-constructor>
+
     </compiler>
     
     <include-classes>
@@ -48,4 +59,5 @@
     <resource-bundle-list>bundles.properties</resource-bundle-list>
     
     <target-player>${playerglobal.version}</target-player>
+
 </flex-config>
