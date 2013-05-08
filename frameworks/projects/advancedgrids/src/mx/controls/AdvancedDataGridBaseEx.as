@@ -759,7 +759,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      *  
      *  @private
      */
-    private var resizeGraphic:IFlexDisplayObject; //
+    private var resizeGraphic:IFlexDisplayObject;
 
     /**
      *  @private
