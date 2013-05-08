@@ -1860,7 +1860,7 @@ public class DateField extends ComboBase
             return;
 
         selectedDateSet = true;
-        _selectedDate = scrubTimeValue(value) as Date;
+        checkYearSetSelectedDate(scrubTimeValue(value) as Date);
         updateDateFiller = true;
         selectedDateChanged = true;
 
@@ -2336,6 +2336,20 @@ public class DateField extends ComboBase
     {
         displayDropdown(false);
     }
+	
+	private function checkYearSetSelectedDate(value:Date):void {
+		if (value != null)
+		{
+			var year:int = value.getFullYear();
+			
+			if (year >= _minYear && year <= _maxYear)
+				_selectedDate = value;	
+		}
+		else
+		{
+			_selectedDate = null;
+		}
+	}
 
     /**
      *  @private
@@ -2371,7 +2385,7 @@ public class DateField extends ComboBase
         if (show)
         {
             if (_parseFunction != null)
-                _selectedDate = _parseFunction(text, formatString);
+                checkYearSetSelectedDate(_parseFunction(text, formatString));
             lastSelectedDate = _selectedDate;
             selectedDate_changeHandler(triggerEvent);
 
@@ -2569,7 +2583,7 @@ public class DateField extends ComboBase
         super.focusOutHandler(event);
 
         if (_parseFunction != null)
-            _selectedDate = _parseFunction(text, formatString);
+            checkYearSetSelectedDate(_parseFunction(text, formatString));
         
         selectedDate_changeHandler(event);
     }
@@ -2606,14 +2620,14 @@ public class DateField extends ComboBase
         {
             if (showingDropdown)
             {
-                _selectedDate = _dropdown.selectedDate;
+               checkYearSetSelectedDate(_dropdown.selectedDate);
                 displayDropdown(false, event);
                 event.stopPropagation();
             }
             else if (editable)
             {
                 if (_parseFunction != null)
-                    _selectedDate = _parseFunction(text, formatString);
+                  checkYearSetSelectedDate(_parseFunction(text, formatString));
             }
             selectedDate_changeHandler(event);
         }
@@ -2675,7 +2689,7 @@ public class DateField extends ComboBase
         
         var inputDate:Date = _parseFunction(text, formatString);
         if (inputDate)
-            _selectedDate = inputDate;
+           checkYearSetSelectedDate(inputDate);
     }
 
     //--------------------------------------------------------------------------
@@ -2714,7 +2728,7 @@ public class DateField extends ComboBase
         if (ObjectUtil.dateCompare(_selectedDate, dropdown.selectedDate) == 0)
             return;
 
-        _selectedDate = dropdown.selectedDate;
+        checkYearSetSelectedDate(dropdown.selectedDate);
 
         if (_selectedDate)
             dateFiller(_selectedDate);
