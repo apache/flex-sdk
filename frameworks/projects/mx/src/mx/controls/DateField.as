@@ -2598,7 +2598,8 @@ public class DateField extends ComboBase
             if (showingDropdown)
                 selectedDate = lastSelectedDate;
             displayDropdown(false, event);
-            event.stopPropagation();
+			if (!editable)
+           		event.stopPropagation();
         }
 
         else if (event.keyCode == Keyboard.ENTER)
