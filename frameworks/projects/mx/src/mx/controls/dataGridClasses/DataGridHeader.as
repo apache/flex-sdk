@@ -1661,7 +1661,7 @@ public class DataGridHeader extends DataGridHeaderBase
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    private var resizeGraphic:IFlexDisplayObject; //
+    private var resizeGraphic:IFlexDisplayObject;
 
     /**
      *  @private
