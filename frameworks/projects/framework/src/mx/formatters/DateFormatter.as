@@ -139,7 +139,7 @@ public class DateFormatter extends Formatter
         var marker:Object = 0;
         
         var count:int = 0;
-        var len:int = str.length;
+        var len:int = 0;
 		var isPM:Boolean = false;
 		
 		var punctuation:Object = {};
@@ -174,6 +174,7 @@ public class DateFormatter extends Formatter
         var timezoneRegEx:RegExp = /(GMT|UTC)((\+|-)\d\d\d\d )?/ig;
         
         str = str.replace(timezoneRegEx, "");
+		len = str.length;
         
         while (count < len)
         {
