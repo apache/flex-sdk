@@ -2001,66 +2001,59 @@ public class CalendarLayout extends UIComponent
      *  from the selected dates.
      */
     mx_internal function removeRangeFromSelection(startDate:Date, endDate:Date):void
-    {
-        for (var n:int = 0; n < selectedRangeCount; n++)
-        {
-            var s1:int;
+	{
+		var rangeEnd:Date;
+		var rangeStart:Date;
+		
+		if (endDate < startDate)
+			return;
+		
+		for (var n:int = 0; n < selectedRangeCount; n++)
+		{
+			rangeStart = _selectedRanges[n].rangeStart;
+			
+			if (endDate < rangeStart)
+				continue;
+			
+			rangeEnd = _selectedRanges[n].rangeEnd;
+			
+			if (startDate <= rangeStart)
+			{
+				if (endDate < rangeEnd)
+				{
+					_selectedRanges[n].rangeStart = incrementDate(endDate);
+				}
+				else
+				{
+					_selectedRanges[n] = _selectedRanges[selectedRangeCount - 1];
+					_selectedRanges[selectedRangeCount - 1] = null;
+					
+					selectedRangeCount -= 1;
+				}
+			}
+			else if (startDate <= rangeEnd)
+			{
+				if (endDate < rangeEnd)
+				{
+					var temp:Date = _selectedRanges[n].rangeEnd;
+					
+					_selectedRanges[n].rangeEnd = incrementDate(startDate, -1);
+					
+					_selectedRanges[selectedRangeCount] = {};
+					_selectedRanges[selectedRangeCount].rangeStart =
+						incrementDate(endDate);
+					_selectedRanges[selectedRangeCount].rangeEnd = temp;
+					
+					selectedRangeCount += 1;
+				}
+				else
+				{
+					_selectedRanges[n].rangeEnd = incrementDate(startDate, -1);
+				}
+			}
+		}
+	}
 
-            if (!startDate || startDate <= _selectedRanges[n].rangeStart)
-                s1 = 1;
-            else if (startDate <= _selectedRanges[n].rangeEnd)
-                s1 = 2;
-            else if (startDate > _selectedRanges[n].rangeEnd)
-                s1 = 3;
-
-            if (endDate < _selectedRanges[n].rangeStart)
-                s1 *= 5;
-            else if (endDate < _selectedRanges[n].rangeEnd)
-                s1 *= 7;
-            else if (!endDate || endDate >= _selectedRanges[n].rangeEnd)
-                s1 *= 11;
-
-            switch (s1)
-            {
-                case 5:
-                case 33:
-                    break;
-
-                case 14:
-                {
-                    var temp:Date = _selectedRanges[n].rangeEnd;
-
-                    _selectedRanges[n].rangeEnd = incrementDate(startDate,-1);
-
-                    _selectedRanges[selectedRangeCount] = {};
-                    _selectedRanges[selectedRangeCount].rangeStart = incrementDate(endDate);
-                    _selectedRanges[selectedRangeCount].rangeEnd = temp;
-                    selectedRangeCount += 1;
-                    break;
-                }
-
-                case 7:
-                {
-                    _selectedRanges[n].rangeStart = incrementDate(endDate);
-                    break;
-                }
-
-                case 22:
-                {
-                    _selectedRanges[n].rangeEnd = incrementDate(startDate,-1);
-                    break;
-                }
-
-                case 11:
-                {
-                    _selectedRanges[n] = _selectedRanges[selectedRangeCount-1];
-                    _selectedRanges[selectedRangeCount-1] = null;
-                    selectedRangeCount -= 1;
-                    break;
-                }
-            }
-        }
-    }
 
     /**
      *  @private
