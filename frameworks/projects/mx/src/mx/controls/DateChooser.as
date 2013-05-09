@@ -1885,9 +1885,9 @@ public class DateChooser extends UIComponent implements IFocusManagerComponent, 
      *  The Object contains two properties, <code>rangeStart</code>
      *  and <code>rangeEnd</code>, of type Date.
      *  If you specify only <code>rangeStart</code>,
-     *  all the dates after the specified date are enabled.
+     *  all the dates on and after the specified date are enabled.
      *  If you only specify <code>rangeEnd</code>,
-     *  all the dates before the specified date are enabled.
+     *  all the dates on and before the specified date are enabled.
      *  To enable only a single day in a DateChooser control,
      *  you can pass a Date object directly. Time values are 
      *  zeroed out from the Date object if they are present.</p>
