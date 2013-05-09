@@ -2020,7 +2020,7 @@ public class CalendarLayout extends UIComponent
 			{
 				if (endDate < rangeEnd)
 				{
-					_selectedRanges[n].rangeStart = addSubtractDays(endDate, 1);
+					_selectedRanges[n].rangeStart = endDate;
 				}
 				else
 				{
@@ -2036,18 +2036,17 @@ public class CalendarLayout extends UIComponent
 				{
 					var temp:Date = _selectedRanges[n].rangeEnd;
 					
-					_selectedRanges[n].rangeEnd = addSubtractDays(startDate, -1);
+					_selectedRanges[n].rangeEnd = startDate;
 					
 					_selectedRanges[selectedRangeCount] = {};
-					_selectedRanges[selectedRangeCount].rangeStart =
-						addSubtractDays(endDate, 1);
+					_selectedRanges[selectedRangeCount].rangeStart = endDate;
 					_selectedRanges[selectedRangeCount].rangeEnd = temp;
 					
 					selectedRangeCount += 1;
 				}
 				else
 				{
-					_selectedRanges[n].rangeEnd = addSubtractDays(startDate, -1);
+					_selectedRanges[n].rangeEnd = startDate;
 				}
 			}
 		}
@@ -2450,12 +2449,12 @@ public class CalendarLayout extends UIComponent
                 {
                     if (alreadySelected)
                     {
-                        removeSelectionIndicator(colIndex,rowIndex);
-                        removeRangeFromSelection(newDate,newDate);
+                        removeSelectionIndicator(colIndex, rowIndex);
+                        removeRangeFromSelection(newDate, newDate);
                     }
                     else
                     {
-                        addSelectionIndicator(colIndex,rowIndex);
+                        addSelectionIndicator(colIndex, rowIndex);
                         addToSelected(newDate);
                     }
                 }
@@ -2474,14 +2473,14 @@ public class CalendarLayout extends UIComponent
                         }
                         else if (event.ctrlKey)
                         {
-                            removeSelectionIndicator(colIndex,rowIndex);
-                            removeRangeFromSelection(newDate,newDate);
+                            removeSelectionIndicator(colIndex, rowIndex);
+                            removeRangeFromSelection(newDate, newDate);
                         }
                     }
                     else
                     {
                             selectedRangeCount = 0;
-                            addSelectionIndicator(colIndex,rowIndex);
+                            addSelectionIndicator(colIndex, rowIndex);
                             addToSelected(newDate);
                             setSelectedIndicators();
                     }
