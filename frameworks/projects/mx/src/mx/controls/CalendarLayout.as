@@ -199,6 +199,11 @@ public class CalendarLayout extends UIComponent
         addEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
         addEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
     }
+	
+	private static const START_END:int = 1;
+	private static const START_ONLY:int = 2;
+	private static const END_ONLY:int = 3;
+	private static const SINGLE_DATE:int = 4;
 
     //--------------------------------------------------------------------------
     //
@@ -531,7 +536,7 @@ public class CalendarLayout extends UIComponent
         {
             if (_disabledRanges[i] is Date)
             {
-                disabledRangeMode[i] = 4;
+                disabledRangeMode[i] = SINGLE_DATE;
                 _disabledRanges[i] = new Date(value[i].getFullYear(),
                                               value[i].getMonth(),
                                               value[i].getDate());
@@ -544,17 +549,17 @@ public class CalendarLayout extends UIComponent
                 if (!_disabledRanges[i].rangeStart &&
                     _disabledRanges[i].rangeEnd)
                 {
-                    disabledRangeMode[i] = 3;
+                    disabledRangeMode[i] = END_ONLY;
                 }
                 else if (_disabledRanges[i].rangeStart &&
                         !_disabledRanges[i].rangeEnd)
                 {
-                    disabledRangeMode[i] = 2;
+                    disabledRangeMode[i] = START_ONLY;
                 }
                 else if (_disabledRanges[i].rangeStart &&
                          _disabledRanges[i].rangeEnd)
                 {
-                    disabledRangeMode[i] = 1;
+                    disabledRangeMode[i] = START_END;
                 }
             }
         }
@@ -750,7 +755,7 @@ public class CalendarLayout extends UIComponent
         
         if (value is Date)
         {
-            selRangeMode = 4;
+            selRangeMode = SINGLE_DATE;
             
             _selectableRange = new Date(value.getFullYear(),
                                         value.getMonth(),
@@ -765,7 +770,7 @@ public class CalendarLayout extends UIComponent
 
             if (!value.rangeStart && value.rangeEnd)
             {
-                selRangeMode = 3;
+                selRangeMode = END_ONLY;
                 _selectableRange.rangeEnd = value.rangeEnd;
                 
                 if (todaysYear <= _selectableRange.rangeEnd.getFullYear())
@@ -791,7 +796,7 @@ public class CalendarLayout extends UIComponent
             }
             else if (!value.rangeEnd && value.rangeStart)
             {
-                selRangeMode = 2;
+                selRangeMode = START_ONLY;
                 _selectableRange.rangeStart = value.rangeStart;
                 
                 if (todaysYear >= _selectableRange.rangeStart.getFullYear())
@@ -816,7 +821,7 @@ public class CalendarLayout extends UIComponent
             }
             else if (value.rangeStart && value.rangeEnd)
             {
-                selRangeMode = 1;
+                selRangeMode = START_END;
                 _selectableRange.rangeStart = value.rangeStart;
                 _selectableRange.rangeEnd = value.rangeEnd;
                 
@@ -867,25 +872,25 @@ public class CalendarLayout extends UIComponent
     public function get selectedRanges():Array
     {
         if (_selectableRange)
-        {
+        {		
             switch (selRangeMode)
             {
-                case 1:
+                case START_END:
                 {
                     removeRangeFromSelection(null, _selectableRange.rangeStart);
                     removeRangeFromSelection(_selectableRange.rangeEnd, null);
                     break;
                 }
 
-                case 2:
-                case 3:
+                case START_ONLY:
+                case END_ONLY:
                 {
                     removeRangeFromSelection(_selectableRange.rangeEnd,
                                              _selectableRange.rangeStart);
                     break;
                 }
 
-                case 4:
+                case SINGLE_DATE:
                 {
                     removeRangeFromSelection(null, _selectableRange as Date);
                     removeRangeFromSelection(_selectableRange as Date, null);
@@ -900,19 +905,19 @@ public class CalendarLayout extends UIComponent
         {
             switch (disabledRangeMode[i])
             {
-                case 1:
-                case 2:
-                case 3:
+                case START_END:
+                case START_ONLY:
+                case END_ONLY:
                 {
-                    removeRangeFromSelection(_disabledRanges[i].rangeStart,
-                                             _disabledRanges[i].rangeEnd);
+                    removeRangeFromSelection(addSubtractDays(_disabledRanges[i].rangeStart, -1),
+								addSubtractDays(_disabledRanges[i].rangeEnd, +1));
                     break;
                 }
 
-                case 4:
+                case SINGLE_DATE:
                 {
-                    removeRangeFromSelection(_disabledRanges[i],
-                                             _disabledRanges[i]);
+                    removeRangeFromSelection(addSubtractDays(_disabledRanges[i], -1),
+								_disabledRanges[i]);
                     break;
                 }
             }
@@ -1620,7 +1625,7 @@ public class CalendarLayout extends UIComponent
             // "end"::All dates before ths specified date are disabled, including the end Date
             // "date"::Only that day has to be disabled
             // "normal"::range is disabled including the start and end date
-            if (_disabledRanges.length>0)
+            if (_disabledRanges.length > 0)
             {
                 for (var dRanges:int = 0; dRanges < _disabledRanges.length; dRanges++)
                 {
@@ -1826,8 +1831,8 @@ public class CalendarLayout extends UIComponent
             }
             
             switch (rangeMode)
-            {
-                case 1:
+            {	
+                case START_END:
                 {
                     if (value < dateRange.rangeStart ||
                         value > dateRange.rangeEnd)
@@ -1837,21 +1842,21 @@ public class CalendarLayout extends UIComponent
                     break;
                 }
 
-                case 2:
+                case START_ONLY:
                 {
                     if (value < dateRange.rangeStart)
                         result = false;
                     break;
                 }
 
-                case 3:
+                case END_ONLY:
                 {
                     if (value > dateRange.rangeEnd)
                         result = false;
                     break;
                 }
 
-                case 4:
+                case SINGLE_DATE:
                 {
                     if (value > dateRange || value < dateRange)
                         result = false;
@@ -1973,7 +1978,10 @@ public class CalendarLayout extends UIComponent
     {
         var newDate:Date = new Date(value);
 		
-        return new Date(newDate.fullYear, newDate.month, newDate.date + amount);
+		if (value)
+        	return new Date(newDate.fullYear, newDate.month, newDate.date + amount);
+		else
+			return null;
     }
 
     /**
