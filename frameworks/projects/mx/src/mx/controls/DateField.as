@@ -433,8 +433,9 @@ public class DateField extends ComboBase
      *  object corresponding to the String.
      *  The <code>inputFormat</code> argument contains the pattern
      *  in which the <code>valueString</code> String is formatted.
-     *  It can contain <code>"M"</code>,<code>"MM"</code>,<code>"D"</code>,
-	 *  <code>"DD"</code>,<code>"YY"</code>,<code>"YYYY"</code>
+     *  It can contain <code>"M"</code>, <code>"MM"</code>, 
+	 *  <code>"MMM"</code> (3 letter month names), <code>"MMMM"</code> (month names),
+	 *  <code>"D"</code>,  <code>"DD"</code>, <code>"YY"</code>, <code>"YYYY"</code>
      *  and delimiter and punctuation characters.
 	 * 
 	 *  <p>Only upper case characters are supported.</p>
@@ -559,8 +560,9 @@ public class DateField extends ComboBase
      *  Formats a Date into a String according to the <code>outputFormat</code> argument.
      *  The <code>outputFormat</code> argument contains a pattern in which
      *  the <code>value</code> String is formatted.
-     *  It can contain <code>"M"</code>,<code>"MM"</code>,<code>"D"</code>,
-	 *  <code>"DD"</code>,<code>"YY"</code>,<code>"YYYY"</code>
+     *  It can contain <code>"M"</code>, <code>"MM"</code>,
+	 *  <code>"MMM"</code> (3 letter month names), <code>"MMMM"</code> (month names),
+	 *  <code>"D"</code>, <code>"DD"</code>, <code>"YY"</code>, <code>"YYYY"</code>
      *  and delimiter and punctuation characters.
 	 * 
 	 *  <p>Only upper case characters are supported.</p>
@@ -1319,7 +1321,8 @@ public class DateField extends ComboBase
     /**
      *  The format of the displayed date in the text field.
      *  This property can contain any combination of <code>"M"</code>,
-	 *  <code>"MM"</code>, <code>"D"</code>, <code>"DD"</code>,
+	 *  <code>"MM"</code>, <code>"MMM"</code> (3 letter month names),
+	 *  <code>"MMMM"</code> (month names), <code>"D"</code>, <code>"DD"</code>,
 	 *  <code>"YY"</code>, <code>"YYYY"</code>,
      *  delimiter, and punctuation characters.
 	 *  
