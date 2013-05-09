@@ -941,12 +941,12 @@ public class CalendarLayout extends UIComponent
                 if (dayOffset < 0)
                     dayOffset += 7;
 
-                tempDate = incrementDate(tempDate,dayOffset)
+                tempDate = addSubtractDays(tempDate, dayOffset);
 
                 while (tempDate < maxDate)
                 {
-                    removeRangeFromSelection(tempDate,tempDate);
-                    tempDate = incrementDate(tempDate,7)
+                    removeRangeFromSelection(tempDate, tempDate);
+                    tempDate = addSubtractDays(tempDate, 7);
                 }
             }
         }
@@ -1969,12 +1969,11 @@ public class CalendarLayout extends UIComponent
      *  Increments/decrements a date by 'No. of days'
      *  specified by amount and returns the new date.
      */
-    mx_internal function incrementDate(value:Date, amount:int = 1):Date
+    mx_internal function addSubtractDays(value:Date, amount:int):Date
     {
         var newDate:Date = new Date(value);
-        var time:Number = newDate.getTime();
-        newDate.setTime(time + amount * 86400000);
-        return newDate;
+		
+        return new Date(newDate.fullYear, newDate.month, newDate.date + amount);
     }
 
     /**
@@ -2021,7 +2020,7 @@ public class CalendarLayout extends UIComponent
 			{
 				if (endDate < rangeEnd)
 				{
-					_selectedRanges[n].rangeStart = incrementDate(endDate);
+					_selectedRanges[n].rangeStart = addSubtractDays(endDate, 1);
 				}
 				else
 				{
@@ -2037,18 +2036,18 @@ public class CalendarLayout extends UIComponent
 				{
 					var temp:Date = _selectedRanges[n].rangeEnd;
 					
-					_selectedRanges[n].rangeEnd = incrementDate(startDate, -1);
+					_selectedRanges[n].rangeEnd = addSubtractDays(startDate, -1);
 					
 					_selectedRanges[selectedRangeCount] = {};
 					_selectedRanges[selectedRangeCount].rangeStart =
-						incrementDate(endDate);
+						addSubtractDays(endDate, 1);
 					_selectedRanges[selectedRangeCount].rangeEnd = temp;
 					
 					selectedRangeCount += 1;
 				}
 				else
 				{
-					_selectedRanges[n].rangeEnd = incrementDate(startDate, -1);
+					_selectedRanges[n].rangeEnd = addSubtractDays(startDate, -1);
 				}
 			}
 		}
