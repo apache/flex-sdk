@@ -299,7 +299,7 @@ public class CalendarLayout extends UIComponent
     /**
      *  @private
      */
-    mx_internal var selRangeMode:int = 1;
+    mx_internal var selRangeMode:int = START_END;
 
     //--------------------------------------------------------------------------
     //
@@ -834,7 +834,7 @@ public class CalendarLayout extends UIComponent
                 else if (todaysDate < _selectableRange.rangeStart)
                 {
                     callMonth = _selectableRange.rangeStart.getMonth();
-                    callYear = _selectableRange. rangeStart.getFullYear();
+                    callYear = _selectableRange.rangeStart.getFullYear();
                 }
                 else if (todaysDate > _selectableRange.rangeEnd)
                 {
@@ -877,23 +877,22 @@ public class CalendarLayout extends UIComponent
             {
                 case START_END:
                 {
-                    removeRangeFromSelection(null, _selectableRange.rangeStart);
-                    removeRangeFromSelection(_selectableRange.rangeEnd, null);
+                    removeRangeFromSelection(null, addSubtractDays(_selectableRange.rangeStart, -1));
+                    removeRangeFromSelection(addSubtractDays(_selectableRange.rangeEnd, +1), null);
                     break;
                 }
 
                 case START_ONLY:
                 case END_ONLY:
                 {
-                    removeRangeFromSelection(_selectableRange.rangeEnd,
-                                             _selectableRange.rangeStart);
+                    removeRangeFromSelection(addSubtractDays(_selectableRange.rangeStart, -1),
+												addSubtractDays(_selectableRange.rangeEnd, +1));
                     break;
                 }
 
                 case SINGLE_DATE:
                 {
-                    removeRangeFromSelection(null, _selectableRange as Date);
-                    removeRangeFromSelection(_selectableRange as Date, null);
+                    removeDayFromSelection(_selectableRange as Date);
                     break;
                 }
             }
@@ -909,15 +908,13 @@ public class CalendarLayout extends UIComponent
                 case START_ONLY:
                 case END_ONLY:
                 {
-                    removeRangeFromSelection(addSubtractDays(_disabledRanges[i].rangeStart, -1),
-								addSubtractDays(_disabledRanges[i].rangeEnd, +1));
+                    removeRangeFromSelection(_disabledRanges[i].rangeStart, _disabledRanges[i].rangeEnd);
                     break;
                 }
 
                 case SINGLE_DATE:
                 {
-                    removeRangeFromSelection(addSubtractDays(_disabledRanges[i], -1),
-								_disabledRanges[i]);
+                    removeDayFromSelection(_disabledRanges[i]);
                     break;
                 }
             }
@@ -950,7 +947,7 @@ public class CalendarLayout extends UIComponent
 
                 while (tempDate < maxDate)
                 {
-                    removeRangeFromSelection(tempDate, tempDate);
+                    removeDayFromSelection(tempDate);
                     tempDate = addSubtractDays(tempDate, 7);
                 }
             }
@@ -1927,7 +1924,7 @@ public class CalendarLayout extends UIComponent
     mx_internal function addToSelected(newDate:Date, range:Boolean = false):void
     {
 
-        if (!selectedRangeCount)
+        if (selectedRangeCount == 0)
             rangeStartDate = null;
 
         lastSelectedDate = newDate;
@@ -2018,48 +2015,61 @@ public class CalendarLayout extends UIComponent
 		for (var n:int = 0; n < selectedRangeCount; n++)
 		{
 			rangeStart = _selectedRanges[n].rangeStart;
-			
-			if (endDate < rangeStart)
-				continue;
-			
 			rangeEnd = _selectedRanges[n].rangeEnd;
 			
-			if (startDate <= rangeStart)
+			// ignore selection range outsie of date range
+			if (endDate < rangeStart || startDate > rangeEnd)
+				continue;
+			
+			// remove selection range inside of date range
+			if (startDate <= rangeStart && endDate >= rangeEnd)
 			{
-				if (endDate < rangeEnd)
-				{
-					_selectedRanges[n].rangeStart = endDate;
-				}
-				else
-				{
-					_selectedRanges[n] = _selectedRanges[selectedRangeCount - 1];
-					_selectedRanges[selectedRangeCount - 1] = null;
-					
-					selectedRangeCount -= 1;
-				}
+				_selectedRanges[n] = null;
 			}
+			// split selection range if date range inside selection range
+			else if (startDate > rangeStart && endDate < rangeEnd)
+			{
+				var temp:Date = _selectedRanges[n].rangeEnd;
+				
+				_selectedRanges[n].rangeEnd = addSubtractDays(startDate, -1);
+				
+				_selectedRanges[selectedRangeCount] = {};
+				_selectedRanges[selectedRangeCount].rangeStart = addSubtractDays(endDate, +1);
+				_selectedRanges[selectedRangeCount].rangeEnd = temp;
+				
+				selectedRangeCount++;
+			}
+			// move selection start date if end overlaps
+			else if (endDate >= rangeStart)
+			{
+				_selectedRanges[n].rangeStart = addSubtractDays(endDate, +1);	
+			}
+			// move selection end date if start overlaps
 			else if (startDate <= rangeEnd)
 			{
-				if (endDate < rangeEnd)
-				{
-					var temp:Date = _selectedRanges[n].rangeEnd;
-					
-					_selectedRanges[n].rangeEnd = startDate;
-					
-					_selectedRanges[selectedRangeCount] = {};
-					_selectedRanges[selectedRangeCount].rangeStart = endDate;
-					_selectedRanges[selectedRangeCount].rangeEnd = temp;
-					
-					selectedRangeCount += 1;
-				}
-				else
-				{
-					_selectedRanges[n].rangeEnd = startDate;
-				}
+				_selectedRanges[n].rangeEnd = addSubtractDays(startDate, -1);	
+			}			
+		}
+		
+		// clean up any removed selections
+		for (n = selectedRangeCount -1; n > 0; n--)
+		{
+			if (_selectedRanges[n] == null)
+			{
+				_selectedRanges.splice(n,1);
+				selectedRangeCount--;
 			}
 		}
 	}
-
+	
+	/**
+	 *  @private
+	 *  Removes a single date specified by singleDate from the selected dates.
+	 */
+	mx_internal function removeDayFromSelection(singleDate:Date):void
+	{
+		removeRangeFromSelection(singleDate, singleDate);
+	}
 
     /**
      *  @private
@@ -2458,7 +2468,7 @@ public class CalendarLayout extends UIComponent
                     if (alreadySelected)
                     {
                         removeSelectionIndicator(colIndex, rowIndex);
-                        removeRangeFromSelection(newDate, newDate);
+                        removeDayFromSelection(newDate);
                     }
                     else
                     {
@@ -2482,15 +2492,15 @@ public class CalendarLayout extends UIComponent
                         else if (event.ctrlKey)
                         {
                             removeSelectionIndicator(colIndex, rowIndex);
-                            removeRangeFromSelection(newDate, newDate);
+                            removeDayFromSelection(newDate);
                         }
                     }
                     else
                     {
-                            selectedRangeCount = 0;
-                            addSelectionIndicator(colIndex, rowIndex);
-                            addToSelected(newDate);
-                            setSelectedIndicators();
+                        selectedRangeCount = 0;
+                        addSelectionIndicator(colIndex, rowIndex);
+                        addToSelected(newDate);
+                        setSelectedIndicators();
                     }
                 }
             }
