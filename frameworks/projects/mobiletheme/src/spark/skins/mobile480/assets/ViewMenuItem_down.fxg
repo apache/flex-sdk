@@ -17,38 +17,33 @@
   limitations under the License.
 
 -->
-<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008"
-	scaleGridLeft="6" scaleGridRight="152" scaleGridTop="6" scaleGridBottom="94">
-	
-	<!-- Transparent Rect to ensure proper scaling -->
-	<Rect width="158" height="100" x="0" y="0">
-		<fill>
-			<SolidColor color="#000000" alpha="0"/>
-		</fill>
-	</Rect>	
-	
-	<!-- overlay -->	
-	<Rect width="158" height="100" x="0" y="0">
-		<fill>
-			<LinearGradient rotation = "90">
-				<GradientEntry color="#000000" ratio="0" alpha="0.25"/>
-				<GradientEntry color="#000000" ratio="1" alpha="0.05"/>
-			</LinearGradient>
-		</fill>
-	</Rect>
 
-	<!-- Outermost border -->
-	<Rect width="156" height="98" x="1" y="1">
-		<stroke>
-			<SolidColorStroke color="#000000" weight="2" alpha="0.2" joints="miter"/>
-		</stroke>
-	</Rect>
-	
-	<!-- Middle Outer Border -->
-	<Rect width="152" height="94" x="3" y="3">
-		<stroke>
-			<SolidColorStroke color="#000000" weight="2" alpha="0.1" joints="miter"/>
-		</stroke>
-	</Rect>
-
+<Graphic version="2.0" scaleGridLeft="6" scaleGridRight="152" scaleGridTop="6" scaleGridBottom="94" xmlns="http://ns.adobe.com/fxg/2008">
+  <!-- Transparent Rect to ensure proper scaling -->
+  <Rect width="158" height="100" x="0" y="0" scaleX="1.5" scaleY="1.5">
+    <fill>
+      <SolidColor color="#000000" alpha="0"/>
+    </fill>
+  </Rect>
+  <!-- overlay -->
+  <Rect width="158" height="100" x="0" y="0" scaleX="1.5" scaleY="1.5">
+    <fill>
+      <LinearGradient rotation="90">
+        <GradientEntry color="#000000" ratio="0" alpha="0.25"/>
+        <GradientEntry color="#000000" ratio="1" alpha="0.05"/>
+      </LinearGradient>
+    </fill>
+  </Rect>
+  <!-- Outermost border -->
+  <Rect width="156" height="98" x="1" y="1" scaleX="1.5" scaleY="1.5">
+    <stroke>
+      <SolidColorStroke color="#000000" weight="2" alpha="0.2" joints="miter"/>
+    </stroke>
+  </Rect>
+  <!-- Middle Outer Border -->
+  <Rect width="152" height="94" x="3" y="3" scaleX="1.5" scaleY="1.5">
+    <stroke>
+      <SolidColorStroke color="#000000" weight="2" alpha="0.1" joints="miter"/>
+    </stroke>
+  </Rect>
 </Graphic>

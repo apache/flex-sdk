@@ -18,51 +18,44 @@
 
 -->
 
-
-<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008"
-    scaleGridTop="4" scaleGridBottom="72" scaleGridLeft="3" scaleGridRight="117">
-    
-    <!-- highlight fill -->
-    <Rect x="2" y="2" width="118" height="72">
-        <fill>
-            <LinearGradient x="0" scaleX="72" rotation="90">
-                <GradientEntry color="#000000" ratio="0" alpha=".05"/>
-                <GradientEntry color="#000000" ratio="1" alpha=".1"/>
-            </LinearGradient>
-        </fill>
-    </Rect>
-    
-    <!-- border top -->
-    <Rect x="0" y="0" width="120" height="2">
-        <fill>
-    		<SolidColor color="#000000" alpha="0.75"/>
-        </fill>
-    </Rect>
-    <!-- border bottom -->
-    <Rect x="0" y="74" width="120" height="2">
-        <fill>
-    		<SolidColor color="#000000" alpha="0.75"/>
-        </fill>
-    </Rect>
-    <!-- border left -->
-    <Rect x="0" y="2" width="2" height="72">
-        <fill>
-    		<SolidColor color="#000000" alpha="0.8"/>
-        </fill>
-    </Rect>
-    
-    <!-- highlight stroke -->
-    <Rect x="2.5" y="2.5" width="117" height="71">
-    	<stroke>
-    		<SolidColorStroke color="#000000" weight="1" alpha=".1"/>
-    	</stroke>
-    </Rect>
-    
-    <!-- scaling fix -->
-    <Rect x="0" y="0" width="120" height="76">
-        <fill>
-    		<SolidColor color="#000000" alpha="0"/>
-        </fill>
-    </Rect>
-    
+<Graphic version="2.0" scaleGridTop="4" scaleGridBottom="72" scaleGridLeft="3" scaleGridRight="117" xmlns="http://ns.adobe.com/fxg/2008">
+  <!-- highlight fill -->
+  <Rect x="2" y="2" width="118" height="72" scaleX="1.5" scaleY="1.5">
+    <fill>
+      <LinearGradient x="0" scaleX="72" rotation="90">
+        <GradientEntry color="#000000" ratio="0" alpha=".05"/>
+        <GradientEntry color="#000000" ratio="1" alpha=".1"/>
+      </LinearGradient>
+    </fill>
+  </Rect>
+  <!-- border top -->
+  <Rect x="0" y="0" width="120" height="2" scaleX="1.5" scaleY="1.5">
+    <fill>
+      <SolidColor color="#000000" alpha="0.75"/>
+    </fill>
+  </Rect>
+  <!-- border bottom -->
+  <Rect x="0" y="74" width="120" height="2" scaleX="1.5" scaleY="1.5">
+    <fill>
+      <SolidColor color="#000000" alpha="0.75"/>
+    </fill>
+  </Rect>
+  <!-- border left -->
+  <Rect x="0" y="2" width="2" height="72" scaleX="1.5" scaleY="1.5">
+    <fill>
+      <SolidColor color="#000000" alpha="0.8"/>
+    </fill>
+  </Rect>
+  <!-- highlight stroke -->
+  <Rect x="2.5" y="2.5" width="117" height="71" scaleX="1.5" scaleY="1.5">
+    <stroke>
+      <SolidColorStroke color="#000000" weight="1" alpha=".1"/>
+    </stroke>
+  </Rect>
+  <!-- scaling fix -->
+  <Rect x="0" y="0" width="120" height="76" scaleX="1.5" scaleY="1.5">
+    <fill>
+      <SolidColor color="#000000" alpha="0"/>
+    </fill>
+  </Rect>
 </Graphic>
