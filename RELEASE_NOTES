@@ -1,14 +1,12 @@
-Apache Flex 4.X
+Apache Flex 4.10
 =================
 
-Apache Flex 4.X is a update to Apache Flex 4.9.1
+Apache Flex 4.10 is a update to Apache Flex 4.9.  It is the goal of our project to have this version remain compatible
+with applications developed with Adobe's final Flex release, version 4.6.  There have been numerous enhancements, bug
+fixes and new features that have been included since the Adobe release, so make sure to review this document to see
+what has been included.
 
-Differences from Apache Flex 4.9.1 include:
-
-Version Control
------------------
- - Moved code base to Git from SVN. For information on how to checkout and
-   build the SDK please look in the README file.
+Differences from Apache Flex 4.9 include:
 
 AIR and Flash Player support
 ------------------------------
@@ -26,7 +24,7 @@ Build script changes
 ----------------------
  - Improved clean targets in build scripts.
  - Changed SDK description to include AIR version.
- - Change the release number to be date format YYYYMMDD.
+ - Change the internal release number to be date format YYYYMMDD.
  - Support for auto discovery of TLF directory and TLF_HOME environment variable.
  - Added no.thirdparty-clean and no.thirdparty-downloads options.
  - Fixed issue with pt_PT, el_GR, en_AU, en_GB and en_CA locales.
@@ -42,22 +40,20 @@ SDK Changes
  - Improved dates formatter and validators with timezone and millisecond formatting.
  - Improved support for international number separators.
  - More supported locales for postcode validator and formatters.
- - Added no colour support to Colour Picker.
+ - Added no color support to Colour Picker.
  - Added removeItem to IList.
  - Bitmap scaling works in fill and crop modes.
  - Fixed performance issue with matchesStyleClient.
  - Improved performance of truncating text to fix.
  - RPC toString improvements.
  - Better support of small numbers and scientific notation in numeric steppers.
- - Many minor improvements changes and RTE fixes.
- - TODO more to add - see list of resolved issues below.
+ - Many minor improvements changes, including RTE fixes.  Check the bug fix list below for more details.
  
 Experimental Components
 -------------------------
  - Added new components Accordion, DataAccordion, InlineScroller and layouts
    AccordionLayout, CarouselLayout, CoverflowLayout, StackLayout (and many more)
  - CallOut and CallOut Button
- - TODO more to go here?
 
 Mustella Test Framework changes
 ---------------------------------
@@ -70,319 +66,215 @@ Mustella Test Framework changes
  - Regenerated mustella baseline images.
  - Moved imageDiffAIR to utilities and added improvements.
 
-Other
--------
-TODO - Can anyone add anything about these?
-OneClickMustella
-Mavinizer
-
-Many other code improvements and RTE fixes. See JIRA log for full details.
+Version Control
+-----------------
+ - Apache Flex has officially moved it's code base to Git from SVN. Information on the new checkout and build
+   instructions, in the included README file.
 
 Bug Fixes
 ----------
-TODO Trim this down a little
-FLEX-33526	findRowIndicies to complement findRowIndex
-FLEX-33524	ButtonBar/TabBar enable/disable buttons
-FLEX-33523	MultiDPIBitmapSource is not behaving properly when fillMode = repeat
-FLEX-33518	Flash charts/graphs do not display when printed
-FLEX-33517	Flash charts/graphs do not display when printed
-FLEX-33516	DateFormatter.parseDate assumes months comes before days in all locales
-FLEX-33514	DateFormatter should support Japanese and Chinese date formats
-FLEX-33510	DateFormatter can ignore PM string and give result 12 hours out
-FLEX-33504	Some dateFormat locale properties not well displayed by DateField
-FLEX-33500	XMLEncoder fails to encode WSDL simpleType union
-FLEX-33499	LoaderInfo not updated in HTMLLoader class
-FLEX-33498	Enhancement for dataProvier/selectedIndex supporting components
-FLEX-33496	FlexJS: Populate id property of DOM elements at runtime
-FLEX-33495	Flex FileReference.browse() opens a save dialog in Firefox - NOT an open dialog
-FLEX-33487	Double-click does not trigger DataGrid item editor session if doubleClickEnabled is true
-FLEX-33484	[FalconJX] MXMLFlexJSEmitter refactored, patch attached
-FLEX-33483	AIR application crashes when opening multiple files
-FLEX-33482	FalconJX generates incorrect paths in deps.js
-FLEX-33481	Improve README for FalconJX compiler
-FLEX-33480	Build error when locale is set to pt_PT
-FLEX-33477	Listbase doesn't expose setSelectedIndex
-FLEX-33476	Get Involved Page Outdated
-FLEX-33472	SDK Installer RC 2.5 (this is for the 2.5 release candidate, ignore the stated fix version)
-FLEX-33453	Compilers have wrong copyright year
-FLEX-33448	DataGrid doubleClickMode getter event binder not being called
-FLEX-33447	SWF/SWC mixed up
-FLEX-33445	Provide Flex librairies in pure AS3
-FLEX-33443	Typo in manifest.xml (apache.swc): VectorCollecton instead of VectorCollection
-FLEX-33442	mxmlc ant compile issue when passing services argument
-FLEX-33439	copylocale utility not working for locales other than english
-FLEX-33436	Improved descriptions in TextFlow class
-FLEX-33430	Adobe Reader not loading on Flex
-FLEX-33426	SDK Installer UI/UX: Checkbox Improvement Request
-FLEX-33422	Typo in the French translation for the SDK Installer: "Installation terminer"
-FLEX-33419	RuntimeLocale.as for Apache Flex Installer needs to be updated for the German language
-FLEX-33417	mx.core.BitmapAsset & ByteArrayAsset missing in Flex 4.9 core.swc‏
-FLEX-33416	CLONE - Apache Flex Mavenized SDK Generator Bug
-FLEX-33414	Null textInput in ComboBox
-FLEX-33413	HTML wrapper ANT task fails to write playerProductInstall.swf to disk
-FLEX-33410	NetStream jumps when playing on Android devices
-FLEX-33408	UIComponent#getVisibleRect() omitted from documentation
-FLEX-33405	TitleWindow with TextInput throws exception on close using mobile skins
-FLEX-33400	Wrong item name in SOFTWARE list of README file
-FLEX-33399	[compile generate code issue]the "ID" property setter was not called if object is not an IDeferredInstantiationUIComponent instance
-FLEX-33397	Spark button skin doesn't exclude coloring icon.
-FLEX-33390	Can't embed SVG asset
-FLEX-33388	Add TextFlow to TextArea - Error
-FLEX-33387	Mailing list archive links on website point to incubator lists
-FLEX-33385	titleText SkinPart in TitleBar is NOT Required but exception is thrown if not implemented.
-FLEX-33384	Caret visible in all textinputs after they've been selected once.
-FLEX-33382	Run Time Error 1009 in mx:Combobox in destoryDropdown
-FLEX-33381	Setting s:ComboBox#typicalItem produces unnecessarily long width
-FLEX-33380	Get Internal build error on new Mobile Air App Project
-FLEX-33379	Error 1009 in addModalPopUpAccessibility
-FLEX-33377	Focus can be transferred from a modal window to a non-modal window open in the background if clicked on some specific dimension of the non-modal window in the background i.e. by clicking on the extreme left i.e. x=0 dimension of the application.
-FLEX-33376	Missing locales in apache and experimental libs avoid its use in Maven
-FLEX-33375	Button clicked in a Component (Group) causes the component to stay in memory
-FLEX-33371	On Android, changing orientation fires Event.DEACTIVATE and FlexEvent.VIEW_DEACTIVATE events
-FLEX-33370	max drag rate in SliderBase should not be a Constant
-FLEX-33368	Support for Locale fr_CH
-FLEX-33367	flash.display.Loader intermitently causing children of loaded swf to loose type
-FLEX-33366	The candidate input method can not follow
-FLEX-33364	Flex with Dot Net web services
-FLEX-33363	Issue with Date
-FLEX-33362	Unable to create resource module for other languages(like fr_FR, ja_JP) using ANT
-FLEX-33361	[WEBSITE] Enable link tracking analysis for flex.apache.org
-FLEX-33356	PostCodeFormatter and PostCodeValidator classes are not in Flex Docs
-FLEX-33355	VectorList and VectorCollection doesn't appear in Flex 4.9 Docs
-FLEX-33354	[button] define the placement of icon (iconPlacement) in skin [ButtonSkin]
-FLEX-33353	mxmlc does not make use of settings in jvm.config on OSX
-FLEX-33350	CallOutButton for Web (desktop / not AIR)
-FLEX-33349	TypeError #1009 happening in dataProviderRefreshed() of List.as after refreshing the dataProvider of Combobox
-FLEX-33348	/Users/justinmclean is hardcoded in source code
-FLEX-33347	DateSpinner dateAndTime jumping
-FLEX-33346	Can only target Flash Player 11.1 in Flash Builder
-FLEX-33345	The file frameworks\projects\apache\bundles\pt_PT\apache.properties contains no entries
-FLEX-33344	Typo in the portuguese bundle - olap.properties
-FLEX-33340	New translations for all the keys of the Installer's Greek locale
-FLEX-33339	List for mobile ios and android no longer scrolls
-FLEX-33338	Incomplete translation and formatting when using Greek locale with the installer.
-FLEX-33336	HDividerGroup not resizing properly if the divider is not in the initial position
-FLEX-33335	Unable to use sdk 4.9.0 in flash builder
-FLEX-33334	AIRSDK version numbers mismatched in Flash Builder IDE make file
-FLEX-33331	how can I fork mavenizer and commit code to apache?
-FLEX-33330	An easier way of managing the locales for the InstallApache application
-FLEX-33328	Merge Adobe.next changes into spark DataGrid
-FLEX-33327	RuntimeLocale.as for the Apache Flex Installer needs to be updated for the French language
-FLEX-33326	RuntimeLocale.as for the Apache Flex Installer needs to be updated for the French language
-FLEX-33325	RuntimeLocale.as for the Apache Flex Installer needs to be updated for the French language
-FLEX-33324	RuntimeLocale.as for the Apache Flex Installer needs to be updated for the Dutch language
-FLEX-33323	gumbo/components/TextInput/Properties/TextInput_properties_tester Gumbo_TextInput_alpha_property_01 fail on FP11.2+
-FLEX-33319	spark/formatters/CurrencyFormatter/Fallback/ some tests fail in FP 11.4+
-FLEX-33318	Automatically Construct UML Diagram of Project
-FLEX-33316	checkintests fails on no english OS
-FLEX-33313	Cannot append child to xml
-FLEX-33311	Nullpointer in ConstraintLayout when executing Transition on content
-FLEX-33309	Setup for testLayoutSWC is incomplete
-FLEX-33303	Falcon doesn't cleanly compile automation_spark
-FLEX-33302	Falcon can't compile airspark
-FLEX-33298	The apache lib compile without including anything
-FLEX-33296	Apache Flex Mavenized SDK Bug
-FLEX-33294	Apache Flex Mavenized SDK Generator rb.swc
-FLEX-33292	Apache Flex Mavenized SDK Generator non-swc external compile Bug
-FLEX-33291	Apache Flex Mavenized SDK Generator Bug
-FLEX-33290	Apache Flex Mavenized SDK Deployer Bug
-FLEX-33288	Numeric Stepper value once NaN does not change to any number user sets or increments
-FLEX-33286	Fix version.properties for several compile-config files
-FLEX-33285	unmarshall( ... ) uses duplicate value declarations
-FLEX-33284	New Spark Components
-FLEX-33279	There are no Mustella tests for AdvancedDataGrid
-FLEX-33277	There are no Mustella tests for Charts
-FLEX-33275	Falcon Compile Error: Define a color with- rgb(100%, 0%, 0%) is not supported.
-FLEX-33273	CSSCondition.matchesStyleClient() is slow and creates excessive garbage
-FLEX-33270	FLEX-33242 spark/validators/CurrencyValidator/Methods/CV_validate_error_message_localized_tester CV_errorTip_custom_invalidFormatCharsError_invalid_script_buttonTrig_35 fails
-FLEX-33269	FLEX-33242 testcase for sort function of Sort without SortField set to fields property on spark:List component fails
-FLEX-33267	FLEX-33242 RuntimeLocalization/RTL_SparkSkin/Integration/RTL_Compiler_LocaleParams_2_Tester RTL_Compiler_LocaleParams_1_LocaleChain_NOT_AIR_Mac Fails
-FLEX-33260	An initial value in SHA256 for type 'int' must be between -2147483648 and 2147483647
-FLEX-33257	handlePropertyChangeEvents() uses duplicate events declarations
-FLEX-33254	compc exception ( <cond> ? <case 1 : XML.<entity>.(@attribute == value) : <case2 : XML.<entity>.(@attribute == value)>)
-FLEX-33249	I wish as a new developer in training that the SQL light database could be easier to create and manipulate
-FLEX-33245	FLEX-33244 Apache Flex Mavenizer needs a review of the licenses used
-FLEX-33244	Create a tool for generating a mavenized form of a previously downloaded Flex SDK (Apache or Adobe)
-FLEX-33242	Mustella tests failed: when your computer language doesn't match the expected localized error
-FLEX-33230	FLEX-33226 Config file for frameworks/projects/spark
-FLEX-33229	FLEX-33226 Config files for frameworks/projects/mx
-FLEX-33228	FLEX-33226 Config files for frameworks/projects/rpc
-FLEX-33227	FLEX-33226 Config files for frameworks/projects/framework
-FLEX-33224	Translations for supported languages in the installer
-FLEX-33223	Failed installer translation into languages ​​other than en_US
-FLEX-33222	All HTTP GET requests are stripped of headers.
-FLEX-33215	when use if in override functions, can not compile cuccessfully
-FLEX-33214	FLEX-33106 Fix UI of license screen
-FLEX-33206	ERROR java.lang.StackOverflowError
-FLEX-33197	title window
-FLEX-33192	EMailValidator doesn't exclude hyphens at the beginning and end of domain names
-FLEX-33190	GridEvent.GRID_DOUBLE_CLICK is dispatched even when two different cells are clicked
-FLEX-33169	Spark List selection on mobile doesn't work properly
-FLEX-33163	When a collection reset event is received by List selectedItem is not always cleared
-FLEX-33156	focusInHandler() in spark Scroller doesn't null check focusManager property before using
-FLEX-33134	New Apache Flex website
-FLEX-33132	Apache Flex 4.8.0 (parity release) Release Candidate
-FLEX-33130	mx.core.IButton should have getter/setter function for label property
-FLEX-33124	FLEX-33108 Change build script to download specified version of playerglobal.swc
-FLEX-33123	Existing validator and formatter classes only validate US and Canadian postcodes
-FLEX-33122	FLEX-33106 MakeApacheFlexForFlashBuilder change language at runtime
-FLEX-33117	Removing dependency to a contrib library in the MXML download/build script
-FLEX-33116	Add Vector implementations of IList and ICollectionView
-FLEX-33114	Offer download packages that are smaller
-FLEX-33109	Add support for newer versions of the Text Layout Framework to build scripts
-FLEX-33106	AIR version of makeApacheFlexForFlashBuilder for Windows
-FLEX-33098	FLEX-33091 Report on incubation progress
-FLEX-33093	Apache Flex logo contribution
-FLEX-33092	Add NOTICE file to root
-FLEX-33091	Graduate Flex
-FLEX-33084	Packages
-FLEX-33080	Classpath for the Flex-Compiler project has hardcoded absolute paths
-FLEX-33074	Build script requires sh on Windows
-FLEX-33071	DropdownList items dupplication => virtualLayout
-FLEX-33070	Mustella build file issues
-FLEX-33069	env.properties is not used in *.bat files
-FLEX-33065	env.properties not used if mxmlc/compc/asdoc run from ant task or jar executed directly
-FLEX-33064	The Max value restriction in Spark NumericStepper doesn't work properly
-FLEX-32971	Datagrid selectedIndex property is not working sometimes
-FLEX-30139	Changing text in an editable datefield does not get replayed correclty
-FLEX-29002	RunTime Error #1009 at mx.managers::PopUpManagerImpl/addModalPopUpAccessibility() when displaying more than one modal popup via PopUpManager on top of each other. On Windows 7 running on some PCs
-FLEX-28967	PopUpManagerImpl - centerPopUp method - TypeError: Error #1009: Cannot access a property or method of a null object reference
-FLEX-28966	Adobe hosted RSLs always fail due to crossdomain policy
-FLEX-28946	MX DataGrid default column sort breaks on NULL complex fields
-FLEX-28923	Date bug in Safari
-FLEX-28883	List.requireSelection doesn't always work
-FLEX-28876	DataGrid lockedRowCount RTE when used with variableRowHeight
-FLEX-28679	Can't type new custom selected item to replace existing custom selected item
-FLEX-28671	Spark combobox Error #1009: Cannot access a property or method of a null object reference.
-FLEX-28530	mx:DateValidator crash when property allowedFormatChars is null
-FLEX-28520	Timezone in Germany incorrect between 1950 and 1979
-FLEX-27987	Null reference in the focusInHandler
-FLEX-27880	gotoAndPlay don't works well when frameLabel is not exists
-FLEX-27855	NumericStepper steps incorrectly with decimal values in European locale
-FLEX-27815	Add in Portuguese locale to Flex SDK for string externalization
-FLEX-27797	Spark Datagrid double click is fired even when you make the first and second click in different points (rows) !
-FLEX-27629	StringUtil.substitute fails with certain strings
-FLEX-27585	Spark DataGrid skin produces Stack overflow in release build
-FLEX-27575	Cannot refresh DataProvider for Spark DropDownList
-FLEX-27235	NumericStepper cannot display the correct decimal separator for various locale (fr_FR, ru_RU)
-FLEX-27228	[flex_next] XML object doesn't work as key to Dictionary
-FLEX-27191	playerglobal.swc for FlashPlayer 10.1 (and 10.2) contains invalid Number.MIN_VALUE
-FLEX-27075	Wrong behavior of DateField control with fr_FR locale on French OS
-FLEX-27019	Poor Spark Date,CurrencyFormatter performance on OSX
-FLEX-26698	CurrencyFormatter returns malformed string when formatting the number 0
-FLEX-26325	RemoteObject logs too eagerly all sent messages
-FLEX-26157	Flex 4 Spark TextInput Issue
-FLEX-26073	mx:DateField is unable to format correctly single placeholders for a day or month (e.g. D-M-YYYY).
-FLEX-26048	DateChooser throws #1010 error when selectableRange is empty object
-FLEX-25848	Problem with selectedDate in DateField Component in Flex 4
-FLEX-25781	new Date(2010,10,31,10,10,0) is not created well from constructor
-FLEX-25646	ArrayCollection removeItem function
-FLEX-25622	NumberValidator doesn't handle scientific notation
-FLEX-25595	Locale order specified on command line not honored
-FLEX-25454	CTRL-clicking/de-selecting a selected item to remove selection from ComboBox is incorrectly functioning
-FLEX-25074	RangeError when trying to remove an item from a list
-FLEX-25045	ResourceManager.getInstance().getString() returns "undefined" instead of null
-FLEX-24780	Initially I can change the selectedItem in a List programmatically, but if the event preventDefault is called anytime, I can no longer change the selectedItem programatically.
-FLEX-24772	AIR SDK and Mac OSX Spaces
-FLEX-24764	Applying NumberFormatter.format() to 17.76 returns the incorrect value
-FLEX-24691	ObjectUtil.dateCompare does not handle an invalid date object
-FLEX-24460	Array Collection indexes don`t get reordered before removing all items
-FLEX-24411	DateFormatter.parseDateString() function doesn't properly read in SQLite seconds values
-FLEX-24374	Load DataField With Different Time [ How to Over Ride the Todays Date]
-FLEX-24259	DateField does not correctly parse nor format dates in fr_FR locale
-FLEX-24257	DateField text scrolled when pressing DateField calendar button
-FLEX-24225	DateFormatter "parseDateString" method cannot parse dateString value formatted with non default en_US format
-FLEX-24197	Email Validator allows for invalid email addresses
-FLEX-24180	Save Flex SDK in Fixed Location
-FLEX-23980	EmailValidator's disallowed character does not include tab
-FLEX-23974	Datagrid with ArrayCollection provider, error at setter of selectedIndex after applying filters to the ArrayCollection
-FLEX-23835	Clicking on DateField calendar icon does not trigger 'click' event.
-FLEX-23781	Error #1009 after assigning null to mx:Image source property
-FLEX-23695	CurrencyFormatter.format() gives wrong result if the number has "e" exponent.
-FLEX-23556	Flex SDK has no Locale for en_GB
-FLEX-23538	DateField selectable range and yearNavigationEnabled issue
-FLEX-23466	Very Simple Proposal to Speed Up Download Times and Perceived Performance of Flex Apps
-FLEX-23303	getting the selectedIndex from a RadioButtonGroup
-FLEX-23267	DateField, impossible to change a date after being invalid.
-FLEX-23196	Date class - add the feature of displaying the Client Time-Zone rather than just displaying the Offset
-FLEX-22574	Adobe AIR updater UI not work correctly
-FLEX-22544	Cannot select 1st of June in DateField
-FLEX-22502	DateField component, when Editable, and using a DateValidator, cause 3 "invalid" events to fire whenever focus is lost on the DateField
-FLEX-22452	Error in SortField.nullCompare logic
-FLEX-22145	[Flash Player 2500755] The timeout always occurs after 60 sec. whatever the value of application.scriptTimeLimit, and the timeout exception message wrongly says the script executed longer than the default timeout period of 15 seconds
-FLEX-22068	DateFormatter.parse does not correctly handle positive GMT offset (such as UK)
-FLEX-21825	Incorrect Type Coercion in ResourceManagerImpl
-FLEX-21804	RTE when editing a DateField/DateChooser with selectableRange set to a valid set of date ranges
-FLEX-21609	Make the Date.parse locale aware.
-FLEX-21501	ObjectUtil.copy fails to copy objects that have key == null (it copies only half of the original object)
-FLEX-21365	Able to select dates in a DateField after the the selectableRange's rangeEnd property
-FLEX-21359	ItemDoubleClick event not firing
-FLEX-21066	Make removeItem( item:Object) accessible in ArrayCollection
-FLEX-20951	[Localization]: DateFormatter.parseDateString does not support non-latin characters in month and days names
-FLEX-20566	Date Validator not handling single digit date configurations correctly for localized versions - i.e accepting yyyy-m-d as a legal configuration
-FLEX-20461	CurrencyValidator does NOT validate minValue and maxValue if decimalSeparator is not .
-FLEX-20322	Locale fr_FR with different monthNames and DateFormatter doesnt provide expected result
-FLEX-20186	Number multiplication Number
-FLEX-20081	DateField dropdown not reset to current date if null assigned to DateField selectedDate property
-FLEX-20017	DateFormatter MMM & MMMM return month of by 1
-FLEX-19943	DateField does not open when you click the text entry area
-FLEX-19870	VideoPlayer causes RTE on videoDisplay.close()
-FLEX-19211	StringUtil.trim() function does not remove the space in japanese language
-FLEX-18951	NumberFormatter.format returns wrong number for some scientific notation values
-FLEX-18846	DateField wrong value for 09/10/1977 (dd/mm/yyyy)
-FLEX-18371	ListBase selectedIndex setter not dispatchEvent(new FlexEvent(FlexEvent.CHANGE));
-FLEX-18345	DateField selection problem when using in nested SWF in SWFLoader
-FLEX-18168	CLONE -DateField returns wrong date
-FLEX-18090	DateField with a lowercase formatString does not work
-FLEX-18072	Label does not show any text if truncateToFit is false
-FLEX-17931	[Localization]:[HS:CN]The default value of property "dateFormat" of the Class "DateFormatter, DateValidator and DateField" should be "YYYY-M-D" with local zh_CN.
-FLEX-17592	Clicking too fast on the next and previous buttons in the DateChooser make it close
-FLEX-17567	The DateFormatter cannot format the date if the date in UTC is Jan 1st 1970 0 hours 0mins 0sec and 0 milliseconds
-FLEX-17257	DateValidator attachs the inputFormat on custom wrongLength parameters
-FLEX-17210	mx:NumberFormatter failed when use localeChain
-FLEX-17121	for loop enumerates properties in random order
-FLEX-17015	StringUtil.substitute It seems that it will not work with Special charchacters like $ specially with $$ it will omit one $.
-FLEX-16909	DateField should support "M" for formatString
-FLEX-16885	Math.atan2() arguments are inverted in playerglobal.swc
-FLEX-16876	Unrequired cast in DataGridItemRenderer.as
-FLEX-16875	Add 'justify' to TextStyles.as
-FLEX-16840	Unused local variable
-FLEX-16715	Have defaultButton processed from closed DateField
-FLEX-16656	DateField format string causes null value in selectedDate
-FLEX-16629	ASDoc of DateField indicates that it generates a mx.events.FlexEvent.DATA_CHANGE upon selection change, event is never generated
-FLEX-16583	test bug for air
-FLEX-16463	Int instead of Number
-FLEX-16235	mx.utils.ObjectUtil.getClassInfo doesn't treat XML as dynamic
-FLEX-16078	Number
-FLEX-16006	Mathematical error when performing multiplication
-FLEX-15851	ResourceManagerImpl returns "undefined" instead of null
-FLEX-15729	Adding values with precision
-FLEX-15274	ComboBox: setting selectedItem=null does not reset the control as it is should be
-FLEX-15171	ObjectUtil.compare() returns 0 or -1 when comparing 2 objects depending on which parameter is first.
-FLEX-14804	DateField throws RTE when selecting the calendar icon when editable is set to true and the text value is empty
-FLEX-14787	Confusing, implicit cast to Number
-FLEX-14630	Flex-SDK cannot be built entirely from source
-FLEX-14581	Mx.Controls.DateChooser - Setting .monthNames to Array of Length < 12 causes "Null" months
-FLEX-14450	NumberValidator maxValue/minValue don't work with non-english settings
-FLEX-14394	Error: Error #1023: Stack overflow occurs on dispatchEvent
-FLEX-14326	Flex DataField does not represents the date 10-10-2004
-FLEX-14316	mx.core.UITextField.truncateToFit() contains dead code
-FLEX-14154	Unrequired setting of variable in DateField
-FLEX-14061	ResourceManager has lost functions and new a class called ResourceManagerImpl has appeared
-FLEX-13758	Invalid Date object result
-FLEX-13695	setting rotation to 0 is broken
-FLEX-13401	format() method in NumbeFormatter should understand numbers in Scientic notation e.g. 1.2E7
-FLEX-13316	SQLite database time not initialized correctly
-FLEX-13314	AIR apps do not show up with common desktop sharing apps like GoToMeeting, Meetingplace, etc.
-FLEX-12628	add optional formatString argument to constructor
-FLEX-12503	DateFormatter with formatString "MM/DD/YYYY H:NN A" formats Time of "00:00:00" to "24:00 AM" instead of "00:00 AM"
-FLEX-12404	Inproper condition for IF statement
-FLEX-12202	Passing a false Boolean argument to ArrayUtil.toArray() returns an empty Array instead of an Array with one member equal to false.
-FLEX-12169	Date Formatter does not coerce to String
-FLEX-11952	like the "change" event of the ComboBox, the DateChooser should fire a change event when the selectedDate field is updated programmatically
-FLEX-11774	Form items cannot receive focus in Opera
-FLEX-11728	Passing a false Boolean argument to ArrayUtil.toArray() returns an empty Array instead of an Array with one member equal to false.
-FLEX-11646	Consider adding DateRange class for calendar related functionality
+
+ Below is a complete list of all the bug fixes that have been included since the last full release, Apache Flex 4.9.0.
+ If you would like specific information about any of the items below, go to https://issues.apache.org and search for the
+ JIRA Issue Number by using the Quick Search.  Details of the bug and its fix will be included on the resulting page.
+
+JIRA Issue Number  Summary                                                                                         Resolution
+------------------------------------------------------------------------------------------------------------------------------
+FLEX-33537         Spark TextArea writing in prompt text format                                                    Fixed
+FLEX-33523         MultiDPIBitmapSource is not behaving properly when fillMode = repeat                            Fixed
+FLEX-33518         Flash charts/graphs do not display when printed                                                 Fixed
+FLEX-33517         Flash charts/graphs do not display when printed                                                 Fixed
+FLEX-33516         DateFormatter.parseDate assumes months comes before days in all locales                         Fixed
+FLEX-33514         DateFormatter should support Japanese and Chinese date formats                                  Fixed
+FLEX-33510         DateFormatter can ignore PM string and give result 12 hours out                                 Fixed
+FLEX-33504         Some dateFormat locale properties not well displayed by DateField                               Fixed
+FLEX-33502         Files missing Apache licence                                                                    Fixed
+FLEX-33500         XMLEncoder fails to encode WSDL simpleType union                                                Fixed
+FLEX-33496         FlexJS: Populate id property of DOM elements at runtime                                         Fixed
+FLEX-33484         [FalconJX] MXMLFlexJSEmitter refactored, patch attached                                         Fixed
+FLEX-33482         FalconJX generates incorrect paths in deps.js                                                   Fixed
+FLEX-33481         Improve README for FalconJX compiler                                                            Fixed
+FLEX-33480         Build error when locale is set to pt_PT                                                         Fixed
+FLEX-33477         Listbase doesn't expose setSelectedIndex                                                        Fixed
+FLEX-33476         Get Involved Page Outdated                                                                      Fixed
+FLEX-33453         Compilers have wrong copyright year                                                             Fixed
+FLEX-33448         DataGrid doubleClickMode getter event binder not being called                                   Fixed
+FLEX-33447         SWF/SWC mixed up                                                                                Fixed
+FLEX-33443         Typo in manifest.xml (apache.swc): VectorCollecton instead of VectorCollection                  Fixed
+FLEX-33442         mxmlc ant compile issue when passing services argument                                          Fixed
+FLEX-33439         copylocale utility not working for locales other than english                                   Fixed
+FLEX-33436         Improved descriptions in TextFlow class                                                         Fixed
+FLEX-33426         SDK Installer UI/UX: Checkbox Improvement Request                                               Fixed
+FLEX-33422         Typo in the French translation for the SDK Installer: "Installation terminer"                   Fixed
+FLEX-33419         RuntimeLocale.as for Apache Flex Installer needs to be updated for the German language          Fixed
+FLEX-33417         mx.core.BitmapAsset & ByteArrayAsset missing in Flex 4.9 core.swc?                              Fixed
+FLEX-33416         CLONE - Apache Flex Mavenized SDK Generator Bug                                                 Fixed
+FLEX-33414         Null textInput in ComboBox                                                                      Fixed
+FLEX-33413         HTML wrapper ANT task fails to write playerProductInstall.swf to disk                           Fixed
+FLEX-33408         UIComponent#getVisibleRect() omitted from documentation                                         Fixed
+FLEX-33405         TitleWindow with TextInput throws exception on close using mobile skins                         Fixed
+FLEX-33400         Wrong item name in SOFTWARE list of README file                                                 Fixed
+FLEX-33397         Spark button skin doesn't exclude coloring icon.                                                Fixed
+FLEX-33390         Can't embed SVG asset                                                                           Fixed
+FLEX-33385         titleText SkinPart in TitleBar is NOT Required but exception is thrown if not implemented.      Fixed
+FLEX-33384         Caret visible in all textinputs after they've been selected once.                               Fixed
+FLEX-33382         Run Time Error 1009 in mx:Combobox in destoryDropdown                                           Fixed
+FLEX-33381         Setting s:ComboBox#typicalItem produces unnecessarily long width                                Fixed
+FLEX-33377         Focus can be transferred from a modal window to a non-modal window open in the background if    Fixed
+FLEX-33376         Missing locales in apache and experimental libs avoid its use in Maven                          Fixed
+FLEX-33370         max drag rate in SliderBase should not be a Constant                                            Fixed
+FLEX-33368         Support for Locale fr_CH                                                                        Fixed
+FLEX-33356         PostCodeFormatter and PostCodeValidator classes are not in Flex Docs                            Fixed
+FLEX-33355         VectorList and VectorCollection doesn't appear in Flex 4.9 Docs                                 Fixed
+FLEX-33350         CallOutButton for Web (desktop / not AIR)                                                       Fixed
+FLEX-33349         TypeError #1009 happening in dataProviderRefreshed() of List.as after refreshing the dataProv   Fixed
+FLEX-33347         DateSpinner dateAndTime jumping                                                                 Fixed
+FLEX-33345         The file frameworks\projects\apache\bundles\pt_PT\apache.properties contains no entries         Fixed
+FLEX-33344         Typo in the portuguese bundle - olap.properties                                                 Fixed
+FLEX-33340         New translations for all the keys of the Installer's Greek locale                               Fixed
+FLEX-33338         Incomplete translation and formatting when using Greek locale with the installer.               Fixed
+FLEX-33336         HDividerGroup not resizing properly if the divider is not in the initial position               Fixed
+FLEX-33335         Unable to use sdk 4.9.0 in flash builder                                                        Fixed
+FLEX-33334         AIRSDK version numbers mismatched in Flash Builder IDE make file                                Fixed
+FLEX-33331         how can I fork mavenizer and commit code to apache?                                             Fixed
+FLEX-33330         An easier way of managing the locales for the InstallApache application                         Fixed
+FLEX-33328         Merge Adobe.next changes into spark DataGrid                                                    Fixed
+FLEX-33327         RuntimeLocale.as for the Apache Flex Installer needs to be updated for the French language      Fixed
+FLEX-33326         RuntimeLocale.as for the Apache Flex Installer needs to be updated for the French language      Fixed
+FLEX-33324         RuntimeLocale.as for the Apache Flex Installer needs to be updated for the Dutch language       Fixed
+FLEX-33323         gumbo/components/TextInput/Properties/TextInput_properties_tester Gumbo_TextInput_alpha_proper  Fixed
+FLEX-33319         spark/formatters/CurrencyFormatter/Fallback/ some tests fail in FP 11.4+                        Fixed
+FLEX-33316         checkintests fails on no english OS                                                             Fixed
+FLEX-33311         Nullpointer in ConstraintLayout when executing Transition on content                            Fixed
+FLEX-33309         Setup for testLayoutSWC is incomplete                                                           Fixed
+FLEX-33303         Falcon doesn't cleanly compile automation_spark                                                 Fixed
+FLEX-33302         Falcon can't compile airspark                                                                   Fixed
+FLEX-33298         The apache lib compile without including anything                                               Fixed
+FLEX-33296         Apache Flex Mavenized SDK Bug                                                                   Fixed
+FLEX-33294         Apache Flex Mavenized SDK Generator rb.swc                                                      Fixed
+FLEX-33292         Apache Flex Mavenized SDK Generator non-swc external compile Bug                                Fixed
+FLEX-33291         Apache Flex Mavenized SDK Generator Bug                                                         Fixed
+FLEX-33290         Apache Flex Mavenized SDK Deployer Bug                                                          Fixed
+FLEX-33288         Numeric Stepper value once NaN does not change to any number user sets or increments            Fixed
+FLEX-33286         Fix version.properties for several compile-config files                                         Fixed
+FLEX-33285         unmarshall( ... ) uses duplicate value declarations                                             Fixed
+FLEX-33277         There are no Mustella tests for Charts                                                          Fixed
+FLEX-33275         Falcon Compile Error: Define a color with- rgb(100%, 0%, 0%) is not supported.                  Fixed
+FLEX-33273         CSSCondition.matchesStyleClient() is slow and creates excessive garbage                         Fixed
+FLEX-33270         FLEX-33242 spark/validators/CurrencyValidator/Methods/CV_validate_error_message_localized_test  Fixed
+FLEX-33269         FLEX-33242 testcase for sort function of Sort without SortField set to fields property on spar  Fixed
+FLEX-33267         FLEX-33242 RuntimeLocalization/RTL_SparkSkin/Integration/RTL_Compiler_LocaleParams_2_Tester     Fixed
+FLEX-33260         An initial value in SHA256 for type 'int' must be between -2147483648 and 2147483647            Fixed
+FLEX-33257         handlePropertyChangeEvents() uses duplicate events declarations                                 Fixed
+FLEX-33245         FLEX-33244 Apache Flex Mavenizer needs a review of the licenses used                            Fixed
+FLEX-33244         Create a tool for generating a mavenized form of a previously downloaded Flex SDK (Apache or    Fixed
+FLEX-33242         Mustella tests failed: when your computer language doesn't match the expected localized error   Fixed
+FLEX-33230         FLEX-33226 Config file for frameworks/projects/spark                                            Fixed
+FLEX-33229         FLEX-33226 Config files for frameworks/projects/mx                                              Fixed
+FLEX-33228         FLEX-33226 Config files for frameworks/projects/rpc                                             Fixed
+FLEX-33227         FLEX-33226 Config files for frameworks/projects/framework                                       Fixed
+FLEX-33224         Translations for supported languages in the installer                                           Fixed
+FLEX-33223         Failed installer translation into languages ??other than en_US                                  Fixed
+FLEX-33214         FLEX-33106 Fix UI of license screen                                                             Fixed
+FLEX-33192         EMailValidator doesn't exclude hyphens at the beginning and end of domain names                 Fixed
+FLEX-33190         GridEvent.GRID_DOUBLE_CLICK is dispatched even when two different cells are clicked             Fixed
+FLEX-33169         Spark List selection on mobile doesn't work properly                                            Fixed
+FLEX-33163         When a collection reset event is received by List selectedItem is not always cleared            Fixed
+FLEX-33130         mx.core.IButton should have getter/setter function for label property                           Fixed
+FLEX-33124         FLEX-33108 Change build script to download specified version of playerglobal.swc                Fixed
+FLEX-33123         Existing validator and formatter classes only validate US and Canadian postcodes                Fixed
+FLEX-33122         FLEX-33106 MakeApacheFlexForFlashBuilder change language at runtime                             Fixed
+FLEX-33117         Removing dependency to a contrib library in the MXML download/build script                      Fixed
+FLEX-33116         Add Vector implementations of IList and ICollectionView                                         Fixed
+FLEX-33109         Add support for newer versions of the Text Layout Framework to build scripts                    Fixed
+FLEX-33106         AIR version of makeApacheFlexForFlashBuilder for Windows                                        Fixed
+FLEX-33098         FLEX-33091 Report on incubation progress                                                        Fixed
+FLEX-33092         Add NOTICE file to root                                                                         Fixed
+FLEX-33080         Classpath for the Flex-Compiler project has hardcoded absolute paths                            Fixed
+FLEX-33070         Mustella build file issues                                                                      Fixed
+FLEX-33069         env.properties is not used in *.bat files                                                       Fixed
+FLEX-33065         env.properties not used if mxmlc/compc/asdoc run from ant task or jar executed directly         Fixed
+FLEX-33064         The Max value restriction in Spark NumericStepper doesn't work properly                         Fixed
+FLEX-29002         RunTime Error #1009 at mx.managers::PopUpManagerImpl/addModalPopUpAccessibility() when displa   Fixed
+FLEX-28967         PopUpManagerImpl - centerPopUp method - TypeError: Error #1009: Cannot access a property or     Fixed
+FLEX-28946         MX DataGrid default column sort breaks on NULL complex fields                                   Fixed
+FLEX-28883         List.requireSelection doesn't always work                                                       Fixed
+FLEX-28876         DataGrid lockedRowCount RTE when used with variableRowHeight                                    Fixed
+FLEX-28530         mx:DateValidator crash when property allowedFormatChars is null                                 Fixed
+FLEX-27855         NumericStepper steps incorrectly with decimal values in European locale                         Fixed
+FLEX-27815         Add in Portuguese locale to Flex SDK for string externalization                                 Fixed
+FLEX-27797         Spark Datagrid double click is fired even when you make the first and second click in different Fixed
+FLEX-27768         DateField formatString doesn't display month name as expected                                   Fixed
+FLEX-27652         DateChooser displays incorrect month label                                                      Fixed
+FLEX-27235         NumericStepper cannot display the correct decimal separator for various locale (fr_FR, ru_RU)   Fixed
+FLEX-27075         Wrong behavior of DateField control with fr_FR locale on French OS                              Fixed
+FLEX-26698         CurrencyFormatter returns malformed string when formatting the number 0                         Fixed
+FLEX-26325         RemoteObject logs too eagerly all sent messages                                                 Fixed
+FLEX-26073         mx:DateField is unable to format correctly single placeholders for a day or month (e.g. D-M-    Fixed
+FLEX-26048         DateChooser throws #1010 error when selectableRange is empty object                             Fixed
+FLEX-25622         NumberValidator doesn't handle scientific notation                                              Fixed
+FLEX-24780         Initially I can change the selectedItem in a List programmatically, but if the event preventDe  Fixed
+FLEX-24764         Applying NumberFormatter.format() to 17.76 returns the incorrect value                          Fixed
+FLEX-24691         ObjectUtil.dateCompare does not handle an invalid date object                                   Fixed
+FLEX-24411         DateFormatter.parseDateString() function doesn't properly read in SQLite seconds values         Fixed
+FLEX-24259         DateField does not correctly parse nor format dates in fr_FR locale                             Fixed
+FLEX-24225         DateFormatter "parseDateString" method cannot parse dateString value formatted with non default Fixed
+FLEX-24197         Email Validator allows for invalid email addresses                                              Fixed
+FLEX-23980         EmailValidator's disallowed character does not include tab                                      Fixed
+FLEX-23974         Datagrid with ArrayCollection provider, error at setter of selectedIndex after applying filters Fixed
+FLEX-23834         mx.controls.DateField with editable=true and DataGrid itemEditor                                Fixed
+FLEX-23781         Error #1009 after assigning null to mx:Image source property                                    Fixed
+FLEX-23695         CurrencyFormatter.format() gives wrong result if the number has "e" exponent.                   Fixed
+FLEX-23556         Flex SDK has no Locale for en_GB                                                                Fixed
+FLEX-23486         mx:List / selectedItemsCompareFunction property is not applied correctly                        Fixed
+FLEX-23464         Setting selectedDate in closed handler of DateField doesn't update selectedDate                 Fixed
+FLEX-23267         DateField, impossible to change a date after being invalid.                                     Fixed
+FLEX-22865         Changing a DateChooser's displayedMonth to X and then immediately changing it back results in   Fixed
+FLEX-22574         Adobe AIR updater UI not work correctly                                                         Fixed
+FLEX-22502         DateField component, when Editable, and using a DateValidator, cause 3 "invalid" events to fire Fixed
+FLEX-22452         Error in SortField.nullCompare logic                                                            Fixed
+FLEX-22068         DateFormatter.parse does not correctly handle positive GMT offset (such as UK)                  Fixed
+FLEX-21609         Make the Date.parse locale aware.                                                               Fixed
+FLEX-20956         [Localization]: DateField should support "MMM" and "MMMM" for formatString                      Fixed
+FLEX-20951         [Localization]: DateFormatter.parseDateString does not support non-latin characters in month a  Fixed
+FLEX-20566         Date Validator not handling single digit date configurations correctly for localized versions - Fixed
+FLEX-20370         DateField do not honor min or maxYear setting.                                                  Fixed
+FLEX-20322         Locale fr_FR with different monthNames and DateFormatter doesnt provide expected result         Fixed
+FLEX-19943         DateField does not open when you click the text entry area                                      Fixed
+FLEX-19211         StringUtil.trim() function does not remove the space in japanese language                       Fixed
+FLEX-18951         NumberFormatter.format returns wrong number for some scientific notation values                 Fixed
+FLEX-18090         DateField with a lowercase formatString does not work                                           Fixed
+FLEX-17931         [Localization]:[HS:CN]The default value of property "dateFormat" of the Class "DateFormatter,   Fixed
+FLEX-17257         DateValidator attachs the inputFormat on custom wrongLength parameters                          Fixed
+FLEX-16909         DateField should support "M" for formatString                                                   Fixed
+FLEX-16876         Unrequired cast in DataGridItemRenderer.as                                                      Fixed
+FLEX-16840         Unused local variable                                                                           Fixed
+FLEX-16676         When setting the date range for the DataPicker,it will not correctly update the datechooser's   Fixed
+FLEX-16656         DateField format string causes null value in selectedDate                                       Fixed
+FLEX-16235         mx.utils.ObjectUtil.getClassInfo doesn't treat XML as dynamic                                   Fixed
+FLEX-16004         DateFormatter return empty string when modifies properties of DateBase for non US               Fixed
+FLEX-15274         ComboBox: setting selectedItem=null does not reset the control as it is should be               Fixed
+FLEX-15171         ObjectUtil.compare() returns 0 or -1 when comparing 2 objects depending on which parameter is   Fixed
+FLEX-14804         DateField throws RTE when selecting the calendar icon when editable is set to true and the text Fixed
+FLEX-14787         Confusing, implicit cast to Number                                                              Fixed
+FLEX-14773         ListBase::findKey is invoked with event.keyCode instead of event.charCode                       Fixed
+FLEX-14630         Flex-SDK cannot be built entirely from source                                                   Fixed
+FLEX-14581         Mx.Controls.DateChooser - Setting .monthNames to Array of Length < 12 causes "Null" months      Fixed
+FLEX-14450         NumberValidator maxValue/minValue don't work with non-english settings                          Fixed
+FLEX-14316         mx.core.UITextField.truncateToFit() contains dead code                                          Fixed
+FLEX-14153         Unrequired cast of calHeader in DateChooser                                                     Fixed
+FLEX-13994         ListBase throws an exception due to lack of error checking                                      Fixed
+FLEX-13423         DateChooser selectedRanges gives selectedRange start+1 day [if selectedRanges.rangeStart is s   Fixed
+FLEX-13401         format() method in NumbeFormatter should understand numbers in Scientic notation e.g. 1.2E7     Fixed
+FLEX-12749         DateChooser doesn't handle Daylight Saving Time correctly with multiple selection=on            Fixed
+FLEX-12628         add optional formatString argument to constructor                                               Fixed
+FLEX-12202         Passing a false Boolean argument to ArrayUtil.toArray() returns an empty Array instead of an    Fixed
+FLEX-33526         findRowIndicies to complement findRowIndex                                                      Implemented
+FLEX-33524         ButtonBar/TabBar enable/disable buttons                                                         Implemented
+FLEX-33498         Enhancement for dataProvier/selectedIndex supporting components                                 Implemented
+FLEX-33284         New Spark Components                                                                            Implemented
+FLEX-23303         getting the selectedIndex from a RadioButtonGroup                                               Implemented
+FLEX-21066         Make removeItem( item:Object) accessible in ArrayCollection                                     Implemented
 
 Apache Flex 4.9.1
 =================
@@ -398,15 +290,19 @@ Differences from Apache Flex 4.9.0:
   - Updated Mustella Japanese language pack tests to pass.
  
 Bugs fixed:
-  FLEX-33390 Can't embed SVG asset
-  FLEX-33377 Focus can be transferred from a modal window to a non-modal window
-             open in the background if clicked on some specific dimension of the
-             non-modal window in the background i.e. by clicking on the extreme
-             left i.e. x=0 dimension of the application
-  FLEX-33384 Caret visible in all textinputs after they've been selected once
-  FLEX-33381 Setting s:ComboBox#typicalItem produces unnecessarily long width
-  FLEX-29002 RunTime Error #1009 at mx.managers::PopUpManagerImpl/addModalPopUpAccessibility()
-             when displaying more than one modal popup via PopUpManager on top of each other
+
+JIRA Issue Number   Summary
+------------------------------------------------------------------------------------------------------
+
+FLEX-33390          Can't embed SVG asset
+FLEX-33377          Focus can be transferred from a modal window to a non-modal window
+                    open in the background if clicked on some specific dimension of the
+                    non-modal window in the background i.e. by clicking on the extreme
+                    left i.e. x=0 dimension of the application
+FLEX-33384          Caret visible in all textinputs after they've been selected once
+FLEX-33381          Setting s:ComboBox#typicalItem produces unnecessarily long width
+FLEX-29002          RunTime Error #1009 at mx.managers::PopUpManagerImpl/addModalPopUpAccessibility()
+                      when displaying more than one modal popup via PopUpManager on top of each other
 
 Apache Flex 4.9.0
 =================
