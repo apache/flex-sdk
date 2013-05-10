@@ -1,0 +1,8 @@
+# mustella files
+failures.txt
+results.txt
+properties/mustella_tmp.properties
+test_files.tmp
+*.lnk.xml
+*.bad.png
+*.bad.png.xml
