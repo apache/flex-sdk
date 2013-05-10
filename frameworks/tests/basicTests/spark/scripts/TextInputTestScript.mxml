@@ -51,7 +51,7 @@
 		</TestCase>
 		<TestCase testID="SparkTextInputTest1">
 			<body>
-				<DispatchMouseClickEvent target="sparkTextInputTests.testTextInput" localX="10" localY="10" />
+				<DispatchMouseClickEvent target="sparkTextInputTests.testTextInput" localX="10" localY="10" waitEvent="focusIn"/>
 				<DispatchKeyEvent char="This is another test." waitEvent="change" waitTarget="sparkTextInputTests.testTextInput" />
 				<AssertPropertyValue target="sparkTextInputTests.testTextInput" propertyName="text" value="This is another test." />
 				<AssertPropertyValue target="sparkTextInputTests.testTextInput.textDisplay" propertyName="text" value="This is another test." />
