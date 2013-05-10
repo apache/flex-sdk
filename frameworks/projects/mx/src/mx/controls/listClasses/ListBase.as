@@ -7395,7 +7395,7 @@ public class ListBase extends ScrollControlBase
                     item = items[i];
                     if (compareFunction(data, item))
                     {
-                        uid = itemToUID(data);
+                        uid = itemToUID(item);
                         
                         selectionDataArray[proposedSelectedItemIndexes[uid]] = new ListBaseSelectionData(data, index, false);
 
