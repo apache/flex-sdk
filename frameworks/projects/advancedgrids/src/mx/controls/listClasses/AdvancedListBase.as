@@ -8646,7 +8646,7 @@ public class AdvancedListBase extends ScrollControlBase
 
             default:
             {
-                if (findKey(event.keyCode))
+                if (findKey(event.charCode))
                     event.stopPropagation();
             }
         }
