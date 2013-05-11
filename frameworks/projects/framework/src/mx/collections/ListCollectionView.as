@@ -911,6 +911,14 @@ public class ListCollectionView extends Proxy
         {
             // If caller passed in a number such as 5.5, it will be floored.
             var n:Number = parseInt(String(name));
+			
+			if (n < 0)
+			{
+				var message:String = resourceManager.getString(
+					"collections", "outOfBounds", [ -1 ]);
+				throw new RangeError(message);
+			}
+			
             if (!isNaN(n))
                 index = int(n);
         }
