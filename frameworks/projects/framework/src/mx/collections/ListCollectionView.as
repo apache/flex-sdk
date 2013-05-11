@@ -570,7 +570,10 @@ public class ListCollectionView extends Proxy
      */
     public function addItem(item:Object):void
     {
-        addItemAt(item, length);
+		if (localIndex)
+        	addItemAt(item, localIndex.length);
+		else
+			addItemAt(item, length);
     }
 
     /**
@@ -622,7 +625,10 @@ public class ListCollectionView extends Proxy
      */
     public function addAll(addList:IList):void
     {
-        addAllAt(addList, length);
+		if (localIndex)
+			addAllAt(addList, localIndex.length);
+		else
+			addAllAt(addList, length);
     }
     
     /**
@@ -649,16 +655,17 @@ public class ListCollectionView extends Proxy
         }
         
         var length:int = addList.length;
+		var maxLength:int = length
+			
+		// incremental index may be out of bounds because of filtering,
+		// so add this item to the end.
+		if (index > maxLength)
+			index = maxLength;
+
         for (var i:int=0; i < length; i++)
         {
             var insertIndex:int = i + index;
-            
-            // incremental index may be out of bounds because of filtering,
-            // so add this item to the end.
-            var currentLength:int = this.length;
-            if (insertIndex > currentLength)
-                insertIndex = currentLength;
-            
+			
             this.addItemAt(addList.getItemAt(i), insertIndex);
         }
     }
