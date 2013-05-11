@@ -554,6 +554,7 @@ public class ListCollectionView extends Proxy
             else
             {
                 var oldItem:Object = localIndex[index];
+				// FIXME fails on duplicates
                 listIndex = list.getItemIndex(oldItem);
             }
         }
@@ -906,35 +907,24 @@ public class ListCollectionView extends Proxy
         if (name is QName)
             name = name.localName;
 
-        var index:int = -1;
         try
         {
-            // If caller passed in a number such as 5.5, it will be floored.
             var n:Number = parseInt(String(name));
-			
-			if (n < 0)
-			{
-				var message:String = resourceManager.getString(
-					"collections", "outOfBounds", [ -1 ]);
-				throw new RangeError(message);
-			}
-			
-            if (!isNaN(n))
-                index = int(n);
-        }
-        catch(e:Error) // localName was not a number
-        {
-        }
-
-        if (index == -1)
-        {
-            message = resourceManager.getString(
-                "collections", "unknownProperty", [ name ]);
-            throw new Error(message);
-        }
+		}
+		catch(e:Error) // localName was not a number
+		{
+		}
+		
+        if (isNaN(n))
+		{
+			var message:String = resourceManager.getString(
+				"collections", "unknownProperty", [ name ]);
+			throw new Error(message);
+		}
         else
         {
-            return getItemAt(index);
+			// If caller passed in a number such as 5.5, it will be floored.
+            return getItemAt(int(n));
         }
     }
     
@@ -943,32 +933,29 @@ public class ListCollectionView extends Proxy
      *  Attempts to call setItemAt(), converting the property name into an int.
      */
     override flash_proxy function setProperty(name:*, value:*):void
-    {
-        if (name is QName)
-            name = name.localName;
-
-        var index:int = -1;
-        try
-        {
-            // If caller passed in a number such as 5.5, it will be floored.
-            var n:Number = parseInt(String(name));
-            if (!isNaN(n))
-                index = int(n);
-        }
-        catch(e:Error) // localName was not a number
-        {
-        }
-
-        if (index == -1)
-        {
-            var message:String = resourceManager.getString(
-                "collections", "unknownProperty", [ name ]);
-            throw new Error(message);
-        }
-        else
-        {
-            setItemAt(value, index);
-        }
+    {	
+		if (name is QName)
+			name = name.localName;
+		
+		try
+		{
+			var n:Number = parseInt(String(name));
+		}
+		catch(e:Error) // localName was not a number
+		{
+		}
+		
+		if (isNaN(n))
+		{
+			var message:String = resourceManager.getString(
+				"collections", "unknownProperty", [ name ]);
+			throw new Error(message);
+		}
+		else
+		{
+			// If caller passed in a number such as 5.5, it will be floored.
+			setItemAt(value, int(n));
+		}
     }
     
     /**
