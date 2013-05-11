@@ -568,7 +568,7 @@ public class DateBase
 			case "O":
 			{
 				// timezone offset
-				var offset:int = int(date.timezoneOffset);
+				var offset:int = -1 * int(date.timezoneOffset);
 				hours = offset/60;
 				mins = offset - hours*60;
 				var tzStr:String = "";
