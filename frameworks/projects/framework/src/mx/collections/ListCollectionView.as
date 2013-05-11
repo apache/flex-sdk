@@ -928,7 +928,7 @@ public class ListCollectionView extends Proxy
 
         if (index == -1)
         {
-            var message:String = resourceManager.getString(
+            message = resourceManager.getString(
                 "collections", "unknownProperty", [ name ]);
             throw new Error(message);
         }
