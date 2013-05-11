@@ -51,11 +51,26 @@
     <property environment="env"/>
     <property file="${FLEX_HOME}/build.properties"/>
  
-    <target name="main" depends="check-compile-env,clean,prepare,compile,javascript" 
+    <target name="main" depends="check-compile-env,check-tlf-home,clean,prepare,compile,javascript" 
         description="Clean build of all SWCs"/>
 
     <target name="check-compile-env" description="Check for the required environment variables">
         <ant antfile="${FLEX_HOME}/build.xml" target="check-compile-env" dir="${FLEX_HOME}"/>
+    </target>
+
+    <target name="check-tlf-home" unless="TLF_HOME"
+        description="Check TLF_HOME is a directory.">
+        
+        <echo message="TLF_HOME is ${env.TLF_HOME}"/>
+
+        <available file="${env.TLF_HOME}" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${env.TLF_HOME}"/>
+
+        <fail message="TLF_HOME must be set correctly for a release build" 
+            unless="TLF_HOME"/>
+    	
     </target>
     
     <target name="prepare" depends="local-fonts-snapshot, thirdparty-downloads"/>

@@ -113,9 +113,24 @@
 	</macrodef>
 		
 				
-	<target name="main" depends="clean,compile,compile.external" description="Clean build of textLayout.swc">
+	<target name="main" depends="check-tlf-home,clean,compile,compile.external" description="Clean build of textLayout.swc">
 		<bundle locale="${locale}"/>
 	</target>
+
+    <target name="check-tlf-home" unless="TLF_HOME"
+        description="Check TLF_HOME is a directory.">
+        
+        <echo message="TLF_HOME is ${env.TLF_HOME}"/>
+
+        <available file="${env.TLF_HOME}" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${env.TLF_HOME}"/>
+
+        <fail message="TLF_HOME must be set correctly for a release build" 
+            unless="TLF_HOME"/>
+    	
+    </target>
 	
 	<target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
 	
