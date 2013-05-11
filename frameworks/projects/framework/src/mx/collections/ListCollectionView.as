@@ -378,6 +378,10 @@ public class ListCollectionView extends Proxy
     public function set sort(s:ISort):void
     {
         _sort = s;
+		
+		if (s == null)
+			localIndex = null;
+		
         dispatchEvent(new Event("sortChanged"));
     }
 
