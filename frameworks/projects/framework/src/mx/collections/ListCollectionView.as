@@ -594,7 +594,7 @@ public class ListCollectionView extends Proxy
         }
 
         var listIndex:int = index;
-        //if we're sorted addItemAt is meaningless, just add to the end
+        // if we're sorted addItemAt is meaningless, just add to the end
         if (localIndex && sort)
         {
             listIndex = list.length;
@@ -735,16 +735,20 @@ public class ListCollectionView extends Proxy
      */
     private function getFilteredItemIndex(item:Object):int
     { 
-        //loc is wrong 
-        //the intent of this function is to find where this new item 
-        //should be in the filtered list, by looking at the main list 
-        //for it's neighbor that is also in this filtered list 
-        //and trying to insert item after that neighbor in the insert locao filtered list 
+        // loc is wrong 
+        // the intent of this function is to find where this new item 
+        // should be in the filtered list, by looking at the main list 
+        // for it's neighbor that is also in this filtered list 
+        // and trying to insert item after that neighbor in the insert locao filtered list 
     
-        //1st get the position in the original list 
+        // 1st get the position in the original list 
         var loc:int = list.getItemIndex(item); 
+		
+		// something gone wrong and list is not filtered so just return loc to stop RTE
+		if (filterFunction == null)
+			return loc;
     
-        //if it's 0 then item must be also the first in the filtered list 
+        // if it's 0 then item must be also the first in the filtered list 
         if (loc == 0) 
             return 0; 
     
@@ -756,7 +760,7 @@ public class ListCollectionView extends Proxy
             { 
                 var len:int = localIndex.length; 
                 // get the index of the item in the filtered set 
-                //for (var j:int = 0; j < len; j++) 
+                // for (var j:int = 0; j < len; j++) 
                 for (var j:int = 0; j < len; j++) 
                 { 
                     if (localIndex[j] == prevItem) 
@@ -765,8 +769,8 @@ public class ListCollectionView extends Proxy
             } 
         } 
 
-        //turns out that there are no neighbors of item in the filtered 
-        //list, so item is the 1st item 
+        // turns out that there are no neighbors of item in the filtered 
+        // list, so item is the 1st item 
         return 0; 
     }
     
