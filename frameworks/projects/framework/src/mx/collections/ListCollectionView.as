@@ -831,8 +831,9 @@ public class ListCollectionView extends Proxy
         var len:int = length;
         if (len > 0)
         {
-            if (localIndex)
+            if (localIndex && filterFunction != null)
             {
+				len = localIndex.length;
                 for (var i:int = len - 1; i >= 0; i--)
                 {
                     removeItemAt(i);
@@ -840,6 +841,7 @@ public class ListCollectionView extends Proxy
             }
             else
             {
+				localIndex = null;
                 list.removeAll();
             }
         }
