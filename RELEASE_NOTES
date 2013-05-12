@@ -32,15 +32,22 @@ Build script changes
 
 SDK Changes
 -------------
- - New navigation for Grid, DataGrid, ComboBox, DropDownList, List, ButtonBar and TabBar.
- - New data grid features to lock rows and columns, sort multiple columns and move
-   and sorting columns via the keyboard.
+ - New navigation for Grid, DataGrid, ComboBox, DropDownList, List, ButtonBar 
+   and TabBar.
+ - New data grid features to lock rows and columns, sort multiple columns and
+   move and sorting columns via the keyboard.
  - Row, column, cell and table datagrid double click modes.
- - Improved support of dates including DD/MM/YYYY support, single digit day and month
-   in date formats and international dates including Japanese, Chinese and Korean dates.
- - Improved dates formatter and validators with timezone and millisecond formatting.
+ - Improved support of dates including DD/MM/YYYY support, single digit day and
+   month in date formats and international dates including Japanese, Chinese
+   and Korean dates.
+ - Improved dates formatter and validators with timezone and millisecond
+   formatting.
  - Improved support for international number separators.
- - Improve numeric stepper.
+ - Improved number formatting.
+ - Improved email validation.
+ - Improved NumericStepper.
+ - Improved DateField and DateChooser.
+ - Improve currency formatting support.
  - More supported locales for postcode validator and formatters.
  - Added no color support to Colour Picker.
  - Added removeItem to IList.
@@ -50,6 +57,7 @@ SDK Changes
  - RPC toString improvements.
  - Better support of small numbers and scientific notation in numeric steppers.
  - 480 dpi mobile resolution/skin support
+ - New fr_CH locale 
  - Many minor improvements changes, including RTE fixes.
   
  Check the bug fix list below for more details.
@@ -57,8 +65,12 @@ SDK Changes
 Experimental Components
 -------------------------
  - Added new components Accordion, DataAccordion, InlineScroller and layouts
-   AccordionLayout, CarouselLayout, CoverflowLayout, StackLayout (and many more)
- - CallOut and CallOut Button
+   AccordionLayout, CarouselLayout, CoverflowLayout, StackLayout (and more)
+ - Spark CallOut and CallOut Button
+ - Spark Alert
+ - Spark ColorPicker
+ - Spark MenuBar and Menu
+ - Spark ProgressBar
 
 Mustella Test Framework changes
 ---------------------------------
@@ -79,9 +91,12 @@ Version Control
 Bug Fixes
 ----------
 
- Below is a complete list of all the bug fixes that have been included since the last full release, Apache Flex 4.9.0.
- If you would like specific information about any of the items below, go to https://issues.apache.org and search for the
- JIRA Issue Number by using the Quick Search.  Details of the bug and its fix will be included on the resulting page.
+ Below is a complete list of all the bug fixes that have been included since
+ the last full release, Apache Flex 4.9.0.
+ If you would like specific information about any of the items below, go to
+ https://issues.apache.org and search for the JIRA Issue Number by using the
+ Quick Search.  Details of the bug and its fix will be included on the
+ resulting page.
 
 JIRA Issue Number  Summary                                                                                         Resolution
 ------------------------------------------------------------------------------------------------------------------------------
@@ -97,10 +112,6 @@ FLEX-33504         Some dateFormat locale properties not well displayed by DateF
 FLEX-33502         Files missing Apache licence                                                                    Fixed
 FLEX-33500         XMLEncoder fails to encode WSDL simpleType union                                                Fixed
 FLEX-33498         Enhancement for dataProvier/selectedIndex supporting components                                 Implemented
-FLEX-33496         FlexJS: Populate id property of DOM elements at runtime                                         Fixed
-FLEX-33484         [FalconJX] MXMLFlexJSEmitter refactored, patch attached                                         Fixed
-FLEX-33482         FalconJX generates incorrect paths in deps.js                                                   Fixed
-FLEX-33481         Improve README for FalconJX compiler                                                            Fixed
 FLEX-33480         Build error when locale is set to pt_PT                                                         Fixed
 FLEX-33477         Listbase doesn't expose setSelectedIndex                                                        Fixed
 FLEX-33476         Get Involved Page Outdated                                                                      Fixed
@@ -143,19 +154,12 @@ FLEX-33338         Incomplete translation and formatting when using Greek locale
 FLEX-33336         HDividerGroup not resizing properly if the divider is not in the initial position               Fixed
 FLEX-33335         Unable to use sdk 4.9.0 in flash builder                                                        Fixed
 FLEX-33334         AIRSDK version numbers mismatched in Flash Builder IDE make file                                Fixed
-FLEX-33331         how can I fork mavenizer and commit code to apache?                                             Fixed
-FLEX-33330         An easier way of managing the locales for the InstallApache application                         Fixed
 FLEX-33328         Merge Adobe.next changes into spark DataGrid                                                    Fixed
-FLEX-33327         RuntimeLocale.as for the Apache Flex Installer needs to be updated for the French language      Fixed
-FLEX-33326         RuntimeLocale.as for the Apache Flex Installer needs to be updated for the French language      Fixed
-FLEX-33324         RuntimeLocale.as for the Apache Flex Installer needs to be updated for the Dutch language       Fixed
 FLEX-33323         gumbo/components/TextInput/Properties/TextInput_properties_tester Gumbo_TextInput_alpha_proper  Fixed
 FLEX-33319         spark/formatters/CurrencyFormatter/Fallback/ some tests fail in FP 11.4+                        Fixed
 FLEX-33316         checkintests fails on no english OS                                                             Fixed
 FLEX-33311         Nullpointer in ConstraintLayout when executing Transition on content                            Fixed
 FLEX-33309         Setup for testLayoutSWC is incomplete                                                           Fixed
-FLEX-33303         Falcon doesn't cleanly compile automation_spark                                                 Fixed
-FLEX-33302         Falcon can't compile airspark                                                                   Fixed
 FLEX-33298         The apache lib compile without including anything                                               Fixed
 FLEX-33296         Apache Flex Mavenized SDK Bug                                                                   Fixed
 FLEX-33294         Apache Flex Mavenized SDK Generator rb.swc                                                      Fixed
@@ -164,10 +168,8 @@ FLEX-33291         Apache Flex Mavenized SDK Generator Bug                      
 FLEX-33290         Apache Flex Mavenized SDK Deployer Bug                                                          Fixed
 FLEX-33288         Numeric Stepper value once NaN does not change to any number user sets or increments            Fixed
 FLEX-33286         Fix version.properties for several compile-config files                                         Fixed
-FLEX-33285         unmarshall( ... ) uses duplicate value declarations                                             Fixed
 FLEX-33284         New Spark Components                                                                            Implemented
 FLEX-33277         There are no Mustella tests for Charts                                                          Fixed
-FLEX-33275         Falcon Compile Error: Define a color with- rgb(100%, 0%, 0%) is not supported.                  Fixed
 FLEX-33273         CSSCondition.matchesStyleClient() is slow and creates excessive garbage                         Fixed
 FLEX-33270         FLEX-33242 spark/validators/CurrencyValidator/Methods/CV_validate_error_message_localized_test  Fixed
 FLEX-33269         FLEX-33242 testcase for sort function of Sort without SortField set to fields property on spar  Fixed
@@ -182,8 +184,7 @@ FLEX-33229         FLEX-33226 Config files for frameworks/projects/mx           
 FLEX-33228         FLEX-33226 Config files for frameworks/projects/rpc                                             Fixed
 FLEX-33227         FLEX-33226 Config files for frameworks/projects/framework                                       Fixed
 FLEX-33224         Translations for supported languages in the installer                                           Fixed
-FLEX-33223         Failed installer translation into languages ??other than en_US                                  Fixed
-FLEX-33214         FLEX-33106 Fix UI of license screen                                                             Fixed
+FLEX-33223         Failed installer translation into languages other than en_US                                    Fixed
 FLEX-33192         EMailValidator doesn't exclude hyphens at the beginning and end of domain names                 Fixed
 FLEX-33190         GridEvent.GRID_DOUBLE_CLICK is dispatched even when two different cells are clicked             Fixed
 FLEX-33169         Spark List selection on mobile doesn't work properly                                            Fixed                                        Fixed
@@ -196,8 +197,6 @@ FLEX-33117         Removing dependency to a contrib library in the MXML download
 FLEX-33116         Add Vector implementations of IList and ICollectionView                                         Fixed
 FLEX-33109         Add support for newer versions of the Text Layout Framework to build scripts                    Fixed
 FLEX-33106         AIR version of makeApacheFlexForFlashBuilder for Windows                                        Fixed
-FLEX-33098         FLEX-33091 Report on incubation progress                                                        Fixed
-FLEX-33092         Add NOTICE file to root                                                                         Fixed
 FLEX-33080         Classpath for the Flex-Compiler project has hardcoded absolute paths                            Fixed
 FLEX-33070         Mustella build file issues                                                                      Fixed
 FLEX-33069         env.properties is not used in *.bat files                                                       Fixed
