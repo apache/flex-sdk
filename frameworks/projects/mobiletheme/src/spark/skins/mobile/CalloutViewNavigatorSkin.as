@@ -29,6 +29,7 @@ import spark.core.SpriteVisualElement;
 import spark.skins.mobile160.assets.CalloutContentBackground;
 import spark.skins.mobile240.assets.CalloutContentBackground;
 import spark.skins.mobile320.assets.CalloutContentBackground;
+import spark.skins.mobile480.assets.CalloutContentBackground;
 
 use namespace mx_internal;
 
@@ -63,6 +64,13 @@ public class CalloutViewNavigatorSkin extends ViewNavigatorSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				contentBackgroundClass = spark.skins.mobile480.assets.CalloutContentBackground;
+				contentCornerRadius = 14;
+				gap = 24;
+				break;
+			}	
             case DPIClassification.DPI_320:
             {
                 contentBackgroundClass = spark.skins.mobile320.assets.CalloutContentBackground;

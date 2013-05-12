@@ -52,6 +52,7 @@ import mx.core.FlexGlobals;
 
 public class TargetConfigurations
 {
+	//TODO add some larger screens?
 	public static var configs:Array = [
 		{ configID: "160_01", deviceDensity: 160, os: DeviceNames.WIN, screenDPI: 160, deviceWidth: 320, deviceHeight: 455, color: null, osVersion: null},
 		{ configID: "160_02", deviceDensity: 160, os: DeviceNames.MAC, screenDPI: 160, deviceWidth: 320, deviceHeight: 455, color: null, osVersion: null},		
@@ -63,7 +64,8 @@ public class TargetConfigurations
 		{ configID: "240_05", deviceDensity: 240, os: DeviceNames.ANDROID, screenDPI: 240, deviceWidth: 480, deviceHeight: 762, color: null, osVersion: null},
 		{ configID: "320_01", deviceDensity: 320, os: DeviceNames.WIN, screenDPI: 320, deviceWidth: 640, deviceHeight: 960, color: null, osVersion: null},
 		{ configID: "320_02", deviceDensity: 320, os: DeviceNames.MAC, screenDPI: 320, deviceWidth: 640, deviceHeight: 960, color: null, osVersion: null},		
-		{ configID: "320_03", deviceDensity: 320, os: DeviceNames.IOS, screenDPI: 326, deviceWidth: 640, deviceHeight: 960, color: null, osVersion: null}
+		{ configID: "320_03", deviceDensity: 320, os: DeviceNames.IOS, screenDPI: 326, deviceWidth: 640, deviceHeight: 960, color: null, osVersion: null},
+		{ configID: "480_01", deviceDensity: 480, os: DeviceNames.ANDROID, screenDPI: 441, deviceWidth: 1080, deviceHeight: 1920, color: null, osVersion: null}
 	];
 	
 	/**

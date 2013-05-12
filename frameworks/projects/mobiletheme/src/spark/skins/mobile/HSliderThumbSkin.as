@@ -31,6 +31,8 @@ import spark.skins.mobile240.assets.HSliderThumb_normal;
 import spark.skins.mobile240.assets.HSliderThumb_pressed;
 import spark.skins.mobile320.assets.HSliderThumb_normal;
 import spark.skins.mobile320.assets.HSliderThumb_pressed;
+import spark.skins.mobile480.assets.HSliderThumb_normal;
+import spark.skins.mobile480.assets.HSliderThumb_pressed;
 
 /**
  *  ActionScript-based skin for the HSlider thumb skin part in mobile applications.
@@ -67,6 +69,24 @@ public class HSliderThumbSkin extends MobileSkin
         // set the right assets and dimensions to use based on the screen density
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				thumbImageWidth = 88;
+				thumbImageHeight = 88;
+				
+				thumbNormalClass = spark.skins.mobile480.assets.HSliderThumb_normal;
+				thumbPressedClass = spark.skins.mobile480.assets.HSliderThumb_pressed;
+				
+				hitZoneOffset = 20;
+				hitZoneSideLength = 130;
+				
+				// chromeColor ellipse goes up to the thumb border
+				chromeColorEllipseWidth = chromeColorEllipseHeight = 84; 
+				chromeColorEllipseX = chromeColorEllipseY = 1;
+				
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 thumbImageWidth = 58;

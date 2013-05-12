@@ -45,6 +45,7 @@ import spark.skins.mobile.supportClasses.TextSkinBase;
 import spark.skins.mobile160.assets.TextInput_border;
 import spark.skins.mobile240.assets.TextInput_border;
 import spark.skins.mobile320.assets.TextInput_border;
+import spark.skins.mobile480.assets.TextInput_border;
 
 use namespace mx_internal;
 
@@ -103,6 +104,17 @@ public class TextAreaSkin extends TextSkinBase
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				borderClass = spark.skins.mobile480.assets.TextInput_border;
+				layoutCornerEllipseSize = 24;
+				measuredDefaultWidth = 880;
+				measuredDefaultHeight = 140;
+				layoutBorderSize = 2;
+				
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 borderClass = spark.skins.mobile320.assets.TextInput_border;

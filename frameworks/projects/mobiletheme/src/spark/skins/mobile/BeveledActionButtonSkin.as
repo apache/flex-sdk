@@ -35,6 +35,10 @@ import spark.skins.mobile240.assets.BeveledActionButton_up;
 import spark.skins.mobile320.assets.BeveledActionButton_down;
 import spark.skins.mobile320.assets.BeveledActionButton_fill;
 import spark.skins.mobile320.assets.BeveledActionButton_up;
+import spark.skins.mobile480.assets.BeveledActionButton_down;
+import spark.skins.mobile480.assets.BeveledActionButton_fill;
+import spark.skins.mobile480.assets.BeveledActionButton_up;
+
 
 use namespace mx_internal;
 
@@ -73,6 +77,23 @@ public class BeveledActionButtonSkin extends ButtonSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				layoutBorderSize = 0;
+				layoutPaddingTop = 0;
+				layoutPaddingBottom = 0;
+				layoutPaddingLeft = 30;
+				layoutPaddingRight = 30;
+				measuredDefaultWidth = 84;
+				measuredDefaultHeight = 84;
+				
+				upBorderSkin = spark.skins.mobile240.assets.BeveledActionButton_up;
+				downBorderSkin = spark.skins.mobile240.assets.BeveledActionButton_down;
+				fillClass = spark.skins.mobile240.assets.BeveledActionButton_fill;
+				
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 layoutBorderSize = 0;

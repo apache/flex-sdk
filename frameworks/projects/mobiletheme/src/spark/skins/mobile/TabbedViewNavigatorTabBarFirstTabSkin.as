@@ -26,6 +26,8 @@ import spark.skins.mobile.assets.TabbedViewNavigatorButtonBarFirstButton_up;
 import spark.skins.mobile.supportClasses.TabbedViewNavigatorTabBarTabSkinBase;
 import spark.skins.mobile320.assets.TabbedViewNavigatorButtonBarFirstButton_down;
 import spark.skins.mobile320.assets.TabbedViewNavigatorButtonBarFirstButton_up;
+import spark.skins.mobile480.assets.TabbedViewNavigatorButtonBarFirstButton_down;
+import spark.skins.mobile480.assets.TabbedViewNavigatorButtonBarFirstButton_up;
 
 /**
  *  Skin for the left-most button in the TabbedViewNavigator ButtonBar skin
@@ -52,6 +54,13 @@ public class TabbedViewNavigatorTabBarFirstTabSkin extends TabbedViewNavigatorTa
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				upBorderSkin = spark.skins.mobile480.assets.TabbedViewNavigatorButtonBarFirstButton_up;
+				downBorderSkin = spark.skins.mobile480.assets.TabbedViewNavigatorButtonBarFirstButton_down;
+				selectedBorderSkin = spark.skins.mobile480.assets.TabbedViewNavigatorButtonBarFirstButton_selected;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 upBorderSkin = spark.skins.mobile320.assets.TabbedViewNavigatorButtonBarFirstButton_up;

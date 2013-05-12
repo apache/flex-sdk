@@ -63,6 +63,15 @@ public class CalloutArrow extends UIComponent
         // Copy DPI-specific values from CalloutSkin
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				gap = 24;
+				backgroundGradientHeight = 330;
+				highlightWeight = 3;
+				
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 gap = 16;

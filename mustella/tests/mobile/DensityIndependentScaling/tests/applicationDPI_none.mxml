@@ -52,6 +52,7 @@
 					<ConditionalValue deviceDensity="160" value="160"/>
 					<ConditionalValue deviceDensity="240" value="240"/>
 					<ConditionalValue deviceDensity="320" value="320"/>
+					<ConditionalValue deviceDensity="480" value="480"/>
 				</AssertPropertyValue>
 			</body>
 		
@@ -67,6 +68,7 @@
 				<ConditionalValue deviceDensity="160" value="160"/>
 				<ConditionalValue deviceDensity="240" value="240"/>
 				<ConditionalValue deviceDensity="320" value="320"/>
+				<ConditionalValue deviceDensity="480" value="480"/>
 			</AssertPropertyValue>
 		
 		

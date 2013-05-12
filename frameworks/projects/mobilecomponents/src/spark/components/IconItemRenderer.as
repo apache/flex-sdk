@@ -218,6 +218,11 @@ public class IconItemRenderer extends LabelItemRenderer
         // set default messageDisplay width
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				oldUnscaledWidth = 960;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 oldUnscaledWidth = 640;

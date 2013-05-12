@@ -72,6 +72,7 @@
 					<ConditionalValue deviceDensity="160" value="0.666667"/>
 					<ConditionalValue deviceDensity="240" value="1"/>
 					<ConditionalValue deviceDensity="320" value="1.333333"/>
+					<ConditionalValue deviceDensity="480" value="2"/>
 				</AssertPropertyValue>	
 			
 			</body>
@@ -87,6 +88,7 @@
 					<ConditionalValue deviceDensity="160" valueExpression="value=Math.round(FlexGlobals.topLevelApplication.stage.stageWidth/0.666667)"/>
 					<ConditionalValue deviceDensity="240" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth"/>
 					<ConditionalValue deviceDensity="320" valueExpression="value=Math.round(FlexGlobals.topLevelApplication.stage.stageWidth/1.333333)"/>
+					<ConditionalValue deviceDensity="320" valueExpression="value=Math.round(FlexGlobals.topLevelApplication.stage.stageWidth/2)"/>
 				</AssertPropertyValue>	
 			</body>
 			
@@ -100,9 +102,10 @@
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="320" os="win" />
-
-							<ConditionalValue deviceDensity="320" os="iphone" />
-							<ConditionalValue deviceDensity="160" os="qnx" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+					<ConditionalValue deviceDensity="320" os="android" />
+					<ConditionalValue deviceDensity="480" os="android" />
 				</CompareBitmap>	
 			</body>
 					
