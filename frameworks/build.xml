@@ -241,7 +241,7 @@
         <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}"/>
     </target>
     
-    <target name="clean" depends="automation-clean,airsdk-clean" description="Cleans all SWCs and their resource bundles">
+    <target name="clean" depends="check-tlf-home,automation-clean,airsdk-clean" description="Cleans all SWCs and their resource bundles">
         <delete file="${basedir}/flex-config.xml"/>
         <!-- Delete output from SWC projects -->
         <ant dir="${basedir}/projects/textLayout" target="clean"/>
