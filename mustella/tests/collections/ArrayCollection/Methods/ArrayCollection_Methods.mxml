@@ -201,16 +201,12 @@
 	   </body>
         </TestCase>   
 		
-		<TestCase testID="ArrayCollection_Method_sortAndRemoveAll" keywords="[ArrayCollection, Method, itemUpdated,contains]">
+		<TestCase testID="ArrayCollection_Method_sortAndRemoveAll" keywords="[ArrayCollection, Method, removeAll]">
 			<setup>
-				<AssertPropertyValue target="application.ac" propertyName ="length" value="4"/>
-				<RunCode code ="application.ready();application.ac.sort();application.ac.removeAll();" />
-				<AssertPropertyValue target="application.ac" propertyName ="length" value="0"/>
+				<RunCode code ="application.ready();application.ac.sort = new Sort();application.ac.removeAll();" />
 			</setup>
 			<body>
-				<AssertPropertyValue target="ac" propertyName ="length" value="4"/>
-				<AssertMethodValue method="value = application.ac.contains(application.players[11])" value="false" />
-				
+				<AssertPropertyValue target="ac" propertyName ="length" value="0"/>
 			</body>
 		</TestCase>  
         
