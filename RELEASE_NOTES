@@ -187,7 +187,7 @@ FLEX-33224         Translations for supported languages in the installer        
 FLEX-33223         Failed installer translation into languages other than en_US                                    Fixed
 FLEX-33192         EMailValidator doesn't exclude hyphens at the beginning and end of domain names                 Fixed
 FLEX-33190         GridEvent.GRID_DOUBLE_CLICK is dispatched even when two different cells are clicked             Fixed
-FLEX-33169         Spark List selection on mobile doesn't work properly                                            Fixed                                        Fixed
+FLEX-33169         Spark List selection on mobile doesn't work properly                                            Fixed
 FLEX-33163         When a collection reset event is received by List selectedItem is not always cleared            Fixed
 FLEX-33130         mx.core.IButton should have getter/setter function for label property                           Fixed
 FLEX-33124         FLEX-33108 Change build script to download specified version of playerglobal.swc                Fixed
@@ -280,7 +280,7 @@ FLEX-14630         Flex-SDK cannot be built entirely from source                
 FLEX-14581         Mx.Controls.DateChooser - Setting .monthNames to Array of Length < 12 causes "Null" months      Fixed
 FLEX-14450         NumberValidator maxValue/minValue don't work with non-english settings                          Fixed
 FLEX-14316         mx.core.UITextField.truncateToFit() contains dead code                                          Fixed
-FLEX-14153         Unrequired cast of calHeader in DateChooser                                                     Fixed                                                   Fixed
+FLEX-14153         Unrequired cast of calHeader in DateChooser                                                     Fixed
 FLEX-13994         ListBase throws an exception due to lack of error checking                                      Fixed
 FLEX-13423         DateChooser selectedRanges gives selectedRange start+1 day [if selectedRanges.rangeStart is     Fixed
 FLEX-13401         format() method in NumbeFormatter should understand numbers in Scientic notation e.g. 1.2E7     Fixed
