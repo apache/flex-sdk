@@ -185,7 +185,7 @@
 		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
 	</target>
 	
-	<target name="clean" depends="bundles-clean,clean-external" description="Deletes the combined swc">
+	<target name="clean" depends="check-tlf-home,bundles-clean,clean-external" description="Deletes the combined swc">
 		<delete failonerror="false">
 			<fileset dir="${basedir}">
 				<include name="bundles.properties"/>
