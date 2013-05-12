@@ -224,6 +224,7 @@ FLEX-26048         DateChooser throws #1010 error when selectableRange is empty 
 FLEX-25939         NumericStepper fails to commit when value is set to NaN                                         Fixed
 FLEX-25847         Odd Long Numbers Appearing In NumericStepper                                                    Fixed
 FLEX-25622         NumberValidator doesn't handle scientific notation                                              Fixed
+FLEX-25071         removeAll() on a sorted ArrayCollection returns a RangeError: Index '-1'                        Fixed
 FLEX-24921         Nummericstepper displays icorrect values when minimum is decimal                                Fixed
 FLEX-24780         Initially I can change the selectedItem in a List programmatically, but if the event preventDe  Fixed
 FLEX-24764         Applying NumberFormatter.format() to 17.76 returns the incorrect value                          Fixed
