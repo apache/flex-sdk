@@ -257,9 +257,9 @@ Other Locale Support
     to compile the SDK against.
 
     The list of supported locales include:
-        da_DK    el_GR    en_GB    fi_FI    ja_JP    nl_NL    ru_RU    zh_TW
-        de_CH    en_AU    en_US    fr_FR    ko_KR    pt_BR    sv_SE
-        de_DE    en_CA    es_ES    it_IT    nb_NO    pt_PT    zh_CN
+        da_DK	el_GR	en_GB	fi_FI	it_IT	nb_NO	pt_PT	zh_CN
+        de_CH	en_AU	en_US	fr_CH	ja_JP	nl_NL	ru_RU	zh_TW
+        de_DE	en_CA	es_ES	fr_FR	ko_KR	pt_BR	sv_SE
 
     The Apache Flex SDK has only been tested for the en_US locale, however there is
     unlikely to be any issues with a SDK compiled for another locales.
