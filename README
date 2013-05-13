@@ -32,8 +32,9 @@ Apache Flex (Flex)
 Getting the latest sources via git
 =========================================
 
-    Getting the source code is the recommended way to get Apache Flex.  We also offer an
-    automated installer along with binary distributions on our website at http://flex.apache.org/.
+    Getting the source code is the recommended way to get Apache Flex.  We also
+    offer an automated installer along with binary distributions on our website
+    at http://flex.apache.org/.
 
     You can always checkout the latest source via git using the following
     command:
@@ -156,9 +157,9 @@ Install Prerequisites
          The Adobe AIR integration kit for Mac can be downloaded from:
             http://airdownload.adobe.com/air/mac/download/3.7/AdobeAIRSDK.tbz2
 
-        This version of Apache Flex was certified for use with AIR 3.5, and should
+        This version of Apache Flex was certified for use with AIR 3.7, and should
         be compatible with other versions of AIR newer than 3.1. However it hasn't
-        been tested on AIR 3.2, 3.3, 3.6 or 3.7.
+        been tested on AIR 3.2, 3.3, 3.5 or 3.6.
 
         Download the AIR SDK for your platform and unzip it.  Set AIR_HOME to the absolute 
         path of the AIR SDK directory.
@@ -172,7 +173,8 @@ Install Prerequisites
         versions but has not been fully tested.
             
         On Windows, set FLASHPLAYER_DEBUGGER to the absolute path including the filename of
-        the FlashPlayerDebugger.exe.  Note the filename of flash player debugger maybe different.
+        the FlashPlayerDebugger.exe. Note the filename of flash player debugger maybe
+        different.
            e.g. C:\MyPath\FlashPlayerDebugger.exe
 
         On the Mac, set FLASHPLAYER_DEBUGGER to the absolute path of 
@@ -199,7 +201,8 @@ Install Prerequisites
         the version subdirectory). The target-player option controls which 
         PLAYERGLOBAL_HOME subdirectory is used.
 
-        Other more recent versions of Adode Flash Player playergloal.swc can be downloaded from:
+        Other more recent versions of Adode Flash Player playergloal.swc can be
+        downloaded from:
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
@@ -241,24 +244,25 @@ Other Locale Support
     
     To compile the SDK for another locale either:
 
-    Change the locale in the build.properties file to have a value other than "en_US". For this new
-    locale to take effect the SDK needs to be recompiled. For example, to use the Australian English
-    locale change locale to have a value of "en_AU" like so:
+    Change the locale in the build.properties file to have a value other than "en_US".
+    For this new locale to take effect the SDK needs to be recompiled. For example,
+    to use the Australian English locale change locale to have a value of "en_AU"
+    like so:
      
         locale = en_AU
         
     OR
     
-    Compile the SDK with a -Dlocale=<locale> option, where <locale> is the new locale to compile the
-    SDK against.
+    Compile the SDK with a -Dlocale=<locale> option, where <locale> is the new locale
+    to compile the SDK against.
 
     The list of supported locales include:
         da_DK    el_GR    en_GB    fi_FI    ja_JP    nl_NL    ru_RU    zh_TW
         de_CH    en_AU    en_US    fr_FR    ko_KR    pt_BR    sv_SE
         de_DE    en_CA    es_ES    it_IT    nb_NO    pt_PT    zh_CN
 
-    The Apache Flex SDK has only been tested for the en_US locale, however there is unlikely to be any
-    issues with a SDK compiled for another locales.
+    The Apache Flex SDK has only been tested for the en_US locale, however there is
+    unlikely to be any issues with a SDK compiled for another locales.
     
 Adobe Flash Player Version Support
 ----------------------------------
@@ -269,19 +273,21 @@ Adobe Flash Player Version Support
 
     To compile the SDK for another version of the Adobe Flash Player either:
 
-    Change the playerglobal.version in the build.properties file to have a value other than "11.1".
-    For this change to take effect the SDK needs to be recompiled. For example to compile against the
-    lastest version of the Adobe Flash Player set the value of playerglobal.version to be "11.5" like so:
+    Change the playerglobal.version in the build.properties file to have a value other
+    than "11.1". For this change to take effect the SDK needs to be recompiled.
+    For example to compile against the lastest version of the Adobe Flash Player set
+    the value of playerglobal.version to be "11.5" like so:
      
         playerglobal.version = 11.5
         
     OR
     
-    Compile the SDK with a -Dplayerglobal.version=<version> option, where <version> is the 
-    Adobe Flash Player version to compile the SDK against.
+    Compile the SDK with a -Dplayerglobal.version=<version> option, where <version> is
+    the Adobe Flash Player version to compile the SDK against.
     
     
-    Different versions of the Adobe Flash Player require different versions of playerglobal.swc.
+    Different versions of the Adobe Flash Player require different versions of
+    playerglobal.swc.
     
     These can be found at:
     
@@ -412,25 +418,25 @@ Using the Binary Distribution
         cd <flex.dir>/frameworks
         ant thirdparty-downloads
         
-	To use this SDK in a IDE like Flash Builder 4.6 or 4.7 the SDK needs several other files to be packaged
-	and integrated with the Apache Flex SDK.
+	To use this SDK in a IDE like Flash Builder 4.6 or 4.7 the SDK needs several other
+	files to be packaged and integrated with the Apache Flex SDK.
 	
 	If you have an existing instalation of Flash Builder run:
 	
 		/ide/constructFlexForIDE.sh (on Mac)
 		/ide/constructFlexForIDE.bat (on Windows)
 		
-	This will create an Apache Flex 4.9 SDK that can be used with Flash Builder by copying the required files
-	from the Adobe Flex 4.6 SDK.
+	This will create an Apache Flex 4.9 SDK that can be used with Flash Builder by
+	copying the required files from the Adobe Flex 4.6 SDK.
 	
-	To create an SDK for other IDE or if you want to use Adobe AIR 3.5 (rather than AIR 3.1 contained in
-	Adobe Flex 4.6) run:
+	To create an SDK for other IDE or if you want to use Adobe AIR 3.7 (rather than
+	AIR 3.1 contained in Adobe Flex 4.6) run:
 	
 		/ide/flashbuilder/makeApacheFlexForFlashbuilder.sh (on Mac)
 		/ide/flashbuilder/makeApacheFlexForFlashbuilder.bat (on Windows)
 		
-	This will create an Apache Flex 4.9 SDK that can be used by an IDE by downloading Adobe Flex 4.6 SDK and
-	Adobe AIR 3.5.
+	This will create an Apache Flex 4.9 SDK that can be used by an IDE by downloading
+	Adobe Flex 4.6 SDK and Adobe AIR 3.7.
     
 Building the Framework in a Binary Distribution
 -----------------------------------------------
