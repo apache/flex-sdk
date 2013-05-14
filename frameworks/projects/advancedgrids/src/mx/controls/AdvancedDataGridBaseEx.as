@@ -8049,7 +8049,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         if (event.reason == AdvancedDataGridEventReason.OTHER || !event.isDefaultPrevented())
         {
-            destroyItemEditor();
+			if (_editedItemPosition
+				&& event.rowIndex == _editedItemPosition.rowIndex
+				&& event.columnIndex == _editedItemPosition.columnIndex)
+            	destroyItemEditor();
         }
     }
 
