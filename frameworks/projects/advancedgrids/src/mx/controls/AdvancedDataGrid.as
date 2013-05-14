@@ -2221,12 +2221,12 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
      */
     override protected function createHeaders(left:Number, top:Number):void
     {       
-        if(!columnGrouping)
+        if (!columnGrouping)
         {
             var creatingHeaders:Boolean = false;
-            if(horizontalScrollPolicy != ScrollPolicy.OFF && getOptimumColumns()!= visibleColumns)
+            if (horizontalScrollPolicy != ScrollPolicy.OFF && getOptimumColumns()!= visibleColumns)
             {
-                if(!headerItems[0] || !headerItems[0][0] || (top < headerItems[0][0].y + headerItems[0][0].height)) 
+                if (!headerItems[0] || !headerItems[0][0] || (top < headerItems[0][0].y + headerItems[0][0].height)) 
                     creatingHeaders = true;
             }
 
@@ -2813,7 +2813,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         // based on the dataProvider. Thus setting of columns by dataProvider
         // falls in the same cycle of commitProperties and if moved above will 
         // not get picked unless a second call to commitProperties come
-        if(groupedColumnsChanged)
+        if (groupedColumnsChanged)
         {
             columnGrouping = true;
             columnsChanged = false;
@@ -2833,19 +2833,23 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 
             super.columns = getLeafColumns(_groupedColumns.slice(0));
         }
-        else if(columnsChanged)
+        else if (columnsChanged)
         {
             columnGrouping = false;
             columnsChanged = false;
 
             removeOldHeaders();
+			
+			columnsToInfo = new Dictionary();
+			headerInfos = initializeHeaderInfo(_columnsValue);
+			
+			headerInfoInitialized = true;
 
             super.columns = _columnsValue;
         }
 
         if (displayItemsExpandedChanged)
         {
-            displayItemsExpandedChanged = false;
             // if displayItemsExpanded is set to true, then expand all the items.
             if (displayItemsExpanded)
                 expandAll();
@@ -3324,15 +3328,15 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
     
     /**
      *  @private
-     *  Initialized the headerInfos structure w.r.t to the groupedColumns 
+     *  Initialized the headerInfos structure w.r.t to the columns 
      *  configuration
      */
-    override protected function initializeHeaderInfo(groupedColumns:Array):Array
+    override protected function initializeHeaderInfo(columns:Array):Array
     {
-        if(!columnGrouping)
-            return super.initializeHeaderInfo(groupedColumns);
+        if (!columnGrouping)
+            return super.initializeHeaderInfo(columns);
         else
-            return initializeGroupedHeaderInfo(groupedColumns, null,0,null);
+            return initializeGroupedHeaderInfo(columns, null,0,null);
     }
     
     /**
@@ -3340,7 +3344,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
      */
     override protected function createDisplayableColumns():void
     {
-        if(!columnGrouping)
+        if (!columnGrouping)
         {
             super.createDisplayableColumns();
         }
@@ -3364,7 +3368,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
      */
     override protected function updateVisibleHeaders():Array
     {
-        if(!columnGrouping)
+        if (!columnGrouping)
             return super.updateVisibleHeaders();
         else
             return updateVisibleHeaderInfos(headerInfos).infos;
