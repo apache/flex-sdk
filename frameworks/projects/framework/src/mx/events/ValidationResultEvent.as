@@ -183,9 +183,12 @@ public class ValidationResultEvent extends Event
 	 */
     public function get message():String
     {
-        var msg:String = "";;
-        
-		var n:int = results.length;
+        var msg:String = "";
+		var n:int;
+		
+		if (results)
+			n = results.length;
+		
 		for (var i:int = 0; i < n; ++i)
         {
 			if (results[i].isError)
