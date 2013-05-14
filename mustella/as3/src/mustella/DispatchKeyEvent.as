@@ -146,7 +146,7 @@ public class DispatchKeyEvent extends TestStep
                     event.keyCode = keySequence[j];
                     event.keyLocation = keyLocation;
 
-                    if (waitEvent == "focusIn" && keySequence[j] == Keyboard.TAB)
+                    if (keySequence[j] == Keyboard.TAB)
                     {
                         // if we don't see a focusIn, focus is being set
                         // asynchronously so we need to wait.
@@ -328,7 +328,7 @@ public class DispatchKeyEvent extends TestStep
         for (var i:int = currentRepeat; i < repeatCount; i++)
         {
             var m:int = charSequence.length;
-            for (var j:int = currentKey++; j < m; j++)
+            for (var j:int = currentKey + 1; j < m; j++)
             {
                 var event:KeyboardEvent = new KeyboardEvent(type, true, cancelable); // all keyboard events bubble
                 event.ctrlKey = ctrlKey;
@@ -337,7 +337,7 @@ public class DispatchKeyEvent extends TestStep
                 event.keyCode = keySequence[j];
                 event.keyLocation = keyLocation;
                 
-                if (waitEvent == "focusIn" && keySequence[j] == Keyboard.TAB)
+                if (keySequence[j] == Keyboard.TAB)
                 {
                     currentRepeat = i;
                     currentKey = j;
