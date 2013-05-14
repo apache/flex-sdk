@@ -390,11 +390,11 @@
             <body>			
             	<SetProperty target="twObject" propertyName="enabled" value="true" waitEvent="updateComplete" waitTarget="twObject"/>
             	<Pause timeout="20"/>
-            	<DispatchMouseClickEvent target="twObject.ta1" localX="2" localY="2" />
+            	<DispatchMouseClickEvent target="twObject.ta1" localX="2" localY="2" waitEvent="focusIn"/>
             	<DispatchKeyEvent char="boogie" waitTarget="twObject.ta1" waitEvent="change"/>
             	<AssertPropertyValue target="twObject.ta1" propertyName="text" value="boogieHalo TextArea"/> 
             	<Pause timeout="20"/>
-            	<DispatchMouseClickEvent target="twObject.ta2" localX="2" localY="2" />
+            	<DispatchMouseClickEvent target="twObject.ta2" localX="2" localY="2" waitEvent="focusIn"/>
             	<DispatchKeyEvent char="boogie2" waitTarget="twObject.ta2" waitEvent="change"/>
 		<AssertPropertyValue target="twObject.ta2" propertyName="text" value="boogie2Spark TextArea"/>  
 		<Pause timeout="20"/>
