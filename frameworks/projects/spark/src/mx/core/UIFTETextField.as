@@ -2489,6 +2489,20 @@ public class UIFTETextField extends FTETextField
                 super.text = s + truncationIndicator;
             }
             
+            var otl:int = originalText.length;
+            var t:String = s;
+            while (t.length < otl)
+            {
+                t = originalText.slice(0, t.length + 1);
+                super.text = t + truncationIndicator;
+                if (textWidth + TEXT_WIDTH_PADDING <= w)
+                    s = t;
+                else
+                    break;
+            } 
+            if (s.length > 0)
+                super.text = s + truncationIndicator;
+            
             return true;
         }
 
