@@ -2872,8 +2872,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     
     /**
      *  @private
+	 * 
+	 * Note columns may not of been committed at this point.
      */
-    protected function initializeHeaderInfo(a:Array):Array
+    protected function initializeHeaderInfo(columns:Array):Array
     {
         var newArray:Array = [];
         var n:int = columns.length;
