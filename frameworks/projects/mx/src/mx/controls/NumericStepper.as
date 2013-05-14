@@ -1690,13 +1690,8 @@ public class NumericStepper extends UIComponent
         // Stop the event from bubbling up.
         event.stopImmediatePropagation();
 
-        var inputValue:Number = Number(inputField.text);
-        if ((inputValue != value &&
-            (Math.abs(inputValue - value) >= 0.000001 || isNaN(inputValue))) || 
-            inputField.text == "")
-        {
-            _value = checkValidValue(inputValue);
-        }
+		// fixes FLEX-33505
+		takeValueFromTextField(event);
     }
 
 }
