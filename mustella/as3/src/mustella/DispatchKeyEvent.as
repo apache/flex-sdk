@@ -20,14 +20,13 @@ package {
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
-import flash.events.KeyboardEvent;
 import flash.events.Event;
 import flash.events.FocusEvent;
+import flash.events.KeyboardEvent;
 import flash.events.TextEvent;
-
+import flash.system.Capabilities;
 import flash.text.TextField;
 import flash.ui.Keyboard;
-import flash.system.Capabilities;
 
 
 /**
@@ -56,6 +55,14 @@ public class DispatchKeyEvent extends TestStep
 	public static const FLASH_UI_KEYBOARD_MENU:uint = 0x01000012;
 	public static const FLASH_UI_KEYBOARD_SEARCH:uint = 0x0100001F;
 	
+    private var inDispatchKey:Boolean;
+    private var gotFocusIn:Boolean;
+    private var charSequence:Array;
+    private var keySequence:Array;
+    private var currentRepeat:int;
+    private var currentKey:int;
+    private var sendBoth:Boolean;
+    
     /**
      *  Set the target's property to the specified value
      */
@@ -63,7 +70,7 @@ public class DispatchKeyEvent extends TestStep
     {
         UnitTester.blockFocusEvents = false;
 
-        var sendBoth:Boolean = false;
+        sendBoth = false;
 
         if (!type)
         {
@@ -73,8 +80,8 @@ public class DispatchKeyEvent extends TestStep
         
         var i:int;
         var n:int;
-        var charSequence:Array = new Array();
-        var keySequence:Array = new Array();
+        charSequence = new Array();
+        keySequence = new Array();
 		
 		
         if (charCode)
@@ -139,166 +146,22 @@ public class DispatchKeyEvent extends TestStep
                     event.keyCode = keySequence[j];
                     event.keyLocation = keyLocation;
 
-
-                    // note that we don't check Window activation since we want to run in the background
-                    // and window activation is a player function
-					
-                    var actualTarget:Object;
-
-                    if (window)
+                    if (waitEvent == "focusIn" && keySequence[j] == Keyboard.TAB)
                     {
-                        actualTarget = context.stringToObject(window);
-                        actualTarget = actualTarget.stage.focus;
+                        // if we don't see a focusIn, focus is being set
+                        // asynchronously so we need to wait.
+                        currentRepeat = i;
+                        currentKey = j;
+                        gotFocusIn = false;
+                        root.addEventListener("focusIn", focusInHandler);
+                        inDispatchKey = true;
+                        dispatchKey(j, event);
+                        inDispatchKey = false;
+                        if (!gotFocusIn)
+                            break;
                     }
                     else
-                    {
-                        actualTarget = root.stage.focus;
-                        if (!actualTarget)
-                        {
-                            actualTarget = UnitTester.getFocus();
-                        }
-                    }
-					
-					// BACK, MENU, and SEARCH are buttons on mobile (Android) devices.  
-					// On Android devices right now, actualTarget is still null at this point.  Dispatching the event to the stage works.
-					// Using the constants in flash.ui.Keyboard will cause an error in a non-AIR runs, so the constants are also defined
-					// in this file, above.  There is risk here.
-					if (keySequence[j] == FLASH_UI_KEYBOARD_BACK ||
-						keySequence[j] == FLASH_UI_KEYBOARD_MENU ||
-						keySequence[j] == FLASH_UI_KEYBOARD_SEARCH){
-						
-						actualTarget = root.stage;
-					}
-					
-                    if (actualTarget)
-                    {
-                        var targetType:TypeInfo = context.getTypeInfo(actualTarget);
-                        var isTextView:Boolean = targetType.isAssignableTo("spark.components::RichEditableText");
-
-
-                        if (actualTarget is TextField)
-                        {
-                            if (event.charCode)
-                            {
-                                if (actualTarget.type == "input")
-                                {
-                                    actualTarget.replaceSelectedText(String.fromCharCode(event.charCode));
-                                    // actualTarget.dispatchEvent(new Event("change", true));
-                                    actualTarget.dispatchEvent(new Event("change"));
-                                }
-                            }
-                            else
-                            {
-                                if (actualTarget.selectable)
-                                    emulateKey(actualTarget, event);
-                            }
-                        }
-
-                        actualTarget.dispatchEvent(event);
-
-
-
-                        if (isTextView)
-                        {
-                            if (event.keyCode == Keyboard.DELETE ||
-
-                                event.keyCode == Keyboard.BACKSPACE ||
-
-                                event.keyCode == Keyboard.INSERT ||
-
-                                ctrlKey)
-
-                            {
-
-                                // don't send TEXT_INPUT event
-
-                            }
-
-                            else
-
-                            {
-
-                                var textEvent:TextEvent = new TextEvent(TextEvent.TEXT_INPUT, true, true);
-
-                                textEvent.text = String.fromCharCode(charSequence[j]);
-
-                                actualTarget.dispatchEvent(textEvent);
-
-                            }
-
-                        }
-
-                        if (keySequence[j] == Keyboard.TAB && type == "keyDown")
-                        {
-                            var fm:Object;
-                            var newTarget:Object = actualTarget;
-                            while (!fm && newTarget)
-                            {   
-                                if ("focusManager" in newTarget)
-                                    fm = newTarget["focusManager"];
-                                newTarget = newTarget.parent;
-                            }
-                            newTarget = null;
-                            if (fm)
-                            {
-                                try
-                                {
-                                    newTarget = fm.getNextFocusManagerComponent(shiftKey);
-                                }
-                                catch (e:Error)
-                                {
-                                    // ignore error thrown here.  Should only throw if the
-                                    // current FM became inactive as a result of dispatching
-                                    // the key event.  We don't really care too much about
-                                    // getting an accurate newTarget in this case because
-                                    // newTarget is often wrong since the Player is offering
-                                    // it up and the Player has that wonky algorithm for
-                                    // determining newTarget.   In theory, none of our code
-                                    // truly cares as long as it doesn't point to old focus
-                                    // object.
-                                }
-                            }
-
-                            actualTarget.dispatchEvent(new FocusEvent(FocusEvent.KEY_FOCUS_CHANGE, true, true, InteractiveObject(newTarget), shiftKey, Keyboard.TAB));
-                        }
-                        
-                        if (sendBoth)
-                        {
-                            event = new KeyboardEvent("keyUp", true, cancelable);
-                            event.ctrlKey = ctrlKey;
-                            event.shiftKey = shiftKey;
-                            event.charCode = charSequence[j];
-                            event.keyCode = keySequence[j];
-                            event.keyLocation = keyLocation;
-                            actualTarget.dispatchEvent(event);
-                        }
-                    }
-                    else
-                    {
-                        if (keySequence[j] == Keyboard.TAB && type == "keyDown")
-                        {
-
-                            var thisRoot:DisplayObject
-							
-                            // note that we don't check Window activation since we want to run in the background
-                            // and window activation is a player function
-                            if (window)
-                            {
-                                thisRoot = context.stringToObject(window).root;
-                            }
-                            else
-                                thisRoot = root;
-                            try
-                            {
-                                thisRoot.stage.dispatchEvent(new FocusEvent(FocusEvent.KEY_FOCUS_CHANGE, true, true, InteractiveObject(actualTarget), shiftKey, Keyboard.TAB));
-                            }
-                            catch(se2:SecurityError)
-                            {
-                                thisRoot.dispatchEvent(new FocusEvent(FocusEvent.KEY_FOCUS_CHANGE, true, true, InteractiveObject(actualTarget), shiftKey, Keyboard.TAB));
-                            }
-                        }						
-						
-                    }
+                        dispatchKey(j, event);
                 }
             }
         }
@@ -455,6 +318,206 @@ public class DispatchKeyEvent extends TestStep
         }
     }
 
+    private function focusInHandler(focusEvent:Event):void
+    {
+        gotFocusIn = true;        
+        root.removeEventListener("focusIn", focusInHandler);
+        if (inDispatchKey)
+            return;
+        
+        for (var i:int = currentRepeat; i < repeatCount; i++)
+        {
+            var m:int = charSequence.length;
+            for (var j:int = currentKey++; j < m; j++)
+            {
+                var event:KeyboardEvent = new KeyboardEvent(type, true, cancelable); // all keyboard events bubble
+                event.ctrlKey = ctrlKey;
+                event.shiftKey = shiftKey;
+                event.charCode = charSequence[j];
+                event.keyCode = keySequence[j];
+                event.keyLocation = keyLocation;
+                
+                if (waitEvent == "focusIn" && keySequence[j] == Keyboard.TAB)
+                {
+                    currentRepeat = i;
+                    currentKey = j;
+                    gotFocusIn = false;
+                    root.addEventListener("focusIn", focusInHandler);
+                    inDispatchKey = true;
+                    dispatchKey(j, event);
+                    inDispatchKey = false;
+                    if (!gotFocusIn)
+                        break;
+                }                
+                else
+                    dispatchKey(j, event);
+            }
+        }
+    }
+    
+    private function dispatchKey(index:int, event:KeyboardEvent):void
+    {
+        // note that we don't check Window activation since we want to run in the background
+        // and window activation is a player function
+        
+        var actualTarget:Object;
+        
+        if (window)
+        {
+            actualTarget = context.stringToObject(window);
+            actualTarget = actualTarget.stage.focus;
+        }
+        else
+        {
+            actualTarget = root.stage.focus;
+            if (!actualTarget)
+            {
+                actualTarget = UnitTester.getFocus();
+            }
+        }
+        
+        // BACK, MENU, and SEARCH are buttons on mobile (Android) devices.  
+        // On Android devices right now, actualTarget is still null at this point.  Dispatching the event to the stage works.
+        // Using the constants in flash.ui.Keyboard will cause an error in a non-AIR runs, so the constants are also defined
+        // in this file, above.  There is risk here.
+        if (keySequence[index] == FLASH_UI_KEYBOARD_BACK ||
+            keySequence[index] == FLASH_UI_KEYBOARD_MENU ||
+            keySequence[index] == FLASH_UI_KEYBOARD_SEARCH){
+            
+            actualTarget = root.stage;
+        }
+        
+        if (actualTarget)
+        {
+            var targetType:TypeInfo = context.getTypeInfo(actualTarget);
+            var isTextView:Boolean = targetType.isAssignableTo("spark.components::RichEditableText");
+            
+            
+            if (actualTarget is TextField)
+            {
+                if (event.charCode)
+                {
+                    if (actualTarget.type == "input")
+                    {
+                        actualTarget.replaceSelectedText(String.fromCharCode(event.charCode));
+                        // actualTarget.dispatchEvent(new Event("change", true));
+                        actualTarget.dispatchEvent(new Event("change"));
+                    }
+                }
+                else
+                {
+                    if (actualTarget.selectable)
+                        emulateKey(actualTarget, event);
+                }
+            }
+            
+            actualTarget.dispatchEvent(event);
+            
+            
+            
+            if (isTextView)
+            {
+                if (event.keyCode == Keyboard.DELETE ||
+                    
+                    event.keyCode == Keyboard.BACKSPACE ||
+                    
+                    event.keyCode == Keyboard.INSERT ||
+                    
+                    ctrlKey)
+                    
+                {
+                    
+                    // don't send TEXT_INPUT event
+                    
+                }
+                    
+                else
+                    
+                {
+                    
+                    var textEvent:TextEvent = new TextEvent(TextEvent.TEXT_INPUT, true, true);
+                    
+                    textEvent.text = String.fromCharCode(charSequence[index]);
+                    
+                    actualTarget.dispatchEvent(textEvent);
+                    
+                }
+                
+            }
+            
+            if (keySequence[index] == Keyboard.TAB && type == "keyDown")
+            {
+                var fm:Object;
+                var newTarget:Object = actualTarget;
+                while (!fm && newTarget)
+                {   
+                    if ("focusManager" in newTarget)
+                        fm = newTarget["focusManager"];
+                    newTarget = newTarget.parent;
+                }
+                newTarget = null;
+                if (fm)
+                {
+                    try
+                    {
+                        newTarget = fm.getNextFocusManagerComponent(shiftKey);
+                    }
+                    catch (e:Error)
+                    {
+                        // ignore error thrown here.  Should only throw if the
+                        // current FM became inactive as a result of dispatching
+                        // the key event.  We don't really care too much about
+                        // getting an accurate newTarget in this case because
+                        // newTarget is often wrong since the Player is offering
+                        // it up and the Player has that wonky algorithm for
+                        // determining newTarget.   In theory, none of our code
+                        // truly cares as long as it doesn't point to old focus
+                        // object.
+                    }
+                }
+                
+                actualTarget.dispatchEvent(new FocusEvent(FocusEvent.KEY_FOCUS_CHANGE, true, true, InteractiveObject(newTarget), shiftKey, Keyboard.TAB));
+            }
+            
+            if (sendBoth)
+            {
+                event = new KeyboardEvent("keyUp", true, cancelable);
+                event.ctrlKey = ctrlKey;
+                event.shiftKey = shiftKey;
+                event.charCode = charSequence[index];
+                event.keyCode = keySequence[index];
+                event.keyLocation = keyLocation;
+                actualTarget.dispatchEvent(event);
+            }
+        }
+        else
+        {
+            if (keySequence[index] == Keyboard.TAB && type == "keyDown")
+            {
+                
+                var thisRoot:DisplayObject
+                
+                // note that we don't check Window activation since we want to run in the background
+                // and window activation is a player function
+                if (window)
+                {
+                    thisRoot = context.stringToObject(window).root;
+                }
+                else
+                    thisRoot = root;
+                try
+                {
+                    thisRoot.stage.dispatchEvent(new FocusEvent(FocusEvent.KEY_FOCUS_CHANGE, true, true, InteractiveObject(actualTarget), shiftKey, Keyboard.TAB));
+                }
+                catch(se2:SecurityError)
+                {
+                    thisRoot.dispatchEvent(new FocusEvent(FocusEvent.KEY_FOCUS_CHANGE, true, true, InteractiveObject(actualTarget), shiftKey, Keyboard.TAB));
+                }
+            }						
+            
+        }
+    }
+    
     private var KeyCodeToCharCode:Object = {
                     8: 8,
                     13: 13,

@@ -55,6 +55,7 @@ public class TestStep extends EventDispatcher
 			}
 			else
 			{
+                UnitTester.waitEvent = waitEvent;
 				actualTarget.addEventListener(waitEvent, waitEventHandler);
 				testCase.setExpirationTime(getTimer() + timeout);
 			}
@@ -76,6 +77,7 @@ public class TestStep extends EventDispatcher
 
 			if (waitEvent)
 			{
+                UnitTester.waitEvent = null;
 				actualTarget = context.stringToObject(waitTarget) as IEventDispatcher;
 				actualTarget.removeEventListener(waitEvent, waitEventHandler);
 				testCase.setExpirationTime(0);
@@ -91,6 +93,7 @@ public class TestStep extends EventDispatcher
 				testResult.doFail("Target " + waitTarget + " not found");
 				return true;
 			}
+            UnitTester.waitEvent = waitEvent;
 			actualTarget.addEventListener(waitEvent, waitEventHandler);
 			testCase.setExpirationTime(getTimer() + timeout);
 		}
@@ -155,6 +158,7 @@ public class TestStep extends EventDispatcher
 	{
 		if (waitEvent)
 		{
+            UnitTester.waitEvent = null;
 			var actualTarget:IEventDispatcher = context.stringToObject(waitTarget) as IEventDispatcher;
 			if (actualTarget)	// can be null if object killed during step
 				actualTarget.removeEventListener(waitEvent, waitEventHandler);
