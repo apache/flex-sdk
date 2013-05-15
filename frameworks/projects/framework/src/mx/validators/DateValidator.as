@@ -387,6 +387,7 @@ public class DateValidator extends Validator
 						true, baseField, "wrongLength", 
 						validator.wrongLengthError
 						+ (DateValidator._includeFormatInError?" " + inputFormat:"")));	
+					return results;
 				}
 				// MM or M format
 				if ((monthRequired && monthPart.length == 2 && dateObj.month.length != 2)
@@ -395,7 +396,8 @@ public class DateValidator extends Validator
 					results.push(new ValidationResult(
 						true, baseField, "wrongLength", 
 						validator.wrongLengthError
-						+ (DateValidator._includeFormatInError?" " + inputFormat:"")));	
+						+ (DateValidator._includeFormatInError?" " + inputFormat:"")));
+					return results;
 				}
 				// YY or YYYY format
 				if ((yearRequired && yearPart.length == 2 && dateObj.year.length != 2)
@@ -405,6 +407,7 @@ public class DateValidator extends Validator
 						true, baseField, "wrongLength", 
 						validator.wrongLengthError
 						+ (DateValidator._includeFormatInError?" " + inputFormat:"")));	
+					return results;
 				}
 						
 				if ((monthRequired && dateObj.month == "") ||
