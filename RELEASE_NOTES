@@ -54,7 +54,7 @@ SDK Changes
  - Added removeItem to IList.
  - Bitmap scaling works in fill and crop modes.
  - Fixed performance issue with matchesStyleClient.
- - Improved performance of truncating text to fix.
+ - Improved performance of truncating text to fit.
  - RPC toString improvements.
  - Better support of small numbers and scientific notation in numeric steppers.
  - 480 dpi mobile resolution/skin support
