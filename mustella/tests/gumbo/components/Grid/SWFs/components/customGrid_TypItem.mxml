@@ -88,5 +88,16 @@
 			}
 		]]>	
 	</fx:Script>	
+    <s:gridView>
+        <fx:Component>
+            <s:GridView>
+                <s:GridLayer name="backgroundLayer"/>
+                <s:GridLayer name="selectionLayer"/>
+                <s:GridLayer name="editorIndicatorLayer"/>                            
+                <s:GridLayer name="rendererLayer"/>
+                <s:GridLayer name="overlayLayer"/>
+            </s:GridView>
+        </fx:Component>
+    </s:gridView>
 		
 </s:Grid>	
