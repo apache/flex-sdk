@@ -37,6 +37,7 @@ SDK Changes
  - New data grid features to lock rows and columns, sort multiple columns and
    move and sorting columns via the keyboard.
  - Row, column, cell and table datagrid double click modes.
+ - Fixed RTEs in Advanced DataGrid when dynamically assigning columns.
  - Improved support of dates including DD/MM/YYYY support, single digit day and
    month in date formats and international dates including Japanese, Chinese
    and Korean dates.
@@ -100,6 +101,7 @@ Bug Fixes
 
 JIRA Issue Number  Summary                                                                                         Resolution
 ------------------------------------------------------------------------------------------------------------------------------
+FLEX-33545         RTE in destroyItemEditor in AdvancedDataGrid                                                    Fixed
 FLEX-33537         Spark TextArea writing in prompt text format                                                    Fixed
 FLEX-33526         findRowIndicies to complement findRowIndex                                                      Implemented
 FLEX-33524         ButtonBar/TabBar enable/disable buttons                                                         Implemented
@@ -108,6 +110,7 @@ FLEX-33518         Flash charts/graphs do not display when printed              
 FLEX-33516         DateFormatter.parseDate assumes months comes before days in all locales                         Fixed
 FLEX-33514         DateFormatter should support Japanese and Chinese date formats                                  Fixed
 FLEX-33510         DateFormatter can ignore PM string and give result 12 hours out                                 Fixed
+FLEX-33505         value property of NumericStepper does not update on text input                                  Fixed
 FLEX-33504         Some dateFormat locale properties not well displayed by DateField                               Fixed
 FLEX-33502         Files missing Apache licence                                                                    Fixed
 FLEX-33500         XMLEncoder fails to encode WSDL simpleType union                                                Fixed
@@ -210,6 +213,7 @@ FLEX-28883         List.requireSelection doesn't always work                    
 FLEX-28876         DataGrid lockedRowCount RTE when used with variableRowHeight                                    Fixed
 FLEX-28561         CLONE -Spark NumericStepper : unable to use decimals as stepSize - Displays NaN                 Fixed
 FLEX-28530         mx:DateValidator crash when property allowedFormatChars is null                                 Fixed
+FLEX-28247         In a NumericStepper, when typing a value manually and tabbing out of the field, the new value   Fixed
 FLEX-28130         The Max value restriction in Spark Numeric doesn't work properly                                Fixed
 FLEX-27855         NumericStepper steps incorrectly with decimal values in European locale                         Fixed
 FLEX-27815         Add in Portuguese locale to Flex SDK for string externalization                                 Fixed
@@ -224,6 +228,7 @@ FLEX-26048         DateChooser throws #1010 error when selectableRange is empty 
 FLEX-25939         NumericStepper fails to commit when value is set to NaN                                         Fixed
 FLEX-25847         Odd Long Numbers Appearing In NumericStepper                                                    Fixed
 FLEX-25622         NumberValidator doesn't handle scientific notation                                              Fixed
+FLEX-25617         ValidationResultEvent message property throws exception (EmailValidator)                        Fixed
 FLEX-25071         removeAll() on a sorted ArrayCollection returns a RangeError: Index '-1'                        Fixed
 FLEX-24921         Nummericstepper displays icorrect values when minimum is decimal                                Fixed
 FLEX-24780         Initially I can change the selectedItem in a List programmatically, but if the event preventDe  Fixed
@@ -251,6 +256,7 @@ FLEX-22452         Error in SortField.nullCompare logic                         
 FLEX-22068         DateFormatter.parse does not correctly handle positive GMT offset (such as UK)                  Fixed
 FLEX-21609         Make the Date.parse locale aware.                                                               Fixed
 FLEX-21066         Make removeItem( item:Object) accessible in ArrayCollection                                     Implemented
+FLEX-20117         ValidationResultEvent.message getter throws exception if the evnt is of type                    Fixed 
 FLEX-20956         [Localization]: DateField should support "MMM" and "MMMM" for formatString                      Fixed
 FLEX-20951         [Localization]: DateFormatter.parseDateString does not support non-latin characters in month a  Fixed
 FLEX-20566         Date Validator not handling single digit date configurations correctly for localized versions   Fixed
