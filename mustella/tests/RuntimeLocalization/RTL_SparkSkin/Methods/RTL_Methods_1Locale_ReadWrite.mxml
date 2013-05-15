@@ -44,6 +44,9 @@
         public var ed1:IEventDispatcher;
         public var ed2:IEventDispatcher;
         public var ed3:IEventDispatcher;
+        public var ed4:IEventDispatcher;
+        public var ed5:IEventDispatcher;
+        public var ed6:IEventDispatcher;
 
         private function clearAllNonFrenchData():void{            
             
@@ -76,6 +79,21 @@
                     ed3.addEventListener(ResourceEvent.ERROR, handleErrorEvent);
                     ed3.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent);
                     break;
+                case 4:
+                    ed4 = ResourceManager.getInstance().loadResourceModule('Assets/bundles/custom/resMod_enUS_bundle1_001.swf');
+                    ed4.addEventListener(ResourceEvent.ERROR, handleErrorEvent);
+                    ed4.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent);
+                    break;
+                case 5:
+                    ed5 = ResourceManager.getInstance().loadResourceModule('Assets/bundles/custom/resMod_enUS_bundle1_002.swf');
+                    ed5.addEventListener(ResourceEvent.ERROR, handleErrorEvent);
+                    ed5.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent);
+                    break;
+                case 6:
+                    ed6 = ResourceManager.getInstance().loadResourceModule('Assets/bundles/custom/resMod_enUS_bundle1_003.swf');
+                    ed6.addEventListener(ResourceEvent.ERROR, handleErrorEvent);
+                    ed6.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent);
+                    break;
             }
         }
 
@@ -95,10 +113,13 @@
                 <AssertMethodValue method="value=ResourceManager.getInstance().getLocales()[0]" value="fr_FR" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="1" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().localeChain[0]" value="fr_FR" />
-                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','fr_FR']" /> 
                 <AssertPropertyValue target="lbl1" propertyName="text" value="French View Source" />
             </setup>
             <body>
+                <!-- load a single en_US bundle so we can add en_US to the locale chain -->
+                <RunCode code="setUpEventDispatchers(4)" />
+                <AssertEvent target="script:ed4" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','fr_FR']" /> 
                 <RunCode code="setUpEventDispatchers(1)" />
                 <AssertEvent target="script:ed1" eventName="complete" eventClass="mx.events::ResourceEvent" />
                 <AssertPropertyValue target="lbl1" propertyName="text" value="View Source" />
@@ -112,10 +133,13 @@
                 <AssertMethodValue method="value=ResourceManager.getInstance().getLocales()[0]" value="fr_FR" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="1" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().localeChain[0]" value="fr_FR" />
-                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','fr_FR']" /> 
                 <AssertPropertyValue target="lbl1" propertyName="text" value="French View Source" />
             </setup>
             <body>
+                <!-- load a single en_US bundle so we can add en_US to the locale chain -->
+                <RunCode code="setUpEventDispatchers(5)" />
+                <AssertEvent target="script:ed5" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','fr_FR']" /> 
                 <RunCode code="setUpEventDispatchers(2)" />
                 <AssertEvent target="script:ed2" eventName="complete" eventClass="mx.events::ResourceEvent" />
                 <AssertPropertyValue target="lbl1" propertyName="text" value="View Source" />
@@ -129,10 +153,13 @@
                 <AssertMethodValue method="value=ResourceManager.getInstance().getLocales()[0]" value="fr_FR" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="1" />
                 <AssertMethodValue method="value=ResourceManager.getInstance().localeChain[0]" value="fr_FR" />
-                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','fr_FR']" /> 
                 <AssertPropertyValue target="lbl1" propertyName="text" value="French View Source" />
             </setup>
             <body>
+                <!-- load a single en_US bundle so we can add en_US to the locale chain -->
+                <RunCode code="setUpEventDispatchers(6)" />
+                <AssertEvent target="script:ed6" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','fr_FR']" /> 
                 <RunCode code="setUpEventDispatchers(3)" />
                 <AssertEvent target="script:ed3" eventName="complete" eventClass="mx.events::ResourceEvent" />
                 <AssertPropertyValue target="lbl1" propertyName="text" value="French View Source" />
