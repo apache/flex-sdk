@@ -53,6 +53,10 @@
             fontFamily: EmbeddedVerdana;
             embedAsCFF: true;
         }        
+            
+        global {
+            fontFamily: EmbeddedVerdana;
+        }
     </fx:Style>
     
     <fx:Declarations>
