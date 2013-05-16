@@ -379,9 +379,6 @@ public class ListCollectionView extends Proxy
     {
         _sort = s;
 		
-		if (s == null)
-			localIndex = null;
-		
         dispatchEvent(new Event("sortChanged"));
     }
 
@@ -595,6 +592,7 @@ public class ListCollectionView extends Proxy
         }
 
         var listIndex:int = index;
+		
         // if we're sorted addItemAt is meaningless, just add to the end
         if (localIndex && sort)
         {
@@ -610,6 +608,13 @@ public class ListCollectionView extends Proxy
             else 
                 listIndex = list.getItemIndex(localIndex[index]);
         }
+		// List is sorted or filtered but refresh has not been called
+		// Just add to end of list
+		else if (localIndex)
+		{
+			listIndex = list.length;
+		}
+		
         list.addItemAt(item, listIndex);
     }
     
@@ -709,6 +714,18 @@ public class ListCollectionView extends Proxy
 
             return -1;
         }
+		// List is sorted or filtered but refresh has not been called
+		else if (localIndex)
+		{
+			len = localIndex.length;
+			for (i = 0; i < len; i++)
+			{
+				if (localIndex[i] == item)
+					return i;
+			}
+			
+			return -1;
+		}
 
         // fallback
         return list.getItemIndex(item);
@@ -787,9 +804,9 @@ public class ListCollectionView extends Proxy
 	 *  @playerversion AIR 1.1
 	 *  @productversion Apache Flex 4.10
 	 */
-	public function removeItem( item:Object ):Boolean
+	public function removeItem(item:Object):Boolean
 	{
-		return list.removeItem( item );
+		return list.removeItem(item);
 	}
 
     /**
@@ -859,13 +876,9 @@ public class ListCollectionView extends Proxy
     {
         var ret:Array;
         if (localIndex)
-        {
             ret = localIndex.concat();
-        }
         else
-        {
             ret = list.toArray();
-        }
         return ret;
     }
 
@@ -1135,44 +1148,53 @@ public class ListCollectionView extends Proxy
         if (localIndex)
         {
             var loc:int = sourceLocation;
-            for (var i:int = 0; i < items.length; i++)
+			var length:int = items.length;
+			
+            for (var i:int = 0; i < length; i++)
             {
                 var item:Object = items[i];
-                if (filterFunction == null || filterFunction(item))
+				
+                if (sort)
                 {
-                    if (sort)
+                    loc = findItem(item, Sort.ANY_INDEX_MODE, true);
+                    if (firstOne)
                     {
-                        loc = findItem(item, Sort.ANY_INDEX_MODE, true);
-                        if (firstOne)
-                        {
-                            addLocation = loc;
-                            firstOne = false;
-                        }
+                        addLocation = loc;
+                        firstOne = false;
                     }
-                    else
+                }
+                else if (filterFunction != null && filterFunction(item))
+                {
+                    loc = getFilteredItemIndex(item);
+                    if (firstOne)
                     {
-                        loc = getFilteredItemIndex(item);
-                        if (firstOne)
-                        {
-                            addLocation = loc;
-                            firstOne = false;
-                        }
+                        addLocation = loc;
+                        firstOne = false;
                     }
-
-                    if (sort && sort.unique && sort.compareFunction(item, localIndex[loc]) == 0)
-                    {
-                        // We cause all adds to fail here, not just the one.
-                        var message:String = resourceManager.getString(
-                            "collections", "incorrectAddition");
-                        throw new CollectionViewError(message);
-                    }
+                }
+				else
+				// List is sorted or filtered but refresh has not been called
+				// Just add to end of list
+				{
+					loc = localIndex.length;	
+					addLocation = loc;
+				}
+					
+				if (loc != -1)
+				{
                     localIndex.splice(loc++, 0, item);
                     addedItems.push(item);
-                }
-                else
-                    addLocation = -1;
+				}
              }
         }
+	
+		if (sort && sort.unique && sort.compareFunction(item, localIndex[loc]) == 0)
+		{
+			// We cause all adds to fail here, not just the one.
+			var message:String = resourceManager.getString(
+				"collections", "incorrectAddition");
+			throw new CollectionViewError(message);
+		}
 
         if (localIndex && addedItems.length > 1)
         {
