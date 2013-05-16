@@ -951,13 +951,17 @@ public class GridDimensions
         if ((col < 0) || (col >= _columnCount))
             return null;
         
-        if (_columnCount == 0 || _rowCount == 0)
+        if (_columnCount == 0)
             return new Rectangle(0, 0, 0, 0);
 
         const x:Number = getCellX(0, col);
         const y:Number = getCellY(0, col);
         const colWidth:Number = getColumnWidth(col);
-        const colHeight:Number = getCellY(_rowCount - 1, col) + getRowHeight(_rowCount - 1) - y;
+        var colHeight:Number = 0;
+		
+		if (_rowCount > 0)
+			colHeight = getCellY(_rowCount - 1, col) + getRowHeight(_rowCount - 1) - y;
+
         return new Rectangle(x, y, colWidth, colHeight);
     }
     
