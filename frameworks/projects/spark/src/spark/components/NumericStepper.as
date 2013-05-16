@@ -681,13 +681,9 @@ public class NumericStepper extends Spinner
         
         if (instance == textDisplay)
         {
-			// fixes FLEX-33505
-			textDisplay.addEventListener(Event.CHANGE, 
-                                       textDisplay_changeHandler);
-			
             textDisplay.addEventListener(FlexEvent.ENTER,
                                        textDisplay_enterHandler);
-			textDisplay.addEventListener(FocusEvent.FOCUS_OUT, 
+            textDisplay.addEventListener(FocusEvent.FOCUS_OUT, 
                                        textDisplay_focusOutHandler); 
             textDisplay.focusEnabled = false;
             textDisplay.maxChars = _maxChars;
@@ -897,27 +893,16 @@ public class NumericStepper extends Spinner
     }
    
         
-	/**
-	 *  @private
-	 *  When text is typed in, NumericStepper commits the
-	 *  text currently displayed.
-	 */
-	// fixes FLEX-33505
-	private function textDisplay_changeHandler(event:Event):void
-	{
-		commitTextInput(true);
-	}
-	
-	/**
-	 *  @private
-	 *  When the enter key is pressed, NumericStepper commits the
-	 *  text currently displayed.
-	 */
-	private function textDisplay_enterHandler(event:Event):void
-	{
-		commitTextInput(true);
-	}
-	
+    /**
+     *  @private
+     *  When the enter key is pressed, NumericStepper commits the
+     *  text currently displayed.
+     */
+    private function textDisplay_enterHandler(event:Event):void
+    {
+        commitTextInput(true);
+    }
+    
     /**
      *  @private
      *  When the enter key is pressed, NumericStepper commits the
