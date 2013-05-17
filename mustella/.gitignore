@@ -7,3 +7,4 @@ test_files.tmp
 *.bad.png
 *.bad.png.xml
 classes/
+deps.xml
