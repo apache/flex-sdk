@@ -6,3 +6,4 @@ test_files.tmp
 *.lnk.xml
 *.bad.png
 *.bad.png.xml
+classes/
