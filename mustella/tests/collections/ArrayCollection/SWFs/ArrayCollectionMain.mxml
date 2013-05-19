@@ -23,24 +23,26 @@
     <![CDATA[
         
         import mx.collections.*;
+		
         [Bindable]
-	public var ac:ArrayCollection;
-	public var cursor:IViewCursor;
-	[Bindable]
+		public var ac:ArrayCollection;
+		[Bindable]
         public var view:ListCollectionView;
         
-	public var players:Array=[
-	            {team:"TeamOne",jerseyNumber:80,lastName:"PlayerA",firstName:"Aa"},
-	            {team:"TeamTwo",jerseyNumber:7, lastName:"PlayerB",firstName:"Bb"},
-	            {team:"TeamOne",jerseyNumber:12, lastName:"PlayerC",firstName:"Cc"},
-	            {team:"TeamOne",jerseyNumber:21,lastName:"PlayerD",firstName:"Dd"},
-	            {team:"TeamThree",jerseyNumber:34, lastName:"PlayerE",firstName:"Ee"},
-	            {team:"TeamOne",jerseyNumber:12, lastName:"PlayerF",firstName:"Ff"},
-	            {team:"TeamTwo",jerseyNumber:7, lastName:"PlayerG",firstName:"Gg"},
-        ];
+		public var cursor:IViewCursor;
+		public var players:Array = [];
         
         public function ready():void
 	        {
+				players = [
+					{team:"TeamOne",jerseyNumber:80,lastName:"PlayerA",firstName:"Aa"},
+					{team:"TeamTwo",jerseyNumber:7, lastName:"PlayerB",firstName:"Bb"},
+					{team:"TeamOne",jerseyNumber:12, lastName:"PlayerC",firstName:"Cc"},
+					{team:"TeamOne",jerseyNumber:21,lastName:"PlayerD",firstName:"Dd"},
+					{team:"TeamThree",jerseyNumber:34, lastName:"PlayerE",firstName:"Ee"},
+					{team:"TeamOne",jerseyNumber:12, lastName:"PlayerF",firstName:"Ff"},
+					{team:"TeamTwo",jerseyNumber:7, lastName:"PlayerG",firstName:"Gg"},
+				];
 	            ac = new ArrayCollection(players);
 	            var s:Sort = new Sort();
 	            var f:SortField = new SortField("jerseyNumber");
