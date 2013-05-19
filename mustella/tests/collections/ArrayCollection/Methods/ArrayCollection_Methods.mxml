@@ -186,7 +186,7 @@
 	   </body>
         </TestCase> 
         
-	<TestCase testID="ArrayCollection_Method_itemUpdated_contains" keywords="[ArrayCollection, Method, itemUpdated,contains]">
+	<TestCase testID="ArrayCollection_Method_itemUpdated_contains" keywords="[ArrayCollection, Method, itemUpdated, contains]">
   	   <setup>
   	   	<RunCode code ="application.ready();
   	   	var oldValue:Number = application.players[2].jerseyNumber;
@@ -195,8 +195,8 @@
              />
   	   </setup>
 	   <body>
-	   	<AssertPropertyValue target="ac" propertyName ="length" value="4"/>
-		<AssertMethodValue method="value = application.ac.contains(application.players[11])" value="false" />
+	   	<AssertPropertyValue target="ac" propertyName="length" value="3"/>
+		<AssertMethodValue method="value = application.ac.contains(application.players[2])" value="false" />
 	
 	   </body>
         </TestCase>   
