@@ -8,3 +8,5 @@ test_files.tmp
 *.bad.png.xml
 classes/
 deps.xml
+changes.txt
+
