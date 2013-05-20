@@ -460,6 +460,10 @@ public class GridItemEditor extends Group implements IGridItemEditor
         if (!validate())
             return false;
         
+        // set focus to DataGrid to force internal components to commit changes to 
+        // their data properties.
+        dataGrid.setFocus();
+        
         var newData:Object = value;
         var property:String;
         var data:Object = data;
