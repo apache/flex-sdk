@@ -244,6 +244,43 @@
 		    </body>
         </TestCase>        
                           
+        <TestCase testID="NumericStepper_checkChangeEvents" keywords="[NumericStepper,change,Event]" description="Test Spark Numeric Stepper change events when typing">
+            <setup>
+                <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>		    			        
+            </setup>
+            <body>	        
+                <SetProperty target="myNS" propertyName="minimum" value="-10" />
+                <SetProperty target="myNS" propertyName="stepSize" value="0.5" />
+                <SetProperty target="myNS" propertyName="snapInterval" value="0.5" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNS" />
+                <DispatchKeyEvent char="-" waitEvent="keyUp" />
+                <AssertNoEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+                <AssertNoEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+                <DispatchKeyEvent char="1.5" waitEvent="keyUp"/>
+                <AssertNoEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+            </body>
+        </TestCase>        
+        <TestCase testID="NumericStepper_checkChangeEventsTabOut" keywords="[NumericStepper,change,Event]" description="Test Spark Numeric Stepper change events when typing">
+            <setup>
+                <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>		    			        
+            </setup>
+            <body>	        
+                <SetProperty target="myNS" propertyName="minimum" value="-10" />
+                <SetProperty target="myNS" propertyName="stepSize" value="0.5" />
+                <SetProperty target="myNS" propertyName="snapInterval" value="0.5" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNS" />
+                <DispatchKeyEvent char="-" waitEvent="keyUp" />
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+                <DispatchKeyEvent char="1.5" waitEvent="keyUp"/>
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+                <DispatchKeyEvent key="TAB" waitEvent="change" waitTarget="myNS" />
+                <AssertPropertyValue target="myNS" propertyName="value" value="-1.5" />
+            </body>
+        </TestCase>        
     </testCases>
     
 </UnitTester>
