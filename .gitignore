@@ -115,3 +115,5 @@ _ReSharper*/
 *.zip
 *.rar
 *.tar
+
+/asdoc-output/
