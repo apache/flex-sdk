@@ -1479,7 +1479,7 @@ public class ListCollectionView extends Proxy
                 //if there is a property see if it affects the sort
                 updateEntry.move =
                     updateEntry.move
-                    || filterFunction
+                    || filterFunction != null && filterFunction(item)
                     || !updateInfo.property
                     || (sort && sort.propertyAffectsSort(String(updateInfo.property)));
             }
@@ -1665,7 +1665,10 @@ public class ListCollectionView extends Proxy
                 localIndex.splice(removeLocation, 1);
             }
 
-            var addLocation:int = addItemsToView([item], removeLocation, false);
+            var addLocation:int = -1;
+			
+			if (filterFunction == null || filterFunction(item))
+				addLocation = addItemsToView([item], removeLocation, false);
 
             if (dispatch)
             {
