@@ -1936,7 +1936,7 @@ public class WindowedApplication extends Application implements IWindow
         }
         else
         {
-            Alert.show(resourceManager.getString("core", "badFile"));
+            mx.controls.Alert.show(resourceManager.getString("core", "badFile"));
         }
     }
 
