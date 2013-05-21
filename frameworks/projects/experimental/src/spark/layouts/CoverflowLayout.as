@@ -40,29 +40,30 @@ package spark.layouts
 	 *  <p>The horizontal position of the elements is determined by the combined
 	 *  reult of <code>horizontalAlign</code>, <code>horizontalDisplacement</code>,
 	 *  <code>horizontalAlignOffset</code> or <code>horizontalAlignOffsetPercent</code>,
-	 *  <code>elementHorizontalAlign</code> and <code>selectedHorizontalDisplacement</code>.
+	 *  <code>elementHorizontalAlign</code> and <code>selectedHorizontalDisplacement</code>.</p>
 	 * 
 	 *  <p>The horizontal position of the elements is determined by the combined
 	 *  reult of <code>verticalAlign</code>, <code>verticalDisplacement</code>,
 	 *  <code>verticalAlignOffset</code> or <code>verticalAlignOffsetPercent</code>,
-	 *  <code>elementVerticalAlign</code> and <code>selectedVerticalDisplacement</code>.
+	 *  <code>elementVerticalAlign</code> and <code>selectedVerticalDisplacement</code>.</p>
 	 * 
 	 *  <p>The z position of unselected elements is determined by the
-	 *  <code>maximumZ</code> property.</p>.
+	 *  <code>maximumZ</code> property.</p>
 	 * 
 	 *  <p>The rotation of the elements is determined by the <code>rotationX</code>,
-	 *  <code>rotationY</code> and <code>rotationZ</code> properties.</p>.
+	 *  <code>rotationY</code> and <code>rotationZ</code> properties.</p>
 	 * 
 	 *  <p>The color of unselected elements is determined by the <code>depthColor</code>
-	 *  and <code>depthColorAlpha</code> properties.</p>. If <code>depthColor</code> has
-	 *  a value of -1, no color transform is applied.
+	 *  and <code>depthColorAlpha</code> properties.</p>
+	 * 
+	 *  <p>If <code>depthColor</code> has a value of -1, no color transform is applied.</p>
 	 *  
 	 *  <p>The number elements or elements rendered is determined by the
 	 *  <code>numUnselectedElements</code> property. If <code>numUnselectedElements</code>
 	 *  has a value of -1 and <code>useVirtualLayout</code> has a value of true, 
 	 *  only the elements that fit within the bound of the target are rendered,
 	 *  If <code>numUnselectedElements</code> has a value of -1 and <code>useVirtualLayout</code>
-	 *  has a value of false, all elements are rendered.
+	 *  has a value of false, all elements are rendered.</p>
 	 * 
 	 *  @mxml
 	 *

@@ -32,7 +32,7 @@ package spark.layouts
 	 * 
 	 * 	<p>When moving between elements the first element is rotated by 270 degrees,
 	 *  with the transform point anchored on the side of the element specified with
-	 *  <code>rotationAnchor</code> to transition the element in and out of view
+	 *  <code>rotationAnchor</code> to transition the element in and out of view.</p>
 	 *
 	 *  <p>The vertical position of the elements is determined by a combination
 	 *  of the <code>verticalAlign</code>, <code>verticalOffset</code>,
