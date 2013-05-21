@@ -594,19 +594,19 @@ public class ListCollectionView extends Proxy
         var listIndex:int = index;
 		
         // if we're sorted addItemAt is meaningless, just add to the end
-        if (localIndex && sort)
+		if (localIndex && filterFunction != null)
+		{
+			// if end of filtered list, put at end of source list
+			if (listIndex == localIndex.length)
+				listIndex = list.length;
+				// if somewhere in filtered list, find it and insert before it
+				// or at beginning
+			else 
+				listIndex = list.getItemIndex(localIndex[index]);
+		}
+		else if (localIndex && sort)
         {
             listIndex = list.length;
-        }
-        else if (localIndex && filterFunction != null)
-        {
-            // if end of filtered list, put at end of source list
-            if (listIndex == localIndex.length)
-                listIndex = list.length;
-            // if somewhere in filtered list, find it and insert before it
-            // or at beginning
-            else 
-                listIndex = list.getItemIndex(localIndex[index]);
         }
 		// List is sorted or filtered but refresh has not been called
 		// Just add to end of list
@@ -688,22 +688,7 @@ public class ListCollectionView extends Proxy
     {
         var i:int;
         
-        if (localIndex && sort)
-        {
-            var startIndex:int = findItem(item, Sort.FIRST_INDEX_MODE);
-            if (startIndex == -1)
-                return -1;
-
-            var endIndex:int = findItem(item, Sort.LAST_INDEX_MODE);
-            for (i = startIndex; i <= endIndex; i++)
-            {
-                if (localIndex[i] == item)
-                    return i;
-            }
-
-            return -1;
-        }
-        else if (localIndex && filterFunction != null)
+        if (localIndex && filterFunction != null)
         {
             var len:int = localIndex.length;
             for (i = 0; i < len; i++)
@@ -714,6 +699,21 @@ public class ListCollectionView extends Proxy
 
             return -1;
         }
+		else if (localIndex && sort)
+		{
+			var startIndex:int = findItem(item, Sort.FIRST_INDEX_MODE);
+			if (startIndex == -1)
+				return -1;
+			
+			var endIndex:int = findItem(item, Sort.LAST_INDEX_MODE);
+			for (i = startIndex; i <= endIndex; i++)
+			{
+				if (localIndex[i] == item)
+					return i;
+			}
+			
+			return -1;
+		}
 		// List is sorted or filtered but refresh has not been called
 		else if (localIndex)
 		{
@@ -1154,18 +1154,25 @@ public class ListCollectionView extends Proxy
             {
                 var item:Object = items[i];
 				
-                if (sort)
+				if (filterFunction != null)
+				{
+					if (filterFunction(item))
+					{
+						loc = getFilteredItemIndex(item);
+						if (firstOne)
+						{
+							addLocation = loc;
+							firstOne = false;
+						}
+					}
+					else
+					{
+						loc = -1;
+					}
+				}
+				else if (sort)
                 {
                     loc = findItem(item, Sort.ANY_INDEX_MODE, true);
-                    if (firstOne)
-                    {
-                        addLocation = loc;
-                        firstOne = false;
-                    }
-                }
-                else if (filterFunction != null && filterFunction(item))
-                {
-                    loc = getFilteredItemIndex(item);
                     if (firstOne)
                     {
                         addLocation = loc;
@@ -1479,7 +1486,7 @@ public class ListCollectionView extends Proxy
                 //if there is a property see if it affects the sort
                 updateEntry.move =
                     updateEntry.move
-                    || filterFunction != null && filterFunction(item)
+                    || filterFunction != null
                     || !updateInfo.property
                     || (sort && sort.propertyAffectsSort(String(updateInfo.property)));
             }
@@ -1611,6 +1618,7 @@ public class ListCollectionView extends Proxy
                 }
                 localIndex = tmp;
             }
+			
             if (sort)
             {
                 sort.sort(localIndex);
@@ -1665,10 +1673,7 @@ public class ListCollectionView extends Proxy
                 localIndex.splice(removeLocation, 1);
             }
 
-            var addLocation:int = -1;
-			
-			if (filterFunction == null || filterFunction(item))
-				addLocation = addItemsToView([item], removeLocation, false);
+            var addLocation:int = addItemsToView([item], removeLocation, false);
 
             if (dispatch)
             {
