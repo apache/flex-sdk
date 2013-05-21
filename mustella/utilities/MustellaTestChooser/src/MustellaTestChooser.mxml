@@ -19,7 +19,8 @@ limitations under the License.
 -->
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
-					   xmlns:mx="library://ns.adobe.com/flex/mx">
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+                       invoke="checkArgs(event)">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -28,6 +29,43 @@ limitations under the License.
 			private var dirFile:File = new File();
 			private var fs:FileStream;
 
+            private function checkArgs(event:InvokeEvent):void
+            {
+                var args:Array = event.arguments;
+                if (args.length > 0 && args[0].indexOf("-file") > -1)
+                {
+                    var wd:File = event.currentDirectory;
+                    var flexDir:String = wd.nativePath;
+                    var c:int = flexDir.indexOf(File.separator + "utilities");
+                    if (c != -1)
+                    {
+                        flexDir = flexDir.substr(0, c);
+                    }
+                    dirFile.nativePath = dir.text = flexDir;
+                    callLater(autoStep2, [flexDir]);
+                }
+            }
+            
+            private function autoStep2(flexDir:String):void
+            {
+                var gs:File = new File(flexDir + File.separator + ".." + File.separator + "gitstatus.txt");
+                fs = new FileStream();
+                fs.open(gs, FileMode.READ);
+                statusLog.text = fs.readUTFBytes(fs.bytesAvailable);
+                fs.close();
+                callLater(autoStep3);
+            }
+            
+            private function autoStep3():void
+            {
+                computeTests();
+                callLater(autoStep4);    
+            }
+            
+            private function autoStep4():void
+            {
+                this.nativeApplication.exit();   
+            }
 			private function browse():void
 			{
 				dirFile.addEventListener(Event.SELECT, selectHandler);
