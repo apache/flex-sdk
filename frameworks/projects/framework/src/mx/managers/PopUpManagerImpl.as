@@ -598,13 +598,22 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
                 const popUpLDE:ILayoutDirectionElement = popUp as ILayoutDirectionElement;
                 const parentLDE:ILayoutDirectionElement = popUpParent as ILayoutDirectionElement;
                 
-                if (popUpLDE &&
-                    ((parentLDE && parentLDE.layoutDirection != popUpLDE.layoutDirection) ||
-                        (!parentLDE && popUpLDE.layoutDirection == LayoutDirection.RTL)))
-                 {
-                        x = -x /* to flip it on the other side of the x axis*/ 
-                            -popUp.width /* because 0 is the right edge */;                            
-                 }
+                if (popUpLDE)
+                {
+                    if ((parentLDE && parentLDE.layoutDirection != popUpLDE.layoutDirection) ||
+                       (!parentLDE && popUpLDE.layoutDirection == LayoutDirection.RTL))
+                    {
+                        //(x = -x)  to flip it on the other side of the x axis.
+                        //(-popUp.width)  because 0 is the right edge.
+                        x = -x -popUp.width;
+                    }
+
+                    if (popUpLDE.layoutDirection == LayoutDirection.RTL)
+                    {
+                        //Corrects the x offset for RTL.
+                        clippingOffset.x += popUpParent.width;
+                    }
+                }
             }
             
             pt = new Point(clippingOffset.x, clippingOffset.y);            
