@@ -41,5 +41,5 @@ then
 	fi
 	sh ./test_changes.sh
 fi
-git checkout -- frameworks/*
+git checkout .
 
