@@ -31,15 +31,17 @@ git apply $1
 git status >gitstatus.txt
 cd mustella/utilities/MustellaTestChooser/src
 "$AIR_HOME/bin/adl" -runtime "$AIR_HOME/runtimes/air/mac" MustellaTestChooser-app.xml -- -file
-cd ../../../../mustella
-if [ -s changes.txt ]
+cd ../../../..
+if [ -s mustella/changes.txt ]
 then
     ant main checkintests
 	rc=$?
 	if [[ $rc != 0 ]] ; then
 		exit $rc
 	fi
+	cd mustella
 	sh ./test_changes.sh
+	cd ..
 fi
 git checkout .
 
