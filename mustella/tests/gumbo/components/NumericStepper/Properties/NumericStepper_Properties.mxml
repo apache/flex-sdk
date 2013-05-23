@@ -19,6 +19,16 @@
     ]]>
     </fx:Metadata>
 
+	<fx:Script>
+		<![CDATA[
+			
+			public function myValueFormatFunction(value:Number):String
+			{
+				return int(value).toString();
+			}
+		]]>
+	</fx:Script>   
+	
     <testCases>
 
 		<TestCase testID="NumericStepper_defaultValue" keywords="[NumericStepper, Default]" description="Test Default Values for Spark NumericStepper">
@@ -548,6 +558,7 @@
 		<TestCase testID="NumericStepper_skin1" keywords="[NumericStepper, Skin]" description="Test Skinned NumericStepper">
 		    <setup>
 				<ResetComponent target="myNS_skinned" className="comps.mySkinComp" waitEvent="updateComplete" waitTarget="myNS_skinned"/>
+				<SetProperty target="myNS_skinned" propertyName="valueFormatFunction" valueExpression="value=myValueFormatFunction"/>				
 		    </setup>
 		    <body>
 				<DispatchMouseEvent type="rollOver" target="myNS_skinned.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS_skinned.incrementButton"/>
