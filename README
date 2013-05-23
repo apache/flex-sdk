@@ -29,8 +29,30 @@ Apache Flex (Flex)
     levels of proficiency in software development. It is estimated that there are between 
     350,000 and 500,000 Flex developers worldwide. 
 
+
+Getting the convenience packages for Apache Flex
+================================================
+
+    The Apache Flex SDK Installer is an application that simplifies the download and
+    installation of the Apache Flex SDK and its (required) components. It is aimed at
+    anyone who wants to use the latest release of the Apache Flex SDK, but who might not
+    necessarily be familiar with the tools and procedures required to compile the Apache
+    Flex SDK from source code. The application will grab the binary distribution of the
+    SDK from apache.org or one of its mirrors, install it onto your computer and prepare
+    it for use with your favorite IDE such as Adobe Flash Builder or JetBrains IntelliJ IDEA.
+
+    You can get the SDK Installer from the Apache Flex website at
+
+      http://flex.apache.org/installer.html
+
+    You can also get just the binaries from our website as well.  These binaries do not
+    include the dependencies, so additional software may need to be downloaded and installed.
+
+      http://flex.apache.org/download-binaries.html
+
+
 Getting the latest sources via git
-=========================================
+==================================
 
     Getting the source code is the recommended way to get Apache Flex.  We also
     offer an automated installer along with binary distributions on our website
@@ -54,30 +76,9 @@ Getting the latest sources via git
     the package.  This is also true for the convenience package.
 
     For further information visit http://flex.apache.org/download-source.html
-
-
-Getting the convenience packages for Apache Flex
-================================================
-
-    The Apache Flex SDK Installer is an application that simplifies the download and
-    installation of the Apache Flex SDK and its (required) components. It is aimed at
-    anyone who wants to use the latest release of the Apache Flex SDK, but who might not
-    necessarily be familiar with the tools and procedures required to compile the Apache
-    Flex SDK from source code. The application will grab the binary distribution of the
-    SDK from apache.org or one of its mirrors, install it onto your computer and prepare
-    it for use with your favorite IDE such as Adobe Flash Builder or JetBrains IntelliJ IDEA.
-
-    You can get the SDK Installer from the Apache Flex website at
-
-      http://flex.apache.org/installer.html
-
-    You can also get just the binaries from our website as well.  These binaries do not
-    include the dependencies, so additional software may need to be downloaded and installed.
-
-      http://flex.apache.org/download-binaries.html
-
+    
 Building Apache Flex 4.10
-========================
+=========================
 
     Apache Flex is a large project. It requires some build tools which must be installed
     prior to building Flex and it depends on some external software which
