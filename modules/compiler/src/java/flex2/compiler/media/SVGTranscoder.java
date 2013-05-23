@@ -58,15 +58,7 @@ public class SVGTranscoder extends AbstractTranscoder
 	public TranscodingResults doTranscode( PathResolver context, SymbolTable symbolTable,
                                            Map<String, Object> args, String className, boolean generateSource )
         throws TranscoderException
-	{
-        // Flag a deprecation warning, as SVG has been deprecated since Flex 4.0. We only issue 
-        // a warning once per compilation.
-        if (!deprecationIssued && showDeprecationWarnings)
-        {
-            ThreadLocalToolkit.log(new Deprecated());
-            deprecationIssued = true;
-        }
-        
+	{        
         TranscodingResults results = new TranscodingResults( resolveSource( context, args ));
         String newName = (String) args.get( NEWNAME );
 
@@ -202,10 +194,5 @@ public class SVGTranscoder extends AbstractTranscoder
 		}
 
 		return b;
-	}
-	
-	public static class Deprecated extends CompilerMessage.CompilerWarning
-	{
-		private static final long serialVersionUID = 274970449301472265L;
 	}
 }
