@@ -2581,13 +2581,15 @@ public class Slider extends UIComponent
         var v:Number = (xPos - track.x) *
                        (maximum - minimum) /
                        (track.width) + minimum;
+		
+		var threshold:Number = (maximum - minimum) / 1000;
         
         // kill rounding error at the edges.
-        if (v - minimum <= 0.002)
+        if (v - minimum <= threshold)
         {
             v = minimum;
         }
-        else if (maximum - v <= 0.002)
+        else if (maximum - v <= threshold)
         {
             v = maximum;
         }
@@ -2739,6 +2741,7 @@ public class Slider extends UIComponent
                                 isProgrammatic:Boolean = false):void
     {
         var oldValue:Number = _values[index];
+		var threshold:Number = (maximum - minimum) / 1000;
         
         // we need to do the round of (to remove the floating point error)
         // if the stepSize had a fractional value
@@ -2770,7 +2773,7 @@ public class Slider extends UIComponent
             
             if (!isNaN(oldValue))
             {
-            	if (Math.abs(oldValue - value) > 0.002)
+            	if (Math.abs(oldValue - value) > threshold)
             		dispatchEvent(event)
             }
             // Handle case of changing from NaN to a valid value
