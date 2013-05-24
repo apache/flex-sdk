@@ -21,10 +21,10 @@
 <project name="framework" default="main" basedir=".">
     <property name="FLEX_HOME" value="${basedir}"/>
 	
-	<!-- Set plyerglobal.version and locale -->
+	<!-- Set playerglobal.version and locale -->
 	<loadproperties srcFile="${FLEX_HOME}/build.properties"/>
 
-    <target name="main" depends="thirdparty-downloads"/>
+    <target name="main" depends="clean,thirdparty-downloads"/>
     
     <target name="thirdparty-downloads" depends="airsdk-download,playerglobal-download" description="Copies required downloads into place for build" />
     
@@ -54,7 +54,7 @@
     </target>
 
     <!-- playerglobal.swc -->
-    <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->	
+    <!-- Because this requires a network connection it copies playerglobal.swc only if it doesn't already exist. -->	
 	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal10.2-download,playerglobal10.3-download,playerglobal11.0-download,playerglobal11.1-download,playerglobal11.2-download,playerglobal11.3-download,playerglobal11.4-download,playerglobal11.5-download,playerglobal11.6-download" description="Copies playerglobal.swc from the Adobe website">
     </target>
 	
@@ -85,6 +85,9 @@
 		</condition>
 		<condition property="target11.6">
 			<equals arg1="${playerglobal.version}" arg2="11.6" />
+		</condition>
+		<condition property="target11.7">
+			<equals arg1="${playerglobal.version}" arg2="11.7" />
 		</condition>
 	 </target>
 
@@ -147,6 +150,13 @@
     <target name="playerglobal11.6-download" if="target11.6">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
         <get src="http://download.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_6.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
+	
+    <target name="playerglobal11.7-download" if="target11.7">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://download.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_7.swc" 
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
