@@ -36,8 +36,8 @@ git pull --rebase
 
 for file in *.patch
 do
-d='dirname $file'
-b='basename $file .patch'
+d=`dirname $file`
+b=`basename $file .patch`
 read replyAddr < $d/$b.reply
 echo "Testing In Progress" >mailbody.txt
 mutt -s "Patch Received" $replyAddr <mailbody.txt
