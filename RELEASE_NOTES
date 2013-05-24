@@ -20,6 +20,7 @@ AIR and Flash Player support
 Compiler changes
 ------------------
  - Support for Advanced Telemetry in Flash Builder, ant task and command line tools.
+ - SVG support is no longer deprecated.
 
 Build script changes
 ----------------------
