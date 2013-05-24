@@ -42,5 +42,5 @@ r = $d/$.reply
 read replyAddr < $r
 echo "Testing In Progress" >mailbody.txt
 mutt -s "Patch Received" $replyAddr <mailbody.txt
-sh test_patch $file
+sh test_patch $file $replyAddr
 done
