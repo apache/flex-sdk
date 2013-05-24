@@ -2149,7 +2149,7 @@ public class Slider extends UIComponent
             lowerBound = Math.max(lowerBound, tOff);
         }
 
-        if (thumbs.numChildren > 0)
+        if (thumbs && thumbs.numChildren > 0)
         {
             thumbY = (track.height - SliderThumb(thumbs.getChildAt(0)).getExplicitOrMeasuredHeight()) / 2 +
                      getStyle("thumbOffset");
