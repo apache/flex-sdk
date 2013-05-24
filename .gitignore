@@ -117,3 +117,8 @@ _ReSharper*/
 *.tar
 
 /asdoc-output/
+
+#mustellarunner
+*.patch
+*.reply
+mailbody.txt
