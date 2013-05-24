@@ -588,6 +588,27 @@ public class DateFormatter extends Formatter
      *          <li>QQQ = 078</li>
      *        </ul></td>
      *    </tr>
+	 *    <tr>
+     *      <td>O</td>
+     *      <td>Timezone offset
+     * 
+     *        <p>Example:</p>
+     *        <ul>
+     *          <li>O = +7</li>
+     *          <li>OO = -08</li>
+	 *          <li>OOO = +4:30</li>
+	 *          <li>OOO = -08:30</li>
+     *        </ul></td>
+     *    </tr>
+	 *    <tr>
+     *      <td>Z</td>
+     *      <td>Timezone name
+     * 
+     *        <p>Example:</p>
+     *        <ul>
+     *          <li>Z = GMT</li>
+     *        </ul></td>
+     *    </tr>
      *    <tr>
      *      <td>Other text</td>
      *      <td>You can add other text into the pattern string to further 
