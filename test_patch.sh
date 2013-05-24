@@ -30,7 +30,7 @@ fi
 git apply $1
 git status >gitstatus.txt
 cd mustella/utilities/MustellaTestChooser/src
-"$AIR_HOME/bin/adl" -runtime "$AIR_HOME/runtimes/air/mac" MustellaTestChooser-app.xml -- -file
+"$AIR_HOME/bin/adl" -runtime "$AIR_HOME/runtimes/air/win" MustellaTestChooser-app.xml -- -file
 cd ../../../..
 if [ -s mustella/changes.txt ]
 then
@@ -40,7 +40,12 @@ then
 		exit $rc
 	fi
 	cd mustella
-	sh ./test_changes.sh
+        if [ $# -lt 2 ]
+        then
+	    sh ./test_changes.sh
+        else
+            sh ./test_changes.sh $2 $1
+        fi
 	cd ..
 fi
 git checkout .

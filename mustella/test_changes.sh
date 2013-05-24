@@ -31,15 +31,30 @@ then
 sh ./mini_run.sh -failures
 fi
 else
-	echo "no changes.txt or nothing in it"
+        if [ $# -lt 1 ]
+        then
+    	    echo "no changes.txt or nothing in it"
+        else
+            mutt -s "No Tests Found" $1 <$2
+        fi
 	exit
 fi
 if [ -s failures.txt ]
 then
     numlines=`wc -l failures.txt | awk {'print $1'}`
-    echo "$numlines tests failed"
+    if [ $# -lt 1 ]
+    then
+        echo "$numlines tests failed"
+    else
+        mutt -s "$numlines tests failed" $1 <failures.txt
+    fi
 else
     numlines=`wc -l results.txt | awk {'print $1'}`
 	let "numlines = $numlines - 19"
-    echo "$numlines tests passed"
+    if [ $# -lt 1 ]
+    then
+        echo "$numlines tests passed"
+    else
+         mutt -s "$numlines tests passed" $1 <$2
+    fi
 fi
