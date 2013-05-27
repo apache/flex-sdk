@@ -24,6 +24,8 @@
 
 rm /var/spool/mail/mustellarunner
 fetchmail
+if [ -f "/var/spool/mail/mustellarunner" ]
+then
 cd mustella/utilities/PatchExtractor/src
 echo "launching patch extractor"
 "$AIR_HOME/bin/adl" -runtime "$AIR_HOME/runtimes/air/win" PatchExtractor-app.xml -- c:/cygwin/var/spool/mail/mustellarunner
@@ -43,3 +45,6 @@ b=`basename $file .patch`
 read replyAddr < $d/$b.reply
 sh test_patch.sh $file $replyAddr
 done
+else
+    echo "no messages"
+fi
