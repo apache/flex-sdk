@@ -22,9 +22,10 @@
 ## 10 minutes
 ##
 
-label1:
-echo "checking email at ${date}" 
-sh test_patch_by_email.sh
-sleep 10m
-goto label1
+while [ 1 ]
+do
+    echo "checking email at `date`" 
+    sh test_patch_by_email.sh
+    sleep 10m
+done
 
