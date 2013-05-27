@@ -44,6 +44,8 @@ d=`dirname $file`
 b=`basename $file .patch`
 read replyAddr < $d/$b.reply
 sh test_patch.sh $file $replyAddr
+rm $file
+rm $replyAddr
 done
 else
     echo "no messages"
