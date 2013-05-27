@@ -29,8 +29,6 @@ import flash.text.engine.FontLookup;
 import flash.text.engine.TextLine;
 import flash.text.engine.TextLineValidity;
 
-import flashx.textLayout.compose.TextLineRecycler;
-
 import mx.core.IFlexModuleFactory;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -40,6 +38,8 @@ import mx.resources.ResourceManager;
 
 import spark.core.IDisplayText;
 import spark.utils.TextUtil;
+
+import flashx.textLayout.compose.TextLineRecycler;
 
 use namespace mx_internal;
 
@@ -275,11 +275,23 @@ public class TextBase extends UIComponent implements IDisplayText
         // text is vertically aligned then need the composeHeight so the 
         // baseline remains consistent when the width is so narrow there
         // are no textLines.
-        if (textLines.length == 0)
+        if (textLines.length == 0 ||
+            (textLines.length == 1 && textLines[0] is Shape))
             createEmptyTextLine(_composeHeight);
         
         // Return the baseline of the first line of composed text.
-        return textLines.length > 0 ? textLines[0].y : 0;
+        return textLines.length > 0 ? getBaselineFromFirstTextLine() : 0;
+    }
+    
+    private function getBaselineFromFirstTextLine():Number
+    {
+        // you may find a Shape in here when background colors are on
+        for each (var tl:DisplayObject in textLines)
+        {
+            if (tl is TextLine)
+                return tl.y;
+        }
+        return 0;
     }
 
     //----------------------------------
