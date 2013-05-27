@@ -91,6 +91,7 @@ limitations under the License.
 			private var PART_MODE:int = 5;
 			private var ATTACHMENT_MODE:int = 6;
 			private var PART_TYPE_MODE:int = 7;
+			private var BOUNDARY_SEARCH_MODE:int = 8;
 			
 			private function computePatches():void
 			{
@@ -142,10 +143,17 @@ limitations under the License.
 								|| line.indexOf("Content-Type: multipart/mixed") == 0)
 							{
 								c = line.indexOf("boundary=");
-								partDelimiter = line.substr(c + 9);
-								if (partDelimiter.charAt(0) == '"')
-									partDelimiter = partDelimiter.substr(1, partDelimiter.length - 2);
-								mode = PART_SEARCH_MODE;
+								if (c == -1)
+								{
+									mode= BOUNDARY_SEARCH_MODE;
+								}
+								else
+								{
+									partDelimiter = line.substr(c + 9);
+									if (partDelimiter.charAt(0) == '"')
+										partDelimiter = partDelimiter.substr(1, partDelimiter.length - 2);
+									mode = PART_SEARCH_MODE;
+								}
 								break;
 							}
 							break;	
@@ -178,6 +186,18 @@ limitations under the License.
 							{
 								contentEncoding = line.substring(27);
 								mode = PART_MODE;
+							}
+							break;
+						}
+						case BOUNDARY_SEARCH_MODE:
+						{
+							c = line.indexOf("boundary");
+							if (c != -1)
+							{
+								partDelimiter = line.substr(c + 9);
+								if (partDelimiter.charAt(0) == '"')
+									partDelimiter = partDelimiter.substr(1, partDelimiter.length - 2);
+								mode = PART_SEARCH_MODE;
 							}
 							break;
 						}
