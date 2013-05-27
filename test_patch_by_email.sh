@@ -25,10 +25,12 @@
 rm /var/spool/mail/mustellarunner
 fetchmail
 cd mustella/utilities/PatchExtractor/src
+echo "launching patch extractor"
 "$AIR_HOME/bin/adl" -runtime "$AIR_HOME/runtimes/air/win" PatchExtractor-app.xml -- c:/cygwin/var/spool/mail/mustellarunner
 rc=$?
 if [[ $rc != 0 ]] ; then
     cd ../../../..
+    echo "no patches"
     exit $rc
 fi
 cd ../../../..
