@@ -29,14 +29,18 @@ then
 cd mustella/utilities/PatchExtractor/src
 echo "launching patch extractor"
 "$AIR_HOME/bin/adl" -runtime "$AIR_HOME/runtimes/air/win" PatchExtractor-app.xml -- c:/cygwin/var/spool/mail/mustellarunner
-rc=$?
-if [[ $rc != 0 ]] ; then
-    cd ../../../..
-    echo "no patches"
-    exit $rc
-fi
 cd ../../../..
-git pull --rebase
+gotone=0
+for (file in *.patch)
+do
+    git pull --rebase
+    gotone=1
+    break;
+done
+if [ gotone == 0 ] ; then
+    echo "no patches"
+    exit 2
+fi
 
 for file in *.patch
 do
