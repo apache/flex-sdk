@@ -25,10 +25,10 @@
 numlines=0
 if [ -s changes.txt ]
 then
-sh ./mini_run.sh -changes
+sh ./mini_run.sh $MINI_RUN_TIMEOUT $MINI_RUN_LOCALHOST -changes
 if [ -s failures.txt ]
 then
-sh ./mini_run.sh -failures
+sh ./mini_run.sh $MINI_RUN_TIMEOUT $MINI_RUN_LOCALHOST -failures
 fi
 else
         if [ $# -lt 1 ]
