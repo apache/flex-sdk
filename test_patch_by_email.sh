@@ -22,7 +22,7 @@
 ## runs test_patch
 ##
 
-## rm /var/spool/mail/mustellarunner
+rm /var/spool/mail/mustellarunner
 fetchmail
 cd mustella/utilities/PatchExtractor/src
 "$AIR_HOME/bin/adl" -runtime "$AIR_HOME/runtimes/air/win" PatchExtractor-app.xml -- c:/cygwin/var/spool/mail/mustellarunner
@@ -39,7 +39,5 @@ do
 d=`dirname $file`
 b=`basename $file .patch`
 read replyAddr < $d/$b.reply
-echo "Testing In Progress" >mailbody.txt
-mutt -s "Patch Received" $replyAddr <mailbody.txt
 sh test_patch.sh $file $replyAddr
 done
