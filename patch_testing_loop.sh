@@ -26,6 +26,8 @@ while [ 1 ]
 do
     echo "checking email at `date`" 
     sh test_patch_by_email.sh
+    echo "going to sleep for a bit"
     sleep 10m
+    echo "done sleeping"
 done
 
