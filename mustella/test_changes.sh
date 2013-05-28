@@ -30,7 +30,7 @@ if [ -s failures.txt ]
 then
 cp results.txt results.bak
 sh ./mini_run.sh $MINI_RUN_TIMEOUT $MINI_RUN_LOCALHOST -failures
-cat results.bak results.txt results.all
+cat results.bak results.txt >results.all
 cp results.all results.txt
 rm results.bak
 rm results.all
