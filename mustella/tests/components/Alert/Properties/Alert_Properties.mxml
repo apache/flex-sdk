@@ -455,6 +455,7 @@
 				<WaitForEffectsToEnd />
 			</setup>
 			<body>
+                <WaitForLayoutManager />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="curAlert"/>
 			</body>
 		</TestCase>
