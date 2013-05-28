@@ -269,11 +269,16 @@ Adobe Flash Player Version Support
 ----------------------------------
 
     The Apache Flex SDK defaults to using the Adobe Flash Player 11.1. The SDK can be
-    compiled for Flash Player versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5,
+    used with Flash Player versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5,
     11.6 and 11.7.
 
-    To compile the SDK for another version of the Adobe Flash Player either:
+    To use the SDK for another version of the Adobe Flash Player either:
 
+    Change the flex-config.xml configuration file to specify another version of the
+    Adobe Flash Player.
+    
+    OR
+    
     Change the playerglobal.version in the build.properties file to have a value other
     than "11.1". For this change to take effect the SDK needs to be recompiled.
     For example to compile against the lastest version of the Adobe Flash Player set
@@ -427,16 +432,16 @@ Using the Binary Distribution
 		/ide/constructFlexForIDE.sh (on Mac)
 		/ide/constructFlexForIDE.bat (on Windows)
 		
-	This will create an Apache Flex 4.9 SDK that can be used with Flash Builder by
+	This will create an Apache Flex 4.10 SDK that can be used with Flash Builder by
 	copying the required files from the Adobe Flex 4.6 SDK.
 	
 	To create an SDK for other IDE or if you want to use Adobe AIR 3.7 (rather than
-	AIR 3.1 contained in Adobe Flex 4.6) run:
+	AIR 3.1 contained in Adobe Flex 4.9) run:
 	
 		/ide/flashbuilder/makeApacheFlexForFlashbuilder.sh (on Mac)
 		/ide/flashbuilder/makeApacheFlexForFlashbuilder.bat (on Windows)
 		
-	This will create an Apache Flex 4.9 SDK that can be used by an IDE by downloading
+	This will create an Apache Flex 4.10 SDK that can be used by an IDE by downloading
 	Adobe Flex 4.6 SDK and Adobe AIR 3.7.
     
 Building the Framework in a Binary Distribution
