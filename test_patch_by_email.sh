@@ -31,7 +31,7 @@ echo "launching patch extractor"
 "$AIR_HOME/bin/adl" -runtime "$AIR_HOME/runtimes/air/win" PatchExtractor-app.xml -- c:/cygwin/var/spool/mail/mustellarunner
 cd ../../../..
 gotone=0
-for (file in *.patch)
+for file in *.patch
 do
     git pull --rebase
     gotone=1
