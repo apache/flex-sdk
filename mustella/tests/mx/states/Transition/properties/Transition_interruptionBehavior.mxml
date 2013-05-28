@@ -589,10 +589,10 @@
                    waitTarget="resizeAnimateComp.rect1" />
                 <Pause timeout="190"/>
                 <SetProperty propertyName="currentState" value="State3" target="resizeAnimateComp" />
-                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect1.width, 250, 50)" value="value is between 250 and 50" />
-                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect1.height, 250, 150)" value="value is between 250 and 150" />
-                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect2.width, 250, 50)" value="value is between 250 and 50" />
-                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect2.height, 250, 150)" value="value is between 250 and 150" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect1.width, 260, 50)" value="value is between 260 and 50" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect1.height, 260, 150)" value="value is between 260 and 150" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect2.width, 260, 50)" value="value is between 260 and 50" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect2.height, 260, 150)" value="value is between 260 and 150" />
                 <!--AssertPropertyValue target="resizeAnimateComp.sc" propertyName="color" value="0x000000" />
                 <AssertPropertyValue target="resizeAnimateComp.sc2" propertyName="color" value="0x00FF00" /-->
             </body>
