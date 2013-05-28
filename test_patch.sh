@@ -27,6 +27,7 @@ if [ $# -lt 1 ]
 	echo "usage: test_patch.sh <patch_filename>"
 	exit
 fi
+echo "running patch for $2"
 git apply $1
 git status >gitstatus.txt
 cd mustella/utilities/MustellaTestChooser/src
@@ -34,7 +35,7 @@ cd mustella/utilities/MustellaTestChooser/src
 cd ../../../..
 if [ -s mustella/changes.txt ]
 then
-    mutt -s "Patch Received: running tests" $2 <changes.txt 
+    mutt -s "Patch Received: running tests" $2 <mustella/changes.txt 
     ant main checkintests
 	rc=$?
 	if [[ $rc != 0 ]] ; then
