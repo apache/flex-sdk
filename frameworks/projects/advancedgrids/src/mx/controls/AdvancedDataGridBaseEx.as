@@ -6195,7 +6195,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      *  
      *  @private
      */    
-    private function findRenderer(pt:Point,items:Array,info:Array,yy:Number = 0):IListItemRenderer
+    protected function findRenderer(pt:Point,items:Array,info:Array,yy:Number = 0):IListItemRenderer
     {
         var r:IListItemRenderer;
         var ww:Number = 0;
@@ -6216,7 +6216,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                     }
 
                     ww = 0;
-                    for (var j:int = 0; j < m; j++)
+                    for (var j:int = horizontalScrollPosition; j < m; j++)
                     {
                         ww += optimumColumns[j].width;
                         if (pt.x < ww)
