@@ -1368,7 +1368,6 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         
         _temporary_selectedCells = value;
 		syncCellSelections(value);
-        clearPendingCells();
         selectedCellsChanged = true;
         invalidateProperties();
         invalidateDisplayList();
@@ -7614,6 +7613,8 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 
         caretBookmark  = null;
         anchorBookmark = null;
+		
+		clearPendingCells();
     }
 
     /**
