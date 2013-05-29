@@ -3952,15 +3952,14 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
     {
         if (isCellSelectionMode())
         {
-            for (var p:String in cellSelectionIndicators[uid])
-            {
-                removeCellIndicators(uid, int(p));
-            }
-
-            for (p in visibleCellRenderers[uid])
-            {
-                delete visibleCellRenderers[uid][p];
-            }
+			var keys:Array = [];
+			for (var p:String in cellSelectionIndicators[uid]) {
+				keys.push(p);	
+			}
+			
+			for each (p in keys) {
+				removeCellIndicators(uid, int(p));
+			}
 
             delete visibleCellRenderers[uid];
         }
@@ -7973,13 +7972,18 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
      */
     protected function clearCellIndicators():void
     {
-        for (var p:String in cellSelectionIndicators)
-        {
-            for (var q:String in cellSelectionIndicators[p])
-            {
-                removeCellIndicators(p, int(q));
-            }
-        }
+		for (var p:String in cellSelectionIndicators)
+		{
+			var keys:Array = [];
+			for (var q:String in cellSelectionIndicators[p]) {
+				keys.push(q);	
+			}
+			
+			for each (q in keys)
+			{
+				removeCellIndicators(p, int(q));
+			}
+		}
 
         cellSelectionTweens     = {};
         cellSelectionIndicators = {};
