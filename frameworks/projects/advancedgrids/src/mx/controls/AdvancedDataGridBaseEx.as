@@ -6192,8 +6192,6 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     
     /**
      *  A helper method to determine which item renderer is under the mouse.
-     *  
-     *  @private
      */    
     protected function findRenderer(pt:Point,items:Array,info:Array,yy:Number = 0):IListItemRenderer
     {
@@ -6238,10 +6236,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
     /**
      *  A helper method to determine which item renderer is under the mouse.
-     *  
-     *  @private
      */    
-    private function findHeaderRenderer(pt:Point):IListItemRenderer
+    protected function findHeaderRenderer(pt:Point):IListItemRenderer
     {
         var r:IListItemRenderer;
         var yy:Number = 0;
