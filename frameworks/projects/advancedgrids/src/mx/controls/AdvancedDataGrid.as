@@ -2737,7 +2737,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
     override mx_internal function getHeaderInfoAt(colIndex:int):AdvancedDataGridHeaderInfo
     {
         if(columnGrouping)
-            return columnsToInfo[itemToUID(columns[colIndex])];
+            return columnsToInfo[itemToUID(_columns[colIndex])];
         else
             return super.getHeaderInfoAt(colIndex);
     }
@@ -2884,11 +2884,11 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 
         // If column becomes hidden, invalidate anchor, highlight and selected indices.
         {
-            if (anchorColumnIndex != -1 && columns[anchorColumnIndex].visible == false)
+            if (anchorColumnIndex != -1 && _columns[anchorColumnIndex].visible == false)
                 anchorColumnIndex = -1;
-            if (highlightColumnIndex != -1 && columns[highlightColumnIndex].visible == false)
+            if (highlightColumnIndex != -1 && _columns[highlightColumnIndex].visible == false)
                 highlightColumnIndex = -1;
-            if (selectedColumnIndex != -1 && columns[selectedColumnIndex].visible == false)
+            if (selectedColumnIndex != -1 && _columns[selectedColumnIndex].visible == false)
                 selectedColumnIndex = -1;
         }
     }
@@ -2925,7 +2925,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         }
         else if(!columnGrouping && headerIndex != -1)
         {
-            selectedHeaderInfo = getHeaderInfo(columns[headerIndex]);
+            selectedHeaderInfo = getHeaderInfo(_columns[headerIndex]);
             selectColumnHeader(headerIndex);
         }
     }
@@ -5683,7 +5683,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         sort.fields = [];
         var oddDescending:Boolean = false;
         
-        var n:int = columns.length;
+        var n:int = _columns.length;
         for (var i:int = 0; i < n; i++)
         {
             sort.fields.push(
@@ -5855,12 +5855,8 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         }
         return adgDescription;
     }
-    
-    /**
-     *  @private
-     * 
-     */
-    private function findHeaderRenderer(pt:Point):IListItemRenderer
+
+    override protected function findHeaderRenderer(pt:Point):IListItemRenderer
     {
         var headerItem:IListItemRenderer;
         var xMatched:Boolean=false;
@@ -8278,7 +8274,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
           {
               if (sortableColumns && 
                   selectedHeaderInfo.column.colNum != -1 && !isNaN(selectedHeaderInfo.column.colNum)
-                  && columns[selectedHeaderInfo.column.colNum].sortable)
+                  && _columns[selectedHeaderInfo.column.colNum].sortable)
               {
                   isKeyPressed = true;
                   selectColumnHeader(selectedHeaderInfo.column.colNum);
@@ -8441,7 +8437,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                     && isHeaderItemRenderer(item)
                     && sortableColumns
                     && colNum != -1
-                    && columns[colNum].sortable
+                    && _columns[colNum].sortable
                     && Object(item).hasOwnProperty("mouseEventToHeaderPart") )
             {
                 var headerPart:String = Object(item).mouseEventToHeaderPart(event);
@@ -8458,7 +8454,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                     {
                         var sequenceNumber:int;
                         var descending:Boolean;
-                        var sortInfo:SortInfo = getFieldSortInfo(columns[colNum]);
+                        var sortInfo:SortInfo = getFieldSortInfo(_columns[colNum]);
                         if (sortInfo)
                         {
                             sequenceNumber = sortInfo.sequenceNumber;
@@ -8562,7 +8558,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         if (!sortableColumns
             || isNaN(event.columnIndex) 
             || event.columnIndex == -1 
-            || !columns[event.columnIndex].sortable)
+            || !_columns[event.columnIndex].sortable)
             return;
 
         if(columnGrouping)
@@ -8572,7 +8568,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             if(isNaN(columnNumber) ||  columnNumber == -1)
                 return;
 
-            var headerInfo:AdvancedDataGridHeaderInfo = getHeaderInfo(columns[columnNumber]);
+            var headerInfo:AdvancedDataGridHeaderInfo = getHeaderInfo(_columns[columnNumber]);
             //If this is a leaf column and doesn't get data directly from the data row, but through internalLabelFunction
             if(headerInfo.internalLabelFunction != null)
                 event.dataField = null;
@@ -8582,7 +8578,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         // other header to sort it, then move the keyboard navigation focus
         // to that column header.
         if (columnGrouping && selectedHeaderInfo != null)
-            selectedHeaderInfo = getHeaderInfo(columns[event.columnIndex]);
+            selectedHeaderInfo = getHeaderInfo(_columns[event.columnIndex]);
 
         super.sortHandler(event);
 
@@ -9112,7 +9108,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                                                         false, true);
                         // ITEM_EDIT events are cancelable
                         advancedDataGridEvent.columnIndex = caretColumnIndex;
-                        advancedDataGridEvent.dataField = columns[caretColumnIndex].dataField;
+                        advancedDataGridEvent.dataField = _columns[caretColumnIndex].dataField;
                         advancedDataGridEvent.rowIndex = caretIndex;
 
                         var visibleCoords:Object
