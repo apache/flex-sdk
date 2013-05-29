@@ -2928,6 +2928,9 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             selectedHeaderInfo = getHeaderInfo(_columns[headerIndex]);
             selectColumnHeader(headerIndex);
         }
+		
+		// redraw the border
+		layoutChrome(unscaledWidth, unscaledHeight);
     }
 
     /**
