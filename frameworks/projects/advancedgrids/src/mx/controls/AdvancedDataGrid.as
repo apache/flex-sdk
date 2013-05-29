@@ -8382,6 +8382,9 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 
         if (tween)
             return;
+		
+		if (!visibleColumns || !visibleColumns.length)
+			return;
 
         // mouse-out should remove the "proposed" numeric sort icon
         if (!sortExpertMode)
@@ -8631,7 +8634,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
      */
     override protected function mouseClickHandler(event:MouseEvent):void
     {
-        if (!tween)
+        if (!tween && visibleColumns && visibleColumns.length > 0)
             super.mouseClickHandler(event);
     }
 
@@ -8641,7 +8644,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
      */
     override protected function mouseDoubleClickHandler(event:MouseEvent):void
     {
-        if (!tween)
+        if (!tween && visibleColumns && visibleColumns.length > 0)
             super.mouseDoubleClickHandler(event);
     }
     
@@ -8650,7 +8653,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
      */
     override protected function mouseDownHandler(event:MouseEvent):void
     {
-        if (!tween)
+        if (!tween && visibleColumns && visibleColumns.length > 0)
         {
             super.mouseDownHandler(event);
             updateSelectedCells();
@@ -8663,7 +8666,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
      */
     override protected function mouseUpHandler(event:MouseEvent):void
     {
-        if (!tween)
+        if (!tween && visibleColumns && visibleColumns.length > 0)
             super.mouseUpHandler(event);
     }
 
@@ -8673,7 +8676,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
      */
     override protected function mouseWheelHandler(event:MouseEvent):void
     {
-        if (!tween)
+        if (!tween && visibleColumns && visibleColumns.length > 0)
             super.mouseWheelHandler(event);
     }
     
