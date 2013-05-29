@@ -2878,10 +2878,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     protected function initializeHeaderInfo(columns:Array):Array
     {
         var newArray:Array = [];
-        var n:int = _columns.length;
+        var n:int = columns.length;
         for(var i:int = 0; i < n; i++)
         {
-            var headerInfo:AdvancedDataGridHeaderInfo = new AdvancedDataGridHeaderInfo(_columns[i],null,i, 0) ;
+            var headerInfo:AdvancedDataGridHeaderInfo = new AdvancedDataGridHeaderInfo(columns[i],null,i, 0) ;
             newArray.push(headerInfo);
         }
         return newArray;
