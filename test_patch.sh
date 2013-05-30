@@ -35,7 +35,10 @@ cd mustella/utilities/MustellaTestChooser/src
 cd ../../../..
 if [ -s mustella/changes.txt ]
 then
-    mutt -s "Patch Received: running tests" $2 <mustella/changes.txt 
+    if [ $# -gt 1 ]
+    then
+        mutt -s "Patch Received: running tests" $2 <mustella/changes.txt
+    fi 
     ant main checkintests
 	rc=$?
 	if [[ $rc != 0 ]] ; then
