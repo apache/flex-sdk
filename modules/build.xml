@@ -35,7 +35,7 @@
     <condition property="isWindows">
         <os family="windows" />
     </condition>	
-    <condition property="isLnx">
+    <condition property="isLinux">
         <and>
           <os family="unix"/>    
           <not>
