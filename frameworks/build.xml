@@ -45,7 +45,15 @@
     </condition>
     <condition property="isWindows">
         <os family="windows" />
-    </condition>    
+    </condition>   
+    <condition property="isLinux">
+        <and>
+          <os family="unix"/>    
+          <not>
+            <os family="mac"/>    
+          </not>
+        </and>
+    </condition>  
 
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
