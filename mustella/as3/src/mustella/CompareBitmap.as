@@ -1169,7 +1169,7 @@ public class CompareBitmap extends Assert
 		xml.@height = d.height;
 		if (xml.visible == false)
 			xml.@visible = "false";
-		if (d.mask && !noMask)
+		if (d.mask && d.mask != d.parent && !noMask)
 		{
 			xml.mask = <mask/>;
 			childXML = getDisplayListProperties(d.mask, true);
@@ -1239,8 +1239,12 @@ public class CompareBitmap extends Assert
 			n = doc.numChildren;
 			for (i = 0; i < n; i++)
 			{
-				childXML = getDisplayListProperties(doc.getChildAt(i));
-				xml.appendChild(childXML);				
+                var child:DisplayObject = doc.getChildAt(i);
+                if (child) // was null in an FCK test.
+                {
+    				childXML = getDisplayListProperties(child);
+    				xml.appendChild(childXML);				
+                }
 			}
 		}
 		return xml;
