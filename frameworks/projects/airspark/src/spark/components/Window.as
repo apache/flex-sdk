@@ -1774,7 +1774,7 @@ public class Window extends SkinnableContainer implements IWindow
         init.type = _type;
         init.systemChrome = _systemChrome;
         init.transparent = _transparent;
-		if (init.hasOwnProperty("renderMode"))
+		if ("renderMode" in init)
        		init["renderMode"] = _renderMode;
         return init;        
     }
