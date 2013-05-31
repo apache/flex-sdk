@@ -27,7 +27,7 @@
         <s:TextInput id="spark_textinput" text="layoutDirection test" />
         <s:Button id="spark_button" label="spark button" />
         <s:CheckBox id="spark_checkbox" label="spark check box" />
-        <s:BitmapImage id="spark_image" source="@Embed('../../basicimage.JPG')" width="143"/>
+        <s:BitmapImage id="spark_image" source="@Embed('../../basicImage.jpg')" width="143"/>
     </s:VGroup>
 
 </s:Group>
