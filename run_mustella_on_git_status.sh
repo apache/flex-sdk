@@ -18,40 +18,18 @@
 ##
 ################################################################################
 ##
-## test_patch.sh - creates changes.txt, runs mini_run.sh -changes and 
-## runs mini_run-failures if there are failures
-##
+## run_mustella_on_git_status.sh - runs git status, then runs 
+## mini_run.sh -changes and runs mini_run-failures if there are failures
+## mpte: does not build the sdk.  Assumes you did that already
 
-if [ $# -lt 1 ]
-    then
-	echo "usage: test_patch.sh <patch_filename>"
-	exit
-fi
-echo "running patch for $2"
-git apply $1
 git status >gitstatus.txt
 cd mustella/utilities/MustellaTestChooser/src
 "$AIR_HOME/bin/adl" -runtime "$AIR_HOME/runtimes/air/win" MustellaTestChooser-app.xml -- -file
 cd ../../../..
 if [ -s mustella/changes.txt ]
 then
-    if [ $# -gt 1 ]
-    then
-        mutt -s "Patch Received: running tests" $2 <mustella/changes.txt
-    fi 
-    ant main checkintests
-	rc=$?
-	if [[ $rc != 0 ]] ; then
-		exit $rc
-	fi
 	cd mustella
-        if [ $# -lt 2 ]
-        then
-	    sh ./test_changes.sh
-        else
-            sh ./test_changes.sh $2 $1
-        fi
+        sh ./test_changes.sh
 	cd ..
 fi
-git checkout .
 
