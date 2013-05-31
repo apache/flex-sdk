@@ -1,0 +1,31 @@
+<DisplayList>
+  <Layout3DMain width="700" height="700">
+    <spark.skins.spark.ApplicationSkin width="700" height="700" blendMode="auto">
+      <spark.components.Group width="700" height="700" blendMode="auto">
+        <spark.components.Group width="700" height="700" blendMode="auto">
+          <spark.components.Group x="20" y="20" width="300" height="300" blendMode="auto">
+            <comps.EllipseDataGroup width="180" height="180">
+              <comps.EllipseDataGroupInnerClass0 width="64" height="44" blendMode="auto">
+                <spark.components.Group x="2" y="2" width="60" height="40" blendMode="auto">
+                  <spark.components.Group width="60" height="40" blendMode="auto">
+                    <spark.components.supportClasses.InvalidatingSprite matrix3D="2.866028303626176e-15,6.556707887739321e-8,1.5,0,-2.18556948539117e-7,-2.5,1.092784742695585e-7,0,1.5,-1.3113415775478643e-7,2.866028303626176e-15,0,20.000003814697266,100,19.999998092651367,1" x="20.000003814697266" y="100" width="24" height="67"/>
+                  </spark.components.Group>
+                </spark.components.Group>
+              </comps.EllipseDataGroupInnerClass0>
+              <comps.EllipseDataGroupInnerClass0 width="74" height="44" blendMode="auto">
+                <spark.components.Group x="2" y="2" width="70" height="40" blendMode="auto">
+                  <spark.components.Group width="70" height="40" blendMode="auto"/>
+                </spark.components.Group>
+              </comps.EllipseDataGroupInnerClass0>
+              <comps.EllipseDataGroupInnerClass0 width="94" height="54" blendMode="auto">
+                <spark.components.Group x="2" y="2" width="90" height="50" blendMode="auto">
+                  <spark.components.Group width="90" height="50" blendMode="auto"/>
+                </spark.components.Group>
+              </comps.EllipseDataGroupInnerClass0>
+            </comps.EllipseDataGroup>
+          </spark.components.Group>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </Layout3DMain>
+</DisplayList>

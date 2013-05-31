@@ -1,0 +1,259 @@
+<DisplayList>
+  <GenericBubble width="500" height="600">
+    <mx.skins.spark.ContainerBorderSkin width="500" height="600" blendMode="auto"/>
+    <mx.charts.BubbleChart x="50" y="24" width="400" height="400">
+      <mx.core.UIComponent x="62.95" y="19" width="0" height="0">
+        <mask>
+          <mx.core.FlexShape matrix="(a=14.25, b=0, c=0, d=32.892333984375, tx=0, ty=0)" width="142.5" height="328.9"/>
+        </mask>
+        <mx.core.FlexShape matrix="(a=14.25, b=0, c=0, d=32.892333984375, tx=0, ty=0)" width="142.5" height="328.9"/>
+        <mx.charts.GridLines width="142.50000000000003" height="328.9234194122885"/>
+      </mx.core.UIComponent>
+      <mx.charts.AxisRenderer width="400" height="400">
+        <spark.components.Label matrix="(a=0.845947265625, b=0, c=0, d=0.845947265625, tx=60.3, ty=366.9)" x="60.3" y="366.9" width="20.25" height="19.55">
+          <flash.display.Shape width="20.25" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.35" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0.845947265625, b=0, c=0, d=0.845947265625, tx=69.4, ty=383.45)" x="69.4" y="383.45" width="26.85" height="19.55">
+          <flash.display.Shape width="26.85" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="17.95" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0.845947265625, b=0, c=0, d=0.845947265625, tx=81.55, ty=366.9)" x="81.55" y="366.9" width="26.15" height="19.55">
+          <flash.display.Shape width="26.15" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="17.25" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0.845947265625, b=0, c=0, d=0.845947265625, tx=93.9, ty=383.45)" x="93.9" y="383.45" width="25" height="19.55">
+          <flash.display.Shape width="25" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="16.1" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0.845947265625, b=0, c=0, d=0.845947265625, tx=104.75, ty=366.9)" x="104.75" y="366.9" width="27.5" height="19.55">
+          <flash.display.Shape width="27.5" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="18.4" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0.845947265625, b=0, c=0, d=0.845947265625, tx=117, ty=383.45)" x="117" y="383.45" width="26.6" height="19.55">
+          <flash.display.Shape width="26.6" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="17.7" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0.845947265625, b=0, c=0, d=0.845947265625, tx=130.25, ty=366.9)" x="130.25" y="366.9" width="23.3" height="19.55">
+          <flash.display.Shape width="23.3" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="14.4" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0.845947265625, b=0, c=0, d=0.845947265625, tx=141.05, ty=383.45)" x="141.05" y="383.45" width="25.85" height="19.55">
+          <flash.display.Shape width="25.85" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="16.9" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0.845947265625, b=0, c=0, d=0.845947265625, tx=152.2, ty=366.9)" x="152.2" y="366.9" width="27.6" height="19.55">
+          <flash.display.Shape width="27.6" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="18.7" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0.845947265625, b=0, c=0, d=0.845947265625, tx=164.95, ty=383.45)" x="164.95" y="383.45" width="25.45" height="19.55">
+          <flash.display.Shape width="25.45" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="16.55" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0.845947265625, b=0, c=0, d=0.845947265625, tx=175.55, ty=366.9)" x="175.55" y="366.9" width="28.55" height="19.55">
+          <flash.display.Shape width="28.55" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="19.65" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0.845947265625, b=0, c=0, d=0.845947265625, tx=189.4, ty=383.45)" x="189.4" y="383.45" width="23.85" height="19.55">
+          <flash.display.Shape width="23.85" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="14.95" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+      </mx.charts.AxisRenderer>
+      <mx.charts.AxisRenderer matrix="(a=0, b=1, c=-1, d=0, tx=400, ty=0)" x="400" width="400" height="400">
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=9.2, ty=376.45)" x="9.2" y="376.45" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=64, ty=376.45)" x="64" y="376.45" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=118.85, ty=376.45)" x="118.85" y="376.45" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=173.65, ty=376.45)" x="173.65" y="376.45" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=228.5, ty=376.45)" x="228.5" y="376.45" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=283.3, ty=376.45)" x="283.3" y="376.45" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <mx.charts.chartClasses.ChartLabel x="166.15" y="376.45" width="34.6" height="23.55">
+          <mx.core.UITextField width="27.6" height="19.55" underline="false">
+            <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="OpenSans" SIZE="10" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;close&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+          </mx.core.UITextField>
+        </mx.charts.chartClasses.ChartLabel>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=338.1, ty=370.75)" x="338.1" y="370.75" width="14.7" height="19.55">
+          <flash.display.Shape width="14.7" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="5.75" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="1" hasGraphicElement="false"/>
+        </spark.components.Label>
+      </mx.charts.AxisRenderer>
+      <mx.charts.AxisRenderer width="400" height="400"/>
+      <mx.charts.AxisRenderer matrix="(a=0, b=1, c=-1, d=0, tx=400, ty=0)" x="400" width="400" height="400">
+        <mx.charts.chartClasses.ChartLabel x="166.05" width="34.8" height="23.55">
+          <mx.core.UITextField width="27.8" height="19.55" underline="false">
+            <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="OpenSans" SIZE="10" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;open&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+          </mx.core.UITextField>
+        </mx.charts.chartClasses.ChartLabel>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=31.15, ty=49.65)" x="31.15" y="49.65" width="26.1" height="19.55">
+          <flash.display.Shape width="26.1" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="17.2" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=75, ty=49.65)" x="75" y="49.65" width="26.1" height="19.55">
+          <flash.display.Shape width="26.1" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="17.2" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=118.85, ty=49.65)" x="118.85" y="49.65" width="26.1" height="19.55">
+          <flash.display.Shape width="26.1" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="17.2" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=162.7, ty=49.65)" x="162.7" y="49.65" width="26.1" height="19.55">
+          <flash.display.Shape width="26.1" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="17.2" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="3" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=206.55, ty=49.65)" x="206.55" y="49.65" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=250.4, ty=49.65)" x="250.4" y="49.65" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=294.25, ty=49.65)" x="294.25" y="49.65" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=338.1, ty=49.65)" x="338.1" y="49.65" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+      </mx.charts.AxisRenderer>
+      <mx.charts.AxisRenderer matrix="(a=0, b=1, c=-1, d=0, tx=400, ty=0)" x="400" width="400" height="400">
+        <mx.charts.chartClasses.ChartLabel x="167.85" y="68.6" width="31.15" height="23.55">
+          <mx.core.UITextField width="24.15" height="19.55" underline="false">
+            <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="OpenSans" SIZE="10" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;high&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+          </mx.core.UITextField>
+        </mx.charts.chartClasses.ChartLabel>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=9.2, ty=112.6)" x="9.2" y="112.6" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=64, ty=112.6)" x="64" y="112.6" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=118.85, ty=112.6)" x="118.85" y="112.6" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=173.65, ty=112.6)" x="173.65" y="112.6" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=228.5, ty=112.6)" x="228.5" y="112.6" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=283.3, ty=112.6)" x="283.3" y="112.6" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=338.1, ty=112.6)" x="338.1" y="112.6" width="14.7" height="19.55">
+          <flash.display.Shape width="14.7" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="5.75" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="1" hasGraphicElement="false"/>
+        </spark.components.Label>
+      </mx.charts.AxisRenderer>
+      <mx.charts.AxisRenderer matrix="(a=0, b=1, c=-1, d=0, tx=400, ty=0)" x="400" width="400" height="400">
+        <mx.charts.chartClasses.ChartLabel x="167.85" y="131.55" width="31.15" height="23.55">
+          <mx.core.UITextField width="24.15" height="19.55" underline="false">
+            <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="OpenSans" SIZE="10" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;high&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+          </mx.core.UITextField>
+        </mx.charts.chartClasses.ChartLabel>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=9.2, ty=175.5)" x="9.2" y="175.5" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=64, ty=175.5)" x="64" y="175.5" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=118.85, ty=175.5)" x="118.85" y="175.5" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=173.65, ty=175.5)" x="173.65" y="175.5" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=228.5, ty=175.5)" x="228.5" y="175.5" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=283.3, ty=175.5)" x="283.3" y="175.5" width="20.4" height="19.55">
+          <flash.display.Shape width="20.4" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="11.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="2" hasGraphicElement="false"/>
+        </spark.components.Label>
+        <spark.components.Label matrix="(a=0, b=-1, c=1, d=0, tx=338.1, ty=175.5)" x="338.1" y="175.5" width="14.7" height="19.55">
+          <flash.display.Shape width="14.7" height="19.55"/>
+          <flash.text.engine.TextLine x="2" y="12.65" width="5.75" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="1" hasGraphicElement="false"/>
+        </spark.components.Label>
+      </mx.charts.AxisRenderer>
+      <mx.core.UIComponent x="62.95" y="19" width="0" height="0">
+        <mask>
+          <mx.core.FlexShape matrix="(a=14.25, b=0, c=0, d=32.892333984375, tx=0, ty=0)" width="142.5" height="328.9"/>
+        </mask>
+        <mx.core.UIComponent width="0" height="0">
+          <mx.charts.series.BubbleSeries width="142.50000000000003" height="328.9234194122885">
+            <mx.charts.renderers.CircleItemRenderer x="-26.7" y="194.8" width="65.28410453128745" height="65.28410453128745"/>
+            <mx.charts.renderers.CircleItemRenderer x="-3.75" y="151.95" width="43.15511867657636" height="43.15511867657636"/>
+            <mx.charts.renderers.CircleItemRenderer x="-6.25" y="170.8" width="71.9012227283625" height="71.9012227283625"/>
+            <mx.charts.renderers.CircleItemRenderer x="4" y="113.05" width="75.04195636538" height="75.04195636538"/>
+            <mx.charts.renderers.CircleItemRenderer x="27.65" y="238.9" width="51.546391752577314" height="51.546391752577314"/>
+            <mx.charts.renderers.CircleItemRenderer x="51.95" y="250.9" width="26.68424838168305" height="26.68424838168305"/>
+            <mx.charts.renderers.CircleItemRenderer x="27.15" y="103.75" width="100" height="100"/>
+            <mx.charts.renderers.CircleItemRenderer x="63.45" y="240.55" width="51.186765763605855" height="51.186765763605855"/>
+            <mx.charts.renderers.CircleItemRenderer x="63.2" y="169.5" width="75.37760728842005" height="75.37760728842005"/>
+            <mx.charts.renderers.CircleItemRenderer x="99" y="195.3" width="27.61927595300887" height="27.61927595300887"/>
+            <mx.charts.renderers.CircleItemRenderer x="86.4" y="222.1" width="76.48046032126588" height="76.48046032126588"/>
+            <mx.charts.renderers.CircleItemRenderer x="109.4" y="115.65" width="54.27954926876048" height="54.27954926876048"/>
+          </mx.charts.series.BubbleSeries>
+          <mx.charts.series.LineSeries width="142.50000000000003" height="328.9234194122885">
+            <mx.charts.renderers.LineRenderer width="142.50000000000003" height="328.9234194122885"/>
+          </mx.charts.series.LineSeries>
+          <mx.charts.series.LineSeries width="142.50000000000003" height="328.9234194122885">
+            <mx.charts.renderers.LineRenderer width="142.50000000000003" height="328.9234194122885"/>
+          </mx.charts.series.LineSeries>
+          <mx.charts.series.PlotSeries width="142.50000000000003" height="328.9234194122885">
+            <mx.charts.renderers.DiamondItemRenderer x="0.9" y="174.6" width="10" height="10"/>
+            <mx.charts.renderers.DiamondItemRenderer x="12.8" y="225.2" width="10" height="10"/>
+            <mx.charts.renderers.DiamondItemRenderer x="24.65" y="159.5" width="10" height="10"/>
+            <mx.charts.renderers.DiamondItemRenderer x="36.55" y="152.3" width="10" height="10"/>
+            <mx.charts.renderers.DiamondItemRenderer x="48.4" y="206.05" width="10" height="10"/>
+            <mx.charts.renderers.DiamondItemRenderer x="60.3" y="262.9" width="10" height="10"/>
+            <mx.charts.renderers.DiamondItemRenderer x="72.15" y="95.25" width="10" height="10"/>
+            <mx.charts.renderers.DiamondItemRenderer x="84.05" y="206.85" width="10" height="10"/>
+            <mx.charts.renderers.DiamondItemRenderer x="95.9" y="151.55" width="10" height="10"/>
+            <mx.charts.renderers.DiamondItemRenderer x="107.8" y="260.75" width="10" height="10"/>
+            <mx.charts.renderers.DiamondItemRenderer x="119.65" y="149" width="10" height="10"/>
+            <mx.charts.renderers.DiamondItemRenderer x="131.55" y="199.8" width="10" height="10"/>
+          </mx.charts.series.PlotSeries>
+        </mx.core.UIComponent>
+        <mx.core.FlexShape matrix="(a=14.25, b=0, c=0, d=32.892333984375, tx=0, ty=0)" width="142.5" height="328.9"/>
+      </mx.core.UIComponent>
+      <mx.core.UIComponent x="62.95" y="19" width="0" height="0">
+        <mask>
+          <mx.core.FlexShape matrix="(a=14.25, b=0, c=0, d=32.892333984375, tx=0, ty=0)" width="142.5" height="328.9"/>
+        </mask>
+        <mx.core.FlexShape matrix="(a=14.25, b=0, c=0, d=32.892333984375, tx=0, ty=0)" width="142.5" height="328.9"/>
+      </mx.core.UIComponent>
+      <mx.core.FlexShape width="0" height="0"/>
+      <mx.core.FlexShape width="0" height="0"/>
+    </mx.charts.BubbleChart>
+  </GenericBubble>
+</DisplayList>

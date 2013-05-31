@@ -1,0 +1,60 @@
+<DisplayList>
+  <Alert_Spark width="750" height="600" cacheAsBitmap="true" filters="[object BlurFilter]">
+    <spark.skins.spark.ApplicationSkin width="750" height="600" blendMode="auto">
+      <spark.components.Group width="750" height="600" blendMode="auto">
+        <spark.components.Group width="750" height="600" blendMode="auto"/>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </Alert_Spark>
+  <mx.core.FlexSprite concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="752" height="602"/>
+  <mx.controls.Alert x="287" y="249" width="176" height="102.3">
+    <mx.skins.spark.PanelBorderSkin width="176" height="102.3" blendMode="auto">
+      <spark.primitives.RectangularDropShadow width="176" height="102.3"/>
+      <spark.components.Group x="1" y="1" width="174" height="100.3" blendMode="auto"/>
+      <spark.components.supportClasses.InvalidatingSprite x="0.5" y="0.5" width="176" height="102.3"/>
+      <spark.components.Group x="1" y="1" width="174" height="100.3" blendMode="auto">
+        <mask>
+          <spark.components.Group x="1" y="1" width="174" height="100.3" blendMode="auto"/>
+        </mask>
+      </spark.components.Group>
+    </mx.skins.spark.PanelBorderSkin>
+    <mx.core.FlexSprite x="1" y="33" width="140" height="51.3">
+      <mx.controls.alertClasses.AlertForm x="10" y="2" width="154" height="56.3">
+        <mx.core.UITextField matrix="(a=-1, b=0, c=0, d=1, tx=115.9, ty=6)" x="44" y="6" width="71.9" height="22.3" underline="false">
+          <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="RIGHT"&gt;&lt;FONT FACE="EmbeddedVerdana" SIZE="12" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;Alert String&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+        </mx.core.UITextField>
+        <mx.controls.Button x="8" y="34.3" width="65" height="22">
+          <mx.skins.spark.DefaultButtonSkin width="65" height="22" blendMode="auto">
+            <spark.components.supportClasses.InvalidatingSprite concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=1, redOffset=0, greenOffset=36, blueOffset=61, alphaOffset=0)" x="1" y="1" width="63" height="20"/>
+            <spark.components.supportClasses.InvalidatingSprite width="63" height="20"/>
+            <spark.components.supportClasses.InvalidatingSprite concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=1, redOffset=0, greenOffset=36, blueOffset=61, alphaOffset=0)" x="1.5" y="1.5" width="63" height="20"/>
+            <spark.components.supportClasses.InvalidatingSprite x="0.5" y="0.5" width="65" height="22"/>
+          </mx.skins.spark.DefaultButtonSkin>
+          <mx.core.UITextField matrix="(a=-1, b=0, c=0, d=1, tx=46, ty=1)" x="20" y="1" width="26" height="22" underline="false">
+            <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="CENTER"&gt;&lt;FONT FACE="EmbeddedVerdana" SIZE="12" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;Yes&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+          </mx.core.UITextField>
+        </mx.controls.Button>
+        <mx.controls.Button x="81" y="34.3" width="65" height="22">
+          <mx.skins.spark.ButtonSkin width="65" height="22" blendMode="auto"/>
+          <mx.core.UITextField matrix="(a=-1, b=0, c=0, d=1, tx=44, ty=1)" x="21" y="1" width="23" height="22" underline="false">
+            <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="CENTER"&gt;&lt;FONT FACE="EmbeddedVerdana" SIZE="12" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;No&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+          </mx.core.UITextField>
+        </mx.controls.Button>
+      </mx.controls.alertClasses.AlertForm>
+    </mx.core.FlexSprite>
+    <mx.core.UIComponent width="176" height="32">
+      <mx.core.UIComponent width="176" height="32"/>
+      <mx.core.UITextField matrix="(a=-1, b=0, c=0, d=1, tx=166, ty=5.5)" x="10" y="5.5" width="156" height="23" underline="false">
+        <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="RIGHT"&gt;&lt;FONT FACE="EmbeddedVerdana" SIZE="12" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;Alert title&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+      </mx.core.UITextField>
+      <mx.core.UITextField matrix="(a=-1, b=0, c=0, d=1, tx=170, ty=5.5)" x="98.8" y="5.5" width="71.2" height="22.3" underline="false">
+        <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="RIGHT"&gt;&lt;FONT FACE="EmbeddedVerdana" SIZE="12" COLOR="#666666" LETTERSPACING="0" KERNING="0"&gt;Alert status&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+      </mx.core.UITextField>
+      <mx.controls.Button width="0" height="0">
+        <mx.core.UITextField matrix="(a=-1, b=0, c=0, d=1, tx=0, ty=1)" y="1" width="0" height="0" underline="false">
+          <htmlText/>
+        </mx.core.UITextField>
+      </mx.controls.Button>
+    </mx.core.UIComponent>
+  </mx.controls.Alert>
+</DisplayList>

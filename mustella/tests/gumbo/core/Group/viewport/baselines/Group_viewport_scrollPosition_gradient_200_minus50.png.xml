@@ -1,0 +1,18 @@
+<DisplayList>
+  <GroupBasic width="500" height="375">
+    <spark.skins.spark.ApplicationSkin width="500" height="375" blendMode="auto">
+      <spark.components.Group width="500" height="375" blendMode="auto">
+        <spark.components.Group width="500" height="375" blendMode="auto">
+          <spark.components.Group width="100" height="100" scrollRect="(x=200, y=-50, w=100, h=100)" blendMode="auto">
+            <spark.components.supportClasses.InvalidatingSprite width="500" height="500"/>
+          </spark.components.Group>
+          <spark.components.Group y="106" width="0" height="0" blendMode="auto"/>
+          <spark.components.Group y="112" width="0" height="0" blendMode="auto"/>
+          <spark.components.Group y="118" width="0" height="0" blendMode="auto"/>
+          <spark.components.DataGroup y="124" width="0" height="0"/>
+          <spark.components.DataGroup y="130" width="0" height="0"/>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </GroupBasic>
+</DisplayList>

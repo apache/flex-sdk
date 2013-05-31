@@ -1,0 +1,429 @@
+<DisplayList>
+  <Border_basic width="600" height="600">
+    <spark.skins.spark.ApplicationSkin width="600" height="600" blendMode="auto">
+      <spark.components.Group width="600" height="600" blendMode="auto">
+        <spark.components.Group width="600" height="600" blendMode="auto">
+          <spark.components.VGroup width="564" height="805" blendMode="auto">
+            <spark.components.HGroup width="335" height="51" blendMode="auto">
+              <comps.customBorder width="144" height="51" blendMode="auto">
+                <spark.components.BorderContainer x="5" y="5" width="134" height="41">
+                  <spark.skins.spark.BorderContainerSkin width="134" height="41" blendMode="auto">
+                    <spark.components.Group x="1" y="1" width="132" height="39" blendMode="auto">
+                      <spark.components.Label width="132" height="12">
+                        <flash.display.Shape width="132" height="12"/>
+                        <flash.text.engine.TextLine y="9.15" width="101" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="18" hasGraphicElement="false"/>
+                      </spark.components.Label>
+                      <spark.components.Button y="18" width="99" height="21">
+                        <spark.skins.spark.ButtonSkin width="99" height="21" blendMode="auto">
+                          <spark.components.Label x="10" y="3" width="79" height="17">
+                            <flash.display.Shape width="79" height="17"/>
+                            <flash.text.engine.TextLine x="2.9" y="11.6" width="73.2" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="12" hasGraphicElement="false"/>
+                          </spark.components.Label>
+                        </spark.skins.spark.ButtonSkin>
+                      </spark.components.Button>
+                    </spark.components.Group>
+                    <spark.components.supportClasses.InvalidatingSprite width="0" height="0"/>
+                  </spark.skins.spark.BorderContainerSkin>
+                </spark.components.BorderContainer>
+              </comps.customBorder>
+              <comps.customEmptyBorder x="150" width="185" height="40" blendMode="auto">
+                <spark.components.BorderContainer x="5" y="5" width="30" height="30">
+                  <spark.skins.spark.BorderContainerSkin width="30" height="30" blendMode="auto">
+                    <spark.components.Group x="1" y="1" width="28" height="28" blendMode="auto"/>
+                    <spark.components.supportClasses.InvalidatingSprite width="0" height="0"/>
+                  </spark.skins.spark.BorderContainerSkin>
+                </spark.components.BorderContainer>
+              </comps.customEmptyBorder>
+            </spark.components.HGroup>
+            <spark.components.HGroup y="57" width="564" height="310" blendMode="auto">
+              <comps.customBorderLGS width="121" height="60" blendMode="auto">
+                <spark.components.BorderContainer x="5" y="5" width="111" height="50">
+                  <spark.skins.spark.BorderContainerSkin width="111" height="50" blendMode="auto">
+                    <spark.components.Group x="5" y="5" width="101" height="40" blendMode="auto">
+                      <spark.components.Label width="101" height="13">
+                        <flash.display.Shape width="101" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="101" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="18" hasGraphicElement="false"/>
+                      </spark.components.Label>
+                      <spark.components.Button y="19" width="94" height="21">
+                        <spark.skins.spark.ButtonSkin width="94" height="21" blendMode="auto">
+                          <spark.components.Label x="10" y="3" width="74" height="17">
+                            <flash.display.Shape width="74" height="17"/>
+                            <flash.text.engine.TextLine x="0.4" y="11.6" width="73.2" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="12" hasGraphicElement="false"/>
+                          </spark.components.Label>
+                        </spark.skins.spark.ButtonSkin>
+                      </spark.components.Button>
+                    </spark.components.Group>
+                    <spark.components.supportClasses.InvalidatingSprite width="0" height="0"/>
+                  </spark.skins.spark.BorderContainerSkin>
+                </spark.components.BorderContainer>
+              </comps.customBorderLGS>
+              <comps.customBorderRGS x="127" width="310" height="310" blendMode="auto">
+                <spark.components.BorderContainer x="5" y="5" width="300" height="300">
+                  <spark.skins.spark.BorderContainerSkin width="300" height="300" blendMode="auto">
+                    <spark.components.Group x="80" y="80" width="140" height="140" blendMode="auto">
+                      <spark.components.Label width="101" height="13">
+                        <flash.display.Shape width="101" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="101" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="18" hasGraphicElement="false"/>
+                      </spark.components.Label>
+                      <spark.components.Button y="19" width="94" height="21">
+                        <spark.skins.spark.ButtonSkin width="94" height="21" blendMode="auto">
+                          <spark.components.Label x="10" y="3" width="74" height="17">
+                            <flash.display.Shape width="74" height="17"/>
+                            <flash.text.engine.TextLine x="0.4" y="11.6" width="73.2" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="12" hasGraphicElement="false"/>
+                          </spark.components.Label>
+                        </spark.skins.spark.ButtonSkin>
+                      </spark.components.Button>
+                    </spark.components.Group>
+                    <spark.components.supportClasses.InvalidatingSprite width="0" height="0"/>
+                  </spark.skins.spark.BorderContainerSkin>
+                </spark.components.BorderContainer>
+              </comps.customBorderRGS>
+              <comps.customBorderSCS x="443" width="121" height="60" blendMode="auto">
+                <spark.components.BorderContainer x="5" y="5" width="111" height="50">
+                  <spark.skins.spark.BorderContainerSkin width="111" height="50" blendMode="auto">
+                    <spark.components.Group x="5" y="5" width="101" height="40" blendMode="auto">
+                      <spark.components.Label width="101" height="13">
+                        <flash.display.Shape width="101" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="101" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="18" hasGraphicElement="false"/>
+                      </spark.components.Label>
+                      <spark.components.Button y="19" width="94" height="21">
+                        <spark.skins.spark.ButtonSkin width="94" height="21" blendMode="auto">
+                          <spark.components.Label x="10" y="3" width="74" height="17">
+                            <flash.display.Shape width="74" height="17"/>
+                            <flash.text.engine.TextLine x="0.4" y="11.6" width="73.2" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="12" hasGraphicElement="false"/>
+                          </spark.components.Label>
+                        </spark.skins.spark.ButtonSkin>
+                      </spark.components.Button>
+                    </spark.components.Group>
+                    <spark.components.supportClasses.InvalidatingSprite width="0" height="0"/>
+                  </spark.skins.spark.BorderContainerSkin>
+                </spark.components.BorderContainer>
+              </comps.customBorderSCS>
+            </spark.components.HGroup>
+            <spark.components.HGroup y="373" width="351" height="52" blendMode="auto">
+              <comps.customBorderLG width="113" height="52" blendMode="auto">
+                <spark.components.BorderContainer x="5" y="5" width="103" height="42">
+                  <spark.skins.spark.BorderContainerSkin width="103" height="42" blendMode="auto">
+                    <spark.components.Group x="1" y="1" width="101" height="40" blendMode="auto">
+                      <spark.components.Label width="101" height="13">
+                        <flash.display.Shape width="101" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="101" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="18" hasGraphicElement="false"/>
+                      </spark.components.Label>
+                      <spark.components.Button y="19" width="94" height="21">
+                        <spark.skins.spark.ButtonSkin width="94" height="21" blendMode="auto">
+                          <spark.components.Label x="10" y="3" width="74" height="17">
+                            <flash.display.Shape width="74" height="17"/>
+                            <flash.text.engine.TextLine x="0.4" y="11.6" width="73.2" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="12" hasGraphicElement="false"/>
+                          </spark.components.Label>
+                        </spark.skins.spark.ButtonSkin>
+                      </spark.components.Button>
+                    </spark.components.Group>
+                    <spark.components.supportClasses.InvalidatingSprite width="0" height="0"/>
+                  </spark.skins.spark.BorderContainerSkin>
+                </spark.components.BorderContainer>
+              </comps.customBorderLG>
+              <comps.customBorderRG x="119" width="113" height="52" blendMode="auto">
+                <spark.components.BorderContainer x="5" y="5" width="103" height="42">
+                  <spark.skins.spark.BorderContainerSkin width="103" height="42" blendMode="auto">
+                    <spark.components.Group x="1" y="1" width="101" height="40" blendMode="auto">
+                      <spark.components.Label width="101" height="13">
+                        <flash.display.Shape width="101" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="101" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="18" hasGraphicElement="false"/>
+                      </spark.components.Label>
+                      <spark.components.Button y="19" width="94" height="21">
+                        <spark.skins.spark.ButtonSkin width="94" height="21" blendMode="auto">
+                          <spark.components.Label x="10" y="3" width="74" height="17">
+                            <flash.display.Shape width="74" height="17"/>
+                            <flash.text.engine.TextLine x="0.4" y="11.6" width="73.2" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="12" hasGraphicElement="false"/>
+                          </spark.components.Label>
+                        </spark.skins.spark.ButtonSkin>
+                      </spark.components.Button>
+                    </spark.components.Group>
+                    <spark.components.supportClasses.InvalidatingSprite width="0" height="0"/>
+                  </spark.skins.spark.BorderContainerSkin>
+                </spark.components.BorderContainer>
+              </comps.customBorderRG>
+              <comps.customBorderSC x="238" width="113" height="52" blendMode="auto">
+                <spark.components.BorderContainer x="5" y="5" width="103" height="42">
+                  <spark.skins.spark.BorderContainerSkin width="103" height="42" blendMode="auto">
+                    <spark.components.Group x="1" y="1" width="101" height="40" blendMode="auto">
+                      <spark.components.Label width="101" height="13">
+                        <flash.display.Shape width="101" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="101" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="18" hasGraphicElement="false"/>
+                      </spark.components.Label>
+                      <spark.components.Button y="19" width="94" height="21">
+                        <spark.skins.spark.ButtonSkin width="94" height="21" blendMode="auto">
+                          <spark.components.Label x="10" y="3" width="74" height="17">
+                            <flash.display.Shape width="74" height="17"/>
+                            <flash.text.engine.TextLine x="0.4" y="11.6" width="73.2" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="12" hasGraphicElement="false"/>
+                          </spark.components.Label>
+                        </spark.skins.spark.ButtonSkin>
+                      </spark.components.Button>
+                    </spark.components.Group>
+                    <spark.components.supportClasses.InvalidatingSprite width="0" height="0"/>
+                  </spark.skins.spark.BorderContainerSkin>
+                </spark.components.BorderContainer>
+              </comps.customBorderSC>
+            </spark.components.HGroup>
+            <spark.components.HGroup y="431" width="327" height="112" blendMode="auto">
+              <comps.customBorderBF width="113" height="52" blendMode="auto">
+                <spark.components.BorderContainer x="5" y="5" width="103" height="42">
+                  <spark.skins.spark.BorderContainerSkin width="103" height="42" blendMode="auto">
+                    <spark.components.Group x="1" y="1" width="101" height="40" blendMode="auto">
+                      <spark.components.Label width="101" height="13">
+                        <flash.display.Shape width="101" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="101" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="18" hasGraphicElement="false"/>
+                      </spark.components.Label>
+                      <spark.components.Button y="19" width="94" height="21">
+                        <spark.skins.spark.ButtonSkin width="94" height="21" blendMode="auto">
+                          <spark.components.Label x="10" y="3" width="74" height="17">
+                            <flash.display.Shape width="74" height="17"/>
+                            <flash.text.engine.TextLine x="0.4" y="11.6" width="73.2" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="12" hasGraphicElement="false"/>
+                          </spark.components.Label>
+                        </spark.skins.spark.ButtonSkin>
+                      </spark.components.Button>
+                    </spark.components.Group>
+                    <spark.components.supportClasses.InvalidatingSprite width="0" height="0"/>
+                  </spark.skins.spark.BorderContainerSkin>
+                </spark.components.BorderContainer>
+              </comps.customBorderBF>
+              <comps.customBorderHL x="119" width="208" height="112" blendMode="auto">
+                <spark.components.BorderContainer x="5" y="5" width="198" height="102">
+                  <spark.skins.spark.BorderContainerSkin width="198" height="102" blendMode="auto">
+                    <spark.components.Group x="1" y="1" width="196" height="100" blendMode="auto">
+                      <spark.components.Label width="23" height="13">
+                        <flash.display.Shape width="23" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="22.85" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="4" hasGraphicElement="false"/>
+                      </spark.components.Label>
+                      <spark.components.Button x="29" width="91" height="21">
+                        <spark.skins.spark.ButtonSkin width="91" height="21" blendMode="auto">
+                          <spark.components.Label x="10" y="3" width="71" height="17">
+                            <flash.display.Shape width="71" height="17"/>
+                            <flash.text.engine.TextLine x="0.45" y="11.6" width="70.05" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="11" hasGraphicElement="false"/>
+                          </spark.components.Label>
+                        </spark.skins.spark.ButtonSkin>
+                      </spark.components.Button>
+                      <spark.components.NumericStepper x="126" width="53" height="23">
+                        <spark.skins.spark.NumericStepperSkin width="53" height="23" blendMode="auto">
+                          <spark.components.Button x="34" width="19" height="12">
+                            <spark.skins.spark.NumericStepperIncrementButtonSkin width="19" height="12" blendMode="auto">
+                              <spark.components.Group width="19" height="12" blendMode="auto"/>
+                              <spark.components.supportClasses.InvalidatingSprite x="7" y="5" width="5" height="3"/>
+                            </spark.skins.spark.NumericStepperIncrementButtonSkin>
+                          </spark.components.Button>
+                          <spark.components.Button x="34" y="11" width="19" height="12">
+                            <spark.skins.spark.NumericStepperDecrementButtonSkin width="19" height="12" blendMode="auto">
+                              <spark.components.Group width="19" height="12" blendMode="auto"/>
+                              <spark.components.supportClasses.InvalidatingSprite x="7" y="5" width="5" height="3"/>
+                            </spark.skins.spark.NumericStepperDecrementButtonSkin>
+                          </spark.components.Button>
+                          <spark.components.TextInput width="35" height="23">
+                            <spark.skins.spark.NumericStepperTextInputSkin width="35" height="23" blendMode="auto">
+                              <spark.components.RichEditableText x="1" y="1" width="33" height="21" scrollRect="(x=0, y=0, w=33, h=21)">
+                                <flash.text.engine.TextLine x="3" y="15.15" width="6.9" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="2" hasGraphicElement="false"/>
+                              </spark.components.RichEditableText>
+                            </spark.skins.spark.NumericStepperTextInputSkin>
+                          </spark.components.TextInput>
+                        </spark.skins.spark.NumericStepperSkin>
+                      </spark.components.NumericStepper>
+                      <spark.components.VSlider x="185" width="11" height="100">
+                        <spark.skins.spark.VSliderSkin width="11" height="100" blendMode="auto">
+                          <spark.components.Button width="11" height="100">
+                            <spark.skins.spark.VSliderTrackSkin width="11" height="100" blendMode="auto"/>
+                          </spark.components.Button>
+                          <spark.components.Button y="89" width="11" height="11">
+                            <spark.skins.spark.VSliderThumbSkin width="11" height="11" blendMode="auto"/>
+                          </spark.components.Button>
+                        </spark.skins.spark.VSliderSkin>
+                      </spark.components.VSlider>
+                    </spark.components.Group>
+                    <spark.components.supportClasses.InvalidatingSprite width="0" height="0"/>
+                  </spark.skins.spark.BorderContainerSkin>
+                </spark.components.BorderContainer>
+              </comps.customBorderHL>
+            </spark.components.HGroup>
+            <spark.components.HGroup y="549" width="402" height="150" blendMode="auto">
+              <comps.customBorderHL2 width="246" height="150" blendMode="auto">
+                <spark.components.BorderContainer x="5" y="5" width="236" height="140">
+                  <spark.skins.spark.BorderContainerSkin width="236" height="140" blendMode="auto">
+                    <spark.components.Group x="5" y="5" width="226" height="130" blendMode="auto">
+                      <spark.components.Label x="15" y="15" width="23" height="13">
+                        <flash.display.Shape width="23" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="22.85" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="4" hasGraphicElement="false"/>
+                      </spark.components.Label>
+                      <spark.components.Button x="44" y="15" width="91" height="21">
+                        <spark.skins.spark.ButtonSkin width="91" height="21" blendMode="auto">
+                          <spark.components.Label x="10" y="3" width="71" height="17">
+                            <flash.display.Shape width="71" height="17"/>
+                            <flash.text.engine.TextLine x="0.45" y="11.6" width="70.05" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="11" hasGraphicElement="false"/>
+                          </spark.components.Label>
+                        </spark.skins.spark.ButtonSkin>
+                      </spark.components.Button>
+                      <spark.components.NumericStepper x="141" y="15" width="53" height="23">
+                        <spark.skins.spark.NumericStepperSkin width="53" height="23" blendMode="auto">
+                          <spark.components.Button x="34" width="19" height="12">
+                            <spark.skins.spark.NumericStepperIncrementButtonSkin width="19" height="12" blendMode="auto">
+                              <spark.components.Group width="19" height="12" blendMode="auto"/>
+                              <spark.components.supportClasses.InvalidatingSprite x="7" y="5" width="5" height="3"/>
+                            </spark.skins.spark.NumericStepperIncrementButtonSkin>
+                          </spark.components.Button>
+                          <spark.components.Button x="34" y="11" width="19" height="12">
+                            <spark.skins.spark.NumericStepperDecrementButtonSkin width="19" height="12" blendMode="auto">
+                              <spark.components.Group width="19" height="12" blendMode="auto"/>
+                              <spark.components.supportClasses.InvalidatingSprite x="7" y="5" width="5" height="3"/>
+                            </spark.skins.spark.NumericStepperDecrementButtonSkin>
+                          </spark.components.Button>
+                          <spark.components.TextInput width="35" height="23">
+                            <spark.skins.spark.NumericStepperTextInputSkin width="35" height="23" blendMode="auto">
+                              <spark.components.RichEditableText x="1" y="1" width="33" height="21" scrollRect="(x=0, y=0, w=33, h=21)">
+                                <flash.text.engine.TextLine x="3" y="15.15" width="6.9" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="2" hasGraphicElement="false"/>
+                              </spark.components.RichEditableText>
+                            </spark.skins.spark.NumericStepperTextInputSkin>
+                          </spark.components.TextInput>
+                        </spark.skins.spark.NumericStepperSkin>
+                      </spark.components.NumericStepper>
+                      <spark.components.VSlider x="200" y="15" width="11" height="100">
+                        <spark.skins.spark.VSliderSkin width="11" height="100" blendMode="auto">
+                          <spark.components.Button width="11" height="100">
+                            <spark.skins.spark.VSliderTrackSkin width="11" height="100" blendMode="auto"/>
+                          </spark.components.Button>
+                          <spark.components.Button y="89" width="11" height="11">
+                            <spark.skins.spark.VSliderThumbSkin width="11" height="11" blendMode="auto"/>
+                          </spark.components.Button>
+                        </spark.skins.spark.VSliderSkin>
+                      </spark.components.VSlider>
+                    </spark.components.Group>
+                    <spark.components.supportClasses.InvalidatingSprite width="0" height="0"/>
+                  </spark.skins.spark.BorderContainerSkin>
+                </spark.components.BorderContainer>
+              </comps.customBorderHL2>
+              <comps.customBorderVL x="252" width="150" height="136" blendMode="auto">
+                <spark.components.BorderContainer x="5" y="5" width="140" height="126">
+                  <spark.skins.spark.BorderContainerSkin width="140" height="126" blendMode="auto">
+                    <spark.components.Group x="5" y="5" width="130" height="116" blendMode="auto">
+                      <spark.components.Label x="15" y="15" width="23" height="13">
+                        <flash.display.Shape width="23" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="22.85" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="4" hasGraphicElement="false"/>
+                      </spark.components.Label>
+                      <spark.components.Button x="15" y="34" width="91" height="21">
+                        <spark.skins.spark.ButtonSkin width="91" height="21" blendMode="auto">
+                          <spark.components.Label x="10" y="3" width="71" height="17">
+                            <flash.display.Shape width="71" height="17"/>
+                            <flash.text.engine.TextLine x="0.45" y="11.6" width="70.05" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="11" hasGraphicElement="false"/>
+                          </spark.components.Label>
+                        </spark.skins.spark.ButtonSkin>
+                      </spark.components.Button>
+                      <spark.components.NumericStepper x="15" y="61" width="53" height="23">
+                        <spark.skins.spark.NumericStepperSkin width="53" height="23" blendMode="auto">
+                          <spark.components.Button x="34" width="19" height="12">
+                            <spark.skins.spark.NumericStepperIncrementButtonSkin width="19" height="12" blendMode="auto">
+                              <spark.components.Group width="19" height="12" blendMode="auto"/>
+                              <spark.components.supportClasses.InvalidatingSprite x="7" y="5" width="5" height="3"/>
+                            </spark.skins.spark.NumericStepperIncrementButtonSkin>
+                          </spark.components.Button>
+                          <spark.components.Button x="34" y="11" width="19" height="12">
+                            <spark.skins.spark.NumericStepperDecrementButtonSkin width="19" height="12" blendMode="auto">
+                              <spark.components.Group width="19" height="12" blendMode="auto"/>
+                              <spark.components.supportClasses.InvalidatingSprite x="7" y="5" width="5" height="3"/>
+                            </spark.skins.spark.NumericStepperDecrementButtonSkin>
+                          </spark.components.Button>
+                          <spark.components.TextInput width="35" height="23">
+                            <spark.skins.spark.NumericStepperTextInputSkin width="35" height="23" blendMode="auto">
+                              <spark.components.RichEditableText x="1" y="1" width="33" height="21" scrollRect="(x=0, y=0, w=33, h=21)">
+                                <flash.text.engine.TextLine x="3" y="15.15" width="6.9" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="2" hasGraphicElement="false"/>
+                              </spark.components.RichEditableText>
+                            </spark.skins.spark.NumericStepperTextInputSkin>
+                          </spark.components.TextInput>
+                        </spark.skins.spark.NumericStepperSkin>
+                      </spark.components.NumericStepper>
+                      <spark.components.HSlider x="15" y="90" width="100" height="11">
+                        <spark.skins.spark.HSliderSkin width="100" height="11" blendMode="auto">
+                          <spark.components.Button width="100" height="11">
+                            <spark.skins.spark.HSliderTrackSkin width="100" height="11" blendMode="auto"/>
+                          </spark.components.Button>
+                          <spark.components.Button width="11" height="11">
+                            <spark.skins.spark.HSliderThumbSkin width="11" height="11" blendMode="auto"/>
+                          </spark.components.Button>
+                        </spark.skins.spark.HSliderSkin>
+                      </spark.components.HSlider>
+                    </spark.components.Group>
+                    <spark.components.supportClasses.InvalidatingSprite width="0" height="0"/>
+                  </spark.skins.spark.BorderContainerSkin>
+                </spark.components.BorderContainer>
+              </comps.customBorderVL>
+            </spark.components.HGroup>
+            <spark.components.HGroup y="705" width="227" height="100" blendMode="auto">
+              <comps.customBorderSCR width="121" height="60" blendMode="auto">
+                <spark.components.BorderContainer x="5" y="5" width="111" height="50">
+                  <spark.skins.spark.BorderContainerSkin width="111" height="50" blendMode="auto">
+                    <spark.components.Group x="5" y="5" width="101" height="40" blendMode="auto">
+                      <spark.components.Scroller width="101" height="40">
+                        <spark.skins.spark.ScrollerSkin width="101" height="40" blendMode="auto">
+                          <spark.components.Group width="101" height="40" scrollRect="(x=0, y=0, w=101, h=40)" blendMode="auto">
+                            <spark.components.Label width="101" height="13">
+                              <flash.display.Shape width="101" height="13"/>
+                              <flash.text.engine.TextLine y="9.15" width="101" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="18" hasGraphicElement="false"/>
+                            </spark.components.Label>
+                            <spark.components.Button y="19" width="94" height="21">
+                              <spark.skins.spark.ButtonSkin width="94" height="21" blendMode="auto">
+                                <spark.components.Label x="10" y="3" width="74" height="17">
+                                  <flash.display.Shape width="74" height="17"/>
+                                  <flash.text.engine.TextLine x="0.4" y="11.6" width="73.2" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="12" hasGraphicElement="false"/>
+                                </spark.components.Label>
+                              </spark.skins.spark.ButtonSkin>
+                            </spark.components.Button>
+                          </spark.components.Group>
+                          <spark.skins.spark.ScrollerSkinInnerClass1 width="0" height="0">
+                            <spark.skins.spark.HScrollBarSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="0" height="0" blendMode="auto">
+                              <spark.components.Button concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="16" width="15" height="15">
+                                <spark.skins.spark.HScrollBarTrackSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="15" height="15" blendMode="auto"/>
+                              </spark.components.Button>
+                              <spark.components.Button concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="16" width="15" height="15">
+                                <spark.skins.spark.HScrollBarThumbSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="15" height="15" blendMode="auto"/>
+                              </spark.components.Button>
+                              <spark.components.Button concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="18" height="15">
+                                <spark.skins.spark.ScrollBarLeftButtonSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="18" height="15" blendMode="auto"/>
+                              </spark.components.Button>
+                              <spark.components.Button concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="-18" width="18" height="15">
+                                <spark.skins.spark.ScrollBarRightButtonSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="18" height="15" blendMode="auto"/>
+                              </spark.components.Button>
+                            </spark.skins.spark.HScrollBarSkin>
+                          </spark.skins.spark.ScrollerSkinInnerClass1>
+                          <spark.skins.spark.ScrollerSkinInnerClass0 width="0" height="0">
+                            <spark.skins.spark.VScrollBarSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="0" height="0" blendMode="auto">
+                              <spark.components.Button concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" y="16" width="15" height="15">
+                                <spark.skins.spark.VScrollBarTrackSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="15" height="15" blendMode="auto"/>
+                              </spark.components.Button>
+                              <spark.components.Button concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" y="16" width="15" height="15">
+                                <spark.skins.spark.VScrollBarThumbSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="15" height="15" blendMode="auto"/>
+                              </spark.components.Button>
+                              <spark.components.Button concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="15" height="18">
+                                <spark.skins.spark.ScrollBarUpButtonSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="15" height="18" blendMode="auto"/>
+                              </spark.components.Button>
+                              <spark.components.Button concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" y="-18" width="15" height="18">
+                                <spark.skins.spark.ScrollBarDownButtonSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="15" height="18" blendMode="auto"/>
+                              </spark.components.Button>
+                            </spark.skins.spark.VScrollBarSkin>
+                          </spark.skins.spark.ScrollerSkinInnerClass0>
+                        </spark.skins.spark.ScrollerSkin>
+                      </spark.components.Scroller>
+                    </spark.components.Group>
+                    <spark.components.supportClasses.InvalidatingSprite width="0" height="0"/>
+                  </spark.skins.spark.BorderContainerSkin>
+                </spark.components.BorderContainer>
+              </comps.customBorderSCR>
+              <spark.components.Group x="127" width="100" height="100" blendMode="auto">
+                <spark.components.BorderContainer width="30" height="30">
+                  <spark.skins.spark.BorderContainerSkin width="30" height="30" blendMode="auto">
+                    <spark.components.Group x="1" y="1" width="28" height="28" blendMode="auto"/>
+                    <spark.components.supportClasses.InvalidatingSprite width="0" height="0"/>
+                  </spark.skins.spark.BorderContainerSkin>
+                </spark.components.BorderContainer>
+              </spark.components.Group>
+            </spark.components.HGroup>
+          </spark.components.VGroup>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </Border_basic>
+</DisplayList>
