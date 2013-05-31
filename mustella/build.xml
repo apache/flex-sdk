@@ -400,11 +400,13 @@
         <echo>doing linux setup</echo>
         <property name="mxmlc.exe" value="mxmlc"/>
         <property name="compc.exe" value="compc" />
-        <property name="player.dir" value="${sdk.dir}/in/player/${player.version}/lnx" />
-        <property name="player" value="${player.dir}/flashplayer" />
         <property name="apollo_exe" value="adl" />
         <!-- kind of a guess: -->
         <property name="shell" value="/bin/bash" />
+    	
+    	<property name="player" value="${env.FLASHPLAYER_DEBUGGER}" />   
+    	
+        <!-- these values are sort of magic numbers, corresponding to db entries -->
         <property name="auto_exclude_config_value" value="10"/>
         <property name="auto_exclude_bug_id" value="unproven_linux_${fetched_date}" />
     </target>
@@ -413,18 +415,16 @@
         <echo>doing mac setup</echo>
         <property name="mxmlc.exe" value="mxmlc"/>
         <property name="compc.exe" value="compc" />
+        <property name="apollo_exe" value="adl" />
+        <property name="unzip" value="/usr/bin/unzip" />
         <property name="shell" value="/bin/sh" />
 
         <property name="player" value="${env.FLASHPLAYER_DEBUGGER}" />
+    	
         <!-- these values are sort of magic numbers, corresponding to db entries -->
         <property name="auto_exclude_config_value" value="9"/>
         <property name="auto_exclude_bug_id" value="unproven_mac_${fetched_date}"/>
         <echo>excl config val ${auto_exclude_config_value}</echo>
-        <property name="apollo_exe" value="adl" />
-        <property name="shell" value="/bin/sh" />
-        <property name="unzip" value="/usr/bin/unzip" />
-        <property name="auto_exclude_config_value" value="9"/>
-        <property name="auto_exclude_bug_id" value="unproven_mac_${fetched_date}"/>
     </target>
 
     <target name="setup_windows" if="is_win">
@@ -432,15 +432,14 @@
         <echo>homepath: ${HOMEPATH} </echo>
         <property name="mxmlc.exe" value="mxmlc.bat"/>
         <property name="compc.exe" value="compc.bat" />
+        <property name="apollo_exe" value="adl.exe" />
         <property name="shell" value="${cygwinshell}" />
+    	
         <property file="${HOMEPATH}/mm.cfg"/>
         <echo>trace output file: ${TraceOutputFileEnable} </echo>
 
         <property name="player" value="${env.FLASHPLAYER_DEBUGGER}" />
-        <property name="apollo_exe" value="adl.exe" />
-
-        <echo>apollo_exe: ${apollo_exe}</echo>
-
+    	
         <!-- these magic numbers correspond to db entries. Relevant for vetting -->
         <condition property="auto_exclude_config_value" value="1">
             <and>
