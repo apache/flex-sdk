@@ -452,6 +452,10 @@
     </macrodef>
 
 	<target name="frameworks-rsls" description="Build signed framework RSLs">
+		<tstamp>
+        	<format property="build.number.date" pattern="yyyyMMdd" />
+        </tstamp>
+        <echo message="build.number is ${build.number.date}"/>
 		<!-- textLayout RSL -->
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="textLayout" build-number="${release.version}.${build.number.date}"/>
 		<!-- framework RSL -->
