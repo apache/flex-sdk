@@ -206,7 +206,7 @@
         <condition property="pbutil.exe.exists">
             <and>
                 <os family="unix"/>
-                <available file="${env.PIXELBENDER_HOME}/pbutil" type="file"/> 
+                <available file="${env.PIXELBENDER_HOME}/pb.tar.gz" type="file"/> 
             </and>
         </condition>
                 	
