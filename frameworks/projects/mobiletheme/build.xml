@@ -27,6 +27,21 @@
     <property environment="env"/>
     <property file="${FLEX_HOME}/build.properties"/>
 
+    <condition property="isMac" value="true">
+        <os family="mac"/>
+    </condition>
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>   
+    <condition property="isLinux">
+        <and>
+          <os family="unix"/>    
+          <not>
+            <os family="mac"/>    
+          </not>
+        </and>
+    </condition>  
+
     <target name="main" depends="clean,compile" description="Clean build of mobile.swc"/>
 
     <target name="clean">
@@ -39,7 +54,11 @@
         </delete>
     </target>
 
-    <target name="compile" description="Compiles mobile.swc">
+    <target name="configMod" description="Modifies which config file to use" unless="isWindows,isMac">
+        <property name="configMod" value="AIR2"/>
+    </target>
+
+    <target name="compile" description="Compiles mobile.swc" depends="configMod">
         <echo message="Compiling frameworks/themes/Mobile/mobile.swc"/>
 
         <!-- Load the <compc> task. We can't do this at the <project> level -->
@@ -61,7 +80,7 @@
         <compc fork="true"
                output="${FLEX_HOME}/frameworks/themes/Mobile/mobile.swc">
             <jvmarg line="${compc.jvm.args}"/>
-            <load-config filename="compile-config.xml" />
+            <load-config filename="compile-config${configMod}.xml" />
             <arg value="+playerglobal.version=${playerglobal.version}" />
             <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
         </compc>

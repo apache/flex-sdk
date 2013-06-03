@@ -217,7 +217,7 @@
             </and>
         </condition>
 
-        <fail message="The directory ${env.PIXELBENDER_HOME} does not contain the pbutil executable" 
+        <fail message="The directory ${env.PIXELBENDER_HOME} does not contain the pbutil executable or pb files" 
             unless="pbutil.exe.exists"/>
     </target>
 
