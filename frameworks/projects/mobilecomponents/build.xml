@@ -82,7 +82,7 @@
         </sequential>
     </macrodef>
     
-    <condition property="isMac" value="true">
+    <condition property="isMac">
         <os family="mac"/>
     </condition>
     <condition property="isWindows">
@@ -171,7 +171,7 @@
         </delete>
     </target>
 
-    <target name="configMod" description="Modifies which config file to use" unless="isWindows,isMac">
+    <target name="configMod" description="Modifies which config file to use" if="isLinux">
         <property name="configMod" value="AIR2"/>
     </target>
 

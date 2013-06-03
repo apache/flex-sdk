@@ -40,7 +40,7 @@
     </condition>
 
     <!-- Property for the platform.  -->
-    <condition property="isMac" value="true">
+    <condition property="isMac">
         <os family="mac"/>
     </condition>
     <condition property="isWindows">

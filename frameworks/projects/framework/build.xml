@@ -83,7 +83,7 @@
         </sequential>
     </macrodef>
     
-    <condition property="isMac" value="true">
+    <condition property="isMac">
         <os family="mac"/>
     </condition>
     <condition property="isWindows">
@@ -190,7 +190,7 @@
         </delete>
     </target>
 
-    <target name="pixelbender-unzip" unless="isWindows,isOSX">
+    <target name="pixelbender-unzip" if="isLinux">
         <echo message="Unziping pixel bender files" />
 	<gunzip src="${env.PIXELBENDER_HOME}/pb.tar.gz" dest="${FLEX_HOME}" />
 	<untar src="${FLEX_HOME}/pb.tar" dest="${FLEX_HOME}" />
