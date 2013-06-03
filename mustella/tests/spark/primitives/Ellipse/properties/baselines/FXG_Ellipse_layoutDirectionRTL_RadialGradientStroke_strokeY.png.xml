@@ -7,8 +7,8 @@
             <mx.skins.spark.ContainerBorderSkin width="200" height="200" blendMode="auto"/>
             <spark.primitives.Graphic width="100" height="100" blendMode="auto"/>
           </comps.EllipseBasic>
-          <comps.EllipseGradientStroke x="5" y="310" width="75" height="65" blendMode="auto">
-            <spark.primitives.Graphic x="5" y="5" width="65" height="55" blendMode="auto"/>
+          <comps.EllipseGradientStroke x="5" y="310" width="95" height="85" blendMode="auto">
+            <spark.primitives.Graphic x="5" y="5" width="85" height="75" blendMode="auto"/>
           </comps.EllipseGradientStroke>
           <comps.EllipseRadialGradientStroke x="420" y="375" width="75" height="65" blendMode="auto">
             <spark.primitives.Graphic x="5" y="5" width="65" height="55" blendMode="auto"/>
