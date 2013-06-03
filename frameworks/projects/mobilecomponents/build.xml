@@ -26,6 +26,9 @@
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
     <property file="${FLEX_HOME}/build.properties"/>
+   
+    <property name="configMod" value=""/>
+    		
 
         <macrodef name="bundle">
             <attribute name="locale"/>
