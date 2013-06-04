@@ -69,6 +69,7 @@
                           </mx.controls.Label>
                         </spark.components.HGroup>
                       </FlexContentHolder>
+                      <NullChild/>
                     </EventsContainer>
                   </comps.ItemRendererGroupInnerClass0>
                   <comps.ItemRendererGroupInnerClass0 y="157" width="201" height="151" blendMode="auto">
@@ -88,6 +89,7 @@
                           </mx.controls.Label>
                         </spark.components.HGroup>
                       </FlexContentHolder>
+                      <NullChild/>
                     </EventsContainer>
                   </comps.ItemRendererGroupInnerClass0>
                   <comps.ItemRendererGroupInnerClass0 y="314" width="201" height="151" blendMode="auto">
@@ -107,6 +109,7 @@
                           </mx.controls.Label>
                         </spark.components.HGroup>
                       </FlexContentHolder>
+                      <NullChild/>
                     </EventsContainer>
                   </comps.ItemRendererGroupInnerClass0>
                 </spark.components.DataGroup>
@@ -163,6 +166,7 @@
                   </spark.skins.spark.ButtonSkin>
                 </spark.components.Button>
               </FlexContentHolder>
+              <NullChild/>
             </EventsContainer>
           </comps.EventsGroup>
           <comps.AnimationGroup y="839" width="600" height="400" blendMode="auto">
@@ -313,6 +317,7 @@
                       </spark.components.Button>
                     </spark.components.VGroup>
                   </FlexContentHolder>
+                  <NullChild/>
                 </EventsContainer>
                 <FlashMask y="168" width="240" height="50">
                   <flash.display.Shape width="149" height="149"/>

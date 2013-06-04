@@ -24,6 +24,7 @@
                     </spark.skins.spark.ButtonSkin>
                   </spark.components.Button>
                 </FlexContentHolder>
+                <NullChild/>
               </EventsContainer>
             </spark.components.Group>
           </comps.IntegrationGroup>
