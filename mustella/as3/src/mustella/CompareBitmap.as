@@ -1184,11 +1184,16 @@ public class CompareBitmap extends Assert
 			xml.@blendMode = d.blendMode;
 		if (d.cacheAsBitmap)
 			xml.@cacheAsBitmap = "true";
-		if (d.filters && d.filters.length > 0)
-		{
-			s = d.filters.toString();
-			xml.@filters = s;
-		}
+        try {
+    		if (d.filters && d.filters.length > 0)
+    		{
+    			s = d.filters.toString();
+    			xml.@filters = s;
+    		}
+        } catch (e:Error)
+        {
+            // seems to throw arg error when Shader applied
+        }
 		if (d.opaqueBackground)
 			xml.@opaqueBackground = "true";
 		if (d.scale9Grid)
