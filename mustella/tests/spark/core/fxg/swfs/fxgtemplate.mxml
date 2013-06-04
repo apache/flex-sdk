@@ -22,7 +22,7 @@
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   xmlns:local="fxg.*"
 			   xmlns:comps="comps.*"
-			   width="940" height="800">
+			   width="940" height="700">
 			   
 	<fx:Style>
 		@namespace mx "library://ns.adobe.com/flex/mx/";
