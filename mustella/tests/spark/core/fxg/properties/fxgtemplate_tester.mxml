@@ -542,9 +542,7 @@
                     <RunCode code="application.grp.addElement(new blend_darken_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-                		<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
 				</body>
             </TestCase>
         
@@ -556,9 +554,7 @@
                     <RunCode code="application.grp.addElement(new blend_difference_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -574,9 +570,7 @@
                     <RunCode code="application.grp.addElement(new blend_hardlight_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-          				<ConditionalValue os="win"/>				
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
 				</body>
             </TestCase>
         
@@ -600,9 +594,7 @@
                     <RunCode code="application.grp.addElement(new blend_layer_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -626,9 +618,7 @@
                     <RunCode code="application.grp.addElement(new blend_multiply_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -640,9 +630,7 @@
                     <RunCode code="application.grp.addElement(new blend_normal_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -680,9 +668,7 @@
                     <RunCode code="application.grp.addElement(new blend_subtract_radialgradient_fill)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -718,9 +704,7 @@
                     <RunCode code="application.grp.addElement(new graphic_def)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -746,9 +730,7 @@
                     <RunCode code="application.grp.addElement(new library_def)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -1008,9 +990,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_fill_path_focal_point)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
 				</body>
             </TestCase>
         
@@ -1032,9 +1012,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_fill_path_interpolation)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -1046,9 +1024,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_fill_path_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -1060,9 +1036,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_fill_path_spread)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -1072,9 +1046,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_fill_path_spread2)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
 				</body>
             </TestCase>    
         
@@ -1084,9 +1056,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_fill_shape_focal_point)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -1098,9 +1068,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_fill_shape_interpolation)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -1112,9 +1080,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_fill_shape_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
              </body>
             </TestCase>
         
@@ -1126,9 +1092,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_fill_shape_spread)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -1188,9 +1152,7 @@
             <RunCode code="application.grp.addElement(new bevelfilter3)" waitEvent="updateComplete" waitTarget="grp"/>
         </setup>
         <body>
-            <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
         </body>
     </TestCase> 
     <TestCase testID="filters_bevelfilter4" keywords="[fxg]" description="BitmapFill: distance,highlightAlpha,highlightColor,shadowAlpha,shadowColor,strength">
@@ -1229,9 +1191,7 @@
             <RunCode code="application.grp.addElement(new blurfilter)" waitEvent="updateComplete" waitTarget="grp"/>
         </setup>
         <body>
-            <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
 		</body>
     </TestCase>     
         
@@ -1269,9 +1229,7 @@
             <RunCode code="application.grp.addElement(new filters_group)" waitEvent="updateComplete" waitTarget="grp"/>
         </setup>
         <body>
-            <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
         </body>
     </TestCase>
         
@@ -1283,9 +1241,7 @@
             <RunCode code="application.grp.addElement(new filters_transform)" waitEvent="updateComplete" waitTarget="grp"/>
         </setup>
         <body>
-            <CompareBitmap url="../properties/baselines"  numColorVariances="16" ignoreMaxColorVariance="true"  target="grp">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="16" ignoreMaxColorVariance="true"  target="grp" />
         </body>
     </TestCase>
         
@@ -1313,9 +1269,7 @@
             <RunCode code="application.grp.addElement(new glowfilter3)" waitEvent="updateComplete" waitTarget="grp"/>
         </setup>
         <body>
-            <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
 		</body>
     </TestCase>
     <TestCase testID="filters_glowfilter4" keywords="[fxg]" description="Bitmap Fill. blurX='2' blurY='4' quality='2' strength='0.5' color='#8A2BE2' inner='true'">
@@ -1427,9 +1381,7 @@
         <RunCode code="application.grp.addElement(new gradientglowfilter3)" waitEvent="updateComplete" waitTarget="grp"/>
         </setup>
         <body>
-        	<CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+        	<CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
         </body>
     </TestCase>
     <TestCase testID="filters_gradientglowfilter4" keywords="[fxg]" description="BitmapFill: blurX=2 blurY=4 quality=2 strength=0.5">
@@ -1495,9 +1447,7 @@
         <RunCode code="application.grp.addElement(new hue_colormatrixfilter4)" waitEvent="updateComplete" waitTarget="grp"/>
         </setup>
         <body>
-        	<CompareBitmap url="../properties/baselines/"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+        	<CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
 		</body>
     </TestCase>
 
@@ -1535,9 +1485,7 @@
             <RunCode code="application.grp.addElement(new luminance_colormatrixfilter4)" waitEvent="updateComplete" waitTarget="grp"/>
         </setup>
         <body>
-            <CompareBitmap url="../properties/baselines/"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
 		</body>
         </TestCase>
 
@@ -1574,9 +1522,7 @@
             <RunCode code="application.grp.addElement(new saturation_colormatrixfilter4)" waitEvent="updateComplete" waitTarget="grp"/>
         </setup>
         <body>
-            <CompareBitmap url="../properties/baselines/"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
 		</body>
     </TestCase>
         
@@ -1598,9 +1544,7 @@
                     <RunCode code="application.grp.addElement(new clip_mask)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines/"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -2050,9 +1994,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_stroke_path_focal_point)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines/"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -2064,9 +2006,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_stroke_path_interpolation)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines/"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -2078,9 +2018,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_stroke_path_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines/"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -2092,9 +2030,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_stroke_path_spread)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines/"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -2106,9 +2042,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_stroke_shape_focal_point)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines/"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -2120,9 +2054,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_stroke_shape_interpolation)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines/"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -2134,9 +2066,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_stroke_shape_matrix)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines/"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
@@ -2148,9 +2078,7 @@
                     <RunCode code="application.grp.addElement(new radial_gradient_stroke_shape_spread)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines/"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         

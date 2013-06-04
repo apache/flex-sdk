@@ -61,9 +61,7 @@
                  <RunCode code="application.grp.addElement(new clip_mask)" waitEvent="updateComplete" waitTarget="grp"/>
 	     </setup>
 	     <body>
-                 <CompareBitmap url="../properties/baselines/"  numColorVariances="8" maxColorVariance="14" target="grp">
-					 <ConditionalValue os="win"/>
-				</CompareBitmap>
+                 <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" maxColorVariance="14" target="grp" />
 	     </body>
 	</TestCase>
 	
