@@ -1311,7 +1311,7 @@ public class CompareBitmap extends Assert
 			{
 				a = trimTag(a);
 				b = trimTag(b);
-				if (a != b)
+				if (a != b && !nullChildOrStaticText(a, b))
 				{
 					retval = true;
 					var c:String = "";
@@ -1361,6 +1361,20 @@ public class CompareBitmap extends Assert
 			}
 		}
 		return a;
+	}
+	
+	// static text seems to float around a bit so ignore it.
+	private function nullChildOrStaticText(a:String, b:String):Boolean
+	{
+		if (a.indexOf("<NullChild") != -1)
+			return true;
+		if (b.indexOf("<NullChild") != -1)
+			return true;
+		if (a.indexOf("<flash.text.StaticText") != -1)
+			return true;
+		if (b.indexOf("<flash.text.StaticText") != -1)
+			return true;
+		return false;
 	}
 }
 
