@@ -26,9 +26,6 @@
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
     <property file="${FLEX_HOME}/build.properties"/>
-   
-    <property name="configMod" value=""/>
-    		
 
         <macrodef name="bundle">
             <attribute name="locale"/>
@@ -174,11 +171,15 @@
         </delete>
     </target>
 
-    <target name="configMod" description="Modifies which config file to use" if="isLinux">
+    <target name="configModLinux" description="Modifies which config file to use" if="isLinux">
         <property name="configMod" value="AIR2"/>
     </target>
+	
+    <target name="configModOther" description="Modifies which config file to use" unless="isLinux">
+        <property name="configMod" value=""/>
+    </target>
 
-    <target name="compile" description="Compiles mobilecomponents.swc" depends="configMod">
+    <target name="compile" description="Compiles mobilecomponents.swc" depends="configModLinux,configModOther">
         <echo message="Compiling frameworks/libs/mobile/mobilecomponents.swc"/>
         <echo message="Using ${env.AIR_HOME}/frameworks/libs/air/airglobal.swc" level="info"/>
 
