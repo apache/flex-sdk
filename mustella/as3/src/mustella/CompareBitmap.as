@@ -1248,6 +1248,8 @@ public class CompareBitmap extends Assert
     				childXML = getDisplayListProperties(child);
     				xml.appendChild(childXML);				
                 }
+                else
+                    xml.appendChild(<NullChild />);
 			}
 		}
 		return xml;
