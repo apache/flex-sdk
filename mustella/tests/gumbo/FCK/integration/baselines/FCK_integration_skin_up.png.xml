@@ -68,6 +68,7 @@
                           </mx.controls.Label>
                         </spark.components.HGroup>
                       </FlexContentHolder>
+                      <flash.text.StaticText x="2" y="5.95" width="96" height="9"/>
                     </EventsContainer>
                   </comps.ItemRendererGroupInnerClass0>
                   <comps.ItemRendererGroupInnerClass0 y="157" width="201" height="151" blendMode="auto">
@@ -87,6 +88,7 @@
                           </mx.controls.Label>
                         </spark.components.HGroup>
                       </FlexContentHolder>
+                      <flash.text.StaticText x="2" y="5.95" width="96" height="9"/>
                     </EventsContainer>
                   </comps.ItemRendererGroupInnerClass0>
                   <comps.ItemRendererGroupInnerClass0 y="314" width="201" height="151" blendMode="auto">
@@ -106,6 +108,7 @@
                           </mx.controls.Label>
                         </spark.components.HGroup>
                       </FlexContentHolder>
+                      <flash.text.StaticText x="2" y="5.95" width="96" height="9"/>
                     </EventsContainer>
                   </comps.ItemRendererGroupInnerClass0>
                 </spark.components.DataGroup>
@@ -162,6 +165,7 @@
                   </spark.skins.spark.ButtonSkin>
                 </spark.components.Button>
               </FlexContentHolder>
+              <flash.text.StaticText x="2" y="5.95" width="96" height="9"/>
             </EventsContainer>
           </comps.EventsGroup>
           <comps.AnimationGroup y="839" width="600" height="400" blendMode="auto">
@@ -220,16 +224,27 @@
               </FlexContentHolder>
             </TransitionsContainer>
           </comps.LayoutGroup>
-          <comps.ExpandingContainerGroup y="1651" width="200" height="56" blendMode="auto">
-            <ExpandingContainer width="200" height="25">
-              <flash.display.MovieClip matrix="(a=4.000244140625, b=0, c=0, d=0.5000152587890625, tx=0, ty=0)" width="200" height="25">
+          <comps.ExpandingContainerGroup y="1651" width="200" height="231" blendMode="auto">
+            <ExpandingContainer width="200" height="200">
+              <flash.display.MovieClip matrix="(a=4.000244140625, b=0, c=0, d=4, tx=0, ty=0)" width="200" height="200">
                 <flash.display.Shape width="50" height="50"/>
               </flash.display.MovieClip>
-              <flash.display.MorphShape width="200" height="25"/>
+              <flash.display.Shape width="200" height="200"/>
+              <FlexContentHolder9048520747258695 x="25" y="35" width="151" height="151" scale9Grid="(x=66, y=30, w=68, h=65)">
+                <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="151" height="151"/>
+                <spark.components.Button width="97" height="21">
+                  <spark.skins.spark.ButtonSkin width="97" height="21" blendMode="auto">
+                    <spark.components.Label x="10" y="3" width="77" height="17">
+                      <flash.display.Shape width="77" height="17"/>
+                      <flash.text.engine.TextLine y="13" width="76.95" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="13" hasGraphicElement="false"/>
+                    </spark.components.Label>
+                  </spark.skins.spark.ButtonSkin>
+                </spark.components.Button>
+              </FlexContentHolder9048520747258695>
               <flash.display.Shape width="200" height="25"/>
               <flash.text.StaticText x="6" y="5" width="115" height="13"/>
             </ExpandingContainer>
-            <ExpandingContainer y="31" width="200" height="25">
+            <ExpandingContainer y="206" width="200" height="25">
               <flash.display.MovieClip matrix="(a=4.000244140625, b=0, c=0, d=0.5000152587890625, tx=0, ty=0)" width="200" height="25">
                 <flash.display.Shape width="50" height="50"/>
               </flash.display.MovieClip>
@@ -238,24 +253,24 @@
               <flash.text.StaticText x="6" y="5" width="115" height="13"/>
             </ExpandingContainer>
           </comps.ExpandingContainerGroup>
-          <comps.ProgrammaticSizingGroup y="1713" width="200" height="250" blendMode="auto">
+          <comps.ProgrammaticSizingGroup y="1888" width="200" height="250" blendMode="auto">
             <SetActualSizeContainer width="200" height="250">
               <flash.display.Shape width="200" height="250"/>
               <flash.text.StaticText x="2" y="2" width="173" height="13"/>
-              <FlexContentHolder9048520747258695 y="25" width="151" height="151" scale9Grid="(x=66, y=30, w=68, h=65)">
+              <FlexContentHolder9048520747258695 y="25" width="100" height="100" scale9Grid="(x=66, y=30, w=68, h=65)">
                 <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="151" height="151"/>
-                <spark.components.Button width="151" height="151">
-                  <spark.skins.spark.ButtonSkin width="151" height="151" blendMode="auto">
-                    <spark.components.Label x="10" y="3" width="131" height="147">
-                      <flash.display.Shape width="131" height="147"/>
-                      <flash.text.engine.TextLine x="38.8" y="78" width="53.4" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="11" hasGraphicElement="false"/>
+                <spark.components.Button width="100" height="100">
+                  <spark.skins.spark.ButtonSkin width="100" height="100" blendMode="auto">
+                    <spark.components.Label x="10" y="3" width="80" height="96">
+                      <flash.display.Shape width="80" height="96"/>
+                      <flash.text.engine.TextLine x="13.3" y="52.5" width="53.4" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="11" hasGraphicElement="false"/>
                     </spark.components.Label>
                   </spark.skins.spark.ButtonSkin>
                 </spark.components.Button>
               </FlexContentHolder9048520747258695>
             </SetActualSizeContainer>
           </comps.ProgrammaticSizingGroup>
-          <comps.FixedLayoutGroup y="1969" width="536" height="292" blendMode="auto">
+          <comps.FixedLayoutGroup y="2144" width="536" height="292" blendMode="auto">
             <spark.components.HGroup width="536" height="292" blendMode="auto">
               <spark.components.Group width="240" height="218" blendMode="auto">
                 <spark.components.Button width="70" height="50">
@@ -301,6 +316,7 @@
                       </spark.components.Button>
                     </spark.components.VGroup>
                   </FlexContentHolder>
+                  <flash.text.StaticText x="2" y="5.95" width="96" height="9"/>
                 </EventsContainer>
                 <FlashMask y="168" width="240" height="50">
                   <flash.display.Shape width="149" height="149"/>
@@ -409,22 +425,33 @@
               </spark.components.Group>
             </spark.components.HGroup>
           </comps.FixedLayoutGroup>
-          <comps.TrackingChangesGroup y="2267" width="600" height="400" blendMode="auto">
+          <comps.TrackingChangesGroup y="2442" width="600" height="400" blendMode="auto">
             <AnimateToStateComponent width="200" height="200">
               <flash.display.Shape width="200" height="200"/>
-              <flash.text.StaticText x="22" y="22" width="84" height="11"/>
+              <flash.text.StaticText x="22" y="122" width="29" height="11"/>
             </AnimateToStateComponent>
           </comps.TrackingChangesGroup>
-          <comps.ExpandingContainerGroupAutoUpdate y="2673" width="200" height="56" blendMode="auto">
-            <ExpandingContainerAutoUpdate width="200" height="25">
-              <flash.display.MovieClip matrix="(a=4.000244140625, b=0, c=0, d=0.5000152587890625, tx=0, ty=0)" width="200" height="25">
+          <comps.ExpandingContainerGroupAutoUpdate y="2848" width="200" height="231" blendMode="auto">
+            <ExpandingContainerAutoUpdate width="200" height="200">
+              <flash.display.MovieClip matrix="(a=4.000244140625, b=0, c=0, d=4, tx=0, ty=0)" width="200" height="200">
                 <flash.display.Shape width="50" height="50"/>
               </flash.display.MovieClip>
-              <flash.display.MorphShape width="200" height="25"/>
+              <flash.display.Shape width="200" height="200"/>
+              <FlexContentHolder9704566431865012 x="25" y="40" width="151" height="151" scale9Grid="(x=66, y=30, w=68, h=65)">
+                <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="151" height="151"/>
+                <spark.components.Button width="70" height="21">
+                  <spark.skins.spark.ButtonSkin width="70" height="21" blendMode="auto">
+                    <spark.components.Label x="10" y="3" width="50" height="17">
+                      <flash.display.Shape width="50" height="17"/>
+                      <flash.text.engine.TextLine x="4.2" y="13" width="41.6" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="8" hasGraphicElement="false"/>
+                    </spark.components.Label>
+                  </spark.skins.spark.ButtonSkin>
+                </spark.components.Button>
+              </FlexContentHolder9704566431865012>
               <flash.display.Shape width="200" height="25"/>
               <flash.text.StaticText x="6" y="5" width="115" height="13"/>
             </ExpandingContainerAutoUpdate>
-            <ExpandingContainerAutoUpdate y="31" width="200" height="25">
+            <ExpandingContainerAutoUpdate y="206" width="200" height="25">
               <flash.display.MovieClip matrix="(a=4.000244140625, b=0, c=0, d=0.5000152587890625, tx=0, ty=0)" width="200" height="25">
                 <flash.display.Shape width="50" height="50"/>
               </flash.display.MovieClip>
