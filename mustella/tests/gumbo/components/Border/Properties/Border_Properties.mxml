@@ -322,14 +322,10 @@
 		</setup>
 		<body>						
 			<SetProperty target="myBorderGrpRGS.myBorder.borderStroke" propertyName="weight" value="80" waitEvent="updateComplete" waitTarget="myBorderGrpRGS.myBorder"/>
-			<CompareBitmap url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRGS">
-				<ConditionalValue os="win" url="../Properties/Baselines/$testID_1@win.png"/>
-			</CompareBitmap>
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRGS" />
 			<SetProperty target="myBorderGrpRGS.myBorder" propertyName="height" value="300" waitEvent="updateComplete" />
 			<SetProperty target="myBorderGrpRGS.myBorder" propertyName="width" value="300" waitEvent="updateComplete" />
-			<CompareBitmap url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRGS">
-				<ConditionalValue os="win" url="../Properties/Baselines/$testID_2@win.png"/>
-			</CompareBitmap>
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRGS" />
 			<ResetComponent target="myBorderGrpRGS" className="comps.customBorderRGS" waitEvent="updateComplete"/>
 		</body>
 	</TestCase>		
