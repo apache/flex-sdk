@@ -106,9 +106,7 @@
             </setup>
             <body>
                 <SetProperty target="ellipse_radialGradientStroke.ellipse1" propertyName="y" value="20" waitTarget="ellipse_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-                <CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="2500">
-					<ConditionalValue os="win" />
-				</CompareBitmap>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="2500" />
             </body>
         </TestCase>
       
@@ -118,9 +116,7 @@
             </setup>
             <body>
                 <SetProperty target="ellipse_radialGradientStroke.ellipse1.stroke" propertyName="y" value="30" waitTarget="ellipse_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-                <CompareBitmap url="../Properties/baselines/" target="ellipse_radialGradientStroke" timeout="2500">
-					<ConditionalValue os="win" />
-				</CompareBitmap>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="ellipse_radialGradientStroke" timeout="2500" />
             </body>
         </TestCase>
    

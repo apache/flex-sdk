@@ -1,7 +1,15 @@
 <DisplayList>
   <GenericBubble width="500" height="600">
     <mx.skins.spark.ContainerBorderSkin width="500" height="600" blendMode="auto"/>
-    <mx.charts.BubbleChart x="50" y="24" width="400" height="400">
+    <mx.charts.Legend x="191" y="24" width="117" height="29">
+      <mx.charts.LegendItem x="5" y="5" width="107.15" height="19.55">
+        <mx.core.UITextField x="18" width="107.15" height="19.55" underline="false">
+          <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="OpenSans" SIZE="10" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;Open/High/Close&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+        </mx.core.UITextField>
+        <mx.charts.renderers.CircleItemRenderer y="4.75" width="10" height="10"/>
+      </mx.charts.LegendItem>
+    </mx.charts.Legend>
+    <mx.charts.BubbleChart x="50" y="59" width="400" height="400">
       <mx.core.UIComponent x="39.4" y="38.55" width="0" height="0">
         <mask>
           <mx.core.FlexShape matrix="(a=31.54998779296875, b=0, c=0, d=30.334991455078125, tx=0, ty=0)" width="315.5" height="303.35"/>

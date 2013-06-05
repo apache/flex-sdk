@@ -40,19 +40,19 @@
               </spark.skins.spark.ToggleButtonSkin>
             </spark.components.ToggleButton>
           </mx.containers.Canvas>
-          <spark.components.ToggleButton y="88" width="70" height="21">
-            <spark.skins.spark.ToggleButtonSkin width="70" height="21" blendMode="auto">
-              <spark.components.Label x="10" y="3" width="50" height="17">
-                <flash.display.Shape width="50" height="17"/>
-                <flash.text.engine.TextLine x="25" y="13" width="0" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="1" hasGraphicElement="false"/>
+          <spark.components.ToggleButton y="88" width="85" height="21">
+            <spark.skins.spark.ToggleButtonSkin width="85" height="21" blendMode="auto">
+              <spark.components.Label x="10" y="3" width="65" height="17">
+                <flash.display.Shape width="65" height="17"/>
+                <flash.text.engine.TextLine x="0.15" y="13" width="64.65" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="12" hasGraphicElement="false"/>
               </spark.components.Label>
             </spark.skins.spark.ToggleButtonSkin>
           </spark.components.ToggleButton>
-          <spark.components.ToggleButton y="115" width="70" height="21">
-            <spark.skins.spark.ToggleButtonSkin width="70" height="21" blendMode="auto">
-              <spark.components.Label x="10" y="3" width="50" height="17">
-                <flash.display.Shape width="50" height="17"/>
-                <flash.text.engine.TextLine x="25" y="13" width="0" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="1" hasGraphicElement="false"/>
+          <spark.components.ToggleButton y="115" width="107" height="21">
+            <spark.skins.spark.ToggleButtonSkin width="107" height="21" blendMode="auto">
+              <spark.components.Label x="10" y="3" width="87" height="17">
+                <flash.display.Shape width="87" height="17"/>
+                <flash.text.engine.TextLine x="0.35" y="13" width="86.3" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="15" hasGraphicElement="false"/>
               </spark.components.Label>
             </spark.skins.spark.ToggleButtonSkin>
           </spark.components.ToggleButton>

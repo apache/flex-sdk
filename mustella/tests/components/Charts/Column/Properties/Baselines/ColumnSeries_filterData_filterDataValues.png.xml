@@ -106,9 +106,6 @@
             <mx.core.UITextField width="100" height="100" underline="false">
               <htmlText/>
             </mx.core.UITextField>
-            <mx.core.UITextField width="100" height="100" underline="false">
-              <htmlText/>
-            </mx.core.UITextField>
             <mx.charts.renderers.BoxItemRenderer x="156.8" y="269.35" width="0.495795795792219" height="82.29195000000004"/>
             <mx.charts.renderers.BoxItemRenderer x="157.55" y="38.9" width="0.495795795792219" height="312.7563"/>
             <mx.charts.renderers.BoxItemRenderer x="181.95" y="180.95" width="0.495795795792219" height="170.67960000000002"/>

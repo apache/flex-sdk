@@ -508,10 +508,8 @@ public class CompareBitmap extends Assert
 		var t:String = xmlreader.data;
 		s = s.replace(/\r/g, "");
 		t = t.replace(/\r/g, "");		
-		if (s !== t)
+		if (s !== t && differ(s, t))
 		{
-			differ(s, t);
-			
 			testResult.doFail ("compare returned" + compareVal, absolutePathResult(url) + ".bad.png");
 			
 			if (useRemoteDiffer)
@@ -1250,6 +1248,8 @@ public class CompareBitmap extends Assert
     				childXML = getDisplayListProperties(child);
     				xml.appendChild(childXML);				
                 }
+                else
+                    xml.appendChild(<NullChild />);
 			}
 		}
 		return xml;
@@ -1295,8 +1295,10 @@ public class CompareBitmap extends Assert
 		return xml;
 	}
 
-	private function differ(s:String, t:String):void
+	private function differ(s:String, t:String):Boolean
 	{
+		var retval:Boolean = false;
+		
 		var sl:Array = s.split("\n");
 		var tl:Array = t.split("\n");
 		trace(sl.length, tl.length);
@@ -1307,20 +1309,72 @@ public class CompareBitmap extends Assert
 			var b:String = (i < tl.length) ? tl[i] : "";
 			if (a != b)
 			{
-				var c:String = "";
-				var d:String = "";
-				trace(i, "cur: ", a);
-				trace(i, "xml: ", b);
-				var m:int = Math.max(a.length, b.length);
-				for (var j:int = 0; j < m; j++)
+				a = trimTag(a);
+				b = trimTag(b);
+				if (a != b && !nullChildOrStaticText(a, b))
 				{
-					c += a.charCodeAt(j) + " ";
-					d += b.charCodeAt(j) + " ";
+					retval = true;
+					var c:String = "";
+					var d:String = "";
+					trace(i, "cur: ", a);
+					trace(i, "xml: ", b);
+					var m:int = Math.max(a.length, b.length);
+					for (var j:int = 0; j < m; j++)
+					{
+						c += a.charCodeAt(j) + " ";
+						d += b.charCodeAt(j) + " ";
+					}
+					trace(i, "cur: ", c);
+					trace(i, "xml: ", d);
 				}
-				trace(i, "cur: ", c);
-				trace(i, "xml: ", d);
 			}
 		}
+		return retval;
+	}
+	
+	// attempt to strip off random unique name chars for embedded assets
+	private function trimTag(a:String):String
+	{
+		var c:int;
+		var d:int;
+		
+		d = a.indexOf("<");
+		if (d != -1)
+		{
+			c = a.indexOf(" ", d);
+			if (c == -1 && a.length > d + 2 && a.charAt(d + 1) == '/')
+				c = a.indexOf(">"); // closing tag
+			if (c != -1)
+			{
+				var rest:String = a.substring(c);
+				for (var i:int = c - 1;i > 0; i--)
+				{
+					var ch:String = a.charAt(i);
+					if ((ch >= '0' && ch <= '9') || ch == '_')
+					{
+						// assume it is a random char
+					}
+					else
+						break;
+				}
+				return a.substring(0, i + 1) + rest;
+			}
+		}
+		return a;
+	}
+	
+	// static text seems to float around a bit so ignore it.
+	private function nullChildOrStaticText(a:String, b:String):Boolean
+	{
+		if (a.indexOf("<NullChild") != -1)
+			return true;
+		if (b.indexOf("<NullChild") != -1)
+			return true;
+		if (a.indexOf("<flash.text.StaticText") != -1)
+			return true;
+		if (b.indexOf("<flash.text.StaticText") != -1)
+			return true;
+		return false;
 	}
 }
 
