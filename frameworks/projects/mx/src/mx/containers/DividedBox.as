@@ -776,7 +776,7 @@ public class DividedBox extends Box
 
 	/**
 	 *  Returns a reference to the specified BoxDivider object
-	 *  in this DividedBox container. 
+	 *  in this DividedBox container or null if it doesn't exist.
 	 *
 	 *  @param i Zero-based index of a divider, counting from 
 	 *  the left for a horizontal DividedBox, 
@@ -791,7 +791,16 @@ public class DividedBox extends Box
 	 */
 	public function getDividerAt(i:int):BoxDivider
 	{
-		return BoxDivider(dividerLayer.getChildAt(i));
+		if (dividerLayer) {
+			// Check whether this is a valid divider index.
+			if (i < 0 || i >= numDividers)
+				return null;
+			
+			return BoxDivider(dividerLayer.getChildAt(i));
+		}
+		else {
+			return null;
+		}
 	}
 
 	/**
