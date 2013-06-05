@@ -13,5 +13,6 @@
 	<classpathentry kind="var" path="FLEX_HOME/lib/external/saxon9.jar"/>
 	<classpathentry kind="var" path="FLEX_HOME/lib/external/xml-apis-ext.jar"/>
 	<classpathentry kind="var" path="FLEX_HOME/lib/external/xml-apis.jar"/>
+	<classpathentry kind="var" path="FLEX_HOME/lib/external/optional/flex-messaging-common.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
