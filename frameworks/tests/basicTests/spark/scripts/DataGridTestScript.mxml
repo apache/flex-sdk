@@ -79,7 +79,7 @@
                 <DispatchKeyEvent keys="[PAGE_UP]" waitTarget="sparkDataGridTests.testdg" waitEvent="enterFrame" />
                 
                 <!-- test selection -->
-                <DispatchMouseClickEvent target="sparkDataGridTests.testdg" waitTarget="sparkDataGridTests.testdg" waitEvent="selectionChange" localX="40" localY="50" />
+                <DispatchMouseClickEvent target="sparkDataGridTests.testdg" waitTarget="sparkDataGridTests.testdg" waitEvent="selectionChange" localX="40" localY="70" />
                 
                 <!-- interactive sort -->
                 <DispatchMouseClickEvent target="sparkDataGridTests.testdg" waitTarget="sparkDataGridTests.testdg" waitEvent="gridClick" localX="200" localY="5" />
