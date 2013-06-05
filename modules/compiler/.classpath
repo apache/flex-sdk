@@ -11,7 +11,7 @@
 	<classpathentry kind="var" path="FLEX_HOME/lib/velocity-dep-1.4-flex.jar"/>
 	<classpathentry kind="var" path="FLEX_HOME/lib/external/commons-collections.jar"/>
 	<classpathentry kind="var" path="FLEX_HOME/lib/external/saxon9.jar"/>
-	<classpathentry kind="lib" path="FLEX_HOME/lib/external/xml-apis-ext.jar"/>
-	<classpathentry kind="lib" path="FLEX_HOME/lib/external/xml-apis.jar"/>
+	<classpathentry kind="var" path="FLEX_HOME/lib/external/xml-apis-ext.jar"/>
+	<classpathentry kind="var" path="FLEX_HOME/lib/external/xml-apis.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
