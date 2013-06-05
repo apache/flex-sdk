@@ -107,6 +107,14 @@
         depends="setup-binary-release,main,frameworks-rsls,sample-themes,checkintests,doc,other.locales,binary-package,additional-packages" 
         description="Builds and packages the binary kit which is provided as a convenience."/>    
 
+    <target name="source-release-noclean" 
+        depends="create-description,create-config,source-package" 
+        description="Packages the source release kit which is the official Apache release."/>
+        
+    <target name="binary-release-noclean" 
+        depends="main,frameworks-rsls,sample-themes,checkintests,doc,other.locales,binary-package,additional-packages" 
+        description="Builds and packages the binary kit which is provided as a convenience."/>    
+
     <target name="doc-packages" 
         depends="asdoc-package,javadocs"
         description="Build and package the asdocs for the framework clases and the javadocs."/>
