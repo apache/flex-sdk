@@ -27,7 +27,7 @@
 export SHELLOPTS
 set -o igncr
 
-./mustella/mini_run.sh -timeout=60000 tests/components/Label
+./mustella/mini_run.sh -timeout=60000 mustella/tests/components/Label
 #./mini_run.sh -timeout=60000 tests/gumbo/core/Group/viewport
 #./mini_run.sh -timeout=60000 -all
 
