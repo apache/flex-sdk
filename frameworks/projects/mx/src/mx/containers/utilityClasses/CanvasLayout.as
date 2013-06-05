@@ -454,7 +454,7 @@ public class CanvasLayout extends Layout
         if (!constraintChild)
             return;
         var childInfo:ChildConstraintInfo = parseConstraints(child);
-        //Variables to track the offsets
+        // Variables to track the offsets
         var left:Number = childInfo.left;
         var right:Number = childInfo.right;
         var horizontalCenter:Number = childInfo.hc;
@@ -463,9 +463,9 @@ public class CanvasLayout extends Layout
         var verticalCenter:Number = childInfo.vc;
         var baseline:Number = childInfo.baseline;
 
-        //Variables to track the boundaries from which
-        //the offsets are calculated from. If null, the 
-        //boundary is the parent container edge. 
+        // Variables to track the boundaries from which
+        // the offsets are calculated from. If null, the 
+        // boundary is the parent container edge. 
         var leftBoundary:String = childInfo.leftBoundary;
         var rightBoundary:String = childInfo.rightBoundary;
         var hcBoundary:String = childInfo.hcBoundary;
@@ -484,13 +484,13 @@ public class CanvasLayout extends Layout
         var checkWidth:Boolean = false;
         var checkHeight:Boolean = false;
     
-        //If we are to evaluate the left, right, and horizontalCenter
-        //styles relative to the parent boundaries, parentBoundariesLR will
-        //be true
+        // If we are to evaluate the left, right, and horizontalCenter
+        // styles relative to the parent boundaries, parentBoundariesLR will
+        // be true
         var parentBoundariesLR:Boolean = (!hcBoundary && !leftBoundary && !rightBoundary);
-        //If we are to evaluate the top, bottom, verticalCenter and baseline
-        //styles relative to the parent boundaries, parentBoundariesTB will
-        //be true
+        // If we are to evaluate the top, bottom, verticalCenter and baseline
+        // styles relative to the parent boundaries, parentBoundariesTB will
+        // be true
         var parentBoundariesTB:Boolean = (!vcBoundary && !topBoundary && !bottomBoundary && !baselineBoundary);
     
         var leftHolder:Number = 0;
@@ -502,17 +502,20 @@ public class CanvasLayout extends Layout
         var vcY:Number;
         var hcX:Number;
         var baselineY:Number;
-        //If we are not evaluating left, right, and horizontalCenter
-        //relative to the parent container edges, we need to match
-        //the column specified in the constraint expression with the
-        //actual ConstraintColumn instance so later we can determine how
-        //much space the control has to live in. 
-        if (!parentBoundariesLR)
+        // If we are not evaluating left, right, and horizontalCenter
+        // relative to the parent container edges, we need to match
+        // the column specified in the constraint expression with the
+        // actual ConstraintColumn instance so later we can determine how
+        // much space the control has to live in. 
+		var length:int = IConstraintLayout(target).constraintColumns.length;
+		
+		if (!parentBoundariesLR && length > 0)
         {
             var matchLeft:Boolean = leftBoundary ? true : false;
             var matchRight:Boolean = rightBoundary ? true : false;
             var matchHC:Boolean = hcBoundary ? true : false;
-            for (i = 0; i < IConstraintLayout(target).constraintColumns.length; i++)
+			
+            for (i = 0; i < length; i++)
             {       
                 var col:ConstraintColumn = ConstraintColumn(IConstraintLayout(target).constraintColumns[i]);
                 if (matchLeft)
@@ -541,8 +544,8 @@ public class CanvasLayout extends Layout
                     }
                 }   
             }
-            //Erorr throwing - we could not match one of the boundaries to the
-            //declared constraintColumns 
+            // Error throwing - we could not match one of the boundaries to the
+            // declared constraintColumns 
             if (matchLeft)
             {
                 message = resourceManager.getString(
@@ -562,17 +565,17 @@ public class CanvasLayout extends Layout
                 throw new ConstraintError(message);
             }
         }
-        else if (!parentBoundariesLR)
-        {
-            //The left, right or horizontalCenter style has been set to
-            //a non-parent region, but no columns were declared 
+		else if (!parentBoundariesLR && length == 0)
+		{
+            // The left, right or horizontalCenter style has been set to
+            // a non-parent region, but no columns were declared 
             message = resourceManager.getString(
                 "containers", "noColumnsFound");
             throw new ConstraintError(message);
         }
         
-        //The width of the region which
-        //the control will live in. 
+        // The width of the region which
+        // the control will live in. 
         availableWidth = Math.round(rightHolder - leftHolder);
 
         // If a percentage size is specified for a child,
@@ -598,19 +601,20 @@ public class CanvasLayout extends Layout
             w = child.getExplicitOrMeasuredWidth();
         }
 
-        //If we are not evaluating top, bottom, and verticalCenter
-        //relative to the parent container edges, we need to match
-        //the row specified in the constraint expression with the
-        //actual ConstraintRow instance so later we can determine how
-        //much space the control has to live in. 
-        if (!parentBoundariesTB && IConstraintLayout(target).constraintRows.length > 0)
+        // If we are not evaluating top, bottom, and verticalCenter
+        // relative to the parent container edges, we need to match
+        // the row specified in the constraint expression with the
+        // actual ConstraintRow instance so later we can determine how
+        // much space the control has to live in. 
+		length = IConstraintLayout(target).constraintRows.length;
+        if (!parentBoundariesTB && length > 0)
         {
             var matchTop:Boolean = topBoundary ? true : false;
             var matchBottom:Boolean = bottomBoundary ? true : false;
             var matchVC:Boolean = vcBoundary ? true : false;
             var matchBaseline:Boolean = baselineBoundary ? true : false;
-            
-            for (i = 0; i < IConstraintLayout(target).constraintRows.length; i++)
+            length = IConstraintLayout(target).constraintRows.length;
+            for (i = 0; i < length; i++)
             {       
                 var row:ConstraintRow = ConstraintRow(IConstraintLayout(target).constraintRows[i]);
                 if (matchTop)
@@ -647,8 +651,8 @@ public class CanvasLayout extends Layout
                     }
                 }   
             }
-            //Erorr throwing - we could not match one of the boundaries to the
-            //declared constraintRows 
+            // Error throwing - we could not match one of the boundaries to the
+            // declared constraintRows 
             if (matchTop)
             {
                 message = resourceManager.getString(
@@ -674,17 +678,17 @@ public class CanvasLayout extends Layout
                 throw new ConstraintError(message);
             }
         }
-        else if (!parentBoundariesTB && !(IConstraintLayout(target).constraintRows.length > 0))
+        else if (!parentBoundariesTB && length == 0)
         {
-            //The top, bottom or verticalCenter style has been set to
-            //a non-parent region, but no rows were declared 
+            // The top, bottom or verticalCenter style has been set to
+            // a non-parent region, but no rows were declared 
             message = resourceManager.getString(
                 "containers", "noRowsFound");
             throw new ConstraintError(message);
         }
         
-        //The height of the region which
-        //the control will live in. 
+        // The height of the region which
+        // the control will live in. 
         availableHeight = Math.round(bottomHolder - topHolder);
         if (!isNaN(top) && !isNaN(bottom))
         {
