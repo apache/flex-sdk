@@ -69,7 +69,10 @@ public class ServicesDependenciesWrapper
             }
             catch (Throwable e3)
             {
-            	System.err.println(e3);
+            	if (e3 instanceof InvocationTargetException)
+            		System.err.println(((InvocationTargetException)e3).getCause());
+            	else
+            		System.err.println(e3);
             }
         }
         catch (NoSuchMethodException e2)
