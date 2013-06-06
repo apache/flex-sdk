@@ -1396,12 +1396,16 @@ public class CompareBitmap extends Assert
         var retval:Boolean = false;
         var q:String;
         var i:int;
+        var j:int;
         var n:int;
         var m:int;
         var st:String;
         var tt:String;
         var sv:String;
         var tv:String;
+        
+        if (s.toXMLString() == t.toXMLString())
+            return false;
         
         // compare tag names
         var sn:String = s.name().toString();
@@ -1453,7 +1457,7 @@ public class CompareBitmap extends Assert
                 else 
                 {
                     sv = s['@' + st].toString();
-                    tv = s['@' + tt].toString();
+                    tv = t['@' + tt].toString();
                     if (sv != tv)
                     {
                         if (xywidthheight[st] == 1)
@@ -1473,11 +1477,11 @@ public class CompareBitmap extends Assert
                             tv = tv.substring(1, tv.length - 2);
                             sparts = sv.split(",");
                             tparts = tv.split(",");
-                            n = sparts.length;
-                            for (i = 0; i < n; i++)
+                            m = sparts.length;
+                            for (j = 0; j < m; j++)
                             {
-                                sv = sparts[i];
-                                tv = tparts[i];
+                                sv = sparts[j];
+                                tv = tparts[j];
                                 sv = sv.split("=")[1];
                                 tv = tv.split("=")[1];
                                 sf = Number(sv);
@@ -1512,8 +1516,20 @@ public class CompareBitmap extends Assert
         {
             for (i = 0; i < n; i++)
             {
-                if (compareNodes(sl[i], tl[i]))
-                    retval = true;
+                var nk:String = sl[i].nodeKind();
+                if (nk == "text")
+                {
+                    if (sl[i].text() != tl[i].text())
+                    {
+                        trace(sn, "different number of text nodes: cur=", sl[i].text(), "xml=", tl[i].text());
+                        retval = true;
+                    }
+                }
+                else if (nk == "element")
+                {
+                    if (compareNodes(sl[i], tl[i]))
+                        retval = true;
+                }
             }
         }
         return retval;
