@@ -508,7 +508,7 @@ public class CompareBitmap extends Assert
 		var t:String = xmlreader.data;
 		s = s.replace(/\r/g, "");
 		t = t.replace(/\r/g, "");		
-		if (s !== t && differ(s, t))
+		if (s !== t && xmldiffer(s, t))
 		{
 			testResult.doFail ("compare returned" + compareVal, absolutePathResult(url) + ".bad.png");
 			
@@ -1376,6 +1376,149 @@ public class CompareBitmap extends Assert
 			return true;
 		return false;
 	}
+
+    private function xmldiffer(s:String, t:String):Boolean
+    {
+        var retval:Boolean = false;
+        
+        var xmls:XML = XML(s);
+        var xmlt:XML = XML(t);
+        retval = compareNodes(xmls, xmlt);
+        if (retval)
+            differ(s, t);
+        return retval;
+    }
+    
+    private static var xywidthheight:Object = { x: 1, y: 1, width: 1, height: 1};
+    
+    private function compareNodes(s:XML, t:XML):Boolean
+    {
+        var retval:Boolean = false;
+        var q:String;
+        var i:int;
+        var n:int;
+        var m:int;
+        var st:String;
+        var tt:String;
+        var sv:String;
+        var tv:String;
+        
+        // compare tag names
+        var sn:String = s.name().toString();
+        var tn:String = t.name().toString();
+        var sparts:Array = sn.split(".");
+        var tparts:Array = tn.split(".");
+        n = sparts.length;
+        for (i = 0; i < n; i++)
+            sparts[i] = trimTag(sparts[i]);
+        n = tparts.length;
+        for (i = 0; i < n; i++)
+            tparts[i] = trimTag(tparts[i]);
+        sn = sparts.join(".");
+        tn = tparts.join(".");
+        if (tn != sn)
+        {
+            if (sn == "NullChild" || sn == "flash.display.StaticText" ||
+                tn == "NullChild" || tn == "flash.display.StaticText")
+            {
+                // inconsistent behavior around StaticText   
+            }
+            else
+            {
+                trace("tag name mismatch: cur=", sn, "xml=", tn);
+                retval = true;
+            }
+        }
+        
+        var sa:XMLList = s.attributes();
+        var ta:XMLList = t.attributes();
+        n = sa.length();
+        m = ta.length();
+        if (n != m)
+        {
+            trace(sn, "different number of attributes: cur=", n, "xml=", m);
+            retval = true;
+        }
+        else
+        {
+            for (i = 0; i < n; i++)
+            {
+                st = sa[i].name().toString();
+                tt = ta[i].name().toString();
+                if (st != tt)
+                {
+                    trace(sn, "attribute name mismatch: cur=", st, "xml=", tt);
+                    retval = true;
+                }
+                else 
+                {
+                    sv = s['@' + st].toString();
+                    tv = s['@' + tt].toString();
+                    if (sv != tv)
+                    {
+                        if (xywidthheight[st] == 1)
+                        {
+                            var sf:Number = Number(sv);
+                            var tf:Number = Number(tv);
+                            if (Math.abs(tf - sf) > 0.1)
+                            {
+                                trace(sn + '@' + st, "attribute value mismatch: cur=", sv, "xml=", tv);
+                                retval = true;
+                            }
+                        }
+                        else if (st == "matrix")
+                        {
+                            // strip parens
+                            sv = sv.substring(1, sv.length - 2);
+                            tv = tv.substring(1, tv.length - 2);
+                            sparts = sv.split(",");
+                            tparts = tv.split(",");
+                            n = sparts.length;
+                            for (i = 0; i < n; i++)
+                            {
+                                sv = sparts[i];
+                                tv = tparts[i];
+                                sv = sv.split("=")[1];
+                                tv = tv.split("=")[1];
+                                sf = Number(sv);
+                                tf = Number(tv);
+                                if (Math.abs(tf - sf) > 0.1)
+                                {
+                                    trace(sn + '@' + st, "matrix value mismatch: cur=", sv, "xml=", tv);
+                                    retval = true;                                    
+                                }
+                            }
+                        }
+                        else
+                        {
+                            trace(sn + '@' + st, "attribute value mismatch: cur=", sv, "xml=", tv);
+                            retval = true;
+                        }
+                    }
+                }
+            }
+        }
+        
+        var sl:XMLList = s.children();
+        var tl:XMLList = t.children();
+        n = sl.length();
+        m = tl.length();
+        if (n != m)
+        {
+            trace(sn, "different number of children: cur=", n, "xml=", m);
+            retval = true;
+        }
+        else
+        {
+            for (i = 0; i < n; i++)
+            {
+                if (compareNodes(sl[i], tl[i]))
+                    retval = true;
+            }
+        }
+        return retval;
+    }
+
 }
 
 }
