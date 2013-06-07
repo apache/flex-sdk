@@ -274,7 +274,7 @@
                <ResetComponent target="ti" className="mx.controls.TextInput" waitTarget="ti"
                    waitEvent="updateComplete" />
                <SetProperty target="swf1" propertyName="autoLoad" value="true" />
-               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/blank.GIF" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/blank.gif" waitTarget="swf1" waitEvent="updateComplete"/>
             </body>
          </TestCase>
 

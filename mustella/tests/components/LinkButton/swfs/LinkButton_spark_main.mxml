@@ -24,7 +24,7 @@
     <fx:Script>
     <![CDATA[
     
-        [Embed(source="../../../../Assets/Images/ButtonImages/play.GIF")]
+        [Embed(source="../../../../Assets/Images/ButtonImages/play.gif")]
         public var playIcon:Class;
     ]]>
     

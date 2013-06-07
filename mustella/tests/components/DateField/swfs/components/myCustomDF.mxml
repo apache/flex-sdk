@@ -1,6 +1,6 @@
 <mx:DateField xmlns:mx="http://www.adobe.com/2006/mxml"
     yearNavigationEnabled="true" 
-    skin="@Embed('../../../../../Assets/Images/up.JPG')" 
+    skin="@Embed('../../../../../Assets/Images/up.jpg')" 
     upSkin="{null}" 
     overSkin="{null}" 
     downSkin="{null}" /> 

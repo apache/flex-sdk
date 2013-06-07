@@ -24,7 +24,7 @@
 
     <fx:Script>
         <![CDATA[
-        [Embed(source='../../../../../Assets/Images/down.JPG')]
+        [Embed(source='../../../../../Assets/Images/down.jpg')]
         public var cursorPencil:Class;
         ]]>
     </fx:Script>

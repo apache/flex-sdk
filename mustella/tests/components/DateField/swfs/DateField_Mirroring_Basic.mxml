@@ -26,16 +26,16 @@
 	<mx:Script>
 	<![CDATA[
 
-        [Embed(source="../../../../Assets/Images/next.JPG")]
+        [Embed(source="../../../../Assets/Images/next.jpg")]
         public var nextIcon:Class;
 
-        [Embed(source="../../../../Assets/Images/prev.JPG")]
+        [Embed(source="../../../../Assets/Images/prev.jpg")]
         public var prevIcon:Class;
         
-        [Embed(source="../../../../Assets/Images/up.JPG")]
+        [Embed(source="../../../../Assets/Images/up.jpg")]
         public var upIcon:Class;
         
-        [Embed(source="../../../../Assets/Images/down.JPG")]
+        [Embed(source="../../../../Assets/Images/down.jpg")]
         public var downIcon:Class;
 	]]>
 	</mx:Script>
