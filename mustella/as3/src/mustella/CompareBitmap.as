@@ -81,6 +81,7 @@ public class CompareBitmap extends Assert
 	
 	public static var DEFAULT_MAX_COLOR_VARIANCE:int = 0;
 	public static var DEFAULT_NUM_COLOR_VARIANCES:int = 0;
+	public static var DEFAULT_MAX_MATRIX_VARIANCE:Number = 0.1;
 
 	// This is the default property.
 	public var conditionalValues:Vector.<ConditionalValue> = null;
@@ -149,6 +150,24 @@ public class CompareBitmap extends Assert
 	public function set numColorVariances(value:int):void
 	{
 		_numColorVariances = value;
+	}
+
+	private var _maxMatrixVariance:Number = 0.1;
+	/**
+	 *  The maximum color variation allowed in a bitmap compare.
+	 *  Some machines render slightly differently and thus we have
+	 *  to allow the the compare to not be exact.
+	 */
+	public function get maxMatrixVariance():Number
+	{
+		if (_maxMatrixVariance)
+			return _maxMatrixVariance;
+		
+		return DEFAULT_MAX_MATRIX_VARIANCE;
+	}
+	public function set maxMatrixVariance(value:Number):void
+	{
+		_maxMatrixVariance = value;
 	}
 
 	/**
@@ -1484,7 +1503,7 @@ public class CompareBitmap extends Assert
                         {
                             var sf:Number = Number(sv);
                             var tf:Number = Number(tv);
-                            if (Math.abs(tf - sf) > 0.1)
+                            if (Math.abs(tf - sf) > maxMatrixVariance)
                             {
                                 trace(sn + '@' + st, "attribute value mismatch: cur=", sv, "xml=", tv);
                                 retval = true;
@@ -1506,7 +1525,7 @@ public class CompareBitmap extends Assert
                                 tv = tv.split("=")[1];
                                 sf = Number(sv);
                                 tf = Number(tv);
-                                if (Math.abs(tf - sf) > 0.1)
+                                if (Math.abs(tf - sf) > maxMatrixVariance)
                                 {
                                     trace(sn + '@' + st, "matrix value mismatch: cur=", sv, "xml=", tv);
                                     retval = true;                                    

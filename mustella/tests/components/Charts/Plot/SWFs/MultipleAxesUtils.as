@@ -18,14 +18,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 package
 {
-	import mx.charts.*;
-	import mx.charts.series.*;
-	import mx.charts.series.items.*;
-	import mx.charts.chartClasses.*;
-	import mx.charts.renderers.*;
-	import mx.charts.*;
-	import mx.core.ClassFactory;
-	import mx.graphics.*;		
+	import mx.charts.AxisRenderer;
+	import mx.charts.CategoryAxis;
+	import mx.charts.DateTimeAxis;
+	import mx.charts.LinearAxis;
+	import mx.charts.LogAxis;
+	import mx.charts.chartClasses.CartesianTransform;
+	import mx.charts.chartClasses.IAxisRenderer;
+	import mx.charts.series.ColumnSeries;
+	import mx.charts.series.LineSeries;
+	import mx.charts.series.PlotSeries;
+	import mx.core.ClassFactory;		
 
 
 	public class MultipleAxesUtils 
@@ -748,6 +751,8 @@ package
 
 					myHorH2.dataUnits = "days";
 					myHorH2.labelUnits = "days";
+					myHorH2.minimum = new Date(2007, 6, 20);
+					myHorH2.maximum = new Date(2007, 6, 20);
 					myHorH2.parseFunction = myParseFunction;
 					myHorH2.displayLocalTime = true;
 

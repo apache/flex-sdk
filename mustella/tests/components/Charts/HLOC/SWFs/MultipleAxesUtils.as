@@ -784,6 +784,8 @@ package
 
 					myHorH2.dataUnits = "days";
 					myHorH2.labelUnits = "days";
+					myHorH2.minimum = new Date(2007, 6, 20);
+					myHorH2.maximum = new Date(2007, 6, 20);
 					myHorH2.parseFunction = myParseFunction;
 					myHorH2.displayLocalTime = true;
 

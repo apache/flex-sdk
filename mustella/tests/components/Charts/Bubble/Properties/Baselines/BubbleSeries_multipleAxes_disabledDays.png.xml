@@ -115,7 +115,7 @@
             <mx.charts.renderers.CircleItemRenderer x="124.7" y="78.25" width="43.15511867657636" height="43.15511867657636"/>
             <mx.charts.renderers.CircleItemRenderer x="125.65" y="117.7" width="71.9012227283625" height="71.9012227283625"/>
             <mx.charts.renderers.CircleItemRenderer x="138.3" y="25.05" width="75.04195636538" height="75.04195636538"/>
-            <mx.charts.renderers.CircleItemRenderer x="165.45" y="221.75" width="51.546391752577314" height="51.546391752577314"/>
+            <mx.charts.renderers.CircleItemRenderer x="165.4" y="221.75" width="51.546391752577314" height="51.546391752577314"/>
             <mx.charts.renderers.CircleItemRenderer x="193.2" y="233.55" width="26.68424838168305" height="26.68424838168305"/>
             <mx.charts.renderers.CircleItemRenderer x="39.05" y="224.3" width="51.186765763605855" height="51.186765763605855"/>
             <mx.charts.renderers.CircleItemRenderer x="40.65" y="116.7" width="75.37760728842005" height="75.37760728842005"/>

@@ -192,7 +192,7 @@
             <mx.charts.renderers.CircleItemRenderer x="189.85" y="156.75" width="7" height="7"/>
             <mx.charts.renderers.CircleItemRenderer x="219.5" y="148.6" width="7" height="7"/>
             <mx.charts.renderers.CircleItemRenderer x="248.2" y="140.75" width="7" height="7"/>
-            <mx.charts.renderers.CircleItemRenderer x="277.9" y="135.45" width="7" height="7"/>
+            <mx.charts.renderers.CircleItemRenderer x="277.85" y="135.45" width="7" height="7"/>
             <mx.charts.renderers.CircleItemRenderer x="308.45" y="140.35" width="7" height="7"/>
           </mx.charts.series.LineSeries>
           <mx.charts.series.LineSeries width="315.5" height="304.2752320001008">

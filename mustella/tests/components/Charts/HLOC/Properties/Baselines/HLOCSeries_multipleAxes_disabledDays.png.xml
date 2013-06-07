@@ -107,7 +107,7 @@
             <mx.charts.renderers.HLOCItemRenderer x="157.05" y="185.2" width="0.28908078811582527" height="60.956999999999994"/>
             <mx.charts.renderers.HLOCItemRenderer x="181.95" y="175.8" width="0.28908078811582527" height="102.10297499999999"/>
             <mx.charts.renderers.HLOCItemRenderer x="205.1" y="161" width="0.28908078811582527" height="57.90915000000004"/>
-            <mx.charts.renderers.HLOCItemRenderer x="230.05" y="160.55" width="0.28908078811582527" height="122.3829"/>
+            <mx.charts.renderers.HLOCItemRenderer x="230" y="160.55" width="0.28908078811582527" height="122.3829"/>
             <mx.charts.renderers.HLOCItemRenderer x="254.95" y="166.25" width="0.28908078811582527" height="120.15562500000004"/>
             <mx.charts.renderers.HLOCItemRenderer x="25.45" y="163.25" width="0.28908078811582527" height="121.2692625"/>
             <mx.charts.renderers.HLOCItemRenderer x="47.7" y="161.9" width="0.28908078811582527" height="59.6089125"/>

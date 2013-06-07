@@ -166,7 +166,7 @@
             <mx.charts.renderers.BoxItemRenderer x="157.05" y="58.5" width="0.5781615762352885" height="293.13145588235295"/>
             <mx.charts.renderers.BoxItemRenderer x="181.95" y="121.2" width="0.5781615762352885" height="230.4505588235294"/>
             <mx.charts.renderers.BoxItemRenderer x="205.1" y="15.2" width="0.5781615762352885" height="336.4702279411765"/>
-            <mx.charts.renderers.BoxItemRenderer x="230.05" y="230.45" width="0.5781615762352885" height="121.2244411764706"/>
+            <mx.charts.renderers.BoxItemRenderer x="230" y="230.45" width="0.5781615762352885" height="121.2244411764706"/>
             <mx.charts.renderers.BoxItemRenderer x="254.95" y="229.7" width="0.5781615762352885" height="121.94847794117644"/>
             <mx.charts.renderers.BoxItemRenderer x="25.45" y="233.2" width="0.5781615762352885" height="118.43172794117643"/>
             <mx.charts.renderers.BoxItemRenderer x="47.7" y="122.05" width="0.5781615762352885" height="229.62308823529412"/>

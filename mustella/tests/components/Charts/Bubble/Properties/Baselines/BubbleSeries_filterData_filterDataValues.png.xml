@@ -99,7 +99,7 @@
             <mx.charts.renderers.CircleItemRenderer x="125.05" y="17.4" width="43.15511867657636" height="43.15511867657636"/>
             <mx.charts.renderers.CircleItemRenderer x="125.75" y="145.5" width="71.9012227283625" height="71.9012227283625"/>
             <mx.charts.renderers.CircleItemRenderer x="138.8" y="-97" width="75.04195636538" height="75.04195636538"/>
-            <mx.charts.renderers.CircleItemRenderer x="165.65" y="403.95" width="51.546391752577314" height="51.546391752577314"/>
+            <mx.charts.renderers.CircleItemRenderer x="165.6" y="403.95" width="51.546391752577314" height="51.546391752577314"/>
             <mx.charts.renderers.CircleItemRenderer x="193.65" y="414.75" width="26.68424838168305" height="26.68424838168305"/>
             <mx.charts.renderers.CircleItemRenderer y="-95.8" width="100" height="100"/>
             <mx.charts.renderers.CircleItemRenderer x="39.45" y="410.5" width="51.186765763605855" height="51.186765763605855"/>

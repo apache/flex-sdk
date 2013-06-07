@@ -151,7 +151,7 @@
             <mx.charts.renderers.DiamondItemRenderer x="151.7" y="57.25" width="10" height="10"/>
             <mx.charts.renderers.DiamondItemRenderer x="175.95" y="119.15" width="10" height="10"/>
             <mx.charts.renderers.DiamondItemRenderer x="198.45" y="14.5" width="10" height="10"/>
-            <mx.charts.renderers.DiamondItemRenderer x="222.75" y="226.95" width="10" height="10"/>
+            <mx.charts.renderers.DiamondItemRenderer x="222.7" y="226.95" width="10" height="10"/>
             <mx.charts.renderers.DiamondItemRenderer x="247" y="226.25" width="10" height="10"/>
             <mx.charts.renderers.DiamondItemRenderer x="23.55" y="229.75" width="10" height="10"/>
             <mx.charts.renderers.DiamondItemRenderer x="45.2" y="119.95" width="10" height="10"/>
@@ -168,7 +168,7 @@
             <mx.charts.renderers.CircleItemRenderer x="153.2" y="295" width="7" height="7"/>
             <mx.charts.renderers.CircleItemRenderer x="177.45" y="292.2" width="7" height="7"/>
             <mx.charts.renderers.CircleItemRenderer x="199.95" y="289.65" width="7" height="7"/>
-            <mx.charts.renderers.CircleItemRenderer x="224.25" y="288" width="7" height="7"/>
+            <mx.charts.renderers.CircleItemRenderer x="224.2" y="288" width="7" height="7"/>
             <mx.charts.renderers.CircleItemRenderer x="248.5" y="289.55" width="7" height="7"/>
           </mx.charts.series.LineSeries>
         </mx.core.UIComponent>

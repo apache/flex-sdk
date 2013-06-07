@@ -6,19 +6,19 @@
         <mx.core.UITextField x="18" width="49.4" height="19.55" underline="false">
           <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="OpenSans" SIZE="10" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;Close&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
         </mx.core.UITextField>
-        <LineSeries.as$101.LineSeriesLegendMarker y="2.25" width="10" height="15"/>
+        <LineSeries.as$102.LineSeriesLegendMarker y="2.25" width="10" height="15"/>
       </mx.charts.LegendItem>
       <mx.charts.LegendItem x="74.4" y="5" width="49.7" height="19.55">
         <mx.core.UITextField x="18" width="49.7" height="19.55" underline="false">
           <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="OpenSans" SIZE="10" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;Open&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
         </mx.core.UITextField>
-        <LineSeries.as$101.LineSeriesLegendMarker y="2.25" width="10" height="15"/>
+        <LineSeries.as$102.LineSeriesLegendMarker y="2.25" width="10" height="15"/>
       </mx.charts.LegendItem>
       <mx.charts.LegendItem x="144.1" y="5" width="45.85" height="19.55">
         <mx.core.UITextField x="18" width="45.85" height="19.55" underline="false">
           <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="OpenSans" SIZE="10" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;High&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
         </mx.core.UITextField>
-        <LineSeries.as$101.LineSeriesLegendMarker y="2.25" width="10" height="15"/>
+        <LineSeries.as$102.LineSeriesLegendMarker y="2.25" width="10" height="15"/>
       </mx.charts.LegendItem>
     </mx.charts.Legend>
     <mx.charts.LineChart x="50" y="59" width="400" height="400">

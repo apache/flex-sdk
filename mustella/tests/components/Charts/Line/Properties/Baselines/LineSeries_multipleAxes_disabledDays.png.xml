@@ -6,19 +6,19 @@
         <mx.core.UITextField x="18" width="49.4" height="19.55" underline="false">
           <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="OpenSans" SIZE="10" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;Close&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
         </mx.core.UITextField>
-        <LineSeries.as$101.LineSeriesLegendMarker y="2.25" width="10" height="15"/>
+        <LineSeries.as$102.LineSeriesLegendMarker y="2.25" width="10" height="15"/>
       </mx.charts.LegendItem>
       <mx.charts.LegendItem x="74.4" y="5" width="49.7" height="19.55">
         <mx.core.UITextField x="18" width="49.7" height="19.55" underline="false">
           <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="OpenSans" SIZE="10" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;Open&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
         </mx.core.UITextField>
-        <LineSeries.as$101.LineSeriesLegendMarker y="2.25" width="10" height="15"/>
+        <LineSeries.as$102.LineSeriesLegendMarker y="2.25" width="10" height="15"/>
       </mx.charts.LegendItem>
       <mx.charts.LegendItem x="144.1" y="5" width="45.85" height="19.55">
         <mx.core.UITextField x="18" width="45.85" height="19.55" underline="false">
           <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="OpenSans" SIZE="10" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;High&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
         </mx.core.UITextField>
-        <LineSeries.as$101.LineSeriesLegendMarker y="2.25" width="10" height="15"/>
+        <LineSeries.as$102.LineSeriesLegendMarker y="2.25" width="10" height="15"/>
       </mx.charts.LegendItem>
     </mx.charts.Legend>
     <mx.charts.LineChart x="50" y="59" width="400" height="400">
@@ -169,7 +169,7 @@
             <mx.charts.renderers.BoxItemRenderer x="157.05" y="307.85" width="0.5781615762352885" height="54.802409658853094"/>
             <mx.charts.renderers.BoxItemRenderer x="181.95" y="304.95" width="0.5781615762352885" height="57.67998368515117"/>
             <mx.charts.renderers.BoxItemRenderer x="205.1" y="302.35" width="0.5781615762352885" height="60.32486472881067"/>
-            <mx.charts.renderers.BoxItemRenderer x="230.05" y="300.6" width="0.5781615762352885" height="62.0437310348799"/>
+            <mx.charts.renderers.BoxItemRenderer x="230" y="300.6" width="0.5781615762352885" height="62.0437310348799"/>
             <mx.charts.renderers.BoxItemRenderer x="254.95" y="302.2" width="0.5781615762352885" height="60.45782480934491"/>
             <mx.charts.renderers.BoxItemRenderer x="25.45" y="301.35" width="0.5781615762352885" height="61.297620594193404"/>
             <mx.charts.renderers.BoxItemRenderer x="47.7" y="302.35" width="0.5781615762352885" height="60.291572030332134"/>

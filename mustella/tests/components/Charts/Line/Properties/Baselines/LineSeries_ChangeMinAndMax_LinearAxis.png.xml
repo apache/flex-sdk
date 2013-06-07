@@ -117,7 +117,7 @@
             <mx.charts.renderers.BoxItemRenderer x="157.55" y="307.85" width="0.495795795792219" height="54.802409658853094"/>
             <mx.charts.renderers.BoxItemRenderer x="181.95" y="304.95" width="0.495795795792219" height="57.67998368515117"/>
             <mx.charts.renderers.BoxItemRenderer x="205.6" y="302.35" width="0.495795795792219" height="60.32486472881067"/>
-            <mx.charts.renderers.BoxItemRenderer x="230.05" y="300.6" width="0.495795795792219" height="62.0437310348799"/>
+            <mx.charts.renderers.BoxItemRenderer x="230" y="300.6" width="0.495795795792219" height="62.0437310348799"/>
             <mx.charts.renderers.BoxItemRenderer x="255.25" y="302.2" width="0.495795795792219" height="60.45782480934491"/>
             <mx.charts.renderers.BoxItemRenderer x="1.25" y="301.55" width="0.495795795792219" height="61.08482729007443"/>
             <mx.charts.renderers.BoxItemRenderer x="25.65" y="301.35" width="0.495795795792219" height="61.297620594193404"/>
