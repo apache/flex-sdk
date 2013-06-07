@@ -1,5 +1,5 @@
 <DisplayList>
-  <Alert_Basic width="750" height="600">
+  <Alert_Basic width="750" height="600" cacheAsBitmap="true" filters="[object BlurFilter]">
     <mx.skins.halo.HaloBorder width="750" height="600"/>
     <mx.controls.TextInput x="295" y="24" width="160" height="24">
       <mx.skins.halo.HaloBorder width="160" height="24"/>
