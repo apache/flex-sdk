@@ -1363,7 +1363,27 @@ public class CompareBitmap extends Assert
 		return a;
 	}
 	
-	// static text seems to float around a bit so ignore it.
+    // attempt to strip off random unique name chars for embedded assets
+    private function trimName(a:String):String
+    {
+        var c:int;
+        var d:int;
+        
+        c = a.length;
+        for (var i:int = c - 1;i > 0; i--)
+        {
+            var ch:String = a.charAt(i);
+            if ((ch >= '0' && ch <= '9') || ch == '_')
+            {
+                // assume it is a random char
+            }
+            else
+                break;
+        }
+        return a.substring(0, i + 1);
+    }
+
+    // static text seems to float around a bit so ignore it.
 	private function nullChildOrStaticText(a:String, b:String):Boolean
 	{
 		if (a.indexOf("<NullChild") != -1)
@@ -1414,10 +1434,10 @@ public class CompareBitmap extends Assert
         var tparts:Array = tn.split(".");
         n = sparts.length;
         for (i = 0; i < n; i++)
-            sparts[i] = trimTag(sparts[i]);
+            sparts[i] = trimName(sparts[i]);
         n = tparts.length;
         for (i = 0; i < n; i++)
-            tparts[i] = trimTag(tparts[i]);
+            tparts[i] = trimName(tparts[i]);
         sn = sparts.join(".");
         tn = tparts.join(".");
         if (tn != sn)
