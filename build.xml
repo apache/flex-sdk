@@ -1772,4 +1772,13 @@
             </fileset>
         </rat:report>
     </target>
+	
+	<target name="create-md5" >
+		<echo message="Generating MD5 hashes for release artifacts"/>
+		<checksum file="${basedir}/out/${binary.kit}.tar.gz" forceOverwrite="yes"/>
+		<checksum file="${basedir}/out/${binary.kit}.zip" forceOverwrite="yes"/>
+		<checksum file="${basedir}/out/${source.kit}.tar.gz" forceOverwrite="yes"/>
+		<checksum file="${basedir}/out/${source.kit}.zip" forceOverwrite="yes"/>
+	</target>
+
 </project>
