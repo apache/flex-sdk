@@ -56,11 +56,10 @@
               </spark.components.Label>
             </spark.skins.spark.ToggleButtonSkin>
           </spark.components.ToggleButton>
-          <mx.controls.Label y="142" width="30" height="20">
-            <mx.core.UITextField width="30" height="20" underline="false">
-              <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="Arial" SIZE="12" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;false&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
-            </mx.core.UITextField>
-          </mx.controls.Label>
+          <spark.components.Label y="142" width="26" height="16">
+            <flash.display.Shape width="26" height="16"/>
+            <flash.text.engine.TextLine y="12.45" width="25.05" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="5" hasGraphicElement="false"/>
+          </spark.components.Label>
         </spark.components.Group>
       </spark.components.Group>
     </spark.skins.spark.ApplicationSkin>

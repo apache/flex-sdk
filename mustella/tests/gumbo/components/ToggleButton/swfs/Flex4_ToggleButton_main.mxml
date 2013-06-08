@@ -76,6 +76,12 @@
 			fontLookup: "embeddedCFF";
 		}
 
+        s|Label{
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontLookup: "embeddedCFF";
+        }
+        
 		.redText {
 		    color: #FF0000;
 		    fontWeight: "bold";
@@ -107,6 +113,6 @@
     
     <s:ToggleButton id="myTB2" creationComplete="initListener()" />
     <s:ToggleButton id="myTB3" />
-    <mx:Label id="myLabel" text="{myTB3.selected.toString()}" />
+    <s:Label id="myLabel" text="{myTB3.selected.toString()}" />
     
 </s:Application>

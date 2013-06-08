@@ -119,7 +119,12 @@
 			fontFamily:myArialHalo;
 		}
 
-		
+        mx|Button{
+            fontAntiAliasType: "normal";
+            fontFamily: myArialHalo;
+            fontLookup: "embeddedCFF";
+        }
+
 	</fx:Style>
 
 	<mx:Canvas id="panel1" height="150" width="300">
