@@ -538,7 +538,7 @@ public class DividedBox extends Box
            	if (!liveDragging && activeDivider)
            		return dividerLayer.numChildren-1;
            	else
-			return dividerLayer.numChildren;
+				return dividerLayer.numChildren;
 		else 
 			return 0;
 	}
@@ -793,10 +793,10 @@ public class DividedBox extends Box
 	{
 		if (dividerLayer) {
 			// Check whether this is a valid divider index.
-			if (i < 0 || i >= numDividers)
+			if (i < 0 || i >= dividerLayer.numChildren)
 				return null;
-			
-			return BoxDivider(dividerLayer.getChildAt(i));
+			else
+				return BoxDivider(dividerLayer.getChildAt(i));
 		}
 		else {
 			return null;
