@@ -75,11 +75,11 @@
 				<RunCode code="application.p_rm_act_acpl.play();" waitTarget="p_rm_act_acpl" waitEvent="effectEnd" timeout="{timeout}" />
 				<AssertPropertyValue target="invader1" propertyName="width" value="200"/>
 				<AssertPropertyValue target="invader1" propertyName="height" value="100"/>
-				<AssertMethodValue method="value=(application.invader1.x &gt; 249)" value="true"/>
-				<AssertMethodValue method="value=(application.invader1.x &lt; 251)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.x &gt; 247)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.x &lt; 253)" value="true"/>
 				<AssertPropertyValue target="invader1" propertyName="y" value="0"/>
-				<AssertMethodValue method="value=(application.invader1.postLayoutTransformOffsets.x &gt; -51)" value="true"/>
-				<AssertMethodValue method="value=(application.invader1.postLayoutTransformOffsets.x &lt; -49)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.postLayoutTransformOffsets.x &gt; -53)" value="true"/>
+				<AssertMethodValue method="value=(application.invader1.postLayoutTransformOffsets.x &lt; -47)" value="true"/>
 			</body>
 		</TestCase>
 
