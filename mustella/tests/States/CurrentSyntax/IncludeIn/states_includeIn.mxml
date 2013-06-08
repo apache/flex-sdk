@@ -75,7 +75,7 @@ absence of a parent for the asserts.
         <AssertPropertyValue target="btnCalibrate1" propertyName="parent" value="statesApp_includeIn0.bxCalibrate" />
         <AssertPropertyValue target="btnCalibrate2" propertyName="parent" value="null" />
         <AssertPropertyValue target="bxCalibrate" propertyName="parent" value="statesApp_includeIn0" />
-        <CompareBitmap target="bxCalibrate" url="../includeIn/baselines/statesApp_pngCalibration.png" />
+        <CompareBitmap target="bxCalibrate" url="../includein/baselines/statesApp_pngCalibration.png" />
     </body>
 </TestCase>
 
