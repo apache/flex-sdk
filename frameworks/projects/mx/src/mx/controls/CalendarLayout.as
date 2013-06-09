@@ -2039,6 +2039,14 @@ public class CalendarLayout extends UIComponent
 				
 				selectedRangeCount++;
 			}
+			// remove day at start of range
+			else if (endDate.time == rangeStart.time) {
+				_selectedRanges[n].rangeStart = addSubtractDays(startDate, +1);	
+			}
+			// remove day at end of range
+			else if (startDate.time == rangeEnd.time) {
+				_selectedRanges[n].rangeEnd = addSubtractDays(endDate, -1);	
+			}
 			// move selection start date if end overlaps
 			else if (endDate >= rangeStart)
 			{
