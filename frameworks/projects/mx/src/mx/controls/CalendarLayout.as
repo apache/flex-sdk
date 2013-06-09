@@ -2052,7 +2052,7 @@ public class CalendarLayout extends UIComponent
 		}
 		
 		// clean up any removed selections
-		for (n = selectedRangeCount -1; n > 0; n--)
+		for (n = selectedRangeCount -1; n >= 0; n--)
 		{
 			if (_selectedRanges[n] == null)
 			{
