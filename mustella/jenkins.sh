@@ -29,7 +29,8 @@ set -o igncr
 
 #./mini_run.sh -timeout=60000 tests/components/Label
 #./mini_run.sh -timeout=60000 tests/gumbo/core/Group/viewport
-./mini_run.sh -timeout=60000 -all
+#./mini_run.sh -timeout=60000 -all
+./mini_run.sh -timeout=60000 -failures
 
 #if [[ -s failures.txt ]] ; then
 #	echo "Some tests failed: running '-failures'" 
