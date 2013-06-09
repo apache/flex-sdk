@@ -53,6 +53,7 @@
             <setup>
                 <ResetComponent target="gvbScript" className="spark.validators.CurrencyValidator"/>
                 <RunCode code="application.gvbScript.initialized(null,'gvbScript')"/>
+                <RunCode code="application.gvbScript.triggerEvent = 'foo'"/>
                 <Pause timeout="{CVConstant.pauseTime}"/>
                 <RunCode code="application.setVsource(application.gvbScript,application.myTI1)"/>
                 <Pause timeout="{CVConstant.pauseTime}"/>
@@ -66,6 +67,7 @@
             <setup>
                 <ResetComponent target="gvb" className="spark.validators.CurrencyValidator"/>
                 <RunCode code="application.gvb.initialized(null,'gvb')"/>
+                <RunCode code="application.gvb.triggerEvent = 'foo'"/>
                 <Pause timeout="{CVConstant.pauseTime}"/>
                 <RunCode code="application.setVsource(application.gvb,application.myTI1)"/>
                 <Pause timeout="{CVConstant.pauseTime}"/>
@@ -261,7 +263,7 @@
         <TestCase testID="GVB_source_multi_source_test_25" description="multiple kinds of source validation" keywords="[GlobalizationValidatorBase, source]">
             <setup/>
             <body>
-                <DispatchMouseClickEvent target="sTI"/>
+                <DispatchMouseClickEvent target="sTI" waitEvent="focusIn"/>
                 <SetProperty target="sTI" propertyName="text" value="abc"/>
                 <DispatchKeyEvent key="TAB"/>
                 <AssertEvent target="cv_sTI" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
@@ -271,7 +273,7 @@
         <TestCase testID="GVB_source_multi_source_test_26" description="multiple kinds of source validation" keywords="[GlobalizationValidatorBase, source]">
             <setup/>
             <body>
-                <DispatchMouseClickEvent target="sRET"/>
+                <DispatchMouseClickEvent target="sRET" />
                 <SetProperty target="sRET" propertyName="text" value="abc"/>
                 <DispatchKeyEvent key="TAB"/>
                 <AssertEvent target="cv_sRET" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
@@ -281,7 +283,7 @@
         <TestCase testID="GVB_source_multi_source_test_27" description="multiple kinds of source validation" keywords="[GlobalizationValidatorBase, source]">
             <setup/>
             <body>
-                <DispatchMouseClickEvent target="sTA"/>
+                <DispatchMouseClickEvent target="sTA" />
                 <SetProperty target="sTA" propertyName="text" value="abc"/>
                 <DispatchKeyEvent key="TAB"/>
                 <AssertEvent target="cv_sTA" eventName="invalid" eventClass="mx.events::ValidationResultEvent"/>
@@ -291,7 +293,7 @@
         <TestCase testID="GVB_source_multi_source_test_28" description="multiple kinds of source validation" keywords="[GlobalizationValidatorBase, source]">
             <setup/>
             <body>
-                <DispatchMouseClickEvent target="sRT"/>
+                <DispatchMouseClickEvent target="sRT" />
                 <SetProperty target="sRT" propertyName="text" value="abc" waitEvent="updateComplete"/>
                 
                 <AssertEvent target="cv_sRT" eventName="invalid" eventClass="mx.events::ValidationResultEvent" numExpectedEvents="-1"/>
@@ -301,7 +303,7 @@
         <TestCase testID="GVB_source_multi_source_test_29" description="multiple kinds of source validation" keywords="[GlobalizationValidatorBase, source]">
             <setup/>
             <body>
-                <DispatchMouseClickEvent target="mxRTE"/>
+                <DispatchMouseClickEvent target="mxRTE" />
                 <SetProperty target="mxRTE" propertyName="text" value="abc" waitEvent="updateComplete"/>
                 <DispatchKeyEvent key="TAB"/>
                 <AssertEvent target="cv_mxRTE" eventName="invalid" eventClass="mx.events::ValidationResultEvent" numExpectedEvents="1"/>

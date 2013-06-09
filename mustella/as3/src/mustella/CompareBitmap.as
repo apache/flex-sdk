@@ -1465,6 +1465,7 @@ public class CompareBitmap extends Assert
                 tn == "NullChild" || tn == "flash.display.StaticText")
             {
                 // inconsistent behavior around StaticText   
+                return false;
             }
             else
             {
