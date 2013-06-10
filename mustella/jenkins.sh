@@ -27,14 +27,12 @@
 export SHELLOPTS
 set -o igncr
 
-#./mini_run.sh -timeout=60000 tests/components/Label
-#./mini_run.sh -timeout=60000 tests/gumbo/core/Group/viewport
-#./mini_run.sh -timeout=60000 -all
-./mini_run.sh -timeout=60000 -failures
+./mini_run.sh -timeout=60000 -all
+#./mini_run.sh -timeout=60000 -failures
 
-#if [[ -s failures.txt ]] ; then
-#	echo "Some tests failed: running '-failures'" 
-#	./mini_run.sh -failures
-#else
-#	echo "All tests passed on first run" 
-#fi ;
+if [[ -s failures.txt ]] ; then
+	echo "Some tests failed: running '-failures'" 
+	./mini_run.sh -failures
+else
+	echo "All tests passed on first run" 
+fi ;
