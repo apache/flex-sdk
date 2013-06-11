@@ -546,7 +546,7 @@
         <!-- CanvasLayout -->
         <TestCase testID="JA_RTE_CanvasLayout_ColumnNotFound" description="RTE Tests" keywords="[Runtime Localization,CanvasLayout,ColumnNotFound]" >
             <body>
-                <AssertMethodValue method="try { triggerColumnNotFoundRTE(); } catch (e:Error) { value = StringUtil.trim(e.message) }" value="ConstraintColumn 'col1' が見つかりませんでした。" />
+                <AssertMethodValue method="try { triggerColumnNotFoundRTE(); } catch (e:Error) { value = StringUtil.trim(e.message) }" value="ConstraintColumns が見つかりませんでした。" />
             </body>
         </TestCase>
         <TestCase testID="JA_RTE_CanvasLayout_NoRowsFound" description="RTE Tests" keywords="[Runtime Localization,CanvasLayout,NoRowsFound]" >
