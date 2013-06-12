@@ -27,12 +27,12 @@
 export SHELLOPTS
 set -o igncr
 
-./mini_run.sh -timeout=60000 -all
+sh ./mini_run.sh -timeout=60000 -all
 #./mini_run.sh -timeout=60000 -failures
 
 if [[ -s failures.txt ]] ; then
 	echo "Some tests failed: running '-failures'" 
-	./mini_run.sh -failures
+	sh ./mini_run.sh -timeout=60000 -failures
 else
 	echo "All tests passed on first run" 
 fi ;
