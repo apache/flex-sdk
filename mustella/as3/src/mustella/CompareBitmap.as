@@ -1389,7 +1389,7 @@ public class CompareBitmap extends Assert
         var d:int;
         
         c = a.length;
-        for (var i:int = c - 1;i > 0; i--)
+        for (var i:int = c - 1;i >= 0; i--)
         {
             var ch:String = a.charAt(i);
             if ((ch >= '0' && ch <= '9') || ch == '_')
@@ -1467,7 +1467,7 @@ public class CompareBitmap extends Assert
                 // inconsistent behavior around StaticText   
                 return false;
             }
-            else
+            else if (!oneMoreNameCompare(sn, tn))
             {
                 trace("tag name mismatch: cur=", sn, "xml=", tn);
                 retval = true;
@@ -1575,6 +1575,22 @@ public class CompareBitmap extends Assert
         return retval;
     }
 
+	private function oneMoreNameCompare(a:String, b:String):Boolean
+	{
+		var aParts:Array = a.split("_");
+		var bParts:Array = b.split("_");
+		var i:int;
+		var n:int;
+		n = aParts.length;
+		for (i = 0; i < n; i++)
+			aParts[i] = trimName(aParts[i]);
+		n = bParts.length;
+		for (i = 0; i < n; i++)
+			bParts[i] = trimName(bParts[i]);
+		a = aParts.join("_");
+		b = bParts.join("_");
+		return a == b;
+	}
 }
 
 }
