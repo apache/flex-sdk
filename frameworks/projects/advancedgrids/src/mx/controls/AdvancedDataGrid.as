@@ -3939,7 +3939,8 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         if (styleProp == "sortFontFamily"
             || styleProp == "sortFontSize"
             || styleProp == "sortFontStyle"
-            || styleProp == "sortFontWeight")
+			|| styleProp == "sortFontWeight"
+			|| styleProp == "layoutDirection")
         {
             itemsSizeChanged = true;
             rendererChanged = true;
