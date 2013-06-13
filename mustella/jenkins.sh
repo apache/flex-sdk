@@ -27,8 +27,9 @@
 export SHELLOPTS
 set -o igncr
 
-sh ./mini_run.sh -timeout=60000 -all
-#./mini_run.sh -timeout=60000 -failures
+#sh ./mini_run.sh -timeout=60000 -all
+#sh ./mini_run.sh -timeout=60000 -failures
+sh ./mini_run.sh -timeout=60000 tests/itemRenderers
 
 if [[ -s failures.txt ]] ; then
 	echo "Some tests failed: running '-failures'" 
