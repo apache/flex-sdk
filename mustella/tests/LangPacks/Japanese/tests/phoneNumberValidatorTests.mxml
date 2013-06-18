@@ -85,7 +85,8 @@
 		</TestCase>
 		<TestCase testID="JA_PhoneNumberValidator_wrongLengthError"  keywords="[wrongLengthError, PhoneNumberValidator]">
 			<setup>
-				
+				<!-- hide vbox of controls as it interferes with display list compares in different locales -->
+				<RunCode code="application.removeChild(application.vbox)" />
 				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
 				<SetProperty target="ct.myPhoneV.myPhN" propertyName="property" value="text"/>
 				<SetProperty target="ct.myPhoneV.myPhN" propertyName="minDigits" value="10"/>

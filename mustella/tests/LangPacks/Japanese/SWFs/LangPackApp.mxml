@@ -70,7 +70,7 @@
 
 	<components:MyFormatters id="mf" />
 	<components:CustomTester id="ct"/>
-	<mx:VBox>
+	<mx:VBox id="vbox">
 		<mx:TextInput id="tin"/>
 		<mx:DateChooser id="dc"/>
 		<mx:DateField id="df"/>
