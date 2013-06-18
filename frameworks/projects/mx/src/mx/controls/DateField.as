@@ -2203,11 +2203,22 @@ public class DateField extends ComboBase
         var buttonWidth:Number = downArrowButton.getExplicitOrMeasuredWidth();
         var buttonHeight:Number = downArrowButton.getExplicitOrMeasuredHeight();
 
-        var bigDate:Date = new Date(2004, 12, 31);
-        var txt:String = (_labelFunction != null) ? _labelFunction(bigDate) : 
-                            dateToString(bigDate, formatString);
+        var bigDate:Date;
+        var txt:String;
+		var textWidth:Number;
+		var maxWidth:Number = 0;
+		
+		// Width may vary based on date format
+		for (var month:int = 0; month < 12; month++) {
+			bigDate = new Date(2000, month, 28); // day 28 exist in all months
+			txt = (_labelFunction != null) ? _labelFunction(bigDate) : dateToString(bigDate, formatString);
+			textWidth = measureText(txt).width;
+			if (textWidth > maxWidth) {
+				maxWidth = textWidth;
+			}
+		}
 
-        measuredMinWidth = measuredWidth = measureText(txt).width + 8 + 2 + buttonWidth;
+        measuredMinWidth = measuredWidth = maxWidth + 8 + 2 + buttonWidth;
         measuredMinWidth = measuredWidth += getStyle("paddingLeft") + getStyle("paddingRight");
         measuredMinHeight = measuredHeight = textInput.getExplicitOrMeasuredHeight();
     }
