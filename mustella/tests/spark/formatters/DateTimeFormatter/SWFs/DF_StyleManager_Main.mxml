@@ -41,11 +41,11 @@
 			import mx.styles.IStyleManager2;
 			import spark.events.TextOperationEvent;
 			
-			private var aDate:Date =  new Date(2009, 12, 1);
+			private var aDate:Date =  new Date(2009, 11, 1);
 			private var myStyleManager:IStyleManager2 ;
 			
 			public function testDateFormatter(Object:String):void {
-				aDate =  new Date(2009, 12, 1);
+				aDate =  new Date(2009, 11, 1);
 				switch (Object)
 				{
 					//case 1 is for testing current styles
