@@ -1204,6 +1204,9 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
             //reset flags 
             dataProviderChanged = false;
             showRootChanged = false;
+			
+			// forget last menu
+			openMenuIndex = -1;
         
             // are we swallowing the root?
             if (_rootModel && !_showRoot && _hasRoot)
@@ -1746,7 +1749,12 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
         if (dataProviderChanged)
             commitProperties();
 
-        var item:IMenuBarItemRenderer = menuBarItems[index];
+        var item:IMenuBarItemRenderer;
+		
+		if (index < 0 || index >= menuBarItems.length)
+			return null;
+		
+		item = menuBarItems[index];
       
         var mdp:Object = item.data;
         var menu:Menu = menus[index];
@@ -1964,7 +1972,7 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
                     }
                     isDown = true;
                     
-                    if (m.dataDescriptor.getType(item.data) != "separator")
+                    if (m && m.dataDescriptor.getType(item.data) != "separator")
                     {
                         requiresEvent = true;
                         //fire the change event 
@@ -1981,8 +1989,10 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
                 else
                 {
                     var mm:Menu = getMenuAt(index);
-                    mm.deleteDependentSubMenus();
-                    mm.setFocus();
+					if (mm) {
+	                    mm.deleteDependentSubMenus();
+	                    mm.setFocus();
+					}
                 }
             }
             else
@@ -2052,7 +2062,7 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
                 isDown = false;
             }
             
-            if (m.dataDescriptor.getType(item.data) != "separator")
+            if (m && m.dataDescriptor.getType(item.data) != "separator")
             {
                 //fire the change event 
                 var menuEvent:MenuEvent = new MenuEvent(MenuEvent.CHANGE);
@@ -2076,7 +2086,10 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
 
         if (item.enabled && !isDown)
         {
-            getMenuAt(index).hideAllMenus();
+			var m:Menu = getMenuAt(index);
+			
+            if (m)
+				m.hideAllMenus();
             item.menuBarItemState = "itemOverSkin";
         }
     }
@@ -2090,12 +2103,12 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
         var index:int = item.menuBarItemIndex;
         var m:Menu = getMenuAt(index);
 
-        if (item.enabled && openMenuIndex != index)
+        if (item.enabled && m && openMenuIndex != index)
         {
             menuBarItems[index].menuBarItemState = "itemUpSkin";
         }
         // Fire the appropriate rollout event
-        if (item.data && 
+        if (item.data && m &&
             (m.dataDescriptor.getType(item.data) != "separator"))
         {
             var menuEvent:MenuEvent = new MenuEvent(MenuEvent.ITEM_ROLL_OUT);
