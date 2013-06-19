@@ -80,6 +80,8 @@ if [ $# -lt 1 ]
     echo ""
     echo "   -mail=name@address  send mail, if any, to this address only"
     echo ""
+    echo "   -mobile      - run mobile tests"
+    echo ""
     echo "   -myExcludes  - do not fetch excludes from the database; use the ones already present in"
     echo "                  qa/sdk/testsuites/mustella/tests"
     echo ""
