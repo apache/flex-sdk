@@ -488,7 +488,8 @@ public class DateField extends ComboBase
 				part++;
 				dateParts[part] = "";
 			}
-			else {
+			else
+			{
 				dateParts[part] += dateChar;	
 			}
 		}
@@ -510,7 +511,8 @@ public class DateField extends ComboBase
 				}
 				maskParts[part] += maskChar;
 			}
-			else {
+			else
+			{
 				part++;
 				maskParts[part] = maskChar;
 			}
@@ -606,7 +608,8 @@ public class DateField extends ComboBase
 				}
 				maskParts[part] += maskChar;
 			}
-			else {
+			else
+			{
 				part++;
 				maskParts[part] = maskChar;
 			}
@@ -2382,7 +2385,9 @@ public class DateField extends ComboBase
             PopUpManager.addPopUp(_dropdown, this, false);
         }
         else
+		{
             PopUpManager.bringToFront(_dropdown);
+		}
 
         // Subclasses may extend to do pre-processing
         // before the dropdown is displayed
@@ -2445,10 +2450,12 @@ public class DateField extends ComboBase
                 yVal = point.y + unscaledHeight;
                 openPos = 3;
             }
-            else
+			else
+			{
                 // Why do we need to disable downArrowButton when its hidden?
                 //downArrowButton.enabled = false;
                 openPos = 0;
+			}
 
             xVal = Math.max(screen.left, xVal);
             
@@ -2612,7 +2619,6 @@ public class DateField extends ComboBase
             displayDropdown(true, event);
             event.stopPropagation();
         }
-
         else if (event.ctrlKey && event.keyCode == Keyboard.UP)
         {
             if (showingDropdown)
@@ -2620,7 +2626,6 @@ public class DateField extends ComboBase
             displayDropdown(false, event);
             event.stopPropagation();
         }
-
         else if (event.keyCode == Keyboard.ESCAPE)
         {
             if (showingDropdown)
@@ -2629,7 +2634,6 @@ public class DateField extends ComboBase
 			if (!editable)
            		event.stopPropagation();
         }
-
         else if (event.keyCode == Keyboard.ENTER)
         {
             if (showingDropdown)
@@ -2645,7 +2649,6 @@ public class DateField extends ComboBase
             }
             selectedDate_changeHandler(event);
         }
-
         else if (event.keyCode == Keyboard.UP ||
                  event.keyCode == Keyboard.DOWN ||
                  event.keyCode == Keyboard.LEFT ||
@@ -2777,7 +2780,9 @@ public class DateField extends ComboBase
                 displayDropdown(false, event);
         }
         else if (event is SandboxMouseEvent) 
+		{
             displayDropdown(false, event);
+		}
             
     }
 
