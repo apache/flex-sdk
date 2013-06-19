@@ -75,7 +75,7 @@ public class ToggleSwitchSkin extends MobileSkin
         
         switch(applicationDPI) 
         {
-			case DPIClassification.DPI_240:
+			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
 				layoutThumbWidth = 140;

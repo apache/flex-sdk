@@ -101,7 +101,7 @@ public class ButtonSkin extends ButtonSkinBase
         
         switch (applicationDPI)
         {
-			case DPIClassification.DPI_240:
+			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
 				upBorderSkin = spark.skins.mobile480.assets.Button_up;
