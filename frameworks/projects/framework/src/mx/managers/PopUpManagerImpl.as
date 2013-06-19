@@ -1478,7 +1478,12 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 				// This hides top-level document content from assistive technology.	
 				sbRoot.document.accessibilityProperties.silent = true;
 				
-				Accessibility.updateProperties();
+				try {
+					Accessibility.updateProperties();
+				}
+				catch(e:Error) {
+					// Flash Player issue causes hasAccessibility and active to be true when accessibility is turned off 
+				}
 			}
 			return true;
 		}
@@ -1508,7 +1513,12 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 					sbRoot.document.accessibilityProperties.silent = false;
 				}
 				
-				Accessibility.updateProperties();	
+				try {
+					Accessibility.updateProperties();
+				}
+				catch(e:Error) {
+					// Flash Player issue on windows causes hasAccessibility and active to be true when accessibility is turned off 
+				}
 			}
 			return true;
 		}
@@ -1545,12 +1555,14 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 			{
 				// If this is the only popUp, we should expose accessibility 
 				// of the top-level system manager's document
-				sm.document.accessibilityProperties.silent = false;
+				if (sm.document.accessibilityProperties)
+					sm.document.accessibilityProperties.silent = false;
 				
 				// We should also expose accessibility 
 				// of the sandbox root's document.
-				var sbRoot:Object = popupData.systemManager.getSandboxRoot();				
-				sbRoot.document.accessibilityProperties.silent = false;
+				var sbRoot:Object = popupData.systemManager.getSandboxRoot();	
+				if (sbRoot.document.accessibilityProperties)
+					sbRoot.document.accessibilityProperties.silent = false;
 			}
 		}
 		else if (index > 0)
@@ -1559,7 +1571,8 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 			// of the underlying popUp
 			underneathPopUpData = popupInfo[index - 1];
 			
-			underneathPopUpData.owner.accessibilityProperties.silent = false;
+			if (underneathPopUpData.owner.accessibilityProperties)
+				underneathPopUpData.owner.accessibilityProperties.silent = false;
 			
 			// All the nested popUp's AccessibilityProperties 
 			// changes should be handled by a single 
