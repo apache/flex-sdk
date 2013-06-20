@@ -29,7 +29,13 @@ set -o igncr
 
 
 
-# Main
+# A method to be able to run various FP and AIR version is to override the env variables?
+#export FLASHPLAYER_DEBUGGER=
+#export AIR_HOME=
+
+
+
+# MAIN
 #sh ./mini_run.sh -timeout=60000 -all
 
 #if [[ -s failures.txt ]] ; then
@@ -39,21 +45,17 @@ set -o igncr
 #  echo "All main tests passed on first run" 
 #fi ;
 
-
-
 # AIR
-sh ./mini_run.sh -apollo tests/apollo
+#sh ./mini_run.sh -apollo tests/apollo
 
-if [[ -s failures.txt ]] ; then
-  echo "Some AIR tests failed: running '-failures'" 
-  sh ./mini_run.sh -failures
-else
-  echo "All AIR tests passed on first run" 
-fi ;
+#if [[ -s failures.txt ]] ; then
+#  echo "Some AIR tests failed: running '-failures'" 
+#  sh ./mini_run.sh -failures
+#else
+#  echo "All AIR tests passed on first run" 
+#fi ;
 
-
-
-# Mobile
+# MOBILE
 rm -f local.properties
 cat > local.properties <<END 
 target_os_name=android
@@ -62,11 +64,11 @@ runtimeApk=${AIR_HOME}/runtimes/air/android/emulator/Runtime.apk
 device_name=win
 END
 
-#sh ./mini_run.sh -mobile tests/mobile
+sh ./mini_run.sh -mobile tests/mobile
 
-#if [[ -s failures.txt ]] ; then
-#  echo "Some mobile tests failed: running '-failures'" 
-#  sh ./mini_run.sh -failures
-#else
-#  echo "All mobile tests passed on first run" 
-#fi ;
+if [[ -s failures.txt ]] ; then
+  echo "Some mobile tests failed: running '-failures'" 
+  sh ./mini_run.sh -failures
+else
+  echo "All mobile tests passed on first run" 
+fi ;
