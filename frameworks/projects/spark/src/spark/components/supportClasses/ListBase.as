@@ -625,7 +625,57 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
         labelFieldOrFunctionChanged = true;
         invalidateProperties(); 
     }
-    
+
+
+    //----------------------------------
+    //  preventSelection
+    //----------------------------------
+
+    /**
+    *  @private
+    */
+    private var _preventSelection:Boolean = false;
+
+
+    /**
+    *  If <code>true</code> items will be prevented from being selected.  The <code>selectedIndex</code> value should always be -1.
+    *  When this is set to <code>true</code>, it will set the <code>requireSelection</code> to false.
+    *  Click events will continue to be called.
+    *
+    *  @default false
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function get preventSelection():Boolean
+    {
+        return _preventSelection;
+    }
+
+    public function set preventSelection(newValue:Boolean):void
+    {
+        if (newValue == _preventSelection)
+        {
+            return;
+        }
+
+
+        if (newValue == true)
+        {
+            //Make sure to disable requireSelection since these two properties are polar opposites.
+            requireSelection = false;
+
+            //Remove any previous selection and allow it to update before enabling the prevent selection.
+            setSelectedIndex(NO_SELECTION, false);
+            validateNow();
+        }
+
+        _preventSelection = newValue;
+    }
+
+
     //----------------------------------
     //  requireSelection
     //----------------------------------
@@ -677,6 +727,9 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
         // from false to true
         if (value == true)
         {
+            //Make sure to disable preventSelection since these two properties are polar opposites.
+            preventSelection = false;
+
             requireSelectionChanged = true;
             invalidateProperties();
         }
@@ -1570,7 +1623,26 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
         var oldSelectedIndex:int = _selectedIndex;
         var oldCaretIndex:int = _caretIndex;
         var e:IndexChangeEvent;
-        
+
+
+        //Prevents an in item from being selected.  Stops the change before it sends out changing events.
+        if (_preventSelection == true)
+        {
+            if (_selectedIndex != NO_SELECTION)
+            {
+                itemSelected(NO_SELECTION, false);
+                _selectedIndex = NO_SELECTION;
+            }
+
+            //Cancel the selection change and return false.
+            itemSelected(_proposedSelectedIndex, false);
+            _proposedSelectedIndex = NO_PROPOSED_SELECTION;
+            dispatchChangeAfterSelection = false;
+
+            return false;
+        }
+
+
         if (!allowCustomSelectedItem || _proposedSelectedIndex != CUSTOM_SELECTED_ITEM)
         {
             if (_proposedSelectedIndex < NO_SELECTION)
