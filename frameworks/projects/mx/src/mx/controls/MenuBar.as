@@ -1878,6 +1878,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
 
         if (item)
         {
+			item.removeEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
+			item.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+			item.removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
+			item.removeEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
+			
             removeChild(DisplayObject(item));
             menuBarItems.splice(index, 1);
             invalidateSize();
@@ -1897,6 +1902,12 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
         while (menuBarItems.length > 0)
         {
             var item:IMenuBarItemRenderer = menuBarItems[0];
+			
+			item.removeEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
+			item.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+			item.removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
+			item.removeEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
+
             removeChild(DisplayObject(item));
             menuBarItems.splice(0, 1);
         }
