@@ -24,12 +24,12 @@
 ## NOTE: this file MUST HAVE Unix style line endings!
 ##
 
-#export SHELLOPTS
-#set -o igncr
+export SHELLOPTS
+set -o igncr
 
 
 
-# Run main SDK tests
+# Main
 #sh ./mini_run.sh -timeout=60000 -all
 
 #if [[ -s failures.txt ]] ; then
@@ -41,7 +41,7 @@
 
 
 
-# Run AIR tests
+# AIR
 sh ./mini_run.sh -apollo tests/apollo
 
 if [[ -s failures.txt ]] ; then
@@ -51,3 +51,22 @@ else
   echo "All AIR tests passed on first run" 
 fi ;
 
+
+
+# Mobile
+
+# delete previous 'local.properties'
+# create new 'local.properties'
+#target_os_name=android
+#android_sdk=location of your Android SDK
+#runtimeApk=${AIR_HOME}/runtimes/air/android/emulator/Runtime.apk
+#device_name=win
+
+#sh ./mini_run.sh -mobile tests/mobile
+
+#if [[ -s failures.txt ]] ; then
+#  echo "Some mobile tests failed: running '-failures'" 
+#  sh ./mini_run.sh -failures
+#else
+#  echo "All mobile tests passed on first run" 
+#fi ;
