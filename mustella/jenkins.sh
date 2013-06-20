@@ -41,32 +41,46 @@ MOBILE_FAILED=false
 
 
 
+# CLEAN
+rm -f local.properties
+
+
+
 # MAIN
 #sh ./mini_run.sh -timeout=60000 -all
 
-#if [[ -s failures.txt ]] ; then
+#if [[ -s failures.txt ]]
+#then
 #  echo "Some 'main' tests failed: running '-failures'" 
 #  sh ./mini_run.sh -timeout=60000 -failures
+#  if [[ -s failures.txt ]]
+#  then
+#    MAIN_FAILED=true
+#  else
+#    echo "All 'main' tests passed after running '-failures'" 
+#  fi
 #else
 #  echo "All main tests passed on first run" 
-#fi ;
+#fi
 
 
 
 # AIR
 sh ./mini_run.sh -apollo tests/apollo
 
-if [[ -s failures.txt ]] ; then
+if [[ -s failures.txt ]]
+then
   echo "Some AIR tests failed: running '-apollo -failures'" 
   sh ./mini_run.sh -apollo -failures
-  if [[ -s failures.txt ]] ; then
+  if [[ -s failures.txt ]]
+  then
     AIR_FAILED=true
   else
     echo "All AIR tests passed after running '-apollo -failures'" 
-  fi ;
+  fi
 else
   echo "All AIR tests passed on first run" 
-fi ;
+fi
 
 
 
@@ -80,16 +94,35 @@ fi ;
 
 #sh ./mini_run.sh -mobile tests/mobile
 
-#if [[ -s failures.txt ]] ; then
+#if [[ -s failures.txt ]]
+#then
 #  echo "Some mobile tests failed: running '-mobile -failures'" 
 #  sh ./mini_run.sh -mobile -failures
+#  if [[ -s failures.txt ]]
+#  then
+#    MOBILE_FAILED=true
+#  else
+#    echo "All mobile tests passed after running '-mobile -failures'" 
+#  fi
 #else
 #  echo "All mobile tests passed on first run" 
-#fi ;
+#fi
 
 #rm -f local.properties
 
-if $AIR_FAILED ; then
-  echo "Some of the 'main' tests have failed, even after running '-failures'..."
+
+
+if [[ $MAIN_FAILED ]]
+then
+  echo "Some of the 'main' tests failed, even after running '-failures'..."
+elif [[ $AIR_FAILED ]]
+  echo "Some of the AIR tests failed, even after running '-apollo -failures'..."
+elif [[ $MOBILE_FAILED ]]
+  echo "Some of the mobile tests failed, even after running '-mobile -failures'..."
+fi
+
+# Make the Jenkins job fail if any tests failed:
+if [[ $MAIN_FAILED || $AIR_FAILED || $MOBILE_FAILED ]]
+then
   exit 1
-fi ;
+fi
