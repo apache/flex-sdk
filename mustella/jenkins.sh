@@ -54,13 +54,13 @@ fi ;
 
 
 # Mobile
-
-# delete previous 'local.properties'
-# create new 'local.properties'
-#target_os_name=android
-#android_sdk=location of your Android SDK
-#runtimeApk=${AIR_HOME}/runtimes/air/android/emulator/Runtime.apk
-#device_name=win
+rm -f local.properties
+cat > local.properties <<END 
+target_os_name=android
+android_sdk=C:/ApacheFlex/dependencies/AndroidSDK/adt-bundle-windows-x86_64-20130522/sdk
+runtimeApk=${AIR_HOME}/runtimes/air/android/emulator/Runtime.apk
+device_name=win
+END
 
 #sh ./mini_run.sh -mobile tests/mobile
 
