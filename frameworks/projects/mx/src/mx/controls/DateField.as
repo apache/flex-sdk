@@ -2221,8 +2221,9 @@ public class DateField extends ComboBase
 			}
 		}
 
-        measuredMinWidth = measuredWidth = maxWidth + 8 + 2 + buttonWidth;
-        measuredMinWidth = measuredWidth += getStyle("paddingLeft") + getStyle("paddingRight");
+        measuredMinWidth = measuredWidth = maxWidth + 8 + buttonWidth +
+			+ getStyle("paddingLeft") + getStyle("paddingRight")
+			+ textInput.getStyle("paddingLeft") + textInput.getStyle("paddingRight");
         measuredMinHeight = measuredHeight = textInput.getExplicitOrMeasuredHeight();
     }
 
