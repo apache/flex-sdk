@@ -2031,7 +2031,7 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
         {
             item.menuBarItemState = "itemDownSkin";
 
-            if (!isDown)
+            if (m && !isDown)
             {
                 m.supposedToLoseFocus = true;
             
