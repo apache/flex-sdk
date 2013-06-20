@@ -24,8 +24,8 @@
 ## NOTE: this file MUST HAVE Unix style line endings!
 ##
 
-export SHELLOPTS
-set -o igncr
+#export SHELLOPTS
+#set -o igncr
 
 
 
@@ -47,21 +47,21 @@ rm -f local.properties
 
 
 # MAIN
-#sh ./mini_run.sh -timeout=60000 -all
+sh ./mini_run.sh -timeout=60000 -all
 
-#if [[ -s failures.txt ]]
-#then
-#  echo "Some 'main' tests failed: running '-failures'" 
-#  sh ./mini_run.sh -timeout=60000 -failures
-#  if [[ -s failures.txt ]]
-#  then
-#    MAIN_FAILED=true
-#  else
-#    echo "All 'main' tests passed after running '-failures'" 
-#  fi
-#else
-#  echo "All main tests passed on first run" 
-#fi
+if [[ -s failures.txt ]]
+then
+  echo "Some 'main' tests failed: running '-failures'" 
+  sh ./mini_run.sh -timeout=60000 -failures
+  if [[ -s failures.txt ]]
+  then
+    MAIN_FAILED=true
+  else
+    echo "All 'main' tests passed after running '-failures'" 
+  fi
+else
+  echo "All main tests passed on first run" 
+fi
 
 
 
@@ -85,30 +85,30 @@ fi
 
 
 # MOBILE
-#cat > local.properties <<END 
-#target_os_name=android
-#android_sdk=C:/ApacheFlex/dependencies/AndroidSDK/adt-bundle-windows-x86_64-20130522/sdk
-#runtimeApk=${AIR_HOME}/runtimes/air/android/emulator/Runtime.apk
-#device_name=win
-#END
+cat > local.properties <<END 
+target_os_name=android
+android_sdk=C:/ApacheFlex/dependencies/AndroidSDK/adt-bundle-windows-x86_64-20130522/sdk
+runtimeApk=${AIR_HOME}/runtimes/air/android/emulator/Runtime.apk
+device_name=win
+END
 
-#sh ./mini_run.sh -mobile tests/mobile
+sh ./mini_run.sh -mobile tests/mobile
 
-#if [[ -s failures.txt ]]
-#then
-#  echo "Some mobile tests failed: running '-mobile -failures'" 
-#  sh ./mini_run.sh -mobile -failures
-#  if [[ -s failures.txt ]]
-#  then
-#    MOBILE_FAILED=true
-#  else
-#    echo "All mobile tests passed after running '-mobile -failures'" 
-#  fi
-#else
-#  echo "All mobile tests passed on first run" 
-#fi
+if [[ -s failures.txt ]]
+then
+  echo "Some mobile tests failed: running '-mobile -failures'" 
+  sh ./mini_run.sh -mobile -failures
+  if [[ -s failures.txt ]]
+  then
+    MOBILE_FAILED=true
+  else
+    echo "All mobile tests passed after running '-mobile -failures'" 
+  fi
+else
+  echo "All mobile tests passed on first run" 
+fi
 
-#rm -f local.properties
+rm -f local.properties
 
 
 
@@ -116,8 +116,10 @@ if [[ $MAIN_FAILED ]]
 then
   echo "Some of the 'main' tests failed, even after running '-failures'..."
 elif [[ $AIR_FAILED ]]
+then
   echo "Some of the AIR tests failed, even after running '-apollo -failures'..."
 elif [[ $MOBILE_FAILED ]]
+then
   echo "Some of the mobile tests failed, even after running '-mobile -failures'..."
 fi
 
