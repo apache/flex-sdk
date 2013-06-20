@@ -8,7 +8,7 @@
 ##  (the "License"); you may not use this file except in compliance with
 ##  the License.  You may obtain a copy of the License at
 ##
-##      http://www.apache.org/licenses/LICENSE-2.0
+##    http://www.apache.org/licenses/LICENSE-2.0
 ##
 ##  Unless required by applicable law or agreed to in writing, software
 ##  distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,16 +24,30 @@
 ## NOTE: this file MUST HAVE Unix style line endings!
 ##
 
-export SHELLOPTS
-set -o igncr
+#export SHELLOPTS
+#set -o igncr
 
-sh ./mini_run.sh -timeout=60000 -all
-#sh ./mini_run.sh -timeout=60000 -failures
-#sh ./mini_run.sh -timeout=60000 tests/itemRenderers
+
+
+# Run main SDK tests
+#sh ./mini_run.sh -timeout=60000 -all
+
+#if [[ -s failures.txt ]] ; then
+#  echo "Some tests failed: running '-failures'" 
+#  sh ./mini_run.sh -timeout=60000 -failures
+#else
+#  echo "All main tests passed on first run" 
+#fi ;
+
+
+
+# Run AIR tests
+sh ./mini_run.sh -apollo tests/apollo
 
 if [[ -s failures.txt ]] ; then
-	echo "Some tests failed: running '-failures'" 
-	sh ./mini_run.sh -timeout=60000 -failures
+  echo "Some AIR tests failed: running '-failures'" 
+  sh ./mini_run.sh -failures
 else
-	echo "All tests passed on first run" 
+  echo "All AIR tests passed on first run" 
 fi ;
+
