@@ -35,40 +35,61 @@ set -o igncr
 
 
 
+MAIN_FAILED=false
+AIR_FAILED=false
+MOBILE_FAILED=false
+
+
+
 # MAIN
 #sh ./mini_run.sh -timeout=60000 -all
 
 #if [[ -s failures.txt ]] ; then
-#  echo "Some tests failed: running '-failures'" 
+#  echo "Some 'main' tests failed: running '-failures'" 
 #  sh ./mini_run.sh -timeout=60000 -failures
 #else
 #  echo "All main tests passed on first run" 
 #fi ;
 
+
+
 # AIR
-#sh ./mini_run.sh -apollo tests/apollo
-
-#if [[ -s failures.txt ]] ; then
-#  echo "Some AIR tests failed: running '-failures'" 
-#  sh ./mini_run.sh -failures
-#else
-#  echo "All AIR tests passed on first run" 
-#fi ;
-
-# MOBILE
-rm -f local.properties
-cat > local.properties <<END 
-target_os_name=android
-android_sdk=C:/ApacheFlex/dependencies/AndroidSDK/adt-bundle-windows-x86_64-20130522/sdk
-runtimeApk=${AIR_HOME}/runtimes/air/android/emulator/Runtime.apk
-device_name=win
-END
-
-sh ./mini_run.sh -mobile tests/mobile
+sh ./mini_run.sh -apollo tests/apollo
 
 if [[ -s failures.txt ]] ; then
-  echo "Some mobile tests failed: running '-failures'" 
-  sh ./mini_run.sh -failures
+  echo "Some AIR tests failed: running '-apollo -failures'" 
+  sh ./mini_run.sh -apollo -failures
+  if [[ -s failures.txt ]] ; then
+    AIR_FAILED=true
+  else
+    echo "All AIR tests passed after running '-apollo -failures'" 
+  fi ;
 else
-  echo "All mobile tests passed on first run" 
+  echo "All AIR tests passed on first run" 
+fi ;
+
+
+
+# MOBILE
+#cat > local.properties <<END 
+#target_os_name=android
+#android_sdk=C:/ApacheFlex/dependencies/AndroidSDK/adt-bundle-windows-x86_64-20130522/sdk
+#runtimeApk=${AIR_HOME}/runtimes/air/android/emulator/Runtime.apk
+#device_name=win
+#END
+
+#sh ./mini_run.sh -mobile tests/mobile
+
+#if [[ -s failures.txt ]] ; then
+#  echo "Some mobile tests failed: running '-mobile -failures'" 
+#  sh ./mini_run.sh -mobile -failures
+#else
+#  echo "All mobile tests passed on first run" 
+#fi ;
+
+#rm -f local.properties
+
+if $AIR_FAILED ; then
+  echo "Some of the 'main' tests have failed, even after running '-failures'..."
+  exit 1
 fi ;
