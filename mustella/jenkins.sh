@@ -24,8 +24,8 @@
 ## NOTE: this file MUST HAVE Unix style line endings!
 ##
 
-#export SHELLOPTS
-#set -o igncr
+export SHELLOPTS
+set -o igncr
 
 
 
