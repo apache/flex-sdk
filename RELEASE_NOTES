@@ -102,6 +102,7 @@ Bug Fixes
 
 JIRA Issue Number  Summary                                                                                         Resolution
 ------------------------------------------------------------------------------------------------------------------------------
+FLEX-33590         Adding a preventSelection feature to spark components inheriting listbase                       Implemented
 FLEX-33545         RTE in destroyItemEditor in AdvancedDataGrid                                                    Fixed
 FLEX-33537         Spark TextArea writing in prompt text format                                                    Fixed
 FLEX-33526         findRowIndicies to complement findRowIndex                                                      Implemented
