@@ -321,7 +321,7 @@ public class Tween extends EventDispatcher
     /**
      *  @private
      */
-    private var id:int;
+    private var id:int = -1;
     
     /**
      *  @private
