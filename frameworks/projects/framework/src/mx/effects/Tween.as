@@ -157,7 +157,8 @@ public class Tween extends EventDispatcher
             return;
 		
         activeTweens.splice(index, 1);
-                
+             
+		length--;
         for (var i:int = index; i < length; i++)
         {
             var curTween:Tween = Tween(activeTweens[i]);
