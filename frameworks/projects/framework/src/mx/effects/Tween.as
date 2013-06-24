@@ -151,19 +151,20 @@ public class Tween extends EventDispatcher
      */
     private static function removeTweenAt(index:int):void
     {
-        if (index >= activeTweens.length || index < 0)
+		var length:int = activeTweens.length;
+     
+		if (index >= length || index < 0)
             return;
-
+		
         activeTweens.splice(index, 1);
                 
-        var n:int = activeTweens.length;
-        for (var i:int = index; i < n; i++)
+        for (var i:int = index; i < length; i++)
         {
             var curTween:Tween = Tween(activeTweens[i]);
             curTween.id--;
         }
         
-        if (n == 0)
+        if (length == 0)
         {
             intervalTime = NaN;
             timer.reset();
@@ -184,14 +185,14 @@ public class Tween extends EventDispatcher
      */
     private static function timerHandler(event:TimerEvent):void
     {
-        var needToLayout:Boolean = false;
-        
+        var needToLayout:Boolean = false;       
         var oldTime:Number = intervalTime;
+		var length:int = activeTweens.length;
+		
         intervalTime = getTimer();
+
                 
-        var n:int = activeTweens.length;
-                
-        for (var i:int = n; i >= 0; i--)
+        for (var i:int = length-1; i >= 0; i--)
         {
             var tween:Tween = Tween(activeTweens[i]);
             if (tween)
