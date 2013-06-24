@@ -7542,25 +7542,29 @@ public class AdvancedListBase extends ScrollControlBase
         for (i; i != stopIndex; i++)
         {
             var itmStr:String = itemToLabel(iterator.current);
-
-            itmStr = itmStr.substring(0, str.length);
-            if (str == itmStr || str.toUpperCase() == itmStr.toUpperCase())
-            {
-                iterator.seek(cursorPos, 0);
-                scrollToIndex(i);
-                commitSelectedIndex(i);
-                var item:IListItemRenderer = indexToItemRenderer(i);
-                var pt:Point = itemRendererToIndices(item);
-                var evt:ListEvent = new ListEvent(ListEvent.CHANGE);
-                evt.itemRenderer = item;
-                if (pt)
-                {
-                    evt.columnIndex = pt.x;
-                    evt.rowIndex = pt.y;
-                }
-                dispatchEvent(evt);
-                return true;
-            }
+	
+			if (itmStr) 
+			{
+	            itmStr = itmStr.substring(0, str.length);
+				
+	            if (str == itmStr || str.toUpperCase() == itmStr.toUpperCase())
+	            {
+	                iterator.seek(cursorPos, 0);
+	                scrollToIndex(i);
+	                commitSelectedIndex(i);
+	                var item:IListItemRenderer = indexToItemRenderer(i);
+	                var pt:Point = itemRendererToIndices(item);
+	                var evt:ListEvent = new ListEvent(ListEvent.CHANGE);
+	                evt.itemRenderer = item;
+	                if (pt)
+	                {
+	                    evt.columnIndex = pt.x;
+	                    evt.rowIndex = pt.y;
+	                }
+	                dispatchEvent(evt);
+	                return true;
+	            }
+			}
 
             try
             {
