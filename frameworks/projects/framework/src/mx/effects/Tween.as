@@ -176,6 +176,7 @@ public class Tween extends EventDispatcher
     mx_internal static function removeTween(tween:Tween):void
     {
         removeTweenAt(tween.id);
+		tween.id = -1;
     }
 
     /**
@@ -575,8 +576,10 @@ public class Tween extends EventDispatcher
 
         // If tween has been added, id >= 0
         // but if duration = 0, this might not be the case.
-        if (id >= 0)
+        if (id >= 0) {
             Tween.removeTweenAt(id);
+			id = -1;
+		}
     }
 
     /**
@@ -759,8 +762,10 @@ public class Tween extends EventDispatcher
      */
     public function stop():void
     {
-        if (id >= 0)
+        if (id >= 0) {
             Tween.removeTweenAt(id);
+			id = -1;
+		}
     }
     
     /**
