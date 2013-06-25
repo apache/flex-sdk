@@ -35,96 +35,62 @@ set -o igncr
 
 
 
-MAIN_FAILED=false
-AIR_FAILED=false
-MOBILE_FAILED=false
-
-
-
 # CLEAN
 rm -f local.properties
 
 
 
-# MAIN
-sh ./mini_run.sh -timeout=60000 -all
+RUN_TYPE="main"
+while [ "$1" != "" ]; do
+  case $1 in
+    -t | --type )           
+      shift
+      RUN_TYPE=$1
+      ;;
+    * )              
+  esac
+  shift
+done
 
-if [[ -s failures.txt ]]
+
+
+if [ "$RUN_TYPE" == "main" ]
 then
-  echo "Some 'main' tests failed: running '-failures'" 
-  sh ./mini_run.sh -timeout=60000 -failures
-  if [[ -s failures.txt ]]
-  then
-    MAIN_FAILED=true
-  else
-    echo "All 'main' tests passed after running '-failures'" 
-  fi
-else
-  echo "All main tests passed on first run" 
-fi
-
-
-
-# AIR
-sh ./mini_run.sh -apollo tests/apollo
-
-if [[ -s failures.txt ]]
+  TEST_COMMAND=-timeout=60000
+  TEST_SET=-all
+elif [ "$RUN_TYPE" == "air" ]
 then
-  echo "Some AIR tests failed: running '-apollo -failures'" 
-  sh ./mini_run.sh -apollo -failures
-  if [[ -s failures.txt ]]
-  then
-    AIR_FAILED=true
-  else
-    echo "All AIR tests passed after running '-apollo -failures'" 
-  fi
-else
-  echo "All AIR tests passed on first run" 
-fi
-
-
-
-# MOBILE
-cat > local.properties <<END 
-target_os_name=android
+  TEST_COMMAND=-apollo
+  TEST_SET=tests/apollo
+elif [ "$RUN_TYPE" == "mobile" ]
+then
+  cat > local.properties <<END 
+arget_os_name=android
 android_sdk=C:/ApacheFlex/dependencies/AndroidSDK/adt-bundle-windows-x86_64-20130522/sdk
 runtimeApk=${AIR_HOME}/runtimes/air/android/emulator/Runtime.apk
 device_name=win
 END
 
-sh ./mini_run.sh -mobile tests/mobile
+  TEST_COMMAND=-mobile
+  TEST_SET=tests/mobile
+fi
+
+
+
+sh ./mini_run.sh $TEST_COMMAND $TEST_SET 
 
 if [[ -s failures.txt ]]
 then
-  echo "Some mobile tests failed: running '-mobile -failures'" 
-  sh ./mini_run.sh -mobile -failures
+  echo "Some tests failed: running '-failures'" 
+  sh ./mini_run.sh $TEST_COMMAND -failures
   if [[ -s failures.txt ]]
   then
-    MOBILE_FAILED=true
+    echo "Some of tests failed, even after running '-failures'..."
   else
-    echo "All mobile tests passed after running '-mobile -failures'" 
+    echo "All tests passed after running '-failures'" 
   fi
 else
-  echo "All mobile tests passed on first run" 
+  echo "All tests passed on first run" 
 fi
 
 rm -f local.properties
-
-
-
-if [[ $MAIN_FAILED ]]
-then
-  echo "Some of the 'main' tests failed, even after running '-failures'..."
-elif [[ $AIR_FAILED ]]
-then
-  echo "Some of the AIR tests failed, even after running '-apollo -failures'..."
-elif [[ $MOBILE_FAILED ]]
-then
-  echo "Some of the mobile tests failed, even after running '-mobile -failures'..."
-fi
-
-# Make the Jenkins job fail if any tests failed:
-if [[ $MAIN_FAILED || $AIR_FAILED || $MOBILE_FAILED ]]
-then
-  exit 1
-fi
