@@ -38,6 +38,9 @@ SDK Changes
  - New data grid features to lock rows and columns, sort multiple columns and
    move and sorting columns via the keyboard.
  - Row, column, cell and table datagrid double click modes.
+ - Spark RadioButtonGroup now has a selectedIndex property.
+ - Spark ButtonBar and TabBar can now enable/disable buttons.
+ - Spark ButtonBar and TabBar can now prevent the selection / toggling of their buttons.
  - Fixed RTEs in Advanced DataGrid when dynamically assigning columns.
  - Improved support of dates including DD/MM/YYYY support, single digit day and
    month in date formats and international dates including Japanese, Chinese
