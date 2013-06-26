@@ -1038,13 +1038,13 @@ public class NavBar extends Box
                 }
 
                 //Check for toolTip field and assign it to the individual button if it exists.
-                if (_toolTipField != "" && item.hasOwnProperty(_toolTipField))
+                if (_toolTipField != "" && item.hasOwnProperty(_toolTipField) == true)
                 {
                     navItem.toolTip = String(item[_toolTipField]);
                 }
 
                 //Check for enabled field and assign it to the individual button if it exists.
-                if (_enabledField != "" && item.hasOwnProperty(_enabledField))
+                if (_enabledField != "" && item.hasOwnProperty(_enabledField) == true)
                 {
                     navItem.enabled = Boolean(item[_enabledField]);
                 }
