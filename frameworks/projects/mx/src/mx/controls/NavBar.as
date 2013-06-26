@@ -106,6 +106,7 @@ use namespace mx_internal;
  *  &lt;mx:<i>tagname</i>
  *    <strong>Properties</strong>
  *    dataProvider="<i>No default</i>"
+ *    enabledField="enabled"
  *    iconField="icon"
  *    labeField="label"
  *    selectedIndex="-1"
@@ -404,7 +405,6 @@ public class NavBar extends Box
 		
         if (_dataProvider)
         {
-            // use weak reference
             _dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE,
                                               collectionChangeHandler);
         }
@@ -462,6 +462,52 @@ public class NavBar extends Box
 
         dispatchEvent(new Event("collectionChange"));
     }
+
+
+    //----------------------------------
+    //  enabledField
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the enabled property.
+     */
+    private var _enabledField:String = "enabled";
+
+    [Bindable("enabledFieldChanged")]
+    [Inspectable(category="Data")]
+
+    /**
+     *  Name of the the field in the <code>dataProvider</code> object
+     *  to use as the enabled label.
+     *  
+     *  @default "enabled"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 11.1
+     *  @playerversion AIR 3.4
+     *  @productversion Flex 4.10
+     */
+    public function get enabledField():String
+    {
+        return _enabledField;
+    }
+
+    /**
+     *  @private
+     */
+    public function set enabledField(value:String):void
+    {
+        _enabledField = value;
+
+        // If we have a data provider, update here to
+        // reflect new enabled field.
+        if (_dataProvider)
+            dataProvider = _dataProvider;
+
+        dispatchEvent(new Event("enabledFieldChanged"));
+    }
+
 
     //----------------------------------
     //  iconField
@@ -955,13 +1001,15 @@ public class NavBar extends Box
             if (item is String && labelFunction == null)
             {
                 navItem = Button(createNavItem(String(item)));
+
+                navItem.enabled = enabled;
             }
             else
             {
                 var label:String = itemToLabel(item);
                 // if labelField doesn't exist in item, label will be null;
 
-                if (iconField)
+                if (iconField != "")
                 {
                     var iconValue:Object = null;
 
@@ -989,24 +1037,23 @@ public class NavBar extends Box
                     navItem = Button(createNavItem(label, null));
                 }
 
-                // Assigning undefined to a String coerces to "",
-                // which cancels an ancestor's tooltip.
-                // So we have to change undefined to null.
-                if (toolTipField)
+                //Check for toolTip field and assign it to the individual button if it exists.
+                if (_toolTipField != "" && item.hasOwnProperty(_toolTipField))
                 {
-                    try
-                    {
-                        navItem.toolTip = (item[toolTipField] === undefined
-                                           ? null
-                                           : item[toolTipField]);
-                    }
-                    catch(e:Error)
-                    {
-                    }
+                    navItem.toolTip = String(item[_toolTipField]);
+                }
+
+                //Check for enabled field and assign it to the individual button if it exists.
+                if (_enabledField != "" && item.hasOwnProperty(_enabledField))
+                {
+                    navItem.enabled = Boolean(item[_enabledField]);
+                }
+                else
+                {
+                    navItem.enabled = enabled;
                 }
             }
 
-            navItem.enabled = enabled;
         }
         resetNavItems();
     }
