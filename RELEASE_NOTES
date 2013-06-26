@@ -41,6 +41,7 @@ SDK Changes
  - Spark RadioButtonGroup now has a selectedIndex property.
  - Spark ButtonBar and TabBar can now enable/disable buttons.
  - Spark ButtonBar and TabBar can now prevent the selection / toggling of their buttons.
+ - Added enabled property when buttons are created for the MX ButtonBar.
  - Fixed RTEs in Advanced DataGrid when dynamically assigning columns.
  - Improved support of dates including DD/MM/YYYY support, single digit day and
    month in date formats and international dates including Japanese, Chinese
@@ -290,6 +291,7 @@ FLEX-14787         Confusing, implicit cast to Number                           
 FLEX-14773         ListBase::findKey is invoked with event.keyCode instead of event.charCode                       Fixed
 FLEX-14630         Flex-SDK cannot be built entirely from source                                                   Fixed
 FLEX-14581         Mx.Controls.DateChooser - Setting .monthNames to Array of Length < 12 causes "Null" months      Fixed
+FLEX-14522         enable/disable items within the building phase of the ButtonBar component not possible          Implemented
 FLEX-14450         NumberValidator maxValue/minValue don't work with non-english settings                          Fixed
 FLEX-14316         mx.core.UITextField.truncateToFit() contains dead code                                          Fixed
 FLEX-14153         Unrequired cast of calHeader in DateChooser                                                     Fixed
