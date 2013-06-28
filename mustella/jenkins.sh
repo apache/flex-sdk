@@ -86,11 +86,11 @@ then
   if [[ -s failures.txt ]]
   then
     echo "Some of tests failed, even after running '-failures'..."
+    
+    exit 1
   else
     echo "All tests passed after running '-failures'" 
   fi
 else
   echo "All tests passed on first run" 
 fi
-
-rm -f local.properties
