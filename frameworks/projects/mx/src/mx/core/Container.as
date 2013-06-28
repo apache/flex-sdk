@@ -4219,7 +4219,11 @@ public class Container extends UIComponent
      */
     public function createDeferredContent():void
     {
-        createComponentsFromDescriptors(true);
+        var children:Array =  this.MXMLDescriptor;
+        if (children)
+            generateMXMLInstances(document, children);
+        else
+            createComponentsFromDescriptors(true);
     }
 
    /**
