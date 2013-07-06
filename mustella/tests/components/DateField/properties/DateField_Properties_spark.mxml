@@ -571,7 +571,7 @@
 
 			</setup>
 			<body>
- 				<AssertPropertyValue target="df" propertyName="x" value="201" />
+ 				<AssertPropertyValue target="df" propertyName="x" value="200" />
 			</body>
 		</TestCase>
 		<TestCase testID="DateField_Property_x1_spark"  keywords="[x, DateChooser]">
@@ -592,7 +592,6 @@
 			<setup>
 				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
 				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
-				<RunCode code="setX()" waitEvent="updateComplete" waitTarget="df"/>
 			</setup>
 			<body>
  				<!-- Open DateChooser -->
@@ -675,7 +674,7 @@
 				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
 			</setup>
 			<body>
- 				<AssertPropertyValue target="df" propertyName="width" value="97"/>
+ 				<AssertPropertyValue target="df" propertyName="width" value="99"/>
 			</body>
 		</TestCase>
 		<TestCase testID="DateField_Property_width_MXML_spark"  keywords="[width, DateChooser]">
@@ -878,7 +877,7 @@
 				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
 			</setup>
 			<body>
- 				<AssertPropertyValue target="df" propertyName="minWidth" value="97"/>
+ 				<AssertPropertyValue target="df" propertyName="minWidth" value="99"/>
 			</body>
 		</TestCase>
 		<TestCase testID="DateField_Property_minYear_Default_spark"  keywords="[minYear, DateChooser]">
