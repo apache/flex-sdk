@@ -152,7 +152,7 @@
                 <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="75" dragYTo="75" dragXFrom="190" dragXTo="140" />
                 <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
-                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
                 <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Not Clicked" />
             </body>
         </TestCase>
@@ -259,7 +259,7 @@
                 <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="125" dragYTo="125" dragXFrom="175" dragXTo="125" />
                 <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
-                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
                 <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="Not Changed" />
                 <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Not Clicked" />
             </body>
@@ -371,7 +371,7 @@
                 <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="125" dragYTo="125" dragXFrom="175" dragXTo="125" />
                 <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
-                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
                 <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="Not Changed" />
                 <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Not Clicked" />
             </body>
@@ -507,7 +507,7 @@
                 <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="75" dragYTo="75" dragXFrom="125" dragXTo="75" />
                 <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
-                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
                 <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="Not Changed" />
                 <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Not Clicked" />
             </body>
