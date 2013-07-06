@@ -65,7 +65,7 @@ then
 elif [ "$RUN_TYPE" == "mobile" ]
 then
   cat > local.properties <<END 
-arget_os_name=android
+target_os_name=android
 android_sdk=C:/ApacheFlex/dependencies/AndroidSDK/adt-bundle-windows-x86_64-20130522/sdk
 runtimeApk=${AIR_HOME}/runtimes/air/android/emulator/Runtime.apk
 device_name=win
