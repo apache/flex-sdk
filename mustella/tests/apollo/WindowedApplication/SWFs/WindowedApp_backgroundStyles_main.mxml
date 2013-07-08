@@ -50,6 +50,11 @@
 	        fontAntiAliasType: normal;
 	    }
 	    
+		mx|Window{
+			fontFamily: EmbeddedVera;
+			fontLookup: embeddedCFF;
+			fontAntiAliasType: normal;
+		}
 	</fx:Style>
 
 	<fx:Script>

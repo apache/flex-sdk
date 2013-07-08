@@ -94,7 +94,7 @@
 				<SetProperty target="" propertyName="height" value="-800" waitEvent="updateComplete" waitTarget=""/>
 			</setup>
 			<body>
-				<AssertPropertyValue target="" propertyName="height" value="38" />
+				<AssertPropertyValue target="" propertyName="height" value="34" />
 			</body>
 		</TestCase>
 		
@@ -127,8 +127,8 @@
 				<WaitForEffectsToEnd/>
 			</setup>  
 			<body>  
-				<AssertPropertyValue target="" propertyName="maxHeight" value="38" /> 
-				<AssertPropertyValue target="" propertyName="height" value="38" />
+				<AssertPropertyValue target="" propertyName="maxHeight" value="34" /> 
+				<AssertPropertyValue target="" propertyName="height" value="34" />
 			</body> 
 		</TestCase>		
 		<TestCase testID="Window_Property_width_positive" keywords="[Window,width, Property]">

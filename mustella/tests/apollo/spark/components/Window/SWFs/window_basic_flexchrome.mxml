@@ -27,41 +27,41 @@
 		@font-face {
 		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
 		    fontFamily: EmbeddedArial;
-			embedAsCFF: false;
+			embedAsCFF: true;
 		}
 
 		@font-face {
 		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
 		    fontWeight: bold;           
 		    fontFamily: EmbeddedArial;
-			embedAsCFF: false;
+			embedAsCFF: true;
 		}
 
 		@font-face {
 		    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
 		    fontStyle: italic;          
 		    fontFamily: EmbeddedArial;
-			embedAsCFF: false;
+			embedAsCFF: true;
 		}
 
 		@font-face {
 		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
 		    fontFamily: EmbeddedVerdana;
-			embedAsCFF: false;
+			embedAsCFF: true;
 		}
 
 		@font-face {
 		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
 		    fontWeight: bold;
 		    fontFamily: EmbeddedVerdana;
-			embedAsCFF: false;
+			embedAsCFF: true;
 		}
 
 		@font-face {
 		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
 		    fontStyle: italic;
 		    fontFamily: EmbeddedVerdana;
-			embedAsCFF: false;
+			embedAsCFF: true;
 		}
 		@font-face {
 		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
@@ -137,6 +137,13 @@
 		    fontLookup: embeddedCFF;
 		    fontAntiAliasType: normal;
 		}
+		
+		mx|DataGrid{
+			fontFamily: EmbeddedVerdanaHalo;
+			fontLookup: embeddedCFF;
+			fontAntiAliasType: normal;
+		}
+		
 	       .testStyle3{
 	    	    fontFamily: EmbeddedMeiryo;
 	            fontLookup: embeddedCFF;
