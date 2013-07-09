@@ -3033,6 +3033,7 @@ public class AdvancedListBase extends ScrollControlBase
         if (!collection || collection.length == 0)
         {
             _selectedItem = data;
+			bSelectedItemsChanged = true;
             bSelectedItemChanged = true;
             bSelectionChanged = true;
 
@@ -3065,7 +3066,7 @@ public class AdvancedListBase extends ScrollControlBase
      */
     public function get selectedItems():Array
     {
-        return bSelectedItemsChanged ? _selectedItems : copySelectedItems();
+        return bSelectedItemsChanged && _selectedItems ? _selectedItems : copySelectedItems();
     }
 
     /**
@@ -5613,6 +5614,7 @@ public class AdvancedListBase extends ScrollControlBase
 
         _selectedIndex = -1;
         _selectedItem = null;
+		_selectedItems = null;
 
         caretIndex = -1;
         anchorIndex = -1;
