@@ -7271,7 +7271,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             n = orderedHeadersList.length;
             for (i = 0; i < n; i++)
             {
-                if (r == orderedHeadersList[i].headerItem && r)
+                if (r && r == orderedHeadersList[i].headerItem)
                 {
                     var c:AdvancedDataGridColumn = orderedHeadersList[i].column;
                     if (sortableColumns && c.sortable && lastItemDown == r)
