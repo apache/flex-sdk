@@ -8152,26 +8152,27 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
     {
         if (event is CollectionEvent)
         {   
-            var ceEvent:CollectionEvent = CollectionEvent(event)
-                if (ceEvent.kind == CollectionEventKind.RESET)
-                {
-                    // if the data is grouped, update the groupLabelField.
-                    if (_rootModel is IGroupingCollection && IGroupingCollection(_rootModel).grouping)
-                        groupLabelField = IGroupingCollection(_rootModel).grouping.label;
-					
-					if (_rootModel is IGroupingCollection2 && IGroupingCollection2(_rootModel).grouping)
-						groupLabelField = IGroupingCollection2(_rootModel).grouping.label;
-                    
-                    // if collection is reset, then expand the items if displayItemsExpanded is true
-                    if (displayItemsExpanded)
-                        expandAll();
-                }
-                if (ceEvent.kind == CollectionEventKind.REFRESH)
-                {
-                    // if collection is reset, then expand the items if displayItemsExpanded is true
-                    if (displayItemsExpanded)
-                        expandAll();
-                }
+            var ceEvent:CollectionEvent = CollectionEvent(event);
+			
+            if (ceEvent.kind == CollectionEventKind.RESET)
+            {
+                // if the data is grouped, update the groupLabelField.
+                if (_rootModel is IGroupingCollection && IGroupingCollection(_rootModel).grouping)
+                    groupLabelField = IGroupingCollection(_rootModel).grouping.label;
+				
+				if (_rootModel is IGroupingCollection2 && IGroupingCollection2(_rootModel).grouping)
+					groupLabelField = IGroupingCollection2(_rootModel).grouping.label;
+                
+                // if collection is reset, then expand the items if displayItemsExpanded is true
+                if (displayItemsExpanded)
+                    expandAll();
+            }
+            if (ceEvent.kind == CollectionEventKind.REFRESH)
+            {
+                // if collection is reset, then expand the items if displayItemsExpanded is true
+                if (displayItemsExpanded)
+                    expandAll();
+            }
         }
 
         super.collectionChangeHandler(event);
