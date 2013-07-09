@@ -6117,7 +6117,7 @@ public class AdvancedListBase extends ScrollControlBase
         }
         else
         {
-            while (items.length && !collectionIterator.afterLast)
+            while (items && items.length && !collectionIterator.afterLast)
             {
                 var n:int = items.length;
                 var data:Object = collectionIterator.current;
