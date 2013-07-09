@@ -570,7 +570,7 @@
 				
 			</setup>
 			<body> 
- 				<AssertPropertyValue target="df" propertyName="x" value="211" />
+ 				<AssertPropertyValue target="df" propertyName="x" value="212" />
 			</body>
 		</TestCase>
 		<TestCase testID="DateField_Property_x1"  keywords="[x, DateChooser]">
@@ -674,7 +674,7 @@
 				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" /> 
 			</setup> 	
 			<body> 
- 				<AssertPropertyValue target="df" propertyName="width" value="77"/> 
+ 				<AssertPropertyValue target="df" propertyName="width" value="75"/> 
 			</body>
 		</TestCase>
 		<TestCase testID="DateField_Property_width_MXML"  keywords="[width, DateChooser]">
@@ -877,7 +877,7 @@
 				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" /> 
 			</setup> 	
 			<body> 
- 				<AssertPropertyValue target="df" propertyName="minWidth" value="77"/>
+ 				<AssertPropertyValue target="df" propertyName="minWidth" value="75"/>
 			</body>
 		</TestCase>
 		<TestCase testID="DateField_Property_minYear_Default"  keywords="[minYear, DateChooser]">

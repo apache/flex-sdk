@@ -246,7 +246,7 @@
 				<RunCode code="application.aw.open()"/>
 			</setup>
 			<body>
-				<AssertPropertyValue propertyName="minHeight" value="38" target="aw"/>
+				<AssertPropertyValue propertyName="minHeight" value="34" target="aw"/>
 			</body>
 		</TestCase>
         <TestCase testID="Window_properties_minHeight_300_height_200" keywords="[Window, properties, minHeight]">

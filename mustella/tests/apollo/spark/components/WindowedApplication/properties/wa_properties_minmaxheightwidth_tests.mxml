@@ -69,7 +69,7 @@ Most tests decreaes it from 200.
 	</setup>
 	<body>
 		<SetProperty target="" propertyName="maxHeight" value="1" waitEvent="updateComplete" />
-		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.assertValueBasedOnOS(FlexGlobals.topLevelApplication.height, 38, 2, 2)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.assertValueBasedOnOS(FlexGlobals.topLevelApplication.height, 34, 2, 2)" value="pass" />
 	</body>
 </TestCase>
 

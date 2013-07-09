@@ -738,6 +738,15 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
 
     /**
      *  @private
+     */	
+    override protected function generateMXMLInstances(document:Object, data:Array, recursive:Boolean = true):void
+    {
+        // in theory, creationpolicy gets applied later
+        super.generateMXMLInstances(document, data, false);
+    }
+
+    /**
+     *  @private
      */
     override protected function commitProperties():void
     {
