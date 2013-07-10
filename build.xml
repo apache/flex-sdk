@@ -1780,5 +1780,32 @@
 		<checksum algorithm="md5" file="${basedir}/out/${source.kit}.tar.gz" forceOverwrite="yes"/>
 		<checksum algorithm="md5" file="${basedir}/out/${source.kit}.zip" forceOverwrite="yes"/>
 	</target>
+	
+	<target name="archive-pbj">
+		<echo message="Creating an archive of the compiled PixelBender files" />
+        <echo message="The compiled PixelBender files are taken from '${env.PIXELBENDER_COMPILED_HOME}'" />
+        
+        <tar destfile="${basedir}/out/pb.tar">
+          <tarfileset dir="${env.PIXELBENDER_COMPILED_HOME}">
+              <include name="frameworks/projects/spark/asdoc/en_US/spark/effects/examples/assets/twist.pbj"/>
+              <include name="frameworks/projects/spark/src/spark/effects/CrossFade.pbj"/>
+              <include name="frameworks/projects/spark/src/spark/effects/WipeDown.pbj"/>
+              <include name="frameworks/projects/spark/src/spark/effects/WipeUp.pbj"/>
+              <include name="frameworks/projects/spark/src/spark/effects/WipeLeft.pbj"/>
+              <include name="frameworks/projects/spark/src/spark/effects/WipeRight.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/Color.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/ColorBurn.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/ColorDodge.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/Exclusion.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/Hue.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/Luminosity.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/LuminosityMaskFilter.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/Saturation.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/SoftLight.pbj"/>
+          </tarfileset>
+        </tar>
+        <gzip destfile="${basedir}/out/pb.tar.gz" src="${basedir}/out/pb.tar"/>
+	    <delete file="${basedir}/out/pb.tar" failonerror="false" />
+	</target>
 
 </project>
