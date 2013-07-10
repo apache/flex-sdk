@@ -89,6 +89,9 @@
 		<condition property="target11.7">
 			<equals arg1="${playerglobal.version}" arg2="11.7" />
 		</condition>
+		<condition property="target11.8">
+			<equals arg1="${playerglobal.version}" arg2="11.8" />
+		</condition>
 	 </target>
 
     <target name="playerglobal10.2-download" if="target10.2">
@@ -157,6 +160,13 @@
     <target name="playerglobal11.7-download" if="target11.7">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
         <get src="http://download.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_7.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
+	
+    <target name="playerglobal11.8-download" if="target11.8">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://download.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_8.swc" 
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
