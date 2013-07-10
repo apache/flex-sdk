@@ -5390,7 +5390,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 				deferFocus();
 				
 				// must call removeChild() so FocusManager.lastFocus becomes null
-                itemEditorInstance.parent.removeChild(DisplayObject(itemEditorInstance));
+				if (itemEditorInstance)
+               		itemEditorInstance.parent.removeChild(DisplayObject(itemEditorInstance));
 
                 // we are not setting the item renderer's visibility to false while creating an editor,
                 // then why set its visibility to true
@@ -6542,7 +6543,14 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      */
     protected function displayToAbsoluteColumnIndex(columnIndex:int):int
     {
-        return displayableColumns[columnIndex].colNum;
+		var noColumns:int = displayableColumns.length;
+		
+		if (columnIndex >= 0 && columnIndex < noColumns) {
+			return displayableColumns[columnIndex].colNum;
+		}
+		else {
+			return -1;
+		}
     }
 
     /**
@@ -7590,11 +7598,20 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             return;
 
         var target:DisplayObject = DisplayObject(event.target);
-        var index:int = target.parent.getChildIndex(target);
-        var optimumColumns:Array = getOptimumColumns();
-        if (!optimumColumns[index].resizable)
+		var parent:DisplayObjectContainer = target.parent;
+		if (!parent)
+			return;
+		var index:int = parent.getChildIndex(target);
+		var optimumColumns:Array = getOptimumColumns();
+		if (index < 0 || index >= optimumColumns.length)
+			return;
+		if (!optimumColumns[index] || !optimumColumns[index].resizable)
             return;
-        cursorManager.removeCursor(resizeCursorID);
+		
+		if (resizeCursorID != CursorManager.NO_CURSOR) {
+			cursorManager.removeCursor(resizeCursorID);
+			resizeCursorID =  CursorManager.NO_CURSOR;
+		}
     }
 
     /**
@@ -7607,16 +7624,21 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             return;
 
         var target:DisplayObject = DisplayObject(event.target);
-        var index:int = target.parent.getChildIndex(target);
+		var parent:DisplayObjectContainer = target.parent;
+		if (!parent)
+			return;
+        var index:int = parent.getChildIndex(target);
         
-        //If the separator is not in locked region, column index need to be adjusted
-        if(lockedColumnCount > 0 &&
-           target.parent == UIComponent(getLines().getChildByName("header")))
+        // If the separator is not in locked region, column index need to be adjusted
+        if (lockedColumnCount > 0 &&
+           parent == UIComponent(getLines().getChildByName("header")))
             index += (lockedColumnCount - 1);
 
         var optimumColumns:Array = getOptimumColumns();
-        if (!optimumColumns[index].resizable)
-            return;
+		if (index < 0 || index >= optimumColumns.length)
+			return;
+		if (!optimumColumns[index] || !optimumColumns[index].resizable)
+			return;
 
         if (itemEditorInstance)
             endEdit(AdvancedDataGridEventReason.OTHER);
@@ -7703,7 +7725,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         // TODO - we should substract the resized column separatos's width 
         var maxWidth:Number = unscaledWidth - separatorWidth - vsw ;
         var index:int;
-        if(getOptimumColumns() == visibleColumns)
+        if (getOptimumColumns() == visibleColumns)
             index = absoluteToVisibleColumnIndex(resizingColumn.colNum);
         else
             index = absoluteToDisplayColumnIndex(resizingColumn.colNum);
@@ -7730,7 +7752,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         listContent.removeChild(DisplayObject(resizeGraphic));
 
-        cursorManager.removeCursor(resizeCursorID);
+		if (resizeCursorID != CursorManager.NO_CURSOR) {
+			cursorManager.removeCursor(resizeCursorID);
+			resizeCursorID =  CursorManager.NO_CURSOR;
+		}
 
         var c:AdvancedDataGridColumn = resizingColumn;
         resizingColumn = null;
