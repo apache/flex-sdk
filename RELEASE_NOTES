@@ -11,10 +11,10 @@ Differences from Apache Flex 4.9 include:
 
 AIR and Flash Player support
 ------------------------------
- - Support Flash Player 11.7, 11.6 and 11.5.
- - Added support for AIR 3.7, 3.6 and 3.5.
+ - Support Flash Player 11.8, 11.7, 11.6 and 11.5.
+ - Support for AIR 3.8, 3.7, 3.6 and 3.5.
  - Support for AIR 2.6, 2.7 and 3.0.
- - Initial Linux support (binary release).
+ - Initial Linux support.
  - Mac scripts to change Flash Player and AIR version configuration.
 
 Compiler changes
