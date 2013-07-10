@@ -95,13 +95,13 @@ determineVersion()
         then 
             FLASH_VERSION="11.1"
         else
-            FLASH_VERSION="11.7"
+            FLASH_VERSION="11.8"
         fi
     fi
     
     if [ ${latest} = "Y" ]
     then
-    	FLASH_VERSION="11.7"
+    	FLASH_VERSION="11.8"
     fi
     
     echo "Setting minimum Flash Player version to ${FLASH_VERSION}"
@@ -137,9 +137,9 @@ then
 	echo Installing AIR
 	echo
 
-    if [[ $FLASH_VERSION = "11.7" ]]
+    if [[ $FLASH_VERSION = "11.8" ]]
     then
-        ./addAIRtoSDK.sh 3.7 "$IDE_SDK_DIR"
+        ./addAIRtoSDK.sh 3.8 "$IDE_SDK_DIR"
     fi
     
     if [[ $FLASH_VERSION = "11.1" ]]
