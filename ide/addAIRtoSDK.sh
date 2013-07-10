@@ -103,11 +103,6 @@ downloadAIR()
         airDownload="http://airdownload.adobe.com/air/lin/download/${version}/AdobeAIRSDK.tbz2"
     fi
     
-    if [[ ${AIR_VERSION} = "3.8" ]]
-    then
-    	airDownload="http://labsdownload.adobe.com/pub/labs/flashruntimes/air/air3-8_sdk_sa_mac.tbz2"
-    fi
-    
 	echo Downloading AIR ${version}
 	curl ${airDownload} > "${airTempDir}/air.tbz2"
 	
