@@ -201,7 +201,7 @@ Install Prerequisites
          The Adobe Pixel Bender Toolkit for Mac can be downloaded from:
             http://www.adobe.com/go/pixelbender_toolkit_dmg/
             
-         No Pixel Bender Toolkit for Linux exists but the compiled Picel Bender files
+         No Pixel Bender Toolkit for Linux exists but the compiled Pixel Bender files
          can be downloaded from:
             https://builds.apache.org/pview/job/flex-sdk_pixelbender/lastSuccessfulBuild/artifact/out/pb.tar.gz
                     
