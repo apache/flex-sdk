@@ -262,18 +262,21 @@ FLEX-22452         Error in SortField.nullCompare logic                         
 FLEX-22068         DateFormatter.parse does not correctly handle positive GMT offset (such as UK)                  Fixed
 FLEX-21609         Make the Date.parse locale aware.                                                               Fixed
 FLEX-21066         Make removeItem( item:Object) accessible in ArrayCollection                                     Implemented
-FLEX-20117         ValidationResultEvent.message getter throws exception if the evnt is of type                    Fixed 
 FLEX-20956         [Localization]: DateField should support "MMM" and "MMMM" for formatString                      Fixed
 FLEX-20951         [Localization]: DateFormatter.parseDateString does not support non-latin characters in month a  Fixed
 FLEX-20566         Date Validator not handling single digit date configurations correctly for localized versions   Fixed
 FLEX-20370         DateField do not honor min or maxYear setting.                                                  Fixed
 FLEX-20322         Locale fr_FR with different monthNames and DateFormatter doesnt provide expected result         Fixed
+FLEX-20117         ValidationResultEvent.message getter throws exception if the evnt is of type                    Fixed										
 FLEX-19943         DateField does not open when you click the text entry area                                      Fixed
+FLEX-19842         DateField size measured too small                                                               Fixed
 FLEX-19211         StringUtil.trim() function does not remove the space in japanese language                       Fixed
+FLEX-19055         Sliders don't function with small intervals                                                     Fixed
 FLEX-18951         NumberFormatter.format returns wrong number for some scientific notation values                 Fixed
+FLEX-18697         ObjectUtil.getCacheKey does not make cache key correctly                                        Fixed
 FLEX-18324         Halo NumericStepper clears value is an illegal character is typed in textInput                  Fixed
 FLEX-18090         DateField with a lowercase formatString does not work                                           Fixed
-FLEX-17931         [Localization]:[HS:CN]The default value of property "dateFormat" of the Class "DateFormatter,   Fixed
+FLEX-17931         [Localization]:[HS:CN]The default value of property "dateFormat" of the Class DateFormatter     Fixed										
 FLEX-17257         DateValidator attachs the inputFormat on custom wrongLength parameters                          Fixed
 FLEX-16909         DateField should support "M" for formatString                                                   Fixed
 FLEX-16876         Unrequired cast in DataGridItemRenderer.as                                                      Fixed
