@@ -57,7 +57,7 @@ fi
 # toggle between versions
 if [ "$FLASH_VERSION" == "11.1" ]
 then
-  FLASH_VERSION=11.8
+  FLASH_VERSION=11.7
   AIR_VERSION=3.7
 else
   FLASH_VERSION=11.1
@@ -82,13 +82,13 @@ LOG=$LOG"- Set AIR_HOME to '$AIR_HOME'"$'\n'
 case "$FLASH_VERSION" in
   11.1)
     #export FLASHPLAYER_DEBUGGER="/Applications/Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger"
-    export FLASHPLAYER_DEBUGGER="C:\\Program\ Files\ (x86)\\flashplayer11_1r102_55_win_sa_debug_32bit.exe"
+    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer11_1r102_55_win_sa_debug_32bit.exe"
   ;;
   11.7)
-    export FLASHPLAYER_DEBUGGER="C:\\Program\ Files\ (x86)\\flashplayer11_7r700_232_win_sa_debug.exe"
+    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer11_7r700_232_win_sa_debug.exe"
   ;;
   11.8)
-    export FLASHPLAYER_DEBUGGER="C:\\Program\ Files\ (x86)\\flashplayer11_8r800_94_win_sa_debug.exe"
+    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer11_8r800_94_win_sa_debug.exe"
   ;;
   *)
     echo "No valid Flash Player Debugger variable value could be parsed."
@@ -132,8 +132,8 @@ done
 if [ "$RUN_TYPE" == "main" ]
 then
   TEST_COMMAND=-timeout=60000
-  #TEST_SET=-all
-  TEST_SET=tests/components/Label
+  TEST_SET=-all
+  #TEST_SET=tests/components/Label
 elif [ "$RUN_TYPE" == "air" ]
 then
   TEST_COMMAND=-apollo
