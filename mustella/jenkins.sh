@@ -108,9 +108,9 @@ END
 
 
 # ANT
-#ant -f ../build.xml clean -Dbuild.noprompt=true
-#ant -f ../build.xml main -Dbuild.noprompt=true
-#ant -f ../build.xml other.locales -Dbuild.noprompt=true
+ant -f ../build.xml clean -Dbuild.noprompt=true
+ant -f ../build.xml main -Dbuild.noprompt=true
+ant -f ../build.xml other.locales -Dbuild.noprompt=true
 LOG=$LOG"- Ran 'clean', 'main' and 'other.locales' ant targets to prepare the SDK for testing"$'\n'
 
 
@@ -132,8 +132,8 @@ done
 if [ "$RUN_TYPE" == "main" ]
 then
   TEST_COMMAND=-timeout=60000
-  #TEST_SET=-all
-  TEST_SET=tests/components/Label
+  TEST_SET=-all
+  #TEST_SET=tests/components/Label
 elif [ "$RUN_TYPE" == "air" ]
 then
   TEST_COMMAND=-apollo
