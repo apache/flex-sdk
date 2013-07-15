@@ -56,6 +56,11 @@
             type="dir" 
             property="TLF_HOME"
             value="${FLEX_HOME}/../tlf" />
+	
+    <available file="${env.TLF_HOME}" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${env.TLF_HOME}"/>
 
     <!-- 
         Optional jars but should be in place for a real release build.
