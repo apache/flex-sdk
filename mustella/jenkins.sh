@@ -75,14 +75,14 @@ LOG=$LOG"- Set FLASH_VERSION to '$FLASH_VERSION' and AIR_VERSION to '$AIR_VERSIO
 
 
 # LOCATIONS
-export AIR_HOME="/Users/erik/Documents/ApacheFlex/dependencies/AdobeAIRSDK"
-#export AIR_HOME="C:\\ApacheFlex\\dependencies\\AdobeAIRSDK\\$AIR_VERSION"
+#export AIR_HOME="/Users/erik/Documents/ApacheFlex/dependencies/AdobeAIRSDK"
+export AIR_HOME="C:\\ApacheFlex\\dependencies\\AdobeAIRSDK\\$AIR_VERSION"
 LOG=$LOG"- Set AIR_HOME to '$AIR_HOME'"$'\n'
 
 case "$FLASH_VERSION" in
   11.1)
-    export FLASHPLAYER_DEBUGGER="/Applications/Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger"
-    #export FLASHPLAYER_DEBUGGER="C:\\Program\ Files\ (x86)\\flashplayer11_1r102_55_win_sa_debug_32bit.exe"
+    #export FLASHPLAYER_DEBUGGER="/Applications/Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger"
+    export FLASHPLAYER_DEBUGGER="C:\\Program\ Files\ (x86)\\flashplayer11_1r102_55_win_sa_debug_32bit.exe"
   ;;
   11.7)
     export FLASHPLAYER_DEBUGGER="C:\\Program\ Files\ (x86)\\flashplayer11_7r700_232_win_sa_debug.exe"
@@ -108,9 +108,9 @@ END
 
 
 # ANT
-#ant -f ../build.xml clean
-#ant -f ../build.xml main
-#ant -f ../build.xml other.locales
+ant -f ../build.xml clean -Dbuild.noprompt=true
+ant -f ../build.xml main -Dbuild.noprompt=true
+ant -f ../build.xml other.locales -Dbuild.noprompt=true
 LOG=$LOG"- Ran 'clean', 'main' and 'other.locales' ant targets to prepare the SDK for testing"$'\n'
 
 
@@ -151,7 +151,7 @@ END
   TEST_SET=tests/mobile
 fi
 
-#sh ./mini_run.sh $TEST_COMMAND $TEST_SET 
+sh ./mini_run.sh $TEST_COMMAND $TEST_SET 
 
 LOG=$LOG"- Ran Mustella on the SDK with these parameters: '$TEST_COMMAND $TEST_SET'"$'\n'
 
@@ -161,7 +161,7 @@ LOG=$LOG"- Ran Mustella on the SDK with these parameters: '$TEST_COMMAND $TEST_S
 if [[ -s failures.txt ]]
 then
   LOG=$LOG"- Some tests failed: running '-failures'"$'\n' 
-  #sh ./mini_run.sh $TEST_COMMAND -failures
+  sh ./mini_run.sh $TEST_COMMAND -failures
   if [[ -s failures.txt ]]
   then
     LOG=$LOG"- Some of tests failed, even after running '-failures'..."$'\n'
