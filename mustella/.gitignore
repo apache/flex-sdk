@@ -1,6 +1,7 @@
 # mustella files
 failures.txt
 results.txt
+versions.txt
 properties/mustella_tmp.properties
 test_files.tmp
 *.lnk.xml
