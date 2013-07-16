@@ -208,7 +208,7 @@ END
 
 
 
-if [ ! SUCCESS ]
+if ! SUCCESS
 then
   exit 1
 fi
