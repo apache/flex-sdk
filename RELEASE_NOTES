@@ -56,7 +56,7 @@ SDK Changes
  - Improved DateField and DateChooser.
  - Improve currency formatting support.
  - More supported locales for postcode validator and formatters.
- - Added no color support to Colour Picker.
+ - Added 'no color' support to ColorPicker.
  - Added removeItem to IList.
  - Bitmap scaling works in fill and crop modes.
  - Fixed performance issue with matchesStyleClient.
@@ -81,7 +81,7 @@ Experimental Components
 
 Mustella Test Framework changes
 ---------------------------------
- - Many improvements to mustalla tests.
+ - Many improvements to mustella tests.
  - Better consistency between running tests on windows and OSX.
  - Fixed mobile and AIR mustella tests.
  - Fixed issue with embedded fonts and mustella tests.
