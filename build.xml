@@ -602,7 +602,9 @@
         <!-- ide -->
         <copy todir="${basedir}/temp/ide">
             <fileset dir="${basedir}/ide" >
-                <include name="flashbuilder/**"/>
+            	<include name="flashbuilder/**"/>
+            	<include name="*.sh"/>
+            	<include name="*.bat"/>
             </fileset>
         </copy>
 
