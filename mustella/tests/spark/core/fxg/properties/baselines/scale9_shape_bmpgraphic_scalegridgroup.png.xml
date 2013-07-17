@@ -1,0 +1,26 @@
+<DisplayList>
+  <fxgtemplate width="940" height="700">
+    <spark.skins.spark.ApplicationSkin width="940" height="700" blendMode="auto">
+      <spark.components.Group width="940" height="700" blendMode="auto">
+        <spark.components.Group width="940" height="700" blendMode="auto">
+          <comps.MyComp width="800" height="800" blendMode="auto">
+            <fxg.scale9.shape_bmpgraphic_scalegridgroup width="385" height="300.5" blendMode="auto">
+              <flash.display.MovieClip matrix="(a=2.5, b=0, c=0, d=2.5, tx=10, ty=10)" x="10" y="10" width="250" height="102.5" scale9Grid="(x=76, y=5, w=10, h=10)">
+                <flash.display.Shape x="50" y="10" width="100" height="25"/>
+                <flash.display.Shape x="80" y="10" width="41" height="41"/>
+              </flash.display.MovieClip>
+              <flash.display.MovieClip matrix="(a=2.5, b=0, c=0, d=2.5, tx=10, ty=150)" x="10" y="150" width="250" height="102.5">
+                <flash.display.Shape x="50" y="10" width="100" height="25"/>
+                <flash.display.Shape x="80" y="10" width="41" height="41"/>
+              </flash.display.MovieClip>
+              <flash.display.MovieClip x="10" y="250" width="100" height="41">
+                <flash.display.Shape x="50" y="10" width="100" height="25"/>
+                <flash.display.Shape x="80" y="10" width="41" height="41"/>
+              </flash.display.MovieClip>
+            </fxg.scale9.shape_bmpgraphic_scalegridgroup>
+          </comps.MyComp>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </fxgtemplate>
+</DisplayList>
