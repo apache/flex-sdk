@@ -211,8 +211,9 @@ public class FTETextUtil
                     localLookup = IUIComponent(uic.parent).systemManager;
             }
             
-            fontContext = embeddedFontRegistry.getAssociatedModuleFactory(
-            	font, bold, italic, client, moduleFactory, localLookup, true);
+			if (embeddedFontRegistry)
+            	fontContext = embeddedFontRegistry.getAssociatedModuleFactory(
+            		font, bold, italic, client, moduleFactory, localLookup, true);
         }
 
         if (!fontContext && fontLookup == FontLookup.EMBEDDED_CFF)
