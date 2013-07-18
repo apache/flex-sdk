@@ -1215,9 +1215,7 @@
             <RunCode code="application.grp.addElement(new filters_blend)" waitEvent="updateComplete" waitTarget="grp"/>
         </setup>
         <body>
-            <CompareBitmap url="../properties/baselines"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+            <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
 		</body>
     </TestCase>
         
@@ -1840,9 +1838,7 @@
                     <RunCode code="application.grp.addElement(new shape_bmpgraphic_scalegridgroup)" waitEvent="updateComplete" waitTarget="grp"/>
                 </setup>
                 <body>
-                    <CompareBitmap url="../properties/baselines/"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp">
-						<ConditionalValue os="win"/>
-					</CompareBitmap>
+                    <CompareBitmap url="../properties/baselines/$testID.png"  numColorVariances="8" ignoreMaxColorVariance="true"  target="grp" />
                 </body>
             </TestCase>
         
