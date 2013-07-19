@@ -181,8 +181,8 @@ Install Prerequisites
             http://www.adobe.com/support/flashplayer/downloads.html
 
         This version of Apache Flex was certified for use with Adobe Flash Player 11.1, and
-        is compatible with versions 10.2 through 11.8. It has been tested with versions 11.1
-        and 11.5 on Windows and Mac. It has been compiled against other Adobe Flash Player
+        is compatible with versions 10.2 through 11.8. It has been tested with versions 11.1, 
+        11.7 and 11.8 on Windows and Mac. It has been compiled against other Adobe Flash Player
         versions but has not been fully tested. It has not been fully tested on Linux.
             
         On Windows, set FLASHPLAYER_DEBUGGER to the absolute path including the filename of
