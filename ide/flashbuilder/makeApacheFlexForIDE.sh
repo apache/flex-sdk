@@ -29,7 +29,7 @@
 # modified to reflect this.  The AIR_HOME and PLAYERGLOBAL_HOME environment variables are 
 # not required because the locations of these pieces are known.
 #
-# Usage: makeApacheFlexForFlashBuilder [new directory to build integrated SDK]
+# Usage: makeApacheFlexForIDE [new directory to build integrated SDK]
 #
 
 # Edit these constants if you would like to download from alternative locations.

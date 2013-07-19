@@ -32,7 +32,7 @@ REM    into the new directory structure.  The paths in the framework configurati
 REM    modified to reflect this.  The AIR_HOME and PLAYERGLOBAL_HOME environment variables are 
 REM    not required because the locations of these pieces are known.
 REM
-REM    Usage: makeApacheFlexForFlashBuilder [new directory to build integrated SDK]
+REM    Usage: makeApacheFlexForIDE [new directory to build integrated SDK]
 REM
 
 REM     Edit these constants if you would like to download from alternative locations.
