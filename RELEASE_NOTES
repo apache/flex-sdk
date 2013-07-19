@@ -1,11 +1,17 @@
 Apache Flex 4.10
 =================
 
-Apache Flex 4.10 is a update to Apache Flex 4.9.  It is the goal of our project
-to have this version remain compatible with applications developed with Adobe's
-final Flex release, version 4.6.  There have been numerous enhancements, bug
-fixes and new features that have been included since the Adobe release, so make
-sure to review this document to see what has been included.
+Apache Flex 4.10 is an update to Apache Flex 4.9. 
+
+Apache Flex 4.10 fixes over 200 bugs, introduces new datagrid features,
+experimental Spark components,and adds support for the latest versions of
+Flash Player and AIR. Improvements have been made to the build and testing
+infrastructure and initial support for Linux added. 
+
+Apache Flex 4.10 continues to be compatible with Flex release 4.6 (Adobe's
+final release).
+
+Make sure to review this document to see what has been changed.
 
 Differences from Apache Flex 4.9 include:
 
@@ -19,7 +25,8 @@ AIR and Flash Player support
 
 Compiler changes
 ------------------
- - Support for Advanced Telemetry in Flash Builder, ant task and command line tools.
+ - Support for Advanced Telemetry in Flash Builder, ant task and command line
+   tools.
  - SVG support is no longer deprecated.
 
 Build script changes
@@ -27,7 +34,8 @@ Build script changes
  - Improved clean targets in build scripts.
  - Changed SDK description to include AIR version.
  - Change the internal release number to be date format YYYYMMDD.
- - Support for auto discovery of TLF directory and TLF_HOME environment variable.
+ - Support for auto discovery of TLF directory and TLF_HOME environment
+   variable.
  - Added no.thirdparty-clean and no.thirdparty-downloads options.
  - Fixed issue with pt_PT, el_GR, en_AU, en_GB and en_CA locales.
 
@@ -40,10 +48,11 @@ SDK Changes
  - Row, column, cell and table datagrid double click modes.
  - Spark RadioButtonGroup now has a selectedIndex property.
  - Spark ButtonBar and TabBar can now enable/disable buttons.
- - Spark ButtonBar and TabBar can now prevent the selection / toggling of their buttons.
+ - Spark ButtonBar and TabBar can now prevent the selection / toggling of their
+   buttons.
  - Added enabled property when buttons are created for the MX ButtonBar.
  - Fixed RTEs in Advanced DataGrid when dynamically assigning columns.
- - Fixed RTEs and improved performance in Advanced DataGrid
+ - Fixed RTEs and improved performance in Advanced DataGrid.
  - Improved support of dates including DD/MM/YYYY support, single digit day and
    month in date formats and international dates including Japanese, Chinese
    and Korean dates.
@@ -63,8 +72,8 @@ SDK Changes
  - Improved performance of truncating text to fit.
  - RPC toString improvements.
  - Better support of small numbers and scientific notation in numeric steppers.
- - 480 dpi mobile resolution/skin support
- - New fr_CH locale 
+ - 480 dpi mobile resolution/skin support.
+ - New fr_CH locale.
  - Many minor improvements and changes, including RTE fixes.
   
  Check the bug fix list below for more details.
@@ -72,12 +81,12 @@ SDK Changes
 Experimental Components
 -------------------------
  - Added new components Accordion, DataAccordion, InlineScroller and layouts
-   AccordionLayout, CarouselLayout, CoverflowLayout, StackLayout (and more)
- - Spark CallOut and CallOut Button
- - Spark Alert
- - Spark ColorPicker
- - Spark MenuBar and Menu
- - Spark ProgressBar
+   AccordionLayout, CarouselLayout, CoverflowLayout, StackLayout (and more).
+ - Spark CallOut and CallOut Button.
+ - Spark Alert.
+ - Spark ColorPicker.
+ - Spark MenuBar and Menu.
+ - Spark ProgressBar.
 
 Mustella Test Framework changes
 ---------------------------------
