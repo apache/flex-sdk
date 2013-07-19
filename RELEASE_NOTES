@@ -107,6 +107,7 @@ Bug Fixes
 
 JIRA Issue Number  Summary                                                                                         Resolution
 ------------------------------------------------------------------------------------------------------------------------------
+FLEX-33613         RTE when closing Popup with RIATEST open but the application compiled with accessibility = falseFixed
 FLEX-33604         Spark DataGrid causes a tooltip (text: ""<dataTip>"") to appear for its typical item renderer   Fixed										
 FLEX-33600         Creating a pop up from a menubar or from within Firefox crashes                                 Fixed										
 FLEX-33596         Tween.stop can stop some other Tween object after Tween has ended                               Fixed										
@@ -213,6 +214,7 @@ FLEX-33189         centerPopUp() doesn't work correctly with layoutDirection=='r
 FLEX-33169         Spark List selection on mobile doesn't work properly                                            Fixed										
 FLEX-33163         When a collection reset event is received by List selectedItem is not always cleared            Fixed										
 FLEX-33130         mx.core.IButton should have getter/setter function for label property                           Fixed										
+FLEX-33142         embeddedFontRegistry Null reference error loading a module that has <s:FormItem>                Fixed
 FLEX-33124         FLEX-33108 Change build script to download specified version of playerglobal.swc                Fixed										
 FLEX-33123         Existing validator and formatter classes only validate US and Canadian postcodes                Fixed										
 FLEX-33122         FLEX-33106 MakeApacheFlexForFlashBuilder change language at runtime                             Fixed										
@@ -243,6 +245,7 @@ FLEX-28561         CLONE -Spark NumericStepper : unable to use decimals as stepS
 FLEX-28530         mx:DateValidator crash when property allowedFormatChars is null                                 Fixed										
 FLEX-28247         In a NumericStepper, when typing a value manually and tabbing out of the field, the new value   Fixed										
 FLEX-28130         The Max value restriction in Spark Numeric doesn't work properly                                Fixed										
+FLEX-28045         FocusManager throws TypeError                                                                   Fixed
 FLEX-27855         NumericStepper steps incorrectly with decimal values in European locale                         Fixed										
 FLEX-27815         Add in Portuguese locale to Flex SDK for string externalization                                 Fixed										
 FLEX-27797         Spark Datagrid double click is fired even when you make the first and second click in different Fixed										
