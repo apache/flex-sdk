@@ -26,6 +26,21 @@
     <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 
+    <available file="${FLEX_HOME}/../flex-tlf/textLayout"
+            type="dir"
+            property="TLF_HOME"
+            value="${FLEX_HOME}/../flex-tlf" />
+
+    <available file="${FLEX_HOME}/../tlf/textLayout"
+               type="dir"
+               property="TLF_HOME"
+               value="${FLEX_HOME}/../tlf" />
+
+    <available file="${env.TLF_HOME}"
+               type="dir"
+               property="TLF_HOME"
+               value="${env.TLF_HOME}"/>
+
 	<target name="main" depends="clean,doc" description="Clean build of all ASDocs"/>
 
 	<target name="clean" description="Cleans all ASDocs">
