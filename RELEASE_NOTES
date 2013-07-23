@@ -103,7 +103,7 @@ Mustella Test Framework changes
 Version Control
 -----------------
  - Apache Flex has officially moved it's code base to Git from SVN. Information
-   on the new checkout and build instructions, in the included README file.
+   on the new checkout and build instructions can be found in the README file.
 
 Bug Fixes
 ----------
