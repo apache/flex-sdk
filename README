@@ -539,7 +539,7 @@ Building the Source in the Source Distribution
         
     To generate a source distribution package and a binary distribution package use
         
-        ant -Dbuild.number=<last svn rev> -Dbuild.noprompt=  release
+        ant -Dbuild.number=<YYYYMMDD> -Dbuild.noprompt=  release
 
     The packages can be found in the "out" subdirectory.
             
