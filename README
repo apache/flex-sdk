@@ -77,7 +77,7 @@ Getting the latest sources via git
     
     Linux support is currently experimental and you may run into issues. Apache
     Flex would like to see a fully supported Linux release, but we need support
-    from community in order to do that. Please help out if you can. 
+    from the community in order to do that. Please help out if you can. 
 
     For further information visit http://flex.apache.org/download-source.html
     
@@ -232,7 +232,7 @@ Install Prerequisites
         These can be used with Apache Flex but have not been fully tested.
         
     *7) The Adobe Extension Manager is only required for those creating releases or testing
-            changes to the flash-integration swc.  Not that if you change APIs on classes
+            changes to the flash-integration swc.  Note that if you change APIs on classes
             that flash-integration depends on, you may need to update flash-integration.
 
         The Adobe Extension Manager for Windows can be downloaded from:
@@ -306,9 +306,9 @@ Adobe Flash Player Version Support
     Change the playerglobal.version in the build.properties file to have a value other
     than "11.1". For this change to take effect the SDK needs to be recompiled.
     For example to compile against the latest version of the Adobe Flash Player set
-    the value of playerglobal.version to be "11.5" like so:
+    the value of playerglobal.version to be "11.8" like so:
      
-        playerglobal.version = 11.5
+        playerglobal.version = 11.8
         
     OR
     
@@ -369,7 +369,7 @@ Adobe Flash Player Version Support
                     /11.8
                          /playerglobal.swc  
     
-    Apache Flex has been tested with Adobe Flash Player 11.1 and 11.5 on Windows and Mac.
+    Apache Flex has been tested with Adobe Flash Player 11.1, 11.5, 11.7 and 11.8 on Windows and Mac.
     Apache Flex has not been tested on Linux so some issue may exist in this release.
     
     It compiles against other Adobe Flash Player versions and is expected to work but they 
