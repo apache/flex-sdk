@@ -54,21 +54,9 @@
                 // We throw an error and exit so there is a single List failure:
                 //      "mobile/components/List/swfs/List.swf  Failed Timed out"
                 // rather than a couple hundred failures.  It keeps the run cleaner.
-                if (CONFIG::skaha == false){
-                    // adl_extras: -screensize 320x455:320x480 -profile mobileDevice -XscreenDPI 170
-                    // adl_extras: -screensize 640x960:640x960 -profile mobileDevice -XscreenDPI 320
-                    if (FlexGlobals.topLevelApplication.width == 320 || /* upcoming 170 ADL run */
-                         (FlexGlobals.topLevelApplication.width == 640 && (Capabilities.os.indexOf('Win') == 0 || Capabilities.os.indexOf('Mac') == 0) ) || /* upcoming 326 ADL run */
-                        Capabilities.screenDPI == 160 || /* current 160ADL run */
-                        Capabilities.screenDPI == 320  /* current 320 ADL run */ ){
-                        
-                        // quietly fail on all 160 + 320 ADL runs whether they are current or next
-                        var errorString:String = "Error: List tests excluded for 160dpi and 320dpi ADL Mustella runs";
-                        trace(errorString);
-//                        throw new Error(errorString);
-                        NativeApplication.nativeApplication.exit(-1);                        
-                    }
-                }
+                //
+                // Note the code referenced above has been removed. It runs perfectly fine in the
+                // simulator. Check previous revisions for questions.
             }
 
             /**
@@ -137,6 +125,7 @@
             backgroundColor: #e3e3e3;
         }
     </fx:Style>
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
     
     <!-- root component -->
     <comps:QANavigator id="navigator" />

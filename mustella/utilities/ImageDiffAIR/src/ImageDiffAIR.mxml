@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" initialize="initLC()" creationComplete="doCreationComplete()">
+<mx:Script>
+	<![CDATA[
+    import flash.geom.Rectangle;
+
+    import mx.collections.IList;
+    import mx.controls.Label;
+    import mx.core.UIComponent;
+    import mx.events.FlexEvent;
+
+    [Bindable]
+    private var results:UIComponent;
+    private var image1Loaded:Boolean;
+    private var image2Loaded:Boolean;
+    private var digits:Array = [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+
+    private function initLC():void {
+        for (var i:int = 0; i < 16; i++) {
+            for (var j:int = 0; j < 16; j++) {
+                byteTable[digits[i] + digits[j]] = i * 16 + j;
+            }
+        }
+    }
+
+    private function doCreationComplete():void {
+        nativeWindow.bounds = new Rectangle(0, 0, flash.system.Capabilities.screenResolutionX, flash.system.Capabilities.screenResolutionY);
+        setLastFolder();
+    }
+
+    private function saveLastFolder():void {
+        var lastFolder:String = fs.selectedItem.url;
+        var bytes:ByteArray = new ByteArray();
+        bytes.writeUTFBytes(lastFolder);
+        EncryptedLocalStore.setItem("lastFolder", bytes);
+    }
+
+    private function setLastFolder():void {
+        var storedValue:ByteArray = EncryptedLocalStore.getItem("lastFolder");
+        if (storedValue) {
+            var lastFolder:String = storedValue.readUTFBytes(storedValue.length);
+            if (lastFolder.indexOf("file://") == 0) {
+                lastFolder = lastFolder.substring(7);
+            }
+            if (lastFolder.charAt(0) == "/" && lastFolder.charAt(2) == ":") {
+                // windows
+                lastFolder = lastFolder.substring(1);
+                lastFolder = lastFolder.replace(/\//g, "\\");
+            }
+            fs.openSubdirectory(lastFolder);
+            fs.selectedPath = lastFolder;
+            fs.validateNow();
+            fs.scrollToIndex(fs.selectedIndex);
+        }
+    }
+
+    private function dgSelectShortcuts(event:KeyboardEvent):void {
+        if (event.ctrlKey && String.fromCharCode(event.charCode) == 'a') {
+            var n:int = dg.dataProvider.length;
+            var indices:Array = [];
+            for (var i:int = 0; i < n; i++) {
+                indices.push(i);
+            }
+            dg.selectedIndices = indices;
+        }
+    }
+
+    private function compareShortcuts(event:KeyboardEvent):void {
+        if (event.keyCode == Keyboard.LEFT) {
+            prevHandler();
+        } else if (event.keyCode == Keyboard.RIGHT) {
+            nextHandler();
+        }
+    }
+
+    private function statusHandler(event:Event):void {
+    }
+
+    private var sbd:BitmapData;
+    private var sba:ByteArray;
+
+    public function startScreenData(w:int, h:int, length:int):void {
+        sba = new ByteArray();
+        sbd = new BitmapData(w, h);
+    }
+
+    public function addScreenData(s:String):void {
+        toByteArray(sba, s);
+    }
+
+    private var bbd:BitmapData;
+    private var bba:ByteArray;
+
+    public function startBaseData(w:int, h:int, length:int):void {
+        bba = new ByteArray();
+        bbd = new BitmapData(w, h);
+    }
+
+    public function addBaseData(s:String):void {
+        toByteArray(bba, s);
+    }
+
+    public function compareBitmaps():void {
+        var bm1:Bitmap = new Bitmap();
+        var bm2:Bitmap = new Bitmap();
+        sba.position = 0;
+        bba.position = 0;
+        sbd.setPixels(sbd.rect, sba);
+        bbd.setPixels(bbd.rect, bba);
+        bm1.bitmapData = sbd;
+        bm2.bitmapData = bbd;
+        image1.load(bm1);
+        image2.load(bm2);
+        image1.scaleX = 1;
+        image1.scaleY = 1;
+        image2.scaleX = 1;
+        image2.scaleY = 1;
+        canvas1.width = sbd.width;
+        canvas1.height = sbd.height;
+        canvas2.width = bbd.width;
+        canvas2.height = bbd.height;
+
+        doCompare();
+    }
+
+    private var byteTable:Object = new Object();
+
+    private function toByteArray(ba:ByteArray, s:String):void {
+        var arr:Array = s.split(",");
+
+        var n:int = arr.length;
+        for (var i:int = 0; i < n; i++) {
+            var b:String = arr[i];
+            var byte:int = byteTable[b];
+            ba.writeByte(byte);
+        }
+    }
+
+    private var histogram:Boolean = false;
+
+    private var cmp:Object;
+
+    public function doCompare():void {
+        var bm1:BitmapData = new BitmapData(image1.content.width, image1.content.height);
+        bm1.draw(image1.content, new Matrix());
+
+        var bm2:BitmapData = new BitmapData(image2.content.width, image2.content.height);
+        bm2.draw(image2.content, new Matrix());
+
+        if (results) {
+            canvas3.removeChild(results);
+        }
+
+        cmp = bm1.compare(bm2);
+        var label:Label;
+
+        if (cmp == 0) {
+            results = label = new Label();
+            label.text = "Same";
+            canvas3.addChild(results);
+        } else if (cmp == -3) {
+            results = label = new Label();
+            label.text = "Widths are Different: " + image1.content.width + " vs " + image2.content.width;
+            canvas3.addChild(results);
+        } else if (cmp == -4) {
+            results = label = new Label();
+            label.text = "Heights are Different: " + image1.content.height + " vs " + image2.content.height;
+            canvas3.addChild(results);
+        } else {
+            results = new UIComponent();
+            var bm:Bitmap = new Bitmap();
+            results.addChild(bm);
+            bm.bitmapData = BitmapData(cmp);
+            results.width = image1.content.width;
+            results.height = image1.content.height;
+            canvas3.addChild(results);
+            results.graphics.clear();
+            results.graphics.beginFill(bg.selectedColor);
+            results.graphics.drawRect(0, 0, results.width, results.height);
+            results.graphics.endFill();
+        }
+
+        results.addEventListener(FlexEvent.CREATION_COMPLETE, onCreationComplete);
+
+        showHistogram();
+    }
+
+    private function onCreationComplete(event:FlexEvent):void {
+        results.removeEventListener(FlexEvent.CREATION_COMPLETE, onCreationComplete);
+
+        canvas3.width = results.width;
+        canvas3.height = results.height;
+    }
+
+    // Show previous image.
+    private function prevHandler():void {
+        if (--currentIndex < 0) {
+            currentIndex = selectedImagesArray.length - 1;
+        }
+
+        initiateLoading();
+    }
+
+    // Show next image.
+    private function nextHandler():void {
+        if (++currentIndex == selectedImagesArray.length) {
+            currentIndex = 0;
+        }
+
+        initiateLoading();
+    }
+
+    // Start loading images.  We continue with handleImage(1 or 2)Complete
+    private function initiateLoading():void {
+        image1Loaded = false;
+        image2Loaded = false;
+
+        image1.source = decodeURIComponent(selectedImagesArray[currentIndex].url);
+        image2.source = decodeURIComponent(selectedImagesArray[currentIndex].url.substring(0, selectedImagesArray[currentIndex].url.length - 8));
+
+        progressLabel.text = (currentIndex + 1) + " of " + selectedImagesArray.length;
+    }
+
+    private function handleImage1Complete():void {
+        image1Loaded = true;
+        sizeCanvas1();
+
+        if (image1Loaded && image2Loaded) {
+            doCompare();
+        }
+    }
+
+    private function handleImage2Complete():void {
+        image2Loaded = true;
+        sizeCanvas2();
+
+        if (image1Loaded && image2Loaded) {
+            doCompare();
+        }
+    }
+
+    private function bgChanged():void {
+        if (results) {
+            results.graphics.clear();
+            results.graphics.beginFill(bg.selectedColor);
+            results.graphics.drawRect(0, 0, results.width, results.height);
+            results.graphics.endFill();
+        }
+    }
+
+    private function getPixel(target:UIComponent, x:int, y:int, lbl:Label, bg:UIComponent):void {
+        var pt:Point = new Point(x, y);
+        var screenBits:BitmapData = new BitmapData(target.width, target.height);
+        screenBits.draw(target, new Matrix(1, 0, 0, 1, 0, 0));
+
+        var clr:uint = screenBits.getPixel(pt.x, pt.y);
+        var s:String = clr.toString(16);
+        while (s.length < 6) {
+            s = "0" + s;
+        }
+        lbl.text = s.toUpperCase();
+        bg.graphics.beginFill(clr);
+        bg.graphics.drawRect(0, 0, bg.width, bg.height);
+        bg.graphics.endFill();
+    }
+
+    private function pixelTracking():void {
+        if (cb.selected) {
+            systemManager.addEventListener("mouseMove", pixelTracker);
+        } else {
+            systemManager.removeEventListener("mouseMove", pixelTracker);
+        }
+    }
+
+    private function pixelTracker(event:MouseEvent):void {
+        if (image1.contains(event.target as DisplayObject)) {
+            updatePixels(image1, event.localX, event.localY, "1");
+        } else if (image2.contains(event.target as DisplayObject)) {
+            updatePixels(image2, event.localX, event.localY, "2");
+        } else if (results && results.contains(event.target as DisplayObject)) {
+            updatePixels(results, event.localX, event.localY, "3");
+        }
+    }
+
+    private function updatePixels(target:UIComponent, x:Number, y:Number, ui:String):void {
+        var nsx:NumericStepper = this["img" + ui + "x"];
+        var nsy:NumericStepper = this["img" + ui + "y"];
+        nsx.value = x;
+        nsy.value = y;
+        var lbl:Label = this["pixel" + ui];
+        var bg:UIComponent = this["bg" + ui];
+        getPixel(target, x, y, lbl, bg);
+    }
+
+    private function sizeCanvas1():void {
+        image1.scaleX = 1;
+        image1.scaleY = 1;
+        canvas1.width = image1.content.width;
+        canvas1.height = image1.content.height;
+    }
+
+    private function sizeCanvas2():void {
+        image2.scaleX = 1;
+        image2.scaleY = 1;
+        canvas2.width = image2.content.width;
+        canvas2.height = image2.content.height;
+    }
+
+    private function zoomit():void {
+        image1.scaleY = image1.scaleX = zoom.value;
+        image1.validateNow();
+        image2.scaleY = image2.scaleX = zoom.value;
+        image2.validateNow();
+        results.scaleY = results.scaleX = zoom.value;
+        results.validateNow();
+        if (canvas1.width < 100) {
+            canvas1.width = Math.min(image1.width, 100);
+            canvas1.height = Math.min(image1.height, 100);
+            canvas2.width = Math.min(image2.width, 100);
+            canvas2.height = Math.min(image2.height, 100);
+            canvas3.width = Math.min(results.width, 100);
+            canvas3.height = Math.min(results.height, 100);
+        }
+    }
+    ]]>
+	</mx:Script>
+	<mx:Script>
+		<![CDATA[
+			import flash.filesystem.File;
+
+			[Bindable]
+			private var selectedImagesArray:Array = [];
+
+			[Bindable]
+			private var currentIndex:int = -1;
+
+			private function getImages():void
+			{
+				if (!fs.selectedItem)
+					return;
+
+				var dir:File = File(fs.selectedItem.isDirectory ? fs.selectedItem : fs.selectedItem.parent);
+
+				var filesArray:Array = [];
+
+				getFilesFromDir(dir, filesArray);
+
+				dg.dataProvider = filesArray;
+
+				accord.selectedIndex = 1;
+				dg.callLater(dg.setFocus);
+			}
+
+			private function getImages2():void
+			{
+				if (!dg.selectedItems)
+					return;
+
+				selectedImagesArray = dg.selectedItems;
+				currentIndex = -1;
+				nextHandler();
+				accord.selectedIndex = 2;
+			}
+
+			private function deleteImages2():void
+			{
+				if (!dg.selectedItems)
+					return;
+
+				for (var i:int=0; i<dg.selectedItems.length; i++) {
+					var file:File = File(dg.selectedItems[i]);
+					file.deleteFileAsync();
+				}
+				accord.selectedIndex = 0;
+			}
+
+			private function getFilesFromDir(dir:File, filesArray:Array):void
+			{
+				var files:Array = dir.getDirectoryListing();
+
+				for(var i:int=0; i<files.length; i++)
+				{
+					var file:File = File(files[i]);
+					if (file.isDirectory)
+					{
+						getFilesFromDir(file, filesArray);
+					}
+					else
+					{
+						if (file.url.indexOf(".png.bad.png") != -1)
+						{
+							if (file.url.indexOf(".png.bad.png.xml") == -1)
+								filesArray.push(file);
+						}
+					}
+				}
+			}
+
+			private function getFileName(item:Object,blah:*=null):String
+			{
+				var file:File = File(item);
+				return getFileNameFromString(file.url);
+			}
+
+			private function getFileNameFromString(item:String):String
+			{
+				if(item == null)
+					return "";
+				var index:Number = item.indexOf("mustella");
+				if (index == -1)
+					return item;
+
+				return item.substr(index + 14);
+			}
+
+			private function showHistogram():void
+			{
+				if (histogram)
+				{
+					var bm:BitmapData = cmp as BitmapData;
+					if (bm)
+					{
+						var mx:Number = 0;
+						var uno:Number = 0;
+						var dos:Number = 0;
+						var mas:Number = 0;
+
+						hg.height = 30;
+						var v:Vector.<uint> = bm.getVector(new Rectangle(0, 0, bm.width, bm.height));
+						var n:int = v.length;
+						for (var i:int = 0; i < n; i++)
+						{
+							var c:uint = v[i];
+							var a:int = c >> 24 & 0xff;
+							var r:int = c >> 16 & 0xff;
+							var g:int = c >> 8 & 0xff;
+							var b:int = c & 0xff;
+							if (r & 0x80)
+								r = 256 - r;
+							if (b & 0x80)
+								b = 256 - b;
+							if (g & 0x80)
+								g = 256 - g;
+							if (a & 0x80)
+								a = 256 - a;
+							var m:int = Math.max(Math.abs(r), Math.abs(g), Math.abs(b), Math.abs(a));
+							mx = Math.max(mx, m);
+							if (m == 1)
+								uno++;
+							else if (m == 2)
+								dos++;
+							else if (m > 2)
+								mas++;
+						}
+						ones.text = uno.toString();
+						twos.text = dos.toString();
+						mores.text = mas.toString();
+						maxx.text = mx.toString();
+					}
+					else
+						hg.height = 0;
+				}
+				else
+					hg.height = 0;
+			}
+		]]>
+	</mx:Script>
+	<mx:Accordion id="accord" width="100%" height="100%" creationPolicy="all">
+		<mx:VBox label="Select Directory" width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" backgroundColor="0x008888">
+
+            <!-- To do: load a local XML file for people to personalize.
+
+            <mx:RadioButtonGroup id="rbgTestDirs" itemClick="fs.directory = new File(rbgTestDirs.selectedValue as String)" />
+			<mx:HBox>
+                <mx:RadioButton groupName="rbgTestDirs" label="3.x Tests" value="/Users/rv/source/depot/flex/branches/3.x/qa/sdk/testsuites/mustella/tests" />
+			</mx:HBox>
+			<mx:HBox>
+                <mx:RadioButton groupName="rbgTestDirs" label="DataGrid" value="/Users/rv/source/depot/flex/qa/sdk/testsuites/mustella/tests/components/DataGrid" />
+                <mx:RadioButton groupName="rbgTestDirs" label="DataGridColumn" value="/Users/rv/source/depot/flex/qa/sdk/testsuites/mustella/tests/components/DataGridColumn" />
+                <mx:RadioButton groupName="rbgTestDirs" label="TileLayout" value="/Users/rv/source/depot/flex/qa/sdk/testsuites/mustella/tests/gumbo/layout/TileLayout" />
+                <mx:RadioButton groupName="rbgTestDirs" label="ShaderFilter" value="/Users/rv/source/depot/flex/qa/sdk/testsuites/mustella/tests/gumbo/filters/ShaderFilter" />
+                <mx:RadioButton groupName="rbgTestDirs" label="States" value="/Users/rv/source/depot/flex/qa/sdk/testsuites/mustella/tests/States" />
+                <mx:RadioButton groupName="rbgTestDirs" label="Spark WA" value="/Users/rv/source/depot/flex/qa/sdk/testsuites/mustella/tests/apollo/spark/components/WindowedApplication" />
+                <mx:RadioButton groupName="rbgTestDirs" label="Tests" value="/Users/rv/source/depot/flex/qa/sdk/testsuites/mustella/tests" />
+			</mx:HBox>
+            -->
+
+			<mx:FileSystemTree id="fs"  width="100%" height="100%" change="saveLastFolder()"/>
+			<mx:Button label="Find Images" click="getImages()" />
+			<mx:Label text="{fs.selectedItem.url}" />
+		</mx:VBox>
+		<mx:VBox label="Select Images" width="100%" height="100%" verticalAlign="top" horizontalAlign="center" backgroundColor="0x008888">
+			<mx:DataGrid id="dg" width="100%" height="100%" allowMultipleSelection="true" keyDown="dgSelectShortcuts(event)">
+				<mx:columns>
+					<mx:DataGridColumn headerText="File" labelFunction="getFileName" />
+				</mx:columns>
+			</mx:DataGrid>
+			<mx:Button click="getImages2()" label="Compare Selected Images" />
+			<mx:Button click="deleteImages2()" label="Delete Selected Images" />
+		</mx:VBox>
+		<mx:VBox label="Compare Images" width="100%" height="100%" verticalAlign="top" horizontalAlign="center" backgroundColor="0x008888"
+				 keyDown="compareShortcuts(event)">
+			<mx:HBox>
+				<mx:Button id="prevButton" click="prevHandler()" label="&lt; Prev Image"/>
+				<mx:Label id="progressLabel" />
+				<mx:Button id="nextButton" click="nextHandler()" label="Next Image &gt;"/>
+			</mx:HBox>
+			<mx:HBox>
+				<mx:VBox>
+					<mx:VBox>
+						<mx:Canvas id="canvas1" minHeight="0" minWidth="0" >
+							<mx:Image id="image1" complete="handleImage1Complete()" />
+						</mx:Canvas>
+						<mx:Label text="{getFileNameFromString(String(image1.source))}" />
+					</mx:VBox>
+					<mx:HBox>
+						<mx:Label text="x" />
+						<mx:NumericStepper id="img1x" width="60" maximum="4000" />
+						<mx:Label text="y" />
+						<mx:NumericStepper id="img1y" width="60" maximum="4000" />
+						<mx:Button label="get pixel" click="getPixel(image1, img1x.value, img1y.value, pixel1, bg1)" />
+						<mx:Label id="pixel1" />
+						<mx:UIComponent id="bg1" width="16" height="16" />
+					</mx:HBox>
+				</mx:VBox>
+				<mx:Spacer width="50" />
+				<mx:VBox>
+					<mx:VBox>
+						<mx:Canvas id="canvas2" minHeight="0" minWidth="0" >
+							<mx:Image id="image2" complete="handleImage2Complete()" />
+						</mx:Canvas>
+						<mx:Label text="{getFileNameFromString(String(image2.source))}" />
+					</mx:VBox>
+					<mx:HBox>
+						<mx:Label text="x" />
+						<mx:NumericStepper id="img2x" width="60" maximum="4000" />
+						<mx:Label text="y" />
+						<mx:NumericStepper id="img2y" width="60" maximum="4000" />
+						<mx:Button label="get pixel" click="getPixel(image2, img2x.value, img2y.value, pixel2, bg2)" />
+						<mx:Label id="pixel2" />
+						<mx:UIComponent id="bg2" width="16" height="16" />
+					</mx:HBox>
+				</mx:VBox>
+			</mx:HBox>
+			<mx:HBox>
+				<mx:CheckBox id="cb" label="Pixel Reading" click="pixelTracking()" />
+				<mx:CheckBox id="cb1" label="Show Histogram" click="histogram = cb1.selected; showHistogram()" />
+				<mx:Label text="Zoom" />
+				<mx:NumericStepper id="zoom" minimum="1" change="zoomit()" />
+				<mx:Label text="background" />
+				<mx:ColorPicker id="bg" change="bgChanged();" />
+			</mx:HBox>
+			<mx:Canvas id="canvas4" minHeight="0" minWidth="0" />
+			<mx:Canvas id="canvas3" minHeight="0" minWidth="0"/>
+			<mx:HBox id="hg" height="0" >
+				<mx:Label text="Ones:" />
+				<mx:Label id="ones" />
+				<mx:Spacer width="20" />
+				<mx:Label text="Twos:" />
+				<mx:Label id="twos" />
+				<mx:Spacer width="20" />
+				<mx:Label text="More:" />
+				<mx:Label id="mores" />
+				<mx:Spacer width="20" />
+				<mx:Label text="Max:" />
+				<mx:Label id="maxx" />
+			</mx:HBox>
+			<mx:HBox>
+				<mx:Label text="x" />
+				<mx:NumericStepper id="img3x" width="60" maximum="4000" />
+				<mx:Label text="y" />
+				<mx:NumericStepper id="img3y" width="60" maximum="4000" />
+				<mx:Button label="get pixel" click="getPixel(results, img3x.value, img3y.value, pixel3, bg3)" />
+				<mx:Label id="pixel3" />
+				<mx:UIComponent id="bg3" width="16" height="16" />
+			</mx:HBox>
+		</mx:VBox>
+	</mx:Accordion>
+
+</mx:WindowedApplication>

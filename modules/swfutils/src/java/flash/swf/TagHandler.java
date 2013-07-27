@@ -44,6 +44,10 @@ public class TagHandler
     {
     }
 
+    public void enableTelemetry(EnableTelemetry tag)
+    {
+    }
+    
     public void metadata(Metadata tag)
     {
     }

@@ -67,6 +67,13 @@ public class TagEncoderReporter extends TagEncoder
         report.endEntry(SizeReport.HEADER_DATA, writer.getPos());
     }
     
+    public void enableTelemetry(EnableTelemetry tag)
+    {
+        report.startEntry(SizeReport.HEADER_DATA, writer.getPos(), -1, "enableTelemetry");
+        super.enableTelemetry(tag);
+        report.endEntry(SizeReport.HEADER_DATA, writer.getPos());
+    }
+    
     public void enableDebugger(EnableDebugger tag)
     {
         report.startEntry(SizeReport.HEADER_DATA, writer.getPos(), -1, "enableDebugger");

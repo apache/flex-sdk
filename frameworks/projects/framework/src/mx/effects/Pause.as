@@ -85,7 +85,7 @@ public class Pause extends TweenEffect
         // target of type IEventDispatcher instead, either here or separately
         // in the target attribute
         if (!target)
-           target = new Object();
+           target = {};
            
         super(target);
 

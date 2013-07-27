@@ -257,7 +257,7 @@ public class FlipViewTransition extends ViewTransitionBase
         
         // Initialize the property bag used to save some of our
         // properties that are then restored after the transition is over.
-        navigatorProps = new Object(); 
+        navigatorProps = {}; 
         
         // Snapshot the entire navigator.
         var oldVisibility:Boolean = endView.visible;

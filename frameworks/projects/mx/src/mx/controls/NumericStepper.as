@@ -1123,6 +1123,12 @@ public class NumericStepper extends UIComponent
      *  _value will hold uncommitted values as well
      */
     private var lastValue:Number = 0;
+	
+	/**
+	 *  @private
+	 */
+	private var lastField:String = "";
+
 
     /**
      *  @private
@@ -1455,7 +1461,17 @@ public class NumericStepper extends UIComponent
             return;
 
         lastValue = _value = v;
-        inputField.text = v.toString();
+		
+		var numStr:String =  v.toString();
+		if (numStr.indexOf("e") >= 0) {
+			var parts:Array = (new String(1 + stepSize)).split(".");
+			
+			if (parts.length == 2)
+				numStr = v.toFixed(parts[1].length).toString();
+		}
+		
+        inputField.text = numStr;
+		lastField = numStr;
 
         if (sendEvent)
         {
@@ -1478,10 +1494,11 @@ public class NumericStepper extends UIComponent
     private function takeValueFromTextField(trigger:Event = null):void
     {
         var inputValue:Number = Number(inputField.text);
+		
         if ((inputValue != lastValue &&
-            (Math.abs(inputValue - lastValue) >= 0.000001 || isNaN(inputValue))) || 
-            inputField.text == "" || (inputField.text && 
-           inputField.text.length != lastValue.toString().length))
+            (Math.abs(inputValue - lastValue) >= 0.000001 || isNaN(inputValue)))
+            || inputField.text == ""
+			|| (inputField.text && inputField.text.length != lastField.length))
         {
             var newValue:Number = checkValidValue(Number(inputField.text));
             inputField.text = newValue.toString();
@@ -1642,7 +1659,7 @@ public class NumericStepper extends UIComponent
                 if (inputValue != lastValue &&
                     (Math.abs(inputValue - lastValue) >= 0.000001 ||
                      isNaN(inputValue)) || (inputField.text && 
-                    inputField.text.length != lastValue.toString().length))
+                    inputField.text.length != lastField.length))
                 {
                     var newValue:Number = checkValidValue(Number(inputField.text));
                     

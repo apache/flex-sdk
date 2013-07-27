@@ -58,7 +58,7 @@
 		<s:VGroup id="outerViewport" horizontalAlign="center">
 			<s:Rect width="80%" height="100"><s:fill><s:SolidColor color="0x000000" /></s:fill></s:Rect>
 			
-			<s:DateSpinner id="ds" />
+			<s:DateSpinner id="ds" locale="null" />
 			
 			<s:Rect width="80%" height="100"><s:fill><s:SolidColor color="0x222222" /></s:fill></s:Rect>
 			<s:Rect width="80%" height="100"><s:fill><s:SolidColor color="0x555555" /></s:fill></s:Rect>

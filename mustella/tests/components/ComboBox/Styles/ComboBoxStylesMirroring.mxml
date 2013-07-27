@@ -26,7 +26,7 @@
 			{
 				import mx.core.FlexGlobals;
 				[Bindable]
-				[Embed('../../../../Assets/Images/next.JPG')]
+				[Embed('../../../../Assets/Images/next.jpg')]
 	            		public var Ico2:Class;
 			}
 		]]>

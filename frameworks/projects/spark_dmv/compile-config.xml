@@ -56,11 +56,6 @@
         <class>SparkDmvClasses</class>
     </include-classes>
     
-    <include-file>
-        <name>version.properties</name>
-        <path>../../version.properties</path>
-    </include-file>
-    
     <include-namespaces>
         <uri>library://ns.adobe.com/flex/spark</uri>
     </include-namespaces>  

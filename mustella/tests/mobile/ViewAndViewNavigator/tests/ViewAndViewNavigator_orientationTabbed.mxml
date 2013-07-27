@@ -50,6 +50,7 @@
 		<TestCase testID="orientationStatesDefinedProperLabelAppearsInState" keywords="[view, viewnavigator, orientation, tabBar]" description="">
 			
 			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.restoreNavigatorsVector()" />
 				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
 			  <RunCode code="selectedNavigator().pushView(views.RootView)" waitTarget="tabbedNavigator" waitEvent="viewChangeComplete" />
 			</setup>
@@ -170,31 +171,31 @@
 			<body>
 				<!-- PORTRAIT VIEW -->
 				<AssertMethodValue method="value = navigator().tabBar.x" value="0" />
-				<AssertMethodValue method="value = navigator().tabBar.y" value="538" />
+				<AssertMethodValue method="value = navigator().tabBar.y" value="564" />
 				
 				<!-- LANDSCAPE VIEW -->
 		  	<RunCode code="setOrientation(StageOrientation.ROTATED_LEFT)" waitTarget="stage" waitEvent="orientationChange" />
 
 				<AssertMethodValue method="value = navigator().tabBar.x" value="0" />
-				<AssertMethodValue method="value = navigator().tabBar.y" value="538" />
+				<AssertMethodValue method="value = navigator().tabBar.y" value="564" />
 				
 				<!-- PORTRAIT VIEW -->
 		  	<RunCode code="setOrientation(StageOrientation.DEFAULT)" waitTarget="stage" waitEvent="orientationChange" />
 				
 				<AssertMethodValue method="value = navigator().tabBar.x" value="0" />
-				<AssertMethodValue method="value = navigator().tabBar.y" value="858" />
+				<AssertMethodValue method="value = navigator().tabBar.y" value="884" />
 				
 				<!-- LANDSCAPE VIEW -->
 		  	<RunCode code="setOrientation(StageOrientation.ROTATED_RIGHT)" waitTarget="stage" waitEvent="orientationChange" />
 				
 				<AssertMethodValue method="value = navigator().tabBar.x" value="0" />
-				<AssertMethodValue method="value = navigator().tabBar.y" value="538" />
+				<AssertMethodValue method="value = navigator().tabBar.y" value="564" />
 
 			</body>
 
 		</TestCase>
 		
-		<TestCase testID="orientationStatesDefinedActionBarInLandscapeLeft" keywords="[view, viewnavigator, orientation, actionBar]" description="">
+		<TestCase testID="orientationStatesDefinedActionBarInLandscapeLeftTabbed" keywords="[view, viewnavigator, orientation, actionBar]" description="">
 
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
@@ -204,7 +205,7 @@
 			<body>
 				<!-- LANDSCAPE VIEW -->
 		  	<RunCode code="setOrientation(StageOrientation.ROTATED_LEFT)" waitTarget="stage" waitEvent="orientationChange" />
-
+			<WaitForLayoutManager />
 				<CompareBitmap target="tabbedNavigator.selectedNavigator.actionBar" url="../tests/baselines" >
 			    <ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android"/>
@@ -216,7 +217,7 @@
 
 		</TestCase>
 		
-		<TestCase testID="orientationStatesDefinedActionBarInLandscapeRight" keywords="[view, viewnavigator, orientation, actionBar]" description="">
+		<TestCase testID="orientationStatesDefinedActionBarInLandscapeRightTabbed" keywords="[view, viewnavigator, orientation, actionBar]" description="">
 
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
@@ -226,6 +227,7 @@
 			<body>
 				<!-- LANDSCAPE VIEW -->
 		  	<RunCode code="setOrientation(StageOrientation.ROTATED_RIGHT)" waitTarget="stage" waitEvent="orientationChange" />
+				<WaitForLayoutManager />
 
 				<CompareBitmap target="tabbedNavigator.selectedNavigator.actionBar" url="../tests/baselines" >
 			    <ConditionalValue deviceDensity="160" os="win" />
@@ -282,7 +284,7 @@
 
 		</TestCase>
 
-		<TestCase testID="orientationStatesDefinedActionBarOverlayLeft" keywords="[view, viewnavigator, orientation, actionBar]" description="">
+		<TestCase testID="orientationStatesDefinedActionBarOverlayLeftTabbed" keywords="[view, viewnavigator, orientation, actionBar]" description="">
 
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
@@ -293,6 +295,7 @@
 			<body>
 				<!-- LANDSCAPE VIEW -->
 		  	<RunCode code="setOrientation(StageOrientation.ROTATED_LEFT)" waitTarget="stage" waitEvent="orientationChange" />
+				<WaitForLayoutManager />
 		
 				<CompareBitmap target="tabbedNavigator.selectedNavigator.actionBar" url="../tests/baselines" >
 			    <ConditionalValue deviceDensity="160" os="win" />
@@ -305,7 +308,7 @@
 
 		</TestCase>
 		
-		<TestCase testID="orientationStatesDefinedActionBarOverlayRight" keywords="[view, viewnavigator, orientation, actionBar]" description="">
+		<TestCase testID="orientationStatesDefinedActionBarOverlayRightTabbed" keywords="[view, viewnavigator, orientation, actionBar]" description="">
 
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
@@ -316,6 +319,7 @@
 			<body>
 				<!-- LANDSCAPE VIEW -->
 		  	<RunCode code="setOrientation(StageOrientation.ROTATED_RIGHT)" waitTarget="stage" waitEvent="orientationChange" />
+				<WaitForLayoutManager />
 
 				<CompareBitmap target="tabbedNavigator.selectedNavigator.actionBar" url="../tests/baselines" >
 			    <ConditionalValue deviceDensity="160" os="win" />
@@ -466,31 +470,31 @@
 			<body>
 				<!-- PORTRAIT VIEW -->
 				<AssertMethodValue method="value = navigator().tabBar.x" value="0" />
-				<AssertMethodValue method="value = navigator().tabBar.y" value="538" />
+				<AssertMethodValue method="value = navigator().tabBar.y" value="564" />
 				
 				<!-- LANDSCAPE VIEW -->
 		  	<RunCode code="setOrientation(StageOrientation.ROTATED_LEFT)" waitTarget="stage" waitEvent="orientationChange" />
 
 				<AssertMethodValue method="value = navigator().tabBar.x" value="0" />
-				<AssertMethodValue method="value = navigator().tabBar.y" value="538" />
+				<AssertMethodValue method="value = navigator().tabBar.y" value="564" />
 				
 				<!-- PORTRAIT VIEW -->
 		  	<RunCode code="setOrientation(StageOrientation.DEFAULT)" waitTarget="stage" waitEvent="orientationChange" />
 				
 				<AssertMethodValue method="value = navigator().tabBar.x" value="0" />
-				<AssertMethodValue method="value = navigator().tabBar.y" value="858" />
+				<AssertMethodValue method="value = navigator().tabBar.y" value="884" />
 				
 				<!-- LANDSCAPE VIEW -->
 		  	<RunCode code="setOrientation(StageOrientation.ROTATED_RIGHT)" waitTarget="stage" waitEvent="orientationChange" />
 				
 				<AssertMethodValue method="value = navigator().tabBar.x" value="0" />
-				<AssertMethodValue method="value = navigator().tabBar.y" value="538" />
+				<AssertMethodValue method="value = navigator().tabBar.y" value="564" />
 
 			</body>
 
 		</TestCase>
 		
-		<TestCase testID="orientationStatesUnDefinedActionBarInLandscapeLeft" keywords="[view, viewnavigator, orientation, actionBar]" description="">
+		<TestCase testID="orientationStatesUnDefinedActionBarInLandscapeLeftTabbed" keywords="[view, viewnavigator, orientation, actionBar]" description="">
 
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
@@ -501,6 +505,7 @@
 				<!-- LANDSCAPE VIEW -->
 		  	<RunCode code="setOrientation(StageOrientation.ROTATED_LEFT)" waitTarget="stage" waitEvent="orientationChange" />
 
+				<WaitForLayoutManager />
 				<CompareBitmap target="tabbedNavigator.selectedNavigator.actionBar" url="../tests/baselines" >
 			    <ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android"/>
@@ -512,7 +517,7 @@
 
 		</TestCase>
 		
-		<TestCase testID="orientationStatesUnDefinedActionBarInLandscapeRight" keywords="[view, viewnavigator, orientation, actionBar]" description="">
+		<TestCase testID="orientationStatesUnDefinedActionBarInLandscapeRightTabbed" keywords="[view, viewnavigator, orientation, actionBar]" description="">
 
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
@@ -522,6 +527,7 @@
 			<body>
 				<!-- LANDSCAPE VIEW -->
 		  	<RunCode code="setOrientation(StageOrientation.ROTATED_RIGHT)" waitTarget="stage" waitEvent="orientationChange" />
+				<WaitForLayoutManager />
 
 				<CompareBitmap target="tabbedNavigator.selectedNavigator.actionBar" url="../tests/baselines" >
 			    <ConditionalValue deviceDensity="160" os="win" />
@@ -578,7 +584,7 @@
 
 		</TestCase>
 
-		<TestCase testID="orientationStatesUnDefinedActionBarOverlayLeft" keywords="[view, viewnavigator, orientation, actionBar]" description="">
+		<TestCase testID="orientationStatesUnDefinedActionBarOverlayLeftTabbed" keywords="[view, viewnavigator, orientation, actionBar]" description="">
 
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
@@ -589,7 +595,7 @@
 			<body>
 				<!-- LANDSCAPE VIEW -->
 		  	<RunCode code="setOrientation(StageOrientation.ROTATED_LEFT)" waitTarget="stage" waitEvent="orientationChange" />
-				<Pause timeout="5000" />
+				<WaitForLayoutManager />
 				<CompareBitmap target="tabbedNavigator.selectedNavigator.actionBar" url="../tests/baselines" >
 			    <ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android"/>
@@ -601,7 +607,7 @@
 
 		</TestCase>
 		
-		<TestCase testID="orientationStatesUnDefinedActionBarOverlayRight" keywords="[view, viewnavigator, orientation, actionBar]" description="">
+		<TestCase testID="orientationStatesUnDefinedActionBarOverlayRightTabbed" keywords="[view, viewnavigator, orientation, actionBar]" description="">
 
 			<setup>
 				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
@@ -612,6 +618,7 @@
 			<body>
 				<!-- LANDSCAPE VIEW -->
 		  	<RunCode code="setOrientation(StageOrientation.ROTATED_RIGHT)" waitTarget="stage" waitEvent="orientationChange" />
+				<WaitForLayoutManager />
 
 				<CompareBitmap target="tabbedNavigator.selectedNavigator.actionBar" url="../tests/baselines" >
 			    <ConditionalValue deviceDensity="160" os="win" />

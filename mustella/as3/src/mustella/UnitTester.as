@@ -97,6 +97,16 @@ public class UnitTester extends EventDispatcher
 	 */
 	 public static var portNumber : Number=80;
 
+     /**
+      * waitEvent, if we're waiting for one.
+      */
+     public static var waitEvent : String;
+     
+     /**
+      * UIComponentGlobals.
+      */
+     public static var uiComponentGlobals : Object;
+     
 	/**
 	 * additional wait before exit for coverage
 	 */
@@ -295,7 +305,10 @@ public class UnitTester extends EventDispatcher
 
 		var g:Class = Class(appdom.getDefinition("mx.core.UIComponentGlobals"));
 		if (g)
+        {
 			g["catchCallLaterExceptions"] = true;
+            uiComponentGlobals = g;
+        }
 
 		if (eventScripts != null)
 		{
@@ -1081,6 +1094,13 @@ public class UnitTester extends EventDispatcher
 	 */
 	private static function focusBlockingHandler(event:FocusEvent):void
 	{
+        // yes, there is a chance that you've clicked on the test
+        // just as it is waiting for a focusIn event or
+        // deferring focus assignment
+        // but I think that's the best we can do for now
+        if (waitEvent == "focusIn" || uiComponentGlobals.nextFocusObject != null)
+            return;
+        
 		if (blockFocusEvents && event.relatedObject == null)
 		{
 			event.stopImmediatePropagation();

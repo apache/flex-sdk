@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			private var _shellPathStr:String;
+			private var _shellPathStrChanged:Boolean;
+			private var _pathFlexStr:String;
+			private var _pathFlexStrChanged:Boolean;
+			private var _commandTerminal:File;
+			private var _nativeProcess:NativeProcess
+			private var _cygwinArg1:String = "/c";
+			private var _cygwinArg2:String = "C:\\cygwin\\Cygwin.bat";
+			private var _pipeOutputFunction:Function;
+			
+			public function get pathFlexStr():String
+			{
+				return _pathFlexStr;
+			}
+
+			public function set pathFlexStr(value:String):void
+			{
+				_pathFlexStr = value;
+				_pathFlexStrChanged = true;
+				invalidateProperties();
+			}
+
+			public function get shellPathStr():String
+			{
+				return _shellPathStr;
+			}
+			
+			public function set shellPathStr(value:String):void
+			{
+				_shellPathStr = value;
+				_shellPathStrChanged = true;
+				invalidateProperties();
+			}
+			
+			override protected function commitProperties():void
+			{
+				if(_shellPathStrChanged)
+				{
+					_shellPathStrChanged = false;
+					createCommandTerminal();
+				}
+				if(_pathFlexStrChanged)
+				{
+					_pathFlexStrChanged = false;
+					cd(_pathFlexStr);
+				}
+			}
+			
+			private function createCommandTerminal():void
+			{
+				_commandTerminal = new File(shellPathStr);
+				var startupInfo:NativeProcessStartupInfo = new NativeProcessStartupInfo();
+				
+				if (!OneClickMustella.IS_MAC)
+				{
+					var arguments:Vector.<String> = new Vector.<String>();
+					arguments.push(_cygwinArg1);
+					arguments.push(_cygwinArg2);
+					startupInfo.arguments = arguments; 
+				}
+				
+				startupInfo.executable = _commandTerminal;
+				
+				_nativeProcess = new NativeProcess();
+				_nativeProcess.addEventListener(ProgressEvent.STANDARD_OUTPUT_DATA, nativeProcessStdOutputData);
+				_nativeProcess.addEventListener(ProgressEvent.STANDARD_ERROR_DATA, nativeProcessStdErrorData);
+				_nativeProcess.addEventListener(NativeProcessExitEvent.EXIT, nativeProcessExit); 
+				_nativeProcess.start(startupInfo);
+				
+				if (OneClickMustella.IS_MAC)
+				{
+					run("export ANT_HOME=/usr/share/java/apache-ant-1.7.1");
+					run("export AIR_HOME=/Users/erik/Documents/ApacheFlex/dependencies/AdobeAIRSDK");
+				}
+			}
+			
+			private function nativeProcessStdOutputData(e:ProgressEvent):void
+			{
+				try
+				{
+					var output:String = _nativeProcess.standardOutput.readUTFBytes(_nativeProcess.standardOutput.bytesAvailable);
+					log(output);
+				}
+				catch(e:Error)
+				{
+					log("Missed messagge from command line");
+				}
+			}
+			
+			private function nativeProcessStdErrorData(e:ProgressEvent):void
+			{
+				var output:String = _nativeProcess.standardError.readUTFBytes(_nativeProcess.standardError.bytesAvailable);
+				log(output);
+			}
+			
+			private function nativeProcessExit(e:NativeProcessExitEvent):void
+			{
+				log("Command terminal session ended.");
+			}
+			
+			public function log(v:String):void
+			{
+				if(_pipeOutputFunction != null)
+				{
+					_pipeOutputFunction.call(null,v);
+				}
+				logTxt.appendText(v);
+			}
+			
+			public function cd(path:String):void
+			{
+				_nativeProcess.standardInput.writeUTFBytes("cd " + fixPath(path) + "\n" );
+			}
+			
+			public function run(command:String):void
+			{
+				_nativeProcess.standardInput.writeUTFBytes(command + "\n" );
+			}
+			
+			public function stop():void
+			{
+				_nativeProcess.exit(true);
+			}
+
+			public function getSVNStatus(callback:Function):void
+			{
+				_pipeOutputFunction = callback;
+				_nativeProcess.standardInput.writeUTFBytes("svn status | grep '^M'\n" );
+			}
+			
+			private function fixPath(v:String):String
+			{
+				return "'" + v + "'";
+			}
+			
+			
+			
+		]]>
+	</fx:Script>
+	<s:TextArea id="logTxt" width="100%" height="100%" />
+</s:Group>

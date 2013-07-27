@@ -1,0 +1,114 @@
+<DisplayList>
+  <fxgtemplate width="940" height="700">
+    <spark.skins.spark.ApplicationSkin width="940" height="700" blendMode="auto">
+      <spark.components.Group width="940" height="700" blendMode="auto">
+        <spark.components.Group width="940" height="700" blendMode="auto">
+          <comps.MyComp width="800" height="800" blendMode="auto">
+            <fxg.filters.blurfilter width="470.75" height="670.75" blendMode="auto">
+              <flash.display.MovieClip x="50" y="50" width="421" height="621">
+                <flash.display.MovieClip width="368" height="591.15">
+                  <fxg.filters.blurfilter_Text_434319392 width="378" height="29" blendMode="auto">
+                    <spark.components.RichText x="10" y="10" width="368" height="19">
+                      <flash.display.Shape width="368" height="19"/>
+                      <flash.text.engine.TextLine y="13.75" width="367.6" height="18.15" ascent="13.7724609375" descent="4.32421875" atomCount="46" hasGraphicElement="false"/>
+                    </spark.components.RichText>
+                  </fxg.filters.blurfilter_Text_434319392>
+                  <flash.display.MovieClip width="281" height="521.6">
+                    <flash.display.MovieClip x="30" y="80" width="281" height="521.6">
+                      <flash.display.MovieClip width="270.5" height="101" cacheAsBitmap="true" filters="[object BlurFilter]">
+                        <flash.display.MovieClip width="120" height="100">
+                          <flash.display.MovieClip width="120" height="100">
+                            <flash.display.MovieClip width="101" height="99">
+                              <flash.display.Shape width="101" height="99"/>
+                            </flash.display.MovieClip>
+                            <flash.display.Shape width="120" height="100"/>
+                          </flash.display.MovieClip>
+                        </flash.display.MovieClip>
+                        <flash.display.MovieClip x="150" width="121" height="101">
+                          <flash.display.Shape width="121" height="101"/>
+                        </flash.display.MovieClip>
+                      </flash.display.MovieClip>
+                      <flash.display.MovieClip y="20" width="281" height="131" cacheAsBitmap="true" filters="[object BlurFilter]">
+                        <flash.display.MovieClip y="170" width="121" height="81">
+                          <flash.display.Shape width="121" height="81"/>
+                        </flash.display.MovieClip>
+                        <flash.display.MovieClip x="150" y="170" width="121" height="121">
+                          <flash.display.Shape x="10" y="10" width="121" height="121"/>
+                        </flash.display.MovieClip>
+                      </flash.display.MovieClip>
+                      <flash.display.MovieClip y="40" width="273" height="111.1" cacheAsBitmap="true" filters="[object BlurFilter]">
+                        <flash.display.MovieClip y="370" width="120" height="80">
+                          <flash.display.Shape width="120" height="80"/>
+                        </flash.display.MovieClip>
+                        <flash.display.MovieClip x="150" y="350" width="102" height="102.1">
+                          <flash.display.Shape y="30" width="102" height="102.1"/>
+                        </flash.display.MovieClip>
+                      </flash.display.MovieClip>
+                    </flash.display.MovieClip>
+                  </flash.display.MovieClip>
+                  <flash.display.MovieClip x="30" y="10" width="333" height="433.05">
+                    <fxg.filters.blurfilter_Text_1624683433 width="253" height="43" blendMode="auto">
+                      <spark.components.RichText x="80" y="30" width="173" height="13">
+                        <flash.display.Shape width="173" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="173" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="32" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.blurfilter_Text_1624683433>
+                    <fxg.filters.blurfilter_Text_2103086961 width="84" height="63" blendMode="auto">
+                      <spark.components.RichText y="50" width="84" height="13">
+                        <flash.display.Shape width="84" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="83.8" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="14" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.blurfilter_Text_2103086961>
+                    <fxg.filters.blurfilter_Text2134815726 width="271" height="63" blendMode="auto">
+                      <spark.components.RichText x="170" y="50" width="101" height="13">
+                        <flash.display.Shape width="101" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="100.05" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="20" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.blurfilter_Text2134815726>
+                    <fxg.filters.blurfilter_Text_2114987817 width="253" height="223" blendMode="auto">
+                      <spark.components.RichText x="80" y="210" width="173" height="13">
+                        <flash.display.Shape width="173" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="173" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="32" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.blurfilter_Text_2114987817>
+                    <fxg.filters.blurfilter_Text60823503 width="100" height="253" blendMode="auto">
+                      <spark.components.RichText y="240" width="100" height="13">
+                        <flash.display.Shape width="100" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="99.3" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="20" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.blurfilter_Text60823503>
+                    <fxg.filters.blurfilter_Text1988102537 width="226" height="253" blendMode="auto">
+                      <spark.components.RichText x="170" y="240" width="56" height="13">
+                        <flash.display.Shape width="56" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="55.55" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="11" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.blurfilter_Text1988102537>
+                    <fxg.filters.blurfilter_Text_1533670831 width="253" height="443" blendMode="auto">
+                      <spark.components.RichText x="80" y="430" width="173" height="13">
+                        <flash.display.Shape width="173" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="173" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="32" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.blurfilter_Text_1533670831>
+                    <fxg.filters.blurfilter_Text_1134492015 width="74" height="463" blendMode="auto">
+                      <spark.components.RichText y="450" width="74" height="13">
+                        <flash.display.Shape width="74" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="73.55" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="16" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.blurfilter_Text_1134492015>
+                    <fxg.filters.blurfilter_Text380098960 width="333" height="463" blendMode="auto">
+                      <spark.components.RichText x="170" y="450" width="163" height="13">
+                        <flash.display.Shape width="163" height="13"/>
+                        <flash.text.engine.TextLine y="9.15" width="162.2" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="31" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.blurfilter_Text380098960>
+                  </flash.display.MovieClip>
+                </flash.display.MovieClip>
+                <flash.display.Shape x="0.25" y="0.25" width="421" height="621"/>
+              </flash.display.MovieClip>
+            </fxg.filters.blurfilter>
+          </comps.MyComp>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </fxgtemplate>
+</DisplayList>

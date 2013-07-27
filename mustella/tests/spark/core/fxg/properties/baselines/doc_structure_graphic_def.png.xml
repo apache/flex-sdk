@@ -1,0 +1,62 @@
+<DisplayList>
+  <fxgtemplate width="940" height="700">
+    <spark.skins.spark.ApplicationSkin width="940" height="700" blendMode="auto">
+      <spark.components.Group width="940" height="700" blendMode="auto">
+        <spark.components.Group width="940" height="700" blendMode="auto">
+          <comps.MyComp width="800" height="800" blendMode="auto">
+            <fxg.doc_structure.graphic_def width="600" height="600" blendMode="auto">
+              <flash.display.MovieClip width="601" height="551">
+                <flash.display.Shape width="601" height="551"/>
+              </flash.display.MovieClip>
+              <fxg.doc_structure.graphic_def_Text_153495920 width="487" height="97" blendMode="auto">
+                <spark.components.RichText x="90" y="80" width="397" height="17">
+                  <flash.display.Shape width="397" height="17"/>
+                  <flash.text.engine.TextLine y="12.2" width="396.25" height="16.1" ascent="12.2421875" descent="3.84375" atomCount="53" hasGraphicElement="false"/>
+                </spark.components.RichText>
+              </fxg.doc_structure.graphic_def_Text_153495920>
+              <flash.display.MovieClip x="20" y="120" width="100" height="100">
+                <flash.display.Shape width="100" height="100"/>
+              </flash.display.MovieClip>
+              <fxg.doc_structure.graphic_def_Text682530367 width="308" height="243" blendMode="auto">
+                <spark.components.RichText x="60" y="230" width="248" height="13">
+                  <flash.display.Shape width="248" height="13"/>
+                  <flash.text.engine.TextLine y="9.15" width="247.15" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="48" hasGraphicElement="false"/>
+                </spark.components.RichText>
+              </fxg.doc_structure.graphic_def_Text682530367>
+              <flash.display.MovieClip matrix="(a=1, b=0, c=0, d=1.5, tx=20, ty=260)" x="20" y="260" width="100" height="150">
+                <flash.display.Shape width="100" height="100"/>
+              </flash.display.MovieClip>
+              <fxg.doc_structure.graphic_def_Text1179219613 width="364" height="433" blendMode="auto">
+                <spark.components.RichText x="60" y="420" width="304" height="13">
+                  <flash.display.Shape width="304" height="13"/>
+                  <flash.text.engine.TextLine y="9.15" width="303.7" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="54" hasGraphicElement="false"/>
+                </spark.components.RichText>
+              </fxg.doc_structure.graphic_def_Text1179219613>
+              <flash.display.MovieClip x="360" y="120" width="281" height="221">
+                <flash.display.Shape matrix="(a=1.5, b=0, c=0, d=1.5, tx=20, ty=10)" x="20" y="10" width="151.5" height="39"/>
+                <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.75, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="100" y="10" width="120" height="80"/>
+                <flash.display.Shape y="60" width="102" height="102.1"/>
+                <flash.display.MovieClip width="120" height="100">
+                  <flash.display.MovieClip concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.75, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="70" y="60" width="101" height="99">
+                    <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.75, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="101" height="99"/>
+                  </flash.display.MovieClip>
+                  <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.75, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="70" y="60" width="120" height="100"/>
+                </flash.display.MovieClip>
+                <flash.display.MovieClip y="150" width="236" height="13.05">
+                  <fxg.doc_structure.graphic_def_Text_653298691 width="246" height="43" blendMode="auto">
+                    <spark.components.RichText x="10" y="30" width="236" height="13">
+                      <flash.display.Shape width="236" height="13"/>
+                      <flash.text.engine.TextLine y="9.15" width="235.4" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="44" hasGraphicElement="false"/>
+                    </spark.components.RichText>
+                  </fxg.doc_structure.graphic_def_Text_653298691>
+                </flash.display.MovieClip>
+                <flash.display.Shape width="281" height="1"/>
+                <flash.display.Shape width="281" height="221"/>
+              </flash.display.MovieClip>
+            </fxg.doc_structure.graphic_def>
+          </comps.MyComp>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </fxgtemplate>
+</DisplayList>

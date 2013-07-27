@@ -21,6 +21,7 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:comps="comps.*"
 			   applicationComplete="init(event)">
+	<fx:Style source="../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Script>
 		<![CDATA[
 			import mx.core.mx_internal;

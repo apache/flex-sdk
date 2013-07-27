@@ -1723,6 +1723,11 @@ public class UIComponent extends FlexSprite
 
         _width = super.width;
         _height = super.height;
+        
+        var attributes:Array =  this.MXMLProperties;
+        if (attributes)
+            generateMXMLAttributes(attributes);
+
     }
 
     //--------------------------------------------------------------------------
@@ -4424,6 +4429,44 @@ public class UIComponent extends FlexSprite
     public function get isDocument():Boolean
     {
         return document == this;
+    }
+    
+    //----------------------------------
+    //  MXML Descriptor
+    //----------------------------------
+    
+    /**
+     *  The descriptor of MXML children.
+     */
+    private var _MXMLDescriptor:Array;
+    
+    public function get MXMLDescriptor():Array
+    {
+        return _MXMLDescriptor;
+    }
+    
+    public function setMXMLDescriptor(value:Array):void
+    {
+        _MXMLDescriptor = value;    
+    }
+    
+    //----------------------------------
+    //  MXML Properties
+    //----------------------------------
+    
+    /**
+     *  The attributes of MXML top tag.
+     */
+    private var _MXMLProperties:Array;
+    
+    public function get MXMLProperties():Array
+    {
+        return _MXMLProperties;
+    }
+    
+    public function setMXMLProperties(value:Array):void
+    {
+        _MXMLProperties = value;    
     }
 
     //----------------------------------
@@ -7763,8 +7806,219 @@ public class UIComponent extends FlexSprite
      */
     protected function createChildren():void
     {
+        var children:Array =  this.MXMLDescriptor;
+        if (children)
+            generateMXMLInstances(document, children);
     }
-
+    
+    protected function addMXMLChildren(comps:Array):void
+    {
+        for each (var i:DisplayObject in comps)
+        {
+            addChild(i);
+        }
+    }
+    
+    protected function generateMXMLObject(document:Object, data:Array):Object
+    {
+        var i:int = 0;
+        var cls:Class = data[i++];
+        var comp:Object = new cls();
+        
+        var m:int;
+        var j:int;
+        var name:String;
+        var simple:*;
+        var value:Object;
+        var id:String;
+        
+        m = data[i++]; // num props
+        for (j = 0; j < m; j++)
+        {
+            name = data[i++];
+            simple = data[i++];
+            value = data[i++];
+            if (simple == null)
+                value = generateMXMLArray(document, value as Array);
+            else if (simple == false)
+                value = generateMXMLObject(document, value as Array);
+            if (name == "id")
+            {
+                document[value] = comp;
+                id = value as String;
+            }
+            else if (name == "_id")
+            {
+                document[value] = comp;
+                id = value as String;
+                continue; // skip assignment to comp
+            }
+            comp[name] = value;
+        }
+        if (comp is IMXMLObject)
+            comp.initialized(document, id);
+        return comp;
+    }
+    
+    public function generateMXMLArray(document:Object, data:Array, recursive:Boolean = true):Array
+    {
+        var comps:Array = [];
+        
+        var n:int = data.length;
+        var i:int = 0;
+        while (i < n)
+        {
+            var cls:Class = data[i++];
+            var comp:Object = new cls();
+            
+            var m:int;
+            var j:int;
+            var name:String;
+            var simple:*;
+            var value:Object;
+            var id:String = null;
+            
+            m = data[i++]; // num props
+            for (j = 0; j < m; j++)
+            {
+                name = data[i++];
+                simple = data[i++];
+                value = data[i++];
+                if (simple == null)
+                    value = generateMXMLArray(document, value as Array, recursive);
+                else if (simple == false)
+                    value = generateMXMLObject(document, value as Array);
+                if (name == "id")
+                    id = value as String;
+                if (name == "document" && !comp.document)
+                    comp.document = document;
+                else if (name == "_id")
+                    id = value as String; // and don't assign to comp
+                else
+                    comp[name] = value;
+            }
+            m = data[i++]; // num styles
+            for (j = 0; j < m; j++)
+            {
+                name = data[i++];
+                simple = data[i++];
+                value = data[i++];
+                if (simple == null)
+                    value = generateMXMLArray(document, value as Array, recursive);
+                else if (simple == false)
+                    value = generateMXMLObject(document, value as Array);
+                comp.setStyle(name, value);
+            }
+            
+            m = data[i++]; // num effects
+            for (j = 0; j < m; j++)
+            {
+                name = data[i++];
+                simple = data[i++];
+                value = data[i++];
+                if (simple == null)
+                    value = generateMXMLArray(document, value as Array, recursive);
+                else if (simple == false)
+                    value = generateMXMLObject(document, value as Array);
+                comp.setStyle(name, value);
+            }
+            
+            m = data[i++]; // num events
+            for (j = 0; j < m; j++)
+            {
+                name = data[i++];
+                value = data[i++];
+                comp.addEventListener(name, value);
+            }
+            
+            var children:Array = data[i++];
+            if (children)
+            {
+                if (recursive)
+                    comp.generateMXMLInstances(document, children, recursive);
+                else
+                    comp.setMXMLDescriptor(children);
+            }
+            
+            if (id)
+            {
+                document[id] = comp;
+                mx.binding.BindingManager.executeBindings(document, id, comp); 
+            }
+            if (comp is IMXMLObject)
+                comp.initialized(document, id);
+            comps.push(comp);
+        }
+        return comps;
+    }
+    
+    protected function generateMXMLInstances(document:Object, data:Array, recursive:Boolean = true):void
+    {
+        var comps:Array = generateMXMLArray(document, data, recursive);
+        addMXMLChildren(comps);
+    }
+    
+    protected function generateMXMLAttributes(data:Array):void
+    {
+        var i:int = 0;
+        var m:int;
+        var j:int;
+        var name:String;
+        var simple:*;
+        var value:Object;
+        var id:String = null;
+        
+        m = data[i++]; // num props
+        for (j = 0; j < m; j++)
+        {
+            name = data[i++];
+            simple = data[i++];
+            value = data[i++];
+            if (simple == null)
+                value = generateMXMLArray(this, value as Array, false);
+            else if (simple == false)
+                value = generateMXMLObject(this, value as Array);
+            if (name == "id")
+                id = value as String;
+            if (name == "_id")
+                id = value as String; // and don't assign
+            else
+                this[name] = value;
+        }
+        m = data[i++]; // num styles
+        for (j = 0; j < m; j++)
+        {
+            name = data[i++];
+            simple = data[i++];
+            value = data[i++];
+            if (simple == null)
+                value = generateMXMLArray(this, value as Array, false);
+            else if (simple == false)
+                value = generateMXMLObject(this, value as Array);
+            this.setStyle(name, value);
+        }
+        
+        m = data[i++]; // num effects
+        for (j = 0; j < m; j++)
+        {
+            name = data[i++];
+            simple = data[i++];
+            value = data[i++];
+            if (simple == null)
+                value = generateMXMLArray(this, value as Array, false);
+            else if (simple == false)
+                value = generateMXMLObject(this, value as Array);
+            this.setStyle(name, value);
+        }
+        
+        m = data[i++]; // num events
+        for (j = 0; j < m; j++)
+        {
+            name = data[i++];
+            value = data[i++];
+            this.addEventListener(name, value as Function);
+        }
+    }
     /**
      *  Performs any final processing after child objects are created.
      *  This is an advanced method that you might override
@@ -11164,7 +11418,7 @@ public class UIComponent extends FlexSprite
         else
         {
             if (!deferredSetStyles)
-                deferredSetStyles = new Object();
+                deferredSetStyles = {};
             deferredSetStyles[styleProp] = newValue;
         }   
     }
@@ -12534,8 +12788,8 @@ public class UIComponent extends FlexSprite
     {
         if (errorObjectArray === null)
         {
-            errorObjectArray = new Array();
-            errorArray = new Array();
+            errorObjectArray = [];
+            errorArray = [];
         }
         
         var validatorIndex:int = errorObjectArray.indexOf(event.target);
@@ -13067,8 +13321,6 @@ public class UIComponent extends FlexSprite
 
 
     /**
-     *  @private
-     *
      *  Get the bounds of this object that are visible to the user
      *  on the screen.
      *

@@ -22,6 +22,7 @@
 					initialize="onInitialize()"
 					creationComplete="mobileapplication1_creationCompleteHandler(event)">
 
+	<fx:Style source="../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Script source="globalTabbed.as" />
 		
 	<fx:Style>

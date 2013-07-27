@@ -28,6 +28,13 @@
 			color: #000000;
 			fontSize: 24;
 		}
+		@media (application-dpi: 240)
+		{
+			.buttonAndroidTest
+			{
+				chromeColor: #990000;
+			}
+		}
 		@media (os-platform: "Android")
 		{
 			.buttonAndroidTest

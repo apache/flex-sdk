@@ -1,0 +1,15 @@
+<DisplayList>
+  <fxgtemplate width="940" height="700">
+    <spark.skins.spark.ApplicationSkin width="940" height="700" blendMode="auto">
+      <spark.components.Group width="940" height="700" blendMode="auto">
+        <spark.components.Group width="940" height="700" blendMode="auto">
+          <comps.MyComp width="800" height="800" blendMode="auto">
+            <fxg.stroke.radial_gradient_stroke.radial_gradient_stroke_shape_matrix width="479" height="359" blendMode="auto">
+              <flash.display.Shape x="50" y="50" width="380" height="280"/>
+            </fxg.stroke.radial_gradient_stroke.radial_gradient_stroke_shape_matrix>
+          </comps.MyComp>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </fxgtemplate>
+</DisplayList>

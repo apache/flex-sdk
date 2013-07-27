@@ -18,16 +18,34 @@
 ////////////////////////////////////////////////////////////////////////////////
 package  { 
 
+import flash.display.BitmapData;
+import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.display.IBitmapDrawable;
-import flash.utils.*;
-import flash.net.*;
-import flash.events.*;
-import flash.display.*;
-import flash.text.*;
+import flash.display.Loader;
+import flash.events.Event;
+import flash.events.IOErrorEvent;
+import flash.events.SecurityErrorEvent;
+import flash.events.StatusEvent;
+import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.net.LocalConnection;
+import flash.net.URLLoader;
+import flash.net.URLRequest;
+import flash.text.TextField;
+import flash.text.TextFormat;
+import flash.text.engine.ContentElement;
+import flash.text.engine.TextBlock;
+import flash.text.engine.TextLine;
+import flash.utils.ByteArray;
+import flash.utils.getQualifiedClassName;
+
+import mx.core.IChildList;
+import mx.core.IRawChildrenContainer;
 import mx.core.mx_internal;
+
 use namespace mx_internal;
 
 /**
@@ -57,9 +75,13 @@ use namespace mx_internal;
 public class CompareBitmap extends Assert
 { 
 	public static var useRemoteDiffer:Boolean = false;
-
+	
+	private static var identityMatrix:String = new Matrix().toString();
+	private static var identityColorTransform:String = new ColorTransform().toString();
+	
 	public static var DEFAULT_MAX_COLOR_VARIANCE:int = 0;
 	public static var DEFAULT_NUM_COLOR_VARIANCES:int = 0;
+	public static var DEFAULT_MAX_MATRIX_VARIANCE:Number = 0.1;
 
 	// This is the default property.
 	public var conditionalValues:Vector.<ConditionalValue> = null;
@@ -130,12 +152,31 @@ public class CompareBitmap extends Assert
 		_numColorVariances = value;
 	}
 
+	private var _maxMatrixVariance:Number = 0.1;
+	/**
+	 *  The maximum color variation allowed in a bitmap compare.
+	 *  Some machines render slightly differently and thus we have
+	 *  to allow the the compare to not be exact.
+	 */
+	public function get maxMatrixVariance():Number
+	{
+		if (_maxMatrixVariance)
+			return _maxMatrixVariance;
+		
+		return DEFAULT_MAX_MATRIX_VARIANCE;
+	}
+	public function set maxMatrixVariance(value:Number):void
+	{
+		_maxMatrixVariance = value;
+	}
+
 	/**
 	 *  Suffix to add to the file being written out (the case of a compare failure)
 	 */
 	public static var fileSuffix:String = "";
 
 	private var reader:Loader;
+	private var xmlreader:URLLoader;
 	private var writer:URLLoader;
 
 	private static var connection:LocalConnection;
@@ -260,6 +301,9 @@ public class CompareBitmap extends Assert
 			return true;
 		}
 
+		if (stageText)
+			updateStageTexts(actualTarget);
+		
 		this.root = root;
 		this.context = context;
 		this.testResult = testResult;
@@ -275,7 +319,7 @@ public class CompareBitmap extends Assert
 				}
 			}
 
-			writePNG(actualTarget);
+			writeBaselines(actualTarget);
 			return false;
 		}
 		else
@@ -286,6 +330,54 @@ public class CompareBitmap extends Assert
 
 	}
 
+	// there are a few mobile tests that use StageText in the bitmaps
+	// which are TextFields in the emulator.  This makes them use
+	// embedded fonts to get consistency across platforms.
+	private function updateStageTexts(target:DisplayObject):void
+	{
+		var doc:DisplayObjectContainer = target as DisplayObjectContainer;
+		var tf:Object;
+		tf = findTextWidget(doc);
+		if (tf)
+		{
+			var n:int = target.stage.numChildren;
+			for (var i:int = 0; i < n; i++)
+			{
+				var stf:TextField = target.stage.getChildAt(i) as TextField;
+				if (stf)
+				{
+					var stfm:TextFormat = new TextFormat(tf.getStyle("fontFamily"),
+															tf.getStyle("fontSize"),
+															tf.getStyle("color"),
+															tf.getStyle("fontWeight") == "bold",
+															tf.getStyle("fontStyle") == "italic"
+															);
+					stf.defaultTextFormat = stfm;
+					stf.embedFonts = true;
+				}
+			}
+		}
+	}
+	
+	private function findTextWidget(doc:DisplayObjectContainer):Object
+	{
+		if (!doc) return null;
+		var n:int = doc.numChildren;
+		for (var i:int = 0; i < n; i++)
+		{
+			var child:DisplayObject = doc.getChildAt(i);
+			var className:String = getQualifiedClassName(child);
+			if (className.indexOf("StyleableStageText") > -1)
+				return child;
+			else if (child is DisplayObjectContainer)
+			{
+				var tf:Object = findTextWidget(child as DisplayObjectContainer);
+				if (tf) return tf;
+			}
+		}
+		return null;
+	}
+	
 	private function getTargetSize(target:DisplayObject):Point
 	{
 		var width:Number;
@@ -352,6 +444,8 @@ public class CompareBitmap extends Assert
 	private var MAX_LC:int = 12000;
 	private var screenBits:BitmapData;
 	private var baselineBits:BitmapData;
+
+	private var compareVal:Object;
 	
 	public function comparePNG(target:DisplayObject):Boolean 
 	{ 
@@ -374,7 +468,7 @@ public class CompareBitmap extends Assert
 			testResult.doFail ("CompareBitmap BIG FAIL! Content reader is null!");
 			return true;
 		}
-
+		
 		getScreenBits(target);
 
 		try
@@ -382,29 +476,86 @@ public class CompareBitmap extends Assert
 			baselineBits = new BitmapData(reader.content.width, reader.content.height);
 			baselineBits.draw(reader.content, new Matrix());
 
-			var compareVal:Object = baselineBits.compare (screenBits);
+			compareVal = baselineBits.compare (screenBits);
 		
 			if (compareVal is BitmapData && numColorVariances)
 				compareVal = compareWithVariances(compareVal as BitmapData)
 
 			if (compareVal != 0)
 			{
-				testResult.doFail ("compare returned" + compareVal, absolutePathResult(url) + ".bad.png");
-					
-				if (useRemoteDiffer)
+				trace ("compare returned" + compareVal);
+				
+				var req:URLRequest = new URLRequest();
+				if (UnitTester.isApollo) 
 				{
-					sendImagesToDiffer();
-					return false;
-				} else if (fileSuffix != "") { 
-					writePNG (target);
+					req.url = encodeURI2(CompareBitmap.adjustPath (url));
+				} 
+				else
+				{
+					req.url = url;
+					var base:String = normalizeURL(context.application.url);
+					base = base.substring(0, base.lastIndexOf("/"));
+					while (req.url.indexOf("../") == 0)
+					{
+						base = base.substring(0, base.lastIndexOf("/"));
+						req.url = req.url.substring(3);
+					}
+					
+					req.url = encodeURI2(base + "/" + req.url);
 				}
+				
+				req.url += ".xml";
+				xmlreader = new URLLoader();
+				xmlreader.addEventListener(Event.COMPLETE, readXMLCompleteHandler);
+				xmlreader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, readErrorHandler);
+				xmlreader.addEventListener(IOErrorEvent.IO_ERROR, readXMLIOErrorHandler);
+				xmlreader.load (req);	
+				return false;
 			}
-		} 
+		}
 		catch (e:Error) 
 		{ 
 			testResult.doFail (e.getStackTrace());	
 		}
 		return true;
+	}
+		
+	private function readXMLCompleteHandler(event:Event):void
+	{
+		var actualTarget:DisplayObject = DisplayObject(context.stringToObject(target));
+		var s:String = getDisplayListXML(actualTarget).toXMLString();
+		var t:String = xmlreader.data;
+		s = s.replace(/\r/g, "");
+		t = t.replace(/\r/g, "");		
+		if (s !== t && xmldiffer(s, t))
+		{
+			testResult.doFail ("compare returned" + compareVal, absolutePathResult(url) + ".bad.png");
+			
+			if (useRemoteDiffer)
+			{
+				sendImagesToDiffer();
+			} 
+			else if (fileSuffix != "") 
+			{ 
+				writeBaselines (actualTarget);
+			}
+		}
+		else
+			stepComplete();
+	}
+	
+	private function readXMLIOErrorHandler(event:Event):void
+	{
+		if (useRemoteDiffer)
+		{
+			sendImagesToDiffer();
+		} 
+		else if (fileSuffix != "") 
+		{ 
+			testResult.doFail ("compare returned" + compareVal, absolutePathResult(url) + ".bad.png");
+			var actualTarget:DisplayObject = DisplayObject(context.stringToObject(target));
+			writePNG (actualTarget);
+		}	
 	}
 	
 	private function mergeSandboxBitmap(target:DisplayObject, pt:Point, bm:BitmapData, obj:Object):void
@@ -501,31 +652,33 @@ public class CompareBitmap extends Assert
 
 	public function readPNG():void
 	{
-		reader = new Loader();
 		var req:URLRequest = new URLRequest();
 		if (UnitTester.isApollo) 
 		{
 			req.url = encodeURI2(CompareBitmap.adjustPath (url));
-		} else
-                {
-                        req.url = url;
-                        var base:String = normalizeURL(context.application.url);
-                        base = base.substring(0, base.lastIndexOf("/"));
-                        while (req.url.indexOf("../") == 0)
-                        {
-                                base = base.substring(0, base.lastIndexOf("/"));
-                                req.url = req.url.substring(3);
-                        }
+		} 
+		else
+        {
+            req.url = url;
+            var base:String = normalizeURL(context.application.url);
+            base = base.substring(0, base.lastIndexOf("/"));
+            while (req.url.indexOf("../") == 0)
+            {
+                    base = base.substring(0, base.lastIndexOf("/"));
+                    req.url = req.url.substring(3);
+            }
 
-                        req.url = encodeURI2(base + "/" + req.url);
-                }
+            req.url = encodeURI2(base + "/" + req.url);
+        }
 		//	req.url = encodeURI2(url);
 		// }
 	
+		reader = new Loader();
+
 		trace ("readPNG:requesting url: " + req.url);
-        	reader.contentLoaderInfo.addEventListener(Event.COMPLETE, readCompleteHandler);
-        	reader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, readErrorHandler);
-        	reader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, readErrorHandler);
+    	reader.contentLoaderInfo.addEventListener(Event.COMPLETE, readCompleteHandler);
+    	reader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, readErrorHandler);
+    	reader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, readErrorHandler);
 
 		reader.load (req);	
 	}
@@ -556,27 +709,66 @@ public class CompareBitmap extends Assert
 		return ba;
 	}
 
-	public function writePNG(target:DisplayObject):void 
+	public function writeBaselines(target:DisplayObject, writeDisplayList:Boolean = true):void 
 	{
-
-		var ba:ByteArray = getPngByteArray(target, screenBits);
-		trace ("image size: " + ba.length);
-
-
+		var req:URLRequest = new URLRequest();
+		writer = new URLLoader();
+		req.method = "POST";
+		
 		/**
 		 * either we got called here to write new baselines
-	 	 * or to save a .bad.png for investigation
+		 * or to save a .bad.png for investigation
 		 * in addition, with failures, we upload baseline and failure to a server
-	 	 */
+		 */
 		if (UnitTester.createBitmapReferences) 
 		{	
 			fileSuffix = "";
 		} 
+		
 
-
-		writer = new URLLoader();
+		if (writeDisplayList)
+		{
+			var s:String = getDisplayListXML(target).toXMLString();
+			// request data goes on the URL Request
+			req.data = s;
+			
+			req.contentType = "text/xml";
+			if (UnitTester.isApollo) 
+			{ 
+				req.url = encodeURI2(UnitTester.bitmapServerPrefix + adjustWriteURI(adjustPath(url))) + fileSuffix + ".xml";
+			} else 
+			{
+				req.url = encodeURI2(UnitTester.bitmapServerPrefix + absolutePath(url)) + fileSuffix + ".xml";
+			}
+			trace ("writing url: " + req.url);
+			writer.addEventListener(Event.COMPLETE, writeXMLCompleteHandler);
+			writer.addEventListener(SecurityErrorEvent.SECURITY_ERROR, writeErrorHandler);
+			writer.addEventListener(IOErrorEvent.IO_ERROR, writeErrorHandler);
+			
+			writer.load (req);	
+		}
+	}
+		
+	private function writeXMLCompleteHandler(event:Event):void
+	{
+		var actualTarget:DisplayObject = DisplayObject(context.stringToObject(target));
+		writePNG(actualTarget);
+	}
+	
+	private function writePNG(target:DisplayObject):void
+	{
 		var req:URLRequest = new URLRequest();
+		writer = new URLLoader();
 		req.method = "POST";
+		
+		var ba:ByteArray = getPngByteArray(target, screenBits);			
+		trace ("image size: " + ba.length);
+		// request data goes on the URL Request
+		req.data = ba;
+		// can't send this, don't need to anyway var rhArray:Array = new Array(new URLRequestHeader("Content-Length", new String(ba.length) ));
+		
+		req.contentType = "image/png";
+		
 		if (UnitTester.isApollo) 
 		{ 
 			req.url = encodeURI2(UnitTester.bitmapServerPrefix + adjustWriteURI(adjustPath(url))) + fileSuffix;
@@ -585,16 +777,12 @@ public class CompareBitmap extends Assert
 			req.url = encodeURI2(UnitTester.bitmapServerPrefix + absolutePath(url)) + fileSuffix;
 		}
 		trace ("writing url: " + req.url);
-        	writer.addEventListener(Event.COMPLETE, writeCompleteHandler);
-        	writer.addEventListener(SecurityErrorEvent.SECURITY_ERROR, writeErrorHandler);
-        	writer.addEventListener(IOErrorEvent.IO_ERROR, writeErrorHandler);
-
-		// request data goes on the URL Request
-		req.data = ba;
-		// can't send this, don't need to anyway var rhArray:Array = new Array(new URLRequestHeader("Content-Length", new String(ba.length) ));
-		
-		req.contentType = "image/png";
+		writer.addEventListener(Event.COMPLETE, writeCompleteHandler);
+		writer.addEventListener(SecurityErrorEvent.SECURITY_ERROR, writeErrorHandler);
+		writer.addEventListener(IOErrorEvent.IO_ERROR, writeErrorHandler);
+			
 		writer.load (req);	
+			
 
 		/// If this is about creating bitmaps, skip the upload, we're done
 		if (UnitTester.createBitmapReferences || UnitTester.run_id == "-1" || baselineMissing)
@@ -672,11 +860,8 @@ public class CompareBitmap extends Assert
 		if( baselineMissing ){
 			baselineMissing = false;
 			testResult.doFail( baselineMissingMessage );
-			stepComplete();
-		}else{		
-			if (UnitTester.createBitmapReferences)
-				stepComplete();
 		}
+		stepComplete();
 	}
 
 	private function uploadCompleteHandler(event:Event):void
@@ -965,6 +1150,447 @@ public class CompareBitmap extends Assert
 
 
 	}*/
+
+	/****** DisplayList Comparision ******/
+	protected function getDisplayListProperties(d:DisplayObject, noMask:Boolean = false):XML
+	{
+		var xml:XML;
+		var n:int;
+		var i:int;
+		var childXML:XML;
+		var s:String = getQualifiedClassName(d);
+		s = s.replace("::", ".");
+		xml = new XML("<" + s + "/>");
+		s = d.transform.concatenatedColorTransform.toString();
+		if (s != identityColorTransform)
+			xml.@concatenatedColorTransform = s;
+		if (d.transform.matrix)
+		{
+			s = d.transform.matrix.toString();
+			if (s != identityMatrix)
+			{
+				if (s.indexOf("(a=1, b=0, c=0, d=1, ") == -1)
+					xml.@matrix = s;
+			}
+		}
+		else
+		{
+			s = d.transform.matrix3D.rawData.toString();
+			xml.@matrix3D = s;
+		}
+		if (d.x != 0)
+			xml.@x = d.x;
+		if (d.y != 0)
+			xml.@y = d.y;
+		xml.@width = d.width;
+		xml.@height = d.height;
+		if (xml.visible == false)
+			xml.@visible = "false";
+		if (d.mask && d.mask != d.parent && !noMask)
+		{
+			xml.mask = <mask/>;
+			childXML = getDisplayListProperties(d.mask, true);
+			xml.mask.appendChild = childXML;
+		}
+		if (d.scrollRect)
+		{
+			s = d.scrollRect.toString();
+			xml.@scrollRect = s;
+		}
+		if (d.blendMode && d.blendMode != "normal")
+			xml.@blendMode = d.blendMode;
+		if (d.cacheAsBitmap)
+			xml.@cacheAsBitmap = "true";
+        try {
+    		if (d.filters && d.filters.length > 0)
+    		{
+    			s = d.filters.toString();
+    			xml.@filters = s;
+    		}
+        } catch (e:Error)
+        {
+            // seems to throw arg error when Shader applied
+        }
+		if (d.opaqueBackground)
+			xml.@opaqueBackground = "true";
+		if (d.scale9Grid)
+		{
+			s = d.scale9Grid.toString();
+			xml.@scale9Grid = s;
+		}
+		if (d is TextField)
+		{
+			xml.@underline = TextField(d).defaultTextFormat.underline;
+			xml.htmlText = TextField(d).htmlText;
+		}
+		if (d is Loader && Loader(d).contentLoaderInfo.contentType.indexOf("image") != -1)
+		{
+			s = Loader(d).contentLoaderInfo.url;
+			s = s.substring(s.lastIndexOf("/") + 1);
+			xml.@loaderbitmap = s;
+		}
+		if (d is TextLine)
+		{
+			var tl:TextLine = TextLine(d);
+			xml.@ascent = tl.ascent;
+			xml.@descent = tl.descent;
+			xml.@atomCount = tl.atomCount;
+			xml.@hasGraphicElement = tl.hasGraphicElement;
+			if (tl.textBlock)
+			{
+				var tb:TextBlock = TextLine(d).textBlock;
+				var ce:ContentElement = tb.content;
+				s = ce.rawText.substr(tl.textBlockBeginIndex, tl.rawTextLength);
+				xml.@text = s;
+			}
+		}
+		
+		if (d is IRawChildrenContainer)
+		{
+			var rawChildren:IChildList = IRawChildrenContainer(d).rawChildren;
+			n = rawChildren.numChildren;
+			for (i = 0; i < n; i++)
+			{
+				childXML = getDisplayListProperties(rawChildren.getChildAt(i));
+				xml.appendChild(childXML);				
+			}
+		}
+		else if (d is DisplayObjectContainer)
+		{
+			var doc:DisplayObjectContainer = d as DisplayObjectContainer;
+			n = doc.numChildren;
+			for (i = 0; i < n; i++)
+			{
+                var child:DisplayObject = doc.getChildAt(i);
+                if (child) // was null in an FCK test.
+                {
+    				childXML = getDisplayListProperties(child);
+    				xml.appendChild(childXML);				
+                }
+                else
+                    xml.appendChild(<NullChild />);
+			}
+		}
+		return xml;
+	}
+	
+	// scan entire display list, but only dump objects intersecting target
+	protected function getDisplayListXML(target:DisplayObject):XML
+	{
+		var i:int;
+		var n:int;
+		var child:DisplayObject;
+		var childXML:XML;
+		
+		var doc:DisplayObjectContainer = DisplayObjectContainer(target.root);
+		var xml:XML = <DisplayList />;
+		if (doc is IRawChildrenContainer)
+		{
+			var rawChildren:IChildList = IRawChildrenContainer(doc).rawChildren;
+			n = rawChildren.numChildren;
+			for (i = 0; i < n; i++)
+			{
+				child = rawChildren.getChildAt(i);
+				if (target.hitTestObject(child))
+				{
+					childXML = getDisplayListProperties(child);
+					xml.appendChild(childXML);	
+				}
+			}
+		}
+		else 
+		{
+			n = doc.numChildren;
+			for (i = 0; i < n; i++)
+			{
+				child = doc.getChildAt(i);
+				if (target.hitTestObject(child))
+				{
+					childXML = getDisplayListProperties(child);
+					xml.appendChild(childXML);									
+				}
+			}
+		}
+		return xml;
+	}
+
+	private function differ(s:String, t:String):Boolean
+	{
+		var retval:Boolean = false;
+		
+		var sl:Array = s.split("\n");
+		var tl:Array = t.split("\n");
+		trace(sl.length, tl.length);
+		var n:int = Math.max(sl.length, tl.length);
+		for (var i:int = 0; i < n; i++)
+		{
+			var a:String = (i < sl.length) ? sl[i] : "";
+			var b:String = (i < tl.length) ? tl[i] : "";
+			if (a != b)
+			{
+				a = trimTag(a);
+				b = trimTag(b);
+				if (a != b && !nullChildOrStaticText(a, b))
+				{
+					retval = true;
+					var c:String = "";
+					var d:String = "";
+					trace(i, "cur: ", a);
+					trace(i, "xml: ", b);
+					var m:int = Math.max(a.length, b.length);
+					for (var j:int = 0; j < m; j++)
+					{
+						c += a.charCodeAt(j) + " ";
+						d += b.charCodeAt(j) + " ";
+					}
+					trace(i, "cur: ", c);
+					trace(i, "xml: ", d);
+				}
+			}
+		}
+		return retval;
+	}
+	
+	// attempt to strip off random unique name chars for embedded assets
+	private function trimTag(a:String):String
+	{
+		var c:int;
+		var d:int;
+		
+		d = a.indexOf("<");
+		if (d != -1)
+		{
+			c = a.indexOf(" ", d);
+			if (c == -1 && a.length > d + 2 && a.charAt(d + 1) == '/')
+				c = a.indexOf(">"); // closing tag
+			if (c != -1)
+			{
+				var rest:String = a.substring(c);
+				for (var i:int = c - 1;i > 0; i--)
+				{
+					var ch:String = a.charAt(i);
+					if ((ch >= '0' && ch <= '9') || ch == '_')
+					{
+						// assume it is a random char
+					}
+					else
+						break;
+				}
+				return a.substring(0, i + 1) + rest;
+			}
+		}
+		return a;
+	}
+	
+    // attempt to strip off random unique name chars for embedded assets
+    private function trimName(a:String):String
+    {
+        var c:int;
+        var d:int;
+        
+        c = a.length;
+        for (var i:int = c - 1;i >= 0; i--)
+        {
+            var ch:String = a.charAt(i);
+            if ((ch >= '0' && ch <= '9') || ch == '_')
+            {
+                // assume it is a random char
+            }
+            else
+                break;
+        }
+        return a.substring(0, i + 1);
+    }
+
+    // static text seems to float around a bit so ignore it.
+	private function nullChildOrStaticText(a:String, b:String):Boolean
+	{
+		if (a.indexOf("<NullChild") != -1)
+			return true;
+		if (b.indexOf("<NullChild") != -1)
+			return true;
+		if (a.indexOf("<flash.text.StaticText") != -1)
+			return true;
+		if (b.indexOf("<flash.text.StaticText") != -1)
+			return true;
+		return false;
+	}
+
+    private function xmldiffer(s:String, t:String):Boolean
+    {
+        var retval:Boolean = false;
+        
+        var xmls:XML = XML(s);
+        var xmlt:XML = XML(t);
+        retval = compareNodes(xmls, xmlt);
+        if (retval)
+            differ(s, t);
+        return retval;
+    }
+    
+    private static var xywidthheight:Object = { x: 1, y: 1, width: 1, height: 1};
+    
+    private function compareNodes(s:XML, t:XML):Boolean
+    {
+        var retval:Boolean = false;
+        var q:String;
+        var i:int;
+        var j:int;
+        var n:int;
+        var m:int;
+        var st:String;
+        var tt:String;
+        var sv:String;
+        var tv:String;
+        
+        if (s.toXMLString() == t.toXMLString())
+            return false;
+        
+        // compare tag names
+        var sn:String = s.name().toString();
+        var tn:String = t.name().toString();
+        var sparts:Array = sn.split(".");
+        var tparts:Array = tn.split(".");
+        n = sparts.length;
+        for (i = 0; i < n; i++)
+            sparts[i] = trimName(sparts[i]);
+        n = tparts.length;
+        for (i = 0; i < n; i++)
+            tparts[i] = trimName(tparts[i]);
+        sn = sparts.join(".");
+        tn = tparts.join(".");
+        if (tn != sn)
+        {
+            if (sn == "NullChild" || sn == "flash.display.StaticText" ||
+                tn == "NullChild" || tn == "flash.display.StaticText")
+            {
+                // inconsistent behavior around StaticText   
+                return false;
+            }
+            else if (!oneMoreNameCompare(sn, tn))
+            {
+                trace("tag name mismatch: cur=", sn, "xml=", tn);
+                retval = true;
+            }
+        }
+        
+        var sa:XMLList = s.attributes();
+        var ta:XMLList = t.attributes();
+        n = sa.length();
+        m = ta.length();
+        if (n != m)
+        {
+            trace(sn, "different number of attributes: cur=", n, "xml=", m);
+            retval = true;
+        }
+        else
+        {
+            for (i = 0; i < n; i++)
+            {
+                st = sa[i].name().toString();
+                tt = ta[i].name().toString();
+                if (st != tt)
+                {
+                    trace(sn, "attribute name mismatch: cur=", st, "xml=", tt);
+                    retval = true;
+                }
+                else 
+                {
+                    sv = s['@' + st].toString();
+                    tv = t['@' + tt].toString();
+                    if (sv != tv)
+                    {
+                        if (xywidthheight[st] == 1)
+                        {
+                            var sf:Number = Number(sv);
+                            var tf:Number = Number(tv);
+                            if (Math.abs(tf - sf) > maxMatrixVariance)
+                            {
+                                trace(sn + '@' + st, "attribute value mismatch: cur=", sv, "xml=", tv);
+                                retval = true;
+                            }
+                        }
+                        else if (st == "matrix")
+                        {
+                            // strip parens
+                            sv = sv.substring(1, sv.length - 2);
+                            tv = tv.substring(1, tv.length - 2);
+                            sparts = sv.split(",");
+                            tparts = tv.split(",");
+                            m = sparts.length;
+                            for (j = 0; j < m; j++)
+                            {
+                                sv = sparts[j];
+                                tv = tparts[j];
+                                sv = sv.split("=")[1];
+                                tv = tv.split("=")[1];
+                                sf = Number(sv);
+                                tf = Number(tv);
+                                if (Math.abs(tf - sf) > maxMatrixVariance)
+                                {
+                                    trace(sn + '@' + st, "matrix value mismatch: cur=", sv, "xml=", tv);
+                                    retval = true;                                    
+                                }
+                            }
+                        }
+                        else
+                        {
+                            trace(sn + '@' + st, "attribute value mismatch: cur=", sv, "xml=", tv);
+                            retval = true;
+                        }
+                    }
+                }
+            }
+        }
+        
+        var sl:XMLList = s.children();
+        var tl:XMLList = t.children();
+        n = sl.length();
+        m = tl.length();
+        if (n != m)
+        {
+            trace(sn, "different number of children: cur=", n, "xml=", m);
+            retval = true;
+        }
+        else
+        {
+            for (i = 0; i < n; i++)
+            {
+                var nk:String = sl[i].nodeKind();
+                if (nk == "text")
+                {
+                    if (sl[i].text() != tl[i].text())
+                    {
+                        trace(sn, "different number of text nodes: cur=", sl[i].text(), "xml=", tl[i].text());
+                        retval = true;
+                    }
+                }
+                else if (nk == "element")
+                {
+                    if (compareNodes(sl[i], tl[i]))
+                        retval = true;
+                }
+            }
+        }
+        return retval;
+    }
+
+	private function oneMoreNameCompare(a:String, b:String):Boolean
+	{
+		var aParts:Array = a.split("_");
+		var bParts:Array = b.split("_");
+		var i:int;
+		var n:int;
+		n = aParts.length;
+		for (i = 0; i < n; i++)
+			aParts[i] = trimName(aParts[i]);
+		n = bParts.length;
+		for (i = 0; i < n; i++)
+			bParts[i] = trimName(bParts[i]);
+		a = aParts.join("_");
+		b = bParts.join("_");
+		return a == b;
+	}
 }
 
 }

@@ -151,19 +151,21 @@ public class Tween extends EventDispatcher
      */
     private static function removeTweenAt(index:int):void
     {
-        if (index >= activeTweens.length || index < 0)
+		var length:int = activeTweens.length;
+     
+		if (index >= length || index < 0)
             return;
-
+		
         activeTweens.splice(index, 1);
-                
-        var n:int = activeTweens.length;
-        for (var i:int = index; i < n; i++)
+             
+		length--;
+        for (var i:int = index; i < length; i++)
         {
             var curTween:Tween = Tween(activeTweens[i]);
             curTween.id--;
         }
         
-        if (n == 0)
+        if (length == 0)
         {
             intervalTime = NaN;
             timer.reset();
@@ -176,6 +178,7 @@ public class Tween extends EventDispatcher
     mx_internal static function removeTween(tween:Tween):void
     {
         removeTweenAt(tween.id);
+		tween.id = -1;
     }
 
     /**
@@ -183,14 +186,14 @@ public class Tween extends EventDispatcher
      */
     private static function timerHandler(event:TimerEvent):void
     {
-        var needToLayout:Boolean = false;
-        
+        var needToLayout:Boolean = false;       
         var oldTime:Number = intervalTime;
+		var length:int = activeTweens.length;
+		
         intervalTime = getTimer();
+
                 
-        var n:int = activeTweens.length;
-                
-        for (var i:int = n; i >= 0; i--)
+        for (var i:int = length-1; i >= 0; i--)
         {
             var tween:Tween = Tween(activeTweens[i]);
             if (tween)
@@ -320,7 +323,7 @@ public class Tween extends EventDispatcher
     /**
      *  @private
      */
-    private var id:int;
+    private var id:int = -1;
     
     /**
      *  @private
@@ -575,8 +578,10 @@ public class Tween extends EventDispatcher
 
         // If tween has been added, id >= 0
         // but if duration = 0, this might not be the case.
-        if (id >= 0)
+        if (id >= 0) {
             Tween.removeTweenAt(id);
+			id = -1;
+		}
     }
 
     /**
@@ -759,8 +764,10 @@ public class Tween extends EventDispatcher
      */
     public function stop():void
     {
-        if (id >= 0)
+        if (id >= 0) {
             Tween.removeTweenAt(id);
+			id = -1;
+		}
     }
     
     /**

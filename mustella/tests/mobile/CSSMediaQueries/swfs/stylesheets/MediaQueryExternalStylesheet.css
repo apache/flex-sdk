@@ -32,6 +32,55 @@ s|Button
 	fontSize: 24;
 }
 
+@media screen and (application-dpi: 160)
+{
+	s|Button
+	{
+		color: #990000;
+		fontSize: 22;			
+	}
+
+	.buttonStyle
+	{
+		chromeColor: #000000;
+		color: #ff0000;
+		fontSize: 22;
+	}
+}
+
+@media screen and (application-dpi: 240)
+{
+	s|Button
+	{
+		color: #009900;
+		fontSize: 26;			
+	}
+
+	.buttonStyle
+	{
+		chromeColor: #000000;
+		color: #00ff00;
+		fontSize: 26;
+	}
+}
+
+@media screen and (application-dpi: 320)
+{
+	s|Button
+	{
+		chromeColor: #000099;
+		color: #ffffff;
+		fontSize: 28;			
+	}
+
+	.buttonStyle
+	{
+		chromeColor: #000000;
+		color: #0000ff;
+		fontSize: 28;
+	}
+}
+
 @media all and (os-platform: "Android") and (application-dpi: 160)
 {
 	s|Button
@@ -63,6 +112,7 @@ s|Button
 		fontSize: 26;
 	}
 }
+
 @media (os-platform: "IOS") and (application-dpi: 320)
 {
 	s|Button

@@ -426,7 +426,7 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      */
     private function sparseCopy(a:Array):Array
     {
-        const r:Array = new Array();
+        const r:Array = [];
         var index:int = 0;
         for each (var item:* in a)
         {
@@ -567,8 +567,8 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
     //
     //--------------------------------------------------------------------------
 
-    private const pendingResponders:Array = new Array();
-    private const failedItems:Array = new Array();
+    private const pendingResponders:Array = [];
+    private const failedItems:Array = [];
     
     /**
      *  @private
@@ -821,6 +821,24 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
         if (list)
             list.removeAll();
     }
+	
+	/**
+	 *  Removes the specified item from this list, should it exist.
+	 *  Relies on ArrayList implementation
+	 *
+	 *  @param  item Object reference to the item that should be removed.
+	 *  @return Boolean indicating if the item was removed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Apache Flex 4.10
+	 */
+	public function removeItem(item:Object):Boolean
+	{
+		var _item:Object = removeItemAt(getItemIndex(item));
+		return _item != null;
+	}
     
     /**
      *  Removes the actual or pending item at the specified index and returns it.

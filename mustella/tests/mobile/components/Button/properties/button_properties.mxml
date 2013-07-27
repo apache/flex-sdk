@@ -148,6 +148,7 @@
                 <DispatchMouseEvent type="mouseDown" stageX="127" stageY="21" target=""/-->
             </setup>
             <body>
+            	<WaitForLayoutManager />
                 <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
@@ -302,7 +303,7 @@
             <body>
                 <AssertPropertyValue propertyName="width" target="propertiesRoot.button1">
 					<ConditionalValue deviceDensity="160" os="win" value="73"/>
-					<ConditionalValue deviceDensity="240" os="android" value="108" />
+					<ConditionalValue deviceDensity="240" os="android" value="115" />
 					<ConditionalValue deviceDensity="320" os="win" value="142"/>
 					<ConditionalValue deviceDensity="320" os="ios"  value="144"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="70"/>
@@ -516,7 +517,8 @@
             </setup>        
             <body>
                 <AssertPropertyValue propertyName="maxWidth" target="propertiesRoot.button1" value="10"/>
-                <SetProperty target="propertiesRoot.button1" propertyName="maxWidth" value="100" waitEvent="explicitMaxWidthChanged" waitTarget="propertiesRoot.button1"/>								
+                <SetProperty target="propertiesRoot.button1" propertyName="maxWidth" value="100" waitEvent="explicitMaxWidthChanged" waitTarget="propertiesRoot.button1"/>	
+                <WaitForLayoutManager />							
                 <AssertPropertyValue propertyName="maxWidth" target="propertiesRoot.button1" value="100"/>
                 <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
 					<ConditionalValue deviceDensity="160" os="win" />
@@ -913,7 +915,7 @@
 								<SetProperty propertyName="rotationX" value="45" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
             </setup>
             <body>
-                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1" numColorVariances="2" maxColorVariance="1">
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />
@@ -930,7 +932,7 @@
 								<SetProperty propertyName="rotationY" value="-45" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
             </setup>
             <body>
-                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1" numColorVariances="2" maxColorVariance="1">
 					<ConditionalValue deviceDensity="160" os="win" />
 					<ConditionalValue deviceDensity="240" os="android" />
 					<ConditionalValue deviceDensity="320" os="win" />

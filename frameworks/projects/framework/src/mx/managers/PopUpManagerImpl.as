@@ -507,10 +507,22 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         
         // If we don't find the pop owner or if the owner's parent is not specified or is not on the
         // stage, then center based on the popUp's current parent.
-        var popUpParent:DisplayObject = (o && o.parent && o.parent.stage) ? o.parent : popUp.parent;
-        if (popUpParent)
-        {
-            var systemManager:ISystemManager = o.systemManager;
+		var popUpParent:DisplayObject = (o && o.parent && o.parent.stage) ? o.parent : popUp.parent;
+		if (popUpParent)
+		{
+			//FLEX-28967 : https://issues.apache.org/jira/browse/FLEX-28967. Fix by miroslav.havrlent
+			var systemManager:ISystemManager;
+			if (o != null) {
+				systemManager = o.systemManager;
+			} else if (popUpParent.hasOwnProperty("systemManager")) {
+				systemManager = popUpParent["systemManager"];
+			} else if (popUpParent is ISystemManager) {
+				systemManager = popUpParent as ISystemManager;
+			}
+			
+			if (!systemManager)
+				return; // or throw exception maybe ?
+			
             var x:Number;
             var y:Number;
             var appWidth:Number;
@@ -586,13 +598,22 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
                 const popUpLDE:ILayoutDirectionElement = popUp as ILayoutDirectionElement;
                 const parentLDE:ILayoutDirectionElement = popUpParent as ILayoutDirectionElement;
                 
-                if (popUpLDE &&
-                    ((parentLDE && parentLDE.layoutDirection != popUpLDE.layoutDirection) ||
-                        (!parentLDE && popUpLDE.layoutDirection == LayoutDirection.RTL)))
-                 {
-                        x = -x /* to flip it on the other side of the x axis*/ 
-                            -popUp.width /* because 0 is the right edge */;                            
-                 }
+                if (popUpLDE)
+                {
+                    if ((parentLDE && parentLDE.layoutDirection != popUpLDE.layoutDirection) ||
+                       (!parentLDE && popUpLDE.layoutDirection == LayoutDirection.RTL))
+                    {
+                        //(x = -x)  to flip it on the other side of the x axis.
+                        //(-popUp.width)  because 0 is the right edge.
+                        x = -x -popUp.width;
+                    }
+
+                    if (popUpLDE.layoutDirection == LayoutDirection.RTL)
+                    {
+                        //Corrects the x offset for RTL.
+                        clippingOffset.x += popUpParent.width;
+                    }
+                }
             }
             
             pt = new Point(clippingOffset.x, clippingOffset.y);            
@@ -796,7 +817,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         
         if (visibleFlag)
             showModalWindow(o, sm, false);
-        else if (popup)
+        else if(popup)
             popup.visible = visibleFlag;
 
         if (hasEventListener("createdModalWindow"))
@@ -1457,7 +1478,12 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 				// This hides top-level document content from assistive technology.	
 				sbRoot.document.accessibilityProperties.silent = true;
 				
-				Accessibility.updateProperties();
+				try {
+					Accessibility.updateProperties();
+				}
+				catch(e:Error) {
+					// Flash Player issue causes hasAccessibility and active to be true when accessibility is turned off 
+				}
 			}
 			return true;
 		}
@@ -1487,7 +1513,12 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 					sbRoot.document.accessibilityProperties.silent = false;
 				}
 				
-				Accessibility.updateProperties();	
+				try {
+					Accessibility.updateProperties();
+				}
+				catch(e:Error) {
+					// Flash Player issue on windows causes hasAccessibility and active to be true when accessibility is turned off 
+				}
 			}
 			return true;
 		}
@@ -1524,12 +1555,14 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 			{
 				// If this is the only popUp, we should expose accessibility 
 				// of the top-level system manager's document
-				sm.document.accessibilityProperties.silent = false;
+				if (sm.document.accessibilityProperties)
+					sm.document.accessibilityProperties.silent = false;
 				
 				// We should also expose accessibility 
 				// of the sandbox root's document.
-				var sbRoot:Object = popupData.systemManager.getSandboxRoot();				
-				sbRoot.document.accessibilityProperties.silent = false;
+				var sbRoot:Object = popupData.systemManager.getSandboxRoot();	
+				if (sbRoot.document.accessibilityProperties)
+					sbRoot.document.accessibilityProperties.silent = false;
 			}
 		}
 		else if (index > 0)
@@ -1538,7 +1571,8 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 			// of the underlying popUp
 			underneathPopUpData = popupInfo[index - 1];
 			
-			underneathPopUpData.owner.accessibilityProperties.silent = false;
+			if (underneathPopUpData.owner.accessibilityProperties)
+				underneathPopUpData.owner.accessibilityProperties.silent = false;
 			
 			// All the nested popUp's AccessibilityProperties 
 			// changes should be handled by a single 

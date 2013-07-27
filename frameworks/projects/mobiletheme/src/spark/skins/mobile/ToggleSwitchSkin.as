@@ -39,6 +39,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile160.assets.ToggleSwitch_contentShadow;
 import spark.skins.mobile240.assets.ToggleSwitch_contentShadow;
 import spark.skins.mobile320.assets.ToggleSwitch_contentShadow;
+import spark.skins.mobile480.assets.ToggleSwitch_contentShadow;
 
 use namespace mx_internal;
 
@@ -74,6 +75,20 @@ public class ToggleSwitchSkin extends MobileSkin
         
         switch(applicationDPI) 
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				layoutThumbWidth = 140;
+				layoutThumbHeight = 84;
+				layoutStrokeWeight = 2;
+				layoutBorderSize = 2;
+				layoutTextShadowOffset = -2;
+				layoutInnerPadding = 20;
+				layoutOuterPadding = 34;
+				slidingContentOverlayClass = spark.skins.mobile480.assets.ToggleSwitch_contentShadow;
+				break;
+			}		
+
             case DPIClassification.DPI_320:
             {
                 layoutThumbWidth = 94;

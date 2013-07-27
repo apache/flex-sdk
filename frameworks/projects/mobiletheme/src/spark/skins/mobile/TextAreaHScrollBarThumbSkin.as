@@ -41,6 +41,8 @@ public class TextAreaHScrollBarThumbSkin extends HScrollBarThumbSkin
     //--------------------------------------------------------------------------
     
     // These constants are also accessed from HScrollBarSkin
+	mx_internal static const PADDING_BOTTOM_480DPI:int = 12;
+	mx_internal static const PADDING_HORIZONTAL_480DPI:int = 12;
     mx_internal static const PADDING_BOTTOM_320DPI:int = 8;
     mx_internal static const PADDING_HORIZONTAL_320DPI:int = 12;
     mx_internal static const PADDING_BOTTOM_240DPI:int = 6;
@@ -68,6 +70,13 @@ public class TextAreaHScrollBarThumbSkin extends HScrollBarThumbSkin
         // Depending on density set padding
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				minHeight = 11;
+				paddingBottom = TextAreaHScrollBarThumbSkin.PADDING_BOTTOM_480DPI;
+				paddingHorizontal = TextAreaHScrollBarThumbSkin.PADDING_HORIZONTAL_480DPI;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 paddingBottom = PADDING_BOTTOM_320DPI;

@@ -39,6 +39,9 @@
 			import flash.events.*;
 			use namespace mx_internal;
 
+			// force inclusion of softkeyboard event faking
+			public var fakeSoftKeyboard:FakeSoftKeyboard;
+			
 			public var tmpValue:int;
 
 			public function doResetFocus():void{

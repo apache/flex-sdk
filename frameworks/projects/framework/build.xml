@@ -83,6 +83,21 @@
         </sequential>
     </macrodef>
     
+    <condition property="isMac">
+        <os family="mac"/>
+    </condition>
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>   
+    <condition property="isLinux">
+        <and>
+          <os family="unix"/>    
+          <not>
+            <os family="mac"/>    
+          </not>
+        </and>
+    </condition>  
+
     <target name="main" depends="clean,compile" description="Clean build of framework.swc and en_US">
         <bundle locale="${locale}"/>
     </target>
@@ -105,6 +120,7 @@
         <bundler locale="de_CH"/><!-- Swiss German resources -->
         <bundler locale="es_ES"/><!-- Spanish resources -->
         <bundler locale="fi_FI"/><!--  Finnish resources-->
+		<bundler locale="fr_CH"/><!-- Swiss French resources-->
         <bundler locale="fr_FR"><!-- French resources -->
             <run.fat.swc>
                 <fat-swc locale="fr_FR"/>
@@ -174,7 +190,14 @@
         </delete>
     </target>
 
-    <target name="pixelbender-compile">
+    <target name="pixelbender-unzip" if="isLinux">
+	    <echo message="Unziping pixel bender files" />
+		<gunzip src="${env.PIXELBENDER_HOME}/pb.tar.gz" dest="${FLEX_HOME}" />
+		<untar src="${FLEX_HOME}/pb.tar" dest="${FLEX_HOME}" />
+	    <delete file="${FLEX_HOME}/pb.tar" />
+    </target>
+ 
+    <target name="pixelbender-compile" unless="isLinux">
         <exec executable="${env.PIXELBENDER_HOME}/pbutil">
             <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Color.pbk" />
             <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Color.pbj" />
@@ -230,7 +253,7 @@
         </mxmlc>
     </target>
         
-    <target name="compile" depends="assets-compile,pixelbender-compile" description="Compiles framework.swc">
+    <target name="compile" depends="assets-compile,pixelbender-compile,pixelbender-unzip" description="Compiles framework.swc">
         <echo message="Compiling frameworks/libs/framework.swc"/>
         <!-- Load the <compc> task. We can't do this at the <project> level -->
         <!-- because targets that run before flexTasks.jar gets built would fail. -->

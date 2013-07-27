@@ -1,0 +1,86 @@
+<DisplayList>
+  <TextArea2 width="640" height="960">
+    <spark.skins.spark.ApplicationSkin width="640" height="960" blendMode="auto">
+      <spark.components.Group width="640" height="960" blendMode="auto">
+        <spark.components.Group width="640" height="960" blendMode="auto">
+          <components.Group1 width="640" height="60" blendMode="auto">
+            <spark.components.TextArea x="10" y="10" width="512" height="50">
+              <spark.skins.mobile.TextAreaSkin width="512" height="50">
+                <spark.components.Scroller width="512" height="50">
+                  <spark.skins.spark.ScrollerSkin width="512" height="50" blendMode="auto">
+                    <spark.components.Group width="512" height="50" scrollRect="(x=0, y=0, w=512, h=50)" blendMode="auto">
+                      <spark.components.supportClasses.StyleableTextField x="9" y="9" width="494" height="39" underline="false">
+                        <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="myVeraNoCFF" SIZE="24" COLOR="#FF0000" LETTERSPACING="0" KERNING="0"&gt;iiii&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+                      </spark.components.supportClasses.StyleableTextField>
+                    </spark.components.Group>
+                  </spark.skins.spark.ScrollerSkin>
+                </spark.components.Scroller>
+                <spark.skins.mobile240.assets.TextInput_border width="512" height="50" blendMode="auto" scale9Grid="(x=8, y=8, w=282, h=34)">
+                  <flash.display.Shape width="298" height="50"/>
+                  <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.19921875, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="296" height="48"/>
+                </spark.skins.mobile240.assets.TextInput_border>
+              </spark.skins.mobile.TextAreaSkin>
+            </spark.components.TextArea>
+          </components.Group1>
+          <components.Group2 y="66" width="640" height="60" blendMode="auto">
+            <spark.components.TextArea x="10" y="10" width="512" height="50">
+              <spark.skins.mobile.TextAreaSkin width="512" height="50">
+                <spark.components.Scroller width="512" height="50">
+                  <spark.skins.spark.ScrollerSkin width="512" height="50" blendMode="auto">
+                    <spark.components.Group width="512" height="50" scrollRect="(x=0, y=0, w=512, h=50)" blendMode="auto">
+                      <spark.components.supportClasses.StyleableTextField x="9" y="9" width="494" height="39" underline="false">
+                        <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="myVeraNoCFF" SIZE="24" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;Lorem ipsum&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+                      </spark.components.supportClasses.StyleableTextField>
+                    </spark.components.Group>
+                  </spark.skins.spark.ScrollerSkin>
+                </spark.components.Scroller>
+                <spark.skins.mobile240.assets.TextInput_border width="512" height="50" blendMode="auto" scale9Grid="(x=8, y=8, w=282, h=34)">
+                  <flash.display.Shape width="298" height="50"/>
+                  <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.19921875, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="296" height="48"/>
+                </spark.skins.mobile240.assets.TextInput_border>
+              </spark.skins.mobile.TextAreaSkin>
+            </spark.components.TextArea>
+          </components.Group2>
+          <components.Group3 y="132" width="640" height="60" blendMode="auto">
+            <spark.components.TextArea x="10" y="10" width="512" height="50">
+              <spark.skins.mobile.TextAreaSkin width="512" height="50">
+                <spark.components.Scroller width="512" height="50">
+                  <spark.skins.spark.ScrollerSkin width="512" height="50" blendMode="auto">
+                    <spark.components.Group width="512" height="50" scrollRect="(x=0, y=0, w=512, h=50)" blendMode="auto">
+                      <spark.components.supportClasses.StyleableTextField x="9" y="9" width="494" height="39" underline="false">
+                        <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="myVeraNoCFF" SIZE="24" COLOR="#FF0000" LETTERSPACING="0" KERNING="0"&gt;iiii&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+                      </spark.components.supportClasses.StyleableTextField>
+                    </spark.components.Group>
+                  </spark.skins.spark.ScrollerSkin>
+                </spark.components.Scroller>
+                <spark.skins.mobile240.assets.TextInput_border width="512" height="50" blendMode="auto" scale9Grid="(x=8, y=8, w=282, h=34)">
+                  <flash.display.Shape width="298" height="50"/>
+                  <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.19921875, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="296" height="48"/>
+                </spark.skins.mobile240.assets.TextInput_border>
+              </spark.skins.mobile.TextAreaSkin>
+            </spark.components.TextArea>
+          </components.Group3>
+          <components.Group4 y="198" width="440" height="230" blendMode="auto">
+            <spark.components.TextArea width="440" height="230">
+              <spark.skins.mobile.TextAreaSkin width="440" height="230">
+                <spark.components.Scroller width="440" height="230">
+                  <spark.skins.spark.ScrollerSkin width="440" height="230" blendMode="auto">
+                    <spark.components.Group width="440" height="230" scrollRect="(x=0, y=0, w=440, h=230)" blendMode="auto">
+                      <spark.components.supportClasses.StyleableTextField x="9" y="9" width="422" height="212" underline="true">
+                        <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="myVeraNoCFF" SIZE="24" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;U&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis nunc, ultrices nec molestie a, dictum sed lacus. Vestibulum adipiscing dolor sed libero aliquet consectetur.&lt;/U&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+                      </spark.components.supportClasses.StyleableTextField>
+                    </spark.components.Group>
+                  </spark.skins.spark.ScrollerSkin>
+                </spark.components.Scroller>
+                <spark.skins.mobile240.assets.TextInput_border width="440" height="230" blendMode="auto" scale9Grid="(x=8, y=8, w=282, h=34)">
+                  <flash.display.Shape width="298" height="50"/>
+                  <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.19921875, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="296" height="48"/>
+                </spark.skins.mobile240.assets.TextInput_border>
+              </spark.skins.mobile.TextAreaSkin>
+            </spark.components.TextArea>
+          </components.Group4>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </TextArea2>
+</DisplayList>

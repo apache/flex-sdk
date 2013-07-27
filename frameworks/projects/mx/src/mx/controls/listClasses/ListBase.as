@@ -1742,7 +1742,7 @@ public class ListBase extends ScrollControlBase
         if (offscreenExtraRowsTop > 0)
             makeRowsAndColumns(0, 0, listContent.width, listContent.height, 0, 0, true, offscreenExtraRowsTop);
 
-        var curY:Number = offscreenExtraRowsTop ? rowInfo[offscreenExtraRowsTop-1].y + rowHeight : 0;
+        var curY:Number = offscreenExtraRowsTop > 0 ? rowInfo[offscreenExtraRowsTop-1].y + rowHeight : 0;
         // make onscreen items
         pt = makeRowsAndColumns(0, curY, listContent.width, curY + listContent.heightExcludingOffsets, 0, offscreenExtraRowsTop);
 
@@ -7179,7 +7179,11 @@ public class ListBase extends ScrollControlBase
             if (!selectedData[uid])
             {
                 if (listContent && UIDToItemRenderer(uid))
+                {
+                    //Calling validateNow to make sure the item renderers have had a chance to update before selectItem references one to set as the new selectedIndex.
+                    validateNow();
                     selectItem(UIDToItemRenderer(uid), false, false);
+                }
                 else
                 {
                     clearSelected();
@@ -7391,7 +7395,7 @@ public class ListBase extends ScrollControlBase
                     item = items[i];
                     if (compareFunction(data, item))
                     {
-                        uid = itemToUID(data);
+                        uid = itemToUID(item);
                         
                         selectionDataArray[proposedSelectedItemIndexes[uid]] = new ListBaseSelectionData(data, index, false);
 

@@ -49,6 +49,6 @@
 			</s:Rect>
 		</s:Graphic>
 		<s:Group id="bitmapGroup" width="200" height="200">
-			<s:BitmapImage id="image1" source="@Embed('../../basicImage.JPG')" x="10" y="10" />
+			<s:BitmapImage id="image1" source="@Embed('../../basicImage.jpg')" x="10" y="10" />
 		</s:Group>
 </s:Group>

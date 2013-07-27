@@ -25,7 +25,7 @@
 -->
 <componentPackage>
 
-	<!-- Flex4 Framework -->
+    <!-- Flex4 Framework -->
     <component id="AddAction" class="spark.effects.AddAction"/>
     <component id="Animate" class="spark.effects.Animate"/>
     <component id="AnimateColor" class="spark.effects.AnimateColor"/>
@@ -37,7 +37,8 @@
     <component id="Application" class="spark.components.Application"/>
     <component id="ArrayCollection" class="mx.collections.ArrayCollection" lookupOnly="true"/>
     <component id="ArrayList" class="mx.collections.ArrayList" lookupOnly="true"/>
-    <component id="AsyncListView" class="mx.collections.AsyncListView" lookupOnly="true"/>
+    <component id="AsyncListView" class="mx.collections.AsyncListView" lookupOnly="true"/> 
+    <component id="SubListView" class="spark.collections.SubListView"/> 
     <component id="BasicLayout" class="spark.layouts.BasicLayout"/>
     <component id="BevelFilter" class="spark.filters.BevelFilter"/>
     <component id="BitmapImage" class="spark.primitives.BitmapImage"/>
@@ -67,12 +68,12 @@
     <component id="ContentCache" class="spark.core.ContentCache"/> 
     <component id="ConvolutionFilter" class="spark.filters.ConvolutionFilter"/>
     <component id="CrossFade" class="spark.effects.CrossFade"/>
-	<component id="CurrencyFormatter" class="spark.formatters.CurrencyFormatter"/>
-	<component id="CurrencyValidator" class="spark.validators.CurrencyValidator"/>
-	<component id="DataGrid" class="spark.components.DataGrid"/>    
+    <component id="CurrencyFormatter" class="spark.formatters.CurrencyFormatter"/>
+    <component id="CurrencyValidator" class="spark.validators.CurrencyValidator"/>
+    <component id="DataGrid" class="spark.components.DataGrid"/>    
     <component id="DataGroup" class="spark.components.DataGroup"/>
     <component id="DataRenderer" class="spark.components.DataRenderer"/>
-	<component id="DateTimeFormatter" class="spark.formatters.DateTimeFormatter"/>
+    <component id="DateTimeFormatter" class="spark.formatters.DateTimeFormatter"/>
     <component id="DefaultGridHeaderRenderer" class="spark.skins.spark.DefaultGridHeaderRenderer"/>
     <component id="DefaultGridItemRenderer" class="spark.skins.spark.DefaultGridItemRenderer"/>
     <component id="DisplacementMapFilter" class="spark.filters.DisplacementMapFilter"/>
@@ -101,6 +102,7 @@
     <component id="GridItemEditor" class="spark.components.gridClasses.GridItemEditor" />
     <component id="GridItemRenderer" class="spark.components.gridClasses.GridItemRenderer"/>
     <component id="GridLayer" class="spark.components.gridClasses.GridLayer"/>
+    <component id="GridView" class="spark.components.gridClasses.GridView"/>
     <component id="Group" class="spark.components.Group"/>
     <component id="GroupBase" class="spark.components.supportClasses.GroupBase"/>
     <component id="HGroup" class="spark.components.HGroup"/>
@@ -116,7 +118,7 @@
     <component id="LayoutBase" class="spark.layouts.supportClasses.LayoutBase"/>
     <component id="Line" class="spark.primitives.Line"/>
     <component id="Linear" class="spark.effects.easing.Linear"/>
-	<component id="List" class="spark.components.List"/>
+    <component id="List" class="spark.components.List"/>
     <component id="ListBase" class="spark.components.supportClasses.ListBase"/>
     <component id="MaskType" class="spark.core.MaskType"/>
     <component id="MatchingCollator" class="spark.globalization.MatchingCollator"/>
@@ -139,10 +141,10 @@
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
     <component id="Panel" class="spark.components.Panel"/>
     <component id="Path" class="spark.primitives.Path"/>
-	<component id="PopUpAnchor" class="spark.components.PopUpAnchor"/>
- 	<component id="PopUpPosition" class="spark.components.PopUpPosition"/>
+    <component id="PopUpAnchor" class="spark.components.PopUpAnchor"/>
+    <component id="PopUpPosition" class="spark.components.PopUpPosition"/>
     <component id="Power" class="spark.effects.easing.Power"/>
-	<component id="RadioButton" class="spark.components.RadioButton"/>
+    <component id="RadioButton" class="spark.components.RadioButton"/>
     <component id="RadioButtonGroup" class="spark.components.RadioButtonGroup"/>
     <component id="Range" class="spark.components.supportClasses.Range"/>
     <component id="Rect" class="spark.primitives.Rect"/>
@@ -215,33 +217,33 @@
 
     <!-- Special Components -->
     <component id="State" class="mx.states.State" lookupOnly="true"/>
-	<component id="AddItems" class="mx.states.AddItems" lookupOnly="true"/>
+    <component id="AddItems" class="mx.states.AddItems" lookupOnly="true"/>
     <component id="DataItem" class="spark.utils.DataItem"/>
 
-	<!-- airframework -->
+    <!-- airframework -->
     <component id="TitleBar" class="spark.components.windowClasses.TitleBar" lookupOnly="true"/>   
     <component id="Window" class="spark.components.Window" lookupOnly="true"/>
     <component id="WindowedApplication" class="spark.components.WindowedApplication" lookupOnly="true"/>
 
-	<!-- FTE text for MX components -->
-	<component id="FTEDataGridItemRenderer" class="mx.controls.dataGridClasses.FTEDataGridItemRenderer"/>
+    <!-- FTE text for MX components -->
+    <component id="FTEDataGridItemRenderer" class="mx.controls.dataGridClasses.FTEDataGridItemRenderer"/>
     <component id="MXFTETextInput" class="mx.controls.MXFTETextInput"/>
 
-	<!-- Text Layout Framework (TLF) -->
-	<component id="a" class="flashx.textLayout.elements.LinkElement" lookupOnly="true"/>
-	<component id="br" class="flashx.textLayout.elements.BreakElement" lookupOnly="true"/>
-	<component id="div" class="flashx.textLayout.elements.DivElement" lookupOnly="true"/>
-	<component id="img" class="flashx.textLayout.elements.InlineGraphicElement" lookupOnly="true"/>
-        <component id="list" class="flashx.textLayout.elements.ListElement" lookupOnly="true"/>
-        <component id="li" class="flashx.textLayout.elements.ListItemElement" lookupOnly="true"/>
-	<component id="p" class="flashx.textLayout.elements.ParagraphElement" lookupOnly="true"/>
-	<component id="span" class="flashx.textLayout.elements.SpanElement" lookupOnly="true"/>
-	<component id="tab" class="flashx.textLayout.elements.TabElement" lookupOnly="true"/>
-	<component id="tcy" class="flashx.textLayout.elements.TCYElement" lookupOnly="true"/>
-	<component id="ListMarkerFormat" class="flashx.textLayout.formats.ListMarkerFormat" lookupOnly="true"/>			         
-	<component id="g" class="flashx.textLayout.elements.SubParagraphGroupElement" lookupOnly="true"/>
-	<component id="TextFlow" class="flashx.textLayout.elements.TextFlow" lookupOnly="true"/>
-	<component id="TextLayoutFormat" class="flashx.textLayout.formats.TextLayoutFormat" lookupOnly="true"/>
+    <!-- Text Layout Framework (TLF) -->
+    <component id="a" class="flashx.textLayout.elements.LinkElement" lookupOnly="true"/>
+    <component id="br" class="flashx.textLayout.elements.BreakElement" lookupOnly="true"/>
+    <component id="div" class="flashx.textLayout.elements.DivElement" lookupOnly="true"/>
+    <component id="img" class="flashx.textLayout.elements.InlineGraphicElement" lookupOnly="true"/>
+    <component id="list" class="flashx.textLayout.elements.ListElement" lookupOnly="true"/>
+    <component id="li" class="flashx.textLayout.elements.ListItemElement" lookupOnly="true"/>
+    <component id="p" class="flashx.textLayout.elements.ParagraphElement" lookupOnly="true"/>
+    <component id="span" class="flashx.textLayout.elements.SpanElement" lookupOnly="true"/>
+    <component id="tab" class="flashx.textLayout.elements.TabElement" lookupOnly="true"/>
+    <component id="tcy" class="flashx.textLayout.elements.TCYElement" lookupOnly="true"/>
+    <component id="ListMarkerFormat" class="flashx.textLayout.formats.ListMarkerFormat" lookupOnly="true"/>			         
+    <component id="g" class="flashx.textLayout.elements.SubParagraphGroupElement" lookupOnly="true"/>
+    <component id="TextFlow" class="flashx.textLayout.elements.TextFlow" lookupOnly="true"/>
+    <component id="TextLayoutFormat" class="flashx.textLayout.formats.TextLayoutFormat" lookupOnly="true"/>
 
     <!-- rpc -->
     <component id="AMFChannel" class="mx.messaging.channels.AMFChannel" lookupOnly="true"/>
@@ -267,7 +269,7 @@
     <!-- LCDS (formerly known as FDS) -->
     <component id="DataService" class="mx.data.mxml.DataService" lookupOnly="true"/>
 	
-	<!-- Flex 3 Graphics -->
+    <!-- Flex 3 Graphics -->
     <component id="BitmapFill" class="mx.graphics.BitmapFill" lookupOnly="true"/>
     <component id="BitmapFillMode" class="mx.graphics.BitmapFillMode" lookupOnly="true"/>
     <component id="CompoundTransform" class="mx.geom.CompoundTransform" lookupOnly="true"/>
@@ -291,7 +293,7 @@
     <component id="MiniDebugTarget" class="mx.logging.targets.MiniDebugTarget" lookupOnly="true"/>
     <component id="TraceTarget" class="mx.logging.targets.TraceTarget" lookupOnly="true"/>
 
-	<!-- MXItemRenderer -->
+    <!-- MXItemRenderer -->
     <component id="MXItemRenderer" class="mx.controls.listClasses.MXItemRenderer"/>
     <component id="MXTreeItemRenderer" class="mx.controls.treeClasses.MXTreeItemRenderer"/>
     <component id="MXDataGridItemRenderer" class="mx.controls.dataGridClasses.MXDataGridItemRenderer"/>

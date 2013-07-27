@@ -33,11 +33,13 @@ import flash.utils.Timer;
 import mx.controls.ToolTip;
 import mx.core.FlexGlobals;
 import mx.core.FlexVersion;
+import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModule;
 import mx.core.IInvalidating;
 import mx.core.ILayoutDirectionElement;
 import mx.core.IToolTip;
 import mx.core.IUIComponent;
+import mx.core.IVisualElement;
 import mx.core.LayoutDirection;
 import mx.core.mx_internal;
 import mx.effects.EffectManager;
@@ -702,6 +704,12 @@ public class ToolTipManagerImpl extends EventDispatcher
         
         if (target is ILayoutManagerClient && !ILayoutManagerClient(target).initialized)
             return false;
+		
+		if (target is IVisualElement && !IVisualElement(target).visible)
+			return false;
+		
+		if (target is IFlexDisplayObject && !IFlexDisplayObject(target).visible)
+			return false;
     		
     	return target.hitTestPoint(target.stage.mouseX,
     							   target.stage.mouseY, true);

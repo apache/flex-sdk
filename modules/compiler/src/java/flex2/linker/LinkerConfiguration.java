@@ -203,4 +203,5 @@ public interface LinkerConfiguration
 	  */
 	 boolean getIncludeInheritanceDependenciesOnly();
 	 
+	 boolean getAdvancedTelemetry();
 }

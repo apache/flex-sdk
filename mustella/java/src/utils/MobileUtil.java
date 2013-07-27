@@ -70,6 +70,7 @@ public class MobileUtil {
     public static final String[] DEVICES_AROUND_160PPI = {WIN, DROID_PRO, ANDROID_TABLET, XOOM, IPOD_TOUCH_3GS, IPAD, IPAD2, PLAYBOOK};
 	public static final String[] DEVICES_AROUND_240PPI = {ANDROID, ANDROID2, DESIRE, DROID, DROID_2, DROID_X, NEXUS_ONE, EVO, INCREDIBLE};
 	public static final String[] DEVICES_AROUND_320PPI = {WIN, IPOD_TOUCH_4G, IPOD_TOUCH_5G, IPAD3, IPAD4};
+	public static final String[] DEVICES_AROUND_480PPI = {};
 
 	// Other
 	public static final String MOBILE_FRAMEWORK_DIR = "MobileConfig";
@@ -299,6 +300,11 @@ public class MobileUtil {
 		for( i = 0; i < Array.getLength( DEVICES_AROUND_320PPI ); ++i ){
 			if( deviceId.compareToIgnoreCase( DEVICES_AROUND_320PPI[ i ] ) == 0 )
 				ret = 320;
+		}
+		
+		for( i = 0; i < Array.getLength( DEVICES_AROUND_480PPI ); ++i ){
+			if( deviceId.compareToIgnoreCase( DEVICES_AROUND_480PPI[ i ] ) == 0 )
+				ret = 480;
 		}
 
 		return ret;

@@ -50,6 +50,7 @@ import mx.styles.ISimpleStyleClient;
 
 import spark.components.DataGrid;
 import spark.components.Grid;
+import spark.components.gridClasses.GridItemEditorActivationMouseEvent;
 import spark.events.GridEvent;
 import spark.events.GridItemEditorEvent;
 
@@ -569,7 +570,7 @@ public class DataGridEditor
         
         _editedItemRenderer = item;
         
-        // Need to turn on focusable children flag so focus manager will
+       // Need to turn on focusable children flag so focus manager will
         // allow focus into the data grid's children.
         if (restoreFocusableChildren)
             saveDataGridHasFocusableChildren = dataGrid.hasFocusableChildren; 
@@ -833,9 +834,11 @@ public class DataGridEditor
      *  by calling the item editor's save() method.  If the cancel parameter is true,
      *  then the editor's cancel() method is called instead.
      * 
-     *  @param cancel If false the data in the editor is saved. 
-     *  Otherwise the data in the editor is discarded.
-     *
+     *  @param cancel if true then the data in the editor is discarded, 
+     *  otherwise it's saved.
+     * 
+     *  @return true if the data in the editor was saved, false otherwise.
+     * 
      *  @see spark.components.IGridItemEditor
      *  
      *  @langversion 3.0
@@ -861,19 +864,28 @@ public class DataGridEditor
      * 
      *  Close the item editor without saving the data.
      */
-    mx_internal function cancelEdit():void
+    mx_internal function cancelEdit():Boolean
     {
         if (itemEditorInstance)
         {
-            // send the cancel event and tear down the editor.
-            dispatchCancelEvent();
-            destroyItemEditor();
+            if (itemEditorInstance.cancel())
+            {
+                // send the cancel event and tear down the editor.
+                dispatchCancelEvent();
+                destroyItemEditor();
+            }
+            else
+            {
+                return false;
+            }
         }
         else if (editedItemRenderer)
         {
             // cancel focus in an item editor by setting focus back to the grid.
             destroyItemEditor();
         }
+
+        return true;                   
 
     }
 
@@ -922,16 +934,19 @@ public class DataGridEditor
         var itemPosition:Object = editedItemPosition;
         if (!saveItemEditorSession())
         {
-            // the save was cancelled so dispatch a cancel event.
-            dispatchCancelEvent();
+            // The save was cancelled so check if the editor can be cancelled.
+            // If it can then dispatch a cancel event.
+            if (itemEditorInstance.cancel())
+                dispatchCancelEvent();
+            
             inEndEdit = false;
             return false;
         }
         
         var dataGridEvent:GridItemEditorEvent =
-            new GridItemEditorEvent(GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_SAVE, false, true);
+            new GridItemEditorEvent(GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_SAVE);
         
-        // SAVE_GRID_ITEM_EDITOR_SESSION events are cancelable
+        // GRID_ITEM_EDITOR_SESSION_SAVE events are NOT cancelable
         dataGridEvent.columnIndex = itemPosition.columnIndex;
         dataGridEvent.column = dataGrid.columns.getItemAt(itemPosition.columnIndex) as GridColumn;
         dataGridEvent.rowIndex = itemPosition.rowIndex;
@@ -1199,6 +1214,29 @@ public class DataGridEditor
 
     }
     
+    /**
+     *  @private
+     * 
+     *  Get the effective mouse event that activates an editor.
+     *  If the column has a setting, then use it. Otherwise use the setting on
+     *  the data grid.
+     */ 
+    private function getEditorActivationMouseEvent(columnIndex:int):String
+    {
+        var editorActivationMouseEvent:String = null;
+        
+        if (columnIndex >= 0 && columnIndex < dataGrid.columns.length)
+        {
+            var column:GridColumn = grid.columns.getItemAt(columnIndex) as GridColumn; 
+            editorActivationMouseEvent = column.editorActivationMouseEvent;    
+        }
+        
+        if (!editorActivationMouseEvent)
+            editorActivationMouseEvent = dataGrid.editorActivationMouseEvent;
+        
+        return editorActivationMouseEvent;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -1313,12 +1351,22 @@ public class DataGridEditor
             return;
         }
         
+        var editorActivationMouseEvent:String = getEditorActivationMouseEvent(columnIndex);
+        if (editorActivationMouseEvent != GridItemEditorActivationMouseEvent.SINGLE_CLICK && 
+            editorActivationMouseEvent != GridItemEditorActivationMouseEvent.SINGLE_CLICK_ON_SELECTED_CELL)
+        {
+            return;     // not allowed to start editor on a single click
+        }
+        
         // Don't open and editor if the click was not on a previously selected 
         // cell, unless that cell is an item renderer. We don't want to stop 
         // the item renderer from getting focus so start an edit session.
         const column:GridColumn = dataGrid.columns.getItemAt(columnIndex) as GridColumn;
         if (r && 
-            (column.rendererIsEditable || wasCellPreviouslySelected(rowIndex, columnIndex)))
+            (column.rendererIsEditable || 
+             (wasCellPreviouslySelected(rowIndex, columnIndex) && 
+                 editorActivationMouseEvent == GridItemEditorActivationMouseEvent.SINGLE_CLICK_ON_SELECTED_CELL) ||
+             editorActivationMouseEvent == GridItemEditorActivationMouseEvent.SINGLE_CLICK))
         {
             //trace("cell was previously selected: (" + rowIndex + "," + columnIndex + ")");  
             lastItemDown = r;
@@ -1353,6 +1401,13 @@ public class DataGridEditor
         
         const rowIndex:int = eventRowIndex;
         var columnIndex:int = eventColumnIndex;
+        
+        var editorActivationMouseEvent:String = getEditorActivationMouseEvent(columnIndex);
+        if (editorActivationMouseEvent != GridItemEditorActivationMouseEvent.SINGLE_CLICK && 
+            editorActivationMouseEvent != GridItemEditorActivationMouseEvent.SINGLE_CLICK_ON_SELECTED_CELL)
+        {
+            return;     // not allowed to start editor on a single click
+        }
         
         var r:IVisualElement = event.itemRenderer;
         //trace("grid_gridMouseUpHandler: itemRenderer = " + event.itemRenderer);  
@@ -1424,6 +1479,12 @@ public class DataGridEditor
         lastEvent = event;
         
         gotDoubleClickEvent = true;
+        
+        // If double-click editing is enabled then start up and editor session.
+        var editorActivationMouseEvent:String = getEditorActivationMouseEvent(event.columnIndex);
+        if (editorActivationMouseEvent == GridItemEditorActivationMouseEvent.DOUBLE_CLICK)
+            dataGrid.startItemEditorSession(event.rowIndex, event.columnIndex);
+            
     }
     
     /**
@@ -1674,9 +1735,10 @@ public class DataGridEditor
             dataGrid.endItemEditorSession(true);
         }
         
-        // set focus back to the grid so grid logic will deal if focus doesn't
-        // end up somewhere else
-        dataGrid.setFocus();
+        // If the item editor was destroyed then set focus back to the grid 
+        // so grid logic will deal if focus doesn't end up somewhere else. 
+        if (!itemEditorInstance)
+            dataGrid.setFocus();
     }
    
 }

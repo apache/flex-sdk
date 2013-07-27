@@ -168,7 +168,7 @@ Test height
 	</setup>
 	<body>
 		<SetProperty target="" propertyName="height" value="35" waitEvent="resize" />
-		<AssertPropertyValue target="" propertyName="height" value="38" />
+		<AssertPropertyValue target="" propertyName="height" value="35" />
 		<CompareBitmap target="" url="../properties/baselines/$testID.png" />
 	</body>
 </TestCase>

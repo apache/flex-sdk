@@ -59,6 +59,7 @@
 				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
 				<SetProperty target="ct.myDateV.myDV" propertyName="property" value="text"/>
 				<SetProperty target="ct.myDateV.myDV" propertyName="allowedFormatChars" value="語" />
+                <SetProperty target="ct.myDateV.myDV" propertyName="inputFormat" value="YYYY語MM語DD" />
 				<SetProperty target="ct.myDateV.ti1" propertyName="text" value="2006語12語31" waitEvent="updateComplete" waitTarget="ct.myDateV.ti1"/>
 			</setup>
 			<body>

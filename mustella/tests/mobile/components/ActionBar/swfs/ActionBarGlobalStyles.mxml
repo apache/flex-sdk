@@ -23,5 +23,6 @@
 			   chromeColor="#990000"
 			   color="#009900">
 	<!-- TODO: Add focusColor and accentColor to Application -->
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 	<comps:ActionBarBasic id="actionBar" />
 </s:Application>

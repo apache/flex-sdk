@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DateField/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DateField_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	
+		import mx.controls.DateField;
+		
+		public function changeDateToNullFormat():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, null);
+			return date;
+		}
+		
+		public function changeDateToEmptyFormat():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, "");
+			return date;
+		}
+	
+		public function changeDateToFullUSFormat():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, "MM/DD/YYYY");
+			return date;
+		}
+		
+		public function changeDateToUSTwoDigitYear():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, "MM/DD/YY");
+			return date;
+		}
+		
+		public function changeDateToFullRestOfWorldFormat():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, "DD/MM/YYYY");
+			return date;
+		}
+		
+		public function changeDateToSingleDigitMonthAndDate():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, "D/M/YYYY");
+			return date;
+		}
+		
+		public function changeDateToSpaceSeperators():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, "D M YYYY");
+			return date;
+		}
+		
+		public function changeDateToAnotherSeperator():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, "D-M-YYYY");
+			return date;
+		}
+		
+		public function changeDateToYearFirst():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, "YYYY/MM/DD");
+			return date;
+		}
+		
+		public function changeDateToNoSeperators():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, "YYYYMMDD");
+			return date;
+		}
+		
+		public function changeDateToNoSeperatorsShort():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, "YYYYMD");
+			return date;
+		}
+		
+		public function changeDateToTotallyMixedUp():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, "DD-YY-MM");
+			return date;
+		}
+			
+		public function changeDateToShortMonth():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, "DDD MMM YYYYYY");
+			return date;
+		}
+		
+		public function changeDateToLongMonth():String
+		{
+			var date:String = DateField.dateToString(application.df.selectedDate, "DDD MMMM YYYYYY");
+			return date;
+		}
+		
+		public function changeStringToNullFormat():Date
+		{
+			var date:Date = DateField.stringToDate("04/19/2013", null);
+			return date;
+		} 
+			
+		public function changeStringToEmptyFormat():Date
+		{
+			var date:Date = DateField.stringToDate("04/19/2013", "");
+			return date;
+		}
+		
+		public function changeStringWithNullDate():Date
+		{
+			var date:Date = DateField.stringToDate(null, "D/M/YYYY");
+			return date;
+		} 
+		
+		public function changeStringWithEmptyDate():Date
+		{
+			var date:Date = DateField.stringToDate("", "D/M/YYYY");
+			return date;
+		}
+		
+		public function changeStringWithWrongMonth():Date
+		{
+			var date:Date = DateField.stringToDate("1/13/2001", "D/M/YYYY");
+			return date;
+		} 
+		
+		public function changeStringWithWrongDate():Date
+		{
+			var date:Date = DateField.stringToDate("45/1/2001", "D/M/YYYY");
+			return date;
+		} 
+		
+		public function changeStringToFullUSDate():Date
+		{
+			var date:Date = DateField.stringToDate("04/19/2013", "MM/DD/YYYY");
+			return date;
+		}
+		
+		public function changeStringToUSDateTwoDigitYear():Date
+		{
+			var date:Date = DateField.stringToDate("04/19/2013", "MM/DD/YY");
+			return date;
+		} 
+		
+		public function changeStringToNonUSDate():Date
+		{
+			var date:Date = DateField.stringToDate("19/04/2013", "DD/MM/YYYY");
+			return date;
+		}
+		
+		public function changeStringToNonUSDateTwoDigitYear():Date
+		{
+			var date:Date = DateField.stringToDate("19/04/13", "DD/MM/YY");
+			return date;
+		} 
+		
+		public function changeStringToSingleDigitMonth():Date
+		{
+			var date:Date = DateField.stringToDate("19/4/13", "D/M/YY");
+			return date;
+		} 
+		
+		public function changeStringToSingleDigitDate():Date
+		{
+			var date:Date = DateField.stringToDate("1/4/13", "D/M/YY");
+			return date;
+		} 
+		
+		public function changeStringToDifferentSeperators():Date
+		{
+			var date:Date = DateField.stringToDate("19-4-2013", "D-M-YYYY");
+			return date;
+		} 
+		
+		public function changeStringToSpaceSeperators():Date
+		{
+			var date:Date = DateField.stringToDate("19 4 2013", "D M YYYY");
+			return date;
+		}
+		
+		public function changeStringToZeroPadded():Date
+		{
+			var date:Date = DateField.stringToDate("19-04-2013", "D-M-YYYY");
+			return date;
+		}
+		
+		public function changeStringToMissingYear():Date
+		{
+			var date:Date = DateField.stringToDate("19/04", "D/M/YYYY");
+			return date;
+		} 
+		
+		public function changeStringToMissingDateAndMonth():Date
+		{
+			var date:Date = DateField.stringToDate("2013", "D/M/YYYY");
+			return date;
+		} 
+		
+		public function changeStringToExtraInfo():Date
+		{
+			var date:Date = DateField.stringToDate("1/1/10/2013", "D/M/YYYY");
+			return date;
+		} 
+		
+		public function changeStringToMissingYearFormat():Date
+		{
+			var date:Date = DateField.stringToDate("19/04/2013", "DD/MM");
+			return date;
+		} 
+		
+		public function changeStringToMissingDateAndMonthFormat():Date
+		{
+			var date:Date = DateField.stringToDate("19/04/2013", "YYYY");
+			return date;
+		} 
+		
+		//TODO support this
+		public function changeStringToNoSeperators():Date
+		{
+			var date:Date = DateField.stringToDate("19042013", "DDMMYYYY");
+			return date;
+		}
+		
+		public function changeStringToNoSeperatorsSingleDigit():Date
+		{
+			var date:Date = DateField.stringToDate("1942013", "DMYYYY");
+			return date;
+		}
+		
+		public function changeStringToNoSeperatorsMissingYear():Date
+		{
+			var date:Date = DateField.stringToDate("1904", "DDMM");
+			return date;
+		}		
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="DateField_Format_Null_Format" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToNullFormat()" value=""/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Empty_Format" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToEmptyFormat()" value=""/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Full_US_Format" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToFullUSFormat()" value="04/19/2013"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_US_Two_Digit_Year" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToUSTwoDigitYear()" value="04/19/13"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Rest_of_the_World_Format" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToFullRestOfWorldFormat()" value="19/04/2013"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="DateField_Format_Single_Digit_And_Month" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToSingleDigitMonthAndDate()" value="19/4/2013"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="DateField_Format_Space_Seperated" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToSpaceSeperators()" value="19 4 2013"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="DateField_Format_Another_Seperator" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToAnotherSeperator()" value="19-4-2013"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Year_First" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToYearFirst()" value="2013/04/19"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_No_Sperators" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToNoSeperators()" value="20130419"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_No_Sperators_Short" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToNoSeperatorsShort()" value="2013419"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Totally_Mixed_Up" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToTotallyMixedUp()" value="19-13-04"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Short_Month" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToShortMonth()" value="19 Apr 2013"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Long_Month" keywords="[dateToString, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2013, 3, 19)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeDateToLongMonth()" value="19 April 2013"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Format_Null_Format" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToNullFormat()" valueExpression="value=null"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="DateField_Format_Empty_Format" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToEmptyFormat()" valueExpression="value=null"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="DateField_Format_Null_Date" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringWithNullDate()" valueExpression="value=null"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="DateField_Format_Empty_Date" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringWithEmptyDate()" valueExpression="value=null"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Wrong_Date" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringWithWrongDate()" valueExpression="value=null"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="DateField_Format_Wrong_Month" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringWithWrongMonth()" valueExpression="value=null"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="DateField_Format_Full_US_Date" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToFullUSDate()" valueExpression="value=new Date(2013, 3, 19)"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="DateField_Format_Two_Digit_Year" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToUSDateTwoDigitYear()" valueExpression="value=new Date(2013, 3, 19)"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="DateField_Format_Non_US_Date" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToNonUSDate()" valueExpression="value=new Date(2013, 3, 19)"/>
+			</body>
+		</TestCase>			
+		<TestCase testID="DateField_Format_Non_US_Date_Two_Digit_Year" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToNonUSDateTwoDigitYear()" valueExpression="value=new Date(2013, 3, 19)"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Single_Digit_Date" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToSingleDigitDate()" valueExpression="value=new Date(2013, 3, 1)"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Single_Digit_Month" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToSingleDigitMonth()" valueExpression="value=new Date(2013, 3, 19)"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Different_Seperators" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToDifferentSeperators()" valueExpression="value=new Date(2013, 3, 19)"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Space_Seperators" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToSpaceSeperators()" valueExpression="value=new Date(2013, 3, 19)"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Zero_Padded" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToZeroPadded()" valueExpression="value=new Date(2013, 3, 19)"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="DateField_Format_Missing_Year" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToMissingYear()" valueExpression="value=null"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Missing_Date_And_Month" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToMissingDateAndMonth()" valueExpression="value=null"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Extra_Info" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToExtraInfo()" valueExpression="value=null"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Missing_Year" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToMissingYearFormat()" valueExpression="value=null"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_Missing_Month_And_Date" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToMissingDateAndMonthFormat()" valueExpression="value=null"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_No_Seperators" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToNoSeperators()" valueExpression="value=null"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_No_Seperators_Single_Digit" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToNoSeperatorsSingleDigit()" valueExpression="value=null"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Format_No_Seperators_Missing_Year" keywords="[stringToDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
+			</setup>
+			<body> 
+				<AssertMethodValue target="df" method="value=changeStringToNoSeperatorsMissingYear()" valueExpression="value=null"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

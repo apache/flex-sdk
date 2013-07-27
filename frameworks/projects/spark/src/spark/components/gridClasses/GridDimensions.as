@@ -31,9 +31,11 @@ import mx.events.PropertyChangeEvent;
 /**
  *  A sparse data structure that represents the widths and heights of a grid.
  *  
- *  Provides efficient support for finding the cumulative y distance to the
+ *  <p>Provides efficient support for finding the cumulative y distance to the
  *  start of a particular cell as well as finding the index of a particular
  *  cell at a certain y value.
+ *  GridDimensions optimizes these operations by bookmarking the most recently
+ *  visited rows.</p>
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -54,7 +56,7 @@ public class GridDimensions
      *  Inserts specified elements starting from startIndex.
      *  
      *  <pre>Our implementation of:
-     *      var argArray:Array = new Array();
+     *      var argArray:Array = [];
      *      for each (var x:Number in values)
      *      {
      *          argArray.push(x);
@@ -156,9 +158,12 @@ public class GridDimensions
     private var rowList:GridRowList = new GridRowList();
     private var _columnWidths:Vector.<Number> = new Vector.<Number>();
 
-    //cache for cumulative y values.
+    // Bookmark recently visited rows by caching the node representing the row
+    // and the y-value corresponding to the start of the node.
+    // startY/recentNode is the bookmark used by getRowIndexAt()
     private var startY:Number = 0;
     private var recentNode:GridRowNode = null;
+    // startY2/recentNode2 is bookmark used by getCellY()
     private var startY2:Number = 0;
     private var recentNode2:GridRowNode = null;
     
@@ -302,10 +307,8 @@ public class GridDimensions
             return;
         
         _rowGap = value;
-        
-        // reset recent node.
-        recentNode = null;
-        recentNode2 = null;
+
+        clearCachedNodes();
     }
     
     //----------------------------------
@@ -338,10 +341,8 @@ public class GridDimensions
             return;
         
         _columnGap = value;
-        
-        // reset recent node.
-        recentNode = null;
-        recentNode2 = null;
+
+        clearCachedNodes();
     }
     
     //----------------------------------
@@ -382,14 +383,14 @@ public class GridDimensions
         _defaultRowHeight = bound(value, _minRowHeight, _maxRowHeight);
         useMaxTypicalCellHeight = isNaN(_defaultRowHeight);
         
-        // reset recent node.
-        recentNode = null;
-        recentNode2 = null;
+        clearCachedNodes();
     }
     
     //----------------------------------
     //  defaultColumnWidth
     //----------------------------------
+    
+    private var _defaultColumnWidth:Number = 150;
     
     /**
      *  The default width of a column.
@@ -400,11 +401,27 @@ public class GridDimensions
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public var defaultColumnWidth:Number = 150;
+    public function get defaultColumnWidth():Number
+    {
+        return _defaultColumnWidth;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set defaultColumnWidth(value:Number):void
+    {
+        if (value == _defaultColumnWidth)
+            return;
+        
+        _defaultColumnWidth = value;
+    }    
     
     //----------------------------------
     //  variableRowHeight
     //----------------------------------
+    
+    private var _variableRowHeight:Boolean = false;  // default value must match Grid property default value
     
     /**
      *  If variableRowHeight is false, calling getRowHeight
@@ -415,7 +432,21 @@ public class GridDimensions
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public var variableRowHeight:Boolean = false;  // default value must match Grid property default value
+    public function get variableRowHeight():Boolean
+    {
+        return _variableRowHeight;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set variableRowHeight(value:Boolean):void
+    {
+        if (value == _variableRowHeight)
+            return;
+        
+        _variableRowHeight = value;
+    }       
     
     //----------------------------------
     //  minRowHeight
@@ -490,6 +521,20 @@ public class GridDimensions
     //--------------------------------------------------------------------------
 
     /**
+     *  Clears bookmarked nodes.
+     *  Each bookmarked node is associated with a cumulative y-value representing
+     *  the total height of the grid up to the start of the row.
+     *  These values are cleared as well.
+     */
+    private function clearCachedNodes():void
+    {
+        recentNode = null;
+        startY = 0;
+        recentNode2 = null;
+        startY2 = 0;
+    }
+    
+    /**
      *  Returns the height of the row at the given index. If variableRowHeight
      *  is true, then the height in precendence order is: the height set by setRowHeight,
      *  the natural height of the row (determined by the maximum of its cell heights),
@@ -551,6 +596,8 @@ public class GridDimensions
             if (node)
                 node.fixedHeight = bound(height, minRowHeight, maxRowHeight);
         }
+        
+        clearCachedNodes();
     }
 
     /**
@@ -762,11 +809,11 @@ public class GridDimensions
             
             // subtract previous node's height and its gap.
             indDiff = node.rowIndex - prevNode.rowIndex - 1;
-            currentY = currentY - indDiff * (defaultRowHeight + rowGap) - (prevNode.maxCellHeight + rowGap);
+            currentY = currentY - indDiff * (defaultRowHeight + rowGap) - (getRowHeight(prevNode.rowIndex) + rowGap);
             nodeY = currentY;
             node = prevNode;
         }
-
+        
         this.recentNode2 = node;
         this.startY2 = nodeY;
         
@@ -797,13 +844,14 @@ public class GridDimensions
         {
             if (node.rowIndex == row)
                 break;
-            
-            currentY += node.maxCellHeight;
+
+            // add next row's height and rowGap
+            currentY += getRowHeight(node.rowIndex);
             if (node.rowIndex < _rowCount - 1)
                 currentY += rowGap;
             
             nextNode = node.next;
-
+            
             if (!nextNode || (row > node.rowIndex && row < nextNode.rowIndex))
             {
                 // at the beginning or somewhere between nodes
@@ -813,7 +861,7 @@ public class GridDimensions
                 break;
             }
             
-            // add next node's maxCellHeight and rowGap
+            // add estimated heights of rows in between measured rows.
             indDiff = nextNode.rowIndex - node.rowIndex - 1;
             currentY = currentY + indDiff * (defaultRowHeight + rowGap);
             nodeY = currentY; 
@@ -903,13 +951,17 @@ public class GridDimensions
         if ((col < 0) || (col >= _columnCount))
             return null;
         
-        if (_columnCount == 0 || _rowCount == 0)
+        if (_columnCount == 0)
             return new Rectangle(0, 0, 0, 0);
 
         const x:Number = getCellX(0, col);
         const y:Number = getCellY(0, col);
         const colWidth:Number = getColumnWidth(col);
-        const colHeight:Number = getCellY(_rowCount - 1, col) + getRowHeight(_rowCount - 1) - y;
+        var colHeight:Number = 0;
+		
+		if (_rowCount > 0)
+			colHeight = getCellY(_rowCount - 1, col) + getRowHeight(_rowCount - 1) - y;
+
         return new Rectangle(x, y, colWidth, colHeight);
     }
     
@@ -966,7 +1018,7 @@ public class GridDimensions
      */
     private function isYInRow(y:Number, startY:Number, node:GridRowNode):Boolean
     {
-        var end:Number = startY + node.maxCellHeight;
+        var end:Number = startY + getRowHeight(node.rowIndex);
         
         // don't add gap for last row.
         if (node.rowIndex != rowCount - 1)
@@ -1031,7 +1083,7 @@ public class GridDimensions
             }
 
             // subtract previous node's height and its gap.
-            currentY = prevY - prevNode.maxCellHeight - rowGap;
+            currentY = prevY - getRowHeight(prevNode.rowIndex) - rowGap;
             node = node.prev;
             index = node.rowIndex;
         }
@@ -1070,7 +1122,7 @@ public class GridDimensions
                 break;
             
             // currentY increments to end of the current node.
-            currentY += node.maxCellHeight;
+            currentY += getRowHeight(node.rowIndex);
             if (node.rowIndex != rowCount - 1)
                 currentY += rowGap;
             
@@ -1152,7 +1204,7 @@ public class GridDimensions
             
             cur -= temp + columnGap;
 
-            if (cur <= 0)
+            if (cur < 0)
                 return i;
         }
         
@@ -1169,28 +1221,27 @@ public class GridDimensions
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function getContentWidth(columnCountOverride:int = -1):Number
+    public function getContentWidth(columnCountOverride:int = -1, startColumnIndex:int = 0):Number
     {
-		const nCols:int = (columnCountOverride == -1) ? _columnCount : columnCountOverride;
+        const nCols:int = (columnCountOverride == -1) ? columnCount - startColumnIndex : columnCountOverride;
         var contentWidth:Number = 0;
-        var width:Number;
         var measuredColCount:int = 0;
         
-        for (var i:int = 0; (i < _columnCount) && (measuredColCount < nCols); i++)
+        for (var columnIndex:int = startColumnIndex; (columnIndex < columnCount) && (measuredColCount < nCols); columnIndex++)
         {
-            if (i >= _columnWidths.length)
+            if (columnIndex >= _columnWidths.length)
             {
                 contentWidth += defaultColumnWidth;
                 measuredColCount++;
                 continue;
             }
             
-            width = _columnWidths[i];
+            var width:Number = _columnWidths[columnIndex];
             
             // fall back on typical width
             if (isNaN(width))
             {
-                width = typicalCellWidths[i];
+                width = typicalCellWidths[columnIndex];
                 // column.visible==false, skip this column.
                 if (width == 0)
                     continue;
@@ -1204,15 +1255,15 @@ public class GridDimensions
             measuredColCount++;
         }
         
-        if (nCols > 1)
-            contentWidth += (nCols - 1) * columnGap;
+        if (measuredColCount > 1)
+            contentWidth += (measuredColCount - 1) * columnGap;
         
         return contentWidth;
     }
     
     /**
      *  Returns the total layout height of the content including gaps.  If 
-	 *  rowHeightOverride is specified, then the overall height of as many rows
+	 *  rowCountOverride is specified, then the overall height of as many rows
 	 *  is returned.
      * 
      *  @langversion 3.0
@@ -1220,9 +1271,10 @@ public class GridDimensions
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function getContentHeight(rowCountOverride:int = -1):Number
+    public function getContentHeight(rowCountOverride:int = -1, startRowIndex:int = 0):Number
     {
-		const nRows:int = (rowCountOverride == -1) ? rowCount : rowCountOverride;
+        const nRows:int = (rowCountOverride == -1) ? rowCount - startRowIndex : rowCountOverride;        
+        const maxRow:int = (rowCountOverride == -1) ? rowCount : startRowIndex + rowCountOverride;
 		var contentHeight:Number = 0;
         
         if (nRows > 1)
@@ -1231,12 +1283,17 @@ public class GridDimensions
         if (!variableRowHeight || rowList.length == 0)
             return contentHeight + nRows * defaultRowHeight;
         
-        var node:GridRowNode = rowList.first;
+        var node:GridRowNode = (startRowIndex == 0) ? rowList.first : rowList.findNearestLTE(startRowIndex);
         var numRows:int = 0;
         
-        while (node && node.rowIndex < nRows)
+        while (node && node.rowIndex < maxRow)  
         {
-            contentHeight += node.maxCellHeight;
+            if (node.rowIndex < startRowIndex)
+            {
+                node = node.next;
+                continue;
+            }
+            contentHeight += getRowHeight(node.rowIndex);
             numRows++;
             node = node.next;
         }
@@ -1256,16 +1313,16 @@ public class GridDimensions
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function getTypicalContentWidth(columnCountOverride:int = -1):Number
+    public function getTypicalContentWidth(columnCountOverride:int = -1, startColumnIndex:int = 0):Number
     {
-        const nCols:int = (columnCountOverride == -1) ? _columnCount : columnCountOverride;
+        const nCols:int = (columnCountOverride == -1) ? columnCount - startColumnIndex : columnCountOverride;
         var contentWidth:Number = 0;
         var measuredColCount:int = 0;
         
-        for (var columnIndex:int = 0; (columnIndex < _columnCount) && (measuredColCount < nCols); columnIndex++)
+        for (var columnIndex:int = startColumnIndex; (columnIndex < columnCount) && (measuredColCount < nCols); columnIndex++)
         {
             // column.visible==false columns will have a typicalCellWidth of 0, so skip them.
-            var width:Number = columnIndex < _columnCount ? typicalCellWidths[columnIndex] : NaN;
+            var width:Number = columnIndex < columnCount ? typicalCellWidths[columnIndex] : NaN;
             if (width == 0)
                 continue;
             
@@ -1276,7 +1333,7 @@ public class GridDimensions
             measuredColCount++;
         }
         
-        if (nCols > 1)
+        if (measuredColCount > 1)
             contentWidth += (measuredColCount - 1) * columnGap;
 
         return contentWidth;
@@ -1292,9 +1349,9 @@ public class GridDimensions
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function getTypicalContentHeight(rowCountOverride:int = -1):Number
+    public function getTypicalContentHeight(rowCountOverride:int = -1, startRowIndex:int = 0):Number
     {
-        const nRows:int = (rowCountOverride == -1) ? rowCount : rowCountOverride;
+        const nRows:int = (rowCountOverride == -1) ? rowCount - startRowIndex : rowCountOverride;          
         var contentHeight:Number = 0;
         
         if (nRows > 1)
@@ -1487,9 +1544,8 @@ public class GridDimensions
         typicalCellWidths.splice(startColumn, count);
         typicalCellHeights.splice(startColumn, count);
         
-        // cache is invalid because node values might have changed
-        recentNode = null;
-        recentNode2 = null;
+        // bookmarks are invalid because row heights may have changed.
+        clearCachedNodes();
     }
     
     /**
@@ -1520,9 +1576,8 @@ public class GridDimensions
             rowList.removeNode(oldNode);
         }
         
-        // cache is invalid now.
-        recentNode = null;
-        recentNode2 = null;
+        // bookmarks are invalid because row heights may have changed.
+        clearCachedNodes();
     }
     
     /**
@@ -1545,9 +1600,8 @@ public class GridDimensions
         clearVector(typicalCellHeights, NaN, startColumn, count);
         clearVector(_columnWidths, NaN, startColumn, count);
         
-        // cache is invalid because node values might have changed
-        recentNode = null;
-        recentNode2 = null;   
+        // bookmarks are invalid because row heights may have changed.
+        clearCachedNodes(); 
     }
         
     /**
@@ -1605,10 +1659,7 @@ public class GridDimensions
     public function clearHeights():void
     {
         rowList.removeAll();
-        recentNode = null;
-        recentNode2 = null;
-        startY = 0;
-        startY2 = 0;
+        clearCachedNodes();
     }
     
     /**
@@ -1656,9 +1707,8 @@ public class GridDimensions
         
         this.rowCount += count;
         
-        // cache is invalid now.
-        recentNode = null;
-        recentNode2 = null;
+        // bookmarks are invalid because row heights may have changed.
+        clearCachedNodes();
     }
     
     /**
@@ -1695,9 +1745,8 @@ public class GridDimensions
         
         _rowCount -= count;
         
-        // cache is invalid now.
-        recentNode = null;
-        recentNode2 = null;
+        // bookmarks are invalid because row heights may have changed.
+        clearCachedNodes();
         return vec;
     }
     

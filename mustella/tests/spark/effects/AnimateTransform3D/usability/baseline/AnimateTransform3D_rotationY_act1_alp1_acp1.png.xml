@@ -1,0 +1,37 @@
+<DisplayList>
+  <AnimateTransform3D_rotationY_main width="500" height="500">
+    <spark.skins.spark.ApplicationSkin width="500" height="500" blendMode="auto">
+      <spark.components.Group width="500" height="500" blendMode="auto">
+        <spark.components.Group width="500" height="500" blendMode="auto">
+          <CubePanel_rotationY y="50" width="400" height="400">
+            <spark.skins.spark.PanelSkin width="400" height="400">
+              <spark.primitives.RectangularDropShadow width="400" height="400"/>
+              <spark.components.Group width="400" height="400" blendMode="auto">
+                <spark.components.Group x="1" y="1" width="398" height="398" blendMode="auto"/>
+                <spark.components.supportClasses.InvalidatingSprite width="400" height="400"/>
+                <spark.components.Group x="1" y="1" width="398" height="398" blendMode="auto">
+                  <spark.components.Group width="398" height="31" blendMode="auto">
+                    <mask>
+                      <spark.components.Group x="1" y="1" width="398" height="398" blendMode="auto"/>
+                    </mask>
+                    <spark.components.Label x="9" y="1" width="386" height="30">
+                      <flash.display.Shape width="386" height="30"/>
+                      <flash.text.engine.TextLine y="18.05" width="0" height="11.3" ascent="8.736328125" descent="2.525390625" atomCount="1" hasGraphicElement="false"/>
+                    </spark.components.Label>
+                  </spark.components.Group>
+                  <spark.components.Group y="31" width="398" height="367" blendMode="auto">
+                    <spark.components.Group x="149" y="134" width="100" height="100" blendMode="auto">
+                      <spark.components.supportClasses.InvalidatingSprite concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" matrix3D="1,0,0,0,0,-4.371138828673793e-8,1,0,0,-1,-4.371138828673793e-8,0,0,100,0,1" y="100" width="102" height="0" blendMode="layer"/>
+                      <spark.components.supportClasses.InvalidatingSprite matrix3D="1,0,0,0,0,-4.371138828673793e-8,1,0,0,-1,-4.371138828673793e-8,0,0,0,0,1" width="102" height="0"/>
+                      <spark.components.supportClasses.InvalidatingSprite matrix3D="1,0,0,0,0,1,0,0,0,0,1,0,0,0,100,1" width="102" height="102"/>
+                    </spark.components.Group>
+                  </spark.components.Group>
+                </spark.components.Group>
+              </spark.components.Group>
+            </spark.skins.spark.PanelSkin>
+          </CubePanel_rotationY>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </AnimateTransform3D_rotationY_main>
+</DisplayList>

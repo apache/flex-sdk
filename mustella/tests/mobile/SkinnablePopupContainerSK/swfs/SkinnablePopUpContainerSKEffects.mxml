@@ -61,6 +61,8 @@
 				loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorHandler);
 			}
 			
+			// force inclusion of softkeyboard event faking
+			public var fakeSoftKeyboard:FakeSoftKeyboard;
 			
 			/**
 			 * Logs an uncaught RTE by writing a file with its information to the sdcard of the device.

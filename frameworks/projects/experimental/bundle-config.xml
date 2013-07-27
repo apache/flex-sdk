@@ -22,6 +22,7 @@
         <external-library-path>
             <path-element>${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc</path-element>
             <path-element>../../libs/framework.swc</path-element>
+            <path-element>../../libs/spark.swc</path-element>
         </external-library-path>
         
         <include-libraries/>
@@ -43,6 +44,8 @@
     <include-namespaces/>
     
     <include-resource-bundles>
+        <bundle>alert</bundle>
+        <bundle>dividers</bundle>
         <bundle>experimental</bundle>
     </include-resource-bundles>
         

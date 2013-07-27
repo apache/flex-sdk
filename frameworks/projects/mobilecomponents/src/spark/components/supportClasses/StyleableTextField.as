@@ -1219,15 +1219,13 @@ public class StyleableTextField extends FlexTextField
         // could be due to rounding error.  Let's check that it's not.
         // Examples of rounding errors happen with "South Africa" and "Game"
         // with verdana.ttf.
-        
         if (originalText != "" && measuredTextSize.x > w + 0.00000000000001)
         {
             // This should get us into the ballpark.
             var s:String = originalText;
             
-            // TODO (rfrishbe): why is this here below...it does nothing (see SDK-26438)
-            //originalText.slice(0,
-            //    Math.floor((w / (textWidth + TEXT_WIDTH_PADDING)) * originalText.length));
+            s = originalText.slice(0,
+                Math.floor((w / (textWidth + TEXT_WIDTH_PADDING)) * originalText.length));
             
             while (s.length > 1 && (measuredTextSize.x > w))
             {
@@ -1236,7 +1234,21 @@ public class StyleableTextField extends FlexTextField
                 
                 invalidateTextSizeFlag = true;
             }
-            
+            var otl:int = originalText.length;
+            var t:String = s;
+            while (t.length < otl)
+            {
+                t = originalText.slice(0, t.length + 1);
+                super.text = t + truncationIndicator;
+                invalidateTextSizeFlag = true;
+                if (measuredTextSize.x + TEXT_WIDTH_PADDING <= w)
+                    s = t;
+                else
+                    break;
+            } 
+            if (s.length > 0)
+                super.text = s + truncationIndicator;
+
             _isTruncated = true;
             invalidateBaselinePosition = true;
             invalidateTightTextHeight = true;

@@ -29,9 +29,16 @@ import mx.collections.IList;
 import mx.core.IFactory;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
+import mx.managers.ILayoutManagerClient;
 
+import spark.components.gridClasses.CellPosition;
 import spark.components.gridClasses.GridColumn;
-import spark.components.gridClasses.GridColumnHeaderGroupLayout;
+import spark.components.gridClasses.GridColumnHeaderView;
+import spark.components.gridClasses.GridDimensionsView;
+import spark.components.gridClasses.GridHeaderLayout;
+import spark.components.gridClasses.GridHeaderViewLayout;
+import spark.components.gridClasses.GridLayout;
+import spark.components.gridClasses.GridView;
 import spark.components.gridClasses.IDataGridElement;
 import spark.components.gridClasses.IGridItemRenderer;
 import spark.events.GridEvent;
@@ -303,7 +310,9 @@ use namespace mx_internal;
  *    dataGrid="null"  
  *    downColumnIndex="-1"  
  *    headerRenderer="null"  
- *    hoverColumnIndex="-1"  
+ *    hoverColumnIndex="-1" 
+ *    selectedColumnIndex="-1"  
+ *    highlightSelectedColumn="false" 
  *    visibleSortIndicatorIndices="<i>empty Vector.&lt;int&gt<i>"
  * 
  *    <strong>Styles</strong>
@@ -340,8 +349,8 @@ use namespace mx_internal;
 public class GridColumnHeaderGroup extends Group implements IDataGridElement
 {
     include "../core/Version.as";
-    
-    /**
+	
+	/**
      *  Constructor.
      *  
      *  @langversion 3.0
@@ -353,8 +362,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     {
         super();
         
-        layout = new GridColumnHeaderGroupLayout();
-        layout.clipAndEnableScrolling = true;
+		layout = new GridHeaderLayout();
 
         // Event handlers that dispatch GridEvents
         
@@ -425,6 +433,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     //----------------------------------
     
     private var _dataGrid:DataGrid = null;
+	private var lockedColumnCountChanged:Boolean = false;
     
     [Bindable("dataGridChanged")]
     
@@ -453,17 +462,26 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     {
         if (_dataGrid == value)
             return;
-        
+		
         if (_dataGrid && _dataGrid.grid)
-            _dataGrid.grid.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_changeEventHandler);
+		{
+            _dataGrid.grid.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_propertyChangeHandler);
+			_dataGrid.grid.removeEventListener("columnsChanged", grid_propertyChangeHandler);				
+			_dataGrid.grid.removeEventListener("lockedColumnCountChanged", grid_propertyChangeHandler);			
+		}
         
         _dataGrid = value;
 
         if (_dataGrid && _dataGrid.grid)
-            _dataGrid.grid.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_changeEventHandler);
+		{
+            _dataGrid.grid.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_propertyChangeHandler);
+			_dataGrid.grid.addEventListener("columnsChanged", grid_propertyChangeHandler);				
+			_dataGrid.grid.addEventListener("lockedColumnCountChanged", grid_propertyChangeHandler);	
+		}
         
         layout.clearVirtualLayoutCache();
-        invalidateSize();
+
+		invalidateSize();
         invalidateDisplayList();
         
         dispatchChangeEvent("dataGridChanged");
@@ -472,12 +490,19 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     /**
      *  @private
      */
-    private function grid_changeEventHandler(event:PropertyChangeEvent):void
+    private function grid_propertyChangeHandler(event:Event):void
     {
-        if (event.property == "horizontalScrollPosition")
-            horizontalScrollPosition = Number(event.newValue);
+        const ghl:GridHeaderLayout = layout as GridHeaderLayout;
+        if (!ghl)
+            return;
+        
+		const pce:PropertyChangeEvent = event as PropertyChangeEvent;
+		if (pce && (pce.property ==  "horizontalScrollPosition"))
+			ghl.centerGridColumnHeaderView.horizontalScrollPosition = Number(pce.newValue);
+		else if ((event.type == "columnsChanged") || (event.type == "lockedColumnCountChanged"))
+			invalidateProperties();
     }
-    
+	
     //----------------------------------
     //  downColumnIndex
     //----------------------------------
@@ -539,7 +564,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      */
     public function get headerRenderer():IFactory
     {
-        return _headerRenderer;
+        return _headerRenderer;  // TODO: find a way to make it possible to specify this with DataGrid...
     }
     
     /**
@@ -558,7 +583,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         
         dispatchChangeEvent("headerRendererChanged");
     }
-    
+	
     //----------------------------------
     //  hoverColumnIndex 
     //----------------------------------
@@ -601,6 +626,103 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     }
     
     //----------------------------------
+    //  selectedColumnIndex 
+    //----------------------------------
+    
+    private var _selectedColumnIndex:int = -1;
+    
+    [Bindable("selectedColumnIndexChanged")]
+    
+    /**
+     *  Specifies the column index of the header renderer currently selected by the user.
+     *  The selected property of the header renderer for selectedColumnIndex will be true 
+     *  and false for all other header renderers.
+     *  
+     *  <p>Setting selectedColumnIndex to -1, the default, means that no column is selected and 
+     *  selected property for all header renderers will be false.</p>
+
+     * 
+     *  @default -1
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
+     */
+    public function get selectedColumnIndex():int
+    {
+        return _selectedColumnIndex;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set selectedColumnIndex(value:int):void
+    {
+        if (_selectedColumnIndex == value)
+            return;
+        
+        _selectedColumnIndex = value;
+        invalidateDisplayList();
+        dispatchChangeEvent("selectedColumnIndexChanged");
+    }
+        
+    //----------------------------------
+    //  highlightSelectedColumn 
+    //----------------------------------
+    
+    private var _highlightSelectedColumn:Boolean = false;
+    
+    [Bindable("highlightSelectedColumnChanged")]
+    
+    /**
+     *  The DefaultGridHeaderRenderer only highlights the selected column when selectedColumnIndex is
+     *  valid and highlightSelectedColumn is true.  If this property is set to true and 
+     *  the selectedColumnIndex is -1, then the selectedColumnIndex is set to the hoverColumnIndex,
+     *  and if that's -1, then the first visible column.
+     * 
+     *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
+     */
+    public function get highlightSelectedColumn():Boolean
+    {
+        return _highlightSelectedColumn;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set highlightSelectedColumn(value:Boolean):void
+    {
+        if (_highlightSelectedColumn == value)
+            return;
+        
+        // If this property's value is being changed to true, make sure that the 
+        // initial value of selectedColumnIndex corresponds to a visible column.
+        // Tabbing to the DataGrid header shouldn't cause the DataGrid to scroll.
+        
+        if (value)
+        {
+            if ((selectedColumnIndex == -1) && (hoverColumnIndex != 1))
+                selectedColumnIndex = hoverColumnIndex;
+            
+            if (dataGrid.grid && !dataGrid.grid.isCellVisible(-1, selectedColumnIndex))
+            {
+                const visibleColumnIndices:Vector.<int> = dataGrid.grid.getVisibleColumnIndices();
+                selectedColumnIndex = (visibleColumnIndices.length > 0) ? visibleColumnIndices[0] : -1;
+            }
+        }
+
+        _highlightSelectedColumn = value;
+        invalidateDisplayList();
+        dispatchChangeEvent("highlightSelectedColumnChanged");
+    }
+        
+    //----------------------------------
     //  visibleSortIndicatorIndices
     //----------------------------------
     
@@ -635,6 +757,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         _visibleSortIndicatorIndices = valueCopy;
         
         invalidateDisplayList();
+		
         dispatchChangeEvent("visibleSortIndicatorIndicesChanged");
     }
     
@@ -665,8 +788,47 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     //  Methods 
     //
     //--------------------------------------------------------------------------
-    
-    /**
+	
+	private function createGridColumnHeaderView():Group
+	{
+		const view:GridColumnHeaderView = new GridColumnHeaderView();
+		view.gridColumnHeaderGroup = this;		
+		addElement(view);
+				
+		return view;
+	}
+		
+	/**
+	 *  Create and/or configure the GridColumnHeaderViews.  We're assuming that the
+	 *  DataGrid's GridViews have already been created.
+	 */
+	public function configureGridColumnHeaderViews():void
+	{
+        const ghl:GridHeaderLayout = layout as GridHeaderLayout;
+        if (!ghl)
+            return;
+        
+		if (ghl.centerGridColumnHeaderView == null)
+			ghl.centerGridColumnHeaderView = createGridColumnHeaderView();
+		
+		if (dataGrid.lockedColumnCount > 0)
+		{
+			ghl.leftGridColumnHeaderView = createGridColumnHeaderView();
+		}
+		else if (ghl.leftGridColumnHeaderView)
+		{
+			removeElement(ghl.leftGridColumnHeaderView);
+			ghl.leftGridColumnHeaderView = null;
+		}
+		
+		const gridLayout:GridLayout = dataGrid.grid.layout as GridLayout;
+
+		GridHeaderViewLayout(ghl.centerGridColumnHeaderView.layout).gridView = gridLayout.centerGridView;
+		if (ghl.leftGridColumnHeaderView)
+			GridHeaderViewLayout(ghl.leftGridColumnHeaderView.layout).gridView = gridLayout.leftGridView;
+	}
+	
+	/**
      *  Returns the column index corresponding to the specified coordinates,
      *  or -1 if the coordinates are out of bounds. The coordinates are 
      *  resolved with respect to the GridColumnHeaderGroup layout target.
@@ -688,7 +850,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      */
     public function getHeaderIndexAt(x:Number, y:Number):int
     {
-        return GridColumnHeaderGroupLayout(layout).getHeaderIndexAt(x, y);
+        // TODO: fix this: x coordinate has to be adjusted
+		const view:Group = getColumnHeaderViewAtX(x);
+        return GridHeaderViewLayout(view.layout).getHeaderIndexAt(x, y);
     }
     
     /**
@@ -723,7 +887,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      */
     public function getSeparatorIndexAt(x:Number, y:Number):int
     {
-        return GridColumnHeaderGroupLayout(layout).getSeparatorIndexAt(x, y);
+        // TODO: fix this: x coordinate has to be adjusted        
+		const view:Group = getColumnHeaderViewAtX(x);		
+        return GridHeaderViewLayout(view.layout).getSeparatorIndexAt(x, y);
     }    
         
     /**
@@ -750,7 +916,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      */
     public function getHeaderRendererAt(columnIndex:int):IGridItemRenderer
     {
-        return GridColumnHeaderGroupLayout(layout).getHeaderRendererAt(columnIndex);
+        // TODO: fix this: do the work here, rather than the layout            
+		const view:Group = getColumnHeaderViewAtIndex(columnIndex);	
+        return GridHeaderViewLayout(view.layout).getHeaderRendererAt(columnIndex);
     }
     
     /**
@@ -771,9 +939,47 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      */  
     public function getHeaderBounds(columnIndex:int):Rectangle
     {
-        return GridColumnHeaderGroupLayout(layout).getHeaderBounds(columnIndex);
+        // TODO: fix this: do the work here, rather than the layout         
+		const view:Group = getColumnHeaderViewAtIndex(columnIndex);		
+        return GridHeaderViewLayout(view.layout).getHeaderBounds(columnIndex);
     }
-    
+	
+	/**
+	 *  @private
+	 */
+	override public function invalidateSize():void
+	{
+		super.invalidateSize();
+		
+        const ghl:GridHeaderLayout = layout as GridHeaderLayout;
+        if (!ghl)
+            return;
+        
+		if (ghl.leftGridColumnHeaderView)
+			ghl.leftGridColumnHeaderView.invalidateSize();
+		
+		if (ghl.centerGridColumnHeaderView)
+			ghl.centerGridColumnHeaderView.invalidateSize();
+	}
+	
+	/**
+	 *  @private
+	 */
+	override public function invalidateDisplayList():void
+	{
+		super.invalidateDisplayList();
+        
+        const ghl:GridHeaderLayout = layout as GridHeaderLayout; 
+        if (!ghl)
+            return;
+
+		if (ghl.leftGridColumnHeaderView)
+			ghl.leftGridColumnHeaderView.invalidateDisplayList();
+		
+		if (ghl.centerGridColumnHeaderView)
+			ghl.centerGridColumnHeaderView.invalidateDisplayList();		
+	}
+		
     //--------------------------------------------------------------------------
     //
     //  GridEvent dispatching
@@ -787,6 +993,49 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     private var rollSeparatorIndex:int = -1;   // separator mouse has rolled into
     private var pressColumnIndex:int = -1;      // column button press occurred on
     private var pressSeparatorIndex:int = -1;   // separator button press occurred on
+    
+	/** 
+	 *  @private
+	 *  Return the GridView whose bounds contain the MouseEvent, or null.  Note that the 
+	 *  comparison is based strictly on the event's location and the GridViews' bounds.
+	 *  The event's target can be anything.
+	 */
+	private function mouseEventHeaderView(event:MouseEvent):GridColumnHeaderView
+	{
+		const ghl:GridHeaderLayout = layout as GridHeaderLayout;
+
+		const centerGridColumnHeaderView:GridColumnHeaderView = GridColumnHeaderView(ghl.centerGridColumnHeaderView)
+		if (centerGridColumnHeaderView && centerGridColumnHeaderView.containsMouseEvent(event))
+			return centerGridColumnHeaderView;
+		
+		const leftGridColumnHeaderView:GridColumnHeaderView = GridColumnHeaderView(ghl.leftGridColumnHeaderView);
+		if (leftGridColumnHeaderView && leftGridColumnHeaderView.containsMouseEvent(event))
+			return leftGridColumnHeaderView;
+		
+		return null;
+	}
+
+    // TODO: apologize for stashing the separatorIndex in headerCP.rowIndex
+    private function eventToHeaderLocations(event:MouseEvent, headerCP:CellPosition, headerXY:Point):Boolean
+    {
+        const view:Group = mouseEventHeaderView(event);
+        if (!view)
+            return false;
+
+		const stageXY:Point = new Point(event.stageX, event.stageY);
+        const viewXY:Point = view.globalToLocal(stageXY);
+        const viewLayout:GridHeaderViewLayout = view.layout as GridHeaderViewLayout;
+        const gdv:GridDimensionsView = viewLayout.gridView.gridViewLayout.gridDimensionsView;
+        const separatorIndex:int = viewLayout.getSeparatorIndexAt(viewXY.x, 0);
+        
+        headerCP.rowIndex = (separatorIndex != -1) ? separatorIndex + gdv.viewColumnIndex : -1;
+        headerCP.columnIndex = (separatorIndex == -1) ? viewLayout.getHeaderIndexAt(viewXY.x, 0) + gdv.viewColumnIndex : -1;
+        
+        headerXY.x = viewXY.x + gdv.viewOriginX;
+        headerXY.y = viewXY.y;
+		
+        return true;
+    }
     
     /**
      *  @private
@@ -813,11 +1062,13 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      */    
     protected function gchg_mouseDownDragUpHandler(event:MouseEvent):void
     {
-        const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
-        const eventSeparatorIndex:int = getSeparatorIndexAt(eventHeaderGroupXY.x, 0);
-        const eventColumnIndex:int = 
-            (eventSeparatorIndex == -1) ? getHeaderIndexAt(eventHeaderGroupXY.x, 0) : -1;
+        const eventHeaderCP:CellPosition = new CellPosition();
+        const eventHeaderXY:Point = new Point();
+        if (!eventToHeaderLocations(event, eventHeaderCP, eventHeaderXY))
+            return;
+
+        const eventSeparatorIndex:int = eventHeaderCP.rowIndex;
+        const eventColumnIndex:int = (eventSeparatorIndex == -1) ? eventHeaderCP.columnIndex : -1;
         
         var gridEventType:String;
         switch(event.type)
@@ -855,8 +1106,8 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
             }
         }
         
-        const columnIndex:int = (eventSeparatorIndex != -1) ? eventSeparatorIndex : eventColumnIndex;
-        dispatchGridEvent(event, gridEventType, eventHeaderGroupXY, columnIndex);
+        const columnIndex:int = (pressSeparatorIndex != -1) ? pressSeparatorIndex : eventColumnIndex;
+        dispatchGridEvent(event, gridEventType, eventHeaderXY, columnIndex);
     }
     
     /**
@@ -884,33 +1135,32 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      */    
     protected function gchg_mouseMoveHandler(event:MouseEvent):void
     {
-        const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
-        const eventSeparatorIndex:int = getSeparatorIndexAt(eventHeaderGroupXY.x, 0);
-        const eventColumnIndex:int = 
-            (eventSeparatorIndex == -1) ? getHeaderIndexAt(eventHeaderGroupXY.x, 0) : -1;
+        const eventHeaderCP:CellPosition = new CellPosition();
+        const eventHeaderXY:Point = new Point();
+        if (!eventToHeaderLocations(event, eventHeaderCP, eventHeaderXY))
+            return;
+        
+        const eventSeparatorIndex:int = eventHeaderCP.rowIndex;
+        const eventColumnIndex:int = (eventSeparatorIndex == -1) ? eventHeaderCP.columnIndex : -1;        
         
         if (eventSeparatorIndex != rollSeparatorIndex)
         {
             if (rollSeparatorIndex != -1)
-                dispatchGridEvent(event, GridEvent.SEPARATOR_ROLL_OUT, eventHeaderGroupXY, rollSeparatorIndex);
+                dispatchGridEvent(event, GridEvent.SEPARATOR_ROLL_OUT, eventHeaderXY, rollSeparatorIndex);
             if (eventSeparatorIndex != -1)
-                dispatchGridEvent(event, GridEvent.SEPARATOR_ROLL_OVER, eventHeaderGroupXY, eventSeparatorIndex);
+                dispatchGridEvent(event, GridEvent.SEPARATOR_ROLL_OVER, eventHeaderXY, eventSeparatorIndex);
         } 
         
         if (eventColumnIndex != rollColumnIndex)
         {
             if (rollColumnIndex != -1)
-                dispatchGridEvent(event, GridEvent.GRID_ROLL_OUT, eventHeaderGroupXY, rollColumnIndex);
+                dispatchGridEvent(event, GridEvent.GRID_ROLL_OUT, eventHeaderXY, rollColumnIndex);
             if (eventColumnIndex != -1)
-                dispatchGridEvent(event, GridEvent.GRID_ROLL_OVER, eventHeaderGroupXY, eventColumnIndex);
+                dispatchGridEvent(event, GridEvent.GRID_ROLL_OVER, eventHeaderXY, eventColumnIndex);
         } 
         
         rollColumnIndex = eventColumnIndex;
         rollSeparatorIndex = eventSeparatorIndex;
-        
-        // update renderer property
-        hoverColumnIndex = eventColumnIndex;
     }
     
     /**
@@ -929,19 +1179,15 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      */       
     protected function gchg_mouseRollOutHandler(event:MouseEvent):void
     {
-        const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
+        const eventHeaderXY:Point = globalToLocal(new Point(event.stageX, event.stageY));      
         
         if (rollSeparatorIndex != -1)
-            dispatchGridEvent(event, GridEvent.SEPARATOR_ROLL_OUT, eventHeaderGroupXY, rollSeparatorIndex);
+            dispatchGridEvent(event, GridEvent.SEPARATOR_ROLL_OUT, eventHeaderXY, rollSeparatorIndex);
         else if (rollColumnIndex != -1)
-            dispatchGridEvent(event, GridEvent.GRID_ROLL_OUT, eventHeaderGroupXY, rollColumnIndex);
+            dispatchGridEvent(event, GridEvent.GRID_ROLL_OUT, eventHeaderXY, rollColumnIndex);
 
         rollColumnIndex = -1;
         rollSeparatorIndex = -1;
-        
-        // update renderer property
-        hoverColumnIndex = -1;
     }
     
     /**
@@ -961,16 +1207,18 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      */       
     protected function gchg_clickHandler(event:MouseEvent):void 
     {
-        const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
-        const eventSeparatorIndex:int = getSeparatorIndexAt(eventHeaderGroupXY.x, 0);
-        const eventColumnIndex:int = 
-            (eventSeparatorIndex == -1) ? getHeaderIndexAt(eventHeaderGroupXY.x, 0) : -1;
+        const eventHeaderCP:CellPosition = new CellPosition();
+        const eventHeaderXY:Point = new Point();
+        if (!eventToHeaderLocations(event, eventHeaderCP, eventHeaderXY))
+            return;
         
+        const eventSeparatorIndex:int = eventHeaderCP.rowIndex;
+        const eventColumnIndex:int = (eventSeparatorIndex == -1) ? eventHeaderCP.columnIndex : -1;              
+ 
         if ((eventSeparatorIndex != -1) && (pressSeparatorIndex == eventSeparatorIndex))
-            dispatchGridEvent(event, GridEvent.SEPARATOR_CLICK, eventHeaderGroupXY, eventSeparatorIndex);
+            dispatchGridEvent(event, GridEvent.SEPARATOR_CLICK, eventHeaderXY, eventSeparatorIndex);
         else if ((eventColumnIndex != -1) && (pressColumnIndex == eventColumnIndex))
-            dispatchGridEvent(event, GridEvent.GRID_CLICK, eventHeaderGroupXY, eventColumnIndex);
+            dispatchGridEvent(event, GridEvent.GRID_CLICK, eventHeaderXY, eventColumnIndex);
     }
     
     /**
@@ -991,16 +1239,19 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      */       
     protected function gchg_doubleClickHandler(event:MouseEvent):void 
     {
-        const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
-        const eventSeparatorIndex:int = getSeparatorIndexAt(eventHeaderGroupXY.x, 0);
-        const eventColumnIndex:int = 
-            (eventSeparatorIndex == -1) ? getHeaderIndexAt(eventHeaderGroupXY.x, 0) : -1;
+        const eventHeaderCP:CellPosition = new CellPosition();
+        const eventHeaderXY:Point = new Point();
+        if (!eventToHeaderLocations(event, eventHeaderCP, eventHeaderXY))
+            return;
+        
+        const eventSeparatorIndex:int = eventHeaderCP.rowIndex;
+        const eventColumnIndex:int = (eventSeparatorIndex == -1) ? eventHeaderCP.columnIndex : -1;             
         
         if ((eventSeparatorIndex != -1) && (pressSeparatorIndex == eventSeparatorIndex))
-            dispatchGridEvent(event, GridEvent.SEPARATOR_DOUBLE_CLICK, eventHeaderGroupXY, eventSeparatorIndex);
-        else if ((eventColumnIndex != -1) && (pressColumnIndex == eventColumnIndex))
-            dispatchGridEvent(event, GridEvent.GRID_DOUBLE_CLICK, eventHeaderGroupXY, eventColumnIndex);
+            dispatchGridEvent(event, GridEvent.SEPARATOR_DOUBLE_CLICK, eventHeaderXY, eventSeparatorIndex);
+//Commented out because it completely bypasses the grids normal doubleclick handler, yet it calls a doubleclick.
+//        else if ((eventColumnIndex != -1) && (pressColumnIndex == eventColumnIndex))
+//            dispatchGridEvent(event, GridEvent.GRID_DOUBLE_CLICK, eventHeaderXY, eventColumnIndex);
     }    
     
     /**
@@ -1046,5 +1297,32 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         const columns:IList = grid.columns;
         return ((columnIndex >= 0) && (columnIndex < columns.length)) ? columns.getItemAt(columnIndex) as GridColumn : null;
     }
+	
+	/**
+	 *  @private
+	 */
+	private function getColumnHeaderViewAtX(x:Number):Group
+	{
+        const ghl:GridHeaderLayout = layout as GridHeaderLayout;
+        
+		if (ghl.leftGridColumnHeaderView && (x < ghl.centerGridColumnHeaderView.getLayoutBoundsX()))
+			return ghl.leftGridColumnHeaderView;
+		
+		return ghl.centerGridColumnHeaderView;
+	}
+
+	/**
+	 *  @private
+	 */
+	private function getColumnHeaderViewAtIndex(columnIndex:int):Group
+	{
+        const ghl:GridHeaderLayout = layout as GridHeaderLayout;
+        
+		if (ghl.leftGridColumnHeaderView && (columnIndex < dataGrid.lockedColumnCount))
+			return ghl.leftGridColumnHeaderView;
+		
+		return ghl.centerGridColumnHeaderView;
+	}
+	
 }    
 }

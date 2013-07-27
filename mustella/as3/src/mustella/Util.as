@@ -25,7 +25,7 @@ package
 	 **/
 	public class Util{
 		/**
-		 * Rounds to 160, 240, or 320 using Flex's code from RuntimeDPIProvider.as.
+		 * Rounds to 160, 240, 320 or 480 using Flex's code from RuntimeDPIProvider.as.
 		 **/
 		public static function roundDeviceDensity( dpi:int ):int{
 			if ( dpi < 200 )
@@ -34,7 +34,10 @@ package
 			if (dpi <= 280)
 			    return 240;
 			
-			return 320;
+			if (dpi <= 400)
+				return 320;
+						
+			return 480;
 		}
 	}
 }

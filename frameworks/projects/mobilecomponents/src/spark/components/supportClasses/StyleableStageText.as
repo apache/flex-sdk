@@ -2463,7 +2463,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //
     //--------------------------------------------------------------------------
     
-    private function ancestor_closeHandler(event:PopUpEvent):void
+    private function ancestor_closeHandler(event:Event):void
     {
         ancestorsVisible = false;
         invalidateAncestorsVisibleFlag = false;
@@ -2495,7 +2495,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         invalidateProperties();
     }
     
-    private function ancestor_openHandler(event:PopUpEvent):void
+    private function ancestor_openHandler(event:Event):void
     {
         invalidateAncestorsVisibleFlag = true;
         invalidateProperties();
@@ -3095,7 +3095,7 @@ class StageTextPool
             // default value.
             if (!cleanProperties)
             {
-                cleanProperties = new Object();
+                cleanProperties = {};
                 
                 cleanProperties["autoCapitalize"] = result.autoCapitalize;
                 cleanProperties["autoCorrect"] = result.autoCorrect;

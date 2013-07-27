@@ -162,10 +162,10 @@ enabled
          <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.vgroup1.tabBarFocusTest1, 1)" waitTarget="vgroup1.tabBarFocusTest1" waitEvent="updateComplete" />
     </setup>
     <body>
-        <RunCode code="FlexGlobals.topLevelApplication.vgroup1.textArea1.setFocus()"/>
+        <RunCode code="FlexGlobals.topLevelApplication.vgroup1.textArea1.setFocus()" waitEvent="focusIn" waitTarget="vgroup1.textArea1"/>
         <WaitForEvent numExpectedEvents="-1" eventName="updateComplete" target="vgroup1.textArea1" timeout="2000" />
         <DispatchKeyEvent keys="[TAB,TAB,TAB]"/>
-        <RunCode code="FlexGlobals.topLevelApplication.vgroup1.buttonBar1.setFocus()" />
+        <RunCode code="FlexGlobals.topLevelApplication.vgroup1.buttonBar1.setFocus()" waitEvent="focusIn" waitTarget="vgroup1.buttonBar1" />
   	<WaitForEvent numExpectedEvents="-1" eventName="updateComplete" target="vgroup1.buttonBar1" timeout="2000" />
       
         <DispatchKeyEvent keys="[RIGHT,RIGHT,SPACE]" waitEvent="focusIn" waitTarget="vgroup1.buttonBar1" />

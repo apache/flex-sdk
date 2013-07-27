@@ -2395,8 +2395,6 @@ public class TextArea extends ScrollControlBase
         var visibleRows:Number =
             textField.bottomScrollV - textField.scrollV + 1;
 
-        var rows:Number = textField.numLines;
-
         setScrollBarProperties(textField.width + textField.maxScrollH,
                                textField.width, textField.numLines,
                                visibleRows);

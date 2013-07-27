@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" creationComplete="buildCube()"  width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+			import mx.olap.OLAPSet;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.AsyncResponder;
+			import mx.rpc.AsyncToken;
+			import mx.olap.OLAPQuery;
+			private var inputData:ArrayCollection = new ArrayCollection( [
+				
+			{ product:"FlexBuilder", revenue:100, sales:10, version:1 },
+				{ product:"FlexBuilder", revenue:200, sales:15, version:1 },
+				{ product:"FlexBuilder", revenue:150, sales:10, version:2 },
+				{ product:"FlexBuilder", revenue:170, sales:8, version:2 },
+				{ product:"FlexBuilder", revenue:150, sales:7, version:3 },
+				{ product:"FlexBuilder", revenue:180, sales:9, version:3 },
+				
+				{ product:"Fireworks", revenue:70, sales:11, version:1 },
+				{ product:"Fireworks", revenue:20, sales:14, version:1 },
+				{ product:"Fireworks", revenue:130, sales:8, version:3 },
+				{ product:"Fireworks", revenue:150, sales:6, version:3 },
+				
+				]);
+			
+			private function buildCube():void
+			{
+				sales.refresh();			
+			}
+			
+			private function cubeCompleteHandler():void
+			{
+				var query:OLAPQuery = new OLAPQuery();
+				
+				var colSet:OLAPSet = new OLAPSet();
+				colSet.addElements(sales.findDimension("Product").findAttribute("Version").members);
+				
+				var measureSet:OLAPSet = new OLAPSet();
+				measureSet.addElements(sales.findDimension("Measures").members);
+				query.getAxis(OLAPQuery.COLUMN_AXIS).addSet(colSet.crossJoin(measureSet));
+				
+				var rowSet:OLAPSet = new OLAPSet();
+				rowSet.addElements(sales.findDimension("Product").findAttribute("Product").members);
+				query.getAxis(OLAPQuery.ROW_AXIS).addSet(rowSet);
+				
+				var token:AsyncToken = sales.execute(query);
+				token.addResponder(new AsyncResponder(resultHandler, faultHandler));
+			}
+			
+			private function resultHandler(data:Object, token:Object):void
+			{
+				OLAPDG2.dataProvider = data;
+			}
+			
+			private function faultHandler(error:Object, token:Object):void
+			{
+				trace("Error");
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:OLAPCube id="sales" complete="cubeCompleteHandler()" dataProvider="{inputData}" >
+		<mx:OLAPDimension name="Product">
+			<mx:OLAPAttribute dataField="product" name="Product" />
+			<mx:OLAPAttribute dataField="version" name="Version" />
+		</mx:OLAPDimension>
+		<mx:OLAPMeasure name="Revenue" dataField="revenue" aggregator="SUM" />
+		<mx:OLAPMeasure name="Sales" dataField="sales" aggregator="SUM" />
+		<mx:OLAPMeasure name="AvarageRevenue" dataField="avarageRevenue" aggregator="{new CustomAvarage()}" />
+	</mx:OLAPCube>
+	
+	<mx:OLAPDataGrid id="OLAPDG2"  />
+
+</mx:VBox>

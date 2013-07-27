@@ -1,0 +1,15 @@
+# mustella files
+failures.txt
+results.txt
+versions.txt
+properties/mustella_tmp.properties
+test_files.tmp
+*.lnk.xml
+*.bad.png
+*.bad.png.xml
+classes/
+deps.xml
+changes.txt
+catalog.xml
+library.swf
+as3/src/mustella/MobileConfig.as

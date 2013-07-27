@@ -73,6 +73,7 @@
 				<WaitForEffectsToEnd />
 			</setup>
 			<body>
+                <WaitForLayoutManager />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="curAlert"/>
 				<DispatchKeyEvent key="SPACE" />
 			</body>

@@ -32,8 +32,8 @@ import java.util.Properties;
 public class VersionInfo
 {
     public static String FLEX_MAJOR_VERSION = "4";
-    public static String FLEX_MINOR_VERSION = "9";
-    public static String FLEX_NANO_VERSION  = "1";
+    public static String FLEX_MINOR_VERSION = "10";
+    public static String FLEX_NANO_VERSION  = "0";
     
 	/**
 	 * Lib version is the "version" of the SWC format. Major number changes represent big (although not

@@ -19,6 +19,7 @@
 
 package spark.components
 {
+import flash.events.Event;
 import flash.events.StageOrientationEvent;
 
 import mx.core.FlexGlobals;

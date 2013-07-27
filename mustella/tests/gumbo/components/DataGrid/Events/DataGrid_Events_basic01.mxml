@@ -65,7 +65,7 @@
     		public var receivedEventType:String;
     		
     		
-    		public function mouseGeneralHandler(e:GridEvent):void
+    	public function mouseGeneralHandler(e:GridEvent):void
 		{
 			gridEvent=e;	
 		}
@@ -105,10 +105,12 @@
 		public function createExpectedGridEvent(type:String, rowIndex:int, columnIndex:int, dg:DataGrid):GridEvent
 		{
 			if (rowIndex==-1)
-			    return new GridEvent(type,true,true,NaN,NaN,null,false,false,false,false,0,rowIndex,columnIndex, GridColumn(dg.columns.getItemAt(columnIndex)),null);
+			    return new GridEvent(type,true,true,NaN,NaN,null,false,false,false,false,0,rowIndex,columnIndex, 
+			                         columnIndex >= 0 ? GridColumn(dg.columns.getItemAt(columnIndex)) : null,null);
 		
 			if (columnIndex==-1)
-			    return new GridEvent(type,true,true,NaN,NaN,null,false,false,false,false,0,rowIndex,columnIndex, null,dg.dataProvider.getItemAt(rowIndex));
+			    return new GridEvent(type,true,true,NaN,NaN,null,false,false,false,false,0,rowIndex,columnIndex, null,
+			                         rowIndex >= 0 ? dg.dataProvider.getItemAt(rowIndex) : null);
 			
 			return new GridEvent(type,true,true,NaN,NaN,null,false,false,false,false,0,rowIndex,columnIndex, GridColumn(dg.columns.getItemAt(columnIndex)),dg.dataProvider.getItemAt(rowIndex));
 		
@@ -410,21 +412,19 @@
        
          
           <TestCase testID="event_gridMouseDrag_test02" keywords="['event,gridMouseDrag']" description="Test mouse drag on dataGrid to outside of dataGrid">
-             <setup>
-             	
+             <setup>             	
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
-                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
-                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                 <WaitForLayoutManager/>
                  <RunCode code="eventType=GridEvent.GRID_MOUSE_DRAG" />
                  <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,mouseGeneralHandler)" />
              </setup>
              <body>
                  <DispatchMouseEvent type="{MouseEvent.MOUSE_DOWN}" target="dataGrid.grid" localX="10" localY="20" />
                  <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" buttonDown="true" target="dataGrid.grid" localX="10" localY="20"/>
-	         <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" buttonDown="true" target="label1" localX="10" localY="30"/>
-              	 <!-- drag outside of dataGrid -->
+              	 <!-- drag outside of dataGrid so "gridMouseDrag" event will have rowIndex=-1 and columnIndex=-1 -->
+	             <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" buttonDown="true" target="label1" localX="10" localY="30"/>
                  <AssertEvent target="dataGrid.grid" eventName="{eventType}" eventClass="spark.events::GridEvent" />
- 		<AssertMethodValue method="value=verifyGridEvent(createExpectedGridEvent(eventType,-1,0,FlexGlobals.topLevelApplication.dataGrid))" value=""/>		
+ 		         <AssertMethodValue method="value=verifyGridEvent(createExpectedGridEvent(eventType,-1,-1,FlexGlobals.topLevelApplication.dataGrid))" value=""/>		
              </body>
         </TestCase>
         
@@ -435,8 +435,7 @@
              	
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
                  <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
-                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
-                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>  
+                 <WaitForLayoutManager/>
                  <RunCode code="eventType=GridCaretEvent.CARET_CHANGE" />
                  <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,caretChangeHandler)" />
              </setup>
@@ -454,7 +453,7 @@
              	
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
                  <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
-		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	   
+                 <WaitForLayoutManager/>
                  <RunCode code="eventType=GridCaretEvent.CARET_CHANGE" />
                  <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,caretChangeHandler)" />
              </setup>
@@ -472,8 +471,7 @@
              	
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
                  <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
-                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
-                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	   
+                 <WaitForLayoutManager/>
                  <RunCode code="eventType=GridCaretEvent.CARET_CHANGE" />
                  <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,caretChangeHandler)" />
                  <RunCode code="gridCaretEvt=null" />
@@ -488,8 +486,7 @@
              	
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
                  <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_ROW"/>
-                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
-                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		   
+                 <WaitForLayoutManager/>
                  <RunCode code="eventType=GridCaretEvent.CARET_CHANGE" />
                  <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,caretChangeHandler)" />
              </setup>
@@ -507,7 +504,7 @@
              	
                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
                  <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
-                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForLayoutManager/>
                  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		   
                  <RunCode code="eventType=GridCaretEvent.CARET_CHANGE" />
                  <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,caretChangeHandler)" />

@@ -103,7 +103,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    private var isStyleMap:Object = new Object();
+    private var isStyleMap:Object = {};
     
     /**
      *  @private.
@@ -502,7 +502,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
                         mp.property == "horizontalCenter")
                     {
                         if (!disabledConstraintsMap)
-                            disabledConstraintsMap = new Object();
+                            disabledConstraintsMap = {};
                         disabledConstraintsMap[mp.property] = true;
                         mp.property = "x";
                         if (isValidValue(propertyChanges.start["width"]) &&
@@ -516,7 +516,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
                     else
                     {
                         if (!disabledConstraintsMap)
-                            disabledConstraintsMap = new Object();
+                            disabledConstraintsMap = {};
                         disabledConstraintsMap[mp.property] = true;
                         mp.property = "y";
                         if (isValidValue(propertyChanges.start["height"]) &&
@@ -1041,7 +1041,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         if (!isNaN(value) && value != null)
         {
             if (!constraintsHolder)
-                constraintsHolder = new Object();
+                constraintsHolder = {};
             constraintsHolder[name] = value;
             // Now disable it - it will be re-enabled when effect finishes
             if (isProperty)

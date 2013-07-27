@@ -24,6 +24,7 @@ import flash.swf.tags.GenericTag;
 import flash.swf.tags.ScriptLimits;
 import flash.swf.tags.SetBackgroundColor;
 import flash.swf.tags.FileAttributes;
+import flash.swf.tags.EnableTelemetry;
 import flash.swf.tags.ProductInfo;
 import flash.swf.tags.Metadata;
 import flash.swf.tags.DefineSceneAndFrameLabelData;
@@ -86,6 +87,11 @@ public class Movie
 	 * FileAttributes defines whole-SWF attributes (SWF 8 or later)
 	 */
 	public FileAttributes fileAttributes;
+	
+	/**
+	 * EnableTelemetry defines if advanced telemetry is on or off
+	 */
+	public EnableTelemetry enableTelemetry;
 
 	/**
 	 * if present, player will attach to a debugger

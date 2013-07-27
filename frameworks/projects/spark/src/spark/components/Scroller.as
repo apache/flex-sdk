@@ -1579,7 +1579,8 @@ public class Scroller extends SkinnableComponent
         }
         else
         {
-            viewport[scrollProperty] = snapScrollPosition;
+			if (scrollProperty)
+           		viewport[scrollProperty] = snapScrollPosition;
 			
 			return null;
         }

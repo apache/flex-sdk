@@ -253,6 +253,10 @@
 
     <s:List id="list1" dataProvider="{new ArrayCollection([])}"  />
     <s:List id="list2" dataProvider="{new ArrayCollection([])}" itemRendererFunction="mixItemRendererFunction"/>
+    <s:HGroup>
+        <s:List id="lcvlist"/>
+        <s:Label id="lcvlist_selectedItem" text="{lcvlist.selectedItem}"/>
+    </s:HGroup>
     <comps:ItemRendRETComp id="list3" />
     <comps:ItemRendRETLabelComp id="list4" />
     <comps:ItemRendRETComp1 id="list5" />

@@ -22,6 +22,7 @@ package mx.controls
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
+import flash.display.InteractiveObject;
 import flash.display.Graphics;
 import flash.display.Shape;
 import flash.display.Sprite;
@@ -4474,7 +4475,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
                     UIComponent(itemEditorInstance).drawFocus(false);
 
                 // setfocus back to us so something on stage has focus
-                deferFocus();
+				// only if focus is null or is in this DG
+				var focusComp:InteractiveObject = getFocus();
+				if (focusComp == null || contains(focusComp))
+	                deferFocus();
                 
                 // defer focus can cause focusOutHandler to destroy the editor
                 // and make itemEditorInstance null
@@ -5057,11 +5061,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
-		if (itemEditorInstance || !owns(DisplayObject(event.target)))
-		{
+        if (itemEditorInstance || !owns(DisplayObject(event.target)))
+        {
             return;
-		}
-		
+        }
+        
         if (event.keyCode != Keyboard.SPACE)
         {
             super.keyDownHandler(event);

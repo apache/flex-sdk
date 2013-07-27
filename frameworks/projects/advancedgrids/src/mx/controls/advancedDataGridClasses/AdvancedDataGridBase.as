@@ -1291,7 +1291,6 @@ public class AdvancedDataGridBase extends AdvancedListBase implements IFontConte
         {
             var ui:IInvalidating = IInvalidating(r);
             ui.invalidateDisplayList();
-            ui.validateNow();
         }
     }
 

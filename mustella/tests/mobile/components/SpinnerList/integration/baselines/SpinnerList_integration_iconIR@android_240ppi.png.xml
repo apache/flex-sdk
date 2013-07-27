@@ -1,0 +1,116 @@
+<DisplayList>
+  <SpinnerList width="640" height="960">
+    <spark.skins.spark.ApplicationSkin width="640" height="960" blendMode="auto">
+      <spark.components.Group width="640" height="960" blendMode="auto">
+        <spark.components.Group width="640" height="960" blendMode="auto">
+          <comps.QANavigator width="640" height="960">
+            <spark.skins.mobile.ViewNavigatorSkin width="640" height="960">
+              <spark.components.Group y="67" width="640" height="893" blendMode="auto">
+                <views.SlotMachineView width="640" height="893">
+                  <spark.skins.mobile.SkinnableContainerSkin width="640" height="893">
+                    <spark.components.Group width="640" height="893" blendMode="auto">
+                      <spark.components.Group x="116" y="83" width="408" height="330" blendMode="auto">
+                        <spark.components.HGroup width="408" height="330" blendMode="auto">
+                          <spark.components.SpinnerList width="132" height="330">
+                            <spark.skins.mobile.SpinnerListSkin width="132" height="330">
+                              <spark.components.Scroller x="1" width="130" height="330">
+                                <spark.skins.mobile.SpinnerListScrollerSkin width="130" height="330" blendMode="auto">
+                                  <spark.components.DataGroup width="130" height="330" scrollRect="(x=0, y=-103, w=130, h=330)">
+                                    <comps.SlotMachineRenderer y="372" width="130" height="124" cacheAsBitmap="true"/>
+                                    <comps.SlotMachineRenderer y="-124" width="130" height="124" cacheAsBitmap="true"/>
+                                    <comps.SlotMachineRenderer width="130" height="124" cacheAsBitmap="true"/>
+                                    <comps.SlotMachineRenderer y="124" width="130" height="124" cacheAsBitmap="true"/>
+                                    <comps.SlotMachineRenderer y="248" width="130" height="124" cacheAsBitmap="true"/>
+                                  </spark.components.DataGroup>
+                                </spark.skins.mobile.SpinnerListScrollerSkin>
+                              </spark.components.Scroller>
+                            </spark.skins.mobile.SpinnerListSkin>
+                          </spark.components.SpinnerList>
+                          <spark.components.SpinnerList x="138" width="132" height="330">
+                            <spark.skins.mobile.SpinnerListSkin width="132" height="330">
+                              <spark.components.Scroller x="1" width="130" height="330">
+                                <spark.skins.mobile.SpinnerListScrollerSkin width="130" height="330" blendMode="auto">
+                                  <spark.components.DataGroup width="130" height="330" scrollRect="(x=0, y=-103, w=130, h=330)">
+                                    <comps.SlotMachineRenderer y="372" width="130" height="124" cacheAsBitmap="true"/>
+                                    <comps.SlotMachineRenderer y="-124" width="130" height="124" cacheAsBitmap="true"/>
+                                    <comps.SlotMachineRenderer width="130" height="124" cacheAsBitmap="true"/>
+                                    <comps.SlotMachineRenderer y="124" width="130" height="124" cacheAsBitmap="true"/>
+                                    <comps.SlotMachineRenderer y="248" width="130" height="124" cacheAsBitmap="true"/>
+                                  </spark.components.DataGroup>
+                                </spark.skins.mobile.SpinnerListScrollerSkin>
+                              </spark.components.Scroller>
+                            </spark.skins.mobile.SpinnerListSkin>
+                          </spark.components.SpinnerList>
+                          <spark.components.SpinnerList x="276" width="132" height="330">
+                            <spark.skins.mobile.SpinnerListSkin width="132" height="330">
+                              <spark.components.Scroller x="1" width="130" height="330">
+                                <spark.skins.mobile.SpinnerListScrollerSkin width="130" height="330" blendMode="auto">
+                                  <spark.components.DataGroup width="130" height="330" scrollRect="(x=0, y=-103, w=130, h=330)">
+                                    <comps.SlotMachineRenderer y="372" width="130" height="124" cacheAsBitmap="true"/>
+                                    <comps.SlotMachineRenderer y="-124" width="130" height="124" cacheAsBitmap="true"/>
+                                    <comps.SlotMachineRenderer width="130" height="124" cacheAsBitmap="true"/>
+                                    <comps.SlotMachineRenderer y="124" width="130" height="124" cacheAsBitmap="true"/>
+                                    <comps.SlotMachineRenderer y="248" width="130" height="124" cacheAsBitmap="true"/>
+                                  </spark.components.DataGroup>
+                                </spark.skins.mobile.SpinnerListScrollerSkin>
+                              </spark.components.Scroller>
+                            </spark.skins.mobile.SpinnerListSkin>
+                          </spark.components.SpinnerList>
+                        </spark.components.HGroup>
+                        <spark.components.supportClasses.InvalidatingSprite y="164" width="408" height="3"/>
+                      </spark.components.Group>
+                    </spark.components.Group>
+                  </spark.skins.mobile.SkinnableContainerSkin>
+                </views.SlotMachineView>
+              </spark.components.Group>
+              <spark.components.ActionBar width="640" height="67">
+                <spark.skins.mobile.ActionBarSkin width="640" height="67">
+                  <spark.skins.mobile240.assets.ActionBarBackground width="640" height="70" blendMode="auto" scale9Grid="(x=2, y=2, w=61, h=62)">
+                    <flash.display.Shape width="65" height="1"/>
+                    <flash.display.Shape y="66" width="65" height="1"/>
+                    <flash.display.Shape y="67" width="65" height="1"/>
+                    <flash.display.Shape y="68" width="65" height="1"/>
+                    <flash.display.Shape y="69" width="65" height="1"/>
+                    <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.1484375, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="1" y="1" width="63" height="1"/>
+                    <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.09765625, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="1" y="65" width="63" height="1"/>
+                    <flash.display.Shape y="1" width="1" height="65"/>
+                    <flash.display.Shape x="64" y="1" width="1" height="65"/>
+                    <flash.display.Shape width="65" height="70"/>
+                  </spark.skins.mobile240.assets.ActionBarBackground>
+                  <spark.components.Group y="1" width="81" height="65" blendMode="auto">
+                    <spark.components.Button width="81" height="65">
+                      <spark.skins.mobile.TransparentNavigationButtonSkin width="81" height="65">
+                        <spark.skins.mobile.assets.TransparentNavigationButton_up width="82" height="65" blendMode="auto" scale9Grid="(x=1, y=1, w=78, h=63)">
+                          <flash.display.Shape x="79" y="1" width="1" height="63"/>
+                          <flash.display.Shape x="80" width="1" height="65"/>
+                          <flash.display.Shape x="81" y="1" width="1" height="63"/>
+                          <flash.display.Shape width="82" height="65"/>
+                        </spark.skins.mobile.assets.TransparentNavigationButton_up>
+                        <spark.components.supportClasses.StyleableTextField concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.6484375, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="31" y="15" width="20" height="39" underline="false">
+                          <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="CENTER"&gt;&lt;FONT FACE="MyVeraHalo" SIZE="24" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;&amp;lt;&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+                        </spark.components.supportClasses.StyleableTextField>
+                        <spark.components.supportClasses.StyleableTextField x="31" y="14" width="20" height="39" underline="false">
+                          <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="CENTER"&gt;&lt;FONT FACE="MyVeraHalo" SIZE="24" COLOR="#FFFFFF" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;&amp;lt;&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+                        </spark.components.supportClasses.StyleableTextField>
+                      </spark.skins.mobile.TransparentNavigationButtonSkin>
+                    </spark.components.Button>
+                  </spark.components.Group>
+                  <spark.components.Group width="0" height="0" blendMode="auto"/>
+                  <spark.components.Group width="0" height="0" blendMode="auto"/>
+                  <ActionBarSkin.as$55.TitleDisplayComponent x="101" y="1" width="519" height="65">
+                    <spark.components.supportClasses.StyleableTextField concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.6484375, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="-2" y="11.1" width="524" height="45" underline="false">
+                      <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="MyVeraHalo" SIZE="28" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;Slot Machine&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+                    </spark.components.supportClasses.StyleableTextField>
+                    <spark.components.supportClasses.StyleableTextField x="-2" y="10.1" width="524" height="45" underline="false">
+                      <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="MyVeraHalo" SIZE="28" COLOR="#FFFFFF" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;Slot Machine&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+                    </spark.components.supportClasses.StyleableTextField>
+                  </ActionBarSkin.as$55.TitleDisplayComponent>
+                </spark.skins.mobile.ActionBarSkin>
+              </spark.components.ActionBar>
+            </spark.skins.mobile.ViewNavigatorSkin>
+          </comps.QANavigator>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </SpinnerList>
+</DisplayList>

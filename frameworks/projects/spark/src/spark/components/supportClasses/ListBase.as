@@ -35,6 +35,8 @@ import mx.events.FlexEvent;
 import spark.components.IItemRenderer;
 import spark.components.IItemRendererOwner;
 import spark.components.SkinnableDataContainer;
+import spark.components.supportClasses.IDataProviderEnhance;
+import spark.components.supportClasses.RegExPatterns;
 import spark.events.IndexChangeEvent;
 import spark.events.ListEvent;
 import spark.events.RendererExistenceEvent;
@@ -163,7 +165,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class ListBase extends SkinnableDataContainer 
+public class ListBase extends SkinnableDataContainer implements IDataProviderEnhance
 {
     include "../../core/Version.as";
 
@@ -305,7 +307,8 @@ public class ListBase extends SkinnableDataContainer
         if (isNull || isEmpty)
         {
             var originalProvider:IList = isEmpty ? dataProvider : null;
-            dataProvider = new mx.collections.ArrayList([ new Object() ]);
+			//TODO (jmclean) seems odd to me double check
+            dataProvider = new mx.collections.ArrayList([ {} ]);
             validateNow();
         }
         
@@ -456,7 +459,72 @@ public class ListBase extends SkinnableDataContainer
      *  selection/caret stability after a dataProvider refresh.
      */
     mx_internal var caretItem:* = undefined;
-    
+
+
+    //----------------------------------
+    //  isFirstRow
+    //----------------------------------
+
+    /**
+    *  Returns if the selectedIndex is equal to the first row.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function get isFirstRow():Boolean
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            if (selectedIndex == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false
+        }
+    }
+
+
+    //----------------------------------
+    //  isLastRow
+    //----------------------------------
+
+    /**
+    *  Returns if the selectedIndex is equal to the last row.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function get isLastRow():Boolean
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            if (selectedIndex == dataProvider.length - 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
     //----------------------------------
     //  labelField
     //----------------------------------
@@ -557,7 +625,57 @@ public class ListBase extends SkinnableDataContainer
         labelFieldOrFunctionChanged = true;
         invalidateProperties(); 
     }
-    
+
+
+    //----------------------------------
+    //  preventSelection
+    //----------------------------------
+
+    /**
+    *  @private
+    */
+    private var _preventSelection:Boolean = false;
+
+
+    /**
+    *  If <code>true</code> items will be prevented from being selected.  The <code>selectedIndex</code> value should always be -1.
+    *  When this is set to <code>true</code>, it will set the <code>requireSelection</code> to false.
+    *  Click events will continue to be called.
+    *
+    *  @default false
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function get preventSelection():Boolean
+    {
+        return _preventSelection;
+    }
+
+    public function set preventSelection(newValue:Boolean):void
+    {
+        if (newValue == _preventSelection)
+        {
+            return;
+        }
+
+
+        if (newValue == true)
+        {
+            //Make sure to disable requireSelection since these two properties are polar opposites.
+            requireSelection = false;
+
+            //Remove any previous selection and allow it to update before enabling the prevent selection.
+            setSelectedIndex(NO_SELECTION, false);
+            validateNow();
+        }
+
+        _preventSelection = newValue;
+    }
+
+
     //----------------------------------
     //  requireSelection
     //----------------------------------
@@ -609,6 +727,9 @@ public class ListBase extends SkinnableDataContainer
         // from false to true
         if (value == true)
         {
+            //Make sure to disable preventSelection since these two properties are polar opposites.
+            preventSelection = false;
+
             requireSelectionChanged = true;
             invalidateProperties();
         }
@@ -625,15 +746,18 @@ public class ListBase extends SkinnableDataContainer
      */
     mx_internal var _proposedSelectedIndex:int = NO_PROPOSED_SELECTION;
     
-    /** 
-     *  @private
-     *  Flag that is set when the selectedIndex has been adjusted due to
-     *  items being added or removed. When this flag is true, the value
-     *  of the selectedIndex has changed, but the actual selected item
-     *  is the same. This flag is cleared in commitProperties().
-     */
-    mx_internal var selectedIndexAdjusted:Boolean = false;
-    
+	/** 
+	 *  @private
+	 *  Flag that is set when the selectedIndex has been adjusted due to
+	 *  items being added or removed. When this flag is true, the value
+	 *  of the selectedIndex has changed, but the actual selected item
+	 *  is the same. 
+     *  This flag can also be set if the selectedItem has changed to ensure
+     *  a valueCommit is dispatched even if the selectedIndex has not changed.
+     *  This flag is cleared in commitProperties().
+	 */
+	mx_internal var selectedIndexAdjusted:Boolean = false;
+	
     /** 
      *  @private
      *  Flag that is set when the caretIndex has been adjusted due to
@@ -707,19 +831,25 @@ public class ListBase extends SkinnableDataContainer
     }
     
     /**
-     *  @private
-     *  Used internally to specify whether the selectedIndex changed programmatically or due to 
-     *  user interaction. 
+     *  <p>The <code>rowIndex</code> is the index in the data provider
+     *  of the item containing the selected cell.</p>
+     *
+     *  @param rowIndex The 0-based row index of the cell.
      * 
      *  @param dispatchChangeEvent if true, the component will dispatch a "change" event if the
-     *  value has changed. Otherwise, it will dispatch a "valueCommit" event. 
+     *  rowIndex has changed. Otherwise, it will dispatch a "valueCommit" event. 
      * 
      *  @param changeCaret if true, the caret will be set to the selectedIndex as a side-effect of calling 
      *  this method.  If false, caretIndex won't change.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 11.1
+     *  @playerversion AIR 3.4
+     *  @productversion Flex 4.10
      */
-    mx_internal function setSelectedIndex(value:int, dispatchChangeEvent:Boolean = false, changeCaret:Boolean = true):void
+    public function setSelectedIndex(rowIndex:int, dispatchChangeEvent:Boolean = false, changeCaret:Boolean = true):void
     {
-        if (value == selectedIndex)
+        if (rowIndex == selectedIndex)
         {
             // this should short-circuit, but we should check to make sure 
             // that caret doesn't need to be changed either, as that's a side
@@ -733,7 +863,7 @@ public class ListBase extends SkinnableDataContainer
         if (dispatchChangeEvent)
             dispatchChangeAfterSelection = (dispatchChangeAfterSelection || dispatchChangeEvent);
         changeCaretOnSelection = changeCaret;
-        _proposedSelectedIndex = value;
+        _proposedSelectedIndex = rowIndex;
         invalidateProperties();
     }
 
@@ -822,7 +952,10 @@ public class ListBase extends SkinnableDataContainer
         
         if (dispatchChangeEvent)
             dispatchChangeAfterSelection = (dispatchChangeAfterSelection || dispatchChangeEvent);
-        
+		
+        // ensure that a "valueCommit" is dispatched even if the selectedIndex did not change.
+        selectedIndexAdjusted = true;
+	
         _pendingSelectedItem = value;
         invalidateProperties();
     }
@@ -947,8 +1080,9 @@ public class ListBase extends SkinnableDataContainer
             changedSelection = commitSelection();
         
         // If the selectedIndex has been adjusted to account for items that
-        // have been added or removed, send out a "change" event 
-        // so any bindings to selectedIndex are updated correctly.
+        // have been added or removed, or the selectedItem has changed because of a dp collection
+        // event which didn't cause the selectedIndex to change, send out a "change" event so any 
+        // bindings to selectedIndex/selectedItem are updated correctly.
         if (selectedIndexAdjusted)
         {
             selectedIndexAdjusted = false;
@@ -1144,6 +1278,113 @@ public class ListBase extends SkinnableDataContainer
     //--------------------------------------------------------------------------
 
     /**
+    *  This will search through a dataprovider checking the given field and for the given value and return the index for the match.
+    *  It can start the find from a given startingIndex;
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function findRowIndex(field:String, value:String, startingIndex:int = 0, patternType:String = RegExPatterns.EXACT):int
+    {
+        var pattern:RegExp; 
+        var currentObject:Object = null;
+        var dataProviderTotal:int = 0;
+        var loopingIndex:int = startingIndex;
+
+
+        pattern = RegExPatterns.createRegExp(value, patternType);
+
+
+        if (dataProvider && dataProvider.length > 0)
+        {
+            dataProviderTotal = dataProvider.length;
+
+            if (startingIndex >= dataProviderTotal)
+            {
+                return -1;
+            }
+
+
+            for (loopingIndex; loopingIndex < dataProviderTotal; loopingIndex++)
+            {
+                currentObject = dataProvider.getItemAt(loopingIndex);
+
+                if (currentObject.hasOwnProperty(field) == true && currentObject[field].search(pattern) != -1)
+                {
+                    return loopingIndex;
+                }
+            }
+
+        }
+
+        return -1;
+    }
+
+
+    /**
+    *  This will search through a dataprovider checking the given field and for the given values and return an array of indices that matched.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function findRowIndices(field:String, values:Array, patternType:String = RegExPatterns.EXACT):Array
+    {
+        var currentObject:Object = null;
+        var regexList:Array = [];
+        var matchedIndices:Array = [];
+        var dataProviderTotal:uint = 0;
+        var valuesTotal:uint = 0;
+        var loopingDataProviderIndex:uint = 0;
+        var loopingValuesIndex:uint = 0;
+
+
+        if (dataProvider != null && dataProvider.length > 0 && values != null && values.length > 0)
+        {
+            dataProviderTotal = dataProvider.length;
+            valuesTotal = values.length;
+
+
+            //Set the regex patterns in an array once.
+            for (loopingValuesIndex = 0; loopingValuesIndex < valuesTotal; loopingValuesIndex++)
+            {
+                regexList.push(RegExPatterns.createRegExp(values[loopingValuesIndex], patternType));
+            }
+
+
+            //Loop through dataprovider
+            for (loopingDataProviderIndex; loopingDataProviderIndex < dataProviderTotal; loopingDataProviderIndex++)
+            {
+                currentObject = dataProvider.getItemAt(loopingDataProviderIndex);
+
+                if (currentObject.hasOwnProperty(field) == false)
+                {
+                    continue;
+                }
+
+                //Loop through regex patterns from the values array.
+                for (loopingValuesIndex = 0; loopingValuesIndex < valuesTotal; loopingValuesIndex++)
+                {
+                    if (currentObject[field].search(regexList[loopingValuesIndex]) != -1)
+                    {
+                        matchedIndices.push(loopingDataProviderIndex);
+
+                        break;
+                    }
+                }
+            }
+
+        }
+
+
+        return matchedIndices;
+    }
+
+
+    /**
      *  Called when an item is selected or deselected. 
      *  Subclasses must override this method to display the selection.
      *
@@ -1230,7 +1471,111 @@ public class ListBase extends SkinnableDataContainer
     {        
         return index == caretIndex;
     }
-    
+
+
+    /**
+    *  This will search through a dataprovider checking the given field and will set the selectedIndex to a matching value.
+    *  It can start the search from the startingIndex;
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    *
+    */
+    public function moveIndexFindRow(field:String, value:String, startingIndex:int = 0, patternType:String = RegExPatterns.EXACT):Boolean
+    {
+        var indexFound:int = -1;
+
+        indexFound = findRowIndex(field, value, startingIndex, patternType);
+
+        if (indexFound != -1)
+        {
+            selectedIndex = indexFound;
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the first row of the dataProvider.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexFirstRow():void
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            selectedIndex = 0;
+        }
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the last row of the dataProvider.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexLastRow():void
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            selectedIndex = dataProvider.length - 1;
+        }
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the next row of the dataProvider.  If there isn't a current selectedIndex, it silently returns.
+    *  If the selectedIndex is on the first row, it does not wrap around.  However the <code>isFirstRow</code> property returns true.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexNextRow():void
+    {
+        if (dataProvider && dataProvider.length > 0 && selectedIndex >= 0)
+        {
+            if (isLastRow == false)
+            {
+                selectedIndex += 1;
+            }
+        }
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the previous row of the dataProvider.  If there isn't a current selectedIndex, it silently returns.
+    *  If the selectedIndex is on the last row, it does not wrap around.  However the <code>isLastRow</code> property returns true.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexPreviousRow():void
+    {
+        if (dataProvider && dataProvider.length > 0 && selectedIndex >= 0)
+        {
+            if (isFirstRow == false)
+            {
+                selectedIndex -= 1;
+            }
+        }
+    }
+
+
     /**
      *  @private
      *  Set current caret index. This function takes the item that was
@@ -1278,7 +1623,26 @@ public class ListBase extends SkinnableDataContainer
         var oldSelectedIndex:int = _selectedIndex;
         var oldCaretIndex:int = _caretIndex;
         var e:IndexChangeEvent;
-        
+
+
+        //Prevents an in item from being selected.  Stops the change before it sends out changing events.
+        if (_preventSelection == true)
+        {
+            if (_selectedIndex != NO_SELECTION)
+            {
+                itemSelected(NO_SELECTION, false);
+                _selectedIndex = NO_SELECTION;
+            }
+
+            //Cancel the selection change and return false.
+            itemSelected(_proposedSelectedIndex, false);
+            _proposedSelectedIndex = NO_PROPOSED_SELECTION;
+            dispatchChangeAfterSelection = false;
+
+            return false;
+        }
+
+
         if (!allowCustomSelectedItem || _proposedSelectedIndex != CUSTOM_SELECTED_ITEM)
         {
             if (_proposedSelectedIndex < NO_SELECTION)
@@ -1309,6 +1673,7 @@ public class ListBase extends SkinnableDataContainer
                 // The event was cancelled. Cancel the selection change and return.
                 itemSelected(_proposedSelectedIndex, false);
                 _proposedSelectedIndex = NO_PROPOSED_SELECTION;
+                dispatchChangeAfterSelection = false;
                 return false;
             }
         }
@@ -1480,9 +1845,17 @@ public class ListBase extends SkinnableDataContainer
      */
     mx_internal function dataProviderRefreshed():void
     {
-        setSelectedIndex(NO_SELECTION, false);
-        // TODO (rfrishbe): probably don't need the setCurrentCaretIndex below
-        setCurrentCaretIndex(NO_CARET);
+        if (dataProvider && dataProvider.length > 0 && requireSelection == true)
+        {
+            setSelectedIndex(0, false);
+        }
+        else
+        {
+            selectedItem = undefined;
+            setSelectedIndex(NO_SELECTION, false);
+            // TODO (rfrishbe): probably don't need the setCurrentCaretIndex below
+            setCurrentCaretIndex(NO_CARET);
+        }
     }
     
     /**
@@ -1666,7 +2039,9 @@ public class ListBase extends SkinnableDataContainer
             }
             else if (ce.kind == CollectionEventKind.RESET)
             {
-                // Data provider is being reset, clear out the selection
+                // Data provider is being reset, clear out the selection which includes the
+                // selectedItem so that any bindings on the selectedItem are triggered.
+                selectedItem = undefined;
                 if (dataProvider.length == 0)
                 {
                     setSelectedIndex(NO_SELECTION, false);

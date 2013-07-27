@@ -1431,9 +1431,7 @@ The viewport tests have been split into different files for easy of use.
 			<AssertPropertyValue target="group1" propertyName="height" value="100" />
 			<AssertPropertyValue target="group1" propertyName="horizontalScrollPosition" value="-50" />
 			<AssertPropertyValue target="group1" propertyName="verticalScrollPosition" value="-50" />
-			<CompareBitmap url="../viewport/baselines/" target="" timeout="2000">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+			<CompareBitmap url="../viewport/baselines/$testID.png" target="" timeout="2000" />
 		</body>
 	</TestCase>	
 	
@@ -1459,9 +1457,7 @@ The viewport tests have been split into different files for easy of use.
 			<AssertPropertyValue target="group1" propertyName="height" value="100" />
 			<AssertPropertyValue target="group1" propertyName="horizontalScrollPosition" value="0" />
 			<AssertPropertyValue target="group1" propertyName="verticalScrollPosition" value="0" />
-			<CompareBitmap url="../viewport/baselines/" target="" timeout="2000">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+			<CompareBitmap url="../viewport/baselines/$testID.png" target="" timeout="2000" />
 		</body>
 	</TestCase>		
 
@@ -1489,9 +1485,7 @@ The viewport tests have been split into different files for easy of use.
 			<AssertPropertyValue target="group1" propertyName="height" value="100" />
 			<AssertPropertyValue target="group1" propertyName="horizontalScrollPosition" value="450" />
 			<AssertPropertyValue target="group1" propertyName="verticalScrollPosition" value="-50" />
-			<CompareBitmap url="../viewport/baselines/" target="" timeout="2000">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+			<CompareBitmap url="../viewport/baselines/$testID.png" target="" timeout="2000" />
 		</body>
 	</TestCase>	
 	
@@ -1519,9 +1513,7 @@ The viewport tests have been split into different files for easy of use.
 			<AssertPropertyValue target="group1" propertyName="height" value="100" />
 			<AssertPropertyValue target="group1" propertyName="horizontalScrollPosition" value="-50" />
 			<AssertPropertyValue target="group1" propertyName="verticalScrollPosition" value="450" />
-			<CompareBitmap url="../viewport/baselines/" target="" timeout="2000">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+			<CompareBitmap url="../viewport/baselines/$testID.png" target="" timeout="2000" />
 		</body>
 	</TestCase>	
 			
@@ -1549,9 +1541,7 @@ The viewport tests have been split into different files for easy of use.
 			<AssertPropertyValue target="group1" propertyName="height" value="100" />
 			<AssertPropertyValue target="group1" propertyName="horizontalScrollPosition" value="450" />
 			<AssertPropertyValue target="group1" propertyName="verticalScrollPosition" value="450" />
-			<CompareBitmap url="../viewport/baselines/" target="" timeout="2000">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+			<CompareBitmap url="../viewport/baselines/$testID.png" target="" timeout="2000" />
 		</body>
 	</TestCase>	
 	
@@ -1579,9 +1569,7 @@ The viewport tests have been split into different files for easy of use.
 			<AssertPropertyValue target="group1" propertyName="height" value="100" />
 			<AssertPropertyValue target="group1" propertyName="horizontalScrollPosition" value="200" />
 			<AssertPropertyValue target="group1" propertyName="verticalScrollPosition" value="200" />
-			<CompareBitmap url="../viewport/baselines/" target="" timeout="2000" >
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+			<CompareBitmap url="../viewport/baselines/$testID.png" target="" timeout="2000" />
 		</body>
 	</TestCase>			
 
@@ -1609,9 +1597,7 @@ The viewport tests have been split into different files for easy of use.
 			<AssertPropertyValue target="group1" propertyName="height" value="100" />
 			<AssertPropertyValue target="group1" propertyName="horizontalScrollPosition" value="-50" />
 			<AssertPropertyValue target="group1" propertyName="verticalScrollPosition" value="200" />
-			<CompareBitmap url="../viewport/baselines/" target="" timeout="2000" >
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+			<CompareBitmap url="../viewport/baselines/$testID.png" target="" timeout="2000" />
 		</body>
 	</TestCase>		
 	
@@ -1639,9 +1625,7 @@ The viewport tests have been split into different files for easy of use.
 			<AssertPropertyValue target="group1" propertyName="height" value="100" />
 			<AssertPropertyValue target="group1" propertyName="horizontalScrollPosition" value="200" />
 			<AssertPropertyValue target="group1" propertyName="verticalScrollPosition" value="-50" />
-			<CompareBitmap url="../viewport/baselines/" target="" timeout="2000" >
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+			<CompareBitmap url="../viewport/baselines/$testID.png" target="" timeout="2000" />
 		</body>
 	</TestCase>	
 	
@@ -1669,9 +1653,7 @@ The viewport tests have been split into different files for easy of use.
 			<AssertPropertyValue target="group1" propertyName="height" value="100" />
 			<AssertPropertyValue target="group1" propertyName="horizontalScrollPosition" value="450" />
 			<AssertPropertyValue target="group1" propertyName="verticalScrollPosition" value="200" />
-			<CompareBitmap url="../viewport/baselines/" target="" timeout="2000">
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+			<CompareBitmap url="../viewport/baselines/$testID.png" target="" timeout="2000" />
 		</body>
 	</TestCase>	
 	
@@ -1699,9 +1681,7 @@ The viewport tests have been split into different files for easy of use.
 			<AssertPropertyValue target="group1" propertyName="height" value="100" />
 			<AssertPropertyValue target="group1" propertyName="horizontalScrollPosition" value="200" />
 			<AssertPropertyValue target="group1" propertyName="verticalScrollPosition" value="450" />
-			<CompareBitmap url="../viewport/baselines/" target="" timeout="2000" >
-				<ConditionalValue os="win"/>
-			</CompareBitmap>
+			<CompareBitmap url="../viewport/baselines/$testID.png" target="" timeout="2000" />
 		</body>
 	</TestCase>	
 	

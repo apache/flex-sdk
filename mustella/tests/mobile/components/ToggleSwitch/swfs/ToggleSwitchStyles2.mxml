@@ -20,6 +20,36 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:comps="comps.*" >
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
+	<fx:Style>
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: "MySerifHalo";
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontFamily: "MySerifHalo";
+			fontWeight: bold;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontFamily: "MySerifHalo";
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-BoldItalic.ttf");
+			fontFamily: "MySerifHalo";
+			fontWeight: bold;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}		
+	</fx:Style>
 	
 	<s:layout>
 		<s:VerticalLayout paddingTop="20" paddingLeft="20" gap="20"/>

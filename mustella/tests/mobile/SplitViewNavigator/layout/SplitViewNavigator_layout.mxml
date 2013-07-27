@@ -54,6 +54,7 @@
 				<ResetComponent target="svn2" className="comps.LayoutTestComp" waitEvent="updateComplete" />
 			</setup>
 			<body>
+				<Pause timeout="400" />
 				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../layout/baselines" target="svn2">
 				<ConditionalValue deviceDensity="160" os="win"/>
 				<ConditionalValue deviceDensity="240" os="android" />

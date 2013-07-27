@@ -566,7 +566,7 @@ public class SkinnableComponent extends UIComponent
      */
     override public function drawFocus(isFocused:Boolean):void
     {
-        if (isFocused)
+        if (isFocused && focusManager)
         {
             // For some composite components, the focused object may not
             // be "this". If so, we don't want to draw the focus.
@@ -956,10 +956,10 @@ public class SkinnableComponent extends UIComponent
             
             // Add to the dynamic parts cache
             if (!dynamicPartsCache)
-                dynamicPartsCache = new Object();
+                dynamicPartsCache = {};
                 
             if (!dynamicPartsCache[partName])
-                dynamicPartsCache[partName] = new Array();
+                dynamicPartsCache[partName] = [];
             
             dynamicPartsCache[partName].push(instance);
             

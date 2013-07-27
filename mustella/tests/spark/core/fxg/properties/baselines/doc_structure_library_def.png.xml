@@ -1,0 +1,53 @@
+<DisplayList>
+  <fxgtemplate width="940" height="700">
+    <spark.skins.spark.ApplicationSkin width="940" height="700" blendMode="auto">
+      <spark.components.Group width="940" height="700" blendMode="auto">
+        <spark.components.Group width="940" height="700" blendMode="auto">
+          <comps.MyComp width="800" height="800" blendMode="auto">
+            <fxg.doc_structure.library_def width="585" height="373" blendMode="auto">
+              <flash.display.MovieClip x="20" y="20" width="100" height="100">
+                <flash.display.Shape width="100" height="100"/>
+              </flash.display.MovieClip>
+              <fxg.doc_structure.library_def_Text346572338 width="268" height="153" blendMode="auto">
+                <spark.components.RichText x="20" y="140" width="248" height="13">
+                  <flash.display.Shape width="248" height="13"/>
+                  <flash.text.engine.TextLine y="9.15" width="247.15" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="48" hasGraphicElement="false"/>
+                </spark.components.RichText>
+              </fxg.doc_structure.library_def_Text346572338>
+              <flash.display.MovieClip matrix="(a=1, b=0, c=0, d=1.5, tx=20, ty=200)" x="20" y="200" width="100" height="150">
+                <flash.display.Shape width="100" height="100"/>
+              </flash.display.MovieClip>
+              <fxg.doc_structure.library_def_Text1823385833 width="324" height="373" blendMode="auto">
+                <spark.components.RichText x="20" y="360" width="304" height="13">
+                  <flash.display.Shape width="304" height="13"/>
+                  <flash.text.engine.TextLine y="9.15" width="303.7" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="54" hasGraphicElement="false"/>
+                </spark.components.RichText>
+              </fxg.doc_structure.library_def_Text1823385833>
+              <flash.display.MovieClip x="300" y="20" width="285.5" height="221">
+                <flash.display.Shape matrix="(a=1.5, b=0, c=0, d=1.5, tx=20, ty=10)" x="20" y="10" width="151.5" height="39"/>
+                <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.75, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="100" y="10" width="120" height="80"/>
+                <flash.display.Shape y="60" width="102" height="102.1"/>
+                <flash.display.MovieClip width="120" height="100">
+                  <flash.display.MovieClip concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.75, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="80" y="60" width="101" height="99">
+                    <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.75, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="101" height="99"/>
+                  </flash.display.MovieClip>
+                  <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.75, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="80" y="60" width="120" height="100"/>
+                </flash.display.MovieClip>
+                <flash.display.MovieClip y="150" width="275" height="13.05">
+                  <fxg.doc_structure.library_def_Text1093902418 width="285" height="43" blendMode="auto">
+                    <spark.components.RichText x="10" y="30" width="275" height="13">
+                      <flash.display.Shape width="275" height="13"/>
+                      <flash.text.engine.TextLine y="9.15" width="274.25" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="52" hasGraphicElement="false"/>
+                    </spark.components.RichText>
+                  </fxg.doc_structure.library_def_Text1093902418>
+                </flash.display.MovieClip>
+                <flash.display.Shape width="281" height="1"/>
+                <flash.display.Shape width="281" height="221"/>
+              </flash.display.MovieClip>
+            </fxg.doc_structure.library_def>
+          </comps.MyComp>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </fxgtemplate>
+</DisplayList>

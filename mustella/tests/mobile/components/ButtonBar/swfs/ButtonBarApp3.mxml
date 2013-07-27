@@ -28,84 +28,12 @@
 </fx:Script>
 
 <!-- Embed fonts for cross platform compatibility of bitmap compares. -->
-<fx:Style>
-@namespace s "library://ns.adobe.com/flex/spark";
-@namespace mx "library://ns.adobe.com/flex/mx";
-
-
-/*
-    @font-face {
-        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans_Regular.ttf");
-        fontFamily: EmbeddedVerdana;
-        embedAsCFF: true;
-    }
-
-    @font-face {
-        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
-        fontWeight: bold;
-        fontFamily: EmbeddedVerdana;
-        embedAsCFF: true;
-    }
-
-    @font-face {
-        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
-        fontStyle: italic;
-        fontFamily: EmbeddedVerdana;
-        embedAsCFF: true;
-    }
-
-    @font-face {
-        src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
-        fontFamily: EmbeddedArial;
-        embedAsCFF: true;
-    }
-
-    @font-face {
-        src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
-        fontWeight: bold;
-        fontFamily: EmbeddedArial;
-        embedAsCFF: true;
-    }
-
-    @font-face {
-        src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
-        fontStyle: italic;
-        fontFamily: EmbeddedArial;
-        embedAsCFF: true;
-    }
-
-	@font-face {
-		src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
-		fontFamily: EmbeddedArno;
-		embedAsCFF: true;
-	}
-*/	
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 
     global{
         kerning: "off";
     }
         
-/*    s|ButtonBar{
-        fontFamily: EmbeddedVerdana;
-        fontLookup: embeddedCFF;
-        fontAntiAliasType: normal;
-    }
-
-    s|ToggleButton{
-        fontFamily: EmbeddedVerdana;
-        fontLookup: embeddedCFF;
-        fontAntiAliasType: normal;
-    }
-
-    .fontFamily1{
-        fontFamily: EmbeddedArial;
-    }
-
-    .fontFamily2{
-        fontFamily: EmbeddedVerdana;
-    }
-*/    
-
     .fontSize1{
         fontSize: 8;
     }

@@ -88,7 +88,7 @@ public class DateFormatter extends Formatter
     /**
      *  @private    
      */
-    private static const VALID_PATTERN_CHARS:String = "Y,M,D,A,E,H,J,K,L,N,S,Q";
+    private static const VALID_PATTERN_CHARS:String = "Y,M,D,A,E,H,J,K,L,N,S,Q,O,Z";
     
     //--------------------------------------------------------------------------
     //
@@ -106,6 +106,10 @@ public class DateFormatter extends Formatter
      *
      *  <pre>
      *  var myDate:Date = DateFormatter.parseDateString("2009-12-02 23:45:30"); </pre>
+	 * 
+	 *  The optional format property is use to work out which is likly to be encountered
+	 *  first a month or a date of the month for date where it may not be obvious which
+	 *  comes first.
      *  
      *  @see mx.formatters.DateBase
      * 
@@ -118,7 +122,7 @@ public class DateFormatter extends Formatter
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static function parseDateString (str:String):Date
+    public static function parseDateString(str:String, format:String = null):Date
     {
         if (!str || str == "")
             return null;
@@ -129,17 +133,48 @@ public class DateFormatter extends Formatter
         var hour:int = -1;
         var min:int = -1;
         var sec:int = -1;
+		var milli:int = -1;
         
         var letter:String = "";
         var marker:Object = 0;
         
         var count:int = 0;
-        var len:int = str.length;
-        
+        var len:int = 0;
+		var isPM:Boolean = false;
+		
+		var punctuation:Object = {};
+		var ampm:Object = {};
+			
+		punctuation["/"] = {general:true, date:true, time:false};
+		punctuation[":"] = {general:true, date:false, time:true};
+		punctuation[" "] = {general:true, date:true, time:false};
+		punctuation["."] = {general:true, date:true, time:true};
+		punctuation[","] = {general:true, date:true, time:false};
+		punctuation["+"] = {general:true, date:false, time:false};
+		punctuation["-"] = {general:true, date:true, time:false};
+		// Chinese and Japanese
+		punctuation["年"] = {general:true, date:true, time:false};
+		punctuation["月"] = {general:true, date:true, time:false};
+		punctuation["日"] = {general:true, date:true, time:false};
+		punctuation["午"] = {general:false, date:false, time:true};
+		// Korean
+		punctuation["년"] = {general:true, date:true, time:false};
+		punctuation["월"] = {general:true, date:true, time:false};
+		punctuation["일"] = {general:true, date:true, time:false};
+		
+		ampm["PM"] = true;
+		ampm["pm"] = true;
+		ampm["\u33D8"] = true; // unicode pm
+		ampm["μμ"] = true; // Greek
+		ampm["午後"] = true; // Japanese
+		ampm["上午"] = true; // Chinese
+		ampm["오후"] = true; // Korean
+		
         // Strip out the Timezone. It is not used by the DateFormatter
         var timezoneRegEx:RegExp = /(GMT|UTC)((\+|-)\d\d\d\d )?/ig;
         
         str = str.replace(timezoneRegEx, "");
+		len = str.length;
         
         while (count < len)
         {
@@ -153,8 +188,7 @@ public class DateFormatter extends Formatter
 
             // If the letter is a key punctuation character,
             // cache it for the next time around.
-            if (letter == "/" || letter == ":" ||
-                letter == "+" || letter == "-")
+            if (punctuation.hasOwnProperty(letter) && punctuation[letter].general)
             {
                 marker = letter;
                 continue;
@@ -162,23 +196,23 @@ public class DateFormatter extends Formatter
 
             // Scan for groups of numbers and letters
             // and match them to Date parameters
-            if ("a" <= letter && letter <= "z" ||
-                "A" <= letter && letter <= "Z")
+            if (!("0" <= letter && letter <= "9" ||
+				punctuation.hasOwnProperty(letter) && punctuation[letter].general))
             {
                 // Scan for groups of letters
                 var word:String = letter;
                 while (count < len) 
                 {
                     letter = str.charAt(count);
-                    if (!("a" <= letter && letter <= "z" ||
-                          "A" <= letter && letter <= "Z"))
+					if ("0" <= letter && letter <= "9" ||
+						punctuation.hasOwnProperty(letter) && punctuation[letter].general)
                     {
                         break;
                     }
                     word += letter;
                     count++;
                 }
-
+				
                 // Allow for an exact match
                 // or a match to the first 3 letters as a prefix.
                 var n:int = DateBase.defaultStringKey.length;
@@ -217,6 +251,17 @@ public class DateFormatter extends Formatter
                     }
                 }
                 marker = 0;
+				
+				// Other lacales AM/PM 
+				if (ampm.hasOwnProperty(word))
+				{
+					isPM = true;
+					
+					if (hour > 12)
+						break; // error
+					else if (hour >= 0)
+						hour += 12;
+				}
             }
             
             else if ("0" <= letter && letter <= "9")
@@ -233,14 +278,17 @@ public class DateFormatter extends Formatter
                 var num:int = int(numbers);
 
                 // If num is a number greater than 70, assign num to year.
-                if (num >= 70)
+				// if after seconds and a dot or colon more likly milliseconds
+                if (num >= 70 && !(punctuation.hasOwnProperty(letter)
+					&& punctuation[letter].time && sec >= 0))
                 {
                     if (year != -1)
                     {
                         break; // error
                     }
-                    else if (letter <= " " || letter == "," || letter == "." ||
-                             letter == "/" || letter == "-" || count >= len)
+                    else if (punctuation.hasOwnProperty(letter)
+						&& punctuation[letter].date
+						|| count >= len)
                     {
                         year = num;
                     }
@@ -251,25 +299,50 @@ public class DateFormatter extends Formatter
                 }
 
                 // If the current letter is a slash or a dash,
-                // assign num to month or day.
-                else if (letter == "/" || letter == "-" || letter == ".")
+                // assign num to year or month or day or sec.
+                else if (punctuation.hasOwnProperty(letter) && punctuation[letter].date)
                 {
-                    if (mon < 0)
+					var monthFirst:Boolean = year != -1;
+					
+					if (format)
+						monthFirst = monthFirst || format.search("M") < format.search("D");
+							
+					if (monthFirst && mon < 0)
                         mon = (num - 1);
-                    else if (day < 0)
-                        day = num;
+					else if (day < 0)
+						day = num;
+					else if (!monthFirst && mon < 0)
+						mon = (num -1);
+					else if (sec < 0)
+						sec = num;
+					else if (milli < 0)
+						milli = num;
                     else
                         break; //error
                 }
 
-                // If the current letter is a colon,
-                // assign num to hour or minute.
-                else if (letter == ":")
+                // If the current letter is a colon or a dot,
+                // assign num to hour or minute or sec.
+                else if (punctuation.hasOwnProperty(letter) && punctuation[letter].time)
                 {
                     if (hour < 0)
+					{
                         hour = num;
+						
+						if (isPM)
+						{
+							if (hour > 12)
+								break; //error
+							else
+								hour += 12;
+						}
+					}
                     else if (min < 0)
                         min = num;
+					else if (sec < 0)
+						sec = num;
+					else if (milli < 0)
+						milli = num;
                     else
                         break; //error
                 }
@@ -281,12 +354,19 @@ public class DateFormatter extends Formatter
                     min = num;
                 }
 
-                // If minutes are defined and seconds are not,
-                // assign num to seconds.
-                else if (min >= 0 && sec < 0)
-                {
-                    sec = num;
-                }
+				// If minutes are defined and seconds are not,
+				// assign num to seconds.
+				else if (min >= 0 && sec < 0)
+				{
+					sec = num;
+				}
+				
+				// If seconds are defined and millis are not,
+				// assign num to mills.
+				else if (sec >= 0 && milli < 0)
+				{
+					milli = num;
+				}
 
                 // If day is not defined, assign num to day.
                 else if (day < 0)
@@ -310,11 +390,13 @@ public class DateFormatter extends Formatter
                 marker = 0
             }
         }
-
+		
         if (year < 0 || mon < 0 || mon > 11 || day < 1 || day > 31)
             return null; // error - needs to be a date
 
         // Time is set to 0 if null.
+		if (milli < 0)
+			milli = 0;
         if (sec < 0)
             sec = 0;
         if (min < 0)
@@ -324,7 +406,7 @@ public class DateFormatter extends Formatter
 
         // create a date object and check the validity of the input date
         // by comparing the result with input values.
-        var newDate:Date = new Date(year, mon, day, hour, min, sec);
+        var newDate:Date = new Date(year, mon, day, hour, min, sec, milli);
         if (day != newDate.getDate() || mon != newDate.getMonth())
             return null;
 
@@ -339,16 +421,20 @@ public class DateFormatter extends Formatter
 
     /**
      *  Constructor.
+
+  	 * 	@param formatString Date format pattern is set to this DateFormatter.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function DateFormatter()
+    public function DateFormatter(formatString:String = null)
     {
         super();
-    }
+
+        this.formatString = formatString;
+	}
 
     //--------------------------------------------------------------------------
     //
@@ -502,6 +588,27 @@ public class DateFormatter extends Formatter
      *          <li>QQQ = 078</li>
      *        </ul></td>
      *    </tr>
+	 *    <tr>
+     *      <td>O</td>
+     *      <td>Timezone offset
+     * 
+     *        <p>Example:</p>
+     *        <ul>
+     *          <li>O = +7</li>
+     *          <li>OO = -08</li>
+	 *          <li>OOO = +4:30</li>
+	 *          <li>OOO = -08:30</li>
+     *        </ul></td>
+     *    </tr>
+	 *    <tr>
+     *      <td>Z</td>
+     *      <td>Timezone name
+     * 
+     *        <p>Example:</p>
+     *        <ul>
+     *          <li>Z = GMT</li>
+     *        </ul></td>
+     *    </tr>
      *    <tr>
      *      <td>Other text</td>
      *      <td>You can add other text into the pattern string to further 
@@ -594,12 +701,12 @@ public class DateFormatter extends Formatter
 
         if (value is String)
         {
-            value = DateFormatter.parseDateString(String(value));
+            value = DateFormatter.parseDateString(String(value), formatString);
             if (!value)
             {
                 error = defaultInvalidValueError;
                 return "";
-            }
+			}
         }
         else if (!(value is Date))
         {

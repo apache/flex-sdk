@@ -84,6 +84,21 @@
         </sequential>
     </macrodef>
         
+    <condition property="isMac">
+        <os family="mac"/>
+    </condition>
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>   
+    <condition property="isLinux">
+        <and>
+          <os family="unix"/>    
+          <not>
+            <os family="mac"/>    
+          </not>
+        </and>
+    </condition>  
+
     <target name="main" depends="clean,compile" description="Clean build of spark.swc and en_US">
         <bundle locale="${locale}"/>
     </target>
@@ -106,6 +121,7 @@
         <bundler locale="de_CH"/><!-- Swiss German resources -->
         <bundler locale="es_ES"/><!-- Spanish resources -->
         <bundler locale="fi_FI"/><!--  Finnish resources-->
+		<bundler locale="fr_CH"/><!-- Swiss French resources -->
         <bundler locale="fr_FR"><!-- French resources -->
             <run.fat.swc>
                 <fat-swc locale="fr_FR"/>
@@ -174,7 +190,16 @@
         </delete>
     </target>
 
-    <target name="pixelbender-compile">
+    <target name="compile" depends="pixelbender-compile, pixelbender-unzip, swc-compile" description="Compiles spark.swc"/>
+
+    <target name="pixelbender-unzip" if="isLinux">
+		<echo message="Unziping pixel bender files" />
+		<gunzip src="${env.PIXELBENDER_HOME}/pb.tar.gz" dest="${FLEX_HOME}" />
+		<untar src="${FLEX_HOME}/pb.tar" dest="${FLEX_HOME}" />
+		<delete file="${FLEX_HOME}/pb.tar" />
+    </target>
+    
+    <target name="pixelbender-compile" unless="isLinux">
         <exec executable="${env.PIXELBENDER_HOME}/pbutil">
             <arg value="${FLEX_HOME}/frameworks/projects/spark/asdoc/en_US/spark/effects/examples/assets/twist.pbk" />
             <arg value="${FLEX_HOME}/frameworks/projects/spark/asdoc/en_US/spark/effects/examples/assets/twist.pbj" />
@@ -200,14 +225,12 @@
             <arg value="${FLEX_HOME}/frameworks/projects/spark/src/spark/effects/WipeRight.pbj" />
         </exec>
     </target>
-
     
     <target name="prepare" description="Copies manifests to project directories so the IDE can find them">
         <copy file="${FLEX_HOME}/frameworks/spark-manifest.xml" tofile="${basedir}/manifest.xml" overwrite="true"/>
     </target>
     
-    <target name="compile" depends="prepare, pixelbender-compile" description="Compiles spark.swc">
-        <echo file="${FLEX_HOME}/frameworks/version.properties" append="false">build=${build.number}</echo>
+    <target name="swc-compile" depends="prepare" description="Compiles spark.swc">
         <echo message="Compiling frameworks/libs/spark.swc"/>
 
         <!-- Load the <compc> task. We can't do this at the <project> level -->
@@ -232,7 +255,6 @@
             <arg value="+playerglobal.version=${playerglobal.version}" />
             <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
         </compc>
-        <delete file="${FLEX_HOME}/frameworks/version.properties"/>
     </target>
     
     <target name="doc" depends="clean-temp-docs" description="updates spark.swc with asdoc xml">

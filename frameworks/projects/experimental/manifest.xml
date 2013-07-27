@@ -24,5 +24,54 @@
 
 -->
 <componentPackage>
-
+	<!-- components -->
+	<!-- Alert -->
+	<component id="Alert" class="spark.components.Alert"/>
+    <!-- DataAccordion -->
+    <component id="DataAccordion" class="spark.components.DataAccordion"/>
+    <!-- DataNavigator -->
+    <component id="DataNavigator" class="spark.components.DataNavigator"/>
+    <!-- DataNavigatorGroup -->
+    <component id="DataNavigatorGroup" class="spark.components.DataNavigatorGroup"/>
+    <!-- InlineScroller -->
+    <component id="InlineScroller" class="spark.components.InlineScroller"/>
+    <!-- CallOut -->
+    <component id="CallOut" class="spark.components.CallOut"/>
+    <!-- CallOutButton -->
+    <component id="CallOutButton" class="spark.components.CallOutButton"/>
+    <!-- ColorPicker -->
+    <component id="ColorPicker" class="spark.components.ColorPicker"/>
+    <!-- Menu -->
+    <component id="Menu" class="spark.components.Menu"/>
+    <component id="MenuItemRenderer" class="spark.components.itemRenderers.MenuItemRenderer"/>
+    <!-- MenuBar -->
+    <component id="MenuBar" class="spark.components.MenuBar"/>
+    <component id="MenuBarItemRenderer" class="spark.components.itemRenderers.MenuBarItemRenderer"/>
+    <!-- ProgressBar -->
+    <component id="ProgressBar" class="spark.components.ProgressBar"/>
+    
+	<!-- containers -->
+    <component id="Accordion" class="spark.containers.Accordion"/>
+    <component id="DeferredGroup" class="spark.containers.DeferredGroup"/>
+    <component id="Navigator" class="spark.containers.Navigator"/>
+    <component id="NavigatorGroup" class="spark.containers.NavigatorGroup"/>
+    
+    
+    <!-- Horizontal and Vertical dividers and their groups -->
+    <component id="Divider" class="spark.containers.Divider"/>
+    <component id="HDivider" class="spark.containers.HDivider"/>
+    <component id="VDivider" class="spark.containers.VDivider"/>
+    <component id="DividerGroup" class="spark.containers.DividedGroup"/>
+    <component id="HDividerGroup" class="spark.containers.HDividerGroup"/>
+    <component id="VDividerGroup" class="spark.containers.VDividerGroup"/>
+    
+    <!-- layouts -->
+    <component id="AccordionLayout" class="spark.layouts.AccordionLayout"/>
+    <component id="CarouselLayout" class="spark.layouts.CarouselLayout"/>
+    <component id="CoverflowLayout" class="spark.layouts.CoverflowLayout"/>
+    <component id="InlineScrollerLayout" class="spark.layouts.InlineScrollerLayout"/>
+    <component id="RolodexLayout" class="spark.layouts.RolodexLayout"/>
+    <component id="StackLayout" class="spark.layouts.StackLayout"/>
+    <component id="TimeMachineLayout" class="spark.layouts.TimeMachineLayout"/>
+    
 </componentPackage>

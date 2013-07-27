@@ -476,12 +476,8 @@ public class GridSelection
      */
     public function removeAll():Boolean
     {
-        var selectionChanged:Boolean = selectionLength > 0;
-        
-        removeSelection();
-        selectionChanged = ensureRequiredSelection() || selectionChanged;
-        
-        return selectionChanged;
+        var selectionChanged:Boolean = removeSelection();        
+        return ensureRequiredSelection() || selectionChanged;
     }
             
     //----------------------------------
@@ -624,8 +620,8 @@ public class GridSelection
     
     /**
      *  If the <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_ROWS</code>, 
-     *  replaces the current selection with the rows starting at 
-     *  <code>startRowIndex</code> and ending with <code>endRowIndex</code>.
+     *  replaces the current selection with the <code>rowCount</code> rows starting at 
+     *  <code>rowIndex</code>.
      * 
      *  @param rowIndex 0-based row index of the first row in the selection.
      *  @param rowCount Number of rows in the selection.
@@ -1036,11 +1032,15 @@ public class GridSelection
      *  Remove any currently selected rows, cells and cached items.  This
      *  disregards the requireSelection flag.
      */    
-    private function removeSelection():void
+    private function removeSelection():Boolean
     {
+        const selectionChanged:Boolean = (selectionLength > 0);
+        
         cellRegions.length = 0;       
         _selectionLength = 0;
         selectedItem = null;
+        
+        return selectionChanged;
     }
         
     /**
@@ -1172,11 +1172,12 @@ public class GridSelection
 
     /**
      *  @private
-     *  This should only be used for setCellRegion.  The selection should
-     *  be cleared first.  This will add a cellRegion to the list of cellRegions.
+     *  This should only be called by setCellRegion after the selection has been
+     *  removed.
+     *  This will add a cellRegion to the list of cellRegions.
      *  This allows the special-handling needed for setting a cell region 
-     *  which has one of more columns which are not visible and not to be
-     *  included in the selection.
+     *  which has one of more columns which are not visible since only visible columns should
+     *  be included in the selection.
      *  
      *  The code is not equipped to handle the general case of overlapping
      *  cell regions.
@@ -1271,73 +1272,79 @@ public class GridSelection
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function dataProviderCollectionChanged(event:CollectionEvent):void
+    public function dataProviderCollectionChanged(event:CollectionEvent):Boolean
     {
+        var selectionChanged:Boolean = false;
+        
         inCollectionHandler = true;
         
         switch (event.kind)
         {
             case CollectionEventKind.ADD: 
             {
-                dataProviderCollectionAdd(event);
+                selectionChanged = dataProviderCollectionAdd(event);
                 break;
             }
                 
             case CollectionEventKind.MOVE:
             {
-                dataProviderCollectionMove(event);
+                selectionChanged = dataProviderCollectionMove(event);
                 break;
             }
 
             case CollectionEventKind.REFRESH:
             {
-                dataProviderCollectionRefresh(event);
+                selectionChanged = dataProviderCollectionRefresh(event);
                 break;
             }
 
             case CollectionEventKind.REMOVE:
             {
-                dataProviderCollectionRemove(event);
+                selectionChanged = dataProviderCollectionRemove(event);
                 break;
             }
                 
             case CollectionEventKind.REPLACE:
             {
-                dataProviderCollectionReplace(event);
+                selectionChanged = dataProviderCollectionReplace(event);
                 break;
             }
                 
             case CollectionEventKind.RESET:
             {
-                dataProviderCollectionReset(event);
+                selectionChanged = dataProviderCollectionReset(event);
                 break;
             }
 
             case CollectionEventKind.UPDATE:
             {
-                dataProviderCollectionUpdate(event);
+                selectionChanged = dataProviderCollectionUpdate(event);
                 break;
             }                
         }
         
         inCollectionHandler = false;
+        
+        return selectionChanged;
     }
         
     /**
      *  @private
      *  Add an item to the collection.
      */
-    private function dataProviderCollectionAdd(event:CollectionEvent):void
+    private function dataProviderCollectionAdd(event:CollectionEvent):Boolean
     {
-        handleRowAdd(event.location, event.items.length);
-        ensureRequiredSelection();
+        var selectionChanged:Boolean = handleRowAdd(event.location, event.items.length);        
+        return ensureRequiredSelection() || selectionChanged;
     }
 
     /**
      *  @private
      */
-    private function handleRowAdd(insertIndex:int, insertCount:int=1):void
+    private function handleRowAdd(insertIndex:int, insertCount:int=1):Boolean
     {
+        var selectionChanged:Boolean = false;
+        
         for (var cnt:int = 0; cnt < insertCount; cnt++)
         {
             for (var crIndex:int = 0; crIndex < cellRegions.length; crIndex++)
@@ -1351,6 +1358,7 @@ public class GridSelection
                 if (insertIndex <= cr.y)
                 {
                     cr.y++;
+                    selectionChanged = true;
                 }
                 else if (insertIndex < cr.bottom)
                 {
@@ -1364,37 +1372,42 @@ public class GridSelection
                     // insert newCR just after cr
                     cellRegions.splice(++crIndex, 0, newCR);                    
                     _selectionLength = -1;      // recalculate
+                    selectionChanged = true;
                 }
             }
         }
+        
+        return selectionChanged;
     }
 
     /**
      *  @private
      *  The item has been moved from the oldLocation to location.
      */
-    private function dataProviderCollectionMove(event:CollectionEvent):void
+    private function dataProviderCollectionMove(event:CollectionEvent):Boolean
     {
+        var selectionChanged:Boolean = false;
+        
         const oldRowIndex:int = event.oldLocation;
         var newRowIndex:int = event.location;
         
-        handleRowRemove(oldRowIndex);
+        selectionChanged = handleRowRemove(oldRowIndex);
         
         // If the row is removed before the newly added item
         // then change index to account for this.
         if (newRowIndex > oldRowIndex)
             newRowIndex--;
 
-        handleRowAdd(newRowIndex);
+        return handleRowAdd(newRowIndex) || selectionChanged;
     }
 
     /**
      *  @private
      *  The sort or filter on the collection changed.
      */
-    private function dataProviderCollectionRefresh(event:CollectionEvent):void
+    private function dataProviderCollectionRefresh(event:CollectionEvent):Boolean
     {       
-        handleRefreshAndReset(event);
+        return handleRefreshAndReset(event);
     }
       
     /**
@@ -1403,7 +1416,7 @@ public class GridSelection
      *  keep the item selected.  Otherwise, clear the selection (or maintain one
      *  if requireSelection is true).
      */
-    private function handleRefreshAndReset(event:CollectionEvent):void
+    private function handleRefreshAndReset(event:CollectionEvent):Boolean
     {
         // Is the selectedItem still in the collection?
         if (selectedItem)
@@ -1422,38 +1435,36 @@ public class GridSelection
                     var oldSelectedCell:CellPosition = allCells()[0];
                     internalSetCellRegion(newRowIndex, oldSelectedCell.columnIndex);
                 }
-                return;
+                return true;
             }
         }
         
         // Not preserving selection or selection not in current view so remove 
         // selection.
-        removeSelection();
-        ensureRequiredSelection();
-        return;            
+        var selectionChanged:Boolean = removeSelection();
+        return ensureRequiredSelection() || selectionChanged;
     }
     
     /**
      *  @private
      *  An item has been removed from the collection.
      */
-    private function dataProviderCollectionRemove(event:CollectionEvent):void
+    private function dataProviderCollectionRemove(event:CollectionEvent):Boolean
     {
         if (getGridDataProviderLength() == 0)
-        {
-            removeSelection();
-            return;   
-        }
+            return removeSelection();
 
-        handleRowRemove(event.location, event.items.length);       
-        ensureRequiredSelection();
+        var selectionChanged:Boolean = handleRowRemove(event.location, event.items.length);         
+        return ensureRequiredSelection() || selectionChanged;
     }
      
     /**
      *  @private
      */
-    private function handleRowRemove(removeIndex:int, removeCount:int=1):void
+    private function handleRowRemove(removeIndex:int, removeCount:int=1):Boolean
     {
+        var selectionChanged:Boolean = false;
+        
         for (var cnt:int = 0; cnt < removeCount; cnt++)
         {
             var crIndex:int = 0
@@ -1466,10 +1477,12 @@ public class GridSelection
                 if (removeIndex < cr.y)
                 {
                     cr.y--;
+                    selectionChanged = true;
                 }
                 else if (removeIndex >= cr.y && removeIndex < cr.bottom)
                 {
-                    _selectionLength = -1;  // recalculate               
+                    _selectionLength = -1;  // recalculate 
+                    selectionChanged = true;
                     cr.height--;
                     if (cr.height == 0)
                     {
@@ -1479,17 +1492,20 @@ public class GridSelection
                 }
                 crIndex++;
             }
-        }        
+        }
+        
+        return selectionChanged;
     }
         
     /**
      *  @private
      *  The item has been replaced.
      */
-    private function dataProviderCollectionReplace(event:CollectionEvent):void
+    private function dataProviderCollectionReplace(event:CollectionEvent):Boolean
     {
         // Nothing to do here unless we're saving the data items to preserve
         // the selection.
+        return false;
     }
     
     /**
@@ -1498,18 +1514,19 @@ public class GridSelection
      *  source.  If there is a preserved selected item and it is in the new
      *  data source the selection will be maintained.
      */
-    private function dataProviderCollectionReset(event:CollectionEvent):void
+    private function dataProviderCollectionReset(event:CollectionEvent):Boolean
     {        
-        handleRefreshAndReset(event);
+        return handleRefreshAndReset(event);
     }
 
     /**
      *  @private
      *  One or more items in the collection have been updated.
      */
-    private function dataProviderCollectionUpdate(event:CollectionEvent):void
+    private function dataProviderCollectionUpdate(event:CollectionEvent):Boolean
     {
         // Nothing to do.
+        return false;
     }
 
     //--------------------------------------------------------------------------
@@ -1529,27 +1546,29 @@ public class GridSelection
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function columnsCollectionChanged(event:CollectionEvent):void
+    public function columnsCollectionChanged(event:CollectionEvent):Boolean
     {
+        var selectionChanged:Boolean = false;
+
         inCollectionHandler = true;
         
         switch (event.kind)
         {
             case CollectionEventKind.ADD: 
             {
-                columnsCollectionAdd(event);
+                selectionChanged = columnsCollectionAdd(event);
                 break;
             }
                 
             case CollectionEventKind.MOVE:
             {
-                columnsCollectionMove(event);
+                selectionChanged = columnsCollectionMove(event);
                 break;
             }
                                 
             case CollectionEventKind.REMOVE:
             {
-                columnsCollectionRemove(event);
+                selectionChanged = columnsCollectionRemove(event);
                 break;
             }
                 
@@ -1561,38 +1580,43 @@ public class GridSelection
                 
             case CollectionEventKind.REFRESH:
             {
-                columnsCollectionRefresh(event);
+                selectionChanged = columnsCollectionRefresh(event);
                 break;                
             }
             case CollectionEventKind.RESET:
             {
-                columnsCollectionReset(event);
+                selectionChanged = columnsCollectionReset(event);
                 break;                
            }
         }
         
         inCollectionHandler = false;
+        
+        return selectionChanged;
     }
 
     /**
      *  @private
-     *  Add an column to the columns collection.
+     *  Add a column to the columns collection.
      */
-    private function columnsCollectionAdd(event:CollectionEvent):void
+    private function columnsCollectionAdd(event:CollectionEvent):Boolean
     {
         // If no selectionMode or a row-based selectionMode, nothing to do.
         if (!isCellSelectionMode())
-            return;
+            return false;
         
-        handleColumnAdd(event.location, event.items.length);
-        ensureRequiredSelection();
+        var selectionChanged:Boolean = handleColumnAdd(event.location, event.items.length);
+        
+        return ensureRequiredSelection() || selectionChanged;
     }
 
     /**
      *  @private
      */
-    private function handleColumnAdd(insertIndex:int, insertCount:int=1):void
+    private function handleColumnAdd(insertIndex:int, insertCount:int=1):Boolean
     {
+        var selectionChanged:Boolean = false;
+
         for (var cnt:int = 0; cnt < insertCount; cnt++)
         {
             for (var crIndex:int = 0; crIndex < cellRegions.length; crIndex++)
@@ -1606,6 +1630,7 @@ public class GridSelection
                 if (insertIndex <= cr.x)
                 {
                     cr.x++;
+                    selectionChanged = true;
                 }
                 else if (insertIndex < cr.x)
                 {
@@ -1618,10 +1643,13 @@ public class GridSelection
                     
                     // insert newCR just after cr
                     cellRegions.splice(++crIndex, 0, newCR);
-                    _selectionLength = -1;  // recalculate               
+                    _selectionLength = -1;  // recalculate 
+                    selectionChanged = true;
                 }
             }
         }
+        
+        return selectionChanged;
     }
 
     /**
@@ -1629,50 +1657,49 @@ public class GridSelection
      *  The column has been moved from the oldLocation to location in the 
      *  columns collection.
      */
-    private function columnsCollectionMove(event:CollectionEvent):void
+    private function columnsCollectionMove(event:CollectionEvent):Boolean
     {
         // If no selectionMode or a row-based selectionMode, nothing to do.
         if (!isCellSelectionMode())
-            return;
+            return false;
 
         const oldColumnIndex:int = event.oldLocation;
         var newColumnIndex:int = event.location;
         
-        handleColumnRemove(oldColumnIndex);
+        var selectionChanged:Boolean = handleColumnRemove(oldColumnIndex);
         
         // If the column is removed before the newly added column
         // then change index to account for this.
         if (newColumnIndex > oldColumnIndex)
             newColumnIndex--;
         
-        handleColumnAdd(newColumnIndex);
+        return handleColumnAdd(newColumnIndex) || selectionChanged;
     }   
 
     /**
      *  @private
      *  A column has been removed from the columns collection.
      */
-    private function columnsCollectionRemove(event:CollectionEvent):void
+    private function columnsCollectionRemove(event:CollectionEvent):Boolean
     {
         // If no selectionMode or a row-based selectionMode, nothing to do.
         if (!isCellSelectionMode())
-            return;
+            return false;
 
         if (getGridColumnsLength() == 0)
-        {
-            removeSelection();
-            return;   
-        }
+            return removeSelection();
         
-        handleColumnRemove(event.location, event.items.length);      
-        ensureRequiredSelection();
+        var selectionChanged:Boolean = handleColumnRemove(event.location, event.items.length);         
+        return ensureRequiredSelection() || selectionChanged;
     }
     
     /**
      *  @private
      */
-    private function handleColumnRemove(removeIndex:int, removeCount:int=1):void
+    private function handleColumnRemove(removeIndex:int, removeCount:int=1):Boolean
     {
+        var selectionChanged:Boolean = false;
+        
         for (var cnt:int = 0; cnt < removeCount; cnt++)
         {
             var crIndex:int = 0
@@ -1685,10 +1712,12 @@ public class GridSelection
                 if (removeIndex < cr.x)
                 {
                     cr.x--;
+                    selectionChanged = true;
                 }
                 else if (removeIndex >= cr.x && removeIndex < cr.right)
                 {
-                    _selectionLength = -1;  // recalculate               
+                    _selectionLength = -1;  // recalculate
+                    selectionChanged = true;
                     cr.width--;
                     if (cr.width == 0)
                     {
@@ -1698,7 +1727,9 @@ public class GridSelection
                 }
                 crIndex++;
             }
-        }        
+        }  
+        
+        return selectionChanged;
     }
 
     /**
@@ -1706,9 +1737,9 @@ public class GridSelection
      *  The sort or filter on the collection changed. For columns, this is
      *  the same as a "reset" event.
      */
-    private function columnsCollectionRefresh(event:CollectionEvent):void
+    private function columnsCollectionRefresh(event:CollectionEvent):Boolean
     {
-        columnsCollectionReset(event);
+        return columnsCollectionReset(event);
     }
 
     /**
@@ -1716,14 +1747,14 @@ public class GridSelection
      *  The columns changed.  If the selectionMode is cell-based, don't preserve 
      *  the selection.
      */
-    private function columnsCollectionReset(event:CollectionEvent):void
+    private function columnsCollectionReset(event:CollectionEvent):Boolean
     {
         // If no selectionMode or a row-based selectionMode, nothing to do.
         if (!isCellSelectionMode())
-            return;
+            return false;
 
-        removeSelection();
-        ensureRequiredSelection();
+        var selectionChanged:Boolean = removeSelection();        
+        return ensureRequiredSelection() || selectionChanged;
     }
 }
 }

@@ -1,0 +1,33 @@
+<DisplayList>
+  <FXG_Rect_Main width="800" height="700">
+    <spark.skins.spark.ApplicationSkin width="800" height="700" blendMode="auto">
+      <spark.components.Group width="800" height="700" blendMode="auto">
+        <spark.components.Group width="800" height="700" blendMode="auto">
+          <comps.RectBasic x="5" y="5" width="200" height="200">
+            <mx.skins.spark.ContainerBorderSkin width="200" height="200" blendMode="auto"/>
+            <spark.primitives.Graphic width="100" height="100" blendMode="auto"/>
+          </comps.RectBasic>
+          <comps.RectBasic2 x="215" y="5" width="300" height="300">
+            <mx.skins.spark.ContainerBorderSkin width="300" height="300" blendMode="auto"/>
+            <spark.primitives.Graphic width="200" height="200" blendMode="auto"/>
+          </comps.RectBasic2>
+          <comps.RectGradientStroke x="5" y="215" width="75" height="65" blendMode="auto">
+            <spark.primitives.Graphic x="5" y="5" width="65" height="55" blendMode="auto"/>
+          </comps.RectGradientStroke>
+          <spark.components.supportClasses.InvalidatingSprite x="100" y="215" width="76" height="76"/>
+          <spark.components.supportClasses.InvalidatingSprite matrix="(a=0.9396926164627075, b=-0.3420201539993286, c=0.3420201539993286, d=0.9396926164627075, tx=215, ty=400)" x="215" y="400" width="97.4" height="97.4"/>
+          <spark.components.supportClasses.InvalidatingSprite matrix="(a=0.9396926164627075, b=0.3420201539993286, c=-0.3420201539993286, d=0.9396926164627075, tx=100, ty=310)" x="100" y="310" width="78.15" height="78.2"/>
+          <spark.components.supportClasses.InvalidatingSprite x="500" y="500" width="61" height="61"/>
+          <spark.components.supportClasses.InvalidatingSprite matrix="(a=2, b=0, c=0, d=1.5, tx=225, ty=350)" x="225" y="350" width="122" height="91.5"/>
+          <spark.components.supportClasses.InvalidatingSprite matrix="(a=0.9396926164627075, b=0.3420201539993286, c=-0.3420201539993286, d=0.9396926164627075, tx=100, ty=310)" x="100" y="310" width="78.15" height="78.2"/>
+          <spark.components.supportClasses.InvalidatingSprite x="500" y="500" width="61" height="61"/>
+          <spark.components.supportClasses.InvalidatingSprite matrix="(a=2, b=0, c=0, d=1.5, tx=224.95, ty=350)" x="224.95" y="350" width="122" height="91.5"/>
+          <comps.RectRadialGradientStroke x="420" y="375" width="75" height="65" blendMode="auto">
+            <spark.primitives.Graphic x="5" y="5" width="65" height="55" blendMode="auto"/>
+          </comps.RectRadialGradientStroke>
+          <comps.RectWithRadius x="5" y="480" width="79" height="79" blendMode="auto"/>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </FXG_Rect_Main>
+</DisplayList>

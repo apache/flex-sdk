@@ -21,6 +21,7 @@
 					 xmlns:s="library://ns.adobe.com/flex/spark" 
 					 firstView="components.ViewPersistence" 
 					 persistNavigatorState="true" initialize="initializeHandler(event)">
+	<fx:Style source="../../../../Assets/Fonts/MobileFontStyles.css" />
 	
 	<fx:Script source="global.as" />
 	

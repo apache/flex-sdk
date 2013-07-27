@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="experimental/spark/components/CallOutButton/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="CallOutButton_Main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<mx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}			
+
+		]]>
+
+	</mx:Script>
+
+	
+
+	<mx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</mx:Metadata>	
+
+	
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<testCases>
+
+
+		<TestCase testID="calloutButton_click" keywords="[CallOutButton, click]" 
+			description="Verifies triggerEvent click on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="calloutClickButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="calloutClickButton" type="mouseDown" localX="5" localY="5" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_click.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_rollOver" keywords="[CallOutButton, rollOver]" 
+			description="Verifies triggerEvent rollOver on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="calloutRollOverButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="calloutRollOverButton" type="mouseDown" localX="5" localY="5" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_over.png"/>
+			</body>
+		</TestCase>
+		<!-- after* -->
+		<TestCase testID="calloutButton_afterAfter" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=after verticalPosition=after on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutAfterAfter" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_afterAfter.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_afterAuto" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=after verticalPosition=auto on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutAfterAuto" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_afterAuto.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_afterBefore" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=after verticalPosition=before on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutAfterBefore" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_afterBefore.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_afterEnd" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=after verticalPosition=end on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutAfterEnd" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_afterEnd.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_afterMiddle" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=after verticalPosition=middle on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutAfterMiddle" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_afterMiddle.png"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="calloutButton_afterStart" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=after verticalPosition=start on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutAfterStart" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_afterStart.png"/>
+			</body>
+		</TestCase>
+		
+		<!-- auto* -->
+		
+		<TestCase testID="calloutButton_autoAfter" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=auto verticalPosition=after on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutAutoAfter" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_autoAfter.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_autoAuto" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=auto verticalPosition=auto on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutAutoAuto" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_autoAuto.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_autoBefore" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=auto verticalPosition=before on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutAutoBefore" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_autoBefore.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_autoEnd" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=auto verticalPosition=end on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutAutoEnd" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_autoEnd.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_autoMiddle" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=auto verticalPosition=middle on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutAutoMiddle" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_autoMiddle.png"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="calloutButton_autoStart" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=auto verticalPosition=start on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutAutoStart" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_autoStart.png"/>
+			</body>
+		</TestCase>
+		
+		<!-- before* -->
+		
+		<TestCase testID="calloutButton_beforeAfter" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=before verticalPosition=after on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutBeforeAfter" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_beforeAfter.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_beforeAuto" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=before verticalPosition=auto on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutBeforeAuto" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_beforeAuto.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_beforeBefore" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=before verticalPosition=before on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutBeforeBefore" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_beforeBefore.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_beforeEnd" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=before verticalPosition=end on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutBeforeEnd" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_beforeEnd.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_beforeMiddle" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=before verticalPosition=middle on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutBeforeMiddle" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_beforeMiddle.png"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="calloutButton_beforeStart" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=before verticalPosition=start on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutBeforeStart" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_beforeStart.png"/>
+			</body>
+		</TestCase>
+		
+		<!-- end* -->
+		
+		<TestCase testID="calloutButton_endAfter" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=end verticalPosition=after on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutEndAfter" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_endAfter.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_endAuto" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=end verticalPosition=auto on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutEndAuto" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_endAuto.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_endBefore" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=end verticalPosition=before on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutEndBefore" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_endBefore.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_endEnd" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=end verticalPosition=end on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutEndEnd" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_endEnd.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_endMiddle" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=end verticalPosition=middle on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutEndMiddle" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_endMiddle.png"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="calloutButton_endStart" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=end verticalPosition=start on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutEndStart" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_endStart.png"/>
+			</body>
+		</TestCase>
+		
+		<!-- middle* -->
+		<TestCase testID="calloutButton_middleAfter" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=middle verticalPosition=after on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutMiddleAfter" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_middleAfter.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_middleAuto" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=middle verticalPosition=auto on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutMiddleAuto" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_middleAuto.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_middleBefore" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=middle verticalPosition=before on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutMiddleBefore" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_middleBefore.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_middleEnd" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=middle verticalPosition=end on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutMiddleEnd" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_middleEnd.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_middleMiddle" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=middle verticalPosition=middle on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutMiddleMiddle" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_middleMiddle.png"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="calloutButton_middleStart" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=middle verticalPosition=start on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutMiddleStart" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_middleStart.png"/>
+			</body>
+		</TestCase>
+		
+		<!-- start* -->
+		<TestCase testID="calloutButton_startAfter" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=start verticalPosition=after on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutStartAfter" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_startAfter.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_startAuto" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=start verticalPosition=auto on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutStartAuto" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_startAuto.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_startBefore" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=start verticalPosition=before on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutStartBefore" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_startBefore.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_startEnd" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=start verticalPosition=end on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutStartEnd" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_startEnd.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="calloutButton_startMiddle" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=start verticalPosition=middle on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutStartMiddle" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_startMiddle.png"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="calloutButton_startStart" keywords="[CallOutButton, horizontalPosition, verticalPosition]" 
+			description="Verifies horizontalPosition=start verticalPosition=start on CallOutButton">
+			<setup>
+				<ResetComponent target="resetButton" className="spark.components.Button" waitTarget="resetButton" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="resetButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchMouseEvent target="callOutStartStart" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="250" />
+				<CompareBitmap url="../Properties/baselines/calloutbutton_startStart.png"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+
+</UnitTester>

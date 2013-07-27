@@ -912,7 +912,7 @@ public class Application extends SkinnableContainer
      */
     private var _applicationDPI:Number = NaN;
     
-    [Inspectable(category="General", enumeration="160,240,320")]
+    [Inspectable(category="General", enumeration="160,240,320,480")]
     
     /**
      *  The DPI of the application.
@@ -985,7 +985,8 @@ public class Application extends SkinnableContainer
      *     <table class="innertable">
      *        <tr><td>160 DPI</td><td>&lt;200 DPI</td></tr>
      *        <tr><td>240 DPI</td><td>&gt;=200 DPI and &lt;280 DPI</td></tr>
-     *        <tr><td>320 DPI</td><td>&gt;=280 DPI</td></tr>
+     *        <tr><td>320 DPI</td><td>&gt;=280 DPI and &lt;400 DPI</td></tr>
+	 *        <tr><td>480 DPI</td><td>&gt;=400 DPI</td></tr>
      *     </table>
      *  </p>
      * 
@@ -1156,7 +1157,7 @@ public class Application extends SkinnableContainer
 		// softKeyboard becoming visible, we need to compare against
 		// the height without the keyboard active
 		if (isSoftKeyboardActive && softKeyboardBehavior == "none" && resizeForSoftKeyboard)
-			actualHeight += stage.softKeyboardRect.height;
+			actualHeight += softKeyboardRect.height;
 		
         return width > actualHeight ? "landscape" : "portrait";
     }
@@ -1855,7 +1856,7 @@ public class Application extends SkinnableContainer
             }
             
             // Get the keyboard size
-            var keyboardRect:Rectangle = stage.softKeyboardRect;
+            var keyboardRect:Rectangle = softKeyboardRect;
      
             if (keyboardRect.height > 0)
                 isSoftKeyboardActive = true;
@@ -2147,6 +2148,16 @@ public class Application extends SkinnableContainer
         if (!dispatchEvent(event))
             event.preventDefault();
     }
+	
+	mx_internal var _softKeyboardRect:Rectangle;
+	
+	mx_internal function get softKeyboardRect():Rectangle
+	{
+		if (_softKeyboardRect == null)
+			return stage.softKeyboardRect;
+		
+		return _softKeyboardRect;
+	}
 }
 
 }

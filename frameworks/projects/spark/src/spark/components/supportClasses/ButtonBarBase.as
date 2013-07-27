@@ -513,7 +513,101 @@ public class ButtonBarBase extends ListBase
     //  Methods
     //
     //--------------------------------------------------------------------------
-    
+
+    /**
+    *  Gets the index for several of a ButtonBar's Buttons, referencing them by the ButtonBarbutton's <code>label</code>.  
+    *
+    *  <p>The method takes an array of ButtonBarButtons label and an optional field name.</p>
+    *  <pre>myButtonBar.getButtonIndices(["My Button Label1", "My Label2"])</pre>
+    *
+    *  @param labelValues Are the ButtonBarButton labels to find.
+    *  @param fieldName Field used for comparing the label (optional)
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function getButtonIndices(labelValues:Array, fieldName:String = ""):Array
+    {
+        var buttonIndices:Array;
+
+
+        if (!dataGroup || labelValues.length < 1 || labelValues == null)
+        {
+            return [];
+        }
+
+        if (fieldName == "" || fieldName == null)
+        {
+            return findRowIndices(labelField, labelValues);
+        }
+        else
+        {
+            return findRowIndices(fieldName, labelValues);
+        }
+    }
+
+
+    /**
+    *  Changes the <code>enabled</code> property of a ButtonBar's Button referencing it by the ButtonBarbutton's <code>label</code>. 
+    *
+    *  <p>The method takes a single ButtonBarButton label, a new <code>enabled</code> property value, and an optional field name to search for.</p>
+    *  <pre>myButtonBar.setButtonEnabled("My Button Label", false)</pre>
+    *
+    *  @param labelValue Is the ButtonBarButton label
+    *  @param fieldName Field used for comparing the label
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function setButtonEnabled(labelValue:String, enabledValue:Boolean, fieldName:String = ""):void
+    {
+        setButtonsEnabled([labelValue], enabledValue, fieldName);
+    }
+
+
+    /**
+    *  Disables several of a ButtonBar's Buttons, referencing them by the ButtonBarbutton's <code>label</code>. 
+    *
+    *  <p>The method takes an array of ButtonBarButton labels, a new <code>enabled</code> property value, and an optional field name to search for.</p>
+    *  <pre>myButtonBar.setButtonsEnabled(["My Button Label1", "My Label2"], false)</pre>
+    *
+    *  @param labelValues Is an array of ButtonBarButton labels.
+    *  @param fieldName Field used for comparing the label
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function setButtonsEnabled(labelValues:Array, enabledValue:Boolean, fieldName:String = ""):void
+    {
+        var btnCurrent:ButtonBarButton = null;
+        var buttonIndices:Array;
+        var indicesTotal:uint = 0;
+        var loopingIndex:uint = 0;
+
+
+        buttonIndices = getButtonIndices(labelValues, fieldName);
+        indicesTotal = buttonIndices.length;
+
+        if (indicesTotal == 0)
+        {
+            return;
+        }
+
+        
+        for (loopingIndex; loopingIndex < indicesTotal; loopingIndex++)
+        {
+            btnCurrent = dataGroup.getElementAt(buttonIndices[loopingIndex]) as ButtonBarButton;
+            btnCurrent.enabled = enabledValue;
+        }
+    }
+
+
     /**
      *  @private
      */

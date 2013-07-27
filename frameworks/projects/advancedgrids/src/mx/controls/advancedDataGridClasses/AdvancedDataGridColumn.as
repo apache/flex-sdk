@@ -1725,9 +1725,9 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
     private function itemToLabelWithoutFormatting(data:Object):String
     {
         var headerInfo:AdvancedDataGridHeaderInfo  = owner.mx_internal::getHeaderInfo(this);
-        //In case of Column grouping, when a column has a parent with dataField/labelFunction set, this column is
-        //supposed to take value from what its parent supplies it
-        if(headerInfo.internalLabelFunction!=null)
+        // In case of Column grouping, when a column has a parent with dataField/labelFunction set, this column is
+        // supposed to take value from what its parent supplies it
+		if (headerInfo != null && headerInfo.internalLabelFunction != null)
             data = headerInfo.internalLabelFunction(data, this);
    
         if (!data)

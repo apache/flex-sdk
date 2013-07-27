@@ -890,7 +890,7 @@ public final class Animation
     {
         var i:int;
         
-        currentValue = new Object();
+        currentValue = {};
         if (duration == 0)
         {
             for (i = 0; i < motionPaths.length; ++i)

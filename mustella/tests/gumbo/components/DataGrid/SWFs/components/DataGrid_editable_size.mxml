@@ -166,6 +166,8 @@ xmlns:s="library://ns.adobe.com/flex/spark"  dataProvider="{dp1}"
 										import spark.components.gridClasses.GridColumn;
 										import flash.events.FocusEvent;
 										 
+										// This renderer seems like a very poor design.  It is not a good test!
+										// The change is not saved since just setting data doesn't do it.
 										
 										protected function itemIdInput_focusOutHandler(event:FocusEvent):void
 										{

@@ -3033,6 +3033,7 @@ public class AdvancedListBase extends ScrollControlBase
         if (!collection || collection.length == 0)
         {
             _selectedItem = data;
+			bSelectedItemsChanged = true;
             bSelectedItemChanged = true;
             bSelectionChanged = true;
 
@@ -3065,7 +3066,7 @@ public class AdvancedListBase extends ScrollControlBase
      */
     public function get selectedItems():Array
     {
-        return bSelectedItemsChanged ? _selectedItems : copySelectedItems();
+        return bSelectedItemsChanged && _selectedItems ? _selectedItems : copySelectedItems();
     }
 
     /**
@@ -4005,7 +4006,7 @@ public class AdvancedListBase extends ScrollControlBase
         if (offscreenExtraRowsTop > 0)
             makeRowsAndColumns(0, 0, listContent.width, listContent.height, 0, 0,true,offscreenExtraRowsTop);
 
-        var curY:Number = offscreenExtraRowsTop ? rowInfo[offscreenExtraRowsTop-1].y + rowHeight : 0;
+        var curY:Number = offscreenExtraRowsTop > 0 ? rowInfo[offscreenExtraRowsTop-1].y + rowHeight : 0;
         // make onscreen items
         pt = makeRowsAndColumns(0, curY, listContent.width, curY + listContent.heightExcludingOffsets, 0, offscreenExtraRowsTop);
 
@@ -5613,6 +5614,7 @@ public class AdvancedListBase extends ScrollControlBase
 
         _selectedIndex = -1;
         _selectedItem = null;
+		_selectedItems = null;
 
         caretIndex = -1;
         anchorIndex = -1;
@@ -6115,7 +6117,7 @@ public class AdvancedListBase extends ScrollControlBase
         }
         else
         {
-            while (items.length && !collectionIterator.afterLast)
+            while (items && items.length && !collectionIterator.afterLast)
             {
                 var n:int = items.length;
                 var data:Object = collectionIterator.current;
@@ -7542,25 +7544,29 @@ public class AdvancedListBase extends ScrollControlBase
         for (i; i != stopIndex; i++)
         {
             var itmStr:String = itemToLabel(iterator.current);
-
-            itmStr = itmStr.substring(0, str.length);
-            if (str == itmStr || str.toUpperCase() == itmStr.toUpperCase())
-            {
-                iterator.seek(cursorPos, 0);
-                scrollToIndex(i);
-                commitSelectedIndex(i);
-                var item:IListItemRenderer = indexToItemRenderer(i);
-                var pt:Point = itemRendererToIndices(item);
-                var evt:ListEvent = new ListEvent(ListEvent.CHANGE);
-                evt.itemRenderer = item;
-                if (pt)
-                {
-                    evt.columnIndex = pt.x;
-                    evt.rowIndex = pt.y;
-                }
-                dispatchEvent(evt);
-                return true;
-            }
+	
+			if (itmStr) 
+			{
+	            itmStr = itmStr.substring(0, str.length);
+				
+	            if (str == itmStr || str.toUpperCase() == itmStr.toUpperCase())
+	            {
+	                iterator.seek(cursorPos, 0);
+	                scrollToIndex(i);
+	                commitSelectedIndex(i);
+	                var item:IListItemRenderer = indexToItemRenderer(i);
+	                var pt:Point = itemRendererToIndices(item);
+	                var evt:ListEvent = new ListEvent(ListEvent.CHANGE);
+	                evt.itemRenderer = item;
+	                if (pt)
+	                {
+	                    evt.columnIndex = pt.x;
+	                    evt.rowIndex = pt.y;
+	                }
+	                dispatchEvent(evt);
+	                return true;
+	            }
+			}
 
             try
             {
@@ -8646,7 +8652,7 @@ public class AdvancedListBase extends ScrollControlBase
 
             default:
             {
-                if (findKey(event.keyCode))
+                if (findKey(event.charCode))
                     event.stopPropagation();
             }
         }

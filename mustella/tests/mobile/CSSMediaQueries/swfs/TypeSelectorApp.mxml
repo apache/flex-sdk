@@ -19,6 +19,7 @@
 -->
 <s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 							xmlns:s="library://ns.adobe.com/flex/spark" firstView="views.TypeSelectorAppHomeView">
+	<fx:Style source="../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
 		
@@ -53,6 +54,41 @@
 			s|ActionBar #titleDisplay
 			{
 				color: #ff0000;
+			}
+		}
+		
+		@media screen and (application-dpi: 240)
+		{
+			s|Button
+			{
+				color: #009900;
+				fontSize: 26;			
+			}
+			s|CheckBox:state2
+			{
+				chromeColor: #009900;
+			}
+			s|ActionBar #titleDisplay
+			{
+				color: #00ff00;
+			}
+		}
+		
+		@media screen and (application-dpi: 320)
+		{
+			s|Button
+			{
+				chromeColor: #000099;
+				color: #ffffff;
+				fontSize: 28;			
+			}
+			s|CheckBox:state2
+			{
+				chromeColor: #000099;
+			}
+			s|ActionBar #titleDisplay
+			{
+				color: #0000ff;
 			}
 		}
 		

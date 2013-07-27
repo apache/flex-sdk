@@ -40,22 +40,45 @@
     </condition>
 
     <!-- Property for the platform.  -->
-    <condition property="isMac" value="true">
+    <condition property="isMac">
         <os family="mac"/>
     </condition>
     <condition property="isWindows">
         <os family="windows" />
-    </condition>    
+    </condition>   
+    <condition property="isLinux">
+        <and>
+          <os family="unix"/>    
+          <not>
+            <os family="mac"/>    
+          </not>
+        </and>
+    </condition>  
 
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
     <property file="${FLEX_HOME}/build.properties"/>
  
-    <target name="main" depends="check-compile-env,clean,prepare,compile,javascript" 
+    <target name="main" depends="check-compile-env,check-tlf-home,clean,prepare,compile,javascript" 
         description="Clean build of all SWCs"/>
 
     <target name="check-compile-env" description="Check for the required environment variables">
         <ant antfile="${FLEX_HOME}/build.xml" target="check-compile-env" dir="${FLEX_HOME}"/>
+    </target>
+
+    <target name="check-tlf-home" unless="TLF_HOME"
+        description="Check TLF_HOME is a directory.">
+        
+        <echo message="TLF_HOME is ${env.TLF_HOME}"/>
+
+        <available file="${env.TLF_HOME}" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${env.TLF_HOME}"/>
+
+        <fail message="TLF_HOME must be set correctly for a release build" 
+            unless="TLF_HOME"/>
+    	
     </target>
     
     <target name="prepare" depends="local-fonts-snapshot, thirdparty-downloads"/>
@@ -73,7 +96,7 @@
         <touch file="winFonts.ser"/>
     </target>
         
-    <target name="thirdparty-downloads" description="Downloads all the required thirdparty code.">
+    <target name="thirdparty-downloads" unless="no.thirdparty-downloads" description="Downloads all the required thirdparty code.">
         <ant antfile="${basedir}/downloads.xml" dir="${basedir}"/>
     </target>
 
@@ -146,6 +169,15 @@
 		<condition property="playerglobal.swfversion" value="18">
 			<equals arg1="${playerglobal.version}" arg2="11.5" />
 		</condition>
+		<condition property="playerglobal.swfversion" value="19">
+			<equals arg1="${playerglobal.version}" arg2="11.6" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="20">
+			<equals arg1="${playerglobal.version}" arg2="11.7" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="21">
+			<equals arg1="${playerglobal.version}" arg2="11.8" />
+		</condition>
 	</target>	
 
     <!--
@@ -216,11 +248,12 @@
 
     <target name="super-clean" depends="thirdparty-clean,clean" description="Cleans everything including thirdparty downloads."/>
 	
-    <target name="thirdparty-clean" description="Removes all thirdparty downloads.">
+    <target name="thirdparty-clean" unless="no.thirdparty-clean" description="Removes all thirdparty downloads.">
         <ant antfile="${basedir}/downloads.xml" target="clean" dir="${basedir}"/>
     </target>
     
-    <target name="clean" depends="automation-clean,airsdk-clean" description="Cleans all SWCs and their resource bundles">
+    <target name="clean" depends="check-tlf-home,automation-clean,airsdk-clean" description="Cleans all SWCs and their resource bundles">
+        <delete file="${basedir}/flex-config.xml"/>
         <!-- Delete output from SWC projects -->
         <ant dir="${basedir}/projects/textLayout" target="clean"/>
         <ant dir="${basedir}/projects/framework" target="clean"/>
@@ -251,6 +284,7 @@
             </fileset>
         </delete> 
         <!-- Delete empty folders -->
+        <delete dir="${basedir}/libs"/>
         <delete dir="${basedir}/locale">
             <exclude name="**/metadata.properties"/>
         </delete>
@@ -302,6 +336,7 @@
         </delete>
         <delete includeEmptyDirs="true" failonerror="false">
             <fileset dir="${FLEX_HOME}/templates">
+            	<include name="sdk/**" />
                 <include name="air/**" />
                 <include name="extensions/**" />
             </fileset>

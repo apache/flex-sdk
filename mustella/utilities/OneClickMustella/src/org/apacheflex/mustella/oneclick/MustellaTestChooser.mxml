@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			private var dirFile:File = new File();
+			private var fs:FileStream;
+
+			private function browse():void
+			{
+				dirFile.addEventListener(Event.SELECT, selectHandler);
+				dirFile.browseForDirectory("Mustella Directory");
+			}
+			
+			public function setMustellaDirectory(path:String):void
+			{
+				dir.text = path;
+				dirFile = new File(path);
+			}
+			
+			public function setSVNStatus(status:String):void
+			{
+				statusLog.text = status;
+			}
+			
+			private function selectHandler(event:Event):void
+			{
+				dir.text = dirFile.nativePath;	
+			}
+			
+			
+			
+			private function computeTests():void
+			{
+				dirFile.nativePath = dir.text;
+				
+				var files:Array = statusLog.text.split("\n");
+				var modFiles:Array = [];
+				var n:int = files.length;
+				for (var i:int = 0; i < n; i++)
+				{
+					var file:String = files[i];
+					if (file.charAt(0) == "M")
+					{
+						modFiles.push(file);
+					}
+				}
+				
+				readDB();
+				
+				findTests();
+				
+				// flattenTests();
+				computeTestDependencies();
+				
+				n = modFiles.length;
+				for (i = 0; i < n; i++)
+				{
+					file = modFiles[i];
+					file = file.substr(8);
+					var c:int;
+					c = file.indexOf(".as");
+					if (c != -1)
+						file = file.substr(0, c);
+					else
+					{
+						c = file.indexOf(".mxml");
+						if (c != -1)
+							file = file.substr(0, c);
+					}
+					c = file.indexOf(File.separator + "src" + File.separator);
+					if (c != -1)
+						file = file.substr(c + 5);
+					c = file.lastIndexOf(File.separator);
+					if (c != -1)
+						file = file.substring(0, c) + ':' + file.substr(c + 1);
+					file = file.replace(new RegExp("\\" + File.separator,"g"), ".");
+					modFiles[i] = file;
+				}
+				var runTests:Array = [];
+				var m:int = testNames.length;				
+				for (i = 0; i < n; i++)
+				{
+					for (var j:int = 0; j < m; j++)
+					{
+						if (testDeps[testNames[j]][modFiles[i]])
+							runTests.push(testNames[j]);
+					}
+				}
+				runTests.sort();
+				var s:String = "";
+				n = runTests.length;
+				for (i = 0; i < n; i++)
+				{
+					//trace(runTests[i]);
+					s += runTests[i].substr(7) + "\n"; // clip leading '/tests/'
+				}
+				s = s.replace(/\\/g, "/"); 
+				output.text = s;
+				doneLabel.visible = true;
+				var f:File = new File(dirFile.nativePath + "/" + "changes.txt");
+				try
+				{
+					var fs:FileStream = new FileStream();
+					fs.open(f, FileMode.WRITE);
+					fs.writeUTFBytes(s);
+					fs.close();
+				}
+				catch (e:Error)
+				{
+					
+				}
+			}
+			
+			private var db:Object = {};
+			
+			private function readDB():void
+			{
+				var f:File = new File(dirFile.nativePath + "/" + "deps.xml");
+				try
+				{
+					var fs:FileStream = new FileStream();
+					fs.open(f, FileMode.READ);
+					var s:String = fs.readUTFBytes(fs.bytesAvailable);
+					var xml:XML = XML(s);
+					var scripts:XMLList = xml.script;
+					var n:int = scripts.length();
+					for (var i:int = 0; i < n; i++)
+					{
+						var script:XML = scripts[i];
+						var deps:XMLList = script.dep;
+						var m:int= deps.length();
+						var deplst:Object = {};
+						for (var j:int = 0; j < m; j++)
+						{
+							deplst[deps[j].@name] = 1;
+						}
+						db[script.@name] = deplst;
+					}
+					fs.close();
+				}
+				catch (e:Error)
+				{
+					
+				}
+			}
+
+			private var testNames:Array = [];
+			
+			private function findTests():void
+			{
+				// tests extend UnitTester
+				for (var p:String in db)
+				{
+					if (db[p]["UnitTester"] == 1)
+					{
+						// make sure it isn't a test step
+						if (p.indexOf("as3/src/") == -1) 
+							testNames.push(p);
+					}
+				}
+			}
+			
+			private var testDeps:Object = {};
+			
+			private function computeTestDependencies():void
+			{
+				for each (var p:String in testNames)
+				{
+					testDeps[p] = {};
+					addDeps(p, [testDeps[p]]);
+				}
+				
+			}
+			
+			private var inProgress:Object = {};
+			
+			private function addDeps(p:String, arr:Array):void
+			{
+				//trace(p);
+				
+				for each (var o:Object in arr)
+				{
+					o[p] = 1;
+				}
+				var deps:Object = db[p];
+				for (var q:String in deps)
+				{
+					o = testDeps[q];
+					if (o == null)
+					{
+						if (inProgress[q] == null)
+						{
+							o = {};
+							inProgress[q] = o;
+							arr.push(o);
+							addDeps(q, arr);
+							arr.pop();
+							testDeps[q] = o;
+							delete inProgress[q];
+						}
+					}
+					else
+					{
+						for (var r:String in o)
+						{
+							for each (var s:Object in arr)
+							{
+								s[r] = 1;
+							}
+						}
+					}
+					
+				}
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	<s:HGroup width="100%">
+		<s:Label text="Mustella Directory:" />
+		<s:TextInput id="dir" width="100%" toolTip="The mustella dir, not the tests dir"/>
+		<s:Button label="Browse..." click="browse()" />
+	</s:HGroup>
+	<s:Label text="Copy and paste SVN Status below" />
+	<s:TextArea id="statusLog" width="100%" change="doneLabel.visible=false"/>
+	<s:HGroup>
+		<s:Button label="Compute Tests" enabled="{statusLog.text.length > 0}" click="callLater(computeTests)" />
+		<s:Label id="doneLabel" visible="false" text="Wrote changes.txt. Use mini_run.sh -changes" />
+	</s:HGroup>
+	<s:TextArea id="output" width="100%" editable="false" lineBreak="explicit" horizontalScrollPolicy="auto" />
+</s:Panel>

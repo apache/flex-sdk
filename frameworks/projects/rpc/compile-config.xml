@@ -49,11 +49,6 @@
         <class>RPCClasses</class>
     </include-classes>
     
-    <include-file>
-        <name>version.properties</name>
-        <path>../../version.properties</path>
-    </include-file>
-    
     <include-namespaces>
         <uri>library://ns.adobe.com/flex/mx</uri>
     </include-namespaces>  

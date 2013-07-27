@@ -43,7 +43,12 @@ import spark.skins.mobile320.assets.RadioButton_downSymbolSelected;
 import spark.skins.mobile320.assets.RadioButton_up;
 import spark.skins.mobile320.assets.RadioButton_upSymbol;
 import spark.skins.mobile320.assets.RadioButton_upSymbolSelected;
-
+import spark.skins.mobile480.assets.RadioButton_down;
+import spark.skins.mobile480.assets.RadioButton_downSymbol;
+import spark.skins.mobile480.assets.RadioButton_downSymbolSelected;
+import spark.skins.mobile480.assets.RadioButton_up;
+import spark.skins.mobile480.assets.RadioButton_upSymbol;
+import spark.skins.mobile480.assets.RadioButton_upSymbolSelected;
 /**
  *  ActionScript-based skin for RadioButton controls in mobile applications. 
  * 
@@ -93,6 +98,24 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				upIconClass = spark.skins.mobile480.assets.RadioButton_up;
+				upSelectedIconClass = spark.skins.mobile480.assets.RadioButton_up;
+				downIconClass = spark.skins.mobile480.assets.RadioButton_down;
+				downSelectedIconClass = spark.skins.mobile480.assets.RadioButton_down;
+				upSymbolIconClass =  spark.skins.mobile480.assets.RadioButton_upSymbol;
+				downSymbolIconClass =  spark.skins.mobile480.assets.RadioButton_downSymbol;
+				upSymbolIconSelectedClass = spark.skins.mobile480.assets.RadioButton_upSymbolSelected;
+				downSymbolIconSelectedClass = spark.skins.mobile480.assets.RadioButton_downSymbolSelected;
+				
+				layoutGap = 30;
+				minWidth = 96;
+				minHeight = 96;
+				
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 upIconClass = spark.skins.mobile320.assets.RadioButton_up;

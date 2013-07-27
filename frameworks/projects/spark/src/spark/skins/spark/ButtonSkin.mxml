@@ -48,7 +48,7 @@
             import spark.components.Group;
             /* Define the skin elements that should not be colorized. 
             For button, the graphics are colorized but the label is not. */
-            static private const exclusions:Array = ["labelDisplay"];
+            static private const exclusions:Array = ["iconDisplay", "labelDisplay"];
             
             /** 
              * @private

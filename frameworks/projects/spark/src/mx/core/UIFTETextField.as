@@ -2480,7 +2480,7 @@ public class UIFTETextField extends FTETextField
         {
             // This should get us into the ballpark.
             var s:String = super.text = originalText;
-                originalText.slice(0,
+                s = originalText.slice(0,
                     Math.floor((w / (textWidth + TEXT_WIDTH_PADDING)) * originalText.length));
 
             while (s.length > 1 && textWidth + TEXT_WIDTH_PADDING > w)
@@ -2488,6 +2488,20 @@ public class UIFTETextField extends FTETextField
                 s = s.slice(0, -1);
                 super.text = s + truncationIndicator;
             }
+            
+            var otl:int = originalText.length;
+            var t:String = s;
+            while (t.length < otl)
+            {
+                t = originalText.slice(0, t.length + 1);
+                super.text = t + truncationIndicator;
+                if (textWidth + TEXT_WIDTH_PADDING <= w)
+                    s = t;
+                else
+                    break;
+            } 
+            if (s.length > 0)
+                super.text = s + truncationIndicator;
             
             return true;
         }

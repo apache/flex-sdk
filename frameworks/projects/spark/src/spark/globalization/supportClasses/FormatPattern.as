@@ -60,7 +60,7 @@ internal final class FormatPattern
     {
         super();
         this.pattern = pattern;
-        this.locales = new Object();
+        this.locales = {};
         for (var i:int = 0; i < locales.length; i++)
             this.locales[locales[i]] = true;
     }

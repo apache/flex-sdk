@@ -482,6 +482,11 @@ public class Callout extends SkinnablePopUpContainer
             {
                 switch (dpi)
                 {
+					case DPIClassification.DPI_480:
+					{
+						_margin = 24;
+						break;
+					}
                     case DPIClassification.DPI_320:
                     {
                         _margin = 16;

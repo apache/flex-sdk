@@ -52,6 +52,13 @@ public class TextAreaHScrollBarSkin extends HScrollBarSkin
 
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				minHeight = 22;
+				paddingBottom = TextAreaHScrollBarThumbSkin.PADDING_BOTTOM_480DPI;
+				paddingHorizontal = TextAreaHScrollBarThumbSkin.PADDING_HORIZONTAL_480DPI;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 minHeight = 15;

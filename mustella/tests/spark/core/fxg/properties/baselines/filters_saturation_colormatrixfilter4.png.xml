@@ -1,0 +1,27 @@
+<DisplayList>
+  <fxgtemplate width="940" height="700">
+    <spark.skins.spark.ApplicationSkin width="940" height="700" blendMode="auto">
+      <spark.components.Group width="940" height="700" blendMode="auto">
+        <spark.components.Group width="940" height="700" blendMode="auto">
+          <comps.MyComp width="800" height="800" blendMode="auto">
+            <fxg.filters.saturation_colormatrixfilter4 width="428" height="136.1" blendMode="auto">
+              <flash.display.MovieClip x="5" y="5" width="402" height="102.1">
+                <flash.display.MovieClip width="402" height="102.1">
+                  <flash.display.MovieClip width="102" height="102.1">
+                    <flash.display.Shape y="30" width="102" height="102.1"/>
+                  </flash.display.MovieClip>
+                  <flash.display.MovieClip x="150" width="102" height="102.1">
+                    <flash.display.Shape y="30" width="102" height="102.1" cacheAsBitmap="true" filters="[object ColorMatrixFilter]"/>
+                  </flash.display.MovieClip>
+                  <flash.display.MovieClip x="300" width="102" height="102.1">
+                    <flash.display.Shape y="30" width="102" height="102.1"/>
+                  </flash.display.MovieClip>
+                </flash.display.MovieClip>
+              </flash.display.MovieClip>
+            </fxg.filters.saturation_colormatrixfilter4>
+          </comps.MyComp>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </fxgtemplate>
+</DisplayList>

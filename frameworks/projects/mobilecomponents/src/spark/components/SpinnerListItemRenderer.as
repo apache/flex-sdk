@@ -50,6 +50,11 @@ public class SpinnerListItemRenderer extends LabelItemRenderer
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				minHeight = 30;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 minHeight = 20;

@@ -1,0 +1,24 @@
+<DisplayList>
+  <DynamicSplashScreen width="640" height="960">
+    <spark.skins.spark.ApplicationSkin width="640" height="960" blendMode="auto">
+      <spark.components.Group width="640" height="960" blendMode="auto">
+        <spark.components.Group width="640" height="960" blendMode="auto">
+          <spark.components.Button width="289" height="65">
+            <spark.skins.mobile.ButtonSkin width="289" height="65">
+              <spark.skins.mobile240.assets.Button_up width="289" height="65" blendMode="auto" scale9Grid="(x=14, y=14, w=192, h=37)">
+                <flash.display.Shape width="220" height="65"/>
+              </spark.skins.mobile240.assets.Button_up>
+              <spark.components.supportClasses.StyleableTextField concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.546875, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="13" y="14" width="264" height="39" underline="false">
+                <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="CENTER"&gt;&lt;FONT FACE="MyVeraHalo" SIZE="24" COLOR="#FFFFFF" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;Show captured image&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+              </spark.components.supportClasses.StyleableTextField>
+              <spark.components.supportClasses.StyleableTextField x="13" y="13" width="264" height="39" underline="false">
+                <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="CENTER"&gt;&lt;FONT FACE="MyVeraHalo" SIZE="24" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;Show captured image&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+              </spark.components.supportClasses.StyleableTextField>
+            </spark.skins.mobile.ButtonSkin>
+          </spark.components.Button>
+          <spark.components.supportClasses.InvalidatingSprite width="640" height="960"/>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </DynamicSplashScreen>
+</DisplayList>

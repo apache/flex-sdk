@@ -74,12 +74,12 @@ public class EmailValidator extends Validator
 	 *  @private
 	 */
 	private static const DISALLOWED_LOCALNAME_CHARS:String =
-								"()<>,;:\\\"[] `~!#$%^&*={}|/?'";
+								"()<>,;:\\\"[] `~!#$%^&*={}|/?'\t\n\r";
 	/**
 	 *  @private
 	 */							
 	private static const DISALLOWED_DOMAIN_CHARS:String =
-								"()<>,;:\\\"[] `~!#$%^&*+={}|/?'";
+								"()<>,;:\\\"[] `~!#$%^&*+={}|/?'\t\n\r";
 	
 	//--------------------------------------------------------------------------
 	//
@@ -173,6 +173,15 @@ public class EmailValidator extends Validator
 			}
 		}
 		
+		// name can't start with a dot
+		if (username.charAt(0) == '.')
+		{
+			results.push(new ValidationResult(
+				true, baseField, "invalidChar",
+				validator.invalidCharError));
+			return results;
+		}
+		
 		var domainLen:int = domain.length;
 		
 		// check for IP address
@@ -242,8 +251,9 @@ public class EmailValidator extends Validator
 				}
 			}
 			
-			// Check that the character immediately after the @ is not a period.
-			if (domain.charAt(0) == ".")
+			// Check that the character immediately after the @ is not a period or an hyphen.
+			// And check that the character before the period is not an hyphen.
+			if (domain.charAt(0) == "." || domain.charAt(0) == "-" || domain.charAt(periodPos - 1) == "-")
 			{
 				results.push(new ValidationResult(
 					true, baseField, "invalidDomain",
@@ -345,7 +355,7 @@ public class EmailValidator extends Validator
 				{
 					item = parseInt(ipArray[i], 16);
 					
-					if (isNaN(item) || item < 0 || item > 0xFFFF)
+					if (isNaN(item) || item < 0 || item > 0xFFFF || ipArray[i] == "")
 						return false;
 				}
 			}
@@ -380,7 +390,7 @@ public class EmailValidator extends Validator
 			for (i = 0; i < n; i++)
 			{
 				item = Number(ipArray[i]);
-				if (isNaN(item) || item < 0 || item > 255)
+				if (isNaN(item) || item < 0 || item > 255 || ipArray[i] == "")
 					return false;
 			}
 			

@@ -446,9 +446,11 @@
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.ListResizeWithTransition)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
-				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="trailingEdge" waitTarget="navigator.activeView.itemList.scroller" waitEvent="updateComplete"/>
 				<SetProperty target="navigator.activeView.itemList" propertyName="selectedIndex" value="2" />
-				<SimulateMouseGesture target="navigator.activeView.itemList" dragXFrom="100" dragXTo="100" dragYFrom="85%" dragYTo="0" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />			
+				<Pause timeout="1000" /><!-- effect on IR.  Spark effects do not register with EffectsManager -->			
+				<SimulateMouseGesture target="navigator.activeView.itemList" dragXFrom="100" dragXTo="100" dragYFrom="85%" dragYTo="0" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />
+				<Pause timeout="300" />			
 				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
 				<AssertMethodValue method="value=(application.navigator.activeView.itemList.layout as VerticalLayout).fractionOfElementInView((application.navigator.activeView.itemList.layout as VerticalLayout).lastIndexInView)" value="1" /> 
 				<!-- alternative approach generic for all layouts including tile -->
@@ -502,7 +504,7 @@
 				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="trailingEdge" />
 				<SetProperty target="navigator.activeView.itemList" propertyName="selectedIndex" value="2" />
 				<RunCode code="application.navigator.activeView.itemList.ensureIndexIsVisible(12)" waitTarget="navigator.activeView.itemList.dataGroup" waitEvent="propertyChange"/>
-				<WaitForLayoutManager />
+				<Pause timeout="500" />
 				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
 				<AssertMethodValue method="value=(application.navigator.activeView.itemList.layout as VerticalLayout).fractionOfElementInView((application.navigator.activeView.itemList.layout as VerticalLayout).lastIndexInView)" value="1" /> 
 				<!-- alternative approach generic for all layouts including tile -->

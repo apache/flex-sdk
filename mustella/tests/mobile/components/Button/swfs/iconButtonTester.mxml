@@ -23,6 +23,7 @@
 					   xmlns:local="comps.*"
 					   backgroundColor="#484848">
 
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
 		

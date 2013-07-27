@@ -53,6 +53,7 @@
 		</fx:Array>
 			
 	</fx:Declarations>
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;

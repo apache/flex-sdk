@@ -555,20 +555,19 @@
 	        description="Test symbolColor,selectionColor,rollOverColor seton renderer">
 	       	<setup>
 	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
-	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
-	 	    <SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>	
-	 	    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.getPartialDataGridData2(6)" waitEvent="updateComplete"/>								
-		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+	 	    <SetProperty target="dataGrid2" propertyName="height" value="150" />	
+	 	    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.getPartialDataGridData2(6)" />								
 		    <SetStyle target="dataGrid2" styleName="styleName" value="style5" waitEvent="updateComplete" waitTarget="dataGrid2" />
+		    <WaitForLayoutManager/>
 	  	</setup>
 		<body>		
 		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
 		    <RunCode code="GridColumn(FlexGlobals.topLevelApplication.dataGrid2.columns.getItemAt(1)).itemRenderer=new ClassFactory(dgIR1WithStyle);"/>
-		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <WaitForLayoutManager/>
 		    <!-- symbol color should be red, not black -->
 		    <CompareBitmap url="../Styles/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
 		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(2,1)" value="true" />
-		     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <WaitForLayoutManager/>
 		     <!-- selection, rollOver is at DataGrid -->
 		    <CompareBitmap url="../Styles/baselines/$testID_selection.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
 		</body>

@@ -287,10 +287,10 @@ public class DateSpinner extends SkinnableComponent
     private var populateMinuteDataProvider:Boolean = true;
     private var populateMeridianDataProvider:Boolean = true;
     
-    private var refreshDateTimeFormatter:Boolean = true;
+    mx_internal var refreshDateTimeFormatter:Boolean = true;
     
     // the internal DateTimeFormatter that provides a set of extended functionalities
-    private var dateTimeFormatterEx:DateTimeFormatterEx = new DateTimeFormatterEx();
+    mx_internal var dateTimeFormatterEx:DateTimeFormatterEx = new DateTimeFormatterEx();
     
     private var dateTimeFormatter:DateTimeFormatter = new DateTimeFormatter();
     
@@ -1254,8 +1254,12 @@ public class DateSpinner extends SkinnableComponent
     private function getLongestLabel(list:IList):Object
     {
         var idx:int = -1;
-        var maxWidth:Number = 0;
         var labelWidth:Number;
+
+        // Even if all 0 because font not embedded correctly, want to return 0 as the longest
+        // so the typicalItem is non-null.
+        var maxWidth:Number = -1; 
+        
         for (var i:int = 0; i < list.length; i++)
         {
             // note: measureText() measures UITextField while our labels will be
@@ -1271,7 +1275,8 @@ public class DateSpinner extends SkinnableComponent
         if (idx != -1)
             return list.getItemAt(idx);
         
-        return null;
+        // The case where the list is empty.  This shouldn't happen.
+        return {};
     }
     
     // set textAlign on list based on position, listType, or typicalItem content type:
@@ -1893,12 +1898,14 @@ public class DateSpinner extends SkinnableComponent
                     break;
                 case dateList:
                     // for DATE_AND_TIME mode data is a Date.time value
+                    // Must set date before the month to ensure the date is valid for the
+                    // month.  If newDate is Jan 31 and you set the month to Feb it will change
+                    // the month to March since Feb 31 is not a valid date.
                     if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
                     {
                         var spinnerDate:Date = new Date(newValue.data);
                         newDate.fullYear = spinnerDate.fullYear;
-                        newDate.month = spinnerDate.month;
-                        newDate.date = spinnerDate.date;
+                        newDate.setMonth(spinnerDate.month, spinnerDate.date);
                     }
                     else if (!dateRolledBack) // don't tamper with date if we already rolled it back
                     {

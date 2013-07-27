@@ -146,7 +146,7 @@
 					<ConditionalValue deviceDensity="320" os="ios" value="32"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="16"/>
 				</AssertStyleValue>
-				<AssertStyleValue target="navigator.actionBar" styleName="fontFamily" value="_sans" />
+				<AssertStyleValue target="navigator.actionBar" styleName="fontFamily" value="MyVeraHalo" />
 				<AssertStyleValue target="navigator.actionBar" styleName="fontWeight" value="normal" />
 				<AssertStyleValue target="navigator.actionBar" styleName="verticalAlign" value="top" />
 				<AssertStyleValue target="navigator.actionBar" styleName="textAlign" value="start" />
@@ -358,13 +358,13 @@
 				<Pause timeout="300" />
 				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
 				<SetStyle target="navigator.actionBar" styleName="titleAlign" value="left" waitEvent="updateComplete" />
-				<SetStyle target="navigator.actionBar" styleName="fontFamily" value="Georgia" waitEvent="updateComplete" />
+				<SetStyle target="navigator.actionBar" styleName="fontFamily" value="mySerifHalo" waitEvent="updateComplete" />
 				
 				
 			</setup>
 			<body>
 				
-				<AssertStyleValue target="navigator.actionBar" styleName="fontFamily" value="Georgia" />
+				<AssertStyleValue target="navigator.actionBar" styleName="fontFamily" value="mySerifHalo" />
 				
 				
 				
@@ -387,7 +387,7 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
 				<Pause timeout="300" />	
 				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
-				<SetStyle target="navigator.actionBar" styleName="fontFamily" value="_sans" waitEvent="updateComplete" />
+				<SetStyle target="navigator.actionBar" styleName="fontFamily" value="MyVeraHalo" waitEvent="updateComplete" />
 
 				<SetStyle target="navigator.actionBar.titleDisplay" styleName="leading" value="5" waitEvent="updateComplete" />
 				

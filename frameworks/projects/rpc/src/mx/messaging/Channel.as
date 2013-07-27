@@ -812,7 +812,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
             return;
 
         // Add urls to an array, so they can be shuffled.
-        var urls:Array = new Array();
+        var urls:Array = [];
         for each (var url:XML in clientLoadBalancingProps.url)
             urls.push(url.toString());
 

@@ -82,6 +82,21 @@
         </sequential>
     </macrodef>
     
+    <condition property="isMac">
+        <os family="mac"/>
+    </condition>
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>   
+    <condition property="isLinux">
+        <and>
+          <os family="unix"/>    
+          <not>
+            <os family="mac"/>    
+          </not>
+        </and>
+    </condition>  
+
     <target name="main" depends="clean,compile" description="Clean build of mobilecomponents.swc and en_US">
         <bundle locale="${locale}"/>
     </target>
@@ -156,7 +171,15 @@
         </delete>
     </target>
 
-    <target name="compile" description="Compiles mobilecomponents.swc">
+    <target name="configModLinux" description="Modifies which config file to use" if="isLinux">
+        <property name="configMod" value="AIR2"/>
+    </target>
+	
+    <target name="configModOther" description="Modifies which config file to use" unless="isLinux">
+        <property name="configMod" value=""/>
+    </target>
+
+    <target name="compile" description="Compiles mobilecomponents.swc" depends="configModLinux,configModOther">
         <echo message="Compiling frameworks/libs/mobile/mobilecomponents.swc"/>
         <echo message="Using ${env.AIR_HOME}/frameworks/libs/air/airglobal.swc" level="info"/>
 
@@ -179,7 +202,7 @@
         <compc fork="true"
                output="${FLEX_HOME}/frameworks/libs/mobile/mobilecomponents.swc">
             <jvmarg line="${compc.jvm.args}"/>
-            <load-config filename="compile-config.xml" />
+            <load-config filename="compile-config${configMod}.xml" />
             <arg value="+playerglobal.version=${playerglobal.version}" />
             <arg value="+env.AIR_HOME=${env.AIR_HOME}" />
         </compc>

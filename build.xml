@@ -47,6 +47,21 @@
     <property name="source.kit" value="${kit.prefix}-src"/>
     <property name="binary.kit" value="${kit.prefix}-bin"/>
       
+    <available file="${FLEX_HOME}/../flex-tlf/textLayout" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${FLEX_HOME}/../flex-tlf" />
+
+    <available file="${FLEX_HOME}/../tlf/textLayout" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${FLEX_HOME}/../tlf" />
+	
+    <available file="${env.TLF_HOME}" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${env.TLF_HOME}"/>
+
     <!-- 
         Optional jars but should be in place for a real release build.
         
@@ -74,7 +89,7 @@
 
     <target name="main" depends="prebuild,modules,frameworks,post-build" description="Full build">
         <tstamp>
-            <format property="build.datetime" pattern="MM/dd/yyyy hh:mm:ss aa" />
+        	<format property="build.datetime" pattern="MM/dd/yyyy hh:mm:ss aa" />
         </tstamp>
         <echo>ant main target completed on ${build.datetime}</echo>
     </target>
@@ -90,11 +105,19 @@
         description="Creates source and binary kits for Apache Flex."/>
         
     <target name="source-release" 
-        depends="super-clean,create-description,source-package" 
+        depends="super-clean,create-description,create-config,source-package" 
         description="Packages the source release kit which is the official Apache release."/>
         
     <target name="binary-release" 
         depends="setup-binary-release,main,frameworks-rsls,sample-themes,checkintests,doc,other.locales,binary-package,additional-packages" 
+        description="Builds and packages the binary kit which is provided as a convenience."/>    
+
+    <target name="source-release-noclean" 
+        depends="create-description,create-config,source-package" 
+        description="Packages the source release kit which is the official Apache release."/>
+        
+    <target name="binary-release-noclean" 
+        depends="main,frameworks-rsls,sample-themes,checkintests,doc,other.locales,binary-package,additional-packages" 
         description="Builds and packages the binary kit which is provided as a convenience."/>    
 
     <target name="doc-packages" 
@@ -123,7 +146,7 @@
     <target name="prebuild" depends="check-compile-env,thirdparty-downloads,create-description" 
         description="Stuff that needs to be done before any builds." />
 
-    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-pixelbender-home"
+    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-pixelbender-home,check-tlf-home"
         description="Check for the required environment variables for compilation.">
             <echo>OS: ${os.name} / ${os.version} / ${os.arch}</echo>
             <echo>VM: ${java.vm.name} / ${java.vm.version}</echo>
@@ -192,7 +215,14 @@
                 <available file="${env.PIXELBENDER_HOME}/pbutil" type="file"/> 
             </and>
         </condition>
-        
+        	
+        <condition property="pbutil.exe.exists">
+            <and>
+                <os family="unix"/>
+                <available file="${env.PIXELBENDER_HOME}/pb.tar.gz" type="file"/> 
+            </and>
+        </condition>
+                	
         <condition property="pbutil.exe.exists">
             <and>
                 <os family="windows"/>
@@ -200,8 +230,23 @@
             </and>
         </condition>
 
-        <fail message="The directory ${env.PIXELBENDER_HOME} does not contain the pbutil executable" 
+        <fail message="The directory ${env.PIXELBENDER_HOME} does not contain the pbutil executable or pb files" 
             unless="pbutil.exe.exists"/>
+    </target>
+
+    <target name="check-tlf-home" unless="TLF_HOME"
+        description="Check TLF_HOME is a directory.">
+        
+        <echo message="TLF_HOME is ${env.TLF_HOME}"/>
+
+        <available file="${env.TLF_HOME}" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${env.TLF_HOME}"/>
+
+        <fail message="TLF_HOME must be set correctly for a release build" 
+            unless="TLF_HOME"/>
+    	
     </target>
 
     <target name="check-adobe-extension-manager-env" unless="ADOBE_EXTENSION_MANAGER.set"
@@ -218,7 +263,10 @@
     </target>
 
     <target name="create-description" description="Generate flex-sdk-description.xml">
-        <echo message="build.number is ${build.number}"/>
+        <tstamp>
+        	<format property="build.number.date" pattern="yyyyMMdd" />
+        </tstamp>
+        <echo message="build.number is ${build.number.date}"/>
         <echo file="${basedir}/flex-sdk-description.xml">&lt;?xml version="1.0"?&gt;
 &lt;!--
 
@@ -239,13 +287,17 @@
 
 --&gt;
 &lt;flex-sdk-description&gt;
-&lt;name&gt;${release} FP${playerglobal.version} ${locale}&lt;/name&gt;
+&lt;name&gt;${release} FP${playerglobal.version} AIR${air.version} ${locale}&lt;/name&gt;
 &lt;version&gt;${release.version}&lt;/version&gt;
-&lt;build&gt;${build.number}&lt;/build&gt;
+&lt;build&gt;${build.number.date}&lt;/build&gt;
 &lt;/flex-sdk-description&gt;
         </echo>
     </target>
-
+	
+    <target name="create-config" description="Create flex config file">
+        <ant dir="${basedir}/frameworks" target="flex-config" />
+    </target>
+	
     <target name="setup-binary-release" depends="thirdparty-clean"
         description="Set properties needed to turn on features for release sdk">       
 	    <!-- 
@@ -268,6 +320,8 @@
     <target name="thirdparty-clean" description="Removes all thirdparty downloads.">
         <ant dir="${basedir}/modules" target="thirdparty-clean"/>
         <ant dir="${basedir}/frameworks" target="thirdparty-clean"/>
+        <delete dir="${basedir}/in"/>
+        <delete dir="${basedir}/lib"/>
     </target>
 
     <target name="clean" depends="modules-clean,frameworks-clean,frameworks-clean,frameworks-rsls-clean,package-clean,checkintests-clean" 
@@ -292,6 +346,7 @@
         <delete dir="${basedir}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
         <ant dir="${basedir}/asdoc" target="clean" />
         <ant dir="${basedir}/ide/flashbuilder" target="clean" />
+        <ant dir="${basedir}/mustella" target="clean"/>
     </target>
 
     <target name="modules-clean">
@@ -410,28 +465,32 @@
     </macrodef>
 
 	<target name="frameworks-rsls" description="Build signed framework RSLs">
+		<tstamp>
+        	<format property="build.number.date" pattern="yyyyMMdd" />
+        </tstamp>
+        <echo message="build.number is ${build.number.date}"/>
 		<!-- textLayout RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="textLayout" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="textLayout" build-number="${release.version}.${build.number.date}"/>
 		<!-- framework RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="framework" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="framework" build-number="${release.version}.${build.number.date}"/>
 		<!-- mx RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs/mx" swc-name="mx" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs/mx" swc-name="mx" build-number="${release.version}.${build.number.date}"/>
 		<!-- rpc RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="rpc" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="rpc" build-number="${release.version}.${build.number.date}"/>
 		<!-- Spark -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="spark" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="spark" build-number="${release.version}.${build.number.date}"/>
     	<!-- sparkskins RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="sparkskins" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="sparkskins" build-number="${release.version}.${build.number.date}"/>
 		<!-- charts RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="charts" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="charts" build-number="${release.version}.${build.number.date}"/>
 		<!-- advancedgrids RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="advancedgrids" build-number="${release.version}.${build.number}"/>
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="advancedgrids" build-number="${release.version}.${build.number.date}"/>
 		<!-- spark_dmv RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="spark_dmv" build-number="${release.version}.${build.number}"/>		
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="spark_dmv" build-number="${release.version}.${build.number.date}"/>		
 		<!-- apache RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="apache" build-number="${release.version}.${build.number}"/>		
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="apache" build-number="${release.version}.${build.number.date}"/>		
 		<!-- experimental RSL -->
-		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="experimental" build-number="${release.version}.${build.number}"/>		
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="experimental" build-number="${release.version}.${build.number.date}"/>		
 	</target>
 
     <target name="other.locales" description="Build resource SWCs for additional locales">
@@ -529,6 +588,9 @@
         <!-- frameworks -->
         <antcall target="stage-frameworks"/>
 
+        <!-- tlf -->
+        <antcall target="stage-tlf"/>
+
         <!-- modules -->
         <antcall target="stage-modules"/>
         
@@ -540,7 +602,9 @@
         <!-- ide -->
         <copy todir="${basedir}/temp/ide">
             <fileset dir="${basedir}/ide" >
-                <include name="flashbuilder/**"/>
+            	<include name="flashbuilder/**"/>
+            	<include name="*.sh"/>
+            	<include name="*.bat"/>
             </fileset>
         </copy>
 
@@ -646,6 +710,16 @@
         <copy todir="${basedir}/temp/frameworks" includeEmptyDirs="false">
             <fileset dir="${basedir}/frameworks">
                 <include name="test*/**"/>
+            </fileset>
+        </copy>
+    </target>
+    
+    <!-- tlf -->
+    <target name="stage-tlf">
+        <copy todir="${basedir}/temp/frameworks/projects/textLayout" includeEmptyDirs="false">
+            <fileset dir="${TLF_HOME}/textLayout">
+                <include name="src/**"/>
+                <include name="manifest.xml"/>
             </fileset>
         </copy>
     </target>
@@ -967,7 +1041,7 @@
                         value="&lt;warn-no-explicit-super-call-in-constructor&gt;false"/>
                     <replacefilter
                         token="$${build.number}"
-                        value="${release.version}.${build.number}"/>
+                        value="${release.version}.${build.number.date}"/>
                 </replace>
         </sequential>
     </macrodef>
@@ -1025,12 +1099,12 @@
 		<taskdef name="grep" classname="ise.antelope.tasks.Find"
                  classpathref="anttask.classpath"/>                 
 
-        <echo message="Updating all frameworks/projects/**/Version.as files with version ${release.version}.${build.number}"/>
+        <echo message="Updating all frameworks/projects/**/Version.as files with version ${release.version}.${build.number.date}"/>
 		
         <!-- Update all Version.as files in the kit frameworks directory-->
         <replaceregexp>
             <regexp pattern='"[0-9].[0-9].[0-9].[0-9]";'/>
-            <substitution expression='"${release.version}.${build.number}";'/>
+            <substitution expression='"${release.version}.${build.number.date}";'/>
             <fileset dir="${FLEX_HOME}/temp/frameworks/projects">
                 <include name="**/Version.as"/>
             </fileset>
@@ -1705,4 +1779,40 @@
             </fileset>
         </rat:report>
     </target>
+	
+	<target name="create-md5" >
+		<echo message="Generating MD5 hashes for release artifacts"/>
+		<checksum algorithm="md5" file="${basedir}/out/${binary.kit}.tar.gz" forceOverwrite="yes"/>
+		<checksum algorithm="md5" file="${basedir}/out/${binary.kit}.zip" forceOverwrite="yes"/>
+		<checksum algorithm="md5" file="${basedir}/out/${source.kit}.tar.gz" forceOverwrite="yes"/>
+		<checksum algorithm="md5" file="${basedir}/out/${source.kit}.zip" forceOverwrite="yes"/>
+	</target>
+	
+	<target name="archive-pbj">
+		<echo message="Creating an archive of the compiled PixelBender files" />
+        <echo message="The compiled PixelBender files are taken from '${env.PIXELBENDER_COMPILED_HOME}'" />
+        
+        <tar destfile="${basedir}/out/pb.tar">
+          <tarfileset dir="${env.PIXELBENDER_COMPILED_HOME}">
+              <include name="frameworks/projects/spark/asdoc/en_US/spark/effects/examples/assets/twist.pbj"/>
+              <include name="frameworks/projects/spark/src/spark/effects/CrossFade.pbj"/>
+              <include name="frameworks/projects/spark/src/spark/effects/WipeDown.pbj"/>
+              <include name="frameworks/projects/spark/src/spark/effects/WipeUp.pbj"/>
+              <include name="frameworks/projects/spark/src/spark/effects/WipeLeft.pbj"/>
+              <include name="frameworks/projects/spark/src/spark/effects/WipeRight.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/Color.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/ColorBurn.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/ColorDodge.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/Exclusion.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/Hue.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/Luminosity.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/LuminosityMaskFilter.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/Saturation.pbj"/>
+              <include name="frameworks/projects/framework/src/mx/graphics/shaderClasses/SoftLight.pbj"/>
+          </tarfileset>
+        </tar>
+        <gzip destfile="${basedir}/out/pb.tar.gz" src="${basedir}/out/pb.tar"/>
+	    <delete file="${basedir}/out/pb.tar" failonerror="false" />
+	</target>
+
 </project>

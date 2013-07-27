@@ -225,7 +225,7 @@
                 <AssertNoEvent target="myCustomEm.myEm" eventName="valid" />
                 <DispatchMouseEvent target="myCustomEm.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomEm.ti1"/>
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="" url="../Properties/baselines/ipv6_InvalidPeriodsInDomainError_spark.png" timeout="5000" />
+                <CompareBitmap target="" url="../Properties/baselines/ipv6_invalidPeriodsInDomainError_spark.png" timeout="5000" />
             </body>  
         </TestCase>
 
@@ -251,7 +251,7 @@
                 <AssertNoEvent target="myCustomEm.myEm" eventName="valid" />
                 <DispatchMouseEvent target="myCustomEm.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomEm.ti1"/>
                 <WaitForEffectsToEnd />
-                <CompareBitmap target="" url="../Properties/baselines/ipv6_InvalidIPDomainError_2_spark.png" timeout="5000" />
+                <CompareBitmap target="" url="../Properties/baselines/ipv6_invalidIPDomainError_2_spark.png" timeout="5000" />
             </body>  
         </TestCase>
         

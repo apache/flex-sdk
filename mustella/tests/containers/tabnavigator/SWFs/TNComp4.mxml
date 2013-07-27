@@ -26,7 +26,7 @@
             <mx:Label text="- - - "/>
         </mx:VBox>
 
-        <mx:VBox label="Panel 2" id="vbox2" icon="@Embed('../../../../Assets/Images/ButtonImages/play.GIF')">
+        <mx:VBox label="Panel 2" id="vbox2" icon="@Embed('../../../../Assets/Images/ButtonImages/play.gif')">
             <mx:Button label="- - -" />
         </mx:VBox>
         <mx:VBox label="Panel 3" id="mvbox" icon="@Embed('../../../../Assets/Images/smallredrect.jpg')">

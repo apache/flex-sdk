@@ -20,21 +20,24 @@
 
     <compiler>
         <accessible>true</accessible>
-        
+
         <external-library-path>
             <path-element>${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc</path-element>
+            <path-element>../../libs/framework.swc</path-element>
+            <path-element>../../libs/spark.swc</path-element>
         </external-library-path>
-        
+
         <keep-as3-metadata>
             <name>Bindable</name>
             <name>Managed</name>
             <name>ChangeEvent</name>
             <name>NonCommittingChangeEvent</name>
             <name>Transient</name>
+            <name>SkinPart</name>
         </keep-as3-metadata>
-        
+
         <locale/>
-        
+
         <library-path/>
 
         <namespaces>
@@ -42,25 +45,34 @@
                 <uri>http://flex.apache.org/experimental/ns</uri>
                 <manifest>manifest.xml</manifest>
             </namespace>
+            <namespace>
+                <uri>library://ns.adobe.com/flex/spark</uri>
+                <manifest>spark-manifest.xml</manifest>
+            </namespace>
         </namespaces>
-        
+
         <source-path>
             <path-element>src</path-element>
         </source-path>
-        
+
+        <show-deprecation-warnings>false</show-deprecation-warnings>
         <warn-no-constructor>false</warn-no-constructor>
     </compiler>
-    
+
+	<include-namespaces>
+		 <uri>http://flex.apache.org/experimental/ns</uri>
+	</include-namespaces>
+
     <include-classes>
         <class>ExperimentalClasses</class>
     </include-classes>
-    
+
     <include-file>
         <name>defaults.css</name>
         <path>defaults.css</path>
     </include-file>
-        
+
     <resource-bundle-list>bundles.properties</resource-bundle-list>
-    
+
     <target-player>${playerglobal.version}</target-player>
 </flex-config>

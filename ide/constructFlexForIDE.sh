@@ -38,11 +38,10 @@
 # variables mentioned in the README because the locations of all the software are known 
 # in this configuration.
 #
-# TextLayoutFormat (TLF), OSMF, swobject, the Adobe embedded font support, 
-# and Adobe BlazeDS integration all come from the Adobe Flex 4.6 SDK.  You should
-# be aware that these components have their own licenses that may or may not be
-# compatible with the Apache v2 license.  See the "Software Dependencies" section
-# in the README for more license information.
+# OSMF, swobject, the Adobe embedded font support, and Adobe BlazeDS integration all
+# come from the Adobe Flex 4.6 SDK.  You should be aware that these components have
+# their own licenses that may or may not be compatible with the Apache v2 license.
+# See the "Software Dependencies" section in the README for more license information.
 #
 #  If the Adobe Flex SDK 4.6 directory is not specified this script will look for it
 #  in the following places, and if not found, will prompt for the directory.
@@ -108,6 +107,7 @@ if [ ! -d "${IDE_SDK_DIR}/frameworks/rsls" ]
 then
     echo ${IDE_SDK_DIR} does not appear to be a Apache Flex distribution with rsls.
     echo If this is a source distribution of Apache Flex you must first build the rsls.
+    echo Build rsls via 'ant frameworks-rsls' in the Apache Flex directory.
     exit 1;
 fi
 
@@ -183,7 +183,6 @@ echo Copying the third-party files to directory "${IDE_SDK_DIR}"
 
 files=(
     frameworks/libs/osmf.swc
-    frameworks/libs/textLayout.swc
     frameworks/libs/player/11.1
     frameworks/javascript/fabridge/samples/fabridge/swfobject
     lib/flex-messaging-common.jar

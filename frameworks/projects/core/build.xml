@@ -63,9 +63,11 @@
 		-->
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/core.swc">
-			<load-config filename="compile-config.xml" />
+            <jvmarg line="${compc.jvm.args}"/>
+            <load-config filename="compile-config.xml" />
             <arg value="+playerglobal.version=${playerglobal.version}" />
             <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
+            <load-config filename="${FLEX_HOME}/frameworks/projects/framework/framework-config.xml"/>
 		</compc>
 	</target>
 

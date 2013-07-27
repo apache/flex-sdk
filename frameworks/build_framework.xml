@@ -59,7 +59,7 @@
 	<property name="apache.dir" value="${projects.dir}/apache"/>
 	<property name="experimental.dir" value="${projects.dir}/experimental"/>
     <property name="textLayout.dir" value="${projects.dir}/textLayout"/>
-    <property name="textLayout.ver.dir" value="${textLayout.dir}/${tlf.version}"/>
+    <property name="experimental.dir" value="${projects.dir}/experimental"/>
 
     <!-- automation -->
     <property name="automation.dir" value="${projects.dir}/automation"/>
@@ -871,10 +871,10 @@
 			<jvmarg line="${compc.jvm.args}"/>
 			<keep-as3-metadata>IMXMLObject</keep-as3-metadata>
 			<include-namespaces uri="library://ns.adobe.com/flashx/textLayout"/>
-			<namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${textLayout.ver.dir}/manifest.xml"/>
-			<source-path path-element="${textLayout.ver.dir}/src"/>
+			<namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${textLayout.dir}/manifest.xml"/>
+			<source-path path-element="${textLayout.dir}/src"/>
 			<library-path/>
-			<include-file name="manifest.xml" path="${textLayout.ver.dir}/manifest.xml"/>
+			<include-file name="manifest.xml" path="${textLayout.dir}/manifest.xml"/>
 			<static-link-runtime-shared-libraries/>
 			<define name="CONFIG::debug" value="false"/>
 			<define name="CONFIG::release" value="true"/>
@@ -883,7 +883,7 @@
 
     <target name="textLayout_rb" description="Builds default locale textLayout_rb.swc">
         <compc static-link-runtime-shared-libraries="true" fork="true" locale="${locale}" 
-            output="${basedir}/locale/${locale}/mx_rb.swc">
+            output="${basedir}/locale/${locale}/textLayout_rb.swc">
             <include-resource-bundles bundle="textLayout"/>
             <source-path path-element="${textLayout.dir}/bundles/${locale}"/>
             <external-library-path dir="${playerglobal.dir}" includes="playerglobal.swc"/>

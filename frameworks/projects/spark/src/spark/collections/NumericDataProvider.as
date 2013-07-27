@@ -351,6 +351,22 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
             "collections", "removeAllError");
         throw new Error(message);
     }
+	
+	/**
+	 *  This function is not supported.
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 11
+	 *  @playerversion AIR 3
+	 *  @productversion Flex 4.10
+	 */
+	public function removeItem(item:Object):Boolean
+	{
+		var message:String = resourceManager.getString(
+			"collections", "removeItemError");
+		throw new Error(message);
+		return null;
+	}
     
     /**
      *  This function is not supported.

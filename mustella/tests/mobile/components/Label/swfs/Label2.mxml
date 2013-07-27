@@ -97,7 +97,7 @@
 
 		s|Label{
 			fontAntiAliasType: "normal";
-			fontFamily: MyVeraCFF;
+			fontFamily: myVeraCFF;
 		}
 
 	</fx:Style>

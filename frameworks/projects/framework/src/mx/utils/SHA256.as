@@ -107,23 +107,23 @@ package mx.utils
             
 
             // 2. Set initial hash H(0)
-            var h0:int = 0x6a09e667;
-            var h1:int = 0xbb67ae85;
-            var h2:int = 0x3c6ef372;
-            var h3:int = 0xa54ff53a;
-            var h4:int = 0x510e527f;
-            var h5:int = 0x9b05688c;
-            var h6:int = 0x1f83d9ab;
-            var h7:int = 0x5be0cd19;
+            var h0:uint = 0x6a09e667;
+            var h1:uint = 0xbb67ae85;
+            var h2:uint = 0x3c6ef372;
+            var h3:uint = 0xa54ff53a;
+            var h4:uint = 0x510e527f;
+            var h5:uint = 0x9b05688c;
+            var h6:uint = 0x1f83d9ab;
+            var h7:uint = 0x5be0cd19;
 
-            var a:int;
-            var b:int;
-            var c:int;
-            var d:int;
-            var e:int;
-            var f:int;
-            var g:int;
-            var h:int;        
+            var a:uint;
+            var b:uint;
+            var c:uint;
+            var d:uint;
+            var e:uint;
+            var f:uint;
+            var g:uint;
+            var h:uint;        
             
             // Hash computation
             // for all message blocks
@@ -132,12 +132,12 @@ package mx.utils
             var paddingStart:uint = 0;           // index to start padding message
             var paddingSize:uint = 0;            // amount of padding to copy to message
             var j:uint;
-            var t1:int;                    // temporary storage in hash loop
-            var t2:int;                    // temporary storage in hash loop
+            var t1:uint;                    // temporary storage in hash loop
+            var t2:uint;                    // temporary storage in hash loop
             var t:uint;
             var msgIndex:uint;
-            var wt2:int;                   // w[t - 2]
-            var wt15:int;                  // w[t -15]
+            var wt2:uint;                   // w[t - 2]
+            var wt15:uint;                  // w[t -15]
             
             //var messageSchTime:int = 0;
             //var hashTime:int = 0;

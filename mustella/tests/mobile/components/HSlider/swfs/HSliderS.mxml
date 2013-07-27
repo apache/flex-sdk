@@ -37,6 +37,7 @@
                         
         ]]>
     </fx:Script>
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 <fx:Style>
     @namespace s "library://ns.adobe.com/flex/spark";
     @namespace local "*";

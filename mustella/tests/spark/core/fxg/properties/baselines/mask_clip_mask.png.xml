@@ -1,0 +1,87 @@
+<DisplayList>
+  <fxgtemplate width="940" height="700">
+    <spark.skins.spark.ApplicationSkin width="940" height="700" blendMode="auto">
+      <spark.components.Group width="940" height="700" blendMode="auto">
+        <spark.components.Group width="940" height="700" blendMode="auto">
+          <comps.MyComp width="800" height="800" blendMode="auto">
+            <fxg.mask.clip_mask width="830" height="770" blendMode="auto">
+              <flash.display.MovieClip x="20" y="30" width="391" height="631">
+                <flash.display.MovieClip x="30" y="80" width="391" height="631">
+                  <flash.display.MovieClip width="371" height="100.5">
+                    <flash.display.MovieClip width="141" height="100.5">
+                      <flash.display.MovieClip width="141" height="71" cacheAsBitmap="true" filters="[object BevelFilter]">
+                        <flash.display.Shape width="141" height="71"/>
+                      </flash.display.MovieClip>
+                      <flash.display.MovieClip width="120" height="100">
+                        <flash.display.MovieClip width="101" height="99">
+                          <flash.display.Shape width="101" height="99"/>
+                        </flash.display.MovieClip>
+                        <flash.display.Shape width="120" height="100"/>
+                      </flash.display.MovieClip>
+                    </flash.display.MovieClip>
+                    <flash.display.MovieClip x="230" width="141" height="100.5">
+                      <flash.display.MovieClip width="141" height="71" cacheAsBitmap="true" filters="[object BevelFilter]">
+                        <flash.display.Shape width="141" height="71"/>
+                      </flash.display.MovieClip>
+                      <flash.display.Shape width="120" height="100"/>
+                    </flash.display.MovieClip>
+                  </flash.display.MovieClip>
+                  <flash.display.MovieClip width="391" height="161">
+                    <flash.display.MovieClip y="150" width="141" height="81">
+                      <flash.display.MovieClip width="141" height="81" cacheAsBitmap="true" filters="[object BlurFilter]">
+                        <flash.display.MovieClip width="141" height="71">
+                          <flash.display.Shape width="141" height="71" cacheAsBitmap="true" filters="[object BevelFilter]"/>
+                        </flash.display.MovieClip>
+                        <flash.display.Shape width="121" height="81"/>
+                      </flash.display.MovieClip>
+                    </flash.display.MovieClip>
+                    <flash.display.MovieClip x="230" y="150" width="151" height="151">
+                      <flash.display.MovieClip width="151" height="151" cacheAsBitmap="true" filters="[object BevelFilter]">
+                        <flash.display.MovieClip x="-40" y="-40" width="151" height="151">
+                          <flash.display.Shape width="151" height="151"/>
+                        </flash.display.MovieClip>
+                        <flash.display.Shape x="10" y="10" width="121" height="121"/>
+                      </flash.display.MovieClip>
+                    </flash.display.MovieClip>
+                  </flash.display.MovieClip>
+                  <flash.display.MovieClip width="370" height="111.1">
+                    <flash.display.MovieClip y="330" width="140" height="80" cacheAsBitmap="true" filters="[object BevelFilter]">
+                      <flash.display.MovieClip width="140" height="70">
+                        <flash.display.Shape width="140" height="70"/>
+                      </flash.display.MovieClip>
+                      <flash.display.Shape width="120" height="80"/>
+                    </flash.display.MovieClip>
+                    <flash.display.MovieClip x="230" y="310" width="140" height="102.1">
+                      <flash.display.MovieClip y="30" width="140" height="70">
+                        <flash.display.Shape width="140" height="70"/>
+                      </flash.display.MovieClip>
+                      <flash.display.Shape y="30" width="102" height="102.1"/>
+                    </flash.display.MovieClip>
+                  </flash.display.MovieClip>
+                  <flash.display.MovieClip width="361" height="131">
+                    <flash.display.MovieClip y="500" width="121" height="81">
+                      <flash.display.MovieClip width="121" height="81" cacheAsBitmap="true" filters="[object BlurFilter]">
+                        <flash.display.MovieClip width="101" height="70">
+                          <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="101" height="70"/>
+                        </flash.display.MovieClip>
+                        <flash.display.Shape width="121" height="81"/>
+                      </flash.display.MovieClip>
+                    </flash.display.MovieClip>
+                    <flash.display.MovieClip x="230" y="500" width="121" height="121">
+                      <flash.display.MovieClip width="121" height="121" cacheAsBitmap="true" filters="[object BevelFilter]">
+                        <flash.display.MovieClip x="10" y="10" width="101" height="70">
+                          <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="101" height="70"/>
+                        </flash.display.MovieClip>
+                        <flash.display.Shape x="10" y="10" width="121" height="121"/>
+                      </flash.display.MovieClip>
+                    </flash.display.MovieClip>
+                  </flash.display.MovieClip>
+                </flash.display.MovieClip>
+              </flash.display.MovieClip>
+            </fxg.mask.clip_mask>
+          </comps.MyComp>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </fxgtemplate>
+</DisplayList>

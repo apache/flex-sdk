@@ -45,6 +45,25 @@
             {
                 import mx.core.FlexGlobals;
             }
+            
+            private function debugWidths():void
+            {
+                var totalWidth:int = 
+                    FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width +
+                    FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width +
+                    FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width +
+                    FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width +
+                    FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width;
+                
+                trace('widths',
+                    'explicit width', FlexGlobals.topLevelApplication.myComp1.dataGrid1.width,
+                    'total width of columns', totalWidth,
+                    FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width,
+                    FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width,
+                    FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width,
+                    FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width,
+                    FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width);
+            }
         ]]>
     </fx:Script>    
 
@@ -522,32 +541,60 @@
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="29"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="29"/>
+							
+				<!-- each drag must be within the seperatorAffordance -->
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.columnHeaderGroup.getStyle('separatorAffordance')" value="5"/>
+							
+				<!-- drag the seperator to the left of the last column to the right to increase the size of the column -->
+				<!-- the grid size increases -->
 				<DispatchMouseEvent type="rollOver" target="myComp1.dataGrid1" localX="208" localY="10" waitEvent="rollOver" /> 
-				<DispatchMouseEvent type="mouseDown" target="myComp1.dataGrid1.columnHeaderGroup" localX="208" localY="10" waitEvent="separatorMouseDown" /> 
-				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="273" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseDown" target="myComp1.dataGrid1.columnHeaderGroup" localX="231" localY="10" waitEvent="separatorMouseDown" /> 				
+
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="235" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="240" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="245" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="250" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="255" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="260" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="265" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="270" localY="10" waitEvent="separatorMouseDrag" /> 
 				<DispatchMouseEvent type="mouseUp" target="myComp1.dataGrid1.columnHeaderGroup" localX="273" localY="10" waitEvent="separatorMouseUp" /> 												
+
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="109"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="29"/>
-				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="315"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="68"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="289"/>
+				
+				<!-- drag the seperator to the left of the last column to the left to decrease the size of the last column -->
+				<!-- the grid size does not change -->
 				<DispatchMouseEvent type="rollOver" target="myComp1.dataGrid1" localX="273" localY="10" waitEvent="rollOver" /> 
 				<DispatchMouseEvent type="mouseDown" target="myComp1.dataGrid1.columnHeaderGroup" localX="273" localY="10" waitEvent="separatorMouseDown" /> 
-				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="263" localY="10" waitEvent="separatorMouseDrag" /> 
-				<DispatchMouseEvent type="mouseUp" target="myComp1.dataGrid1.columnHeaderGroup" localX="263" localY="10" waitEvent="enterFrame" waitTarget="stage"/> 												
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="270" localY="10" waitEvent="separatorMouseDrag"/> 												
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="265" localY="10" waitEvent="separatorMouseDrag"/> 												
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="260" localY="10" waitEvent="separatorMouseDrag"/> 												
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="255" localY="10" waitEvent="separatorMouseDrag"/> 												
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="250" localY="10" waitEvent="separatorMouseDrag"/> 												
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="245" localY="10" waitEvent="separatorMouseDrag"/> 												
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="240" localY="10" waitEvent="separatorMouseDrag"/> 												
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="235" localY="10" waitEvent="separatorMouseDrag"/> 												
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="234" localY="10" waitEvent="separatorMouseDrag"/> 												
+				<DispatchMouseEvent type="mouseUp" target="myComp1.dataGrid1.columnHeaderGroup" localX="234" localY="10" waitEvent="separatorMouseUp"/>
+				 												
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="99"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="39"/>
-				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="315"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="29"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="250"/>				
 			</body>
 		</TestCase>			      
 		
+		<!-- this test is silly since it is the first part of the test DataGrid_Properties_col5ResizeLargerSmaller above -->
 		<TestCase testID="DataGrid_Properties_col5ResizeLarger" keywords="[DataGrid, Property, column, resize]" description="Test how resizing columng 5 larger effects widths">			
 			<setup>
 				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
@@ -560,18 +607,32 @@
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="29"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="29"/>
+							
+				<!-- each drag must be within the seperatorAffordance -->
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.columnHeaderGroup.getStyle('separatorAffordance')" value="5"/>
+							
+				<!-- drag the seperator to the left of the last column to the right to increase the size of the column -->
+				<!-- the grid size increases -->
 				<DispatchMouseEvent type="rollOver" target="myComp1.dataGrid1" localX="208" localY="10" waitEvent="rollOver" /> 
-				<DispatchMouseEvent type="mouseDown" target="myComp1.dataGrid1.columnHeaderGroup" localX="208" localY="10" waitEvent="separatorMouseDown" /> 
-				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="273" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseDown" target="myComp1.dataGrid1.columnHeaderGroup" localX="231" localY="10" waitEvent="separatorMouseDown" /> 				
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="235" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="240" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="245" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="250" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="255" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="260" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="265" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="270" localY="10" waitEvent="separatorMouseDrag" /> 
 				<DispatchMouseEvent type="mouseUp" target="myComp1.dataGrid1.columnHeaderGroup" localX="273" localY="10" waitEvent="separatorMouseUp" /> 												
+
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="109"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="29"/>
-				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="315"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="68"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="289"/>
 			</body>
 		</TestCase>						
 
@@ -587,30 +648,51 @@
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="29"/>				
-				<DispatchMouseEvent type="rollOver" target="myComp1.dataGrid1" localX="208" localY="10" waitEvent="rollOver" /> 
-				<DispatchMouseEvent type="mouseDown" target="myComp1.dataGrid1.columnHeaderGroup" localX="208" localY="10" waitEvent="separatorMouseDown" /> 
-				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="273" localY="10" waitEvent="separatorMouseDrag" /> 
-				<DispatchMouseEvent type="mouseUp" target="myComp1.dataGrid1.columnHeaderGroup" localX="273" localY="10" waitEvent="separatorMouseUp" /> 												
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="109"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="29"/>
-				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="315"/>
-				<SetProperty target="myComp1.dataGrid1" propertyName="width" value="420" waitEvent="updateComplete"/>
-				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="420"/>																
+															
+				<!-- each drag must be within the seperatorAffordance -->
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.columnHeaderGroup.getStyle('separatorAffordance')" value="5"/>
+							
+				<!-- increase size of column 5 -->
+				<DispatchMouseEvent type="rollOver" target="myComp1.dataGrid1" localX="208" localY="10" waitEvent="rollOver" /> 
+				<DispatchMouseEvent type="mouseDown" target="myComp1.dataGrid1.columnHeaderGroup" localX="231" localY="10" waitEvent="separatorMouseDown" /> 				
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="235" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="240" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="245" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="250" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="255" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="260" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="265" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="270" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseUp" target="myComp1.dataGrid1.columnHeaderGroup" localX="273" localY="10" waitEvent="separatorMouseUp" /> 												
+				<WaitForLayoutManager/>
+												
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="109"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="134"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="68"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="289"/>
+
+                <!-- increase width of dataGrid -->
+				<SetProperty target="myComp1.dataGrid1" propertyName="width" value="420" waitEvent="updateComplete"/>
+				<WaitForLayoutManager/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="420"/>
+
+                <!-- the size of the columns is not increased - only the grid itself -->
+                <!-- set explicit column widths, set the typical item, or change the dataProvider to get the grid to remeasure -->												
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="68"/>
+				
 			</body>
 		</TestCase>			      
 
-		<TestCase testID="DataGrid_Properties_col5ResizeLargerDGResizeSmaller" keywords="[DataGrid, Property, column, resize]" description="Test how resizing column 5 and then reducing the size of the DataGrid effects widths">			
+		<!--TestCase testID="DataGrid_Properties_explicit_width" keywords="[DataGrid, Property, column, resize]" description="Test how resizing DataGrid affects column widths">			
 			<setup>
 				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
@@ -622,26 +704,80 @@
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="29"/>				
-				<DispatchMouseEvent type="rollOver" target="myComp1.dataGrid1" localX="208" localY="10" waitEvent="rollOver" /> 
-				<DispatchMouseEvent type="mouseDown" target="myComp1.dataGrid1.columnHeaderGroup" localX="208" localY="10" waitEvent="separatorMouseDown" /> 
-				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="273" localY="10" waitEvent="separatorMouseDrag" /> 
-				<DispatchMouseEvent type="mouseUp" target="myComp1.dataGrid1.columnHeaderGroup" localX="273" localY="10" waitEvent="separatorMouseUp" /> 												
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="109"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="29"/>
-				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="315"/>
-				<SetProperty target="myComp1.dataGrid1" propertyName="width" value="280" waitEvent="updateComplete"/>
-				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="280"/>																
+
+				<RunCode code="debugWidths()"/-->
+
+                <!-- increase size of grid does not cause the columns to remeasure -->
+				<!--SetProperty target="myComp1.dataGrid1" propertyName="width" value="350" waitEvent="updateComplete"/>
+				<WaitForLayoutManager/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="350"/>
+				<RunCode code="debugWidths()"/-->
+				
+				<!-- changing the explicit width of a column does cause the dataGrid to remeasure -->
+				<!--SetProperty target="myComp1.c1_6" propertyName="width" value="129" waitTarget="myComp1.dataGrid1.grid" waitEvent="invalidateSize"/>
+				<WaitForLayoutManager/>
+
+				<RunCode code="debugWidths()"/>
+				
+				<AssertPropertyValue target="myComp1.c1_6" propertyName="width" value="129"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="129"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="350"/>
+			</body>				
+        </TestCase-->
+        
+		<TestCase testID="DataGrid_Properties_col5ResizeLargerDGResizeSmaller" keywords="[DataGrid, Property, column, resize]" description="Test how resizing column 5 and then reducing the size of the DataGrid affects widths">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="250"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
 				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="109"/>
-				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="29"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="29"/>
+															
+				<!-- each drag must be within the seperatorAffordance -->
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.columnHeaderGroup.getStyle('separatorAffordance')" value="5"/>
+							
+				<!-- increase size of column 5 -->
+				<DispatchMouseEvent type="rollOver" target="myComp1.dataGrid1" localX="208" localY="10" waitEvent="rollOver" /> 
+				<DispatchMouseEvent type="mouseDown" target="myComp1.dataGrid1.columnHeaderGroup" localX="231" localY="10" waitEvent="separatorMouseDown" /> 				
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="235" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="240" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="245" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="250" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="255" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="260" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="265" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp1.dataGrid1.columnHeaderGroup" localX="270" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseUp" target="myComp1.dataGrid1.columnHeaderGroup" localX="273" localY="10" waitEvent="separatorMouseUp" /> 												
+				<WaitForLayoutManager/>
+												
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="68"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="289"/>
+
+                <!-- decrease the width of the dataGrid -->
+				<SetProperty target="myComp1.dataGrid1" propertyName="width" value="180" waitEvent="updateComplete"/>
+				<WaitForLayoutManager/>
+										
+				<!-- the size of the columns will not change even if if the sum of their widths is larger than the dg width -->
+				<!-- size the dg by sizing the columns or changing the typicalItem -->															
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="38"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="45"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="32"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="44"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="68"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="180"/>
 			</body>
 		</TestCase>	
 

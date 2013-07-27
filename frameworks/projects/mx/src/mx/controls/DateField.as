@@ -51,6 +51,7 @@ import mx.events.SandboxMouseEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
+import mx.resources.ResourceManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 import mx.styles.StyleProxy;
@@ -432,8 +433,12 @@ public class DateField extends ComboBase
      *  object corresponding to the String.
      *  The <code>inputFormat</code> argument contains the pattern
      *  in which the <code>valueString</code> String is formatted.
-     *  It can contain <code>"M"</code>,<code>"D"</code>,<code>"Y"</code>,
+     *  It can contain <code>"M"</code>, <code>"MM"</code>, 
+	 *  <code>"MMM"</code> (3 letter month names), <code>"MMMM"</code> (month names),
+	 *  <code>"D"</code>,  <code>"DD"</code>, <code>"YY"</code>, <code>"YYYY"</code>
      *  and delimiter and punctuation characters.
+	 * 
+	 *  <p>Only upper case characters are supported.</p>
      *
      *  <p>The function does not check for the validity of the Date object.
      *  If the value of the date, month, or year is NaN, this method returns null.</p>
@@ -456,56 +461,94 @@ public class DateField extends ComboBase
      */
     public static function stringToDate(valueString:String, inputFormat:String):Date
     {
-        var mask:String
-        var temp:String;
-        var dateString:String = "";
-        var monthString:String = "";
-        var yearString:String = "";
-        var j:int = 0;
-
-        var n:int = inputFormat.length;
-        for (var i:int = 0; i < n; i++,j++)
+        var maskChar:String
+		var dateChar:String;
+		var dateString:String;
+		var monthString:String;
+		var yearString:String;
+		var dateParts:Array = [];
+		var maskParts:Array = [];
+        var part:int = 0;
+		var length:int;
+		
+		if (valueString == null || inputFormat == null)
+			return null;
+		
+		length = valueString.length;
+		
+		dateParts[part] = "";
+        for (var i:int = 0; i < length; i++)
         {
-            temp = "" + valueString.charAt(j);
-            mask = "" + inputFormat.charAt(i);
-
-            if (mask == "M")
-            {
-                if (isNaN(Number(temp)) || temp == " ")
-                    j--;
-                else
-                    monthString += temp;
-            }
-            else if (mask == "D")
-            {
-                if (isNaN(Number(temp)) || temp == " ")
-                    j--;
-                else
-                    dateString += temp;
-            }
-            else if (mask == "Y")
-            {
-                yearString += temp;
-            }
-            else if (!isNaN(Number(temp)) && temp != " ")
-            {
-                return null;
-            }
-        }
-
-        temp = "" + valueString.charAt(inputFormat.length - i + j);
-        if (!(temp == "") && (temp != " "))
-            return null;
-
+			dateChar = valueString.charAt(i);
+ 
+			if (isNaN(Number(dateChar)) || dateChar == " ")
+			{
+				part++;
+				dateParts[part] = dateChar;
+				part++;
+				dateParts[part] = "";
+			}
+			else
+			{
+				dateParts[part] += dateChar;	
+			}
+		}
+		
+		length = inputFormat.length;
+		part = -1;
+		var lastChar:String;
+		
+		for (i = 0; i < length; i++)
+		{
+			maskChar = inputFormat.charAt(i);
+			
+			if (maskChar == "Y" || maskChar == "M" || maskChar == "D")
+			{
+				if (maskChar != lastChar)
+				{
+					part++;
+					maskParts[part] = "";
+				}
+				maskParts[part] += maskChar;
+			}
+			else
+			{
+				part++;
+				maskParts[part] = maskChar;
+			}
+			
+			lastChar = maskChar;
+		}
+		
+		length = maskParts.length;
+		for (i = 0; i < length; i++) {
+			maskChar = maskParts[i].charAt(0);
+			
+			if (maskChar == "D") {
+				dateString = dateParts[i];
+			}
+			else if (maskChar == "M") {
+				monthString = dateParts[i];
+			}
+			else if (maskChar == "Y") {
+				yearString = dateParts[i];
+			}
+		}
+		
+		if (dateParts.length != maskParts.length)
+		{
+			return null;
+		}
+		
+		var dayNum:Number = Number(dateString);
         var monthNum:Number = Number(monthString);
-        var dayNum:Number = Number(dateString);
         var yearNum:Number = Number(yearString);
 
         if (isNaN(yearNum) || isNaN(monthNum) || isNaN(dayNum))
             return null;
 
-        if (yearString.length == 2 && yearNum < 70)
-            yearNum+=2000;
+        if (yearString.length == 2)
+            yearNum += 2000;
 
         var newDate:Date = new Date(yearNum, monthNum - 1, dayNum);
 
@@ -519,8 +562,12 @@ public class DateField extends ComboBase
      *  Formats a Date into a String according to the <code>outputFormat</code> argument.
      *  The <code>outputFormat</code> argument contains a pattern in which
      *  the <code>value</code> String is formatted.
-     *  It can contain <code>"M"</code>,<code>"D"</code>,<code>"Y"</code>,
+     *  It can contain <code>"M"</code>, <code>"MM"</code>,
+	 *  <code>"MMM"</code> (3 letter month names), <code>"MMMM"</code> (month names),
+	 *  <code>"D"</code>, <code>"DD"</code>, <code>"YY"</code>, <code>"YYYY"</code>
      *  and delimiter and punctuation characters.
+	 * 
+	 *  <p>Only upper case characters are supported.</p>
      *
      *  @param value Date value to format.
      *
@@ -537,59 +584,89 @@ public class DateField extends ComboBase
      */
     public static function dateToString(value:Date, outputFormat:String):String
     {
-        if (!value)
-            return "";
-
+		var maskChar:String;
+		var maskParts:Array = [];
+		var part:int = -1;
+		var length:int;
+		var lastChar:String;
+		
+		if (!value || isNaN(value.getTime()) || !outputFormat)
+			return "";
+		
+		length = outputFormat.length;
+		
+		for (var i:int = 0; i < length; i++)
+		{
+			maskChar = outputFormat.charAt(i);
+			
+			if (maskChar == "Y" || maskChar == "M" || maskChar == "D")
+			{
+				if (maskChar != lastChar)
+				{
+					part++;
+					maskParts[part] = "";
+				}
+				maskParts[part] += maskChar;
+			}
+			else
+			{
+				part++;
+				maskParts[part] = maskChar;
+			}
+			
+			lastChar = maskChar;
+		}
+		
         var date:String = String(value.getDate());
-        if (date.length < 2)
-            date = "0" + date;
-
         var month:String = String(value.getMonth() + 1);
-        if (month.length < 2)
-            month = "0" + month;
-
         var year:String = String(value.getFullYear());
 
-        var output:String = "";
-        var mask:String;
-
-        // outputFormat will be null if there are no resources.
-        var n:int = outputFormat != null ? outputFormat.length : 0;
-        for (var i:int = 0; i < n; i++)
+		var mask:String;
+		var fullMask:String;
+		var maskLength:int
+		var output:String = "";
+		
+		//TODO Support changing locale at runtime
+		var monthNames:Array =
+			ResourceManager.getInstance().getStringArray(
+				"SharedResources", "monthNames");
+		
+        length = maskParts.length;
+        for (i = 0; i < length; i++)
         {
-            mask = outputFormat.charAt(i);
-
-            if (mask == "M")
-            {
-                if ( outputFormat.charAt(i+1) == "/" && value.getMonth() < 9 ) {
-                    output += month.substring(1) + "/";
-                } else {
-                    output += month;
-                }
-                i++;    
-            }
-            else if (mask == "D")
-            {
-                if ( outputFormat.charAt(i+1) == "/" && value.getDate() < 10 ) {
-                    output += date.substring(1) + "/";
-                } else {    
-                    output += date;                         
-                }
-                i++;
-            }
-            else if (mask == "Y")
-            {
-                if (outputFormat.charAt(i+2) == "Y")
-                {
-                    output += year;
-                    i += 3;
-                }
-                else
-                {
-                    output += year.substring(2,4);
-                    i++;
-                }
-            }
+			fullMask = maskParts[i];
+            mask = fullMask.charAt(0);
+			maskLength = maskParts[i].length;
+			
+			if (mask == "D")
+			{
+				if (maskLength > 1 && date.length == 1)
+					date = "0" + date;
+				
+				output += date;
+			}
+			else if (fullMask == "MMM")
+			{
+				output += monthNames[value.getMonth()].substr(0,3);
+			}
+			else if (fullMask == "MMMM")
+			{	
+				output += monthNames[value.getMonth()];
+			}
+			else if (mask == "M")
+			{
+				if (maskLength > 1 && month.length == 1)
+					month = "0" + month;
+				
+				output += month;
+			}
+			else if (mask == "Y")
+			{
+				if (maskLength == 2)
+					output += year.substr(2,2);
+				else
+					output += year;
+			}
             else
             {
                 output += mask;
@@ -785,7 +862,10 @@ public class DateField extends ComboBase
         else if (_listData is ListData && ListData(_listData).labelField in _data)
             newDate = _data[ListData(_listData).labelField];
         else if (_data is String)
-            newDate = new Date(Date.parse(data as String));
+			if (_parseFunction != null)
+           	    newDate = _parseFunction(data as String, formatString);
+			else
+				newDate = new Date(Date.parse(data as String));
         else
             newDate = _data as Date;
 
@@ -1243,9 +1323,13 @@ public class DateField extends ComboBase
     
     /**
      *  The format of the displayed date in the text field.
-     *  This property can contain any combination of <code>"MM"</code>, 
-     *  <code>"DD"</code>, <code>"YY"</code>, <code>"YYYY"</code>,
+     *  This property can contain any combination of <code>"M"</code>,
+	 *  <code>"MM"</code>, <code>"MMM"</code> (3 letter month names),
+	 *  <code>"MMMM"</code> (month names), <code>"D"</code>, <code>"DD"</code>,
+	 *  <code>"YY"</code>, <code>"YYYY"</code>,
      *  delimiter, and punctuation characters.
+	 *  
+	 *  <p>Only upper case characters are supported.</p>
      * 
      *  @default "MM/DD/YYYY"
      *  
@@ -1639,7 +1723,7 @@ public class DateField extends ComboBase
      *  argument contains the format of the string. For example, if you 
      *  only allow the user to enter a text sting using two characters for 
      *  month, day, and year, then pass "MM/DD/YY" to 
-     *  the <code>inputFormat</code> argument. </p>
+     *  the <code>inputFormat</code> argument.</p>
      *
      *  @see mx.controls.DateField#labelFunction
      * 
@@ -1782,7 +1866,7 @@ public class DateField extends ComboBase
             return;
 
         selectedDateSet = true;
-        _selectedDate = scrubTimeValue(value) as Date;
+        checkYearSetSelectedDate(scrubTimeValue(value) as Date);
         updateDateFiller = true;
         selectedDateChanged = true;
 
@@ -1980,6 +2064,7 @@ public class DateField extends ComboBase
         textInput.mouseChildren = true;
         textInput.mouseEnabled = true;
         textInput.addEventListener(TextEvent.TEXT_INPUT, textInput_textInputHandler);
+		
         // hide the border, we use the text input's border
         if (border)
             border.visible = false;
@@ -2121,12 +2206,24 @@ public class DateField extends ComboBase
         var buttonWidth:Number = downArrowButton.getExplicitOrMeasuredWidth();
         var buttonHeight:Number = downArrowButton.getExplicitOrMeasuredHeight();
 
-        var bigDate:Date = new Date(2004, 12, 31);
-        var txt:String = (_labelFunction != null) ? _labelFunction(bigDate) : 
-                            dateToString(bigDate, formatString);
+        var bigDate:Date;
+        var txt:String;
+		var textWidth:Number;
+		var maxWidth:Number = 0;
+		
+		// Width may vary based on date format
+		for (var month:int = 0; month < 12; month++) {
+			bigDate = new Date(2000, month, 28); // day 28 exist in all months
+			txt = (_labelFunction != null) ? _labelFunction(bigDate) : dateToString(bigDate, formatString);
+			textWidth = measureText(txt).width;
+			if (textWidth > maxWidth) {
+				maxWidth = textWidth;
+			}
+		}
 
-        measuredMinWidth = measuredWidth = measureText(txt).width + 8 + 2 + buttonWidth;
-        measuredMinWidth = measuredWidth += getStyle("paddingLeft") + getStyle("paddingRight");
+        measuredMinWidth = measuredWidth = maxWidth + 8 + buttonWidth +
+			+ getStyle("paddingLeft") + getStyle("paddingRight")
+			+ textInput.getStyle("paddingLeft") + textInput.getStyle("paddingRight");
         measuredMinHeight = measuredHeight = textInput.getExplicitOrMeasuredHeight();
     }
 
@@ -2257,6 +2354,20 @@ public class DateField extends ComboBase
     {
         displayDropdown(false);
     }
+	
+	private function checkYearSetSelectedDate(value:Date):void {
+		if (value != null)
+		{
+			var year:int = value.getFullYear();
+			
+			if (year >= _minYear && year <= _maxYear)
+				_selectedDate = value;	
+		}
+		else
+		{
+			_selectedDate = null;
+		}
+	}
 
     /**
      *  @private
@@ -2275,7 +2386,9 @@ public class DateField extends ComboBase
             PopUpManager.addPopUp(_dropdown, this, false);
         }
         else
+		{
             PopUpManager.bringToFront(_dropdown);
+		}
 
         // Subclasses may extend to do pre-processing
         // before the dropdown is displayed
@@ -2292,7 +2405,7 @@ public class DateField extends ComboBase
         if (show)
         {
             if (_parseFunction != null)
-                _selectedDate = _parseFunction(text, formatString);
+                checkYearSetSelectedDate(_parseFunction(text, formatString));
             lastSelectedDate = _selectedDate;
             selectedDate_changeHandler(triggerEvent);
 
@@ -2338,10 +2451,12 @@ public class DateField extends ComboBase
                 yVal = point.y + unscaledHeight;
                 openPos = 3;
             }
-            else
+			else
+			{
                 // Why do we need to disable downArrowButton when its hidden?
                 //downArrowButton.enabled = false;
                 openPos = 0;
+			}
 
             xVal = Math.max(screen.left, xVal);
             
@@ -2490,7 +2605,7 @@ public class DateField extends ComboBase
         super.focusOutHandler(event);
 
         if (_parseFunction != null)
-            _selectedDate = _parseFunction(text, formatString);
+            checkYearSetSelectedDate(_parseFunction(text, formatString));
         
         selectedDate_changeHandler(event);
     }
@@ -2505,7 +2620,6 @@ public class DateField extends ComboBase
             displayDropdown(true, event);
             event.stopPropagation();
         }
-
         else if (event.ctrlKey && event.keyCode == Keyboard.UP)
         {
             if (showingDropdown)
@@ -2513,31 +2627,29 @@ public class DateField extends ComboBase
             displayDropdown(false, event);
             event.stopPropagation();
         }
-
         else if (event.keyCode == Keyboard.ESCAPE)
         {
             if (showingDropdown)
                 selectedDate = lastSelectedDate;
             displayDropdown(false, event);
-            event.stopPropagation();
+			if (!editable)
+           		event.stopPropagation();
         }
-
         else if (event.keyCode == Keyboard.ENTER)
         {
             if (showingDropdown)
             {
-                _selectedDate = _dropdown.selectedDate;
+               checkYearSetSelectedDate(_dropdown.selectedDate);
                 displayDropdown(false, event);
                 event.stopPropagation();
             }
             else if (editable)
             {
                 if (_parseFunction != null)
-                    _selectedDate = _parseFunction(text, formatString);
+                  checkYearSetSelectedDate(_parseFunction(text, formatString));
             }
             selectedDate_changeHandler(event);
         }
-
         else if (event.keyCode == Keyboard.UP ||
                  event.keyCode == Keyboard.DOWN ||
                  event.keyCode == Keyboard.LEFT ||
@@ -2595,7 +2707,7 @@ public class DateField extends ComboBase
         
         var inputDate:Date = _parseFunction(text, formatString);
         if (inputDate)
-            _selectedDate = inputDate;
+           checkYearSetSelectedDate(inputDate);
     }
 
     //--------------------------------------------------------------------------
@@ -2634,7 +2746,7 @@ public class DateField extends ComboBase
         if (ObjectUtil.dateCompare(_selectedDate, dropdown.selectedDate) == 0)
             return;
 
-        _selectedDate = dropdown.selectedDate;
+        checkYearSetSelectedDate(dropdown.selectedDate);
 
         if (_selectedDate)
             dateFiller(_selectedDate);
@@ -2669,7 +2781,9 @@ public class DateField extends ComboBase
                 displayDropdown(false, event);
         }
         else if (event is SandboxMouseEvent) 
+		{
             displayDropdown(false, event);
+		}
             
     }
 

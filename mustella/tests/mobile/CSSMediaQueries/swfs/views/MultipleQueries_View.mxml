@@ -22,13 +22,17 @@
 		title="Multiple queries">
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		/* Generic style */
 		.buttonMultipleQueriesTest
 		{
 			chromeColor: #AAAAAA;
 			color: #000000;
 			fontSize: 24;
 		}
-		@media screen and (os-platform: "Android") and (application-dpi: 160)
+		
+		/* Styles when running on emulator (superseded by specific os-platform values below) */
+		@media screen and (application-dpi: 160)
 		{
 			.buttonMultipleQueriesTest
 			{
@@ -37,11 +41,31 @@
 				fontSize: 22;
 			}
 		}
-		@media all and (os-platform: "IOS") and (application-dpi: 160)
+		@media screen and (application-dpi: 240)
+		{
+			.buttonMultipleQueriesTest
+			{
+				chromeColor: #990000;
+				color: #009900;
+				fontSize: 26;
+			}
+		}
+		@media screen and (application-dpi: 320)
 		{
 			.buttonMultipleQueriesTest
 			{
 				chromeColor: #000099;
+				color: #009999;
+				fontSize: 28;
+			}
+		}
+		
+		/* Styles when running on Android devices */
+		@media screen and (os-platform: "Android") and (application-dpi: 160)
+		{
+			.buttonMultipleQueriesTest
+			{
+				chromeColor: #990000;
 				color: #990000;
 				fontSize: 22;
 			}
@@ -55,13 +79,15 @@
 				fontSize: 26;
 			}
 		}
-		@media (os-platform: "Android") and (application-dpi: 320)
+		
+		/* Styles when running on iOS devices */
+		@media all and (os-platform: "IOS") and (application-dpi: 160)
 		{
 			.buttonMultipleQueriesTest
 			{
-				chromeColor: #990000;
-				color: #000099;
-				fontSize: 28;
+				chromeColor: #000099;
+				color: #990000;
+				fontSize: 22;
 			}
 		}
 		@media (os-platform: "IOS") and (application-dpi: 320)

@@ -80,6 +80,7 @@ public class I18nCompiler extends AbstractSubCompiler implements flex2.compiler.
             public boolean getGenerateAbstractSyntaxTree() { return false; }
 	        public String getEncoding() { return null; }
             public boolean metadataExport() { return false; }
+            public boolean getAdvancedTelemetry() { return false; }
             public boolean showDeprecationWarnings() { return false; }
 	        public boolean warn_array_tostring_changes() { return false; }
 	        public boolean warn_assignment_within_conditional() { return false; }

@@ -117,6 +117,14 @@ public class TagEncoder extends TagHandler
         tagw.writeUBits(0, 24);
         encodeTag(tag);
     }
+    
+    public void enableTelemetry(EnableTelemetry tag)
+    {
+    	if (tag.enabled) {
+	        tagw.writeUBits(0, 16); //reserved
+	        encodeTag(tag);
+    	}
+    }
 
     public void metadata(Metadata tag)
     {

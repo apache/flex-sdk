@@ -31,7 +31,9 @@ import spark.skins.mobile240.assets.ButtonBarFirstButton_up;
 import spark.skins.mobile320.assets.ButtonBarFirstButton_down;
 import spark.skins.mobile320.assets.ButtonBarFirstButton_selected;
 import spark.skins.mobile320.assets.ButtonBarFirstButton_up;
-
+import spark.skins.mobile480.assets.ButtonBarFirstButton_down;
+import spark.skins.mobile480.assets.ButtonBarFirstButton_selected;
+import spark.skins.mobile480.assets.ButtonBarFirstButton_up;
 /**
  *  Button skin for the first Button in a ButtonBar.
  * 
@@ -58,6 +60,16 @@ public class ButtonBarFirstButtonSkin extends ButtonBarButtonSkinBase
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				upBorderSkin = spark.skins.mobile480.assets.ButtonBarFirstButton_up;
+				downBorderSkin = spark.skins.mobile480.assets.ButtonBarFirstButton_down;
+				selectedBorderSkin = spark.skins.mobile480.assets.ButtonBarFirstButton_selected;
+				
+				cornerRadius = 16;
+				
+				break;
+			}
             case DPIClassification.DPI_320: 
             {
                 upBorderSkin = spark.skins.mobile320.assets.ButtonBarFirstButton_up;

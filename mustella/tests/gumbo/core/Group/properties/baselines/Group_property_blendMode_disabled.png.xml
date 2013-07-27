@@ -1,0 +1,39 @@
+<DisplayList>
+  <GroupBasic width="500" height="375">
+    <spark.skins.spark.ApplicationSkin width="500" height="375" blendMode="auto">
+      <spark.components.Group width="500" height="375" blendMode="auto">
+        <spark.components.Group width="500" height="375" blendMode="auto">
+          <spark.components.Group width="70" height="48" blendMode="auto">
+            <comps.BlendModeGroup width="70" height="48" blendMode="auto">
+              <spark.components.VGroup width="70" height="48" blendMode="auto">
+                <spark.components.Button width="70" height="21">
+                  <spark.skins.spark.ButtonSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=-204, greenOffset=-204, blueOffset=-204, alphaOffset=0)" width="70" height="21" blendMode="auto">
+                    <spark.components.supportClasses.InvalidatingSprite concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=-204, greenOffset=-204, blueOffset=-204, alphaOffset=0)" width="72" height="23"/>
+                    <spark.components.Label concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="10" y="3" width="50" height="17">
+                      <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="50" height="17"/>
+                      <flash.text.engine.TextLine concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="13.15" y="13" width="23.7" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="4" hasGraphicElement="false"/>
+                    </spark.components.Label>
+                  </spark.skins.spark.ButtonSkin>
+                </spark.components.Button>
+                <spark.components.Button y="27" width="70" height="21">
+                  <spark.skins.spark.ButtonSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=-204, greenOffset=-204, blueOffset=-204, alphaOffset=0)" width="70" height="21" blendMode="auto">
+                    <spark.components.supportClasses.InvalidatingSprite concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=-204, greenOffset=-204, blueOffset=-204, alphaOffset=0)" width="72" height="23"/>
+                    <spark.components.Label concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="10" y="3" width="50" height="17">
+                      <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="50" height="17"/>
+                      <flash.text.engine.TextLine concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="13.15" y="13" width="23.7" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="4" hasGraphicElement="false"/>
+                    </spark.components.Label>
+                  </spark.skins.spark.ButtonSkin>
+                </spark.components.Button>
+              </spark.components.VGroup>
+            </comps.BlendModeGroup>
+          </spark.components.Group>
+          <spark.components.Group y="54" width="0" height="0" blendMode="auto"/>
+          <spark.components.Group y="60" width="0" height="0" blendMode="auto"/>
+          <spark.components.Group y="66" width="0" height="0" blendMode="auto"/>
+          <spark.components.DataGroup y="72" width="0" height="0"/>
+          <spark.components.DataGroup y="78" width="0" height="0"/>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </GroupBasic>
+</DisplayList>

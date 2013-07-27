@@ -36,18 +36,16 @@ REM    configuration files are modified to reflect this.  You do not need to set
 REM    up any of the environment variables mentioned in the README because the locations 
 REM    of all the software are known in this configuration.
 REM
-REM    TextLayoutFormat (TLF), OSMF, swobject, the Adobe embedded font support, 
-REM    and Adobe BlazeDS integration all come from the Adobe Flex 4.6 SDK.  You should
-REM    be aware that these components have their own licenses that may or may not be
-REM    compatible with the Apache v2 license.  See the "Software Dependencies" section
-REM    in the README for more license information.
+REM    OSMF, swobject, the Adobe embedded font support, and Adobe BlazeDS integration all
+REM    come from the Adobe Flex 4.6 SDK.  You should be aware that these components have
+REM    their own licenses that may or may not be compatible with the Apache v2 license.
+REM    See the "Software Dependencies" section in the README for more license information.
 REM
 REM    The Adobe Flex 4.6 SDK is available here:
 REM         http://www.adobe.com/devnet/flex/flex-sdk-download.html
 REM
 REM    Usage: constructFlexForIDE "Apache Flex dir" ["Adobe Flex 4.6 dir"]
 REM
-
 REM
 REM     If the Adobe Flex SDK 4.6 directory is not specified this script will look for it
 REM     in the following places:
@@ -191,7 +189,6 @@ for %%G in (
 
 for %%G in (
     frameworks\libs\osmf.swc
-    frameworks\libs\textLayout.swc
     frameworks\libs\player\11.1\playerglobal.swc
     frameworks\javascript\FABridge\samples\fabridge\swfobject\swfobject.js
     lib\flex-messaging-common.jar

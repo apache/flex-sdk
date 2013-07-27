@@ -1,0 +1,67 @@
+<DisplayList>
+  <Flex4_ToggleButton_main width="500" height="375">
+    <spark.skins.spark.ApplicationSkin width="500" height="375" blendMode="auto">
+      <spark.components.Group width="500" height="375" blendMode="auto">
+        <spark.components.Group width="500" height="375" blendMode="auto">
+          <spark.components.ToggleButton width="70" height="21">
+            <spark.skins.spark.ToggleButtonSkin width="70" height="21" blendMode="auto">
+              <spark.components.Label x="10" y="3" width="50" height="17">
+                <flash.display.Shape width="50" height="17"/>
+                <flash.text.engine.TextLine x="25" y="13" width="0" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="1" hasGraphicElement="false"/>
+              </spark.components.Label>
+            </spark.skins.spark.ToggleButtonSkin>
+          </spark.components.ToggleButton>
+          <mx.containers.Canvas y="27" width="565" height="55">
+            <mx.containers.Box width="88" height="31">
+              <spark.components.ToggleButton x="5" y="5" width="78" height="21">
+                <spark.skins.spark.ToggleButtonSkin width="78" height="21" blendMode="auto">
+                  <spark.components.Label x="10" y="3" width="58" height="17">
+                    <flash.display.Shape width="58" height="17"/>
+                    <flash.text.engine.TextLine x="0.4" y="13" width="57.15" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="10" hasGraphicElement="false"/>
+                  </spark.components.Label>
+                </spark.skins.spark.ToggleButtonSkin>
+              </spark.components.ToggleButton>
+            </mx.containers.Box>
+            <spark.components.ToggleButton x="103" width="73" height="21">
+              <spark.skins.spark.ToggleButtonSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=51, greenOffset=51, blueOffset=-204, alphaOffset=0)" width="73" height="21" blendMode="auto">
+                <spark.components.supportClasses.InvalidatingSprite concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=51, greenOffset=51, blueOffset=-204, alphaOffset=0)" width="75" height="23"/>
+                <spark.components.Label concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="10" y="3" width="53" height="17">
+                  <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="53" height="17"/>
+                  <flash.text.engine.TextLine concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="0.1" y="13" width="52.8" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="9" hasGraphicElement="false"/>
+                </spark.components.Label>
+              </spark.skins.spark.ToggleButtonSkin>
+            </spark.components.ToggleButton>
+            <spark.components.ToggleButton x="203" width="70" height="21">
+              <spark.skins.spark.ToggleButtonSkin width="70" height="21" blendMode="auto">
+                <spark.components.Label x="10" y="3" width="50" height="17">
+                  <flash.display.Shape width="50" height="17"/>
+                  <flash.text.engine.TextLine x="11.55" y="13" width="26.9" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="5" hasGraphicElement="false"/>
+                </spark.components.Label>
+              </spark.skins.spark.ToggleButtonSkin>
+            </spark.components.ToggleButton>
+          </mx.containers.Canvas>
+          <spark.components.ToggleButton y="88" width="85" height="21">
+            <spark.skins.spark.ToggleButtonSkin width="85" height="21" blendMode="auto">
+              <spark.components.Label x="10" y="3" width="65" height="17">
+                <flash.display.Shape width="65" height="17"/>
+                <flash.text.engine.TextLine x="0.15" y="13" width="64.65" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="12" hasGraphicElement="false"/>
+              </spark.components.Label>
+            </spark.skins.spark.ToggleButtonSkin>
+          </spark.components.ToggleButton>
+          <spark.components.ToggleButton y="115" width="107" height="21">
+            <spark.skins.spark.ToggleButtonSkin width="107" height="21" blendMode="auto">
+              <spark.components.Label x="10" y="3" width="87" height="17">
+                <flash.display.Shape width="87" height="17"/>
+                <flash.text.engine.TextLine x="0.35" y="13" width="86.3" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="15" hasGraphicElement="false"/>
+              </spark.components.Label>
+            </spark.skins.spark.ToggleButtonSkin>
+          </spark.components.ToggleButton>
+          <spark.components.Label y="142" width="26" height="16">
+            <flash.display.Shape width="26" height="16"/>
+            <flash.text.engine.TextLine y="12.45" width="25.05" height="15.95" ascent="12.4677734375" descent="3.43212890625" atomCount="5" hasGraphicElement="false"/>
+          </spark.components.Label>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </Flex4_ToggleButton_main>
+</DisplayList>

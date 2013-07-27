@@ -448,7 +448,9 @@ public class TitleBar extends SkinnableComponent
 
         if (titleChanged)
         {
-            titleText.text = _title;
+			if (titleText) {
+            	titleText.text = _title;
+			}
             titleChanged = false;   
         }
 

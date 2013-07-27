@@ -19,21 +19,21 @@
 @font-face {
 	src: url("Open_Sans/OpenSans-Regular.ttf");
 	fontFamily: "MyVerdana";
-        embedAsCFF: false;
+    embedAsCFF: false;
 }
 
 @font-face {
 	src: url("Open_Sans/OpenSans-Bold.ttf");
 	fontFamily: "MyVerdana";
 	fontWeight: bold;
-        embedAsCFF: false;
+    embedAsCFF: false;
 }
 
 @font-face {
 	src: url("Open_Sans/OpenSans-Italic.ttf");
 	fontFamily: "MyVerdana";
 	fontStyle: italic;
-        embedAsCFF: false;
+    embedAsCFF: false;
 }
 
 @font-face {
@@ -41,7 +41,7 @@
 	fontFamily: "MyVerdana";
 	fontWeight: bold;
 	fontStyle: italic;
-        embedAsCFF: false;
+    embedAsCFF: false;
 }
 
 global {

@@ -126,7 +126,7 @@
 					<ConditionalValue deviceDensity="320" os="ios" value="32"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="16"/>
 				</AssertStyleValue>
-				<AssertStyleValue target="navigator.actionBar" styleName="fontFamily" value="_sans" />
+				<AssertStyleValue target="navigator.actionBar" styleName="fontFamily" value="MyVeraHalo" />
 				<AssertStyleValue target="navigator.actionBar" styleName="fontWeight" value="normal" />
 				<AssertStyleValue target="navigator.actionBar" styleName="verticalAlign" value="top" />
 				<AssertStyleValue target="navigator.actionBar" styleName="textAlign" value="start" />
@@ -158,7 +158,7 @@
 					<ConditionalValue deviceDensity="320" os="ios" value="36"/>
 			<ConditionalValue deviceDensity="160" os="qnx" value="18"/>
 		</AssertStyleValue>
-				<AssertStyleValue target="navigator.actionBar.titleDisplay" styleName="fontFamily" value="_sans" />
+				<AssertStyleValue target="navigator.actionBar.titleDisplay" styleName="fontFamily" value="MyVeraHalo" />
 				<AssertStyleValue target="navigator.actionBar.titleDisplay" styleName="fontWeight" value="bold" />
 				<AssertStyleValue target="navigator.actionBar.titleDisplay" styleName="verticalAlign" value="top" />
 				<AssertStyleValue target="navigator.actionBar.titleDisplay" styleName="textAlign" value="null" />
@@ -380,13 +380,13 @@
 			<setup>
 				<ResetComponent target="navigator.actionBar" className="actionBar.skin"/>
 				<SetStyle target="navigator.actionBar" styleName="titleAlign" value="left" />
-				<SetStyle target="navigator.actionBar" styleName="fontFamily" value="Georgia" />
+				<SetStyle target="navigator.actionBar" styleName="fontFamily" value="mySerifHalo" />
 				
 				<Pause timeout="300" />	
 			</setup>
 			<body>
 				
-				<AssertStyleValue target="navigator.actionBar" styleName="fontFamily" value="Georgia" />
+				<AssertStyleValue target="navigator.actionBar" styleName="fontFamily" value="mySerifHalo" />
 				
 				
 				
@@ -405,7 +405,7 @@
 		<TestCase testID="ActionBar_MobileApplication_style_change_leading" keywords="[color]" description="set a different color to actionbar">
 			<setup>
 				<ResetComponent target="navigator.actionBar" className="actionBar.skin"/>
-				<SetStyle target="navigator.actionBar" styleName="fontFamily" value="_sans" />
+				<SetStyle target="navigator.actionBar" styleName="fontFamily" value="MyVeraHalo" />
 				<SetStyle target="navigator.actionBar" styleName="leading" value="5" />
 				<Pause timeout="300" />	
 			</setup>

@@ -1681,7 +1681,7 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
             // <list>
             decodeSimpleList(definitionChild, parent, name, value, restriction);
         }
-        else if (definitionChild.name() == constants.listQName)
+        else if (definitionChild.name() == constants.unionQName)
         {
             // <union>
             decodeSimpleUnion(definitionChild, parent, name, value, restriction);

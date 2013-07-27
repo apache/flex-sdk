@@ -1826,14 +1826,20 @@ public class Slider extends UIComponent
 
         var isHorizontal:Boolean = (_direction == SliderDirection.HORIZONTAL);
         var numLabels:int = labelObjects ? labelObjects.numChildren : 0;
-        var numThumbs:int = thumbs ? thumbs.numChildren : 0;
         var trackMargin:Number = getStyle("trackMargin");
-        var widestThumb:Number = 6;
-        var firstThumb:SliderThumb = SliderThumb(thumbs.getChildAt(0));
-        if (thumbs && firstThumb)
-            widestThumb = firstThumb.getExplicitOrMeasuredWidth();
+		var firstThumbWidth:Number = 6;
+		var firstThumbHeight:Number = 0;
+        var firstThumb:SliderThumb;
+		
+		if (thumbs && thumbs.numChildren > 0)
+			firstThumb = SliderThumb(thumbs.getChildAt(0));
+		
+        if (thumbs && firstThumb) {
+			firstThumbWidth = firstThumb.getExplicitOrMeasuredWidth();
+			firstThumbHeight = firstThumb.getExplicitOrMeasuredHeight();
+		}
 
-        var trackLeftOffset:Number = widestThumb / 2; // Enough space for the thumb to rest at the edges
+        var trackLeftOffset:Number = firstThumbWidth / 2; // Enough space for the thumb to rest at the edges
         var trackRightOffset:Number = trackLeftOffset;
 
         var availSpace:Number;
@@ -1894,7 +1900,7 @@ public class Slider extends UIComponent
 
         // Layout the thumbs' y positions.
         var tY:Number = track.y +
-                        (track.height - firstThumb.getExplicitOrMeasuredHeight()) / 2 +
+                        (track.height - firstThumbHeight) / 2 +
                         getStyle("thumbOffset");
 
         var n:int = _thumbCount;
@@ -1914,12 +1920,10 @@ public class Slider extends UIComponent
             tLength = getStyle("tickLength");
         g.clear();      
         g.beginFill(0,0);
-        var fullThumbHeight:Number = firstThumb.getExplicitOrMeasuredHeight();
-        var halfThumbHeight:Number = (!fullThumbHeight) ? 0 : (fullThumbHeight / 2);
         g.drawRect(track.x, 
-                track.y - halfThumbHeight - tLength, 
+                track.y - firstThumbHeight/2 - tLength, 
                 track.width, 
-                track.height + fullThumbHeight + tLength);
+                track.height + firstThumbHeight + tLength);
         g.endFill();
 
         if (_direction != SliderDirection.HORIZONTAL)
@@ -2145,7 +2149,7 @@ public class Slider extends UIComponent
             lowerBound = Math.max(lowerBound, tOff);
         }
 
-        if (thumbs.numChildren > 0)
+        if (thumbs && thumbs.numChildren > 0)
         {
             thumbY = (track.height - SliderThumb(thumbs.getChildAt(0)).getExplicitOrMeasuredHeight()) / 2 +
                      getStyle("thumbOffset");
@@ -2577,13 +2581,15 @@ public class Slider extends UIComponent
         var v:Number = (xPos - track.x) *
                        (maximum - minimum) /
                        (track.width) + minimum;
+		
+		var threshold:Number = (maximum - minimum) / 1000;
         
         // kill rounding error at the edges.
-        if (v - minimum <= 0.002)
+        if (v - minimum <= threshold)
         {
             v = minimum;
         }
-        else if (maximum - v <= 0.002)
+        else if (maximum - v <= threshold)
         {
             v = maximum;
         }
@@ -2735,6 +2741,7 @@ public class Slider extends UIComponent
                                 isProgrammatic:Boolean = false):void
     {
         var oldValue:Number = _values[index];
+		var threshold:Number = (maximum - minimum) / 1000;
         
         // we need to do the round of (to remove the floating point error)
         // if the stepSize had a fractional value
@@ -2766,7 +2773,7 @@ public class Slider extends UIComponent
             
             if (!isNaN(oldValue))
             {
-            	if (Math.abs(oldValue - value) > 0.002)
+            	if (Math.abs(oldValue - value) > threshold)
             		dispatchEvent(event)
             }
             // Handle case of changing from NaN to a valid value

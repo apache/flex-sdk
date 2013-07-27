@@ -422,7 +422,8 @@
 		<TestCase testID="Gumbo_TextArea_insertText_method_default" description="..." keywords="[TextArea, insertText, method]">
 			<setup>
 				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
-				<RunCode code="application.textArea.setFocus();application.textArea.insertText('Silver Musican');" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="application.textArea.setFocus()" waitTarget="textArea" waitEvent="focusIn" />
+                <RunCode code="application.textArea.insertText('Silver Musican');" waitTarget="textArea" waitEvent="updateComplete" />
 				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
 			</setup>
 			<body>

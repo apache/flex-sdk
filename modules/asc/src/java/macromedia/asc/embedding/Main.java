@@ -30,7 +30,7 @@ import java.io.PrintStream;
 import macromedia.asc.util.Context;
 import macromedia.asc.util.ContextStatics;
 import macromedia.asc.util.ObjectList;
-import static macromedia.asc.util.Version.*;
+import macromedia.asc.util.Version;
 import static macromedia.asc.embedding.avmplus.Features.*;
 
 /**
@@ -389,7 +389,7 @@ public class Main
 		if (do_help)
 		{
 			System.out.println("ActionScript 3.0 for AVM+");
-			System.out.println("version " + ASC_VERSION_USER + " build "+ ASC_BUILD_CODE);
+			System.out.println("version " + Version.getVersion() + " build "+ Version.getBuild());
 			System.out.println("Copyright 2012 The Apache Software Foundation");
 			System.out.println("All rights reserved\n");
 			System.out.println("Usage:");

@@ -405,7 +405,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         // model and uses mxmlContent to manage children.  To maintain backwards 
         // compatibility, the return type for this method remained the same.
         // As a result, the value vector needs to be converted to an array
-        var contentArray:Array = new Array();
+        var contentArray:Array = [];
         
         for each (var navigator:ViewNavigatorBase in value)
         {
@@ -1531,6 +1531,24 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         navigators = null;
     }
     
+	/**
+	 *  Removes the specified item from this list, should it exist.
+	 *  Relies on ArrayList implementation
+	 *
+	 *  @param  item Object reference to the item that should be removed.
+	 *  @return Boolean indicating if the item was removed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Apache Flex 4.10
+	 */
+	public function removeItem( item:Object ):Boolean
+	{
+		var element:IVisualElement = removeElement(item as ViewNavigatorBase);
+		return element != null;
+	}
+	
     /**
      *  Remove the view navigator at the specified index and return it.  
      *  The index of any items that were after this index are decreased by one.

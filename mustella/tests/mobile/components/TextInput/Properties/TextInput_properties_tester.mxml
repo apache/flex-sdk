@@ -499,7 +499,7 @@
 						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
 						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
 						<SetProperty target="tic1.ti1" propertyName="height" value="55" />
-				            <SetStyle target="tic1.ti1" styleName="fontFamily" value="" />
+				            <SetStyle target="tic1.ti1" styleName="fontFamily" value="DroidSansFallback" />
 						<SetProperty target="tic1.ti1" propertyName="text" waitEvent="updateComplete" value="漢字仮名交じり文" />
 				        </setup>
 				        <body>

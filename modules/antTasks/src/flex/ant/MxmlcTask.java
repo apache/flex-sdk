@@ -150,6 +150,7 @@ public final class MxmlcTask extends FlexTask implements DynamicConfigurator
             new ConfigBoolean(new OptionSpec("compiler", "keep-all-type-selectors")),
             new ConfigBoolean(new OptionSpec("compiler", "keep-generated-actionscript", "keep")),
             new ConfigBoolean(new OptionSpec("compiler", "verbose-stacktraces")),
+            new ConfigBoolean(new OptionSpec("compiler", "advanced-telemetry")),
             new ConfigBoolean(new OptionSpec("compiler", "warn-array-tostring-changes")),
             new ConfigBoolean(new OptionSpec("compiler", "warn-assignment-within-conditional")),
             new ConfigBoolean(new OptionSpec("compiler", "warn-bad-array-cast")),

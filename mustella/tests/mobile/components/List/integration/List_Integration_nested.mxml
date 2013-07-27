@@ -136,11 +136,11 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.NestedInVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 
-                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="250" dragYTo="200" dragXFrom="250" dragXTo="250" />
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="250" dragYTo="231" dragXFrom="250" dragXTo="250" />
                 
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
-                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(19 - List.getSlopValue())" />
                 <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
@@ -164,7 +164,7 @@
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
-                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(19 - List.getSlopValue())" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
@@ -181,12 +181,12 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.NestedInVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 
-                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="250" dragYTo="200" dragXFrom="250" dragXTo="200" />
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="250" dragYTo="231" dragXFrom="250" dragXTo="200" />
                 
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
-                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50-List.getSlopValue())" />
-                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50-List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(19-List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(19-List.getSlopValue())" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
@@ -395,7 +395,7 @@
                 
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
-                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(19 - List.getSlopValue())" />
                 <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
@@ -413,12 +413,12 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.NestedInHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 
-                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="200" dragXFrom="200" dragXTo="150" />
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="200" dragXFrom="200" dragXTo="220" />
                 
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
-                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(19 - List.getSlopValue())" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
@@ -435,12 +435,12 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.NestedInHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 
-                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="150" dragXFrom="200" dragXTo="150" />
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="150" dragXFrom="200" dragXTo="220" />
                 
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
-                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
-                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(19 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(19 - List.getSlopValue())" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
@@ -639,11 +639,11 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 
-                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="150" dragYTo="100" dragXFrom="150" dragXTo="150" />
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="150" dragYTo="131" dragXFrom="150" dragXTo="150" />
                 
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
-                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(19 - List.getSlopValue())" />
                 <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
@@ -661,12 +661,12 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 
-                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="150" dragYTo="150" dragXFrom="150" dragXTo="100" />
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="150" dragYTo="150" dragXFrom="150" dragXTo="131" />
                 
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
-                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(19 - List.getSlopValue())" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
@@ -683,12 +683,12 @@
             <body>
                 <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 
-                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="150" dragYTo="100" dragXFrom="150" dragXTo="100" />
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="150" dragYTo="131" dragXFrom="150" dragXTo="131" />
                 
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
-                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
-                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(19 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(19 - List.getSlopValue())" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
                 <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />

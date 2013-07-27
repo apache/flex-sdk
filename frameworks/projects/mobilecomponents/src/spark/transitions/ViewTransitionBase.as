@@ -878,9 +878,9 @@ public class ViewTransitionBase extends EventDispatcher
         var animatedProperty:String;
         
         var actionBarSkin:UIComponent = actionBar.skin;
-        var slideTargets:Array = new Array();
-        var fadeOutTargets:Array = new Array();
-        var fadeInTargets:Array = new Array();
+        var slideTargets:Array = [];
+        var fadeOutTargets:Array = [];
+        var fadeInTargets:Array = [];
         
         // Return if we have a noop action bar transition mode.
         if (!actionBar || actionBarTransitionMode == ACTION_BAR_MODE_NONE || 

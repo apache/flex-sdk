@@ -1,0 +1,271 @@
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabled=".5" minWidth="24"
+			 currentStateChange="onStateChange(event)">
+	<!--
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//  Licensed to the Apache Software Foundation (ASF) under one or more
+	//  contributor license agreements.  See the NOTICE file distributed with
+	//  this work for additional information regarding copyright ownership.
+	//  The ASF licenses this file to You under the Apache License, Version 2.0
+	//  (the "License"); you may not use this file except in compliance with
+	//  the License.  You may obtain a copy of the License at
+	//
+	//      http://www.apache.org/licenses/LICENSE-2.0
+	//
+	//  Unless required by applicable law or agreed to in writing, software
+	//  distributed under the License is distributed on an "AS IS" BASIS,
+	//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	//  See the License for the specific language governing permissions and
+	//  limitations under the License.
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	@author Bogdan Dinu (http://www.badu.ro)
+	-->
+	<fx:Metadata>
+		<![CDATA[
+		[HostComponent("spark.components.ColorPicker")]
+		]]>
+	</fx:Metadata>
+	<fx:Declarations>
+		<fx:Component id="colorItemRenderer">
+			<s:ItemRenderer rollOver="onRolledOver(event)" dataChange="onDataChange()">
+				<fx:Script>
+					<![CDATA[
+						import mx.events.FlexEvent;
+						
+						import spark.events.ColorChangeEvent;
+						import spark.utils.ColorPickerUtil;
+						
+						[Bindable]private var color:uint;
+						[Bindable]private var noneColor:Boolean;
+						protected function onRolledOver(event:MouseEvent):void
+						{
+							var cVal:uint = outerDocument.hostComponent.getColorValue(data);
+							outerDocument.previewColor.color = cVal;
+							outerDocument.popupTextInput.text = outerDocument.hostComponent.getColorName(data);
+							var ev:ColorChangeEvent = new ColorChangeEvent(ColorChangeEvent.HOVER, cVal);
+							if(typeof(data) == "object"){
+								ev.colorObject = data;
+							}
+							outerDocument.hostComponent.dispatchEvent(ev);
+						}
+						
+						protected function onDataChange():void
+						{
+							if(data === null){
+								// draw a no-color square
+								color = 0xFFFFFF;
+								noneColor = true;
+							} else {
+								color = outerDocument.hostComponent.getColorValue(data);
+								noneColor = false;
+							}
+						}
+						
+					]]>
+				</fx:Script>
+				<s:states>
+					<s:State name="normal"/>
+					<s:State name="hovered"/>
+					<s:State name="selected"/>
+				</s:states>
+				<s:Rect width="14" height="14">
+					<s:fill>
+						<s:SolidColor color="{color}"/>
+					</s:fill>
+					<s:stroke>
+						<s:SolidColorStroke color="0xFFFF00" alpha.hovered="1" alpha="0"/>
+					</s:stroke>
+				</s:Rect>
+				<s:Line xFrom="1" xTo="13" yFrom="1" yTo="13" visible="{noneColor}">
+					<s:stroke>
+						<s:SolidColorStroke color="0xFF0000" weight="2"/>
+					</s:stroke>
+				</s:Line>
+			</s:ItemRenderer>
+		</fx:Component>
+	</fx:Declarations>
+	<fx:Script fb:purpose="styling">
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.events.StateChangeEvent;
+			
+			import spark.events.ColorChangeEvent;
+			import spark.events.TextOperationEvent;
+			import spark.utils.ColorPickerUtil;
+			
+			static private const contentFill:Array = ["bgFill"];
+			
+			/**
+			 * @private
+			 */
+			override public function get contentItems():Array
+			{
+				return contentFill
+			}
+			/**
+			 * @private
+			 */
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				if (getStyle("borderVisible") == false) {
+					if (border) {
+						border.visible = false;
+					}
+					if (background) {
+						background.left = background.top = background.right = background.bottom = 0;
+					}
+					if (swatchpanel) {
+						swatchpanel.left = swatchpanel.top = swatchpanel.right = swatchpanel.bottom = 0;
+					}
+				} else {
+					if (border) {
+						border.visible = true;
+					}
+					if (background) {
+						background.left = background.top = background.right = background.bottom = 1;
+					}
+					if (swatchpanel) {
+						swatchpanel.left = swatchpanel.top = swatchpanel.right = swatchpanel.bottom = 1;
+					}
+				}
+				
+				if (dropShadow) {
+					dropShadow.visible = getStyle("dropShadowVisible");
+				}
+				
+				openButton.setStyle("cornerRadius", getStyle("cornerRadius"));
+				
+				if (borderStroke) {
+					borderStroke.color = getStyle("borderColor");
+					borderStroke.alpha = getStyle("borderAlpha");
+				}
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+			}
+			
+			private function onEnterKey(e:FlexEvent):void
+			{
+				hostComponent.selectedColor = previewColor.color;
+				hostComponent.closeDropDown(true);
+				var ev:ColorChangeEvent = new ColorChangeEvent(ColorChangeEvent.CHOOSE, previewColor.color);
+				if(typeof(null) == "object"){
+					ev.colorObject = null;
+				}
+
+				hostComponent.dispatchEvent(ev);
+			}
+			
+			protected function onStateChange(event:StateChangeEvent):void
+			{
+				if (currentState == 'open') {
+					if (preview) {
+						previewColor.color = hostComponent.selectedColor;
+					}
+					popupTextInput.callLater(popupTextInput.setFocus);
+					popupTextInput.text = hostComponent.getColorName(hostComponent.selectedItem);
+				}
+			}
+
+			protected function onPreviewTextInputChange(event:TextOperationEvent):void
+			{
+				var color:String = TextInput(event.target).text;
+				if (color.charAt(0) == "#"){
+					popupTextInput.maxChars = 7;
+					color = "0x"+color.substring(1);
+				}
+				else if (color.substring(0,2) == "0x"){
+					popupTextInput.maxChars = 8;
+				}
+				else{
+					popupTextInput.maxChars = 6;
+					color = "0x"+color;
+				}
+				previewColor.color = Number(color);
+			}
+			
+			private function onKeyDown(ev:KeyboardEvent):void
+			{
+				if ((ev.ctrlKey && ev.keyCode == Keyboard.UP) ||
+					ev.keyCode == Keyboard.ESCAPE)
+				{
+					if (currentState == 'open'){
+						hostComponent.closeDropDown(false);
+					}
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="open"/>
+		<s:State name="disabled"/>
+	</s:states>
+	
+	<s:PopUpAnchor id="popUp" displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
+				   left="0" right="0" top="0" bottom="0" itemDestructionPolicy="auto"
+				   popUpPosition="below" popUpWidthMatchesAnchorWidth="false">
+		
+		<s:Group id="dropDown">
+			<s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.45" distance="7"
+									 angle="90" color="#000000" left="0" top="0" right="0" bottom="0"/>
+			<s:Rect id="border" left="0" right="0" top="0" bottom="0">
+				<s:stroke>
+					<s:SolidColorStroke id="borderStroke" weight="1"/>
+				</s:stroke>
+			</s:Rect>
+			
+			<s:Rect id="background" left="1" right="1" top="1" bottom="1">
+				<s:fill>
+					<s:SolidColor id="bgFill" color="0x1F1F1F"/>
+				</s:fill>
+			</s:Rect>
+			<s:VGroup id="swatchpanel" left="0" top="0" right="0" bottom="0" gap="2">
+				<s:HGroup>
+					<s:Rect id="preview" width="50" height="100%">
+						<s:fill>
+							<s:SolidColor id="previewColor"/>
+						</s:fill>
+					</s:Rect>
+					<s:TextInput id="popupTextInput" restrict="#xa-fA-F0-9" selectable="false" editable="false"
+								 borderVisible="false"
+								 change="onPreviewTextInputChange(event)" keyDown="onKeyDown(event)"
+								 enter="onEnterKey(event)"/>
+				</s:HGroup>
+				<s:Group>
+					<s:Rect left="0" top="0" right="0" bottom="0" width="300" height="132">
+						<s:fill>
+							<s:SolidColor color="0x0"/>
+						</s:fill>
+					</s:Rect>
+					<s:DataGroup id="dataGroup" left="0" top="0" right="0" bottom="0" width="300" height="132"
+								 itemRenderer="{colorItemRenderer}">
+						<s:layout>
+							<s:TileLayout verticalGap="0" horizontalGap="0"
+										  requestedColumnCount="20"
+										  requestedRowCount="12" useVirtualLayout="false"/>
+						</s:layout>
+					</s:DataGroup>
+				</s:Group>
+			</s:VGroup>
+		</s:Group>
+	</s:PopUpAnchor>
+	
+	<s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
+			  skinClass="spark.skins.ColorPickerButtonSkin"/>
+	
+	<s:Rect left="2" right="2" top="2" bottom="2" width="20" height="20" radiusX="2">
+		<s:fill>
+			<s:SolidColor id="solidColor"/>
+		</s:fill>
+	</s:Rect>
+	<s:Line xFrom="3" xTo="20" yFrom="3" yTo="20" id="noColorOrnament">
+		<s:stroke>
+			<s:SolidColorStroke color="0xFF0000" weight="2"/>
+		</s:stroke>
+	</s:Line>
+	<s:TextInput id="textInput" visible="false" width="1" height="1"/>
+	
+</s:SparkSkin>

@@ -397,7 +397,7 @@
         description="Downloads and copies javacc.jar to the lib directory.">
 
         <antcall target="download-zip">
-          <param name="srcUrl" value="http://java.net/projects/javacc/downloads/download"/>
+          <param name="srcUrl" value="https://java.net/downloads/javacc"/>
           <param name="zipFile" value="javacc-5.0.tar.gz"/>
           <param name="srcJarPath" value="javacc-5.0/bin/lib/javacc.jar"/>
           <param name="destJarFile" value="${lib.ext.dir}/javacc.jar"/>
@@ -422,7 +422,7 @@
     <target name="saxon9-jar" depends="saxon9-jar-check" unless="saxon9.jar.exists" 
         description="Copies sax9.jar to the lib directory.">
 
-        <get src="http://sourceforge.net/projects/saxon/files/Saxon-B/9.1.0.8/${saxon9.bin.zip}/download" 
+        <get src="http://downloads.sourceforge.net/project/saxon/Saxon-B/9.1.0.8/saxonb9-1-0-8j.zip?r=&amp;ts=1366147457&amp;use_mirror=superb-dca2" 
             dest="${download.dir}/${saxon9.bin.zip}" 
             verbose="false"/>   
 

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 creationComplete="init()">
+	<s:layout>
+		<s:VerticalLayout paddingTop="8" paddingLeft="8" paddingRight="8" paddingBottom="8"/>
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.events.Event;
+			import flash.events.ProgressEvent;
+			import flash.events.ServerSocketConnectEvent;
+			import flash.net.ServerSocket;
+			import flash.net.Socket;
+			import flash.utils.ByteArray;
+			
+			import mx.controls.Alert;
+			
+			protected var serverSocket:ServerSocket;
+			
+			protected var mimeTypes:Object = new Object();
+			
+			[Bindable] protected var _webrootStr:String;
+			
+			protected function init():void
+			{
+				// The mime types supported by this mini web server
+				mimeTypes[".css"] 	= "text/css";
+				mimeTypes[".properties"] 	= "text/plain";
+				mimeTypes[".gif"] 	= "image/gif";
+				mimeTypes[".htm"] 	= "text/html";
+				mimeTypes[".html"] 	= "text/html";
+				mimeTypes[".ico"] 	= "image/x-icon";
+				mimeTypes[".jpg"] 	= "image/jpeg";
+				mimeTypes[".js"] 	= "application/x-javascript";
+				mimeTypes[".png"] 	= "image/png";
+				mimeTypes[".swf"] 	= "application/x-shockwave-flash";
+				
+			}
+			
+			public function setWebRoot(path:String):void
+			{
+				// Initialize the web server directory (in applicationStorageDirectory) with sample files
+				_webrootStr = path;
+			}
+			
+			protected function listen():void
+			{
+				try
+				{
+					serverSocket = new ServerSocket();
+					serverSocket.addEventListener(Event.CONNECT, socketConnectHandler);
+					serverSocket.bind(Number(port.text));
+					serverSocket.listen();
+					log.text += "Listening on port " + port.text + "...\n";
+				}
+				catch (error:Error)
+				{
+					Alert.show("Port " + port.text + 
+						" may be in use. Enter another port number and try again.\n(" +
+						error.message +")", "Error");
+				}
+			}
+			
+			protected function socketConnectHandler(event:ServerSocketConnectEvent):void
+			{
+				var socket:Socket = event.socket;
+				socket.addEventListener(ProgressEvent.SOCKET_DATA, socketDataHandler);
+			}
+			
+			protected function socketDataHandler(event:ProgressEvent):void
+			{
+				try
+				{
+					var socket:Socket = event.target as Socket;
+					var bytes:ByteArray = new ByteArray();
+					socket.readBytes(bytes);
+					var request:String = "" + bytes;
+					log.text += request;
+					var filePath:String = request.substring(4, request.indexOf("HTTP/") - 1);
+					var realPath:String = sanitizeFilePath(_webrootStr + filePath);
+					var file:File = File.userDirectory.resolvePath(realPath);
+					if (file.exists && !file.isDirectory)
+					{
+						var stream:FileStream = new FileStream();
+						stream.open( file, FileMode.READ );
+						var content:ByteArray = new ByteArray();
+						stream.readBytes(content);
+						stream.close();
+						socket.writeUTFBytes("HTTP/1.1 200 OK\n");
+						socket.writeUTFBytes("Content-Type: " + getMimeType(filePath) + "\n\n");
+						socket.writeBytes(content);
+					}
+					else
+					{
+						socket.writeUTFBytes("HTTP/1.1 404 Not Found\n");
+						socket.writeUTFBytes("Content-Type: text/html\n\n");
+						socket.writeUTFBytes("<html><body><h2>Page Not Found</h2></body></html>");
+					}
+					socket.flush();
+					socket.close();
+				}
+				catch (error:Error)
+				{
+					Alert.show(error.message, "Error");
+				}
+			}
+			
+			protected function getMimeType(path:String):String
+			{
+				var mimeType:String;
+				var index:int = path.lastIndexOf(".");
+				if (index > -1)
+				{
+					mimeType = mimeTypes[path.substring(index)];
+				}
+				return mimeType == null ? "text/html" : mimeType; // default to text/html for unknown mime types
+			}
+			
+			protected function sanitizeFilePath(path:String):String
+			{
+				var index:int = path.indexOf("?");
+				var realPath:String = path;
+				if(index > -1)
+				{
+					realPath = realPath.substring(0,index);
+				}
+				return realPath;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:HGroup verticalAlign="middle">
+		<s:Label text="Webroot: " />
+		<s:TextInput id="webrootTxt" text="{_webrootStr}" width="200" />
+		<s:Label text="Port:"/>
+		<s:TextInput id="port" text="80" width="50"/>
+		<s:Button label="Start Web Server" click="listen()"/>
+	</s:HGroup>
+	
+	<s:TextArea id="log" width="100%" height="100%" />
+</s:Panel>

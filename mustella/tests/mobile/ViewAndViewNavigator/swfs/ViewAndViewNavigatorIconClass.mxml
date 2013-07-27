@@ -22,6 +22,7 @@
 					initialize="onInit()"
 					creationComplete="view1_creationCompleteHandler(event)">
 	
+	<fx:Style source="../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Script source="globalTabbed.as" />
 	
   <fx:Script>

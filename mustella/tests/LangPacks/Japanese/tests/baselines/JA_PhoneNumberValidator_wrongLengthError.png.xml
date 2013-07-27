@@ -1,0 +1,86 @@
+<DisplayList>
+  <LangPackApp width="600" height="800">
+    <mx.skins.halo.HaloBorder width="600" height="800"/>
+    <components.MyFormatters x="300" y="24" width="0" height="0"/>
+    <components.CustomTester x="220" y="30" width="160" height="294">
+      <components.MyCurrencyValidator width="160" height="24">
+        <mx.controls.TextInput width="160" height="24">
+          <mx.skins.halo.HaloBorder width="160" height="24"/>
+          <mx.core.UITextField x="2" y="2" width="156" height="19" underline="false">
+            <htmlText/>
+          </mx.core.UITextField>
+        </mx.controls.TextInput>
+      </components.MyCurrencyValidator>
+      <components.MyCreditValidator y="30" width="160" height="54">
+        <mx.controls.TextInput width="160" height="24">
+          <mx.skins.halo.HaloBorder width="160" height="24"/>
+          <mx.core.UITextField x="2" y="2" width="156" height="19" underline="false">
+            <htmlText/>
+          </mx.core.UITextField>
+        </mx.controls.TextInput>
+        <mx.controls.TextInput y="30" width="160" height="24">
+          <mx.skins.halo.HaloBorder width="160" height="24"/>
+          <mx.core.UITextField x="2" y="2" width="156" height="19" underline="false">
+            <htmlText/>
+          </mx.core.UITextField>
+        </mx.controls.TextInput>
+      </components.MyCreditValidator>
+      <components.MyDateValidator y="90" width="160" height="24">
+        <mx.controls.TextInput width="160" height="24">
+          <mx.skins.halo.HaloBorder width="160" height="24"/>
+          <mx.core.UITextField x="2" y="2" width="156" height="19" underline="false">
+            <htmlText/>
+          </mx.core.UITextField>
+        </mx.controls.TextInput>
+      </components.MyDateValidator>
+      <components.MyEmailValidator y="120" width="160" height="24">
+        <mx.controls.TextInput width="160" height="24">
+          <mx.skins.halo.HaloBorder width="160" height="24"/>
+          <mx.core.UITextField x="2" y="2" width="156" height="19" underline="false">
+            <htmlText/>
+          </mx.core.UITextField>
+        </mx.controls.TextInput>
+      </components.MyEmailValidator>
+      <components.MyNumberValidator y="150" width="160" height="24">
+        <mx.controls.TextInput width="160" height="24">
+          <mx.skins.halo.HaloBorder width="160" height="24"/>
+          <mx.core.UITextField x="2" y="2" width="156" height="19" underline="false">
+            <htmlText/>
+          </mx.core.UITextField>
+        </mx.controls.TextInput>
+      </components.MyNumberValidator>
+      <components.MyPhoneValidator y="180" width="160" height="24">
+        <mx.controls.TextInput width="160" height="24">
+          <mx.skins.halo.HaloBorder width="160" height="24"/>
+          <mx.core.UITextField x="2" y="2" width="156" height="19" underline="false">
+            <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="EmbeddedFont" SIZE="10" COLOR="#0B333C" LETTERSPACING="0" KERNING="0"&gt;984544926&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+          </mx.core.UITextField>
+        </mx.controls.TextInput>
+      </components.MyPhoneValidator>
+      <components.MySocialValidator y="210" width="160" height="24">
+        <mx.controls.TextInput width="160" height="24">
+          <mx.skins.halo.HaloBorder width="160" height="24"/>
+          <mx.core.UITextField x="2" y="2" width="156" height="19" underline="false">
+            <htmlText/>
+          </mx.core.UITextField>
+        </mx.controls.TextInput>
+      </components.MySocialValidator>
+      <components.MyStringValidator y="240" width="160" height="24">
+        <mx.controls.TextInput width="160" height="24">
+          <mx.skins.halo.HaloBorder width="160" height="24"/>
+          <mx.core.UITextField x="2" y="2" width="156" height="19" underline="false">
+            <htmlText/>
+          </mx.core.UITextField>
+        </mx.controls.TextInput>
+      </components.MyStringValidator>
+      <components.MyZipCodeValidator y="270" width="160" height="24">
+        <mx.controls.TextInput width="160" height="24">
+          <mx.skins.halo.HaloBorder width="160" height="24"/>
+          <mx.core.UITextField x="2" y="2" width="156" height="19" underline="false">
+            <htmlText/>
+          </mx.core.UITextField>
+        </mx.controls.TextInput>
+      </components.MyZipCodeValidator>
+    </components.CustomTester>
+  </LangPackApp>
+</DisplayList>

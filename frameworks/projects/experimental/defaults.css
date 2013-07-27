@@ -16,5 +16,78 @@
 *  limitations under the License.
 *
 */
-
 @namespace "http://flex.apache.org/experimental/ns";
+@namespace s "library://ns.adobe.com/flex/spark";
+
+Accordion
+{
+	skinClass: ClassReference("spark.skins.AccordionSkin");
+}
+
+Accordion s|ButtonBarButton
+{
+	cornerRadius : 0;
+}
+
+Alert 
+{
+    skinClass: ClassReference("spark.skins.AlertSkin");
+}
+
+BorderDataNavigator
+{
+	skinClass: ClassReference("spark.skins.BorderDataNavigatorSkin");
+}
+
+CallOut
+{
+	skinClass: ClassReference("spark.skins.spark.CallOutSkin");
+}
+
+/*CallOutArrow
+{
+	skinClass: ClassReference("spark.skins.spark.CallOutArrowSkin");
+}*/
+
+ColorPicker 
+{
+    skinClass: ClassReference("spark.skins.ColorPickerSkin");
+}
+
+ProgressBar 
+{
+    skinClass: ClassReference("spark.skins.ProgressBarSkin");
+}
+
+DataAccordion
+{
+	skinClass: ClassReference("spark.skins.DataAccordionSkin");
+}
+
+DataAccordion s|ButtonBarButton
+{
+	cornerRadius : 0;
+}
+
+DataNavigator
+{
+	skinClass: ClassReference("spark.skins.DataNavigatorSkin");
+}
+
+InlineScroller
+{
+	skinClass: ClassReference("spark.skins.InlineScrollerSkin");
+}
+
+Navigator
+{
+	skinClass: ClassReference("spark.skins.NavigatorSkin");
+}
+
+Menu {
+    skinClass: ClassReference("spark.skins.MenuSkin");
+}
+
+MenuBar {
+    skinClass: ClassReference("spark.skins.MenuBarSkin");
+}

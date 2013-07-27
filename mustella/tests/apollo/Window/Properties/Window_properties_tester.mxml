@@ -459,7 +459,7 @@
 			
 			<body>
 				
-				<AssertPropertyValue propertyName="minHeight" value="38" target="aw"/>
+				<AssertPropertyValue propertyName="minHeight" value="34" target="aw"/>
 				
 			</body>
 			

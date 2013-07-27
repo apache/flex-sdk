@@ -368,7 +368,64 @@ public class DateBase
 
         _timeOfDay = value != null ? value : [ am, pm ];
     }
-        
+
+	/**
+	 *  @private
+	 */
+	private static var _timezoneName:String = "GMT";
+	
+	/**
+	 *  Timezone name.
+	 * 
+	 *  @default "GMT"
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion  Apache Flex 4.10
+	 */
+	public static function get timezoneName():String
+	{
+		return _timezoneName;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public static function set timezoneName(value:String):void
+	{
+		_timezoneName = value;
+	}
+	
+	/**
+	 *  @private
+	 */
+	private static var _timezoneHourMinuteSeperator:String = ":";
+	
+	/**
+	 *  Timezone hour/minute seperator.
+	 * 
+	 *  @default ":"
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Apache Flex 4.10
+	 */
+	public static function get timezoneHourMinuteSeperator():String
+	{
+		return _timezoneHourMinuteSeperator;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public static function set timezoneHourMinuteSeperator(value:String):void
+	{
+		_timezoneHourMinuteSeperator = value;
+	}
+	
+
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -556,13 +613,43 @@ public class DateBase
                 return result;
             }
             
-            case "Q":
-            {
-                // milliseconds in second
-                var ms:int = int(date.getMilliseconds());
-                result += setValue(ms, key);
-                return result;
-            }
+			case "Q":
+			{
+				// milliseconds in second
+				var ms:int = int(date.getMilliseconds());
+				result += setValue(ms, key);
+				return result;
+			}
+				
+			case "Z":
+			{
+				// timezone offset
+				result += timezoneName;
+				return result;
+			}
+				
+			case "O":
+			{
+				// timezone offset
+				var offset:int = -1 * int(date.timezoneOffset);
+				hours = offset/60;
+				mins = offset - hours*60;
+				var tzStr:String = "";
+				
+				if (key <= 2 && mins == 0)
+					tzStr += setValue(hours, key);
+				else
+					tzStr += setValue(hours, key-2)
+						+ timezoneHourMinuteSeperator 
+						+ setValue(mins, 2);
+					
+				if (offset >= 0)
+					tzStr = "+" + tzStr;
+				
+				result += tzStr;
+				
+				return result;
+			}
         }
 
         return result;

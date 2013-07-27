@@ -44,6 +44,7 @@ import flash.swf.tags.ScriptLimits;
 import flash.swf.tags.SetBackgroundColor;
 import flash.swf.tags.ShowFrame;
 import flash.swf.tags.FileAttributes;
+import flash.swf.tags.EnableTelemetry;
 import flash.swf.types.CXForm;
 import flash.swf.types.CurvedEdgeRecord;
 import flash.swf.types.FillStyle;
@@ -498,6 +499,18 @@ public class SwfxParser extends DefaultHandler
         tag.suppressCrossDomainCaching = parseBoolean(getAttribute(attributes, "suppressCrossDomainCaching"));
         tag.swfRelativeUrls = parseBoolean(getAttribute(attributes, "swfRelativeUrls"));
         tag.useNetwork = parseBoolean(getAttribute(attributes, "useNetwork"));
+        stack.push(tag);
+    }
+    
+    public void EnableTelemetry()
+    {
+        tagHandler.enableTelemetry((EnableTelemetry)stack.pop());
+    }
+
+    public void EnableTelemetry(Attributes attributes) throws SAXException
+    {
+    	EnableTelemetry tag = new EnableTelemetry();
+        tag.enabled = parseBoolean(getAttribute(attributes, "advancedTelemetry"));
         stack.push(tag);
     }
 

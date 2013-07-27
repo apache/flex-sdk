@@ -24,7 +24,7 @@
     
     
     <comps:InstrumentedDateSpinner id="ds_main" 
-                   locale="en_US"
+                   locale="null"
                    selectedDate="{mySelectedDate}"
                    displayMode="{dsMode}"
                    />

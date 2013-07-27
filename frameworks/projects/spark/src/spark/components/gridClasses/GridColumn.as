@@ -553,6 +553,8 @@ public class GridColumn extends EventDispatcher
      *  pressing the F2 key.
      *
      *  @default true
+     * 
+     *  @see spark.components.DataGrid#editable
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -574,6 +576,48 @@ public class GridColumn extends EventDispatcher
         
         _editable = value;
         dispatchChangeEvent("editableChanged");
+    }
+    
+    //----------------------------------
+    //  editorActivationMouseEvent
+    //----------------------------------
+    
+    private var _editorActivationMouseEvent:String = null;
+    
+    [Bindable("editorActivationMouseEventChanged")]
+    [Inspectable(category="General", enumeration="doubleClick,none,singleClick,singleClickOnSelectedCell", defaultValue="singleClickOnSelectedCell")]
+
+    /**
+     *  The type of mouse event that starts an editor session. Must be one of
+     *  values in <code>GridItemEditorMouseEvent</code>. Each grid
+     *  column may use a different value for cell activation. If no
+     *  value is specified the DataGrid's <code>editorActivationMouseEvent
+     *  </code> will be used.
+     *       
+     *  @default null
+     * 
+     *  @see spark.components.DataGrid
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 11
+     *  @playerversion AIR 3.0
+     *  @productversion Flex 5.0
+     */
+    public function get editorActivationMouseEvent():String
+    {
+        return _editorActivationMouseEvent;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set editorActivationMouseEvent(value:String):void
+    {
+        if (_editorActivationMouseEvent == value)
+            return;
+        
+        _editorActivationMouseEvent = value;
+        dispatchChangeEvent("editorActivationMouseEventChanged");
     }
     
     //----------------------------------

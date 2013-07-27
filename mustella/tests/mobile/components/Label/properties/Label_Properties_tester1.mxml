@@ -17,7 +17,7 @@
   limitations under the License.
 
 -->
-<UnitTester testDir="mobile/components/Label/Properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label2.mxml">
+<UnitTester testDir="mobile/components/Label/properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label2.mxml">
 
     <mx:Script>
         <![CDATA[
@@ -119,7 +119,7 @@
 			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
 			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="width" >
 					<ConditionalValue deviceDensity="160" os="win" value="277"/>
-					<ConditionalValue deviceDensity="240" value="445"/>
+					<ConditionalValue deviceDensity="240" value="504"/>
 					<ConditionalValue deviceDensity="320" value="579"/>
 					<ConditionalValue deviceDensity="320" os="ios" value="593"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="302"/>
@@ -150,7 +150,7 @@
 			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
 			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="width" >
 					<ConditionalValue deviceDensity="160" os="win" value="103" />
-					<ConditionalValue deviceDensity="240" value="164" />
+					<ConditionalValue deviceDensity="240" value="185" />
 					<ConditionalValue deviceDensity="320" value="215" />
 					<ConditionalValue deviceDensity="320" os="ios" value="219"/>
 					<ConditionalValue deviceDensity="160" os="qnx" value="112"/>

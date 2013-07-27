@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:s="library://ns.adobe.com/flex/spark" 
+		   xmlns:mx="library://ns.adobe.com/flex/mx" 
+		   xmlns="*"
+		   xmlns:ns="http://flex.apache.org/experimental/ns" 
+		   width="600" height="600">
+		   
+	<fx:Script>
+		<![CDATA[
+	
+		]]>
+	</fx:Script>
+	
+    <!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+        <fx:Style>
+        @namespace s "library://ns.adobe.com/flex/spark";
+        @namespace mx "library://ns.adobe.com/flex/mx";
+        @font-face {
+            src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+            fontFamily: EmbeddedVerdana;
+            embedAsCFF: true;
+        }
+        
+        @font-face {
+            src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+            fontWeight: bold;
+            fontFamily: EmbeddedVerdana;
+            embedAsCFF: true;
+        }
+        
+        @font-face {
+            src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+            fontStyle: italic;
+            fontFamily: EmbeddedVerdana;
+            embedAsCFF: true;
+        }        
+            
+        global {
+            fontFamily: EmbeddedVerdana;
+        }
+    </fx:Style>
+    
+    <fx:Declarations>
+		<s:ArrayList id="listItems">
+			<fx:String>I'm an item</fx:String>
+			<fx:String>Me too</fx:String>
+			<fx:String>I wanna be in the List</fx:String>
+			<fx:String>Pick me! Pick me!</fx:String>
+			<fx:String>Meh</fx:String>
+			<fx:String>Ah, finally</fx:String>
+		</s:ArrayList>
+	</fx:Declarations>
+	
+	<s:layout>
+		<s:VerticalLayout gap="25" horizontalAlign="center" verticalAlign="middle"/>
+	</s:layout>
+	
+	<s:HGroup horizontalAlign="left" width="80%">
+		<s:Button id="resetButton" label="Reset Button" />
+	</s:HGroup>
+	
+	<s:Label text="triggerEvent = click"/>
+
+	<ns:CallOutButton id="calloutClickButton" label="{list.selectedItem || 'CLICK ME!!!!'}" triggerEvent="click">
+		<s:List id="list" dataProvider="{listItems}" left="0" right="0" width="125"
+				borderVisible="false" color="0xff0000" rollOverColor="0x242424" selectionColor="0x020202"
+				change="calloutClickButton.closeDropDown()"/>
+	</ns:CallOutButton>
+		
+	<s:Label text="triggerEvent = rollOver"/>	
+		
+	<ns:CallOutButton id="calloutRollOverButton" icon="@Embed('assets/help.png')" triggerEvent="rollOver">
+		<ns:calloutLayout>
+			<s:VerticalLayout gap="10"/>
+		</ns:calloutLayout>
+		
+		<s:Button id="manualButton" label="Manual" width="100%" click="calloutRollOverButton.closeDropDown()"/>
+		<s:Button id="releaseNotesButton" label="Release notes" width="100%" click="calloutRollOverButton.closeDropDown()"/>
+	</ns:CallOutButton>
+		
+	<s:Label text="here are all the different possible positions of the callout (some with arrow and some without) / all triggerEvent = rollOver"/>
+	
+	<s:HGroup>
+		<ns:CallOutButton id="callOutAfterAfter" horizontalPosition="after" verticalPosition="after" label="after / after">
+			<s:Button label="after / after"/>
+		</ns:CallOutButton>
+	
+		<ns:CallOutButton id="callOutAfterAuto" horizontalPosition="after" verticalPosition="auto" label="after / auto">
+			<s:Button label="after / auto"/>
+		</ns:CallOutButton>
+	
+		<ns:CallOutButton id="callOutAfterBefore" horizontalPosition="after" verticalPosition="before" label="after / before">
+			<s:Button label="after / before"/>
+		</ns:CallOutButton>
+	
+		<ns:CallOutButton id="callOutAfterEnd" horizontalPosition="after" verticalPosition="end" label="after / end">
+			<s:Button label="after / end"/>
+		</ns:CallOutButton>
+	
+		<ns:CallOutButton id="callOutAfterMiddle" horizontalPosition="after" verticalPosition="middle" label="after / middle">
+			<s:Button label="after / middle"/>
+		</ns:CallOutButton>
+	
+		<ns:CallOutButton id="callOutAfterStart" horizontalPosition="after" verticalPosition="start" label="after / start">
+			<s:Button label="after / start"/>
+		</ns:CallOutButton>
+		
+	</s:HGroup>
+
+	<!-- -->
+	<s:HGroup>
+		<ns:CallOutButton id="callOutAutoAfter" horizontalPosition="auto" verticalPosition="after" label="auto / after">
+			<s:Button label="auto/after"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutAutoAuto" horizontalPosition="auto" verticalPosition="auto" label="auto / auto">
+			<s:Button label="auto/auto"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutAutoBefore" horizontalPosition="auto" verticalPosition="before" label="auto / before">
+			<s:Button label="auto/before"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutAutoEnd" horizontalPosition="auto" verticalPosition="end" label="auto / end">
+			<s:Button label="auto/end"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutAutoMiddle" horizontalPosition="auto" verticalPosition="middle" label="auto / middle">
+			<s:Button label="auto/middle"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutAutoStart" horizontalPosition="auto" verticalPosition="start" label="auto / start">
+			<s:Button label="auto/start"/>
+		</ns:CallOutButton>
+		
+	</s:HGroup>
+	
+	<!-- -->
+	<s:HGroup>
+		
+		<ns:CallOutButton id="callOutBeforeAfter" horizontalPosition="before" verticalPosition="after" label="before / after">
+			<s:Button label="before / after"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutBeforeAuto" horizontalPosition="before" verticalPosition="auto" label="before / auto">
+			<s:Button label="before / auto"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutBeforeBefore" horizontalPosition="before" verticalPosition="before" label="before / before">
+			<s:Button label="before / before"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutBeforeEnd" horizontalPosition="before" verticalPosition="end" label="before / end">
+			<s:Button label="before / end"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutBeforeMiddle" horizontalPosition="before" verticalPosition="middle" label="before / middle">
+			<s:Button label="before / middle"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutBeforeStart" horizontalPosition="before" verticalPosition="start" label="before / start">
+			<s:Button label="before / start"/>
+		</ns:CallOutButton>
+		
+	</s:HGroup>
+
+	<!-- -->
+	<s:HGroup>
+		<ns:CallOutButton id="callOutEndAfter" horizontalPosition="end" verticalPosition="after" label="end / after">
+			<s:Button label="end / after"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutEndAuto" horizontalPosition="end" verticalPosition="auto" label="end / auto">
+			<s:Button label="end / auto"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutEndBefore" horizontalPosition="end" verticalPosition="before" label="end / before">
+			<s:Button label="end / before"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutEndEnd" horizontalPosition="end" verticalPosition="end" label="end / end">
+			<s:Button label="end / end"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutEndMiddle" horizontalPosition="end" verticalPosition="middle" label="end / middle">
+			<s:Button label="end / middle"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutEndStart" horizontalPosition="end" verticalPosition="start" label="end / start">
+			<s:Button label="end / start"/>
+		</ns:CallOutButton>
+		
+	</s:HGroup>
+
+	<!-- -->
+	<s:HGroup>
+		<ns:CallOutButton id="callOutMiddleAfter" horizontalPosition="middle" verticalPosition="after" label="middle / after">
+			<s:Button label="middle / after"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutMiddleAuto" horizontalPosition="middle" verticalPosition="auto" label="middle / auto">
+			<s:Button label="middle / auto"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutMiddleBefore" horizontalPosition="middle" verticalPosition="before" label="middle / before">
+			<s:Button label="middle / before"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutMiddleEnd" horizontalPosition="middle" verticalPosition="end" label="middle / end">
+			<s:Button label="middle / end"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutMiddleMiddle" horizontalPosition="middle" verticalPosition="middle" label="middle / middle">
+			<s:Button label="middle / middle"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutMiddleStart" horizontalPosition="middle" verticalPosition="start" label="middle / start">
+			<s:Button label="middle / start"/>
+		</ns:CallOutButton>
+		
+	</s:HGroup>
+
+	<s:HGroup>
+		<ns:CallOutButton id="callOutStartAfter" horizontalPosition="start" verticalPosition="after" label="start / after">
+			<s:Button label="start / after"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutStartAuto" horizontalPosition="start" verticalPosition="auto" label="start / auto">
+			<s:Button label="start / auto"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutStartBefore" horizontalPosition="start" verticalPosition="before" label="start / before">
+			<s:Button label="start / before"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutStartEnd" horizontalPosition="start" verticalPosition="end" label="start / end">
+			<s:Button label="start / end"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutStartMiddle" horizontalPosition="start" verticalPosition="middle" label="start / middle">
+			<s:Button label="start / middle"/>
+		</ns:CallOutButton>
+		
+		<ns:CallOutButton id="callOutStartStart" horizontalPosition="start" verticalPosition="start" label="start / start">
+			<s:Button label="start / start"/>
+		</ns:CallOutButton>
+		
+	</s:HGroup>
+	
+</s:Application>

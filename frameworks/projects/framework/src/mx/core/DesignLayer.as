@@ -157,7 +157,7 @@ package mx.core
         /**
          * @private
          */  
-        private var layerChildren:Array = new Array();
+        private var layerChildren:Array = [];
         
         //----------------------------------
         //  visible

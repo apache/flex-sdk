@@ -21,6 +21,7 @@
 					xmlns:s="library://ns.adobe.com/flex/spark" 
 					firstView="views.RootView"
 					initialize="onCreationComplete()">
+	<fx:Style source="../../../../Assets/Fonts/MobileFontStyles.css" />
 	
 	<fx:Script source="globalNotTabbed.as" />
 

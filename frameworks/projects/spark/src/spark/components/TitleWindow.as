@@ -471,6 +471,14 @@ public class TitleWindow extends Panel
      */
     protected function closeButton_clickHandler(event:MouseEvent):void
     {
+        var child:DisplayObject = getFocus() as DisplayObject;
+        if (child && contains(child))
+        {
+            // make sure any internal component that has focus
+            // loses focus so it commits changes internally
+            if (stage)
+                stage.focus = null;
+        }
         dispatchEvent(new CloseEvent(CloseEvent.CLOSE));
     }
     

@@ -23,8 +23,11 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.core.FlexGlobals;
+
+			public function myValueFormatFunction(value:Number):String
 			{
-				import mx.core.FlexGlobals;
+				return int(value).toString();
 			}
 		]]>
 	</fx:Script>   
@@ -70,6 +73,7 @@
 		<TestCase testID="NumericStepper_Styles_Mirroring_keyboard" keywords="[NumericStepper, Mirroring, rtl]" description="Test keyboard keys on rtl NumericStepper">
 			<setup>
 				<ResetComponent target="ns" className="spark.components.NumericStepper" waitEvent="updateComplete"/>
+				<SetProperty target="ns" propertyName="valueFormatFunction" valueExpression="value=myValueFormatFunction"/>				
 				<SetStyle target="ns" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
 				<SetProperty target="ns" propertyName="stepSize" value="5" />
 			</setup>
@@ -205,6 +209,7 @@
 		<TestCase testID="NumericStepper_Styles_Mirroring_rotation" keywords="[NumericStepper, Mirroring, rtl]" description="Test rotation with direction rtl on NumericStepper">
 			<setup>
 				<ResetComponent target="ns" className="spark.components.NumericStepper" waitEvent="updateComplete"/>
+				<SetProperty target="ns" propertyName="valueFormatFunction" valueExpression="value=myValueFormatFunction"/>				
 				<SetProperty target="ns" propertyName="rotation" value="45"/>
 				<SetStyle target="ns" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
 			</setup>

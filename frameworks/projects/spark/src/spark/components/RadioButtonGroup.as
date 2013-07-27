@@ -277,6 +277,60 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         return radioButtons.length;
     }
 
+
+    //----------------------------------
+    //  selectedIndex
+    //----------------------------------
+
+    /**
+    *  @private
+    */
+    private var _selectedIndex:int = -1;
+
+    [Bindable("change")]
+    [Bindable("valueCommit")]
+    [Inspectable(category="General")]
+
+    /**
+    *  The index of the selected RadioButton component in the group.
+    *  If a RadioButton is not selected, this property is <code>-1</code>.
+    *
+    *  @default -1
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function get selectedIndex():int
+    {
+        return _selectedIndex;
+    }
+
+    /**
+    *  @private.
+    */
+    public function set selectedIndex(newValue:int):void
+    {
+        if (newValue == _selectedIndex)
+        {
+            return;
+        }
+
+        if (newValue == -1)
+        {
+            setSelection(null, false);
+            dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+
+            return;
+        }
+
+        changeSelection(newValue, false)
+
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+    }
+
+
     //----------------------------------
     //  selectedValue
     //----------------------------------
@@ -569,6 +623,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
             {
                 _selection.selected = false;
                 _selection = null;
+                _selectedIndex = -1;
                 if (fireChange)
                     dispatchEvent(new Event(Event.CHANGE));
             }
@@ -607,6 +662,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
             // Fire a click event for the radio group.
             _selection = rb;
             _selection.selected = true;
+            _selectedIndex = index;
             if (fireChange)
                 dispatchEvent(new Event(Event.CHANGE));
         }

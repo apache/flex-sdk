@@ -22,5 +22,5 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Button label="Click me" click="navigator.pushView(TwoStateView)"/>
+	<s:Button label="Click me" id="btn1" click="navigator.pushView(TwoStateView)"/>
 </s:View>

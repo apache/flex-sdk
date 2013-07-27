@@ -40,7 +40,8 @@ and <code>sortIndicator</code> properties.</p>
 <s:GridItemRenderer minWidth="21" minHeight="21"
     xmlns:fx="http://ns.adobe.com/mxml/2009" 
     xmlns:s="library://ns.adobe.com/flex/spark" 
-    xmlns:mx="library://ns.adobe.com/flex/mx">
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009">
     
     <fx:Declarations>
         <!--- The default value of the <code>sortIndicator</code> property.
@@ -56,11 +57,12 @@ and <code>sortIndicator</code> properties.</p>
         @productversion Flex 4.5
         -->
         <fx:Component id="defaultSortIndicator">
-            <s:Path data="M 3.5 7.0 L 0.0 0.0 L 7.0 0.0 L 3.5 7.0" implements="spark.components.gridClasses.IGridVisualElement">
-                <fx:Script>
+            <s:HGroup verticalAlign="middle"  implements="spark.components.gridClasses.IGridVisualElement">
+                <fx:Script fb:purpose="styling">
                     <![CDATA[
                         import spark.components.DataGrid;
                         import spark.components.Grid;
+                        import spark.components.gridClasses.GridColumn;
                         
                         /**
                          *  @private
@@ -68,8 +70,24 @@ and <code>sortIndicator</code> properties.</p>
                         public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
                         {
                             const dataGrid:DataGrid = grid.dataGrid;
-                            if (!dataGrid)
+                            if (!dataGrid || !dataGrid.columnHeaderGroup)
                                 return;
+                            
+                            const sortColumnIndices:Vector.<int> = dataGrid.columnHeaderGroup.visibleSortIndicatorIndices;
+                            if (sortColumnIndices.length == 1)
+                            {
+                                priorityLabel.visible = false;
+                                priorityLabel.includeInLayout = false;
+                            }
+                            else
+                            {
+                                priorityLabel.visible = true;
+                                priorityLabel.includeInLayout = true;
+                                priorityLabel.text = String(sortColumnIndices.indexOf(columnIndex) + 1);
+                            }
+                            
+                            const column:GridColumn = grid.columns.getItemAt(columnIndex) as GridColumn;
+                            arrow.scaleY = (column.sortDescending) ? 1 : -1;
                             
                             const color:uint = dataGrid.getStyle("symbolColor");
                             arrowFill1.color = color;
@@ -78,15 +96,19 @@ and <code>sortIndicator</code> properties.</p>
                     ]]>
                 </fx:Script>
                 
-                <s:fill>
-                    <s:RadialGradient rotation="90" focalPointRatio="1">    
-                        <!--- @private -->
-                        <s:GradientEntry id="arrowFill1" color="0" alpha="0.6" />
-                        <!--- @private -->
-                        <s:GradientEntry id="arrowFill2" color="0" alpha="0.8" />
-                    </s:RadialGradient>
-                </s:fill>
-            </s:Path>
+                <s:Label id="priorityLabel" />
+                
+                <s:Path id="arrow" data="M 3.5 7.0 L 0.0 0.0 L 7.0 0.0 L 3.5 7.0">
+                    <s:fill>
+                        <s:RadialGradient rotation="90" focalPointRatio="1">    
+                            <!--- @private -->
+                            <s:GradientEntry id="arrowFill1" color="0" alpha="0.6" />
+                            <!--- @private -->
+                            <s:GradientEntry id="arrowFill2" color="0" alpha="0.8" />
+                        </s:RadialGradient>
+                    </s:fill>
+                </s:Path>
+            </s:HGroup>
         </fx:Component>
         
         <!--- Displays the renderer's label property, which is set to the column's <code>headerText</code>.
@@ -251,11 +273,11 @@ and <code>sortIndicator</code> properties.</p>
                 }
                 
                 const column:GridColumn = this.column;
-                if (sortIndicator && column && column.grid && column.grid.dataGrid && column.grid.dataGrid.columnHeaderGroup)
-                {
-                    const dataGrid:DataGrid = column.grid.dataGrid;
-                    const columnHeaderGroup:GridColumnHeaderGroup = dataGrid.columnHeaderGroup;
+                const dataGrid:DataGrid = (column && column.grid) ? column.grid.dataGrid : null;
+                const columnHeaderGroup:GridColumnHeaderGroup = (dataGrid) ? dataGrid.columnHeaderGroup : null;
                     
+                if (sortIndicator && columnHeaderGroup)
+                {
                     if (columnHeaderGroup.isSortIndicatorVisible(column.columnIndex))
                     {
                         if (!sortIndicatorInstance)
@@ -273,7 +295,6 @@ and <code>sortIndicator</code> properties.</p>
                             gridVisualElement.prepareGridVisualElement(column.grid, -1, column.columnIndex);
                         
                         sortIndicatorGroup.includeInLayout = true;
-                        sortIndicatorGroup.scaleY = (column.sortDescending) ? 1 : -1;
                     }
                     else
                     {
@@ -284,6 +305,12 @@ and <code>sortIndicator</code> properties.</p>
                             sortIndicatorInstance = null;
                         }
                     }
+                }
+                
+                if (selectionIndicator && columnHeaderGroup)
+                {
+                    selectionIndicator.visible = 
+                        columnHeaderGroup.highlightSelectedColumn && (columnHeaderGroup.selectedColumnIndex == column.columnIndex);
                 }
             }
             
@@ -458,6 +485,7 @@ and <code>sortIndicator</code> properties.</p>
             </s:LinearGradientStroke>
         </s:stroke>
     </s:Rect>
+    
     <!--- @private -->
     <s:Rect id="hldownstroke2" left="1" right="1" top="1" bottom="1" includeIn="down">
         <s:stroke>
@@ -467,6 +495,14 @@ and <code>sortIndicator</code> properties.</p>
             </s:LinearGradientStroke>
         </s:stroke>
     </s:Rect>
+    
+    <!--- @private -->
+    <s:Rect id="selectionIndicator" left="1" right="1" top="1" bottom="1" visible="false">
+        <s:stroke>
+            <!--- @private -->
+            <s:SolidColorStroke id="selectionIndicatorFill" color="0x000000" alpha="0.25" weight="1"/>
+        </s:stroke>
+    </s:Rect>    
     
     <s:HGroup left="7" right="7" top="5" bottom="5" gap="2" verticalAlign="middle">
         

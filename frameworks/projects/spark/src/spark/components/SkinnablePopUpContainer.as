@@ -1170,7 +1170,8 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         // the size and position are snapped.
         uninstallActiveResizeListener();
         
-        var softKeyboardRect:Rectangle = systemManager.stage.softKeyboardRect;
+		var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
+        var softKeyboardRect:Rectangle = topLevelApp.softKeyboardRect;
         var isKeyboardOpen:Boolean = isOpen && (softKeyboardRect.height > 0);
         
         // Capture start values if not set

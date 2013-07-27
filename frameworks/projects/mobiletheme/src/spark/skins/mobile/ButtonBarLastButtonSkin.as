@@ -31,6 +31,9 @@ import spark.skins.mobile240.assets.ButtonBarLastButton_up;
 import spark.skins.mobile320.assets.ButtonBarLastButton_down;
 import spark.skins.mobile320.assets.ButtonBarLastButton_selected;
 import spark.skins.mobile320.assets.ButtonBarLastButton_up;
+import spark.skins.mobile480.assets.ButtonBarLastButton_down;
+import spark.skins.mobile480.assets.ButtonBarLastButton_selected;
+import spark.skins.mobile480.assets.ButtonBarLastButton_up;
 
 /**
  *  Button skin for the last Button in a ButtonBar.
@@ -58,6 +61,16 @@ public class ButtonBarLastButtonSkin extends ButtonBarButtonSkinBase
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				upBorderSkin = spark.skins.mobile480.assets.ButtonBarFirstButton_up;
+				downBorderSkin = spark.skins.mobile480.assets.ButtonBarFirstButton_down;
+				selectedBorderSkin = spark.skins.mobile480.assets.ButtonBarFirstButton_selected;
+				
+				cornerRadius = 16;
+				
+				break;
+			}
             case DPIClassification.DPI_320: 
             {
                 upBorderSkin = spark.skins.mobile320.assets.ButtonBarLastButton_up;

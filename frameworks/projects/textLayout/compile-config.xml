@@ -33,12 +33,12 @@
         <namespaces>
             <namespace>
                 <uri>library://ns.adobe.com/flashx/textLayout</uri>
-                <manifest>${source.dir}/manifest.xml</manifest>
+                <manifest>manifest.xml</manifest>
             </namespace>
         </namespaces>
         
         <source-path>
-            <path-element>${source.dir}/src</path-element>
+            <path-element>src</path-element>
         </source-path>
         
         <show-actionscript-warnings>false</show-actionscript-warnings>
@@ -54,7 +54,7 @@
     
     <include-file>
         <name>manifest.xml</name>
-        <path>${source.dir}/manifest.xml</path>
+        <path>manifest.xml</path>
     </include-file>
     
     <include-namespaces>

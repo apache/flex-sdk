@@ -552,7 +552,7 @@ package spark.components
          *  Regular expression which matches all newlines in the text.  Used
          *  to strip newlines when pasting text when multiline is false.
          */
-        private static const ALL_NEWLINES_REGEXP:RegExp = /\n/g;
+        private static const ALL_NEWLINES_REGEXP:RegExp = /[\n\r]/g;
         
         //--------------------------------------------------------------------------
         //
@@ -4129,7 +4129,7 @@ package spark.components
             
             // If there are no constraints and no newlines there is nothing
             // more to do.
-            if (!hasConstraints && pastedText.indexOf("\n") == -1)
+            if (!hasConstraints && pastedText.search(ALL_NEWLINES_REGEXP) == -1)
                 return;
             
             // Save this in case we modify the pasted text.  We need to know

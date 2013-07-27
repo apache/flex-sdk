@@ -40,6 +40,7 @@
         import comps.*;
 
         import mx.collections.ArrayCollection;
+        import mx.collections.ListCollectionView;
         import spark.events.IndexChangeEvent;
         import spark.skins.spark.*;
         import mx.events.CollectionEventKind;
@@ -48,7 +49,7 @@
         import spark.utils.TextFlowUtil;
 
         public var data:ArrayCollection = new comps.SampleData();
-        var ti:TextFlow = TextFlowUtil.importFromString ("Maecenas tristique, velit aliquam faucibus ornare, justo erat porta elit, sed venenatis neque mi ac elit. Nullam enim metus, gravida ac euismod sit amet, commodo vitae elit. Quisque eget molestie ante. Nulla fermentum pretium augue non tristique. Praesent in orci eu diam ultrices sodales ac quis leo. Aliquam lobortis elit quis mi rutrum feugiat. Aenean sed elit turpis. Duis enim ligula, posuere sit amet semper a, pretium vel leo. Etiam mollis dolor nec elit suscipit imperdiet. Sed a est eros.");
+        private var ti:TextFlow = TextFlowUtil.importFromString ("Maecenas tristique, velit aliquam faucibus ornare, justo erat porta elit, sed venenatis neque mi ac elit. Nullam enim metus, gravida ac euismod sit amet, commodo vitae elit. Quisque eget molestie ante. Nulla fermentum pretium augue non tristique. Praesent in orci eu diam ultrices sodales ac quis leo. Aliquam lobortis elit quis mi rutrum feugiat. Aenean sed elit turpis. Duis enim ligula, posuere sit amet semper a, pretium vel leo. Etiam mollis dolor nec elit suscipit imperdiet. Sed a est eros.");
 
     ]]>
     </fx:Script>
@@ -217,6 +218,33 @@
             <AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.RESET}" />
             <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="-1" />
 
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_events_collectionKind_reset_bug" keywords="[List, change list, FLEX-33163]" description="Collection RESET event should reset selectedItem even if selectedIndex doesn't change">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+            <ResetComponent target="lcvlist" className="spark.components.List" waitEvent="updateComplete" />
+            
+            <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=new ArrayCollection(['A','B','C','D']);" waitEvent="updateComplete"/>
+            <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1,2,3,4]);" waitEvent="updateComplete"/>
+            <SetProperty target="lcvlist" propertyName="dataProvider" valueExpression="value=new ListCollectionView(application.list1.dataProvider)"/>
+
+            <SetProperty target="lcvlist" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+            <AssertPropertyValue target="lcvlist_selectedItem" propertyName="text" value="B" />               
+        </setup>
+        <body>
+            <AssertPropertyValue target="lcvlist" propertyName="selectedItem" value="B" />
+            
+            <!-- Changing the ListCollectionView's list should generate a CollectionEventKind.RESET on the dataProvider. -->
+            <!-- The selectedItem should not change but the selectedItem should which should cause a valueCommit to be dispatched to update the bindings.  -->
+            <SetProperty target="lcvlist.dataProvider" propertyName="list" valueExpression="value=application.list2.dataProvider" waitTarget="lcvlist" waitEvent="valueCommit"/>
+
+            <AssertPropertyValue target="lcvlist" propertyName="selectedIndex" value="1" />
+            <!-- Ensure binding was triggered -->            
+            <AssertPropertyValue target="lcvlist_selectedItem" propertyName="text" value="2" />               
+            <AssertPropertyValue target="lcvlist" propertyName="selectedItem" value="2" /> 
         </body>
     </TestCase>
 

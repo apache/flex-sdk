@@ -524,7 +524,7 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 				<ResetComponent target="ts1" className="spark.components.ToggleSwitch" waitEvent="updateComplete" />
 			</setup>			
 			<body>
-				<AssertStyleValue target="ts1" styleName="fontFamily" value="_sans"/>
+				<AssertStyleValue target="ts1" styleName="fontFamily" value="MyVeraHalo"/>
 				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="ts1">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />
@@ -541,19 +541,19 @@ xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
 				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
 			</setup>			
 			<body>
-				<AssertStyleValue target="stylesRoot.target2" styleName="fontFamily" value="Times New Roman"/>
+				<AssertStyleValue target="stylesRoot.target2" styleName="fontFamily" value="MySerifHalo"/>
 			</body>
 		</TestCase>
 		
 		<TestCase testID="CSS_fontFamily_AS" keywords="[ToggleSwitch, styles, fontFamily, AS]" description="Set fontFamily in AS">
 			<setup>
 				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
-				<SetStyle target="stylesRoot.target1" styleName="fontFamily" value="Verdana" />
+				<SetStyle target="stylesRoot.target1" styleName="fontFamily" value="MySerifHalo" />
 				<WaitForLayoutManager />
 			</setup>			
 			
 			<body>
-				<AssertStyleValue target="stylesRoot.target1" styleName="fontFamily" value="Verdana"/>
+				<AssertStyleValue target="stylesRoot.target1" styleName="fontFamily" value="MySerifHalo"/>
 				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android" />

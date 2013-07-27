@@ -486,7 +486,7 @@
 			<body>
 				<SetStyle target="tic3.ti2" styleName="textDecoration" value="underline" />
 				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
-				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.ti2">
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
@@ -644,7 +644,6 @@
 						<ResetComponent target="tic6" className="components.TextInputComp6" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<AssertStyleValue target="tic6.ti1" styleName="fontFamily" value="myVeraMonospaceCFF"/>
 				<AssertStyleValue target="tic6.lbl1" styleName="fontFamily" value="myVeraMonospaceCFF"/>
 				<AssertStyleValue target="tic6.ti2" styleName="fontFamily" value="myVeraMonospaceNoCFF"/>
 				<CompareBitmap numColorVariances="20" maxColorVariance="124" url="../Styles/baselines" target="tic6.grp1">

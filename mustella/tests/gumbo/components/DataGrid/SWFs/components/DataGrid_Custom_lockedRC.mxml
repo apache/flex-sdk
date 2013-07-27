@@ -23,11 +23,10 @@
     requestedRowCount="10"
     requestedColumnCount="5"    
     dataProvider="{dp1}"
-    columns="{cols}">
-	<!-- re-insert these attributes when testing against DG that supports locked rows and columns
+    columns="{cols}"
+    rowHeight="25"
 	lockedRowCount="2"
-	lockedColumnCount="2"
-	     re-insert these attributes when testing against DG that supports locked rows and columns -->
+	lockedColumnCount="2">
     	
 	<fx:Declarations>
 		<s:ArrayCollection id="dp1">

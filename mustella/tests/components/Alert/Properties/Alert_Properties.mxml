@@ -451,11 +451,12 @@
 				<RunCode code="application.curAlert= Alert.show('Alert String', 'Alert title', 3, null, null, myIcon);" />
 				<RunCode code="application.curAlert.status='Alert status'"/>
 				<SetProperty propertyName="layoutDirection" target="curAlert" value="rtl"/>
-				<SetStyle styleName="direction" target="curAlert" value="rtl"/>
+				<SetStyle styleName="direction" target="curAlert" value="rtl" waitEvent="updateComplete"/>
 				<WaitForEffectsToEnd />
 			</setup>
 			<body>
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="curAlert"/>
+                <DispatchKeyEvent key="SPACE" />
 			</body>
 		</TestCase>
 

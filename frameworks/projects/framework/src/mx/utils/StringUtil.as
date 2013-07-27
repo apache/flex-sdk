@@ -134,6 +134,14 @@ public class StringUtil
             case "\r":
             case "\n":
             case "\f":
+			// non breaking space
+			case "\u00A0":
+			// line seperator
+			case "\u2028":
+			// paragraph seperator
+			case "\u2029":
+			// ideographic space
+			case "\u3000":
                 return true;
 
             default:
@@ -144,6 +152,9 @@ public class StringUtil
     /**
      *  Substitutes "{n}" tokens within the specified string
      *  with the respective arguments passed in.
+	 * 
+	 *  Note that this uses String.replace and "$" can have special
+	 *  meaning in the argument strings escape by using "$$".
      *
      *  @param str The string to make substitutions in.
      *  This string can contain special tokens of the form

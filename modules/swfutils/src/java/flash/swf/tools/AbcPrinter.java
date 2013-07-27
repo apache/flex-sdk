@@ -1419,9 +1419,16 @@ public class AbcPrinter
                 s += "null";
                 break;
             case 0x1D:
-                s += typeName.toString();
-                for (int t = 0; t < types.length; t++)
-                    s += types[t].toString();
+				s += (typeName != null) ? typeName.toString() : "nullTypeName";
+				if (types != null)
+				{
+					for (int t = 0; t < types.length; t++)
+						s += (types[t] != null) ? types[t].toString() : "nullType";
+				}
+				else {
+					s += "no types";
+				}
+
             }
             return s;
         }

@@ -53,7 +53,7 @@
                 <ResetComponent target="list4" className="comps.ItemRendRETLabelComp" waitEvent="updateComplete" />
 	    </setup>
             <body>
-                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
                 <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list4" waitEvent="updateComplete"/>
                 <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list4" waitEvent="updateComplete"/>
                 <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list4" waitEvent="updateComplete"/>
@@ -70,7 +70,7 @@
             <body>
                 <SetProperty target="list4" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list4"/>
 
-                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
                 <DispatchKeyEvent keys="[END]"  waitTarget="list4" waitEvent="change"/>
                 <DispatchKeyEvent keys="[UP]"  waitTarget="list4" waitEvent="updateComplete"/>
                 <DispatchKeyEvent keys="[UP]"  waitTarget="list4" waitEvent="updateComplete"/>
@@ -88,7 +88,7 @@
                 <SetProperty target="list4" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="list4"/>
                 <SetProperty target="list4" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list4"/>
 
-                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
                 <DispatchKeyEvent keys="[END]"  waitTarget="list4" waitEvent="updateComplete"/>
                 <DispatchKeyEvent keys="[HOME]"  waitTarget="list4" waitEvent="change"/>
 		<DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list4" waitEvent="change"/>
@@ -108,7 +108,7 @@
                 <AssertPropertyValue target = "list4" propertyName="selectedIndex" value="-1" />
 
 
-                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
                 <DispatchKeyEvent keys="[DOWN]"  waitTarget="list4" waitEvent="updateComplete"/>
                 <DispatchKeyEvent keys="[DOWN]"  waitTarget="list4" waitEvent="updateComplete"/>
                 <DispatchKeyEvent keys="[DOWN]"  waitTarget="list4" waitEvent="updateComplete"/>
@@ -126,7 +126,7 @@
             <body>
                 <SetProperty target="list4" propertyName="allowMultipleSelection" value="true" />
                 <SetProperty target="list4" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list4"/>
-                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
                 <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list4" waitEvent="change"/>
                 <DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list4" waitEvent="change"/>
                 <DispatchKeyEvent keys="[DOWN]"  waitTarget="list4" waitEvent="updateComplete"/>
@@ -144,7 +144,7 @@
                <SetProperty target="list4" propertyName="allowMultipleSelection" value="true" />
                 <SetProperty target="list4" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list4"/>
 
-                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
                 <DispatchKeyEvent keys="[END]"  waitTarget="list4" waitEvent="change"/>
                 <DispatchKeyEvent keys="[UP]"  waitTarget="list4" waitEvent="updateComplete"/>
                 <DispatchKeyEvent keys="[UP]"  waitTarget="list4" waitEvent="updateComplete"/>
@@ -162,7 +162,7 @@
                 <SetProperty target="list4" propertyName="width" value="100%" waitEvent="updateComplete" waitTarget="list4"/>
 	    </setup>
             <body>
-                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
                 <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list4" waitEvent="updateComplete"/>
                 <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list4" waitEvent="updateComplete"/>
 
@@ -179,7 +179,7 @@
             <body>
                 <SetProperty target="list4" propertyName="width" value="100%" waitEvent="updateComplete" waitTarget="list4"/>
 		<SetProperty target="list4.dataGroup" propertyName="verticalScrollPosition" value="450"  waitEvent="propertyChange" />
-                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
                 <DispatchKeyEvent keys="[END]"  waitTarget="list4" waitEvent="change"/>
                 <DispatchKeyEvent keys="[UP]"  waitTarget="list4" waitEvent="updateComplete"/>
                 <DispatchKeyEvent keys="[UP]"  waitTarget="list4" waitEvent="updateComplete"/>
@@ -197,7 +197,7 @@
                 <SetProperty target="list4" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="list4"/>
                 <SetProperty target="list4" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list4"/>
 
-                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
                 <DispatchKeyEvent keys="[END]"  waitTarget="list4" waitEvent="updateComplete"/>
                 <DispatchKeyEvent keys="[HOME]"  waitTarget="list4" waitEvent="change"/>
 		<DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list4" waitEvent="change"/>
@@ -216,7 +216,7 @@
                 <SetProperty target="list4.dataGroup" propertyName="verticalScrollPosition" value="100"  waitEvent="propertyChange" />
 
 
-                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
                 <DispatchKeyEvent keys="[DOWN]"  waitTarget="list4" waitEvent="updateComplete"/>
                 <DispatchKeyEvent keys="[DOWN]"  waitTarget="list4" waitEvent="updateComplete"/>
                 <DispatchKeyEvent keys="[DOWN]"  waitTarget="list4" waitEvent="updateComplete"/>
@@ -236,7 +236,7 @@
             <body>
                 <SetProperty target="list4" propertyName="allowMultipleSelection" value="true" />
                 <SetProperty target="list4" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list4"/>
-                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
                 <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list4" waitEvent="change"/>
                 <DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list4" waitEvent="change"/>
                 <DispatchKeyEvent keys="[DOWN]"  waitTarget="list4" waitEvent="updateComplete"/>
@@ -255,7 +255,7 @@
 		<SetProperty target="list4" propertyName="width" value="100%" waitEvent="updateComplete" waitTarget="list4"/>
 	</setup>
             <body>
-                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitTarget="list4" waitEvent="focusIn" />
                 <DispatchKeyEvent keys="[END]"  waitTarget="list4" waitEvent="change"/>
                 <DispatchKeyEvent keys="[UP]"  waitTarget="list4" waitEvent="updateComplete"/>
                 <DispatchKeyEvent keys="[UP]"  waitTarget="list4" waitEvent="updateComplete"/>

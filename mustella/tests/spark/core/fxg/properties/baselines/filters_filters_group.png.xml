@@ -1,0 +1,40 @@
+<DisplayList>
+  <fxgtemplate width="940" height="700">
+    <spark.skins.spark.ApplicationSkin width="940" height="700" blendMode="auto">
+      <spark.components.Group width="940" height="700" blendMode="auto">
+        <spark.components.Group width="940" height="700" blendMode="auto">
+          <comps.MyComp width="800" height="800" blendMode="auto">
+            <fxg.filters.filters_group width="500.75" height="350.75" blendMode="auto">
+              <flash.display.MovieClip x="50" y="50" width="451" height="301">
+                <flash.display.MovieClip width="418.5" height="120.55">
+                  <flash.display.MovieClip width="418.5" height="120.55">
+                    <flash.display.MovieClip x="30" y="30" width="418.5" height="120.55">
+                      <flash.display.MovieClip width="418.5" height="120.55">
+                        <flash.display.MovieClip y="50" width="121" height="81">
+                          <flash.display.Shape width="121" height="81"/>
+                        </flash.display.MovieClip>
+                        <fxg.filters.filters_group_Text_1002822018 width="418" height="33" blendMode="auto">
+                          <spark.components.RichText x="150" y="10" width="268" height="23">
+                            <flash.display.Shape width="268" height="23"/>
+                            <flash.text.engine.TextLine y="7.65" width="267.45" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="58" hasGraphicElement="false"/>
+                            <flash.text.engine.TextLine y="19.65" width="58.4" height="10.15" ascent="7.6513671875" descent="2.40234375" atomCount="14" hasGraphicElement="false"/>
+                          </spark.components.RichText>
+                        </fxg.filters.filters_group_Text_1002822018>
+                        <flash.display.MovieClip x="150" y="50" width="121" height="81" cacheAsBitmap="true" filters="[object BevelFilter],[object DropShadowFilter]">
+                          <flash.display.MovieClip width="121" height="81">
+                            <flash.display.Shape width="121" height="81" cacheAsBitmap="true" filters="[object ColorMatrixFilter]"/>
+                          </flash.display.MovieClip>
+                        </flash.display.MovieClip>
+                      </flash.display.MovieClip>
+                    </flash.display.MovieClip>
+                  </flash.display.MovieClip>
+                </flash.display.MovieClip>
+                <flash.display.Shape x="0.25" y="0.25" width="451" height="301"/>
+              </flash.display.MovieClip>
+            </fxg.filters.filters_group>
+          </comps.MyComp>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </fxgtemplate>
+</DisplayList>

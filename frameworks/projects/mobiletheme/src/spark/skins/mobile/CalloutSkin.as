@@ -44,6 +44,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile160.assets.CalloutContentBackground;
 import spark.skins.mobile240.assets.CalloutContentBackground;
 import spark.skins.mobile320.assets.CalloutContentBackground;
+import spark.skins.mobile480.assets.CalloutContentBackground;
 
 use namespace mx_internal;
 
@@ -95,6 +96,23 @@ public class CalloutSkin extends MobileSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				// Note provisional may need changes
+				backgroundCornerRadius = 24;
+				contentBackgroundInsetClass = spark.skins.mobile480.assets.CalloutContentBackground;
+				backgroundGradientHeight = 330;
+				frameThickness = 24;
+				arrowWidth = 156;
+				arrowHeight = 78;
+				contentCornerRadius = 14;
+				dropShadowBlurX = 48;
+				dropShadowBlurY = 48;
+				dropShadowDistance = 8;
+				highlightWeight = 2;
+				
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 backgroundCornerRadius = 16;

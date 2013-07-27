@@ -48,6 +48,8 @@ public class VScrollBarThumbSkin extends MobileSkin
     //--------------------------------------------------------------------------
     
     // These constants are also accessed from VScrollBarSkin
+	mx_internal static const PADDING_RIGHT_480DPI:int = 8;
+	mx_internal static const PADDING_VERTICAL_480DPI:int = 6;
     mx_internal static const PADDING_RIGHT_320DPI:int = 5;
     mx_internal static const PADDING_VERTICAL_320DPI:int = 4;
     mx_internal static const PADDING_RIGHT_240DPI:int = 4;
@@ -76,6 +78,13 @@ public class VScrollBarThumbSkin extends MobileSkin
         // Depending on density set padding
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_480:
+			{
+				minWidth = 19;
+				paddingRight = VScrollBarThumbSkin.PADDING_RIGHT_480DPI;
+				paddingVertical = VScrollBarThumbSkin.PADDING_VERTICAL_480DPI;
+				break;
+			}
             case DPIClassification.DPI_320:
             {
                 paddingRight = PADDING_RIGHT_320DPI;

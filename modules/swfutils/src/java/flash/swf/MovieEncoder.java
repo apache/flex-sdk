@@ -79,6 +79,11 @@ public class MovieEncoder
 
             m.fileAttributes.visit(handler); // FileAttributes MUST be first tag after header!
 		}
+        
+		if (m.enableTelemetry != null)
+		{
+            m.enableTelemetry.visit(handler);
+		}
         if (m.metadata != null)
         {
             m.metadata.visit(handler);

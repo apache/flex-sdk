@@ -28,6 +28,13 @@
 			color: #000000;
 			fontSize: 24;
 		}
+		@media screen and (application-dpi: 240)
+		{
+			.buttonUpperCaseFeatureNameAndroidTest
+			{
+				chromeColor: #990000;
+			}
+		}
 		@media screen and (OS-PLATFORM: "Android")
 		{
 			.buttonUpperCaseFeatureNameAndroidTest

@@ -4641,7 +4641,7 @@ public final class CompilerAPI
         // to eliminate the extra buffers, and just always write directly to the intended target.
         // - mikemo
         final boolean useCompression = configuration.getCompilerConfiguration().useCompression();
-        TagEncoder encoder = configuration.generateSizeReport() ? new TagEncoderReporter() : new TagEncoder();
+        TagEncoder encoder = configuration.generateSizeReport() ? new TagEncoderReporter() : new TagEncoder();        
         new MovieEncoder(encoder).export(movie, useCompression);
         encoder.writeTo(out);
         generateSizeReport(configuration, movie, encoder);

@@ -22,6 +22,7 @@
 					 xmlns:components="components.*" firstView="components.BlankView">
 	
 	
+	<fx:Style source="../../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Script>
 		
 			<![CDATA[

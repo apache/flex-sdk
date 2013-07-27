@@ -21,6 +21,7 @@
 							xmlns:s="library://ns.adobe.com/flex/spark" 
 							firstView="views.ApplicationDPISpecifiedAppHomeView"
 							applicationDPI="160">
+	<fx:Style source="../../../../Assets/Fonts/MobileFontStyles.css" />
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
 		

@@ -20,6 +20,8 @@
 package mx.styles
 {
 
+import mx.utils.StringUtil;
+
 /**
  *  Represents a condition for a CSSSelector which is used to match a subset of
  *  components based on a particular property.
@@ -161,36 +163,47 @@ public class CSSCondition
      */
     public function matchesStyleClient(object:IAdvancedStyleClient):Boolean
     {
-        var match:Boolean = false;
-
         if (kind == CSSConditionKind.CLASS)
         {
-            if (object.styleName != null && object.styleName is String)
+            const styleName:String = object.styleName as String;
+            if (!styleName)
             {
-                // Look for a match in a potential list of styleNames 
-                var styleNames:Array = object.styleName.split(/\s+/);
-                for (var i:uint = 0; i < styleNames.length; i++)
+                return false;
+            }
+
+            // Look for a match in a whitespace-delimited list of styleNames
+            var index:int = styleName.indexOf(value);
+            while (index != -1)
+            {
+                var next:int = index + value.length;
+
+                // At start or after whitespace?
+                if (index == 0 || StringUtil.isWhitespace(styleName.charAt(index - 1)))
                 {
-                    if (styleNames[i] == value)
+                    // At end or followed by whitespace?
+                    if (next == styleName.length || StringUtil.isWhitespace(styleName.charAt(next)))
                     {
-                        match = true;
-                        break;
+                        return true;
                     }
                 }
+
+                index = styleName.indexOf(value, next)
             }
-        }
-        else if (kind == CSSConditionKind.ID)
-        {
-            if (object.id == value)
-                match = true;
-        }
-        else if (kind == CSSConditionKind.PSEUDO)
-        {
-            if (object.matchesCSSState(value))
-                match = true;
+
+            return false;
         }
 
-        return match;
+        if (kind == CSSConditionKind.ID)
+        {
+            return (object.id == value);
+        }
+
+        if (kind == CSSConditionKind.PSEUDO)
+        {
+            return object.matchesCSSState(value);
+        }
+
+        return false;
     }
 
     /**

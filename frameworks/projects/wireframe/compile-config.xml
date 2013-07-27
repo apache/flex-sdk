@@ -19,12 +19,14 @@
 <flex-config>
 
     <compiler>
+
         <accessible>true</accessible>
         
         <external-library-path>
             <path-element>${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc</path-element>
             <path-element>../../libs/framework.swc</path-element>
             <path-element>../../libs/mx/mx.swc</path-element>
+            <path-element>../../libs/osmf.swc</path-element>
             <path-element>../../libs/spark.swc</path-element>
             <path-element>../../libs/air/airspark.swc</path-element>
             <path-element>../../libs/textLayout.swc</path-element>
@@ -34,11 +36,19 @@
         
         <library-path/>
         
+        <namespaces>
+            <namespace>
+                <uri>library://ns.adobe.com/flex/spark</uri>
+                <manifest>../../spark-manifest.xml</manifest>
+            </namespace>
+        </namespaces>
+
         <source-path>
             <path-element>src</path-element>
         </source-path>
         
         <warn-no-constructor>false</warn-no-constructor>
+
     </compiler>
     
     <include-classes>
@@ -61,4 +71,5 @@
     <resource-bundle-list>bundles.properties</resource-bundle-list>
     
     <target-player>${playerglobal.version}</target-player>
+
 </flex-config>

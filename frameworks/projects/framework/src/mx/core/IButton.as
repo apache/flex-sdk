@@ -52,6 +52,26 @@ public interface IButton extends IUIComponent
      */
     function callLater(method:Function,
                               args:Array /* of Object */ = null):void
+		
+	/**
+	 * Gets the text on a Button. 
+	 *
+	 * @langversion 3.0
+	 * @playerversion Flash 9
+	 * @playerversion AIR 1.1
+	 * @productversion ApacheFlex 4.10
+	 */
+	function get label():String;
+	
+	/**
+	 * Sets the text on a Button.
+	 *
+	 * @langversion 3.0
+	 * @playerversion Flash 9
+	 * @playerversion AIR 1.1
+	 * @productversion ApacheFlex 4.10
+	 */
+	function set label(value:String):void;
 }
 
 }

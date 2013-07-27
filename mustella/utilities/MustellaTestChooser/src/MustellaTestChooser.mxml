@@ -19,7 +19,8 @@ limitations under the License.
 -->
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
-					   xmlns:mx="library://ns.adobe.com/flex/mx">
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+                       invoke="checkArgs(event)">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -28,6 +29,43 @@ limitations under the License.
 			private var dirFile:File = new File();
 			private var fs:FileStream;
 
+            private function checkArgs(event:InvokeEvent):void
+            {
+                var args:Array = event.arguments;
+                if (args.length > 0 && args[0].indexOf("-file") > -1)
+                {
+                    var wd:File = event.currentDirectory;
+                    var flexDir:String = wd.nativePath;
+                    var c:int = flexDir.indexOf(File.separator + "utilities");
+                    if (c != -1)
+                    {
+                        flexDir = flexDir.substr(0, c);
+                    }
+                    dirFile.nativePath = dir.text = flexDir;
+                    callLater(autoStep2, [flexDir]);
+                }
+            }
+            
+            private function autoStep2(flexDir:String):void
+            {
+                var gs:File = new File(flexDir + File.separator + ".." + File.separator + "gitstatus.txt");
+                fs = new FileStream();
+                fs.open(gs, FileMode.READ);
+                statusLog.text = fs.readUTFBytes(fs.bytesAvailable);
+                fs.close();
+                callLater(autoStep3);
+            }
+            
+            private function autoStep3():void
+            {
+                computeTests();
+                callLater(autoStep4);    
+            }
+            
+            private function autoStep4():void
+            {
+                this.nativeApplication.exit();   
+            }
 			private function browse():void
 			{
 				dirFile.addEventListener(Event.SELECT, selectHandler);
@@ -49,7 +87,7 @@ limitations under the License.
 				for (var i:int = 0; i < n; i++)
 				{
 					var file:String = files[i];
-					if (file.charAt(0) == "M")
+					if (file.indexOf("#\tmodified:   ") != -1)
 					{
 						modFiles.push(file);
 					}
@@ -66,7 +104,7 @@ limitations under the License.
 				for (i = 0; i < n; i++)
 				{
 					file = modFiles[i];
-					file = file.substr(8);
+					file = file.substr(14);
 					var c:int;
 					c = file.indexOf(".as");
 					if (c != -1)
@@ -77,13 +115,13 @@ limitations under the License.
 						if (c != -1)
 							file = file.substr(0, c);
 					}
-					c = file.indexOf(File.separator + "src" + File.separator);
+					c = file.indexOf("/src/");
 					if (c != -1)
 						file = file.substr(c + 5);
-					c = file.lastIndexOf(File.separator);
+					c = file.lastIndexOf("/");
 					if (c != -1)
 						file = file.substring(0, c) + ':' + file.substr(c + 1);
-					file = file.replace(new RegExp("\\" + File.separator,"g"), ".");
+					file = file.replace(new RegExp("\\" + "/","g"), ".");
 					modFiles[i] = file;
 				}
 				var runTests:Array = [];
@@ -232,7 +270,7 @@ limitations under the License.
 		<s:TextInput id="dir" width="100%" toolTip="The mustella dir, not the tests dir"/>
 		<s:Button label="Browse..." click="browse()" />
 	</s:HGroup>
-	<s:Label text="Copy and paste SVN Status below" />
+	<s:Label text="Copy and paste Git Status below" />
 	<s:TextArea id="statusLog" width="100%" change="doneLabel.visible=false"/>
 	<s:HGroup>
 		<s:Button label="Compute Tests" enabled="{statusLog.text.length > 0}" click="callLater(computeTests)" />

@@ -1,0 +1,61 @@
+<DisplayList>
+  <iconToggleButtonTester width="500" height="375">
+    <spark.skins.spark.ApplicationSkin width="500" height="375" blendMode="auto">
+      <spark.components.Group width="500" height="375" blendMode="auto">
+        <spark.components.Group width="500" height="375" blendMode="auto">
+          <spark.components.VGroup x="10" y="10" width="70" height="47" blendMode="auto">
+            <spark.components.ToggleButton width="70" height="47">
+              <spark.skins.spark.ToggleButtonSkin width="70" height="47" blendMode="auto">
+                <spark.components.Group width="70" height="47" scrollRect="(x=0, y=0, w=70, h=47)" blendMode="auto">
+                  <spark.components.supportClasses.InvalidatingSprite x="23" y="2" width="24" height="24"/>
+                  <spark.components.Label x="10" y="33" width="50" height="13">
+                    <flash.display.Shape width="50" height="13"/>
+                    <flash.text.engine.TextLine x="11.95" y="9.6" width="26.05" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="4" hasGraphicElement="false"/>
+                  </spark.components.Label>
+                </spark.components.Group>
+              </spark.skins.spark.ToggleButtonSkin>
+            </spark.components.ToggleButton>
+          </spark.components.VGroup>
+          <comps.IconAsChildTag x="10" y="163" width="131" height="72" blendMode="auto">
+            <spark.components.ToggleButton x="10" y="10" width="111" height="52">
+              <spark.skins.spark.ToggleButtonSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=1, redOffset=51, greenOffset=-204, blueOffset=-204, alphaOffset=0)" width="111" height="52" blendMode="auto">
+                <spark.components.Group concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=1, redOffset=51, greenOffset=-204, blueOffset=-204, alphaOffset=0)" width="111" height="52" scrollRect="(x=0, y=0, w=111, h=52)" blendMode="auto">
+                  <spark.components.supportClasses.InvalidatingSprite concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=1, redOffset=51, greenOffset=-204, blueOffset=-204, alphaOffset=0)" x="53" y="2" width="48" height="48"/>
+                  <spark.components.Label x="10" y="21" width="37" height="13">
+                    <flash.display.Shape width="37" height="13"/>
+                    <flash.text.engine.TextLine y="9.6" width="36.25" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="6" hasGraphicElement="false"/>
+                  </spark.components.Label>
+                </spark.components.Group>
+              </spark.skins.spark.ToggleButtonSkin>
+            </spark.components.ToggleButton>
+          </comps.IconAsChildTag>
+          <spark.components.HGroup x="10" y="300" width="179" height="52" blendMode="auto">
+            <spark.components.ToggleButton width="96" height="52">
+              <spark.skins.spark.ToggleButtonSkin width="96" height="52" blendMode="auto">
+                <spark.components.Group width="96" height="52" scrollRect="(x=0, y=0, w=96, h=52)" blendMode="auto">
+                  <spark.components.supportClasses.InvalidatingSprite x="38" y="2" width="48" height="48"/>
+                  <spark.components.Label x="10" y="21" width="22" height="13">
+                    <flash.display.Shape width="22" height="13"/>
+                    <flash.text.engine.TextLine y="9.6" width="21.3" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="3" hasGraphicElement="false"/>
+                  </spark.components.Label>
+                </spark.components.Group>
+              </spark.skins.spark.ToggleButtonSkin>
+            </spark.components.ToggleButton>
+            <spark.components.ToggleButton x="102" width="77" height="28">
+              <spark.skins.spark.ToggleButtonSkin concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=51, greenOffset=-204, blueOffset=-204, alphaOffset=0)" width="77" height="28" blendMode="auto">
+                <spark.components.supportClasses.InvalidatingSprite concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=51, greenOffset=-204, blueOffset=-204, alphaOffset=0)" width="79" height="30"/>
+                <spark.components.Group concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=51, greenOffset=-204, blueOffset=-204, alphaOffset=0)" width="77" height="28" scrollRect="(x=0, y=0, w=77, h=28)" blendMode="auto">
+                  <spark.components.supportClasses.InvalidatingSprite concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=51, greenOffset=-204, blueOffset=-204, alphaOffset=0)" x="10" y="2" width="24" height="24"/>
+                  <spark.components.Label concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="40" y="9" width="27" height="13">
+                    <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="27" height="13"/>
+                    <flash.text.engine.TextLine concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" y="9.6" width="26.05" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="4" hasGraphicElement="false"/>
+                  </spark.components.Label>
+                </spark.components.Group>
+              </spark.skins.spark.ToggleButtonSkin>
+            </spark.components.ToggleButton>
+          </spark.components.HGroup>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </iconToggleButtonTester>
+</DisplayList>

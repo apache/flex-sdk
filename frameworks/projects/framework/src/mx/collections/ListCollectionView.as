@@ -378,6 +378,7 @@ public class ListCollectionView extends Proxy
     public function set sort(s:ISort):void
     {
         _sort = s;
+		
         dispatchEvent(new Event("sortChanged"));
     }
 
@@ -550,6 +551,7 @@ public class ListCollectionView extends Proxy
             else
             {
                 var oldItem:Object = localIndex[index];
+				// FIXME fails on duplicates
                 listIndex = list.getItemIndex(oldItem);
             }
         }
@@ -566,7 +568,10 @@ public class ListCollectionView extends Proxy
      */
     public function addItem(item:Object):void
     {
-        addItemAt(item, length);
+		if (localIndex)
+        	addItemAt(item, localIndex.length);
+		else
+			addItemAt(item, length);
     }
 
     /**
@@ -587,21 +592,29 @@ public class ListCollectionView extends Proxy
         }
 
         var listIndex:int = index;
-        //if we're sorted addItemAt is meaningless, just add to the end
-        if (localIndex && sort)
+		
+		// if we're sorted addItemAt is meaningless, just add to the end
+		if (localIndex && sort)
         {
             listIndex = list.length;
         }
-        else if (localIndex && filterFunction != null)
-        {
-            // if end of filtered list, put at end of source list
-            if (listIndex == localIndex.length)
-                listIndex = list.length;
-            // if somewhere in filtered list, find it and insert before it
-            // or at beginning
-            else 
-                listIndex = list.getItemIndex(localIndex[index]);
-        }
+		else if (localIndex && filterFunction != null)
+		{
+			// if end of filtered list, put at end of source list
+			if (listIndex == localIndex.length)
+				listIndex = list.length;
+				// if somewhere in filtered list, find it and insert before it
+				// or at beginning
+			else 
+				listIndex = list.getItemIndex(localIndex[index]);
+		}
+		// List is sorted or filtered but refresh has not been called
+		// Just add to end of list
+		else if (localIndex)
+		{
+			listIndex = list.length;
+		}
+		
         list.addItemAt(item, listIndex);
     }
     
@@ -618,7 +631,10 @@ public class ListCollectionView extends Proxy
      */
     public function addAll(addList:IList):void
     {
-        addAllAt(addList, length);
+		if (localIndex)
+			addAllAt(addList, localIndex.length);
+		else
+			addAllAt(addList, length);
     }
     
     /**
@@ -645,16 +661,17 @@ public class ListCollectionView extends Proxy
         }
         
         var length:int = addList.length;
+		var maxLength:int = length
+			
+		// incremental index may be out of bounds because of filtering,
+		// so add this item to the end.
+		if (index > maxLength)
+			index = maxLength;
+
         for (var i:int=0; i < length; i++)
         {
             var insertIndex:int = i + index;
-            
-            // incremental index may be out of bounds because of filtering,
-            // so add this item to the end.
-            var currentLength:int = this.length;
-            if (insertIndex > currentLength)
-                insertIndex = currentLength;
-            
+			
             this.addItemAt(addList.getItemAt(i), insertIndex);
         }
     }
@@ -671,22 +688,7 @@ public class ListCollectionView extends Proxy
     {
         var i:int;
         
-        if (localIndex && sort)
-        {
-            var startIndex:int = findItem(item, Sort.FIRST_INDEX_MODE);
-            if (startIndex == -1)
-                return -1;
-
-            var endIndex:int = findItem(item, Sort.LAST_INDEX_MODE);
-            for (i = startIndex; i <= endIndex; i++)
-            {
-                if (localIndex[i] == item)
-                    return i;
-            }
-
-            return -1;
-        }
-        else if (localIndex && filterFunction != null)
+        if (localIndex && filterFunction != null)
         {
             var len:int = localIndex.length;
             for (i = 0; i < len; i++)
@@ -697,6 +699,33 @@ public class ListCollectionView extends Proxy
 
             return -1;
         }
+		else if (localIndex && sort)
+		{
+			var startIndex:int = findItem(item, Sort.FIRST_INDEX_MODE);
+			if (startIndex == -1)
+				return -1;
+			
+			var endIndex:int = findItem(item, Sort.LAST_INDEX_MODE);
+			for (i = startIndex; i <= endIndex; i++)
+			{
+				if (localIndex[i] == item)
+					return i;
+			}
+			
+			return -1;
+		}
+		// List is sorted or filtered but refresh has not been called
+		else if (localIndex)
+		{
+			len = localIndex.length;
+			for (i = 0; i < len; i++)
+			{
+				if (localIndex[i] == item)
+					return i;
+			}
+			
+			return -1;
+		}
 
         // fallback
         return list.getItemIndex(item);
@@ -724,16 +753,20 @@ public class ListCollectionView extends Proxy
      */
     private function getFilteredItemIndex(item:Object):int
     { 
-        //loc is wrong 
-        //the intent of this function is to find where this new item 
-        //should be in the filtered list, by looking at the main list 
-        //for it's neighbor that is also in this filtered list 
-        //and trying to insert item after that neighbor in the insert locao filtered list 
+        // loc is wrong 
+        // the intent of this function is to find where this new item 
+        // should be in the filtered list, by looking at the main list 
+        // for it's neighbor that is also in this filtered list 
+        // and trying to insert item after that neighbor in the insert locao filtered list 
     
-        //1st get the position in the original list 
+        // 1st get the position in the original list 
         var loc:int = list.getItemIndex(item); 
+		
+		// something gone wrong and list is not filtered so just return loc to stop RTE
+		if (filterFunction == null)
+			return loc;
     
-        //if it's 0 then item must be also the first in the filtered list 
+        // if it's 0 then item must be also the first in the filtered list 
         if (loc == 0) 
             return 0; 
     
@@ -745,7 +778,7 @@ public class ListCollectionView extends Proxy
             { 
                 var len:int = localIndex.length; 
                 // get the index of the item in the filtered set 
-                //for (var j:int = 0; j < len; j++) 
+                // for (var j:int = 0; j < len; j++) 
                 for (var j:int = 0; j < len; j++) 
                 { 
                     if (localIndex[j] == prevItem) 
@@ -754,11 +787,27 @@ public class ListCollectionView extends Proxy
             } 
         } 
 
-        //turns out that there are no neighbors of item in the filtered 
-        //list, so item is the 1st item 
+        // turns out that there are no neighbors of item in the filtered 
+        // list, so item is the 1st item 
         return 0; 
-    } 
-
+    }
+    
+    /**
+	 *  Removes the specified item from this list, should it exist.
+	 *  Relies on ArrayList implementation
+	 *
+	 *  @param  item Object reference to the item that should be removed.
+	 *  @return Boolean indicating if the item was removed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Apache Flex 4.10
+	 */
+	public function removeItem(item:Object):Boolean
+	{
+		return list.removeItem(item);
+	}
 
     /**
      * @inheritDoc 
@@ -799,8 +848,9 @@ public class ListCollectionView extends Proxy
         var len:int = length;
         if (len > 0)
         {
-            if (localIndex)
+            if (localIndex && filterFunction != null)
             {
+				len = localIndex.length;
                 for (var i:int = len - 1; i >= 0; i--)
                 {
                     removeItemAt(i);
@@ -808,6 +858,7 @@ public class ListCollectionView extends Proxy
             }
             else
             {
+				localIndex = null;
                 list.removeAll();
             }
         }
@@ -825,13 +876,9 @@ public class ListCollectionView extends Proxy
     {
         var ret:Array;
         if (localIndex)
-        {
             ret = localIndex.concat();
-        }
         else
-        {
             ret = list.toArray();
-        }
         return ret;
     }
 
@@ -875,27 +922,24 @@ public class ListCollectionView extends Proxy
         if (name is QName)
             name = name.localName;
 
-        var index:int = -1;
         try
         {
-            // If caller passed in a number such as 5.5, it will be floored.
             var n:Number = parseInt(String(name));
-            if (!isNaN(n))
-                index = int(n);
-        }
-        catch(e:Error) // localName was not a number
-        {
-        }
-
-        if (index == -1)
-        {
-            var message:String = resourceManager.getString(
-                "collections", "unknownProperty", [ name ]);
-            throw new Error(message);
-        }
+		}
+		catch(e:Error) // localName was not a number
+		{
+		}
+		
+        if (isNaN(n))
+		{
+			var message:String = resourceManager.getString(
+				"collections", "unknownProperty", [ name ]);
+			throw new Error(message);
+		}
         else
         {
-            return getItemAt(index);
+			// If caller passed in a number such as 5.5, it will be floored.
+            return getItemAt(int(n));
         }
     }
     
@@ -904,32 +948,29 @@ public class ListCollectionView extends Proxy
      *  Attempts to call setItemAt(), converting the property name into an int.
      */
     override flash_proxy function setProperty(name:*, value:*):void
-    {
-        if (name is QName)
-            name = name.localName;
-
-        var index:int = -1;
-        try
-        {
-            // If caller passed in a number such as 5.5, it will be floored.
-            var n:Number = parseInt(String(name));
-            if (!isNaN(n))
-                index = int(n);
-        }
-        catch(e:Error) // localName was not a number
-        {
-        }
-
-        if (index == -1)
-        {
-            var message:String = resourceManager.getString(
-                "collections", "unknownProperty", [ name ]);
-            throw new Error(message);
-        }
-        else
-        {
-            setItemAt(value, index);
-        }
+    {	
+		if (name is QName)
+			name = name.localName;
+		
+		try
+		{
+			var n:Number = parseInt(String(name));
+		}
+		catch(e:Error) // localName was not a number
+		{
+		}
+		
+		if (isNaN(n))
+		{
+			var message:String = resourceManager.getString(
+				"collections", "unknownProperty", [ name ]);
+			throw new Error(message);
+		}
+		else
+		{
+			// If caller passed in a number such as 5.5, it will be floored.
+			setItemAt(value, int(n));
+		}
     }
     
     /**
@@ -1107,44 +1148,64 @@ public class ListCollectionView extends Proxy
         if (localIndex)
         {
             var loc:int = sourceLocation;
-            for (var i:int = 0; i < items.length; i++)
+			var length:int = items.length;
+			
+            for (var i:int = 0; i < length; i++)
             {
                 var item:Object = items[i];
-                if (filterFunction == null || filterFunction(item))
+				
+				if (filterFunction != null)
+				{
+					if (filterFunction(item))
+					{
+						if (sort)
+							loc = findItem(item, Sort.ANY_INDEX_MODE, true);
+						else 
+							loc = getFilteredItemIndex(item);
+						
+						if (firstOne)
+						{
+							addLocation = loc;
+							firstOne = false;
+						}
+					}
+					else
+					{
+						loc = -1;
+					}
+				}
+				else if (sort)
                 {
-                    if (sort)
+                    loc = findItem(item, Sort.ANY_INDEX_MODE, true);
+                    if (firstOne)
                     {
-                        loc = findItem(item, Sort.ANY_INDEX_MODE, true);
-                        if (firstOne)
-                        {
-                            addLocation = loc;
-                            firstOne = false;
-                        }
+                        addLocation = loc;
+                        firstOne = false;
                     }
-                    else
-                    {
-                        loc = getFilteredItemIndex(item);
-                        if (firstOne)
-                        {
-                            addLocation = loc;
-                            firstOne = false;
-                        }
-                    }
-
-                    if (sort && sort.unique && sort.compareFunction(item, localIndex[loc]) == 0)
-                    {
-                        // We cause all adds to fail here, not just the one.
-                        var message:String = resourceManager.getString(
-                            "collections", "incorrectAddition");
-                        throw new CollectionViewError(message);
-                    }
+                }
+				else
+				// List is sorted or filtered but refresh has not been called
+				// Just add to end of list
+				{
+					loc = localIndex.length;	
+					addLocation = loc;
+				}
+					
+				if (loc != -1)
+				{
                     localIndex.splice(loc++, 0, item);
                     addedItems.push(item);
-                }
-                else
-                    addLocation = -1;
+				}
              }
         }
+	
+		if (sort && sort.unique && sort.compareFunction(item, localIndex[loc]) == 0)
+		{
+			// We cause all adds to fail here, not just the one.
+			var message:String = resourceManager.getString(
+				"collections", "incorrectAddition");
+			throw new CollectionViewError(message);
+		}
 
         if (localIndex && addedItems.length > 1)
         {
@@ -1395,13 +1456,13 @@ public class ListCollectionView extends Proxy
 					if (updatedItems[j].item == item)
 					{
 						// even if it is, if a different property changed, track that too.
-						var events:Array = updatedItems[j].events;
-						var l:int = events.length;
+						var evts:Array = updatedItems[j].events;
+						var l:int = evts.length;
 						for (var k:int = 0; k < l; k++)
 						{
-							if (events[k].property != updateInfo.property)
+							if (evts[k].property != updateInfo.property)
 							{
-								events.push(updateInfo);
+								evts.push(updateInfo);
 								break;
 							}
 							// we could also merge events for changes to the same
@@ -1429,7 +1490,7 @@ public class ListCollectionView extends Proxy
                 //if there is a property see if it affects the sort
                 updateEntry.move =
                     updateEntry.move
-                    || filterFunction
+                    || filterFunction != null
                     || !updateInfo.property
                     || (sort && sort.propertyAffectsSort(String(updateInfo.property)));
             }
@@ -1561,6 +1622,7 @@ public class ListCollectionView extends Proxy
                 }
                 localIndex = tmp;
             }
+			
             if (sort)
             {
                 sort.sort(localIndex);

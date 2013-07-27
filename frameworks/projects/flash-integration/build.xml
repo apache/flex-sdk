@@ -30,8 +30,6 @@
 	<macrodef name="bundle">
 		<attribute name="locale"/>
 			<sequential>
-				<copy file="${basedir}/bundles/en_US/empty.properties" tofile="${basedir}/bundles/@{locale}/empty.properties"/>
-
 				<echo message="Compiling frameworks/locale/@{locale}/flash-integration_rb.swc"/>
 				<!-- Load the <compc> task. We can't do this at the <project> level -->
 				<!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -87,15 +85,14 @@
 		<delete failonerror="false" includeemptydirs="true">
 			<fileset dir="${basedir}">
 			    <include name="bundles.properties"/>
-			    <include name="bundles/*/empty.properties"/>
 			    <include name="libs/flash-integration.swc"/>
-			    <exclude name="bundles/en_*/empty.properties"/>
 			</fileset>
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
 				<include name="flash-integration.swc"/>
 				<include name="flash-integration.swc.incr"/>
 			</fileset>
 			<fileset dir="${FLEX_HOME}/frameworks/flash-integration"/>
+			<fileset dir="${FLEX_HOME}/frameworks/projects/flash-integration/libs"/>
 		</delete>
 	</target>
 	

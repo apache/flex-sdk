@@ -448,13 +448,25 @@ public class AdvancedDataGridItemRenderer extends UITextField
     public function validateProperties():void
     {
         invalidatePropertiesFlag = false;
-        if (_listData)
+        if (_listData && listData.owner)
         {
             var dg:AdvancedDataGrid = AdvancedDataGrid(_listData.owner);
 
-            var column:AdvancedDataGridColumn =
-                dg.columns[_listData.columnIndex];
-
+			if (_listData.columnIndex < 0 || _listData.columnIndex >= dg.columns.length) {
+				text = " ";
+				toolTip = null;
+				return;
+			}
+			
+			var column:AdvancedDataGridColumn =
+				dg.columns[_listData.columnIndex];
+			
+			if (column == null) {
+				text = " ";
+				toolTip = null;
+				return;
+			}
+			
             text = _listData.label;
             
             if (_data is AdvancedDataGridColumn)

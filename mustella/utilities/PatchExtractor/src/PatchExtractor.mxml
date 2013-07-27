@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+                       invoke="checkArgs(event)">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.utils.Base64Decoder;
+			
+			private var mailFile:File = new File();
+			private var fs:FileStream;
+			private var flexDir:String;
+			private var gotone:Boolean = false;
+
+            private function checkArgs(event:InvokeEvent):void
+            {
+                var args:Array = event.arguments;
+                if (args.length > 0)
+                {
+					var wd:File = event.currentDirectory;
+					flexDir = wd.nativePath;
+					var c:int = flexDir.indexOf(File.separator + "mustella" + File.separator + "utilities");
+					if (c != -1)
+					{
+						flexDir = flexDir.substr(0, c);
+					}
+                    mailFile.nativePath = dir.text = args[0];
+                    callLater(autoStep2, [flexDir]);
+                }
+				else
+					nativeApplication.exit(-1);
+            }
+            
+            private function autoStep2(flexDir:String):void
+            {
+                fs = new FileStream();
+                fs.open(mailFile, FileMode.READ);
+                statusLog.text = fs.readUTFBytes(fs.bytesAvailable);
+                fs.close();
+                callLater(autoStep3);
+            }
+            
+            private function autoStep3():void
+            {
+                computePatches();
+                callLater(autoStep4);    
+            }
+            
+            private function autoStep4():void
+            {
+                this.nativeApplication.exit(gotone ? 0 : 2);   
+            }
+			
+			private function browse():void
+			{
+				mailFile.addEventListener(Event.SELECT, selectHandler);
+				mailFile.browseForOpen("Mail File");
+			}
+			
+			private function selectHandler(event:Event):void
+			{
+				dir.text = mailFile.nativePath;	
+			}
+			
+			private var SEARCH_MODE:int = 0;
+			private var FROM_SEARCH_MODE:int = 1;
+			private var PART_SEARCH_MODE:int = 2;
+			private var DELIMITER_SEARCH_MODE:int = 3;
+			private var PART_HEADER_MODE:int = 4;
+			private var PART_MODE:int = 5;
+			private var ATTACHMENT_MODE:int = 6;
+			private var PART_TYPE_MODE:int = 7;
+			private var BOUNDARY_SEARCH_MODE:int = 8;
+			
+			private function computePatches():void
+			{
+				mailFile.nativePath = dir.text;
+			
+				var replyAddr:String;
+				var partDelimiter:String;
+				var contentEncoding:String;
+				var contentType:String;
+				var part:String;
+				var c:int;
+				var c2:int;
+				var mode:int = SEARCH_MODE;
+				var lines:Array = statusLog.text.split("\n");
+				var modFiles:Array = [];
+				var n:int = lines.length;
+				for (var i:int = 0; i < n; i++)
+				{
+					var line:String = lines[i];
+					switch (mode)
+					{
+						case SEARCH_MODE:
+						{
+							if (line.indexOf("Content-Type") == 0)
+							{
+								mode = PART_TYPE_MODE;
+								i--;
+							}
+							else if (line.indexOf("From") == 0)
+							{
+								mode = FROM_SEARCH_MODE;
+							}
+							break;
+						}
+						case FROM_SEARCH_MODE:
+						{
+							if (line.indexOf("From: ") == 0)
+							{
+								c = line.indexOf("<");
+								c2 = line.indexOf(">");
+								replyAddr = line.substring(c+1, c2);
+								mode = DELIMITER_SEARCH_MODE;
+							}
+							break;
+						}
+						case DELIMITER_SEARCH_MODE:
+						{
+							if (line.indexOf("Content-Type: multipart/alternative") == 0
+								|| line.indexOf("Content-Type: multipart/mixed") == 0)
+							{
+								c = line.indexOf("boundary=");
+								if (c == -1)
+								{
+									mode= BOUNDARY_SEARCH_MODE;
+								}
+								else
+								{
+									partDelimiter = line.substr(c + 9);
+									if (partDelimiter.charAt(0) == '"')
+										partDelimiter = partDelimiter.substr(1, partDelimiter.length - 2);
+									mode = PART_SEARCH_MODE;
+								}
+								break;
+							}
+							break;	
+						}
+						case PART_SEARCH_MODE:
+						{
+							if (line.indexOf("--" + partDelimiter) == 0)
+							{
+								mode = PART_TYPE_MODE;
+							}
+							break;
+						}
+						case PART_TYPE_MODE:
+						{
+							part = "";
+							if (line.indexOf("Content-Type") == 0)
+							{
+								c = line.indexOf(";");
+								contentType = line.substring(14, c);
+								if (contentType == "application/octet-stream")
+									mode = ATTACHMENT_MODE;
+								else
+									mode = PART_MODE;
+							}
+							break;
+						}
+						case ATTACHMENT_MODE:
+						{
+							if (line.indexOf("Content-Transfer-Encoding") == 0)
+							{
+								contentEncoding = line.substring(27);
+								mode = PART_MODE;
+							}
+							break;
+						}
+						case BOUNDARY_SEARCH_MODE:
+						{
+							c = line.indexOf("boundary");
+							if (c != -1)
+							{
+								partDelimiter = line.substr(c + 9);
+								if (partDelimiter.charAt(0) == '"')
+									partDelimiter = partDelimiter.substr(1, partDelimiter.length - 2);
+								mode = PART_SEARCH_MODE;
+							}
+							break;
+						}
+						case PART_MODE:
+						{
+							if (line.indexOf("--" + partDelimiter) == 0)
+							{
+								mode = SEARCH_MODE;
+								if (contentType == "application/octet-stream" &&
+									contentEncoding == "base64")
+								{
+									var decoder:Base64Decoder = new Base64Decoder();
+									decoder.decode(part);
+									var ba:ByteArray = decoder.toByteArray();
+									ba.position = 0;
+									part = ba.readUTFBytes(ba.bytesAvailable);
+								}
+								c = part.indexOf("diff --git");
+								if (c != -1)
+								{
+									gotone = true;
+									part = part.substring(c);
+									var timeString:String = new Date().time.toString();
+									var fileName:String = replyAddr + timeString + ".patch";
+									fileName = flexDir + File.separator + fileName;
+									var file:File = new File(fileName);
+									var fs:FileStream = new FileStream();
+									fs.open(file, FileMode.WRITE);
+									fs.writeUTFBytes(part);
+									fs.close();
+									fileName = replyAddr + timeString + ".reply";
+									fileName = flexDir + File.separator + fileName;
+									file = new File(fileName);
+									fs = new FileStream();
+									fs.open(file, FileMode.WRITE);
+									fs.writeUTFBytes(replyAddr);
+									fs.close();
+								}
+							}
+							else
+								part += line + "\n";
+						}							
+						break;
+					}
+					
+				}
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	<s:HGroup width="100%">
+		<s:Label text="Mail File:" />
+		<s:TextInput id="dir" width="100%" toolTip="The mustella dir, not the tests dir"/>
+		<s:Button label="Browse..." click="browse()" />
+	</s:HGroup>
+	<s:Label text="Copy and paste Git Status below" />
+	<s:TextArea id="statusLog" width="100%" change="doneLabel.visible=false"/>
+	<s:HGroup>
+		<s:Button label="Compute Tests" enabled="{statusLog.text.length > 0}" click="callLater(computePatches)" />
+		<s:Label id="doneLabel" visible="false" text="Wrote changes.txt. Use mini_run.sh -changes" />
+	</s:HGroup>
+	<s:TextArea id="output" width="100%" editable="false" lineBreak="explicit" horizontalScrollPolicy="auto" />
+</s:WindowedApplication>

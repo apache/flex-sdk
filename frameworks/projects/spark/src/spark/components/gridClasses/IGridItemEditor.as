@@ -190,5 +190,28 @@ public interface IGridItemEditor extends IDataRenderer, IVisualElement,
      */  
     function save():Boolean;
 
+    /**
+     *  Called by the DataGrid when an open editor is being closed without 
+     *  saving the data in the editor. Closing the editor may be 
+     *  prevented by returning <code>false</code>
+     * .  
+     *  <p>Do not call this method directly. 
+     *  It should only be called by the control hosting the item editor.
+     *  To close the editor without saving its data, call the 
+     *  <code>endItemEditorSession()</code> method with the <code>cancel</code>
+     *  parameter set to <code>true</code>.</p>
+     *
+     *  @return <code>true</code> to close the editor without saving its data. 
+     *  Return <code>false</code> to prevent the editor from closing.
+     *  
+     *  @see spark.components.DataGrid
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5 
+     */  
+    function cancel():Boolean;
+    
 }
 }

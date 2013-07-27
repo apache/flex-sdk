@@ -37,6 +37,7 @@ import spark.components.DataGrid;
 import spark.components.Group;
 import spark.components.gridClasses.GridColumn;
 
+
 use namespace mx_internal;
 
 /**
@@ -459,15 +460,17 @@ public class GridItemEditor extends Group implements IGridItemEditor
         if (!validate())
             return false;
         
+        // set focus to DataGrid to force internal components to commit changes to 
+        // their data properties.
+        dataGrid.setFocus();
+        
         var newData:Object = value;
         var property:String;
         var data:Object = data;
         var typeInfo:String = "";
                         
-        // If a complex field reference need to get the parent object where the property
+        // If a complex field reference need to get the object where the property
         // will be updated.  It is a complex field reference if dataFieldPath.length > 1.
-        // Note that if the path is incorrect there will be a ReferenceError either here or
-        // when accessing the invalid property below.
         var dataFieldPath:Array = column.dataFieldPath;
         for (var i:int = 0; i < dataFieldPath.length - 1; i++)
             data = data[dataFieldPath[i]];
@@ -531,13 +534,30 @@ public class GridItemEditor extends Group implements IGridItemEditor
 
             var oldData:Object = data[property];
             data[property] = newData;
-            dataGrid.dataProvider.itemUpdated(data, property, oldData, newData);
+            
+            // If a complex field reference then the data and property local vars were modified and
+            // no longer point to the top-level data object and the complete path to the property
+            // so use the original values.
+            dataGrid.dataProvider.itemUpdated(this.data, column.dataField, oldData, newData);
             
             // Restore the sort. The data will not be sorted due to this change.
             if (sort)
                 ICollectionView(dataGrid.dataProvider).sort = sort;
         }
 
+        return true;
+    }
+    
+    /**
+     *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function cancel():Boolean
+    {
         return true;
     }
     

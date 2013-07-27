@@ -601,7 +601,7 @@ public class SortField extends EventDispatcher implements ISortField
             if (left is Date || right is Date)
             {
                 found = true;
-                _compareFunction = dateCompare
+                _compareFunction = dateCompare;
             }
         }
         else if (typeLeft == "xml" || typeRight == "xml")

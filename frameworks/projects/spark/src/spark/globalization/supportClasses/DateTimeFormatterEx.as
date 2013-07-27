@@ -986,7 +986,7 @@ public class DateTimeFormatterEx extends DateTimeFormatter
         const language:String = parsedLocale["language"];
         const script:String = parsedLocale["script"];
         const region:String = parsedLocale["region"];
-        const scoreList:Array = new Array();
+        const scoreList:Array = [];
         /*
         Score calculation method:
         Two of the languages are identical: Add 0x40
@@ -1119,7 +1119,7 @@ public class DateTimeFormatterEx extends DateTimeFormatter
                                            analyseDateElements:Boolean,
                                            analyseTimeElements:Boolean):Object
     {
-        const elementList:Array = new Array();
+        const elementList:Array = [];
         
         if (analyseDateElements)
             DateTimeFormatterEx.extractDateElements(pattern, elementList);
@@ -1128,10 +1128,10 @@ public class DateTimeFormatterEx extends DateTimeFormatter
             DateTimeFormatterEx.extractTimeElements(pattern, elementList);
         
         elementList.sortOn("index", Array.NUMERIC);
-        const processedElementList:Object = new Object();
+        const processedElementList:Object = {};
         for (var i:int = 0; i < elementList.length; i++)
         {
-            var element:Object = new Object();
+            var element:Object = {};
             element["index"] = i;
             element["pattern"] = elementList[i]["pattern"];
             var name:String = elementList[i]["name"];

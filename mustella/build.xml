@@ -18,9 +18,13 @@
 
 -->
 <project name="mustella" default="run" basedir=".">
-    <property name="FLEX_HOME" location="${basedir}/.."/>
+
+    <!-- Load the local properties.  Need sdk.dir to load the Flex config env vars.  -->
+    <property name="local_properties" value="local.properties" />
+    <property file="${basedir}/${local_properties}" />
+    <property name="sdk.dir" value="${basedir}/.." />
     
-    <property file="${FLEX_HOME}/env.properties"/>
+    <property file="${sdk.dir}/env.properties"/>
     <property environment="env"/>
 
     <pathconvert property="mustella.dir" dirsep="/" >
@@ -48,10 +52,8 @@
     <!-- default version file -->
     <property name="build.version.file" value="successfulBuild.properties" />
     <property prefix="on_disk" file="${mustella.dir}/${build.version.file}" />
-    <property name="local_properties" value="local.properties" />
     <property name="external_properties" value="external.properties" />
 
-    <property file="${mustella.dir}/${local_properties}" />
     <property file="${mustella.dir}/${external_properties}" />
     <property file="${mustella.dir}/build.properties" />
 
@@ -63,10 +65,13 @@
     <property name="previous.generated.testfiles" value="**/*.swf,**/*.output,**/SWFs/${apollo_transform_prefix}*.mxml,**/swfs/${apollo_transform_prefix}*.mxml,**/SWFs/${apollo_transform_prefix2}*.mxml,**/swfs/${apollo_transform_prefix2}*.mxml" />
     
     <property name="sdk.mustella.dir" value="${mustella.dir}/tests" />
+    <!-- 
+        This directory doesn't exist in the source kit so make it although it would be better
+        to make sure no targets that the source kit uses expect this directory to exist.
+    -->
     <mkdir dir="${sdk.mustella.dir}" />
 
     <property name="root.dir" value="${basedir}/.."/>
-    <property name="sdk.dir" value="${basedir}/.." />
     <property name="frameworks" value="${sdk.dir}/frameworks" />
     <property file="${mustella.dir}/local.properties" />
     <property name="mustellagen.dir" value="${mustella.dir}/gen" />
@@ -136,6 +141,10 @@
 
     <property name="require_this_directory_too" value="" />
 
+    <condition property="adl_extras" value="-screensize 640x960:640x960 -profile mobileDevice -XscreenDPI 240" >
+        <istrue value="${run_mobile_tests}" />
+    </condition>
+    
     <!-- host_os_name (formerly real_os_name) is the machine which is compiling. -->
     <condition property="host_os_name" value="mac" >
         <os family="mac" />
@@ -391,11 +400,13 @@
         <echo>doing linux setup</echo>
         <property name="mxmlc.exe" value="mxmlc"/>
         <property name="compc.exe" value="compc" />
-        <property name="player.dir" value="${sdk.dir}/in/player/${player.version}/lnx" />
-        <property name="player" value="${player.dir}/flashplayer" />
         <property name="apollo_exe" value="adl" />
         <!-- kind of a guess: -->
         <property name="shell" value="/bin/bash" />
+    	
+    	<property name="player" value="${env.FLASHPLAYER_DEBUGGER}" />   
+    	
+        <!-- these values are sort of magic numbers, corresponding to db entries -->
         <property name="auto_exclude_config_value" value="10"/>
         <property name="auto_exclude_bug_id" value="unproven_linux_${fetched_date}" />
     </target>
@@ -404,18 +415,16 @@
         <echo>doing mac setup</echo>
         <property name="mxmlc.exe" value="mxmlc"/>
         <property name="compc.exe" value="compc" />
+        <property name="apollo_exe" value="adl" />
+        <property name="unzip" value="/usr/bin/unzip" />
         <property name="shell" value="/bin/sh" />
 
         <property name="player" value="${env.FLASHPLAYER_DEBUGGER}" />
+    	
         <!-- these values are sort of magic numbers, corresponding to db entries -->
         <property name="auto_exclude_config_value" value="9"/>
         <property name="auto_exclude_bug_id" value="unproven_mac_${fetched_date}"/>
         <echo>excl config val ${auto_exclude_config_value}</echo>
-        <property name="apollo_exe" value="adl" />
-        <property name="shell" value="/bin/sh" />
-        <property name="unzip" value="/usr/bin/unzip" />
-        <property name="auto_exclude_config_value" value="9"/>
-        <property name="auto_exclude_bug_id" value="unproven_mac_${fetched_date}"/>
     </target>
 
     <target name="setup_windows" if="is_win">
@@ -423,15 +432,14 @@
         <echo>homepath: ${HOMEPATH} </echo>
         <property name="mxmlc.exe" value="mxmlc.bat"/>
         <property name="compc.exe" value="compc.bat" />
+        <property name="apollo_exe" value="adl.exe" />
         <property name="shell" value="${cygwinshell}" />
+    	
         <property file="${HOMEPATH}/mm.cfg"/>
         <echo>trace output file: ${TraceOutputFileEnable} </echo>
 
         <property name="player" value="${env.FLASHPLAYER_DEBUGGER}" />
-        <property name="apollo_exe" value="adl.exe" />
-
-        <echo>apollo_exe: ${apollo_exe}</echo>
-
+    	
         <!-- these magic numbers correspond to db entries. Relevant for vetting -->
         <condition property="auto_exclude_config_value" value="1">
             <and>
@@ -879,7 +887,7 @@
             excludes="${sdk.mustella.excludes},${other.mustella.excludes}" />
 
     <target name="clean" depends="cleanswfs" description="--> cleanup old report and actual files">
-        <echo message="Deleting old results and files from previous testsuite build"/>
+        <echo message="Deleting old results and files from previous testsuite build."/>
         <delete dir="${mustellagen.dir}" quiet="true"/>
         <!-- get rid of old runid prop file, in case we don't create a new one -->
         <delete verbose="true" file="${mustella.dir}/tests/runid.properties" failonerror="false" quiet="true" />
@@ -891,6 +899,7 @@
                 <include name="*.log"/>
             </fileset>
         </delete>
+        <delete dir="${tmp.dir}"/>
     </target>
 
     <condition property="copy_adt_jar" value="true" >
@@ -909,12 +918,11 @@
     </target>
 
     <target name="cleanswfs" unless="noclean.set" description="--> deletes all swfs and tag files">
-        <delete quiet="true">
-            <fileset dir="${sdk.mustella.dir}" casesensitive="false">
+        <delete quiet="true" failonerror="false">
+            <fileset dir="${sdk.mustella.dir}" casesensitive="false" >
                 <include name="${previous.generated.testfiles}"/>
                 <include name="**/*.sh.*.log"/>
                 <include name="**/swfs/**/*.log"/>
-                <include name="**/swfs/**/*.lnk.xml"/>
                 <include name="**/swfs/**/*l*nkreport*.xml"/>
                 <include name="**/*.png.bad.png*"/>
                 <include name="**/swfs/**/*.swf"/>
@@ -1061,12 +1069,6 @@
     <!-- the default. Mini run will override this. Server runs will not -->
     <property name="result_include" value="-includes=SendFormattedResultsToLog" />
     <property name="exit_include" value="" />
-
-   <condition property="get_results_from_log" value="true" else="false" >
-		<not>
-			<isset property="${run_mobile_tests}" />
-		</not>
-    </condition>
 
     <property name="build_version" value="${server}" />
 

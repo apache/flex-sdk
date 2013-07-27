@@ -94,6 +94,14 @@
 				<SetProperty target="" propertyName="height" value="-800" waitEvent="updateComplete" waitTarget=""/>
 			</setup>
 			<body>
+				<AssertPropertyValue target="" propertyName="height" value="34" />
+			</body>
+		</TestCase>
+		<TestCase testID="Window_Property_height_negative_win" keywords="[Window,property, height]">
+			<setup>
+				<SetProperty target="" propertyName="height" value="-800" waitEvent="updateComplete" waitTarget=""/>
+			</setup>
+			<body>
 				<AssertPropertyValue target="" propertyName="height" value="38" />
 			</body>
 		</TestCase>
@@ -110,6 +118,17 @@
 			</body> 
 		</TestCase>
 		<TestCase testID="Window_Property_maxHeight_negative_mac" keywords="[Window,property, maximumHeight]">
+			<setup>
+				<SetProperty target="" propertyName="maxHeight" value="-300"/> 
+				<SetProperty target="" propertyName="height" value="375" waitTarget="" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd/>
+			</setup>  
+			<body>  
+				<AssertPropertyValue target="" propertyName="maxHeight" value="34" /> 
+				<AssertPropertyValue target="" propertyName="height" value="34" />
+			</body> 
+		</TestCase>		
+		<TestCase testID="Window_Property_maxHeight_negative_win" keywords="[Window,property, maximumHeight]">
 			<setup>
 				<SetProperty target="" propertyName="maxHeight" value="-300"/> 
 				<SetProperty target="" propertyName="height" value="375" waitTarget="" waitEvent="updateComplete"/>

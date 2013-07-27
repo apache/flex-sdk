@@ -438,12 +438,13 @@
 			<SetProperty target="tac1.ta1" propertyName="width" value="300" />
 			<SetProperty target="tac1.ta1" propertyName="height" value="200" waitEvent="updateComplete" />
 			<SetProperty target="tac1.ta1" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="tac1.ta1" waitEvent="updateComplete" />
-			<RunCode code="FlexGlobals.topLevelApplication.tac1.ta1.setFocus()" waitTarget="tac1.ta1" />
+			<RunCode code="FlexGlobals.topLevelApplication.tac1.ta1.setFocus()" waitTarget="tac1.ta1" waitEvent="focusIn"/>
 
 		</setup>
 		<body>
 			<RunCode code="FlexGlobals.topLevelApplication.tac1.ta1.selectRange(NaN,NaN)" waitTarget="tac1.ta1" />
-			<Pause timeout="10000" />
+            <WaitForLayoutManager />
+			<WaitForEvent eventName="enterFrame" />
 			<AssertPropertyValue target="tac1.ta1" propertyName="selectionAnchorPosition" value="0" />
 			<!--<AssertPropertyValue target="tac1.ta1" propertyName="selectionActivePosition" value="0" />-->
 			<CompareBitmap numColorVariances="100" ignoreMaxColorVariance="true" url="../Methods/baselines" target="tac1.ta1">

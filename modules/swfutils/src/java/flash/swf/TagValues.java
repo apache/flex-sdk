@@ -132,6 +132,7 @@ public interface TagValues
 	int stagFileAttributes			= 69;	// FileAttributes defines whole-SWF attributes
 											// (must be the FIRST tag after the SWF header)
 
+	
 	int stagPlaceObject3			= 70;	// includes optional surface filter list for object
 	int stagImportAssets2			= 71;   // import assets into this swf file using the SHA-1 digest to
 											// enable cached cross domain RSL downloads.
@@ -158,6 +159,8 @@ public interface TagValues
 	int stagDefineFont4             = 91;   // new in 10, embedded cff fonts
     // NOTE: If tag values exceed 255 we need to expand SCharacter::tagCode from a BYTE to a WORD
 
+	int stagEnableTelemetry			= 93;	// advanced telemetry
+	
 	String[] names = {
 		"End",					// 00
 		"ShowFrame",			// 01
@@ -275,6 +278,8 @@ public interface TagValues
         "89 (unknown)  ",       // 89
         "90 (unknown)  ",       // 90
         "DefineFont4",          // 91
+        "92 (unknown)",         // 92
+        "EnableTelemetry",      // 93
         "(invalid)"             // end 
     };
 }

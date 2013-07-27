@@ -22,6 +22,7 @@
 	
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
+	<property file="${FLEX_HOME}/local.properties"/>
 	<property file="${FLEX_HOME}/build.properties"/>
 
     <property name="source.dir" value="${basedir}/${tlf.version}"/>
@@ -29,6 +30,25 @@
 	<property name="output.docs" value="${FLEX_HOME}/tempDoc"/>
 	<property name="flexTasks.location" value="${FLEX_HOME}/lib/flexTasks.jar"/>
 	<property name="project.uri" value="library://ns.adobe.com/flashx/textLayout"/>
+
+    <available file="${FLEX_HOME}/../flex-tlf/textLayout" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${FLEX_HOME}/../flex-tlf" />
+
+    <available file="${FLEX_HOME}/../tlf/textLayout" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${FLEX_HOME}/../tlf" />
+
+    <available file="src" 
+            type="dir" 
+            property="src.folder.exists"/>
+
+    <available file="src" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${FLEX_HOME}/frameworks/projects" />
 
     <!-- We use abbreviated token names here as, the 'release' 
          and 'debug' tokens conflict with those specified in 
@@ -62,9 +82,9 @@
 		<attribute name="locale"/>
 		<sequential>
 			<echo message="creating 'fat-swc' in textLayout_rb.swc for @{locale}"/>
-			<mkdir dir="${source.dir}/bundles/@{locale}/docs" />
+			<mkdir dir="bundles/@{locale}/docs" />
 			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/textLayout_rb.swc" update="true">
-				<zipfileset dir="${source.dir}/bundles/@{locale}/docs" prefix="docs">
+				<zipfileset dir="bundles/@{locale}/docs" prefix="docs">
 					<include name="*.*"/>
 					<exclude name="ASDoc_Config.xml"/>
 					<exclude name="overviews.xml"/>
@@ -94,9 +114,24 @@
 	</macrodef>
 		
 				
-	<target name="main" depends="clean,compile" description="Clean build of textLayout.swc">
+	<target name="main" depends="check-tlf-home,clean,compile,compile.external" description="Clean build of textLayout.swc">
 		<bundle locale="${locale}"/>
 	</target>
+
+    <target name="check-tlf-home" unless="TLF_HOME"
+        description="Check TLF_HOME is a directory.">
+        
+        <echo message="TLF_HOME is ${env.TLF_HOME}"/>
+
+        <available file="${env.TLF_HOME}" 
+            type="dir" 
+            property="TLF_HOME"
+            value="${env.TLF_HOME}"/>
+
+        <fail message="TLF_HOME must be set correctly for a release build" 
+            unless="TLF_HOME"/>
+    	
+    </target>
 	
 	<target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
 	
@@ -115,10 +150,10 @@
 				<fat-swc locale="en_US"/>
 			</run.fat.swc>
 		</bundler>
-		<!--bundler locale="el_GR"/--><!-- Greek Language  resources -->
-		<!--bundler locale="en_AU"/--><!-- Australian resources -->
-		<!--bundler locale="en_GB"/--><!-- United Kingdom resources -->
-		<!--bundler locale="en_CA"/--><!-- Canadian resources -->
+		<bundler locale="el_GR"/><!-- Greek Language  resources -->
+		<bundler locale="en_AU"/><!-- Australian resources -->
+		<bundler locale="en_GB"/><!-- United Kingdom resources -->
+		<bundler locale="en_CA"/><!-- Canadian resources -->
 		<bundler locale="es_ES"/><!-- Spanish resources -->
 		<bundler locale="fi_FI"/><!--  Finnish resources-->
 		<bundler locale="fr_FR"><!-- French resources -->
@@ -136,7 +171,7 @@
 		<bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
 		<bundler locale="nl_NL"/><!-- Dutch resources -->
 		<bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
-		<!--bundler locale="pt_PT"/--><!-- Portugal Portuguese resources -->
+		<bundler locale="pt_PT" /><!-- Portugal Portuguese resources -->
 		<bundler locale="ru_RU"><!-- Russian resources -->
 			<run.fat.swc>
 				<fat-swc locale="ru_RU"/>
@@ -151,7 +186,7 @@
 		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
 	</target>
 	
-	<target name="clean" depends="bundles-clean" description="Deletes the combined swc">
+	<target name="clean" depends="check-tlf-home,bundles-clean,clean-external" description="Deletes the combined swc">
 		<delete failonerror="false">
 			<fileset dir="${basedir}">
 				<include name="bundles.properties"/>
@@ -173,7 +208,7 @@
 		</delete>
 	</target>
 	
-	<target name="compile" description="Compiles textLayout.swc">
+	<target name="compile" description="Compiles textLayout.swc" if="src.folder.exists">
 		<taskdef resource="flexTasks.tasks" classpath="${flexTasks.location}"/>
 		<compc fork="true" 
 		       output="${output.file}">
@@ -181,11 +216,21 @@
             <load-config filename="compile-config.xml" />
             <arg value="+playerglobal.version=${playerglobal.version}" />
             <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
-            <arg value="+source.dir=${source.dir}" />
+            <!--<arg value="+source.dir=${tlf.branch}" />-->
             <define name="CONFIG::debug" value="${dbg}"/>
 			<define name="CONFIG::release" value="${rel}"/>
         </compc>
      </target>
+
+    <target name="compile.external" description="Compile textLayout.swc in flex-tlf repo" unless="src.folder.exists">
+        <ant dir="${TLF_HOME}" target="textLayout_flex"/>
+        <copy file="${TLF_HOME}/bin/textLayout.swc" toDir="${FLEX_HOME}/frameworks/libs" />
+    </target>
+    
+    <target name="clean-external" description="clean in flex-tlf repo" unless="src.folder.exists">
+        <echo message="cleaning ${TLF_HOME}" />
+        <ant dir="${TLF_HOME}" target="clean"/>
+    </target>
 
     <target name="clean-temp-docs">
         <delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
@@ -214,13 +259,13 @@
 
         <!-- Call asdoc to generate dita xml files -->
         <asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
-            <compiler.source-path path-element="${source.dir}/src"/>
+            <compiler.source-path path-element="${TLF_HOME}/textLayout/src"/>
 			<compiler.show-actionscript-warnings>false</compiler.show-actionscript-warnings>
 			<doc-classes class="flashx.textLayout.CoreClasses"/>
 			<doc-classes class="flashx.textLayout.EditClasses"/>
 			<doc-classes class="flashx.textLayout.ConversionClasses"/>
             <doc-namespaces uri="library://ns.adobe.com/flashx/textLayout"/>
-            <namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${source.dir}/manifest.xml"/>
+            <namespace uri="library://ns.adobe.com/flashx/textLayout" manifest="${TLF_HOME}/textLayout/manifest.xml"/>
             <jvmarg line="${asdoc.jvm.args}"/>
 			<static-link-runtime-shared-libraries/>
 			<define name="CONFIG::debug" value="${dbg}"/>

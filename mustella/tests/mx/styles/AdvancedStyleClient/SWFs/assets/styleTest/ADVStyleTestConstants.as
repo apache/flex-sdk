@@ -22,31 +22,31 @@ package assets.styleTest
 	{
 		public static const pauseTime: int = 100;
 			
-		[Embed(source="../../../../../../../Assets/Images/next.JPG")]
+		[Embed(source="../../../../../../../Assets/Images/next.jpg")]
 		[Bindable]
 		public static var defaultCls_heavy:Class;
 		
-		[Embed(source="../../../../../../../Assets/Images/next.JPG")]
+		[Embed(source="../../../../../../../Assets/Images/next.jpg")]
 		[Bindable]
 		public static var defaultCls_medium:Class;
 		
-		[Embed(source="../../../../../../../Assets/Images/next.JPG")]
+		[Embed(source="../../../../../../../Assets/Images/next.jpg")]
 		[Bindable]
 		public static var defaultCls_light:Class;
 		
-		[Embed(source="../../../../../../../Assets/Images/next.JPG")]
+		[Embed(source="../../../../../../../Assets/Images/next.jpg")]
 		[Bindable]
 		public static var defaultCls:Class;
 		
-		[Embed(source="../../../../../../../Assets/Images/next.JPG")]
+		[Embed(source="../../../../../../../Assets/Images/next.jpg")]
 		[Bindable]
 		public static var imgCls:Class;
 		
-		[Embed(source="../../../../../../../Assets/Images/down.JPG")]
+		[Embed(source="../../../../../../../Assets/Images/down.jpg")]
 		[Bindable]
 		public static var img2Cls:Class;
 		
-		[Embed(source="../../../../../../../Assets/Images/up.JPG")]
+		[Embed(source="../../../../../../../Assets/Images/up.jpg")]
 		[Bindable]
 		public static var img3Cls:Class;
 		

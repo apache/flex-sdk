@@ -175,6 +175,7 @@
         <body>
            <SetStyle target="mybox.mylist" styleName="selectionColor" value="0xcc2211" />
            <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+            <WaitForEffectsToEnd/>
            <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_selectionColor_0x_spark.png"  />
          </body>
       </TestCase>
@@ -185,6 +186,7 @@
         <body>
            <SetStyle target="mybox.mylist" styleName="selectionColor" value="cyan" />
            <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+            <WaitForEffectsToEnd/>
            <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_selectionColor_string_spark.png"  />
          </body>
       </TestCase>
@@ -195,6 +197,7 @@
         <body>
           <SetStyle target="mybox.mylist" styleName="selectionColor" value="#225533" />
           <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+            <WaitForEffectsToEnd/>
           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_selectionColor_hash_spark.png"  />
          </body>
       </TestCase>
@@ -206,6 +209,7 @@
            <SetStyle target="mybox.mylist" styleName="selectionDisabledColor" value="0x002e20"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
            <SetProperty target="mybox.mylist" propertyName="enabled" value="false" />
           <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+            <WaitForEffectsToEnd/>
            <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_selectionDisabledColor_0x_spark.png"  />
          </body>
       </TestCase>
@@ -217,6 +221,7 @@
            <SetStyle target="mybox.mylist" styleName="selectionDisabledColor" value="yellow" />
             <SetProperty target="mybox.mylist" propertyName="enabled" value="false" />
            <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+            <WaitForEffectsToEnd/>
            <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_selectionDisabledColor_string_spark.png"  />
          </body>
       </TestCase>
@@ -228,6 +233,7 @@
           <SetStyle target="mybox.mylist" styleName="selectionDisabledColor" value="#125503" />
            <SetProperty target="mybox.mylist" propertyName="enabled" value="false"/>
           <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+            <WaitForEffectsToEnd/>
           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_selectionDisabledColor_hash_spark.png"  />
          </body>
       </TestCase>
@@ -268,6 +274,7 @@
         <body>
            <SetStyle target="mybox.mylist" styleName="textSelectedColor" value="0x00ff00" />
            <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+            <WaitForEffectsToEnd/>
            <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_textSelectedColor_0x_spark.png"  />
          </body>
       </TestCase>
@@ -278,6 +285,7 @@
         <body>
            <SetStyle target="mybox.mylist" styleName="textSelectedColor" value="cyan" />
            <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+            <WaitForEffectsToEnd/>
            <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_textSelectedColor_string_spark.png"  />
          </body>
       </TestCase>
@@ -288,6 +296,7 @@
         <body>
           <SetStyle target="mybox.mylist" styleName="textSelectedColor" value="#ff00ff" />
           <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+            <WaitForEffectsToEnd/>
           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_textSelectedColor_hash_spark.png"  />
          </body>
       </TestCase>

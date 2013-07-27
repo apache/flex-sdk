@@ -381,6 +381,9 @@ public final class TagDecoder
         case stagFileAttributes:
             t = decodeFileAttributes();
             break;
+        case stagEnableTelemetry:
+            t = decodeEnableTelemetry();
+            break;
         case stagDefineFontAlignZones:
             t = decodeDefineFontAlignZones();
             break;
@@ -2796,6 +2799,15 @@ public final class TagDecoder
         tag.swfRelativeUrls = r.readBit();
         tag.useNetwork = r.readBit();
         r.readUBits(24); //reserved
+        return tag;
+    }
+    
+    public Tag decodeEnableTelemetry() throws IOException
+    {
+    	EnableTelemetry tag = new EnableTelemetry();
+        r.syncBits();
+        r.readUBits(16); //reserved
+        tag.enabled = true;
         return tag;
     }
 

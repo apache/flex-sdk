@@ -81,7 +81,7 @@ public class GridSortEvent extends Event
      *       it is not always the Object listening for the event. 
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
-     *     <tr><td><code>type</code></td><td>GridSelectionEvent.SORT_CHANGE</td></tr>
+     *     <tr><td><code>type</code></td><td>GridSortEvent.SORT_CHANGE</td></tr>
      *  </table>
      *   
      *  @eventType sortChange
@@ -132,7 +132,7 @@ public class GridSortEvent extends Event
      *       it is not always the Object listening for the event. 
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
-     *     <tr><td><code>type</code></td><td>GridSelectionEvent.SORT_CHANGING</td></tr>
+     *     <tr><td><code>type</code></td><td>GridSortEvent.SORT_CHANGING</td></tr>
      *  </table>
      *   
      *  @eventType sortChanging
@@ -203,7 +203,7 @@ public class GridSortEvent extends Event
     
     /**
      *  The vector of column indices of the sorted columns.  
-     *  If <code>type</code> is <code>GridSelectionEvent.SORT_CHANGING</code> this value
+     *  If <code>type</code> is <code>GridSortEvent.SORT_CHANGING</code> this value
      *  can be modified and it will be used to update the grid's <code>columnHeaderGroup</code>
      *  <code>visibleSortIndicatorIndices</code>.
      *
@@ -224,7 +224,7 @@ public class GridSortEvent extends Event
 
     /**
      *  The array of ISortFields for this sort.
-     *  If <code>type</code> is <code>GridSelectionEvent.SORT_CHANGING</code> this value
+     *  If <code>type</code> is <code>GridSortEvent.SORT_CHANGING</code> this value
      *  can be modified and it will be used to sort the <code>dataProvider</code> of the grid.
      *
      *  @see spark.components.DataGrid#dataProvider

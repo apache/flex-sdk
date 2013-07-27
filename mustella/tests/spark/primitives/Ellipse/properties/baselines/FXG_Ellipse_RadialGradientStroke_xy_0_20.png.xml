@@ -1,0 +1,27 @@
+<DisplayList>
+  <FXG_Ellipse_Main width="800" height="700">
+    <spark.skins.spark.ApplicationSkin width="800" height="700" blendMode="auto">
+      <spark.components.Group width="800" height="700" blendMode="auto">
+        <spark.components.Group width="800" height="700" blendMode="auto">
+          <comps.EllipseBasic x="5" y="5" width="200" height="200">
+            <mx.skins.spark.ContainerBorderSkin width="200" height="200" blendMode="auto"/>
+            <spark.primitives.Graphic width="100" height="100" blendMode="auto"/>
+          </comps.EllipseBasic>
+          <spark.components.supportClasses.InvalidatingSprite width="76" height="76"/>
+          <comps.EllipseGradientStroke x="5" y="310" width="95" height="85" blendMode="auto">
+            <spark.primitives.Graphic x="5" y="5" width="85" height="75" blendMode="auto"/>
+          </comps.EllipseGradientStroke>
+          <comps.EllipseRadialGradientStroke x="420" y="375" width="75" height="85" blendMode="auto">
+            <spark.primitives.Graphic x="5" y="5" width="65" height="75" blendMode="auto"/>
+          </comps.EllipseRadialGradientStroke>
+          <spark.components.supportClasses.InvalidatingSprite matrix="(a=0.9396926164627075, b=0.3420201539993286, c=0.3420201539993286, d=0.9396926164627075, tx=100, ty=310)" x="100" y="310" width="81.6" height="87.6"/>
+          <spark.components.supportClasses.InvalidatingSprite x="500" y="500" width="61" height="71"/>
+          <spark.components.supportClasses.InvalidatingSprite matrix="(a=2, b=0, c=0, d=1.5, tx=224.95, ty=350)" x="224.95" y="350" width="122" height="106.5"/>
+          <spark.components.supportClasses.InvalidatingSprite matrix="(a=0.9396926164627075, b=0.3420201539993286, c=0.3420201539993286, d=0.9396926164627075, tx=100, ty=310)" x="100" y="310" width="81.6" height="87.6"/>
+          <spark.components.supportClasses.InvalidatingSprite x="500" y="500" width="61" height="71"/>
+          <spark.components.supportClasses.InvalidatingSprite matrix="(a=2, b=0, c=0, d=1.5, tx=224.95, ty=350)" x="224.95" y="350" width="122" height="106.5"/>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </FXG_Ellipse_Main>
+</DisplayList>

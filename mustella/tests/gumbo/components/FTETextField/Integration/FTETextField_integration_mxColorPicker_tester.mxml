@@ -45,7 +45,7 @@
 			<setup>
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -61,7 +61,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetProperty target="can2.clrPkr" propertyName="enabled" value="false" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -82,7 +82,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="color" value="red" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -99,7 +99,7 @@
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetProperty target="can2.clrPkr" propertyName="width" value="100" waitTarget="can2.clrPkr" waitEvent="resize" />
 				<SetStyle target="can2.clrPkr" styleName="color" value="red" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -116,7 +116,7 @@
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetProperty target="can2.clrPkr" propertyName="enabled" value="false" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
 				<SetStyle target="can2.clrPkr" styleName="disabledColor" value="green" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -132,7 +132,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="fontStyle" value="italic" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -148,7 +148,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="fontSize" value="18" waitTarget="can2.clrPkr" waitEvent="enterFrame" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -164,7 +164,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="fontWeight" value="bold" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -181,7 +181,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="kerning" value="true" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -197,7 +197,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="kerning" value="false" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -214,7 +214,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="leading" value="20" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -230,7 +230,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="letterSpacing" value="10" waitTarget="can2.clrPkr" waitEvent="enterFrame" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -246,7 +246,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="textAlign" value="left" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -263,7 +263,7 @@
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="textAlign" value="left" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
 				<SetStyle target="can2.clrPkr" styleName="textAlign" value="center" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -279,7 +279,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="textAlign" value="right" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2.clrPkr.mx_internal:dropdown"/>
@@ -295,7 +295,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="textAlign" value="start" waitTarget="can2.clrPkr" waitEvent="enterFrame" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<AssertStyleValue target="can2.clrPkr" styleName="textAlign" value="start" />
@@ -313,7 +313,7 @@
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="textAlign" value="start" waitTarget="can2.clrPkr" waitEvent="enterFrame" />
 				<SetStyle target="can2.clrPkr" styleName="direction" value="rtl" waitTarget="can2.clrPkr" waitEvent="enterFrame" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<AssertStyleValue target="can2.clrPkr" styleName="textAlign" value="start" />
@@ -330,7 +330,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="textAlign" value="end" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<AssertStyleValue target="can2.clrPkr" styleName="textAlign" value="end" />
@@ -348,7 +348,7 @@
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="textAlign" value="end" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
 				<SetStyle target="can2.clrPkr" styleName="direction" value="rtl" waitTarget="can2.clrPkr" waitEvent="updateComplete" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<AssertStyleValue target="can2.clrPkr" styleName="textAlign" value="end" />
@@ -365,7 +365,7 @@
 				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
 				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.clrPkrView" waitTarget="can2" waitEvent="change" />
 				<SetStyle target="can2.clrPkr" styleName="textIndent" value="20" waitTarget="can2.clrPkr" waitEvent="enterFrame" />
-				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="can2.clrPkr" waitEvent="open" />
+				<RunCode code="FlexGlobals.topLevelApplication.can2.clrPkr.open()" waitTarget="root" waitEvent="focusIn" />
 			</setup>
 			<body>
 				<AssertStyleValue target="can2.clrPkr" styleName="textIndent" value="20" />

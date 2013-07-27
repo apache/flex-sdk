@@ -26,6 +26,7 @@
             <path-element>../../libs/framework.swc</path-element>
             <path-element>../../libs/mx/mx.swc</path-element>
             <path-element>../../libs/spark.swc</path-element>
+            <path-element>../../libs/osmf.swc</path-element>
             <path-element>../../libs/textLayout.swc</path-element>
             <path-element>../../libs/rpc.swc</path-element>
             <path-element>../../libs/automation/automation.swc</path-element>

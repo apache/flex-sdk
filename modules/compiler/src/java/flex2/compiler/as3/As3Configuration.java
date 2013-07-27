@@ -160,5 +160,7 @@ public interface As3Configuration
 
 	public boolean warn_xml_class_has_changed();
 
-    public boolean keepEmbedMetadata();
+	public boolean keepEmbedMetadata();
+	
+	public boolean getAdvancedTelemetry();
 }

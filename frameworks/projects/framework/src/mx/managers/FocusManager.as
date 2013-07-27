@@ -392,12 +392,12 @@ public class FocusManager extends EventDispatcher implements IFocusManager
             
             if (defButton != _lastFocus || _lastFocus == _defaultButton)
             {
-            defButton = button;
+            	defButton = button;
             
-            if (button)
-                button.emphasized = true;
-        }
-    }
+           		if (button)
+                	button.emphasized = true;
+        	}
+    	}
     }
 
     //----------------------------------
@@ -668,15 +668,15 @@ public class FocusManager extends EventDispatcher implements IFocusManager
             if (_lastFocus is IButton && !(_lastFocus is IToggleButton))
 			{
                 defButton = _lastFocus as IButton;
-				}
+			}
 			else
 			{
 				// restore the default button to be the original one
 				if (defButton && defButton != _defaultButton)
 					defButton = _defaultButton;
-				}
 			}
 		}
+	}
 
     /**
      *  @private  Useful for debugging
@@ -2098,10 +2098,10 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 	    		return;
             
         if (defaultButtonEnabled && event.keyCode == Keyboard.ENTER &&
-            defaultButton && defButton.enabled)
+			defButton && defButton.enabled)
         {
             sendDefaultButtonEvent();
-    }
+    	}
     }
 
     /**

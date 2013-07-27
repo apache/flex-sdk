@@ -2009,7 +2009,19 @@ public class Configuration implements LinkerConfiguration, Cloneable
                                                                  cv.getSource(),
                                                                  cv.getLine() );
     }
+    
+    public void setAdvancedTelemetry(boolean enableTelemetry)
+    {
+    	compilerConfiguration.setAdvancedTelemetry(enableTelemetry);
+    }
 
+
+ 	public boolean getAdvancedTelemetry()
+	{
+		return compilerConfiguration.getAdvancedTelemetry();
+	}
+
+ 	
  	@Override
  	public Configuration clone()
  	    throws CloneNotSupportedException

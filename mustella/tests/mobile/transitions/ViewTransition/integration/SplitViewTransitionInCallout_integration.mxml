@@ -985,5 +985,11 @@
                  <AssertPropertyValue target="svn.snav1.actionBar" propertyName="title" value="Pause + Seek" />
              </body>
          </TestCase>
+		 <TestCase testID="SplitViewNavTransitionInCallout_denoument" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+			 <setup>
+				 <ResetComponent target="svn" className="comps.TestNav" waitEvent="updateComplete" />
+				 <!-- do one final reset here to clean up so subsequent scripts from another mxml file don't fail -->
+			 </setup>
+		 </TestCase>
 	 </testCases>
  </UnitTester>

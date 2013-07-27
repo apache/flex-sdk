@@ -759,7 +759,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      *  
      *  @private
      */
-    private var resizeGraphic:IFlexDisplayObject; //
+    private var resizeGraphic:IFlexDisplayObject;
 
     /**
      *  @private
@@ -1962,7 +1962,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         var o:EdgeMetrics = viewMetrics;
 
-        var n:int = columns.length;
+        var n:int = _columns.length;
         if (n == 0)
         {
             measuredWidth = DEFAULT_MEASURED_WIDTH;
@@ -1974,11 +1974,11 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         var columnMinWidths:Number = 0;
         for (var i:int = 0; i < n; i++)
         {
-            if (columns[i].visible)
+            if (_columns[i].visible)
             {
-                columnWidths += columns[i].preferredWidth;
+                columnWidths += _columns[i].preferredWidth;
                 if (isNaN(_minColumnWidth))
-                    columnMinWidths += columns[i].minWidth;
+                    columnMinWidths += _columns[i].minWidth;
             }
         }
 
@@ -2244,7 +2244,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         else if (shiftKey && code == Keyboard.PAGE_DOWN)
         {
             // We don't want to exceed the max scroll value or the last column's index
-            maxPosition = Math.min(maxHorizontalScrollPosition, columns.length-1);
+            maxPosition = Math.min(maxHorizontalScrollPosition, _columns.length-1);
             newHorizontalScrollPosition = Math.min(
                 horizontalScrollPosition + (visibleColumns.length - lockedColumnCount)
                 , maxPosition);
@@ -2333,10 +2333,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             // no need to call it everytime columnsInvalid becomes true
             if(columnsChanged && !headerInfoInitialized)
             {
-                headerInfoInitialized = true;
                 headerInfos = initializeHeaderInfo(columns);
-                headerInfoInitialized = false;
-                columnsChanged = false;
+                headerInfoInitialized = true;
             }
 
             columnsChanged = false;
@@ -2367,11 +2365,11 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     {
         var w:Number = 0;
 
-        var n:int = columns ? columns.length : 0;
+        var n:int = _columns ? _columns.length : 0;
         for (var i:int = 0; i < n; i++)
         {
-            if (columns[i].visible)
-                w += columns[i].width;
+            if (_columns[i].visible)
+                w += _columns[i].width;
         }
 
         return w;
@@ -2393,7 +2391,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         var item:IListItemRenderer;
         var c:AdvancedDataGridColumn;
 
-        var n:int = columns.length;
+        var n:int = _columns.length;
         var i:int;
         var j:int = 0;
 
@@ -2409,12 +2407,12 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         for (i = 0; i < n; i++)
         {
             // skip any columns that are visible
-            if (skipVisible && j < visibleColumns.length && visibleColumns[j].colNum == columns[i].colNum)
+            if (skipVisible && j < visibleColumns.length && visibleColumns[j].colNum == _columns[i].colNum)
             {
                 j++;
                 continue;
             }
-            c = columns[i];
+            c = _columns[i];
 
             if (!c.visible)
                 continue;
@@ -2874,8 +2872,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     
     /**
      *  @private
+	 * 
+	 * Note columns may not of been committed at this point.
      */
-    protected function initializeHeaderInfo(a:Array):Array
+    protected function initializeHeaderInfo(columns:Array):Array
     {
         var newArray:Array = [];
         var n:int = columns.length;
@@ -2948,7 +2948,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      */
     mx_internal function measureHeightOfItemsUptoMaxHeight(index:int = -1, count:int = 0, maxHeight:Number = -1):Number
     {
-        if (!columns.length)
+        if (!_columns.length)
             return rowHeight * count;
 
         var h:Number = 0;
@@ -3014,10 +3014,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             {
                 data = (lockedCount > 0) ? collectionIterator.current : iterator.current;
                 ch = 0;
-                n = columns.length;
+                n = _columns.length;
                 for (j = 0; j < n; j++)
                 {
-                    c = columns[j];
+                    c = _columns[j];
 
                     if (!c.visible)
                         continue;
@@ -3085,7 +3085,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      */
     protected function calculateHeaderHeight():Number
     {
-        if (!columns.length)
+        if (!_columns.length)
             return rowHeight;
 
         var item:IListItemRenderer;
@@ -3104,7 +3104,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         if (headerVisible)
         {
             ch = 0;
-            n = columns.length;
+            n = _columns.length;
 
             if (_headerWordWrapPresent)
             {
@@ -3114,7 +3114,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
             for (j = 0; j < n; j++)
             {
-                c = columns[j];
+                c = _columns[j];
 
                 if (!c.visible)
                     continue;
@@ -3264,10 +3264,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             {
                 data = iterator.current;
                 ch = 0;
-                n = columns.length;
+                n = _columns.length;
                 for (j = 0; j < n; j++)
                 {
-                    c = columns[j];
+                    c = _columns[j];
 
                     if (!c.visible)
                         continue;
@@ -3441,7 +3441,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     private function generateColumnsPendingResultHandler(data:Object, info:ListBaseSeekPending):void
     {
         // generate cols if we haven't successfully generated them
-        if (columns.length == 0)
+        if (_columns.length == 0)
             generateCols();
         seekPendingResultHandler(data, info);
     }
@@ -3489,7 +3489,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         var col:AdvancedDataGridColumn;
         var cw:Number;
 
-        if (columns.length == 0)
+        if (_columns.length == 0)
         {
             visibleColumns = [];
             return;
@@ -3504,10 +3504,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
             if (minColumnWidthInvalid)
             {
-                n = columns.length;
+                n = _columns.length;
                 for (i = 0; i < n; i++)
                 {
-                    columns[i].minWidth = minColumnWidth;
+                    _columns[i].minWidth = minColumnWidth;
                 }
                 minColumnWidthInvalid = false;
             }
@@ -3749,22 +3749,22 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         // that someone can set width in AS
         if (!visibleColumns || visibleColumns.length == 0)
         {
-            columns[col].setWidth(w);
-            columns[col].preferredWidth = w;
+            _columns[col].setWidth(w);
+            _columns[col].preferredWidth = w;
             return;
         }
 
-        if (w < columns[col].minWidth)
-            w = columns[col].minWidth;
+        if (w < _columns[col].minWidth)
+            w = _columns[col].minWidth;
 
         // hScrollBar is present
         if (_horizontalScrollPolicy == ScrollPolicy.ON ||
             _horizontalScrollPolicy == ScrollPolicy.AUTO)
         {
             // adjust the column's width
-            columns[col].setWidth(w);
-            columns[col].explicitWidth = w;
-            columns[col].preferredWidth = w;
+            _columns[col].setWidth(w);
+            _columns[col].explicitWidth = w;
+            _columns[col].preferredWidth = w;
             columnsInvalid = true;
         }
         else
@@ -5390,7 +5390,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 				deferFocus();
 				
 				// must call removeChild() so FocusManager.lastFocus becomes null
-                itemEditorInstance.parent.removeChild(DisplayObject(itemEditorInstance));
+				if (itemEditorInstance)
+               		itemEditorInstance.parent.removeChild(DisplayObject(itemEditorInstance));
 
                 // we are not setting the item renderer's visibility to false while creating an editor,
                 // then why set its visibility to true
@@ -5591,8 +5592,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                     var lockedWidth:Number = 0;
                     if(lockedColumnCount > 0)
                     {
-                        var lastLockedInfo:AdvancedDataGridHeaderInfo = getHeaderInfo(columns[lockedColumnCount-1]);
-                        lockedWidth = lastLockedInfo.headerItem.x + columns[lockedColumnCount - 1].width;
+                        var lastLockedInfo:AdvancedDataGridHeaderInfo = getHeaderInfo(_columns[lockedColumnCount-1]);
+                        lockedWidth = lastLockedInfo.headerItem.x + _columns[lockedColumnCount - 1].width;
                     }
                     else
                         lockedWidth = 0;
@@ -6064,7 +6065,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                                     columnNumber:int,
                                     collection:ICollectionView):void
     {
-        var column:AdvancedDataGridColumn = columns[columnNumber];
+        var column:AdvancedDataGridColumn = _columns[columnNumber];
 
         if (!column.sortable)
             return;
@@ -6135,7 +6136,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                                     columnNumber:int,
                                     collection:ICollectionView):void
     {
-        var column:AdvancedDataGridColumn = columns[columnNumber];
+        var column:AdvancedDataGridColumn = _columns[columnNumber];
 
         if (!collection || !collection.sort || !collection.sort.fields
                 || !collection.sort.fields.length)
@@ -6170,7 +6171,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     {
         if (collection.sort)
         {
-            var column:AdvancedDataGridColumn = columns[columnNumber];
+            var column:AdvancedDataGridColumn = _columns[columnNumber];
             
             collection.sort.fields[findSortField(columnName)]["descending"]
                 = ! collection.sort.fields[findSortField(columnName)]["descending"];
@@ -6192,10 +6193,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     
     /**
      *  A helper method to determine which item renderer is under the mouse.
-     *  
-     *  @private
      */    
-    private function findRenderer(pt:Point,items:Array,info:Array,yy:Number = 0):IListItemRenderer
+    protected function findRenderer(pt:Point,items:Array,info:Array,yy:Number = 0):IListItemRenderer
     {
         var r:IListItemRenderer;
         var ww:Number = 0;
@@ -6216,7 +6215,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                     }
 
                     ww = 0;
-                    for (var j:int = 0; j < m; j++)
+                    for (var j:int = horizontalScrollPosition; j < m; j++)
                     {
                         ww += optimumColumns[j].width;
                         if (pt.x < ww)
@@ -6238,10 +6237,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
     /**
      *  A helper method to determine which item renderer is under the mouse.
-     *  
-     *  @private
      */    
-    private function findHeaderRenderer(pt:Point):IListItemRenderer
+    protected function findHeaderRenderer(pt:Point):IListItemRenderer
     {
         var r:IListItemRenderer;
         var yy:Number = 0;
@@ -6323,7 +6320,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 			var obj:Object = itemRenderer;
             if (isNaN(explicitRowHeight))
             {
-                if (iterator && columns.length > 0)
+                if (iterator && _columns.length > 0)
                 {
                     if (!measuringObjects)
                         measuringObjects = new Dictionary(false);
@@ -6340,10 +6337,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                     var item:IListItemRenderer;
                     var c:AdvancedDataGridColumn;
                     var ch:Number = 0;
-                    var n:int = columns.length;
+                    var n:int = _columns.length;
                     for (var i:int = 0; i < n; i++)
                     {
-                        c = columns[i];
+                        c = _columns[i];
 
                         if (!c.visible)
                             continue;
@@ -6391,7 +6388,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             if (columnIndex == -1)
                 columnIndex = visibleColumns[0].colNum;
 
-            selectedHeaderInfo = getHeaderInfo(columns[columnIndex]);
+            selectedHeaderInfo = getHeaderInfo(_columns[columnIndex]);
             headerIndex = columnIndex;
             selectColumnHeader(headerIndex);
         }
@@ -6546,7 +6543,14 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      */
     protected function displayToAbsoluteColumnIndex(columnIndex:int):int
     {
-        return displayableColumns[columnIndex].colNum;
+		var noColumns:int = displayableColumns.length;
+		
+		if (columnIndex >= 0 && columnIndex < noColumns) {
+			return displayableColumns[columnIndex].colNum;
+		}
+		else {
+			return -1;
+		}
     }
 
     /**
@@ -6687,7 +6691,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             }
 
             var newAbsoluteColumnIndex:int = displayToAbsoluteColumnIndex(newDisplayColumnIndex);
-            if (newAbsoluteColumnIndex < 0 || newAbsoluteColumnIndex > columns.length-1)
+            if (newAbsoluteColumnIndex < 0 || newAbsoluteColumnIndex > _columns.length-1)
                 return -1;
 
             if (scroll)
@@ -7009,8 +7013,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                                 var lockedWidth:Number = 0;
                                 if(lockedColumnCount > 0)
                                 {
-                                    var lastLockedInfo:AdvancedDataGridHeaderInfo = getHeaderInfo(columns[lockedColumnCount-1]);
-                                    lockedWidth = lastLockedInfo.headerItem.x + columns[lockedColumnCount - 1].width;
+                                    var lastLockedInfo:AdvancedDataGridHeaderInfo = getHeaderInfo(_columns[lockedColumnCount-1]);
+                                    lockedWidth = lastLockedInfo.headerItem.x + _columns[lockedColumnCount - 1].width;
                                 }
                                 else
                                     lockedWidth = 0;
@@ -7150,8 +7154,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                                 var lockedWidth:Number = 0;
                                 if(lockedColumnCount > 0)
                                 {
-                                    var lastLockedInfo:AdvancedDataGridHeaderInfo = getHeaderInfo(columns[lockedColumnCount-1]);
-                                    lockedWidth = lastLockedInfo.headerItem.x + columns[lockedColumnCount - 1].width;
+                                    var lastLockedInfo:AdvancedDataGridHeaderInfo = getHeaderInfo(_columns[lockedColumnCount-1]);
+                                    lockedWidth = lastLockedInfo.headerItem.x + _columns[lockedColumnCount - 1].width;
                                 }
                                 else
                                 {
@@ -7275,7 +7279,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             n = orderedHeadersList.length;
             for (i = 0; i < n; i++)
             {
-                if (r == orderedHeadersList[i].headerItem && r)
+                if (r && r == orderedHeadersList[i].headerItem)
                 {
                     var c:AdvancedDataGridColumn = orderedHeadersList[i].column;
                     if (sortableColumns && c.sortable && lastItemDown == r)
@@ -7529,7 +7533,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         if (isKeyPressed && headerIndex != -1)
         {
             isKeyPressed = false;
-            selectedHeaderInfo = getHeaderInfo(columns[headerIndex]);
+            selectedHeaderInfo = getHeaderInfo(_columns[headerIndex]);
             selectColumnHeader(headerIndex);
         }
     }
@@ -7594,11 +7598,20 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             return;
 
         var target:DisplayObject = DisplayObject(event.target);
-        var index:int = target.parent.getChildIndex(target);
-        var optimumColumns:Array = getOptimumColumns();
-        if (!optimumColumns[index].resizable)
+		var parent:DisplayObjectContainer = target.parent;
+		if (!parent)
+			return;
+		var index:int = parent.getChildIndex(target);
+		var optimumColumns:Array = getOptimumColumns();
+		if (index < 0 || index >= optimumColumns.length)
+			return;
+		if (!optimumColumns[index] || !optimumColumns[index].resizable)
             return;
-        cursorManager.removeCursor(resizeCursorID);
+		
+		if (resizeCursorID != CursorManager.NO_CURSOR) {
+			cursorManager.removeCursor(resizeCursorID);
+			resizeCursorID =  CursorManager.NO_CURSOR;
+		}
     }
 
     /**
@@ -7611,16 +7624,21 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             return;
 
         var target:DisplayObject = DisplayObject(event.target);
-        var index:int = target.parent.getChildIndex(target);
+		var parent:DisplayObjectContainer = target.parent;
+		if (!parent)
+			return;
+        var index:int = parent.getChildIndex(target);
         
-        //If the separator is not in locked region, column index need to be adjusted
-        if(lockedColumnCount > 0 &&
-           target.parent == UIComponent(getLines().getChildByName("header")))
+        // If the separator is not in locked region, column index need to be adjusted
+        if (lockedColumnCount > 0 &&
+           parent == UIComponent(getLines().getChildByName("header")))
             index += (lockedColumnCount - 1);
 
         var optimumColumns:Array = getOptimumColumns();
-        if (!optimumColumns[index].resizable)
-            return;
+		if (index < 0 || index >= optimumColumns.length)
+			return;
+		if (!optimumColumns[index] || !optimumColumns[index].resizable)
+			return;
 
         if (itemEditorInstance)
             endEdit(AdvancedDataGridEventReason.OTHER);
@@ -7707,7 +7725,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         // TODO - we should substract the resized column separatos's width 
         var maxWidth:Number = unscaledWidth - separatorWidth - vsw ;
         var index:int;
-        if(getOptimumColumns() == visibleColumns)
+        if (getOptimumColumns() == visibleColumns)
             index = absoluteToVisibleColumnIndex(resizingColumn.colNum);
         else
             index = absoluteToDisplayColumnIndex(resizingColumn.colNum);
@@ -7734,7 +7752,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         listContent.removeChild(DisplayObject(resizeGraphic));
 
-        cursorManager.removeCursor(resizeCursorID);
+		if (resizeCursorID != CursorManager.NO_CURSOR) {
+			cursorManager.removeCursor(resizeCursorID);
+			resizeCursorID =  CursorManager.NO_CURSOR;
+		}
 
         var c:AdvancedDataGridColumn = resizingColumn;
         resizingColumn = null;
@@ -7818,7 +7839,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         else if (event.charCode == Keyboard.ENTER && event.keyCode != 229)
         {
             // multiline editors can take the enter key.
-            if (columns[_editedItemPosition.columnIndex].editorUsesEnterKey)
+            if (_columns[_editedItemPosition.columnIndex].editorUsesEnterKey)
                 return;
 
             // Enter edits the item, moves down a row
@@ -7926,7 +7947,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             // if rendererIsEditor, don't apply the data as the data may have already changed in some way.
             // This can happen if clicking on a checkbox rendererIsEditor as the checkbox will try to change
             // its value as we try to stuff in an old value here.
-            if (!columns[event.columnIndex].rendererIsEditor)
+            if (!_columns[event.columnIndex].rendererIsEditor)
                 itemEditorInstance.data = editedItemRenderer.data;
 
             if (itemEditorInstance is IInvalidating)
@@ -7934,7 +7955,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
             if (itemEditorInstance is IIMESupport)
                 IIMESupport(itemEditorInstance).imeMode =
-                    (columns[event.columnIndex].imeMode == null) ? _imeMode : columns[event.columnIndex].imeMode;
+                    (_columns[event.columnIndex].imeMode == null) ? _imeMode : _columns[event.columnIndex].imeMode;
 
             var fm:IFocusManager = focusManager;
             // trace("setting focus to item editor");
@@ -8049,7 +8070,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         if (event.reason == AdvancedDataGridEventReason.OTHER || !event.isDefaultPrevented())
         {
-            destroyItemEditor();
+			if (_editedItemPosition
+				&& event.rowIndex == _editedItemPosition.rowIndex
+				&& event.columnIndex == _editedItemPosition.columnIndex)
+            	destroyItemEditor();
         }
     }
 
@@ -8093,12 +8117,12 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         var sortFields:Array;
         var sort:ISort;
 
-        if (!sortableColumns || !columns[columnNumber].sortable)
+        if (!sortableColumns || !_columns[columnNumber].sortable)
             return;
 
         //In case there is no dataField we will use the unique column uid to identify if the column is sorted
         if (columnName == null)
-            columnName = itemToUID(columns[columnNumber]);
+            columnName = itemToUID(_columns[columnNumber]);
 
         // If normal click for single column sort
         // or
@@ -8160,7 +8184,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         // to that column header.
         if (headerIndex != -1)
         {
-            selectedHeaderInfo = getHeaderInfo(columns[event.columnIndex]);
+            selectedHeaderInfo = getHeaderInfo(_columns[event.columnIndex]);
             headerIndex = event.columnIndex;
             selectColumnHeader(headerIndex);
         }
@@ -8209,7 +8233,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             {
                 unselectColumnHeader(headerIndex);
                 
-                selectedHeaderInfo = getHeaderInfo(columns[newColumnIndex]);
+                selectedHeaderInfo = getHeaderInfo(_columns[newColumnIndex]);
                 headerIndex = newColumnIndex;
                 selectColumnHeader(headerIndex);
             }
@@ -8220,24 +8244,24 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             if (newColumnIndex != -1)
             {
                 unselectColumnHeader(headerIndex);
-                selectedHeaderInfo = getHeaderInfo(columns[newColumnIndex]);
+                selectedHeaderInfo = getHeaderInfo(_columns[newColumnIndex]);
                 headerIndex = newColumnIndex;
                 selectColumnHeader(headerIndex);
             }
         }
         else if (keyCode == Keyboard.SPACE)
         {
-            if (sortableColumns && columns[headerIndex].sortable)
+            if (sortableColumns && _columns[headerIndex].sortable)
             {
                 isKeyPressed = true;
-                selectedHeaderInfo = getHeaderInfo(columns[headerIndex]);
+                selectedHeaderInfo = getHeaderInfo(_columns[headerIndex]);
                 selectColumnHeader(headerIndex);
     
                 var advancedDataGridEvent:AdvancedDataGridEvent =
                     new AdvancedDataGridEvent(AdvancedDataGridEvent.SORT, false, true);
     
                 advancedDataGridEvent.columnIndex     = headerIndex;
-                advancedDataGridEvent.dataField       = columns[headerIndex].dataField;
+                advancedDataGridEvent.dataField       = _columns[headerIndex].dataField;
                 advancedDataGridEvent.multiColumnSort      = event.ctrlKey;
                 advancedDataGridEvent.removeColumnFromSort = event.shiftKey;
     

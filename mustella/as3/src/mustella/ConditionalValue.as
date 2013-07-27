@@ -52,7 +52,7 @@ package
 		public var targetOS:String = null;
 
 		// General, "marketing number" pixel density
-		[Inspectable(enumeration="160,240,320")]
+		[Inspectable(enumeration="160,240,320,480")]
 		public var deviceDensity:Number = -1;
 
 		// Exact pixel density reported by AIR's Capabilities.screenDPI

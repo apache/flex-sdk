@@ -29,24 +29,39 @@ import flash.utils.getTimer;
 import mx.collections.ArrayList;
 import mx.collections.IList;
 import mx.core.IFactory;
+import mx.core.IVisualElement;
+import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
+import mx.graphics.SolidColorStroke;
 import mx.utils.ObjectUtil;
 
+import spark.collections.SubListView;
 import spark.components.gridClasses.CellPosition;
+import spark.components.gridClasses.GridDoubleClickMode;
 import spark.components.gridClasses.GridColumn;
 import spark.components.gridClasses.GridDimensions;
+import spark.components.gridClasses.GridDimensionsView;
 import spark.components.gridClasses.GridLayout;
 import spark.components.gridClasses.GridSelection;
 import spark.components.gridClasses.GridSelectionMode;
+import spark.components.gridClasses.GridView;
+import spark.components.gridClasses.GridViewLayout;
 import spark.components.gridClasses.IDataGridElement;
 import spark.components.gridClasses.IGridItemRenderer;
+import spark.components.supportClasses.GroupBase;
+import spark.components.supportClasses.IDataProviderEnhance;
+import spark.components.supportClasses.RegExPatterns;
 import spark.events.GridCaretEvent;
 import spark.events.GridEvent;
+import spark.layouts.VerticalLayout;
+import spark.layouts.supportClasses.LayoutBase;
+import spark.primitives.Line;
+import spark.primitives.Rect;
 import spark.utils.MouseEventUtil;
 
 use namespace mx_internal;
@@ -177,6 +192,9 @@ use namespace mx_internal;
  *  with the value of the data provider item for that row.
  *  Item renderers are created as needed and then, to keep creation
  *  overhead to a minimum, pooled and recycled.</p>
+ *
+ *  <p>The Grid control supports a doubleClick event, according the <code>doubleClickMode</code>
+ *  property.</p>
  * 
  *  <p>The Grid control supports selection, according the <code>selectionMode</code>
  *  property.  The set of selected row or cell indices can be modified or
@@ -194,7 +212,7 @@ use namespace mx_internal;
  *  <p>The Grid control supports smooth scrolling.  
  *  Their vertical and horizontal scroll positions define the pixel origin 
  *  of the visible part of the grid and the grid's layout only displays 
- *  as many cell item renderers as are needed to fill the available space.  </p>
+ *  as many cell item renderers as are needed to fill the available space.</p>
  *
  *  <p>The Grid control supports variable height rows that automatically compute 
  *  their height based on the item renderers' contents.  
@@ -226,10 +244,10 @@ use namespace mx_internal;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class Grid extends Group implements IDataGridElement
+public class Grid extends Group implements IDataGridElement, IDataProviderEnhance
 {
     include "../core/Version.as";
-    
+	
     //--------------------------------------------------------------------------
     //
     //  Variables
@@ -288,6 +306,7 @@ public class Grid extends Group implements IDataGridElement
     public function Grid()
     {
         super();
+        
         layout = new GridLayout();
         
         MouseEventUtil.addDownDragUpListeners(this, 
@@ -302,11 +321,29 @@ public class Grid extends Group implements IDataGridElement
     
     /**
      *  @private
+     *  Return the GridView which contains the specified cell.   If rowIndex == -1,
+     *  then return the topmost GridView that contains the specified column and 
+     *  if columnIndex == -1 then return the leftmost GridView that contains the specified row. 
      */
-    private function get gridLayout():GridLayout
+    private function getGridViewAt(rowIndex:int, columnIndex:int):GridView
     {
-        return layout as GridLayout;
+        if ((rowIndex < 0) && (columnIndex < 0))
+            return null;
+		
+		const gridLayout:GridLayout = layout as GridLayout;
+        
+        if ((rowIndex >= lockedRowCount) || (rowIndex == -1))
+        {
+            if ((columnIndex >= lockedColumnCount) || (columnIndex == -1))
+                return gridLayout.centerGridView;
+            
+            return gridLayout.leftGridView;
+        }
+        
+        return (columnIndex < lockedColumnCount) ? gridLayout.topLeftGridView : gridLayout.topGridView;
     }
+    
+    
     
     //--------------------------------------------------------------------------
     //
@@ -386,7 +423,7 @@ public class Grid extends Group implements IDataGridElement
             return;
         }
         
-        _anchorColumnIndex = value;
+		_anchorColumnIndex = value;
         
         anchorChanged = true;
         invalidateProperties();
@@ -461,7 +498,7 @@ public class Grid extends Group implements IDataGridElement
      *  If <code>selectionMode</code> is
      *  <code>GridSelectionMode.SINGLE_CELL</code> or
      *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, the
-     *  visual element displayted for the caret cell.
+     *  visual element displayed for the caret cell.
      *  
      *  @default null
      * 
@@ -597,6 +634,232 @@ public class Grid extends Group implements IDataGridElement
         // caretRowIndex even when the caretIndicator doesn't exist.
         invalidateDisplayListFor("caretIndicator");         
         dispatchChangeEvent("caretRowIndexChanged");
+    }
+	
+    //----------------------------------
+    //  clipAndEnableScrolling (private override)
+    //----------------------------------
+
+    private var _clipAndEnableScrolling:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    override public function get clipAndEnableScrolling():Boolean 
+    {
+        return _clipAndEnableScrolling;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set clipAndEnableScrolling(value:Boolean):void 
+    {
+        if (value == _clipAndEnableScrolling)
+            return;
+        
+        _clipAndEnableScrolling = value;
+		
+		const gridLayout:GridLayout = layout as GridLayout;
+		const topGridView:GridView = gridLayout.topGridView;        
+		const leftGridView:GridView = gridLayout.leftGridView;
+		const centerGridView:GridView = gridLayout.centerGridView;		
+        
+        if (topGridView) topGridView.clipAndEnableScrolling = value;
+        if (leftGridView) leftGridView.clipAndEnableScrolling = value;
+        if (centerGridView) centerGridView.clipAndEnableScrolling = value;
+    }
+        
+    
+    //----------------------------------
+    //  contentHeight (private get override)
+    //---------------------------------- 
+    
+    /**
+     *  @private
+     */
+    override public function get contentHeight():Number 
+    {
+        return Math.ceil(gridDimensions.getContentHeight());
+    }
+    
+    //----------------------------------
+    //  contentWidth (private get override)
+    //---------------------------------- 
+    
+    /**
+     *  @private
+     */    
+    override public function get contentWidth():Number 
+    {
+        return Math.ceil(gridDimensions.getContentWidth());
+    }
+    
+    //----------------------------------
+    //  horizontalScrollPosition (private override)
+    //----------------------------------
+    
+    private var _horizontalScrollPosition:Number = 0;
+    
+    [Bindable]
+    [Inspectable(minValue="0.0")] 
+    
+    /**
+     *  @copy spark.core.IViewport#horizontalScrollPosition
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function get horizontalScrollPosition():Number 
+    {
+        return _horizontalScrollPosition;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set horizontalScrollPosition(value:Number):void 
+    {
+        if (_horizontalScrollPosition == value)
+            return;
+                
+		const gridLayout:GridLayout = layout as GridLayout;
+		const topGridView:GridView = gridLayout.topGridView;        
+		const centerGridView:GridView = gridLayout.centerGridView;	
+		
+        if (centerGridView)
+        {
+            const gridViewLayout:GridViewLayout = centerGridView.gridViewLayout;
+            const gridMaxHSP:Number = contentWidth - width;
+            const centerContentWidth:Number = Math.ceil(gridViewLayout.gridDimensionsView.getContentWidth());
+            const centerMaxHSP:Number = centerContentWidth - centerGridView.width;
+            const hsp:Number = (centerMaxHSP / gridMaxHSP) * value;
+
+            centerGridView.horizontalScrollPosition = hsp;
+            
+            if (topGridView)
+                topGridView.horizontalScrollPosition = hsp;
+        }
+                
+        _horizontalScrollPosition = value;
+    }
+
+
+    //----------------------------------
+    //  isFirstRow
+    //----------------------------------
+
+    /**
+    *  Returns if the selectedIndex is equal to the first row.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function get isFirstRow():Boolean
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            if (selectedIndex == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false
+        }
+    }
+
+
+    //----------------------------------
+    //  isLastRow
+    //----------------------------------
+
+    /**
+    *  Returns if the selectedIndex is equal to the last row.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function get isLastRow():Boolean
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            if (selectedIndex == dataProvider.length - 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    //----------------------------------
+    //  verticalScrollPosition (private override)
+    //----------------------------------
+    
+    private var _verticalScrollPosition:Number = 0;
+    
+    [Bindable]
+    [Inspectable(minValue="0.0")] 
+    
+    /**
+     *  @copy spark.core.IViewport#verticalScrollPosition
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function get verticalScrollPosition():Number 
+    {
+        return _verticalScrollPosition;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set verticalScrollPosition(value:Number):void 
+    {
+        if (_verticalScrollPosition == value)
+            return;
+        
+		const gridLayout:GridLayout = layout as GridLayout;
+		const leftGridView:GridView = gridLayout.leftGridView;
+		const centerGridView:GridView = gridLayout.centerGridView;	
+		
+        if (centerGridView)
+        {
+            const gridViewLayout:GridViewLayout = centerGridView.gridViewLayout;
+            const gridMaxVSP:Number = contentHeight - height;
+            const centerContentHeight:Number = Math.ceil(gridViewLayout.gridDimensionsView.getContentHeight());
+            const centerMaxVSP:Number = centerContentHeight - centerGridView.height;
+            const vsp:Number = (centerMaxVSP / gridMaxVSP) * value;
+            
+            centerGridView.verticalScrollPosition = vsp;
+            
+            if (leftGridView)
+                leftGridView.verticalScrollPosition = vsp;
+        }
+        
+        _verticalScrollPosition = value;
     }
     
     //----------------------------------
@@ -992,6 +1255,78 @@ public class Grid extends Group implements IDataGridElement
         invalidateDisplayList();        
         dispatchChangeEvent("dataTipFunctionChanged");
     }    
+
+
+    //----------------------------------
+    //  doubleClickMode
+    //----------------------------------
+    private var _doubleClickMode:String = GridDoubleClickMode.ROW;
+
+    [Bindable("doubleClickModeChanged")]
+    [Inspectable(category="General", enumeration="cell,grid,row", defaultValue="row")]
+    
+    /**
+     *  The doubleClick mode of the control.  Possible values are:
+     *  <code>GridSelectionMode.CELL</code>, 
+     *  <code>GridSelectionMode.GRID</code>, 
+     *  <code>GridSelectionMode.ROW</code>, 
+     * 
+     *  <p>Changing the doubleClickMode changes the double click
+     *  criteria for firing the doubleClick event</p>
+     *
+     *  @default GridDoubleClickMode.ROW
+     * 
+     *  @see spark.components.gridClasses.GridDoubleClickMode
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 11.1
+     *  @playerversion AIR 3.4
+     *  @productversion Flex 4.10
+     */
+    public function get doubleClickMode():String
+    {
+        return _doubleClickMode;
+    }
+
+    /**
+    *  @private
+    */
+    public function set doubleClickMode(newValue:String):void
+    {
+        if (newValue == _doubleClickMode)
+        {
+            return;
+        }
+
+        switch(newValue)
+        {
+            case GridDoubleClickMode.CELL:
+            case GridDoubleClickMode.GRID:
+            case GridDoubleClickMode.ROW:
+            {
+                _doubleClickMode = newValue;
+
+                dispatchChangeEvent("doubleClickModeChanged");
+
+                break;
+            }
+        }
+    }
+
+
+    //----------------------------------
+    //  gridDimensions (mx_internal)
+    //----------------------------------
+    
+    private var _gridDimensions:GridDimensions = null;
+    
+    mx_internal function get gridDimensions():GridDimensions
+    {
+        if (!_gridDimensions)
+            _gridDimensions = new GridDimensions();
+        
+        return _gridDimensions;
+    }
     
     //----------------------------------
     //  itemRenderer
@@ -1134,6 +1469,184 @@ public class Grid extends Group implements IDataGridElement
         _dataGrid = value;
         dispatchChangeEvent("dataGridChanged");
     }
+	
+    //----------------------------------
+    //  lockedColumnCount
+    //----------------------------------
+    
+    private var _lockedColumnCount:int = 0;
+    
+    [Bindable("lockedColumnCountChanged")]
+	[Inspectable(category="General", defaultValue="0", minValue="0")]	
+    
+    /**
+     *  The first lockedColumnCount columns are "locked", i.e. they do not scroll horizontally. 
+	 *  If lockedColumnCount is zero (the default) then changes to the horizontalScrollPosition
+	 *  affect all columns.
+	 * 
+	 *  <p>The locked columns are displayed in the topGridView and, if lockedRowCount is also
+	 *  greater than zero, the topLeftGridView.  The locked columns are separated from the remaining 
+	 *  columns by a lockedColumnSeparator.</p>
+     * 
+     *  @default 0
+	 * 
+	 *  @see spark.components.gridClasses.GridColumn#topGridView 
+	 *  @see spark.components.gridClasses.GridColumn#topLeftGridView
+	 * 	@see spark.components.gridClasses.GridColumn#lockedColumnSeparator
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 5.0
+     */
+    public function get lockedColumnCount():int
+    {
+        return _lockedColumnCount;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set lockedColumnCount(value:int):void
+    {
+        if (_lockedColumnCount == value)
+            return;
+        
+		invalidateProperties();
+        invalidateSize();
+        invalidateDisplayList();
+        
+        _lockedColumnCount = value;
+        dispatchChangeEvent("lockedColumnCountChanged");
+    }
+    
+    //----------------------------------
+    //  lockedColumnsSeparator
+    //----------------------------------
+    
+    private var _lockedColumnsSeparator:IFactory = null;
+    
+    [Bindable("lockedColumnsSeparatorChanged")]
+    
+    /**
+     *  A visual element displayed between the locked and unlocked columns.  The factory value of this
+	 *  property is used to create the lockedColumnsSeparatorElement.
+	 * 
+	 *  @see spark.components.Grid#lockedRowsSeparatorElement	
+	 * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 5.0
+     * 
+     *  @default null
+     */
+    public function get lockedColumnsSeparator():IFactory
+    {
+        return _lockedColumnsSeparator;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set lockedColumnsSeparator(value:IFactory):void
+    {
+        if (_lockedColumnsSeparator == value)
+            return;
+        
+        _lockedColumnsSeparator = value;
+        invalidateDisplayList();
+        dispatchChangeEvent("lockedColumnsSeparatorChanged");
+    } 
+    
+    //----------------------------------
+    //  lockedRowCount
+    //----------------------------------
+    
+    private var _lockedRowCount:int = 0;
+    
+    [Bindable("lockedRowCountChanged")]
+	[Inspectable(category="General", defaultValue="0", minValue="0")]	
+    
+    /**
+     *  The first lockedRowCount rows are "locked", i.e. they do not scroll vertically. 
+	 *  If lockedRowCount is zero (the default) then changes to the verticalScrollPosition
+	 *  affect all rows.
+	 * 
+	 *  <p>The locked rows are displayed in the leftGridView and, if lockedColumnCount is also
+	 *  greater than zero, the topLeftGridView.  The locked rows are separated from the remaining 
+	 *  rows by a lockedRowSeparator.</p>
+     * 
+     *  @default 0
+	 * 
+	 *  @see spark.components.gridClasses.GridColumn#leftGridView 
+	 *  @see spark.components.gridClasses.GridColumn#topLeftGridView
+	 * 	@see spark.components.gridClasses.GridColumn#lockedRowSeparator
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 5.0
+     */
+    public function get lockedRowCount():int
+    {
+        return _lockedRowCount;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set lockedRowCount(value:int):void
+    {
+        if (_lockedRowCount == value)
+            return;
+        
+		invalidateProperties();
+        invalidateSize();
+        invalidateDisplayList();
+        
+        _lockedRowCount = value;
+        dispatchChangeEvent("lockedRowCountChanged");
+    }
+    
+    //----------------------------------
+    //  lockedRowsSeparator
+    //----------------------------------
+    
+    private var _lockedRowsSeparator:IFactory = null;
+    
+    [Bindable("lockedRowsSeparatorChanged")]
+    
+    /**
+     *  A visual element displayed between the locked and unlocked rows.   The factory value of this
+	 *  property is used to create the lockedRowsSeparatorElement.
+     * 
+     *  @default null
+	 * 
+	 *  @see spark.components.Grid#lockedRowsSeparatorElement
+	 * 
+	 *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 5.0
+     */
+    public function get lockedRowsSeparator():IFactory
+    {
+        return _lockedRowsSeparator;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set lockedRowsSeparator(value:IFactory):void
+    {
+        if (_lockedRowsSeparator == value)
+            return;
+        
+        _lockedRowsSeparator = value;
+        invalidateDisplayList();
+        dispatchChangeEvent("lockedRowsSeparatorChanged");
+    }	
     
     //----------------------------------
     //  preserveSelection (delegates to gridSelection.preserveSelection)
@@ -1608,7 +2121,7 @@ public class Grid extends Group implements IDataGridElement
      *  event. When the user changes the selection programmatically, the 
      *  control dispatches the <code>valueCommit</code> event.</p>
      * 
-     *  <p> This property is intended be used to initialize or bind to the
+     *  <p> This property is intended to be used to initialize or bind to the
      *  selection in MXML markup.  The <code>setSelectedCell()</code> method 
      *  should be used for programatic selection updates, for example 
      *  when writing a keyboard or mouse event handler. </p> 
@@ -1681,7 +2194,7 @@ public class Grid extends Group implements IDataGridElement
      *  event. When the user changes the selection programmatically, the 
      *  control dispatches the <code>valueCommit</code> event.</p>
      * 
-     *  <p> This property is intended be used to initialize or bind to the
+     *  <p> This property is intended to be used to initialize or bind to the
      *  selection in MXML markup.  The <code>setSelectedCell()</code> method 
      *  should be used for programatic selection updates, for example when 
      *  writing a keyboard or mouse event handler. </p> 
@@ -1723,18 +2236,14 @@ public class Grid extends Group implements IDataGridElement
             
             var f:Function = function():void
             {
-                clearSelection();
-                for each (cell in valueCopy)
-                    addSelectedCell(cell.rowIndex, cell.columnIndex);
+                doSetSelectedCells(valueCopy);
             }
             deferredOperations.push(f);  // function f() to be called by commitProperties()
             invalidateProperties();
         }
         else
         {
-            clearSelection();
-            for each (cell in valueCopy)
-                addSelectedCell(cell.rowIndex, cell.columnIndex);            
+            doSetSelectedCells(valueCopy);
         }
     }          
 
@@ -1756,7 +2265,7 @@ public class Grid extends Group implements IDataGridElement
      *  event. When the user changes the selection programmatically, the 
      *  control dispatches the <code>valueCommit</code> event.</p>
      * 
-     *  <p> This property is intended be used to initialize or bind to the
+     *  <p> This property is intended to be used to initialize or bind to the
      *  selection in MXML markup.  The <code>setSelectedCell()</code> method should be used
      *  for programatic selection updates, for example when writing a keyboard
      *  or mouse event handler. </p> 
@@ -1826,7 +2335,7 @@ public class Grid extends Group implements IDataGridElement
      *  event. When the user changes the selection programmatically, the 
      *  control dispatches the <code>valueCommit</code> event.</p>
      * 
-     *  <p> This property is intended be used to initialize or bind to the
+     *  <p> This property is intended to be used to initialize or bind to the
      *  selection in MXML markup.  The setSelectedCell() method should be used
      *  for programatic selection updates, for example when writing a keyboard
      *  or mouse event handler. </p> > 
@@ -1865,18 +2374,14 @@ public class Grid extends Group implements IDataGridElement
         
             var f:Function = function():void
             {
-                clearSelection();
-                for each (var index:int in valueCopy)
-                    addSelectedIndex(index);
+                doSetSelectedIndices(valueCopy);
             }
             deferredOperations.push(f);  // function f() to be called by commitProperties()
             invalidateProperties();
         }
         else
         {
-            clearSelection();
-            for each (var index:int in valueCopy)
-                addSelectedIndex(index);            
+            doSetSelectedIndices(valueCopy);
         }
     }        
     
@@ -1899,7 +2404,7 @@ public class Grid extends Group implements IDataGridElement
      *  event. When the user changes the selection programmatically, the 
      *  control dispatches the <code>valueCommit</code> event.</p>
      * 
-     *  <p> This property is intended be used to initialize or bind to the
+     *  <p> This property is intended to be used to initialize or bind to the
      *  selection in MXML markup.  The <code>setSelectedCell()</code> method should be used
      *  for programatic selection updates, for example when writing a keyboard
      *  or mouse event handler. </p> 
@@ -1980,7 +2485,7 @@ public class Grid extends Group implements IDataGridElement
      *  event. When the user changes the selection programmatically, the 
      *  control dispatches the <code>valueCommit</code> event.</p>
      * 
-     *  <p> This property is intended be used to initialize or bind to the
+     *  <p> This property is intended to be used to initialize or bind to the
      *  selection in MXML markup.  The setSelectedCell() method should be used
      *  for programatic selection updates, for example when writing a keyboard
      *  or mouse event handler. </p> 
@@ -2027,24 +2532,14 @@ public class Grid extends Group implements IDataGridElement
             
             var f:Function = function():void
             {
-                if (!dataProvider)
-                    return;
-                
-                clearSelection();
-                for each (var item:Object in valueCopy)
-                    addSelectedIndex(dataProvider.getItemIndex(item));
+                doSetSelectedItems(valueCopy);
             }
             deferredOperations.push(f);  // function f() to be called by commitProperties()
             invalidateProperties();
         }
         else
         {
-            if (!dataProvider)
-                return;
-            
-            clearSelection();
-            for each (var item:Object in valueCopy)
-               addSelectedIndex(dataProvider.getItemIndex(item))            
+            doSetSelectedItems(valueCopy);
         }
     }        
     
@@ -2171,6 +2666,39 @@ public class Grid extends Group implements IDataGridElement
     }
     
     //----------------------------------
+    //  showCaret
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _showCaret:Boolean = false;
+    
+    [Bindable("showCaretChanged")]    
+    
+    /**
+     *  Determines if the caret is visible.
+     *  TBD: when is this property automatically set?
+     */
+    public function get showCaret():Boolean
+    {
+        return _showCaret;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set showCaret(value:Boolean):void
+    {
+        if (_showCaret == value)
+            return;
+        
+        _showCaret = value;
+        invalidateDisplayListFor("caretIndicator");        
+        dispatchChangeEvent("showCaretChanged");       
+    }    
+    
+    //----------------------------------
     //  showDataTips
     //----------------------------------
     
@@ -2207,9 +2735,9 @@ public class Grid extends Group implements IDataGridElement
         
         _showDataTips = value;
         invalidateDisplayList();
-        dispatchEvent(new Event("showDataTipsChanged"));
+        dispatchChangeEvent("showDataTipsChanged");
     }
-    
+	
     //----------------------------------
     //  typicalItem
     //----------------------------------
@@ -2221,7 +2749,7 @@ public class Grid extends Group implements IDataGridElement
     [Inspectable(category="Data")]
     
     /**
-     *  The grid's layout ensures that columns whose width is not specified is wide
+     *  The grid's layout ensures that columns whose width is not specified are wide
      *  enough to display an item renderer for this default data provider item.  
      *  If a typical item is not specified, then the first data provider item is used.
      * 
@@ -2249,9 +2777,7 @@ public class Grid extends Group implements IDataGridElement
             return;
         
         _typicalItem = value;
-        
         invalidateTypicalItemRenderer();
-        
         dispatchChangeEvent("typicalItemChanged");
     }
 
@@ -2324,6 +2850,46 @@ public class Grid extends Group implements IDataGridElement
         dispatchChangeEvent("variableRowHeightChanged");            
     }
     
+    //----------------------------------
+    //  gridView
+    //----------------------------------
+    
+    private var _gridView:IFactory = null;
+    
+    [Bindable("gridViewChanged")]
+    
+    /**
+	 *  Used to initialize this grid's gridViews: centerGridView, leftGridView, topGridView, topLeftGridView. 
+	 *  GridViews are created as needed, depending on the values of lockedRowCount and lockedColumnCount.
+	 * 
+	 *  @default null.
+	 * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 5.0
+     */
+    public function get gridView():IFactory
+    {
+        return _gridView;
+    }
+    
+    /**
+     *  @private
+     */        
+    public function set gridView(value:IFactory):void
+    {
+        if (value == _gridView)
+            return;
+        
+        _gridView = value;
+        invalidateProperties();
+        
+        // TBD clear everything
+        
+        dispatchChangeEvent("gridViewChanged");            
+    }
+
     //--------------------------------------------------------------------------
     //
     //  GridSelection Cover Methods
@@ -2736,7 +3302,7 @@ public class Grid extends Group implements IDataGridElement
      *
      *  @param columnIndex The 0-based column index of the cell.
      * 
-     *  @return <code>true</code> if if no errors.
+     *  @return <code>true</code> if no errors.
      *  <code>false</code> if <code>rowIndex</code> 
      *  or <code>columnIndex</code> is invalid or the <code>selectionMode</code> 
      *  is invalid.     
@@ -2935,20 +3501,99 @@ public class Grid extends Group implements IDataGridElement
         
         return selectionChanged;
     }
-           
+      
     //--------------------------------------------------------------------------
     //
-    //  GridLayout Cover Methods, Properties
+    //  Selection API Helper Methods
     //
     //-------------------------------------------------------------------------- 
+
+    /**
+     * For performance reasons, make sure validateClient, anchor and caret updates,
+     * and selectionIndicator and VALUE_COMMIT updates are only done once.
+     */
+    private function doSetSelectedCells(valueCopy:Vector.<CellPosition>):void
+    {
+        // Need to apply pending dataProvider and column changes so selection
+        // isn't reset after it is set here.
+        if (invalidatePropertiesFlag)
+            UIComponentGlobals.layoutManager.validateClient(this, false);
+        
+        gridSelection.removeAll();
+        for each (var cell:CellPosition in valueCopy)
+        {
+            gridSelection.addCell(cell.rowIndex, cell.columnIndex);
+        }
+        
+        doFinalizeSetSelection(cell ? cell.rowIndex : -1, 
+                               cell ? cell.columnIndex : -1);
+    }
     
     /**
-     *  @private
+     * For performance reasons, make sure validateClient, anchor and caret updates,
+     * and selectionIndicator and VALUE_COMMIT updates are only done once.
      */
-    private function get gridDimensions():GridDimensions
+    private function doSetSelectedIndices(valueCopy:Vector.<int>):void
     {
-        return gridLayout.gridDimensions;
+        // Need to apply pending dataProvider and column changes so selection
+        // isn't reset after it is set here.
+        if (invalidatePropertiesFlag)
+            UIComponentGlobals.layoutManager.validateClient(this, false);
+        
+        var newRowIndex:int = -1;
+        gridSelection.removeAll();
+        for each (newRowIndex in valueCopy)
+        {
+            gridSelection.addRow(newRowIndex);
+        }
+        
+        doFinalizeSetSelection(newRowIndex, -1);
     }
+
+    /**
+     * For performance reasons, make sure validateClient, anchor and caret updates,
+     * and selectionIndicator and VALUE_COMMIT updates are only done once.
+     */
+    private function doSetSelectedItems(valueCopy:Vector.<Object>):void
+    {
+        if (!dataProvider)
+            return;
+        
+        // Need to apply pending dataProvider and column changes so selection
+        // isn't reset after it is set here.
+        if (invalidatePropertiesFlag)
+            UIComponentGlobals.layoutManager.validateClient(this, false);
+        
+        var newRowIndex:int = -1;        
+        gridSelection.removeAll();
+        for each (var item:Object in valueCopy)
+        {
+            newRowIndex = dataProvider.getItemIndex(item);
+            gridSelection.addRow(newRowIndex);
+        }
+        
+        doFinalizeSetSelection(newRowIndex, -1);
+    }
+    
+    /**
+     * Finished selection operations so update the anchor, caret, selection indicators and
+     * trigger the selection bindings.
+     */
+    private function doFinalizeSetSelection(rowIndex:int, columnIndex:int):void
+    {
+        initializeAnchorPosition();       
+        caretRowIndex = rowIndex
+        caretColumnIndex = columnIndex
+        
+        invalidateDisplayListFor("selectionIndicator");
+        dispatchFlexEvent(FlexEvent.VALUE_COMMIT);      
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  GridViewLayout Cover Methods, Properties
+    //
+    //-------------------------------------------------------------------------- 
     
     /** 
      *  @private
@@ -2959,13 +3604,24 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  @returns True if either the horizontalScrollPosition or verticalScrollPosition changed.
      */
-    private function scrollToIndex(elementIndex:int, scrollHorizontally:Boolean, scrollVertically:Boolean):Boolean
+    private function scrollToIndex(view:GridView, elementIndex:int, scrollHorizontally:Boolean, scrollVertically:Boolean):Boolean
     {
-        var spDelta:Point = gridLayout.getScrollPositionDeltaToElement(elementIndex);
+        var spDelta:Point = view.gridViewLayout.getScrollPositionDeltaToElement(elementIndex);
         
         // The cell is completely visible or the specified index is no longer valid so punt.
+		
         if (!spDelta)
-            return false;  
+            return false; 
+		
+		// If the required scroll is locked then punt
+		
+		if ((spDelta.y != 0) && view.gridViewLayout.verticalScrollingLocked)
+			return false;
+		
+		if ((spDelta.x != 0) && view.gridViewLayout.horizontalScrollingLocked)
+			return false;
+		
+		// Update the scroll positions
 
         var scrollChanged:Boolean = false;
         
@@ -3019,9 +3675,19 @@ public class Grid extends Group implements IDataGridElement
             (columnIndex != -1 && !(GridColumn(columns.getItemAt(columnIndex)).visible)))
             return;
         
-        const columnsLength:int = columns.length;
         const scrollHorizontally:Boolean = columnIndex != -1;
         const scrollVertically:Boolean = rowIndex != -1;
+         
+        // If the row, column, or cell is locked, then there's nothing to do.
+        
+		if ((columnIndex < lockedColumnCount) && (rowIndex < lockedRowCount))
+			return;
+		
+        if (!scrollVertically && (columnIndex < lockedColumnCount)) 
+            return;
+
+        if (!scrollHorizontally && (rowIndex < lockedRowCount))
+            return;        
         
         // If called after the layout cache is cleared, need to rebuild the cache
         // before accessing visible rows/columns and attempting to scroll.
@@ -3031,17 +3697,29 @@ public class Grid extends Group implements IDataGridElement
         // When not scrolling horizontally, columnIndex can just be 0.
         if (!scrollHorizontally)
             columnIndex = 0;
-        
+		
+		// Find the GridView the specified cell is contained by and punt if it's not visible
+		
+		const cellGridView:GridView = getGridViewAt(rowIndex, columnIndex);	
+		if (!cellGridView || 
+			(cellGridView.getLayoutBoundsX() >= getLayoutBoundsWidth()) || 
+			(cellGridView.getLayoutBoundsY() >= getLayoutBoundsHeight()))
+			return;
+		
         // If the row index isn't specified, use the first one that's visible.
         if (!scrollVertically)
         {
-            const visibleRowIndices:Vector.<int> = this.getVisibleRowIndices();
+            const visibleRowIndices:Vector.<int> = cellGridView.gridViewLayout.getVisibleRowIndices();
             rowIndex = (visibleRowIndices.length > 0) ?  visibleRowIndices[0] : 0;
         }
 
         // A cell's index as defined by LayoutBase it's just its position
         // in the row-major linear ordering of the grid's cells.
-        const elementIndex:int = (rowIndex * columnsLength) + columnIndex;
+        
+        const gridViewLayout:GridViewLayout = cellGridView.gridViewLayout;
+		const cellViewRowIndex:int = rowIndex - gridViewLayout.viewRowIndex;
+		const cellViewColumnIndex:int  = columnIndex - gridViewLayout.viewColumnIndex;
+        const cellElementIndex:int = (cellViewRowIndex * gridViewLayout.columnsView.length) + cellViewColumnIndex;
         
         var scrollChanged:Boolean = false;
         var firstScroll:Boolean = true;
@@ -3049,7 +3727,7 @@ public class Grid extends Group implements IDataGridElement
         // Iterate until we've scrolled elementIndex at least partially into view.
         do
         {
-            scrollChanged = scrollToIndex(elementIndex, scrollHorizontally, scrollVertically);
+            scrollChanged = scrollToIndex(cellGridView, cellElementIndex, scrollHorizontally, scrollVertically);
             
             // Fixed row heights, and we're only scrolling vertically.
             if (!variableRowHeight && !scrollHorizontally)
@@ -3070,7 +3748,7 @@ public class Grid extends Group implements IDataGridElement
         // At this point we've only ensured that the requested cell is at least 
         // partially visible.  Ensure that it's completely visible.
       
-        scrollToIndex(elementIndex, scrollHorizontally, scrollVertically);
+        scrollToIndex(cellGridView, cellElementIndex, scrollHorizontally, scrollVertically);
     }        
     
     /**
@@ -3091,7 +3769,19 @@ public class Grid extends Group implements IDataGridElement
      */ 
     public function getVisibleRowIndices():Vector.<int>
     {
-        return gridLayout.getVisibleRowIndices();
+		const gridLayout:GridLayout = layout as GridLayout;
+		const topGridView:GridView = gridLayout.topGridView;        
+		const centerGridView:GridView = gridLayout.centerGridView;
+        
+        if (!centerGridView)
+            return new Vector.<int>(0);
+		
+		const centerRowIndices:Vector.<int> = centerGridView.gridViewLayout.getVisibleRowIndices();
+		if (!topGridView)
+			return centerRowIndices;
+		
+        const topRowIndices:Vector.<int> = topGridView.gridViewLayout.getVisibleRowIndices();
+        return topRowIndices.concat(centerRowIndices);
     }
     
     /**
@@ -3120,7 +3810,16 @@ public class Grid extends Group implements IDataGridElement
      */ 
     public function getVisibleColumnIndices():Vector.<int>
     {
-        return gridLayout.getVisibleColumnIndices();
+		const gridLayout:GridLayout = layout as GridLayout;
+		const leftGridView:GridView = gridLayout.leftGridView;        
+		const centerGridView:GridView = gridLayout.centerGridView;
+		
+		const centerColumnIndices:Vector.<int> = centerGridView.gridViewLayout.getVisibleColumnIndices();
+		if (!leftGridView)
+			return centerColumnIndices;
+		
+		const leftColumnIndices:Vector.<int> = leftGridView.gridViewLayout.getVisibleColumnIndices();
+		return leftColumnIndices.concat(centerColumnIndices);
     }
     
     /**
@@ -3144,7 +3843,7 @@ public class Grid extends Group implements IDataGridElement
      */ 
     public function getCellBounds(rowIndex:int, columnIndex:int):Rectangle
     {
-        return gridLayout.getCellBounds(rowIndex, columnIndex);
+        return gridDimensions.getCellBounds(rowIndex, columnIndex);
     }
     
     /**
@@ -3166,7 +3865,7 @@ public class Grid extends Group implements IDataGridElement
      */
     public function getRowBounds(rowIndex:int):Rectangle
     {
-        return gridLayout.getRowBounds(rowIndex);      
+        return gridDimensions.getRowBounds(rowIndex);      
     }
     
     /**
@@ -3187,13 +3886,12 @@ public class Grid extends Group implements IDataGridElement
      */
     public function getColumnBounds(columnIndex:int):Rectangle
     {
-        return gridLayout.getColumnBounds(columnIndex);
+        return gridDimensions.getColumnBounds(columnIndex);
     }
     
     /**
-     *  Returns the row index corresponding to the specified coordinates,
+     *  Returns the row index corresponding to the specified grid coordinates,
      *  or -1 if the coordinates are out of bounds. 
-     *  The coordinates are resolved with respect to the grid.
      * 
      *  <p>If all of the columns or rows for the grid have not yet been scrolled
      *  into view, the returned index may only be an approximation, 
@@ -3212,13 +3910,12 @@ public class Grid extends Group implements IDataGridElement
      */
     public function getRowIndexAt(x:Number, y:Number):int
     {
-        return gridLayout.getRowIndexAt(x, y);
+        return gridDimensions.getRowIndexAt(x, y);
     }
     
     /**
-     *  Returns the column index corresponding to the specified coordinates,
-     *  or -1 if the coordinates are out of bounds. The coordinates are 
-     *  resolved with respect to the grid.
+     *  Returns the column index corresponding to the specified grid coordinates,
+     *  or -1 if the coordinates are out of bounds. 
      * 
      *  <p>If all of the columns or rows for the grid have not yet been scrolled
      *  into view, the returned index may only be an approximation, 
@@ -3237,7 +3934,7 @@ public class Grid extends Group implements IDataGridElement
      */
     public function getColumnIndexAt(x:Number, y:Number):int
     {
-        return gridLayout.getColumnIndexAt(x, y); 
+        return gridDimensions.getColumnIndexAt(x, y); 
     }
     
     /**
@@ -3293,7 +3990,11 @@ public class Grid extends Group implements IDataGridElement
      */
     public function getCellAt(x:Number, y:Number):CellPosition
     {
-        return gridLayout.getCellAt(x, y);
+        const rowIndex:int = gridDimensions.getRowIndexAt(x, y);
+        const columnIndex:int = gridDimensions.getColumnIndexAt(x, y);
+        if ((rowIndex == -1) || (columnIndex == -1))
+            return null;
+        return new CellPosition(rowIndex, columnIndex);
     }
     
     /**
@@ -3319,7 +4020,28 @@ public class Grid extends Group implements IDataGridElement
      */
     public function getCellsAt(x:Number, y:Number, w:Number, h:Number):Vector.<CellPosition>
     { 
-        return gridLayout.getCellsAt(x, y, w, h);
+        var cells:Vector.<CellPosition> = new Vector.<CellPosition>;
+        
+        if (w <= 0 || h <= 0)
+            return cells;
+        
+        // Get the row/column indexes of the corners of the region.
+        var topLeft:CellPosition = getCellAt(x, y);
+        var bottomRight:CellPosition = getCellAt(x + w, y + h);
+        if (!topLeft || !bottomRight)
+            return cells;
+        
+        for (var rowIndex:int = topLeft.rowIndex; 
+            rowIndex <= bottomRight.rowIndex; rowIndex++)
+        {
+            for (var columnIndex:int = topLeft.columnIndex; 
+                columnIndex <= bottomRight.columnIndex; columnIndex++)
+            {
+                cells.push(new CellPosition(rowIndex, columnIndex));
+            }
+        }
+        
+        return cells;
     }
     
     /**
@@ -3402,8 +4124,12 @@ public class Grid extends Group implements IDataGridElement
      */
     public function getItemRendererAt(rowIndex:int, columnIndex:int):IGridItemRenderer
     {
-        return gridLayout.getItemRendererAt(rowIndex, columnIndex);
-    }
+        const view:GridView = getGridViewAt(rowIndex, columnIndex);
+		if (!view)
+			return null;
+		
+        return view.gridViewLayout.getItemRendererAt(rowIndex, columnIndex);
+    }    
     
     /**
      *  Returns <code>true</code> if the specified cell is at least partially visible. 
@@ -3427,7 +4153,8 @@ public class Grid extends Group implements IDataGridElement
      */        
     public function isCellVisible(rowIndex:int = -1, columnIndex:int = -1):Boolean
     {
-        return gridLayout.isCellVisible(rowIndex, columnIndex);
+        const view:GridView = getGridViewAt(rowIndex, columnIndex);
+        return view && view.gridViewLayout.isCellVisible(rowIndex, columnIndex);
     }
     
     //--------------------------------------------------------------------------
@@ -3435,11 +4162,22 @@ public class Grid extends Group implements IDataGridElement
     //  Tracking Grid invalidateDisplayList() "reasons", invalid cells
     //
     //-------------------------------------------------------------------------- 
+    
     /**
      *  @private
      *  Low cost "list" of invalidateDisplayList() reasons.
      */
     private var invalidateDisplayListReasonsMask:uint = 0;
+    
+    /**
+     *  @private
+     *  This flag makes it possible to defer clearing the invalidateDisplayListReasonsMask
+     *  until after the Grid's subtree has been redisplayed.   It's set by updateDisplayList()
+     *  and not cleared until the next invalidateDisplayListFor() call, on the assumption
+     *  that the Grid subtree's updateDisplayList() methods will not reset any Grid properties
+     *  (that call invalidateDisplayListFor()).
+     */
+    private var clearInvalidateDisplayListReasons:Boolean = false;
     
     /**
      *  @private
@@ -3452,7 +4190,7 @@ public class Grid extends Group implements IDataGridElement
         hoverIndicator: uint(1 << 2),
         caretIndicator: uint(1 << 3),
         selectionIndicator: uint(1 << 4),
-        editorIndicator:  uint(1 << 5),
+        editorIndicator: uint(1 << 5),
         none: uint(~0)
     };
     
@@ -3462,6 +4200,12 @@ public class Grid extends Group implements IDataGridElement
      */
     private function setInvalidateDisplayListReason(reason:String):void
     {
+        if (clearInvalidateDisplayListReasons)
+        {
+            invalidateDisplayListReasonsMask = 0;
+            clearInvalidateDisplayListReasons = false;
+        }
+        
         invalidateDisplayListReasonsMask |= invalidateDisplayListReasonBits[reason];
     }
     
@@ -3476,19 +4220,32 @@ public class Grid extends Group implements IDataGridElement
         return (invalidateDisplayListReasonsMask & bit) == bit;
     }
     
-    /**
-     *  @private
-     */
-    mx_internal function clearInvalidateDisplayListReasons():void
-    {
-        invalidateDisplayListReasonsMask = 0;
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Method Overrides
     //
-    //--------------------------------------------------------------------------    
+    //--------------------------------------------------------------------------  
+    
+    /**
+     *  @private
+     */
+    override public function getHorizontalScrollPositionDelta(navigationUnit:uint):Number
+    {
+		const gridLayout:GridLayout = layout as GridLayout;
+		const centerGridView:GridView = gridLayout.centerGridView;			
+        return (centerGridView) ? centerGridView.getHorizontalScrollPositionDelta(navigationUnit) : 0;     
+    }
+    
+    /**
+     *  @private
+     */
+    override public function getVerticalScrollPositionDelta(navigationUnit:uint):Number
+    {
+		const gridLayout:GridLayout = layout as GridLayout;
+		const centerGridView:GridView = gridLayout.centerGridView;			
+        return (centerGridView) ? centerGridView.getVerticalScrollPositionDelta(navigationUnit) : 0;     
+    }
+        
     
     /**
      *  @private
@@ -3504,6 +4261,14 @@ public class Grid extends Group implements IDataGridElement
         if (!inUpdateDisplayList)
         {
             super.invalidateSize();
+			
+			for each (var view:GridView in allGridViews)
+			{
+				if (!view)
+					continue;
+				view.invalidateSize();    
+			}
+            
             dispatchChangeEvent("invalidateSize");            
         }
     }
@@ -3523,10 +4288,180 @@ public class Grid extends Group implements IDataGridElement
         {
             setInvalidateDisplayListReason("none");            
             super.invalidateDisplayList();
-            dispatchChangeEvent("invalidateDisplayList");
+            
+			for each (var view:GridView in allGridViews)
+			{
+				if (!view)
+					continue;
+				view.invalidateDisplayList();    
+			}
+			
+			dispatchChangeEvent("invalidateDisplayList");
         }
     }
+	
+	private function get allGridViews():Array
+	{
+		const gridLayout:GridLayout = layout as GridLayout;
+		return gridLayout ? [gridLayout.topLeftGridView, gridLayout.topGridView, gridLayout.leftGridView, gridLayout.centerGridView] : [];
+	}
     
+    private function createGridView():GridView
+    {
+        const elt:GridView = gridView.newInstance() as GridView;
+        addElement(elt);
+        return elt;
+    }
+    
+	private function configureGridView(gv:GridView, viewRowIndex:int, viewColumnIndex:int, viewRowCount:int, viewColumnCount:int):void
+	{
+        const gridViewLayout:GridViewLayout = gv.gridViewLayout;
+        gridViewLayout.grid = this;
+		gridViewLayout.viewRowIndex = viewRowIndex;
+		gridViewLayout.viewColumnIndex = viewColumnIndex;
+		gridViewLayout.viewRowCount = viewRowCount;
+		gridViewLayout.viewColumnCount = viewColumnCount;
+	}
+	
+    /**
+     *  Create and/or configure this Grid's GridViews.  We're assuming that the
+     *  Grid's viewFactory, columns and dataProvider are specified.
+	 * 
+	 *  If GridVeiws are added or removed, a "gridViewsChanged" event is dispatched.
+     */
+    private function configureGridViews():void
+    {
+        const columnCount:int = columns.length;
+        const rowCount:int = (dataProvider) ? dataProvider.length : 0;
+		
+		lockedColumnCount = Math.min(lockedColumnCount, columnCount);
+		lockedRowCount = Math.min(lockedRowCount, rowCount);
+		
+		const centerRowCount:int = Math.max(0, rowCount - lockedRowCount);
+        const centerColumnCount:int = Math.max(0, columnCount - lockedColumnCount); 
+		
+		const gridLayout:GridLayout = layout as GridLayout;
+		var topLeftGridView:GridView = gridLayout.topLeftGridView;    
+		var topGridView:GridView = gridLayout.topGridView;        
+		var leftGridView:GridView = gridLayout.leftGridView;
+		var centerGridView:GridView = gridLayout.centerGridView;
+		var lockedRowsSeparatorElement:IVisualElement = gridLayout.lockedRowsSeparatorElement;
+		var lockedColumnsSeparatorElement:IVisualElement = gridLayout.lockedColumnsSeparatorElement;
+		
+		var gridViewsChanged:Boolean = false;
+
+        // Unconditionally create and configure the "center" GridView
+        
+        if (centerGridView == null)
+		{
+            gridLayout.centerGridView = centerGridView = createGridView();
+			gridViewsChanged = true;
+		}
+        
+        configureGridView(centerGridView, lockedRowCount, lockedColumnCount, -1, -1);
+        
+        centerGridView.gridViewLayout.requestedRowCount = requestedRowCount - lockedRowCount;
+        centerGridView.gridViewLayout.requestedColumnCount = requestedColumnCount - lockedColumnCount; 
+		
+		// Remove or create/configure the topLeftGridView
+		
+		if ((lockedRowCount > 0) && (lockedColumnCount > 0))
+		{
+			if (!topLeftGridView)
+			{
+				gridLayout.topLeftGridView = topLeftGridView = createGridView();
+				topLeftGridView.gridViewLayout.verticalScrollingLocked = true;
+				topLeftGridView.gridViewLayout.horizontalScrollingLocked = true;
+				gridViewsChanged = true;
+			}
+			
+		}
+		else if (topLeftGridView)
+		{
+			removeElement(topLeftGridView);
+			gridLayout.topLeftGridView = topLeftGridView = null;
+			gridViewsChanged = true;
+		}
+		
+		if (topLeftGridView)
+			configureGridView(topLeftGridView, 0, 0, lockedRowCount, lockedColumnCount);
+		
+        // Remove or create/configure the topGridView
+        
+        if (lockedRowCount > 0)
+        {
+            if (!topGridView)
+			{
+                gridLayout.topGridView = topGridView = createGridView();
+				topGridView.gridViewLayout.verticalScrollingLocked = true;
+				gridViewsChanged = true;
+			}
+            
+            if (lockedRowsSeparator && !lockedRowsSeparatorElement)
+            {
+                gridLayout.lockedRowsSeparatorElement = lockedRowsSeparatorElement = lockedRowsSeparator.newInstance() as IVisualElement;
+                addElement(lockedRowsSeparatorElement);
+            }
+        }
+        else
+        {
+            if (topGridView)
+            {
+                removeElement(topGridView);
+                gridLayout.topGridView = topGridView = null;
+				gridViewsChanged = true;
+            }
+
+            if (lockedRowsSeparatorElement)
+            {
+                removeElement(lockedRowsSeparatorElement);
+				gridLayout.lockedRowsSeparatorElement = lockedRowsSeparatorElement = null;
+            }
+        }
+
+        if (topGridView)
+            configureGridView(topGridView, 0, lockedColumnCount, lockedRowCount, centerColumnCount);
+        
+        // Remove or create/configure the leftGridView
+        
+        if (lockedColumnCount > 0)
+        {
+            if (!leftGridView)
+			{
+                gridLayout.leftGridView = leftGridView = createGridView();
+				leftGridView.gridViewLayout.horizontalScrollingLocked = true;
+				gridViewsChanged = true;
+			}
+            
+            if (lockedColumnsSeparator && !lockedColumnsSeparatorElement)
+            {
+                gridLayout.lockedColumnsSeparatorElement = lockedColumnsSeparatorElement = lockedColumnsSeparator.newInstance() as IVisualElement;
+                addElement(lockedColumnsSeparatorElement);
+            }
+        }
+        else
+        {
+            if (leftGridView)
+            {
+                removeElement(leftGridView);
+                gridLayout.leftGridView = leftGridView = null;
+				gridViewsChanged = true;
+            }
+            
+            if (lockedColumnsSeparatorElement)
+            {
+                removeElement(lockedColumnsSeparatorElement);
+				gridLayout.lockedColumnsSeparatorElement = lockedColumnsSeparatorElement = null;
+            }
+        }
+        
+        if (leftGridView)
+            configureGridView(leftGridView, lockedRowCount, 0, centerRowCount, lockedColumnCount);
+		
+		if (gridViewsChanged)
+			dispatchChangeEvent("gridViewsChanged");
+    }
+
     /**
      *  @private
      */
@@ -3578,6 +4513,7 @@ public class Grid extends Group implements IDataGridElement
         
         if (dataProviderChanged || columnsChanged)
         {
+            
             // Remove the current selection and, if requireSelection, make
             // sure the selection is reset to row 0 or cell 0,0.
             if (gridSelection)
@@ -3586,8 +4522,8 @@ public class Grid extends Group implements IDataGridElement
                 gridSelection.requireSelection = false;
                 gridSelection.removeAll();
                 gridSelection.requireSelection = savedRequireSelection;
-            }
-
+            } 
+            
            // make sure we have the right number of columns.
             if (columnsChanged)
                 gridDimensions.columnCount = _columns ? _columns.length : 0;
@@ -3608,8 +4544,14 @@ public class Grid extends Group implements IDataGridElement
             dataProviderChanged = false;
             columnsChanged = false;
         }
+        
         anchorChanged = false;
         
+        // Create or reconfigure the Grid's GridViews
+        
+        if (gridView && columns)
+            configureGridViews();
+		
         // Deferred selection operations
         
         if (dataProvider)
@@ -3619,8 +4561,8 @@ public class Grid extends Group implements IDataGridElement
             deferredOperations.length = 0;                
         }
         
-        // Only want one event if both caretRowIndex and caretColumnIndex
-        // changed.
+        // Only want one event if both caretRowIndex and caretColumnIndex changed
+
         if (caretChanged)
         {
             // Validate values now.  Need to let caret be set in the same
@@ -3644,6 +4586,7 @@ public class Grid extends Group implements IDataGridElement
          }
     }
     
+    
     /**
      *  @private
      */
@@ -3653,7 +4596,7 @@ public class Grid extends Group implements IDataGridElement
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         inUpdateDisplayList = false;
 		
-        clearInvalidateDisplayListReasons();
+        clearInvalidateDisplayListReasons = true;
 		
 		if (!variableRowHeight)
 			setFixedRowHeight(gridDimensions.getRowHeight(0));    
@@ -3686,8 +4629,34 @@ public class Grid extends Group implements IDataGridElement
     {
         if (!inUpdateDisplayList)
         {
-            setInvalidateDisplayListReason(reason);            
+            setInvalidateDisplayListReason(reason);          
             super.invalidateDisplayList();
+
+			// Minor optimization: if the reason for this invalidation is a 
+			// scroll, don't invalidate GridViews that can't change. 
+			
+			const vspReason:Boolean = reason == "verticalScrollPosition";
+			const hspReason:Boolean = reason == "horizontalScrollPosition";
+			const bothReason:Boolean = reason == "bothScrollPositions";
+			
+			const gridLayout:GridLayout = layout as GridLayout;
+			const topLeftGridView:GridView = gridLayout.topLeftGridView;    
+			const topGridView:GridView = gridLayout.topGridView;        
+			const leftGridView:GridView = gridLayout.leftGridView;
+			const centerGridView:GridView = gridLayout.centerGridView;			
+			
+			if (topLeftGridView && !vspReason && !hspReason && !bothReason)
+				topLeftGridView.invalidateDisplayList();
+			
+			if (topGridView && !vspReason)
+                topGridView.invalidateDisplayList();
+			
+			if (leftGridView && !hspReason)
+				leftGridView.invalidateDisplayList();			
+			
+            if (centerGridView)  
+                centerGridView.invalidateDisplayList();
+            
             dispatchChangeEvent("invalidateDisplayList");
         }
     }
@@ -3720,11 +4689,19 @@ public class Grid extends Group implements IDataGridElement
      */
     public function invalidateCell(rowIndex:int, columnIndex:int):void
     {
-        if (!dataProvider)
+        if ((rowIndex == -1) && (columnIndex == -1))
+        {
+			invalidateDisplayList();
+            return;
+        }
+        
+        const view:GridView = getGridViewAt(rowIndex, columnIndex);
+        if (!dataProvider || !view)
             return;
         
+        const gridLayout:GridViewLayout = view.gridViewLayout;
         const dataProviderLength:int = dataProvider.length;
-        if (rowIndex >= dataProvider.length)
+        if (!gridLayout || (rowIndex >= dataProvider.length))
             return;
         
         if (!isCellVisible(rowIndex, columnIndex))
@@ -3784,6 +4761,217 @@ public class Grid extends Group implements IDataGridElement
         return new GridSelection();    
     }
 
+
+    /**
+    *  This will search through a dataprovider checking the given field and for the given value and return the index for the match.
+    *  It can start the find from a given startingIndex;
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function findRowIndex(field:String, value:String, startingIndex:int = 0, patternType:String = RegExPatterns.EXACT):int
+    {
+        var pattern:RegExp; 
+        var currentObject:Object = null;
+        var dataProviderTotal:int = 0;
+        var loopingIndex:int = startingIndex;
+
+        
+        pattern = RegExPatterns.createRegExp(value, patternType);
+
+
+        if (dataProvider && dataProvider.length > 0)
+        {
+            dataProviderTotal = dataProvider.length;
+
+            if (startingIndex >= dataProviderTotal)
+            {
+                return -1;
+            }
+
+
+            for (loopingIndex; loopingIndex < dataProviderTotal; loopingIndex++)
+            {
+                currentObject = dataProvider.getItemAt(loopingIndex);
+
+                if (currentObject.hasOwnProperty(field) == true && currentObject[field].search(pattern) != -1)
+                {
+                    return loopingIndex;
+                }
+            }
+
+        }
+
+        return -1;
+    }
+
+
+    /**
+    *  This will search through a dataprovider checking the given field and for the given values and return an array of indices that matched.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function findRowIndices(field:String, values:Array, patternType:String = RegExPatterns.EXACT):Array
+    {
+        var currentObject:Object = null;
+        var regexList:Array = [];
+        var matchedIndices:Array = [];
+        var dataProviderTotal:uint = 0;
+        var valuesTotal:uint = 0;
+        var loopingDataProviderIndex:uint = 0;
+        var loopingValuesIndex:uint = 0;
+
+
+        if (dataProvider != null && dataProvider.length > 0 && values != null && values.length > 0)
+        {
+            dataProviderTotal = dataProvider.length;
+            valuesTotal = values.length;
+
+
+            //Set the regex patterns in an array once.
+            for (loopingValuesIndex = 0; loopingValuesIndex < valuesTotal; loopingValuesIndex++)
+            {
+                regexList.push(RegExPatterns.createRegExp(values[loopingValuesIndex], patternType));
+            }
+
+
+            //Loop through dataprovider
+            for (loopingDataProviderIndex; loopingDataProviderIndex < dataProviderTotal; loopingDataProviderIndex++)
+            {
+                currentObject = dataProvider.getItemAt(loopingDataProviderIndex);
+
+                if (currentObject.hasOwnProperty(field) == false)
+                {
+                    continue;
+                }
+
+                //Loop through regex patterns from the values array.
+                for (loopingValuesIndex = 0; loopingValuesIndex < valuesTotal; loopingValuesIndex++)
+                {
+                    if (currentObject[field].search(regexList[loopingValuesIndex]) != -1)
+                    {
+                        matchedIndices.push(loopingDataProviderIndex);
+
+                        break;
+                    }
+                }
+            }
+
+        }
+
+
+        return matchedIndices;
+    }
+
+
+    /**
+    *  This will search through a dataprovider checking the given field and will set the selectedIndex to a matching value.
+    *  It can start the search from the startingIndex;
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    *
+    */
+    public function moveIndexFindRow(field:String, value:String, startingIndex:int = 0, patternType:String = RegExPatterns.EXACT):Boolean
+    {
+        var indexFound:int = -1;
+
+        indexFound = findRowIndex(field, value, startingIndex, patternType);
+
+        if (indexFound != -1)
+        {
+            selectedIndex = indexFound;
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the first row of the dataProvider.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexFirstRow():void
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            selectedIndex = 0;
+        }
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the last row of the dataProvider.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexLastRow():void
+    {
+        if (dataProvider && dataProvider.length > 0)
+        {
+            selectedIndex = dataProvider.length - 1;
+        }
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the next row of the dataProvider.  If there isn't a current selectedIndex, it silently returns.
+    *  If the selectedIndex is on the first row, it does not wrap around.  However the <code>isFirstRow</code> property returns true.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexNextRow():void
+    {
+        if (dataProvider && dataProvider.length > 0 && selectedIndex >= 0)
+        {
+            if (isLastRow == false)
+            {
+                selectedIndex += 1;
+            }
+        }
+    }
+
+
+    /**
+    *  Changes the selectedIndex to the previous row of the dataProvider.  If there isn't a current selectedIndex, it silently returns.
+    *  If the selectedIndex is on the last row, it does not wrap around.  However the <code>isLastRow</code> property returns true.
+    *
+    *  @langversion 3.0
+    *  @playerversion Flash 11.1
+    *  @playerversion AIR 3.4
+    *  @productversion Flex 4.10
+    */
+    public function moveIndexPreviousRow():void
+    {
+        if (dataProvider && dataProvider.length > 0 && selectedIndex >= 0)
+        {
+            if (isFirstRow == false)
+            {
+                selectedIndex -= 1;
+            }
+        }
+    }
+
+
     //--------------------------------------------------------------------------
     //
     //  Methods: Internal Grid Access
@@ -3819,11 +5007,14 @@ public class Grid extends Group implements IDataGridElement
      */
     private function getVisibleItemRenderer(rowIndex:int, columnIndex:int):IGridItemRenderer
     {
-        const layout:GridLayout = layout as GridLayout;
-        if (!layout)
-            return null;
+		const view:GridView = getGridViewAt(rowIndex, columnIndex);
+		if (!view)
+			return null;
         
-        return layout.getVisibleItemRenderer(rowIndex, columnIndex);
+        const gridViewLayout:GridViewLayout = view.gridViewLayout;
+		const viewRowIndex:int = rowIndex - gridViewLayout.viewRowIndex;
+		const viewColumnIndex:int = columnIndex - gridViewLayout.viewColumnIndex;
+        return gridViewLayout.getVisibleItemRenderer(viewRowIndex, viewColumnIndex);
     }
     
     //--------------------------------------------------------------------------
@@ -3836,9 +5027,73 @@ public class Grid extends Group implements IDataGridElement
     private var rollColumnIndex:int = -1;
     private var mouseDownRowIndex:int = -1;
     private var mouseDownColumnIndex:int = -1;
+    private var lastClickedColumnIndex:int = -1;
+    private var lastClickedRowIndex:int = -1;
     private var lastClickTime:Number;
+    
     // default max time between clicks for a double click is 480ms.
     mx_internal var DOUBLE_CLICK_TIME:Number = 480;
+    
+    /** 
+     *  @private
+     *  Return the GridView whose bounds contain the MouseEvent, or null.  Note that the 
+     *  comparison is based strictly on the event's location and the GridViews' bounds.
+     *  The event's target can be anything.
+     */
+    private function mouseEventGridView(event:MouseEvent):GridView
+    {
+        const gridLayout:GridLayout = layout as GridLayout;
+
+        const centerGridView:GridView = gridLayout.centerGridView;
+        if (centerGridView && centerGridView.containsMouseEvent(event))
+            return centerGridView;
+
+        const leftGridView:GridView = gridLayout.leftGridView;
+        if (leftGridView && leftGridView.containsMouseEvent(event))
+            return leftGridView;
+        
+        const topGridView:GridView = gridLayout.topGridView;
+        if (topGridView && topGridView.containsMouseEvent(event))
+            return topGridView;
+
+        const topLeftGridView:GridView = gridLayout.topLeftGridView;
+        if (topLeftGridView && topLeftGridView.containsMouseEvent(event))
+            return topLeftGridView;
+
+        return null;
+    }
+    
+    /** 
+     *  @private
+     *  Return the Grid-relative row,column (gridCP) and X,Y location (gridXY) of the MouseEvent.
+     */    
+    private function eventToGridLocations(event:MouseEvent, gridCP:CellPosition, gridXY:Point):void
+    {
+        const stageXY:Point = new Point(event.stageX, event.stageY);
+        const localXY:Point = globalToLocal(stageXY);
+        gridXY.x = localXY.x;  // event may not have targeted the Grid
+        gridXY.y = localXY.y;
+        
+        const view:GridView = mouseEventGridView(event);
+        if (view)
+        {
+            const viewXY:Point = view.globalToLocal(stageXY);
+            const gridViewLayout:GridViewLayout = view.gridViewLayout;
+            const gdv:GridDimensionsView = gridViewLayout.gridDimensionsView;
+
+            
+            gridCP.rowIndex = gdv.getRowIndexAt(viewXY.x, viewXY.y) + gridViewLayout.viewRowIndex;
+            gridCP.columnIndex = gdv.getColumnIndexAt(viewXY.x, viewXY.y) + gridViewLayout.viewColumnIndex;
+
+            gridXY.x = viewXY.x + gdv.viewOriginX;
+            gridXY.y = viewXY.y + gdv.viewOriginY;
+        }
+        else
+        {
+            gridCP.rowIndex = -1;
+            gridCP.columnIndex = -1;
+        }
+    }
     
     /**
      *  @private
@@ -3859,11 +5114,12 @@ public class Grid extends Group implements IDataGridElement
      */    
     protected function grid_mouseDownDragUpHandler(event:MouseEvent):void
     {
-        const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventGridXY:Point = globalToLocal(eventStageXY);
-        const gridDimensions:GridDimensions = this.gridDimensions;
-        const eventRowIndex:int = gridDimensions.getRowIndexAt(eventGridXY.x, eventGridXY.y);
-        const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
+        const eventGridCP:CellPosition = new CellPosition();
+        const eventGridXY:Point = new Point();
+        eventToGridLocations(event, eventGridCP, eventGridXY);
+        
+        const eventRowIndex:int = eventGridCP.rowIndex;
+        const eventColumnIndex:int = eventGridCP.columnIndex;
         
         var gridEventType:String;
         switch(event.type)
@@ -3890,7 +5146,7 @@ public class Grid extends Group implements IDataGridElement
         
         dispatchGridEvent(event, gridEventType, eventGridXY, eventRowIndex, eventColumnIndex);
         if (gridEventType == GridEvent.GRID_MOUSE_UP)
-            dispatchGridClickEvents(event, eventGridXY, eventRowIndex, eventColumnIndex);
+            dispatchGridClickEvents(event, eventGridXY, eventRowIndex, eventColumnIndex);        
     }
     
     /**
@@ -3910,12 +5166,13 @@ public class Grid extends Group implements IDataGridElement
      */    
     protected function grid_mouseMoveHandler(event:MouseEvent):void
     {
-        const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventGridXY:Point = globalToLocal(eventStageXY);
-        const gridDimensions:GridDimensions = this.gridDimensions;
-        const eventRowIndex:int = gridDimensions.getRowIndexAt(eventGridXY.x, eventGridXY.y);
-        const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
-                    
+        const eventGridCP:CellPosition = new CellPosition();
+        const eventGridXY:Point = new Point();
+        eventToGridLocations(event, eventGridCP, eventGridXY);
+
+        const eventRowIndex:int = eventGridCP.rowIndex;
+        const eventColumnIndex:int = eventGridCP.columnIndex;
+        
         if ((eventRowIndex != rollRowIndex) || (eventColumnIndex != rollColumnIndex))
         {
             if ((rollRowIndex != -1) || (rollColumnIndex != -1))
@@ -3944,7 +5201,8 @@ public class Grid extends Group implements IDataGridElement
         if ((rollRowIndex != -1) || (rollColumnIndex != -1))
         {
             const eventStageXY:Point = new Point(event.stageX, event.stageY);
-            const eventGridXY:Point = globalToLocal(eventStageXY);            
+            const eventGridXY:Point = globalToLocal(eventStageXY);      
+            
             dispatchGridEvent(event, GridEvent.GRID_ROLL_OUT, eventGridXY, rollRowIndex, rollColumnIndex);
             rollRowIndex = -1;
             rollColumnIndex = -1;
@@ -3965,19 +5223,19 @@ public class Grid extends Group implements IDataGridElement
      */       
     protected function grid_mouseUpHandler(event:MouseEvent):void 
     {
-        // If in a drag, the drag handler already dispatched a mouse up
-        // event so don't do it again here.
         if (dragInProgress)
         {
+            // drag handler has already dispatched a mouse up event, don't do so again here
             dragInProgress = false;
             return;
         }
         
-        const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventGridXY:Point = globalToLocal(eventStageXY);
-        const gridDimensions:GridDimensions = this.gridDimensions;
-        const eventRowIndex:int = gridDimensions.getRowIndexAt(eventGridXY.x, eventGridXY.y);
-        const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
+        const eventGridCP:CellPosition = new CellPosition();
+        const eventGridXY:Point = new Point();
+        eventToGridLocations(event, eventGridCP, eventGridXY);
+        
+        const eventRowIndex:int = eventGridCP.rowIndex;
+        const eventColumnIndex:int = eventGridCP.columnIndex;        
         
         dispatchGridEvent(event, GridEvent.GRID_MOUSE_UP, eventGridXY, eventRowIndex, eventColumnIndex);
         dispatchGridClickEvents(event, eventGridXY, eventRowIndex, eventColumnIndex);
@@ -3997,20 +5255,55 @@ public class Grid extends Group implements IDataGridElement
      */       
     private function dispatchGridClickEvents(mouseEvent:MouseEvent, gridXY:Point, rowIndex:int, columnIndex:int):void
     {
-        var dispatchGridClick:Boolean = (rowIndex == mouseDownRowIndex &&
-                                         columnIndex == mouseDownColumnIndex);
-        var newClickTime:Number = getTimer();
-        
+        const dispatchGridClick:Boolean = ((rowIndex == mouseDownRowIndex) && (columnIndex == mouseDownColumnIndex));
+        const newClickTime:Number = getTimer();
+        var isDoubleClick:Boolean = false;
+
         // In the case that we dispatched a click last time, check if we
-        // should dispatch a double click this time.
-        // This isn't stricly adequate, since the mouse might have been on a different cell for 
-        // the first click.  It's not clear that the extra checking would be worthwhile.
+        // should dispatch a double click this time.  The type of check will be based on the double click mode.
         if (doubleClickEnabled && dispatchGridClick && !isNaN(lastClickTime) &&
             (newClickTime - lastClickTime <= DOUBLE_CLICK_TIME))
         {
-            dispatchGridEvent(mouseEvent, GridEvent.GRID_DOUBLE_CLICK, gridXY, rowIndex, columnIndex);
-            lastClickTime = NaN;
-            return;
+            switch(_doubleClickMode)
+            {
+                case GridDoubleClickMode.CELL:
+                {
+                    if (rowIndex != -1 && columnIndex != -1 && rowIndex == lastClickedRowIndex && columnIndex == lastClickedColumnIndex)
+                    {
+                        isDoubleClick = true;
+                    }
+
+                    break;
+                }
+
+                case GridDoubleClickMode.GRID:
+                {
+                    isDoubleClick = true;
+
+                    break;
+                }
+
+                case GridDoubleClickMode.ROW:
+                {
+                    if (rowIndex != -1 && rowIndex == lastClickedRowIndex)
+                    {
+                        isDoubleClick = true;
+                    }
+
+                    break;
+                }
+            }
+
+            if (isDoubleClick == true)
+            {
+                dispatchGridEvent(mouseEvent, GridEvent.GRID_DOUBLE_CLICK, gridXY, rowIndex, columnIndex);
+                lastClickTime = NaN;
+                lastClickedColumnIndex = -1;
+                lastClickedRowIndex = -1;
+                isDoubleClick = false;
+
+                return;
+            }
         }
         
         // Otherwise, just dispatch the click event.
@@ -4018,6 +5311,9 @@ public class Grid extends Group implements IDataGridElement
         {
             dispatchGridEvent(mouseEvent, GridEvent.GRID_CLICK, gridXY, rowIndex, columnIndex);
             lastClickTime = newClickTime;
+            lastClickedColumnIndex = columnIndex;
+            lastClickedRowIndex = rowIndex;
+            isDoubleClick = false;
         }
     }
     
@@ -4288,6 +5584,8 @@ public class Grid extends Group implements IDataGridElement
      */
     private function dataProvider_collectionChangeHandler(event:CollectionEvent):void
     {
+        var selectionChanged:Boolean = false;
+        
         // If no columns exist, we should try to generate them.
         if (!columns && dataProvider.length > 0)
         {
@@ -4303,11 +5601,15 @@ public class Grid extends Group implements IDataGridElement
             gridDimensions.rowCount = dataProvider.length;
         }
         
-        if (gridLayout)
-            gridLayout.dataProviderCollectionChanged(event);
+        for each (var view:GridView in allGridViews)
+        {
+            if (!view)
+                continue;
+            view.gridViewLayout.dataProviderCollectionChanged(event);      
+        }
         
         if (gridSelection)
-            gridSelection.dataProviderCollectionChanged(event);            
+            selectionChanged = gridSelection.dataProviderCollectionChanged(event);            
         
         if (gridDimensions && hoverRowIndex != -1)
             updateHoverForDataProviderChange(event);
@@ -4319,7 +5621,10 @@ public class Grid extends Group implements IDataGridElement
         
         if (caretRowIndex != -1)
             updateCaretForDataProviderChange(event);
-
+        
+        // Trigger bindings to selectedIndex/selectedCell/selectedItem and the plurals of those.
+        if (selectionChanged)
+            dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
     }
     
     /**
@@ -4330,6 +5635,7 @@ public class Grid extends Group implements IDataGridElement
         var column:GridColumn;
         var columnIndex:int = event.location;
         var i:int;
+        var selectionChanged:Boolean = false;
         
         switch (event.kind)
         {
@@ -4436,11 +5742,16 @@ public class Grid extends Group implements IDataGridElement
         if (gridDimensions)
             gridDimensions.columnsCollectionChanged(event);
         
-        if (gridLayout)
-            gridLayout.columnsCollectionChanged(event);
+        for each (var view:GridView in allGridViews)
+        {
+            if (!view)
+                continue;
+            view.gridViewLayout.columnsCollectionChanged(event);      
+        }
+        
         
         if (gridSelection)
-            gridSelection.columnsCollectionChanged(event);
+            selectionChanged = gridSelection.columnsCollectionChanged(event);
         
         if (caretColumnIndex != -1)
             updateCaretForColumnsChange(event);                
@@ -4449,7 +5760,12 @@ public class Grid extends Group implements IDataGridElement
             updateHoverForColumnsChange(event); 
 
         invalidateSize();
-        invalidateDisplayList();        
+        invalidateDisplayList(); 
+        
+        // Trigger bindings to selectedCell/selectedItem and the plurals of those.
+        if (selectionChanged)
+            dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
+
     } 
     
     //--------------------------------------------------------------------------
@@ -4465,14 +5781,22 @@ public class Grid extends Group implements IDataGridElement
      */
     mx_internal function clearGridLayoutCache(clearTypicalSizes:Boolean):void
     {
-        gridLayout.clearVirtualLayoutCache();
-        
+        for each (var view:GridView in allGridViews)
+        {
+            if (!view)
+                continue;
+            view.gridViewLayout.clearVirtualLayoutCache();
+        }
+
         const gridDimensions:GridDimensions = this.gridDimensions;
         if (gridDimensions)
         {
             if (clearTypicalSizes)
+			{
                 gridDimensions.clearTypicalCellWidthsAndHeights();
-            
+				gridDimensions.clearColumns(0, gridDimensions.columnCount);
+			}
+			
             gridDimensions.clearHeights();
             
             // Reset row count because dataProvider length may have changed.
