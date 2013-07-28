@@ -266,9 +266,7 @@
 				<ResetComponent target="rect_radialGradientStroke" className="comps.RectRadialGradientStroke" waitTarget="rect_radialGradientStroke" waitEvent="updateComplete" />
 			</setup>
 			<body>
-				<CompareBitmap url="../Properties/baselines/" target="rect_radialGradientStroke" timeout="2500">
-					<ConditionalValue os="win" />
-				</CompareBitmap>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
 			</body>
 	    </TestCase>
 		<TestCase testID="FXG_Rect_RadialGradientStroke_xy_20_0" description="Rect with a RadialGradientStroke and and (x,y)=(20,0)" keywords="[Line, RadialGradientStroke, caps]">
@@ -277,9 +275,7 @@
 			</setup>
 			<body>
 				<SetProperty target="rect_radialGradientStroke.rect1" propertyName="x" value="20" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-				<CompareBitmap url="../Properties/baselines/" target="rect_radialGradientStroke" timeout="2500">
-					<ConditionalValue os="win" />
-				</CompareBitmap>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
 			</body>
 	    </TestCase>
 		<TestCase testID="FXG_Rect_RadialGradientStroke_xy_0_20" description="Rect with a RadialGradientStroke and and (x,y)=(0,20)" keywords="[Line, RadialGradientStroke, x, y]">
@@ -288,9 +284,7 @@
 			</setup>
 			<body>
 				<SetProperty target="rect_radialGradientStroke.rect1" propertyName="y" value="20" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-				<CompareBitmap url="../Properties/baselines/" target="rect_radialGradientStroke" timeout="2500">
-					<ConditionalValue os="win" />
-				</CompareBitmap>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
 			</body>
 	    </TestCase>
 	    <TestCase testID="FXG_Rect_RadialGradientStroke_xy_strokeRotation" description="Rect with a RadialGradientStroke and (x,y)=(20,0), rotation=45" keywords="[Line, RadialGradientStroke, rotation]">
@@ -299,9 +293,7 @@
 			</setup>
 			<body>
 				<SetProperty target="rect_radialGradientStroke.rect1.stroke" propertyName="rotation" value="45" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-				<CompareBitmap url="../Properties/baselines/" target="rect_radialGradientStroke" timeout="2500">
-					<ConditionalValue os="win" />
-				</CompareBitmap>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
 			</body>
 	    </TestCase>
 	    <TestCase testID="FXG_Rect_RadialGradientStroke_xy_fillRotation" description="Rect with a RadialGradientStroke and (x,y)=(0,0)" keywords="[Line, LinearGradientStroke, caps]">
@@ -310,9 +302,7 @@
 			</setup>
 			<body>
 				<SetProperty target="rect_radialGradientStroke.rect1.fill" propertyName="rotation" value="45" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-				<CompareBitmap url="../Properties/baselines/" target="rect_radialGradientStroke" timeout="2500">
-					<ConditionalValue os="win" />
-				</CompareBitmap>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
 			</body>
 	    </TestCase>
 		<TestCase testID="FXG_Rect_RadialGradientStroke_fillX" description="Rect with a RadialGradientStroke and and (x,y)=(20,0)" keywords="[Line, RadialGradientStroke, caps]">
@@ -321,9 +311,7 @@
 			</setup>
 			<body>
 				<SetProperty target="rect_radialGradientStroke.rect1.fill" propertyName="x" value="50" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-				<CompareBitmap url="../Properties/baselines/" target="rect_radialGradientStroke" timeout="2500">
-					<ConditionalValue os="win" />
-				</CompareBitmap>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
 			</body>
 	    </TestCase>
 		<TestCase testID="FXG_Rect_RadialGradientStroke_fillY" description="Rect with a RadialGradientStroke and and (x,y)=(0,20)" keywords="[Line, RadialGradientStroke, x, y]">
@@ -332,9 +320,7 @@
 			</setup>
 			<body>
 				<SetProperty target="rect_radialGradientStroke.rect1.fill" propertyName="y" value="30" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-				<CompareBitmap url="../Properties/baselines/" target="rect_radialGradientStroke" timeout="2500" >
-					<ConditionalValue os="win" />
-				</CompareBitmap>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
 			</body>
 	    </TestCase>
 		<TestCase testID="FXG_Rect_RadialGradientStroke_strokeX" description="Rect with a RadialGradientStroke and and (x,y)=(20,0)" keywords="[Line, RadialGradientStroke, caps]">
@@ -343,9 +329,7 @@
 			</setup>
 			<body>
 				<SetProperty target="rect_radialGradientStroke.rect1.stroke" propertyName="x" value="10" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete" />
-				<CompareBitmap url="../Properties/baselines/" target="rect_radialGradientStroke" timeout="2500" >
-					<ConditionalValue os="win" />
-				</CompareBitmap>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
 			</body>
 	    </TestCase>
 		<TestCase testID="FXG_Rect_RadialGradientStroke_strokeY" description="Rect with a RadialGradientStroke and and (x,y)=(0,20)" keywords="[Line, RadialGradientStroke, x, y]">
@@ -354,9 +338,7 @@
 			</setup>
 			<body>
 				<SetProperty target="rect_radialGradientStroke.rect1.stroke" propertyName="y" value="30" waitTarget="rect_radialGradientStroke.getElementAt(0)" waitEvent="updateComplete"  />
-				<CompareBitmap url="../Properties/baselines/" target="rect_radialGradientStroke" timeout="2500" >
-					<ConditionalValue os="win"/>
-				</CompareBitmap>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="2500" />
 			</body>
 	    </TestCase>
 <!-- visibility tests -->
@@ -636,9 +618,7 @@
 		            waitTarget="rect_radialGradientStroke.rect1" waitEvent="updateComplete" />
 		    </setup>
             <body>
-		        <CompareBitmap url="../Properties/baselines/" target="rect_radialGradientStroke" timeout="5000">
-					<ConditionalValue os="win" />
-				</CompareBitmap>
+		        <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="5000" />
             </body>
         </TestCase>
 	    <TestCase testID="FXG_Rect_XY_matrix_onRadialGradient_fill" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
@@ -652,9 +632,7 @@
 		            waitTarget="rect_radialGradientStroke.rect1" waitEvent="updateComplete" />
 		    </setup>
             <body>
-		        <CompareBitmap url="../Properties/baselines/" target="rect_radialGradientStroke" timeout="5000" >
-					<ConditionalValue os="win" />
-				</CompareBitmap>
+		        <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="5000" />
             </body>
         </TestCase>
 	    <TestCase testID="FXG_Rect_Rotation_matrix_onRadialGradient_stroke" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
@@ -668,9 +646,7 @@
 		            waitTarget="rect_radialGradientStroke.rect1" waitEvent="updateComplete" />
 		    </setup>
             <body>
-		        <CompareBitmap url="../Properties/baselines/" target="rect_radialGradientStroke" timeout="5000" >
-					<ConditionalValue os="win" />
-				</CompareBitmap>
+		        <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="5000" />
             </body>
         </TestCase>
 	    <TestCase testID="FXG_Rect_XY_matrix_onRadialGradient_stroke" keywords="[FXG, GraphicTags, Matrix, Transform, rotation]"
@@ -684,9 +660,7 @@
 		            waitTarget="rect_radialGradientStroke.rect1" waitEvent="updateComplete" />
 		    </setup>
             <body>
-		        <CompareBitmap url="../Properties/baselines/" target="rect_radialGradientStroke" timeout="5000" >
-					<ConditionalValue os="win"/>
-				</CompareBitmap>
+		        <CompareBitmap url="../Properties/baselines/$testID.png" target="rect_radialGradientStroke" timeout="5000" />
             </body>
         </TestCase>
 	    <TestCase testID="FXG_Rect_filters_default" keywords="[FXG, filters, Rect]"

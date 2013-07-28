@@ -1171,7 +1171,7 @@
 				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
 				<WaitForLayoutManager />
 				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=twoEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
-				<WaitForLayoutManager />
+				<Pause timeout="300" />
 			</setup>
 			<body>
 				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">

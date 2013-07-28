@@ -1389,7 +1389,7 @@ public class GridSelection
         var selectionChanged:Boolean = false;
         
         const oldRowIndex:int = event.oldLocation;
-        var newRowIndex:int = event.location;
+        const newRowIndex:int = event.location;
         
         selectionChanged = handleRowRemove(oldRowIndex);
         
@@ -1664,7 +1664,7 @@ public class GridSelection
             return false;
 
         const oldColumnIndex:int = event.oldLocation;
-        var newColumnIndex:int = event.location;
+        const newColumnIndex:int = event.location;
         
         var selectionChanged:Boolean = handleColumnRemove(oldColumnIndex);
         
