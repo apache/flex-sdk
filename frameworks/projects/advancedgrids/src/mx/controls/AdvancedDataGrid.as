@@ -5863,29 +5863,33 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
     override protected function findHeaderRenderer(pt:Point):IListItemRenderer
     {
         var headerItem:IListItemRenderer;
-        var xMatched:Boolean=false;
+        var xMatched:Boolean = false;
         var array:Array = visibleHeaderInfos;
         var x:Number;
 
-        while(!xMatched)
+        while (!xMatched)
         {
             var n:int = array ? array.length : 0;
-            for(var i:int=0; i < n; i++)
+            for (var i:int = 0; i < n; i++)
             {
                 headerItem = array[i]["headerItem"];
+				
+				if (headerItem == null)
+					continue;
+				
                 x = headerItem.x;
 
-                if(array[i].actualColNum >= lockedColumnCount)
+                if (array[i].actualColNum >= lockedColumnCount)
                     x = getAdjustedXPos(headerItem.x);
 
-                if(pt.x >= x && pt.x < (x + headerItem.getExplicitOrMeasuredWidth()))
+                if (pt.x >= x && pt.x < (x + headerItem.getExplicitOrMeasuredWidth()))
                 {
                     xMatched = true;
 
-                    if(pt.y >headerItem.y - cachedPaddingTop && 
-                       pt.y <= headerItem.y + headerItem.height + cachedPaddingBottom)
+                    if (pt.y >headerItem.y - cachedPaddingTop && 
+                        pt.y <= headerItem.y + headerItem.height + cachedPaddingBottom)
                         return headerItem;
-                    else if(array[i].visibleChildren && array[i].visibleChildren.length > 0)
+                    else if (array[i].visibleChildren && array[i].visibleChildren.length > 0)
                         array = array[i].visibleChildren;
                     else
                         return null;
@@ -5893,7 +5897,8 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                 }
 
             }
-            if(!xMatched)//There is no point of keep looping over if x is not within range
+			// There is no point of keep looping over if x is not within range
+            if (!xMatched)
                 return null;
             xMatched = false;
         }
