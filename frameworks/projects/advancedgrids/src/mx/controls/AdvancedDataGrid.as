@@ -5873,6 +5873,9 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             for(var i:int=0; i < n; i++)
             {
                 headerItem = array[i]["headerItem"];
+				if(headerItem == null)
+					continue;
+					
                 x = headerItem.x;
 
                 if(array[i].actualColNum >= lockedColumnCount)
