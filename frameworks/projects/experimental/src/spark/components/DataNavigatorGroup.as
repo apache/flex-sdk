@@ -482,7 +482,9 @@ package spark.components
 		 */
 		public function removeItem( item:Object ):Boolean
 		{
-			return dataProvider.removeItem(item);
+            if ("removeItem" in dataProvider)
+                return dataProvider["removeItem"]( item );
+            return false;
 		}
 		
 		/**

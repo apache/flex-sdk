@@ -806,7 +806,9 @@ public class ListCollectionView extends Proxy
 	 */
 	public function removeItem(item:Object):Boolean
 	{
-		return list.removeItem(item);
+        if ("removeItem" in list)
+    		return list["removeItem"](item);
+        return false;
 	}
 
     /**
