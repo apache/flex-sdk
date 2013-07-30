@@ -49,7 +49,7 @@ public class ProductInfo extends Tag
         "unknown", // 0
         "Macromedia Flex for J2EE",
         "Macromedia Flex for .NET",    
-        "Adobe Flex",
+        "Apache Flex",
     };
 
     protected static final int DEVELOPER_EDITION = 0;
