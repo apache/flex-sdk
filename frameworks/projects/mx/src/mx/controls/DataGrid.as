@@ -3589,10 +3589,6 @@ public class DataGrid extends DataGridBase implements IIMESupport
     protected function drawVerticalLine(s:Sprite, colIndex:int, color:uint, x:Number):void
     {
         var contentHolder:ListBaseContentHolder = s.parent.parent as ListBaseContentHolder;
-		
-		if (isNaN(contentHolder.height))
-			return;
-		
         //draw our vertical lines
         var g:Graphics = s.graphics;
         g.lineStyle();
