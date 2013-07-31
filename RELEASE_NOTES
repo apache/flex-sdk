@@ -13,6 +13,27 @@ final release).
 
 Make sure to review this document to see what has been changed.
 
+Known Issues:
+
+Flash Builder Integration
+-------------------------
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where, 
+when generating the .mxml file for a new project that uses Apache Flex 4.10.0 
+and Spark Application, Flash Builder will incorrectly insert the attribute:
+
+	layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+  
+
 Differences from Apache Flex 4.9 include:
 
 AIR and Flash Player support
