@@ -535,8 +535,8 @@ package spark.components
 					// Invalidate only when the arrow direction changes
 					var direction:String = determineArrowPosition(actualHorizontalPosition, actualVerticalPosition);
 					
-					trace("direction: "+direction);
-					trace("arrowDirection: "+arrowDirection);
+					// trace("direction: "+direction);
+					// trace("arrowDirection: "+arrowDirection);
 					
 					if (arrowDirection != direction)
 					{
@@ -1116,7 +1116,7 @@ package spark.components
 			
 			regPoint.x += nudgeToFit(calloutBounds.left, calloutBounds.right, screenLeft, screenRight, concatScaleX);
 			
-			trace("regpoint: " + regPoint.toString());
+			// trace("regpoint: " + regPoint.toString());
 			
 			calculateArrowPosition();
 			
@@ -1132,9 +1132,9 @@ package spark.components
 		
 		mx_internal function calculateArrowPosition():void
 		{
-			trace("horizontalPosition: " + horizontalPosition);
+			// trace("horizontalPosition: " + horizontalPosition);
 			
-			trace("verticalPosition: " + verticalPosition);
+			// trace("verticalPosition: " + verticalPosition);
 		}
 		
 		/**
