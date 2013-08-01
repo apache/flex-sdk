@@ -88,7 +88,7 @@ SDK Changes
  - Improve currency formatting support.
  - More supported locales for postcode validator and formatters.
  - Added 'no color' support to ColorPicker.
- - Added removeItem to IList.
+ - Added removeItem to ListCollectionView.
  - Bitmap scaling works in fill and crop modes.
  - Fixed performance issue with matchesStyleClient.
  - Improved performance of truncating text to fit.
