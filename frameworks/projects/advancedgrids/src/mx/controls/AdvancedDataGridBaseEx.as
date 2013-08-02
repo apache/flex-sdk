@@ -4038,8 +4038,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         var height:Number = Math.min(lastRow.y + lastRow.height,
                                      listContent.height - yy);
 
-        g.drawRect(xx, yy, headerInfo.headerItem.width,
-                   listContent.height - yy);
+        g.drawRect(xx, yy, headerInfo.headerItem.width, height);
         g.endFill();
     }
 
