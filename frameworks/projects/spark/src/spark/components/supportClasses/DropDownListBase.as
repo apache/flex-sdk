@@ -660,7 +660,7 @@ public class DropDownListBase extends List
                                              leftOffset:Number = NaN,
                                              rightOffset:Number = NaN):void
     {
-        if (!layout)
+        if (!layout || dataGroup == null)
             return;
         
         var spDelta:Point = 
