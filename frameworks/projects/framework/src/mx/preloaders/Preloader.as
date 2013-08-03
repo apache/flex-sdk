@@ -39,6 +39,8 @@ import mx.core.ResourceModuleRSLItem;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.RSLEvent;
+import mx.managers.SystemManagerGlobals;
+import mx.resources.IResourceManager;
 
 use namespace mx_internal;
 
@@ -540,6 +542,26 @@ public class Preloader extends Sprite
                     return;
                 }
             }
+
+            if (resourceModuleListLoader)
+            {
+                var resourceManager:IResourceManager;
+                // do this to prevent dependency on ResourceManager
+                if (applicationDomain.hasDefinition("mx.resources::ResourceManager"))
+                {
+                    var resourceManagerClass:Class = 
+                        Class(applicationDomain.getDefinition("mx.resources::ResourceManager"));
+                    resourceManager = 
+                        IResourceManager(resourceManagerClass["getInstance"]());
+                }
+                // The FlashVars of the SWF's HTML wrapper,
+                // or the query parameters of the SWF URL,
+                // can specify the ResourceManager's localeChain.
+                var localeChainList:String =  
+                    SystemManagerGlobals.parameters["localeChain"];
+                if (localeChainList != null && localeChainList != "")
+                    resourceManager.localeChain = localeChainList.split(",");
+            }            
 
             timer.removeEventListener(TimerEvent.TIMER, timerHandler);
             

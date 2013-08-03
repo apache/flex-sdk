@@ -13,6 +13,27 @@ final release).
 
 Make sure to review this document to see what has been changed.
 
+
+Known Issues
+_____________
+
+Adobe Flash Builder Integration
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where, 
+when generating the .mxml file for a new project that uses Apache Flex 4.10.0 
+and Spark Application, Flash Builder will incorrectly insert the attribute:
+
+	layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+
 Differences from Apache Flex 4.9 include:
 
 AIR and Flash Player support
@@ -28,6 +49,7 @@ Compiler changes
  - Support for Advanced Telemetry in Flash Builder, ant task and command line
    tools.
  - SVG support is no longer deprecated.
+ - SWF ProductInfo is now "Apache Flex" instead of "Adobe Flex"
 
 Build script changes
 ----------------------
@@ -66,7 +88,7 @@ SDK Changes
  - Improve currency formatting support.
  - More supported locales for postcode validator and formatters.
  - Added 'no color' support to ColorPicker.
- - Added removeItem to IList.
+ - Added removeItem to ListCollectionView.
  - Bitmap scaling works in fill and crop modes.
  - Fixed performance issue with matchesStyleClient.
  - Improved performance of truncating text to fit.
@@ -116,6 +138,7 @@ Bug Fixes
 
 JIRA Issue Number  Summary                                                                                         Resolution
 ------------------------------------------------------------------------------------------------------------------------------
+FLEX-33632         Getting Run Time Error when loading resource module at runtime                                  Fixed
 FLEX-33613         RTE when closing Popup with RIATEST open but the application compiled with accessibility = falseFixed
 FLEX-33604         Spark DataGrid causes a tooltip (text: ""<dataTip>"") to appear for its typical item renderer   Fixed										
 FLEX-33600         Creating a pop up from a menubar or from within Firefox crashes                                 Fixed										
@@ -221,6 +244,7 @@ FLEX-33192         EMailValidator doesn't exclude hyphens at the beginning and e
 FLEX-33190         GridEvent.GRID_DOUBLE_CLICK is dispatched even when two different cells are clicked             Fixed										
 FLEX-33189         centerPopUp() doesn't work correctly with layoutDirection=='rtl'                                Fixed
 FLEX-33169         Spark List selection on mobile doesn't work properly                                            Fixed										
+FLEX-33165         RTE on Scroller when rotating device in mobile simulator                                        Fixed
 FLEX-33163         When a collection reset event is received by List selectedItem is not always cleared            Fixed										
 FLEX-33130         mx.core.IButton should have getter/setter function for label property                           Fixed										
 FLEX-33142         embeddedFontRegistry Null reference error loading a module that has <s:FormItem>                Fixed

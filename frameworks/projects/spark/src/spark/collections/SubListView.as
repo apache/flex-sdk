@@ -381,7 +381,7 @@ public class SubListView extends EventDispatcher implements IList
     
 	public function removeItem(item:Object):Boolean
 	{
-		return (list) ? list.removeItem( item ) : false;
+		return (list && "removeItem" in list) ? list["removeItem"]( item ) : false;
 	}
 	
     public function removeItemAt(index:int):Object

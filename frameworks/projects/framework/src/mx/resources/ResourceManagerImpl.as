@@ -449,14 +449,6 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
 			compiledLocales[0] :
 			"en_US";
 
-		// The FlashVars of the SWF's HTML wrapper,
-		// or the query parameters of the SWF URL,
-		// can specify the ResourceManager's localeChain.
-		var localeChainList:String =  
-			SystemManagerGlobals.parameters["localeChain"];
-		if (localeChainList != null && localeChainList != "")
-			localeChain = localeChainList.split(",");
-
 		var applicationDomain:ApplicationDomain = info["currentDomain"];
 
 		var compiledResourceBundleNames:Array /* of String */ =
