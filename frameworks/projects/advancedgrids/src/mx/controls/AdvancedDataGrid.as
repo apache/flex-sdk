@@ -3016,11 +3016,11 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                     if (listItems[curRow][0])
                     {
                         var d:int = getItemDepth(listItems[curRow][0].data, curRow);
-                        drawRowBackground(rowBGs, i++, rowInfo[curRow].y, rowInfo[curRow].height, colors[d - 1], curRow);
+                        drawRowBackground(rowBGs, i++, rowInfo[curRow].y, rowInfo[curRow].height, colors[d - 1], actualRow);
                     }
                     else
                     {
-                        drawRowBackground(rowBGs, i++, rowInfo[curRow].y, rowInfo[curRow].height, uint(color), curRow);
+                        drawRowBackground(rowBGs, i++, rowInfo[curRow].y, rowInfo[curRow].height, uint(color), actualRow);
                     }
                 }
                 catch (e:Error)
