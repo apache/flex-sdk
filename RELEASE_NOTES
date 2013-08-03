@@ -13,10 +13,11 @@ final release).
 
 Make sure to review this document to see what has been changed.
 
-Known Issues:
 
-Flash Builder Integration
--------------------------
+Known Issues
+_____________
+
+Adobe Flash Builder Integration
 
 Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where, 
 when generating the .mxml file for a new project that uses Apache Flex 4.10.0 
@@ -32,7 +33,6 @@ attempt to correct this problem:
 
 https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
 
-  
 
 Differences from Apache Flex 4.9 include:
 
@@ -138,6 +138,7 @@ Bug Fixes
 
 JIRA Issue Number  Summary                                                                                         Resolution
 ------------------------------------------------------------------------------------------------------------------------------
+FLEX-33632         Getting Run Time Error when loading resource module at runtime                                  Fixed
 FLEX-33613         RTE when closing Popup with RIATEST open but the application compiled with accessibility = falseFixed
 FLEX-33604         Spark DataGrid causes a tooltip (text: ""<dataTip>"") to appear for its typical item renderer   Fixed										
 FLEX-33600         Creating a pop up from a menubar or from within Firefox crashes                                 Fixed										
@@ -243,6 +244,7 @@ FLEX-33192         EMailValidator doesn't exclude hyphens at the beginning and e
 FLEX-33190         GridEvent.GRID_DOUBLE_CLICK is dispatched even when two different cells are clicked             Fixed										
 FLEX-33189         centerPopUp() doesn't work correctly with layoutDirection=='rtl'                                Fixed
 FLEX-33169         Spark List selection on mobile doesn't work properly                                            Fixed										
+FLEX-33165         RTE on Scroller when rotating device in mobile simulator                                        Fixed
 FLEX-33163         When a collection reset event is received by List selectedItem is not always cleared            Fixed										
 FLEX-33130         mx.core.IButton should have getter/setter function for label property                           Fixed										
 FLEX-33142         embeddedFontRegistry Null reference error loading a module that has <s:FormItem>                Fixed
