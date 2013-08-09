@@ -1026,7 +1026,7 @@ public class ObjectUtil
             numericIndex = isArray && !isNaN(Number(p));
         }
 
-        if (isArray || isDict || className == "Object" || className == "String")
+        if (isArray || isDict || className == "Object")
         {
             // Do nothing since we've already got the dynamic members
         }
