@@ -4757,7 +4757,39 @@ public class DataGrid extends SkinnableContainerBase
     //  Item Editor Methods
     //
     //--------------------------------------------------------------------------
-    
+ 
+	/**
+	 *  Returns true if a datagrid cell is editable.
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5
+	 *  @productversion Flex 4.5
+	 *  
+	 */ 
+	protected function isCellEditable(rowIndex:int, columnIndex:int):Boolean
+	{
+		var dataItem:Object = dataProvider.getItemAt(rowIndex);
+		var column:GridColumn = GridColumn(columns.getItemAt(columnIndex));
+		var dataField:String = column.dataField;
+		
+		return isDataEditable(dataItem, dataField);
+	}
+	
+	/**
+	 *  Override to make a datagrid cell editabe based on the data item.
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5
+	 *  @productversion Flex 4.5
+	 *  
+	 */ 
+	protected function isDataEditable(dataItem:Object, dataField:String):Boolean
+	{
+		return (dataItem != null);
+	}
+	
     /**
      *  Starts an editor session on a selected cell in the grid. This method  
      *  by-passes checks of the editable property on the DataGrid and GridColumn
@@ -4788,7 +4820,7 @@ public class DataGrid extends SkinnableContainerBase
      */ 
     public function startItemEditorSession(rowIndex:int, columnIndex:int):Boolean
     {
-        if (editor)
+        if (editor && isCellEditable(rowIndex,columnIndex))
             return editor.startItemEditorSession(rowIndex, columnIndex);
         
         return false;
