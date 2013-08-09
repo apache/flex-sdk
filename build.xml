@@ -697,9 +697,16 @@
         <!-- frameworks/tests -->
         <antcall target="stage-frameworks-tests"/>
 
-        <!-- now that air-config.xml and flex-config.xml are in temp, fix them up for release. -->
-        <fix-config-file file="${basedir}/temp/frameworks/air-config.xml" />
-        <fix-config-file file="${basedir}/temp/frameworks/flex-config.xml" />
+        <tstamp>
+        	<format property="build.number.date" pattern="yyyyMMdd" />
+        </tstamp>
+        <property name="build.version" value="${release.version}.${build.number.date}" />
+
+        <!-- now that config xml files are in temp, fix them up for release. -->
+        <echo message="Updating config file air-config.xml with version ${build.version}"/>
+        <fix-config-file file="${basedir}/temp/frameworks/air-config.xml" version="${build.version}" />
+        <echo message="Updating config file flex-config.xml with version ${build.version}"/>
+        <fix-config-file file="${basedir}/temp/frameworks/flex-config.xml" version="${build.version}" />
         
         <!-- Update all Version.as files in the kit frameworks directory with build.number -->
         <antcall target="version-update"/>
@@ -1034,6 +1041,7 @@
 
     <macrodef name="fix-config-file">
         <attribute name="file"/>
+        <attribute name="version"/>
             <sequential>
                 <replace file="@{file}">
                     <replacefilter
@@ -1041,7 +1049,7 @@
                         value="&lt;warn-no-explicit-super-call-in-constructor&gt;false"/>
                     <replacefilter
                         token="$${build.number}"
-                        value="${release.version}.${build.number.date}"/>
+                        value="@{version}"/>
                 </replace>
         </sequential>
     </macrodef>
