@@ -49,10 +49,12 @@
 
 			<body>
 				<AssertPropertyValue target="" propertyName="applicationDPI" value="160" >
+					<ConditionalValue deviceDensity="120" value="120"/>
 					<ConditionalValue deviceDensity="160" value="160"/>
 					<ConditionalValue deviceDensity="240" value="240"/>
 					<ConditionalValue deviceDensity="320" value="320"/>
 					<ConditionalValue deviceDensity="480" value="480"/>
+					<ConditionalValue deviceDensity="640" value="640"/>
 				</AssertPropertyValue>
 			</body>
 		
@@ -65,10 +67,12 @@
 			</setup>
 			<body>
 			<AssertPropertyValue target="" propertyName="applicationDPI" value="160" >
+				<ConditionalValue deviceDensity="120" value="120"/>
 				<ConditionalValue deviceDensity="160" value="160"/>
 				<ConditionalValue deviceDensity="240" value="240"/>
 				<ConditionalValue deviceDensity="320" value="320"/>
 				<ConditionalValue deviceDensity="480" value="480"/>
+				<ConditionalValue deviceDensity="640" value="640"/>
 			</AssertPropertyValue>
 		
 		
