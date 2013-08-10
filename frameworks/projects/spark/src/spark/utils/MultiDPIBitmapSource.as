@@ -88,7 +88,7 @@ public class MultiDPIBitmapSource
 	 *  @playerversion AIR 2.6
 	 *  @productversion ApacheFlex 4.10
 	 */
-	public var source640dpi:Object;
+	public var source480dpi:Object;
 	
 	/**
 	 *  The source to use if the <code>Application.runtimeDPI</code> 
