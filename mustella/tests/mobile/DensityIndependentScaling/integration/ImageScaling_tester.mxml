@@ -43,10 +43,12 @@
                 <RunCode code="application.navigator.pushView(views.ImageScalingView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 <ChangeState changeTarget="navigator.activeView" toState="embedded" waitEvent="ready" waitTarget="navigator.activeView.bitmapImage" />
                 <CompareBitmap target="navigator.activeView.bitmapImageHolder" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="120" />
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
                     <ConditionalValue deviceDensity="320" />
-					<ConditionalValue deviceDensity="480" />		
+					<ConditionalValue deviceDensity="480" />
+					<ConditionalValue deviceDensity="640" />
                 </CompareBitmap>
             </body>
         </TestCase>
@@ -59,10 +61,12 @@
                 <RunCode code="application.navigator.pushView(views.ImageScalingView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 <ChangeState changeTarget="navigator.activeView" toState="referenced" waitEvent="ready" waitTarget="navigator.activeView.bitmapImage" />
                 <CompareBitmap target="navigator.activeView.bitmapImageHolder" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="120" />
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-					<ConditionalValue deviceDensity="480" />			
+					<ConditionalValue deviceDensity="480" />
+					<ConditionalValue deviceDensity="640" />
                 </CompareBitmap>
             </body>
         </TestCase>
@@ -75,10 +79,12 @@
                 <RunCode code="application.navigator.pushView(views.ImageScalingView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 <ChangeState changeTarget="navigator.activeView" toState="embedded" waitEvent="ready" waitTarget="navigator.activeView.image" />
                 <CompareBitmap target="navigator.activeView.image" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="120" />
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-					<ConditionalValue deviceDensity="480" />				
+					<ConditionalValue deviceDensity="480" />
+					<ConditionalValue deviceDensity="640" />
                 </CompareBitmap>
             </body>
         </TestCase>
@@ -107,10 +113,12 @@
                 <RunCode code="application.navigator.pushView(views.ImageScalingView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="10000" />
                 <ChangeState changeTarget="navigator.activeView" toState="embedded" waitEvent="ready" waitTarget="navigator.activeView.button.iconDisplay" />
                 <CompareBitmap target="navigator.activeView.button" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="120" />
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-					<ConditionalValue deviceDensity="480" />	
+					<ConditionalValue deviceDensity="480" />
+					<ConditionalValue deviceDensity="640" />
 				</CompareBitmap>
             </body>
         </TestCase>
@@ -140,10 +148,12 @@
                 <ChangeState changeTarget="navigator.activeView" toState="embedded" waitEvent="updateComplete" waitTarget="navigator.activeView.tabbedNavigator.tabBar.dataGroup.getElementAt(0)" />
                 <Pause timeout="500" /><!-- must pause as the iconDisplay skin part isn't used in ButtonSkinBase (mobile skins) since it extends UIComponent and not Group -->
                 <CompareBitmap target="navigator.activeView.tabbedNavigator" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="120" />
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
 					<ConditionalValue deviceDensity="480" />
+					<ConditionalValue deviceDensity="640" />
 				</CompareBitmap>
             </body>
         </TestCase>
@@ -174,10 +184,12 @@
                 <RunCode code="application.navigator.pushView(views.ImageScalingView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 <ChangeState changeTarget="navigator.activeView" toState="embedded" waitEvent="itemRenderer0IconReady" waitTarget="navigator.activeView.normalList" />
                 <CompareBitmap target="navigator.activeView.normalList" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="120" />
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-					<ConditionalValue deviceDensity="480" />	
+					<ConditionalValue deviceDensity="480" />
+					<ConditionalValue deviceDensity="640" />
 				</CompareBitmap>
             </body>
         </TestCase>
@@ -206,10 +218,12 @@
                 <RunCode code="application.navigator.pushView(views.ImageScalingView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 <ChangeState changeTarget="navigator.activeView" toState="embedded" waitEvent="currentStateChange" waitTarget="navigator.activeView" />
                 <CompareBitmap target="navigator.activeView.loadingList" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="120" />
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-					<ConditionalValue deviceDensity="480" />	
+					<ConditionalValue deviceDensity="480" />
+					<ConditionalValue deviceDensity="640" />
 				</CompareBitmap>
             </body>
         </TestCase>
@@ -222,10 +236,12 @@
                 <RunCode code="application.navigator.pushView(views.ImageScalingView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 <ChangeState changeTarget="navigator.activeView" toState="embedded" waitEvent="currentStateChange" waitTarget="navigator.activeView" />
                 <CompareBitmap target="navigator.activeView.decoratorList" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="120" />
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-					<ConditionalValue deviceDensity="480" />	
+					<ConditionalValue deviceDensity="480" />
+					<ConditionalValue deviceDensity="640" />
 				</CompareBitmap>
             </body>
         </TestCase>

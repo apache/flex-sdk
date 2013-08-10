@@ -19,7 +19,7 @@
 -->
 <s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 							xmlns:s="library://ns.adobe.com/flex/spark" firstView="views.ViewNavigatorApplication160dpiHomeView"
-							applicationDPI="160" applicationComplete="init()">
+							applicationDPI="120" applicationComplete="init()">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
