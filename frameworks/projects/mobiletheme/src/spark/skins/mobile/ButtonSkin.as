@@ -30,6 +30,8 @@ import mx.utils.ColorUtil;
 
 import spark.components.supportClasses.StyleableTextField;
 import spark.skins.mobile.supportClasses.ButtonSkinBase;
+import spark.skins.mobile120.assets.Button_down;
+import spark.skins.mobile120.assets.Button_up;
 import spark.skins.mobile160.assets.Button_down;
 import spark.skins.mobile160.assets.Button_up;
 import spark.skins.mobile240.assets.Button_down;
@@ -38,6 +40,8 @@ import spark.skins.mobile320.assets.Button_down;
 import spark.skins.mobile320.assets.Button_up;
 import spark.skins.mobile480.assets.Button_down;
 import spark.skins.mobile480.assets.Button_up;
+import spark.skins.mobile640.assets.Button_down;
+import spark.skins.mobile640.assets.Button_up;
 
 
 use namespace mx_internal;
@@ -101,6 +105,23 @@ public class ButtonSkin extends ButtonSkinBase
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				upBorderSkin = spark.skins.mobile640.assets.Button_up;
+				downBorderSkin = spark.skins.mobile640.assets.Button_down;
+				
+				layoutGap = 20;
+				layoutCornerEllipseSize = 40;
+				layoutPaddingLeft = 40;
+				layoutPaddingRight = 40;
+				layoutPaddingTop = 40;
+				layoutPaddingBottom = 40;
+				layoutBorderSize = 2;
+				measuredDefaultWidth = 128;
+				measuredDefaultHeight = 172;
+				
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
@@ -136,23 +157,40 @@ public class ButtonSkin extends ButtonSkinBase
                 
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                upBorderSkin = spark.skins.mobile240.assets.Button_up;
-                downBorderSkin = spark.skins.mobile240.assets.Button_down;
-                
-                layoutGap = 7;
-                layoutCornerEllipseSize = 15;
-                layoutPaddingLeft = 15;
-                layoutPaddingRight = 15;
-                layoutPaddingTop = 15;
-                layoutPaddingBottom = 15;
-                layoutBorderSize = 1;
-                measuredDefaultWidth = 48;
-                measuredDefaultHeight = 65;
-                
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				upBorderSkin = spark.skins.mobile240.assets.Button_up;
+				downBorderSkin = spark.skins.mobile240.assets.Button_down;
+				
+				layoutGap = 7;
+				layoutCornerEllipseSize = 15;
+				layoutPaddingLeft = 15;
+				layoutPaddingRight = 15;
+				layoutPaddingTop = 15;
+				layoutPaddingBottom = 15;
+				layoutBorderSize = 1;
+				measuredDefaultWidth = 48;
+				measuredDefaultHeight = 65;
+				
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				upBorderSkin = spark.skins.mobile120.assets.Button_up;
+				downBorderSkin = spark.skins.mobile120.assets.Button_down;
+				
+				layoutGap = 4;
+				layoutCornerEllipseSize = 8;
+				layoutPaddingLeft = 8;
+				layoutPaddingRight = 8;
+				layoutPaddingTop = 8;
+				layoutPaddingBottom = 8;
+				layoutBorderSize = 1;
+				measuredDefaultWidth = 24;
+				measuredDefaultHeight = 33;
+				
+				break;
+			}
             default:
             {
                 // default DPI_160

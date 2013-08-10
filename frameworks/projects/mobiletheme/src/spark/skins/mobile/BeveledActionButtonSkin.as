@@ -26,6 +26,9 @@ import mx.core.DPIClassification;
 import mx.core.mx_internal;
 
 import spark.skins.mobile.supportClasses.MobileSkin;
+import spark.skins.mobile120.assets.BeveledActionButton_down;
+import spark.skins.mobile120.assets.BeveledActionButton_fill;
+import spark.skins.mobile120.assets.BeveledActionButton_up;
 import spark.skins.mobile160.assets.BeveledActionButton_down;
 import spark.skins.mobile160.assets.BeveledActionButton_fill;
 import spark.skins.mobile160.assets.BeveledActionButton_up;
@@ -38,6 +41,9 @@ import spark.skins.mobile320.assets.BeveledActionButton_up;
 import spark.skins.mobile480.assets.BeveledActionButton_down;
 import spark.skins.mobile480.assets.BeveledActionButton_fill;
 import spark.skins.mobile480.assets.BeveledActionButton_up;
+import spark.skins.mobile640.assets.BeveledActionButton_down;
+import spark.skins.mobile640.assets.BeveledActionButton_fill;
+import spark.skins.mobile640.assets.BeveledActionButton_up;
 
 
 use namespace mx_internal;
@@ -77,6 +83,23 @@ public class BeveledActionButtonSkin extends ButtonSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				// Note provisional may need changes
+				layoutBorderSize = 0;
+				layoutPaddingTop = 0;
+				layoutPaddingBottom = 0;
+				layoutPaddingLeft = 40;
+				layoutPaddingRight = 40;
+				measuredDefaultWidth = 108;
+				measuredDefaultHeight = 108;
+				
+				upBorderSkin = spark.skins.mobile640.assets.BeveledActionButton_up;
+				downBorderSkin = spark.skins.mobile640.assets.BeveledActionButton_down;
+				fillClass = spark.skins.mobile640.assets.BeveledActionButton_fill;
+				
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
@@ -110,22 +133,39 @@ public class BeveledActionButtonSkin extends ButtonSkin
                 
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                layoutBorderSize = 0;
-                layoutPaddingTop = 0;
-                layoutPaddingBottom = 0;
-                layoutPaddingLeft = 15;
-                layoutPaddingRight = 15;
-                measuredDefaultWidth = 42;
-                measuredDefaultHeight = 42;
-                
-                upBorderSkin = spark.skins.mobile240.assets.BeveledActionButton_up;
-                downBorderSkin = spark.skins.mobile240.assets.BeveledActionButton_down;
-                fillClass = spark.skins.mobile240.assets.BeveledActionButton_fill;
-                
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				layoutBorderSize = 0;
+				layoutPaddingTop = 0;
+				layoutPaddingBottom = 0;
+				layoutPaddingLeft = 15;
+				layoutPaddingRight = 15;
+				measuredDefaultWidth = 42;
+				measuredDefaultHeight = 42;
+				
+				upBorderSkin = spark.skins.mobile240.assets.BeveledActionButton_up;
+				downBorderSkin = spark.skins.mobile240.assets.BeveledActionButton_down;
+				fillClass = spark.skins.mobile240.assets.BeveledActionButton_fill;
+				
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				// Note provisional may need changes
+				layoutBorderSize = 0;
+				layoutPaddingTop = 0;
+				layoutPaddingBottom = 0;
+				layoutPaddingLeft = 8;
+				layoutPaddingRight = 8;
+				measuredDefaultWidth = 21;
+				measuredDefaultHeight = 21;
+				
+				upBorderSkin = spark.skins.mobile120.assets.BeveledActionButton_up;
+				downBorderSkin = spark.skins.mobile120.assets.BeveledActionButton_down;
+				fillClass = spark.skins.mobile120.assets.BeveledActionButton_fill;
+				
+				break;
+			}
             default:
             {
                 // default DPI_160

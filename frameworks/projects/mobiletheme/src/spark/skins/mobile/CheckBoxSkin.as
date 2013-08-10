@@ -30,6 +30,12 @@ import spark.skins.mobile160.assets.CheckBox_downSymbolSelected;
 import spark.skins.mobile160.assets.CheckBox_up;
 import spark.skins.mobile160.assets.CheckBox_upSymbol;
 import spark.skins.mobile160.assets.CheckBox_upSymbolSelected;
+import spark.skins.mobile160.assets.CheckBox_down;
+import spark.skins.mobile160.assets.CheckBox_downSymbol;
+import spark.skins.mobile160.assets.CheckBox_downSymbolSelected;
+import spark.skins.mobile160.assets.CheckBox_up;
+import spark.skins.mobile160.assets.CheckBox_upSymbol;
+import spark.skins.mobile160.assets.CheckBox_upSymbolSelected;
 import spark.skins.mobile240.assets.CheckBox_down;
 import spark.skins.mobile240.assets.CheckBox_downSymbol;
 import spark.skins.mobile240.assets.CheckBox_downSymbolSelected;
@@ -48,6 +54,12 @@ import spark.skins.mobile480.assets.CheckBox_downSymbolSelected;
 import spark.skins.mobile480.assets.CheckBox_up;
 import spark.skins.mobile480.assets.CheckBox_upSymbol;
 import spark.skins.mobile480.assets.CheckBox_upSymbolSelected;
+import spark.skins.mobile640.assets.CheckBox_down;
+import spark.skins.mobile640.assets.CheckBox_downSymbol;
+import spark.skins.mobile640.assets.CheckBox_downSymbolSelected;
+import spark.skins.mobile640.assets.CheckBox_up;
+import spark.skins.mobile640.assets.CheckBox_upSymbol;
+import spark.skins.mobile640.assets.CheckBox_upSymbolSelected;
 
 /**
  *  ActionScript-based skin for CheckBox components in mobile applications. 
@@ -94,6 +106,24 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				upIconClass = spark.skins.mobile640.assets.CheckBox_up;
+				upSelectedIconClass = spark.skins.mobile640.assets.CheckBox_up;
+				downIconClass = spark.skins.mobile640.assets.CheckBox_down;
+				downSelectedIconClass = spark.skins.mobile640.assets.CheckBox_down;
+				upSymbolIconClass = spark.skins.mobile640.assets.CheckBox_upSymbol;
+				upSymbolIconSelectedClass = spark.skins.mobile640.assets.CheckBox_upSymbolSelected;
+				downSymbolIconClass = spark.skins.mobile640.assets.CheckBox_downSymbol;
+				downSymbolIconSelectedClass = spark.skins.mobile640.assets.CheckBox_downSymbolSelected;
+				
+				layoutGap = 40;
+				minWidth = 128;
+				minHeight = 128;
+				layoutBorderSize = 4;
+				
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
@@ -109,7 +139,7 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
 				layoutGap = 30;
 				minWidth = 96;
 				minHeight = 96;
-				layoutBorderSize = 8;
+				layoutBorderSize = 3;
 				
 				break;
 			}
@@ -123,11 +153,11 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
                 upSymbolIconSelectedClass = spark.skins.mobile320.assets.CheckBox_upSymbolSelected;
                 downSymbolIconClass = spark.skins.mobile320.assets.CheckBox_downSymbol;
                 downSymbolIconSelectedClass = spark.skins.mobile320.assets.CheckBox_downSymbolSelected;
-                
+                 
                 layoutGap = 20;
                 minWidth = 64;
                 minHeight = 64;
-                layoutBorderSize = 4;
+                layoutBorderSize = 3;
                 
                 break;
             }
@@ -149,6 +179,24 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
                 
                 break;
             }
+			case DPIClassification.DPI_120:
+			{
+				upIconClass = spark.skins.mobile120.assets.CheckBox_up;
+				upSelectedIconClass = spark.skins.mobile120.assets.CheckBox_up;
+				downIconClass = spark.skins.mobile120.assets.CheckBox_down;
+				downSelectedIconClass = spark.skins.mobile120.assets.CheckBox_down;
+				upSymbolIconClass = spark.skins.mobile120.assets.CheckBox_upSymbol;
+				upSymbolIconSelectedClass = spark.skins.mobile120.assets.CheckBox_upSymbolSelected;
+				downSymbolIconClass = spark.skins.mobile120.assets.CheckBox_downSymbol;
+				downSymbolIconSelectedClass = spark.skins.mobile120.assets.CheckBox_downSymbolSelected;
+				
+				layoutGap = 8;
+				minWidth = 24;
+				minHeight = 24;
+				layoutBorderSize = 1;
+				
+				break;
+			}
             default:
             {
                 // default DPI_160

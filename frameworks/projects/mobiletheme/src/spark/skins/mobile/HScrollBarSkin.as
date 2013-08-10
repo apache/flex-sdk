@@ -64,6 +64,13 @@ public class HScrollBarSkin extends MobileSkin
         // Depending on density set our measured height
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				minHeight = 24;   
+				paddingBottom = HScrollBarThumbSkin.PADDING_BOTTOM_640DPI;
+				paddingHorizontal = HScrollBarThumbSkin.PADDING_HORIZONTAL_640DPI;
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				minHeight = 18;   
@@ -78,13 +85,20 @@ public class HScrollBarSkin extends MobileSkin
                 paddingHorizontal = HScrollBarThumbSkin.PADDING_HORIZONTAL_320DPI;
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                minHeight = 9;   
-                paddingBottom = HScrollBarThumbSkin.PADDING_BOTTOM_240DPI;
-                paddingHorizontal = HScrollBarThumbSkin.PADDING_HORIZONTAL_240DPI;
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				minHeight = 9;   
+				paddingBottom = HScrollBarThumbSkin.PADDING_BOTTOM_240DPI;
+				paddingHorizontal = HScrollBarThumbSkin.PADDING_HORIZONTAL_240DPI;
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				minHeight = 5;   
+				paddingBottom = HScrollBarThumbSkin.PADDING_BOTTOM_120DPI;
+				paddingHorizontal = HScrollBarThumbSkin.PADDING_HORIZONTAL_120DPI;
+				break;
+			}
             default:
             {
                 // default DPI_160

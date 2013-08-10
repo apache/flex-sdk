@@ -25,6 +25,12 @@ import flash.display.DisplayObject;
 import mx.core.DPIClassification;
 
 import spark.skins.mobile.supportClasses.SelectableButtonSkinBase;
+import spark.skins.mobile120.assets.RadioButton_down;
+import spark.skins.mobile120.assets.RadioButton_downSymbol;
+import spark.skins.mobile120.assets.RadioButton_downSymbolSelected;
+import spark.skins.mobile120.assets.RadioButton_up;
+import spark.skins.mobile120.assets.RadioButton_upSymbol;
+import spark.skins.mobile120.assets.RadioButton_upSymbolSelected;
 import spark.skins.mobile160.assets.RadioButton_down;
 import spark.skins.mobile160.assets.RadioButton_downSymbol;
 import spark.skins.mobile160.assets.RadioButton_downSymbolSelected;
@@ -49,6 +55,12 @@ import spark.skins.mobile480.assets.RadioButton_downSymbolSelected;
 import spark.skins.mobile480.assets.RadioButton_up;
 import spark.skins.mobile480.assets.RadioButton_upSymbol;
 import spark.skins.mobile480.assets.RadioButton_upSymbolSelected;
+import spark.skins.mobile640.assets.RadioButton_down;
+import spark.skins.mobile640.assets.RadioButton_downSymbol;
+import spark.skins.mobile640.assets.RadioButton_downSymbolSelected;
+import spark.skins.mobile640.assets.RadioButton_up;
+import spark.skins.mobile640.assets.RadioButton_upSymbol;
+import spark.skins.mobile640.assets.RadioButton_upSymbolSelected;
 /**
  *  ActionScript-based skin for RadioButton controls in mobile applications. 
  * 
@@ -98,6 +110,23 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				upIconClass = spark.skins.mobile640.assets.RadioButton_up;
+				upSelectedIconClass = spark.skins.mobile640.assets.RadioButton_up;
+				downIconClass = spark.skins.mobile640.assets.RadioButton_down;
+				downSelectedIconClass = spark.skins.mobile640.assets.RadioButton_down;
+				upSymbolIconClass =  spark.skins.mobile640.assets.RadioButton_upSymbol;
+				downSymbolIconClass =  spark.skins.mobile640.assets.RadioButton_downSymbol;
+				upSymbolIconSelectedClass = spark.skins.mobile640.assets.RadioButton_upSymbolSelected;
+				downSymbolIconSelectedClass = spark.skins.mobile640.assets.RadioButton_downSymbolSelected;
+				
+				layoutGap = 40;
+				minWidth = 128;
+				minHeight = 128;
+				
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
@@ -133,23 +162,40 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
                 
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                upIconClass = spark.skins.mobile240.assets.RadioButton_up;
-                upSelectedIconClass = spark.skins.mobile240.assets.RadioButton_up;
-                downIconClass = spark.skins.mobile240.assets.RadioButton_down;
-                downSelectedIconClass = spark.skins.mobile240.assets.RadioButton_down;
-                upSymbolIconClass =  spark.skins.mobile240.assets.RadioButton_upSymbol;
-                downSymbolIconClass =  spark.skins.mobile240.assets.RadioButton_downSymbol;
-                upSymbolIconSelectedClass = spark.skins.mobile240.assets.RadioButton_upSymbolSelected;
-                downSymbolIconSelectedClass = spark.skins.mobile240.assets.RadioButton_downSymbolSelected;
-                
-                layoutGap = 15;
-                minWidth = 48;
-                minHeight = 48;
-                
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				upIconClass = spark.skins.mobile240.assets.RadioButton_up;
+				upSelectedIconClass = spark.skins.mobile240.assets.RadioButton_up;
+				downIconClass = spark.skins.mobile240.assets.RadioButton_down;
+				downSelectedIconClass = spark.skins.mobile240.assets.RadioButton_down;
+				upSymbolIconClass =  spark.skins.mobile240.assets.RadioButton_upSymbol;
+				downSymbolIconClass =  spark.skins.mobile240.assets.RadioButton_downSymbol;
+				upSymbolIconSelectedClass = spark.skins.mobile240.assets.RadioButton_upSymbolSelected;
+				downSymbolIconSelectedClass = spark.skins.mobile240.assets.RadioButton_downSymbolSelected;
+				
+				layoutGap = 15;
+				minWidth = 48;
+				minHeight = 48;
+				
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				upIconClass = spark.skins.mobile120.assets.RadioButton_up;
+				upSelectedIconClass = spark.skins.mobile120.assets.RadioButton_up;
+				downIconClass = spark.skins.mobile120.assets.RadioButton_down;
+				downSelectedIconClass = spark.skins.mobile120.assets.RadioButton_down;
+				upSymbolIconClass =  spark.skins.mobile120.assets.RadioButton_upSymbol;
+				downSymbolIconClass =  spark.skins.mobile120.assets.RadioButton_downSymbol;
+				upSymbolIconSelectedClass = spark.skins.mobile120.assets.RadioButton_upSymbolSelected;
+				downSymbolIconSelectedClass = spark.skins.mobile120.assets.RadioButton_downSymbolSelected;
+				
+				layoutGap = 7;
+				minWidth = 24;
+				minHeight = 24;
+				
+				break;
+			}
             default:
             {
                 upIconClass = spark.skins.mobile160.assets.RadioButton_up;

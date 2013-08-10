@@ -49,12 +49,16 @@ public class HScrollBarThumbSkin extends MobileSkin
     //--------------------------------------------------------------------------
     
     // These constants are also accessed from HScrollBarSkin
+	mx_internal static const PADDING_BOTTOM_640DPI:int = 10;
+	mx_internal static const PADDING_HORIZONTAL_640DPI:int = 8;
 	mx_internal static const PADDING_BOTTOM_480DPI:int = 8;
 	mx_internal static const PADDING_HORIZONTAL_480DPI:int = 6;
     mx_internal static const PADDING_BOTTOM_320DPI:int = 5;
     mx_internal static const PADDING_HORIZONTAL_320DPI:int = 4;
-    mx_internal static const PADDING_BOTTOM_240DPI:int = 4;
-    mx_internal static const PADDING_HORIZONTAL_240DPI:int = 3;
+	mx_internal static const PADDING_BOTTOM_240DPI:int = 4;
+	mx_internal static const PADDING_HORIZONTAL_240DPI:int = 3;
+	mx_internal static const PADDING_BOTTOM_120DPI:int = 2;
+	mx_internal static const PADDING_HORIZONTAL_120DPI:int = 2;
     mx_internal static const PADDING_BOTTOM_DEFAULTDPI:int = 3;
     mx_internal static const PADDING_HORIZONTAL_DEFAULTDPI:int = 2;
     

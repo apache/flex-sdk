@@ -273,6 +273,11 @@ public class LabelItemRenderer extends UIComponent
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				minHeight = 176;
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				minHeight = 132;
@@ -283,11 +288,16 @@ public class LabelItemRenderer extends UIComponent
                 minHeight = 88;
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                minHeight = 66;
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				minHeight = 66;
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				minHeight = 33;
+				break;
+			}
             default:
             {
                 // default PPI160

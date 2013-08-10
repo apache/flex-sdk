@@ -29,12 +29,18 @@ import spark.skins.mobile.assets.ViewMenuItem_down;
 import spark.skins.mobile.assets.ViewMenuItem_showsCaret;
 import spark.skins.mobile.assets.ViewMenuItem_up;
 import spark.skins.mobile.supportClasses.ButtonSkinBase;
+import spark.skins.mobile120.assets.ViewMenuItem_down;
+import spark.skins.mobile120.assets.ViewMenuItem_showsCaret;
+import spark.skins.mobile120.assets.ViewMenuItem_up;
 import spark.skins.mobile320.assets.ViewMenuItem_down;
 import spark.skins.mobile320.assets.ViewMenuItem_showsCaret;
 import spark.skins.mobile320.assets.ViewMenuItem_up;
 import spark.skins.mobile480.assets.ViewMenuItem_down;
 import spark.skins.mobile480.assets.ViewMenuItem_showsCaret;
 import spark.skins.mobile480.assets.ViewMenuItem_up;
+import spark.skins.mobile640.assets.ViewMenuItem_down;
+import spark.skins.mobile640.assets.ViewMenuItem_showsCaret;
+import spark.skins.mobile640.assets.ViewMenuItem_up;
 
 
 use namespace mx_internal;
@@ -63,6 +69,22 @@ public class ViewMenuItemSkin extends ButtonSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				
+				upBorderSkin = spark.skins.mobile640.assets.ViewMenuItem_up;
+				downBorderSkin = spark.skins.mobile640.assets.ViewMenuItem_down;
+				showsCaretBorderSkin = spark.skins.mobile640.assets.ViewMenuItem_showsCaret;
+				
+				layoutGap = 24;
+				layoutPaddingLeft = 24;
+				layoutPaddingRight = 24;
+				layoutPaddingTop = 24;
+				layoutPaddingBottom = 24;
+				layoutBorderSize = 3;   
+				
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{   
 				// Note provisional may need changes
@@ -97,22 +119,38 @@ public class ViewMenuItemSkin extends ButtonSkin
                 
                 break;
             }
-            case DPIClassification.DPI_240:
-            {   
-                upBorderSkin = spark.skins.mobile.assets.ViewMenuItem_up;
-                downBorderSkin = spark.skins.mobile.assets.ViewMenuItem_down;
-                showsCaretBorderSkin = spark.skins.mobile.assets.ViewMenuItem_showsCaret;
-                
-                layoutGap = 8;
-                layoutPaddingLeft = 8;
-                layoutPaddingRight = 8;
-                layoutPaddingTop = 8;
-                layoutPaddingBottom = 8;
-                layoutBorderSize = 1;
-                
-                break;
-                
-            }
+			case DPIClassification.DPI_240:
+			{   
+				upBorderSkin = spark.skins.mobile.assets.ViewMenuItem_up;
+				downBorderSkin = spark.skins.mobile.assets.ViewMenuItem_down;
+				showsCaretBorderSkin = spark.skins.mobile.assets.ViewMenuItem_showsCaret;
+				
+				layoutGap = 8;
+				layoutPaddingLeft = 8;
+				layoutPaddingRight = 8;
+				layoutPaddingTop = 8;
+				layoutPaddingBottom = 8;
+				layoutBorderSize = 1;
+				
+				break;
+				
+			}
+			case DPIClassification.DPI_120:
+			{   
+				upBorderSkin = spark.skins.mobile120.assets.ViewMenuItem_up;
+				downBorderSkin = spark.skins.mobile120.assets.ViewMenuItem_down;
+				showsCaretBorderSkin = spark.skins.mobile120.assets.ViewMenuItem_showsCaret;
+				
+				layoutGap = 4;
+				layoutPaddingLeft = 4;
+				layoutPaddingRight = 4;
+				layoutPaddingTop = 4;
+				layoutPaddingBottom = 4;
+				layoutBorderSize = 1;
+				
+				break;
+				
+			}
             default:
             {
                 upBorderSkin = spark.skins.mobile.assets.ViewMenuItem_up;

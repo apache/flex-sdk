@@ -68,6 +68,17 @@ public class TabbedViewNavigatorTabBarTabSkinBase extends ButtonBarButtonSkinBas
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				layoutBorderSize = 4;
+				layoutPaddingTop = 24;
+				layoutPaddingBottom = 24;
+				layoutPaddingLeft = 24;
+				layoutPaddingRight = 24;
+				layoutGap = 20;
+				measuredDefaultHeight = 204;
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
@@ -78,7 +89,6 @@ public class TabbedViewNavigatorTabBarTabSkinBase extends ButtonBarButtonSkinBas
 				layoutPaddingRight = 18;
 				layoutGap = 14;
 				measuredDefaultHeight = 152;
-				
 				break;
 			}
             case DPIClassification.DPI_320:
@@ -90,21 +100,31 @@ public class TabbedViewNavigatorTabBarTabSkinBase extends ButtonBarButtonSkinBas
                 layoutPaddingRight = 12;
                 layoutGap = 10;
                 measuredDefaultHeight = 102;
-                
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                layoutBorderSize = 1;
-                layoutPaddingTop = 9;
-                layoutPaddingBottom = 9;
-                layoutPaddingLeft = 9;
-                layoutPaddingRight = 9;
-                layoutGap = 7;
-                measuredDefaultHeight = 76;
-                
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				layoutBorderSize = 1;
+				layoutPaddingTop = 9;
+				layoutPaddingBottom = 9;
+				layoutPaddingLeft = 9;
+				layoutPaddingRight = 9;
+				layoutGap = 7;
+				measuredDefaultHeight = 76;
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				// Note provisional may need changes
+				layoutBorderSize = 1;
+				layoutPaddingTop = 5;
+				layoutPaddingBottom = 5;
+				layoutPaddingLeft = 5;
+				layoutPaddingRight = 5;
+				layoutGap = 4;
+				measuredDefaultHeight = 38;
+				break;
+			}
             default:
             {
                 // default DPI_160

@@ -191,6 +191,18 @@ public class HSliderDataTip extends UIComponent implements IDataRenderer
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_320:
+			{
+				// Note provisional may need changes
+				fontSize = "60";
+				leftTextPadding = 28;
+				leftRightTextPadding = 56;
+				topTextPadding = 16;
+				topBottomTextPadding = 28;
+				tooltipOffset = 44;
+				cornerRadius = 16;	
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
@@ -201,7 +213,6 @@ public class HSliderDataTip extends UIComponent implements IDataRenderer
 				topBottomTextPadding = 20;
 				tooltipOffset = 14;
 				cornerRadius = 12;
-				
 				break;
 			}
             case DPIClassification.DPI_320:
@@ -212,20 +223,32 @@ public class HSliderDataTip extends UIComponent implements IDataRenderer
                 topTextPadding = 8;
                 topBottomTextPadding = 14;
                 tooltipOffset = 22;
-                cornerRadius = 8;				
+                cornerRadius = 8;
+				break;
             }
-            case DPIClassification.DPI_240:
-            {
-                fontSize = "20";
-                leftTextPadding = 11;
-                leftRightTextPadding = 22;
-                topTextPadding = 5;
-                topBottomTextPadding = 10;
-                tooltipOffset = 7;
-                cornerRadius = 6;
-                
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				fontSize = "20";
+				leftTextPadding = 11;
+				leftRightTextPadding = 22;
+				topTextPadding = 5;
+				topBottomTextPadding = 10;
+				tooltipOffset = 7;
+				cornerRadius = 6;
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				// Note provisional may need changes
+				fontSize = "10";
+				leftTextPadding = 6;
+				leftRightTextPadding = 11;
+				topTextPadding = 3;
+				topBottomTextPadding = 5;
+				tooltipOffset = 4;
+				cornerRadius = 3;
+				break;
+			}
             default:
             {
                 // default DPI_160
@@ -235,8 +258,7 @@ public class HSliderDataTip extends UIComponent implements IDataRenderer
                 topTextPadding = 4;
                 topBottomTextPadding = 7;
                 tooltipOffset = 11;
-                cornerRadius = 4;
-                
+                cornerRadius = 4;           
                 break;
             }
         }

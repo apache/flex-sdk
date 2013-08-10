@@ -26,10 +26,12 @@ import mx.core.DPIClassification;
 import mx.core.mx_internal;
 
 import spark.core.SpriteVisualElement;
+import spark.skins.mobile120.assets.CalloutContentBackground;
 import spark.skins.mobile160.assets.CalloutContentBackground;
 import spark.skins.mobile240.assets.CalloutContentBackground;
 import spark.skins.mobile320.assets.CalloutContentBackground;
 import spark.skins.mobile480.assets.CalloutContentBackground;
+import spark.skins.mobile640.assets.CalloutContentBackground;
 
 use namespace mx_internal;
 
@@ -64,6 +66,13 @@ public class CalloutViewNavigatorSkin extends ViewNavigatorSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				contentBackgroundClass = spark.skins.mobile640.assets.CalloutContentBackground;
+				contentCornerRadius = 28;
+				gap = 48;
+				break;
+			}	
 			case DPIClassification.DPI_480:
 			{
 				contentBackgroundClass = spark.skins.mobile480.assets.CalloutContentBackground;
@@ -78,13 +87,20 @@ public class CalloutViewNavigatorSkin extends ViewNavigatorSkin
                 gap = 16;
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                contentBackgroundClass = spark.skins.mobile240.assets.CalloutContentBackground;
-                contentCornerRadius = 7;
-                gap = 12;
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				contentBackgroundClass = spark.skins.mobile240.assets.CalloutContentBackground;
+				contentCornerRadius = 7;
+				gap = 12;
+				break;
+			}
+			case DPIClassification.DPI_240:
+			{
+				contentBackgroundClass = spark.skins.mobile240.assets.CalloutContentBackground;
+				contentCornerRadius = 4;
+				gap = 6;
+				break;
+			}
             default:
             {
                 // default DPI_160

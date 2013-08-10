@@ -41,10 +41,12 @@ import spark.effects.Fade;
 import spark.primitives.RectangularDropShadow;
 import spark.skins.mobile.supportClasses.CalloutArrow;
 import spark.skins.mobile.supportClasses.MobileSkin;
+import spark.skins.mobile120.assets.CalloutContentBackground;
 import spark.skins.mobile160.assets.CalloutContentBackground;
 import spark.skins.mobile240.assets.CalloutContentBackground;
 import spark.skins.mobile320.assets.CalloutContentBackground;
 import spark.skins.mobile480.assets.CalloutContentBackground;
+import spark.skins.mobile640.assets.CalloutContentBackground;
 
 use namespace mx_internal;
 
@@ -96,6 +98,23 @@ public class CalloutSkin extends MobileSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				// Note provisional may need changes  
+				backgroundCornerRadius = 32;
+				contentBackgroundInsetClass = spark.skins.mobile640.assets.CalloutContentBackground;
+				backgroundGradientHeight = 440;
+				frameThickness = 32;
+				arrowWidth = 208;
+				arrowHeight = 104;
+				contentCornerRadius = 20;
+				dropShadowBlurX = 64;
+				dropShadowBlurY = 64;
+				dropShadowDistance = 12;
+				highlightWeight = 2;
+				
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
@@ -145,6 +164,22 @@ public class CalloutSkin extends MobileSkin
                 
                 break;
             }
+			case DPIClassification.DPI_120:
+			{
+				backgroundCornerRadius = 6;
+				contentBackgroundInsetClass = spark.skins.mobile120.assets.CalloutContentBackground;
+				backgroundGradientHeight = 83;
+				frameThickness = 24;
+				arrowWidth = 156;
+				arrowHeight = 39;
+				contentCornerRadius = 7;
+				dropShadowBlurX = 24;
+				dropShadowBlurY = 24;
+				dropShadowDistance = 4;
+				highlightWeight = 1;
+				
+				break;
+			}
             default:
             {
                 // default DPI_160
