@@ -81,7 +81,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 				// Note provisional may need changes
 				borderClass = spark.skins.mobile640.assets.SpinnerListContainerBackground;
 				selectionIndicatorClass = spark.skins.mobile640.assets.SpinnerListContainerSelectionIndicator;
-				shadowClass = spark.skins.mobile40.assets.SpinnerListContainerShadow;
+				shadowClass = spark.skins.mobile640.assets.SpinnerListContainerShadow;
 				
 				cornerRadius = 20;
 				borderThickness = 3;
@@ -126,7 +126,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 			{
 				borderClass = spark.skins.mobile120.assets.SpinnerListContainerBackground;
 				selectionIndicatorClass = spark.skins.mobile120.assets.SpinnerListContainerSelectionIndicator;
-				shadowClass = spark.skins.mobile10.assets.SpinnerListContainerShadow;
+				shadowClass = spark.skins.mobile120.assets.SpinnerListContainerShadow;
 				
 				cornerRadius = 4;
 				borderThickness = 1;
