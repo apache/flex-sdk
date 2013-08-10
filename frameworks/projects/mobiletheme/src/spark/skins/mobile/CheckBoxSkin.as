@@ -24,12 +24,12 @@ import flash.display.DisplayObject;
 import mx.core.DPIClassification;
 
 import spark.skins.mobile.supportClasses.SelectableButtonSkinBase;
-import spark.skins.mobile160.assets.CheckBox_down;
-import spark.skins.mobile160.assets.CheckBox_downSymbol;
-import spark.skins.mobile160.assets.CheckBox_downSymbolSelected;
-import spark.skins.mobile160.assets.CheckBox_up;
-import spark.skins.mobile160.assets.CheckBox_upSymbol;
-import spark.skins.mobile160.assets.CheckBox_upSymbolSelected;
+import spark.skins.mobile120.assets.CheckBox_down;
+import spark.skins.mobile120.assets.CheckBox_downSymbol;
+import spark.skins.mobile120.assets.CheckBox_downSymbolSelected;
+import spark.skins.mobile120.assets.CheckBox_up;
+import spark.skins.mobile120.assets.CheckBox_upSymbol;
+import spark.skins.mobile120.assets.CheckBox_upSymbolSelected;
 import spark.skins.mobile160.assets.CheckBox_down;
 import spark.skins.mobile160.assets.CheckBox_downSymbol;
 import spark.skins.mobile160.assets.CheckBox_downSymbolSelected;

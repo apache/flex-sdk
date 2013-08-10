@@ -30,10 +30,12 @@ import spark.components.supportClasses.SkinnableTextBase;
 import spark.components.supportClasses.StyleableStageText;
 import spark.components.supportClasses.StyleableTextField;
 import spark.core.IDisplayText;
+import spark.skins.mobile120.assets.TextInput_border;
 import spark.skins.mobile160.assets.TextInput_border;
 import spark.skins.mobile240.assets.TextInput_border;
 import spark.skins.mobile320.assets.TextInput_border;
 import spark.skins.mobile480.assets.TextInput_border;
+import spark.skins.mobile640.assets.TextInput_border;
 
 use namespace mx_internal;
 
