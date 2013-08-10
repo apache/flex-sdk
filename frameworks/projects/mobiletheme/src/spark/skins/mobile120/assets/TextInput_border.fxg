@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" 
+         scaleGridLeft="8" scaleGridTop="8" scaleGridRight="290" scaleGridBottom="42">
+
+    <!-- border -->
+    <Path data="M 7 1 C 7 1 291 1 291 1 C 294 1 297 4 297 7 C 297 7 297 43 297 43 C 297 46 294 49 291 49 C 291 49 7 49 7 49 C 4 49 1 46 1 43 C 1 43 1 7 1 7 C 1 4 4 1 7 1 Z M 7 0 C 3 0 0 3 0 7 C 0 7 0 43 0 43 C 0 47 3 50 7 50 C 7 50 291 50 291 50 C 295 50 298 47 298 43 C 298 43 298 7 298 7 C 298 3 295 0 291 0 C 291 0 7 0 7 0 Z " alpha="1">
+        <fill>
+            <SolidColor color="#505050"/>
+        </fill>
+    </Path>
+    
+    <!-- inner shadow -->
+    <Path data="M 7 3 C 7 3 290 3 290 3 C 293 3 296 4 296 7 C 296 7 296 43 296 43 C 296 46 293 48 290 48 C 290 48 8 48 8 48 C 5 48 2 46 2 43 C 2 43 2 7 2 7 C 2 4 4 3 7 3 Z M 7 1 C 4 1 1 4 1 7 C 1 7 1 43 1 43 C 1 46 4 49 7 49 C 7 49 291 49 291 49 C 294 49 297 46 297 43 C 297 43 297 7 297 7 C 297 4 294 1 291 1 C 291 1 7 1 7 1 Z " alpha="0.2">
+        <fill>
+            <SolidColor color="#030303"/>
+        </fill>
+    </Path>
+    
+</Graphic>

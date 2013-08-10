@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008"
+         scaleGridLeft="16" scaleGridTop="16" scaleGridRight="504" scaleGridBottom="50">
+         
+    <!-- border -->
+    <Path data="M12 2 508 2C514 2 518 6 518 12L518 54C518 60 514 64 508 64L12 64C6 64 2 60 2 54L2 12C2 6 6 2 12 2ZM12 0C6 0 0 6 0 12L0 54C0 60 6 66 12 66L508 66C514 66 520 60 520 54L520 12C520 6 514 0 508 0L12 0Z">
+        <fill>
+            <SolidColor color="#505050"/>
+        </fill>
+    </Path>
+      
+    <!-- inner shadow -->
+    <Path x="2" y="2" alpha="0.2" data="M10 3 506 3C510 3 514 7 514 11L514 52C514 56 510 60 506 60L10 60C6 60 2 56 2 52L2 11C2 7 6 3 10 3ZM10 0C4 0 0 4 0 10L0 52C0 58 4 62 10 62L506 62C512 62 516 58 516 52L516 10C516 4 512 0 506 0L10 0Z">
+        <fill>
+            <SolidColor color="#030303"/>
+        </fill>
+    </Path>
+     
+</Graphic>
