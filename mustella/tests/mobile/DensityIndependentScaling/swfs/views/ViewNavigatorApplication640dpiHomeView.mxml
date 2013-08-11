@@ -17,13 +17,11 @@
   limitations under the License.
 
 -->
-<s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
-							xmlns:s="library://ns.adobe.com/flex/spark" firstView="views.ViewNavigatorApplication120dpiHomeView"
-							applicationDPI="120" applicationComplete="init()">
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:comps="comps.*" title="HomeView">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	
-	<fx:Script source="MyScript.as" />
-
-</s:ViewNavigatorApplication>
+	<comps:RedSquare id="redSquare" x="20" y="20"/>
+</s:View>
