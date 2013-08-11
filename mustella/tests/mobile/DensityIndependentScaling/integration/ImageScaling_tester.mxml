@@ -97,10 +97,12 @@
                 <RunCode code="application.navigator.pushView(views.ImageScalingView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 <ChangeState changeTarget="navigator.activeView" toState="referenced" waitEvent="ready" waitTarget="navigator.activeView.image" />
                 <CompareBitmap target="navigator.activeView.image" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="120" />
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-					<ConditionalValue deviceDensity="480" />			
+					<ConditionalValue deviceDensity="480" />
+					<ConditionalValue deviceDensity="640" />			
                 </CompareBitmap>
             </body>
         </TestCase>
@@ -131,10 +133,12 @@
                 <RunCode code="application.navigator.pushView(views.ImageScalingView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 <ChangeState changeTarget="navigator.activeView" toState="referenced" waitEvent="ready" waitTarget="navigator.activeView.button.iconDisplay" />
                 <CompareBitmap target="navigator.activeView.button" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="120" />
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-					<ConditionalValue deviceDensity="480" />	
+					<ConditionalValue deviceDensity="480" />
+					<ConditionalValue deviceDensity="640" />
 				</CompareBitmap>
             </body>
         </TestCase>
@@ -167,10 +171,12 @@
                 <ChangeState changeTarget="navigator.activeView" toState="referenced" waitEvent="updateComplete" waitTarget="navigator.activeView.tabbedNavigator.tabBar.dataGroup.getElementAt(0)" />
                 <Pause timeout="500" /><!-- must pause as the iconDisplay skin part isn't used in ButtonSkinBase (mobile skins) since it extends UIComponent and not Group -->
                 <CompareBitmap target="navigator.activeView.tabbedNavigator" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="120" />
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-					<ConditionalValue deviceDensity="480" />		
+					<ConditionalValue deviceDensity="480" />
+					<ConditionalValue deviceDensity="640" />	
                 </CompareBitmap>
             </body>
         </TestCase>
@@ -202,10 +208,12 @@
                 <RunCode code="application.navigator.pushView(views.ImageScalingView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
                 <ChangeState changeTarget="navigator.activeView" toState="referenced" waitEvent="itemRenderer0IconReady" waitTarget="navigator.activeView.normalList" />
                 <CompareBitmap target="navigator.activeView.normalList" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="120" />
 					<ConditionalValue deviceDensity="160" />
 					<ConditionalValue deviceDensity="240" />
 					<ConditionalValue deviceDensity="320" />
-					<ConditionalValue deviceDensity="480" />	
+					<ConditionalValue deviceDensity="480" />
+					<ConditionalValue deviceDensity="640" />
 				</CompareBitmap>
             </body>
         </TestCase>
