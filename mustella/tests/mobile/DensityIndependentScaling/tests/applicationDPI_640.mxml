@@ -45,10 +45,10 @@
 	
 	<testCases>
 		
-		<TestCase testID="Get_applicationDPI" description="applicationDPI is set to 320 in MXML" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
+		<TestCase testID="Get_applicationDPI" description="applicationDPI is set to 640 in MXML" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
 
 			<body>
-				<AssertPropertyValue target="" propertyName="applicationDPI" value="320" />
+				<AssertPropertyValue target="" propertyName="applicationDPI" value="640" />
 			</body>
 		
 		</TestCase>
@@ -59,7 +59,7 @@
 				<SetProperty target="" propertyName="applicationDPI" value="777" />
 			</setup>
 			<body>
-			<AssertPropertyValue target="" propertyName="applicationDPI" value="320" />
+			<AssertPropertyValue target="" propertyName="applicationDPI" value="640" />
 			</body>
 			
 		</TestCase>

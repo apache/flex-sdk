@@ -74,7 +74,7 @@
 					<ConditionalValue deviceDensity="240" value="0.5"/>
 					<ConditionalValue deviceDensity="320" value="0.75"/>
 					<ConditionalValue deviceDensity="480" value="1"/>
-					<ConditionalValue deviceDensity="640" value="2"/>
+					<ConditionalValue deviceDensity="640" value="1.333333"/>
 				</AssertPropertyValue>	
 			
 			</body>
@@ -91,7 +91,7 @@
 					<ConditionalValue deviceDensity="240" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/0.5"/>
 					<ConditionalValue deviceDensity="320" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/0.75"/>
 					<ConditionalValue deviceDensity="480" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth"/>
-					<ConditionalValue deviceDensity="640" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth*2"/>
+					<ConditionalValue deviceDensity="640" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/1.333333"/>
 				</AssertPropertyValue>	
 			</body>
 			

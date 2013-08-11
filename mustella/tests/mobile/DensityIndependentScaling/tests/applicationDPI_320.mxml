@@ -90,8 +90,8 @@
 					<ConditionalValue deviceDensity="160" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/0.5"/>
 					<ConditionalValue deviceDensity="240" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/0.75"/>
 					<ConditionalValue deviceDensity="320" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth"/>
-					<ConditionalValue deviceDensity="480" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth*2"/>
-					<ConditionalValue deviceDensity="640" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth*4"/>
+					<ConditionalValue deviceDensity="480" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/1.5"/>
+					<ConditionalValue deviceDensity="640" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/2"/>
 				</AssertPropertyValue>	
 			</body>
 			

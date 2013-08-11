@@ -70,11 +70,11 @@
 				
 				<AssertPropertyValue target="" propertyName="scalingFactor" value="1" >
 					<ConditionalValue deviceDensity="120" value="1"/>
-					<ConditionalValue deviceDensity="160" value="1.5"/>
+					<ConditionalValue deviceDensity="160" value="1.33333"/>
 					<ConditionalValue deviceDensity="240" value="2"/>
-					<ConditionalValue deviceDensity="320" value="2.5"/>
+					<ConditionalValue deviceDensity="320" value="2.66667"/>
 					<ConditionalValue deviceDensity="480" value="4"/>
-					<ConditionalValue deviceDensity="640" value="8"/>
+					<ConditionalValue deviceDensity="640" value="5.33333"/>
 				</AssertPropertyValue>	
 			
 			</body>
@@ -87,11 +87,11 @@
 				
 				<AssertPropertyValue target="" propertyName="screenWidth" value="500">
 					<ConditionalValue deviceDensity="120" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth"/>
-					<ConditionalValue deviceDensity="160" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth"/>
-					<ConditionalValue deviceDensity="240" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/1.5"/>
-					<ConditionalValue deviceDensity="320" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/2"/>
-					<ConditionalValue deviceDensity="480" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth"/>
-					<ConditionalValue deviceDensity="640" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth"/>
+					<ConditionalValue deviceDensity="160" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/1.33333"/>
+					<ConditionalValue deviceDensity="240" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/2"/>
+					<ConditionalValue deviceDensity="320" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/2.66667"/>
+					<ConditionalValue deviceDensity="480" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/4"/>
+					<ConditionalValue deviceDensity="640" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/5.33333"/>
 				</AssertPropertyValue>	
 			</body>
 			
