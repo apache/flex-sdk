@@ -98,7 +98,7 @@
 		</TestCase>
 		
 		
-		<TestCase testID="Check_bitmap_160" description="" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
+		<TestCase testID="Check_bitmap_120" description="" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
 					
 			<body>
 						
