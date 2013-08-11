@@ -2770,9 +2770,13 @@ public class DataGrid extends DataGridBase implements IIMESupport
                     iteratorValid = false;
                     return;
                 }
+				
+				var excludes:Array = ["uid", "mx_internal_uid"];
+				if (iterator && iterator.current is String)
+					excludes.push("length");
+				
                 var info:Object =
-                    ObjectUtil.getClassInfo(iterator.current,
-                                            ["uid", "mx_internal_uid"]);
+                    ObjectUtil.getClassInfo(iterator.current, excludes);
 
                 if (info)
                     cols = info.properties;
@@ -2797,7 +2801,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 // this is an old recordset - use its columns
                 var n:int = cols.length;
                 var colName:Object;
-				if (n == 0) {
+				if (n == 0 && iterator.current) {
 					col = new DataGridColumn();
 					newCols.push(col);
 				}
