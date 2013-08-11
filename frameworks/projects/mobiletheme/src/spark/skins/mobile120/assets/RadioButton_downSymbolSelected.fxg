@@ -17,18 +17,19 @@
   limitations under the License.
 
 -->
+
 <Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
-	<Path data="M 13 24 C 13 18 19 12 25 12 C 31 12 37 18 37 24 C 37 30 30 36 24 36 C 18 36 13 30 13 24 Z ">
-		<fill>
-			<SolidColor color="#323232"/>
-		</fill>
-	</Path>
-	<Path data="M 14 24 C 14 18 19 13 25 13 C 31 13 36 18 36 24 C 36 30 30 35 24 35 C 18 35 14 30 14 24 Z ">
-		<fill>
-			<LinearGradient x = "24" y = "13" scaleX = "22" rotation = "90">
-				<GradientEntry color="#464646" ratio="0" alpha="1"/>
-				<GradientEntry color="#1e1e1e" ratio="1" alpha="1"/>
-			</LinearGradient>
-		</fill>
-	</Path>
+  <Path data="M 13 24 C 13 18 19 12 25 12 C 31 12 37 18 37 24 C 37 30 30 36 24 36 C 18 36 13 30 13 24 Z " scaleX="0.5" scaleY="0.5">
+    <fill>
+      <SolidColor color="#323232"/>
+    </fill>
+  </Path>
+  <Path data="M 14 24 C 14 18 19 13 25 13 C 31 13 36 18 36 24 C 36 30 30 35 24 35 C 18 35 14 30 14 24 Z " scaleX="0.5" scaleY="0.5">
+    <fill>
+      <LinearGradient x="24" y="13" scaleX="22" rotation="90">
+        <GradientEntry color="#464646" ratio="0" alpha="1"/>
+        <GradientEntry color="#1e1e1e" ratio="1" alpha="1"/>
+      </LinearGradient>
+    </fill>
+  </Path>
 </Graphic>

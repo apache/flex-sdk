@@ -18,52 +18,45 @@
 
 -->
 
-
-<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008"
-    scaleGridTop="6" scaleGridBottom="59" scaleGridLeft="9" scaleGridRight="76">
-    
-    <!-- highlight border leading -->
-    <Rect x="0" y="1" width="1" height="63">
-        <fill>
-            <LinearGradient x="0" scaleX="63" rotation="90">
-                <GradientEntry color="#ffffff" ratio="0" alpha=".15"/>
-                <GradientEntry color="#ffffff" ratio="1" alpha=".1"/>
-            </LinearGradient>
-        </fill>
-    </Rect>
-    
-    <!-- separator dark -->
-    <Rect x="1" y="0" width="2" height="65">
-        <fill>
-            <SolidColor color="#000000" alpha="0.8"/>
-        </fill>
-    </Rect>
-    
-    <!-- inner shaddow -->
-    <Rect x="3" y="0" width="80" height="65">
-        <fill>
-            <LinearGradient x="0" scaleX="65" rotation="90">
-                <GradientEntry color="#000000" ratio="0" alpha=".05"/>
-                <GradientEntry color="#000000" ratio="1" alpha=".25"/>
-            </LinearGradient>
-        </fill>
-    </Rect>
-    
-    <Rect x="3.5" y="0.5" width="79" height="64" alpha="0.2">
-        <stroke>
-            <SolidColorStroke color="#000000" weight="1" caps="none" joints="miter"/>
-        </stroke>
-    </Rect>
-    <Rect x="4.5" y="1.5" width="77" height="62" alpha="0.1">
-        <stroke>
-            <SolidColorStroke color="#000000" weight="1" caps="none" joints="miter"/>
-        </stroke>
-    </Rect>
-
-    <!-- invisible fix for scaling -->
-    <Rect x="0" y="0" width="83" height="65">
-        <fill>
-            <SolidColor color="#ffffff" alpha="0"/>
-        </fill>
-    </Rect>
+<Graphic version="2.0" scaleGridTop="6" scaleGridBottom="59" scaleGridLeft="9" scaleGridRight="76" xmlns="http://ns.adobe.com/fxg/2008">
+  <!-- highlight border leading -->
+  <Rect x="0" y="1" width="1" height="63" scaleX="2" scaleY="2">
+    <fill>
+      <LinearGradient x="0" scaleX="63" rotation="90">
+        <GradientEntry color="#ffffff" ratio="0" alpha=".15"/>
+        <GradientEntry color="#ffffff" ratio="1" alpha=".1"/>
+      </LinearGradient>
+    </fill>
+  </Rect>
+  <!-- separator dark -->
+  <Rect x="1" y="0" width="2" height="65" scaleX="2" scaleY="2">
+    <fill>
+      <SolidColor color="#000000" alpha="0.8"/>
+    </fill>
+  </Rect>
+  <!-- inner shaddow -->
+  <Rect x="3" y="0" width="80" height="65" scaleX="2" scaleY="2">
+    <fill>
+      <LinearGradient x="0" scaleX="65" rotation="90">
+        <GradientEntry color="#000000" ratio="0" alpha=".05"/>
+        <GradientEntry color="#000000" ratio="1" alpha=".25"/>
+      </LinearGradient>
+    </fill>
+  </Rect>
+  <Rect x="3.5" y="0.5" width="79" height="64" alpha="0.2" scaleX="2" scaleY="2">
+    <stroke>
+      <SolidColorStroke color="#000000" weight="1" caps="none" joints="miter"/>
+    </stroke>
+  </Rect>
+  <Rect x="4.5" y="1.5" width="77" height="62" alpha="0.1" scaleX="2" scaleY="2">
+    <stroke>
+      <SolidColorStroke color="#000000" weight="1" caps="none" joints="miter"/>
+    </stroke>
+  </Rect>
+  <!-- invisible fix for scaling -->
+  <Rect x="0" y="0" width="83" height="65" scaleX="2" scaleY="2">
+    <fill>
+      <SolidColor color="#ffffff" alpha="0"/>
+    </fill>
+  </Rect>
 </Graphic>

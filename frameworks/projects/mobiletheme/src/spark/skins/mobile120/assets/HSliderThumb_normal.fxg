@@ -18,27 +18,26 @@
 
 -->
 
-
-<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"  viewHeight= "44" viewWidth= "44">
-		<Ellipse width="44" height="44" x="0" y="0">
-			<fill>
-				<LinearGradient x = "22" y = "0" scaleX = "44" rotation = "90">
-					<GradientEntry color="#000000" ratio="0" alpha="0.15"/>
-					<GradientEntry color="#000000" ratio="1" alpha="0.25"/>
-				</LinearGradient>
-			</fill>
-		</Ellipse>
-		<Ellipse width="42" height="42" x="1" y="1">
-			<stroke>
-				<SolidColorStroke color="#000000" weight="1"  alpha="0.7" caps="none"/>
-			</stroke>
-		</Ellipse>
-		<Ellipse width="40" height="40" x="2" y="2">
-			<fill>
-				<LinearGradient x = "23" y = "10" scaleX = "19" rotation = "90">
-					<GradientEntry color="#ffffff" ratio="0" alpha="0.5"/>
-					<GradientEntry color="#ffffff" ratio="1" alpha="0.1"/>
-				</LinearGradient>
-			</fill>
-		</Ellipse>
+<Graphic version="2.0" viewHeight="44" viewWidth="44" xmlns="http://ns.adobe.com/fxg/2008" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:fc="http://ns.adobe.com/flashcatalyst/2009">
+  <Ellipse width="44" height="44" x="0" y="0" scaleX="0.5" scaleY="0.5">
+    <fill>
+      <LinearGradient x="22" y="0" scaleX="44" rotation="90">
+        <GradientEntry color="#000000" ratio="0" alpha="0.15"/>
+        <GradientEntry color="#000000" ratio="1" alpha="0.25"/>
+      </LinearGradient>
+    </fill>
+  </Ellipse>
+  <Ellipse width="42" height="42" x="1" y="1" scaleX="0.5" scaleY="0.5">
+    <stroke>
+      <SolidColorStroke color="#000000" weight="1" alpha="0.7" caps="none"/>
+    </stroke>
+  </Ellipse>
+  <Ellipse width="40" height="40" x="2" y="2" scaleX="0.5" scaleY="0.5">
+    <fill>
+      <LinearGradient x="23" y="10" scaleX="19" rotation="90">
+        <GradientEntry color="#ffffff" ratio="0" alpha="0.5"/>
+        <GradientEntry color="#ffffff" ratio="1" alpha="0.1"/>
+      </LinearGradient>
+    </fill>
+  </Ellipse>
 </Graphic>
