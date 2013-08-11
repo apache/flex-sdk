@@ -1,0 +1,192 @@
+<DisplayList>
+  <ImageScaling width="426.6666666666667" height="640">
+    <spark.skins.spark.ApplicationSkin width="426.6666666666667" height="640" blendMode="auto">
+      <spark.components.Group width="426.6666666666667" height="640" blendMode="auto">
+        <spark.components.Group width="426.6666666666667" height="640" blendMode="auto">
+          <comps.QANavigator width="426.6666666666667" height="640">
+            <spark.skins.mobile.ViewNavigatorSkin width="426.6666666666667" height="640">
+              <spark.components.Group y="45" width="426.6666666666667" height="595" blendMode="auto">
+                <views.ImageScalingView width="426.6666666666667" height="595">
+                  <spark.skins.mobile.SkinnableContainerSkin width="426.6666666666667" height="595">
+                    <spark.components.Group width="426.6666666666667" height="595" blendMode="auto">
+                      <spark.components.HGroup x="10" y="10" width="228" height="72" blendMode="auto">
+                        <spark.components.Group width="72" height="72" blendMode="auto"/>
+                        <spark.components.Image x="78" width="72" height="72">
+                          <spark.skins.mobile.ImageSkin width="72" height="72">
+                            <spark.components.Group width="72" height="72" blendMode="auto"/>
+                          </spark.skins.mobile.ImageSkin>
+                        </spark.components.Image>
+                        <spark.components.Button x="156" width="72" height="72">
+                          <comps.SolidButtonSkin width="72" height="72" blendMode="auto"/>
+                        </spark.components.Button>
+                      </spark.components.HGroup>
+                      <spark.components.HGroup x="10" y="88" width="348" height="88" blendMode="auto">
+                        <spark.components.List width="112" height="44">
+                          <spark.skins.mobile.ListSkin width="112" height="44">
+                            <spark.components.Scroller width="112" height="44">
+                              <spark.skins.spark.ScrollerSkin width="112" height="44" blendMode="auto">
+                                <spark.components.DataGroup width="112" height="44" scrollRect="(x=0, y=0, w=112, h=44)">
+                                  <views.ImageScalingViewInnerClass0 width="28" height="44" cacheAsBitmap="true" opaqueBackground="true">
+                                    <spark.components.supportClasses.StyleableTextField x="16" y="17" width="21" height="100" underline="false">
+                                      <htmlText/>
+                                    </spark.components.supportClasses.StyleableTextField>
+                                  </views.ImageScalingViewInnerClass0>
+                                </spark.components.DataGroup>
+                              </spark.skins.spark.ScrollerSkin>
+                            </spark.components.Scroller>
+                          </spark.skins.mobile.ListSkin>
+                        </spark.components.List>
+                        <spark.components.List x="118" width="112" height="88">
+                          <spark.skins.mobile.ListSkin width="112" height="88">
+                            <spark.components.Scroller width="112" height="88">
+                              <spark.skins.spark.ScrollerSkin width="112" height="88" blendMode="auto">
+                                <spark.components.DataGroup width="112" height="88" scrollRect="(x=0, y=0, w=112, h=88)">
+                                  <views.ImageScalingViewInnerClass1 width="100" height="88" cacheAsBitmap="true" opaqueBackground="true">
+                                    <spark.components.supportClasses.StyleableTextField x="88" y="39" width="21" height="100" underline="false">
+                                      <htmlText/>
+                                    </spark.components.supportClasses.StyleableTextField>
+                                  </views.ImageScalingViewInnerClass1>
+                                </spark.components.DataGroup>
+                              </spark.skins.spark.ScrollerSkin>
+                            </spark.components.Scroller>
+                          </spark.skins.mobile.ListSkin>
+                        </spark.components.List>
+                        <spark.components.List x="236" width="112" height="88">
+                          <spark.skins.mobile.ListSkin width="112" height="88">
+                            <spark.components.Scroller width="112" height="88">
+                              <spark.skins.spark.ScrollerSkin width="112" height="88" blendMode="auto">
+                                <spark.components.DataGroup width="112" height="88" scrollRect="(x=0, y=0, w=112, h=88)">
+                                  <views.ImageScalingViewInnerClass2 width="100" height="88" cacheAsBitmap="true" opaqueBackground="true">
+                                    <spark.components.supportClasses.StyleableTextField x="8" y="39" width="21" height="100" underline="false">
+                                      <htmlText/>
+                                    </spark.components.supportClasses.StyleableTextField>
+                                  </views.ImageScalingViewInnerClass2>
+                                </spark.components.DataGroup>
+                              </spark.skins.spark.ScrollerSkin>
+                            </spark.components.Scroller>
+                          </spark.skins.mobile.ListSkin>
+                        </spark.components.List>
+                      </spark.components.HGroup>
+                      <spark.components.TabbedViewNavigator x="10" y="182" width="100" height="100">
+                        <spark.skins.mobile.TabbedViewNavigatorSkin width="100" height="100">
+                          <spark.components.Group width="100" height="16" blendMode="auto">
+                            <spark.components.ViewNavigator width="100" height="16">
+                              <spark.skins.mobile.ViewNavigatorSkin width="100" height="16">
+                                <spark.components.Group width="100" height="16" blendMode="auto">
+                                  <comps.SolidView width="100" height="16">
+                                    <spark.skins.mobile.SkinnableContainerSkin width="100" height="16">
+                                      <spark.components.Group width="100" height="16" blendMode="auto"/>
+                                    </spark.skins.mobile.SkinnableContainerSkin>
+                                  </comps.SolidView>
+                                </spark.components.Group>
+                                <spark.components.ActionBar width="0" height="0">
+                                  <spark.skins.mobile.ActionBarSkin width="0" height="0">
+                                    <spark.skins.mobile160.assets.ActionBarBackground width="0" height="3" blendMode="auto" scale9Grid="(x=1, y=2, w=63, h=40)">
+                                      <flash.display.Shape width="65" height="1"/>
+                                      <flash.display.Shape y="44" width="65" height="1"/>
+                                      <flash.display.Shape y="45" width="65" height="1"/>
+                                      <flash.display.Shape y="46" width="65" height="1"/>
+                                      <flash.display.Shape y="47" width="65" height="1"/>
+                                      <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.1484375, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="1" y="1" width="63" height="1"/>
+                                      <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.09765625, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="1" y="43" width="63" height="1"/>
+                                      <flash.display.Shape y="1" width="1" height="43"/>
+                                      <flash.display.Shape x="64" y="1" width="1" height="43"/>
+                                      <flash.display.Shape width="65" height="48"/>
+                                    </spark.skins.mobile160.assets.ActionBarBackground>
+                                    <spark.components.Group width="0" height="0" blendMode="auto"/>
+                                    <spark.components.Group width="0" height="0" blendMode="auto"/>
+                                    <spark.components.Group width="0" height="0" blendMode="auto"/>
+                                    <ActionBarSkin.as$55.TitleDisplayComponent width="0" height="0">
+                                      <spark.components.supportClasses.StyleableTextField concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.6484375, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="-2" y="-11.5" width="5" height="4" underline="false">
+                                        <htmlText/>
+                                      </spark.components.supportClasses.StyleableTextField>
+                                      <spark.components.supportClasses.StyleableTextField x="-2" y="-12.5" width="5" height="4" underline="false">
+                                        <htmlText/>
+                                      </spark.components.supportClasses.StyleableTextField>
+                                    </ActionBarSkin.as$55.TitleDisplayComponent>
+                                  </spark.skins.mobile.ActionBarSkin>
+                                </spark.components.ActionBar>
+                              </spark.skins.mobile.ViewNavigatorSkin>
+                            </spark.components.ViewNavigator>
+                          </spark.components.Group>
+                          <spark.components.ButtonBar y="16" width="100" height="84">
+                            <spark.skins.mobile.TabbedViewNavigatorTabBarSkin width="100" height="84">
+                              <spark.components.DataGroup width="100" height="84">
+                                <spark.components.ButtonBarButton width="100" height="84">
+                                  <spark.skins.mobile.TabbedViewNavigatorTabBarFirstTabSkin width="100" height="84">
+                                    <spark.skins.mobile.assets.TabbedViewNavigatorButtonBarFirstButton_selected width="100" height="84" blendMode="auto" scale9Grid="(x=3, y=3, w=114, h=70)">
+                                      <flash.display.Shape y="1" width="120" height="74"/>
+                                      <flash.display.Shape width="120" height="1"/>
+                                      <flash.display.Shape y="75" width="120" height="1"/>
+                                      <flash.display.Shape x="0.5" y="1.5" width="120" height="74"/>
+                                      <flash.display.Shape width="120" height="76"/>
+                                    </spark.skins.mobile.assets.TabbedViewNavigatorButtonBarFirstButton_selected>
+                                    <spark.components.supportClasses.StyleableTextField concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.6484375, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="48" y="75" width="5" height="0" underline="false">
+                                      <htmlText/>
+                                    </spark.components.supportClasses.StyleableTextField>
+                                    <spark.components.supportClasses.StyleableTextField x="48" y="74" width="5" height="0" underline="false">
+                                      <htmlText/>
+                                    </spark.components.supportClasses.StyleableTextField>
+                                    <spark.components.Group x="14" y="6" width="72" height="72" blendMode="auto"/>
+                                  </spark.skins.mobile.TabbedViewNavigatorTabBarFirstTabSkin>
+                                </spark.components.ButtonBarButton>
+                              </spark.components.DataGroup>
+                            </spark.skins.mobile.TabbedViewNavigatorTabBarSkin>
+                          </spark.components.ButtonBar>
+                        </spark.skins.mobile.TabbedViewNavigatorSkin>
+                      </spark.components.TabbedViewNavigator>
+                    </spark.components.Group>
+                  </spark.skins.mobile.SkinnableContainerSkin>
+                </views.ImageScalingView>
+              </spark.components.Group>
+              <spark.components.ActionBar width="426.6666666666667" height="45">
+                <spark.skins.mobile.ActionBarSkin width="426.6666666666667" height="45">
+                  <spark.skins.mobile160.assets.ActionBarBackground width="426.6666666666667" height="48" blendMode="auto" scale9Grid="(x=1, y=2, w=63, h=40)">
+                    <flash.display.Shape width="65" height="1"/>
+                    <flash.display.Shape y="44" width="65" height="1"/>
+                    <flash.display.Shape y="45" width="65" height="1"/>
+                    <flash.display.Shape y="46" width="65" height="1"/>
+                    <flash.display.Shape y="47" width="65" height="1"/>
+                    <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.1484375, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="1" y="1" width="63" height="1"/>
+                    <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.09765625, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="1" y="43" width="63" height="1"/>
+                    <flash.display.Shape y="1" width="1" height="43"/>
+                    <flash.display.Shape x="64" y="1" width="1" height="43"/>
+                    <flash.display.Shape width="65" height="48"/>
+                  </spark.skins.mobile160.assets.ActionBarBackground>
+                  <spark.components.Group width="0" height="0" blendMode="auto"/>
+                  <spark.components.Group width="0" height="0" blendMode="auto"/>
+                  <spark.components.Group x="312.65" y="1" width="114" height="43" blendMode="auto">
+                    <spark.components.Button y="5" width="114" height="33">
+                      <spark.skins.mobile.TransparentActionButtonSkin width="114" height="33">
+                        <spark.skins.mobile.assets.TransparentActionButton_up x="-1" width="115" height="33" blendMode="auto" scale9Grid="(x=3, y=1, w=78, h=63)">
+                          <flash.display.Shape y="1" width="1" height="63"/>
+                          <flash.display.Shape x="1" width="1" height="65"/>
+                          <flash.display.Shape x="2" y="1" width="1" height="63"/>
+                          <flash.display.Shape width="82" height="65"/>
+                        </spark.skins.mobile.assets.TransparentActionButton_up>
+                        <spark.components.supportClasses.StyleableTextField concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.6484375, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="6" y="5" width="103" height="26" underline="false">
+                          <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="CENTER"&gt;&lt;FONT FACE="_sans" SIZE="16" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;change state&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+                        </spark.components.supportClasses.StyleableTextField>
+                        <spark.components.supportClasses.StyleableTextField x="6" y="4" width="103" height="26" underline="false">
+                          <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="CENTER"&gt;&lt;FONT FACE="_sans" SIZE="16" COLOR="#FFFFFF" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;change state&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+                        </spark.components.supportClasses.StyleableTextField>
+                      </spark.skins.mobile.TransparentActionButtonSkin>
+                    </spark.components.Button>
+                  </spark.components.Group>
+                  <ActionBarSkin.as$55.TitleDisplayComponent x="13" y="1" width="286.6666666666667" height="43">
+                    <spark.components.supportClasses.StyleableTextField concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.6484375, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" x="-2" y="9.95" width="291.65" height="27" underline="false">
+                      <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="_sans" SIZE="18" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;Screen DPI: 240&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+                    </spark.components.supportClasses.StyleableTextField>
+                    <spark.components.supportClasses.StyleableTextField x="-2" y="8.95" width="291.65" height="27" underline="false">
+                      <htmlText>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="_sans" SIZE="18" COLOR="#FFFFFF" LETTERSPACING="0" KERNING="0"&gt;&lt;B&gt;Screen DPI: 240&lt;/B&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</htmlText>
+                    </spark.components.supportClasses.StyleableTextField>
+                  </ActionBarSkin.as$55.TitleDisplayComponent>
+                </spark.skins.mobile.ActionBarSkin>
+              </spark.components.ActionBar>
+            </spark.skins.mobile.ViewNavigatorSkin>
+          </comps.QANavigator>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </ImageScaling>
+</DisplayList>
