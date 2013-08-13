@@ -32,12 +32,14 @@
 			
 			import spark.components.ArrowDirection;
 			
-			public static const ARROW_SIDE_LENGHT:int = 18;
+			public static const ARROW_SIDE_LENGHT:int = 24;
 			
 			public static const RADIUS:int = 5;
 			
 			public static const CONTENT_GAP:int = 10;
 			
+			private static const BORDER_THICKNESS:int = 2;
+
 			use namespace mx_internal;
 			
 			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
@@ -60,60 +62,76 @@
 						arrowGraphic.height	= ARROW_SIDE_LENGHT;
 						arrowGraphic.width	= ARROW_SIDE_LENGHT/2;
 
-						arrowPath.data		= "M " + ARROW_SIDE_LENGHT/2 + " 0 L " + ARROW_SIDE_LENGHT/2 + " " + ARROW_SIDE_LENGHT + " L 0 " + ARROW_SIDE_LENGHT/2 + " Z";
+						arrowPath.data = "M " + ARROW_SIDE_LENGHT/2 + " 0 L " + ARROW_SIDE_LENGHT/2 + " " + ARROW_SIDE_LENGHT + " L 0 " + ARROW_SIDE_LENGHT/2 + " Z";
 						
-						backgroundGroup.left	= arrowGraphic.width;
-						backgroundGroup.right	= arrowGraphic.width * -1;
-						
-						contentGroup.left	= CONTENT_GAP + arrowGraphic.width;
-						contentGroup.right	= CONTENT_GAP - arrowGraphic.width;
-						
-						arrowGraphic.left	= 0;
+						backgroundGroup.left = arrowGraphic.width - BORDER_THICKNESS;
+						backgroundGroup.right = arrowGraphic.width * -1;
+
+                    	contentGroup.left = CONTENT_GAP + arrowGraphic.width - BORDER_THICKNESS;
+						contentGroup.right = CONTENT_GAP - arrowGraphic.width;
+
+                    	coverRect.top = coverRect.bottom = BORDER_THICKNESS + 1;
+                    	coverRect.width = BORDER_THICKNESS;
+                    	coverRect.right = 0;
+						arrowGraphic.left = 0;
 					}
 					else if(arDi == "right")
 					{
 						arrowGraphic.height	= ARROW_SIDE_LENGHT;
 						arrowGraphic.width	= ARROW_SIDE_LENGHT/2;
 						
-						arrowPath.data		= "M 0 0 L " + ARROW_SIDE_LENGHT/2 + " " + ARROW_SIDE_LENGHT/2 + " L 0 " + ARROW_SIDE_LENGHT + " Z";
+						arrowPath.data = "M 0 0 L " + ARROW_SIDE_LENGHT/2 + " " + ARROW_SIDE_LENGHT/2 + " L 0 " + ARROW_SIDE_LENGHT + " Z";
 						
-						backgroundGroup.left	= arrowGraphic.width * -1;
-						backgroundGroup.right	= arrowGraphic.width;
-						
-						contentGroup.left	= CONTENT_GAP - arrowGraphic.width;
-						contentGroup.right	= CONTENT_GAP + arrowGraphic.width;
-						
-						arrowGraphic.right	= 0;
+						backgroundGroup.left = arrowGraphic.width * -1;
+                    	backgroundGroup.right = arrowGraphic.width - BORDER_THICKNESS ;
+
+						contentGroup.left = CONTENT_GAP - arrowGraphic.width;
+                    	contentGroup.right = CONTENT_GAP + arrowGraphic.width- BORDER_THICKNESS ;
+
+                    	coverRect.top = coverRect.bottom = BORDER_THICKNESS + 1;
+                    	coverRect.width = BORDER_THICKNESS;
+                    	coverRect.left = 0;
+
+						arrowGraphic.right = 0;
 					}
 					else if(arDi == "up")
 					{
 						arrowGraphic.height	= ARROW_SIDE_LENGHT/2;
-						arrowGraphic.width	= ARROW_SIDE_LENGHT;
+						arrowGraphic.width = ARROW_SIDE_LENGHT;
 						
-						arrowPath.data		= "M 0 " + ARROW_SIDE_LENGHT/2 + " L " + ARROW_SIDE_LENGHT + " " + ARROW_SIDE_LENGHT/2 + " L " + ARROW_SIDE_LENGHT/2 + " 0 Z";
+						arrowPath.data = "M 0 " + ARROW_SIDE_LENGHT/2 + " L " + ARROW_SIDE_LENGHT + " " + ARROW_SIDE_LENGHT/2 + " L " + ARROW_SIDE_LENGHT/2 + " 0 Z";
 						
-						backgroundGroup.top		= arrowGraphic.height;
+                    	backgroundGroup.top = arrowGraphic.height - BORDER_THICKNESS;
 						backgroundGroup.bottom	= arrowGraphic.height * -1;
 						
-						contentGroup.top	= CONTENT_GAP + arrowGraphic.height;
+                    	contentGroup.top = CONTENT_GAP + arrowGraphic.height - BORDER_THICKNESS;
 						contentGroup.bottom	= CONTENT_GAP - arrowGraphic.height;
-						
-						arrowGraphic.top	= 0;
+
+                    	coverRect.left = coverRect.right = BORDER_THICKNESS + 1;
+                    	coverRect.height = BORDER_THICKNESS;
+                    	coverRect.bottom = 0;
+
+						arrowGraphic.top = 0;
+
 					}
 					else if(arDi == "down")
 					{
 						arrowGraphic.height	= ARROW_SIDE_LENGHT/2;
 						arrowGraphic.width	= ARROW_SIDE_LENGHT;
 						
-						arrowPath.data		= "M 0 0 L " + ARROW_SIDE_LENGHT/2 + " " + ARROW_SIDE_LENGHT/2 + " L " + ARROW_SIDE_LENGHT + " 0 Z";
+						arrowPath.data = "M 0 0 L " + ARROW_SIDE_LENGHT/2 + " " + ARROW_SIDE_LENGHT/2 + " L " + ARROW_SIDE_LENGHT + " 0 Z";
 						
-						backgroundGroup.top		= arrowGraphic.height * -1;
-						backgroundGroup.bottom	= arrowGraphic.height;
-						
-						contentGroup.top	= CONTENT_GAP - arrowGraphic.height;
-						contentGroup.bottom	= CONTENT_GAP + arrowGraphic.height;
-						
+						backgroundGroup.top	= arrowGraphic.height * -1;
+                    	backgroundGroup.bottom = arrowGraphic.height + BORDER_THICKNESS + 1;
+
+						contentGroup.top = CONTENT_GAP - arrowGraphic.height;
+                    	contentGroup.bottom = CONTENT_GAP + arrowGraphic.height + BORDER_THICKNESS + 1;
+
+                    	coverRect.left = coverRect.right = BORDER_THICKNESS + 1;
+                    	coverRect.height = BORDER_THICKNESS;
+                    	coverRect.top = 0;
 						arrowGraphic.bottom	= 0;
+
 					}
 					
 					if(arDi == "up" || arDi == "down")
@@ -182,7 +200,7 @@
 			
 			<s:Rect left="0" right="0" top="0" bottom="0" radiusX="{RADIUS}" radiusY="{RADIUS}">
 				<s:stroke>
-					<s:SolidColorStroke weight="2" color="0x000000"/>
+					<s:SolidColorStroke weight="2" color="0x808080"/>
 					<!--
 					<s:LinearGradientStroke weight="1"/>
 					-->
@@ -200,10 +218,18 @@
 		
 		<s:Graphic id="arrowGraphic" x="0" y="0">
 			<s:Path id="arrowPath" left="0" right="0" top="0" bottom="0">
+                <s:stroke>
+                    <s:SolidColorStroke weight="{BORDER_THICKNESS}" color="0x808080"/>
+                </s:stroke>
 				<s:fill>
-					<s:SolidColor color="0x000000"/>
+					<s:SolidColor color="0xFFFFFF"/>
 				</s:fill>
 			</s:Path>
+            <s:Rect id="coverRect" >
+                <s:fill>
+                    <s:SolidColor color="0xFFFFFF"/>
+                </s:fill>
+            </s:Rect>
 		</s:Graphic>
 	</s:Group>
 </s:SparkSkin>
