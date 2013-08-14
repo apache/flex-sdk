@@ -570,7 +570,7 @@ public class DataGridEditor
         
         _editedItemRenderer = item;
         
-       // Need to turn on focusable children flag so focus manager will
+        // Need to turn on focusable children flag so focus manager will
         // allow focus into the data grid's children.
         if (restoreFocusableChildren)
             saveDataGridHasFocusableChildren = dataGrid.hasFocusableChildren; 
@@ -578,6 +578,10 @@ public class DataGridEditor
         
         if (dataGrid.scroller)
         {
+            //Correct the item edit positioning based on the scroll position.
+//            localCellOrigin.x -= grid.horizontalScrollPosition;
+//            localCellOrigin.y -= grid.verticalScrollPosition;
+
             if (restoreFocusableChildren)
                 saveScrollerHasFocusableChildren = dataGrid.scroller.hasFocusableChildren; 
             dataGrid.scroller.hasFocusableChildren = true;
