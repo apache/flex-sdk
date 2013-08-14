@@ -3397,7 +3397,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                     ObjectUtil.getClassInfo(iterator.current,
                                             ["uid", "mx_internal_uid"]);
 
-                if (info)
+                if(info)
                     cols = info.properties;
             }
 
@@ -3420,21 +3420,15 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 // this is an old recordset - use its columns
                 var n:int = cols.length;
                 var colName:Object;
-				if  (n == 0) {
-					col = new AdvancedDataGridColumn();
-					newCols.push(col);
-				}
-				else {
-	                for (var i:int = 0; i < n; i++)
-	                {
-	                    colName = cols[i];
-	                    if (colName is QName)
-	                        colName = QName(colName).localName;
-	                    col = new AdvancedDataGridColumn();
-	                    col.dataField = String(colName);
-	                    newCols.push(col);
-	                }
-				}
+                for (var i:int = 0; i < n; i++)
+                {
+                    colName = cols[i];
+                    if (colName is QName)
+                        colName = QName(colName).localName;
+                    col = new AdvancedDataGridColumn();
+                    col.dataField = String(colName);
+                    newCols.push(col);
+                }
             }
             columns = newCols;
             generatedColumns = true;
@@ -4023,7 +4017,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         var g:Graphics = background.graphics;
         g.clear();
 
-        if (columnIndex >= lockedColumnCount && 
+        if(columnIndex >= lockedColumnCount && 
            columnIndex < lockedColumnCount + horizontalScrollPosition)
             return;
 
@@ -4041,9 +4035,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         // Height is usually as tall is the items in the row, but not if
         // it would extend below the bottom of listContent
-		var height:Number = 0;
-		if (lastRow)
-        	height = Math.min(lastRow.y + lastRow.height, listContent.height - yy);
+        var height:Number = Math.min(lastRow.y + lastRow.height,
+                                     listContent.height - yy);
 
         g.drawRect(xx, yy, headerInfo.headerItem.width, height);
         g.endFill();
@@ -8009,8 +8002,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 var newData:Object = itemEditorInstance[_columns[event.columnIndex].editorDataField];
                 var property:String = _columns[event.columnIndex].dataField;
                 var data:Object = event.itemRenderer.data;
-                var typeInfo:String = describeType(data).@name;
-                for each (var variable:XML in describeType(data).variable)
+                var typeInfo:String = "";
+                for each(var variable:XML in describeType(data).variable)
                 {
                     if (property == variable.@name.toString())
                     {
@@ -8039,23 +8032,11 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                     if (!(newData is int))
                         newData = Number(newData);
                 }
-				if (property == null)
-				{
-					if (data != newData)
-					{
-						bChanged = true;
-						data = newData;
-					}	
-				}
-				else
-				{
-					if (data[property] != newData)
-					{
-						bChanged = true;
-						data[property] = newData;
-					}					
-				}
-
+                if (data[property] != newData)
+                {
+                    bChanged = true;
+                    data[property] = newData;
+                }
                 if (bChanged && !(data is IPropertyChangeNotifier))
                 {
                     collection.itemUpdated(data, property);
