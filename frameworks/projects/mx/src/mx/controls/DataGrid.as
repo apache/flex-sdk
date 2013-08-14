@@ -2797,21 +2797,15 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 // this is an old recordset - use its columns
                 var n:int = cols.length;
                 var colName:Object;
-				if (n == 0) {
-					col = new DataGridColumn();
-					newCols.push(col);
-				}
-				else {
-	                for (var i:int = 0; i < n; i++)
-	                {
-	                    colName = cols[i];
-	                    if (colName is QName)
-	                        colName = QName(colName).localName;
-	                    col = new DataGridColumn();
-	                    col.dataField = String(colName);
-	                    newCols.push(col);
-	                }
-				}
+                for (var i:int = 0; i < n; i++)
+                {
+                    colName = cols[i];
+                    if (colName is QName)
+                        colName = QName(colName).localName;
+                    col = new DataGridColumn();
+                    col.dataField = String(colName);
+                    newCols.push(col);
+                }
             }
                                 
             columns = newCols;
@@ -5332,8 +5326,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 var newData:Object = itemEditorInstance[_columns[event.columnIndex].editorDataField];
                 var property:String = _columns[event.columnIndex].dataField;
                 var data:Object = event.itemRenderer.data;
-                var typeInfo:String = describeType(data).@name;
-                for each (var variable:XML in describeType(data).variable)
+                var typeInfo:String = "";
+                for each(var variable:XML in describeType(data).variable)
                 {
                     if (property == variable.@name.toString())
                     {
@@ -5365,12 +5359,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 /** Old code assumed that the property would be a simply name that could be dereferenced
                   * through array notation. Using a method call here provides, minimally, an override
                   * point where developers could extend this functionality in their own datagrid subclass **/
-                if (getCurrentDataValue(data, property) !== newData)
+                if (property != null && getCurrentDataValue( data, property ) !== newData)
                 {
-                    bChanged = setNewValue(data, property, newData, event.columnIndex);
-					
-					if (property == null)
-						collection[event.rowIndex] = newData;
+                    bChanged = setNewValue( data, property, newData, event.columnIndex );
                 }
                 if (bChanged && !(data is IPropertyChangeNotifier || data is XML))
                 {
@@ -5423,9 +5414,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
     /**
      *  @private
      */ 
-    protected function isComplexColumn(property:String):Boolean
+    protected function isComplexColumn( property:String ):Boolean
     {
-        return property != null && property.indexOf( "." ) != -1;
+        return ( property.indexOf( "." ) != -1 );
     }
 
     //Gets the reference to the parent object where a property will be updated
@@ -5450,37 +5441,33 @@ public class DataGrid extends DataGridBase implements IIMESupport
     /**
      *  @private
      */ 
-    protected function getCurrentDataValue(data:Object, property:String):String
+    protected function getCurrentDataValue( data:Object, property:String ):String
     {
-		if (property == null)
-			return String(data);
-			
-        if (!isComplexColumn(property))
-            return data[property];
+        if ( !isComplexColumn( property ) )
+            return data[ property ];
         
-        var complexFieldNameComponents:Array = property.split(".");
-        var obj:Object = deriveComplexFieldReference(data, complexFieldNameComponents);
+        var complexFieldNameComponents:Array = property.split( "." );
+        var obj:Object = deriveComplexFieldReference( data, complexFieldNameComponents );
 
-        return String(obj);
+        return String( obj );
     }
 
     //Passing all of these parameters as it basically allows everything you would need to subclass for all sorts of fun implementations
     /**
      *  @private
      */ 
-    protected function setNewValue(data:Object, property:String, value:Object, columnIndex:int):Boolean 
+    protected function setNewValue( data:Object, property:String, value:Object, columnIndex:int ):Boolean 
     {
-        if (!isComplexColumn(property))
+        if ( !isComplexColumn( property ) )
         {
-			if (property != null)
-            	data[property] = value;
+            data[ property ] = value;
         } 
         else 
         {
-            var complexFieldNameComponents:Array = property.split(".");
+            var complexFieldNameComponents:Array = property.split( "." );
             var lastProp:String = complexFieldNameComponents.pop();
-            var parent:Object = deriveComplexFieldReference(data, complexFieldNameComponents);
-            parent[lastProp] = value;
+            var parent:Object = deriveComplexFieldReference( data, complexFieldNameComponents );
+            parent[ lastProp ] = value;
         }
         
         //The value they typed in is always converted to a string, but is the value actually a string in the dataprovider?
