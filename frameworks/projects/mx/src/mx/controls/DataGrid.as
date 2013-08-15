@@ -1991,7 +1991,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
     {
         var rowData:DataGridListData = DataGridListData(makeListData(data, itemToUID(data), 0, c.colNum, c));
         if (item is IDropInListItemRenderer)
-            IDropInListItemRenderer(item).listData = data ? rowData : null;
+            IDropInListItemRenderer(item).listData = (data != null) ? rowData : null;
         item.data = data;
         item.explicitWidth = getWidthOfItem(item, c);
         UIComponentGlobals.layoutManager.validateClient(item, true);
@@ -4576,7 +4576,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
         if (!editable)
             return false;
 
-        if (!data)
+        if (data == null)
             return false;
 
         return true;

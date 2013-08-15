@@ -1691,7 +1691,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      */
     public function itemToLabel(data:Object):String
     {
-        if (!data)
+        if (data == null)
             return " ";
 
         if (labelFunction != null)
@@ -1704,10 +1704,10 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         {
             try
             {
-                if ( !hasComplexFieldName ) 
-                data = data[dataField];
+                if (!hasComplexFieldName) 
+                	data = data[dataField];
                 else 
-                    data = deriveComplexColumnData( data );
+                    data = deriveComplexColumnData(data);
             }
             catch(e:Error)
             {
@@ -1853,7 +1853,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             return _contextHeaderRenderer;
         }
 
-        if (!data)
+        if (data == null)
         {
             if (!_contextNullItemRenderer)
                 _contextNullItemRenderer = replaceItemRendererFactory(nullItemRenderer);
