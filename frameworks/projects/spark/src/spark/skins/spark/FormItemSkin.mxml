@@ -18,10 +18,6 @@
 
 -->
 
-<!-- TODO
-Move the indicator tooltip string to a resource bundle
--->
-
 <!--- The default skin class for the Spark FormItem component.  
 
 @see spark.components.FormItem
@@ -34,7 +30,7 @@ Move the indicator tooltip string to a resource bundle
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
         xmlns:s="library://ns.adobe.com/flex/spark" 
         xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
-        alpha.disabledStates=".5">  
+        alpha.disabledStates=".5" creationComplete="init()">  
     
     <!-- host component -->
     <fx:Metadata>
@@ -47,7 +43,31 @@ Move the indicator tooltip string to a resource bundle
     </fx:Metadata>
     
     <fx:Script fb:purpose="styling">
-        <![CDATA[                
+        <![CDATA[			
+			public function init():void {
+				requiredToolTip = resourceManager.getString("components","formItemRequired");
+			}
+			
+			private var _requiredToolTip:String;
+			/**
+			 *  The tooltip of the label showing when the component is required but nothing has been entered.
+			 *  Subclasses can set or override this property to customize the selected label.
+			 *  
+			 *  @langversion 3.0
+			 *  @playerversion AIR 3
+			 *  @productversion Flex 4.11
+			 */
+			[Bindable]
+			protected function get requiredToolTip():String 
+			{
+				return _requiredToolTip;
+			}
+			
+			protected function set requiredToolTip(value:String):void
+			{
+				_requiredToolTip = value;
+			}
+			
             /**
              *  @private
              */
@@ -151,7 +171,7 @@ Move the indicator tooltip string to a resource bundle
              height="{Math.max(indicatorDisplay.height, contentGroup.contentHeight)}" includeInLayout="false">
         <!--- @private -->
         <s:Image id="indicatorDisplay" verticalCenter="0"
-                       toolTip="Required" toolTip.errorStates=""
+                       toolTip="{requiredToolTip}" toolTip.errorStates=""
                        includeIn="requiredStates,errorStates"/>
     </s:Group>
         
