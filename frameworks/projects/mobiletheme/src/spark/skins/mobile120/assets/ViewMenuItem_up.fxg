@@ -20,13 +20,13 @@
 
 <Graphic version="2.0" scaleGridLeft="3" scaleGridRight="155" scaleGridTop="3" scaleGridBottom="97" xmlns="http://ns.adobe.com/fxg/2008">
   <!-- Transparent Rect to ensure proper scaling -->
-  <Rect width="158" height="100" x="0" y="0" scaleX="1.5" scaleY="1.5">
+  <Rect width="158" height="100" x="0" y="0" scaleX="0.5" scaleY="0.5">
     <fill>
       <SolidColor color="#000000" alpha="0"/>
     </fill>
   </Rect>
   <!-- Border -->
-  <Rect width="156" height="98" x="1" y="1" scaleX="1.5" scaleY="1.5">
+  <Rect width="156" height="98" x="1" y="1" scaleX="0.5" scaleY="0.5">
     <stroke>
       <SolidColorStroke weight="2" color="#ffffff" alpha=".25" joints="miter"/>
     </stroke>
