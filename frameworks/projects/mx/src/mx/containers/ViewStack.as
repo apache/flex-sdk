@@ -1581,8 +1581,21 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
      */
     public function getItemIndex(item:Object):int
     {
-        return getChildIndex(item as DisplayObject);
+		if (isValidChild(item as DisplayObject))
+        	return getChildIndex(item as DisplayObject);
+		else
+			return -1;
     }
+	
+	private function isValidChild(child:DisplayObject):Boolean {
+		for (var i:int = 0; i < numChildren; i++)
+		{
+			if (getChildAt(i) == child)
+				return true;
+		}
+		
+		return false;
+	}
 
     /**
      *  @private
