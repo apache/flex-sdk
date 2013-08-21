@@ -1,3 +1,32 @@
+Apache Flex 4.11
+=================
+
+Apache Flex 4.11 is an update to Apache Flex 4.10. 
+
+Differences from Apache Flex 4.9 include:
+
+
+SDK Changes
+-------------
+- 120 and 640 dpi mobile resolution/skin support.
+
+Bug Fixes
+----------
+ Below is a complete list of all the bug fixes that have been included since
+ the last full release, Apache Flex 4.10.0.
+ If you would like specific information about any of the items below, go to
+ https://issues.apache.org and search for the JIRA Issue Number by using the
+ Quick Search.  Details of the bug and its fix will be included on the
+ resulting page.
+
+JIRA Issue Number  Summary                                                                                        
+-------------------------------------------------------------------------------------------------------------------
+FLEX-33655	RTE when closing SkinnablePopUpContainer
+FLEX-33643	Improve experimental CallOut component frame arrow display
+FLEX-28012	FormItemSkin and StackedFormItemSkib indicatorDisplay's toolTip is not localized
+FLEX-27648	ViewStack.getItemIndex() throws error instead of returning -1 when item is not a child of the ViewStack
+
+
 Apache Flex 4.10
 =================
 
