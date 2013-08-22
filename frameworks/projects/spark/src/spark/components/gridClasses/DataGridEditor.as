@@ -579,8 +579,8 @@ public class DataGridEditor
         if (dataGrid.scroller)
         {
             //Correct the item edit positioning based on the scroll position.
-//            localCellOrigin.x -= grid.horizontalScrollPosition;
-//            localCellOrigin.y -= grid.verticalScrollPosition;
+            localCellOrigin.x -= grid.horizontalScrollPosition;
+            localCellOrigin.y -= grid.verticalScrollPosition;
 
             if (restoreFocusableChildren)
                 saveScrollerHasFocusableChildren = dataGrid.scroller.hasFocusableChildren; 
