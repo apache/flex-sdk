@@ -450,7 +450,7 @@ public class DataGridEditor
     {
         // add listeners to enable cell editing
         var grid:Grid = dataGrid.grid;
-        
+
         dataGrid.addEventListener(KeyboardEvent.KEY_DOWN, dataGrid_keyboardDownHandler);
         
         // Make sure we get first shot at mouse events before selection is changed. We use 
@@ -458,6 +458,7 @@ public class DataGridEditor
         grid.addEventListener(GridEvent.GRID_MOUSE_DOWN, grid_gridMouseDownHandler, false, 1000);
         grid.addEventListener(GridEvent.GRID_MOUSE_UP, grid_gridMouseUpHandler, false, 1000);
         grid.addEventListener(GridEvent.GRID_DOUBLE_CLICK, grid_gridDoubleClickHandler);
+        grid.addEventListener(MouseEvent.MOUSE_WHEEL, grid_gridMouseWheelHandler, false, 0);
     }
     
     /**
@@ -468,11 +469,11 @@ public class DataGridEditor
     public function uninitialize():void
     {
         // remove listeners to disable cell editing   
-        
         grid.removeEventListener(KeyboardEvent.KEY_DOWN, dataGrid_keyboardDownHandler);
         grid.removeEventListener(GridEvent.GRID_MOUSE_DOWN, grid_gridMouseDownHandler);
         grid.removeEventListener(GridEvent.GRID_MOUSE_UP, grid_gridMouseUpHandler);
         grid.removeEventListener(GridEvent.GRID_DOUBLE_CLICK, grid_gridDoubleClickHandler);
+        grid.removeEventListener(MouseEvent.MOUSE_WHEEL, grid_gridMouseWheelHandler);
     }
     
     /**
@@ -1464,6 +1465,17 @@ public class DataGridEditor
         
         lastItemDown = null;            
     }
+
+
+    /**
+    *  @private
+    * 
+    */
+    protected function grid_gridMouseWheelHandler(event:MouseEvent):void
+    {
+        endEdit();
+    }
+
 
     /**
      *  @private
