@@ -1063,7 +1063,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      *  Some may be offscreen depending on horizontalScrollPolicy
      *  and the width of the AdvancedDataGrid.
      */
-    override  public function get columnCount():int
+    override public function get columnCount():int
     {
         if (_columns)
             return _columns.length;
@@ -1377,6 +1377,26 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         invalidateDisplayList();
         dispatchEvent(new Event("columnsChanged"));
     }
+	
+	/**
+	 *  An array of AdvancedDataGridColumn objects, one for each column that
+	 *  can be displayed. 
+	 * 
+	 *  <p>Used internally instead of using <code>columns<code> when higher
+	 *  performance is required.</p>
+	 *
+	 *  <p>Use externally with caution and don't modify the array that comes
+	 *  back or you may get unexpected issues.</p>
+	 *   
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 4.11
+	 */
+	public function get rawColumns():Array {
+		return _columns;
+	}
+	
     
     //----------------------------------
     //  draggableColumns

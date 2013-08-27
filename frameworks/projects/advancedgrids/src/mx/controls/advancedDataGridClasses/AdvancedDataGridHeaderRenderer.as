@@ -819,7 +819,7 @@ public class AdvancedDataGridHeaderRenderer
      */
     protected function getFieldSortInfo():SortInfo
     {
-       	return grid.getFieldSortInfo(grid.columns[listData.columnIndex]);
+       	return grid.getFieldSortInfo(grid.rawColumns[listData.columnIndex]);
     }
 
     //--------------------------------------------------------------------------
