@@ -5611,7 +5611,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         // Number of rows to display.
         const numberOfRows:int = 10;
 
-        if (!columns || columns.length == 0)
+        if (!rawColumns || rawColumns.length == 0)
             return;
 
         var i:int;
@@ -5626,10 +5626,10 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             {
                 sampleDataRow = {};
                 
-                m = columns.length;
+                m = rawColumns.length;
                 for (j = 0; j < m; j++)
                 {
-                    col = columns[j];
+                    col = rawColumns[j];
                     if (col.dataField != null)
                     {
                         sampleDataRow[col.dataField] = counter;
@@ -5644,7 +5644,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         }
         else if (designViewDataType == designViewDataTreeType)
         {
-            var branchName:String = columns[0].dataField || "";
+            var branchName:String = rawColumns[0].dataField || "";
             var branchCounter:int = 1;
 
             for (i = 0; i < numberOfRows; i++)
@@ -5654,10 +5654,10 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                 sampleDataRow[childrenString] = [{}];
                 sampleDataRow[branchName] = resourceManager.getString("datamanagement", "Branch", [branchCounter]);
                 
-                m = columns.length;
+                m = rawColumns.length;
                 for (j = 0; j < m; j++)
                 {
-                    col = columns[j];
+                    col = rawColumns[j];
                     if (col.dataField != null)
                     {
                         sampleDataRow[childrenString][0][col.dataField] = counter;

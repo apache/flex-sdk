@@ -1392,8 +1392,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 4.11
+	 * 
+	 *  @private
 	 */
-	public function get rawColumns():Array {
+	mx_internal function get rawColumns():Array {
 		return _columns;
 	}
 	

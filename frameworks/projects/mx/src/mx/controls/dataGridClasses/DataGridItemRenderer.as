@@ -452,7 +452,7 @@ public class DataGridItemRenderer extends UITextField
             var dg:DataGrid = DataGrid(_listData.owner);
 
             var column:DataGridColumn =
-                dg.columns[_listData.columnIndex];
+                dg.mx_internal::rawColumns[_listData.columnIndex];
 
             text = _listData.label;
             

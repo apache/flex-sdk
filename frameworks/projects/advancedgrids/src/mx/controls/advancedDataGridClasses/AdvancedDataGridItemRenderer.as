@@ -452,14 +452,14 @@ public class AdvancedDataGridItemRenderer extends UITextField
         {
             var dg:AdvancedDataGrid = AdvancedDataGrid(_listData.owner);
 
-			if (_listData.columnIndex < 0 || _listData.columnIndex >= dg.columns.length) {
+			if (_listData.columnIndex < 0 || _listData.columnIndex >= dg.mx_internal::rawColumns.length) {
 				text = " ";
 				toolTip = null;
 				return;
 			}
 			
 			var column:AdvancedDataGridColumn =
-				dg.columns[_listData.columnIndex];
+				dg.mx_internal::rawColumns[_listData.columnIndex];
 			
 			if (column == null) {
 				text = " ";

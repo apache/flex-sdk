@@ -616,10 +616,10 @@ public class PrintAdvancedDataGrid extends AdvancedDataGrid
         {
         	// assign the columns
 	        var columnArray:Array = [];
-	        n = value.columns != null ? value.columns.length : 0;
+	        n = value.rawColumns != null ? value.rawColumns.length : 0;
 	        for (i = 0; i < n; i++)
 	        {
-	        	var sourceColumn:AdvancedDataGridColumn = value.columns[i];
+	        	var sourceColumn:AdvancedDataGridColumn = value.rawColumns[i];
 	        	var col:AdvancedDataGridColumn = sourceColumn.clone();
 	        	
 	        	// check for treeColumn
@@ -725,10 +725,10 @@ public class PrintAdvancedDataGrid extends AdvancedDataGrid
         // set treeColumn in case of a column grouped AdvacnedDataGrid
         if (source && source.groupedColumns && source.treeColumn)
         {
-        	var n:int = source.columns.length;
+        	var n:int = source.rawColumns.length;
 	        for (var i:int = 0; i < n; i++)
 	        {
-	        	var sourceColumn:AdvancedDataGridColumn = source.columns[i];
+	        	var sourceColumn:AdvancedDataGridColumn = source.rawColumns[i];
 	        	
 	        	if (sourceColumn == source.treeColumn)
 	        	{
