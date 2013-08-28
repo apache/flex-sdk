@@ -7417,7 +7417,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         super.focusInHandler(event);
 
-        if (editable.length && !isPressed) // don't do this if we're mouse focused
+        if (editable && editable.length && !isPressed) // don't do this if we're mouse focused
         {
             _editedItemPosition = lastEditedItemPosition;
 
