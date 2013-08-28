@@ -728,7 +728,7 @@ public class PrintAdvancedDataGrid extends AdvancedDataGrid
         	var n:int = source.mx_internal::rawColumns.length;
 	        for (var i:int = 0; i < n; i++)
 	        {
-	        	var sourceColumn:AdvancedDataGridColumn = source..mx_internal::rawColumns[i];
+	        	var sourceColumn:AdvancedDataGridColumn = source.mx_internal::rawColumns[i];
 	        	
 	        	if (sourceColumn == source.treeColumn)
 	        	{
