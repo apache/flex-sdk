@@ -9,6 +9,7 @@ Differences from Apache Flex 4.9 include:
 SDK Changes
 -------------
 - 120 and 640 dpi mobile resolution/skin support.
+- mx:AdvancedDataGrid and mx:DataGrid speed improvements
 
 Bug Fixes
 ----------
@@ -21,6 +22,8 @@ Bug Fixes
 
 JIRA Issue Number  Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-33688	RTE in advanced list when setting selection to null and column is sorted
+FLEX-33667  compiler with apache flex 4.10 occur error : Uncaught exception in compiler.
 FLEX-33655	RTE when closing SkinnablePopUpContainer
 FLEX-33643	Improve experimental CallOut component frame arrow display
 FLEX-28012	FormItemSkin and StackedFormItemSkib indicatorDisplay's toolTip is not localized
