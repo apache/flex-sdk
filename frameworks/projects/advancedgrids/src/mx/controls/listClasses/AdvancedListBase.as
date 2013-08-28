@@ -6063,7 +6063,7 @@ public class AdvancedListBase extends ScrollControlBase
 
         if (useFind)
         {
-            while (items.length)
+            while (items && items.length)
             {
                 var item:Object = items.pop();
                 uid = itemToUID(item);
