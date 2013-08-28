@@ -616,10 +616,10 @@ public class PrintAdvancedDataGrid extends AdvancedDataGrid
         {
         	// assign the columns
 	        var columnArray:Array = [];
-	        n = value.rawColumns != null ? value.rawColumns.length : 0;
+	        n = value.mx_internal::rawColumns != null ? value.mx_internal::rawColumns.length : 0;
 	        for (i = 0; i < n; i++)
 	        {
-	        	var sourceColumn:AdvancedDataGridColumn = value.rawColumns[i];
+	        	var sourceColumn:AdvancedDataGridColumn = value.mx_internal::rawColumns[i];
 	        	var col:AdvancedDataGridColumn = sourceColumn.clone();
 	        	
 	        	// check for treeColumn
@@ -725,10 +725,10 @@ public class PrintAdvancedDataGrid extends AdvancedDataGrid
         // set treeColumn in case of a column grouped AdvacnedDataGrid
         if (source && source.groupedColumns && source.treeColumn)
         {
-        	var n:int = source.rawColumns.length;
+        	var n:int = source.mx_internal::rawColumns.length;
 	        for (var i:int = 0; i < n; i++)
 	        {
-	        	var sourceColumn:AdvancedDataGridColumn = source.rawColumns[i];
+	        	var sourceColumn:AdvancedDataGridColumn = source..mx_internal::rawColumns[i];
 	        	
 	        	if (sourceColumn == source.treeColumn)
 	        	{

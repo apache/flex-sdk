@@ -456,7 +456,7 @@ public class FTEAdvancedDataGridItemRenderer extends UIFTETextField
             var dg:AdvancedDataGrid = AdvancedDataGrid(_listData.owner);
 
             var column:AdvancedDataGridColumn =
-                dg.rawColumns[_listData.columnIndex];
+                dg.mx_internal::rawColumns[_listData.columnIndex];
 
             text = _listData.label;
             

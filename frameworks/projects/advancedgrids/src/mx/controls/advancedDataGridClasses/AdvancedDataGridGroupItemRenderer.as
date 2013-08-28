@@ -357,7 +357,7 @@ public class AdvancedDataGridGroupItemRenderer extends UIComponent
             listOwner = AdvancedDataGrid(_listData.owner);
             
             var column:AdvancedDataGridColumn =
-                listOwner.rawColumns[_listData.columnIndex];
+                listOwner..mx_internal::rawColumns[_listData.columnIndex];
 
             if (_listData.disclosureIcon)
             {
