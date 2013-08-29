@@ -10,6 +10,7 @@ SDK Changes
 -------------
 - 120 and 640 dpi mobile resolution/skin support.
 - mx:AdvancedDataGrid and mx:DataGrid speed improvements
+- s:DataGridEditor will now be visible in ASDocs and be visible in the Tag inspector.
 
 Bug Fixes
 ----------
@@ -23,7 +24,10 @@ Bug Fixes
 JIRA Issue Number  Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
 FLEX-33688	RTE in advanced list when setting selection to null and column is sorted
+FLEX-33687  DataGridEditor is not visible in ASDOCS has been excluded
 FLEX-33667  compiler with apache flex 4.10 occur error : Uncaught exception in compiler.
+FLEX-33666  When scrolling a Spark Datagrid with the mousewheel after starting an itemEditor session, the itemEditor doesn't follow it's cell
+FLEX-33665  ItemEditors are placed on the wrong position after scrolling an editable Spark Datagrid
 FLEX-33655	RTE when closing SkinnablePopUpContainer
 FLEX-33643	Improve experimental CallOut component frame arrow display
 FLEX-28012	FormItemSkin and StackedFormItemSkib indicatorDisplay's toolTip is not localized
