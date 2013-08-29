@@ -56,7 +56,6 @@ import spark.events.GridItemEditorEvent;
 
 use namespace mx_internal;
 
-[ExcludeClass]
 
 /**
  *  The DataGridEditor contains all the logic and event handling needed to 
@@ -180,8 +179,12 @@ public class DataGridEditor
     private var _dataGrid:DataGrid;
 
     /**
-     *  @private
-     *  The data grid that owns this editor.
+     *  Reference to the <code>DataGrid</code> that created the editor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get dataGrid():DataGrid
     {
@@ -189,8 +192,12 @@ public class DataGridEditor
     }
     
     /**
-     *  @private
-     *  Convenience property to get the grid.
+     *  Convenience property to get the <code>Grid</code> associated with the parent <code>DataGrid</code>.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get grid():Grid
     {
@@ -236,7 +243,12 @@ public class DataGridEditor
     }
     
     /**
-     *  @private
+     *  Sets the edited item position based on the grids <code>rowIndex</code> and <code>columnIndex</code>.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function set editedItemPosition(value:Object):void
     {
@@ -442,9 +454,13 @@ public class DataGridEditor
     //--------------------------------------------------------------------------
     
     /**
-     *  @private
-     *  Called by the data grid after construction to initialize the editor. No
+     *  Called by the <code>DataGrid</code> after construction to initialize the editor. No
      *  item editors can be created until after this method is called.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */  
     public function initialize():void
     {
@@ -462,9 +478,12 @@ public class DataGridEditor
     }
     
     /**
-     *  @private
+     *  The method is called to disable item editing on the <code>DataGrid</code>.
      * 
-     *  The method is called to disable item editing on the data grid.
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     public function uninitialize():void
     {
@@ -772,8 +791,6 @@ public class DataGridEditor
     }
     
     /**
-     *  @private
-     * 
      *  Start editing a cell for a specified row and column index.
      *  
      *  Dispatches a <code>GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING
@@ -782,6 +799,11 @@ public class DataGridEditor
      *  @param rowIndex The zero-based row index of the cell to edit.
      * 
      *  @param columnIndex The zero-based column index of the cell to edit.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function startItemEditorSession(rowIndex:int, columnIndex:int):Boolean
     {
@@ -1468,9 +1490,14 @@ public class DataGridEditor
 
 
     /**
-    *  @private
-    * 
-    */
+     *  Grid MouseWheel event handler.  Used to end the itemeditor when scrolling on the grid.
+     *  Default action is to save the edited contents.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.11
+     */
     protected function grid_gridMouseWheelHandler(event:MouseEvent):void
     {
         endEdit();
