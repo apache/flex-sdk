@@ -18,66 +18,70 @@
 
 -->
 
-<Graphic version="2.0" scaleGridLeft="2" scaleGridTop="2" scaleGridRight="63" scaleGridBottom="64" xmlns="http://ns.adobe.com/fxg/2008">
-  <!-- border top -->
-  <Rect x="0" y="0" width="65" height="1" scaleX="0.5" scaleY="0.5">
-    <fill>
-      <SolidColor color="#000000" alpha="0.75"/>
-    </fill>
-  </Rect>
-  <!-- border bottom -->
-  <Rect x="0" y="66" width="65" height="1" scaleX="0.5" scaleY="0.5">
-    <fill>
-      <SolidColor color="#000000" alpha="0.85"/>
-    </fill>
-  </Rect>
-  <!-- drop shadow (3 filled rects) -->
-  <Rect x="0" y="67" width="65" height="1" scaleX="0.5" scaleY="0.5">
-    <fill>
-      <SolidColor color="#000000" alpha="0.35"/>
-    </fill>
-  </Rect>
-  <Rect x="0" y="68" width="65" height="1" scaleX="0.5" scaleY="0.5">
-    <fill>
-      <SolidColor color="#000000" alpha="0.2"/>
-    </fill>
-  </Rect>
-  <Rect x="0" y="69" width="65" height="1" scaleX="0.5" scaleY="0.5">
-    <fill>
-      <SolidColor color="#000000" alpha="0.1"/>
-    </fill>
-  </Rect>
-  <!-- highlight border -->
-  <Rect x="1" y="1" width="63" height="1" alpha=".15" scaleX="0.5" scaleY="0.5">
-    <fill>
-      <SolidColor color="#ffffff"/>
-    </fill>
-  </Rect>
-  <Rect x="1" y="65" width="63" height="1" alpha="0.1" scaleX="0.5" scaleY="0.5">
-    <fill>
-      <SolidColor color="#ffffff"/>
-    </fill>
-  </Rect>
-  <Rect x="0" y="1" width="1" height="65" scaleX="0.5" scaleY="0.5">
-    <fill>
-      <LinearGradient x="0" scaleX="65" rotation="90">
-        <GradientEntry color="#ffffff" ratio="0" alpha=".15"/>
-        <GradientEntry color="#ffffff" ratio="1" alpha=".1"/>
-      </LinearGradient>
-    </fill>
-  </Rect>
-  <Rect x="64" y="1" width="1" height="65" scaleX="0.5" scaleY="0.5">
-    <fill>
-      <LinearGradient x="0" scaleX="65" rotation="90">
-        <GradientEntry color="#ffffff" ratio="0" alpha=".15"/>
-        <GradientEntry color="#ffffff" ratio="1" alpha=".1"/>
-      </LinearGradient>
-    </fill>
-  </Rect>
-  <!-- invisible fix for scaling -->
-  <Rect x="0" y="0" width="65" height="70" scaleX="0.5" scaleY="0.5">
-    <fill>
-      <SolidColor color="#ffffff" alpha="0"/>
-    </fill>
-  </Rect>
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008"
+    scaleGridLeft="2" scaleGridTop="2" scaleGridRight="63" scaleGridBottom="64">
+    
+    <!-- border top -->
+    <Rect x="0" y="0" width="65" height="1">
+        <fill>
+            <SolidColor color="#000000" alpha="0.75"/>
+        </fill>
+    </Rect>
+    <!-- border bottom -->
+    <Rect x="0" y="66" width="65" height="1">
+        <fill>
+            <SolidColor color="#000000" alpha="0.85"/>
+        </fill>
+    </Rect>
+    <!-- drop shadow (3 filled rects) -->
+    <Rect x="0" y="67" width="65" height="1">
+        <fill>
+            <SolidColor color="#000000" alpha="0.35"/>
+        </fill>
+    </Rect>
+    <Rect x="0" y="68" width="65" height="1">
+        <fill>
+            <SolidColor color="#000000" alpha="0.2"/>
+        </fill>
+    </Rect>
+    <Rect x="0" y="69" width="65" height="1">
+        <fill>
+            <SolidColor color="#000000" alpha="0.1"/>
+        </fill>
+    </Rect>
+    
+    <!-- highlight border -->
+    <Rect x="1" y="1" width="63" height="1" alpha=".15">
+        <fill>
+        	<SolidColor color="#ffffff"/>
+        </fill>
+    </Rect>
+    <Rect x="1" y="65" width="63" height="1" alpha="0.1">
+        <fill>
+        	<SolidColor color="#ffffff"/>
+        </fill>
+    </Rect>
+    <Rect x="0" y="1" width="1" height="65">
+        <fill>
+            <LinearGradient x="0" scaleX="65" rotation="90">
+                <GradientEntry color="#ffffff" ratio="0" alpha=".15"/>
+                <GradientEntry color="#ffffff" ratio="1" alpha=".1"/>
+            </LinearGradient>
+        </fill>
+    </Rect>
+    <Rect x="64" y="1" width="1" height="65">
+        <fill>
+            <LinearGradient x="0" scaleX="65" rotation="90">
+                <GradientEntry color="#ffffff" ratio="0" alpha=".15"/>
+                <GradientEntry color="#ffffff" ratio="1" alpha=".1"/>
+            </LinearGradient>
+        </fill>
+    </Rect>
+    
+    <!-- invisible fix for scaling -->
+    <Rect x="0" y="0" width="65" height="70">
+        <fill>
+            <SolidColor color="#ffffff" alpha="0"/>
+        </fill>
+    </Rect>
 </Graphic>

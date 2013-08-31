@@ -17,16 +17,16 @@
   limitations under the License.
 
 -->
-
-<Graphic version="2.0" viewHeight="100" viewWidth="100" scaleGridLeft="8" scaleGridTop="8" scaleGridRight="92" scaleGridBottom="92" xmlns="http://ns.adobe.com/fxg/2008">
-  <Rect width="100" height="100" radiusX="8" radiusY="8" scaleX="0.5" scaleY="0.5">
-    <fill>
-      <LinearGradient rotation="270">
-        <GradientEntry ratio="0.0" color="#231F20" alpha="0.7"/>
-        <GradientEntry ratio="0.35" color="#FFFFFF" alpha="0"/>
-        <GradientEntry ratio="0.75" color="#EAE9E9" alpha="0"/>
-        <GradientEntry ratio="1.0" color="#231F20" alpha="0.65"/>
-      </LinearGradient>
-    </fill>
-  </Rect>
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" viewHeight= "100" viewWidth= "100"
+	scaleGridLeft="8" scaleGridTop="8" scaleGridRight="92" scaleGridBottom="92">
+	<Rect width="100" height="100" radiusX="8" radiusY="8">
+		<fill>
+			<LinearGradient rotation="270">
+				<GradientEntry ratio="0.0" color="#231F20" alpha="0.7"/>
+				<GradientEntry ratio="0.35" color="#FFFFFF" alpha="0"/>
+				<GradientEntry ratio="0.75" color="#EAE9E9" alpha="0"/>
+				<GradientEntry ratio="1.0" color="#231F20" alpha="0.65"/>
+			</LinearGradient>
+		</fill>
+	</Rect>
 </Graphic>

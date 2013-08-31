@@ -18,26 +18,27 @@
 
 -->
 
+
 <Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
-  <!-- fill -->
-  <Path data="M 3 25 L 10 18 L 18 26 L 38 6 L 45 13 L 18 40 Z" alpha="1" scaleX="0.5" scaleY="0.5">
-    <fill>
-      <LinearGradient x="20" y="16" scaleX="24" rotation="90">
-        <GradientEntry color="#5a5a5a" ratio="0" alpha="1"/>
-        <GradientEntry color="#323232" ratio="1" alpha="1"/>
-      </LinearGradient>
-    </fill>
-  </Path>
-  <!-- checkbox top border -->
-  <Path data="M 3 25 L 10 18 L 18 26 L 38 6 L 45 13" alpha="0.7" scaleX="0.5" scaleY="0.5">
-    <stroke>
-      <SolidColorStroke weight="0" color="#ffffff" joints="bevel"/>
-    </stroke>
-  </Path>
-  <!-- checkbox bottom border -->
-  <Path data="M 3 25 L 18 40 L 45 13" alpha="1" scaleX="0.5" scaleY="0.5">
-    <stroke>
-      <SolidColorStroke weight="0" color="#000000" joints="bevel"/>
-    </stroke>
-  </Path>
+	<!-- fill -->
+	<Path data="M 3 25 L 10 18 L 18 26 L 38 6 L 45 13 L 18 40 Z" alpha="1">
+		<fill>
+			<LinearGradient x = "20" y = "16" scaleX = "24" rotation = "90">
+				<GradientEntry color="#5a5a5a" ratio="0" alpha="1"/>
+				<GradientEntry color="#323232" ratio="1" alpha="1"/>
+			</LinearGradient>
+		</fill>
+	</Path>
+	<!-- checkbox top border -->
+	<Path data="M 3 25 L 10 18 L 18 26 L 38 6 L 45 13" alpha="0.7">
+		<stroke>
+			<SolidColorStroke weight="0" color="#ffffff" joints="bevel"/>
+		</stroke>
+	</Path>
+	<!-- checkbox bottom border -->
+	<Path data="M 3 25 L 18 40 L 45 13" alpha="1">
+		<stroke>
+			<SolidColorStroke weight="0" color="#000000" joints="bevel"/>
+		</stroke>
+	</Path>
 </Graphic>

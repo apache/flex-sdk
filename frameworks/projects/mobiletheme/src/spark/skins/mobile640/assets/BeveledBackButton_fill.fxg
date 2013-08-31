@@ -18,17 +18,22 @@
 
 -->
 
-<Graphic version="2.0" scaleGridLeft="26" scaleGridRight="108" scaleGridTop="10" scaleGridBottom="46" xmlns="http://ns.adobe.com/fxg/2008">
-  <!-- invisible fix for scaling -->
-  <Rect x="0" y="0" width="116" height="56" scaleX="2" scaleY="2">
-    <fill>
-      <SolidColor color="#ffffff" alpha="0"/>
-    </fill>
-  </Rect>
-  <!-- chromeColor fill -->
-  <Path x="2" y="1.3335" winding="nonZero" data="M106 0C109.676 0 112.666 2.99121 112.666 6.66699L112.666 46.6675C112.666 50.3413 109.676 53.3335 106 53.3335L23.3784 53.3345C18.3945 53.3345 15.8164 47.8208 14.1416 46.1479 14.0869 46.0669 5.12305 34.1841 0 26.5215 5.12891 18.8438 14.1855 7.07715&#xD;&#xA; 14.2334 7.0083 17.2275 3.24561 19.084 0 23.3335 0L106 0 106 0Z" scaleX="2" scaleY="2">
-    <fill>
-      <SolidColor color="#484848"/>
-    </fill>
-  </Path>
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008"
+	scaleGridLeft="26" scaleGridRight="108" scaleGridTop="10" scaleGridBottom="46">
+
+	<!-- invisible fix for scaling -->
+	<Rect x="0" y="0" width="116" height="56">
+		<fill>
+			<SolidColor color="#ffffff" alpha="0"/>
+		</fill>
+	</Rect>
+
+	<!-- chromeColor fill -->
+      <Path x="2" y="1.3335" winding="nonZero" data="M106 0C109.676 0 112.666 2.99121 112.666 6.66699L112.666 46.6675C112.666 50.3413 109.676 53.3335 106 53.3335L23.3784 53.3345C18.3945 53.3345 15.8164 47.8208 14.1416 46.1479 14.0869 46.0669 5.12305 34.1841 0 26.5215 5.12891 18.8438 14.1855 7.07715
+ 14.2334 7.0083 17.2275 3.24561 19.084 0 23.3335 0L106 0 106 0Z">
+        <fill>
+          <SolidColor color="#484848"/>
+        </fill>
+      </Path>
+
 </Graphic>
