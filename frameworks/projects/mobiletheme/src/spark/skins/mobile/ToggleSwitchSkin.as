@@ -36,10 +36,12 @@ import spark.components.ToggleSwitch;
 import spark.components.supportClasses.StyleableTextField;
 import spark.core.SpriteVisualElement;
 import spark.skins.mobile.supportClasses.MobileSkin;
+import spark.skins.mobile120.assets.ToggleSwitch_contentShadow;
 import spark.skins.mobile160.assets.ToggleSwitch_contentShadow;
 import spark.skins.mobile240.assets.ToggleSwitch_contentShadow;
 import spark.skins.mobile320.assets.ToggleSwitch_contentShadow;
 import spark.skins.mobile480.assets.ToggleSwitch_contentShadow;
+import spark.skins.mobile640.assets.ToggleSwitch_contentShadow;
 
 use namespace mx_internal;
 
@@ -74,7 +76,19 @@ public class ToggleSwitchSkin extends MobileSkin
         super();
         
         switch(applicationDPI) 
-        {
+        {	
+			case DPIClassification.DPI_640:
+			{
+				layoutThumbWidth = 94;
+				layoutThumbHeight = 56;
+				layoutStrokeWeight = 2;
+				layoutBorderSize = 2;
+				layoutTextShadowOffset = -2;
+				layoutInnerPadding = 14;
+				layoutOuterPadding = 22;
+				slidingContentOverlayClass = spark.skins.mobile320.assets.ToggleSwitch_contentShadow;
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
@@ -88,7 +102,6 @@ public class ToggleSwitchSkin extends MobileSkin
 				slidingContentOverlayClass = spark.skins.mobile480.assets.ToggleSwitch_contentShadow;
 				break;
 			}		
-
             case DPIClassification.DPI_320:
             {
                 layoutThumbWidth = 94;
@@ -101,19 +114,30 @@ public class ToggleSwitchSkin extends MobileSkin
                 slidingContentOverlayClass = spark.skins.mobile320.assets.ToggleSwitch_contentShadow;
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                layoutThumbWidth = 70;
-                layoutThumbHeight = 42;
-                layoutStrokeWeight = 2;
-                layoutBorderSize = 1;
-                layoutTextShadowOffset = -1;
-                layoutInnerPadding = 10;
-                layoutOuterPadding = 17;
-                slidingContentOverlayClass = spark.skins.mobile240.assets.ToggleSwitch_contentShadow;
-                break;
-            }
-            case DPIClassification.DPI_160:
+			case DPIClassification.DPI_240:
+			{
+				layoutThumbWidth = 70;
+				layoutThumbHeight = 42;
+				layoutStrokeWeight = 2;
+				layoutBorderSize = 1;
+				layoutTextShadowOffset = -1;
+				layoutInnerPadding = 10;
+				layoutOuterPadding = 17;
+				slidingContentOverlayClass = spark.skins.mobile240.assets.ToggleSwitch_contentShadow;
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				layoutThumbWidth = 35;
+				layoutThumbHeight = 21;
+				layoutStrokeWeight = 2;
+				layoutBorderSize = 1;
+				layoutTextShadowOffset = -1;
+				layoutInnerPadding = 5;
+				layoutOuterPadding = 9;
+				slidingContentOverlayClass = spark.skins.mobile120.assets.ToggleSwitch_contentShadow;
+				break;
+			}
             default:
             {
                 layoutThumbWidth = 47;

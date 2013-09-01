@@ -48,12 +48,16 @@ public class VScrollBarThumbSkin extends MobileSkin
     //--------------------------------------------------------------------------
     
     // These constants are also accessed from VScrollBarSkin
+	mx_internal static const PADDING_RIGHT_640DPI:int = 10;
+	mx_internal static const PADDING_VERTICAL_640DPI:int = 8;
 	mx_internal static const PADDING_RIGHT_480DPI:int = 8;
 	mx_internal static const PADDING_VERTICAL_480DPI:int = 6;
     mx_internal static const PADDING_RIGHT_320DPI:int = 5;
     mx_internal static const PADDING_VERTICAL_320DPI:int = 4;
-    mx_internal static const PADDING_RIGHT_240DPI:int = 4;
-    mx_internal static const PADDING_VERTICAL_240DPI:int = 3;
+	mx_internal static const PADDING_RIGHT_240DPI:int = 4;
+	mx_internal static const PADDING_VERTICAL_240DPI:int = 3;
+	mx_internal static const PADDING_RIGHT_120DPI:int = 2;
+	mx_internal static const PADDING_VERTICAL_120DPI:int = 1;
     mx_internal static const PADDING_RIGHT_DEFAULTDPI:int = 3;
     mx_internal static const PADDING_VERTICAL_DEFAULTDPI:int = 2;
     

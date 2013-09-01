@@ -51,6 +51,11 @@ public class CalloutActionBarSkin extends ActionBarSkin
         // shorten ActionBar height visual paddingTop comes from CalloutSkin
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				layoutContentGroupHeight = 108;
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				layoutContentGroupHeight = 84;
@@ -61,11 +66,16 @@ public class CalloutActionBarSkin extends ActionBarSkin
                 layoutContentGroupHeight = 54;
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                layoutContentGroupHeight = 42;
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				layoutContentGroupHeight = 42;
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				layoutContentGroupHeight = 21;
+				break;
+			}
             default:
             {
                 // default DPI_160

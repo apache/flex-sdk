@@ -66,6 +66,13 @@ public class VScrollBarSkin extends MobileSkin
         // Depending on density set our measured width
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				minWidth = 24;
+				paddingRight = VScrollBarThumbSkin.PADDING_RIGHT_640DPI;
+				paddingVertical = VScrollBarThumbSkin.PADDING_VERTICAL_640DPI;
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				minWidth = 18;
@@ -80,13 +87,20 @@ public class VScrollBarSkin extends MobileSkin
                 paddingVertical = VScrollBarThumbSkin.PADDING_VERTICAL_320DPI;
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                minWidth = 9;
-                paddingRight = VScrollBarThumbSkin.PADDING_RIGHT_240DPI;
-                paddingVertical = VScrollBarThumbSkin.PADDING_VERTICAL_240DPI;
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				minWidth = 9;
+				paddingRight = VScrollBarThumbSkin.PADDING_RIGHT_240DPI;
+				paddingVertical = VScrollBarThumbSkin.PADDING_VERTICAL_240DPI;
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				minWidth = 9;
+				paddingRight = VScrollBarThumbSkin.PADDING_RIGHT_120DPI;
+				paddingVertical = VScrollBarThumbSkin.PADDING_VERTICAL_120DPI;
+				break;
+			}
             default:
             {
                 // default DPI_160

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<Graphic version="2.0" viewHeight="50" viewWidth="50" xmlns="http://ns.adobe.com/fxg/2008">
+        <Rect x="0.5" y="0.5" width="49" height="49">
+          <fill>
+            <SolidColor color="#FFFFFF"/>
+          </fill>
+        </Rect>
+        <Path winding="nonZero" data="M49 1 49 49 1 49 1 1 49 1M50 0 0 0 0 50 50 50 50 0 50 0Z">
+          <fill>
+            <SolidColor color="#FFFFFF"/>
+          </fill>
+        </Path>
+      <Path winding="nonZero" data="M0 0 0 50 50 50 50 0 0 0ZM47 47 3 47 3 3 47 3 47 47Z">
+        <fill>
+          <SolidColor color="#969696"/>
+        </fill>
+      </Path>
+      <Path x="6" y="6" winding="nonZero" data="M0 0 0 38 38 38 38 0 0 0ZM19.2524 35.5098C17.3325 35.5098 15.8921 34.2617 15.8921 32.1484 15.8921 30.1328 17.3325 28.8379 19.2524 28.8379 21.2676 28.8379 22.6133 30.2285 22.6133 32.1484 22.6133 34.166 21.3652 35.5098 19.2524 35.5098ZM21.0293 22.0684
+C21.0293 22.9316 21.3652 23.7031 21.8926 24.6152 21.9883 24.8066 21.8926 25 21.6523 25L17.4282 25C17.188 25 17.0923 24.998 16.8521 24.7578 15.9878 23.7988 15.604 22.4541 15.604 21.4932 15.604 17.6533 21.8926 15.3008 21.8926 11.46 21.8926 9.58789
+ 20.3555 7.95557 17.4282 7.95557 15.0278 7.95557 13.1572 8.43555 11.4775 9.15625 11.2861 9.25195 11 9.15576 11 8.96338L11 5.17139C11 4.979 11.1416 4.78711 11.333 4.69092 12.5342 4.11523 15.0029 3.20312 18.5557 3.20312 24.1719 3.20312 27.8086 6.41943
+ 27.8086 11.0278 27.8086 16.3081 21.0293 19.3325 21.0293 22.0684Z">
+        <fill>
+          <SolidColor color="#969696"/>
+        </fill>
+      </Path>
+</Graphic>

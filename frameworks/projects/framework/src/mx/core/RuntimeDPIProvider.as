@@ -39,10 +39,12 @@ use namespace mx_internal;
  * 
  *  <p>Flex's default mappings are:
  *     <table class="innertable">
- *        <tr><td>160 DPI</td><td>&lt;200 DPI</td></tr>
- *        <tr><td>240 DPI</td><td>&gt;=200 DPI and &lt;280 DPI</td></tr>
- *        <tr><td>320 DPI</td><td>&gt;=280 DPI and &lt;400 DPI</td></tr>
- *        <tr><td>480 DPI</td><td>&gt;=400 DPI</td></tr>
+ *        <tr><td>160 DPI</td><td>&lt;140 DPI</td></tr>
+ *        <tr><td>160 DPI</td><td>&gt;=140 DPI and &lt;=200 DPI</td></tr>
+ *        <tr><td>240 DPI</td><td>&gt;=200 DPI and &lt;=280 DPI</td></tr>
+ *        <tr><td>320 DPI</td><td>&gt;=280 DPI and &lt;=400 DPI</td></tr>
+ *        <tr><td>480 DPI</td><td>&gt;=400 DPI and &lt;=560 DPI</td></tr>
+ *        <tr><td>640 DPI</td><td>&gt;=640 DPI</td></tr>
  *     </table>
  *  </p>
  * 
@@ -117,7 +119,10 @@ public class RuntimeDPIProvider
      */
     mx_internal static function classifyDPI(dpi:Number):Number
     {
-        if (dpi < 200)
+		if (dpi <= 140)
+			return DPIClassification.DPI_120;
+		
+        if (dpi <= 200)
             return DPIClassification.DPI_160;
         
         if (dpi <= 280)
@@ -125,8 +130,11 @@ public class RuntimeDPIProvider
 		
 		if (dpi <= 400)
 			return DPIClassification.DPI_320;
+		
+		if (dpi <= 560)
+			return DPIClassification.DPI_480;
         
-        return DPIClassification.DPI_480;
+        return DPIClassification.DPI_640;
     }
 }
 }

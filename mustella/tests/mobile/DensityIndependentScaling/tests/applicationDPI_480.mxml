@@ -69,10 +69,12 @@
 			<body>
 				
 				<AssertPropertyValue target="" propertyName="scalingFactor" value="0.500000" >
-					<ConditionalValue deviceDensity="160" value="0.25"/>
+					<ConditionalValue deviceDensity="120" value="0.25"/>
+					<ConditionalValue deviceDensity="160" value="0.333333"/>
 					<ConditionalValue deviceDensity="240" value="0.5"/>
 					<ConditionalValue deviceDensity="320" value="0.75"/>
 					<ConditionalValue deviceDensity="480" value="1"/>
+					<ConditionalValue deviceDensity="640" value="1.333333"/>
 				</AssertPropertyValue>	
 			
 			</body>
@@ -85,9 +87,11 @@
 				
 				<AssertPropertyValue target="" propertyName="screenWidth" value="1000">
 					<ConditionalValue deviceDensity="160" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/0.25"/>
+					<ConditionalValue deviceDensity="160" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/0.333333"/>
 					<ConditionalValue deviceDensity="240" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/0.5"/>
 					<ConditionalValue deviceDensity="320" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/0.75"/>
 					<ConditionalValue deviceDensity="480" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth"/>
+					<ConditionalValue deviceDensity="640" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/1.333333"/>
 				</AssertPropertyValue>	
 			</body>
 			
@@ -105,6 +109,8 @@
 					<ConditionalValue deviceDensity="160" os="qnx" />
 					<ConditionalValue deviceDensity="320" os="android" />
 					<ConditionalValue deviceDensity="480" os="android" />
+					<ConditionalValue deviceDensity="120" os="android" />
+					<ConditionalValue deviceDensity="640" os="android" />
 				</CompareBitmap>	
 			</body>
 					

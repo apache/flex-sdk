@@ -35,6 +35,17 @@ public class MultiDPIBitmapSource
 {
     include "../core/Version.as";
 
+	/**
+	 *  The source to use if the <code>Application.runtimeDPI</code> 
+	 *  is <code>DPIClassification.DPI_120</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.2
+	 *  @playerversion AIR 2.6
+	 *  @productversion ApacheFlex 4.11
+	 */
+	public var source120dpi:Object;
+	
     /**
      *  The source to use if the <code>Application.runtimeDPI</code> 
      *  is <code>DPIClassification.DPI_160</code>.
@@ -78,6 +89,17 @@ public class MultiDPIBitmapSource
 	 *  @productversion ApacheFlex 4.10
 	 */
 	public var source480dpi:Object;
+	
+	/**
+	 *  The source to use if the <code>Application.runtimeDPI</code> 
+	 *  is <code>DPIClassification.DPI_640</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.2
+	 *  @playerversion AIR 2.6
+	 *  @productversion ApacheFlex 4.11
+	 */
+	public var source640dpi:Object;
     
     /**
      *  Select one of the sourceXXXdpi properties based on the given DPI.  This
@@ -101,42 +123,84 @@ public class MultiDPIBitmapSource
         var source:Object = source160dpi;
         switch (desiredDPI)
         {
-			case DPIClassification.DPI_480:
-				source = source480dpi;
+			case DPIClassification.DPI_640:
+				source = source640dpi;
+				if (!source || source == "")
+					source = source480dpi;
 				if (!source || source == "")
 					source = source320dpi;
 				if (!source || source == "")
 					source = source240dpi;
 				if (!source || source == "")
 					source = source160dpi;
+				if (!source || source == "")
+					source = source120dpi;
 				break;
-            case DPIClassification.DPI_160:
-                source = source160dpi;
+			case DPIClassification.DPI_480:
+				source = source480dpi;
+				if (!source || source == "")
+					source = source640dpi;
+				if (!source || source == "")
+					source = source320dpi;
+				if (!source || source == "")
+					source = source240dpi;
+				if (!source || source == "")
+					source = source160dpi;
+				if (!source || source == "")
+					source = source120dpi;
+				break;
+            case DPIClassification.DPI_320:
+                source = source320dpi;
+				if (!source || source == "")
+					source = source480dpi;
+				if (!source || source == "")
+					source = source640dpi;
                 if (!source || source == "")
                     source = source240dpi;
+                if (!source || source == "")
+                    source = source160dpi;
+				if (!source || source == "")
+					source = source120dpi;
+                break;
+			case DPIClassification.DPI_240:
+				source = source240dpi;
 				if (!source || source == "")
 					source = source320dpi;
 				if (!source || source == "")
 					source = source480dpi;
-                break;
-            case DPIClassification.DPI_240:
-                source = source240dpi;
-                if (!source || source == "")
-                    source = source320dpi;
+				if (!source || source == "")
+					source = source640dpi;
+				if (!source || source == "")
+					source = source160dpi;
+				if (!source || source == "")
+					source = source120dpi;
+				break;
+			case DPIClassification.DPI_160:
+				source = source160dpi;
+				if (!source || source == "")
+					source = source240dpi;
+				if (!source || source == "")
+					source = source320dpi;
 				if (!source || source == "")
 					source = source480dpi;
-                if (!source || source == "")
-                    source = source160dpi;
-                break;
-            case DPIClassification.DPI_320:
-                source = source320dpi;
-                if (!source || source == "")
-                    source = source240dpi;
+				if (!source || source == "")
+					source = source640dpi;
+				if (!source || source == "")
+					source = source120dpi;
+				break;
+			case DPIClassification.DPI_120:
+				source = source120dpi;
+				if (!source || source == "")
+					source = source160dpi;
+				if (!source || source == "")
+					source = source240dpi;
+				if (!source || source == "")
+					source = source320dpi;
 				if (!source || source == "")
 					source = source480dpi;
-                if (!source || source == "")
-                    source = source160dpi;
-                break;
+				if (!source || source == "")
+					source = source640dpi;
+				break;
         }
         return source;
         

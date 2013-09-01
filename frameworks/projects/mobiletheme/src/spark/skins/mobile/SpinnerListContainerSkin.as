@@ -28,6 +28,9 @@ import spark.components.Group;
 import spark.components.SpinnerListContainer;
 import spark.layouts.HorizontalLayout;
 import spark.skins.mobile.supportClasses.MobileSkin;
+import spark.skins.mobile120.assets.SpinnerListContainerBackground;
+import spark.skins.mobile120.assets.SpinnerListContainerSelectionIndicator;
+import spark.skins.mobile120.assets.SpinnerListContainerShadow;
 import spark.skins.mobile160.assets.SpinnerListContainerBackground;
 import spark.skins.mobile160.assets.SpinnerListContainerSelectionIndicator;
 import spark.skins.mobile160.assets.SpinnerListContainerShadow;
@@ -40,6 +43,9 @@ import spark.skins.mobile320.assets.SpinnerListContainerShadow;
 import spark.skins.mobile480.assets.SpinnerListContainerBackground;
 import spark.skins.mobile480.assets.SpinnerListContainerSelectionIndicator;
 import spark.skins.mobile480.assets.SpinnerListContainerShadow;
+import spark.skins.mobile640.assets.SpinnerListContainerBackground;
+import spark.skins.mobile640.assets.SpinnerListContainerSelectionIndicator;
+import spark.skins.mobile640.assets.SpinnerListContainerShadow;
 /**
  *  ActionScript-based skin for the SpinnerListContainer in mobile applications. 
  * 
@@ -70,6 +76,18 @@ public class SpinnerListContainerSkin extends MobileSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				// Note provisional may need changes
+				borderClass = spark.skins.mobile640.assets.SpinnerListContainerBackground;
+				selectionIndicatorClass = spark.skins.mobile640.assets.SpinnerListContainerSelectionIndicator;
+				shadowClass = spark.skins.mobile640.assets.SpinnerListContainerShadow;
+				
+				cornerRadius = 20;
+				borderThickness = 3;
+				selectionIndicatorHeight = 182;
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
@@ -93,17 +111,28 @@ public class SpinnerListContainerSkin extends MobileSkin
                 selectionIndicatorHeight = 96;
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                borderClass = spark.skins.mobile240.assets.SpinnerListContainerBackground;
-                selectionIndicatorClass = spark.skins.mobile240.assets.SpinnerListContainerSelectionIndicator;
-                shadowClass = spark.skins.mobile240.assets.SpinnerListContainerShadow;
-                
-                cornerRadius = 8;
-                borderThickness = 1;
-                selectionIndicatorHeight = 72;
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				borderClass = spark.skins.mobile240.assets.SpinnerListContainerBackground;
+				selectionIndicatorClass = spark.skins.mobile240.assets.SpinnerListContainerSelectionIndicator;
+				shadowClass = spark.skins.mobile240.assets.SpinnerListContainerShadow;
+				
+				cornerRadius = 8;
+				borderThickness = 1;
+				selectionIndicatorHeight = 72;
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				borderClass = spark.skins.mobile120.assets.SpinnerListContainerBackground;
+				selectionIndicatorClass = spark.skins.mobile120.assets.SpinnerListContainerSelectionIndicator;
+				shadowClass = spark.skins.mobile120.assets.SpinnerListContainerShadow;
+				
+				cornerRadius = 4;
+				borderThickness = 1;
+				selectionIndicatorHeight = 37;
+				break;
+			}
             default: // default DPI_160
             {
                 borderClass = spark.skins.mobile160.assets.SpinnerListContainerBackground;

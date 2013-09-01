@@ -28,6 +28,8 @@ import spark.skins.mobile320.assets.TabbedViewNavigatorButtonBarLastButton_down;
 import spark.skins.mobile320.assets.TabbedViewNavigatorButtonBarLastButton_up;
 import spark.skins.mobile480.assets.TabbedViewNavigatorButtonBarLastButton_down;
 import spark.skins.mobile480.assets.TabbedViewNavigatorButtonBarLastButton_up;
+import spark.skins.mobile640.assets.TabbedViewNavigatorButtonBarLastButton_down;
+import spark.skins.mobile640.assets.TabbedViewNavigatorButtonBarLastButton_up;
 
 /**
  *  Skin for used for middle and the right-most ButtonBarButton in the 

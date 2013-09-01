@@ -29,10 +29,12 @@ import spark.components.Group;
 import spark.components.Image;
 import spark.primitives.BitmapImage;
 import spark.skins.mobile.supportClasses.MobileSkin;
+import spark.skins.mobile120.assets.ImageInvalid;
 import spark.skins.mobile160.assets.ImageInvalid;
 import spark.skins.mobile240.assets.ImageInvalid;
 import spark.skins.mobile320.assets.ImageInvalid;
 import spark.skins.mobile480.assets.ImageInvalid;
+import spark.skins.mobile640.assets.ImageInvalid;
 
 /**
  *  ActionScript-based skin for the Image component in mobile applications.
@@ -66,6 +68,11 @@ public class ImageSkin extends MobileSkin
         // set the right assets and dimensions to use based on the screen density
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				imageInvalidClass = spark.skins.mobile640.assets.ImageInvalid;
+				break;              
+			}
 			case DPIClassification.DPI_480:
 			{
 				imageInvalidClass = spark.skins.mobile480.assets.ImageInvalid;
@@ -76,11 +83,16 @@ public class ImageSkin extends MobileSkin
                 imageInvalidClass = spark.skins.mobile320.assets.ImageInvalid;
                 break;              
             }
-            case DPIClassification.DPI_240:
-            {
-                imageInvalidClass = spark.skins.mobile240.assets.ImageInvalid;
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				imageInvalidClass = spark.skins.mobile240.assets.ImageInvalid;
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				imageInvalidClass = spark.skins.mobile120.assets.ImageInvalid;
+				break;
+			}
             default:
             {
                 // default DPI_160

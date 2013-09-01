@@ -78,6 +78,11 @@ public class StageTextAreaSkin extends StageTextSkinBase
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				measuredDefaultHeight = 212;
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				measuredDefaultHeight = 140;
@@ -88,11 +93,16 @@ public class StageTextAreaSkin extends StageTextSkinBase
                 measuredDefaultHeight = 106;
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                measuredDefaultHeight = 70;
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				measuredDefaultHeight = 70;
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				measuredDefaultHeight = 35;
+				break;
+			}
             default:
             {
                 measuredDefaultHeight = 53;

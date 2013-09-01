@@ -52,6 +52,13 @@ public class TextAreaHScrollBarSkin extends HScrollBarSkin
 
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				minHeight = 30;
+				paddingBottom = TextAreaHScrollBarThumbSkin.PADDING_BOTTOM_320DPI;
+				paddingHorizontal = TextAreaHScrollBarThumbSkin.PADDING_HORIZONTAL_320DPI;
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				minHeight = 22;
@@ -66,13 +73,20 @@ public class TextAreaHScrollBarSkin extends HScrollBarSkin
                 paddingHorizontal = TextAreaHScrollBarThumbSkin.PADDING_HORIZONTAL_320DPI;
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                minHeight = 11;
-                paddingBottom = TextAreaHScrollBarThumbSkin.PADDING_BOTTOM_240DPI;
-                paddingHorizontal = TextAreaHScrollBarThumbSkin.PADDING_HORIZONTAL_240DPI;
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				minHeight = 11;
+				paddingBottom = TextAreaHScrollBarThumbSkin.PADDING_BOTTOM_240DPI;
+				paddingHorizontal = TextAreaHScrollBarThumbSkin.PADDING_HORIZONTAL_240DPI;
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				minHeight = 11;
+				paddingBottom = TextAreaHScrollBarThumbSkin.PADDING_BOTTOM_120DPI;
+				paddingHorizontal = TextAreaHScrollBarThumbSkin.PADDING_HORIZONTAL_120DPI;
+				break;
+			}
             default:
             {
                 // default DPI_160

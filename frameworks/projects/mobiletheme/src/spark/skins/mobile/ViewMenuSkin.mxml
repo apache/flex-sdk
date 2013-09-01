@@ -88,15 +88,19 @@
             {
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
                 
-                var strokeWeight:Number = (applicationDPI == DPIClassification.DPI_480 || applicationDPI == DPIClassification.DPI_320) ? 2 : 1;
+                var strokeWeight:Number = (applicationDPI == DPIClassification.DPI_640 || applicationDPI == DPIClassification.DPI_480 || applicationDPI == DPIClassification.DPI_320) ? 2 : 1;
                 var separatorWeight:Number = 1;
                 
-				if (applicationDPI == DPIClassification.DPI_480)
+				if (applicationDPI == DPIClassification.DPI_640)
 					separatorWeight = 6;
+				else if (applicationDPI == DPIClassification.DPI_480)
+					separatorWeight = 4;
 				else if (applicationDPI == DPIClassification.DPI_320)
-                    separatorWeight = 4;
-                else if (applicationDPI == DPIClassification.DPI_240)
-                    separatorWeight = 2;          
+                    separatorWeight = 3;
+				else if (applicationDPI == DPIClassification.DPI_240)
+					separatorWeight = 2;  
+				else if (applicationDPI == DPIClassification.DPI_120)
+					separatorWeight = 1;  
                 
                 dividerStroke.weight = strokeWeight;
                 background.top = strokeWeight;

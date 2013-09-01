@@ -76,6 +76,18 @@ public class ActionBarButtonSkinBase extends ButtonSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				// Note provisional may need changes
+				layoutBorderSize = 2;
+				layoutPaddingTop = 24;
+				layoutPaddingBottom = 20;
+				layoutPaddingLeft = 40;
+				layoutPaddingRight = 40;
+				measuredDefaultWidth = 2012;
+				measuredDefaultHeight = 172;
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
@@ -86,7 +98,6 @@ public class ActionBarButtonSkinBase extends ButtonSkin
 				layoutPaddingRight = 32;
 				measuredDefaultWidth = 162;
 				measuredDefaultHeight = 130;
-				
 				break;
 			}
             case DPIClassification.DPI_320:
@@ -98,7 +109,6 @@ public class ActionBarButtonSkinBase extends ButtonSkin
                 layoutPaddingRight = 20;
                 measuredDefaultWidth = 106;
                 measuredDefaultHeight = 86;
-                
                 break;
             }
             case DPIClassification.DPI_240:
@@ -110,9 +120,20 @@ public class ActionBarButtonSkinBase extends ButtonSkin
                 layoutPaddingRight = 16;
                 measuredDefaultWidth = 81;
                 measuredDefaultHeight = 65;
-                
                 break;
             }
+			case DPIClassification.DPI_160:
+			{
+				// Note provisional may need changes
+				layoutBorderSize = 1;
+				layoutPaddingTop = 4;
+				layoutPaddingBottom = 4;
+				layoutPaddingLeft = 8;
+				layoutPaddingRight = 8;
+				measuredDefaultWidth = 40;
+				measuredDefaultHeight = 33;
+				break;
+			}
             default:
             {
                 // default DPI_160

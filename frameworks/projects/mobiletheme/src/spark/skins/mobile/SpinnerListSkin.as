@@ -55,6 +55,7 @@ public class SpinnerListSkin extends MobileSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
 			case DPIClassification.DPI_480:
 			case DPIClassification.DPI_320:
             {

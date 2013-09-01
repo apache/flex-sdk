@@ -912,7 +912,7 @@ public class Application extends SkinnableContainer
      */
     private var _applicationDPI:Number = NaN;
     
-    [Inspectable(category="General", enumeration="160,240,320,480")]
+    [Inspectable(category="General", enumeration="120,160,240,320,480,640")]
     
     /**
      *  The DPI of the application.
@@ -983,10 +983,12 @@ public class Application extends SkinnableContainer
      * 
      *  <p>Flex's default mappings are:
      *     <table class="innertable">
-     *        <tr><td>160 DPI</td><td>&lt;200 DPI</td></tr>
-     *        <tr><td>240 DPI</td><td>&gt;=200 DPI and &lt;280 DPI</td></tr>
-     *        <tr><td>320 DPI</td><td>&gt;=280 DPI and &lt;400 DPI</td></tr>
-	 *        <tr><td>480 DPI</td><td>&gt;=400 DPI</td></tr>
+     *        <tr><td>160 DPI</td><td>&lt;140 DPI</td></tr>
+     *        <tr><td>160 DPI</td><td>&gt;=140 DPI and &lt;=200 DPI</td></tr>
+     *        <tr><td>240 DPI</td><td>&gt;=200 DPI and &lt;=280 DPI</td></tr>
+     *        <tr><td>320 DPI</td><td>&gt;=280 DPI and &lt;=400 DPI</td></tr>
+     *        <tr><td>480 DPI</td><td>&gt;=400 DPI and &lt;=560 DPI</td></tr>
+     *        <tr><td>640 DPI</td><td>&gt;=640 DPI</td></tr>
      *     </table>
      *  </p>
      * 

@@ -25,6 +25,8 @@ import mx.core.DPIClassification;
 
 import spark.components.Button;
 import spark.skins.mobile.supportClasses.MobileSkin;
+import spark.skins.mobile120.assets.HSliderThumb_normal;
+import spark.skins.mobile120.assets.HSliderThumb_pressed;
 import spark.skins.mobile160.assets.HSliderThumb_normal;
 import spark.skins.mobile160.assets.HSliderThumb_pressed;
 import spark.skins.mobile240.assets.HSliderThumb_normal;
@@ -33,6 +35,8 @@ import spark.skins.mobile320.assets.HSliderThumb_normal;
 import spark.skins.mobile320.assets.HSliderThumb_pressed;
 import spark.skins.mobile480.assets.HSliderThumb_normal;
 import spark.skins.mobile480.assets.HSliderThumb_pressed;
+import spark.skins.mobile640.assets.HSliderThumb_normal;
+import spark.skins.mobile640.assets.HSliderThumb_pressed;
 
 /**
  *  ActionScript-based skin for the HSlider thumb skin part in mobile applications.
@@ -69,6 +73,24 @@ public class HSliderThumbSkin extends MobileSkin
         // set the right assets and dimensions to use based on the screen density
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				thumbImageWidth = 116;
+				thumbImageHeight = 116;
+				
+				thumbNormalClass = spark.skins.mobile640.assets.HSliderThumb_normal;
+				thumbPressedClass = spark.skins.mobile640.assets.HSliderThumb_pressed;
+				
+				hitZoneOffset = 20;
+				hitZoneSideLength = 160;
+				
+				// chromeColor ellipse goes up to the thumb border
+				chromeColorEllipseWidth = chromeColorEllipseHeight = 112;
+				chromeColorEllipseX = 1;
+				chromeColorEllipseY = 1;
+				
+				break;              
+			}
 			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
@@ -105,23 +127,40 @@ public class HSliderThumbSkin extends MobileSkin
                 
                 break;              
             }
-            case DPIClassification.DPI_240:
-            {
-                thumbImageWidth = 44;
-                thumbImageHeight = 44;
-                
-                thumbNormalClass = spark.skins.mobile240.assets.HSliderThumb_normal;
-                thumbPressedClass = spark.skins.mobile240.assets.HSliderThumb_pressed;
-                
-                hitZoneOffset = 10;
-                hitZoneSideLength = 65;
-                
-                // chromeColor ellipse goes up to the thumb border
-                chromeColorEllipseWidth = chromeColorEllipseHeight = 42; 
-                chromeColorEllipseX = chromeColorEllipseY = 1;
-                
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				thumbImageWidth = 44;
+				thumbImageHeight = 44;
+				
+				thumbNormalClass = spark.skins.mobile240.assets.HSliderThumb_normal;
+				thumbPressedClass = spark.skins.mobile240.assets.HSliderThumb_pressed;
+				
+				hitZoneOffset = 10;
+				hitZoneSideLength = 65;
+				
+				// chromeColor ellipse goes up to the thumb border
+				chromeColorEllipseWidth = chromeColorEllipseHeight = 42; 
+				chromeColorEllipseX = chromeColorEllipseY = 1;
+				
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				thumbImageWidth = 22;
+				thumbImageHeight = 22;
+				
+				thumbNormalClass = spark.skins.mobile120.assets.HSliderThumb_normal;
+				thumbPressedClass = spark.skins.mobile120.assets.HSliderThumb_pressed;
+				
+				hitZoneOffset = 5;
+				hitZoneSideLength = 33;
+				
+				// chromeColor ellipse goes up to the thumb border
+				chromeColorEllipseWidth = chromeColorEllipseHeight = 21; 
+				chromeColorEllipseX = chromeColorEllipseY = 1;
+				
+				break;
+			}
             default:
             {
                 // default DPI_160

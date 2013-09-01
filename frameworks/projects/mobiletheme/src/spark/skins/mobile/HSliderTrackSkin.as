@@ -25,10 +25,12 @@ import mx.core.DPIClassification;
 
 import spark.components.Button;
 import spark.skins.mobile.supportClasses.MobileSkin;
+import spark.skins.mobile120.assets.HSliderTrack;
 import spark.skins.mobile160.assets.HSliderTrack;
 import spark.skins.mobile240.assets.HSliderTrack;
 import spark.skins.mobile320.assets.HSliderTrack;
 import spark.skins.mobile480.assets.HSliderTrack;
+import spark.skins.mobile640.assets.HSliderTrack;
 
 /**
  *  ActionScript-based skin for the HSlider track skin part in mobile applications. 
@@ -62,6 +64,18 @@ public class HSliderTrackSkin extends MobileSkin
         // set the right assets and dimensions to use based on the screen density
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				// Note provisional may need changes
+				trackWidth = 1200;
+				trackHeight = 36;
+				
+				visibleTrackOffset = 40;
+				
+				trackClass = spark.skins.mobile640.assets.HSliderTrack;
+				
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
@@ -85,17 +99,28 @@ public class HSliderTrackSkin extends MobileSkin
                 
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                trackWidth = 440;
-                trackHeight = 13;
-                
-                visibleTrackOffset = 16;
-                
-                trackClass = spark.skins.mobile240.assets.HSliderTrack;
-                
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				trackWidth = 440;
+				trackHeight = 13;
+				
+				visibleTrackOffset = 16;
+				
+				trackClass = spark.skins.mobile240.assets.HSliderTrack;
+				
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				trackWidth = 220;
+				trackHeight = 7;
+				
+				visibleTrackOffset = 8;
+				
+				trackClass = spark.skins.mobile120.assets.HSliderTrack;
+				
+				break;
+			}
             default:
             {
                 // default DPI_160
