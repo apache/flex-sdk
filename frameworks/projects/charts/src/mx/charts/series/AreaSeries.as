@@ -873,12 +873,15 @@ public class AreaSeries extends Series implements IStackable2
 	{
 		HaloDefaults.init(styleManager);
 		
-		var areaSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.AreaSeries");
-		areaSeriesStyle.setStyle("areaRenderer", new ClassFactory(mx.charts.renderers.AreaRenderer));
-		areaSeriesStyle.setStyle("legendMarkerRenderer", new ClassFactory(AreaSeriesLegendMarker));
-		areaSeriesStyle.setStyle("areaFill", new SolidColor(0x000000));
-		areaSeriesStyle.setStyle("fills", []);
-		areaSeriesStyle.setStyle("stroke", HaloDefaults.pointStroke);
+		var areaSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.AreaSeries");
+		if (areaSeriesStyle)
+		{
+			areaSeriesStyle.setStyle("areaRenderer", new ClassFactory(mx.charts.renderers.AreaRenderer));
+			areaSeriesStyle.setStyle("legendMarkerRenderer", new ClassFactory(AreaSeriesLegendMarker));
+			areaSeriesStyle.setStyle("areaFill", new SolidColor(0x000000));
+			areaSeriesStyle.setStyle("fills", []);
+			areaSeriesStyle.setStyle("stroke", HaloDefaults.pointStroke);
+		}
 		
 		return true;
 	}
@@ -2145,13 +2148,14 @@ public class AreaSeries extends Series implements IStackable2
 
 
 import flash.display.Graphics;
-import mx.charts.series.AreaSeries;
-import mx.graphics.IStroke;
-import mx.graphics.IFill;
-import mx.graphics.Stroke;
 import flash.geom.Rectangle;
+
 import mx.charts.chartClasses.GraphicsUtilities;
+import mx.charts.series.AreaSeries;
+import mx.graphics.IFill;
+import mx.graphics.IStroke;
 import mx.graphics.LinearGradientStroke;
+import mx.graphics.Stroke;
 import mx.skins.ProgrammaticSkin;
 
 /**

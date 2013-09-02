@@ -425,20 +425,22 @@ public class ColumnChart extends CartesianChart
     //
     //--------------------------------------------------------------------------
     
-    /**
+	/**
      *  @private
      */
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
 		
-		var columnChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.ColumnChart");
-		columnChartStyle.setStyle("chartSeriesStyles", HaloDefaults.chartBaseChartSeriesStyles);
-		columnChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
-		columnChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
-		columnChartStyle.setStyle("horizontalAxisStyleNames", ["blockCategoryAxis"]);
-		columnChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
-		
+		var columnChartStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.ColumnChart");
+		if (columnChartStyle)
+		{
+			columnChartStyle.setStyle("chartSeriesStyles", HaloDefaults.chartBaseChartSeriesStyles);
+			columnChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+			columnChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+			columnChartStyle.setStyle("horizontalAxisStyleNames", ["blockCategoryAxis"]);
+			columnChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+		}		
         return true;
     }
 
