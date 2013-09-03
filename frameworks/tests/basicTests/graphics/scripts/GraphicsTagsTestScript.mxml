@@ -72,11 +72,11 @@
             public var stroke10Alpha:SolidColorStroke = new SolidColorStroke(0x000000, 10, 0.4);
 
             [Bindable]
-            public var bevelFilter:spark.filters.BevelFilter = new spark.filters.BevelFilter();
+            public var bevelFilter:BevelFilter = new BevelFilter();
             [Bindable]
-            public var blurFilter:spark.filters.BlurFilter = new spark.filters.BlurFilter();
+            public var blurFilter:BlurFilter = new BlurFilter();
             [Bindable]
-            public var dropShadowFilter:spark.filters.DropShadowFilter = new spark.filters.DropShadowFilter(0xFF00FF);
+            public var dropShadowFilter:DropShadowFilter = new DropShadowFilter(0xFF00FF);
 
             [Bindable]
             public var linearGrad:LinearGradient = new LinearGradient();
