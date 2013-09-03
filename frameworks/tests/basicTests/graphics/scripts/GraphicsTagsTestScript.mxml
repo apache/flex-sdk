@@ -38,7 +38,6 @@
     <mx:Script>
         <![CDATA[
             import mx.graphics.*;
-			import spark.filters.*;
             import spark.primitives.*;
             import spark.primitives.supportClasses.*;
 
