@@ -30,7 +30,7 @@
 AIR_VERSION="$1"
 OS=`uname`
 
-if [[ "${AIR_VERSION}" != "3.8" && "${AIR_VERSION}" != "3.7" && "${AIR_VERSION}" != "3.6"
+if [[ "${AIR_VERSION}" != "3.9" && "${AIR_VERSION}" != "3.8" && "${AIR_VERSION}" != "3.7" && "${AIR_VERSION}" != "3.6"
   && "${AIR_VERSION}" != "3.5" && "${AIR_VERSION}" != "3.4"  
   && "${AIR_VERSION}" != "3.3"  && "${AIR_VERSION}" != "3.2" && "${AIR_VERSION}" != "3.1"
   && "${AIR_VERSION}" != "3.0" && "${AIR_VERSION}" != "2.7" && "${AIR_VERSION}" != "2.6" ]]
@@ -103,6 +103,11 @@ downloadAIR()
         airDownload="http://airdownload.adobe.com/air/lin/download/${version}/AdobeAIRSDK.tbz2"
     fi
     
+    if [[ "${AIR_VERSION}" == "3.9" ]]
+    then
+        airDownload="http://labsdownload.adobe.com/pub/labs/flashruntimes/air/air3-9_sdk_sa_mac.tbz2"
+    fi
+    
 	echo Downloading AIR ${version}
 	curl ${airDownload} > "${airTempDir}/air.tbz2"
 	
@@ -154,7 +159,13 @@ for configFile in "${configFiles[@]}"
 do
 	echo Updating ${configFile}
 	
-	
+	# 3.8 needs FP 11.9 and swf version 22
+	if [ ${AIR_VERSION} = "3.9" ]
+	then
+		updatePlayerVersion 11.9 "${configFile}"
+		updateSWFVersion 22 "${configFile}"
+	fi	
+		
 	# 3.8 needs FP 11.8 and swf version 21
 	if [ ${AIR_VERSION} = "3.8" ]
 	then

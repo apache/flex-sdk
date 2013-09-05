@@ -69,6 +69,10 @@ determineVersion()
 	    legacy="N"
 	fi
 	
+	echo "Do you want to use the very latest Adobe Labs beta version?"
+    askYesNo
+    useBeta=$yesNo
+    echo
     echo "Do you want to create browser based applications?"
     askYesNo
     useBrowser=$yesNo
@@ -104,6 +108,11 @@ determineVersion()
     	FLASH_VERSION="11.8"
     fi
     
+    if [ ${useBeta} = "Y" ]
+    then
+    	FLASH_VERSION="11.9"
+    fi
+    
     echo "Setting minimum Flash Player version to ${FLASH_VERSION}"
     echo
     echo
@@ -114,9 +123,9 @@ then
 	determineVersion
 fi
 
-if [[ "${FLASH_VERSION}" != "10.2" && "${FLASH_VERSION}" != "10.3"  && "${FLASH_VERSION}" != "11.0"  && "${FLASH_VERSION}" != "11.1" && "${FLASH_VERSION}" != "11.2" && "${FLASH_VERSION}" != "11.3" && "${FLASH_VERSION}" != "11.4" && "${FLASH_VERSION}" != "11.5" && "${FLASH_VERSION}" != "11.6" && "${FLASH_VERSION}" != "11.7" && "${FLASH_VERSION}" != "11.8" ]]
+if [[ "${FLASH_VERSION}" != "10.2" && "${FLASH_VERSION}" != "10.3"  && "${FLASH_VERSION}" != "11.0"  && "${FLASH_VERSION}" != "11.1" && "${FLASH_VERSION}" != "11.2" && "${FLASH_VERSION}" != "11.3" && "${FLASH_VERSION}" != "11.4" && "${FLASH_VERSION}" != "11.5" && "${FLASH_VERSION}" != "11.6" && "${FLASH_VERSION}" != "11.7" && "${FLASH_VERSION}" != "11.8" && "${FLASH_VERSION}" != "11.9" ]]
 then
-	echo Unknown version ${FLASH_VERSION} of Flash Player. Versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7 and 11.8 are supported.
+	echo Unknown version ${FLASH_VERSION} of Flash Player. Versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 11.8 and 11.9 are supported.
 	exit 1;
 fi
 
@@ -137,6 +146,11 @@ then
 	echo Installing AIR
 	echo
 
+    if [[ $FLASH_VERSION = "11.9" ]]
+    then
+        ./addAIRtoSDK.sh 3.9 "$IDE_SDK_DIR"
+    fi
+    
     if [[ $FLASH_VERSION = "11.8" ]]
     then
         ./addAIRtoSDK.sh 3.8 "$IDE_SDK_DIR"
@@ -189,6 +203,11 @@ do
 	echo Updating ${configFile}
 	
 	updatePlayerVersion "${FLASH_VERSION}" "${configFile}"
+	
+	if [ ${FLASH_VERSION} = "11.9" ]
+	then
+		updateSWFVersion 22 "${configFile}"
+	fi
 
 	if [ ${FLASH_VERSION} = "11.8" ]
 	then
