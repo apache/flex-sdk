@@ -4769,6 +4769,20 @@ public class DataGrid extends SkinnableContainerBase
 	 */ 
 	protected function isCellEditable(rowIndex:int, columnIndex:int):Boolean
 	{
+        //
+        //  Index out of bounds tests.
+        //
+        if (columnIndex < 0 || rowIndex < 0)
+        {
+            return false;
+        }
+
+        if (columnIndex >= columnsLength || rowIndex >= dataProvider.length)
+        {
+            return false;
+        }
+
+
 		var dataItem:Object = dataProvider.getItemAt(rowIndex);
 		var column:GridColumn = GridColumn(columns.getItemAt(columnIndex));
 		var dataField:String = column.dataField;
@@ -5021,18 +5035,24 @@ public class DataGrid extends SkinnableContainerBase
         for each (var columnIndex:int in columnIndices)
         {
             var col:GridColumn = this.getColumnAt(columnIndex);
+
             if (!col || (!col.dataField && (col.labelFunction == null) && (col.sortCompareFunction == null)))
                 return null;
-            
+
             var dataField:String = col.dataField;
             var isComplexDataField:Boolean = (dataField && (dataField.indexOf(".") != -1));
             var sortField:ISortField = findSortField(dataField, previousFields, isComplexDataField);
             
             if (!sortField)
-                sortField = col.sortField;  // constructs a new sortField
+            {
+                //Constructs a new sortField from the columns own sortField property.
+                sortField = col.sortField;
+            }
             else
+            {
                 sortField.descending = col.sortDescending;
-            
+            }
+
             fields.push(sortField);
         }
         
