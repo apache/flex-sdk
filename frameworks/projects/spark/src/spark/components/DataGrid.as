@@ -4769,24 +4769,18 @@ public class DataGrid extends SkinnableContainerBase
 	 */ 
 	protected function isCellEditable(rowIndex:int, columnIndex:int):Boolean
 	{
-        //
-        //  Index out of bounds tests.
-        //
-        if (columnIndex < 0 || rowIndex < 0)
+        try
+        {
+            var dataItem:Object = dataProvider.getItemAt(rowIndex);
+            var column:GridColumn = GridColumn(columns.getItemAt(columnIndex));
+            var dataField:String = column.dataField;
+        }
+        catch (e:RangeError)
         {
             return false;
         }
 
-        if (columnIndex >= columnsLength || rowIndex >= dataProvider.length)
-        {
-            return false;
-        }
 
-
-		var dataItem:Object = dataProvider.getItemAt(rowIndex);
-		var column:GridColumn = GridColumn(columns.getItemAt(columnIndex));
-		var dataField:String = column.dataField;
-		
 		return isDataEditable(dataItem, dataField);
 	}
 	
