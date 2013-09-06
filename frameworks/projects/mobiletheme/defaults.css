@@ -460,12 +460,12 @@ global
 		paddingBottom: 6;
 		paddingTop: 6;
 		horizontalGap: 6;
-		verticalGap: 4;
+		verticalGap: 3;
 	}
 	
 	.iconItemRendererMessageStyle
 	{
-		fontSize: 8;
+		fontSize: 11;
 	}
 	
 	LabelItemRenderer
@@ -478,8 +478,8 @@ global
 	
 	SpinnerListItemRenderer
 	{
-		paddingTop : 9;
-		paddingBottom : 9;
+		paddingTop : 8;
+		paddingBottom : 8;
 		paddingLeft : 6;
 		paddingRight : 6;
 	}
@@ -502,17 +502,17 @@ global
 	
 	TabbedViewNavigator #tabBar
 	{
-		fontSize: 10;
+		fontSize: 11;
 	}
 	
 	ToggleSwitch
 	{
-		fontSize: 13;
+		fontSize: 14;
 	}
 	
 	global
 	{
-		fontSize: 6;
+		fontSize: 12;
 		focusThickness: 2;
 	}
 }
