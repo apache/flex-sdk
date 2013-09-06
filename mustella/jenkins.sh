@@ -102,6 +102,9 @@ case "$FLASH_VERSION" in
   11.8)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer11_8r800_94_win_sa_debug.exe"
   ;;
+  11.9)
+    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer11-9_debugsa_win_32.exe"
+  ;;
   *)
     echo "No valid Flash Player Debugger variable value could be parsed."
     exit 1
