@@ -178,7 +178,7 @@
             if(this.actionscriptEffect.target == null)
                 return(false);
             
-            return(this.actionscriptEffect.target == this.actionscriptTarget);s
+            return(this.actionscriptEffect.target == this.actionscriptTarget);
         }        
         
         
