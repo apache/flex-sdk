@@ -169,14 +169,14 @@ public class CalloutSkin extends MobileSkin
 				backgroundCornerRadius = 6;
 				contentBackgroundInsetClass = spark.skins.mobile120.assets.CalloutContentBackground;
 				backgroundGradientHeight = 83;
-				frameThickness = 24;
-				arrowWidth = 156;
-				arrowHeight = 39;
-				contentCornerRadius = 7;
-				dropShadowBlurX = 24;
-				dropShadowBlurY = 24;
-				dropShadowDistance = 4;
-				highlightWeight = 1;
+				frameThickness = 6;
+				arrowWidth = 39;
+				arrowHeight = 19;
+				contentCornerRadius = 4;
+				dropShadowBlurX = 12;
+				dropShadowBlurY = 12;
+				dropShadowDistance = 2;
+				highlightWeight = 0.5;
 				
 				break;
 			}
