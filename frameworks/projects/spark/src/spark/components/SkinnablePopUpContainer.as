@@ -1171,8 +1171,12 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         uninstallActiveResizeListener();
         
         var softKeyboardRect:Rectangle;
-		if ("softKeyboardRect" in FlexGlobals.topLevelApplication)
+		try {
 			softKeyboardRect = FlexGlobals.topLevelApplication.softKeyboardRect;
+		}
+		catch (error:Error) {
+			softKeyboardRect = null;
+		}
 
 		var isKeyboardOpen:Boolean = isOpen && softKeyboardRect && (softKeyboardRect.height > 0);
         
