@@ -107,11 +107,11 @@ public class ButtonBarLastButtonSkin extends ButtonBarButtonSkinBase
 				
 				break;
 			}
-			case DPIClassification.DPI_160:
+			case DPIClassification.DPI_120:
 			{
-				upBorderSkin = spark.skins.mobile160.assets.ButtonBarLastButton_up;
-				downBorderSkin = spark.skins.mobile160.assets.ButtonBarLastButton_down;
-				selectedBorderSkin = spark.skins.mobile160.assets.ButtonBarLastButton_selected;
+				upBorderSkin = spark.skins.mobile120.assets.ButtonBarLastButton_up;
+				downBorderSkin = spark.skins.mobile120.assets.ButtonBarLastButton_down;
+				selectedBorderSkin = spark.skins.mobile120.assets.ButtonBarLastButton_selected;
 				
 				cornerRadius = 4;
 				

@@ -122,7 +122,7 @@ public class ActionBarButtonSkinBase extends ButtonSkin
                 measuredDefaultHeight = 65;
                 break;
             }
-			case DPIClassification.DPI_160:
+			case DPIClassification.DPI_120:
 			{
 				// Note provisional may need changes
 				layoutBorderSize = 1;
