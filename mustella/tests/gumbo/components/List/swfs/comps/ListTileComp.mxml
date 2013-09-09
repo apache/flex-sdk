@@ -24,6 +24,11 @@
 		height="100" width="300" 
 		dragEnabled="true" dropEnabled="true" 
 		dragMoveEnabled="false">
+	<fx:Script>
+        <![CDATA[        
+			import mx.collections.ArrayList;
+        ]]>
+    </fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
