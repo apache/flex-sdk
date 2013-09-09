@@ -1360,6 +1360,43 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         dispatchEvent(new Event("sortCompareFunctionChanged"));
     }
 
+
+    //----------------------------------
+    //  sortCompareType
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _sortCompareType:String;
+
+    /**
+     *  @inheritDoc
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.11
+     */
+    [Bindable("sortCompareTypeChanged")]
+    public function get sortCompareType():String
+    {
+        return _sortCompareType;
+    }
+
+    /**
+     *  @private
+     */
+    public function set sortCompareType(value:String):void
+    {
+        if (_sortCompareType != value)
+        {
+            _sortCompareType = value;
+            dispatchEvent(new Event("sortCompareTypeChanged"));
+        }
+    }
+
+
     //----------------------------------
     //  visible
     //----------------------------------
