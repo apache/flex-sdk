@@ -2077,7 +2077,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                 {
                     var bSelectCell:Boolean = cellSelectionData
                         && cellSelectionData[uid]
-                        && cellSelectionData[uid][i.toString()];
+                        && cellSelectionData[uid][i];
 
                     var bHighlightCell:Boolean = highlightUID == uid
                         && highlightColumnIndex == i;
@@ -2085,7 +2085,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                     var bCaretCell:Boolean = caretUID == uid
                         && caretColumnIndex == i;
 
-                    drawCellItem(visibleCellRenderers[uid][i.toString()],
+                    drawCellItem(visibleCellRenderers[uid][i],
                                  bSelectCell,
                                  bHighlightCell,
                                  bCaretCell);
@@ -2108,7 +2108,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                 if (!visibleCellRenderers[uid])
                     visibleCellRenderers[uid]  = {};
                 visibleCellRenderers[uid]
-                    [indexToColNum(currentColNum).toString()] = item;
+                    [indexToColNum(currentColNum)] = item;
             }
         }
 
@@ -4558,7 +4558,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 
                     bSelected = (selectedData[uid] != null)
                                 || (cellSelectionData[uid] &&
-                                cellSelectionData[uid][currentColNum.toString()]);
+                                cellSelectionData[uid][currentColNum]);
                     bHighlight = highlightUID == uid;
                     bCaret = caretUID == uid;
 
@@ -6948,7 +6948,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             {
                 uid = itemToUID(listItem.data);
                 if (visibleCellRenderers[uid])
-                    listItem = visibleCellRenderers[uid][columnIndex.toString()];
+                    listItem = visibleCellRenderers[uid][columnIndex];
 
                 if (bShiftKey)
                 {
@@ -6965,7 +6965,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                     {
                         drawCellItem(listItem,
                                      cellSelectionData[uid]
-                                     && cellSelectionData[uid][columnIndex.toString()] != null,
+                                     && cellSelectionData[uid][columnIndex] != null,
                                      uid == highlightUID && caretColumnIndex == highlightColumnIndex,
                                      true);
                         bSelChanged = true;
@@ -7006,7 +7006,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             {
                 uid = itemToUID(listItem.data);
                 if (visibleCellRenderers[uid])
-                    listItem = visibleCellRenderers[uid][columnIndex.toString()];
+                    listItem = visibleCellRenderers[uid][columnIndex];
 
                 if (bShiftKey)
                 {
@@ -7017,7 +7017,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                 {
                     drawCellItem(listItem,
                                  cellSelectionData[uid]
-                                 && cellSelectionData[uid][columnIndex.toString()] != null,
+                                 && cellSelectionData[uid][columnIndex] != null,
                                  uid == highlightUID && caretColumnIndex == highlightColumnIndex,
                                  true);
                 }
@@ -7216,10 +7216,10 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         }
         else if (ctrlKey && selectionMode == MULTIPLE_CELLS)
         {
-            if (cellSelectionData[uid] && cellSelectionData[uid][columnIndex.toString()])
+            if (cellSelectionData[uid] && cellSelectionData[uid][columnIndex])
             {
                 removeCellSelectionData(uid, columnIndex);
-                drawCellItem(visibleCellRenderers[uid][columnIndex.toString()], // item
+                drawCellItem(visibleCellRenderers[uid][columnIndex], // item
                              false, // selected
                              uid == highlightUID && columnIndex == highlightColumnIndex, // highlighted
                              true, // caret
@@ -7235,7 +7235,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                                          columnIndex,
                                          false) );
 
-                drawCellItem(visibleCellRenderers[uid][columnIndex.toString()], // item
+                drawCellItem(visibleCellRenderers[uid][columnIndex], // item
                              true, // selected
                              uid == highlightUID && columnIndex == highlightColumnIndex, // highlighted
                              true, // caret
@@ -7311,11 +7311,11 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 					addToSelectedCells(index, columnIndex);
 					
                     if (visibleCellRenderers[uid]
-                        && visibleCellRenderers[uid][columnIndex.toString()]
-                        && visibleCellRenderers[uid][columnIndex.toString()].visible)
+                        && visibleCellRenderers[uid][columnIndex]
+                        && visibleCellRenderers[uid][columnIndex].visible)
                         // Checking visibility to handle column spanning
                     {
-                        drawCellItem(visibleCellRenderers[uid][columnIndex.toString()],
+                        drawCellItem(visibleCellRenderers[uid][columnIndex],
                                      true,
                                      uid == highlightUID && columnIndex == highlightColumnIndex,
                                      false,
@@ -7338,9 +7338,9 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                 if (data == stopData)
                 {
                     if (visibleCellRenderers[uid]
-                        && visibleCellRenderers[uid][columnIndex.toString()])
+                        && visibleCellRenderers[uid][columnIndex])
                     {
-                        drawCellItem(visibleCellRenderers[uid][columnIndex.toString()],
+                        drawCellItem(visibleCellRenderers[uid][columnIndex],
                                      true,
                                      uid == highlightUID && columnIndex == highlightColumnIndex,
                                      true,
@@ -7507,9 +7507,9 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         firstCellSelectionData          = selectionData;
 
         if (!cellSelectionData[uid])
-            cellSelectionData[uid] = {};
+            cellSelectionData[uid] = [];
 
-        cellSelectionData[uid][columnIndex.toString()] = selectionData;
+        cellSelectionData[uid][columnIndex] = selectionData;
     }
 
     /**
@@ -7531,7 +7531,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             return;
 
         var curSelectionData:AdvancedDataGridBaseSelectionData
-            = cellSelectionData[uid][columnIndex.toString()];
+            = cellSelectionData[uid][columnIndex];
 
         if (firstCellSelectionData == curSelectionData)
             firstCellSelectionData = curSelectionData.nextSelectionData;
@@ -7544,7 +7544,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             curSelectionData.nextSelectionData.prevSelectionData
                 = curSelectionData.prevSelectionData;
 
-        delete cellSelectionData[uid][columnIndex.toString()];
+        delete cellSelectionData[uid][columnIndex];
 
         // Remove uid if there are no columns for that uid in cellSelectionData
         if (!atLeastOneProperty(cellSelectionData[uid]))
@@ -7745,14 +7745,14 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 
             var newIndicator:Boolean = false;
 
-            if (!cellSelectionIndicators[rowData.uid][columnIndex.toString()])
+            if (!cellSelectionIndicators[rowData.uid][columnIndex])
             {
                 o = new SpriteAsset();
                 o.mouseEnabled = false;
-                cellSelectionIndicators[rowData.uid][columnIndex.toString()] = o;
+                cellSelectionIndicators[rowData.uid][columnIndex] = o;
                 newIndicator = true;
             }
-            o = cellSelectionIndicators[rowData.uid][columnIndex.toString()];
+            o = cellSelectionIndicators[rowData.uid][columnIndex];
             addIndicatorToSelectionLayer(o, pt.x);
             
                 drawSelectionIndicator(
@@ -7776,13 +7776,13 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 			{
 				var rowIndicators:Object = cellSelectionIndicators[rowData.uid];
 				var columnIndicator:Sprite;
-				if (rowIndicators && (columnIndicator = rowIndicators[columnIndex.toString()]))
+				if (rowIndicators && (columnIndicator = rowIndicators[columnIndex]))
 				{
 					o = columnIndicator;
 					if (o.parent)
 						o.parent.removeChild(o);
 					
-					delete rowIndicators[columnIndex.toString()];
+					delete rowIndicators[columnIndex];
 					if (!atLeastOneProperty(rowIndicators))
 						delete cellSelectionIndicators[rowData.uid];
 				}
@@ -7882,27 +7882,27 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             indicator.alpha = 0;
 
             if (!cellSelectionTweens[uid])
-                cellSelectionTweens[uid] = {};
+                cellSelectionTweens[uid] = [];
 
-            cellSelectionTweens[uid][columnIndex.toString()] =
+            cellSelectionTweens[uid][columnIndex] =
                 new Tween(indicator, 0, 1, selectionDuration, 5);
 
-            cellSelectionTweens[uid][columnIndex.toString()].addEventListener(
+            cellSelectionTweens[uid][columnIndex].addEventListener(
                 TweenEvent.TWEEN_UPDATE,
                 selectionTween_updateHandler);
 
-            cellSelectionTweens[uid][columnIndex.toString()].addEventListener(
+            cellSelectionTweens[uid][columnIndex].addEventListener(
                 TweenEvent.TWEEN_END,
                 selectionTween_endHandler);
 
-            cellSelectionTweens[uid][columnIndex.toString()].setTweenHandlers(
+            cellSelectionTweens[uid][columnIndex].setTweenHandlers(
                 onSelectionTweenUpdate,
                 onSelectionTweenUpdate);
 
             var selectionEasingFunction:Function =
                 getStyle("selectionEasingFunction") as Function;
             if (selectionEasingFunction != null)
-                cellSelectionTweens[uid][columnIndex.toString()].easingFunction
+                cellSelectionTweens[uid][columnIndex].easingFunction
                     = selectionEasingFunction;
         }
     }
@@ -7912,28 +7912,28 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
      */
     protected function removeCellIndicators(uid:String, columnIndex:int):void
     {
-        if (cellSelectionTweens[uid] && cellSelectionTweens[uid][columnIndex.toString()])
+        if (cellSelectionTweens[uid] && cellSelectionTweens[uid][columnIndex])
         {
-            cellSelectionTweens[uid][columnIndex.toString()].removeEventListener(
+            cellSelectionTweens[uid][columnIndex].removeEventListener(
                 TweenEvent.TWEEN_UPDATE, selectionTween_updateHandler);
 
-            cellSelectionTweens[uid][columnIndex.toString()].removeEventListener(
+            cellSelectionTweens[uid][columnIndex].removeEventListener(
                 TweenEvent.TWEEN_END, selectionTween_endHandler);
 
-            if (cellSelectionIndicators[uid][columnIndex.toString()].alpha < 1)
-                Tween.removeTween(cellSelectionTweens[uid][columnIndex.toString()]);
+            if (cellSelectionIndicators[uid][columnIndex].alpha < 1)
+                Tween.removeTween(cellSelectionTweens[uid][columnIndex]);
 
-            delete cellSelectionTweens[uid][columnIndex.toString()];
+            delete cellSelectionTweens[uid][columnIndex];
             if (!atLeastOneProperty(cellSelectionTweens[uid]))
                 delete cellSelectionTweens[uid];
         }
 
         // toss associated graphics if needed
 
-        if (cellSelectionIndicators[uid] && cellSelectionIndicators[uid][columnIndex.toString()])
+        if (cellSelectionIndicators[uid] && cellSelectionIndicators[uid][columnIndex])
         {
-            cellSelectionIndicators[uid][columnIndex.toString()].parent.removeChild(cellSelectionIndicators[uid][columnIndex.toString()]);
-            delete cellSelectionIndicators[uid][columnIndex.toString()];
+            cellSelectionIndicators[uid][columnIndex].parent.removeChild(cellSelectionIndicators[uid][columnIndex]);
+            delete cellSelectionIndicators[uid][columnIndex];
             if (!atLeastOneProperty(cellSelectionIndicators[uid]))
                 delete cellSelectionIndicators[uid];
         }
@@ -8514,9 +8514,9 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                     var uid:String = itemToUID(item.data);
 
                     if (visibleCellRenderers[uid])
-                        drawCellItem(visibleCellRenderers[uid][columnIndex.toString()],
+                        drawCellItem(visibleCellRenderers[uid][columnIndex],
                                      cellSelectionData[uid] &&
-                                     cellSelectionData[uid][columnIndex.toString()],
+                                     cellSelectionData[uid][columnIndex],
                                      true,
                                      uid == caretUID && columnIndex == caretColumnIndex);
 
