@@ -3358,14 +3358,14 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
         // Height is usually as tall is the items in the row, but not if
         // it would extend below the bottom of listContent
-        var height:Number = Math.min(height,
+        var minHeight:Number = Math.min(height,
                                      contentHolder.height -
                                      y);
 
         var g:Graphics = background.graphics;
         g.clear();
         g.beginFill(color, getStyle("backgroundAlpha"));
-        g.drawRect(0, 0, contentHolder.width, height);
+        g.drawRect(0, 0, contentHolder.width, minHeight);
         g.endFill();
     }
 
@@ -5310,12 +5310,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
             if (itemEditorInstance is IFocusManagerComponent)
                 fm.setFocus(IFocusManagerComponent(itemEditorInstance));
                 
-            var event:DataGridEvent =
+            var itemFocusInEvent:DataGridEvent =
                 new DataGridEvent(DataGridEvent.ITEM_FOCUS_IN);
-            event.columnIndex = _editedItemPosition.columnIndex;
-            event.rowIndex = _editedItemPosition.rowIndex;
+            itemFocusInEvent.columnIndex = _editedItemPosition.columnIndex;
+            itemFocusInEvent.rowIndex = _editedItemPosition.rowIndex;
                 event.itemRenderer = itemEditorInstance;
-            dispatchEvent(event);
+            dispatchEvent(itemFocusInEvent);
         }
     }
 
