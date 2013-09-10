@@ -3985,7 +3985,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 s = new Sort;
 
             if (!f)
+            {
                 f = new SortField(c.dataField);
+                f.sortCompareType = c.sortCompareType;
+            }
 
 
             c.sortDescending = desc;

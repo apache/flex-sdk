@@ -139,6 +139,22 @@ public interface ISortField
     function get numeric():Object;
     function set numeric(value:Object):void;
 
+
+    /**
+     *  Specifies what compare type will be used for the sortField. This overrides the default
+     *  behavior.
+     * 
+     *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.11
+     */
+    function get sortCompareType():String;
+    function set sortCompareType(value:String):void;
+
+
     /**
      *  True if this <code>ISortField</code> uses a custom comparator function.
      *
@@ -192,5 +208,19 @@ public interface ISortField
      *  @productversion Flex 4.5
      */
     function reverse():void;
+
+
+    /**
+     *  This changes the internal compare function used by the <code>SortField</code> based
+     *  on the value of <code>sortCompareType</code>.
+     * 
+     *  @return true for successfully matched or false for failure to match the <code>sortCompareType</code>.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.11
+     */
+    function updateSortCompareType():Boolean;
 }
 }

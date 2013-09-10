@@ -36,6 +36,8 @@ import mx.styles.AdvancedStyleClient;
 import mx.utils.ObjectUtil;
 
 import spark.globalization.SortingCollator;
+import spark.collections.SortFieldCompareTypes;
+
 
 [ResourceBundle("collections")]
 
@@ -197,7 +199,11 @@ public class SortField extends AdvancedStyleClient implements ISortField
         _name = name;
         _descending = descending;
         _numeric = numeric;
-        _compareFunction = stringCompare;
+
+        if (updateSortCompareType() == false)
+        {
+            _compareFunction = stringCompare;
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -429,6 +435,47 @@ public class SortField extends AdvancedStyleClient implements ISortField
         }
     }
 
+
+    //---------------------------------
+    //  sortCompareType
+    //---------------------------------
+
+    // TODO: Currently the sortfield is independant of the column. Add in way to check when column._sortCompareType changes.
+    /**
+     *  @private
+     */
+    private var _sortCompareType:String = null;
+
+    /**
+     *  @inheritDoc
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.11
+     */
+    [Bindable("sortCompareTypeChanged")]
+    public function get sortCompareType():String
+    {
+        return _sortCompareType;
+    }
+
+    /**
+     *  @private
+     */
+    public function set sortCompareType(value:String):void
+    {
+        if (_sortCompareType != value)
+        {
+            _sortCompareType = value;
+            dispatchEvent(new Event("sortCompareTypeChanged"));
+        }
+
+
+        updateSortCompareType();
+    }
+
+
     //---------------------------------
     //  usingCustomCompareFunction
     //---------------------------------
@@ -552,6 +599,15 @@ public class SortField extends AdvancedStyleClient implements ISortField
         // if the compare function is not already set then we can set it
         if (!usingCustomCompareFunction)
         {
+            if (_sortCompareType)
+            {
+                //Attempt to set the compare function based on the sortCompareType
+                if (updateSortCompareType() == true)
+                {
+                    return;
+                }
+            }
+
             if (numeric == true)
                 _compareFunction = numericCompare;
             else if (numeric == false)
@@ -629,6 +685,67 @@ public class SortField extends AdvancedStyleClient implements ISortField
     {
         descending = !descending;
     }
+
+
+    /**
+     *  @inheritDoc
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.11
+     */
+    public function updateSortCompareType():Boolean
+    {
+        if (!_sortCompareType)
+        {
+            return false;
+        }
+
+
+        //Loopup the sortCompareType by its SortFieldCompareTypes and set the assocuated compare function.
+        switch(_sortCompareType)
+        {
+            case SortFieldCompareTypes.DATE:
+            {
+                _compareFunction = dateCompare;
+
+                return true;
+            }
+
+            case SortFieldCompareTypes.NULL:
+            {
+                _compareFunction = nullCompare;
+
+                return true;
+            }
+
+            case SortFieldCompareTypes.NUMERIC:
+            {
+                _compareFunction = numericCompare;
+
+                return true;
+            }
+
+            case SortFieldCompareTypes.STRING:
+            {
+                _compareFunction = stringCompare;
+
+                return true;
+            }
+
+            case SortFieldCompareTypes.XML:
+            {
+                _compareFunction = xmlCompare;
+
+                return true;
+            }
+        }
+
+
+        return false;
+    }
+
 
     //--------------------------------------------------------------------------
     //
