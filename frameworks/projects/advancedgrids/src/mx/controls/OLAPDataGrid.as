@@ -985,14 +985,14 @@ public class OLAPDataGrid extends AdvancedDataGrid
 
         // Height is usually as tall is the items in the row, but not if
         // it would extend below the bottom of listContent
-        var height:Number = Math.min(height,
+        var minHeight:Number = Math.min(height,
                                      listContent.height -
                                      y);
 
         var g:Graphics = background.graphics;
         g.clear();
         g.beginFill(color, getStyle("backgroundAlpha"));
-        g.drawRect(0, 0, unscaledWidth - viewMetrics.left - viewMetrics.right, height);
+        g.drawRect(0, 0, unscaledWidth - viewMetrics.left - viewMetrics.right, minHeight);
         g.endFill();
     }
     
