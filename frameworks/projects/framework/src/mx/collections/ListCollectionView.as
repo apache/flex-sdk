@@ -653,7 +653,9 @@ public class ListCollectionView extends Proxy
      */
     public function addAllAt(addList:IList, index:int):void
     {
-        if (index < 0 || index > this.length)
+		var maxLength:int = this.length
+			
+        if (index < 0 || index > maxLength)
         {
             var message:String = resourceManager.getString(
                 "collections", "outOfBounds", [ index ]);
@@ -661,7 +663,6 @@ public class ListCollectionView extends Proxy
         }
         
         var length:int = addList.length;
-		var maxLength:int = length
 			
 		// incremental index may be out of bounds because of filtering,
 		// so add this item to the end.
