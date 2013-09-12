@@ -56,13 +56,15 @@ FLEX-33726	DateField.stringToDate returns null when inputFormat has no separator
 FLEX-33718	Warning: variable definition duplicates function parameter in MX project
 FLEX-33714	Falcon compiler is stricter with ++ and -- operator on constants.
 FLEX-33710	spark DataGrid isCellEditable is missing index bounds check
+FLEX-33705  DataGridDragProxy created item renderer without a reference to the column
 FLEX-33698	Shift Return creates new ParagraphElement
 FLEX-33692	Spark button border issue
 FLEX-33689	Flex Library project unit tests creates invalid FlexUnitApplication.mxml
 FLEX-33688	RTE in advanced list when setting selection to null and column is sorted
 FLEX-33687  DataGridEditor is not visible in ASDOCS has been excluded
+FLEX-33682  Large Advanced Data Grid slow to resize
 FLEX-33667  compiler with apache flex 4.10 occur error : Uncaught exception in compiler.
-FLEX-33666  When scrolling a Spark Datagrid with the mousewheel after starting an itemEditor session, the itemEditor doesn't follow it's cell
+FLEX-33666  When scrolling a Spark Datagrid with the mousewheel after starting an itemEditor session, the itemEdito
 FLEX-33665  ItemEditors are placed on the wrong position after scrolling an editable Spark Datagrid
 FLEX-33655	RTE when closing SkinnablePopUpContainer
 FLEX-33643	Improve experimental CallOut component frame arrow display
