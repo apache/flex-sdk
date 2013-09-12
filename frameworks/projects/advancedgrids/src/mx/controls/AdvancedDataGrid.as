@@ -631,10 +631,16 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
     //--------------------------------------------------------------------------
 
     /**
-     *  @private
-     *  Maps items to AdvancedDataGridDescription
+	 *  Maps renders to row and column spanning info.
+	 * 
+     *  @see mx.controls.advancedDataGridClasses.AdvancedDataGridRendererDescription
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.11
      */
-    private var rendererDescriptionMap:Dictionary;
+    protected var rendererDescriptionMap:Dictionary;
     
     /**
      *  @private
