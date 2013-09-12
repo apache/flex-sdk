@@ -344,7 +344,8 @@ public class ComboBox extends DropDownListBase implements IIMESupport
 		if (dataProvider === value)
 			return;
 		
-		selectedItem = null;
+		if (dataProvider != null)
+			selectedItem = null;
 		super.dataProvider = value;
 	}
 
