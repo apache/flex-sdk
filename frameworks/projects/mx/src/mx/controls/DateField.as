@@ -470,6 +470,7 @@ public class DateField extends ComboBase
 		var maskParts:Array = [];
         var part:int = 0;
 		var length:int;
+		var position:int = 0;
 		
 		if (valueString == null || inputFormat == null)
 			return null;
@@ -519,8 +520,27 @@ public class DateField extends ComboBase
 			
 			lastChar = maskChar;
 		}
-		
+			
 		length = maskParts.length;
+
+		if (dateParts.length != length)
+		{
+			if (valueString.length != inputFormat.length) {
+				return null;
+			}
+			
+			for (i = 0; i < length; i++) {
+				dateParts[i] = valueString.substr(position, maskParts[i].length);
+				position += maskParts[i].length;
+			}
+			
+		}
+		
+		if (dateParts.length != length)
+		{
+			return null;
+		}
+
 		for (i = 0; i < length; i++) {
 			maskChar = maskParts[i].charAt(0);
 			
@@ -535,10 +555,8 @@ public class DateField extends ComboBase
 			}
 		}
 		
-		if (dateParts.length != maskParts.length)
-		{
+		if (dateString == null || monthString == null || yearString == null)
 			return null;
-		}
 		
 		var dayNum:Number = Number(dateString);
         var monthNum:Number = Number(monthString);
