@@ -1526,16 +1526,16 @@ public class List extends ListBase implements IIMESupport
             listContent.setChildIndex(DisplayObject(itemEditorInstance),
                                       listContent.numChildren - 1);
             item = listItems[actualRowIndex][actualColIndex];
-            var rowInfo:ListRowInfo = rowInfo[actualRowIndex];
+            var listRowInfo:ListRowInfo = rowInfo[actualRowIndex];
             if (item && !rendererIsEditor)
             {
                 var dx:Number = editorXOffset;
                 var dy:Number = editorYOffset;
                 var dw:Number = editorWidthOffset;
                 var dh:Number = editorHeightOffset;
-                layoutEditor(item.x + dx, rowInfo.y + dy,
+                layoutEditor(item.x + dx, listRowInfo.y + dy,
                             Math.min(item.width + dw, listContent.width - listContent.x - itemEditorInstance.x),
-                            Math.min(rowInfo.height + dh, listContent.height - listContent.y - itemEditorInstance.y));
+                            Math.min(listRowInfo.height + dh, listContent.height - listContent.y - itemEditorInstance.y));
 
             }
         }
