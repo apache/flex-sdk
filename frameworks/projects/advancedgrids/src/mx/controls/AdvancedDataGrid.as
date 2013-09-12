@@ -7781,10 +7781,9 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 			if (rowData)
 			{
 				var rowIndicators:Object = cellSelectionIndicators[rowData.uid];
-				var columnIndicator:Sprite;
-				if (rowIndicators && (columnIndicator = rowIndicators[columnIndex]))
+				if (rowIndicators && rowIndicators[columnIndex])
 				{
-					o = columnIndicator;
+					o = rowIndicators[columnIndex];
 					if (o.parent)
 						o.parent.removeChild(o);
 					
