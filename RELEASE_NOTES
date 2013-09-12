@@ -68,6 +68,7 @@ FLEX-33682  Large Advanced Data Grid slow to resize
 FLEX-33667  compiler with apache flex 4.10 occur error : Uncaught exception in compiler.
 FLEX-33666  When scrolling a Spark Datagrid with the mousewheel after starting an itemEditor session, the itemEdito
 FLEX-33665  ItemEditors are placed on the wrong position after scrolling an editable Spark Datagrid
+FLEX-33657  Spark NumericStepper - View is decimal
 FLEX-33655  RTE when closing SkinnablePopUpContainer
 FLEX-33643  Improve experimental CallOut component frame arrow display
 FLEX-33636  Error when creating new project in FB 4.7 using SDK 4.10.0 (11.8/3.8)
