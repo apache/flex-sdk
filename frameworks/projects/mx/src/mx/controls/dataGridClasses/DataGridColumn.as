@@ -1833,11 +1833,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         var currentRef:Object = data;
         if ( complexFieldNameComponents ) 
         {
-            for ( var i:int=0; i<complexFieldNameComponents.length; i++ )
+            for ( var i:int=0; currentRef && i < complexFieldNameComponents.length; i++ )
                 currentRef = currentRef[ complexFieldNameComponents[ i ] ];
         }
         
-        return currentRef;
+        return currentRef?currentRef:"";
     }
 
     /**
