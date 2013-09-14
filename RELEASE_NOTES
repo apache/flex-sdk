@@ -38,7 +38,7 @@ SDK Changes
 -------------
 - 120 and 640 dpi mobile resolution/skin support, fixes to 480dpi skins.
 - mx:AdvancedDataGrid and mx:DataGrid speed improvements.
-- Added column sort type access to the datagrid columns in mx:Datagrid and s:Datagrid. 
+- Added column sort type access to the datagrid columns in mx:Datagrid, s:Datagrid, and mx:AdvancedDataGrid. 
 - Able to easily change mx:AdvancedDataGrid row and column item renderer spanning.
 - s:DataGridEditor will now be visible in ASDocs and be visible in the Tag inspector.
 - Minor changes to make SDK compile with Falcon compiler.
@@ -60,6 +60,7 @@ FLEX-33714  Falcon compiler is stricter with ++ and -- operator on constants.
 FLEX-33712  DataGrid with itemRenderer Drag and Drop error
 FLEX-33710  spark DataGrid isCellEditable is missing index bounds check
 FLEX-33705  DataGridDragProxy created item renderer without a reference to the column
+FLEX-33702  DataGrid columns unable to specify sorting internal compare functions used.
 FLEX-33698  Shift Return creates new ParagraphElement
 FLEX-33692  Spark button border issue
 FLEX-33689  Flex Library project unit tests creates invalid FlexUnitApplication.mxml
