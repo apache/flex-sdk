@@ -6130,6 +6130,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         column.sortDescending = desc;
         var field:ISortField = new SortField(columnName); // name
+        field.sortCompareType = column.sortCompareType;
         field.descending = desc;
         
 //        field.name = column.dataField;

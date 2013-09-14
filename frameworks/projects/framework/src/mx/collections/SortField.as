@@ -607,7 +607,7 @@ public class SortField extends EventDispatcher implements ISortField
         }
 
 
-        //Loopup the sortCompareType by its SortFieldCompareTypes and set the assocuated compare function.
+        //Lookup the sortCompareType by its SortFieldCompareTypes value and set the associated compare method.
         switch(_sortCompareType)
         {
             case SortFieldCompareTypes.DATE:
