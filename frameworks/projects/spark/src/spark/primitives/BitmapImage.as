@@ -39,6 +39,7 @@ import flash.geom.Rectangle;
 import flash.net.URLRequest;
 import flash.system.ApplicationDomain;
 import flash.system.Capabilities;
+import flash.system.ImageDecodingPolicy;
 import flash.system.LoaderContext;
 import flash.utils.ByteArray;
 
@@ -505,6 +506,20 @@ public class BitmapImage extends GraphicElement
         else
             return 0.5;
     }
+	
+	/**
+	 *  The image decoding policy, set to ImageDecodingPolicy.ON_DEMAND
+	 *  or ImageDecodingPolicy.ON_LOAD.
+	 *  The default is ImageDecodingPolicy.ON_DEMAND.
+	 * 
+	 *  Setting to asynchronously decode and load the bitmap images for
+	 *  large image may improve your application’s perceived performance.
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion AIR 2.6
+	 *  @productversion Flex 4.11
+	 */
+	public var imageDecodingPolicy:String = ImageDecodingPolicy.ON_DEMAND;
 
     //----------------------------------
     //  preliminaryHeight
@@ -1516,6 +1531,9 @@ public class BitmapImage extends GraphicElement
             var loader:Loader = new Loader();
             var loaderContext:LoaderContext = new LoaderContext();
 
+			if (imageDecodingPolicy in loaderContext)
+				loaderContext.imageDecodingPolicy = imageDecodingPolicy;
+				
             // Attach load-event listeners to our LoaderInfo instance.
             loadingContent = loader.contentLoaderInfo;
             attachLoadingListeners();
@@ -1541,6 +1559,10 @@ public class BitmapImage extends GraphicElement
     {
         var loader:Loader = new Loader();
         var loaderContext:LoaderContext = new LoaderContext();
+		
+		if (imageDecodingPolicy in loaderContext)
+			loaderContext.imageDecodingPolicy = imageDecodingPolicy;
+		
         loadingContent = loader.contentLoaderInfo;
         attachLoadingListeners();
 
