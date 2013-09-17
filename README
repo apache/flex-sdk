@@ -284,8 +284,12 @@ Other Locale Support
     
     Compile the SDK with a -Dlocale=<locale> option, where <locale> is the new locale
     to compile the SDK against.
+    
+    To compile all supported locales, which may take soem time, use
+    
+        ant other.locales
 
-    The list of supported locales include:
+    The list of supported locales currently include:
         da_DK	el_GR	en_GB	fi_FI	it_IT	nb_NO	pt_PT	zh_CN
         de_CH	en_AU	en_US	fr_CH	ja_JP	nl_NL	ru_RU	zh_TW
         de_DE	en_CA	es_ES	fr_FR	ko_KR	pt_BR	sv_SE
