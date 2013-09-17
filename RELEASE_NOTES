@@ -42,6 +42,7 @@ SDK Changes
 - Able to easily change mx:AdvancedDataGrid row and column item renderer spanning.
 - s:DataGridEditor will now be visible in ASDocs and be visible in the Tag inspector.
 - Minor changes to make SDK compile with Falcon compiler.
+- Added access to imageDecodingPolicy in BitmapImage.
 
 Bug Fixes
 ----------
@@ -54,7 +55,11 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-33738  ArrayCollection addAll() adds items in the wrong order
+FLEX-33730  RTE in Application.as line 2157 in Air simulator
 FLEX-33726  DateField.stringToDate returns null when inputFormat has no separators
+FLEX-33724  Error in mx:DataGridBase.addClipMask() when using custom item renderer and locked columns
+FLEX-33722  Dragging a row with an itemRenderer which extends DefaultGridItemRenderer causes null pointer
 FLEX-33718  Warning: variable definition duplicates function parameter in MX project
 FLEX-33714  Falcon compiler is stricter with ++ and -- operator on constants.
 FLEX-33712  DataGrid with itemRenderer Drag and Drop error
