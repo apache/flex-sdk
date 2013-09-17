@@ -2285,6 +2285,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
         }
         if (lockedColumnContent)
         {
+			lastRowIndex = lockedColumnContent.listItems.length - 1;
             lastRowItems = lockedColumnContent.listItems[lastRowIndex];
             numColumns = lastRowItems.length;
             rowWidth = lockedColumnContent.width;
