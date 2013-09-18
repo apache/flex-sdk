@@ -285,7 +285,7 @@ Other Locale Support
     Compile the SDK with a -Dlocale=<locale> option, where <locale> is the new locale
     to compile the SDK against.
     
-    To compile all supported locales, which may take soem time, use
+    To compile all supported locales, which may take some time, use
     
         ant other.locales
 
