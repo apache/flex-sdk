@@ -12665,17 +12665,9 @@ public class UIComponent extends FlexSprite
     }
     
     /**
-     *
-	 * Called when a component is removed from the stage.
-	 * 
-     *  @param event The event object.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 4.11
+     *  @private
      */
-    protected function removedFromStageHandler(event:Event):void
+    private function removedFromStageHandler(event:Event):void
     {
         _systemManagerDirty = true;
     }
