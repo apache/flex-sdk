@@ -43,6 +43,8 @@ SDK Changes
 - s:DataGridEditor will now be visible in ASDocs and be visible in the Tag inspector.
 - Minor changes to make SDK compile with Falcon compiler.
 - Added access to imageDecodingPolicy in BitmapImage.
+- Changes to custom skin for s:DataGrid (was changed in 4.10 but missed in release notes)
+- Changed UIComponent removedFromStageHandler from private to protected to allow override
 
 Bug Fixes
 ----------
@@ -56,6 +58,7 @@ Bug Fixes
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
 FLEX-33738  ArrayCollection addAll() adds items in the wrong order
+FLEX-33736  NullPointer exception in VideoDisplay
 FLEX-33730  RTE in Application.as line 2157 in Air simulator
 FLEX-33726  DateField.stringToDate returns null when inputFormat has no separators
 FLEX-33724  Error in mx:DataGridBase.addClipMask() when using custom item renderer and locked columns
