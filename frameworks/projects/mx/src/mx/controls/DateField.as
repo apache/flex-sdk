@@ -2647,11 +2647,12 @@ public class DateField extends ComboBase
         }
         else if (event.keyCode == Keyboard.ESCAPE)
         {
-            if (showingDropdown)
+            if (showingDropdown) {
                 selectedDate = lastSelectedDate;
-            displayDropdown(false, event);
-			if (!editable)
-           		event.stopPropagation();
+            	displayDropdown(false, event);
+				if (!editable)
+           			event.stopPropagation();
+			}
         }
         else if (event.keyCode == Keyboard.ENTER)
         {
