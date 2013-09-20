@@ -446,8 +446,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
 
 		ResourceBundle.locale =
 			compiledLocales != null && compiledLocales.length > 0 ?
-			compiledLocales[0] :
-			"en_US";
+			compiledLocales[0] : "en";
 
 		var applicationDomain:ApplicationDomain = info["currentDomain"];
 
