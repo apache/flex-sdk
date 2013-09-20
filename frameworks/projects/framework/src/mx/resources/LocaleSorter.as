@@ -73,6 +73,13 @@ public class LocaleSorter
 		var locales:Array = trimAndNormalize(appLocales);
 		var preferenceLocales:Array	= trimAndNormalize(systemPreferences);
 		
+		// Add the language as the ultimate fallback if not specified
+		if (locales && locale.length > 0) {
+			if (locale[0].length > 2 && ultimateFallbackLocale == null) {
+				ultimateFallbackLocale = locale[0].split("_")[0];
+			}
+		}
+		
 		addUltimateFallbackLocale(preferenceLocales, ultimateFallbackLocale);
 		
 		// For better performance, save the locales in a lookup table.
