@@ -6091,11 +6091,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         if (!column.sortable)
             return;
 
-         var headerInfo:AdvancedDataGridHeaderInfo = getHeaderInfo(column);
-         if(headerInfo && headerInfo.internalLabelFunction != null && column.sortCompareFunction == null)
-             return;
-
          var desc:Boolean = column.sortDescending;
+		 var fields:Array;
          
          var singleColumnSort:Boolean = false;
          if (!collection.sort || !collection.sort.fields)
@@ -6129,14 +6126,18 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         }
 
         column.sortDescending = desc;
-        var field:ISortField = new SortField(columnName); // name
+        var field:ISortField = new SortField(columnName);
         field.sortCompareType = column.sortCompareType;
         field.descending = desc;
         
-//        field.name = column.dataField;
         if (column.sortCompareFunction != null)
             field.compareFunction = column.sortCompareFunction;
-        collection.sort.fields.push(field);
+		
+		fields = collection.sort.fields;
+		if (fields == null)
+			fields = [];
+		fields.push(field);
+		collection.sort.fields = fields;
     }
 
     /**
