@@ -1053,8 +1053,8 @@ public class DataGridEditor
         // increment is -1 if we are moving backward and 1 if moving
         // forward.
         const increment:int = backward ? -1 : 1;
-        var rowIndex:int = rowIndex;
-        var columnIndex:int = columnIndex;
+        //var rowIndex:int = rowIndex;
+        //var columnIndex:int = columnIndex;
         do {
             var nextColumn:int = columnIndex + increment;
             if (nextColumn >= 0 && nextColumn < dataGrid.columns.length)
