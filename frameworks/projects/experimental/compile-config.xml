@@ -25,6 +25,7 @@
             <path-element>${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc</path-element>
             <path-element>../../libs/framework.swc</path-element>
             <path-element>../../libs/spark.swc</path-element>
+            <path-element>../../libs/textlayout.swc</path-element>
         </external-library-path>
 
         <keep-as3-metadata>
