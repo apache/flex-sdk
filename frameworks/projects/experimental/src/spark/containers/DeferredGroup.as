@@ -955,8 +955,8 @@ package spark.containers
 				// see https://bugs.adobe.com/jira/browse/SDK-25601
 				// https://bugs.adobe.com/jira/browse/SDK-25333
 				throw new Error( "You cannot use an IGraphicElement in a DeferredGroup, all elements must extend UIComponent" );
-				numGraphicElements++;
-				addingGraphicElementChild(element as IGraphicElement);
+				//numGraphicElements++;
+				//addingGraphicElementChild(element as IGraphicElement);
 				invalidateDisplayObjectOrdering();
 			}   
 			else
