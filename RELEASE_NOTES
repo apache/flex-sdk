@@ -55,6 +55,8 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-33748  TabBar shouldn't be colorized in TabNavigatorSkin
+FLEX-33741  Propagation of Escape key in mx.controls.DateField should only be stopped if the DropDown is shown
 FLEX-33738  ArrayCollection addAll() adds items in the wrong order
 FLEX-33730  RTE in Application.as line 2157 in Air simulator
 FLEX-33726  DateField.stringToDate returns null when inputFormat has no separators
