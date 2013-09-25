@@ -7419,6 +7419,50 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
     }
 
     /**
+     *  Determines if cell is highlighted.
+     *
+     *  @param data The data provider item.
+     *  @param columnIndex index of column.
+     *
+     *  @return <code>true</code> if the cell item is highlighted.
+     * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.11
+     */
+	public function isCellItemHighlighted(data:Object, columnIndex:int): Boolean
+	{
+		if (data == null)
+			return false;
+		if (isCellItemSelected(data, columnIndex))
+			return false;
+		return highlightUID == data && highlightColumnIndex == columnIndex;
+	}	
+
+	/**
+	 *  Determines if cell is selected.
+	 *
+     *  @param data The data provider item.
+     *  @param columnIndex index of column.
+     *
+     *  @return <code>true</code> if the cell item is selected.
+     * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.11
+     */
+	public function isCellItemSelected(data:Object, columnIndex:int): Boolean
+	{
+		if (data == null)
+			return false;
+		return cellSelectionData[data] && cellSelectionData[data][columnIndex];
+	}	
+	
+    /**
      *  @private
      *  Check if a cell is already present in selecedCells.
      */
@@ -7602,11 +7646,15 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 				if (visibleRenderer)
 					item = visibleRenderer[q];
                 if (item)
+				{
+					// IMPORTANT! Clear the selection before drawCellItem() is called -> IInvalidating(item).validateNow() 
+					cellSelectionData[p][q] = null; 
                     drawCellItem(item, false,
                                  p == highlightUID
                                  && highlightColumnIndex == int(q),
                                  false,
                                  transition);
+				}
             }
         }
 
