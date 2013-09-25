@@ -55,6 +55,7 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-33771  compatibilityVersionString returns the wrong value
 FLEX-33748  TabBar shouldn't be colorized in TabNavigatorSkin
 FLEX-33741  Propagation of Escape key in mx.controls.DateField should only be stopped if the DropDown is shown
 FLEX-33738  ArrayCollection addAll() adds items in the wrong order
@@ -75,7 +76,7 @@ FLEX-33688  RTE in advanced list when setting selection to null and column is so
 FLEX-33687  DataGridEditor is not visible in ASDOCS has been excluded
 FLEX-33683  Bad ordering of ListCollectionView addAllAt
 FLEX-33682  Large Advanced Data Grid slow to resize
-FLEX-33667  compiler with apache flex 4.10 occur error : Uncaught exception in compiler.
+FLEX-33667  Compiler with Apache Flex 4.10 occur error : Uncaught exception in compiler.
 FLEX-33666  When scrolling a Spark Datagrid with the mousewheel after starting an itemEditor session, the itemEdito
 FLEX-33665  ItemEditors are placed on the wrong position after scrolling an editable Spark Datagrid
 FLEX-33657  Spark NumericStepper - View is decimal
@@ -84,7 +85,12 @@ FLEX-33643  Improve experimental CallOut component frame arrow display
 FLEX-33636  Error when creating new project in FB 4.7 using SDK 4.10.0 (11.8/3.8)
 FLEX-33630  ComboBox RTE when opened and DEL pressed OR when opened, text input and BACKSPACE pressed
 FLEX-33409  TLF crashes when hypens are shown in a multi span textFlow
+FLEX-33159  addSortField method in the AdvancedDataGridEx degenerates the internal state of the Sort object
+FLEX-33158  addSortField method in the AdvancedDataGridEx works inconsistently
+FLEX-33157  Sort class: _fields and fieldList variables can be out of sync
 FLEX-33131  rendererDescriptionMap is private, should be made protected to allow customizing the grid for condition
+FLEX-32998  NullPointerException in AdvancedDataGrid.getFieldSortInfo
+FLEX-32848  AdvancedDataGrid doesn't respect style property 'textSelectedColor' for selectionMode='singleCell'
 FLEX-28012  FormItemSkin and StackedFormItemSkib indicatorDisplay's toolTip is not localized
 FLEX-27658  DataGrid component does not allow a default sorting order
 FLEX-27648  ViewStack.getItemIndex() throws error instead of returning -1 when item is not a child of the ViewStack
