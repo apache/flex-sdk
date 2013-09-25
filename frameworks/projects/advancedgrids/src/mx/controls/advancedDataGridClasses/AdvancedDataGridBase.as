@@ -913,6 +913,7 @@ public class AdvancedDataGridBase extends AdvancedListBase implements IFontConte
         for (var i:int = 0; i < n; i++)
         {
             var r:IListItemRenderer = listItems[rowIndex][i];
+			r.validateDisplayList();
             updateDisplayOfItemRenderer(r);
         }
     }

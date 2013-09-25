@@ -303,18 +303,39 @@ public class AdvancedDataGridItemRenderer extends UITextField
         if (data && parent)
         {
             var newColor:Number;
-
-            if (AdvancedDataGrid(_listData.owner).isItemHighlighted(_listData.uid))
-            {
-                newColor = getStyle("textRollOverColor");
-            }
-            else if (AdvancedDataGrid(_listData.owner).isItemSelected(_listData.uid))
-            {
-                newColor = getStyle("textSelectedColor");
-            }
-            else
-            {
-                newColor = getStyle("color");
+			var adg: AdvancedDataGrid = AdvancedDataGrid(listData.owner);
+			
+			if (adg.selectionMode == AdvancedDataGridBase.SINGLE_ROW
+				|| adg.selectionMode == AdvancedDataGridBase.MULTIPLE_ROWS)
+			{
+				if (adg.isItemHighlighted(listData.uid))
+				{
+					newColor = getStyle("textRollOverColor");
+				}
+				else if (adg.isItemSelected(listData.uid))
+				{
+					newColor = getStyle("textSelectedColor");
+				}
+				else
+				{
+					newColor = getStyle("color");
+				}
+			}
+			else if (adg.selectionMode == AdvancedDataGridBase.SINGLE_CELL
+					|| adg.selectionMode == AdvancedDataGridBase.MULTIPLE_CELLS)
+			{
+				if (adg.isCellItemHighlighted(listData.uid, listData.columnIndex))
+				{
+					newColor = getStyle("textRollOverColor");
+				}
+				else if (adg.isCellItemSelected(listData.uid, listData.columnIndex))
+				{
+					newColor = getStyle("textSelectedColor");
+				}
+				else
+				{
+					newColor = getStyle("color");
+				}
             }
 
             if (newColor != explicitColor)
