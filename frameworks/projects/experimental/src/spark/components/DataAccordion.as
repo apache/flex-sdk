@@ -454,9 +454,9 @@ package spark.components
 		 */
 		override public function set labelField( value:String ):void
 		{
+			if( labelField == value ) return;
+				
 			super.labelField = value;
-			
-			if( labelField == value ) return 
 			
 			if( buttonBar )
 			{
@@ -487,9 +487,10 @@ package spark.components
 		 */
 		override public function set labelFunction( value:Function ):void
 		{
+			if( labelFunction == value ) return; 
+			
 			super.labelFunction = value;
 			
-			if( labelFunction == value ) return; 
 			
 			if( buttonBar )
 			{
