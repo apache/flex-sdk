@@ -491,6 +491,8 @@
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="apache" build-number="${release.version}.${build.number.date}"/>		
 		<!-- experimental RSL -->
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="experimental" build-number="${release.version}.${build.number.date}"/>		
+		<!-- mobile experimental RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="experimental_mobile" build-number="${release.version}.${build.number.date}"/>		
 	</target>
 
     <target name="other.locales" description="Build resource SWCs for additional locales">
@@ -893,7 +895,8 @@
                 <include name="apache.swc"/>
                 <include name="authoringsupport.swc"/>
                 <include name="core.swc"/>
-                <include name="experimental.swc"/>
+            	<include name="experimental.swc"/>
+            	<include name="experimental_mobile.swc"/>
                 <include name="spark.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
