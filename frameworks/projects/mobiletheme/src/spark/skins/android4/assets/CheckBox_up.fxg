@@ -18,10 +18,13 @@
 
 -->
 
-<Graphic version="2.0" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008">
-  <Path winding="evenOdd" data="M 17 1 L 17 17 L 1 17 L 1 1 L 17 1 L 17 1 Z M 16 2 L 2 2 L 2 16 L 16 16 L 16 2 L 16 2 Z " blendMode="normal" alpha="1">
-    <fill>
-      <SolidColor color="#333333"/>
-    </fill>
-  </Path>
+<Graphic aaa:symType="1" version="2.0" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008" xmlns:aaa="http://ns.adobe.com/ai/2009">
+  <Group scaleGridLeft="4" scaleGridRight="12" scaleGridTop="11.999" scaleGridBottom="4" aaa:symType="1">
+    <Path alpha="0.8" winding="nonZero" aaa:seqID="2099" data="M16 0 16 16 0 16 0 0 16 0M15 1 1 1 1 15 15 15 15 1 15 1Z">
+      <fill>
+        <SolidColor color="#333333"/>
+      </fill>
+    </Path>
+    <Path visible="false" winding="nonZero" aaa:seqID="2100" data="M0 0 16 0 16 16 0 16 0 0Z"/>
+  </Group>
 </Graphic>
