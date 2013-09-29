@@ -68,5 +68,7 @@ Checking to see if I'm able to push this back to origin.
 
 Me too.  Woot.
 
+mamsellem git commit first try (2013/09/29)
+
 
 
