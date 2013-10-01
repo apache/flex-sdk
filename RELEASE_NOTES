@@ -55,6 +55,8 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-33789  Logical error: self-reference in GridHeaderViewLayout
+FLEX-33783  mxmlc -help returns 1
 FLEX-33782  AccordionData labelField and labelFunction properties don't work
 FLEX-33771  compatibilityVersionString returns the wrong value
 FLEX-33748  TabBar shouldn't be colorized in TabNavigatorSkin
