@@ -18,35 +18,33 @@
 -->
 <flex-config>
 
-    <compiler>        
+    <compiler>
         <external-library-path>
             <path-element>${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc</path-element>
             <path-element>../../libs/framework.swc</path-element>
-            <path-element>../../libs/spark.swc</path-element>
-            <path-element>../../libs/mobile/mobilecomponents.swc</path-element>
         </external-library-path>
-        
+
         <include-libraries/>
-        
+
         <library-path/>
-        
+
         <locale>
             <locale-element>${locale}</locale-element>
         </locale>
-        
+
         <source-path>
             <path-element>src</path-element>
             <path-element>bundles/${locale}</path-element>
         </source-path>
     </compiler>
-    
+
     <include-classes/>
-    
+
     <include-namespaces/>
-    
+
     <include-resource-bundles>
         <bundle>experimental</bundle>
     </include-resource-bundles>
-        
+
     <target-player>${playerglobal.version}</target-player>
 </flex-config>

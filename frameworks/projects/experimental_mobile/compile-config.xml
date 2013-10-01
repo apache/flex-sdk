@@ -22,11 +22,14 @@
         <accessible>true</accessible>
 
         <external-library-path>
-            <path-element>${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc</path-element>
+            <path-element>${env.AIR_HOME}/frameworks/libs/air/airglobal.swc</path-element>
+            <path-element>${env.AIR_HOME}/frameworks/libs/air/airglobal.swc</path-element>
             <path-element>../../libs/framework.swc</path-element>
+            <path-element>../../libs/apache.swc</path-element>
             <path-element>../../libs/spark.swc</path-element>
             <path-element>../../libs/textlayout.swc</path-element>
             <path-element>../../libs/mobile/mobilecomponents.swc</path-element>
+            <path-element>../../themes/Mobile/mobile.swc</path-element>
         </external-library-path>
 
         <keep-as3-metadata>

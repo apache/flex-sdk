@@ -16,22 +16,20 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package
+package spark.skins
 {
-import spark.components.MobileGrid;
-import spark.components.supportClasses.MobileGridColumn;
-import spark.skins.MobileGridHeaderButtonBarSkin;
-import spark.skins.MobileGridSkin;
+import spark.skins.mobile.assets.MobileGridHeaderFirstButton_down;
+import spark.skins.mobile.assets.MobileGridHeaderFirstButton_up;
 
-/*
- classes that won't be detected through dependencies
-* and classes that needs to be includes in ASDOC
-* */
-
- internal class ExperimentalMobileClasses
+public class MobileGridHeaderFirstButtonSkin extends MobileGridHeaderButtonSkin
 {
 
-    // mamsellem: for some reason, the import statements alone are not enough to have the classes included
-    private static const classes:Array = [MobileGrid, MobileGridColumn, MobileGridSkin, MobileGridHeaderButtonBarSkin];
+    public function MobileGridHeaderFirstButtonSkin()
+    {
+        super();
+        upBorderSkin = MobileGridHeaderFirstButton_up;
+        downBorderSkin = MobileGridHeaderFirstButton_down;
+    }
+
 }
 }

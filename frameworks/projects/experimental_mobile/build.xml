@@ -161,8 +161,9 @@
 
 	<target name="compile" description="Compiles experimental_mobile.swc">
 		<echo message="Compiling frameworks/libs/experimental_mobile.swc"/>
+        <echo message="Using ${env.AIR_HOME}/frameworks/libs/air/airglobal.swc" level="info"/>
 
-		<!-- Load the <compc> task. We can't do this at the <project> level -->
+        <!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 		<!--
@@ -183,7 +184,7 @@
 			<jvmarg line="${compc.jvm.args}"/>
             <load-config filename="compile-config.xml" />
             <arg value="+playerglobal.version=${playerglobal.version}" />
-            <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
+            <arg value="+env.AIR_HOME=${env.AIR_HOME}"/>
         </compc>
 	</target>
 
@@ -209,6 +210,12 @@
 		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
 		    <compiler.source-path path-element="${basedir}/src"/>
 		    <doc-classes class="ExperimentalMobileClasses"/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/themes/Mobile">
+                <include name="mobile.swc"/>
+            </external-library-path>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs/mobile">
+                <include name="mobilecomponents.swc"/>
+            </external-library-path>
 		    <namespace uri="http://flex.apache.org/experimental/ns" manifest="${basedir}/manifest.xml"/>
 		    <namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/spark-manifest.xml"/>
 		    <jvmarg line="${asdoc.jvm.args}"/>

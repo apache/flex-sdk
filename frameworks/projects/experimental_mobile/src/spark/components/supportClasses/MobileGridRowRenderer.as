@@ -16,22 +16,19 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package
-{
-import spark.components.MobileGrid;
-import spark.components.supportClasses.MobileGridColumn;
-import spark.skins.MobileGridHeaderButtonBarSkin;
-import spark.skins.MobileGridSkin;
-
-/*
- classes that won't be detected through dependencies
-* and classes that needs to be includes in ASDOC
-* */
-
- internal class ExperimentalMobileClasses
+package spark.components.supportClasses
 {
 
-    // mamsellem: for some reason, the import statements alone are not enough to have the classes included
-    private static const classes:Array = [MobileGrid, MobileGridColumn, MobileGridSkin, MobileGridHeaderButtonBarSkin];
+/**  @private
+ *    This is the internal list itemRenderer used for rendering grid cells in a single row of a MobileGrid.
+ *    It inherits all its behavior for its parent class and only sets the part renderers layout.
+ */
+public class MobileGridRowRenderer extends ListMultiPartItemRendererBase
+{
+    public function MobileGridRowRenderer()
+    {
+        partRenderersLayout = new ListMultiPartTabbedLayout(this);
+    }
+
 }
 }

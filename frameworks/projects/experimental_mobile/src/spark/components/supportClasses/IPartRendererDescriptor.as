@@ -16,22 +16,19 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package
-{
-import spark.components.MobileGrid;
-import spark.components.supportClasses.MobileGridColumn;
-import spark.skins.MobileGridHeaderButtonBarSkin;
-import spark.skins.MobileGridSkin;
-
-/*
- classes that won't be detected through dependencies
-* and classes that needs to be includes in ASDOC
-* */
-
- internal class ExperimentalMobileClasses
+package spark.components.supportClasses
 {
 
-    // mamsellem: for some reason, the import statements alone are not enough to have the classes included
-    private static const classes:Array = [MobileGrid, MobileGridColumn, MobileGridSkin, MobileGridHeaderButtonBarSkin];
+import mx.core.IFactory;
+
+import spark.components.itemRenderers.IItemPartRendererBase;
+
+public interface IPartRendererDescriptor
+{
+    function get scaledWidth():Number;
+
+    function get itemRenderer():IFactory;
+
+    function createPartRenderer():IItemPartRendererBase;
 }
 }

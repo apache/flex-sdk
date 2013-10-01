@@ -15,15 +15,14 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
-
 -->
 
 <!--
-
     Experimental Mobile Components
-
 -->
 <componentPackage>
-
-    
+    <component class="spark.components.MobileGrid"/>
+    <component class="spark.components.supportClasses.MobileGridColumn"/>
+    <component class="spark.components.itemRenderers.ItemBitmapPartRenderer"/>
+    <component class="spark.components.itemRenderers.ItemTextPartRenderer"/>
 </componentPackage>

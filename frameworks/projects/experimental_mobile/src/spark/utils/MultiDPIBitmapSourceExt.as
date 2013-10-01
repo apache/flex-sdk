@@ -16,22 +16,29 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package
+package spark.utils
 {
-import spark.components.MobileGrid;
-import spark.components.supportClasses.MobileGridColumn;
-import spark.skins.MobileGridHeaderButtonBarSkin;
-import spark.skins.MobileGridSkin;
+import mx.core.FlexGlobals;
+import mx.utils.DensityUtil;
 
-/*
- classes that won't be detected through dependencies
-* and classes that needs to be includes in ASDOC
-* */
-
- internal class ExperimentalMobileClasses
+public class MultiDPIBitmapSourceExt extends MultiDPIBitmapSource
 {
 
-    // mamsellem: for some reason, the import statements alone are not enough to have the classes included
-    private static const classes:Array = [MobileGrid, MobileGridColumn, MobileGridSkin, MobileGridHeaderButtonBarSkin];
+
+    override public function getSource(desiredDPI:Number):Object
+    {
+        if (isNaN(desiredDPI))
+        {
+            var app:Object = FlexGlobals.topLevelApplication;
+            var dpi:Number;
+            if ("runtimeDPI" in app)
+                dpi = app["runtimeDPI"];
+            else
+                dpi = DensityUtil.getRuntimeDPI();
+            return getSource(dpi);
+        }
+        else
+            return super.getSource(desiredDPI);
+    }
 }
 }

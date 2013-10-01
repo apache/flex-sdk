@@ -16,22 +16,40 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package
-{
-import spark.components.MobileGrid;
-import spark.components.supportClasses.MobileGridColumn;
-import spark.skins.MobileGridHeaderButtonBarSkin;
-import spark.skins.MobileGridSkin;
-
-/*
- classes that won't be detected through dependencies
-* and classes that needs to be includes in ASDOC
-* */
-
- internal class ExperimentalMobileClasses
+package spark.components.itemRenderers
 {
 
-    // mamsellem: for some reason, the import statements alone are not enough to have the classes included
-    private static const classes:Array = [MobileGrid, MobileGridColumn, MobileGridSkin, MobileGridHeaderButtonBarSkin];
+import mx.core.IDataRenderer;
+import mx.styles.IStyleClient;
+
+/**
+ * This is the base interface that all mobile cell or other mobile item part renderers must implement.
+ */
+public interface IItemPartRendererBase extends IDataRenderer
+{
+    /** @private
+     *  Object to be used for providing styles to the part renderer.
+     * Mobile part  items renders being lightweight classes, they usually don't manage styles by themselves.
+     * This property is automatically set
+     */
+    function set styleProvider(value:IStyleClient):void ;
+
+    /**
+     * @private
+     */
+    function set cssStyleName(value:String):void;
+
+    /**
+     * @private
+     */
+    function getPreferredBoundsWidth(postLayoutTransform:Boolean = true):Number;
+
+    /**
+     * @private
+     */
+    function getPreferredBoundsHeight(postLayoutTransform:Boolean = true):Number;
+
+
+
 }
 }

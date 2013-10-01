@@ -1,3 +1,5 @@
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
+    <!--
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Licensed to the Apache Software Foundation (ASF) under one or more
@@ -16,22 +18,15 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package
-{
-import spark.components.MobileGrid;
-import spark.components.supportClasses.MobileGridColumn;
-import spark.skins.MobileGridHeaderButtonBarSkin;
-import spark.skins.MobileGridSkin;
-
-/*
- classes that won't be detected through dependencies
-* and classes that needs to be includes in ASDOC
-* */
-
- internal class ExperimentalMobileClasses
-{
-
-    // mamsellem: for some reason, the import statements alone are not enough to have the classes included
-    private static const classes:Array = [MobileGrid, MobileGridColumn, MobileGridSkin, MobileGridHeaderButtonBarSkin];
-}
-}
+-->
+    <Rect width="100" height="64">
+        <fill>
+            <LinearGradient x="0" y="0" scaleX="64" rotation="90">
+                <GradientEntry color="#999999" ratio="0"/>
+                <GradientEntry color="#404040" ratio="0.05"/>
+                <GradientEntry color="#303030" ratio="0.75"/>
+                <GradientEntry color="#202020" ratio="1"/>
+            </LinearGradient>
+        </fill>
+    </Rect>
+</Graphic>
