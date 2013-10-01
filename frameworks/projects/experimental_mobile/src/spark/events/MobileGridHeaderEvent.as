@@ -22,7 +22,7 @@ import flash.events.Event;
 
 /**
  *  The MobileGridHeaderEvent class represents events that are dispatched when
-    the user clicks  on the header of a column in the DataGrid to sort it.
+ the user clicks  on the header of a column in the DataGrid to sort it.
  *
  *  @see spark.components.MobileGrid
  *

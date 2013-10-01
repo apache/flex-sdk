@@ -34,23 +34,25 @@ import spark.utils.DensityUtil2;
 /**  This is the base class for GridColumn
  *
  */
-public class PartRendererDescriptorBase extends EventDispatcher implements IPartRendererDescriptor
+public class PartRendererDescriptorBase extends EventDispatcher
 {
 
     private var _colNum:int;
     private var _dataField:String;
     private var _width:Number;
-    private var _scaledWidth:Number;
+    private var _hasExplicitWidth:Boolean;
+    private var _dpiScaledWidth:Number;
     private var _itemRenderer:IFactory;
     private var _labelFunction:Function;
     private var _styleName:String;
     private var _textAlign:String;
 
+
     public function PartRendererDescriptorBase(target:IEventDispatcher = null)
     {
         super(target);
         _labelFunction = null;
-        width = 100; // default width;
+        setWidth(100); // default width;
         itemRenderer = null; // will set default ;
     }
 
@@ -103,44 +105,25 @@ public class PartRendererDescriptorBase extends EventDispatcher implements IPart
         _styleName = value;
     }
 
-    /** set the desired width of the column at the application's current DPI (or 160 if none)
-     * default value is 100
-     * the actual pixel width maybe higher if the runtimeDPI or application DPI  are different than 160
+    /** Set the desired width for this column.
+     * <p> Width value is expressed in current applicationDPI, or at 160 DPI  if applicationDPI is not set.</p>
+     * Default value is 100.
+     * Note that the last column will always expand
      *
      * @param value = desired width of the column at 160 DPI
      */
     public function set width(value:Number):void
     {
-        _width = value;
-        _scaledWidth = DensityUtil2.dpiScale(value, DPIClassification.DPI_160);
+        setWidth(value);
+        _hasExplicitWidth = true;
     }
 
-    /** set the desired width of the column at the application's current DPI (or 160 if none)
-     * default value is 100
-     * the actual pixel width maybe higher if the runtimeDPI or application DPI  are different than 160
-     *
-     * @param value = desired width of the column at 160 DPI
-     */
-    public function set widthAt160DPI(value:Number):void
+    protected function setWidth(value:Number):void
     {
         _width = value;
-        _scaledWidth = DensityUtil2.dpiScale(value, DPIClassification.DPI_160);
+        _dpiScaledWidth = DensityUtil2.dpiScale(value, DPIClassification.DPI_160);
     }
 
-    public function get scaledWidth():Number
-    {
-        return  _scaledWidth;
-    }
-
-    mx_internal function get colNum():int
-    {
-        return _colNum;
-    }
-
-    mx_internal function set colNum(value:int):void
-    {
-        _colNum = value;
-    }
 
     public function get itemRenderer():IFactory
     {
@@ -169,8 +152,10 @@ public class PartRendererDescriptorBase extends EventDispatcher implements IPart
         if (pr)
         {
             pr.cssStyleName = _styleName;
-            if (pr is IItemTextPartRenderer)  {
-                with( IItemTextPartRenderer(pr)){
+            if (pr is IItemTextPartRenderer)
+            {
+                with (IItemTextPartRenderer(pr))
+                {
                     labelField = _dataField;
                     labelFunction = _labelFunction;
                     textAlign = _textAlign;
@@ -178,6 +163,26 @@ public class PartRendererDescriptorBase extends EventDispatcher implements IPart
             }
         }
         return pr;
+    }
+
+    mx_internal function get hasExplicitWidth():Boolean
+    {
+        return _hasExplicitWidth;
+    }
+
+    mx_internal function get dpiScaledWidth():Number
+    {
+        return  _dpiScaledWidth;
+    }
+
+    mx_internal function get colNum():int
+    {
+        return _colNum;
+    }
+
+    mx_internal function set colNum(value:int):void
+    {
+        _colNum = value;
     }
 
 }

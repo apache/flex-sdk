@@ -27,10 +27,10 @@ import mx.core.ScrollPolicy;
 import mx.core.mx_internal;
 
 import spark.collections.Sort;
-import spark.components.supportClasses.IPartRendererDescriptor;
 import spark.components.supportClasses.MobileGridColumn;
 import spark.components.supportClasses.MobileGridHeader;
 import spark.components.supportClasses.MobileGridRowRenderer;
+import spark.components.supportClasses.PartRendererDescriptorBase;
 import spark.events.MobileGridHeaderEvent;
 import spark.layouts.VerticalLayout;
 import spark.layouts.supportClasses.LayoutBase;
@@ -58,7 +58,7 @@ use namespace  mx_internal;
 
 /**
  *  The MobileGrid displays a collection of items in a grid of rows and columns, with column headers, optimized for mobile devices.
- * <p> The MobileGrid component provides the following features:    </p>
+ *  The MobileGrid component provides the following features:
  *  <ul>
  *      <li> user can swipe through the rows in the datagrid. </li>
  *      <li> supports single selection of a row. </li>
@@ -69,18 +69,18 @@ use namespace  mx_internal;
  *
  * <p> It's important to understand that MobileGrid does not have all the capabilities and flexibility of it's desktop equivalent,
  * in order to ensure optimal display and scrolling performance on mobile devices. </p>
- * <p>Typically, the following features are not available in MobileGrid: </p>
+ * <p>Typically, the following features are not available in MobileGrid:
  * <ul>
  *     <li>the list of columns is static and cannot be changed at runtime</li>
  *     <li>multiple selection is not supported </li>
  *     <li>it's not possible to interactively reorder columns </li>
  *     <li>custom cell renderers must be designed with care, preferably in ActionScript, to ensure good display performance </li>
  *   </ul>
- *
- * <p>Internally,  MobileGrid inherits for Mobile spark.List component rather than any Grid or DataGrid, which means that all cell renderers in a single row are managed
- * by one single MobileGridRowRenderer that  delegates the individual  cell renderers to light-weight sub-renderers. </p>
+ *  </p>
+ * <p>Internally,  MobileGrid inherits for Mobile spark.List component rather than any Grid or DataGrid, which means that all cell renderers
+ * in a single row are managed   by one single MobileGridRowRenderer that  delegates the individual  cell renderers to light-weight sub-renderers. </p>
  * <p> You usually don't access this internal row renderer yourself, and will rather define the individual cell renderers.</p>
- * <p> This technique ensures optimal display and memory performance, which is critical for mobile devices,, at the price of less flexibility for cell renderers </p>
+ * <p> This technique ensures optimal display and memory performance, which is critical for mobile devices,, at the price of less flexibility for cell renderers. </p>
  *
  *  @see spark.components.supportClasses.MobileGridColumn
  *
@@ -94,7 +94,7 @@ public class MobileGrid extends List
     [SkinPart(required="true")]
     public var headerGroup:MobileGridHeader;
 
-    private var _columns: Array;
+    private var _columns:Array;
     private var _columnsChanged:Boolean = false;
     private var _sortableColumns:Boolean = true;
     private var lastSortIndex:int = -1;
@@ -174,7 +174,8 @@ public class MobileGrid extends List
     override protected function commitProperties():void
     {
         super.commitProperties();
-        if (_columnsChanged){
+        if (_columnsChanged)
+        {
             _columnsChanged = false;
             for (var i:int = 0; i < _columns.length; i++)
             {
@@ -195,12 +196,12 @@ public class MobileGrid extends List
         return l;
     }
 
-    protected function initDefaultItemRenderer(pcolumnDescriptors: Array):void
+    protected function initDefaultItemRenderer(pcolumnDescriptors:Array):void
     {
         var cf:ClassFactory;
         cf = new ClassFactory(MobileGridRowRenderer);
         cf.properties = {
-            partRendererDescriptors: Vector.<IPartRendererDescriptor>(pcolumnDescriptors)
+            partRendererDescriptors: Vector.<PartRendererDescriptorBase>(pcolumnDescriptors)
         };
         this.itemRenderer = cf;
     }
@@ -230,10 +231,10 @@ public class MobileGrid extends List
     private function headerGroup_sortChangeHandler(event:MobileGridHeaderEvent):void
     {
         var e:MobileGridHeaderEvent = MobileGridHeaderEvent(event.clone());
-        dispatchEvent( e)
+        dispatchEvent(e)
         if (!e.isDefaultPrevented())
         {
-                 sortByColumn(e.columnIndex);
+            sortByColumn(e.columnIndex);
         }
     }
 
@@ -243,7 +244,7 @@ public class MobileGrid extends List
         var collection:ICollectionView = dataProvider as ICollectionView;
         var c:MobileGridColumn = _columns[index];
         if (!c.sortable)
-            return ;
+            return;
         var desc:Boolean = c.sortDescending;
 
         // do the sort if we're allowed to
@@ -296,6 +297,11 @@ public class MobileGrid extends List
         headerGroup.setSort(sortIndex, desc);
     }
 
+
+    override public function validateSize(recursive:Boolean = false):void
+    {
+        super.validateSize(recursive);
+    }
 
 
 }

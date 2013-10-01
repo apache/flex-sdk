@@ -33,7 +33,6 @@ import spark.components.supportClasses.MobileGridHeader;
 import spark.layouts.HorizontalAlign;
 import spark.layouts.VerticalLayout;
 import spark.skins.mobile.supportClasses.MobileSkin;
-import spark.utils.MultiDPIBitmapSource;
 import spark.utils.MultiDPIBitmapSourceExt;
 
 use namespace mx_internal;
@@ -73,7 +72,7 @@ public class MobileGridSkin extends MobileSkin
                 minWidth = 100;
                 break;
         }
-        var headerShadowSrc:MultiDPIBitmapSource = new MultiDPIBitmapSourceExt();
+        var headerShadowSrc:MultiDPIBitmapSourceExt = new MultiDPIBitmapSourceExt();
         headerShadowSrc.source320dpi = headerShadowCls320;
         headerShadowSrc.source160dpi = headerShadowCls160;
         headerShadowCls = Class(headerShadowSrc.getSource(NaN));

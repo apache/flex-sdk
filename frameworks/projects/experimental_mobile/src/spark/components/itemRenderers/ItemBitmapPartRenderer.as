@@ -19,15 +19,18 @@
 package spark.components.itemRenderers
 {
 
-import mx.core.BitmapAsset;
+import mx.core.mx_internal;
+import mx.graphics.BitmapFillMode;
 import mx.styles.IStyleClient;
 
-import spark.utils.MultiDPIBitmapSourceExt;
+import spark.primitives.BitmapImage;
+
+use namespace mx_internal;
 
 /** Default lightweight  class for rendering embedded Bitmaps  or Multi-DPI Bitmaps in a MobileGrid cell .
  * <p> You define the icon to be used in each cell by setting either iconField or iconFunction properties.  </p>
  *  */
-public class ItemBitmapPartRenderer extends BitmapAsset implements IItemPartRendererBase
+public class ItemBitmapPartRenderer extends BitmapImage implements IItemPartRendererBase
 {
 
     private var _iconFunction:Function = null;
@@ -37,6 +40,7 @@ public class ItemBitmapPartRenderer extends BitmapAsset implements IItemPartRend
     public function ItemBitmapPartRenderer()
     {
         super();
+        _fillMode = BitmapFillMode.REPEAT; // do not stretch
     }
 
     /**
@@ -69,12 +73,12 @@ public class ItemBitmapPartRenderer extends BitmapAsset implements IItemPartRend
      *  <pre>iconFunction(item:Object):Object</pre>
      *
      *  <p>The <code>item</code> parameter is the data provider item for an entire row.</p>
-     *  <p> The function must return either an embedded bitmap's class, or a MultiBitmapSourceExt object .</p>
+     *  <p> The function must return either an embedded bitmap's class, or a MultiBitmapSource object .</p>
      *
      *  @default null
      *
      *  @see #iconLabel
-     *  @see  spark.utils.MultiDPIBitmapSourceExt
+     *  @see  spark.utils.MultiDPIBitmapSource
      *
      */
     public function get iconFunction():Function
@@ -89,46 +93,14 @@ public class ItemBitmapPartRenderer extends BitmapAsset implements IItemPartRend
 
     public function set data(value:Object):void
     {
-        var iconClass:Class;
         _data = value;
         var iconSource:Object = _iconFunction != null ? _iconFunction(_data) : _data[_iconField];
-        if (iconSource is MultiDPIBitmapSourceExt)
-        {
-            iconClass = MultiDPIBitmapSourceExt(iconSource).getSource(NaN) as Class;
-        }
-        else
-        {
-            iconClass = iconSource as Class;
-        }
-        if (iconClass != null)
-        {
-            var icon:BitmapAsset = new iconClass();
-            this.bitmapData = icon.bitmapData;
-        }
-        else
-        {
-            this.bitmapData = null;
-        }
+        this.source = iconSource;
     }
 
     public function get data():Object
     {
         return _data;
-    }
-
-    public function getPreferredBoundsWidth(postLayoutTransform:Boolean = true):Number
-    {
-        return bitmapData.width;
-    }
-
-    public function getPreferredBoundsHeight(postLayoutTransform:Boolean = true):Number
-    {
-        return bitmapData.height;
-    }
-
-    override public function setActualSize(newWidth:Number, newHeight:Number):void
-    {
-        // do nothing, bitmap renderer don't stretch for now
     }
 
     public function set styleProvider(value:IStyleClient):void
@@ -138,7 +110,19 @@ public class ItemBitmapPartRenderer extends BitmapAsset implements IItemPartRend
 
     public function set cssStyleName(value:String):void
     {
+
     }
 
+    /* to avoid any scaling artifacts, we do not allow bitmap to be stretcghed */
+
+    public function get canSetWidth():Boolean
+    {
+        return false;
+    }
+
+    public function get canSetHeight():Boolean
+    {
+        return false;
+    }
 }
 }

@@ -91,6 +91,16 @@ public class ItemTextPartRenderer extends StyleableTextField implements IItemTex
     {
         _labelFunction = value;
     }
+
+    public function get canSetWidth():Boolean
+    {
+        return true;
+    }
+
+    public function get canSetHeight():Boolean
+    {
+        return false;
+    }
 }
 }
 

@@ -24,10 +24,28 @@ import mx.utils.DensityUtil;
 public class MultiDPIBitmapSourceExt extends MultiDPIBitmapSource
 {
 
+    /**
+     *  Select one of the sourceXXXdpi properties based on the given DPI.  This
+     *  function handles the fallback to different sourceXXXdpi properties
+     *  if the given one is null.
+     *  The strategy is to try to choose the next highest
+     *  property if it is not null, then return a lower property if not null, then
+     *  just return null.
+     *  If desiredDPI is NaN or 0, return the sourceXXXdpi for the  runtime DPI .
+     *
+     *  @param The desired DPI.
+     *
+     *  @return One of the sourceXXXdpi properties based on the desired DPI.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.6
+     *  @productversion Flex 4.5
+     */
 
     override public function getSource(desiredDPI:Number):Object
     {
-        if (isNaN(desiredDPI))
+        if (isNaN(desiredDPI) || (desiredDPI == 0))
         {
             var app:Object = FlexGlobals.topLevelApplication;
             var dpi:Number;
@@ -40,5 +58,8 @@ public class MultiDPIBitmapSourceExt extends MultiDPIBitmapSource
         else
             return super.getSource(desiredDPI);
     }
+
+    //TODO mamsellem move this code to parent class, updates any callers, and remove this class
+
 }
 }

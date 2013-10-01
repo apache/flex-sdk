@@ -60,10 +60,10 @@ public class MobileGridHeader extends ButtonBar
     protected var ascIconCls:MultiDPIBitmapSource;
 
     private var _dataGrid:MobileGrid;
-    private var _columns: Array;
+    private var _columns:Array;
     private var _sortIndex:int = -1;
 
-      public function MobileGridHeader()
+    public function MobileGridHeader()
     {
         this.labelField = "headerText";
         this.iconFunction = getIconForButton;
@@ -103,8 +103,9 @@ public class MobileGridHeader extends ButtonBar
     {
         event.preventDefault();      // to clear selection
         var i:int = event.newIndex;
-        var c: MobileGridColumn = _columns[i];
-        if (_dataGrid.sortableColumns && c.sortable)   {
+        var c:MobileGridColumn = _columns[i];
+        if (_dataGrid.sortableColumns && c.sortable)
+        {
             var headerEvent:MobileGridHeaderEvent = new MobileGridHeaderEvent(MobileGridHeaderEvent.SORT_CHANGE, c.colNum, false, true);
             // HEADER_RELEASE event is cancelable
             dispatchEvent(headerEvent);
@@ -129,9 +130,9 @@ public class MobileGridHeader extends ButtonBar
         var button:UIComponent = UIComponent(event.renderer);
         var index:int = event.index;
         var col:MobileGridColumn = MobileGridColumn(_columns[index]);
-        // don't size the last button
-        if (index != dataProvider.length - 1)
-            button.explicitWidth = col.scaledWidth;
+        // expand the last button
+        if ((index != dataProvider.length - 1) || col.hasExplicitWidth)
+            button.explicitWidth = col.dpiScaledWidth;
         else
             button.percentWidth = 100;
     }

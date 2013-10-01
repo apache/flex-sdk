@@ -19,10 +19,6 @@
 package spark.components.itemRenderers
 {
 
-import flash.display.DisplayObjectContainer;
-
-import mx.core.IDataRenderer;
-
 public interface IItemTextPartRenderer extends IItemPartRendererBase
 {
 

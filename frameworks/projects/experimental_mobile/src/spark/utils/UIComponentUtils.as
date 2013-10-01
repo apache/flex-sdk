@@ -18,40 +18,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.utils
 {
-import mx.collections.IList;
 import mx.core.IFlexDisplayObject;
 import mx.core.ILayoutElement;
-import mx.core.UIComponent;
-
-import spark.components.IItemRendererOwner;
 
 public class UIComponentUtils
 {
 
-    /* fast function based on char length and not on pixel length*/
-    public static function computeLongestItem(listComponent:IItemRendererOwner, dataProvider:IList, max:int = 10):Object
-    {
-        if (!dataProvider)
-        {
-            return null;
-        }
-        max = Math.min(max, dataProvider.length);
-        var maxLength:int = 0;
-        var longestItem:Object;
-        var item:Object;
-        var itemStringLength:int;
-        for (var i:int = 0; i < max; i++)
-        {
-            item = dataProvider.getItemAt(i);
-            itemStringLength = listComponent.itemToLabel(item).length;
-            if (itemStringLength >= maxLength)
-            {
-                maxLength = itemStringLength;
-                longestItem = item;
-            }
-        }
-        return longestItem;
-    }
 
     public static function itemToLabel(item:Object, labelField:String, labelFunction:Function, nullLabel:String = '-'):String
     {
@@ -69,12 +41,6 @@ public class UIComponentUtils
         }
     }
 
-    public static function clearBoundsSize(comp:UIComponent):void
-    {
-        comp.explicitWidth = NaN; // was set before
-        comp.explicitHeight = NaN;
-        comp.setLayoutBoundsSize(NaN, NaN);
-    }
 
     public static function setElementSize(element:Object, width:Number, height:Number):void
     {

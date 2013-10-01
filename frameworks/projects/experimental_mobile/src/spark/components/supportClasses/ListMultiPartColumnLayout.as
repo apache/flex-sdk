@@ -18,17 +18,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.components.supportClasses
 {
+import mx.core.mx_internal;
+
 import spark.components.itemRenderers.IItemPartRendererBase;
 import spark.utils.UIComponentUtils;
 
+use namespace  mx_internal;
+
 /** @private
- *    this class is reponsible for laying out grid cells in a given MobileGrid row.
+ *    this class is responsible for laying out grid cells in a given MobileGrid row.
  *    It will make sure that cell content is aligned according to the column widths.
  */
-public class ListMultiPartTabbedLayout extends ListMultiPartLayoutBase
+public class ListMultiPartColumnLayout extends ListMultiPartLayoutBase
 {
 
-    public function ListMultiPartTabbedLayout(target:ListMultiPartItemRendererBase)
+    public function ListMultiPartColumnLayout(target:ListMultiPartItemRendererBase)
     {
         super(target);
     }
@@ -37,9 +41,9 @@ public class ListMultiPartTabbedLayout extends ListMultiPartLayoutBase
     {
         super.measure();
         var totalWidth:Number = 0;
-        for each (var ld:IPartRendererDescriptor in partRendererDescriptors)
+        for each (var ld:PartRendererDescriptorBase in partRendererDescriptors)
         {
-            totalWidth += ld.scaledWidth;
+            totalWidth += ld.dpiScaledWidth;
         }
         target.measuredWidth = totalWidth;
         target.measuredMinWidth = 50;
@@ -58,11 +62,12 @@ public class ListMultiPartTabbedLayout extends ListMultiPartLayoutBase
         var paddingBottom:Number = target.getStyle("paddingBottom");
         var cellHeight:Number = unscaledHeight - paddingTop - paddingBottom;
 
-        var desc:IPartRendererDescriptor;
+        var desc:PartRendererDescriptorBase;
         var dpr:IItemPartRendererBase;
         var remainingWidth:Number = unscaledWidth;
         var curX:Number = cellPaddingLeft;
         var curY:Number = paddingTop;
+        var colWidth:Number;
         var partWidth:Number;
         var partHeight:Number;
         var count:int = partRenderers.length - 1;
@@ -70,12 +75,22 @@ public class ListMultiPartTabbedLayout extends ListMultiPartLayoutBase
         {
             dpr = partRenderers[i];
             desc = partRendererDescriptors[i];
-            partHeight = dpr.getPreferredBoundsHeight();
-            partWidth = Math.max(0, i == count ? remainingWidth : desc.scaledWidth - cellPaddingLeft - cellPaddingRight);
+            colWidth = desc.dpiScaledWidth;
+            if (dpr.canSetWidth)
+            {
+                // expand last column to fill width, unless it has explicity width
+                partWidth = Math.max(0, ( i == count && !desc.hasExplicitWidth) ? remainingWidth : colWidth - cellPaddingLeft - cellPaddingRight);
+            }
+            else
+            {
+                partWidth = dpr.getPreferredBoundsHeight();
+            }
+            partHeight = dpr.canSetHeight ? cellHeight : dpr.getPreferredBoundsHeight();
+            ;
             setElementSize(dpr, partWidth, partHeight);
             setElementPosition(dpr, curX, curY + UIComponentUtils.offsetForCenter(partHeight, cellHeight));
-            curX += partWidth + cellPaddingRight + cellPaddingLeft;
-            remainingWidth -= desc.scaledWidth;
+            curX += colWidth;
+            remainingWidth -= colWidth;
         }
     }
 }

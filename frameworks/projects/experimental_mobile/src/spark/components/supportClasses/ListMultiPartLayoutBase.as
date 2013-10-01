@@ -22,6 +22,7 @@ import mx.core.IFlexDisplayObject;
 import mx.core.ILayoutElement;
 
 import spark.components.itemRenderers.IItemPartRendererBase;
+import spark.core.IGraphicElement;
 
 /** @private
  *   Abstract base class for laying out part renderers in a multi-part renderer.
@@ -41,10 +42,16 @@ public class ListMultiPartLayoutBase extends Object
         return _target;
     }
 
-    protected function get partRendererDescriptors():Vector.<IPartRendererDescriptor>
+    protected function get partRendererDescriptors():Vector.<PartRendererDescriptorBase>
     {
         return target.partRendererDescriptors;
     }
+
+    protected function get graphicElementPartRenderers():Vector.<IGraphicElement>
+    {
+        return target.graphicElementPartRenderers;
+    }
+
 
     protected function get partRenderers():Vector.<IItemPartRendererBase>
     {

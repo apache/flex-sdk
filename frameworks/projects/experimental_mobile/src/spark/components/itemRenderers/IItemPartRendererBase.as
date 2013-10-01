@@ -34,6 +34,10 @@ public interface IItemPartRendererBase extends IDataRenderer
      */
     function set styleProvider(value:IStyleClient):void ;
 
+    function get canSetWidth():Boolean;
+
+    function get canSetHeight():Boolean;
+
     /**
      * @private
      */
@@ -48,7 +52,6 @@ public interface IItemPartRendererBase extends IDataRenderer
      * @private
      */
     function getPreferredBoundsHeight(postLayoutTransform:Boolean = true):Number;
-
 
 
 }

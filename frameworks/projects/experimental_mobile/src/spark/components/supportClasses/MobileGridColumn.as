@@ -48,13 +48,13 @@ public class MobileGridColumn extends PartRendererDescriptorBase
     private var _headerText:String = null;
     private var _headerStyleName:String;
     private var _sortDescending:Boolean;
-    private var _sortable: Boolean = true;
+    private var _sortable:Boolean = true;
 
     public function MobileGridColumn(target:IEventDispatcher = null)
     {
         super(target);
         labelFunction = null;
-        width = 100; // default width;
+        setWidth(100); // default width;
         itemRenderer = null; // will set default ;
     }
 
@@ -64,7 +64,7 @@ public class MobileGridColumn extends PartRendererDescriptorBase
      */
     public function get headerText():String
     {
-        return _headerText != null ? _headerText : dataField ;
+        return _headerText != null ? _headerText : dataField;
     }
 
     public function set headerText(value:String):void

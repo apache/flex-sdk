@@ -26,7 +26,8 @@ MobileGrid
     contentBackgroundColor: #202020;
     alternatingItemColors: #202020, #2a2a2a;
     color: white;
-    selection-color: #00a2ff; /* blue  */
+     selection-color: #00a2ff; /* blue  */
+
 }
 
 supportClasses|MobileGridHeader
@@ -37,9 +38,10 @@ supportClasses|MobileGridHeader
     /*   color: #f0f0f0;  */
 }
 
-supportClasses|ItemRendererBase
+supportClasses|MobileGridRowRenderer
 {
     verticalAlign: "middle";
+    downColor: #000000;;
 }
 
 @media (application-dpi: 120)
@@ -60,7 +62,6 @@ supportClasses|ItemRendererBase
 
     supportClasses|ItemRendererBase
     {
-        color: #bae5ff;
         paddingBottom: 12;
         paddingLeft: 7;
         paddingRight: 7;
@@ -73,7 +74,7 @@ supportClasses|ItemRendererBase
 
     supportClasses|MobileGridHeader
     {
-        fontSize: 14;
+        fontSize: 18;
     }
 
     supportClasses|MobileGridRowRenderer
@@ -86,7 +87,6 @@ supportClasses|ItemRendererBase
 
     supportClasses|ItemRendererBase
     {
-        color: #acffb5;
         paddingBottom: 16;
         paddingLeft: 10;
         paddingRight: 10;
@@ -112,7 +112,6 @@ supportClasses|ItemRendererBase
 
     supportClasses|ItemRendererBase
     {
-        color: #fbffa0;
         paddingBottom: 24;
         paddingLeft: 14;
         paddingRight: 14;
@@ -130,7 +129,6 @@ supportClasses|ItemRendererBase
 
     supportClasses|MobileGridRowRenderer
     {
-        color: #ffc2aa;
         paddingTop: 2;
         paddingLeft: 20;
         paddingRight: 20;
@@ -145,5 +143,31 @@ supportClasses|ItemRendererBase
         paddingTop: 32;
     }
 }
+
+@media (application-dpi: 480)
+{
+
+    supportClasses|MobileGridHeader
+    {
+        fontSize: 40;
+    }
+
+    supportClasses|MobileGridRowRenderer
+    {
+        paddingTop: 4;
+        paddingLeft: 28;
+        paddingRight: 28;
+        paddingBottom: 0;
+    }
+
+    supportClasses|ItemRendererBase
+    {
+        paddingBottom: 48;
+        paddingLeft: 28;
+        paddingRight: 28;
+        paddingTop: 48;
+    }
+}
+
 
 

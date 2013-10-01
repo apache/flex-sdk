@@ -20,7 +20,6 @@ package spark.utils
 {
 
 import mx.core.FlexGlobals;
-import mx.core.mx_internal;
 import mx.managers.SystemManager;
 
 import spark.components.Application;
@@ -28,38 +27,16 @@ import spark.components.Application;
 public class DensityUtil2
 {
 
-    use namespace mx_internal;
-
     private static var _setApplicationDPI:Number = 0;
 
-    /**  Calculates a scale factor to be used when element authored for  <code>sourceDPI</code>
-     *   two algorithms: <br/>
-     *   Application.applicationDPI has been set, which means scaling factor  occurs already, so additional scaling is required, return 1
-     *  Application.applicationDPI has not been set, then return runTimeDPI / sourceDPI
-     *  examples:
-     *  runtimeDPI = 320 and sourceDPI = 160 and  applicationDPI not set  (ie=320) => 2
-     *  runtimeDPI = 160 and sourceDPI = 160 and applicationDPI not set (ie=160)  => 1
-     *  runtimeDPI = 160 and sourceDPI = 160 and applicationDPI = 160 => 1
-     *  runtimeDPI = 320 and sourceDPI = 160 and applicationDPI = 160 => 1 (scaling occurs)
+    /**  returns the actual  value for  a value authored for  <code>sourceDPI</code>, taking into account any dpi scaling.
+     *  <ul>
+     *      <li> If Application.applicationDPI has been set, which means dpi scaling factor is already applied, return the original value.</li>
+     *     <li> If Application.applicationDPI has not been set, then return scaled value runTimeDPI / sourceDPI   </li>
+     *  </li>
      * @param sourceDPI
-     * @return  scale factor
+     * @return  scaled value
      */
-
-    public static function getPostDPIScale(sourceDPI:Number):Number
-    {
-
-        var appDPI:Number = getSetApplicationDPI();
-        if (isNaN(appDPI))
-        {
-            // was not set,
-            var runDPI:Number = FlexGlobals.topLevelApplication.runtimeDPI;
-            return runDPI / sourceDPI;
-        }
-        else
-            return 1.0; //  already scaled
-    }
-
-
     public static function dpiScale(value:Number, sourceDPI:Number):Number
     {
         var appDPI:Number = getSetApplicationDPI();
@@ -70,9 +47,10 @@ public class DensityUtil2
         }
         else
             return value; //  already scaled
-
     }
 
+    /**
+     *  returns the applicationDPI that was explicitly set in top level application , or NaN if none */
     private static function getSetApplicationDPI():Number
     {
         if (_setApplicationDPI == 0)

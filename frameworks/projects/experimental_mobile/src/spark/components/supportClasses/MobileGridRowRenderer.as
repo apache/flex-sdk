@@ -27,7 +27,7 @@ public class MobileGridRowRenderer extends ListMultiPartItemRendererBase
 {
     public function MobileGridRowRenderer()
     {
-        partRenderersLayout = new ListMultiPartTabbedLayout(this);
+        partRenderersLayout = new ListMultiPartColumnLayout(this);
     }
 
 }
