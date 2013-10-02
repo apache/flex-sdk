@@ -1267,9 +1267,9 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
     
     /**
      *  The doubleClick mode of the control.  Possible values are:
-     *  <code>GridSelectionMode.CELL</code>, 
-     *  <code>GridSelectionMode.GRID</code>, 
-     *  <code>GridSelectionMode.ROW</code>, 
+     *  <code>GridDoubleClickMode.CELL</code>, 
+     *  <code>GridDoubleClickMode.GRID</code>, 
+     *  <code>GridDoubleClickMode.ROW</code>, 
      * 
      *  <p>Changing the doubleClickMode changes the double click
      *  criteria for firing the doubleClick event</p>
