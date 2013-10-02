@@ -28,9 +28,9 @@ import mx.core.mx_internal;
 import mx.utils.ObjectUtil;
 
 import spark.collections.SortField;
-import spark.components.itemRenderers.IItemPartRendererBase;
-import spark.components.itemRenderers.IItemTextPartRenderer;
-import spark.components.itemRenderers.ItemTextPartRenderer;
+import spark.components.itemRenderers.IMobileGridCellRenderer;
+import spark.components.itemRenderers.IMobileGridTextCellRenderer;
+import spark.components.itemRenderers.MobileGridTextCellRenderer;
 
 /**
  *  The MobileGridColumn class defines  a column to display in a MobileGrid control.
@@ -150,19 +150,19 @@ public class MobileGridColumn extends EventDispatcher
     private var _itemRenderer:IFactory;
 
     /**
-     *  The class factory for the IItemPartRendererBase  class used to
+     *  The class factory for the IMobileGridCellRenderer  class used to
      *  render individual grid cells.
      *
      *  <p>The default item renderer is the ItemTextPartRenderer class,
      *  which displays the data item as text, optimized for mobile.  </p>
      *  <p>You can use also ItemBitmapPartRenderer to display embedded bitmaps, in which case you need to define the iconField or iconFunction </p>
-     *  <p>You can also  create custom item renderers by deriving any subclass of UIComponent (eg. s:Button) and implementing IItemPartRendererBase.
+     *  <p>You can also  create custom item renderers by deriving any subclass of UIComponent (eg. s:Button) and implementing IMobileGridCellRenderer.
      *  for performance reasons  it's preferable that your renderer be written in ActionScript
      *
      *  @see #dataField
-     *  @see spark.components.itemRenderers.ItemTextPartRenderer
-     *  @see spark.components.itemRenderers.ItemBitmapPartRenderer
-     *  @see spark.components.itemRenderers.IItemPartRendererBase
+     *  @see spark.components.itemRenderers.MobileGridTextCellRenderer
+     *  @see spark.components.itemRenderers.MobileGridBitmapCellRenderer
+     *  @see spark.components.itemRenderers.IMobileGridCellRenderer
      *
      */
     public function get itemRenderer():IFactory
@@ -172,7 +172,7 @@ public class MobileGridColumn extends EventDispatcher
 
     public function set itemRenderer(value:IFactory):void
     {
-        _itemRenderer = value ? value : new ClassFactory(ItemTextPartRenderer);
+        _itemRenderer = value ? value : new ClassFactory(MobileGridTextCellRenderer);
     }
 
     private var _labelFunction:Function;
@@ -325,15 +325,15 @@ public class MobileGridColumn extends EventDispatcher
         return sortField;
     }
 
-    public function createPartRenderer():IItemPartRendererBase
+    public function createPartRenderer():IMobileGridCellRenderer
     {
-        var pr:IItemPartRendererBase = _itemRenderer.newInstance() as IItemPartRendererBase;
+        var pr:IMobileGridCellRenderer = _itemRenderer.newInstance() as IMobileGridCellRenderer;
         if (pr)
         {
             pr.cssStyleName = _styleName;
-            if (pr is IItemTextPartRenderer)
+            if (pr is IMobileGridTextCellRenderer)
             {
-                with (IItemTextPartRenderer(pr))
+                with (IMobileGridTextCellRenderer(pr))
                 {
                     labelField = _dataField;
                     labelFunction = _labelFunction;

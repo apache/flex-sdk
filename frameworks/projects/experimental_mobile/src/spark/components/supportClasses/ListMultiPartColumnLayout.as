@@ -22,7 +22,7 @@ import mx.core.IFlexDisplayObject;
 import mx.core.ILayoutElement;
 import mx.core.mx_internal;
 
-import spark.components.itemRenderers.IItemPartRendererBase;
+import spark.components.itemRenderers.IMobileGridCellRenderer;
 import spark.core.IGraphicElement;
 import spark.utils.UIComponentUtils;
 
@@ -56,7 +56,7 @@ public class ListMultiPartColumnLayout extends Object
         return target.graphicElementPartRenderers;
     }
 
-    protected function get partRenderers():Vector.<IItemPartRendererBase>
+    protected function get partRenderers():Vector.<IMobileGridCellRenderer>
     {
         return target.partRenderers;
     }
@@ -82,7 +82,7 @@ public class ListMultiPartColumnLayout extends Object
         var cellHeight:Number = unscaledHeight - paddingTop - paddingBottom;
 
         var desc:MobileGridColumn;
-        var dpr:IItemPartRendererBase;
+        var dpr:IMobileGridCellRenderer;
         var curX:Number = cellPaddingLeft;
         var curY:Number = paddingTop;
         var colWidth:Number;

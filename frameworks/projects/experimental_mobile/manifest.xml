@@ -23,6 +23,6 @@
 <componentPackage>
     <component class="spark.components.MobileGrid"/>
     <component class="spark.components.supportClasses.MobileGridColumn"/>
-    <component class="spark.components.itemRenderers.ItemBitmapPartRenderer"/>
-    <component class="spark.components.itemRenderers.ItemTextPartRenderer"/>
+    <component class="spark.components.itemRenderers.MobileGridBitmapCellRenderer"/>
+    <component class="spark.components.itemRenderers.MobileGridTextCellRenderer"/>
 </componentPackage>

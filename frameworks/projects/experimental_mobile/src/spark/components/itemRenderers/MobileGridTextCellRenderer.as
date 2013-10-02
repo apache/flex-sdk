@@ -37,14 +37,14 @@ use namespace mx_internal;
  *  @productversion Flex 4.11
  *
  *  */
-public class ItemTextPartRenderer extends StyleableTextField implements IItemTextPartRenderer
+public class MobileGridTextCellRenderer extends StyleableTextField implements IMobileGridTextCellRenderer
 {
 
     private var _labelFunction:Function;
     private var _labelField:String;
     private var _data:Object;
 
-    public function ItemTextPartRenderer()
+    public function MobileGridTextCellRenderer()
     {
         super();
         editable = false;

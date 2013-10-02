@@ -31,7 +31,7 @@ import mx.styles.IStyleClient;
  *  @playerversion AIR 3.8
  *  @productversion Flex 4.11
  */
-public interface IItemPartRendererBase extends IDataRenderer
+public interface IMobileGridCellRenderer extends IDataRenderer
 {
     /** @private
      *  Object to be used for providing styles to the part renderer.

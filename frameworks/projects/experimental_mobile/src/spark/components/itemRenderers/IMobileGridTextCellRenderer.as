@@ -25,7 +25,7 @@ package spark.components.itemRenderers
  *  @productversion Flex 4.11
  */
 
-public interface IItemTextPartRenderer extends IItemPartRendererBase
+public interface IMobileGridTextCellRenderer extends IMobileGridCellRenderer
 {
     /* implement this property so that the renderer can receive the dataField from the renderer's MobileGridColumn*/
     function set labelField(value:String):void;

@@ -35,14 +35,14 @@ use namespace mx_internal;
  *  @productversion Flex 4.11
  *
  *  */
-public class ItemBitmapPartRenderer extends BitmapImage implements IItemPartRendererBase
+public class MobileGridBitmapCellRenderer extends BitmapImage implements IMobileGridCellRenderer
 {
 
     private var _iconFunction:Function = null;
     private var _iconField:String = null;
     protected var _data:Object;
 
-    public function ItemBitmapPartRenderer()
+    public function MobileGridBitmapCellRenderer()
     {
         super();
         _fillMode = BitmapFillMode.REPEAT; // do not stretch

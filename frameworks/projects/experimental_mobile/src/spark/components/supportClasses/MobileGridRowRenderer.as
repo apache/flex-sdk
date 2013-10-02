@@ -20,7 +20,7 @@ package spark.components.supportClasses
 {
 import flash.display.DisplayObject;
 
-import spark.components.itemRenderers.IItemPartRendererBase;
+import spark.components.itemRenderers.IMobileGridCellRenderer;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.core.IGraphicElementContainer;
@@ -42,7 +42,7 @@ import spark.core.ISharedDisplayObject;
 public class MobileGridRowRenderer extends ItemRendererBase implements IGraphicElementContainer, ISharedDisplayObject
 {
     private var _columns:Vector.<MobileGridColumn>;
-    private var _partRenderers:Vector.<IItemPartRendererBase>;
+    private var _partRenderers:Vector.<IMobileGridCellRenderer>;
     private var _graphicElementPartRenderers:Vector.<IGraphicElement>;
     private var _partRenderersLayout:ListMultiPartColumnLayout;
 
@@ -63,7 +63,7 @@ public class MobileGridRowRenderer extends ItemRendererBase implements IGraphicE
     public function set columns(value:Vector.<MobileGridColumn>):void
     {
         _columns = value;
-        _partRenderers = new Vector.<IItemPartRendererBase>(_columns.length, true);
+        _partRenderers = new Vector.<IMobileGridCellRenderer>(_columns.length, true);
         _graphicElementPartRenderers = new Vector.<IGraphicElement>();
     }
 
@@ -72,7 +72,7 @@ public class MobileGridRowRenderer extends ItemRendererBase implements IGraphicE
         return _columns;
     }
 
-    public function get partRenderers():Vector.<IItemPartRendererBase>
+    public function get partRenderers():Vector.<IMobileGridCellRenderer>
     {
         return _partRenderers;
     }
@@ -86,7 +86,7 @@ public class MobileGridRowRenderer extends ItemRendererBase implements IGraphicE
     {
         super.createChildren();
         var desc:MobileGridColumn;
-        var pr:IItemPartRendererBase;
+        var pr:IMobileGridCellRenderer;
         var ge:IGraphicElement;
         for (var i:int = 0; i < _columns.length; i++)
         {
@@ -115,7 +115,7 @@ public class MobileGridRowRenderer extends ItemRendererBase implements IGraphicE
             else
             {
                 //TODO move to resource bundle
-                throw  new Error("MobileGridColumn item renderer must implement spark.components.itemRenderers.IItemPartRendererBase");
+                throw  new Error("MobileGridColumn item renderer must implement spark.components.itemRenderers.IMobileGridCellRenderer");
             }
         }
     }
@@ -136,7 +136,7 @@ public class MobileGridRowRenderer extends ItemRendererBase implements IGraphicE
 
     override protected function onDataChanged():void
     {
-        var dpr:IItemPartRendererBase;
+        var dpr:IMobileGridCellRenderer;
         for (var i:int = 0; i < _partRenderers.length; i++)
         {
             dpr = _partRenderers[i];
