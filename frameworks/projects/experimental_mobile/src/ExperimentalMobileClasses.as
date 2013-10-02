@@ -25,7 +25,7 @@ import spark.skins.MobileGridSkin;
 
 /*
  classes that won't be detected through dependencies
- * and classes that needs to be includes in ASDOC
+ * and root classes that needs to be includes in ASDOC
  * */
 
 internal class ExperimentalMobileClasses

@@ -24,6 +24,12 @@ import mx.styles.IStyleClient;
 
 /**
  * This is the base interface that all mobile cell or other mobile item part renderers must implement.
+ * Contrary to desktop DataGrid control, there is no default base renderer,
+ * because mobile renderers must be lightweight, and derive directly for the existing component, (ie. s:Button or s:CheckBox ).
+ *
+ *  @langversion 3.0
+ *  @playerversion AIR 3.8
+ *  @productversion Flex 4.11
  */
 public interface IItemPartRendererBase extends IDataRenderer
 {
@@ -34,9 +40,9 @@ public interface IItemPartRendererBase extends IDataRenderer
      */
     function set styleProvider(value:IStyleClient):void ;
 
-    function get canSetWidth():Boolean;
+    function get canSetContentWidth():Boolean;
 
-    function get canSetHeight():Boolean;
+    function get canSetContentHeight():Boolean;
 
     /**
      * @private

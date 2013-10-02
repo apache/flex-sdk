@@ -21,6 +21,12 @@ package spark.utils
 import mx.core.FlexGlobals;
 import mx.utils.DensityUtil;
 
+//TODO mamsellem move this code to parent class, updates any callers, and remove this class
+
+/**  @private
+ * Adds default behavior to its parent class MultiDPIBitmapSource.
+ *
+ */
 public class MultiDPIBitmapSourceExt extends MultiDPIBitmapSource
 {
 
@@ -38,9 +44,8 @@ public class MultiDPIBitmapSourceExt extends MultiDPIBitmapSource
      *  @return One of the sourceXXXdpi properties based on the desired DPI.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.6
-     *  @productversion Flex 4.5
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.11
      */
 
     override public function getSource(desiredDPI:Number):Object
@@ -59,7 +64,6 @@ public class MultiDPIBitmapSourceExt extends MultiDPIBitmapSource
             return super.getSource(desiredDPI);
     }
 
-    //TODO mamsellem move this code to parent class, updates any callers, and remove this class
 
 }
 }

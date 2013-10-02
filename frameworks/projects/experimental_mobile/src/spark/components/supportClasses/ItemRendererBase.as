@@ -20,8 +20,13 @@
 /**  @private
  *  monkey-patched  from LabelItemRenderer, pruned from label/labelDisplay  and change some variable accessibility
  *  Provides default behavior for  ListMultiPartItemRenderer
- *  Eventually should  become superclass of LabelItemRenderer
+ *
+ *   @langversion 3.0
+ *  @playerversion AIR 3.8
+ *  @productversion Flex 4.11
+ *
  *  */
+//TODO refactoring : should  become superclass of LabelItemRenderer
 
 package spark.components.supportClasses
 {
@@ -57,9 +62,6 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
  *
- *  @langversion 3.0
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -72,9 +74,6 @@ use namespace mx_internal;
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:alternatingItemColors
  *
- *  @langversion 3.0
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
  */
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
@@ -83,27 +82,18 @@ use namespace mx_internal;
  *
  *  @default 0xCCCCCC
  *
- *  @langversion 3.0
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
  */
 [Style(name="chromeColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:downColor
  *
- *  @langversion 3.0
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
  */
 [Style(name="downColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:focusColor
  *
- *  @langversion 3.0
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
  */
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
@@ -113,9 +103,6 @@ use namespace mx_internal;
  *
  *  @default 5
  *
- *  @langversion 3.0
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -125,27 +112,18 @@ use namespace mx_internal;
  *
  *  @default 5
  *
- *  @langversion 3.0
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:rollOverColor
  *
- *  @langversion 3.0
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
  */
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy spark.components.List#style:selectionColor
  *
- *  @langversion 3.0
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
  */
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 

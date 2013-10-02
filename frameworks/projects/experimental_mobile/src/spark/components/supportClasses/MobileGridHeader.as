@@ -20,6 +20,7 @@ package spark.components.supportClasses
 {
 
 import mx.collections.ArrayList;
+import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
@@ -27,7 +28,6 @@ import spark.components.ButtonBar;
 import spark.components.MobileGrid;
 import spark.events.IndexChangeEvent;
 import spark.events.MobileGridHeaderEvent;
-import spark.events.RendererExistenceEvent;
 import spark.utils.MultiDPIBitmapSource;
 
 use namespace  mx_internal;
@@ -71,8 +71,6 @@ public class MobileGridHeader extends ButtonBar
         this.buttonMode = false;
         this.requireSelection = false;
         addEventListener(IndexChangeEvent.CHANGING, changingHandler);
-        addEventListener(RendererExistenceEvent.RENDERER_ADD, rendererAddHandler);
-
         descIconCls = new MultiDPIBitmapSource();
         descIconCls.source160dpi = descIcon160Cls;
         descIconCls.source320dpi = descIcon320Cls;
@@ -125,17 +123,6 @@ public class MobileGridHeader extends ButtonBar
             dataProvider.itemUpdated(_columns[_sortIndex]);
     }
 
-    private function rendererAddHandler(event:RendererExistenceEvent):void
-    {
-        var button:UIComponent = UIComponent(event.renderer);
-        var index:int = event.index;
-        var col:MobileGridColumn = MobileGridColumn(_columns[index]);
-        // expand the last button
-        if ((index != dataProvider.length - 1) || col.hasExplicitWidth)
-            button.explicitWidth = col.dpiScaledWidth;
-        else
-            button.percentWidth = 100;
-    }
 
     private function getIconForButton(col:MobileGridColumn):Object
     {
@@ -146,6 +133,30 @@ public class MobileGridHeader extends ButtonBar
         else
         {
             return null;
+        }
+    }
+
+    /**
+     *  @private
+     *  Return the item renderer at the specified index, or null.
+     */
+    private function getItemRenderer(index:int):IVisualElement
+    {
+        if (!dataGroup || (index < 0) || (index >= dataGroup.numElements))
+            return null;
+
+        return dataGroup.getElementAt(index);
+    }
+
+    public function updateHeaderWidths():void
+    {
+        if (dataProvider.length != _columns.length)
+            return; // not ready
+        var header:UIComponent;
+        for (var i:int = 0; i < _columns.length; i++)
+        {
+            header = UIComponent(this.getItemRenderer(i));
+            header.explicitWidth = _columns[i].actualWidth;
         }
     }
 }

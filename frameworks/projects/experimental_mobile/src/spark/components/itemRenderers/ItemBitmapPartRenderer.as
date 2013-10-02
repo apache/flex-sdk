@@ -28,7 +28,12 @@ import spark.primitives.BitmapImage;
 use namespace mx_internal;
 
 /** Default lightweight  class for rendering embedded Bitmaps  or Multi-DPI Bitmaps in a MobileGrid cell .
- * <p> You define the icon to be used in each cell by setting either iconField or iconFunction properties.  </p>
+ *You define the icon to be used in each cell by setting either iconField or iconFunction properties.
+ *
+ *  @langversion 3.0
+ *  @playerversion AIR 3.8
+ *  @productversion Flex 4.11
+ *
  *  */
 public class ItemBitmapPartRenderer extends BitmapImage implements IItemPartRendererBase
 {
@@ -45,12 +50,12 @@ public class ItemBitmapPartRenderer extends BitmapImage implements IItemPartRend
 
     /**
      *  The name of the field or property in the DataGrid's dataProvider item that defines the icon to display for this renderer's column.
-     *  <p> The fields value must be either an embedded bitmap's class, or or MultiBitmapSourceExt object.   </p>
+     *  <p> The field value must be either an embedded bitmap's class, or or MultiBitmapSource object.   </p>
      *   <p> If not set, then iconFunction will be used.  </p>
      *  @default null
      *
      *  @see #iconFunction
-     *  @see  spark.utils.MultiDPIBitmapSourceExt
+     *  @see  spark.utils.MultiDPIBitmapSource
      *
      */
     public function get iconField():String
@@ -115,12 +120,12 @@ public class ItemBitmapPartRenderer extends BitmapImage implements IItemPartRend
 
     /* to avoid any scaling artifacts, we do not allow bitmap to be stretcghed */
 
-    public function get canSetWidth():Boolean
+    public function get canSetContentWidth():Boolean
     {
         return false;
     }
 
-    public function get canSetHeight():Boolean
+    public function get canSetContentHeight():Boolean
     {
         return false;
     }

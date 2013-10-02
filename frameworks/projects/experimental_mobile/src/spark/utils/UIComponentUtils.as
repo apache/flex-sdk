@@ -16,14 +16,20 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
+
 package spark.utils
 {
 import mx.core.IFlexDisplayObject;
 import mx.core.ILayoutElement;
 
+/**  @private
+ * Utility class for MobileGrid
+ *  @langversion 3.0
+ *  @playerversion AIR 3.8
+ *  @productversion Flex 4.11
+ */
 public class UIComponentUtils
 {
-
 
     public static function itemToLabel(item:Object, labelField:String, labelFunction:Function, nullLabel:String = '-'):String
     {

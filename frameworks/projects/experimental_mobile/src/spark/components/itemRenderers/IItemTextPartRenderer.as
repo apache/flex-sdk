@@ -19,13 +19,21 @@
 package spark.components.itemRenderers
 {
 
+/**  Extended interface for renderer that include text
+ *  @langversion 3.0
+ *  @playerversion AIR 3.8
+ *  @productversion Flex 4.11
+ */
+
 public interface IItemTextPartRenderer extends IItemPartRendererBase
 {
-
+    /* implement this property so that the renderer can receive the dataField from the renderer's MobileGridColumn*/
     function set labelField(value:String):void;
 
+    /* implement this property so that the renderer can receive the labelFunction from the renderers' MobileGridColumn*/
     function set labelFunction(value:Function):void;
 
+    /* implement this property so that the renderer can receive the textAlign property from the renderers' MobileGridColumn*/
     function set textAlign(textAlign:String):void;
 }
 }

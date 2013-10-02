@@ -31,7 +31,7 @@ import flash.events.Event;
  *  @productversion Flex 4.11
  */
 
-//   Note: we didn't use neither mx:DataGridEven because it's in not available for mobile not GridSortEvent because it handles multiple sorting
+//   Note: we didn't use neither mx:DataGridEvent because it's in not available for mobile not GridSortEvent because it handles multiple sorting
 public class MobileGridHeaderEvent extends Event
 {
 

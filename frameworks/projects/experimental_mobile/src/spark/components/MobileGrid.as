@@ -30,8 +30,8 @@ import spark.collections.Sort;
 import spark.components.supportClasses.MobileGridColumn;
 import spark.components.supportClasses.MobileGridHeader;
 import spark.components.supportClasses.MobileGridRowRenderer;
-import spark.components.supportClasses.PartRendererDescriptorBase;
 import spark.events.MobileGridHeaderEvent;
+import spark.layouts.MobileGridLayout;
 import spark.layouts.VerticalLayout;
 import spark.layouts.supportClasses.LayoutBase;
 
@@ -41,18 +41,10 @@ use namespace  mx_internal;
  *  Dispatched when the user releases the mouse button on a column header
  *  to request the control to sort  the grid contents based on the contents of the column.
  *  Only dispatched if the column is sortable and the data provider supports
- *  sorting. The DataGrid control has a default handler for this event that implements
- *  a single-column sort.
- * <b>Note</b>: The sort arrows are defined by the default event handler for
- * the headerRelease event. If you call the <code>preventDefault()</code> method
- * in your event handler, the arrows are not drawn.
- * </p>
+ *  sorting.
  *
- *  @eventType mx.events.DataGridEvent.HEADER_RELEASE
+ *  @eventType spark.events.MobileGridHeaderEvent
  *
- *  @langversion 3.0
- *  @playerversion AIR 3.8
- *  @productversion Flex 4.11
  */
 [Event(name="sortChange", type="spark.events.MobileGridHeaderEvent")]
 
@@ -118,10 +110,6 @@ public class MobileGrid extends List
      *
      *  @see   spark.components.supportClasses.MobileGridColumn
      *
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      */
     [Inspectable(arrayType="spark.components.supportClasses.MobileGridColumn")]
     public function set columns(value:Array):void
@@ -156,10 +144,7 @@ public class MobileGrid extends List
      *  @default true
      *
      *  @see spark.components.supportClasses.MobileGridColumn#sortable
-     *
-     *  @langversion 3.0
-     *  @playerversion AIR 3.8
-     *  @productversion Flex 4.11
+
      */
     public function get sortableColumns():Boolean
     {
@@ -190,18 +175,18 @@ public class MobileGrid extends List
     /* default layout for row item renderers */
     protected function getDefaultLayout():LayoutBase
     {
-        var l:VerticalLayout = new VerticalLayout();
+        var l:VerticalLayout = new MobileGridLayout(this);
         l.horizontalAlign = "contentJustify";
         l.gap = 0;
         return l;
     }
 
-    protected function initDefaultItemRenderer(pcolumnDescriptors:Array):void
+    protected function initDefaultItemRenderer(pcolumns:Array):void
     {
         var cf:ClassFactory;
         cf = new ClassFactory(MobileGridRowRenderer);
         cf.properties = {
-            partRendererDescriptors: Vector.<PartRendererDescriptorBase>(pcolumnDescriptors)
+            columns: Vector.<MobileGridColumn>(pcolumns)
         };
         this.itemRenderer = cf;
     }

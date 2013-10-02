@@ -18,9 +18,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.components.supportClasses
 {
+import mx.core.IFlexDisplayObject;
+import mx.core.ILayoutElement;
 import mx.core.mx_internal;
 
 import spark.components.itemRenderers.IItemPartRendererBase;
+import spark.core.IGraphicElement;
 import spark.utils.UIComponentUtils;
 
 use namespace  mx_internal;
@@ -29,29 +32,45 @@ use namespace  mx_internal;
  *    this class is responsible for laying out grid cells in a given MobileGrid row.
  *    It will make sure that cell content is aligned according to the column widths.
  */
-public class ListMultiPartColumnLayout extends ListMultiPartLayoutBase
+public class ListMultiPartColumnLayout extends Object
 {
-
-    public function ListMultiPartColumnLayout(target:ListMultiPartItemRendererBase)
+    public function ListMultiPartColumnLayout(target:MobileGridRowRenderer)
     {
-        super(target);
+        _target = target;
     }
 
-    override public function measure():void
+    private var _target:MobileGridRowRenderer;
+
+    public function get target():MobileGridRowRenderer
     {
-        super.measure();
-        var totalWidth:Number = 0;
-        for each (var ld:PartRendererDescriptorBase in partRendererDescriptors)
-        {
-            totalWidth += ld.dpiScaledWidth;
-        }
-        target.measuredWidth = totalWidth;
-        target.measuredMinWidth = 50;
+        return _target;
     }
+
+    protected function get partRendererDescriptors():Vector.<MobileGridColumn>
+    {
+        return target.columns;
+    }
+
+    protected function get graphicElementPartRenderers():Vector.<IGraphicElement>
+    {
+        return target.graphicElementPartRenderers;
+    }
+
+    protected function get partRenderers():Vector.<IItemPartRendererBase>
+    {
+        return target.partRenderers;
+    }
+
+    public function measure():void
+    {
+
+    }
+
 
     /* vertical align middle
      * Layout algorithm:   give all columns the requested sizes, and the last column the remaining width  */
-    override public function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
+
+    public function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
 
         if (unscaledWidth == 0 && unscaledHeight == 0)
@@ -62,9 +81,8 @@ public class ListMultiPartColumnLayout extends ListMultiPartLayoutBase
         var paddingBottom:Number = target.getStyle("paddingBottom");
         var cellHeight:Number = unscaledHeight - paddingTop - paddingBottom;
 
-        var desc:PartRendererDescriptorBase;
+        var desc:MobileGridColumn;
         var dpr:IItemPartRendererBase;
-        var remainingWidth:Number = unscaledWidth;
         var curX:Number = cellPaddingLeft;
         var curY:Number = paddingTop;
         var colWidth:Number;
@@ -75,23 +93,98 @@ public class ListMultiPartColumnLayout extends ListMultiPartLayoutBase
         {
             dpr = partRenderers[i];
             desc = partRendererDescriptors[i];
-            colWidth = desc.dpiScaledWidth;
-            if (dpr.canSetWidth)
+            colWidth = desc.actualWidth;
+            if (dpr.canSetContentWidth)
             {
                 // expand last column to fill width, unless it has explicity width
-                partWidth = Math.max(0, ( i == count && !desc.hasExplicitWidth) ? remainingWidth : colWidth - cellPaddingLeft - cellPaddingRight);
+                partWidth = Math.max(0, colWidth - cellPaddingLeft - cellPaddingRight);
             }
             else
             {
                 partWidth = dpr.getPreferredBoundsHeight();
             }
-            partHeight = dpr.canSetHeight ? cellHeight : dpr.getPreferredBoundsHeight();
-            ;
+            partHeight = dpr.canSetContentHeight ? cellHeight : dpr.getPreferredBoundsHeight();
             setElementSize(dpr, partWidth, partHeight);
             setElementPosition(dpr, curX, curY + UIComponentUtils.offsetForCenter(partHeight, cellHeight));
             curX += colWidth;
-            remainingWidth -= colWidth;
         }
+    }
+
+
+    /* layout helper  methods */
+
+    protected function setElementPosition(element:Object, x:Number, y:Number):void
+    {
+        if (element is ILayoutElement)
+        {
+            ILayoutElement(element).setLayoutBoundsPosition(x, y, false);
+        }
+        else if (element is IFlexDisplayObject)
+        {
+            IFlexDisplayObject(element).move(x, y);
+        }
+        else
+        {
+            element.x = x;
+            element.y = y;
+        }
+    }
+
+    protected function setElementSize(element:Object, width:Number, height:Number):void
+    {
+        if (element is ILayoutElement)
+        {
+            ILayoutElement(element).setLayoutBoundsSize(width, height, false);
+        }
+        else if (element is IFlexDisplayObject)
+        {
+            IFlexDisplayObject(element).setActualSize(width, height);
+        }
+        else
+        {
+            element.width = width;
+            element.height = height;
+        }
+    }
+
+    protected function getElementPreferredWidth(element:Object):Number
+    {
+        var result:Number;
+
+        if (element is ILayoutElement)
+        {
+            result = ILayoutElement(element).getPreferredBoundsWidth();
+        }
+        else if (element is IFlexDisplayObject)
+        {
+            result = IFlexDisplayObject(element).measuredWidth;
+        }
+        else
+        {
+            result = element.width;
+        }
+
+        return Math.round(result);
+    }
+
+    protected function getElementPreferredHeight(element:Object):Number
+    {
+        var result:Number;
+
+        if (element is ILayoutElement)
+        {
+            result = ILayoutElement(element).getPreferredBoundsHeight();
+        }
+        else if (element is IFlexDisplayObject)
+        {
+            result = IFlexDisplayObject(element).measuredHeight;
+        }
+        else
+        {
+            result = element.height;
+        }
+
+        return Math.ceil(result);
     }
 }
 }

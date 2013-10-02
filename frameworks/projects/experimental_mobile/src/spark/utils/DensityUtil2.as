@@ -19,10 +19,24 @@
 package spark.utils
 {
 
+import mx.core.DPIClassification;
 import mx.core.FlexGlobals;
 import mx.managers.SystemManager;
 
 import spark.components.Application;
+
+//TODO merge with spark.utils.DensityUtil
+
+/**
+ * @private
+ * Utility class for density computations
+ *
+ *  @langversion 3.0
+ *  @playerversion AIR 3.8
+ *  @productversion Flex 4.11
+
+ */
+
 
 public class DensityUtil2
 {
@@ -37,7 +51,7 @@ public class DensityUtil2
      * @param sourceDPI
      * @return  scaled value
      */
-    public static function dpiScale(value:Number, sourceDPI:Number):Number
+    public static function dpiScale(value:Number, sourceDPI:Number = DPIClassification.DPI_160):Number
     {
         var appDPI:Number = getSetApplicationDPI();
         if (isNaN(appDPI))

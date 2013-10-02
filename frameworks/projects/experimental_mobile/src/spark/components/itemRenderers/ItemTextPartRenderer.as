@@ -31,6 +31,11 @@ use namespace mx_internal;
 
 /** Default lightweight  class for rendering formatted text in MobileGrid cells .
  * <p> You don't have to use this render explicitly as it will be used by default for MobileGrid text cells. </p>
+ *
+ *  @langversion 3.0
+ *  @playerversion AIR 3.8
+ *  @productversion Flex 4.11
+ *
  *  */
 public class ItemTextPartRenderer extends StyleableTextField implements IItemTextPartRenderer
 {
@@ -92,12 +97,12 @@ public class ItemTextPartRenderer extends StyleableTextField implements IItemTex
         _labelFunction = value;
     }
 
-    public function get canSetWidth():Boolean
+    public function get canSetContentWidth():Boolean
     {
         return true;
     }
 
-    public function get canSetHeight():Boolean
+    public function get canSetContentHeight():Boolean
     {
         return false;
     }
