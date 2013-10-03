@@ -4,7 +4,7 @@ import mx.core.mx_internal;
 
 import spark.components.MobileGrid;
 import spark.components.supportClasses.MobileGridColumn;
-import spark.utils.DensityUtil2;
+import spark.utils.MobileGridUtil;
 
 use namespace  mx_internal;
 
@@ -66,7 +66,7 @@ public class MobileGridLayout extends VerticalLayout
             else
             {
                 colWidth = isNaN(col.width) ? 100 : col.width;
-                colActualWidth = DensityUtil2.dpiScale(colWidth);
+                colActualWidth = MobileGridUtil.dpiScale(colWidth);
                 col.actualWidth = colActualWidth; // can immediately set actual width
                 totalFixedWidths += colActualWidth;
             }
