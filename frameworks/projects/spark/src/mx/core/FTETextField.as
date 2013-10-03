@@ -3655,7 +3655,7 @@ internal class HTMLHelper
         if (!styleSheet)
 		{
             htmlText = null;
-			textfield.clearFlag(FTETextField.FLAG_HTML_TEXT_SET);
+			textField.clearFlag(FTETextField.FLAG_HTML_TEXT_SET);
 		}
         
         if (!textFlow)
