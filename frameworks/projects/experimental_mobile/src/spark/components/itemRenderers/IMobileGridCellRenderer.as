@@ -23,9 +23,9 @@ import mx.core.IDataRenderer;
 import mx.styles.IStyleClient;
 
 /**
- * This is the base interface that all mobile cell or other mobile item part renderers must implement.
- * Contrary to desktop DataGrid control, there is no default base renderer,
- * because mobile renderers must be lightweight, and derive directly for the existing component, (ie. s:Button or s:CheckBox ).
+ * This is the base interface that all mobile grid cell renderers must implement.
+ * <p>Contrary to desktop DataGrid control, there is no default implementation for this interface,
+ * because mobile renderers must be lightweight, and derive directly for an existing component, (eg.. s:Button or s:CheckBox ).</p>
  *
  *  @langversion 3.0
  *  @playerversion AIR 3.8
@@ -40,12 +40,18 @@ public interface IMobileGridCellRenderer extends IDataRenderer
      */
     function set styleProvider(value:IStyleClient):void ;
 
+    /** Flag indicating whether the layout manager can stretch the width of this renderer to match the column's width.
+     <p> default value is false.  Override the getter to return a difference value </p>
+     */
     function get canSetContentWidth():Boolean;
 
+    /** Flag indicating whether the layout manager can stretch the height of this renderer to match the column's height.
+     <p> default value is false.  Override the getter to return a difference value </p>
+     */
     function get canSetContentHeight():Boolean;
 
-    /**
-     * @private
+    /** this property is set with the GridColumn's styleName property.
+     <p> you can override it to extract information from the style and pass them to this renderer.</p>
      */
     function set cssStyleName(value:String):void;
 

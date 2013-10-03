@@ -19,7 +19,10 @@
 package spark.components.itemRenderers
 {
 
-/**  Extended interface for renderer that include text
+/**  Extends IMobileGridCellRenderers with APIs for rendering text in MobileGrid cells.
+ *  <p>Typically , implementors will set the text to render using labelField and/or labelFunction this way:      </p>
+ *  <code> text = UIComponentUtils.itemToLabel(value, _labelField, _labelFunction); </code>
+ *
  *  @langversion 3.0
  *  @playerversion AIR 3.8
  *  @productversion Flex 4.11
@@ -27,13 +30,21 @@ package spark.components.itemRenderers
 
 public interface IMobileGridTextCellRenderer extends IMobileGridCellRenderer
 {
-    /* implement this property so that the renderer can receive the dataField from the renderer's MobileGridColumn*/
+    /**
+     *  Implement this property so that the renderer can receive the dataField from its MobileGridColumn.
+     * @see spark.components.supportClasses.MobileGridColumn#labelField
+     *  */
     function set labelField(value:String):void;
 
-    /* implement this property so that the renderer can receive the labelFunction from the renderers' MobileGridColumn*/
+    /**
+     *  Implement this property so that the renderer can receive the labelFunction its MobileGridColumn
+     *  @see spark.components.supportClasses.MobileGridColumn#labelFunction */
     function set labelFunction(value:Function):void;
 
-    /* implement this property so that the renderer can receive the textAlign property from the renderers' MobileGridColumn*/
+    /**
+     *  Implement this property so that the renderer can receive the textAlign property from the renderers' MobileGridColumn
+     *  @see spark.components.supportClasses.MobileGridColumn#textAlign
+     *  */
     function set textAlign(textAlign:String):void;
 }
 }

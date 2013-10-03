@@ -52,17 +52,26 @@ public class MobileGridTextCellRenderer extends StyleableTextField implements IM
         multiline = true;
     }
 
+    /**
+     *  @inheritDoc
+     */
     public function set styleProvider(value:IStyleClient):void
     {
         styleName = value;
         commitStyles();
     }
 
+    /**
+   *  @inheritDoc
+     */
     public function set textAlign(value:String):void
     {
         setStyle("textAlign", value);
     }
 
+    /**
+     *  @inheritDoc
+     */
     public function set cssStyleName(pstyleName:String):void
     {
         var css:CSSStyleDeclaration = pstyleName ? StyleManager.getStyleManager(null).getStyleDeclaration("." + pstyleName) : null;
@@ -76,32 +85,50 @@ public class MobileGridTextCellRenderer extends StyleableTextField implements IM
         }
     }
 
+    /**
+     *  @inheritDoc
+     */
     public function set data(value:Object):void
     {
         _data = value;
         text = UIComponentUtils.itemToLabel(value, _labelField, _labelFunction);
     }
 
+    /**
+     *  @inheritDoc
+     */
     public function get data():Object
     {
         return _data;
     }
 
+    /**
+     *  @inheritDoc
+     */
     public function set labelField(value:String):void
     {
         _labelField = value;
     }
 
+    /**
+     *  @inheritDoc
+     */
     public function set labelFunction(value:Function):void
     {
         _labelFunction = value;
     }
 
+    /**
+     *  @inheritDoc
+     */
     public function get canSetContentWidth():Boolean
     {
         return true;
     }
 
+    /**
+     *  @inheritDoc
+     */
     public function get canSetContentHeight():Boolean
     {
         return false;

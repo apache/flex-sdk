@@ -50,7 +50,7 @@ public class MobileGridBitmapCellRenderer extends BitmapImage implements IMobile
 
     /**
      *  The name of the field or property in the DataGrid's dataProvider item that defines the icon to display for this renderer's column.
-     *  <p> The field value must be either an embedded bitmap's class, or or MultiBitmapSource object.   </p>
+     *  <p> The field value must be either an embedded bitmap's class, or a MultiBitmapSource object.   </p>
      *   <p> If not set, then iconFunction will be used.  </p>
      *  @default null
      *
@@ -82,7 +82,7 @@ public class MobileGridBitmapCellRenderer extends BitmapImage implements IMobile
      *
      *  @default null
      *
-     *  @see #iconLabel
+     *  @see #iconField
      *  @see  spark.utils.MultiDPIBitmapSource
      *
      */
@@ -96,6 +96,9 @@ public class MobileGridBitmapCellRenderer extends BitmapImage implements IMobile
         _iconFunction = value;
     }
 
+    /**
+     *  @inheritDoc
+     */
     public function set data(value:Object):void
     {
         _data = value;
@@ -103,28 +106,43 @@ public class MobileGridBitmapCellRenderer extends BitmapImage implements IMobile
         this.source = iconSource;
     }
 
+    /**
+     *  @inheritDoc
+     */
     public function get data():Object
     {
         return _data;
     }
 
+    /**
+     *  @inheritDoc
+     */
     public function set styleProvider(value:IStyleClient):void
     {
         // do nothing, this renderer does not manages styles for now.
     }
 
+    /**
+     *  @inheritDoc
+     */
     public function set cssStyleName(value:String):void
     {
 
     }
 
-    /* to avoid any scaling artifacts, we do not allow bitmap to be stretcghed */
-
+    /**
+     *  Returns false to avoid any density scaling artifacts.
+     *   @inheritDoc
+     *  */
     public function get canSetContentWidth():Boolean
     {
         return false;
     }
 
+    /**
+     *  Returns false to avoid any density scaling artifacts.
+     *   @inheritDoc
+     *  */
     public function get canSetContentHeight():Boolean
     {
         return false;

@@ -20,11 +20,15 @@ package spark.components.supportClasses
 {
 import flash.display.DisplayObject;
 
+import mx.core.mx_internal;
+
 import spark.components.itemRenderers.IMobileGridCellRenderer;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.core.IGraphicElementContainer;
 import spark.core.ISharedDisplayObject;
+
+use namespace mx_internal;
 
 /**  @private
  *  This is the base class for multi-part renderers that manages a vector of part renderers.

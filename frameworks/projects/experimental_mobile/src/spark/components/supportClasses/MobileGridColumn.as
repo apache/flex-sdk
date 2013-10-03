@@ -38,8 +38,8 @@ import spark.components.itemRenderers.MobileGridTextCellRenderer;
  * such as the field of the data provider item whose value is to be displayed in the column.
  * MobileGridColumn takes most of its properties  from its parent class and adds the following Grid-specific options:</p>
  * <ul>
- *     <li>headerText and headerStyleName: optional label and style to display in the header for this column </li>
- *     <li>sortable, sortDescending and sortField: sorting options for this column </li>
+ *     <li>headerText and headerStyleName: optional label and style to display in the header for this column.</li>
+ *     <li>sortable, sortDescending and sortField: sorting options for this column.</li>
  *  </ul>
  *
  *  @see spark.components.MobileGrid
@@ -97,8 +97,7 @@ public class MobileGridColumn extends EventDispatcher
 
 
     /** Set the desired width for this column.
-     * <p> Width value is expressed in current applicationDPI, or at 160 DPI  if applicationDPI is not set.
-     * The default value is 100.
+     * <p> Width value is expressed in current applicationDPI, or at 160 DPI  if applicationDPI is not set. </p>
      *
      *  <p>Note: You can specify a percentage value in the MXML
      *  <code>width</code> attribute, such as <code>width="50%"</code>,
@@ -132,7 +131,7 @@ public class MobileGridColumn extends EventDispatcher
      *      <li> First, honor all columns with fixed widths.  Columns with no width or percentWidth receive a width of 100.</li>
      *      <li> Then distribute the remainder of width between all the columns with percentage widths.
      *      If the total of percentages is greater that 100%, it's will be normalized first..</li>
-     *   <ul>
+     *   </ul>
      *  </p>
      *
      * @default NaN
@@ -155,9 +154,11 @@ public class MobileGridColumn extends EventDispatcher
      *
      *  <p>The default item renderer is the ItemTextPartRenderer class,
      *  which displays the data item as text, optimized for mobile.  </p>
-     *  <p>You can use also ItemBitmapPartRenderer to display embedded bitmaps, in which case you need to define the iconField or iconFunction </p>
-     *  <p>You can also  create custom item renderers by deriving any subclass of UIComponent (eg. s:Button) and implementing IMobileGridCellRenderer.
-     *  for performance reasons  it's preferable that your renderer be written in ActionScript
+     *  <p>You can use also ItemBitmapPartRenderer to display embedded bitmaps,
+     *  in which case you need to define the iconField or iconFunction </p>
+     *  <p>You can also  create custom item renderers by deriving any subclass of UIComponent (eg. s:Button)
+     *  and implementing IMobileGridCellRenderer.</p>
+     *  <p>For performance reasons  it's preferable that your renderer be written in ActionScript and be as light as possible.</p>
      *
      *  @see #dataField
      *  @see spark.components.itemRenderers.MobileGridTextCellRenderer
@@ -179,7 +180,7 @@ public class MobileGridColumn extends EventDispatcher
 
 
     /**
-     *  An idempotent function that converts a data provider item into a column-specific string
+     *  An user-defined function that converts a data provider item into a column-specific string
      *  that's used to initialize the item renderer's <code>label</code> property.
      *
      *  <p>You can use a label function to combine the values of several data provider items
@@ -193,8 +194,7 @@ public class MobileGridColumn extends EventDispatcher
      *
      *  <pre>labelFunction(item:Object):String</pre>
      *
-     *  <p>The <code>item</code> parameter is the data provider item for an entire row.
-     *  The second parameter is this column object.</p>
+     *  <p>The <code>item</code> parameter is the data provider item for an entire row.</p>
      *
      *  <p>A typical label function could concatenate the firstName and
      *  lastName properties of the data provider item ,
@@ -212,8 +212,8 @@ public class MobileGridColumn extends EventDispatcher
 
     private var _styleName:String;
 
-    /** The css style name to apply to the renderer
-     *  the style items in the css will depend on the renderer. For example, text renderers will accept fontSize, color, fontWeight, etc.
+    /** The css style name to apply to the renderer.
+     * <p>The style items in the css entry will depend on the renderer. For example, text renderers will accept fontSize, color, fontWeight, etc.  </p>
      */
     public function get styleName():String
     {
@@ -282,7 +282,7 @@ public class MobileGridColumn extends EventDispatcher
     private var _sortable:Boolean = true;
 
     /** Flag indicating whether a column can be sorted by clicking on its header.
-     *  <p>This flag is effective only if the MobileGrid </p>
+     *  <p>This flag is effective only if the MobileGrid sortableColumn is not set or set to true.</p>
      */
     public function get sortable():Boolean
     {
@@ -325,7 +325,7 @@ public class MobileGridColumn extends EventDispatcher
         return sortField;
     }
 
-    public function createPartRenderer():IMobileGridCellRenderer
+    mx_internal function createPartRenderer():IMobileGridCellRenderer
     {
         var pr:IMobileGridCellRenderer = _itemRenderer.newInstance() as IMobileGridCellRenderer;
         if (pr)

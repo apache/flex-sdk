@@ -49,36 +49,38 @@ use namespace  mx_internal;
 [Event(name="sortChange", type="spark.events.MobileGridHeaderEvent")]
 
 /**
- *  The MobileGrid displays a collection of items in a grid of rows and columns, with column headers, optimized for mobile devices.
- *  The MobileGrid component provides the following features:
- *  <ul>
+ * The MobileGrid displays a collection of items in a grid of rows and columns and column headers and is optimized for speed on mobile devices.
+ * <p> The MobileGrid component provides the following features:
+ * <ul>
  *      <li> user can swipe through the rows in the datagrid. </li>
  *      <li> supports single selection of a row. </li>
  *      <li> rows can be sorted according to a given column by clicking on the column's header. </li>
  *      <li> cells can be displayed as text in different fonts and formats, as images, or using a custom renderer. </li>
  *      <li> default  skin uses dark shades of gray, and is available in different screen densities.</li>
  *  </ul>
- *
+ * </p>
  * <p> It's important to understand that MobileGrid does not have all the capabilities and flexibility of it's desktop equivalent,
  * in order to ensure optimal display and scrolling performance on mobile devices. </p>
  * <p>Typically, the following features are not available in MobileGrid:
- * <ul>
- *     <li>the list of columns is static and cannot be changed at runtime</li>
+ *  <ul>
  *     <li>multiple selection is not supported </li>
  *     <li>it's not possible to interactively reorder columns </li>
+ *     <li> MobileGrid does  not scroll horizontally, even when the column widths exceeds the component's width.</li>
  *     <li>custom cell renderers must be designed with care, preferably in ActionScript, to ensure good display performance </li>
- *   </ul>
- *  </p>
+ *  </ul>
+ * </p>
  * <p>Internally,  MobileGrid inherits for Mobile spark.List component rather than any Grid or DataGrid, which means that all cell renderers
  * in a single row are managed   by one single MobileGridRowRenderer that  delegates the individual  cell renderers to light-weight sub-renderers. </p>
  * <p> You usually don't access this internal row renderer yourself, and will rather define the individual cell renderers.</p>
- * <p> This technique ensures optimal display and memory performance, which is critical for mobile devices,, at the price of less flexibility for cell renderers. </p>
+ * <p> This technique ensures optimal display and memory performance, which is critical for mobile devices, at the price of less flexibility for cell renderers. </p>
+ * <p>Click the link below to view examples of MobileGrid usage on the ApacheFlex github repository.</p>
  *
- *  @see spark.components.supportClasses.MobileGridColumn
- *
+ *    @see spark.components.supportClasses.MobileGridColumn
+ *    @see https://github.com/apache/flex-examples/tree/develop/showcase/4.11/components/mobilegrid/index.html Examples of MobileGrid usage on ApacheFlex github
  *  @langversion 3.0
  *  @playerversion AIR 3.8
  *  @productversion Flex 4.11
+ *
  */
 public class MobileGrid extends List
 {
@@ -103,9 +105,9 @@ public class MobileGrid extends List
     }
 
     /**
-     *  An array of MobileGridColumn objects, one for each column that  can be displayed.
+     *  An array of MobileGridColumn objects, one for each column to display.
      *  <p>Contrary to desktop DataGrid, this property must be set explicitly , or no columns will be displayed.</p>
-     *  <p>If you want to change the set of columns,you need to re-assign the new array to the columns property.
+     *  <p>If you want to change the set of columns, you need to re-assign the new array to the columns property.
      *  Changes to the original array without assigning the property will have no effect.</p>
      *
      *  @see   spark.components.supportClasses.MobileGridColumn
