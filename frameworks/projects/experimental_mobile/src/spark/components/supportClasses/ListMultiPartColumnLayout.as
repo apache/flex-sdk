@@ -24,7 +24,6 @@ import mx.core.mx_internal;
 
 import spark.components.itemRenderers.IMobileGridCellRenderer;
 import spark.core.IGraphicElement;
-import spark.utils.UIComponentUtils;
 
 use namespace  mx_internal;
 
@@ -105,11 +104,10 @@ public class ListMultiPartColumnLayout extends Object
             }
             partHeight = dpr.canSetContentHeight ? cellHeight : dpr.getPreferredBoundsHeight();
             setElementSize(dpr, partWidth, partHeight);
-            setElementPosition(dpr, curX, curY + UIComponentUtils.offsetForCenter(partHeight, cellHeight));
+            setElementPosition(dpr, curX, curY + ( cellHeight - partHeight) / 2 );
             curX += colWidth;
         }
     }
-
 
     /* layout helper  methods */
 

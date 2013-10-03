@@ -26,7 +26,7 @@ MobileGrid
     contentBackgroundColor: #202020;
     alternatingItemColors: #202020, #2a2a2a;
     color: white;
-     selection-color: #00a2ff; /* blue  */
+    selection-color: #00a2ff; /* blue  */
 
 }
 
@@ -60,13 +60,6 @@ supportClasses|MobileGridRowRenderer
         paddingBottom: 0;
     }
 
-    supportClasses|ItemRendererBase
-    {
-        paddingBottom: 12;
-        paddingLeft: 7;
-        paddingRight: 7;
-        paddingTop: 12;
-    }
 }
 
 @media (application-dpi: 160)
@@ -85,13 +78,6 @@ supportClasses|MobileGridRowRenderer
         paddingBottom: 0;
     }
 
-    supportClasses|ItemRendererBase
-    {
-        paddingBottom: 16;
-        paddingLeft: 10;
-        paddingRight: 10;
-        paddingTop: 16;
-    }
 }
 
 @media (application-dpi: 240)
@@ -110,13 +96,6 @@ supportClasses|MobileGridRowRenderer
         paddingBottom: 0;
     }
 
-    supportClasses|ItemRendererBase
-    {
-        paddingBottom: 24;
-        paddingLeft: 14;
-        paddingRight: 14;
-        paddingTop: 24;
-    }
 }
 
 @media (application-dpi: 320)
@@ -135,13 +114,6 @@ supportClasses|MobileGridRowRenderer
         paddingBottom: 0;
     }
 
-    supportClasses|ItemRendererBase
-    {
-        paddingBottom: 32;
-        paddingLeft: 20;
-        paddingRight: 20;
-        paddingTop: 32;
-    }
 }
 
 @media (application-dpi: 480)
@@ -160,13 +132,6 @@ supportClasses|MobileGridRowRenderer
         paddingBottom: 0;
     }
 
-    supportClasses|ItemRendererBase
-    {
-        paddingBottom: 48;
-        paddingLeft: 28;
-        paddingRight: 28;
-        paddingTop: 48;
-    }
 }
 
 

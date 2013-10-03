@@ -25,7 +25,7 @@ import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
 
 import spark.components.supportClasses.StyleableTextField;
-import spark.utils.UIComponentUtils;
+import spark.utils.LabelUtil;
 
 use namespace mx_internal;
 
@@ -91,7 +91,7 @@ public class MobileGridTextCellRenderer extends StyleableTextField implements IM
     public function set data(value:Object):void
     {
         _data = value;
-        text = UIComponentUtils.itemToLabel(value, _labelField, _labelFunction);
+        text = LabelUtil.itemToLabel(value, _labelField, _labelFunction);
     }
 
     /**

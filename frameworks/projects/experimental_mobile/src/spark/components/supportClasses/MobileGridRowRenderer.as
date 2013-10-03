@@ -22,6 +22,8 @@ import flash.display.DisplayObject;
 
 import mx.core.mx_internal;
 
+import spark.components.LabelItemRenderer;
+
 import spark.components.itemRenderers.IMobileGridCellRenderer;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
@@ -43,7 +45,7 @@ use namespace mx_internal;
  *  @productversion Flex 4.11
  *
  */
-public class MobileGridRowRenderer extends ItemRendererBase implements IGraphicElementContainer, ISharedDisplayObject
+public class MobileGridRowRenderer extends LabelItemRenderer implements IGraphicElementContainer, ISharedDisplayObject
 {
     private var _columns:Vector.<MobileGridColumn>;
     private var _partRenderers:Vector.<IMobileGridCellRenderer>;
@@ -86,9 +88,15 @@ public class MobileGridRowRenderer extends ItemRendererBase implements IGraphicE
         return _graphicElementPartRenderers;
     }
 
+
+    override public function get baselinePosition():Number
+    {
+        return NaN;
+    }
+
     override protected function createChildren():void
     {
-        super.createChildren();
+    //    super.createChildren();
         var desc:MobileGridColumn;
         var pr:IMobileGridCellRenderer;
         var ge:IGraphicElement;
@@ -138,8 +146,10 @@ public class MobileGridRowRenderer extends ItemRendererBase implements IGraphicE
         _partRenderersLayout.layoutContents(unscaledWidth, unscaledHeight);
     }
 
-    override protected function onDataChanged():void
+
+    override public function set data(value:Object):void
     {
+        super.data = value;
         var dpr:IMobileGridCellRenderer;
         for (var i:int = 0; i < _partRenderers.length; i++)
         {
