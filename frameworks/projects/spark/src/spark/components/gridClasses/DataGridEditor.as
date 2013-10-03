@@ -1695,7 +1695,13 @@ public class DataGridEditor
         // Prevent the DataGrid from processing any keystrokes that were 
         // received by the editor. We don't cancel the keystokes here 
         // because on AIR that cancels text input into the text field.
-        event.stopPropagation();
+        // (We need to let the copy/cut/past combinations pass through,
+        // because they need to reach the NativeApplication in order to
+        // be correctly processed by the item editors).
+        if (!event.ctrlKey && !event.commandKey) 
+        {
+            event.stopPropagation();
+        }
     }
     
     /**
