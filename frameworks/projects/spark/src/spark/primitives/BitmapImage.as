@@ -1406,7 +1406,7 @@ public class BitmapImage extends GraphicElement
         var tmpSprite:DisplayObject;
 
         if (value is MultiDPIBitmapSource)
-            value = getActualValue(value as MultiDPIBitmapSource);
+            value = (value as MultiDPIBitmapSource).getMultiSource();
 
         // Clear the previous scaleGrid properties
         _scaleGridLeft = NaN;
@@ -1507,21 +1507,6 @@ public class BitmapImage extends GraphicElement
             removePreviousContent();
 
         setBitmapData(bitmapData, currentBitmapCreated);
-    }
-
-    /**
-     *  @private
-     *  Figure out which source to use
-     */
-    mx_internal function getActualValue(values:MultiDPIBitmapSource):Object
-    {
-        var app:Object = FlexGlobals.topLevelApplication;
-        var dpi:Number;
-        if ("runtimeDPI" in app)
-            dpi = app["runtimeDPI"];
-        else
-            dpi = DensityUtil.getRuntimeDPI();
-        return values.getSource(dpi);
     }
 	
 	

@@ -1762,14 +1762,7 @@ public class IconItemRenderer extends LabelItemRenderer
             // get the icon source to find out if it is external or not
             if (source is MultiDPIBitmapSource)
             {
-                var app:Object = FlexGlobals.topLevelApplication;
-                var dpi:Number;
-                if ("runtimeDPI" in app)
-                    dpi = app["runtimeDPI"];
-                else
-                    dpi = DensityUtil.getRuntimeDPI();
-                
-                var multiSource:Object = MultiDPIBitmapSource(source).getSource(dpi);  
+                var multiSource:Object = MultiDPIBitmapSource(source).getMultiSource();  
                 isExternalSource = (multiSource is String || multiSource is URLRequest);
             }
         }        
