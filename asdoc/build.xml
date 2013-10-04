@@ -105,6 +105,7 @@
             <!--  added for Apache -->
 			<compiler.source-path path-element="${flexlib}/projects/apache/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/experimental/src"/>
+            <compiler.source-path path-element="${flexlib}/projects/experimental_mobile/src"/>
 						
 			<!-- namespaces to include in asdoc -->
 		    <doc-namespaces uri="http://www.adobe.com/2006/airmxml"/>
@@ -141,6 +142,7 @@
             <!--  added for Apache -->
 		    <namespace uri="http://flex.apache.org/ns" manifest="${flexlib}/projects/apache/manifest.xml"/>
 		    <namespace uri="http://flex.apache.org/experimental/ns" manifest="${flexlib}/projects/experimental/manifest.xml"/>
+            <namespace uri="http://flex.apache.org/experimental/ns"  manifest="${flexlib}/projects/experimental_mobile/manifest.xml"/>
 
 			<library-path/>
             <external-library-path dir="${env.AIR_HOME}/frameworks/libs/air">

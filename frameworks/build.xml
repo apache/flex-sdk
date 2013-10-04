@@ -130,7 +130,7 @@
         <antcall target="aeongraphical"/>
     	<antcall target="apache"/>
     	<antcall target="experimental"/>
-        
+    	<antcall target="experimental_mobile"/>
         <antcall target="compile-automation"/>
     </target>
 	
@@ -216,7 +216,8 @@
         <ant dir="${basedir}/projects/tool" target="other.locales"/>
     	<ant dir="${basedir}/projects/tool_air" target="other.locales"/>
     	<ant dir="${basedir}/projects/apache" target="other.locales"/>
-        <ant dir="${basedir}/projects/experimental" target="other.locales"/>
+    	<ant dir="${basedir}/projects/experimental" target="other.locales"/>
+    	<ant dir="${basedir}/projects/experimental_mobile" target="other.locales"/>
     </target>
     
     <target name="doc" >
@@ -243,6 +244,7 @@
         -->
         <ant dir="${basedir}/projects/apache" target="doc" />
     	<ant dir="${basedir}/projects/experimental" target="doc" />
+    	<ant dir="${basedir}/projects/experimental_mobile" target="doc" />
     </target>
    
     <!--
@@ -277,7 +279,8 @@
         <ant dir="${basedir}/projects/charts" target="clean"/>
         <ant dir="${basedir}/projects/advancedgrids" target="clean"/>
     	<ant dir="${basedir}/projects/apache" target="clean"/>
-        <ant dir="${basedir}/projects/experimental" target="clean"/>
+    	<ant dir="${basedir}/projects/experimental" target="clean"/>
+    	<ant dir="${basedir}/projects/experimental_mobile" target="clean"/>
         <ant dir="${basedir}/javascript" target="clean"/>
     	<ant dir="${basedir}/themes/AeonGraphical" target="clean"/>
         <!-- delete the FlashBuilder executable directories -->
@@ -472,5 +475,9 @@
 	
     <target name="experimental" description="Clean build of experimental.swc">
         <ant dir="${basedir}/projects/experimental"/>
+    </target>
+	
+    <target name="experimental_mobile" description="Clean build of experimental_mobile.swc">
+        <ant dir="${basedir}/projects/experimental_mobile"/>
     </target>
 </project>
