@@ -1379,25 +1379,77 @@ public class FocusManager extends EventDispatcher implements IFocusManager
                 var o:DisplayObject = DisplayObject(findFocusManagerComponent2(focusableCandidates[i]));     
                 if (o is IFocusManagerGroup)
                 {
-                    // look around to see if there's an enabled and visible
-                    // selected member in the tabgroup, otherwise use the first
-                    // one we found.
-                    var tg1:IFocusManagerGroup = IFocusManagerGroup(o);
-                    for (var j:int = 0; j < focusableCandidates.length; j++)
+                                        // when landing on an element that is part of group, try to
+                    // advance selection to the selected group element
+                    if (o is IFocusManagerGroup)
                     {
-                        var obj:DisplayObject = focusableCandidates[j];
-                        if (obj is IFocusManagerGroup && isEnabledAndVisible(obj))
+                        var j:int;
+                        var obj:DisplayObject;
+                        var tg1:IFocusManagerGroup = IFocusManagerGroup(o);
+                        // normalize the "no selected group element" case
+                        // to the "first group element selected" case
+                        var groupElementToFocus:IFocusManagerGroup = null;
+                        for (j = 0; j < focusableCandidates.length; j++)
                         {
-                            var tg2:IFocusManagerGroup = IFocusManagerGroup(obj);
-                            if (tg2.groupName == tg1.groupName && tg2.selected)
+                            obj = focusableCandidates[j];
+                            if (isEnabledAndVisible(obj))
                             {
-                                // if objects of same group have different tab index
-                                // skip you aren't selected.
-                                if (InteractiveObject(obj).tabIndex != InteractiveObject(o).tabIndex && !tg1.selected)
-                                    return getIndexOfNextObject(i, shiftKey, bSearchAll, groupName);
-
-                                i = j;
-                                break;
+                                if (obj is IFocusManagerGroup)
+                                {
+                                    tg2 = IFocusManagerGroup(obj);
+                                    if (tg2.groupName == tg1.groupName)
+                                    {
+                                        if (groupElementToFocus == null || tg2.selected) 
+                                            groupElementToFocus = tg2;
+                                        if (tg2.selected)
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                        if (tg1 != groupElementToFocus)
+                        {
+                            // cycle the entire focusable candidates array forward or backward,
+                            // wrapping around boundaries, searching for our focus candidate
+                            var tg2:IFocusManagerGroup;
+                            j = i;
+                            for (var k:int = 0; k < focusableCandidates.length - 1; k++)
+                            {
+                                if (!shiftKey) 
+                                {
+                                    j++;
+                                    if (j == focusableCandidates.length)
+                                        j = 0;
+                                }
+                                else
+                                {
+                                    j--;
+                                    if (j == -1)
+                                        j = focusableCandidates.length - 1;
+                                }
+                                obj = focusableCandidates[j];
+                                if (isEnabledAndVisible(obj))
+                                {
+                                    if (obj is IFocusManagerGroup)
+                                    {
+                                        tg2 = IFocusManagerGroup(obj);
+                                        if (tg2.groupName == tg1.groupName && tg2 == groupElementToFocus)
+                                        {
+                                            // if objects of same group have different tab index
+                                            // skip you aren't selected.
+                                            if (InteractiveObject(obj).tabIndex != InteractiveObject(o).tabIndex && !tg1.selected)
+                                                return getIndexOfNextObject(i, shiftKey, bSearchAll, groupName);
+                                            i = j;
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // element isn't part of any group, stop
+                                        i = j;
+                                        break;
+                                    }
+                                }
                             }
                         }
                     }
