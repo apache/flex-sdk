@@ -43,6 +43,7 @@ SDK Changes
 - s:DataGridEditor will now be visible in ASDocs and be visible in the Tag inspector.
 - Minor changes to make SDK compile with Falcon compiler.
 - Added access to imageDecodingPolicy in BitmapImage.
+- New experimental mobile spark datagrid
 
 Bug Fixes
 ----------
@@ -61,6 +62,7 @@ FLEX-33782  AccordionData labelField and labelFunction properties don't work
 FLEX-33771  compatibilityVersionString returns the wrong value
 FLEX-33748  TabBar shouldn't be colorized in TabNavigatorSkin
 FLEX-33741  Propagation of Escape key in mx.controls.DateField should only be stopped if the DropDown is shown
+FLEX-33739  Duplication segment of code calling MultiBitmapSource getSource(dpi)
 FLEX-33738  ArrayCollection addAll() adds items in the wrong order
 FLEX-33730  RTE in Application.as line 2157 in Air simulator
 FLEX-33726  DateField.stringToDate returns null when inputFormat has no separators
