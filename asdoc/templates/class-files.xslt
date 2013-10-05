@@ -112,6 +112,14 @@
 								<xsl:with-param name="packageName" select="$packageName"/>
 							</xsl:call-template>
 						</xsl:variable>
+                        <xsl:variable name="experimental" >
+                            <xsl:if test="prolog/asMetadata/experimental">
+                                <xsl:value-of select="'true'"/>
+                            </xsl:if>
+                            <xsl:if test="not(prolog/asMetadata/experimental)">
+                                <xsl:value-of select="'false'"/>
+                            </xsl:if>
+                        </xsl:variable>
 						<xsl:result-document href="{$classFile}" method="html">
 							<!--xsl:message select="$classFile"/-->
 							<xsl:copy-of select="$docType"/>
@@ -153,6 +161,7 @@
 										<xsl:call-template name="classHeader">
 											<xsl:with-param name="classDeprecated" select="$classDeprecated"/>
 											<xsl:with-param name="classNode" select="$classNode"/>
+                                            <xsl:with-param name="experimental" select="$experimental"/>
 										</xsl:call-template>
 									</xsl:for-each>
 									<xsl:for-each select="$field_map//apiClassifier[@id=$ID]">

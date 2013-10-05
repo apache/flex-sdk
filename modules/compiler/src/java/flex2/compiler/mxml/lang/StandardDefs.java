@@ -373,7 +373,7 @@ public abstract class StandardDefs
     public static final String MD_SKINPART = "SkinPart";
     public static final String MD_ALTERNATIVE = "Alternative";
     public static final String MD_DISCOURAGEDFORPROFILE = "DiscouragedForProfile";
-    
+    public static final String MD_EXPERIMENTAL = "Experimental";
     
     //    metadata param names
     public static final String MDPARAM_BINDABLE_EVENT = "event";

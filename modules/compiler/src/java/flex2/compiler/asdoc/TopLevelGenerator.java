@@ -19,13 +19,13 @@
 
 package flex2.compiler.asdoc;
 
+import flex2.compiler.mxml.lang.StandardDefs;
+
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import flex2.compiler.mxml.lang.StandardDefs;
 
 /**
  * This class is used to generate the toplevel.xml file.
@@ -279,7 +279,7 @@ public class TopLevelGenerator implements DocCommentGenerator
             //These types of metadata can have comments associated with them
             if (metadataType == StandardDefs.MD_EVENT || metadataType == StandardDefs.MD_STYLE || metadataType == StandardDefs.MD_EFFECT 
                     || metadataType == StandardDefs.MD_SKINSTATE || metadataType == StandardDefs.MD_SKINPART || metadataType == StandardDefs.MD_ALTERNATIVE
-                    || metadataType == StandardDefs.MD_DISCOURAGEDFORPROFILE)
+                    || metadataType == StandardDefs.MD_DISCOURAGEDFORPROFILE || metadataType == StandardDefs.MD_EXPERIMENTAL)
             {
                 String desc = meta.getDescription();
                 if (desc != null)

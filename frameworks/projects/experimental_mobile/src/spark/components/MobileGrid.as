@@ -48,6 +48,8 @@ use namespace  mx_internal;
  */
 [Event(name="sortChange", type="spark.events.MobileGridHeaderEvent")]
 
+[Experimental]
+
 /**
  * The MobileGrid displays a collection of items in a grid of rows and columns and column headers and is optimized for speed on mobile devices.
  * <p> The MobileGrid component provides the following features:
