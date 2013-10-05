@@ -70,7 +70,11 @@
         <taskdef resource="flexTasks.tasks" classpathref="flexTasks.path"/>
 
 		<!-- Call asdoc to generate dita xml files -->
-		<asdoc output="${FLEX_HOME}/asdoc-output" lenient="true" failonerror="true" warnings="false" strict="false" locale="en_US" fork="true">
+		<asdoc output="${FLEX_HOME}/asdoc-output" lenient="true" failonerror="true" warnings="false" strict="false" locale="en_US" fork="true"
+               window-title="ApacheFlex API Reference"
+               main-title="${release} API Reference "
+               footer="${manifest.Implementation-Vendor}"  >
+
 			<!-- top level class to include in asdoc -->
 		    <doc-classes class="AIRFrameworkClasses"/>
 		    <doc-classes class="AIRSparkClasses"/>

@@ -4209,6 +4209,15 @@
                            </draft-comment>
                         </entry>
                      </row>
+                      <!-- text entry for experimental disclaimer-->
+                      <row rowsep="1" class="- topic/row ">
+                          <entry colname="1" colsep="1" class="- topic/entry ">
+                              <p translate="no" class="- topic/p ">experimental.disclaimer</p>
+                          </entry>
+                          <entry colname="2" colsep="1" class="- topic/entry ">
+                              <p class="- topic/p ">This class is experimental, which means it has not been tested or documented as thoroughly as other core Apache Flex classes.</p>
+                          </entry>
+                      </row>
                   </tbody>
                </tgroup>
             </adobetable>
