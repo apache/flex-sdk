@@ -75,10 +75,14 @@ use namespace  mx_internal;
  * in a single row are managed   by one single MobileGridRowRenderer that  delegates the individual  cell renderers to light-weight sub-renderers. </p>
  * <p> You usually don't access this internal row renderer yourself, and will rather define the individual cell renderers.</p>
  * <p> This technique ensures optimal display and memory performance, which is critical for mobile devices, at the price of less flexibility for cell renderers. </p>
- * <p>Click the link below to view examples of MobileGrid usage on the ApacheFlex github repository.</p>
  *
  *    @see spark.components.supportClasses.MobileGridColumn
- *    @see https://github.com/apache/flex-examples/tree/develop/showcase/4.11/components/mobilegrid/index.html Examples of MobileGrid usage on ApacheFlex github
+ *
+ *   @includeExample examples/MobileGrid_ApplicationExample.mxml -noswf
+ *   @includeExample examples/views/MobileGridView.mxml -noswf
+ *   @includeExample examples/views/MobileGridView2.mxml -noswf
+ *   @includeExample examples/renderers/MyActionButtonPartRenderer.as -noswf
+ *
  *  @langversion 3.0
  *  @playerversion AIR 3.8
  *  @productversion Flex 4.11

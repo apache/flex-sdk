@@ -58,7 +58,7 @@
             <fileset dir="${flexlib}/projects/charts/asdoc/en_US"/>
             <!--  <fileset dir="${flexlib}/projects/core/asdoc/en_US"/>-->
             <!--  <fileset dir="${flexlib}/projects/experimental/asdoc/en_US"/>-->
-            <!--  <fileset dir="${flexlib}/projects/experimental_mobile/asdoc/en_US"/>-->
+             <fileset dir="${flexlib}/projects/experimental_mobile/asdoc/en_US"/>
             <fileset dir="${flexlib}/projects/framework/asdoc/en_US"/>
             <fileset dir="${flexlib}/projects/mobilecomponents/asdoc/en_US"/>
             <!--  <fileset dir="${flexlib}/projects/mx/asdoc/en_US"/>-->
