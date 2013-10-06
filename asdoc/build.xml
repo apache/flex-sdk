@@ -22,6 +22,9 @@
 	<property name="lenient" value="true"/>
 	<property name="flexlib" location="${FLEX_HOME}/frameworks"/>
 
+    <property name="doc_output" location="${FLEX_HOME}/asdoc-output"   />
+    <property name="include_examples" location="${doc_output}/include_examples" />
+
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
@@ -41,11 +44,28 @@
                property="TLF_HOME"
                value="${env.TLF_HOME}"/>
 
-	<target name="main" depends="clean,doc" description="Clean build of all ASDocs"/>
+	<target name="main" depends="clean,copyExamples,doc" description="Clean build of all ASDocs"/>
 
 	<target name="clean" description="Cleans all ASDocs">
-		<delete dir="${FLEX_HOME}/asdoc-output"/>
+		<delete dir="${doc_output}"/>
 	</target>
+
+    <target name="copyExamples" description="Copy all  projects asdocs subdir to singe location">
+        <copy todir="${include_examples}">
+            <fileset dir="${flexlib}/projects/advancedgrids/asdoc/en_US"/>
+            <fileset dir="${flexlib}/projects/airframework/asdoc/en_US"/>
+            <!-- <fileset dir="${flexlib}/projects/apache/asdoc/en_US"/>-->
+            <fileset dir="${flexlib}/projects/charts/asdoc/en_US"/>
+            <!--  <fileset dir="${flexlib}/projects/core/asdoc/en_US"/>-->
+            <!--  <fileset dir="${flexlib}/projects/experimental/asdoc/en_US"/>-->
+            <!--  <fileset dir="${flexlib}/projects/experimental_mobile/asdoc/en_US"/>-->
+            <fileset dir="${flexlib}/projects/framework/asdoc/en_US"/>
+            <fileset dir="${flexlib}/projects/mobilecomponents/asdoc/en_US"/>
+            <!--  <fileset dir="${flexlib}/projects/mx/asdoc/en_US"/>-->
+            <fileset dir="${flexlib}/projects/rpc/asdoc/en_US"/>
+            <fileset dir="${flexlib}/projects/spark/asdoc/en_US"/>
+        </copy>
+    </target>
 
 	<target name="doc">
 
@@ -70,10 +90,12 @@
         <taskdef resource="flexTasks.tasks" classpathref="flexTasks.path"/>
 
 		<!-- Call asdoc to generate dita xml files -->
-		<asdoc output="${FLEX_HOME}/asdoc-output" lenient="true" failonerror="true" warnings="false" strict="false" locale="en_US" fork="true"
+		<asdoc output="${doc_output}" lenient="true" failonerror="true" warnings="false" strict="false" locale="en_US" fork="true"
                window-title="ApacheFlex API Reference"
                main-title="${release} API Reference "
-               footer="${manifest.Implementation-Vendor}"  >
+               footer="${manifest.Implementation-Vendor}"
+               examples-path="${include_examples}"
+                >
 
 			<!-- top level class to include in asdoc -->
 		    <doc-classes class="AIRFrameworkClasses"/>
