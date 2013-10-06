@@ -5005,7 +5005,10 @@ public class TopLevelClassesGenerator
             if (experimentalElement != null) {
                 String fullName = experimentalElement.getAttribute("owner");
 
-               System.out.println(" processing [Experimental] for " + fullName);
+                if (verbose)
+                {
+                    System.out.println(" processing [Experimental] for " + fullName);
+                }
 
                 AsClass myClass = classTable.get(fullName);
 

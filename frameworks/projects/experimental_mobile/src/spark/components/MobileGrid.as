@@ -78,6 +78,11 @@ use namespace  mx_internal;
  *
  *    @see spark.components.supportClasses.MobileGridColumn
  *
+ *   @includeExample examples/MobileGrid_ApplicationExample.mxml -noswf
+ *   @includeExample examples/views/MobileGridView.mxml -noswf
+ *   @includeExample examples/views/MobileGridView2.mxml -noswf
+ *   @includeExample examples/renderers/MyActionButtonPartRenderer.as -noswf
+ *
  *  @langversion 3.0
  *  @playerversion AIR 3.8
  *  @productversion Flex 4.11
