@@ -32,7 +32,10 @@ package spark.layouts
 	
 	import spark.layouts.supportClasses.PerspectiveAnimationNavigatorLayoutBase;
 
-	/**
+// for asdoc
+[Experimental]
+
+/**
 	 *  A CarouselLayout class arranges the layout elements in a
 	 *  sequence along an arc, with one of them at a time selected.
 	 * 

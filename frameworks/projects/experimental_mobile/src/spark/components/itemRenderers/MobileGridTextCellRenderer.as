@@ -29,6 +29,8 @@ import spark.utils.LabelUtil;
 
 use namespace mx_internal;
 
+[Experimental]
+
 /** Default lightweight  class for rendering formatted text in MobileGrid cells .
  * <p> You don't have to use this render explicitly as it will be used by default for MobileGrid text cells. </p>
  *

@@ -19,6 +19,8 @@
 package spark.components.itemRenderers
 {
 
+[Experimental]
+
 /**  Extends IMobileGridCellRenderers with APIs for rendering text in MobileGrid cells.
  *  <p>Typically , implementors will set the text to render using labelField and/or labelFunction this way:      </p>
  *  <code> text = UIComponentUtils.itemToLabel(value, _labelField, _labelFunction); </code>

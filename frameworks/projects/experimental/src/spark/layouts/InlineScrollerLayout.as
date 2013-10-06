@@ -31,8 +31,11 @@ package spark.layouts
 	import spark.core.IViewport;
 	import spark.layouts.supportClasses.LayoutBase;
 	import spark.layouts.supportClasses.LayoutElementHelper;
-	
-	[ExcludeClass]
+
+// for asdoc
+[Experimental]
+
+[ExcludeClass]
 	
 	/**
 	 *  @private

@@ -35,8 +35,11 @@ package spark.layouts
 	import spark.layouts.supportClasses.LayoutAxis;
 
 	use namespace mx_internal;
-	
-	/**
+
+// for asdoc
+[Experimental]
+
+/**
 	 *  An AccordionLayout class arranges the layout elements in a vertical
 	 *  or horizontal sequence, with one of them at a time fully visible.
 	 * 

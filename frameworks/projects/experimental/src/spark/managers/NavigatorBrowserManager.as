@@ -20,8 +20,11 @@ package spark.managers
 {
 	
 	import mx.core.Singleton;
-	
-	/**
+
+// for asdoc
+[Experimental]
+
+/**
 	 *  @private
 	 *  The NavigatorBrowserManager is a Singleton manager that acts as
 	 *  a proxy between the BrowserManager and INavigatorLayout instances

@@ -27,8 +27,11 @@ package spark.containers
 	import spark.layouts.supportClasses.INavigatorLayout;
 	
 	import mx.utils.BitFlagUtil;
-	
-	/**
+
+    // for asdoc
+    [Experimental]
+
+/**
 	 *  An Spark Accordion navigator container has a collection IVisualElements,
 	 *  but only one of them at a time is fully visible.
 	 *  It creates and manages navigator buttons, which you use

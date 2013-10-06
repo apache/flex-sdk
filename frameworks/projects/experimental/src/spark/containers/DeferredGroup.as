@@ -53,8 +53,11 @@ package spark.containers
 	import spark.containers.supportClazzes.DeferredCreationPolicy;
 	
 	use namespace mx_internal;
-	
-	//--------------------------------------
+
+// for asdoc
+[Experimental]
+
+//--------------------------------------
 	//  Events
 	//--------------------------------------
 	

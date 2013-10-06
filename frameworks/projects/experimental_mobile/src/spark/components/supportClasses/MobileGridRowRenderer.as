@@ -32,6 +32,9 @@ import spark.core.ISharedDisplayObject;
 
 use namespace mx_internal;
 
+// for asdoc
+[Experimental]
+
 /**  @private
  *  This is the base class for multi-part renderers that manages a vector of part renderers.
  *  This class is responsible for creating and storing  the actual renderers from their descriptors

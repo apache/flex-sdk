@@ -36,6 +36,9 @@ package spark.components
 	import spark.components.supportClasses.IDropDownContainer;
 	
 	use namespace mx_internal;
+
+    // for asdoc
+    [Experimental]
 	
 	[Event(name="close", type="spark.events.DropDownEvent")]
 	[Event(name="open", type="spark.events.DropDownEvent")]

@@ -18,6 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.components
 {
+   // for asdoc
+  [Experimental]
 	/**
 	 *  Enumeration of arrow directions for use in visual components.
 	 * 

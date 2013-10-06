@@ -22,6 +22,8 @@ package spark.components.itemRenderers
 import mx.core.IDataRenderer;
 import mx.styles.IStyleClient;
 
+[Experimental]
+
 /**
  * This is the base interface that all mobile grid cell renderers must implement.
  * <p>Contrary to desktop DataGrid control, there is no default implementation for this interface,

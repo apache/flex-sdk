@@ -19,7 +19,11 @@
 package spark.events
 {
 	import flash.events.Event;
-	/**
+
+// for asdoc
+[Experimental]
+
+/**
 	 * @author Bogdan Dinu (http://www.badu.ro)
 	 */
 	public class ColorChangeEvent extends Event

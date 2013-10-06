@@ -18,7 +18,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.components
 {
-	/**
+    // for asdoc
+    [Experimental]
+
+/**
 	 *  The CalloutPosition calss defines the enumeration of 
 	 *  horizontal and vertical positions of the Callout component
 	 *  relative to the owner.

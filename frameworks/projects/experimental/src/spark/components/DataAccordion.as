@@ -27,10 +27,12 @@ package spark.components
 	import spark.layouts.AccordionLayout;
 	
 	import mx.utils.BitFlagUtil;
-	
 
-	
-	/**
+
+    // for asdoc
+    [Experimental]
+
+/**
 	 *  An Spark DataAccordion navigator displays a list of items,
 	 *  but only one of them at a time is fully visible.
 	 *  It creates and manages navigator buttons, which you use

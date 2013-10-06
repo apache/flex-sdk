@@ -27,7 +27,10 @@ package spark.layouts.supportClasses
 	
 	import spark.components.supportClazzes.AnimationTarget;
 
-	/**
+// for asdoc
+[Experimental]
+
+/**
 	 *  A AnimationNavigatorLayoutBase class is a base class for navigator layouts
 	 *  that can animation between indices.
 	 * 

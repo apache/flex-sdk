@@ -32,6 +32,8 @@ import spark.components.itemRenderers.IMobileGridCellRenderer;
 import spark.components.itemRenderers.IMobileGridTextCellRenderer;
 import spark.components.itemRenderers.MobileGridTextCellRenderer;
 
+[Experimental]
+
 /**
  *  The MobileGridColumn class defines  a column to display in a MobileGrid control.
  * <p> The MobileGridColumn class specifies the characteristics of the column to display,
