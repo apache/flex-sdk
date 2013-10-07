@@ -25,7 +25,7 @@ package spark.layouts.supportClasses
 	import spark.effects.easing.Linear;
 	import spark.effects.easing.Sine;
 	
-	import spark.components.supportClazzes.AnimationTarget;
+	import spark.components.supportClasses.AnimationTarget;
 
 	/**
 	 *  A AnimationNavigatorLayoutBase class is a base class for navigator layouts
