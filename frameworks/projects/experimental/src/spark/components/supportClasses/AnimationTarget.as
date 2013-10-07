@@ -16,7 +16,7 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package spark.components.supportClazzes
+package spark.components.supportClasses
 {
 	import spark.effects.animation.Animation;
 	import spark.effects.animation.IAnimationTarget;

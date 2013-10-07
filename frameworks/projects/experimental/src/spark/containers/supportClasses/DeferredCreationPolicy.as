@@ -16,7 +16,7 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package spark.containers.supportClazzes
+package spark.containers.supportClasses
 {
 	
 
