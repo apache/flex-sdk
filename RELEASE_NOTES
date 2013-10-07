@@ -31,8 +31,8 @@ Differences from Apache Flex 4.9 include:
 
 AIR and Flash Player support
 ------------------------------
- - Support Flash Player 11.9.
- - Support for AIR 3.9.
+ - Support Flash Player 11.9 beta.
+ - Support for AIR 3.9 beta.
 
 SDK Changes
 -------------
@@ -43,7 +43,12 @@ SDK Changes
 - s:DataGridEditor will now be visible in ASDocs and be visible in the Tag inspector.
 - Minor changes to make SDK compile with Falcon compiler.
 - Added access to imageDecodingPolicy in BitmapImage.
-- New experimental mobile spark datagrid
+- New experimental mobile spark datagrid.
+- Updated OSMF swc to latest version (2.0)
+
+Compiler changes
+------------------
+ - Support for [Experimental] metadata tag.
 
 Bug Fixes
 ----------
@@ -56,6 +61,7 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-33801  Missing embedded examples in ASDOC on flex.apache.org/asdoc/
 FLEX-33789  Logical error: self-reference in GridHeaderViewLayout
 FLEX-33783  mxmlc -help returns 1
 FLEX-33782  AccordionData labelField and labelFunction properties don't work
