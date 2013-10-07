@@ -119,6 +119,8 @@ import spark.skins.spark.VSliderSkin; VSliderSkin;
 import spark.skins.spark.VSliderThumbSkin; VSliderThumbSkin;
 import spark.skins.spark.VSliderTrackSkin; VSliderTrackSkin;
 import spark.utils.TextFlowUtil; TextFlowUtil;
+
+import spark.components.ContentBackgroundAppearance;ContentBackgroundAppearance;
 }
 
 }

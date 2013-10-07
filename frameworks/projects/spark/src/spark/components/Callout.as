@@ -286,7 +286,7 @@ public class Callout extends SkinnablePopUpContainer
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    protected function get actualHorizontalPosition():String
+    mx_internal function get actualHorizontalPosition():String
     {
         if (_actualHorizontalPosition)
             return _actualHorizontalPosition;
@@ -297,7 +297,7 @@ public class Callout extends SkinnablePopUpContainer
     /**
      *  @private
      */
-    protected function set actualHorizontalPosition(value:String):void
+    mx_internal function set actualHorizontalPosition(value:String):void
     {
         _actualHorizontalPosition = value;
     }
@@ -363,7 +363,7 @@ public class Callout extends SkinnablePopUpContainer
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    protected function get actualVerticalPosition():String
+    mx_internal function get actualVerticalPosition():String
     {
         if (_actualVerticalPosition)
             return _actualVerticalPosition;
@@ -374,7 +374,7 @@ public class Callout extends SkinnablePopUpContainer
     /**
      *  @private
      */
-    protected function set actualVerticalPosition(value:String):void
+    mx_internal function set actualVerticalPosition(value:String):void
     {
         _actualVerticalPosition = value;
     }
