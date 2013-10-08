@@ -20,7 +20,6 @@
 package spark.skins.mobile.supportClasses
 {
 import flash.display.BlendMode;
-import flash.display.DisplayObject;
 import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.display.GraphicsPathCommand;
