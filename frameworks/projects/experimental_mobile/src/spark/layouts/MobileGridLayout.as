@@ -26,6 +26,8 @@ import spark.utils.MobileGridUtil;
 
 use namespace  mx_internal;
 
+[Experimental]
+
 /**
  * Internal class used for laying out rows, columns and headers of a MobileGrid component.
  *

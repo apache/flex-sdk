@@ -41,10 +41,11 @@ package spark.containers
 	import spark.supportClasses.INavigator;
 	
 	use namespace mx_internal;
-	
-	
-	
-	//--------------------------------------
+
+// for asdoc
+[Experimental]
+
+//--------------------------------------
 	//  Styles
 	//--------------------------------------
 	

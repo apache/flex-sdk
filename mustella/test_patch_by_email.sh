@@ -18,16 +18,41 @@
 ##
 ################################################################################
 ##
-## patch_test_loop keeps running test_patch_by_email.sh every
-## 10 minutes
+## test_patch_by_email.sh gets email, finds patches, saves them to files 
+## runs test_patch
 ##
 
-while [ 1 ]
-do
-    echo "checking email at `date`" 
-    sh test_patch_by_email.sh
-    echo "going to sleep for a bit"
-    sleep 10m
-    echo "done sleeping"
-done
+cd ..
 
+rm /var/spool/mail/mustellarunner
+fetchmail
+if [ -f "/var/spool/mail/mustellarunner" ]
+then
+cd ./mustella/utilities/PatchExtractor/src
+echo "launching patch extractor"
+"$AIR_HOME/bin/adl" -runtime "$AIR_HOME/runtimes/air/win" PatchExtractor-app.xml -- c:/cygwin/var/spool/mail/mustellarunner
+cd ../../../..
+gotone=0
+for file in *.patch
+do
+    git pull --rebase
+    gotone=1
+    break;
+done
+if [ gotone == 0 ] ; then
+    echo "no patches"
+    exit 2
+fi
+
+for file in *.patch
+do
+d=`dirname $file`
+b=`basename $file .patch`
+read replyAddr < $d/$b.reply
+sh ./mustella/test_patch.sh $file $replyAddr
+rm $file
+rm $replyAddr
+done
+else
+    echo "no messages"
+fi

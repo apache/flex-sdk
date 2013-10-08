@@ -80,6 +80,9 @@ package spark.components {
 
     [ResourceBundle("alert")]
 
+    // for asdoc
+    [Experimental]
+
     /**
      *  The Alert control is a pop-up dialog box that can contain a message,
      *  a title, buttons (any combination of OK, Cancel, Yes, and No) and an icon.

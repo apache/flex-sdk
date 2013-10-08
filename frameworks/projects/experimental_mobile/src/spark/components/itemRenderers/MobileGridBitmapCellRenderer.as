@@ -27,6 +27,8 @@ import spark.primitives.BitmapImage;
 
 use namespace mx_internal;
 
+[Experimental]
+
 /** Default lightweight  class for rendering embedded Bitmaps  or Multi-DPI Bitmaps in a MobileGrid cell .
  *You define the icon to be used in each cell by setting either iconField or iconFunction properties.
  *

@@ -25,8 +25,6 @@ import mx.managers.SystemManager;
 
 import spark.components.Application;
 
-//TODO merge with spark.utils.DensityUtil
-
 /**
  * @private
  * Utility class for MobileGrid
@@ -37,6 +35,8 @@ import spark.components.Application;
 
  */
 
+    // for asdoc
+[Experimental]
 
 public class MobileGridUtil
 {

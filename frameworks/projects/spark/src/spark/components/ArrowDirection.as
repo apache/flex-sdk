@@ -19,78 +19,72 @@
 
 package spark.components
 {
-
 /**
- *  The CalloutPosition calss defines the enumeration of 
- *  horizontal and vertical positions of the Callout component
- *  relative to the owner.
+ *  Enumeration of arrow directions for use in visual components.
  * 
- *  @see spark.components.Callout
- *  @see spark.components.Callout#horizontalPosition
- *  @see spark.components.Callout#verticalPosition
+ *  @see spark.components.Callout#arrowDirection
  * 
  *  @langversion 3.0
+ *  @playerversion Flash 11
  *  @playerversion AIR 3
  *  @productversion Flex 4.6
  */
-public final class CalloutPosition
+public class ArrowDirection
 {
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
     
     /**
-     *  Position the trailing edge of the callout before the leading edge of the owner.
+     *  Arrow points right.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    public static const BEFORE:String = "before";
+    public static const RIGHT:String = "right";
     
     /**
-     *  Position the leading edge of the callout at the leading edge of the owner.
+     *  Arrow points up.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    public static const START:String = "start";
+    public static const UP:String = "up";
     
     /**
-     *  Position the horizontalCenter of the callout to the horizontalCenter of the owner.
+     *  Arrow points left.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    public static const MIDDLE:String = "middle";
+    public static const LEFT:String = "left";
     
     /**
-     *  Position the trailing edge of the callout at the trailing edge of the owner.
+     *  Arrow points down.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    public static const END:String = "end";
+    public static const DOWN:String = "down";
     
     /**
-     *  Position the leading edge of the callout after the trailing edge of the owner.
+     *  No arrow direciton.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    public static const AFTER:String = "after";
-    
-    /**
-     *  Position the callout on the exterior of the owner where the callout 
-     *  requires the least amount of resizing to fit.
-     * 
-     *  @langversion 3.0
-     *  @playerversion AIR 3
-     *  @productversion Flex 4.6
-     */
-    public static const AUTO:String = "auto";
-    
+    public static const NONE:String = "none";
 }
-
 }

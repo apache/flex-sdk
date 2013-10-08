@@ -29,7 +29,10 @@ package spark.components {
     import spark.primitives.Line;
     import spark.utils.ColorPickerUtil;
 
-    /**
+    // for asdoc
+    [Experimental]
+
+/**
      * Dispatched when a color is chosen
      *
      *  @langversion 3.0

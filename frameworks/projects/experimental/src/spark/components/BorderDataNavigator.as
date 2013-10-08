@@ -22,6 +22,9 @@ package spark.components
 	import mx.graphics.IStroke;
 	import spark.components.DataNavigator;
 
+    // for asdoc
+    [Experimental]
+
 	public class BorderDataNavigator extends DataNavigator
 	{
 		public function BorderDataNavigator()

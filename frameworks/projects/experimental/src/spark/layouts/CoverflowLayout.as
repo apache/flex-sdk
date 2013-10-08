@@ -32,8 +32,11 @@ package spark.layouts
 	import spark.primitives.supportClasses.GraphicElement;
 	
 	import spark.layouts.supportClasses.PerspectiveAnimationNavigatorLayoutBase;
-	
-	/**
+
+// for asdoc
+[Experimental]
+
+/**
 	 *  A CoverflowLayout class arranges the layout elements in a
 	 *  linear along with unselected items having a different z and rotation.
 	 * 

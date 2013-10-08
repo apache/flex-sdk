@@ -159,7 +159,11 @@
 		</delete>
 	</target>
 
-	<target name="compile" description="Compiles experimental_mobile.swc">
+    <target name="prepare" description="Copies manifests to project directories so the IDE can find them">
+        <copy file="${FLEX_HOME}/frameworks/experimental-mobile-manifest.xml" tofile="${basedir}/manifest.xml" overwrite="true"/>
+    </target>
+
+	<target name="compile" depends="prepare" description="Compiles experimental_mobile.swc">
 		<echo message="Compiling frameworks/libs/experimental_mobile.swc"/>
         <echo message="Using ${env.AIR_HOME}/frameworks/libs/air/airglobal.swc" level="info"/>
 

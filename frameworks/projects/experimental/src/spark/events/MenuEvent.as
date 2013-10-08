@@ -22,7 +22,10 @@ package spark.events {
     import spark.components.List;
     import spark.components.Menu;
 
-    /**
+// for asdoc
+[Experimental]
+
+/**
      * @author Bogdan Dinu (http://www.badu.ro)
      */
     public class MenuEvent extends IndexChangeEvent {

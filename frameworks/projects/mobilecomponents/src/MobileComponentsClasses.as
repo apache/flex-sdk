@@ -35,6 +35,6 @@ internal class MobileComponentsClasses
     import spark.components.supportClasses.StyleableStageText; StyleableStageText;
     import spark.components.supportClasses.StyleableTextField; StyleableTextField;
     import spark.components.ActionBarDefaultButtonAppearance; ActionBarDefaultButtonAppearance;
-    import spark.components.ContentBackgroundAppearance; ContentBackgroundAppearance;
+
 }
 }

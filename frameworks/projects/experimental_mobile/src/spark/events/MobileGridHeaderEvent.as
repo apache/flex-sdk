@@ -20,6 +20,8 @@ package spark.events
 {
 import flash.events.Event;
 
+[Experimental]
+
 /**
  *  The MobileGridHeaderEvent class represents events that are dispatched when
  the user clicks  on the header of a column in the DataGrid to sort it.

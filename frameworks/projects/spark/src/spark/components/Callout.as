@@ -59,10 +59,36 @@ use namespace mx_internal;
  *  @default ContentBackgroundAppearance.INSET
  *  
  *  @langversion 3.0
+ *  @playerversion Flash 11
  *  @playerversion AIR 3
  *  @productversion Flex 4.6
  */ 
 [Style(name="contentBackgroundAppearance", type="String", enumeration="inset,flat,none", inherit="no")]
+
+/**
+ *  Color  of the frame border  and arrow outline  of the Callout control.
+ *  @default 0
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 11
+ *  @playerversion AIR 3.8
+ *  @productversion Flex 4.11
+ */
+
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="spark, mobile")]
+
+/**
+ *   Thickness of the border stroke around the <code>backgroundColor</code> Callout "frame" and arrow.
+ *  Set to NaN or 0 to hide the border ;
+ *
+ *  @default NaN
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 11
+ *  @playerversion AIR 3.8
+ *  @productversion Flex 4.11
+ */
+[Style(name="borderThickness", type="Number", format="Length", inherit="no", theme="spark,mobile")]
 
 //--------------------------------------
 //  Other metadata
@@ -76,11 +102,6 @@ use namespace mx_internal;
  *  Callout also adds an optional <code>arrow</code> skin part that visually
  *  displays the direction toward the owner.
  *
- *  <p>The following image shows a Callout container labeled 'Settings':</p>
- *
- * <p>
- *  <img src="../../images/ca_calloutViewNav_ca.png" alt="Callout container" />
- * </p>
  *
  *  <p>You can also use the CalloutButton control to open a callout container. 
  *  The CalloutButton control encapsulates in a single control the callout container 
@@ -135,7 +156,9 @@ use namespace mx_internal;
  *     <tr><td>Default size</td><td>Large enough to display its children</td></tr>
  *     <tr><td>Minimum size</td><td>0 pixels</td></tr>
  *     <tr><td>Maximum size</td><td>10000 pixels wide and 10000 pixels high</td></tr>
- *     <tr><td>Default skin class</td><td>spark.skins.mobile.CalloutSkin</td></tr>
+ *     <tr><td>Default skin class</td>
+ *     <td>spark.skins.mobile.CalloutSkin<br/>
+ *           spark.skins.spark.CalloutSkin on desktops</td></tr>
  *     </table>
  *
  *  @mxml <p>The <code>&lt;s:Callout&gt;</code> tag inherits all of the tag
@@ -160,7 +183,8 @@ use namespace mx_internal;
  *  @includeExample examples/CalloutExample.mxml -noswf
  *
  *  @langversion 3.0
- *  @playerversion AIR 3
+ *  @playerversion Flash 11
+ *  *  @playerversion AIR 3
  *  @productversion Flex 4.6
  */
 public class Callout extends SkinnablePopUpContainer
@@ -184,6 +208,7 @@ public class Callout extends SkinnablePopUpContainer
      *  Constructor.
      *
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -206,6 +231,7 @@ public class Callout extends SkinnablePopUpContainer
      *  contentGroup.
      *
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -244,6 +270,7 @@ public class Callout extends SkinnablePopUpContainer
      *  @see spark.components.CalloutPosition
      *
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -283,10 +310,11 @@ public class Callout extends SkinnablePopUpContainer
      *  the arrow position in <code>updateSkinDisplayList()</code>.</p>
      *
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    protected function get actualHorizontalPosition():String
+    mx_internal function get actualHorizontalPosition():String
     {
         if (_actualHorizontalPosition)
             return _actualHorizontalPosition;
@@ -297,7 +325,7 @@ public class Callout extends SkinnablePopUpContainer
     /**
      *  @private
      */
-    protected function set actualHorizontalPosition(value:String):void
+    mx_internal function set actualHorizontalPosition(value:String):void
     {
         _actualHorizontalPosition = value;
     }
@@ -321,6 +349,7 @@ public class Callout extends SkinnablePopUpContainer
      *  @see spark.components.CalloutPosition
      *
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -360,10 +389,11 @@ public class Callout extends SkinnablePopUpContainer
      *  the arrow position in <code>updateSkinDisplayList()</code>.</p>
      *
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    protected function get actualVerticalPosition():String
+    mx_internal function get actualVerticalPosition():String
     {
         if (_actualVerticalPosition)
             return _actualVerticalPosition;
@@ -374,7 +404,7 @@ public class Callout extends SkinnablePopUpContainer
     /**
      *  @private
      */
-    protected function set actualVerticalPosition(value:String):void
+    mx_internal function set actualVerticalPosition(value:String):void
     {
         _actualVerticalPosition = value;
     }
@@ -406,6 +436,7 @@ public class Callout extends SkinnablePopUpContainer
      *  @see spark.components.ArrowDirection
      *
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -827,6 +858,7 @@ public class Callout extends SkinnablePopUpContainer
      *  share the same coordinate space.</p>
      *
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */

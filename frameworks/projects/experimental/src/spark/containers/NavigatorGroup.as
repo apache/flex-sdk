@@ -35,9 +35,11 @@ package spark.containers
 	import spark.layouts.StackLayout;
 	import spark.layouts.supportClasses.AnimationNavigatorLayoutBase;
 	import spark.layouts.supportClasses.INavigatorLayout;
-	
 
-	//--------------------------------------
+// for asdoc
+[Experimental]
+
+//--------------------------------------
 	//  Events
 	//--------------------------------------
 	

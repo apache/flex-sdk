@@ -27,6 +27,9 @@ import spark.core.IGraphicElement;
 
 use namespace  mx_internal;
 
+// for asdoc
+[Experimental]
+
 /** @private
  *    this class is responsible for laying out grid cells in a given MobileGrid row.
  *    It will make sure that cell content is aligned according to the column widths.

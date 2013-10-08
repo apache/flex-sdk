@@ -32,6 +32,9 @@ import spark.utils.MultiDPIBitmapSource;
 
 use namespace  mx_internal;
 
+// for asdoc
+[Experimental]
+
 [Event(name="sortChange", type="spark.events.MobileGridHeaderEvent")]
 
 /**  @private

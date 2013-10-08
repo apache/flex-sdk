@@ -22,8 +22,11 @@ package spark.components
 	import spark.components.supportClasses.Skin;
 	
 	import spark.layouts.InlineScrollerLayout;
-	
-	/**
+
+    // for asdoc
+    [Experimental]
+
+/**
 	 *  The InlineScroller component displays a single scrollable component, 
 	 *  called a viewport, and horizontal and vertical scroll bars. 
 	 *  The viewport must implement the IViewport interface.  Its skin

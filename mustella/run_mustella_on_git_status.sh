@@ -22,14 +22,16 @@
 ## mini_run.sh -changes and runs mini_run-failures if there are failures
 ## mpte: does not build the sdk.  Assumes you did that already
 
+cd ..
+
 git status >gitstatus.txt
-cd mustella/utilities/MustellaTestChooser/src
+cd ./mustella/utilities/MustellaTestChooser/src
 "$AIR_HOME/bin/adl" -runtime "$AIR_HOME/runtimes/air/win" MustellaTestChooser-app.xml -- -file
 cd ../../../..
 if [ -s mustella/changes.txt ]
 then
-	cd mustella
-        sh ./test_changes.sh
-	cd ..
+    cd mustella
+    sh ./test_changes.sh
+    cd ..
 fi
 

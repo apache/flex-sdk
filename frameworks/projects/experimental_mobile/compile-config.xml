@@ -27,7 +27,7 @@
             <path-element>../../libs/framework.swc</path-element>
             <path-element>../../libs/apache.swc</path-element>
             <path-element>../../libs/spark.swc</path-element>
-            <path-element>../../libs/textlayout.swc</path-element>
+            <path-element>../../libs/textLayout.swc</path-element>
             <path-element>../../libs/mobile/mobilecomponents.swc</path-element>
             <path-element>../../themes/Mobile/mobile.swc</path-element>
         </external-library-path>
