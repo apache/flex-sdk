@@ -72,6 +72,8 @@ Getting the latest sources via git
     use the following command:
 
 	 git clone https://git-wip-us.apache.org/repos/asf/flex-tlf.git tlf
+	 cd tlf
+	 git checkout develop
 
     In an Apache Flex source code package hosted on the distribution server or
     one of its mirrors, the Text Layout Framework code is already included in
@@ -174,7 +176,7 @@ Install Prerequisites
 
         This version of Apache Flex was certified for use with AIR 3.8, and should
         be compatible with other versions of AIR newer than 3.1. However it hasn't
-        been tested on AIR 3.2, 3.3, 3.5, 3.6 or 3.7.
+        been fully tested on AIR 3.2, 3.3, 3.5, 3.6 or 3.7.
 
         Download the AIR SDK for your platform and unzip it. Set AIR_HOME to the
         absolute path of the AIR SDK directory.
@@ -183,10 +185,10 @@ Install Prerequisites
             http://www.adobe.com/support/flashplayer/downloads.html
 
         This version of Apache Flex was certified for use with Adobe Flash Player 11.1,
-        and is compatible with versions 10.2 through 11.8. It has been tested with
-        versions 11.1, 11.7 and 11.8 on Windows and Mac. It has been compiled against
-        other Adobe Flash Player versions but has not been fully tested. It has not been
-        fully tested on Linux.
+        and is compatible with versions 10.2 through 11.9 beta. It has been tested with
+        versions 11.1, 11.7, 11.8 and 11.9 beta on Windows and Mac. It has been compiled
+        against other Adobe Flash Player versions but has not been fully tested. It has
+        not been fully tested on Linux.
             
         On Windows, set FLASHPLAYER_DEBUGGER to the absolute path including the filename
         of the FlashPlayerDebugger.exe. Note the filename of flash player debugger maybe
@@ -232,6 +234,7 @@ Install Prerequisites
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_6.swc
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_7.swc
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_8.swc
+            http://labsdownload.adobe.com/pub/labs/flashruntimes/flashplayer/flashplayer11-9_playerglobal.swc
             
         These can be used with Apache Flex but have not been fully tested.
         
@@ -302,7 +305,7 @@ Adobe Flash Player Version Support
 
     The Apache Flex SDK defaults to using the Adobe Flash Player 11.1. The SDK can be
     used with Flash Player versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5,
-    11.6, 11.7 and 11.8.
+    11.6, 11.7, 11.8 and 11.9 beta.
     
     It is recommended that you update to the latest version of Adobe Flash Player.
     Newer versions of the Adobe Flash player address security vulnerabilities, fix
@@ -344,6 +347,7 @@ Adobe Flash Player Version Support
     http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_6.swc
     http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_7.swc
     http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_8.swc
+    http://labsdownload.adobe.com/pub/labs/flashruntimes/flashplayer/flashplayer11-9_playerglobal.swc
     
     Copy the target playerglobal.swc to the directory:
     
@@ -380,9 +384,12 @@ Adobe Flash Player Version Support
                          /playerglobal.swc 
                     /11.8
                          /playerglobal.swc  
+                    /11.9
+                         /playerglobal.swc  
     
-    Apache Flex has been tested with Adobe Flash Player 11.1, 11.5, 11.7 and 11.8 on
-    Windows and Mac.
+    Apache Flex has been tested with Adobe Flash Player 11.1, 11.5, 11.7, 11.8 and
+    11.9 beta on Windows and Mac.
+    
     Apache Flex has not been tested on Linux so some issue may exist in this release.
     
     It compiles against other Adobe Flash Player versions and is expected to work but
