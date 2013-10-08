@@ -48,6 +48,7 @@ SDK Changes
 - New experimental mobile spark datagrid.
 - Updated OSMF swc to latest version (2.0)
 - Renamed experimental supportClazzes package to be supportClasses. 
+- Mobile Callout moved to spark and can be used in Desktop and Browser apps.
 
 Compiler changes
 ------------------
@@ -64,6 +65,8 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-33807  DateValidator class (mx.validators.DateValidator) incorrectly validating date
+FLEX-33803  Mark experimental components with the experimental metadata tag
 FLEX-33801  Missing embedded examples in ASDOC on flex.apache.org/asdoc/
 FLEX-33789  Logical error: self-reference in GridHeaderViewLayout
 FLEX-33783  mxmlc -help returns 1
