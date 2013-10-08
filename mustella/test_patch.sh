@@ -22,6 +22,8 @@
 ## runs mini_run-failures if there are failures
 ##
 
+cd ..
+
 if [ $# -lt 1 ]
     then
 	echo "usage: test_patch.sh <patch_filename>"
@@ -45,12 +47,12 @@ then
 		exit $rc
 	fi
 	cd mustella
-        if [ $# -lt 2 ]
-        then
+    if [ $# -lt 2 ]
+    then
 	    sh ./test_changes.sh
-        else
-            sh ./test_changes.sh $2 $1
-        fi
+    else
+        sh ./test_changes.sh $2 $1
+    fi
 	cd ..
 fi
 git checkout .
