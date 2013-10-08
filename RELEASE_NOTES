@@ -43,8 +43,12 @@ SDK Changes
 - s:DataGridEditor will now be visible in ASDocs and be visible in the Tag inspector.
 - Minor changes to make SDK compile with Falcon compiler.
 - Added access to imageDecodingPolicy in BitmapImage.
+- Changes to custom skin for s:DataGrid (was changed in 4.10 but missed in release notes)
+- Changed UIComponent removedFromStageHandler from private to protected to allow override
 - New experimental mobile spark datagrid.
 - Updated OSMF swc to latest version (2.0)
+- Renamed experimental supportClazzes package to be supportClasses. 
+- Mobile Callout moved to spark and can be used in Desktop and Browser apps.
 
 Compiler changes
 ------------------
@@ -70,6 +74,7 @@ FLEX-33748  TabBar shouldn't be colorized in TabNavigatorSkin
 FLEX-33741  Propagation of Escape key in mx.controls.DateField should only be stopped if the DropDown is shown
 FLEX-33739  Duplication segment of code calling MultiBitmapSource getSource(dpi)
 FLEX-33738  ArrayCollection addAll() adds items in the wrong order
+FLEX-33736  NullPointer exception in VideoDisplay
 FLEX-33730  RTE in Application.as line 2157 in Air simulator
 FLEX-33726  DateField.stringToDate returns null when inputFormat has no separators
 FLEX-33724  Error in mx:DataGridBase.addClipMask() when using custom item renderer and locked columns
