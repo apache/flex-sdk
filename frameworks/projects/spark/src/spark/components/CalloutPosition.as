@@ -30,6 +30,7 @@ package spark.components
  *  @see spark.components.Callout#verticalPosition
  * 
  *  @langversion 3.0
+ *  @playerversion Flash 11
  *  @playerversion AIR 3
  *  @productversion Flex 4.6
  */
@@ -40,6 +41,7 @@ public final class CalloutPosition
      *  Position the trailing edge of the callout before the leading edge of the owner.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -49,6 +51,7 @@ public final class CalloutPosition
      *  Position the leading edge of the callout at the leading edge of the owner.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -58,6 +61,7 @@ public final class CalloutPosition
      *  Position the horizontalCenter of the callout to the horizontalCenter of the owner.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -67,6 +71,7 @@ public final class CalloutPosition
      *  Position the trailing edge of the callout at the trailing edge of the owner.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -76,6 +81,7 @@ public final class CalloutPosition
      *  Position the leading edge of the callout after the trailing edge of the owner.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -86,6 +92,7 @@ public final class CalloutPosition
      *  requires the least amount of resizing to fit.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */

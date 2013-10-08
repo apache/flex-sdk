@@ -25,6 +25,7 @@ package spark.components
  *  @see spark.components.Callout#arrowDirection
  * 
  *  @langversion 3.0
+ *  @playerversion Flash 11
  *  @playerversion AIR 3
  *  @productversion Flex 4.6
  */
@@ -40,6 +41,7 @@ public class ArrowDirection
      *  Arrow points right.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -49,6 +51,7 @@ public class ArrowDirection
      *  Arrow points up.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -58,6 +61,7 @@ public class ArrowDirection
      *  Arrow points left.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -67,6 +71,7 @@ public class ArrowDirection
      *  Arrow points down.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -76,6 +81,7 @@ public class ArrowDirection
      *  No arrow direciton.
      * 
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */

@@ -46,6 +46,7 @@ use namespace mx_internal;
  *  @see spark.skin.mobile.CalloutSkin
  *
  *  @langversion 3.0
+*  @playerversion Flash 11
  *  @playerversion AIR 3
  *  @productversion Flex 4.6
  */

@@ -126,7 +126,8 @@ use namespace mx_internal;
  *        </tr>
  *        <tr>
  *           <td>Default skin class</td>
- *           <td>spark.skins.mobile.CalloutButtonSkin</td>
+ *           <td>spark.skins.mobile.CalloutButtonSkin on mobile platforms <br/>
+ *           spark.skins.spark.CalloutButtonSkin on desktops</td>
  *        </tr>
  *     </table>
  *
@@ -159,6 +160,7 @@ use namespace mx_internal;
  *  @includeExample examples/CalloutButtonExample.mxml -noswf
  *  
  *  @langversion 3.0
+ *  @playerversion Flash 11
  *  @playerversion AIR 3
  *  @productversion Flex 4.6
  */
@@ -200,6 +202,7 @@ public class CalloutButton extends Button
      *  Constructor.
      *  
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -227,6 +230,7 @@ public class CalloutButton extends Button
      *  instance.
      *  
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -277,6 +281,7 @@ public class CalloutButton extends Button
      *  @see spark.components.Callout
      *  
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -313,6 +318,7 @@ public class CalloutButton extends Button
      *  @default BasicLayout
      *  
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -346,6 +352,7 @@ public class CalloutButton extends Button
      *  @copy spark.components.Callout#horizontalPosition
      *  
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -382,6 +389,7 @@ public class CalloutButton extends Button
      *  @copy spark.components.Callout#verticalPosition
      *  
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -433,6 +441,7 @@ public class CalloutButton extends Button
      *  @see #calloutDestructionPolicy
      *  
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -472,6 +481,7 @@ public class CalloutButton extends Button
      *  the DropDownController instance is created in the constructor.
      *  
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -508,6 +518,7 @@ public class CalloutButton extends Button
      *  @copy spark.components.supportClasses.DropDownController#isOpen
      *  
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -538,6 +549,7 @@ public class CalloutButton extends Button
      *  @default auto
      *  
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
@@ -689,6 +701,7 @@ public class CalloutButton extends Button
      *  Initializes the dropDown and changes the skin state to open. 
      *  
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */ 
@@ -701,6 +714,7 @@ public class CalloutButton extends Button
      *  Changes the skin state to normal.
      *  
      *  @langversion 3.0
+     *  @playerversion Flash 11
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
