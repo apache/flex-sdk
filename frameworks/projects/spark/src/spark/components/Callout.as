@@ -64,6 +64,31 @@ use namespace mx_internal;
  */ 
 [Style(name="contentBackgroundAppearance", type="String", enumeration="inset,flat,none", inherit="no")]
 
+/**
+ *  Color  of the frame border  and arrow outline  of the Callout control.
+ *  @default 0
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 3.8
+ *  @productversion Flex 4.11
+ */
+
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="spark, mobile")]
+
+/**
+ *   Thickness of the border stroke around the <code>backgroundColor</code> Callout "frame" and arrow.
+ *  Set to NaN or 0 to hide the border ;
+ *
+ *  @default NaN
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 3.8
+ *  @productversion Flex 4.11
+ */
+[Style(name="borderThickness", type="Number", format="Length", inherit="no", theme="spark,mobile")]
+
 //--------------------------------------
 //  Other metadata
 //--------------------------------------

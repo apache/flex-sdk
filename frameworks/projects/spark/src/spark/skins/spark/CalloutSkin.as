@@ -17,15 +17,15 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.mobile
+package spark.skins.spark
 {
+
 import flash.display.BlendMode;
 import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.display.Sprite;
 import flash.events.Event;
 
-import mx.core.DPIClassification;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.EffectEvent;
@@ -39,14 +39,10 @@ import spark.components.Group;
 import spark.core.SpriteVisualElement;
 import spark.effects.Fade;
 import spark.primitives.RectangularDropShadow;
-import spark.skins.mobile.supportClasses.CalloutArrow;
-import spark.skins.mobile.supportClasses.MobileSkin;
-import spark.skins.mobile120.assets.CalloutContentBackground;
-import spark.skins.mobile160.assets.CalloutContentBackground;
-import spark.skins.mobile240.assets.CalloutContentBackground;
-import spark.skins.mobile320.assets.CalloutContentBackground;
-import spark.skins.mobile480.assets.CalloutContentBackground;
-import spark.skins.mobile640.assets.CalloutContentBackground;
+import spark.skins.ActionScriptSkinBase;
+import spark.skins.spark.assets.CalloutContentBackground;
+import spark.skins.spark.supportClasses.CalloutArrow;
+
 
 use namespace mx_internal;
 
@@ -71,7 +67,7 @@ use namespace mx_internal;
  *  @playerversion AIR 3
  *  @productversion Flex 4.6
  */ 
-public class CalloutSkin extends MobileSkin
+public class CalloutSkin extends ActionScriptSkinBase
 {
     mx_internal static const BACKGROUND_GRADIENT_BRIGHTNESS_TOP:int = 15;
     
@@ -95,109 +91,33 @@ public class CalloutSkin extends MobileSkin
         super();
         
         dropShadowAlpha = 0.7;
-        
-        switch (applicationDPI)
-        {
-			case DPIClassification.DPI_640:
-			{
-				// Note provisional may need changes  
-				backgroundCornerRadius = 32;
-				contentBackgroundInsetClass = spark.skins.mobile640.assets.CalloutContentBackground;
-				backgroundGradientHeight = 440;
-				frameThickness = 32;
-				arrowWidth = 208;
-				arrowHeight = 104;
-				contentCornerRadius = 20;
-				dropShadowBlurX = 64;
-				dropShadowBlurY = 64;
-				dropShadowDistance = 12;
-				highlightWeight = 2;
-				
-				break;
-			}
-			case DPIClassification.DPI_480:
-			{
-				// Note provisional may need changes
-				backgroundCornerRadius = 24;
-				contentBackgroundInsetClass = spark.skins.mobile480.assets.CalloutContentBackground;
-				backgroundGradientHeight = 330;
-				frameThickness = 24;
-				arrowWidth = 156;
-				arrowHeight = 78;
-				contentCornerRadius = 14;
-				dropShadowBlurX = 48;
-				dropShadowBlurY = 48;
-				dropShadowDistance = 8;
-				highlightWeight = 2;
-				
-				break;
-			}
-            case DPIClassification.DPI_320:
-            {
-                backgroundCornerRadius = 16;
-                contentBackgroundInsetClass = spark.skins.mobile320.assets.CalloutContentBackground;
-                backgroundGradientHeight = 220;
-                frameThickness = 16;
-                arrowWidth = 104;
-                arrowHeight = 52;
-                contentCornerRadius = 10;
-                dropShadowBlurX = 32;
-                dropShadowBlurY = 32;
-                dropShadowDistance = 6;
-                highlightWeight = 2;
-                
-                break;
-            }
-            case DPIClassification.DPI_240:
-            {
-                backgroundCornerRadius = 12;
-                contentBackgroundInsetClass = spark.skins.mobile240.assets.CalloutContentBackground;
-                backgroundGradientHeight = 165;
-                frameThickness = 12;
-                arrowWidth = 78;
-                arrowHeight = 39;
-                contentCornerRadius = 7;
-                dropShadowBlurX = 24;
-                dropShadowBlurY = 24;
-                dropShadowDistance = 4;
-                highlightWeight = 1;
-                
-                break;
-            }
-			case DPIClassification.DPI_120:
-			{
-				backgroundCornerRadius = 6;
-				contentBackgroundInsetClass = spark.skins.mobile120.assets.CalloutContentBackground;
-				backgroundGradientHeight = 83;
-				frameThickness = 6;
-				arrowWidth = 39;
-				arrowHeight = 19;
-				contentCornerRadius = 4;
-				dropShadowBlurX = 12;
-				dropShadowBlurY = 12;
-				dropShadowDistance = 2;
-				highlightWeight = 0.5;
-				
-				break;
-			}
-            default:
-            {
+
                 // default DPI_160
+        backgroundCornerRadius = 6;
+        contentBackgroundInsetClass = CalloutContentBackground;
+        backgroundGradientHeight = 83;
+        frameThickness = 6;
+        arrowWidth = 26;
+        arrowHeight = 13;
+        contentCornerRadius = 4;
+        dropShadowBlurX = 12;
+        dropShadowBlurY = 12;
+        dropShadowDistance = 2;
+        highlightWeight = 0.5;
+
+         /*
                 backgroundCornerRadius = 8;
-                contentBackgroundInsetClass = spark.skins.mobile160.assets.CalloutContentBackground;
+                contentBackgroundInsetClass = CalloutContentBackground;
                 backgroundGradientHeight = 110;
-                frameThickness = 8;
-                arrowWidth = 52;
-                arrowHeight = 26;
+                frameThickness = 6;
+                arrowWidth = 26;
+                arrowHeight = 13;
                 contentCornerRadius = 5;
                 dropShadowBlurX = 16;
                 dropShadowBlurY = 16;
                 dropShadowDistance = 3;
                 highlightWeight = 1;
-                
-                break;
-            }
-        }
+          */
     }
     
     //--------------------------------------------------------------------------
@@ -274,23 +194,23 @@ public class CalloutSkin extends MobileSkin
     
     /**
      *  Color of the border stroke around the <code>backgroundColor</code> "frame".
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    protected var borderColor:Number = 0;
-    
+    mx_internal var borderColor:uint  = 0;
+
     /**
      *  Thickness of the border stroke around the <code>backgroundColor</code>
      *  "frame".
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    protected var borderThickness:Number = NaN;
-    
+    mx_internal var borderThickness:Number = NaN;
+
     /**
      *  Width of the arrow in vertical directions. This property also controls
      *  the height of the arrow in horizontal directions.
@@ -359,6 +279,7 @@ public class CalloutSkin extends MobileSkin
      * @copy spark.components.Callout#arrow
      */
     public var arrow:UIComponent;
+
     
     //--------------------------------------------------------------------------
     //
@@ -453,7 +374,7 @@ public class CalloutSkin extends MobileSkin
     override protected function measure():void
     {
         super.measure();
-        
+
         var borderWeight:Number = isNaN(borderThickness) ? 0 : borderThickness;
         var frameAdjustment:Number = (frameThickness + borderWeight) * 2;
         
@@ -783,6 +704,7 @@ public class CalloutSkin extends MobileSkin
             // when the Callout background is transparent
             blendMode = (backgroundAlpha < 1) ? BlendMode.LAYER : BlendMode.NORMAL;
         }
+
     }
     
     /**
