@@ -179,7 +179,7 @@ package mx.core
          *  which control what work validateNow() needs to do.
          */
         private static const FLAG_TEXT_SET:uint = 1 << 6;
-        public static const FLAG_HTML_TEXT_SET:uint = 1 << 7;
+        private static const FLAG_HTML_TEXT_SET:uint = 1 << 7;
         private static const FLAG_TEXT_LINES_INVALID:uint = 1 << 8;
         private static const FLAG_GRAPHICS_INVALID:uint = 1 << 9;
         
@@ -2437,7 +2437,7 @@ package mx.core
         /**
          *  @private
          */
-        public function clearFlag(mask:uint):void
+        private function clearFlag(mask:uint):void
         {
             flags &= ~mask;
         }
@@ -3653,10 +3653,7 @@ internal class HTMLHelper
         // and needs to be regenerated on demand,
         // because with htmlText what-you-set-is-not-what-you-get.
         if (!styleSheet)
-		{
             htmlText = null;
-			textField.clearFlag(FTETextField.FLAG_HTML_TEXT_SET);
-		}
         
         if (!textFlow)
             return;
