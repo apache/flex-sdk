@@ -1439,7 +1439,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
                                     tg2 = IFocusManagerGroup(obj);
                                     if (tg2.groupName == tg1.groupName)
                                     {
-                                        if (&& tg2 == groupElementToFocus)
+                                        if (tg2 == groupElementToFocus)
                                         {
                                             // if objects of same group have different tab index
                                             // skip you aren't selected.
