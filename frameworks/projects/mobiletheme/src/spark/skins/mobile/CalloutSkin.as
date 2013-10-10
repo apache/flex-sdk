@@ -279,7 +279,7 @@ public class CalloutSkin extends MobileSkin
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    protected var borderColor:Number = 0;
+    protected var borderColor:Number = -1; // not set
     
     /**
      *  Thickness of the border stroke around the <code>backgroundColor</code>
@@ -289,7 +289,7 @@ public class CalloutSkin extends MobileSkin
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    protected var borderThickness:Number = NaN;
+    protected var borderThickness:Number = -1 ;      // marker that borderThickness was not set  directly
     
     /**
      *  Width of the arrow in vertical directions. This property also controls
@@ -359,7 +359,21 @@ public class CalloutSkin extends MobileSkin
      * @copy spark.components.Callout#arrow
      */
     public var arrow:UIComponent;
-    
+
+    /* helper private accessors */
+
+    /* returns borderThickness from style if member is -1, or borderThickness.  Returns 0 if NaN */
+    mx_internal function get actualBorderThickness():Number
+    {
+        var border: Number =  borderThickness != -1 ? borderThickness : getStyle('borderThickness');
+        return isNaN(border)? 0: border;
+    }
+
+    mx_internal function get actualBorderColor():uint
+    {
+        return borderColor != -1 ? borderColor: getStyle('borderColor');
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -381,7 +395,7 @@ public class CalloutSkin extends MobileSkin
             dropShadow.blurX = dropShadowBlurX;
             dropShadow.blurY = dropShadowBlurY;
             dropShadow.tlRadius = dropShadow.trRadius = dropShadow.blRadius = 
-                dropShadow.brRadius = backgroundCornerRadius;
+                dropShadow.brRadius = backgroundCornerRadius ;
             dropShadow.mouseEnabled = false;
             dropShadow.alpha = dropShadowAlpha;
             addChild(dropShadow);
@@ -408,8 +422,6 @@ public class CalloutSkin extends MobileSkin
             addChild(contentGroup);
         }
 
-        borderThickness = getStyle("borderThickness");
-        borderColor = getStyle("borderColor");
 
     }
     
@@ -446,7 +458,8 @@ public class CalloutSkin extends MobileSkin
         invalidateSize();
         invalidateDisplayList();
     }
-    
+
+
     /**
      * @private
      */
@@ -454,7 +467,7 @@ public class CalloutSkin extends MobileSkin
     {
         super.measure();
         
-        var borderWeight:Number = isNaN(borderThickness) ? 0 : borderThickness;
+        var borderWeight:Number =actualBorderThickness;
         var frameAdjustment:Number = (frameThickness + borderWeight) * 2;
         
         var arrowMeasuredWidth:Number;
@@ -576,8 +589,9 @@ public class CalloutSkin extends MobileSkin
         var frameEllipseSize:Number = backgroundCornerRadius * 2;
         
         // account for borderThickness center stroke alignment
-        var showBorder:Boolean = !isNaN(borderThickness) || borderThickness > 0 ;
-        var borderWeight:Number = showBorder ? borderThickness : 0;
+        var borderWeight:Number =actualBorderThickness;
+        var showBorder:Boolean = borderWeight > 0 ;
+
         
         // contentBackgroundGraphic already accounts for the arrow position
         // use it's positioning instead of recalculating based on unscaledWidth
@@ -594,7 +608,7 @@ public class CalloutSkin extends MobileSkin
         bgFill.clear();
         
         if (showBorder)
-            bgFill.lineStyle(borderThickness, borderColor, 1, true);
+            bgFill.lineStyle(borderWeight, actualBorderColor, 1, true);
         
         if (useBackgroundGradient)
         {
@@ -742,7 +756,7 @@ public class CalloutSkin extends MobileSkin
         }
         
         // Show frameThickness by inset of contentGroup
-        var borderWeight:Number = isNaN(borderThickness) ? 0 : borderThickness;
+        var borderWeight:Number = actualBorderThickness;
         var contentBackgroundAdjustment:Number = frameThickness + borderWeight;
         
         var contentBackgroundX:Number = frameX + contentBackgroundAdjustment;
