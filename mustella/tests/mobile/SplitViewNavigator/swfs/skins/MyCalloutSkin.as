@@ -29,8 +29,8 @@ package skins
 			frameThickness=10;
 			arrowWidth = 50;
 			arrowHeight = 50;
-			borderThickness = 10;
-			borderColor = 0xFF0000;
+			setStyle('borderThickness' , 10);
+			setStyle('borderColor', 0xFF0000);
 			dropShadowVisible=true;
 			backgroundCornerRadius=30;
 			

@@ -132,6 +132,8 @@ Callout
     contentBackgroundColor: #FFFFFF;
     gap: 12;
     skinClass: ClassReference("spark.skins.mobile.CalloutSkin");
+    borderThickness: NaN;
+    borderColor: 0;
 }
 
 Callout ViewNavigator
