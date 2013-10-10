@@ -576,7 +576,7 @@ public class CalloutSkin extends MobileSkin
         var frameEllipseSize:Number = backgroundCornerRadius * 2;
         
         // account for borderThickness center stroke alignment
-        var showBorder:Boolean = !isNaN(borderThickness);
+        var showBorder:Boolean = !isNaN(borderThickness) || borderThickness > 0 ;
         var borderWeight:Number = showBorder ? borderThickness : 0;
         
         // contentBackgroundGraphic already accounts for the arrow position

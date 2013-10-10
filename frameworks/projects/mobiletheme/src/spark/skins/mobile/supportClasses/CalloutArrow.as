@@ -146,6 +146,15 @@ public class CalloutArrow extends UIComponent
      */
     protected var useBackgroundGradient:Boolean;
     
+    /**
+     *  @copy spark.skins.mobile.CalloutSkin#borderColor
+     */
+    protected var borderColor:Number;
+
+    /**
+     *  @copy spark.skins.mobile.CalloutSkin#borderThickness
+     */
+    protected var borderThickness:Number = NaN;
 
     /**
      *  @private

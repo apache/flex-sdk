@@ -93,7 +93,7 @@ public class CalloutSkin extends ActionScriptSkinBase
         
         dropShadowAlpha = 0.7;
 
-                // default DPI_160
+                // default DPI_120
         backgroundCornerRadius = 6;
         contentBackgroundInsetClass = CalloutContentBackground;
         backgroundGradientHeight = 83;
@@ -106,19 +106,6 @@ public class CalloutSkin extends ActionScriptSkinBase
         dropShadowDistance = 2;
         highlightWeight = 0.5;
 
-         /*
-                backgroundCornerRadius = 8;
-                contentBackgroundInsetClass = CalloutContentBackground;
-                backgroundGradientHeight = 110;
-                frameThickness = 6;
-                arrowWidth = 26;
-                arrowHeight = 13;
-                contentCornerRadius = 5;
-                dropShadowBlurX = 16;
-                dropShadowBlurY = 16;
-                dropShadowDistance = 3;
-                highlightWeight = 1;
-          */
     }
     
     //--------------------------------------------------------------------------
