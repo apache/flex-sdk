@@ -1437,12 +1437,21 @@ public class FocusManager extends EventDispatcher implements IFocusManager
                                 if (obj is IFocusManagerGroup)
                                 {
                                     tg2 = IFocusManagerGroup(obj);
-                                    if (tg2.groupName == tg1.groupName && tg2 == groupElementToFocus)
+                                    if (tg2.groupName == tg1.groupName)
                                     {
-                                        // if objects of same group have different tab index
-                                        // skip you aren't selected.
-                                        if (InteractiveObject(obj).tabIndex != InteractiveObject(o).tabIndex && !tg1.selected)
-                                            return getIndexOfNextObject(i, shiftKey, bSearchAll, groupName);
+                                        if (&& tg2 == groupElementToFocus)
+                                        {
+                                            // if objects of same group have different tab index
+                                            // skip you aren't selected.
+                                            if (InteractiveObject(obj).tabIndex != InteractiveObject(o).tabIndex && !tg1.selected)
+                                                return getIndexOfNextObject(i, shiftKey, bSearchAll, groupName);
+                                            i = j;
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // element is part of another group, stop (no recursive search)
                                         i = j;
                                         break;
                                     }
