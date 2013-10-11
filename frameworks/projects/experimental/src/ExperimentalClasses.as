@@ -31,7 +31,6 @@ package
 		import spark.components.itemRenderers.MenuCoreItemRenderer; MenuCoreItemRenderer;
 		import spark.components.itemRenderers.MenuItemRenderer; MenuItemRenderer;
 		import spark.components.listClasses.IListItemRenderer; IListItemRenderer;
-		import spark.components.supportClasses.AnimationTarget; AnimationTarget;
 		import spark.components.supportClasses.IDropDownContainer; IDropDownContainer;
 		import spark.containers.supportClasses.DeferredCreationPolicy; DeferredCreationPolicy;
 		import spark.containers.Accordion; Accordion;
