@@ -31,8 +31,8 @@ Differences from Apache Flex 4.9 include:
 
 AIR and Flash Player support
 ------------------------------
- - Support Flash Player 11.9 beta.
- - Support for AIR 3.9 beta.
+ - Support Flash Player 11.9.
+ - Support for AIR 3.9.
 
 SDK Changes
 -------------
