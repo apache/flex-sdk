@@ -1055,18 +1055,21 @@ public class BarSeries extends Series implements IStackable2, IBar
     //
     //--------------------------------------------------------------------------
     
-    /**
+	/**
      *  @private
      */
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
 		
-		var barSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.BarSeries");
-		barSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.BoxItemRenderer));
-		barSeriesStyle.setStyle("fill", new SolidColor(0x000000));
-		barSeriesStyle.setStyle("fills", []);
-		barSeriesStyle.setStyle("stroke", HaloDefaults.emptyStroke);
+		var barSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.BarSeries");
+		if (barSeriesStyle)
+		{
+			barSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.BoxItemRenderer));
+			barSeriesStyle.setStyle("fill", new SolidColor(0x000000));
+			barSeriesStyle.setStyle("fills", []);
+			barSeriesStyle.setStyle("stroke", HaloDefaults.emptyStroke);
+		}
 		
         return true;
     }

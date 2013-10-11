@@ -18,10 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package
 {
-import spark.components.MobileGrid;
-import spark.components.supportClasses.MobileGridColumn;
-import spark.skins.MobileGridHeaderButtonBarSkin;
-import spark.skins.MobileGridSkin;
 
 /*
  classes that won't be detected through dependencies
@@ -30,8 +26,9 @@ import spark.skins.MobileGridSkin;
 
 internal class ExperimentalMobileClasses
 {
-
-    // mamsellem: for some reason, the import statements alone are not enough to have the classes included
-    private static const classes:Array = [MobileGrid, MobileGridColumn, MobileGridSkin, MobileGridHeaderButtonBarSkin];
+	import spark.components.MobileGrid; MobileGrid;
+	import spark.components.supportClasses.MobileGridColumn; MobileGridColumn;
+	import spark.skins.MobileGridHeaderButtonBarSkin; MobileGridHeaderButtonBarSkin;
+	import spark.skins.MobileGridSkin; MobileGridSkin;
 }
 }

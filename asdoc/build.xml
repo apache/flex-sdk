@@ -58,9 +58,9 @@
             <fileset dir="${flexlib}/projects/charts/asdoc/en_US"/>
             <!--  <fileset dir="${flexlib}/projects/core/asdoc/en_US"/>-->
             <!--  <fileset dir="${flexlib}/projects/experimental/asdoc/en_US"/>-->
-             <fileset dir="${flexlib}/projects/experimental_mobile/asdoc/en_US"/>
             <fileset dir="${flexlib}/projects/framework/asdoc/en_US"/>
             <fileset dir="${flexlib}/projects/mobilecomponents/asdoc/en_US"/>
+            <fileset dir="${flexlib}/projects/experimental_mobile/asdoc/en_US"/>
             <!--  <fileset dir="${flexlib}/projects/mx/asdoc/en_US"/>-->
             <fileset dir="${flexlib}/projects/rpc/asdoc/en_US"/>
             <fileset dir="${flexlib}/projects/spark/asdoc/en_US"/>
@@ -103,11 +103,14 @@
 		    <doc-classes class="CoreClasses"/>
 		    <doc-classes class="SparkClasses"/>
 		    <doc-classes class="FrameworkClasses"/>
-			<doc-classes class="MxClasses"/>
+		    <doc-classes class="MxClasses"/>
 		    <doc-classes class="SparkSkinsClasses"/>
 		    <doc-classes class="RPCClasses"/>
 		    <doc-classes class="MobileComponentsClasses"/>		    
+		    <doc-classes class="MobileThemeClasses"/>		    
 		    <doc-classes class="SparkDmvClasses"/>
+		    <doc-classes class="ExperimentalClasses"/>
+		    <doc-classes class="ExperimentalMobileClasses"/>
 	    		    
 			<doc-classes class="flashx.textLayout.CoreClasses"/>
 			<doc-classes class="flashx.textLayout.EditClasses"/>
@@ -127,6 +130,7 @@
 			<compiler.source-path path-element="${flexlib}/projects/advancedgrids/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/charts/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/mobilecomponents/src"/>
+			<compiler.source-path path-element="${flexlib}/projects/mobiletheme/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/spark_dmv/src"/>
             <!--  added for Apache -->
 			<compiler.source-path path-element="${flexlib}/projects/apache/src"/>

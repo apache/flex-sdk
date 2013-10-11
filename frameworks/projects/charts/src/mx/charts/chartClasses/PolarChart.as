@@ -205,17 +205,19 @@ public class PolarChart extends ChartBase
     //
     //--------------------------------------------------------------------------
 
-    /**
+	/**
      *  @private
      */
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
 		
-		var polarChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.chartClasses.PolarChart");
-		polarChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
-		polarChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2))
-		
+		var polarChartStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.chartClasses.PolarChart");
+		if (polarChartStyle)
+		{
+			polarChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+			polarChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2))
+		}		
         return true;
     }
     

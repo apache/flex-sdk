@@ -155,35 +155,37 @@ public class LineChart extends CartesianChart
         
         var lineChartSeriesStyles:Array /* of Object */ = [];
 		
-		var lineChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.LineChart");
-		lineChartStyle.setStyle("chartSeriesStyles", lineChartSeriesStyles);
-		lineChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
-		lineChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
-		lineChartStyle.setStyle("horizontalAxisStyleNames", ["hangingCategoryAxis"]);
-		lineChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
-        
-        var n:int = HaloDefaults.defaultColors.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            var styleName:String = "haloLineSeries" + i;
-            lineChartSeriesStyles[i] = styleName;
-            
-            var o:CSSStyleDeclaration =
-                HaloDefaults.createSelector("." + styleName, styleManager);
-            
-            var f:Function = function(o:CSSStyleDeclaration, stroke:Stroke):void
-            {
-                o.defaultFactory = function():void
-                {
-                    this.lineStroke = stroke;
-                    this.stroke = stroke;
-                    this.lineSegmentRenderer = new ClassFactory(LineRenderer);
-                }
-            }
-            
-            f(o, new Stroke(HaloDefaults.defaultColors[i], 3, 1));
-        }
-        
+		var lineChartStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.LineChart");
+		if (lineChartStyle)
+		{
+			lineChartStyle.setStyle("chartSeriesStyles", lineChartSeriesStyles);
+			lineChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+			lineChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+			lineChartStyle.setStyle("horizontalAxisStyleNames", ["hangingCategoryAxis"]);
+			lineChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+	        
+	        var n:int = HaloDefaults.defaultColors.length;
+	        for (var i:int = 0; i < n; i++)
+	        {
+	            var styleName:String = "haloLineSeries" + i;
+	            lineChartSeriesStyles[i] = styleName;
+	            
+	            var o:CSSStyleDeclaration =
+	                HaloDefaults.createSelector("." + styleName, styleManager);
+	            
+	            var f:Function = function(o:CSSStyleDeclaration, stroke:Stroke):void
+	            {
+	                o.defaultFactory = function():void
+	                {
+	                    this.lineStroke = stroke;
+	                    this.stroke = stroke;
+	                    this.lineSegmentRenderer = new ClassFactory(LineRenderer);
+	                }
+	            }
+	            
+	            f(o, new Stroke(HaloDefaults.defaultColors[i], 3, 1));
+	        }
+		}        
         return true;
     }
     
