@@ -5445,8 +5445,9 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
                 // No caret item so reset caret and vsp.
                 else 
                 {
-                    caretRowIndex = _dataProvider.length > 0 ? 0 : -1; 
-                    verticalScrollPosition = 0;
+                    caretRowIndex = _dataProvider.length > 0 ? 0 : -1;
+                   validateNow();
+                   verticalScrollPosition = 0;
                 }
                 
                 break;
