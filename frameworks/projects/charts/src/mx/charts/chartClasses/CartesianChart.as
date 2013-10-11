@@ -787,19 +787,22 @@ public class CartesianChart extends ChartBase
         invalidateProperties();
     }
     
-    /**
+	/**
      *  @private
      */
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
 		
-		var cartesianChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.chartClasses.CartesianChart");
+		var cartesianChartStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.chartClasses.CartesianChart");
+		if (cartesianChartStyle)
+		{
 		cartesianChartStyle.setStyle("chartSeriesStyles", HaloDefaults.chartBaseChartSeriesStyles);
 		cartesianChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
 		cartesianChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
 		cartesianChartStyle.setStyle("horizontalAxisStyleNames", ["blockCategoryAxis"]);
 		cartesianChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+		}
 		
         return true;
     }

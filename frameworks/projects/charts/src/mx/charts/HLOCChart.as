@@ -194,7 +194,7 @@ public class HLOCChart extends CartesianChart
     //
     //--------------------------------------------------------------------------
     
-    /**
+	/**
      *  @private
      */
     private function initStyles():Boolean
@@ -203,39 +203,41 @@ public class HLOCChart extends CartesianChart
         
         var hlocChartSeriesStyles:Array /* of Object */ = [];
 		
-		var hlocChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.HLOCChart");
-		hlocChartStyle.setStyle("chartSeriesStyles", hlocChartSeriesStyles);
-		hlocChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
-		hlocChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
-		hlocChartStyle.setStyle("horizontalAxisStyleNames", ["blockCategoryAxis"]);
-		hlocChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
-		
-        var n:int = HaloDefaults.defaultColors.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            var styleName:String = "haloHLOCSeries"+i;
-            hlocChartSeriesStyles[i] = styleName;
-            
-            var o:CSSStyleDeclaration =
-                HaloDefaults.createSelector("." + styleName, styleManager);
-            
-            var f:Function = function(o:CSSStyleDeclaration, stroke:Stroke,
-                                      tickStroke:Stroke):void
-            {
-                o.defaultFactory = function():void
-                {
-                    this.closeTickStroke = tickStroke;
-                    this.openTickStroke = tickStroke;
-                    this.stroke = stroke;
-                    this.hlocColor = stroke.color;
-                }
-            }
-            
-            f(o, new Stroke(HaloDefaults.defaultColors[i], 0, 1),
-                new Stroke(HaloDefaults.defaultColors[i], 2, 1,
-                    false, "normal", "none"));
-        }
-        
+		var hlocChartStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.HLOCChart");
+		if (hlocChartStyle)
+		{
+			hlocChartStyle.setStyle("chartSeriesStyles", hlocChartSeriesStyles);
+			hlocChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+			hlocChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+			hlocChartStyle.setStyle("horizontalAxisStyleNames", ["blockCategoryAxis"]);
+			hlocChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+			
+	        var n:int = HaloDefaults.defaultColors.length;
+	        for (var i:int = 0; i < n; i++)
+	        {
+	            var styleName:String = "haloHLOCSeries"+i;
+	            hlocChartSeriesStyles[i] = styleName;
+	            
+	            var o:CSSStyleDeclaration =
+	                HaloDefaults.createSelector("." + styleName, styleManager);
+	            
+	            var f:Function = function(o:CSSStyleDeclaration, stroke:Stroke,
+	                                      tickStroke:Stroke):void
+	            {
+	                o.defaultFactory = function():void
+	                {
+	                    this.closeTickStroke = tickStroke;
+	                    this.openTickStroke = tickStroke;
+	                    this.stroke = stroke;
+	                    this.hlocColor = stroke.color;
+	                }
+	            }
+	            
+	            f(o, new Stroke(HaloDefaults.defaultColors[i], 0, 1),
+	                new Stroke(HaloDefaults.defaultColors[i], 2, 1,
+	                    false, "normal", "none"));
+	        }
+		}        
         return true;
     }
 

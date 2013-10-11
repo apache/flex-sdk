@@ -214,20 +214,23 @@ public class BubbleChart extends CartesianChart
     //
     //--------------------------------------------------------------------------
 
-    /**
+	/**
      *  @private
      */
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
 		
-		var bubbleChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.BubbleChart");
-		bubbleChartStyle.setStyle("chartSeriesStyles", HaloDefaults.chartBaseChartSeriesStyles);
-		bubbleChartStyle.setStyle("dataTipCalloutStroke", new SolidColorStroke(2,0));
-		bubbleChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
-		bubbleChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
-		bubbleChartStyle.setStyle("horizontalAxisStyleNames", ["blockNumericAxis"]);
-		bubbleChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+		var bubbleChartStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.BubbleChart");
+		if (bubbleChartStyle)
+		{
+			bubbleChartStyle.setStyle("chartSeriesStyles", HaloDefaults.chartBaseChartSeriesStyles);
+			bubbleChartStyle.setStyle("dataTipCalloutStroke", new SolidColorStroke(2,0));
+			bubbleChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+			bubbleChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+			bubbleChartStyle.setStyle("horizontalAxisStyleNames", ["blockNumericAxis"]);
+			bubbleChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+		}
 		
         return true;
     }

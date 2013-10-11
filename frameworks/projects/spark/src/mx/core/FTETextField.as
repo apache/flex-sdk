@@ -48,6 +48,11 @@ package mx.core
     import flash.text.engine.TextLineValidity;
     import flash.utils.Dictionary;
     
+    import mx.managers.SystemManager;
+    import mx.managers.SystemManagerGlobals;
+    
+    import spark.utils.TextUtil;
+    
     import flashx.textLayout.compose.ISWFContext;
     import flashx.textLayout.compose.TextLineRecycler;
     import flashx.textLayout.formats.ITextLayoutFormat;
@@ -55,11 +60,6 @@ package mx.core
     import flashx.textLayout.formats.LineBreak;
     import flashx.textLayout.formats.TextDecoration;
     import flashx.textLayout.formats.TextLayoutFormat;
-    
-    import mx.managers.SystemManager;
-    import mx.managers.SystemManagerGlobals;
-    
-    import spark.utils.TextUtil;
     
     use namespace mx_internal;
     
@@ -385,6 +385,8 @@ package mx.core
         //  Variables
         //
         //--------------------------------------------------------------------------
+        
+        private var lastComposeWasText:Boolean;
         
         /**
          *  @private
@@ -2526,13 +2528,30 @@ package mx.core
                 
                 if (testFlag(FLAG_HTML_TEXT_SET))
                 {
-                   if (!_htmlHelper.hostFormat)
+                    // if switching composers, remove all existing textlines.
+                    // the html composer assumes existing textlines belonged
+                    // to the flow
+                    if (lastComposeWasText)
+                    {
+                        nextLineIndex = 0;
+                        removeExcessTextLines();
+                    }
+                    lastComposeWasText = false;
+
+                    if (!_htmlHelper.hostFormat)
                         createHostFormat();
                     
                     _htmlHelper.composeHTMLText(compositionWidth, compositionHeight);
                 }
                 else
                 {
+                    if (!lastComposeWasText)
+                    {
+                        nextLineIndex = 0;
+                        removeExcessTextLines();
+                    }
+                    
+                    lastComposeWasText = true;
                     if (!elementFormat)
                         createElementFormat();  
                     
