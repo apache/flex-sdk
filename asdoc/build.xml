@@ -147,7 +147,6 @@
  			<doc-namespaces uri="http://ns.adobe.com/2009/mx-mxml"/>
  			<doc-namespaces uri="http://www.adobe.com/2006/advancedgridsmxml"/>
  			<doc-namespaces uri="http://www.adobe.com/2006/charts"/>
- 			<doc-namespaces uri="library://ns.adobe.com/flex/spark-mobilecomponents"/>
  			<doc-namespaces uri="library://ns.adobe.com/flex/spark-dmv"/>
             <!--  added for Apache -->
  			<doc-namespaces uri="http://flex.apache.org/ns"/>
@@ -166,7 +165,7 @@
 		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${flexlib}/mxml-manifest.xml"/>
 		    <namespace uri="library://ns.adobe.com/flex/spark" manifest="${flexlib}/projects/spark/manifest.xml"/>
 		    <namespace uri="library://ns.adobe.com/flex/mx" manifest="${flexlib}/mxml-manifest.xml"/>
-			<namespace uri="library://ns.adobe.com/flex/spark-mobilecomponents" manifest="${flexlib}/projects/mobilecomponents/manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${flexlib}/projects/mobilecomponents/manifest.xml"/>
 			<namespace uri="library://ns.adobe.com/flex/spark-dmv" manifest="${flexlib}/projects/spark_dmv/manifest_spark_dmv.xml"/>
 
             <!--  added for Apache -->
