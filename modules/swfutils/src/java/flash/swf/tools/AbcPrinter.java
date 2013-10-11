@@ -771,6 +771,8 @@ public class AbcPrinter
         	if (mn.kind != 0x1D)
         		continue;
         	MultiName typeName = mn.typeName;
+        	if (typeName == null) // this came up as null in a working SWF.
+        		continue;
         	if (typeName.kind == 0x1D)
         		out.println(kAbcCorrupt + "typename is also a typename");
         	HashMap<MultiName, String> seenMap = new HashMap<MultiName, String>();
