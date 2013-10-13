@@ -27,7 +27,7 @@ Adobe have provided a patch for Flash Builder 4.7 that resolves this issue:
 http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
 
 
-Differences from Apache Flex 4.9 include:
+Differences from Apache Flex 4.10 include:
 
 AIR and Flash Player support
 ------------------------------
