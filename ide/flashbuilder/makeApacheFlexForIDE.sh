@@ -41,7 +41,8 @@ APACHE_FLEX_BIN_DIR="$( cd $( dirname -- "$0" ) > /dev/null ; pwd )"/../..
 ADOBE_AIR_SDK_MAC_URL=http://airdownload.adobe.com/air/mac/download/3.9/AdobeAIRSDK.tbz2
 
 # Adobe Flash Player Version 11.1
-ADOBE_FLASHPLAYER_GLOBALPLAYER_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
+ADOBE_FLASHPLAYER_GLOBALPLAYER_11_1_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
+ADOBE_FLASHPLAYER_GLOBALPLAYER_11_9_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_9.swc
 
 # Adobe Flex SDK v4.6
 ADOBE_FLEX_SDK_URL=http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/flex_sdk_4.6.0.23201B.zip
@@ -98,12 +99,12 @@ curl "$ADOBE_AIR_SDK_MAC_URL" --output "$tempDir/$ADOBE_AIR_SDK_MAC_FILE"
 tar xf "$tempDir/$ADOBE_AIR_SDK_MAC_FILE" -C "$FLEX_HOME"
 
 # download 11.1 playerglobal.swc
-echo "Downloading Adobe Flash Player playerglobal.swc from $ADOBE_FLASHPLAYER_GLOBALPLAYER_SWC_URL"
+echo "Downloading Adobe Flash Player playerglobal.swc from $ADOBE_FLASHPLAYER_GLOBALPLAYER_11_1_SWC_URL"
 mkdir -p "$FLEX_HOME/frameworks/libs/player/11.1"
 curl "$ADOBE_FLASHPLAYER_GLOBALPLAYER_SWC_URL" --output "$FLEX_HOME/frameworks/libs/player/11.1/playerglobal.swc" --silent
 
 # download 11.9 playerglobal.swc
-echo "Downloading Adobe Flash Player playerglobal.swc from $ADOBE_FLASHPLAYER_GLOBALPLAYER_SWC_URL"
+echo "Downloading Adobe Flash Player playerglobal.swc from $ADOBE_FLASHPLAYER_GLOBALPLAYER_11_9_SWC_URL"
 mkdir -p "$FLEX_HOME/frameworks/libs/player/11.9"
 curl "$ADOBE_FLASHPLAYER_GLOBALPLAYER_SWC_URL" --output "$FLEX_HOME/frameworks/libs/player/11.9/playerglobal.swc" --silent
 
