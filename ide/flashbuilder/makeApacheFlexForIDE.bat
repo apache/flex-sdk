@@ -107,9 +107,19 @@ cscript //B //nologo winUtil.vbs "%ADOBE_AIR_SDK_WIN_URL%" "%tempDir%\%ADOBE_AIR
 if %errorlevel% neq 0 goto errorExit
 
 REM
-REM     Download playerglobal.swc
+REM     Download 11.1 playerglobal.swc
 REM
 set FB_GLOBALPLAYER_DIR=%FLEX_HOME%\frameworks\libs\player\11.1
+if not exist "%FB_GLOBALPLAYER_DIR%" mkdir "%FB_GLOBALPLAYER_DIR%"
+
+echo Downloading Adobe Flash Player playerglobal.swc from "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" to "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
+cscript //B //nologo winUtil.vbs "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
+if %errorlevel% neq 0 goto errorExit
+
+REM
+REM     Download 11.9 playerglobal.swc
+REM
+set FB_GLOBALPLAYER_DIR=%FLEX_HOME%\frameworks\libs\player\11.9
 if not exist "%FB_GLOBALPLAYER_DIR%" mkdir "%FB_GLOBALPLAYER_DIR%"
 
 echo Downloading Adobe Flash Player playerglobal.swc from "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" to "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
