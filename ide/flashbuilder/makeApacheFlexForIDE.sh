@@ -101,12 +101,12 @@ tar xf "$tempDir/$ADOBE_AIR_SDK_MAC_FILE" -C "$FLEX_HOME"
 # download 11.1 playerglobal.swc
 echo "Downloading Adobe Flash Player playerglobal.swc from $ADOBE_FLASHPLAYER_GLOBALPLAYER_11_1_SWC_URL"
 mkdir -p "$FLEX_HOME/frameworks/libs/player/11.1"
-curl "$ADOBE_FLASHPLAYER_GLOBALPLAYER_SWC_URL" --output "$FLEX_HOME/frameworks/libs/player/11.1/playerglobal.swc" --silent
+curl "$ADOBE_FLASHPLAYER_GLOBALPLAYER_11_1_SWC_URL" --output "$FLEX_HOME/frameworks/libs/player/11.1/playerglobal.swc"
 
 # download 11.9 playerglobal.swc
 echo "Downloading Adobe Flash Player playerglobal.swc from $ADOBE_FLASHPLAYER_GLOBALPLAYER_11_9_SWC_URL"
 mkdir -p "$FLEX_HOME/frameworks/libs/player/11.9"
-curl "$ADOBE_FLASHPLAYER_GLOBALPLAYER_SWC_URL" --output "$FLEX_HOME/frameworks/libs/player/11.9/playerglobal.swc" --silent
+curl "$ADOBE_FLASHPLAYER_GLOBALPLAYER_11_9_SWC_URL" --output "$FLEX_HOME/frameworks/libs/player/11.9/playerglobal.swc"
 
 # copy the config files formatted for Flash Builder to frameworks 
 echo "Installing the frameworks config files configured for use with Adobe Flash Builder"
