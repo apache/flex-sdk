@@ -1064,10 +1064,8 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     {
         const eventHeaderCP:CellPosition = new CellPosition();
         const eventHeaderXY:Point = new Point();
-         // mouse can be released outside of header , so don't check    cf.    https://issues.apache.org/jira/browse/FLEX-33818
-          if (event.type != MouseEvent.MOUSE_UP &&  !eventToHeaderLocations(event, eventHeaderCP, eventHeaderXY))
+        if (!eventToHeaderLocations(event, eventHeaderCP, eventHeaderXY))
                 return;
-
 
         const eventSeparatorIndex:int = eventHeaderCP.rowIndex;
         const eventColumnIndex:int = (eventSeparatorIndex == -1) ? eventHeaderCP.columnIndex : -1;
