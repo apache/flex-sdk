@@ -3521,6 +3521,10 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         if (invalidatePropertiesFlag)
             UIComponentGlobals.layoutManager.validateClient(this, false);
         
+        var firstCell:CellPosition = null;
+        if (valueCopy.length > 0)
+            firstCell = valueCopy[0] as CellPosition;
+        
         gridSelection.removeAll();
         for each (var cell:CellPosition in valueCopy)
         {
@@ -3529,6 +3533,12 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         
         doFinalizeSetSelection(cell ? cell.rowIndex : -1, 
                                cell ? cell.columnIndex : -1);
+        
+        if (firstCell != null)
+        {
+            anchorRowIndex = firstCell.rowIndex;
+            anchorColumnIndex = firstCell.columnIndex;
+        }
     }
     
     /**
@@ -3542,6 +3552,10 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         if (invalidatePropertiesFlag)
             UIComponentGlobals.layoutManager.validateClient(this, false);
         
+        var firstRowIndex:int = -1;
+        if (valueCopy.length > 0)
+            firstRowIndex = valueCopy[0] as int;
+        
         var newRowIndex:int = -1;
         gridSelection.removeAll();
         for each (newRowIndex in valueCopy)
@@ -3550,6 +3564,9 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         }
         
         doFinalizeSetSelection(newRowIndex, -1);
+        
+        if (firstRowIndex >= 0)
+            anchorRowIndex = firstRowIndex;
     }
 
     /**
@@ -3566,6 +3583,10 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         if (invalidatePropertiesFlag)
             UIComponentGlobals.layoutManager.validateClient(this, false);
         
+        var firstRowIndex:int = -1;
+        if (valueCopy.length > 0)
+            firstRowIndex = dataProvider.getItemIndex(valueCopy[0]);
+        
         var newRowIndex:int = -1;        
         gridSelection.removeAll();
         for each (var item:Object in valueCopy)
@@ -3575,6 +3596,9 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         }
         
         doFinalizeSetSelection(newRowIndex, -1);
+        
+        if (firstRowIndex >= 0)
+            anchorRowIndex = firstRowIndex;
     }
     
     /**
