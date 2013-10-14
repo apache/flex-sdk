@@ -35,7 +35,59 @@
 		</mx:AdvancedDataGrid>
 	</mx:VBox>
 	
-<fx:Style>
+    <fx:Style>
+        @namespace s "library://ns.adobe.com/flex/spark";
+        @namespace mx "library://ns.adobe.com/flex/mx";
+        
+        @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF: false;
+        }
+        
+        @font-face {
+        src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Bold.ttf");
+        fontFamily: EmbeddedVerdana;
+        fontWeight: bold;
+        fontStyle: normal;
+        embedAsCFF: false;
+        }
+        
+        @font-face {
+        src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Italic.ttf");
+        fontFamily: EmbeddedVerdana;
+        fontWeight: normal;
+        fontStyle: italic;
+        embedAsCFF: false;
+        }
+        
+        /* Used by some of the styles tests. */
+        @font-face {
+        src: url("../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+        fontFamily: EmbeddedArial;
+        embedAsCFF: false;
+        }
+        
+        @font-face {
+        src: url("../../../../Assets/Fonts/Cousine/Cousine-Bold.ttf");
+        fontFamily: EmbeddedArial;
+        fontWeight: bold;
+        fontStyle: normal;
+        embedAsCFF: false;
+        }
+        
+        mx|AdvancedDataGrid {
+        /* embed the numeric sort indicator */
+        sortFontFamily: EmbeddedVerdana;
+        }
+        
+        global {
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+        }
+    </fx:Style>
+
+    <fx:Style>
 	@namespace mx "library://ns.adobe.com/flex/mx";
 	
 	mx|AdvancedDataGrid {
