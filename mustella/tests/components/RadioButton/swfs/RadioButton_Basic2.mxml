@@ -83,7 +83,7 @@
 	<TNComp id="tn"/>
 	<mx:Fade id="myFade" />
 	<mx:RadioButtonGroup id="g1"/>
-	<mx:RadioButton id="rb" groupName="g1" effectStart="runStartTests(event)" effectEnd="runEndTests(event)" creationComplete="{ti.text='Creation Complete Event Triggered'}" keyDown="{ti.text='Key Down Event Triggered'}" keyUp="{ti.text='Key Up Event Triggered'}" rollOverEffect="myFade"/>
+	<mx:RadioButton id="rb" effectStart="runStartTests(event)" effectEnd="runEndTests(event)" creationComplete="{ti.text='Creation Complete Event Triggered'}" keyDown="{ti.text='Key Down Event Triggered'}" keyUp="{ti.text='Key Up Event Triggered'}" rollOverEffect="myFade"/>
 	<mx:TextInput id="ti"/>
 
 		
