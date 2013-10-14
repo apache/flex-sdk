@@ -47,8 +47,7 @@ import spark.skins.spark.supportClasses.CalloutArrow;
 use namespace mx_internal;
 
 /**
- *  The default skin class for the Spark Callout component in mobile
- *  applications.
+ *  The default skin class for the Spark Callout component in desktop applications.
  * 
  *  <p>The <code>contentGroup</code> lies above a <code>backgroundColor</code> fill
  *  which frames the <code>contentGroup</code>. The position and size of the frame 

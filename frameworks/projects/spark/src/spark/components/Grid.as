@@ -269,6 +269,8 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
      *  rowIndex of the caret after a collection refresh event.
      */    
     private var caretSelectedItem:Object = null;
+    private var updateCaretForDataProviderChanged:Boolean = false;
+    private var updateCaretForDataProviderChangeLastEvent:CollectionEvent;
     
     /**
      *  @private
@@ -4599,7 +4601,12 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         clearInvalidateDisplayListReasons = true;
 		
 		if (!variableRowHeight)
-			setFixedRowHeight(gridDimensions.getRowHeight(0));    
+			setFixedRowHeight(gridDimensions.getRowHeight(0));
+        if (updateCaretForDataProviderChanged){
+            updateCaretForDataProviderChanged = false;
+            updateCaretForDataProviderChange(updateCaretForDataProviderChangeLastEvent);
+            updateCaretForDataProviderChangeLastEvent = null;
+        }
 	}
         
     //--------------------------------------------------------------------------
@@ -5446,7 +5453,6 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
                 else 
                 {
                     caretRowIndex = _dataProvider.length > 0 ? 0 : -1;
-                   validateNow();
                    verticalScrollPosition = 0;
                 }
                 
@@ -5620,8 +5626,18 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         invalidateSize();
         invalidateDisplayList();
         
-        if (caretRowIndex != -1)
-            updateCaretForDataProviderChange(event);
+        if (caretRowIndex != -1)  {
+            if (event.kind == CollectionEventKind.RESET){
+                // defer for reset events 
+                updateCaretForDataProviderChanged = true;
+                updateCaretForDataProviderChangeLastEvent = event;
+                invalidateDisplayList(); 
+            }
+            else {
+                updateCaretForDataProviderChange(event);
+            }         
+        }
+
         
         // Trigger bindings to selectedIndex/selectedCell/selectedItem and the plurals of those.
         if (selectionChanged)
