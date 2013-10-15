@@ -120,7 +120,7 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
 				layoutGap = 40;
 				minWidth = 128;
 				minHeight = 128;
-				layoutBorderSize = 4;
+				layoutBorderSize = 6;
 				
 				break;
 			}
