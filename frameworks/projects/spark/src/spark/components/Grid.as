@@ -269,7 +269,9 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
      *  rowIndex of the caret after a collection refresh event.
      */    
     private var caretSelectedItem:Object = null;
-
+    private var updateCaretForDataProviderChanged:Boolean = false;
+    private var updateCaretForDataProviderChangeLastEvent:CollectionEvent;
+    
     /**
      *  @private
      *  True while updateDisplayList is running.  Use to disable invalidateSize(),
@@ -4584,6 +4586,13 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             
             caretChanged = false;        
          }
+
+        if (updateCaretForDataProviderChanged)
+        {
+            updateCaretForDataProviderChanged = false;
+            updateCaretForDataProviderChange(updateCaretForDataProviderChangeLastEvent);
+            updateCaretForDataProviderChangeLastEvent = null;
+        }
     }
     
     
@@ -4600,8 +4609,9 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
 		
 		if (!variableRowHeight)
 			setFixedRowHeight(gridDimensions.getRowHeight(0));
-        }
 
+	}
+        
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -5033,7 +5043,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
     
     // default max time between clicks for a double click is 480ms.
     mx_internal var DOUBLE_CLICK_TIME:Number = 480;
-    
+
     /** 
      *  @private
      *  Return the GridView whose bounds contain the MouseEvent, or null.  Note that the 
@@ -5619,9 +5629,19 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         invalidateSize();
         invalidateDisplayList();
         
-        if (caretRowIndex != -1)
+        if (caretRowIndex != -1)  {
+            if (event.kind == CollectionEventKind.RESET){
+                // defer for reset events 
+                updateCaretForDataProviderChanged = true;
+                updateCaretForDataProviderChangeLastEvent = event;
+                invalidateProperties();
+            }
+            else {
                 updateCaretForDataProviderChange(event);
+            }         
+        }
 
+        
         // Trigger bindings to selectedIndex/selectedCell/selectedItem and the plurals of those.
         if (selectionChanged)
             dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
