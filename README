@@ -467,10 +467,16 @@ Using the Binary Distribution
     You must download the third-party dependencies.
 
     When you have all the prerequisites in place and the environment variables set, 
-    (see Install Prerequisites above), use
+    (see Install Prerequisites above -- you cannot use the env.properties file to set
+    the environment variables for these steps.), use
 
         cd <flex.dir>/frameworks
         ant thirdparty-downloads
+
+    Additionally, you will need to build the RSLS for the SDK before you run the batch files.
+
+        cd <flex.dir>
+        ant frameworks-rsls
         
 	To use this SDK in a IDE like Flash Builder 4.6 or 4.7 the SDK needs several other
 	files to be packaged and integrated with the Apache Flex SDK.
