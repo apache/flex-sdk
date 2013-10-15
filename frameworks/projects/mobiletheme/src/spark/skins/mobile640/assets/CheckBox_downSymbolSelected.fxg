@@ -33,9 +33,4 @@
           <SolidColorStroke weight="1" joints="bevel" color="#FFFFFF"/>
         </stroke>
       </Path>
-      <Path x="4" y="20" alpha="0.7" data="M0 12 22 34 56 0" scaleX="2.0" scaleY="2.0">
-        <stroke>
-          <SolidColorStroke weight="1" joints="bevel"/>
-        </stroke>
-      </Path>
-  </Graphic>
+</Graphic>
