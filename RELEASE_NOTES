@@ -66,6 +66,7 @@ Bug Fixes
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
 FLEX-33823  Certain DateField format strings causes null value in selectedDate
+FLEX-33820  Cutted text after pasting it from MS Excel in spark TextInput
 FLEX-33819  fontswf.bat error line 19
 FLEX-33818  Spark Datagrid column resize and sort bug when releasing mouse outside of headers
 FLEX-33813  Datagrid goes blank when assigning new dataProvider.source and calling refresh
