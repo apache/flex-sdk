@@ -3427,7 +3427,10 @@ public class DataGrid extends SkinnableContainerBase
         
         elt.dataGrid = this;
         if (elt.nestLevel <= grid.nestLevel)
+        {
+            elt.validateNow();
             elt.nestLevel = grid.nestLevel + 1;
+        }
     }
     
     /**
