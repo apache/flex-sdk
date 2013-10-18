@@ -160,6 +160,8 @@ public class HScrollBar extends ScrollBarBase
     //
     //--------------------------------------------------------------------------
     
+    private var maxAndPageSizeInvalid:Boolean = false;
+
     private function updateMaximumAndPageSize():void
     {
         var hsp:Number = viewport.horizontalScrollPosition;
@@ -532,10 +534,28 @@ public class HScrollBar extends ScrollBarBase
         if (allStyles || styleName == "interactionMode")
         {
             if (viewport)
-                updateMaximumAndPageSize();
+            {
+                // Some of the information needed
+                // is calculated in measure() on a child
+                maxAndPageSizeInvalid = true;
+                invalidateSize();
+            }
         }
     }
     
+    /**
+     *  @private 
+     */
+    override protected function measure():void
+    {
+        super.measure();
+        if (maxAndPageSizeInvalid)
+        {
+            maxAndPageSizeInvalid = false;
+            updateMaximumAndPageSize();
+        }
+    }
+        
     /**
      *  @private
      *  Scroll horizontally by event.delta "steps".  This listener is added to the viewport
