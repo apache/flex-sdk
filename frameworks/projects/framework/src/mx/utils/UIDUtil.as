@@ -135,7 +135,7 @@ public class UIDUtil
         var time:uint = new Date().getTime(); // extract last 8 digits
         var timeString:String = time.toString(16).toUpperCase();
         // 0xFFFFFFFF milliseconds ~= 3 days, so timeString may have between 1 and 8 digits, hence we need to pad with 0s to 8 digits
-        for (i = 8; i > timeString.length; --i)
+        for (i = 8; i > timeString.length; i--)
             UIDBuffer.writeByte(48);
         UIDBuffer.writeUTFBytes(timeString);
 
