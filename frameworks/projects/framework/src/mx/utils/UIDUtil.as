@@ -65,16 +65,9 @@ public class UIDUtil
      */
 	private static const ALPHA_CHAR_CODES:Array = [48, 49, 50, 51, 52, 53, 54, 
 		55, 56, 57, 65, 66, 67, 68, 69, 70];
-	
-	private static const HEX_CHARS:String = "0123456789ABCDEF";
-	
-	private static var EMPTYUID:Array = [
-		'0','0','0','0','0','0','0','0',
-		'-','0','0','0','0',
-		'-','0','0','0','0',
-		'-','0','0','0','0',
-		'-','0','0','0','0','0','0','0','0','0','0','0','0'
-	];
+
+    private static const DASH:int = 45;       // dash ascii
+    private static const UIDBuffer:ByteArray = new ByteArray();       // static ByteArray used for UID generation to save memory allocation cost
 
     //--------------------------------------------------------------------------
     //
@@ -117,52 +110,42 @@ public class UIDUtil
      *  @productversion Flex 3
      */
 	public static function createUID():String
-	{
-		var uid:Array = EMPTYUID;
-		var index:int = 0;
-		
-		var i:int;
-		var j:int;
-		
-		for (i = 0; i < 8; i++)
-		{
-			uid[index++] = HEX_CHARS.charAt(Math.random() * 16);
-		}
-		
-		for (i = 0; i < 3; i++)
-		{
-			index++; // skip "-"
-			
-			for (j = 0; j < 4; j++)
-			{
-				uid[index++] = HEX_CHARS.charAt(Math.random() * 16);
-			}
-		}
-		
-		index++; // skip "-"
-		
-		var time:Number = new Date().getTime();
-		// Note: time is the number of milliseconds since 1970,
-		// which is currently more than one trillion.
-		// We use the low 8 hex digits of this number in the UID.
-		// Just in case the system clock has been reset to
-		// Jan 1-4, 1970 (in which case this number could have only
-		// 1-7 hex digits), we pad on the left with 7 zeros
-		// before taking the low digits.
-		var timeString:String = ("0000000" + time.toString(16).toUpperCase()).substr(-8);
-		
-		for (i = 0; i < 8; i++)
-		{
-			uid[index++] = timeString.charAt(i);
-		}
-		
-		for (i = 0; i < 4; i++)
-		{
-			uid[index++] = HEX_CHARS.charAt(Math.random() * 16);
-		}
-		
-		return uid.join("");
-	}
+    {
+        UIDBuffer.position = 0;
+
+        var i:int;
+        var j:int;
+
+        for (i = 0; i < 8; i++)
+        {
+            UIDBuffer.writeByte(ALPHA_CHAR_CODES[int(Math.random() * 16)]);
+        }
+
+        for (i = 0; i < 3; i++)
+        {
+            UIDBuffer.writeByte(DASH);
+            for (j = 0; j < 4; j++)
+            {
+                UIDBuffer.writeByte(ALPHA_CHAR_CODES[int(Math.random() * 16)]);
+            }
+        }
+
+        UIDBuffer.writeByte(DASH);
+
+        var time:uint = new Date().getTime(); // extract last 8 digits
+        var timeString:String = time.toString(16).toUpperCase();
+        // 0xFFFFFFFF milliseconds ~= 3 days, so timeString may have between 1 and 8 digits, hence we need to pad with 0s to 8 digits
+        for (i = 8; i > timeString.length; --i)
+            UIDBuffer.writeByte(48);
+        UIDBuffer.writeUTFBytes(timeString);
+
+        for (i = 0; i < 4; i++)
+        {
+            UIDBuffer.writeByte(ALPHA_CHAR_CODES[int(Math.random() * 16)]);
+        }
+
+        return UIDBuffer.toString();
+    }
 
     /**
      * Converts a 128-bit UID encoded as a ByteArray to a String representation.
@@ -188,7 +171,7 @@ public class UIDUtil
             for (var i:uint = 0; i < 16; i++)
             {
                 if (i == 4 || i == 6 || i == 8 || i == 10)
-                    chars[index++] = 45; // Hyphen char code
+                    chars[index++] = DASH; // Hyphen char code
 
                 var b:int = ba.readByte();
                 chars[index++] = ALPHA_CHAR_CODES[(b & 0xF0) >>> 4];
@@ -227,7 +210,7 @@ public class UIDUtil
                 // Check for correctly placed hyphens
                 if (i == 8 || i == 13 || i == 18 || i == 23)
                 {
-                    if (c != 45)
+                    if (c != DASH)
                     {
                         return false;
                     }
