@@ -598,7 +598,9 @@
         
         <!-- asdoc -->
         <copy todir="${basedir}/temp/asdoc" includeEmptyDirs="false">
-            <fileset dir="${basedir}/asdoc"/>
+            <fileset dir="${basedir}/asdoc">
+            	<exclude name="test/**" />
+            </fileset>
         </copy>  
 
         <!-- ide -->

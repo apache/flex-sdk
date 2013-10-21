@@ -50,7 +50,12 @@ set ADOBE_AIR_SDK_WIN_URL=http://airdownload.adobe.com/air/win/download/3.9/%ADO
 REM
 REM     Adobe Flash Player Version 11.1
 REM
-set ADOBE_FB_GLOBALPLAYER_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
+set ADOBE_FB_GLOBALPLAYER_11_1_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
+
+REM
+REM     Adobe Flash Player Version 11.9
+REM
+set ADOBE_FB_GLOBALPLAYER_11_9_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_9.swc
 
 :getDir
 if not [%1] == [] goto checkJar
@@ -107,13 +112,23 @@ cscript //B //nologo winUtil.vbs "%ADOBE_AIR_SDK_WIN_URL%" "%tempDir%\%ADOBE_AIR
 if %errorlevel% neq 0 goto errorExit
 
 REM
-REM     Download playerglobal.swc
+REM     Download 11.1 playerglobal.swc
 REM
 set FB_GLOBALPLAYER_DIR=%FLEX_HOME%\frameworks\libs\player\11.1
 if not exist "%FB_GLOBALPLAYER_DIR%" mkdir "%FB_GLOBALPLAYER_DIR%"
 
-echo Downloading Adobe Flash Player playerglobal.swc from "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" to "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
-cscript //B //nologo winUtil.vbs "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
+echo Downloading Adobe Flash Player playerglobal.swc from "%ADOBE_FB_GLOBALPLAYER_11_1_SWC_URL%" to "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
+cscript //B //nologo winUtil.vbs "%ADOBE_FB_GLOBALPLAYER_11_1_SWC_URL%" "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
+if %errorlevel% neq 0 goto errorExit
+
+REM
+REM     Download 11.9 playerglobal.swc
+REM
+set FB_GLOBALPLAYER_DIR=%FLEX_HOME%\frameworks\libs\player\11.9
+if not exist "%FB_GLOBALPLAYER_DIR%" mkdir "%FB_GLOBALPLAYER_DIR%"
+
+echo Downloading Adobe Flash Player playerglobal.swc from "%ADOBE_FB_GLOBALPLAYER_11_9_SWC_URL%" to "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
+cscript //B //nologo winUtil.vbs "%ADOBE_FB_GLOBALPLAYER_11_9_SWC_URL%" "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
 if %errorlevel% neq 0 goto errorExit
 
 REM
