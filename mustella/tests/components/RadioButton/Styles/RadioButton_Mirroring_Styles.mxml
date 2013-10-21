@@ -64,7 +64,6 @@
 		<TestCase testID="RadioButton_Styles_Mirroring_RTL_focusRing" keywords="[RadioButton, Styles, Mirroring]" description="Test focusRing with layoutDirection rtl with RadioButton">
             <setup>
                 <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
-                <SetProperty target="rb" propertyName="groupName" value="g1"/>                
                 <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>                
             </setup>
             <body>                
