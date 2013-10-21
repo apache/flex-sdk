@@ -118,7 +118,6 @@ public class ArrayList extends EventDispatcher
         disableEvents();
         this.source = source;
         enableEvents();
-        _uid = UIDUtil.createUID();
     }
     
     //--------------------------------------------------------------------------
@@ -255,6 +254,9 @@ public class ArrayList extends EventDispatcher
      */  
     public function get uid():String
     {
+		if (!_uid) {
+			_uid = UIDUtil.createUID();
+		}
         return _uid;
     }
     

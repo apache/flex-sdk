@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<Graphic version="2.0" viewHeight="42" viewWidth="106" xmlns="http://ns.adobe.com/fxg/2008" scaleGridLeft="21" scaleGridTop="10" scaleGridRight="85" scaleGridBottom="21">
+	<Path winding="nonZero" data="M0 0 0 42 21 42C15 42 10.5 37.2993 10.5 31.5 10.5 25.7007 15 21 21 21L85.0005 21C91.0005 21 95.5005 25.7007 95.5005 31.5 95.5005 37.2993 91.0005 42 85.0005 42L106 42 106 0 0 0Z">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry ratio="0" alpha="0.1"/>
+				<GradientEntry ratio="0.5" alpha="0.2"/>
+				<GradientEntry ratio="1" alpha="0.1"/>
+			</LinearGradient>
+		</fill>
+	</Path>
+</Graphic>

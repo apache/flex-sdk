@@ -355,15 +355,21 @@ public class GridLines extends ChartElement
 	{
 		HaloDefaults.init(styleManager);
 		
-		var gridLinesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.GridLines");
-		gridLinesStyle.setStyle("horizontalOriginStroke", new SolidColorStroke(0xB0C1D0, 1));
-		gridLinesStyle.setStyle("horizontalStroke", new SolidColorStroke(0xEEEEEE, 0));
-		gridLinesStyle.setStyle("verticalOriginStroke", new SolidColorStroke(0xB0C1D0, 1));
-		gridLinesStyle.setStyle("verticalStroke", new SolidColorStroke(0xEEEEEE, 0));
-		
-		var hgridLinesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration(".horizontalGridLines");
-		hgridLinesStyle.setStyle("horizontalFill", null);
-		hgridLinesStyle.setStyle("verticalFill", null);
+		var gridLinesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.GridLines");
+		if (gridLinesStyle)
+		{
+			gridLinesStyle.setStyle("horizontalOriginStroke", new SolidColorStroke(0xB0C1D0, 1));
+			gridLinesStyle.setStyle("horizontalStroke", new SolidColorStroke(0xEEEEEE, 0));
+			gridLinesStyle.setStyle("verticalOriginStroke", new SolidColorStroke(0xB0C1D0, 1));
+			gridLinesStyle.setStyle("verticalStroke", new SolidColorStroke(0xEEEEEE, 0));
+		}
+			
+		var hgridLinesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, ".horizontalGridLines");
+		if (hgridLinesStyle)
+		{
+			hgridLinesStyle.setStyle("horizontalFill", null);
+			hgridLinesStyle.setStyle("verticalFill", null);
+		}
 		return true;
 	}
 	

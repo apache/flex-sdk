@@ -1360,6 +1360,43 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         dispatchEvent(new Event("sortCompareFunctionChanged"));
     }
 
+
+    //----------------------------------
+    //  sortCompareType
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _sortCompareType:String;
+
+    /**
+     *  @inheritDoc
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.11
+     */
+    [Bindable("sortCompareTypeChanged")]
+    public function get sortCompareType():String
+    {
+        return _sortCompareType;
+    }
+
+    /**
+     *  @private
+     */
+    public function set sortCompareType(value:String):void
+    {
+        if (_sortCompareType != value)
+        {
+            _sortCompareType = value;
+            dispatchEvent(new Event("sortCompareTypeChanged"));
+        }
+    }
+
+
     //----------------------------------
     //  visible
     //----------------------------------
@@ -1691,7 +1728,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      */
     public function itemToLabel(data:Object):String
     {
-        if (!data)
+        if (data == null)
             return " ";
 
         if (labelFunction != null)
@@ -1704,10 +1741,10 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         {
             try
             {
-                if ( !hasComplexFieldName ) 
-                data = data[dataField];
+                if (!hasComplexFieldName) 
+                	data = data[dataField];
                 else 
-                    data = deriveComplexColumnData( data );
+                    data = deriveComplexColumnData(data);
             }
             catch(e:Error)
             {
@@ -1796,11 +1833,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         var currentRef:Object = data;
         if ( complexFieldNameComponents ) 
         {
-            for ( var i:int=0; i<complexFieldNameComponents.length; i++ )
+            for ( var i:int=0; currentRef && i < complexFieldNameComponents.length; i++ )
                 currentRef = currentRef[ complexFieldNameComponents[ i ] ];
         }
         
-        return currentRef;
+        return currentRef?currentRef:"";
     }
 
     /**
@@ -1853,7 +1890,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             return _contextHeaderRenderer;
         }
 
-        if (!data)
+        if (data == null)
         {
             if (!_contextNullItemRenderer)
                 _contextNullItemRenderer = replaceItemRendererFactory(nullItemRenderer);

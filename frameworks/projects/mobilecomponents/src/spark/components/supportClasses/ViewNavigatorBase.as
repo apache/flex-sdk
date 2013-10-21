@@ -454,16 +454,7 @@ public class ViewNavigatorBase extends SkinnableContainer
         var iconData:Object = icon;
         
         if (iconData is MultiDPIBitmapSource)
-        {
-            var app:Object = FlexGlobals.topLevelApplication;
-            var dpi:Number;
-            if ("runtimeDPI" in app)
-                dpi = app["runtimeDPI"];
-            else
-                dpi = DensityUtil.getRuntimeDPI();
-
-            iconData = MultiDPIBitmapSource(iconData).getSource(dpi);
-        }
+            iconData = MultiDPIBitmapSource(iconData).getMultiSource();
         
         if (iconData is Class)
             return {label:label, iconClassName:getQualifiedClassName(iconData)};

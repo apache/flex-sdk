@@ -1961,7 +1961,8 @@ public class VideoDisplay extends UIComponent
             {
                 // second step
                 videoPlayer.muted = beforeLoadMuted;
-                videoPlayer.displayObject.visible = true;
+				if (videoPlayer.displayObject)
+                	videoPlayer.displayObject.visible = true;
                 
                 // going to call pause() now to stop immediately
                 videoPlayer.pause();
@@ -1971,7 +1972,8 @@ public class VideoDisplay extends UIComponent
                 // third step
                 videoPlayer.removeEventListener(SeekEvent.SEEKING_CHANGE, videoPlayer_seekChangeHandler);
                 videoPlayer.muted = beforeLoadMuted;
-                videoPlayer.displayObject.visible = true;
+				if (videoPlayer.displayObject)
+                	videoPlayer.displayObject.visible = true;
                 
                 // already called pause(), so don't do anything
             }

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/DensityIndependentScaling/tests/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns="*" 
+			testSWF="ViewNavigatorApplication120dpi.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+			}           
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</fx:Metadata>  
+	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			//import components.*;
+			import mx.core.FlexGlobals;
+		]]>
+	</fx:Script>
+	
+	<testCases>
+		
+		<TestCase testID="Get_applicationDPI" description="applicationDPI is set to 120 in MXML" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
+		
+			<body>
+				<AssertPropertyValue target="" propertyName="applicationDPI" value="120" />
+			</body>
+		
+		</TestCase>
+
+		<!-- Set a bogus value. No error but should not be set. -->
+		<TestCase  testID="Set_applicationDPI_at_runtime" description="Should not change the value." keywords="[ViewNavigatorApplication, properties, applicationDPI]">
+			<setup>
+				<SetProperty target="" propertyName="applicationDPI" value="777" />
+			</setup>
+			<body>
+			<AssertPropertyValue target="" propertyName="applicationDPI" value="120" />
+			</body>
+			
+		</TestCase>
+		
+		<TestCase testID="Check_scaling" description="" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
+			
+			<body>
+				
+				<AssertPropertyValue target="" propertyName="scalingFactor" value="1" >
+					<ConditionalValue deviceDensity="120" value="1"/>
+					<ConditionalValue deviceDensity="160" value="1.33333"/>
+					<ConditionalValue deviceDensity="240" value="2"/>
+					<ConditionalValue deviceDensity="320" value="2.66667"/>
+					<ConditionalValue deviceDensity="480" value="4"/>
+					<ConditionalValue deviceDensity="640" value="5.33333"/>
+				</AssertPropertyValue>	
+			
+			</body>
+	
+		</TestCase>
+		
+		<TestCase testID="Check_screen_size" description="" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
+			
+			<body>
+				
+				<AssertPropertyValue target="" propertyName="screenWidth" value="500">
+					<ConditionalValue deviceDensity="120" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth"/>
+					<ConditionalValue deviceDensity="160" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/1.33333"/>
+					<ConditionalValue deviceDensity="240" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/2"/>
+					<ConditionalValue deviceDensity="320" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/2.66667"/>
+					<ConditionalValue deviceDensity="480" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/4"/>
+					<ConditionalValue deviceDensity="640" valueExpression="value=FlexGlobals.topLevelApplication.stage.stageWidth/5.33333"/>
+				</AssertPropertyValue>	
+			</body>
+			
+		</TestCase>
+		
+		
+		<TestCase testID="Check_bitmap_120" description="" keywords="[ViewNavigatorApplication, properties, applicationDPI]">
+					
+			<body>
+						
+				<CompareBitmap target="navigator.activeView.redSquare" url="../tests/baselines">
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+					<ConditionalValue deviceDensity="320" os="android" />
+					<ConditionalValue deviceDensity="480" os="android" />
+					<ConditionalValue deviceDensity="120" os="android" />
+					<ConditionalValue deviceDensity="640" os="android" />
+				</CompareBitmap>	
+			</body>
+					
+		</TestCase>
+		
+		
+	</testCases>
+	
+</UnitTester>

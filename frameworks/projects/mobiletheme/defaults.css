@@ -132,6 +132,8 @@ Callout
     contentBackgroundColor: #FFFFFF;
     gap: 12;
     skinClass: ClassReference("spark.skins.mobile.CalloutSkin");
+    borderThickness: NaN;
+    borderColor: 0;
 }
 
 Callout ViewNavigator
@@ -418,6 +420,105 @@ global
     smoothScrolling: true;
     touchDelay: 0; /* default to 0 here, but Scroller sets it to 100 */
 }
+
+@media (application-dpi: 120)
+{
+	ActionBar
+	{
+		paddingBottom: 1;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 1;
+	}
+	
+	ActionBar.beveled
+	{
+		paddingLeft: 4;
+		paddingRight: 4;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 14;
+	}
+	
+	ActionBar.beveled Group#navigationGroup Button
+	{
+		fontSize: 9;
+	}
+	
+	ActionBar.beveled Group#actionGroup Button
+	{
+		fontSize: 9;
+	}
+	
+	Callout
+	{
+		gap: 6;
+	}
+	
+	IconItemRenderer
+	{
+		paddingBottom: 6;
+		paddingTop: 6;
+		horizontalGap: 6;
+		verticalGap: 3;
+	}
+	
+	.iconItemRendererMessageStyle
+	{
+		fontSize: 11;
+	}
+	
+	LabelItemRenderer
+	{
+		paddingBottom: 12;
+		paddingLeft: 8;
+		paddingRight: 8;
+		paddingTop: 12;
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 8;
+		paddingBottom : 8;
+		paddingLeft : 6;
+		paddingRight : 6;
+	}
+	
+	TextArea
+	{
+		paddingBottom: 4;
+		paddingLeft: 4;
+		paddingRight: 4;
+		paddingTop: 4;
+	}
+	
+	TextInput
+	{
+		paddingBottom: 4;
+		paddingLeft: 4;
+		paddingRight: 4;
+		paddingTop: 4;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 11;
+	}
+	
+	ToggleSwitch
+	{
+		fontSize: 14;
+	}
+	
+	global
+	{
+		fontSize: 12;
+		focusThickness: 2;
+	}
+}
+
 
 @media (application-dpi: 160)
 {
@@ -709,6 +810,104 @@ global
 	{
 		fontSize: 48;
 		focusThickness: 6;
+	}
+}
+
+
+@media (application-dpi: 640)
+{
+	ActionBar
+	{
+		paddingBottom: 4;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 4;
+	}
+	
+	ActionBar.beveled
+	{
+		paddingLeft: 20;
+		paddingRight: 20;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 72;
+	}
+	
+	ActionBar.beveled Group#navigationGroup Button
+	{
+		fontSize: 48;
+	}
+	
+	ActionBar.beveled Group#actionGroup Button
+	{
+		fontSize: 48;
+	}
+	
+	Callout
+	{
+		gap: 32;
+	}
+	
+	IconItemRenderer
+	{
+		paddingBottom: 32;
+		paddingTop: 32;
+		horizontalGap: 32;
+		verticalGap: 36;
+	}
+	
+	.iconItemRendererMessageStyle
+	{
+		fontSize: 26;
+	}
+	
+	LabelItemRenderer
+	{
+		paddingBottom: 64;
+		paddingLeft: 40;
+		paddingRight: 40;
+		paddingTop: 64;  
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 48;
+		paddingBottom : 48;
+		paddingLeft : 48;
+		paddingRight : 48;
+	}
+	
+	TextArea
+	{
+		paddingBottom: 24;
+		paddingLeft: 24;
+		paddingRight: 24;
+		paddingTop: 24;
+	}
+	
+	TextInput
+	{
+		paddingBottom: 24;
+		paddingLeft: 24;
+		paddingRight: 24;
+		paddingTop: 24;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 56;
+	}
+	
+	ToggleSwitch
+	{
+		fontSize: 72;
+	}
+	
+	global
+	{
+		fontSize: 64;
 	}
 }
 

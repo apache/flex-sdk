@@ -519,7 +519,7 @@ public class ComboBoxAccImpl extends DropDownListBaseAccImpl
                 // This event will fire for the opened and close combo box
                 // normally this only fires on open comboboxes but it is fired
                 // for closed comboboxes to support screen readers
-                if (ComboBox(master).isDropDownOpen && index >=0 && index < ComboBox(master).dataProvider.length) 
+                if (ComboBox(master).isDropDownOpen && index >=0 && ComboBox(master).dataProvider && index < ComboBox(master).dataProvider.length) 
                 {
                 	Accessibility.sendEvent(master, childID,
 						AccConst.EVENT_OBJECT_FOCUS);

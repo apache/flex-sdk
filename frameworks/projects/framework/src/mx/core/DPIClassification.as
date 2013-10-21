@@ -35,6 +35,16 @@ package mx.core
  */
 public final class DPIClassification
 {
+	/**
+	 *  Density value for extra-low-density devices.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5
+	 *  @productversion ApacheFlex 4.11
+	 */
+	public static const DPI_120:Number = 120;
+	
     /**
      *  Density value for low-density devices.
      *  
@@ -66,7 +76,7 @@ public final class DPIClassification
 	public static const DPI_320:Number = 320;
 	
 	/**
-	 *  Density value for high-density devices.
+	 *  Density value for extra-high-density devices.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
@@ -74,5 +84,15 @@ public final class DPIClassification
 	 *  @productversion ApacheFlex 4.10
 	 */
 	public static const DPI_480:Number = 480;
+	
+	/**
+	 *  Density value for extra-extra-high-density devices.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5
+	 *  @productversion ApacheFlex 4.11
+	 */
+	public static const DPI_640:Number = 640;
 }
 }

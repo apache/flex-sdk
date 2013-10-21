@@ -796,6 +796,7 @@ public class NumericStepper extends Spinner
             if (dataFormatter == null)
             {
                 dataFormatter = new NumberFormatter();
+				dataFormatter.fractionalDigits = Math.max(0, (stepSize - Math.floor(stepSize)).toString().length - 2);
                 addStyleClient(dataFormatter);
             }
 

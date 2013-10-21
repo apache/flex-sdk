@@ -22,7 +22,7 @@ package spark.components.supportClasses
 import spark.effects.animation.Animation;
 import spark.effects.animation.IAnimationTarget;
 
-internal class AnimationTarget implements IAnimationTarget
+public class AnimationTarget implements IAnimationTarget
 {
     public var updateFunction:Function;
     public var startFunction:Function;

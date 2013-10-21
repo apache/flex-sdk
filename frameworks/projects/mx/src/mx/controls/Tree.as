@@ -1484,11 +1484,11 @@ public class Tree extends List implements IIMESupport
                     {
                         var d:int = getItemDepth(listItems[curRow][0].data, curRow);
                         var rowColor:uint = colors[d-1] ? colors[d - 1] : uint(color);
-                        drawRowBackground(rowBGs, i++, rowInfo[curRow].y, rowInfo[curRow].height, rowColor, curRow);
+                        drawRowBackground(rowBGs, i++, rowInfo[curRow].y, rowInfo[curRow].height, rowColor, actualRow);
                     }
                     else
                     {
-                        drawRowBackground(rowBGs, i++, rowInfo[curRow].y, rowInfo[curRow].height, uint(color), curRow);
+                        drawRowBackground(rowBGs, i++, rowInfo[curRow].y, rowInfo[curRow].height, uint(color), actualRow);
                     }
                 }
                 catch(e:Error)

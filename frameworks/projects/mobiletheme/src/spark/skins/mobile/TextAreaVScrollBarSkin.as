@@ -52,6 +52,13 @@ public class TextAreaVScrollBarSkin extends VScrollBarSkin
 
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				minWidth = 30;
+				paddingRight = TextAreaVScrollBarThumbSkin.PADDING_RIGHT_640DPI;
+				paddingVertical = TextAreaVScrollBarThumbSkin.PADDING_VERTICAL_640DPI;
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				minWidth = 22;
@@ -66,13 +73,20 @@ public class TextAreaVScrollBarSkin extends VScrollBarSkin
                 paddingVertical = TextAreaVScrollBarThumbSkin.PADDING_VERTICAL_320DPI;
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                minWidth = 11;
-                paddingRight = TextAreaVScrollBarThumbSkin.PADDING_RIGHT_240DPI;
-                paddingVertical = TextAreaVScrollBarThumbSkin.PADDING_VERTICAL_240DPI;
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				minWidth = 11;
+				paddingRight = TextAreaVScrollBarThumbSkin.PADDING_RIGHT_240DPI;
+				paddingVertical = TextAreaVScrollBarThumbSkin.PADDING_VERTICAL_240DPI;
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				minWidth = 6;
+				paddingRight = TextAreaVScrollBarThumbSkin.PADDING_RIGHT_120DPI;
+				paddingVertical = TextAreaVScrollBarThumbSkin.PADDING_VERTICAL_120DPI;
+				break;
+			}
             default:
             {
                 // default DPI_160

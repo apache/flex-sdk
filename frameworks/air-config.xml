@@ -103,6 +103,14 @@
             <uri>http://www.adobe.com/2006/mxml</uri>
             <manifest>mxml-manifest.xml</manifest>
          </namespace>
+         <namespace>
+            <uri>http://flex.apache.org/ns</uri>
+            <manifest>apache-manifest.xml</manifest>
+         </namespace>
+         <namespace>
+            <uri>http://flex.apache.org/experimental/ns</uri>
+            <manifest>experimental-manifest.xml</manifest>
+         </namespace>
       </namespaces>
       
       <!-- Enable post-link SWF optimization. -->
@@ -425,11 +433,11 @@
    
    <!-- Metadata added to SWFs via the SWF Metadata tag. -->
    <metadata>
-      <title>Apache Flex 4 Application</title>
-      <description>http://www.adobe.com/products/flex</description>
-      <publisher>Apache Software Founcation</publisher>
-      <creator>unknown</creator>
-      <language>EN</language>
+      <title>Apache Flex Application</title>
+      <description>http://flex.apache.org/</description>
+      <publisher>Apache Software Foundation</publisher>
+      <creator>Apache Software Foundation</creator>
+      <language>en_US</language>
    </metadata>
 
 </flex-config>

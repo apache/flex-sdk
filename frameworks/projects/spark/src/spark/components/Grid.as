@@ -269,6 +269,8 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
      *  rowIndex of the caret after a collection refresh event.
      */    
     private var caretSelectedItem:Object = null;
+    private var updateCaretForDataProviderChanged:Boolean = false;
+    private var updateCaretForDataProviderChangeLastEvent:CollectionEvent;
     
     /**
      *  @private
@@ -1267,9 +1269,9 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
     
     /**
      *  The doubleClick mode of the control.  Possible values are:
-     *  <code>GridSelectionMode.CELL</code>, 
-     *  <code>GridSelectionMode.GRID</code>, 
-     *  <code>GridSelectionMode.ROW</code>, 
+     *  <code>GridDoubleClickMode.CELL</code>, 
+     *  <code>GridDoubleClickMode.GRID</code>, 
+     *  <code>GridDoubleClickMode.ROW</code>, 
      * 
      *  <p>Changing the doubleClickMode changes the double click
      *  criteria for firing the doubleClick event</p>
@@ -4584,6 +4586,13 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             
             caretChanged = false;        
          }
+
+        if (updateCaretForDataProviderChanged)
+        {
+            updateCaretForDataProviderChanged = false;
+            updateCaretForDataProviderChange(updateCaretForDataProviderChangeLastEvent);
+            updateCaretForDataProviderChangeLastEvent = null;
+        }
     }
     
     
@@ -4599,7 +4608,8 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         clearInvalidateDisplayListReasons = true;
 		
 		if (!variableRowHeight)
-			setFixedRowHeight(gridDimensions.getRowHeight(0));    
+			setFixedRowHeight(gridDimensions.getRowHeight(0));
+
 	}
         
     //--------------------------------------------------------------------------
@@ -5033,7 +5043,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
     
     // default max time between clicks for a double click is 480ms.
     mx_internal var DOUBLE_CLICK_TIME:Number = 480;
-    
+
     /** 
      *  @private
      *  Return the GridView whose bounds contain the MouseEvent, or null.  Note that the 
@@ -5445,8 +5455,8 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
                 // No caret item so reset caret and vsp.
                 else 
                 {
-                    caretRowIndex = _dataProvider.length > 0 ? 0 : -1; 
-                    verticalScrollPosition = 0;
+                    caretRowIndex = _dataProvider.length > 0 ? 0 : -1;
+                   verticalScrollPosition = 0;
                 }
                 
                 break;
@@ -5619,8 +5629,18 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         invalidateSize();
         invalidateDisplayList();
         
-        if (caretRowIndex != -1)
-            updateCaretForDataProviderChange(event);
+        if (caretRowIndex != -1)  {
+            if (event.kind == CollectionEventKind.RESET){
+                // defer for reset events 
+                updateCaretForDataProviderChanged = true;
+                updateCaretForDataProviderChangeLastEvent = event;
+                invalidateProperties();
+            }
+            else {
+                updateCaretForDataProviderChange(event);
+            }         
+        }
+
         
         // Trigger bindings to selectedIndex/selectedCell/selectedItem and the plurals of those.
         if (selectionChanged)

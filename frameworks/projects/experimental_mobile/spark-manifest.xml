@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<!--
+
+    Experimental Mobile Components
+
+-->
+<componentPackage>
+
+    <!-- Special Components -->
+    <component id="State" class="mx.states.State" lookupOnly="true"/>
+    <component id="Transition" class="mx.states.Transition" lookupOnly="true"/>
+
+    <!-- Flex 3 Graphics -->
+    <component id="BitmapFill" class="mx.graphics.BitmapFill" lookupOnly="true"/>
+    <component id="BitmapResizeMode" class="mx.graphics.BitmapResizeMode" lookupOnly="true"/>
+    <component id="CompoundTransform" class="mx.geom.CompoundTransform" lookupOnly="true"/>
+    <component id="GradientEntry" class="mx.graphics.GradientEntry" lookupOnly="true"/>
+    <component id="LinearGradient" class="mx.graphics.LinearGradient" lookupOnly="true"/>
+    <component id="LinearGradientStroke" class="mx.graphics.LinearGradientStroke" lookupOnly="true"/>
+    <component id="RadialGradient" class="mx.graphics.RadialGradient" lookupOnly="true"/>
+    <component id="RadialGradientStroke" class="mx.graphics.RadialGradientStroke" lookupOnly="true"/>
+    <component id="SolidColor" class="mx.graphics.SolidColor" lookupOnly="true"/>
+    <component id="SolidColorStroke" class="mx.graphics.SolidColorStroke" lookupOnly="true"/>
+    <component id="Stroke" class="mx.graphics.Stroke" lookupOnly="true"/>
+    <component id="Transform" class="mx.geom.Transform" lookupOnly="true"/>
+
+    <!-- Spark Graphics -->
+    <component id="BitmapGraphic" class="spark.primitives.BitmapImage" lookupOnly="true"/>
+    <component id="BitmapImage" class="spark.primitives.BitmapImage" lookupOnly="true"/>
+</componentPackage>

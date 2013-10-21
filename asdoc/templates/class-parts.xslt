@@ -635,6 +635,7 @@
 	<xsl:template name="classHeader">
 		<xsl:param name="classNode"/>
 		<xsl:param name="classDeprecated"/>
+        <xsl:param name="experimental"/>
 		<xsl:variable name="packageName" select="ancestor-or-self::apiPackage/apiName"/>
 		<xsl:variable name="baseRef">
 			<xsl:call-template name="getBaseRef">
@@ -1061,6 +1062,19 @@
 			</xsl:if>
 			<xsl:apply-templates select="apiClassifierDetail/apiClassifierDef/apiDeprecated"/>
 			<xsl:call-template name="version"/>
+
+            <!-- display experimental disclaimer-->
+            <p/>
+            <xsl:if test="$experimental = 'true'">
+                <table width="100%" class="innertable">
+                    <tr>
+                        <td class="experimental"><img src="{$baseRef}images/experimental_small.png"/></td>
+                        <td class="experimental">
+                            <xsl:value-of  select="$asdoc_terms/row[entry[1][p/text() = 'experimental.disclaimer']]/entry[2]/p"/>
+                        </td>
+                    </tr>
+                </table>
+            </xsl:if>
 			<p/>
 			  <xsl:if test="prolog/asMetadata/Alternative">
 			    <xsl:text disable-output-escaping="yes">&lt;br/&gt;</xsl:text>

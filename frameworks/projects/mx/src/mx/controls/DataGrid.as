@@ -1116,12 +1116,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
     override public function set itemRenderer(value:IFactory):void
     {
         super.itemRenderer = value;
-        if (columns)
+        if (_columns)
         {
-            var n:int = columns.length;
+            var n:int = _columns.length;
             for (var i:int = 0; i < n; i++)
             {
-                columns[i].resetFactories();
+				_columns[i].resetFactories();
             }
         }
     }
@@ -1388,6 +1388,27 @@ public class DataGrid extends DataGridBase implements IIMESupport
         invalidateDisplayList();
         dispatchEvent(new Event("columnsChanged"));
     }
+	
+	/**
+	 *  An array of DataGridColumn objects, one for each column that
+	 *  can be displayed. 
+	 * 
+	 *  <p>Used internally instead of using <code>columns<code> when higher
+	 *  performance is required.</p>
+	 *
+	 *  <p>Use externally with caution and don't modify the array that comes
+	 *  back or you may get unexpected issues.</p>
+	 *   
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 4.11
+	 * 
+	 *  @private
+	 */
+	mx_internal function get rawColumns():Array {
+		return _columns;
+	}
 
     //----------------------------------
     //  draggableColumns
@@ -1685,7 +1706,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
         var o:EdgeMetrics = viewMetrics;
 
-        var n:int = columns.length;
+        var n:int = _columns.length;
         if (n == 0)
         {
             measuredWidth = DEFAULT_MEASURED_WIDTH;
@@ -1697,11 +1718,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
         var columnMinWidths:Number = 0;
         for (var i:int = 0; i < n; i++)
         {
-            if (columns[i].visible)
+            if (_columns[i].visible)
             {
-                columnWidths += columns[i].preferredWidth;
+                columnWidths += _columns[i].preferredWidth;
                 if (isNaN(_minColumnWidth))
-                    columnMinWidths += columns[i].minWidth;
+                    columnMinWidths += _columns[i].minWidth;
             }
         }
 
@@ -1907,10 +1928,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
         if (fontContextChanged)
         {
             fontContextChanged = false;
-            n = columns.length;
+            n = _columns.length;
             for (j = 0; j < n; j++)
             {
-                c = columns[j];
+                c = _columns[j];
                 c.determineFontContext();
             }
         }
@@ -1920,7 +1941,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
             itemsNeedMeasurement = false;
             if (isNaN(explicitRowHeight))
             {
-                if (iterator && columns.length > 0)
+                if (iterator && _columns.length > 0)
                 {
                     //set DataGridBase.visibleColumns to the set of 
                     //all columns
@@ -1933,10 +1954,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
                     var data:Object = iterator.current;
                     var item:IListItemRenderer;
                     var ch:Number = 0;
-                    n = columns.length;
+                    n = _columns.length;
                     for (j = 0; j < n; j++)
                     {
-                        c = columns[j];
+                        c = _columns[j];
 
                         if (!c.visible)
                             continue;
@@ -1959,7 +1980,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
             // If we don't have data yet or any column info we 
             // want to make sure to make another measurement pass when
             // we eventually do have valid data.
-            if (!collection || collection.length == 0 || columns.length == 0)
+            if (!collection || collection.length == 0 || _columns.length == 0)
                 itemsNeedMeasurement = true;
             }
         }
@@ -1973,11 +1994,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
     {
         var w:Number = 0;
 
-        var n:int = columns ? columns.length : 0;
+        var n:int = _columns ? _columns.length : 0;
         for (var i:int = 0; i < n; i++)
         {
-            if (columns[i].visible)
-                w += columns[i].width;
+            if (_columns[i].visible)
+                w += _columns[i].width;
         }
 
         return w;
@@ -1991,7 +2012,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
     {
         var rowData:DataGridListData = DataGridListData(makeListData(data, itemToUID(data), 0, c.colNum, c));
         if (item is IDropInListItemRenderer)
-            IDropInListItemRenderer(item).listData = data ? rowData : null;
+            IDropInListItemRenderer(item).listData = (data != null) ? rowData : null;
         item.data = data;
         item.explicitWidth = getWidthOfItem(item, c);
         UIComponentGlobals.layoutManager.validateClient(item, true);
@@ -2075,10 +2096,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
             {
                 data = (lockedCount > 0) ? collectionIterator.current : iterator.current;
                 ch = 0;
-                n = columns.length;
+                n = _columns.length;
                 for (j = 0; j < n; j++)
                 {
-                    c = columns[j];
+                    c = _columns[j];
 
                     if (!c.visible)
                         continue;
@@ -2168,7 +2189,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
         if (showHeaders)
         {
             ch = 0;
-            n = columns.length;
+            n = _columns.length;
 
             if (_headerWordWrapPresent)
             {
@@ -2178,7 +2199,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
             for (j = 0; j < n; j++)
             {
-                c = columns[j];
+                c = _columns[j];
 
                 if (!c.visible)
                     continue;
@@ -2247,17 +2268,17 @@ public class DataGrid extends DataGridBase implements IIMESupport
         for (j = 0; j < n; j++)
         {
             // skip any columns that are visible
-            if (skipVisible && k < l && visibleLockedColumns[k].colNum == columns[j].colNum)
+            if (skipVisible && k < l && visibleLockedColumns[k].colNum == _columns[j].colNum)
             {
                 k++;
                 continue;
             }
-            if (skipVisible && k - l < visibleColumns.length && visibleColumns[k - l].colNum == columns[j].colNum)
+            if (skipVisible && k - l < visibleColumns.length && visibleColumns[k - l].colNum == _columns[j].colNum)
             {
                 k++;
                 continue;
             }
-            c = columns[j];
+            c = _columns[j];
 
             if (!c.visible)
                 continue;
@@ -2498,10 +2519,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
             {
                 data = iterator.current;
                 ch = 0;
-                n = columns.length;
+                n = _columns.length;
                 for (j = 0; j < n; j++)
                 {
-                    c = columns[j];
+                    c = _columns[j];
 
                     if (!c.visible)
                         continue;
@@ -2856,10 +2877,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
             if (minColumnWidthInvalid)
             {
-                n = columns.length;
+                n = _columns.length;
                 for (i = 0; i < n; i++)
                 {
-                    columns[i].minWidth = minColumnWidth;
+                    _columns[i].minWidth = minColumnWidth;
                 }
                 minColumnWidthInvalid = false;
             }
@@ -3337,14 +3358,14 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
         // Height is usually as tall is the items in the row, but not if
         // it would extend below the bottom of listContent
-        var height:Number = Math.min(height,
+        var minHeight:Number = Math.min(height,
                                      contentHolder.height -
                                      y);
 
         var g:Graphics = background.graphics;
         g.clear();
         g.beginFill(color, getStyle("backgroundAlpha"));
-        g.drawRect(0, 0, contentHolder.width, height);
+        g.drawRect(0, 0, contentHolder.width, minHeight);
         g.endFill();
     }
 
@@ -3964,7 +3985,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 s = new Sort;
 
             if (!f)
+            {
                 f = new SortField(c.dataField);
+                f.sortCompareType = c.sortCompareType;
+            }
 
 
             c.sortDescending = desc;
@@ -4503,7 +4527,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
         var dataGridEvent:DataGridEvent =
             new DataGridEvent(DataGridEvent.ITEM_EDIT_BEGINNING, false, true);
             // ITEM_EDIT events are cancelable
-        dataGridEvent.columnIndex = Math.min(columnIndex, columns.length - 1);
+        dataGridEvent.columnIndex = Math.min(columnIndex, _columns.length - 1);
         dataGridEvent.dataField = _columns[columnIndex].dataField;
         dataGridEvent.rowIndex = Math.min(rowIndex, collection.length - 1);
         dataGridEvent.itemRenderer = itemRenderer;
@@ -4576,7 +4600,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
         if (!editable)
             return false;
 
-        if (!data)
+        if (data == null)
             return false;
 
         return true;
@@ -5286,12 +5310,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
             if (itemEditorInstance is IFocusManagerComponent)
                 fm.setFocus(IFocusManagerComponent(itemEditorInstance));
                 
-            var event:DataGridEvent =
+            var itemFocusInEvent:DataGridEvent =
                 new DataGridEvent(DataGridEvent.ITEM_FOCUS_IN);
-            event.columnIndex = _editedItemPosition.columnIndex;
-            event.rowIndex = _editedItemPosition.rowIndex;
+            itemFocusInEvent.columnIndex = _editedItemPosition.columnIndex;
+            itemFocusInEvent.rowIndex = _editedItemPosition.rowIndex;
                 event.itemRenderer = itemEditorInstance;
-            dispatchEvent(event);
+            dispatchEvent(itemFocusInEvent);
         }
     }
 

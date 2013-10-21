@@ -35,6 +35,7 @@ import spark.layouts.HorizontalAlign;
 import spark.layouts.HorizontalLayout;
 import spark.layouts.VerticalAlign;
 import spark.skins.mobile.supportClasses.MobileSkin;
+import spark.skins.mobile120.assets.ActionBarBackground;
 import spark.skins.mobile160.assets.ActionBarBackground;
 import spark.skins.mobile240.assets.ActionBarBackground;
 import spark.skins.mobile320.assets.ActionBarBackground;
@@ -122,6 +123,17 @@ public class ActionBarSkin extends MobileSkin
                 
                 break;
             }
+			case DPIClassification.DPI_120:
+			{
+				borderSize = 1;
+				layoutShadowHeight = 1.5;
+				layoutContentGroupHeight = 32;
+				layoutTitleGroupHorizontalPadding = 10;
+				
+				borderClass = spark.skins.mobile120.assets.ActionBarBackground;
+				
+				break;
+			}	
             default:
             {
                 // default DPI_160

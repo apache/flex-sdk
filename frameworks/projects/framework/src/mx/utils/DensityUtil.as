@@ -86,8 +86,8 @@ public class DensityUtil
     public static function getDPIScale(sourceDPI:Number, targetDPI:Number):Number
     {
         // Unknown dpi returns NaN
-        if ((sourceDPI != DPIClassification.DPI_160 && sourceDPI != DPIClassification.DPI_240 && sourceDPI != DPIClassification.DPI_320 && sourceDPI != DPIClassification.DPI_480) ||
-            (targetDPI != DPIClassification.DPI_160 && targetDPI != DPIClassification.DPI_240 && targetDPI != DPIClassification.DPI_320 && targetDPI != DPIClassification.DPI_480))
+        if ((sourceDPI != DPIClassification.DPI_120 && sourceDPI != DPIClassification.DPI_160 && sourceDPI != DPIClassification.DPI_240 && sourceDPI != DPIClassification.DPI_320 && sourceDPI != DPIClassification.DPI_480 && sourceDPI != DPIClassification.DPI_640) ||
+            (targetDPI != DPIClassification.DPI_120 && targetDPI != DPIClassification.DPI_160 && targetDPI != DPIClassification.DPI_240 && targetDPI != DPIClassification.DPI_320 && targetDPI != DPIClassification.DPI_480 && targetDPI != DPIClassification.DPI_640))
         {
             return NaN;
         }

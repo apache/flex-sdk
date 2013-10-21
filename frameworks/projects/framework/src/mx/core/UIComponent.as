@@ -6084,18 +6084,19 @@ public class UIComponent extends FlexSprite
         // then we'll check the transform and see if it's actually transformed.
         // otherwise we'll check the layoutMatrix on the AdvancedLayoutFeatures object, 
         // to see if we're actually transformed.
-        if (!_hasComplexLayoutMatrix)
+        if (!_hasComplexLayoutMatrix) {
             return false;
+		}
         else
         {
             if (_layoutFeatures == null)
             {
-                _hasComplexLayoutMatrix = !MatrixUtil.isDeltaIdentity(super.transform.matrix);
+                _hasComplexLayoutMatrix = super.transform.matrix && !MatrixUtil.isDeltaIdentity(super.transform.matrix);
                 return _hasComplexLayoutMatrix;
             }
             else
             {
-                return !MatrixUtil.isDeltaIdentity(_layoutFeatures.layoutMatrix);
+                return _layoutFeatures.layoutMatrix && !MatrixUtil.isDeltaIdentity(_layoutFeatures.layoutMatrix);
             }
         }
     }

@@ -222,6 +222,33 @@ public class BitmapImage extends GraphicElement
     private var sourceInvalid:Boolean;
     private var loadFailed:Boolean;
 	private var dpiScale:Number = 1;
+	private var _cachedImageDecodePolicy:Boolean;
+	private var _haveCachedImageDecodePolicy:Boolean;
+	
+	
+	/**
+	 *  Specifies that the image being loaded will be decoded when needed.
+	 * 
+	 *  @see flash.system.ImageDecodingPolicy
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4.11
+	 */
+	public static const ON_DEMAND:String = "onDemand";
+
+	/**
+	 *  Specifies that the image being loaded will be decoded on load.
+	 * 
+	 *  @see flash.system.ImageDecodingPolicy
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4.11
+	 */
+	public static const ON_LOAD:String = "onLoad";
 
     //----------------------------------
     //  bitmapData
@@ -505,6 +532,22 @@ public class BitmapImage extends GraphicElement
         else
             return 0.5;
     }
+	
+	/**
+	 *  The image decoding policy, set to ON_DEMAND or ON_LOAD.
+	 *  The default is ON_DEMAND.
+	 * 
+	 *  ImageDecodingPolicy also defined ON_DEMAND and ON_LOAD but these
+	 *  are only available under AIR 2.6 and above.
+	 * 
+	 *  Setting to asynchronously decode and load the bitmap images for
+	 *  large image may improve your application’s perceived performance.
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion AIR 2.6
+	 *  @productversion Flex 4.11
+	 */
+	public var imageDecodingPolicy:String = ON_DEMAND;
 
     //----------------------------------
     //  preliminaryHeight
@@ -1363,7 +1406,7 @@ public class BitmapImage extends GraphicElement
         var tmpSprite:DisplayObject;
 
         if (value is MultiDPIBitmapSource)
-            value = getActualValue(value as MultiDPIBitmapSource);
+            value = (value as MultiDPIBitmapSource).getMultiSource();
 
         // Clear the previous scaleGrid properties
         _scaleGridLeft = NaN;
@@ -1465,21 +1508,21 @@ public class BitmapImage extends GraphicElement
 
         setBitmapData(bitmapData, currentBitmapCreated);
     }
-
-    /**
-     *  @private
-     *  Figure out which source to use
-     */
-    mx_internal function getActualValue(values:MultiDPIBitmapSource):Object
-    {
-        var app:Object = FlexGlobals.topLevelApplication;
-        var dpi:Number;
-        if ("runtimeDPI" in app)
-            dpi = app["runtimeDPI"];
-        else
-            dpi = DensityUtil.getRuntimeDPI();
-        return values.getSource(dpi);
-    }
+	
+	
+	/**
+	 * @private
+	 * Returns true if current Flash Player/Air supports image decoding policy.
+	 */
+	protected function hasImageDecodingPolicy(loaderContext:LoaderContext):Boolean {
+		// true for one it's true for all
+		if (!_haveCachedImageDecodePolicy) {
+			_cachedImageDecodePolicy =  ("imageDecodingPolicy" in loaderContext);
+			_haveCachedImageDecodePolicy = true;
+		}
+		
+		return _cachedImageDecodePolicy;
+	}
 
     /**
      *  @private
@@ -1516,6 +1559,9 @@ public class BitmapImage extends GraphicElement
             var loader:Loader = new Loader();
             var loaderContext:LoaderContext = new LoaderContext();
 
+			if (hasImageDecodingPolicy(loaderContext))
+				loaderContext["imageDecodingPolicy"] = imageDecodingPolicy;
+				
             // Attach load-event listeners to our LoaderInfo instance.
             loadingContent = loader.contentLoaderInfo;
             attachLoadingListeners();
@@ -1541,6 +1587,10 @@ public class BitmapImage extends GraphicElement
     {
         var loader:Loader = new Loader();
         var loaderContext:LoaderContext = new LoaderContext();
+		
+		if (hasImageDecodingPolicy(loaderContext))
+			loaderContext["imageDecodingPolicy"] = imageDecodingPolicy;
+		
         loadingContent = loader.contentLoaderInfo;
         attachLoadingListeners();
 

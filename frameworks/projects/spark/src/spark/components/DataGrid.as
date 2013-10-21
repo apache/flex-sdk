@@ -3427,7 +3427,10 @@ public class DataGrid extends SkinnableContainerBase
         
         elt.dataGrid = this;
         if (elt.nestLevel <= grid.nestLevel)
+        {
+            elt.validateNow();
             elt.nestLevel = grid.nestLevel + 1;
+        }
     }
     
     /**
@@ -4757,7 +4760,47 @@ public class DataGrid extends SkinnableContainerBase
     //  Item Editor Methods
     //
     //--------------------------------------------------------------------------
-    
+ 
+	/**
+	 *  Returns true if a datagrid cell is editable.
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5
+	 *  @productversion Flex 4.5
+	 *  
+	 */ 
+	protected function isCellEditable(rowIndex:int, columnIndex:int):Boolean
+	{
+        try
+        {
+            var dataItem:Object = dataProvider.getItemAt(rowIndex);
+            var column:GridColumn = GridColumn(columns.getItemAt(columnIndex));
+            var dataField:String = column.dataField;
+        }
+        catch (e:RangeError)
+        {
+            return false;
+        }
+
+
+		return isDataEditable(dataItem, dataField);
+	}
+	
+	/**
+	 *  Override to make a datagrid cell editabe based on the data item.
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5
+	 *  @productversion Flex 4.5
+	 *  
+	 */ 
+	protected function isDataEditable(dataItem:Object, dataField:String):Boolean
+	{
+		return (dataItem != null);
+	}
+	
     /**
      *  Starts an editor session on a selected cell in the grid. This method  
      *  by-passes checks of the editable property on the DataGrid and GridColumn
@@ -4788,7 +4831,7 @@ public class DataGrid extends SkinnableContainerBase
      */ 
     public function startItemEditorSession(rowIndex:int, columnIndex:int):Boolean
     {
-        if (editor)
+        if (editor && isCellEditable(rowIndex,columnIndex))
             return editor.startItemEditorSession(rowIndex, columnIndex);
         
         return false;
@@ -4989,18 +5032,24 @@ public class DataGrid extends SkinnableContainerBase
         for each (var columnIndex:int in columnIndices)
         {
             var col:GridColumn = this.getColumnAt(columnIndex);
+
             if (!col || (!col.dataField && (col.labelFunction == null) && (col.sortCompareFunction == null)))
                 return null;
-            
+
             var dataField:String = col.dataField;
             var isComplexDataField:Boolean = (dataField && (dataField.indexOf(".") != -1));
             var sortField:ISortField = findSortField(dataField, previousFields, isComplexDataField);
             
             if (!sortField)
-                sortField = col.sortField;  // constructs a new sortField
+            {
+                //Constructs a new sortField from the columns own sortField property.
+                sortField = col.sortField;
+            }
             else
+            {
                 sortField.descending = col.sortDescending;
-            
+            }
+
             fields.push(sortField);
         }
         

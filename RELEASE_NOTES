@@ -1,3 +1,128 @@
+Apache Flex 4.11
+=================
+
+Apache Flex 4.11 is an update to Apache Flex 4.10. 
+
+Known Issues
+_____________
+
+Adobe Flash Builder Integration
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where, 
+when generating the .mxml file for a new project that uses Apache Flex 4.10.0 
+and Spark Application, Flash Builder will incorrectly insert the attribute:
+
+	layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+Adobe have provided a patch for Flash Builder 4.7 that resolves this issue:
+
+http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
+
+
+Differences from Apache Flex 4.10 include:
+
+AIR and Flash Player support
+------------------------------
+ - Support Flash Player 11.9.
+ - Support for AIR 3.9.
+
+SDK Changes
+-------------
+- 120 and 640 dpi mobile resolution/skin support, fixes to 480dpi skins.
+- mx:AdvancedDataGrid and mx:DataGrid speed improvements.
+- Added column sort type access to the datagrid columns in mx:Datagrid, s:Datagrid, and mx:AdvancedDataGrid. 
+- Able to easily change mx:AdvancedDataGrid row and column item renderer spanning.
+- s:DataGridEditor will now be visible in ASDocs and be visible in the Tag inspector.
+- Minor changes to make SDK compile with Falcon compiler.
+- Added access to imageDecodingPolicy in BitmapImage.
+- Changes to custom skin for s:DataGrid (was changed in 4.10 but missed in release notes)
+- Changed UIComponent removedFromStageHandler from private to protected to allow override
+- New experimental mobile spark datagrid.
+- Updated OSMF swc to latest version (2.0)
+- Renamed experimental supportClazzes package to be supportClasses. 
+- Mobile Callout moved to spark and can be used in Desktop and Browser apps.
+
+Compiler changes
+------------------
+ - Support for [Experimental] metadata tag.
+
+Bug Fixes
+----------
+ Below is a complete list of all the bug fixes that have been included since
+ the last full release, Apache Flex 4.10.0.
+ If you would like specific information about any of the items below, go to
+ https://issues.apache.org and search for the JIRA Issue Number by using the
+ Quick Search.  Details of the bug and its fix will be included on the
+ resulting page.
+
+JIRA Issue Number and Summary                                                                                        
+-------------------------------------------------------------------------------------------------------------------
+FLEX-33807  DateValidator class (mx.validators.DateValidator) incorrectly validating date
+FLEX-33803  Mark experimental components with the experimental metadata tag
+FLEX-33801  Missing embedded examples in ASDOC on flex.apache.org/asdoc/
+FLEX-33789  Logical error: self-reference in GridHeaderViewLayout
+FLEX-33783  mxmlc -help returns 1
+FLEX-33782  AccordionData labelField and labelFunction properties don't work
+FLEX-33772  Incorrect tab focus behavior (closed loops) when using focus groups (such as RadioButton components)
+FLEX-33771  compatibilityVersionString returns the wrong value
+FLEX-33748  TabBar shouldn't be colorized in TabNavigatorSkin
+FLEX-33741  Propagation of Escape key in mx.controls.DateField should only be stopped if the DropDown is shown
+FLEX-33739  Duplication segment of code calling MultiBitmapSource getSource(dpi)
+FLEX-33738  ArrayCollection addAll() adds items in the wrong order
+FLEX-33736  NullPointer exception in VideoDisplay
+FLEX-33730  RTE in Application.as line 2157 in Air simulator
+FLEX-33726  DateField.stringToDate returns null when inputFormat has no separators
+FLEX-33724  Error in mx:DataGridBase.addClipMask() when using custom item renderer and locked columns
+FLEX-33722  Dragging a row with an itemRenderer which extends DefaultGridItemRenderer causes null pointer
+FLEX-33718  Warning: variable definition duplicates function parameter in MX project
+FLEX-33714  Falcon compiler is stricter with ++ and -- operator on constants.
+FLEX-33712  DataGrid with itemRenderer Drag and Drop error
+FLEX-33710  spark DataGrid isCellEditable is missing index bounds check
+FLEX-33705  DataGridDragProxy created item renderer without a reference to the column
+FLEX-33702  DataGrid columns unable to specify sorting internal compare functions used.
+FLEX-33698  Shift Return creates new ParagraphElement
+FLEX-33692  Spark button border issue
+FLEX-33690  focus does not move correctly when there are multiple non-modal popup windows
+FLEX-33689  Flex Library project unit tests creates invalid FlexUnitApplication.mxml
+FLEX-33688  RTE in advanced list when setting selection to null and column is sorted
+FLEX-33687  DataGridEditor is not visible in ASDOCS has been excluded
+FLEX-33683  Bad ordering of ListCollectionView addAllAt
+FLEX-33682  Large Advanced Data Grid slow to resize
+FLEX-33678  DataGrid VerticalScrollBar disappears in CallOut or on StateChange in 4.10.0
+FLEX-33667  Compiler with Apache Flex 4.10 occur error : Uncaught exception in compiler.
+FLEX-33666  When scrolling a Spark Datagrid with the mousewheel after starting an itemEditor session, the itemEdito
+FLEX-33665  ItemEditors are placed on the wrong position after scrolling an editable Spark Datagrid
+FLEX-33657  Spark NumericStepper - View is decimal
+FLEX-33655  RTE when closing SkinnablePopUpContainer
+FLEX-33654  Spark Datagrid - ItemEditor Keyboad Ctrl+V & Ctrl+C dont work
+FLEX-33643  Improve experimental CallOut component frame arrow display
+FLEX-33636  Error when creating new project in FB 4.7 using SDK 4.10.0 (11.8/3.8)
+FLEX-33630  ComboBox RTE when opened and DEL pressed OR when opened, text input and BACKSPACE pressed
+FLEX-33428  mx:Text with htmlText attribute compiled for FTETextField displays no text
+FLEX-33409  TLF crashes when hypens are shown in a multi span textFlow
+FLEX-33159  addSortField method in the AdvancedDataGridEx degenerates the internal state of the Sort object
+FLEX-33158  addSortField method in the AdvancedDataGridEx works inconsistently
+FLEX-33157  Sort class: _fields and fieldList variables can be out of sync
+FLEX-33131  rendererDescriptionMap is private, should be made protected to allow customizing the grid for condition
+FLEX-33052  Runtime error when using a chart in a module in an app that is also using charts
+FLEX-32998  NullPointerException in AdvancedDataGrid.getFieldSortInfo
+FLEX-32848  AdvancedDataGrid doesn't respect style property 'textSelectedColor' for selectionMode='singleCell'
+FLEX-28012  FormItemSkin and StackedFormItemSkib indicatorDisplay's toolTip is not localized
+FLEX-27658  DataGrid component does not allow a default sorting order
+FLEX-27648  ViewStack.getItemIndex() throws error instead of returning -1 when item is not a child of the ViewStack
+FLEX-26779  DataGrid Problem
+FLEX-25906  ComboBox textInput not cleared when dataprovider changes
+FLEX-25369  Sorting DataGridColumn with complex dataField throws Null Object Reference
+FLEX-22182  AdvancedDatagrid get resorted once a refresh on the group Collection of a sorted ArrayCollection
+
 Apache Flex 4.10
 =================
 

@@ -19,21 +19,11 @@
 
 package flex2.compiler.asdoc;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import flex2.compiler.io.FileUtil;
+import flex2.compiler.mxml.lang.StandardDefs;
+import flex2.compiler.util.ThreadLocalToolkit;
+import flex2.tools.ASDoc.ValidationMessage;
+import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -42,16 +32,10 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.CDATASection;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import flex2.compiler.io.FileUtil;
-import flex2.compiler.util.ThreadLocalToolkit;
-import flex2.tools.ASDoc.ValidationMessage;
+import java.io.*;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class converts the toplevel.xml to dita based xml files. It create one
@@ -824,8 +808,6 @@ public class TopLevelClassesGenerator
 
     /**
      * process all custom elements for the class xml node and resolve
-     * 
-     * @see references now that we have AClass records for every class name
      * record inner class relationship.
      * @param record
      * @param isInterface
@@ -5017,6 +4999,51 @@ public class TopLevelClassesGenerator
                     asMetadata.appendChild(alternative);
                 }
             }
+
+                  /* adding experimental XML */
+            Element experimentalElement = asDocUtil.getElementByTagName((Element) parent, StandardDefs.MD_EXPERIMENTAL);
+            if (experimentalElement != null) {
+                String fullName = experimentalElement.getAttribute("owner");
+
+                if (verbose)
+                {
+                    System.out.println(" processing [Experimental] for " + fullName);
+                }
+
+                AsClass myClass = classTable.get(fullName);
+
+                if (myClass != null) {
+                    Element node = myClass.getNode();
+
+                    Element profilesElement = null;
+                    Element asMetadata = null;
+                    Element prolog = asDocUtil.getElementByTagName(node, "prolog");
+                    if (prolog != null) {
+                        asMetadata = asDocUtil.getElementByTagName(prolog, "asMetadata");
+                        if (asMetadata != null) {
+                           profilesElement = asDocUtil.getElementByTagName(asMetadata, "experimental");
+                            if (profilesElement == null) {
+                                profilesElement = outputObject.createElement("experimental");
+                                asMetadata.appendChild(profilesElement);
+                            }
+                        } else {
+                            profilesElement = outputObject.createElement("discouragedForProfiles");
+                            asMetadata = outputObject.createElement("asMetadata");
+                            asMetadata.appendChild(profilesElement);
+                            prolog.appendChild(asMetadata);
+                        }
+                    } else {
+                        profilesElement = outputObject.createElement("discouragedForProfiles");
+                        asMetadata = outputObject.createElement("asMetadata");
+                        asMetadata.appendChild(profilesElement);
+                        prolog = outputObject.createElement("prolog");
+                        prolog.appendChild(asMetadata);
+                        myClass.getNode().appendChild(prolog);
+                    }
+
+                }
+
+        }
             
             Element discouragedForProfileElement = asDocUtil.getElementByTagName((Element)parent, "DiscouragedForProfile");
             if (discouragedForProfileElement != null)

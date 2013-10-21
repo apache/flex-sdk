@@ -130,7 +130,7 @@ public class SplashScreenImageSource
     //  dpi
     //----------------------------------
 
-    [Inspectable(category="General", enumeration="160,240,320,480")]
+    [Inspectable(category="General", enumeration="120,160,240,320,480,640")]
     
     /**
      *  The required DPI of the device to display the associated image.

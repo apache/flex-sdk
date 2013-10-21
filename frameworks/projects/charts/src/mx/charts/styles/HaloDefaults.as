@@ -220,6 +220,30 @@ public class HaloDefaults
 		}
 	
 	}
+	
+	/**
+	 *  Returns the CSSStyleDeclaration by chasing the chain of styleManagers
+	 *  if necessary.
+	 * 
+	 *  @param name The name of the CSSStyleDeclaration
+	 *  @return The CSSStyleDeclaration or null if not found
+	 */
+	public static function findStyleDeclaration(styleManager:IStyleManager2, name:String):CSSStyleDeclaration
+	{
+		var decl:CSSStyleDeclaration = styleManager.getStyleDeclaration(name);
+		if (!decl)
+		{
+			var sm:IStyleManager2 = styleManager;
+			while (sm.parent)
+			{
+				decl = sm.getStyleDeclaration(name);
+				if (decl)
+					break;
+				sm = sm.parent;
+			}
+		}
+		return decl;
+	}
 }
 
 }

@@ -147,6 +147,7 @@ public class DataGridDragProxy extends Group
                 IStyleClient(clone).styleName = DataGrid(owner);
                 
                 IDataRenderer(clone).data = data;
+                clone.column = column;
                 clone.visible = true;
                 
                 
@@ -195,10 +196,10 @@ public class DataGridDragProxy extends Group
             o.visible = true;
             measuredHeight = o.y + o.height;
             measuredWidth = totalColumnWidth;
-            
+        
+			o.validateNow();
         }
         
-        o.validateNow();
         invalidateDisplayList();
     }
     

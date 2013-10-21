@@ -703,11 +703,14 @@ public class BubbleSeries extends Series
 	{
 		HaloDefaults.init(styleManager);
 		
-		var bubbleSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.BubbleSeries");
-		bubbleSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.CircleItemRenderer));
-		bubbleSeriesStyle.setStyle("fill", new SolidColor(0x444444));
-		bubbleSeriesStyle.setStyle("fills", []);
-		bubbleSeriesStyle.setStyle("stroke", new SolidColorStroke(0,1,0.2));
+		var bubbleSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.BubbleSeries");
+		if (bubbleSeriesStyle)
+		{
+			bubbleSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.CircleItemRenderer));
+			bubbleSeriesStyle.setStyle("fill", new SolidColor(0x444444));
+			bubbleSeriesStyle.setStyle("fills", []);
+			bubbleSeriesStyle.setStyle("stroke", new SolidColorStroke(0,1,0.2));
+		}
 		
 		return true;
 	}

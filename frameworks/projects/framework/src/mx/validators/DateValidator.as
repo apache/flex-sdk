@@ -173,6 +173,7 @@ public class DateValidator extends Validator
 		
 		var part:int = -1;
 		var lastFormatChar:String = "";
+		var noSeperators:Boolean = true;
 		
 		n = inputFormat.length;
 		for (i = 0; i < n; i++)
@@ -209,6 +210,7 @@ public class DateValidator extends Validator
 			}
 			else
 			{
+				noSeperators = false;
 				formatParts[part] = formatChar;
 			}
 			
@@ -318,6 +320,7 @@ public class DateValidator extends Validator
 			else
 			{
 				var lastStringChar:String = "";
+				lastFormatChar = "";
 				n = stringValue.length;
 				part = -1;
 				for (i = 0; i < n; i++)
@@ -327,6 +330,7 @@ public class DateValidator extends Validator
 						&& (lastStringChar != "");
 					var curentIsDigit:Boolean = (DECIMAL_DIGITS.indexOf(stringChar) >= 0);
 					
+					formatChar = inputFormat.charAt(i);
 					if (validInput.indexOf(stringChar) == -1)
 					{
 						results.push(new ValidationResult(
@@ -339,12 +343,19 @@ public class DateValidator extends Validator
 						part++;
 						dateParts[part] = stringChar;
 					}
+					//  TODO will only work if month and day are not specified as single digits
+					else if (lastFormatChar != formatChar && noSeperators)
+					{
+						part++;
+						dateParts[part] = stringChar;
+					}
 					else
 					{
 						dateParts[part] += stringChar;
 					}
 
 					lastStringChar = stringChar;
+					lastFormatChar = formatChar;
 				}
 				
 				if (formatParts.length != dateParts.length)

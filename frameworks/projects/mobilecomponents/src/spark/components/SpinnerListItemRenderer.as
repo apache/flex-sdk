@@ -50,6 +50,11 @@ public class SpinnerListItemRenderer extends LabelItemRenderer
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				minHeight = 40;
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				minHeight = 30;
@@ -60,11 +65,16 @@ public class SpinnerListItemRenderer extends LabelItemRenderer
                 minHeight = 20;
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                minHeight = 15;
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				minHeight = 15;
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				minHeight = 8;
+				break;
+			}
             default: // default PPI160
             {
                 minHeight = 10;

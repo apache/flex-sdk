@@ -22,6 +22,9 @@
 	<property name="lenient" value="true"/>
 	<property name="flexlib" location="${FLEX_HOME}/frameworks"/>
 
+    <property name="doc_output" location="${FLEX_HOME}/asdoc-output"   />
+    <property name="include_examples" location="${doc_output}/include_examples" />
+
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
 	<property file="${FLEX_HOME}/build.properties"/>
@@ -41,11 +44,28 @@
                property="TLF_HOME"
                value="${env.TLF_HOME}"/>
 
-	<target name="main" depends="clean,doc" description="Clean build of all ASDocs"/>
+	<target name="main" depends="clean,copyExamples,doc" description="Clean build of all ASDocs"/>
 
 	<target name="clean" description="Cleans all ASDocs">
-		<delete dir="${FLEX_HOME}/asdoc-output"/>
+		<delete dir="${doc_output}"/>
 	</target>
+
+    <target name="copyExamples" description="Copy all  projects asdocs subdir to singe location">
+        <copy todir="${include_examples}">
+            <fileset dir="${flexlib}/projects/advancedgrids/asdoc/en_US"/>
+            <fileset dir="${flexlib}/projects/airframework/asdoc/en_US"/>
+            <!-- <fileset dir="${flexlib}/projects/apache/asdoc/en_US"/>-->
+            <fileset dir="${flexlib}/projects/charts/asdoc/en_US"/>
+            <!--  <fileset dir="${flexlib}/projects/core/asdoc/en_US"/>-->
+            <!--  <fileset dir="${flexlib}/projects/experimental/asdoc/en_US"/>-->
+            <fileset dir="${flexlib}/projects/framework/asdoc/en_US"/>
+            <fileset dir="${flexlib}/projects/mobilecomponents/asdoc/en_US"/>
+            <fileset dir="${flexlib}/projects/experimental_mobile/asdoc/en_US"/>
+            <!--  <fileset dir="${flexlib}/projects/mx/asdoc/en_US"/>-->
+            <fileset dir="${flexlib}/projects/rpc/asdoc/en_US"/>
+            <fileset dir="${flexlib}/projects/spark/asdoc/en_US"/>
+        </copy>
+    </target>
 
 	<target name="doc">
 
@@ -70,18 +90,27 @@
         <taskdef resource="flexTasks.tasks" classpathref="flexTasks.path"/>
 
 		<!-- Call asdoc to generate dita xml files -->
-		<asdoc output="${FLEX_HOME}/asdoc-output" lenient="true" failonerror="true" warnings="false" strict="false" locale="en_US" fork="true">
+		<asdoc output="${doc_output}" lenient="true" failonerror="true" warnings="false" strict="false" locale="en_US" fork="true"
+               window-title="ApacheFlex API Reference"
+               main-title="${release} API Reference "
+               footer="${manifest.Implementation-Vendor}"
+               examples-path="${include_examples}"
+                >
+
 			<!-- top level class to include in asdoc -->
 		    <doc-classes class="AIRFrameworkClasses"/>
 		    <doc-classes class="AIRSparkClasses"/>
 		    <doc-classes class="CoreClasses"/>
 		    <doc-classes class="SparkClasses"/>
 		    <doc-classes class="FrameworkClasses"/>
-			<doc-classes class="MxClasses"/>
+		    <doc-classes class="MxClasses"/>
 		    <doc-classes class="SparkSkinsClasses"/>
 		    <doc-classes class="RPCClasses"/>
 		    <doc-classes class="MobileComponentsClasses"/>		    
+		    <doc-classes class="MobileThemeClasses"/>		    
 		    <doc-classes class="SparkDmvClasses"/>
+		    <doc-classes class="ExperimentalClasses"/>
+		    <doc-classes class="ExperimentalMobileClasses"/>
 	    		    
 			<doc-classes class="flashx.textLayout.CoreClasses"/>
 			<doc-classes class="flashx.textLayout.EditClasses"/>
@@ -101,10 +130,12 @@
 			<compiler.source-path path-element="${flexlib}/projects/advancedgrids/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/charts/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/mobilecomponents/src"/>
+			<compiler.source-path path-element="${flexlib}/projects/mobiletheme/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/spark_dmv/src"/>
             <!--  added for Apache -->
 			<compiler.source-path path-element="${flexlib}/projects/apache/src"/>
 			<compiler.source-path path-element="${flexlib}/projects/experimental/src"/>
+            <compiler.source-path path-element="${flexlib}/projects/experimental_mobile/src"/>
 						
 			<!-- namespaces to include in asdoc -->
 		    <doc-namespaces uri="http://www.adobe.com/2006/airmxml"/>
@@ -116,7 +147,6 @@
  			<doc-namespaces uri="http://ns.adobe.com/2009/mx-mxml"/>
  			<doc-namespaces uri="http://www.adobe.com/2006/advancedgridsmxml"/>
  			<doc-namespaces uri="http://www.adobe.com/2006/charts"/>
- 			<doc-namespaces uri="library://ns.adobe.com/flex/spark-mobilecomponents"/>
  			<doc-namespaces uri="library://ns.adobe.com/flex/spark-dmv"/>
             <!--  added for Apache -->
  			<doc-namespaces uri="http://flex.apache.org/ns"/>
@@ -135,12 +165,13 @@
 		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${flexlib}/mxml-manifest.xml"/>
 		    <namespace uri="library://ns.adobe.com/flex/spark" manifest="${flexlib}/projects/spark/manifest.xml"/>
 		    <namespace uri="library://ns.adobe.com/flex/mx" manifest="${flexlib}/mxml-manifest.xml"/>
-			<namespace uri="library://ns.adobe.com/flex/spark-mobilecomponents" manifest="${flexlib}/projects/mobilecomponents/manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${flexlib}/projects/mobilecomponents/manifest.xml"/>
 			<namespace uri="library://ns.adobe.com/flex/spark-dmv" manifest="${flexlib}/projects/spark_dmv/manifest_spark_dmv.xml"/>
 
             <!--  added for Apache -->
 		    <namespace uri="http://flex.apache.org/ns" manifest="${flexlib}/projects/apache/manifest.xml"/>
 		    <namespace uri="http://flex.apache.org/experimental/ns" manifest="${flexlib}/projects/experimental/manifest.xml"/>
+            <namespace uri="http://flex.apache.org/experimental/ns"  manifest="${flexlib}/projects/experimental_mobile/manifest.xml"/>
 
 			<library-path/>
             <external-library-path dir="${env.AIR_HOME}/frameworks/libs/air">

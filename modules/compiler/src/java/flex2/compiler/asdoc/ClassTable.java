@@ -1189,7 +1189,8 @@ public class ClassTable implements DocCommentTable {
                             // these metaData types can have their own DocComment associated with them, though they might also have no comment.
                             if (mdi.getId().equals(StandardDefs.MD_STYLE) || mdi.getId().equals(StandardDefs.MD_EVENT) || mdi.getId().equals(StandardDefs.MD_EFFECT)
                                     || mdi.getId().equals(StandardDefs.MD_SKINSTATE) || mdi.getId().equals(StandardDefs.MD_ALTERNATIVE)
-                                    || mdi.getId().equals(StandardDefs.MD_DISCOURAGEDFORPROFILE))
+                                    || mdi.getId().equals(StandardDefs.MD_DISCOURAGEDFORPROFILE)
+                                    ||  mdi.getId().equals(StandardDefs.MD_EXPERIMENTAL))
                             {
                                 if (x+1 < numItems)  // if it has a comment, it will be the sequentially next DocCommentNode
                                 {

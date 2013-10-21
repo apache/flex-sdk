@@ -35,6 +35,7 @@ import flashx.textLayout.operations.DeleteTextOperation;
 import flashx.textLayout.operations.FlowOperation;
 import flashx.textLayout.operations.InsertTextOperation;
 
+import mx.collections.IList;
 import mx.core.IIMESupport;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -327,6 +328,27 @@ public class ComboBox extends DropDownListBase implements IIMESupport
      */ 
     public var itemMatchingFunction:Function = null;     
     
+	
+	//----------------------------------
+	//  dataProvider
+	//----------------------------------
+	
+	[Inspectable(category="Data")]
+	
+	/**
+	 *  @private
+	 *  Update the label if the dataProvider has changed
+	 */
+	override public function set dataProvider(value:IList):void
+	{   
+		if (dataProvider === value)
+			return;
+		
+		if (dataProvider != null)
+			selectedItem = null;
+		super.dataProvider = value;
+	}
+
     //--------------------------------------------------------------------------
     //  labelToItemFunction
     //--------------------------------------------------------------------------

@@ -118,5 +118,6 @@ downloadPlayerGlobal 11.4 e15587856cdb5e21fa1acb6b0610a032 http://download.macro
 downloadPlayerGlobal 11.5 00384b24157442c59ca5d625ecfd11a2 http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
 downloadPlayerGlobal 11.6 1b841a0a26ada3e5da26eb70c32ab263 http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_6.swc
 downloadPlayerGlobal 11.7 12656571c57b2ad641838e5695a00e27 http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_7.swc
-downloadPlayerGlobal 11.8 20ce9ae3b2ddd4a5ff3fe65c0a7f1139 http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_8.swc
+downloadPlayerGlobal 11.8 35bc69eec5091f70e221b4e63b66b60f http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_8.swc
+downloadPlayerGlobal 11.9 4cac2727e7b7e741075581f47c35f3af http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_9.swc
 

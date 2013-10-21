@@ -42,10 +42,10 @@ REM
 set APACHE_FLEX_BIN_DISTRO_DIR=..\..
 
 REM
-REM     Adobe AIR SDK Version 3.8
+REM     Adobe AIR SDK Version 3.9
 REM
 set ADOBE_AIR_SDK_WIN_FILE=AdobeAIRSDK.zip
-set ADOBE_AIR_SDK_WIN_URL=http://airdownload.adobe.com/air/win/download/3.8/%ADOBE_AIR_SDK_WIN_FILE%
+set ADOBE_AIR_SDK_WIN_URL=http://airdownload.adobe.com/air/win/download/3.9/%ADOBE_AIR_SDK_WIN_FILE%
 
 REM
 REM     Adobe Flash Player Version 11.1

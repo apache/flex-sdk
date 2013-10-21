@@ -6008,6 +6008,10 @@ public class AdvancedListBase extends ScrollControlBase
             {
                 _selectedIndex = index;
                 _selectedItem = data;
+				caretIndex = index;
+				caretBookmark = collectionIterator.bookmark;
+				anchorIndex = index;
+				anchorBookmark = collectionIterator.bookmark;
                 firstTime = false;
             }
             addSelectionData(itemToUID(data), new ListBaseSelectionData(data, index, false));
@@ -6063,7 +6067,7 @@ public class AdvancedListBase extends ScrollControlBase
 
         if (useFind)
         {
-            while (items.length)
+            while (items && items.length)
             {
                 var item:Object = items.pop();
                 uid = itemToUID(item);
@@ -6080,10 +6084,10 @@ public class AdvancedListBase extends ScrollControlBase
                     return;
                 }
                 var bookmark:CursorBookmark = collectionIterator.bookmark;
-                var index:int = bookmark.getViewIndex();
-                if (index >= 0)
+                var viewIndex:int = bookmark.getViewIndex();
+                if (viewIndex >= 0)
                 {
-                    addSelectionData(uid, new ListBaseSelectionData(item, index, true));
+                    addSelectionData(uid, new ListBaseSelectionData(item, viewIndex, true));
                 }
                 else
                 {
@@ -6106,11 +6110,11 @@ public class AdvancedListBase extends ScrollControlBase
                 }
                 if (items.length == 0)
                 {
-                    _selectedIndex = index;
+                    _selectedIndex = viewIndex;
                     _selectedItem = item;
-                    caretIndex = index;
+                    caretIndex = viewIndex;
                     caretBookmark = collectionIterator.bookmark;
-                    anchorIndex = index;
+                    anchorIndex = viewIndex;
                     anchorBookmark = collectionIterator.bookmark;
                 }
             }

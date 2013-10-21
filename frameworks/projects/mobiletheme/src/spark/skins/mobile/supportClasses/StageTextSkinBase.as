@@ -30,10 +30,12 @@ import spark.components.supportClasses.SkinnableTextBase;
 import spark.components.supportClasses.StyleableStageText;
 import spark.components.supportClasses.StyleableTextField;
 import spark.core.IDisplayText;
+import spark.skins.mobile120.assets.TextInput_border;
 import spark.skins.mobile160.assets.TextInput_border;
 import spark.skins.mobile240.assets.TextInput_border;
 import spark.skins.mobile320.assets.TextInput_border;
 import spark.skins.mobile480.assets.TextInput_border;
+import spark.skins.mobile640.assets.TextInput_border;
 
 use namespace mx_internal;
 
@@ -66,6 +68,16 @@ public class StageTextSkinBase extends MobileSkin
 
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				// Note provisional may need changes
+				borderClass = spark.skins.mobile640.assets.TextInput_border;
+				layoutCornerEllipseSize = 48;
+				measuredDefaultWidth = 1200;
+				measuredDefaultHeight = 132;
+				layoutBorderSize = 3;
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
@@ -74,7 +86,6 @@ public class StageTextSkinBase extends MobileSkin
 				measuredDefaultWidth = 880;
 				measuredDefaultHeight = 100;
 				layoutBorderSize = 2;
-				
 				break;
 			}
             case DPIClassification.DPI_320:
@@ -84,19 +95,27 @@ public class StageTextSkinBase extends MobileSkin
                 measuredDefaultWidth = 600;
                 measuredDefaultHeight = 66;
                 layoutBorderSize = 2;
-                
                 break;
             }
-            case DPIClassification.DPI_240:
-            {
-                borderClass = spark.skins.mobile240.assets.TextInput_border;
-                layoutCornerEllipseSize = 12;
-                measuredDefaultWidth = 440;
-                measuredDefaultHeight = 50;
-                layoutBorderSize = 1;
-                
-                break;
-            }
+			case DPIClassification.DPI_240:
+			{
+				borderClass = spark.skins.mobile240.assets.TextInput_border;
+				layoutCornerEllipseSize = 12;
+				measuredDefaultWidth = 440;
+				measuredDefaultHeight = 50;
+				layoutBorderSize = 1;
+				break;
+			}
+			case DPIClassification.DPI_120:
+			{
+				// Note provisional may need changes
+				borderClass = spark.skins.mobile120.assets.TextInput_border;
+				layoutCornerEllipseSize = 6;
+				measuredDefaultWidth = 220;
+				measuredDefaultHeight = 25;
+				layoutBorderSize = 1;
+				break;
+			}
             default:
             {
                 borderClass = spark.skins.mobile160.assets.TextInput_border;
@@ -104,7 +123,6 @@ public class StageTextSkinBase extends MobileSkin
                 measuredDefaultWidth = 300;
                 measuredDefaultHeight = 33;
                 layoutBorderSize = 1;
-                
                 break;
             }
         }

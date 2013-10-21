@@ -324,7 +324,12 @@ public class BusyIndicator extends UIComponent
         
         // Set the default measured size depending on the
         // applicationDPI
-		if (applicationDPI == DPIClassification.DPI_480)
+		if (applicationDPI == DPIClassification.DPI_640)
+		{
+			measuredWidth = 104;
+			measuredHeight = 104;
+		}
+		else if (applicationDPI == DPIClassification.DPI_480)
 		{
 			measuredWidth = 80;
 			measuredHeight = 80;
@@ -339,11 +344,16 @@ public class BusyIndicator extends UIComponent
             measuredWidth = 40;
             measuredHeight = 40;
         }
-        else if (applicationDPI == DPIClassification.DPI_160)
-        {
-            measuredWidth = 26;
-            measuredHeight = 26;
-        }
+		else if (applicationDPI == DPIClassification.DPI_160)
+		{
+			measuredWidth = 26;
+			measuredHeight = 26;
+		}
+		else if (applicationDPI == DPIClassification.DPI_120)
+		{
+			measuredWidth = 20;
+			measuredHeight = 20;
+		}
         else
         {
             measuredWidth = DEFAULT_MINIMUM_SIZE;

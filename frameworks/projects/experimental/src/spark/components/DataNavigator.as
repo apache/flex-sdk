@@ -42,10 +42,13 @@ package spark.components
 	
 	import spark.layouts.supportClasses.AnimationNavigatorLayoutBase;
 	import spark.layouts.supportClasses.INavigatorLayout;
-	
+
 	use namespace mx_internal;
-	
-	//--------------------------------------
+
+    // for asdoc
+    [Experimental]
+
+//--------------------------------------
 	//  Events
 	//--------------------------------------
 	

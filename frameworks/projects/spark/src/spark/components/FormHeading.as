@@ -20,6 +20,8 @@
 package spark.components
 {
 
+import flash.events.Event;
+
 import spark.core.IDisplayText;
 import spark.components.supportClasses.SkinnableComponent;
 

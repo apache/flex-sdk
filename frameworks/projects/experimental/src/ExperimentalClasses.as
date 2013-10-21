@@ -27,15 +27,12 @@ package
 		 *  from the classes specified in manifest.xml.
 		 */
 		import spark.components.Alert; Alert;
-		import spark.components.CallOutPosition; CallOutPosition;
-		import spark.components.ArrowDirection; ArrowDirection;
 		import spark.components.itemRenderers.MenuBarItemRenderer; MenuBarItemRenderer;
 		import spark.components.itemRenderers.MenuCoreItemRenderer; MenuCoreItemRenderer;
 		import spark.components.itemRenderers.MenuItemRenderer; MenuItemRenderer;
 		import spark.components.listClasses.IListItemRenderer; IListItemRenderer;
-		import spark.components.supportClazzes.AnimationTarget; AnimationTarget;
 		import spark.components.supportClasses.IDropDownContainer; IDropDownContainer;
-		import spark.containers.supportClazzes.DeferredCreationPolicy; DeferredCreationPolicy;
+		import spark.containers.supportClasses.DeferredCreationPolicy; DeferredCreationPolicy;
 		import spark.containers.Accordion; Accordion;
 		import spark.events.ColorChangeEvent; ColorChangeEvent;
 		import spark.events.MenuEvent; MenuEvent;
@@ -67,7 +64,6 @@ package
 		import spark.skins.ProgressBarSkin; ProgressBarSkin;
 		import spark.skins.TabNavigatorSkin; TabNavigatorSkin;
 		import spark.skins.VNoTrackNoThumbScrollBarSkin; VNoTrackNoThumbScrollBarSkin;
-		import spark.skins.spark.CallOutSkin; CallOutSkin;
 		import spark.supportClasses.INavigator; INavigator;
 		import spark.utils.ColorPickerUtil; ColorPickerUtil;
 	}
