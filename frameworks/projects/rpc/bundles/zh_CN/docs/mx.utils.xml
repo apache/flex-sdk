@@ -384,4 +384,42 @@
    </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RpcClassAliasInitializer:registerClassAliases"><apiName>registerClassAliases</apiName><shortdesc>
      如果应用程序不使用 Flex UI 类（这些类用于处理 [RemoteClass(alias="")] 引导代码），此函数会注册 Flex RPC 库所需的 AMF 序列化的所有类。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
      如果应用程序不使用 Flex UI 类（这些类用于处理 <codeph>[RemoteClass(alias="")]</codeph> 引导代码），此函数会注册 Flex RPC 库所需的 AMF 序列化的所有类。
-           </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>
+           </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:RPCUIDUtil"><apiName>RPCUIDUtil</apiName><shortdesc>
+  RPCUIDUtil 类是 UIDUtil 的一个副本，其中不含在将 RPC 消息放入引导程序加载器中时产生依赖关系问题的某些函数。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+  RPCUIDUtil 类是 UIDUtil 的一个副本，其中不含在将 RPC 消息放入引导程序加载器中时产生依赖关系问题的某些函数。
+  
+  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RPCUIDUtil:createUID"><apiName>createUID</apiName><shortdesc>
+      基于 ActionScript 的伪随机数生成器和当前时间生成 UID（唯一标识符）。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新生成的 UID。
+      
+      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+      基于 ActionScript 的伪随机数生成器和当前时间生成 UID（唯一标识符）。
+     
+      <p>UID 的格式为 <codeph>"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"</codeph>，其中 X 是一个十六进制数字 (0-9, A-F)。</p>
+     
+      <p>该 UID 不会是真正全局唯一，但这是在没有播放器支持的情况下生成 UID 的最佳方法。</p>
+     
+      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:fromByteArray"><apiName>fromByteArray</apiName><shortdesc>
+     将编码为 ByteArray 的 128 位 UID 转换为字符串表示形式。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>UID 的字符串表示形式；如果提供的 ByteArray 无效，则为 null。
+      
+      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>ba</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>表示 128 位 UID 的 16 字节长度的 ByteArray。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将编码为 ByteArray 的 128 位 UID 转换为字符串表示形式。该格式与通过 createUID 生成的格式匹配。如果未提供合适的 ByteArray，则返回 null。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:isUID"><apiName>isUID</apiName><shortdesc>
+     检查字符串值是否表示一个格式正确的 UID 值的实用程序方法。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>如果该值为 UID 格式，则返回 true。
+      
+      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>测试其是否为 UID 格式的值。
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     检查字符串值是否表示一个格式正确的 UID 值的实用程序方法。UID 值应采用 createUID() 所生成的格式，这意味着只支持大写字符 A-F 和数字 0-9。
+     
+     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:toByteArray"><apiName>toByteArray</apiName><shortdesc>
+     将 UID 格式的字符串转换为 ByteArray。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>表示 128 位 UID 的 16 字节长度的 ByteArray；如果 uid 无法转换则为 null。
+      
+      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>表示 128 位 UID
+     
+     </apiDesc></apiParam></apiOperationDef><apiDesc>
+     将 UID 格式的字符串转换为 ByteArray。UID 必须采用 createUID 所生成的格式，否则将返回 null。
+     
+     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>
