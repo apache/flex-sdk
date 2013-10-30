@@ -384,42 +384,5 @@
    </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RpcClassAliasInitializer:registerClassAliases"><apiName>registerClassAliases</apiName><shortdesc>
      Wenn eine Anwendung die Flex UI-Klassen, die den [RemoteClass(alias="")]-Bootstrapcode verarbeiten, nicht verwendet, registriert diese Funktion alle Klassen für die AMF-Serialisierung, die die Flex RPC-Bibliothek benötigt.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
      Wenn eine Anwendung die Flex UI-Klassen, die den <codeph>[RemoteClass(alias="")]</codeph>-Bootstrapcode verarbeiten, nicht verwendet, registriert diese Funktion alle Klassen für die AMF-Serialisierung, die die Flex RPC-Bibliothek benötigt.
-           </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:RPCUIDUtil"><apiName>RPCUIDUtil</apiName><shortdesc>
-  Die RPCUIDUtil-Klasse ist eine Kopie von UIDUtil, aus der Funktionen entfernt wurden, die zu Abhängigkeitsproblemen führen, wenn sich RPC-Meldungen in einem Bootstrap Loader befinden.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
-  Die RPCUIDUtil-Klasse ist eine Kopie von UIDUtil, aus der Funktionen entfernt wurden, die zu Abhängigkeitsproblemen führen, wenn sich RPC-Meldungen in einem Bootstrap Loader befinden.
-  
-  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RPCUIDUtil:createUID"><apiName>createUID</apiName><shortdesc>
-      Generiert eine UID (eindeutiger Bezeichner) mithilfe des Pseudozufallszahl-Generators von ActionScript und der aktuellen Uhrzeit.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Die neu erstellte UID.
-      
-      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
-      Generiert eine UID (eindeutiger Bezeichner) mithilfe des Pseudozufallszahl-Generators von ActionScript und der aktuellen Uhrzeit.
-     
-      <p>Die UID weist das Format <codeph>"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"</codeph> auf, wobei X einem hexadezimalen Zeichen (0-9, A-F) entspricht.</p>
-     
-      <p>Diese UID ist nicht global eindeutig, stellt jedoch die beste mögliche Lösung ohne Player-Unterstützung für die UID-Generation dar.</p>
-     
-      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:fromByteArray"><apiName>fromByteArray</apiName><shortdesc>
-     Konvertiert eine als ByteArray kodierte 128-Bit-UID in eine Stringdarstellung.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Stringdarstellung der UID oder null, wenn kein gültiges ByteArray verfügbar ist.
-      
-      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>ba</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>ByteArray mit einer Länge von 16 Byte zur Darstellung einer 128-Bit-UID.
-     
-     </apiDesc></apiParam></apiOperationDef><apiDesc>
-     Konvertiert eine als ByteArray kodierte 128-Bit-UID in eine Stringdarstellung. Das Format entspricht dem durch createUID generierten Format. Wenn kein geeignetes ByteArray verfügbar ist, wird null zurückgegeben.
-     
-     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:isUID"><apiName>isUID</apiName><shortdesc>
-     Eine Dienstprogrammmethode, um zu überprüfen, ob ein Stringwert einen ordnungsgemäß formatierten UID-Wert enthält.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>Gibt „true“ zurück, wenn der Wert als UID formatiert ist.
-      
-      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Wert, bei dem die Formatierung als UID überprüft werden soll.
-     
-     </apiDesc></apiParam></apiOperationDef><apiDesc>
-     Eine Dienstprogrammmethode, um zu überprüfen, ob ein Stringwert einen ordnungsgemäß formatierten UID-Wert enthält. UID-Werte müssen dem von createUID() generierten Format entsprechen. Es werden also nur die Großbuchstaben von A bis F und die Ziffern von 0 bis 9 unterstützt.
-     
-     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:toByteArray"><apiName>toByteArray</apiName><shortdesc>
-     Konvertiert einen als UID formatierten String in ein ByteArray.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>ByteArray mit einer Länge von 16 Byte zur Darstellung einer 128-Bit-UID oder null, wenn die UID nicht konvertiert werden konnte.
-      
-      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>Stellt eine 128-Bit-UID dar.
-     
-     </apiDesc></apiParam></apiOperationDef><apiDesc>
-     Konvertiert einen als UID formatierten String in ein ByteArray. Die UID muss dem von createUID() generierten Format entsprechen. Andernfalls wird null zurückgegeben.
-     
-     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>
+           </apiDesc></apiOperationDetail></apiOperation></apiClassifier>
+   </apiPackage>

@@ -28,7 +28,7 @@ import flash.utils.getQualifiedClassName;
 import mx.core.mx_internal;
 import mx.utils.RPCObjectUtil;
 import mx.utils.RPCStringUtil;
-import mx.utils.RPCUIDUtil;
+import mx.utils.UIDUtil;
 
 use namespace mx_internal;
 
@@ -374,7 +374,7 @@ public class AbstractMessage implements IMessage
     public function get messageId():String
     {
         if (_messageId == null)
-            _messageId = RPCUIDUtil.createUID();
+            _messageId = UIDUtil.createUID();
 
         return _messageId;
     }
@@ -520,13 +520,13 @@ public class AbstractMessage implements IMessage
                 if ((flags & CLIENT_ID_BYTES_FLAG) != 0)
                 {
                     clientIdBytes = input.readObject() as ByteArray;
-                    clientId = RPCUIDUtil.fromByteArray(clientIdBytes);
+                    clientId = UIDUtil.fromByteArray(clientIdBytes);
                 }
         
                 if ((flags & MESSAGE_ID_BYTES_FLAG) != 0)
                 {
                     messageIdBytes = input.readObject() as ByteArray;
-                    messageId = RPCUIDUtil.fromByteArray(messageIdBytes);
+                    messageId = UIDUtil.fromByteArray(messageIdBytes);
                 }
 
                 reservedPosition = 2;
@@ -581,10 +581,10 @@ public class AbstractMessage implements IMessage
         var checkForMessageId:String = messageId;
 
         if (clientIdBytes == null)
-            clientIdBytes = RPCUIDUtil.toByteArray(_clientId);
+            clientIdBytes = UIDUtil.toByteArray(_clientId);
 
         if (messageIdBytes == null)
-            messageIdBytes = RPCUIDUtil.toByteArray(_messageId);
+            messageIdBytes = UIDUtil.toByteArray(_messageId);
 
         if (body != null)
             flags |= BODY_FLAG;

@@ -384,42 +384,4 @@
    </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RpcClassAliasInitializer:registerClassAliases"><apiName>registerClassAliases</apiName><shortdesc>
      [RemoteClass(alias="")] ブートストラップコードを処理する Flex UI クラスをアプリケーションが使用しない場合、この機能は Flex RPC ライブラリで必要な AMF シリアライゼーション用のすべてのクラスを登録します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="10"/><apiPlatform description="" name="AIR" version="2.5"/><apiTool description="" name="Flex" version="4.5"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
      <codeph>[RemoteClass(alias="")]</codeph> ブートストラップコードを処理する Flex UI クラスをアプリケーションが使用しない場合、この機能は Flex RPC ライブラリで必要な AMF シリアライゼーション用のすべてのクラスを登録します。
-           </apiDesc></apiOperationDetail></apiOperation></apiClassifier><apiClassifier id="mx.utils:RPCUIDUtil"><apiName>RPCUIDUtil</apiName><shortdesc>
-  RPCUIDUtil クラスは、RPC メッセージがブートストラップローダーに配置された場合に依存性の問題が生じる一部の関数を含んでいない UIDUtil のコピーです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
-  RPCUIDUtil クラスは、RPC メッセージがブートストラップローダーに配置された場合に依存性の問題が生じる一部の関数を含んでいない UIDUtil のコピーです。
-  
-  </apiDesc></apiClassifierDetail><apiOperation id="mx.utils:RPCUIDUtil:createUID"><apiName>createUID</apiName><shortdesc>
-      ActionScript の擬似乱数生成プログラムと現在の時刻に基づいて UID（一意の識別子）を生成します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>新しく生成された UID です。
-      
-      </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
-      ActionScript の擬似乱数生成プログラムと現在の時刻に基づいて UID（一意の識別子）を生成します。
-     
-      <p>UID の形式は <codeph>"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"</codeph> で、X は 16 進数字（0 ～ 9、A ～ F）です。</p>
-     
-      <p>この UID は完全にグローバルに一意というわけではありませんが、Flash Player では UID 生成をサポートしていないため、これが最適な方法です。</p>
-     
-      </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:fromByteArray"><apiName>fromByteArray</apiName><shortdesc>
-     ByteArray にエンコードされた 128 ビット UID をストリング表現に変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>UID のストリング表現です。無効な ByteArray が指定された場合は null です。
-      
-      </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>ba</apiItemName><apiType value="flash.utils:ByteArray"/><apiDesc>ByteArray の 16 バイト長は 128 ビットの UID を表します。
-     
-     </apiDesc></apiParam></apiOperationDef><apiDesc>
-     ByteArray にエンコードされた 128 ビット UID をストリング表現に変換します。形式は、createUID によって生成されたものに一致します。適切な ByteArray が指定されない場合は、null が返されます。
-     
-     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:isUID"><apiName>isUID</apiName><shortdesc>
-     String 値が正しく形式設定された UID 値を表すかどうかを確認するユーティリティメソッドです。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>値が UID として形式設定されている場合は、true を返します。
-      
-      </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>UID として形式設定されているかどうかをテストする値です。
-     
-     </apiDesc></apiParam></apiOperationDef><apiDesc>
-     String 値が正しく形式設定された UID 値を表すかどうかを確認するユーティリティメソッドです。UID 値は createUID() によって生成された形式で、0 ～ 9 以外に大文字の A ～ F だけが含まれることが想定されます。
-     
-     </apiDesc></apiOperationDetail></apiOperation><apiOperation id="mx.utils:RPCUIDUtil:toByteArray"><apiName>toByteArray</apiName><shortdesc>
-     UID 形式のストリングを ByteArray に変換します。</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>UID の 128 ビットを表す ByteArray の 16 バイト長です。uid が変換できない場合は null になります。
-      
-      </apiDesc><apiType value="flash.utils:ByteArray"/></apiReturn><apiParam><apiItemName>uid</apiItemName><apiType value="String"/><apiDesc>128 ビット UID を表します
-     
-     </apiDesc></apiParam></apiOperationDef><apiDesc>
-     UID 形式のストリングを ByteArray に変換します。UID は createUID で生成された形式である必要があります。それ以外の場合は null が返されます。
-     
-     </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>
+           </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

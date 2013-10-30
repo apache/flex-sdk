@@ -24,7 +24,8 @@ import flash.utils.ByteArray;
 import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 
-import mx.utils.RPCUIDUtil;
+import mx.utils.UIDUtil;
+
 
 [RemoteClass(alias="flex.messaging.messages.AsyncMessage")]
 
@@ -191,7 +192,7 @@ public class AsyncMessage extends AbstractMessage implements ISmallMessage
                 if ((flags & CORRELATION_ID_BYTES_FLAG) != 0)
                 {
                     correlationIdBytes = input.readObject() as ByteArray;
-                    correlationId = RPCUIDUtil.fromByteArray(correlationIdBytes);
+                    correlationId = UIDUtil.fromByteArray(correlationIdBytes);
                 }
 
                 reservedPosition = 2;
@@ -220,7 +221,7 @@ public class AsyncMessage extends AbstractMessage implements ISmallMessage
         super.writeExternal(output);
 
         if (correlationIdBytes == null)
-            correlationIdBytes = RPCUIDUtil.toByteArray(_correlationId);
+            correlationIdBytes = UIDUtil.toByteArray(_correlationId);
 
         var flags:uint = 0;
 
