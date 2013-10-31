@@ -881,13 +881,16 @@ public class SkinnableContainer extends SkinnableContainerBase
     //
     //--------------------------------------------------------------------------
     
-    private var creatingChildren:Boolean;
+    private var creatingDeferredContent:Boolean;
     
     override protected function generateMXMLInstances(document:Object, data:Array, recursive:Boolean = true):void
     {
         // don't generate children during super.createChildren
-        if (creatingChildren)
+        if (!creatingDeferredContent)
+		{
+			setMXMLDescriptor(data);
             return;
+		}
         
         super.generateMXMLInstances(document, data, recursive);
     }
@@ -903,9 +906,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     override protected function createChildren():void
     {
-        creatingChildren = true;
         super.createChildren();
-        creatingChildren = false;
         
         // TODO (rfrishbe): When navigator support is added, this is where we would 
         // determine if content should be created now, or wait until
@@ -1072,7 +1073,9 @@ public class SkinnableContainer extends SkinnableContainerBase
         var children:Array =  this.MXMLDescriptor;
         if (children)
         {
+			creatingDeferredContent = true;
             generateMXMLInstances(document, children);
+			creatingDeferredContent = false;
             mxmlContentCreated = true; // keep the code from recursing back into here.
             _deferredContentCreated = true; 
             dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
