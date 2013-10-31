@@ -33,6 +33,8 @@
     <component id="DataNavigator" class="spark.components.DataNavigator"/>
     <!-- DataNavigatorGroup -->
     <component id="DataNavigatorGroup" class="spark.components.DataNavigatorGroup"/>
+    <!-- BorderDataNavigatorGroup -->
+    <component id="BorderDataNavigator" class="spark.components.BorderDataNavigator"/>
     <!-- InlineScroller -->
     <component id="InlineScroller" class="spark.components.InlineScroller"/>
     <!-- ColorPicker -->
