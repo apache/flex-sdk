@@ -19,9 +19,12 @@
 
 package mx.core
 {
+import flash.display.DisplayObject;
+import flash.display.Stage;
 import flash.system.Capabilities;
 
 import mx.core.mx_internal;
+import mx.managers.SystemManager;
 
 use namespace mx_internal;
 
@@ -47,6 +50,8 @@ use namespace mx_internal;
  *        <tr><td>640 DPI</td><td>&gt;=640 DPI</td></tr>
  *     </table>
  *  </p>
+ *
+ *
  * 
  *  <p>Subclasses of RuntimeDPIProvider should only depend on runtime APIs
  *  and should not depend on any classes specific to the Flex framework except
@@ -68,7 +73,7 @@ public class RuntimeDPIProvider
 {
     /**
      *  Constructor.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -77,32 +82,62 @@ public class RuntimeDPIProvider
     public function RuntimeDPIProvider()
     {
     }
-    
+
     /**
      *  Returns the runtime DPI of the current device by mapping its
      *  <code>flash.system.Capabilities.screenDPI</code> to one of several DPI
      *  values in <code>mx.core.DPIClassification</code>.
-     * 
+     *
      *  A number of devices can have slightly different DPI values and Flex maps these
      *  into the several DPI classes.
-     * 
+     *
      *  Flex uses this method to calculate the current DPI value when an Application
      *  authored for a specific DPI is adapted to the current one through scaling.
-     * 
+     *
+     *  <p> Exceptions: </p>
+     *  <ul>
+     *      <li>All non-retina iPads  receive 160 DPI </li>
+     *      <li>All retina iPads  receive 320 DPI </li>
+     *   </ul>
+     *
      *  @param dpi The DPI value.
      *  @return The corresponding <code>DPIClassification</code> value.
-     *  
+     *                                                                               isI
      *  @see flash.system.Capabilities
      *  @see mx.core.DPIClassification
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
+
     public function get runtimeDPI():Number
     {
-        return classifyDPI(Capabilities.screenDPI);
+
+        var isIOS:Boolean = Capabilities.version.indexOf("IOS") == 0;
+        var screenDPI : Number= Capabilities.screenDPI;
+
+        if (isIOS) {
+
+            var root:DisplayObject = SystemManager.getSWFRoot(this);
+            if (root != null )  {
+                var stage:Stage = root.stage;
+                if (stage != null){
+                    var scX:Number = stage.fullScreenWidth;
+                    var scY:Number = stage.fullScreenHeight;
+                    /*  as of Dec 2013,  iPad (resp. iPad retina)   are the only iOS devices to have 1024 (resp. 2048) screen width or height
+                     cf http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density#Apple
+                     * */
+                    if ((scX == 2048 || scY == 2048))
+                        return DPIClassification.DPI_320;
+                    else if (scX == 1024 || scY == 1024)
+                        return DPIClassification.DPI_160;
+                }
+            }
+        }
+        return classifyDPI(screenDPI);
+
     }
     
     /**
