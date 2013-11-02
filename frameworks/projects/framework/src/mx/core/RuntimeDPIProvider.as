@@ -71,6 +71,10 @@ use namespace mx_internal;
  */
 public class RuntimeDPIProvider
 {
+
+    mx_internal static const IPAD_MAX_EXTENT:int = 1024;
+    mx_internal static const IPAD_RETINA_MAX_EXTENT: int = 2048;
+
     /**
      *  Constructor.
      *
@@ -129,9 +133,9 @@ public class RuntimeDPIProvider
                     /*  as of Dec 2013,  iPad (resp. iPad retina)   are the only iOS devices to have 1024 (resp. 2048) screen width or height
                      cf http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density#Apple
                      * */
-                    if ((scX == 2048 || scY == 2048))
+                    if ((scX == IPAD_RETINA_MAX_EXTENT || scY == IPAD_RETINA_MAX_EXTENT))
                         return DPIClassification.DPI_320;
-                    else if (scX == 1024 || scY == 1024)
+                    else if (scX == IPAD_MAX_EXTENT || scY == IPAD_MAX_EXTENT)
                         return DPIClassification.DPI_160;
                 }
             }
