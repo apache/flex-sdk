@@ -33,6 +33,7 @@ SDK Changes
 -------------
 - Improved Callout for Desktop.
 - Improved UID generation performance.
+- Changed DPI to be 160 for iPad and 320 for iPad mini.
 
 
 Bug Fixes
@@ -46,10 +47,15 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-33853  Optimize UIDUtil / RPCUIDUtil fromByteArray() method
+FLEX-33852  Port UIDUtil optimizations to RPCUIDUtil
+FLEX-33835  LocaleSorter#sortLocalesByPreference is slow
 FLEX-33830  SDK 4.10.0 spark datagrid header and horizontal scrollbar behavior effected by app state change
 FLEX-33829  Improve ArrayList performance
 FLEX-33824  Disappearing spark DataGrid columns when we set dataProvider to null
+FLEX-33813  Datagrid goes blank when assigning new dataProvider.source and calling refresh
 FLEX-33779  RTE in Label.as when it's 8px wide and uses the Myriad Web Pro font face
+FLEX-33671  Warning messages when using experimental components.
 FLEX-33632  Getting Run Time Error when loading resource module at runtime.
 
 
