@@ -5456,6 +5456,8 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
                 else 
                 {
                     caretRowIndex = _dataProvider.length > 0 ? 0 : -1;
+                    // we need to call validateSize() to force computing maxTypicalCellHeight  or verticalScrollPosition will fail
+                   GridLayout(layout).centerGridView.validateSize();
                    verticalScrollPosition = 0;
                 }
                 
