@@ -166,18 +166,18 @@ public class UIDUtil
     {
         if (ba != null && ba.length >= 16 && ba.bytesAvailable >= 16)
         {
-            var chars:Array = new Array(36);
+            UIDBuffer.position = 0;
             var index:uint = 0;
             for (var i:uint = 0; i < 16; i++)
             {
                 if (i == 4 || i == 6 || i == 8 || i == 10)
-                    chars[index++] = DASH; // Hyphen char code
+                    UIDBuffer.writeByte(DASH); // Hyphen char code
 
                 var b:int = ba.readByte();
-                chars[index++] = ALPHA_CHAR_CODES[(b & 0xF0) >>> 4];
-                chars[index++] = ALPHA_CHAR_CODES[(b & 0x0F)];
+                UIDBuffer.writeByte(ALPHA_CHAR_CODES[(b & 0xF0) >>> 4]);
+                UIDBuffer.writeByte(ALPHA_CHAR_CODES[(b & 0x0F)]);
             }
-            return String.fromCharCode.apply(null, chars);
+            return UIDBuffer.toString();
         }
 
         return null;
