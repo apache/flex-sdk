@@ -96,8 +96,8 @@ public class ActionBarSkin extends MobileSkin
 				layoutShadowHeight = 9;
 				layoutContentGroupHeight = 130;
 				layoutTitleGroupHorizontalPadding = 40;
-				
-				borderClass = spark.skins.mobile240.assets.ActionBarBackground;
+
+				borderClass = spark.skins.mobile480.assets.ActionBarBackground;
 				
 				break;
 			}
