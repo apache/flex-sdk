@@ -137,10 +137,15 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
         }
         
         var info:Object = SystemManagerGlobals.info;
+		// Falcon injects this property and it is always false
+		// We ignore missing bundles because Falcon doesn't
+		// generate fallback bundles like MXMLC;
+		ignoreMissingBundles = info.hasOwnProperty("isMXMLC");
+		
         if (info)
             processInfo(info, false);
 
-        ignoreMissingBundles = false;
+        ignoreMissingBundles = info.hasOwnProperty("isMXMLC");
         
         if (SystemManagerGlobals.topLevelSystemManagers.length)
 		    SystemManagerGlobals.topLevelSystemManagers[0].
@@ -158,7 +163,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
      * 
      *  Whether or not to throw an error.
      */
-    private var ignoreMissingBundles:Boolean;
+    private var ignoreMissingBundles:Boolean = false;
     
     /**
      *  @private
