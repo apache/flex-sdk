@@ -578,12 +578,10 @@ public class BusyIndicator extends UIComponent
                                spinnerPadding:Number):void
     {
         var g:Graphics = graphics;
-        var outsidePoint:Point = new Point();
-        var insidePoint:Point = new Point();
         
         g.lineStyle(spokeWidth, spokeColor, spokeAlpha, false, LineScaleMode.NORMAL, CapsStyle.ROUND);
-        outsidePoint = calculatePointOnCircle(spinnerRadius, spinnerRadius - eHeight - spinnerPadding, degrees);
-        insidePoint = calculatePointOnCircle(spinnerRadius, spinnerRadius - spokeHeight + eHeight - spinnerPadding, degrees);
+        var outsidePoint:Point = calculatePointOnCircle(spinnerRadius, spinnerRadius - eHeight - spinnerPadding, degrees);
+        var insidePoint:Point = calculatePointOnCircle(spinnerRadius, spinnerRadius - spokeHeight + eHeight - spinnerPadding, degrees);
         g.moveTo(outsidePoint.x, outsidePoint.y);
         g.lineTo(insidePoint.x,  insidePoint.y);
             
