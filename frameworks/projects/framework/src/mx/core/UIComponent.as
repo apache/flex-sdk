@@ -6093,7 +6093,8 @@ public class UIComponent extends FlexSprite
         {
             if (_layoutFeatures == null)
             {
-                _hasComplexLayoutMatrix = super.transform.matrix && !MatrixUtil.isDeltaIdentity(super.transform.matrix);
+            	var tmpMatrix:Matrix = super.transform.matrix;
+                _hasComplexLayoutMatrix = tmpMatrix && !MatrixUtil.isDeltaIdentity(tmpMatrix);
                 return _hasComplexLayoutMatrix;
             }
             else
@@ -14470,7 +14471,8 @@ public class UIComponent extends FlexSprite
      */
     public function getLayoutMatrix():Matrix
     {
-        if (_layoutFeatures != null || super.transform.matrix == null)
+    	var superMatrix:Matrix = super.transform.matrix;
+        if (_layoutFeatures != null || superMatrix == null)
         {
             // TODO: this is a workaround for a situation in which the
             // object is in 2D, but used to be in 3D and the player has not
@@ -14494,7 +14496,7 @@ public class UIComponent extends FlexSprite
         else
         {
             // flash also returns copies.
-            return super.transform.matrix;
+            return superMatrix;
         }
     }
 

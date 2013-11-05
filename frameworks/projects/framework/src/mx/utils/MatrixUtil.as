@@ -29,7 +29,6 @@ import flash.geom.Rectangle;
 import flash.geom.Utils3D;
 import flash.geom.Vector3D;
 import flash.system.ApplicationDomain;
-import flash.utils.getDefinitionByName;
 
 import mx.core.mx_internal;
 
@@ -1694,8 +1693,11 @@ public final class MatrixUtil
         
         if ($transformProperty == null)
             $transformProperty = new QName(mx_internal, "$transform");
-        
-        while (displayObject && displayObject.transform.matrix && displayObject != topParent)
+
+
+        var displayObjectMatrix:Matrix = displayObject ? displayObject.transform.matrix : null ;
+        var notTopAndHasMatrix:Boolean = displayObjectMatrix!=null && displayObject != topParent;
+        while (notTopAndHasMatrix)
         {            
             var scrollRect:Rectangle = displayObject.scrollRect;
             if (scrollRect != null)
@@ -1730,13 +1732,16 @@ public final class MatrixUtil
             else if (isUIMovieClip)
                 m.concat(displayObject[$transformProperty].matrix);
             else
-                m.concat(displayObject.transform.matrix);
+                m.concat(displayObjectMatrix);
             
             // Try to access $parent, which is the true display list parent
             if (isUIComponent)
                 displayObject = displayObject[fakeDollarParent] as DisplayObject;
             else
                 displayObject = displayObject.parent as DisplayObject;
+
+             displayObjectMatrix = displayObject ? displayObject.transform.matrix : null;
+             notTopAndHasMatrix = displayObjectMatrix!=null && displayObject != topParent;
         }
         return m;
     }
