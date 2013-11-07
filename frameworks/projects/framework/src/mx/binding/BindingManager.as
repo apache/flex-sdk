@@ -150,9 +150,11 @@ public class BindingManager
 
                 if (binding.charAt(0) == destStr.charAt(0))
                 {
-                    if (binding.indexOf(destStr + ".") == 0 ||
-                        binding.indexOf(destStr + "[") == 0 ||
-                        binding == destStr)
+                    var length:int = destStr.length;
+                    if (
+                    	//check if binding start with destStr+"." or destStr+"[" with a minimum number of string allocations
+                    	(length < binding.length && binding.indexOf(destStr) == 0 && (binding.charAt(length) == "." || binding.charAt(length) == "["))
+                        || binding == destStr)
                     {
                         // If this is a RepeatableBindings, execute it on just the
                         // specified object, not on all its repeated siblings.  For
