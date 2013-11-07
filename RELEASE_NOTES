@@ -34,6 +34,7 @@ SDK Changes
 - Improved Callout for Desktop.
 - Improved UID generation performance.
 - Changed DPI to be 160 for iPad and 320 for iPad mini.
+- Improvements to Falcon MXML code generation.
 
 
 Bug Fixes
@@ -47,6 +48,9 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-33885  BindingManager#executeBindings : Avoid unneeded memory allocation
+FLEX-33878  Matrix computations : avoid unneeded flash.geom.Transform and flash.geom.Matrix allocations
+FLEX-33877  BusyCursor : Avoid unneeded Point allocations
 FLEX-33875  Runtime error #1069 in MobileSkin class on focus out
 FLEX-33871  message error "Definition spark.skins.mobile480.assets:ActionBarBackground could not be found"
 FLEX-33865  ConstraintLayout / LayoutElementHelper are memory inefficient (and slow)
