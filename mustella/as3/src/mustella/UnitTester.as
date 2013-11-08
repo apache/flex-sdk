@@ -2269,10 +2269,9 @@ public class UnitTester extends EventDispatcher
 		}
 	}
 
-	mx_internal function setupBindings():void
+	mx_internal function setupBindings(bindingData:Array):void
 	{
 		var fieldWatcher:Object;
-		var bindingData:Array = this["_bindings"];
 		var n:int = bindingData[0];
 		var bindings:Array = [];
 		var i:int;
@@ -2280,11 +2279,12 @@ public class UnitTester extends EventDispatcher
 		for (i = 0; i < n; i++)
 		{
 			var source:Object = bindingData[index++];
-			var destination:Object = bindingData[index++];
+			var destFunc:Object = bindingData[index++];
+			var destStr:Object = bindingData[index++];
 			var binding:Binding = new Binding(this,
 				(source is Function) ? source as Function : null,
-				(destination is Function) ? destination as Function : null,
-				(destination is Function) ? null : (destination is String) ? destination as String : destination.join("."),
+				(destFunc is Function) ? destFunc as Function : null,
+				(destStr is String) ? destStr as String : destStr.join("."),
 				(source is Function) ? null : (source is String) ? source as String : source.join("."));
 			bindings.push(binding);
 		}

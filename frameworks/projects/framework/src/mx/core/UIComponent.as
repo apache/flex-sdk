@@ -1788,6 +1788,12 @@ public class UIComponent extends FlexSprite
      */
     private var layoutDirectionCachedValue:String = LAYOUT_DIRECTION_CACHE_UNSET;
     
+	/**
+	 *  @private
+	 *  Whether or not we've processed the MXMLDescriptors 
+	 */
+	mx_internal var processedMXMLDescriptors:Boolean = false;
+
     //--------------------------------------------------------------------------
     //
     //  Variables: Creation
@@ -7811,8 +7817,11 @@ public class UIComponent extends FlexSprite
     protected function createChildren():void
     {
         var children:Array =  this.MXMLDescriptor;
-        if (children)
+        if (children && !processedMXMLDescriptors)
+		{
             generateMXMLInstances(document, children);
+			processedMXMLDescriptors = true;
+		}
     }
     
     protected function addMXMLChildren(comps:Array):void
@@ -8119,10 +8128,9 @@ public class UIComponent extends FlexSprite
         }
     }
 	
-	mx_internal function setupBindings():void
+	mx_internal function setupBindings(bindingData:Array):void
 	{
 		var fieldWatcher:Object;
-		var bindingData:Array = this["_bindings"];
 		var n:int = bindingData[0];
 		var bindings:Array = [];
 		var i:int;
@@ -8130,17 +8138,20 @@ public class UIComponent extends FlexSprite
 		for (i = 0; i < n; i++)
 		{
 			var source:Object = bindingData[index++];
-			var destination:Object = bindingData[index++];
+			var destFunc:Object = bindingData[index++];
+			var destStr:Object = bindingData[index++];
 			var binding:Binding = new Binding(this,
 				(source is Function) ? source as Function : null,
-				(destination is Function) ? destination as Function : null,
-				(destination is Function) ? null : (destination is String) ? destination as String : destination.join("."),
+				(destFunc is Function) ? destFunc as Function : null,
+				(destStr is String) ? destStr as String : destStr.join("."),
 				(source is Function) ? null : (source is String) ? source as String : source.join("."));
 			bindings.push(binding);
 		}
 		var watchers:Object = decodeWatcher(this, bindingData.slice(index), bindings);
 		this["_bindings"] = bindings;
 		this["_watchers"] = watchers;
+		for each (binding in bindings)
+			binding.execute();
 
 	}
 	
@@ -8164,6 +8175,7 @@ public class UIComponent extends FlexSprite
 		
 		while (index < n)
 		{
+			var parentObj:Object = target;
 			var watcherIndex:int = bindingData[index++];
 			var type:int = bindingData[index++];
 			switch (type)
@@ -8217,6 +8229,7 @@ public class UIComponent extends FlexSprite
 					getterFunction = bindingData[index++];
 					w = new StaticPropertyWatcher(propertyName, 
 						eventObject, theBindings, getterFunction);
+					parentObj = bindingData[index++];
 					break;
 				}
 				case 2:
@@ -8259,7 +8272,7 @@ public class UIComponent extends FlexSprite
 				}
 			}
 			watchers.push(w);
-			w.updateParent(target);
+			w.updateParent(parentObj);
 			if (target is Watcher)
 			{
 				if (w is FunctionReturnWatcher)
