@@ -433,7 +433,7 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 	{
 		var n:int = forms.length;
 		var rc:IChildList = systemManager.rawChildren;
-		for (var i:int = n - 1; n >= 0; i--)
+		for (var i:int = n - 1; i >= 0; i--)
 		{
 			var f:Object = forms[i];
 			if (f is DisplayObject)
