@@ -1549,16 +1549,14 @@ public class LayoutBase extends OnDemandEventDispatcher
             else if (!isNaN(rightOffset))
                 dx = dxr - rightOffset;
             
-            // scrollR "contains"  elementR in just one dimension
             if ((elementR.left >= scrollR.left) && (elementR.right <= scrollR.right))
                 dx = 0;
-            else if ((elementR.bottom <= scrollR.bottom) && (elementR.top >= scrollR.top))
+            if ((elementR.bottom <= scrollR.bottom) && (elementR.top >= scrollR.top))
                 dy = 0;
             
-            // elementR "contains" scrollR in just one dimension
             if ((elementR.left <= scrollR.left) && (elementR.right >= scrollR.right))
                 dx = 0;
-            else if ((elementR.bottom >= scrollR.bottom) && (elementR.top <= scrollR.top))
+            if ((elementR.bottom >= scrollR.bottom) && (elementR.top <= scrollR.top))
                 dy = 0;
         }
         
