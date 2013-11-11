@@ -83,7 +83,6 @@ public class Binding
         this.destFunc = destFunc;
         this.destString = destString;
         this.srcString = srcString;
-        this.destFuncFailed = false;
 
         if (this.srcFunc == null)
         {
@@ -235,8 +234,6 @@ public class Binding
      *  @productversion Flex 3
      */
     mx_internal var destFunc:Function;
-    
-    mx_internal var destFuncFailed:Boolean;
 
 	/**
      *  The destination represented as a String.
@@ -288,15 +285,6 @@ public class Binding
         while (i < (chain.length - 1))
         {
             element = element[chain[i++]];
-            //if the element does not exist : avoid exception as it's heavy on memory allocations
-            if (element == null || element == undefined) {
-                destFuncFailed = true;
-                if (BindingManager.debugDestinationStrings[destString])
-                {
-                    trace("Binding: destString = " + destString + ", error = 1009");
-                }
-                return;
-            }
         }
 
         element[chain[i]] = value;
@@ -413,9 +401,6 @@ public class Binding
         try
         {
             var result:Object = wrappedFunction.apply(thisArg, args);
-            if (destFuncFailed) {
-                return null;
-            }
             wrappedFunctionSuccessful = true;
             return result;
         }
@@ -507,11 +492,9 @@ public class Binding
         	{
 	            destFunc.call(document, value);
 
-                if (!destFuncFailed) {
-                    //	Note: state is not updated if destFunc throws
-                    lastValue = value;
-                    hasHadValue = true;
-	            }
+	            //	Note: state is not updated if destFunc throws
+	            lastValue = value;
+	            hasHadValue = true;
 	        }
         }
     }
