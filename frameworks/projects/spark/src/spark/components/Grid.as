@@ -853,7 +853,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             const gridMaxVSP:Number = contentHeight - height;
             const centerContentHeight:Number = Math.ceil(gridViewLayout.gridDimensionsView.getContentHeight());
             const centerMaxVSP:Number = centerContentHeight - centerGridView.height;
-            const vsp:Number = (centerMaxVSP / gridMaxVSP) * value;
+            const vsp:Number = gridMaxVSP == 0 ? 0 :  (centerMaxVSP / gridMaxVSP) * value;
             
             centerGridView.verticalScrollPosition = vsp;
             
@@ -4609,7 +4609,6 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
 		
 		if (!variableRowHeight)
 			setFixedRowHeight(gridDimensions.getRowHeight(0));
-
 	}
         
     //--------------------------------------------------------------------------
@@ -5606,7 +5605,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             gridDimensions.columnCount = generatedColumns ? columns.length : 0;
         }
         
-        const gridDimenions:GridDimensions = this.gridDimensions;
+        const gridDimensions:GridDimensions = this.gridDimensions;
         if (gridDimensions)
         {
             gridDimensions.dataProviderCollectionChanged(event);
