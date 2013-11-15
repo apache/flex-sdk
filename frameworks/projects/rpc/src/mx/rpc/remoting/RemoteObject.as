@@ -331,6 +331,7 @@ public dynamic class RemoteObject extends AbstractService
             op = new Operation(this, name);
             _operations[name] = op;
             op.asyncRequest = asyncRequest;
+            op.setKeepLastResultIfNotSet(_keepLastResult);
         }
         return op;
     }
