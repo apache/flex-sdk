@@ -5596,15 +5596,16 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
     private function dataProvider_collectionChangeHandler(event:CollectionEvent):void
     {
         var selectionChanged:Boolean = false;
-        
+
+
         // If no columns exist, we should try to generate them.
         if (!columns && dataProvider.length > 0)
         {
             columns = generateColumns();
             generatedColumns = (columns != null);
-            gridDimensions.columnCount = generatedColumns ? columns.length : 0;
+            this.gridDimensions.columnCount = generatedColumns ? columns.length : 0;
         }
-        
+
         const gridDimensions:GridDimensions = this.gridDimensions;
         if (gridDimensions)
         {
