@@ -30,12 +30,13 @@
 AIR_VERSION="$1"
 OS=`uname`
 
-if [[ "${AIR_VERSION}" != "3.9" && "${AIR_VERSION}" != "3.8" && "${AIR_VERSION}" != "3.7" && "${AIR_VERSION}" != "3.6"
-  && "${AIR_VERSION}" != "3.5" && "${AIR_VERSION}" != "3.4"  
-  && "${AIR_VERSION}" != "3.3"  && "${AIR_VERSION}" != "3.2" && "${AIR_VERSION}" != "3.1"
-  && "${AIR_VERSION}" != "3.0" && "${AIR_VERSION}" != "2.7" && "${AIR_VERSION}" != "2.6" ]]
+if [[ "${AIR_VERSION}" != "4.0" && "${AIR_VERSION}" != "3.9" && "${AIR_VERSION}" != "3.8"
+  && "${AIR_VERSION}" != "3.7" && "${AIR_VERSION}" != "3.6" && "${AIR_VERSION}" != "3.5"
+  && "${AIR_VERSION}" != "3.4" && "${AIR_VERSION}" != "3.3"  && "${AIR_VERSION}" != "3.2"
+  && "${AIR_VERSION}" != "3.1" && "${AIR_VERSION}" != "3.0" && "${AIR_VERSION}" != "2.7"
+  && "${AIR_VERSION}" != "2.6" ]]
 then
-	echo Unknown version ${AIR_VERISON} of AIR. Versions 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7 and 3.8 are supported.
+	echo Unknown version ${AIR_VERISON} of AIR. Versions 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9 and 4.0 are supported.
 	exit 1;
 fi
 
@@ -103,6 +104,11 @@ downloadAIR()
         airDownload="http://airdownload.adobe.com/air/lin/download/${version}/AdobeAIRSDK.tbz2"
     fi
     
+    if [[ "${AIR_VERSION}" == "4.0" ]]
+    then
+ 		airDownload="http://labsdownload.adobe.com/pub/labs/flashruntimes/air/air4-0_sdk_sa_mac.tbz2"
+    fi
+    
 	echo Downloading AIR ${version}
 	curl ${airDownload} > "${airTempDir}/air.tbz2"
 	
@@ -153,7 +159,14 @@ updatePlayerDescription "${AIR_VERSION}" "${IDE_SDK_DIR}/flex-sdk-description.xm
 for configFile in "${configFiles[@]}"
 do
 	echo Updating ${configFile}
-	
+
+	# 4.0 needs FP 12 and swf version 23
+	if [ ${AIR_VERSION} = "3.9" ]
+	then
+		updatePlayerVersion 12.0 "${configFile}"
+		updateSWFVersion 23 "${configFile}"
+	fi	
+		
 	# 3.8 needs FP 11.9 and swf version 22
 	if [ ${AIR_VERSION} = "3.9" ]
 	then
