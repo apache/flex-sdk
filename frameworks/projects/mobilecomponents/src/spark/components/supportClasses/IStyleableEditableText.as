@@ -17,25 +17,20 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package
+package spark.components.supportClasses
 {
+import mx.core.IUIComponent;
 
-internal class MobileComponentsClasses
-{
+import spark.core.IEditableText;
 
 /**
- *  @private
- *  This class is used to link additional classes into mobilecomponents.swc
- *  beyond those that are found by dependecy analysis starting
- *  from the classes specified in manifest.xml.
- *  For example, Button does not have a reference to ButtonSkin,
- *  but ButtonSkin needs to be in framework.swc along with Button.
+ * IStyleableEditableText defines the methods and properties of classes that implement styleable wrappers around native input text.
  */
-    import spark.preloaders.SplashScreen; SplashScreen;
-    import spark.components.supportClasses.StyleableStageText; StyleableStageText;
-    import spark.components.supportClasses.ScrollableStageText; ScrollableStageText;
-    import spark.components.supportClasses.StyleableTextField; StyleableTextField;
-    import spark.components.ActionBarDefaultButtonAppearance; ActionBarDefaultButtonAppearance;
+public interface IStyleableEditableText    extends IEditableText, IUIComponent
+{
+    function set styleName(value:Object):void ;
+
+    function commitStyles():void;
 
 }
 }

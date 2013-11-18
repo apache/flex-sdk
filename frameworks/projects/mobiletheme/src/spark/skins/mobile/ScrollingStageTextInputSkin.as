@@ -17,25 +17,33 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package
+package spark.skins.mobile
 {
-
-internal class MobileComponentsClasses
-{
+import spark.components.supportClasses.IStyleableEditableText;
+import spark.components.supportClasses.ScrollableStageText;
 
 /**
- *  @private
- *  This class is used to link additional classes into mobilecomponents.swc
- *  beyond those that are found by dependecy analysis starting
- *  from the classes specified in manifest.xml.
- *  For example, Button does not have a reference to ButtonSkin,
- *  but ButtonSkin needs to be in framework.swc along with Button.
+ *  ActionScript-based skin for TextInput controls in mobile applications that uses a
+ *  ScrollableStageText class for the text display
+ *  <p> and can be used in scrollable forms while allowing precise control of keyboard input.</p>
+ *
+ *  @see spark.components.TextInput
+ *  @see spark.components.supportClasses.ScrollableStageText
+ *
+ *  @langversion 3.0
+ *  @playerversion AIR 3.0
+ *  @productversion Flex 4.12
  */
-    import spark.preloaders.SplashScreen; SplashScreen;
-    import spark.components.supportClasses.StyleableStageText; StyleableStageText;
-    import spark.components.supportClasses.ScrollableStageText; ScrollableStageText;
-    import spark.components.supportClasses.StyleableTextField; StyleableTextField;
-    import spark.components.ActionBarDefaultButtonAppearance; ActionBarDefaultButtonAppearance;
+public class ScrollingStageTextInputSkin extends StageTextInputSkin
+{
+    public function ScrollingStageTextInputSkin()
+    {
+        super();
+    }
 
+    override protected function createTextDisplay():IStyleableEditableText
+    {
+        return new ScrollableStageText(multiline);
+    }
 }
 }

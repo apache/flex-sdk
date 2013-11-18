@@ -324,7 +324,7 @@ use namespace mx_internal;
  *  @playerversion AIR 3.0
  *  @productversion Flex 4.6
  */
-public class StyleableStageText extends UIComponent implements IEditableText, ISoftKeyboardHintClient
+public class StyleableStageText extends UIComponent implements IStyleableEditableText, ISoftKeyboardHintClient
 {
     //--------------------------------------------------------------------------
     //
