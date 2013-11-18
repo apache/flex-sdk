@@ -29,6 +29,11 @@ http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
 
 Differences from Apache Flex 4.11 include:
 
+AIR and Flash Player support
+------------------------------
+ - Support Flash Player 12.0 beta.
+ - Support for AIR 4.0 beta.
+
 SDK Changes
 -------------
 - Improved Callout for Desktop.
