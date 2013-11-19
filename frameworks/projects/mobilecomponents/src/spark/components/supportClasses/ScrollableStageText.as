@@ -1376,9 +1376,6 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
         if (stageText != null)
         {
             stageText.assignFocus();      // will trigger stageTextfocusIn
-            //TODO what happens when setting focus to a component in a popup that is not visible yet
-            //   else
-            //   pendingFocusedStageText = stageText;
         }
     }
 
@@ -1402,10 +1399,7 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
 
             // Move the cursor to the end of the appended text.
             stageText.selectRange(_text.length, _text.length);
-
             dispatchEvent(new TextOperationEvent(TextOperationEvent.CHANGE));
-
-
             invalidateProxy();
         }
     }
@@ -1785,6 +1779,7 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
         // always create proxy image
 
         // register listeners
+        addEventListener(MouseEvent.CLICK, mouseClickHandler);
         addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
         addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
         if (stageText != null)
@@ -1813,8 +1808,9 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
 
 
         stageText.stage = null;
-
-        removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
+       removeEventListener(MouseEvent.CLICK, mouseClickHandler);
+       removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+       removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
 
         stageText.removeEventListener(Event.CHANGE, stageText_changeHandler);
         stageText.removeEventListener(Event.COMPLETE, stageText_completeHandler);
@@ -1847,6 +1843,10 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
     private function mouseUpHandler(event:MouseEvent):void
     {
         isMouseDown = false;
+    }
+
+    private function mouseClickHandler(event:MouseEvent):void
+    {
         setFocus();
     }
 
@@ -1876,6 +1876,11 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
     private function stageText_focusInHandler(event:FocusEvent):void
     {
         startTextEdit();
+        // Focus events are documented as bubbling. However, all events coming
+        // from StageText are set to not bubble. So we need to create an
+        // appropriate bubbling event here.
+        dispatchEvent(new FocusEvent(event.type, true, event.cancelable,
+                event.relatedObject, event.shiftKey, event.keyCode, event.direction));
     }
 
     private function stageText_focusOutHandler(event:FocusEvent):void
