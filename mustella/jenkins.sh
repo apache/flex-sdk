@@ -69,7 +69,7 @@ then
   AIR_VERSION=3.9
 elif [ "$FLASH_VERSION" == "11.9" ]
 then
-  FLASH_VERSION=12
+  FLASH_VERSION=12.0
   AIR_VERSION=4
 else
   FLASH_VERSION=11.1
@@ -102,7 +102,7 @@ case "$FLASH_VERSION" in
   11.9)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer11-9_debugsa_win_32.exe"
   ;;
-  12)
+  12.0)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer12-0_debugsa_win_32.exe"
   ;;
   *)
