@@ -883,7 +883,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     {
         super.changeHighlightedSelection(newIndex, scrollToTop);
         
-        if (newIndex >= 0)
+        if (newIndex >= 0 && newIndex < dataProvider.length)
         {
             var item:Object = dataProvider ? dataProvider.getItemAt(newIndex) : undefined;
             if (item && textInput)
