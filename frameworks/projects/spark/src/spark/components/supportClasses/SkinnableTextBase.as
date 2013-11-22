@@ -516,7 +516,7 @@ public class SkinnableTextBase extends SkinnableComponent
      *  The IEditableText that may be present
      *  in any skin assigned to this component.
      *  This is RichEditableText for the Spark theme
-     *  and StyleableStageText for the Mobile theme.
+     *  and StyleableStageText/ScrollableStageText for the Mobile theme.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1719,15 +1719,15 @@ public class SkinnableTextBase extends SkinnableComponent
             if (getStyle("interactionMode") == InteractionMode.TOUCH && !touchHandlersAdded)
             {
                 addEventListener(MouseEvent.MOUSE_DOWN, touchMouseDownHandler);
-                addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START,
-                    touchInteractionStartHandler);
+                addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING,
+                        touchInteractionStartingHandler);
                 touchHandlersAdded = true;
             }
             else if (getStyle("interactionMode") == InteractionMode.MOUSE && touchHandlersAdded)
             {
                 removeEventListener(MouseEvent.MOUSE_DOWN, touchMouseDownHandler);
-                removeEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START,
-                    touchInteractionStartHandler);
+                removeEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING,
+                        touchInteractionStartingHandler);
                 touchHandlersAdded = false;
             }
         }
@@ -2606,23 +2606,23 @@ public class SkinnableTextBase extends SkinnableComponent
      */ 
     private function touchMouseUpHandler(event:Event):void
     {        
-        /* 
-         We set the focus on the component on mouseUp to activate the softKeyboard   
+        /*
+         We set the focus on the component on mouseUp to activate the softKeyboard
          We only set focus if the following conditions are met:
          1. mouseUp occurs on this component
          2. mouseDown occured on any subcomponent besides the textDisplay OR
          mouseDown occurred on textDisplay and mouseUp did not occur on textDisplay
-        
+
          The mouseDown and mouseUp on textDisplay case is handled by the Player
-        */        
-        if ((event.target is DisplayObject && contains(DisplayObject(event.target))) 
+        */
+        if ((event.target is DisplayObject && contains(DisplayObject(event.target)))
             && (delaySetFocus ||
              (mouseDownTarget == textDisplay && event.target != textDisplay)))
         {
             if (textDisplay)
                 textDisplay.setFocus();
         }
-        
+
         clearMouseDownState();
     }
        
@@ -2630,19 +2630,10 @@ public class SkinnableTextBase extends SkinnableComponent
      * @private
      * Called if we are inside of a Scroller and the user has started a scroll gesture
      */
-    private function touchInteractionStartHandler(event:TouchInteractionEvent):void
+    private function touchInteractionStartingHandler(event:TouchInteractionEvent):void
     {
-        // if in iOS and keyboard is up and scrolling is occurring, drop the keyboard
-        var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
-        if (isIOS && topLevelApp && topLevelApp.isSoftKeyboardActive && editable)
-        {
-            // set focus
-            stage.focus = null;
-        }
-        
-        // Clear out the state because starting a scroll gesture should never 
-        // open the soft keyboard
-        clearMouseDownState();
+        //   don't allow initiating scrolling from a TextInput on mobile anymore
+          event.preventDefault();
     }    
     
     /**
