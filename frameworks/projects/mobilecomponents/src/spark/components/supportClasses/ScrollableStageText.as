@@ -429,7 +429,6 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
     private var isEditing:Boolean = false;
 
     private var invalidateProxyFlag:Boolean = false;
-
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -455,6 +454,9 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
      *  whenever this object is measured or drawn.
      */
     protected var invalidateStyleFlag:Boolean = true;
+
+
+    private var _softKeyboardType: String = SoftKeyboardType.DEFAULT;
 
     //--------------------------------------------------------------------------
     //
@@ -1137,10 +1139,6 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
     //  softKeyboardType
     //----------------------------------
 
-    /**
-     *  Storage for the softKeyboardType property.
-     */
-    private var _softKeyboardType:String = SoftKeyboardType.DEFAULT;
 
     /**
      *  @inheritDoc
@@ -1503,57 +1501,6 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
     }
 
 
-      //--------------------------------------------------------------------------
-        //
-        //    EDITING AND FOCUS MANAGEMENT
-        //
-        //--------------------------------------------------------------------------
-
-    /**
-     * @return true if editing was actually stated,, false is already started
-     * */
-    protected function startTextEdit():Boolean
-    {
-        if (!isEditing)
-        {
-            isEditing = true;
-            proxy.visible = false;
-            updateViewPort();
-            stageText.visible = true;
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    /**
-     * @return true if editing was actually ended, false is already ended
-     * */
-    protected function endTextEdit():Boolean
-    {
-        if (isEditing)
-        {
-            isEditing = false;
-            invalidateProxy();
-            proxy.visible = true;
-            stageText.visible = false;
-
-            if (focusManager is FocusManager)
-            {
-                var fm:FocusManager = focusManager as FocusManager;
-                var lastFocus:Object = fm.lastFocus as Object;
-
-                if (lastFocus && lastFocus.hasOwnProperty("textDisplay") && lastFocus.textDisplay == this)
-                    fm.lastFocus = null;
-            }
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
   //--------------------------------------------------------------------------
   //  Proxy Management
   //--------------------------------------------------------------------------
@@ -1778,13 +1725,6 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
             savedSelectionActiveIndex = 0;
         }
 
-//        if (deferredViewPortUpdate)
-//            updateViewPort();
-
-        // always create proxy image
-
-        // register listeners
-        addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
         addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING, touchStartingHandler);
         if (stageText != null)
         {
@@ -1810,9 +1750,7 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
         savedSelectionAnchorIndex = stageText.selectionAnchorIndex;
         savedSelectionActiveIndex = stageText.selectionActiveIndex;
 
-
         stageText.stage = null;
-       removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
         addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING, touchStartingHandler);
         stageText.removeEventListener(Event.CHANGE, stageText_changeHandler);
         stageText.removeEventListener(Event.COMPLETE, stageText_completeHandler);
@@ -1835,18 +1773,6 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
             disposeProxy();
             proxy = null;
         }
-    }
-
-    private function mouseDownHandler(event:MouseEvent):void
-    {
-        setFocus();
-    }
-
-    private function touchStartingHandler(event:Event):void
-    {
-        // don't allow touch scrolling while editing (of the StageText will stay in place)
-       if (isEditing)
-          event.preventDefault();
     }
 
     protected function stageText_changeHandler(event:Event):void
@@ -1872,28 +1798,40 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
         invalidateProperties();
     }
 
+
+
+    private function touchStartingHandler(event: Event): void
+    {
+        // don't allow touch scrolling while editing (of the StageText will stay in place)
+        if (isEditing)
+            event.preventDefault();
+    }
+
     private function stageText_focusInHandler(event:FocusEvent):void
     {
-        if (startTextEdit()){
+          if (!isEditing){
+              startTextEdit();
+          }
             // Focus events are documented as bubbling. However, all events coming
             // from StageText are set to not bubble. So we need to create an
             // appropriate bubbling event here.
-            dispatchEvent(new FocusEvent(event.type, true, event.cancelable,
-                    event.relatedObject, event.shiftKey, event.keyCode, event.direction));
-        }
+        dispatchEvent(new FocusEvent(event.type, true, event.cancelable,
+        event.relatedObject, event.shiftKey, event.keyCode, event.direction));
     }
 
     private function stageText_focusOutHandler(event:FocusEvent):void
     {
-        if (endTextEdit()) {
-            // Focus events are documented as bubbling. However, all events coming
-            // from StageText are set to not bubble. So we need to create an
-            // appropriate bubbling event here.
-            dispatchEvent(new FocusEvent(event.type, true, event.cancelable,
-                    event.relatedObject, event.shiftKey, event.keyCode, event.direction));
+        if (isEditing)
+        {
+            endTextEdit();
         }
-
+              // Focus events are documented as bubbling. However, all events coming
+              // from StageText are set to not bubble. So we need to create an
+              // appropriate bubbling event here.
+          dispatchEvent(new FocusEvent(event.type, true, event.cancelable,
+          event.relatedObject, event.shiftKey, event.keyCode, event.direction));
     }
+
 
     private function stageText_keyDownHandler(event:KeyboardEvent):void
     {
@@ -1945,12 +1883,59 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
 
     private function stageText_softKeyboardDeactivateHandler(event:SoftKeyboardEvent):void
     {
-        if (endTextEdit()) {
             dispatchEvent(new SoftKeyboardEvent(event.type,
                     true, event.cancelable, this, event.triggerType));
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //    EDITING
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     * @return true if editing was actually stated,, false is already started
+     * */
+    protected function startTextEdit(): Boolean
+    {
+        if (!isEditing)
+        {
+      //      trace("start text edit:", debugId);
+            isEditing = true;
+            proxy.visible = false;
+            updateViewPort();
+            stageText.visible = true;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
+    /**
+     * @return true if editing was actually ended, false is already ended
+     * */
+    protected function endTextEdit(): Boolean
+    {
+        // if owning TextInput mouseDown is the cause of focus out, abort
+
+        if (isEditing)
+        {
+     //       trace("end text edit:", debugId);
+            isEditing = false;
+            invalidateProxy();
+            proxy.visible = true;
+            stageText.visible = false;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /* debug */
     protected function get debugId():String {
         var parentSkin: UIComponent = this.parent.parent as UIComponent;
         return    parentSkin ? parentSkin.id : "-" ;

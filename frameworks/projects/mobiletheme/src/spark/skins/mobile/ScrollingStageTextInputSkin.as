@@ -19,6 +19,9 @@
 
 package spark.skins.mobile
 {
+import flash.display.DisplayObjectContainer;
+import flash.events.MouseEvent;
+
 import spark.components.supportClasses.IStyleableEditableText;
 import spark.components.supportClasses.ScrollableStageText;
 
@@ -39,11 +42,30 @@ public class ScrollingStageTextInputSkin extends StageTextInputSkin
     public function ScrollingStageTextInputSkin()
     {
         super();
+        addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
     }
 
     override protected function createTextDisplay():IStyleableEditableText
     {
         return new ScrollableStageText(multiline);
+
+    }
+
+    /** @private
+     *  We have to force focus to the text display when user user in the padding area of the TextInput.
+    we do this hack  in the skin instead of the hostComponent TextInput to not impact the behavior of other skins
+      */
+    override public function set owner(value: DisplayObjectContainer): void
+    {
+        super.owner = value;
+        if (owner){
+            owner.mouseEnabled = false;
+        }
+    }
+
+    private function mouseDownHandler(event: MouseEvent): void
+    {
+        textDisplay.setFocus();
     }
 }
 }
