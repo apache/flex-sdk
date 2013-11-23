@@ -1554,7 +1554,14 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
     /** Dispose the proxy resources once it has been removed from the stage */
     protected function disposeProxy():void
     {
-        Bitmap(proxy).bitmapData.dispose();
+
+        var bd: BitmapData = Bitmap(proxy).bitmapData;
+        if (bd)
+           bd.dispose();
+        else {
+            trace("[WARN] SST found empty bitmap data in:", debugId)  ;
+        }
+
     }
 
     /**
