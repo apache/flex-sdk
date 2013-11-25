@@ -26,7 +26,6 @@ import flash.display.PixelSnapping;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
-import flash.events.MouseEvent;
 import flash.events.SoftKeyboardEvent;
 import flash.geom.Matrix;
 import flash.geom.Point;
@@ -47,14 +46,15 @@ import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.events.TouchInteractionEvent;
-import mx.managers.FocusManager;
 import mx.managers.SystemManager;
 import mx.utils.MatrixUtil;
 
 import spark.components.Application;
+import spark.core.IProxiedStageTextWrapper;
 import spark.core.ISoftKeyboardHintClient;
 import spark.events.TextOperationEvent;
+
+import flash.text.StageTextInitOptions;
 
 use namespace mx_internal;
 
@@ -309,7 +309,7 @@ use namespace mx_internal;
  *  @playerversion AIR 3.0
  *  @productversion Flex 4.12
  */
-public class ScrollableStageText extends UIComponent  implements IStyleableEditableText, ISoftKeyboardHintClient
+public class ScrollableStageText extends UIComponent  implements IStyleableEditableText, ISoftKeyboardHintClient , IProxiedStageTextWrapper
 {
 
     //--------------------------------------------------------------------------
@@ -335,6 +335,12 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
      *  a StageText, store its default values here.
      */
     protected static var defaultStyles:Object;
+
+    /* Last stage text that received the focus.  This is used by tempStageText to use the same keyboard type*/
+    protected static var lastFocusedStageText: StageText;
+
+    /* this is a hidden stage text that gets the focus to prevent soft keyboard from hiding*/
+    protected static var hiddenFocusStageText: StageText = null;
 
     /**
      * when set to true, displays the proxy images with a purple background, to help debugging proxy vs stageText usage.
@@ -665,7 +671,10 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
         return _densityScale;
     }
 
-    protected function get showProxy():Boolean {
+    /**
+     * @private
+     */
+    protected function get showsProxy():Boolean {
         return !isEditing;
     }
 
@@ -1343,7 +1352,7 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
             updateViewPort();
         }
 
-        if (invalidateProxyFlag && showProxy)
+        if (invalidateProxyFlag && showsProxy)
         {
             invalidateProxyFlag = false;
             updateProxy();
@@ -1364,7 +1373,8 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
     {
         if (stageText != null)
         {
-            stageText.assignFocus();      // will trigger stageTextfocusIn
+            stageText.assignFocus();
+            lastFocusedStageText = stageText;
         }
     }
 
@@ -1732,7 +1742,6 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
             savedSelectionActiveIndex = 0;
         }
 
-        addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING, touchStartingHandler);
         if (stageText != null)
         {
             stageText.addEventListener(Event.CHANGE, stageText_changeHandler);
@@ -1758,7 +1767,6 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
         savedSelectionActiveIndex = stageText.selectionActiveIndex;
 
         stageText.stage = null;
-        addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING, touchStartingHandler);
         stageText.removeEventListener(Event.CHANGE, stageText_changeHandler);
         stageText.removeEventListener(Event.COMPLETE, stageText_completeHandler);
         stageText.removeEventListener(FocusEvent.FOCUS_IN, stageText_focusInHandler);
@@ -1807,13 +1815,6 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
 
 
 
-    private function touchStartingHandler(event: Event): void
-    {
-        // don't allow touch scrolling while editing (of the StageText will stay in place)
-        if (isEditing)
-            event.preventDefault();
-    }
-
     private function stageText_focusInHandler(event:FocusEvent):void
     {
           if (!isEditing){
@@ -1830,7 +1831,7 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
     {
         if (isEditing)
         {
-            endTextEdit();
+            callLater(endTextEdit);
         }
               // Focus events are documented as bubbling. However, all events coming
               // from StageText are set to not bubble. So we need to create an
@@ -1947,15 +1948,46 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
         var parentSkin: UIComponent = this.parent.parent as UIComponent;
         return    parentSkin ? parentSkin.id : "-" ;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function prepareForTouchScroll(): void
+    {
+        endTextEdit();
+        // hide temp softkeyboard, if any
+        if (hiddenFocusStageText)  {
+            hiddenFocusStageText.visible = false;
+        }
+
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function keepSoftKeyboardActive(): void
+    {
+        // create temp stage text  if does not exist
+        if (!hiddenFocusStageText)
+        {
+            hiddenFocusStageText = new StageText(new StageTextInitOptions(false));
+            hiddenFocusStageText.viewPort = new Rectangle(0, 0, 0, 0);
+            hiddenFocusStageText.stage = stage;
+        }
+
+        if (lastFocusedStageText)
+            hiddenFocusStageText.softKeyboardType = lastFocusedStageText.softKeyboardType;
+        hiddenFocusStageText.visible = true;
+        hiddenFocusStageText.assignFocus();
+    }
 }
 }
 
 import flash.events.TimerEvent;
 import flash.text.StageText;
-import flash.text.StageTextInitOptions;
 import flash.utils.Dictionary;
 import flash.utils.Timer;
-
+import flash.text.StageTextInitOptions;
 import spark.components.supportClasses.ScrollableStageText;
 
 class StageTextPool

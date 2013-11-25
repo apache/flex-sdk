@@ -17,37 +17,27 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.mobile
+package spark.core
 {
-import flash.display.DisplayObjectContainer;
-import flash.events.MouseEvent;
 
-import spark.components.supportClasses.IStyleableEditableText;
-import spark.components.supportClasses.ScrollableStageText;
-
-/**
- *  ActionScript-based skin for TextArea controls in mobile applications that uses a
- *  ScrollableStageText class for the text display.
- *  <p> and can be used in scrollable forms while allowing precise control of keyboard input.</p>
+/**   This interface defines properties for mobile wrapper classes of StageText that need to handle touch scrolling and soft keyboard.
  *
- *  @see spark.components.TextArea
- *  @see spark.components.supportClasses.ScrollableStageText
- *
- *  @langversion 3.0
- *  @playerversion AIR 3.0
- *  @productversion Flex 4.12
  */
-public class ScrollingStageTextAreaSkin extends StageTextAreaSkin
+public interface IProxiedStageTextWrapper
 {
-    public function ScrollingStageTextAreaSkin()
-    {
-        super();
-    }
 
-    override protected function createTextDisplay():IStyleableEditableText
-    {
-        return new ScrollableStageText(multiline);
-    }
+    /**
+     * this method is called before a touch scroll is about to occur, so that component can hide the StageText and show the proxies
+     *  @see spark.components.supportClasses.ScrollableStageText#prepareForTouchScroll()
+     */
+  function prepareForTouchScroll( ): void;
+
+    /**
+     * this method is called between the time a text input get out of focus and the next  text input  gets in focus
+     * to prevent the soft keyboard from disappearing.
+     * @see spark.components.supportClasses.ScrollableStageText#keepSoftKeyboardActive()
+      */
+  function keepSoftKeyboardActive( ): void ;
 
 }
 }
