@@ -57,11 +57,8 @@
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
 				<WaitForLayoutManager />
-				<!--<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
-				-->
 				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
-				<SimulateMouseGesture target="navigator.activeView.textInput" dragXFrom="10%" dragXTo="11%" dragYFrom="50%" dragYTo="50%" waitTarget="navigator.activeView.textInput" waitEvent="softKeyboardActivate" timeout="6000"/>
-				<Pause timeout="500" />
+			<Pause timeout="500" />
 				<AssertPropertyValue target="navigator.activeView.callout" propertyName="resizeForSoftKeyboard" value="true" />
 				<AssertMethodValue method="value = application.navigator.activeView.callout.getStyle('softKeyboardEffectDuration')" value="150"/> 
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
@@ -77,10 +74,8 @@
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
 				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
-				<SimulateMouseGesture target="navigator.activeView.textInput" dragXFrom="10%" dragXTo="11%" dragYFrom="50%" dragYTo="50%" waitTarget="navigator.activeView.textInput" waitEvent="softKeyboardActivate" timeout="6000"/>
 				<Pause timeout="500" />
-<!--				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
--->				<AssertMethodValue method="value = application.navigator.activeView.callout.getStyle('softKeyboardEffectDuration')" value="150"/> 
+			<AssertMethodValue method="value = application.navigator.activeView.callout.getStyle('softKeyboardEffectDuration')" value="150"/>
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
 			</body>
 		</TestCase>	
@@ -93,9 +88,7 @@
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
-<!--				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
--->				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
-				<SimulateMouseGesture target="navigator.activeView.textInput" dragXFrom="10%" dragXTo="11%" dragYFrom="50%" dragYTo="50%" waitTarget="navigator.activeView.textInput" waitEvent="softKeyboardActivate" timeout="6000"/>
+			<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
 				<Pause timeout="500" />
 				<RunCode code="application.navigator.activeView.callout.setStyle('softKeyboardEffectDuration', 250)"/>
 				<Pause timeout="200"/>
@@ -112,9 +105,7 @@
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
-<!--				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
--->				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
-				<SimulateMouseGesture target="navigator.activeView.textInput" dragXFrom="10%" dragXTo="11%" dragYFrom="50%" dragYTo="50%" waitTarget="navigator.activeView.textInput" waitEvent="softKeyboardActivate" timeout="6000"/>
+				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
 				<Pause timeout="500" />
 				<AssertPropertyValue target="navigator.activeView.callout" propertyName="moveForSoftKeyboard" value="false" />
 				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
@@ -130,9 +121,7 @@
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
 				<Pause timeout="500" />
-<!--				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
--->				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
-				<SimulateMouseGesture target="navigator.activeView.textInput" dragXFrom="10%" dragXTo="11%" dragYFrom="50%" dragYTo="50%" waitTarget="navigator.activeView.textInput" waitEvent="softKeyboardActivate" timeout="6000"/>
+				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
 				<Pause timeout="500" />
 				<SetProperty target="navigator.activeView.callout" propertyName="resizeForSoftKeyboard" value="false" />
 				<AssertPropertyValue target="navigator.activeView.callout" propertyName="resizeForSoftKeyboard" value="false" />
@@ -148,9 +137,7 @@
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
-<!--				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
--->				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
-				<SimulateMouseGesture target="navigator.activeView.textInput" dragXFrom="10%" dragXTo="11%" dragYFrom="50%" dragYTo="50%" waitTarget="navigator.activeView.textInput" waitEvent="softKeyboardActivate" timeout="6000"/>
+				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
 				<Pause timeout="500" />
 				<SetProperty target="navigator.activeView.callout" propertyName="moveForSoftKeyboard" value="false" />
 				<AssertPropertyValue target="navigator.activeView.callout" propertyName="moveForSoftKeyboard" value="false" />
@@ -166,10 +153,8 @@
 			</setup>
 			<body>
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
-				<!-- Simply dispatching a click does not activate softkeyboard??? hence a patch to do a psudo drag -->
 				<Pause timeout="500" />
 				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="10" localY="10" />
-				<SimulateMouseGesture target="navigator.activeView.textInput" dragXFrom="10%" dragXTo="11%" dragYFrom="50%" dragYTo="50%" waitTarget="navigator.activeView.textInput" waitEvent="softKeyboardActivate" timeout="6000"/>
 				<AssertMethodValue method="value =application.navigator.activeView.callout.isOpen == true" value="true"/>
 				<!-- softkeyboardActivate does not wait for the animation -->
 				<Pause timeout="1000" />
@@ -189,7 +174,6 @@
 				<RunCode code="application.navigator.pushView(views.CalloutResize)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
 				<Pause timeout="500" />
 				<DispatchMouseClickEvent target="navigator.activeView.textInput" localX="20" localY="20" waitTarget="navigator.activeView.callout" waitEvent="open" timeout="6000"/>
-				<SimulateMouseGesture target="navigator.activeView.textInput" dragXFrom="10%" dragXTo="11%" dragYFrom="50%" dragYTo="50%" waitTarget="navigator.activeView.textInput" waitEvent="softKeyboardActivate" timeout="6000"/>
 				<Pause timeout="1000" />
 				<AssertMethodValue method="value=application.softKeyboardRect.top&gt;0" value="true"/>
 				<AssertMethodValue method="value=(application.navigator.activeView.callout.height+application.navigator.activeView.callout.bottom)&lt;application.softKeyboardRect.top" value="true"/>
