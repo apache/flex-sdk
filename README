@@ -441,7 +441,7 @@ Software Dependencies
     libs/external/optional.
 
     flex-messaging-common.jar
-        Provides integration with Adobe BlazeDs.
+        Provides integration with Adobe BlazeDS.
                
         This files are extracted from: 
         http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/flex_sdk_4.6.0.23201B.zip
