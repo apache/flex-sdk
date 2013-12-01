@@ -116,6 +116,18 @@ use namespace mx_internal;
  */
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
+
+/**
+ * Height in pixels left for os top status bar display.
+ * <p>Status bar height is set by default to 20 pixels (at 160 DPI) for iOS7, on the following default skins: </p>
+ * <ul>
+ *     <li>>skins.spark.ApplicationSkin</li>
+ *     <li>spark.skins.mobile.TabbedViewNavigatorApplicationSkin</li>
+ *     <li>spark.skins.mobile.ViewNavigatorApplicationSkin</li>
+ *   </ul>
+ */
+[Style(name="osStatusBarHeight", type="Number", format="Length", inherit="no", theme="mobile")]
+
 //--------------------------------------
 //  Excluded APIs
 //--------------------------------------
