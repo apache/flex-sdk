@@ -40,7 +40,9 @@ SDK Changes
 - Improved UID generation performance.
 - Changed DPI to be 160 for iPad and 320 for iPad mini.
 - Improvements to Falcon MXML code generation.
-- Option to not store last call result in RomoteObject and WebService
+- Option to not store last call result in RomoteObject and WebService.
+- StageTextInput can now be included in scrollable content.
+- new iOS os-version media css selector 
 
 Bug Fixes
 ----------
@@ -53,6 +55,10 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-33860  Support For iOS7 status bar
+FLEX-33947  Errors in mobile ButtonBar Flex 4.11
+FLEX-33920  spark ComboBox.changeHighlightedSelection doesn't check the newindex upperbound
+FLEX-33919  Listbase selectItem getter does not validate selectedIndex for values below 0 other than -1.
 FLEX-33899  DataGrid goes blank when removing last item from dataProvider when requestedRowCount is set
 FLEX-33885  BindingManager#executeBindings : Avoid unneeded memory allocation
 FLEX-33884  Android mobile app crashes when you click on a modal
