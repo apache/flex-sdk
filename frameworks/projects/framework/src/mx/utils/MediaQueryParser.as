@@ -103,6 +103,7 @@ public class MediaQueryParser
                 applicationDpi = moduleFactory.info()["applicationDPI"];
         }
         osPlatform = getPlatform();
+        osVersion = getOSVersion(osPlatform);
     }
     
     /**
@@ -407,7 +408,29 @@ public class MediaQueryParser
         // expression
         return s.toLowerCase();
     }
-    
+
+    /** @private
+     * extract OS version information from os
+     * os is typically a non-numeric string (such as Windows,  iPhone OS, Android, etc...)  followed by a number.
+     * if no number is found, OS version is set to 0.
+     * os on ADL will return the host OS and not the device OS.
+     * That why we need to check for a specific sequence for iOS and Android
+     * */
+    private function getOSVersion(osPlatform: String ):Number {
+
+        //TODO (mamsellem)  retrieve  os version for Android, reading  system/build.prop
+
+        var os: String = Capabilities.os;
+        var osMatch: Array;
+        if (osPlatform == "ios"){
+            osMatch = os.match(/iPhone OS\s([\d\.]+)/);
+        }
+        else {
+            osMatch = os.match(/[A-Za-z\s]+([\d\.]+)/);
+        }
+       return osMatch ? Number(osMatch [1]) : 0.0;
+    }
+
     // the type of the media
     public var type:String = "screen";
     
@@ -416,6 +439,9 @@ public class MediaQueryParser
     
     // the platform of the media
     public var osPlatform:String;
+
+    // the platform os version of the media
+    public var osVersion: Number;
     
 }
 
