@@ -1030,19 +1030,27 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             o.fade = fade;
             fade.play();
             
-            // Blur effect on the application
-            const blurAmount:Number = popUpStyleClient.getStyle("modalTransparencyBlur");
-            
-            if (blurAmount)
+            var sm:ISystemManager = o.systemManager;
+            var awm:IActiveWindowManager = 
+                IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
+            // don't remove blur unless this is the last modal window
+            if (awm.numModalWindows == 1)
             {
-                const blur:Blur = new Blur(o.blurTarget);
-                blur.blurXFrom = blur.blurYFrom = blurAmount;
-                blur.blurXTo = blur.blurYTo = 0;
-                blur.duration = duration;
-                blur.addEventListener(EffectEvent.EFFECT_END, effectEndHandler);
-                o.blur = blur;
                 
-                blur.play();
+                // Blur effect on the application
+                const blurAmount:Number = popUpStyleClient.getStyle("modalTransparencyBlur");
+                
+                if (blurAmount)
+                {
+                    const blur:Blur = new Blur(o.blurTarget);
+                    blur.blurXFrom = blur.blurYFrom = blurAmount;
+                    blur.blurXTo = blur.blurYTo = 0;
+                    blur.duration = duration;
+                    blur.addEventListener(EffectEvent.EFFECT_END, effectEndHandler);
+                    o.blur = blur;
+                    
+                    blur.play();
+                }
             }
         }
         else
