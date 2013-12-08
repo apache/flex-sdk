@@ -93,7 +93,9 @@
         <s:State name="disabledAndSelected" stateGroups="disabledStates, selectedStates" />
     </s:states>
     
-    <s:Group verticalCenter="0" width="13" height="13" layoutDirection="ltr">
+    <!-- Checkbox container -->
+    <!--- @copy spark.components.CheckBox#checkDisplay -->
+    <s:Group id="checkDisplay" verticalCenter="0" width="13" height="13" layoutDirection="ltr">
         <!-- drop shadow -->
         <s:Rect left="-1" top="-1" right="-1" bottom="-1">
             <s:stroke>

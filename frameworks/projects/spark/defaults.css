@@ -66,6 +66,8 @@ CalloutButton {
 
 CheckBox
 {
+    gap: 5;
+    labelPlacement: "right";
     skinClass: ClassReference("spark.skins.spark.CheckBoxSkin");
 }
 
