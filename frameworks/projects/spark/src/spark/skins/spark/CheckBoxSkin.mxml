@@ -117,8 +117,7 @@
             //--------------------------------------------------------------------------
 
             /**
-             *  Sets the label placement in relation to the checkbox.
-             *  Requires the SkinParts <code>checkDisplay</code> and <code>labelDisplay</code>.  
+             *  Sets the label placement in relation to the checkbox. 
              *
              *  @langversion 3.0
              *  @playerversion Flash 11.8
@@ -232,7 +231,7 @@
     </s:states>
     
     <!-- Checkbox container -->
-    <!--- @copy spark.components.CheckBox#checkDisplay -->
+	<!--- Group that houses the CheckBox and check -->
     <s:Group id="checkDisplay" verticalCenter="0" width="13" height="13" layoutDirection="ltr">
         <!-- drop shadow -->
         <s:Rect left="-1" top="-1" right="-1" bottom="-1">
