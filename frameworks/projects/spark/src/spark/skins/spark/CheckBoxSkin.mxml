@@ -70,6 +70,9 @@
     
     <fx:Script>
         <![CDATA[
+            import spark.components.supportClasses.LabelPlacement;
+
+
             /** 
              * @private 
              */     
@@ -79,6 +82,141 @@
              * @private
              */
             override public function get focusSkinExclusions():Array { return focusExclusions;};
+
+
+            //--------------------------------------------------------------------------
+            //
+            //  Overridden methods
+            //
+            //--------------------------------------------------------------------------
+
+            /**
+             *  @copy mx.core.UIComponent#styleChanged
+             *
+             *  @langversion 3.0
+             *  @playerversion Flash 11.8
+             *  @playerversion AIR 3.8
+             *  @productversion Flex 4.12
+             */
+            override public function styleChanged(styleProp:String):void
+            {
+                super.styleChanged(styleProp);
+
+                //Check if the style is null for mass style changes or if the labelPlacement/gap styles were changed.
+                if (styleProp == "labelPlacement" || styleProp == "gap" || styleProp === null)
+                {
+                    updateLabelPlacement();
+                }
+            }
+
+            
+            //--------------------------------------------------------------------------
+            //
+            //  Methods
+            //
+            //--------------------------------------------------------------------------
+
+            /**
+             *  Sets the label placement in relation to the checkbox.
+             *  Requires the SkinParts <code>checkDisplay</code> and <code>labelDisplay</code>.  
+             *
+             *  @langversion 3.0
+             *  @playerversion Flash 11.8
+             *  @playerversion AIR 3.8
+             *  @productversion Flex 4.12
+             */
+            public function updateLabelPlacement():void
+            {
+                if (!checkDisplay || !labelDisplay)
+                {
+                    return;
+                }
+
+                switch (String(getStyle("labelPlacement")).toLowerCase())
+                {
+                    case LabelPlacement.BOTTOM:
+                    {
+                        //Adjust the labels position to the bottom.
+                        labelDisplay.horizontalCenter = 0;
+                        labelDisplay.verticalCenter = undefined;
+                        labelDisplay.top = checkDisplay.height + int(getStyle("gap"));
+                        labelDisplay.bottom = undefined;
+                        labelDisplay.left = undefined;
+                        labelDisplay.right = undefined;
+
+                        //Adjust the checkboxes position to the top.
+                        checkDisplay.horizontalCenter = 0;
+                        checkDisplay.verticalCenter = undefined;
+                        checkDisplay.top = 0;
+                        checkDisplay.bottom = undefined;
+
+                        break;
+                    }
+
+                    case LabelPlacement.LEFT:
+                    {
+                        //Adjust the labels position to left side.
+                        labelDisplay.horizontalCenter = undefined;
+                        labelDisplay.verticalCenter = 2;
+                        labelDisplay.top = undefined;
+                        labelDisplay.bottom = undefined;
+                        labelDisplay.left = undefined;
+                        labelDisplay.right = checkDisplay.width + int(getStyle("gap"));
+
+                        //Adjust the checkboxes position to right side.
+                        checkDisplay.horizontalCenter = undefined;
+                        checkDisplay.verticalCenter = 0;
+                        checkDisplay.left = undefined;
+                        checkDisplay.right = 0;
+
+                        break;
+                    }
+
+                    case LabelPlacement.RIGHT:
+                    {
+                        //Adjust the labels position to right side.
+                        labelDisplay.horizontalCenter = undefined;
+                        labelDisplay.verticalCenter = 2;
+                        labelDisplay.top = undefined;
+                        labelDisplay.bottom = undefined;
+                        labelDisplay.left = checkDisplay.width + int(getStyle("gap"));
+                        labelDisplay.right = undefined;
+
+                        //Adjust the checkboxes position to left side.
+                        checkDisplay.horizontalCenter = undefined;
+                        checkDisplay.verticalCenter = 0;
+                        checkDisplay.left = 0;
+                        checkDisplay.right = undefined;
+
+                        break;
+                    }
+
+                    case LabelPlacement.TOP:
+                    {
+                        //Adjust the labels position to the top.
+                        labelDisplay.horizontalCenter = 0;
+                        labelDisplay.verticalCenter = undefined;
+                        labelDisplay.top = undefined;
+                        labelDisplay.bottom = checkDisplay.height + int(getStyle("gap"));
+                        labelDisplay.left = undefined;
+                        labelDisplay.right = undefined;
+
+                        //Adjust the checkboxes position to the bottom.
+                        checkDisplay.horizontalCenter = 0;
+                        checkDisplay.verticalCenter = undefined;
+                        checkDisplay.top = undefined;
+                        checkDisplay.bottom = 0;
+
+                        break;
+                    }
+
+                    default:
+                    {
+                        break;
+                    }
+                }
+            }
+
         ]]>
     </fx:Script>
     

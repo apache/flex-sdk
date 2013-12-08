@@ -24,9 +24,7 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 
 import mx.core.mx_internal;
-import mx.core.UIComponent;
 
-import spark.components.supportClasses.LabelPlacement;
 import spark.components.supportClasses.ToggleButtonBase;
 
 use namespace mx_internal;
@@ -214,30 +212,6 @@ public class CheckBox extends ToggleButtonBase
 
     //--------------------------------------------------------------------------
     //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  checkDisplay
-    //----------------------------------
-
-    /**
-     *  The skin part that defines the CheckBox grouping.
-     *
-     *  @see spark.skins.spark.CheckBoxSkin#checkDisplay
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 11.8
-     *  @playerversion AIR 3.8
-     *  @productversion Flex 4.12
-     */
-    [SkinPart(required="false")]
-    public var checkDisplay:UIComponent;
-
-
-    //--------------------------------------------------------------------------
-    //
     //  Properties
     //
     //--------------------------------------------------------------------------
@@ -323,120 +297,6 @@ public class CheckBox extends ToggleButtonBase
 
     //--------------------------------------------------------------------------
     //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  Sets the label placement in relation to the checkbox.
-     *  Requires the SkinParts <code>checkDisplay</code> and <code>labelDisplay</code>.  
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 11.8
-     *  @playerversion AIR 3.8
-     *  @productversion Flex 4.12
-     */
-    public function updateLabelPlacement():void
-    {
-        var labelDisplayAsUIComponent:UIComponent;
-
-
-        if (!checkDisplay || !labelDisplay)
-        {
-            return;
-        }
-
-        labelDisplayAsUIComponent = labelDisplay as UIComponent;
-
-
-        switch (String(getStyle("labelPlacement")).toLowerCase())
-        {
-            case LabelPlacement.BOTTOM:
-            {
-                //Adjust the labels position to the bottom.
-                labelDisplayAsUIComponent.horizontalCenter = 0;
-                labelDisplayAsUIComponent.verticalCenter = undefined;
-                labelDisplayAsUIComponent.top = checkDisplay.height + int(getStyle("gap"));
-                labelDisplayAsUIComponent.bottom = undefined;
-                labelDisplayAsUIComponent.left = undefined;
-                labelDisplayAsUIComponent.right = undefined;
-
-                //Adjust the checkboxes position to the top.
-                checkDisplay.horizontalCenter = 0;
-                checkDisplay.verticalCenter = undefined;
-                checkDisplay.top = 0;
-                checkDisplay.bottom = undefined;
-
-                break;
-            }
-
-            case LabelPlacement.LEFT:
-            {
-                //Adjust the labels position to left side.
-                labelDisplayAsUIComponent.horizontalCenter = undefined;
-                labelDisplayAsUIComponent.verticalCenter = 2;
-                labelDisplayAsUIComponent.top = undefined;
-                labelDisplayAsUIComponent.bottom = undefined;
-                labelDisplayAsUIComponent.left = undefined;
-                labelDisplayAsUIComponent.right = checkDisplay.width + int(getStyle("gap"));
-
-                //Adjust the checkboxes position to right side.
-                checkDisplay.horizontalCenter = undefined;
-                checkDisplay.verticalCenter = 0;
-                checkDisplay.left = undefined;
-                checkDisplay.right = 0;
-
-                break;
-            }
-
-            case LabelPlacement.RIGHT:
-            {
-                //Adjust the labels position to right side.
-                labelDisplayAsUIComponent.horizontalCenter = undefined;
-                labelDisplayAsUIComponent.verticalCenter = 2;
-                labelDisplayAsUIComponent.top = undefined;
-                labelDisplayAsUIComponent.bottom = undefined;
-                labelDisplayAsUIComponent.left = checkDisplay.width + int(getStyle("gap"));
-                labelDisplayAsUIComponent.right = undefined;
-
-                //Adjust the checkboxes position to left side.
-                checkDisplay.horizontalCenter = undefined;
-                checkDisplay.verticalCenter = 0;
-                checkDisplay.left = 0;
-                checkDisplay.right = undefined;
-
-                break;
-            }
-
-            case LabelPlacement.TOP:
-            {
-                //Adjust the labels position to the top.
-                labelDisplayAsUIComponent.horizontalCenter = 0;
-                labelDisplayAsUIComponent.verticalCenter = undefined;
-                labelDisplayAsUIComponent.top = undefined;
-                labelDisplayAsUIComponent.bottom = checkDisplay.height + int(getStyle("gap"));
-                labelDisplayAsUIComponent.left = undefined;
-                labelDisplayAsUIComponent.right = undefined;
-
-                //Adjust the checkboxes position to the bottom.
-                checkDisplay.horizontalCenter = 0;
-                checkDisplay.verticalCenter = undefined;
-                checkDisplay.top = undefined;
-                checkDisplay.bottom = 0;
-
-                break;
-            }
-
-            default:
-            {
-                break;
-            }
-        }
-    }
-
-
-    //--------------------------------------------------------------------------
-    //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
@@ -448,54 +308,6 @@ public class CheckBox extends ToggleButtonBase
     {
         if (CheckBox.createAccessibilityImplementation != null)
             CheckBox.createAccessibilityImplementation(this);
-    }
-
-
-    /**
-     *  @copy spark.components.supportClasses.SkinnableComponent#partAdded
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 11.8
-     *  @playerversion AIR 3.8
-     *  @productversion Flex 4.12
-    */
-    override protected function partAdded(partName:String, instance:Object):void
-    {
-        super.partAdded(partName, instance);
-
-        if (instance == checkDisplay)
-        {
-            updateLabelPlacement();
-
-            return;
-        }
-
-        if (instance == labelDisplay)
-        {
-            updateLabelPlacement();
-
-            return;
-        }
-    }
-
-
-    /**
-     *  @copy mx.core.UIComponent#styleChanged
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 11.8
-     *  @playerversion AIR 3.8
-     *  @productversion Flex 4.12
-     */
-    override public function styleChanged(styleProp:String):void
-    {
-        super.styleChanged(styleProp);
-
-        //Check if the style is null for mass style changes or if the labelPlacement/gap styles were changed.
-        if (styleProp == "labelPlacement" || styleProp == "gap" || styleProp === null)
-        {
-            updateLabelPlacement();
-        }
     }
 
 }
