@@ -22,9 +22,11 @@ package spark.components
 
 import flash.display.DisplayObject;
 import flash.display.InteractiveObject;
+import flash.display.StageDisplayState;
 import flash.events.ContextMenuEvent;
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.events.FullScreenEvent;
 import flash.events.SoftKeyboardEvent;
 import flash.events.UncaughtErrorEvent;
 import flash.external.ExternalInterface;
@@ -1364,6 +1366,7 @@ public class Application extends SkinnableContainer
         {
             sm.stage.addEventListener("orientationChanging", stage_orientationChangingHandler);
             sm.stage.addEventListener("orientationChange", stage_orientationChange);
+            sm.stage.addEventListener(FullScreenEvent.FULL_SCREEN, stage_fullScreenHandler)  ;
         }
         
         _url = LoaderUtil.normalizeURL(sm.loaderInfo);
@@ -1477,6 +1480,34 @@ public class Application extends SkinnableContainer
         }
         
         explicitSizingForOrientation = false;
+    }
+
+    /** @private previous value of osStatusBarHeight on iOS when switch to full screen
+     *
+     */
+    protected var savedOsStatusBarHeight: Number = 0;
+
+    /**
+     *  @private
+     *  Handler to temporarily remove osStatusBarHeight is stage is set to full screen
+     *  only of iOS devices
+     */
+    protected function stage_fullScreenHandler(event: FullScreenEvent): void {
+
+        if (stage.displayState  == StageDisplayState.FULL_SCREEN ||  stage.displayState == StageDisplayState.FULL_SCREEN_INTERACTIVE) {
+            var statusBarHeight : Number = getStyle("osStatusBarHeight");
+            if (statusBarHeight > 0) {
+                savedOsStatusBarHeight = statusBarHeight;
+                setStyle("osStatusBarHeight", 0) ;
+            }
+        }
+        else
+        {
+              if (savedOsStatusBarHeight > 0)    {
+                  setStyle("osStatusBarHeight", savedOsStatusBarHeight);
+                  savedOsStatusBarHeight = 0;
+              }
+        }
     }
 
     /**

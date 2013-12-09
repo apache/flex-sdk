@@ -428,7 +428,22 @@ public class MediaQueryParser
         else {
             osMatch = os.match(/[A-Za-z\s]+([\d\.]+)/);
         }
-       return osMatch ? Number(osMatch [1]) : 0.0;
+       return osMatch ? convertVersionStringToNumber(osMatch [1]) : 0.0;
+    }
+
+    /** @private  converts string version such as "X" or "X.Y" or "X.Y.Z" into a number.
+     * minor version parts are normalized to 100  so that eg. X.1 < X.10
+     * so "7.1" return 7.01 and "7.12" return 7.12
+  */
+    private function convertVersionStringToNumber(versionString: String): Number {
+        var versionParts: Array = versionString.split(".");
+        var version: Number = 0;
+        var scale: Number = 1;
+        for each (var part: String in versionParts) {
+            version += Number(part) * scale;
+            scale /= 100;
+        }
+        return version;
     }
 
     // the type of the media
