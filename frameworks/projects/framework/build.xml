@@ -198,6 +198,8 @@
     </target>
  
     <target name="pixelbender-compile" unless="isLinux">
+        <!-- diagnose GPU and OpenGL -->
+        <exec executable="${env.PIXELBENDER_HOME}/sniffer_gpu.exe"/>
         <exec executable="${env.PIXELBENDER_HOME}/pbutil">
             <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Color.pbk" />
             <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Color.pbj" />
