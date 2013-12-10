@@ -117,7 +117,8 @@
             //--------------------------------------------------------------------------
 
             /**
-             *  Sets the label placement in relation to the checkbox. 
+             *  Sets the label placement in relation to the checkbox.
+             *  Requires the SkinParts <code>checkDisplay</code> and <code>labelDisplay</code>.  
              *
              *  @langversion 3.0
              *  @playerversion Flash 11.8
@@ -126,10 +127,24 @@
              */
             public function updateLabelPlacement():void
             {
+                var spacing:int;
+
+
                 if (!checkDisplay || !labelDisplay)
                 {
                     return;
                 }
+
+                if (getStyle("gap") == undefined)
+                {
+                    //Add a default gap if the gap style is undefined.
+                    spacing = 5;
+                }
+                else
+                {
+                    spacing = int(getStyle("gap"));
+                }
+
 
                 switch (String(getStyle("labelPlacement")).toLowerCase())
                 {
@@ -138,7 +153,7 @@
                         //Adjust the labels position to the bottom.
                         labelDisplay.horizontalCenter = 0;
                         labelDisplay.verticalCenter = undefined;
-                        labelDisplay.top = checkDisplay.height + int(getStyle("gap"));
+                        labelDisplay.top = checkDisplay.height + spacing;
                         labelDisplay.bottom = undefined;
                         labelDisplay.left = undefined;
                         labelDisplay.right = undefined;
@@ -160,7 +175,7 @@
                         labelDisplay.top = undefined;
                         labelDisplay.bottom = undefined;
                         labelDisplay.left = undefined;
-                        labelDisplay.right = checkDisplay.width + int(getStyle("gap"));
+                        labelDisplay.right = checkDisplay.width + spacing;
 
                         //Adjust the checkboxes position to right side.
                         checkDisplay.horizontalCenter = undefined;
@@ -171,32 +186,13 @@
                         break;
                     }
 
-                    case LabelPlacement.RIGHT:
-                    {
-                        //Adjust the labels position to right side.
-                        labelDisplay.horizontalCenter = undefined;
-                        labelDisplay.verticalCenter = 2;
-                        labelDisplay.top = undefined;
-                        labelDisplay.bottom = undefined;
-                        labelDisplay.left = checkDisplay.width + int(getStyle("gap"));
-                        labelDisplay.right = undefined;
-
-                        //Adjust the checkboxes position to left side.
-                        checkDisplay.horizontalCenter = undefined;
-                        checkDisplay.verticalCenter = 0;
-                        checkDisplay.left = 0;
-                        checkDisplay.right = undefined;
-
-                        break;
-                    }
-
                     case LabelPlacement.TOP:
                     {
                         //Adjust the labels position to the top.
                         labelDisplay.horizontalCenter = 0;
                         labelDisplay.verticalCenter = undefined;
                         labelDisplay.top = undefined;
-                        labelDisplay.bottom = checkDisplay.height + int(getStyle("gap"));
+                        labelDisplay.bottom = checkDisplay.height + spacing;
                         labelDisplay.left = undefined;
                         labelDisplay.right = undefined;
 
@@ -209,8 +205,24 @@
                         break;
                     }
 
+                    //Making the rightside labelPlacement the default.
+                    case LabelPlacement.RIGHT:
                     default:
                     {
+                        //Adjust the labels position to right side.
+                        labelDisplay.horizontalCenter = undefined;
+                        labelDisplay.verticalCenter = 2;
+                        labelDisplay.top = undefined;
+                        labelDisplay.bottom = undefined;
+                        labelDisplay.left = checkDisplay.width + spacing;
+                        labelDisplay.right = undefined;
+
+                        //Adjust the checkboxes position to left side.
+                        checkDisplay.horizontalCenter = undefined;
+                        checkDisplay.verticalCenter = 0;
+                        checkDisplay.left = 0;
+                        checkDisplay.right = undefined;
+
                         break;
                     }
                 }
@@ -231,7 +243,7 @@
     </s:states>
     
     <!-- Checkbox container -->
-	<!--- Group that houses the CheckBox and check -->
+    <!--- Group that houses the CheckBox and check -->
     <s:Group id="checkDisplay" verticalCenter="0" width="13" height="13" layoutDirection="ltr">
         <!-- drop shadow -->
         <s:Rect left="-1" top="-1" right="-1" bottom="-1">
