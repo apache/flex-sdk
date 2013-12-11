@@ -154,9 +154,9 @@
                         labelDisplay.horizontalCenter = 0;
                         labelDisplay.verticalCenter = undefined;
                         labelDisplay.top = checkDisplay.height + spacing;
-                        labelDisplay.bottom = undefined;
-                        labelDisplay.left = undefined;
-                        labelDisplay.right = undefined;
+                        labelDisplay.bottom = 0;
+                        labelDisplay.left = 0;
+                        labelDisplay.right = 0;
 
                         //Adjust the checkboxes position to the top.
                         checkDisplay.horizontalCenter = 0;
@@ -172,9 +172,9 @@
                         //Adjust the labels position to left side.
                         labelDisplay.horizontalCenter = undefined;
                         labelDisplay.verticalCenter = 2;
-                        labelDisplay.top = undefined;
-                        labelDisplay.bottom = undefined;
-                        labelDisplay.left = undefined;
+                        labelDisplay.top = 3;
+                        labelDisplay.bottom = 3;
+                        labelDisplay.left = 0;
                         labelDisplay.right = checkDisplay.width + spacing;
 
                         //Adjust the checkboxes position to right side.
@@ -191,10 +191,10 @@
                         //Adjust the labels position to the top.
                         labelDisplay.horizontalCenter = 0;
                         labelDisplay.verticalCenter = undefined;
-                        labelDisplay.top = undefined;
+                        labelDisplay.top = 0;
                         labelDisplay.bottom = checkDisplay.height + spacing;
-                        labelDisplay.left = undefined;
-                        labelDisplay.right = undefined;
+                        labelDisplay.left = 0;
+                        labelDisplay.right = 0;
 
                         //Adjust the checkboxes position to the bottom.
                         checkDisplay.horizontalCenter = 0;
@@ -212,10 +212,10 @@
                         //Adjust the labels position to right side.
                         labelDisplay.horizontalCenter = undefined;
                         labelDisplay.verticalCenter = 2;
-                        labelDisplay.top = undefined;
-                        labelDisplay.bottom = undefined;
+                        labelDisplay.top = 3;
+                        labelDisplay.bottom = 3;
                         labelDisplay.left = checkDisplay.width + spacing;
-                        labelDisplay.right = undefined;
+                        labelDisplay.right = 0;
 
                         //Adjust the checkboxes position to left side.
                         checkDisplay.horizontalCenter = undefined;
