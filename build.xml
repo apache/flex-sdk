@@ -44,9 +44,12 @@
     <property name="javac.src" value="1.5"/>
     
     <property name="kit.prefix" value="apache-flex-sdk-${release.version}"/>
+    <property name="kit-pixelbender.prefix" value="apache-flex-sdk-pixelbender-1.0.0"/>
     <property name="source.kit" value="${kit.prefix}-src"/>
     <property name="binary.kit" value="${kit.prefix}-bin"/>
-      
+    <property name="source-pixelbender.kit" value="${kit-pixelbender.prefix}-src"/>
+    <property name="binary-pixelbender.kit" value="${kit-pixelbender.prefix}-bin"/>
+    
     <available file="${FLEX_HOME}/../flex-tlf/textLayout" 
             type="dir" 
             property="TLF_HOME"
@@ -104,7 +107,11 @@
         depends="check-compile-env,check-runtime-env,check-adobe-extension-manager-env,source-release,binary-release,rat-check"
         description="Creates source and binary kits for Apache Flex."/>
         
-    <target name="source-release" 
+    <target name="release-pixelbender"
+        depends="check-compile-env,check-runtime-env,source-package-pixelbender,binary-package-pixelbender"
+        description="Creates source and binary kits for Apache Flex's PixelBender package."/>
+        
+    <target name="source-release"
         depends="super-clean,create-description,create-config,source-package" 
         description="Packages the source release kit which is the official Apache release."/>
         
@@ -146,7 +153,7 @@
     <target name="prebuild" depends="check-compile-env,thirdparty-downloads,create-description" 
         description="Stuff that needs to be done before any builds." />
 
-    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-pixelbender-home,check-tlf-home"
+    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-tlf-home"
         description="Check for the required environment variables for compilation.">
             <echo>OS: ${os.name} / ${os.version} / ${os.arch}</echo>
             <echo>VM: ${java.vm.name} / ${java.vm.version}</echo>
@@ -550,12 +557,20 @@
         description="Package source files required to build in zip and tar-gzip file">
     </target>
 
-    <!-- 
+    <target name="source-package-pixelbender" depends="stage-source-pixelbender,source-package-zip-pixelbender,source-package-tgz-pixelbender"
+        description="Package PixelBender source files required to build in zip and tar-gzip file">
+    </target>
+    
+    <!--
         Packages the source distribution with ZIP.
     -->
     <target name="source-package-zip" unless="no.zip">
         <mkdir dir="${basedir}/out"/>
         <zip destfile="${basedir}/out/${source.kit}.zip" basedir="${basedir}/temp"/>
+    </target>
+    <target name="source-package-zip-pixelbender" unless="no.zip">
+        <mkdir dir="${basedir}/out"/>
+        <zip destfile="${basedir}/out/${source-pixelbender.kit}.zip" basedir="${basedir}/temp"/>
     </target>
 
     <!-- 
@@ -563,6 +578,9 @@
     -->
     <target name="source-package-tgz" unless="no.zip">
         <tar-gzip name="${source.kit}" />
+    </target>
+    <target name="source-package-tgz-pixelbender" unless="no.zip">
+        <tar-gzip name="${source-pixelbender.kit}" />
     </target>
 
     <target name="stage-source"
@@ -805,6 +823,51 @@
             </fileset>
         </copy>
     </target>
+    
+    <target name="stage-source-pixelbender"
+        description="Package PixelBender source files required to build in zip file">
+        
+        <antcall target="clean-temp"/>
+        
+        <copy todir="${basedir}/temp" includeEmptyDirs="false">
+            <fileset dir="${basedir}">
+                <include name="build.xml"/>
+                <include name="build.properties"/>
+				<include name="env-template.properties"/>
+                <include name="CHANGES"/>
+                <include name="LICENSE"/>
+                <include name="NOTICE"/>
+                <include name="README"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/temp" includeEmptyDirs="false">
+            <fileset dir="${basedir}">
+                <include name="**/*.pbk"/>
+                <exclude name="**/mustella/**"/>
+            </fileset>
+        </copy>
+        <echo file="${basedir}/temp/RELEASE_NOTES">
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+This package contains PixelBender shaders used by the Apache Flex SDK.
+
+To build the pbj files, run the build-pixelbender target in build.xml.
+        </echo>
+
+    </target>
 
     <target name="binary-package"
         description="Package binary files in zip and tar-gzip file.">
@@ -1034,7 +1097,13 @@
         <mkdir dir="${basedir}/out"/>
         <zip destfile="${basedir}/out/${binary.kit}.zip" basedir="${basedir}/temp"/>
     </target>
-       
+    <target name="binary-package-zip-pixelbender" unless="no.zip"
+        description="Zips up the PixelBender files in the temp directory into the binary zipfile.">
+        
+        <mkdir dir="${basedir}/out"/>
+        <zip destfile="${basedir}/out/${binary-pixelbender.kit}.zip" basedir="${basedir}/temp"/>
+    </target>
+    
     <!-- 
         Packages the binary distribution with TAR-GZIP.         
     -->
@@ -1043,7 +1112,33 @@
         
         <tar-gzip name="${binary.kit}" />
     </target>
+    <target name="binary-package-tgz-pixelbender" unless="no.zip"
+        description="Tar-Gzip up the files in the temp directory into the binary tgz file.">
+        
+        <tar-gzip name="${binary-pixelbender.kit}" />
+    </target>
 
+    <target name="binary-package-pixelbender" depends="build-pixelbender"
+        description="Package PixelBender binary files in zip and tar-gzip file.">
+        
+        <antcall target="stage-source-pixelbender"/>
+        
+        <copy todir="${basedir}/temp">
+            <fileset dir="${basedir}">
+                <include name="**/*.pbj"/>
+                <exclude name="**/mustella/**"/>
+            </fileset>
+        </copy>
+        
+        <antcall target="binary-package-zip-pixelbender"/>
+        <antcall target="binary-package-tgz-pixelbender"/>
+    </target>
+
+    <target name="build-pixelbender" depends="check-pixelbender-home">
+        <ant dir="${basedir}/frameworks/projects/framework" target="pixelbender-compile"/>
+        <ant dir="${basedir}/frameworks/projects/spark" target="pixelbender-compile"/>
+    </target>
+    
     <macrodef name="fix-config-file">
         <attribute name="file"/>
         <attribute name="version"/>
@@ -1801,6 +1896,14 @@
 		<checksum algorithm="md5" file="${basedir}/out/${source.kit}.zip" forceOverwrite="yes"/>
 	</target>
 	
+	<target name="create-md5-pixelbender" >
+		<echo message="Generating MD5 hashes for release artifacts"/>
+		<checksum algorithm="md5" file="${basedir}/out/${binary-pixelbender.kit}.tar.gz" forceOverwrite="yes"/>
+		<checksum algorithm="md5" file="${basedir}/out/${binary-pixelbender.kit}.zip" forceOverwrite="yes"/>
+		<checksum algorithm="md5" file="${basedir}/out/${source-pixelbender.kit}.tar.gz" forceOverwrite="yes"/>
+		<checksum algorithm="md5" file="${basedir}/out/${source-pixelbender.kit}.zip" forceOverwrite="yes"/>
+	</target>
+    
 	<target name="archive-pbj">
 		<echo message="Creating an archive of the compiled PixelBender files" />
         <echo message="The compiled PixelBender files are taken from '${env.PIXELBENDER_COMPILED_HOME}'" />
