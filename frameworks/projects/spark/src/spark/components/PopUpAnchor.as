@@ -19,7 +19,7 @@
 
 package spark.components
 {
-    
+
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.geom.Matrix;
@@ -333,7 +333,31 @@ public class PopUpAnchor extends UIComponent
     //  Public Methods
     //
     //--------------------------------------------------------------------------   
-    
+
+    private var _isModal:Boolean = false;
+
+    /**
+     *  Flag indicating whether the popup should be modal.
+     *  A modal container takes all keyboard and mouse input until it is closed.
+     *  A non-modal container allows other components to accept input while the pop-up window is open.
+     *
+     *  @default false
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.12
+     */
+    public function get isModal():Boolean
+    {
+        return _isModal;
+    }
+
+    public function set isModal(value:Boolean):void
+    {
+        _isModal = value;
+    }
+
     /**
      *  Updates the <code>popUp</code> control's transform matrix. Typically, 
      *  you would call this function while performing an effect on the PopUpAnchor. 
@@ -491,7 +515,7 @@ public class PopUpAnchor extends UIComponent
                         
         if (DisplayObject(popUp).parent == null && displayPopUp)
         {
-            PopUpManager.addPopUp(popUp,this,false);
+            PopUpManager.addPopUp(popUp,this,_isModal);
 			if (popUp is IUIComponent)
 				IUIComponent(popUp).owner = this;
             popUpIsDisplayed = true;
