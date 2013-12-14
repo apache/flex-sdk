@@ -336,6 +336,7 @@ public class PopUpAnchor extends UIComponent
 
     private var _isModal:Boolean = false;
 
+    [Inspectable(category="General", defaultValue="false")]
     /**
      *  Flag indicating whether the popup should be modal.
      *  A modal container takes all keyboard and mouse input until it is closed.
