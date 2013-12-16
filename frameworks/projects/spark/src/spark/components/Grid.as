@@ -735,9 +735,9 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         {
             const gridViewLayout:GridViewLayout = centerGridView.gridViewLayout;
             const gridMaxHSP:Number = contentWidth - width;
-            const centerContentWidth:Number = Math.ceil(gridViewLayout.gridDimensionsView.getContentWidth());
-            const centerMaxHSP:Number = centerContentWidth - centerGridView.width;
-            const hsp:Number = (centerMaxHSP / gridMaxHSP) * value;
+	        const centerContentWidth:Number = Math.ceil(gridViewLayout.gridDimensionsView.getContentWidth());
+	        const centerMaxHSP:Number = centerContentWidth - centerGridView.width;
+			const hsp:Number = (gridMaxHSP > 0) ? (centerMaxHSP / gridMaxHSP) * value : 0;
 
             centerGridView.horizontalScrollPosition = hsp;
             
@@ -853,7 +853,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             const gridMaxVSP:Number = contentHeight - height;
             const centerContentHeight:Number = Math.ceil(gridViewLayout.gridDimensionsView.getContentHeight());
             const centerMaxVSP:Number = centerContentHeight - centerGridView.height;
-            const vsp:Number = gridMaxVSP == 0 ? 0 :  (centerMaxVSP / gridMaxVSP) * value;
+            const vsp:Number = (gridMaxVSP > 0) ? (centerMaxVSP / gridMaxVSP) * value : 0;
             
             centerGridView.verticalScrollPosition = vsp;
             
