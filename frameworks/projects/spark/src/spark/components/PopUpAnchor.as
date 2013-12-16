@@ -499,14 +499,14 @@ public class PopUpAnchor extends UIComponent
     
     //--------------------------------------------------------------------------
     //
-    //  Private Methods
+    //  Private and protected methods
     //
     //-------------------------------------------------------------------------- 
 
     /**
-     *  @private 
+     *  @private
      */
-    private function addOrRemovePopUp():void
+    protected function addOrRemovePopUp():void
     {
         if (!addedToStage)
             return;
@@ -544,11 +544,11 @@ public class PopUpAnchor extends UIComponent
         PopUpManager.removePopUp(popUp);
         popUpIsDisplayed = false;
     }
-        
+
     /**
-     *  @private 
+     *  @private
      */
-    mx_internal function determinePosition(placement:String, popUpWidth:Number, popUpHeight:Number,
+    protected function determinePosition(placement:String, popUpWidth:Number, popUpHeight:Number,
                                            matrix:Matrix, registrationPoint:Point, bounds:Rectangle):void
     {
         switch(placement)
@@ -587,11 +587,11 @@ public class PopUpAnchor extends UIComponent
         bounds.width = size.x;
         bounds.height = size.y;
     }
-    
+
     /**
-     *  @private 
-     */ 
-    private function applyPopUpTransform(unscaledWidth:Number, unscaledHeight:Number):void
+     *  @private
+     */
+    protected function applyPopUpTransform(unscaledWidth:Number, unscaledHeight:Number):void
     {
         if (!popUpIsDisplayed)
             return;
