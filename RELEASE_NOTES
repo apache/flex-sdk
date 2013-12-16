@@ -55,7 +55,7 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
-FLEX-33860  Support For iOS7 status bar
+FLEX-33976  closing Alert from modal TitleWindow removes blur in main app
 FLEX-33947  Errors in mobile ButtonBar Flex 4.11
 FLEX-33920  spark ComboBox.changeHighlightedSelection doesn't check the newindex upperbound
 FLEX-33919  Listbase selectItem getter does not validate selectedIndex for values below 0 other than -1.
@@ -71,6 +71,7 @@ FLEX-33875  Runtime error #1069 in MobileSkin class on focus out
 FLEX-33871  message error "Definition spark.skins.mobile480.assets:ActionBarBackground could not be found"
 FLEX-33865  ConstraintLayout / LayoutElementHelper are memory inefficient (and slow)
 FLEX-33861  Flex Incorrectly Scaling Down Application on iPad
+FLEX-33860  Support For iOS7 status bar
 FLEX-33853  Optimize UIDUtil / RPCUIDUtil fromByteArray() method
 FLEX-33852  Port UIDUtil optimizations to RPCUIDUtil
 FLEX-33835  LocaleSorter#sortLocalesByPreference is slow
