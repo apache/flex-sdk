@@ -837,15 +837,17 @@
                 <include name="CHANGES"/>
                 <include name="LICENSE"/>
                 <include name="NOTICE"/>
-                <include name="README"/>
             </fileset>
         </copy>
         <copy todir="${basedir}/temp" includeEmptyDirs="false">
             <fileset dir="${basedir}">
                 <include name="**/*.pbk"/>
+                <include name="frameworks/projects/framework/build.xml" />
+                <include name="frameworks/projects/spark/build.xml" />
                 <exclude name="**/mustella/**"/>
             </fileset>
         </copy>
+        <copy file="${basedir}/README.pb" tofile="${basedir}/temp/README" />
         <echo file="${basedir}/temp/RELEASE_NOTES">
 Licensed to the Apache Software Foundation (ASF) under one or more
 contributor license agreements.  See the NOTICE file distributed with
