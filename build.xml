@@ -204,43 +204,6 @@
             unless="AIR_HOME.set"/>
     </target>
     
-    <target name="check-pixelbender-home" unless="pbutil.exe.exists"
-        description="Check PIXELBENDER_HOME for both a directory and an exe file">
-
-        <echo message="PIXELBENDER_HOME is ${env.PIXELBENDER_HOME}"/>
-
-        <available file="${env.PIXELBENDER_HOME}" 
-            type="dir" 
-            property="PIXELBENDER_HOME.set"/>
-
-        <fail message="The environment variable PIXELBENDER_HOME is not set to a directory" 
-            unless="PIXELBENDER_HOME.set"/>
-
-        <condition property="pbutil.exe.exists">
-            <and>
-                <os family="mac"/>
-                <available file="${env.PIXELBENDER_HOME}/pbutil" type="file"/> 
-            </and>
-        </condition>
-        	
-        <condition property="pbutil.exe.exists">
-            <and>
-                <os family="unix"/>
-                <available file="${env.PIXELBENDER_HOME}/pb.tar.gz" type="file"/> 
-            </and>
-        </condition>
-                	
-        <condition property="pbutil.exe.exists">
-            <and>
-                <os family="windows"/>
-                <available file="${env.PIXELBENDER_HOME}/pbutil.exe" type="file"/>
-            </and>
-        </condition>
-
-        <fail message="The directory ${env.PIXELBENDER_HOME} does not contain the pbutil executable or pb files" 
-            unless="pbutil.exe.exists"/>
-    </target>
-
     <target name="check-tlf-home" unless="TLF_HOME"
         description="Check TLF_HOME is a directory.">
         
@@ -831,12 +794,8 @@
         
         <copy todir="${basedir}/temp" includeEmptyDirs="false">
             <fileset dir="${basedir}">
-                <include name="build.xml"/>
-                <include name="build.properties"/>
+                <include name="pixelbender.xml"/>
 				<include name="env-template.properties"/>
-                <include name="CHANGES"/>
-                <include name="LICENSE"/>
-                <include name="NOTICE"/>
             </fileset>
         </copy>
         <copy todir="${basedir}/temp" includeEmptyDirs="false">
@@ -848,6 +807,8 @@
             </fileset>
         </copy>
         <copy file="${basedir}/README.pb" tofile="${basedir}/temp/README" />
+        <copy file="${basedir}/LICENSE.pb" tofile="${basedir}/temp/LICENSE" />
+        <copy file="${basedir}/NOTICE.pb" tofile="${basedir}/temp/NOTICE" />
         <echo file="${basedir}/temp/RELEASE_NOTES">
 Licensed to the Apache Software Foundation (ASF) under one or more
 contributor license agreements.  See the NOTICE file distributed with
@@ -866,8 +827,11 @@ limitations under the License.
 
 This package contains PixelBender shaders used by the Apache Flex SDK.
 
-To build the pbj files, run the build-pixelbender target in build.xml.
-        </echo>
+See the README for instructions on compiling the shaders on Windows and
+Mac.  There is no compiler for Linux.
+
+There are no known issues.
+</echo>
 
     </target>
 
@@ -1136,9 +1100,8 @@ To build the pbj files, run the build-pixelbender target in build.xml.
         <antcall target="binary-package-tgz-pixelbender"/>
     </target>
 
-    <target name="build-pixelbender" depends="check-pixelbender-home">
-        <ant dir="${basedir}/frameworks/projects/framework" target="pixelbender-compile"/>
-        <ant dir="${basedir}/frameworks/projects/spark" target="pixelbender-compile"/>
+    <target name="build-pixelbender">
+        <ant dir="${basedir}" antfile="pixelbender.xml"/>
     </target>
     
     <macrodef name="fix-config-file">

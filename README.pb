@@ -7,17 +7,20 @@ Apache Flex (Flex)
     For detailed information about Apache Flex please visit 
     http://flex.apache.org/
 
-    The PixelBender package contains PixelBender shaders used by the Apache Flex SDK.
+    The Apache Flex Pixel Bender package contains Pixel Bender shaders used by the 
+    Apache Flex SDK.
 
-    To build the pbj files, run the build-pixelbender target in build.xml.
+    To compile the Pixel Bender shaders, run:
 
-    While Apache Flex runs on a large set of platforms, the PixelBender compiler
-    is only supported on:
+	ant -f pixelbender.xml.
+
+    While Apache Flex runs on a large set of platforms, the Adobe Pixel Bender 
+    compiler used to compile the shaders is only supported on:
 
         Microsoft Windows
         Mac OS X
 
-Getting the convenience packages for Apache Flex
+Getting the convenience packages for the Apache Flex Pixel Bender shaders.
 ================================================
 
     You can also get just the binaries from our website.  These binaries do not
@@ -41,37 +44,27 @@ Getting the latest sources via git
 	 cd sdk
 	 git checkout develop
 
-    An Apache Flex SDK also requires source code from other Apache Flex git
-    repositories.  To get the latest source via git for the Text Layout Framework
-    use the following command:
-
-	 git clone https://git-wip-us.apache.org/repos/asf/flex-tlf.git tlf
-	 cd tlf
-	 git checkout develop
-
-    In an Apache Flex source code package hosted on the distribution server or
-    one of its mirrors, the Text Layout Framework code is already included in
-    the package.  This is also true for the convenience package.
+    The above sequence actually checks out the entire Apache Flex SDK.  The
+    Pixel Bender files are a subset of files from this repository.
     
-    For further information visit http://flex.apache.org/download-source.html
-    
-Building Apache Flex PixelBender Files
+Building Apache Flex Pixel Bender Files
 =========================
 
-    Apache Flex PixelBender files requires a build tools which must be installed
+    Apache Flex Pixel Bender files requires a build tool which must be installed
     prior to building Flex.  The build tools have a proprietary license.
         
 Install Prerequisites
 ---------------------
 
-    Before building the PixelBender files you must install the following software and 
+    Before building the Pixel Bender files you must install the following software and 
     set the corresponding environment variables using absolute file paths.  Relative 
     file paths will result in build errors.
     
     The environment variable PIXELBENDER_HOME can also be set in the property file 
     called env.properties. See the env-template.properties file for instructions.
     
-    The Adobe Pixel Bender Toolkit is needed to build these files.
+    The Adobe Pixel Bender Toolkit is needed to build these files.  You may also
+    need to set the JAVA_HOME and ANT_HOME environment variables as described below.
 
     ==================================================================================
     SOFTWARE                                    ENVIRONMENT VARIABLE (absolute paths)
@@ -97,7 +90,7 @@ Install Prerequisites
             
             export PATH="$PATH:$ANT_HOME/bin:$JAVA_HOME/bin"
             
-         On Linux make sure you path include ANT_HOME and JAVA_HOME.
+         There is no Pixel Bender compiler for Linux.
 
     *2)  If you are using Java SDK 1.7 or greater on a Mac you must use Ant 1.8 or 
          greater. If you use Java 1.7 with Ant 1.7, ant reports the java version as 1.6 
@@ -113,37 +106,47 @@ Install Prerequisites
                                 
          Download the Pixel Bender Toolkit for your platform and install or unzip it.
          On Windows and Mac Set PIXELBENDER_HOME to the absolute path of the Pixel Bender
-         Toolkit directory, on Linux set it to be the absolute path of the compiled
-         Pixel Bender files.
+         Toolkit directory.
 
         
 Using the Binary Distribution
 -----------------------------
 
-    The binary distribution should be usable as-is and not require building.
-    It is meant to be expanded on top of an existing Flex SDK folder.
+    The binary distribution should be usable as-is and not require building.  The
+    binary distribution is used in a build of the main Flex SDK build script.  To
+    set the Flex SDK build to use a binary distribution, run the main Flex SDK 
+    build.xml's main target and set -Dpixelbender.url=<path to folder containing 
+    binary distribution> or set pixelbender.url in a local.properties file.
+
 
 Building the Source in the Source Distribution
 ----------------------------------------------
 
     To build the source, run:
-        ant build-pixelbender
 
-    The build script is the same script used by the Flex SDK and the default targets
-    are set up for the Flex SDK.
-    To clean the build, of everything other than the downloaded third-party dependencies 
-    use
+        ant -f pixelbender.xml
+
+    To clean the build of the compiled PBJ files use:
     
-        ant clean 
+        ant -f pixelbender.xml clean
+
+    To use the PBJ files in an Flex SDK build run:
+
+        ant -f pixelbender.xml copy-to-flex-sdk
+
+    The above will copy the PBJ files to the appropriate places in the folder
+    specified by the environment variable FLEX_HOME which may also be
+    specified on the command line or in a local.properties file as:
+
+        ant -f pixelbender.xml -DFLEX_HOME=<path to Flex SDK> copy-to-flex-sdk
+
+    The presence of the PBJ files in the Flex SDK folders will prevent the Flex
+    SDK from downloading a binary distribution to access those PBJ files.
     
-    To clean the build, of everything, including the downloaded third-party dependencies 
-    use
+    Note for Release Managers:  To generate a source distribution package and a 
+    binary distribution package use the main Flex SDK build.xml as follows
         
-        ant super-clean (which is just thirdparty-clean followed by clean)
-        
-    To generate a source distribution package and a binary distribution package use
-        
-        ant -Dbuild.number=<YYYYMMDD> -Dbuild.noprompt=  release-pixelbender
+        ant release-pixelbender
 
     The packages can be found in the "out" subdirectory.
             
