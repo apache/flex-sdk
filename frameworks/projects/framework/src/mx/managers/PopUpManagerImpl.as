@@ -1474,7 +1474,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 					var o:PopUpData = popupInfo[i];
 					if (o && o != p && o.owner.accessibilityProperties)
 					{
-						o.owner.accessibilityProperties.silent	= true;
+						o.owner.accessibilityProperties.silent = true;
 					}
 				}
 				
@@ -1518,7 +1518,8 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 				if (popupInfo.length<=1)
 				{
 					var sbRoot:Object = p.systemManager.getSandboxRoot();
-					sbRoot.document.accessibilityProperties.silent = false;
+					if (sbRoot.document.accessibilityProperties)
+						sbRoot.document.accessibilityProperties.silent = false;
 				}
 				
 				try {
