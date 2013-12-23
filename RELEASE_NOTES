@@ -43,6 +43,11 @@ SDK Changes
 - Option to not store last call result in RomoteObject and WebService.
 - StageTextInput can now be included in scrollable content.
 - new iOS os-version media css selector 
+- iOS7 status bar support
+
+Build Changes
+---------------
+- Made PixelBender a separate release
 
 Bug Fixes
 ----------
@@ -55,6 +60,9 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-33984  Spark CheckBox does not support labelPlacement like it's mx counter part
+FLEX-33992  Zero division at Grid.as setters for horizontalScrollPosition and verticalScrollPosition
+FLEX-33984  Spark CheckBox does not support labelPlacement like it's mx counter part
 FLEX-33976  closing Alert from modal TitleWindow removes blur in main app
 FLEX-33947  Errors in mobile ButtonBar Flex 4.11
 FLEX-33920  spark ComboBox.changeHighlightedSelection doesn't check the newindex upperbound
@@ -84,6 +92,8 @@ FLEX-33772  Incorrect tab focus behavior (closed loops) when using focus groups 
 FLEX-33715  Error: Attempted access of inaccessible method getStyle through a reference with static type MXFTETextInput.
 FLEX-33671  Warning messages when using experimental components.
 FLEX-33632  Getting Run Time Error when loading resource module at runtime.
+FLEX-25962  PopupAnchor needs modal functionality
+FLEX-24623  Remove private declarations in PopUpAnchor
 
 
 Apache Flex 4.11
