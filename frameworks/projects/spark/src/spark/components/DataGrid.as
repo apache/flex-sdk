@@ -6275,7 +6275,11 @@ public class DataGrid extends SkinnableContainerBase
             return null;
         
         // Calculate the drop location
-        return grid.layout.calculateDropLocation(event);
+        var location:DropLocation = grid.layout.calculateDropLocation(event);
+		if (location.dropIndex > dataProvider.length) 
+			location.dropIndex = dataProvider.length;
+		
+		return location;
     }
     
     /**
