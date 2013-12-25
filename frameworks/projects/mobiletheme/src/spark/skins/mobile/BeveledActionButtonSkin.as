@@ -111,9 +111,9 @@ public class BeveledActionButtonSkin extends ButtonSkin
 				measuredDefaultWidth = 84;
 				measuredDefaultHeight = 84;
 				
-				upBorderSkin = spark.skins.mobile240.assets.BeveledActionButton_up;
-				downBorderSkin = spark.skins.mobile240.assets.BeveledActionButton_down;
-				fillClass = spark.skins.mobile240.assets.BeveledActionButton_fill;
+				upBorderSkin = spark.skins.mobile480.assets.BeveledActionButton_up;
+				downBorderSkin = spark.skins.mobile480.assets.BeveledActionButton_down;
+				fillClass = spark.skins.mobile480.assets.BeveledActionButton_fill;
 				
 				break;
 			}
