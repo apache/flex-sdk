@@ -42,12 +42,12 @@ SDK Changes
 - Improvements to Falcon MXML code generation.
 - Option to not store last call result in RomoteObject and WebService.
 - StageTextInput can now be included in scrollable content.
-- new iOS os-version media css selector 
-- iOS7 status bar support
+- new iOS os-version media css selector.
+- iOS7 status bar support.
 
 Build Changes
 ---------------
-- Made PixelBender a separate release
+- Made PixelBender a separate release.
 
 Bug Fixes
 ----------
@@ -60,11 +60,17 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-34011  Axis Render throws RTE when axis is null
+FLEX-34006  RTE null reference in ViewTransitionBase.captureEndValues() when Skin doesn't provide an ActionBar
+FLEX-33999  spark.skins.mobile480.assets.BeveledActionButton_
+FLEX-33990  RTE in AdvancedDataGridBase drawItem
+FLEX-33989  ViewNavigatorBase discards MultiDPIBitmapSource information for icon when saving and re-loading view
 FLEX-33984  Spark CheckBox does not support labelPlacement like it's mx counter part
 FLEX-33992  Zero division at Grid.as setters for horizontalScrollPosition and verticalScrollPosition
 FLEX-33984  Spark CheckBox does not support labelPlacement like it's mx counter part
 FLEX-33976  closing Alert from modal TitleWindow removes blur in main app
 FLEX-33947  Errors in mobile ButtonBar Flex 4.11
+FLEX-33921  BitmapImage don't show up in specific case
 FLEX-33920  spark ComboBox.changeHighlightedSelection doesn't check the newindex upperbound
 FLEX-33919  Listbase selectItem getter does not validate selectedIndex for values below 0 other than -1.
 FLEX-33899  DataGrid goes blank when removing last item from dataProvider when requestedRowCount is set
@@ -75,9 +81,10 @@ FLEX-33880  Popup modal blocks the application
 FLEX-33878  Matrix computations : avoid unneeded flash.geom.Transform and flash.geom.Matrix allocations
 FLEX-33877  BusyCursor : Avoid unneeded Point allocations
 FLEX-33875  Runtime error #1069 in MobileSkin class on focus out
-[REVERTED] FLEX-33874  Binding management is memory inefficient when using the defaultDestFunc
+FLEX-33874  Binding management is memory inefficient when using the defaultDestFunc
 FLEX-33871  message error "Definition spark.skins.mobile480.assets:ActionBarBackground could not be found"
 FLEX-33865  ConstraintLayout / LayoutElementHelper are memory inefficient (and slow)
+FLEX-33864  spark DataGrid drag and drop on empty grid causes RangeError
 FLEX-33861  Flex Incorrectly Scaling Down Application on iPad
 FLEX-33860  Support For iOS7 status bar
 FLEX-33853  Optimize UIDUtil / RPCUIDUtil fromByteArray() method
@@ -89,6 +96,7 @@ FLEX-33824  Disappearing spark DataGrid columns when we set dataProvider to null
 FLEX-33813  Datagrid goes blank when assigning new dataProvider.source and calling refresh
 FLEX-33779  RTE in Label.as when it's 8px wide and uses the Myriad Web Pro font face
 FLEX-33772  Incorrect tab focus behavior (closed loops) when using focus groups (such as RadioButton components)
+FLEX-33745  Null error in the PopupManagerImpl if accessibility is deactivated
 FLEX-33715  Error: Attempted access of inaccessible method getStyle through a reference with static type MXFTETextInput.
 FLEX-33671  Warning messages when using experimental components.
 FLEX-33632  Getting Run Time Error when loading resource module at runtime.
