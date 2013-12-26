@@ -440,7 +440,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  Serializes all data related to
      *  the navigator's children into an object that can be saved
      *  by the persistence manager.  
-     *  This returned object is passed to the <code>restoreViewData()</code> 
+     *  This returned object is passed to the <code>loadViewData()</code> 
      *  method when the navigator is reinstantiated.
      * 
      *  @return The object that represents the navigators state
@@ -452,13 +452,12 @@ public class ViewNavigatorBase extends SkinnableContainer
     public function saveViewData():Object
     {
         var iconData:Object = icon;
-        
-        if (iconData is MultiDPIBitmapSource)
-            iconData = MultiDPIBitmapSource(iconData).getMultiSource();
-        
+
         if (iconData is Class)
-            return {label:label, iconClassName:getQualifiedClassName(iconData)};
-        if (iconData is String)
+            return {label:label, iconClassName:getQualifiedClassName(iconData),
+				multiSource:(iconData is MultiDPIBitmapSource)};
+        
+		if (iconData is String)
             return {label:label, iconStringName: iconData};
         
         return {label:label};
@@ -478,14 +477,20 @@ public class ViewNavigatorBase extends SkinnableContainer
      */
     public function loadViewData(value:Object):void
     {
+		var iconClassName:String;
+		
         label = value.label;
         
-        var iconClassName:String = value.iconClassName;
-
-        if (iconClassName == null)
+		if ("iconClassName" in value) {
+			iconClassName =  value.iconClassName;
+			if (value.multiSource)
+				icon = MultiDPIBitmapSource(getDefinitionByName(iconClassName)).getMultiSource();
+			else 
+				icon = getDefinitionByName(iconClassName);
+		}
+		else if ("iconStringName" in value) {
             icon = value.iconStringName;
-        else if (iconClassName != null)
-            icon = getDefinitionByName(iconClassName);
+		}
         
         // TODO (chiedozi): This is not module safe because of its use of 
         // getDefinitionByName.  Should use systemManager to do this. (SDK-27424)
