@@ -292,7 +292,7 @@ public class Binding
         {
             element = element[chain[i++]];
             //if the element does not exist : avoid exception as it's heavy on memory allocations
-            if(element == null || element == undefined) {
+            if (element == null) {
                 destFuncFailed = true;
                 if (BindingManager.debugDestinationStrings[destString])
                 {
