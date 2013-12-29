@@ -132,15 +132,20 @@ public class MediaQueryParser
     {
         // remove whitespace
         expression = StringUtil.trim(expression);
-        // force to lower case cuz case-insensitive
-        expression = expression.toLowerCase();
-        
+       
         // degenerate expressions
         if (expression == "") return true;
-        if (expression == "all") return true;
-
+        
+        // known queries
         if (goodQueries[expression]) return true;
         if (badQueries[expression]) return false;
+                
+        // force to lower case cuz case-insensitive
+        var originalExpression:String = expression;
+        expression = expression.toLowerCase();
+        
+        //TODO : be smart and do not do a lowercase to do this test
+        if (expression == "all") return true;
         
         // get a list of queries.  If any pass then
         // we're good
@@ -170,7 +175,7 @@ public class MediaQueryParser
             {
                 if (numExpressions == 1 && !notFlag)
                 {
-                    goodQueries[expression] = true;
+                    goodQueries[originalExpression] = true;
                     return true;                                            
                 }
                 // bail if "and" and no media features (invalid query)
@@ -183,7 +188,7 @@ public class MediaQueryParser
                 // early exit if it returned true;
                 if ((result && !notFlag) || (!result && notFlag))
                 {
-                    goodQueries[expression] = true;
+                    goodQueries[originalExpression] = true;
                     return true;                    
                 }
             }
@@ -191,11 +196,11 @@ public class MediaQueryParser
             // then we match
             else if (notFlag)
             {
-                goodQueries[expression] = true;                
+                goodQueries[originalExpression] = true;                
                 return true;
             }
         }
-        badQueries[expression] = true;
+        badQueries[originalExpression] = true;
         return false;
     }
     
