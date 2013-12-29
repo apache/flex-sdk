@@ -414,16 +414,20 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
                 "' for locale '" + locale + "'.");
         }
         
-        // Create an instance of the bundle class.
-        resourceBundle = ResourceBundle(new bundleClass());
+        // Create a proxy
+        var proxy:ResourceBundleProxy = new ResourceBundleProxy();
+        
+		proxy.bundleClass = bundleClass;
+		proxy.useWeakReference = useWeakReference;
 
         // In case we just created a ResourceBundle from a Flex 2 SWC,
         // set its locale and bundleName, because the old constructor
         // didn't used to do this.
-        ResourceBundle(resourceBundle)._locale = locale;
-        ResourceBundle(resourceBundle)._bundleName = bundleName;
+        proxy.locale = locale;
+        proxy.bundleName = bundleName;
                 
         // Add that resource bundle instance to the ResourceManager.
+        resourceBundle = proxy;
         addResourceBundle(resourceBundle, useWeakReference);
         
         return resourceBundle;
@@ -707,12 +711,27 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
                 }
             }
         }
+        else if (bundleObject is ResourceBundleProxy)
+        {
+        	bundle = loadResourceBundleProxy(ResourceBundleProxy(bundleObject));
+        }
         else 
         {
             bundle = bundleObject as IResourceBundle;
         }
         
         return bundle;
+    }
+    
+    private function loadResourceBundleProxy(proxy:ResourceBundleProxy):ResourceBundle {
+    	var proxyClass:Class = proxy.bundleClass;
+        var resourceBundle:ResourceBundle = ResourceBundle(new proxyClass());
+   		resourceBundle._locale = proxy.locale;
+    	resourceBundle._bundleName = proxy.bundleName;
+    	
+    	addResourceBundle(resourceBundle, proxy.useWeakReference);
+    	
+    	return resourceBundle;
     }
     
     /**
@@ -850,6 +869,10 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
                         break;
                     }
                 }
+            }
+            else if (bundleObject is ResourceBundleProxy)
+            {
+        		bundle = loadResourceBundleProxy(ResourceBundleProxy(bundleObject));
             }
             else 
             {
@@ -1161,6 +1184,7 @@ import flash.events.EventDispatcher;
 import mx.events.ModuleEvent;
 import mx.events.ResourceEvent;
 import mx.modules.IModuleInfo;
+import mx.resources.IResourceBundle;
 import mx.resources.IResourceModule;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1321,4 +1345,46 @@ class ResourceEventDispatcher extends EventDispatcher
             new ResourceEvent(ResourceEvent.COMPLETE);
         dispatchEvent(resourceEvent);
     }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Helper class: ResourceBundleProxy
+//
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+ *  @private
+ */
+class ResourceBundleProxy implements IResourceBundle
+{
+	public var bundleClass:Class;
+	public var useWeakReference:Boolean;
+	
+	private var _bundleName:String;
+	private var _locale:String;
+ 
+    public function ResourceBundleProxy()
+	{
+	}
+       
+	public function get bundleName():String {
+		return _bundleName;
+	}
+	
+	public function set bundleName(value:String):void {
+		_bundleName = value;
+	}
+       
+    public function get content():Object {
+    	return null;
+    }
+        
+	public function get locale():String {
+		return _locale;
+	}
+	
+	public function set locale(value:String):void {
+		_locale = value;
+	}
 }
