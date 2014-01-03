@@ -265,10 +265,12 @@ public class AdvancedDataGridColumnGroup extends AdvancedDataGridColumn
        if (typeof(data) == "object" || typeof(data) == "xml")
        {
             if (dataField != null)
+			{
 				if (dataField in data)
                 	data = data[dataField];
 				else
 					data = null;
+			}
        }
        return data;
     }
