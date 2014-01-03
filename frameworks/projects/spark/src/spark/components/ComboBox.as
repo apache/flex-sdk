@@ -875,6 +875,17 @@ public class ComboBox extends DropDownListBase implements IIMESupport
             textInput.removeEventListener(FocusEvent.FOCUS_OUT, textInput_focusOutHandler, true);
         }
     }
+	
+	/**
+	 *  @private
+	 */
+	override public function set enabled(value:Boolean):void
+	{
+		if (enabled == value)
+			return;
+		
+		super.enabled = value;
+	}
     
     /**
      *  @private 
