@@ -1844,14 +1844,14 @@ public class List extends ListBase implements IIMESupport
 
             if (more)
             {
+				// if we run out of data, assume all remaining rows are the size of the previous row
+				more = false;
                 try
                 {
                     more = iterator.moveNext();
                 }
                 catch(e:ItemPendingError)
                 {
-                    // if we run out of data, assume all remaining rows are the size of the previous row
-                    more = false;
                 }
             }
         }
