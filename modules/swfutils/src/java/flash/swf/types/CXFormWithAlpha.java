@@ -57,5 +57,11 @@ public class CXFormWithAlpha extends CXForm
 
         return isEqual;
     }
+    
+    public String toString() 
+    {
+    	String base = super.toString();
+    	return base + " " + alphaMultTerm + "a" + (alphaAddTerm>=0 ? "+" : "") + alphaAddTerm; 
+    }
 
 }
