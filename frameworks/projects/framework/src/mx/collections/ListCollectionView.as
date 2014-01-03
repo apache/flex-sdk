@@ -1290,14 +1290,12 @@ public class ListCollectionView extends Proxy
         }
 
         var value:Object;
-        try
+		try
         {
             value = getItemAt(index);
         }
         catch(e:Error)
         {
-            // the cursor was over something that is not yet on the client
-            value = null;
         }
         return new ListCollectionViewBookmark(value,
                                               this,
