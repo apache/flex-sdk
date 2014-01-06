@@ -18,7 +18,7 @@
 
 -->
 
-<project name="framework" default="main" basedir=".">
+<project name="pixel bender" default="main" basedir=".">
 	
     <property file="${basedir}/env.properties"/>
     <property environment="env"/>
@@ -32,7 +32,7 @@
         <ant dir="${basedir}/frameworks/projects/spark" target="pixelbender-compile"/>
     </target>
     
-    <target name="clean" depends="clean-pixelbender" description="Cleans third party downloaded files." />
+    <target name="clean" depends="clean-pixelbender" description="Cleans Pixel Bender PBJ files." />
     
     <target name="clean-pixelbender" >
     	<delete>
@@ -86,6 +86,7 @@
         description="copies PBK and PBJ files to Flex SDK folder">
         <copy todir="${FLEX_HOME}" >
             <fileset dir="${basedir}">
+                <include name="**/*.pbk" />
                 <include name="**/*.pbj" />
             </fileset>
         </copy>

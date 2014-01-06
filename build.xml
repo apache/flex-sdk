@@ -44,7 +44,7 @@
     <property name="javac.src" value="1.5"/>
     
     <property name="kit.prefix" value="apache-flex-sdk-${release.version}"/>
-    <property name="kit-pixelbender.prefix" value="apache-flex-sdk-pixelbender-1.0.0"/>
+    <property name="kit-pixelbender.prefix" value="apache-flex-sdk-pixel-bender-1.0.0"/>
     <property name="source.kit" value="${kit.prefix}-src"/>
     <property name="binary.kit" value="${kit.prefix}-bin"/>
     <property name="source-pixelbender.kit" value="${kit-pixelbender.prefix}-src"/>
@@ -109,7 +109,7 @@
         
     <target name="release-pixelbender"
         depends="check-compile-env,check-runtime-env,source-package-pixelbender,binary-package-pixelbender"
-        description="Creates source and binary kits for Apache Flex's PixelBender package."/>
+        description="Creates source and binary kits for Apache Flex's Pixel Bender package."/>
         
     <target name="source-release"
         depends="super-clean,create-description,create-config,source-package" 
@@ -521,7 +521,7 @@
     </target>
 
     <target name="source-package-pixelbender" depends="stage-source-pixelbender,source-package-zip-pixelbender,source-package-tgz-pixelbender"
-        description="Package PixelBender source files required to build in zip and tar-gzip file">
+        description="Package Pixel Bender source files required to build in zip and tar-gzip file">
     </target>
     
     <!--
@@ -788,7 +788,7 @@
     </target>
     
     <target name="stage-source-pixelbender"
-        description="Package PixelBender source files required to build in zip file">
+        description="Package Pixel Bender source files required to build in zip file">
         
         <antcall target="clean-temp"/>
         
@@ -825,7 +825,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-This package contains PixelBender shaders used by the Apache Flex SDK.
+Apache Flex Pixel Bender Package 1.0.0
+=====================================
+
+This package contains Adobe Pixel Bender shaders used by the Apache
+Flex SDK.
 
 See the README for instructions on compiling the shaders on Windows and
 Mac.  There is no compiler for Linux.
@@ -1064,7 +1068,7 @@ There are no known issues.
         <zip destfile="${basedir}/out/${binary.kit}.zip" basedir="${basedir}/temp"/>
     </target>
     <target name="binary-package-zip-pixelbender" unless="no.zip"
-        description="Zips up the PixelBender files in the temp directory into the binary zipfile.">
+        description="Zips up the Pixel Bender files in the temp directory into the binary zipfile.">
         
         <mkdir dir="${basedir}/out"/>
         <zip destfile="${basedir}/out/${binary-pixelbender.kit}.zip" basedir="${basedir}/temp"/>
@@ -1085,7 +1089,7 @@ There are no known issues.
     </target>
 
     <target name="binary-package-pixelbender" depends="build-pixelbender"
-        description="Package PixelBender binary files in zip and tar-gzip file.">
+        description="Package Pixel Bender binary files in zip and tar-gzip file.">
         
         <antcall target="stage-source-pixelbender"/>
         
@@ -1870,8 +1874,8 @@ There are no known issues.
 	</target>
     
 	<target name="archive-pbj">
-		<echo message="Creating an archive of the compiled PixelBender files" />
-        <echo message="The compiled PixelBender files are taken from '${env.PIXELBENDER_COMPILED_HOME}'" />
+		<echo message="Creating an archive of the compiled Pixel Bender files" />
+        <echo message="The compiled Pixel Bender files are taken from '${env.PIXELBENDER_COMPILED_HOME}'" />
         
         <tar destfile="${basedir}/out/pb.tar">
           <tarfileset dir="${env.PIXELBENDER_COMPILED_HOME}">

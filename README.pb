@@ -7,12 +7,12 @@ Apache Flex (Flex)
     For detailed information about Apache Flex please visit 
     http://flex.apache.org/
 
-    The Apache Flex Pixel Bender package contains Pixel Bender shaders used by the 
+    The Apache Flex Pixel Bender package contains Adobe Pixel Bender shaders used by the 
     Apache Flex SDK.
 
-    To compile the Pixel Bender shaders, run:
+    To compile the shaders, run:
 
-	ant -f pixelbender.xml.
+	ant -f pixelbender.xml
 
     While Apache Flex runs on a large set of platforms, the Adobe Pixel Bender 
     compiler used to compile the shaders is only supported on:
@@ -45,7 +45,7 @@ Getting the latest sources via git
 	 git checkout develop
 
     The above sequence actually checks out the entire Apache Flex SDK.  The
-    Pixel Bender files are a subset of files from this repository.
+    Apache Flex Pixel Bender files are a subset of files from this repository.
     
 Building Apache Flex Pixel Bender Files
 =========================
@@ -56,9 +56,9 @@ Building Apache Flex Pixel Bender Files
 Install Prerequisites
 ---------------------
 
-    Before building the Pixel Bender files you must install the following software and 
-    set the corresponding environment variables using absolute file paths.  Relative 
-    file paths will result in build errors.
+    Before building the Apache Flex Pixel Bender files you must install the following
+    software and set the corresponding environment variables using absolute file paths.
+    Relative file paths will result in build errors.
     
     The environment variable PIXELBENDER_HOME can also be set in the property file 
     called env.properties. See the env-template.properties file for instructions.
@@ -90,7 +90,7 @@ Install Prerequisites
             
             export PATH="$PATH:$ANT_HOME/bin:$JAVA_HOME/bin"
             
-         There is no Pixel Bender compiler for Linux.
+         There is no Adobe Pixel Bender compiler for Linux.
 
     *2)  If you are using Java SDK 1.7 or greater on a Mac you must use Ant 1.8 or 
          greater. If you use Java 1.7 with Ant 1.7, ant reports the java version as 1.6 
@@ -104,9 +104,10 @@ Install Prerequisites
          The Adobe Pixel Bender Toolkit for Mac can be downloaded from:
             http://www.adobe.com/go/pixelbender_toolkit_dmg/
                                 
-         Download the Pixel Bender Toolkit for your platform and install or unzip it.
-         On Windows and Mac Set PIXELBENDER_HOME to the absolute path of the Pixel Bender
-         Toolkit directory.
+         Download the Adobe Pixel Bender Toolkit for your platform and install or unzip
+         it.
+         On Windows and Mac Set PIXELBENDER_HOME to the absolute path of the Adobe Pixel
+         Bender Toolkit directory.
 
         
 Using the Binary Distribution
