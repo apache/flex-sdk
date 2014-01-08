@@ -1900,4 +1900,34 @@ There are no known issues.
 	    <delete file="${basedir}/out/pb.tar" failonerror="false" />
 	</target>
 
+    <!--
+     Run the Apache Rat audit tool against a directory without filters.
+     The report is written to rat.report.
+     
+     Specify the folder to scan with -Drat.dir=<dir>.
+     
+     You need to place apache-rat-tasks-0.8.jar and apache-rat-0.8.jar in the
+     anttask.classpath in order to do this.  If the jar isn't found, the report
+     will not be generated.
+     -->
+    <target name="rat-dir" depends="rat-taskdef" if="have.rattasks"
+        description="Report on licenses in a folder">
+        
+        <fail message="rat.dir not specified">
+            <condition>
+                <not>
+                    <isset property="rat.dir"/>
+                </not>
+            </condition>
+        </fail>
+        
+        <property name="rat.report" value="${basedir}/rat.report"/>
+        <echo message="Checking files at ${rat.dir}, report is ${rat.report}"/>
+        
+        <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" reportFile="${rat.report}">
+            <fileset dir="${rat.dir}">
+            </fileset>
+        </rat:report>
+    </target>
+
 </project>
