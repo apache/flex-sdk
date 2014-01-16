@@ -76,6 +76,7 @@ import flash.tools.debugger.VersionException;
 import flash.tools.debugger.Watch;
 import flash.tools.debugger.WatchKind;
 import flash.tools.debugger.concrete.DProtocol;
+import flash.tools.debugger.concrete.DSwfInfo;
 import flash.tools.debugger.events.BreakEvent;
 import flash.tools.debugger.events.ConsoleErrorFault;
 import flash.tools.debugger.events.DebugEvent;
@@ -3375,21 +3376,41 @@ public class DebugCLI implements Runnable, SourceLocator
 	 *			otherwise try to locate a matching source file in given swf.
 	 * @return null if the swf does not contain this source file
 	 */
-	Location findAndEnableBreak(SwfInfo swf, SourceFile f, int line) throws NotConnectedException, InProgressException
-	{
-		int fileId = f.getId();
-		if (swf != null)
-		{
-			SourceFile sameFile = m_fileInfo.similarFileInSwf(swf, f);
-			if (sameFile != null)
-				fileId = sameFile.getId();
-			else 
-				fileId = -1;
-		}
+    private Location findAndEnableBreak(final SwfInfo swf, final SourceFile file, final int line) throws NotConnectedException,
+            InProgressException {
+        if (swf == null) {
+            return breakEnableRequest(file.getId(), line);
+        }
 
-		Location l = (fileId > -1) ? breakEnableRequest(fileId, line) : null;
-		return l;
-	}
+        for (final SourceFile similarFile : getSimilarSourceFilesInSwf(swf, file)) {
+            final Location location = breakEnableRequest(similarFile.getId(), line);
+            if (location != null) {
+                return location;
+            }
+        }
+
+        return null;
+    }
+
+    private List<SourceFile> getSimilarSourceFilesInSwf(final SwfInfo info, final SourceFile file) throws InProgressException {
+        if (!info.isProcessingComplete()) {
+            // IDEA-94128. For unknown reason m_fileInfo.getSwfs() may contain "unknown" swf which is marked as not fully loaded,
+            // but in fact containing full list of correct sources. At the same time correct swf doesn't contain sources.
+            if (!(info instanceof DSwfInfo) || !((DSwfInfo) info).hasAllSource()) {
+                throw new InProgressException();
+            }
+        }
+
+        final List<SourceFile> result = new LinkedList<SourceFile>();
+
+        for (final SourceFile each : info.getSourceList(m_session)) {
+            if (m_fileInfo.filesMatch(file, each)) {
+                result.add(each);
+            }
+        }
+
+        return result;
+    }
 
 	/**
 	 * Received when a breakpoint has been removed (or disabled)
