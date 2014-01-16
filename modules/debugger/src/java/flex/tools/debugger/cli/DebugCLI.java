@@ -2348,6 +2348,11 @@ public class DebugCLI implements Runnable, SourceLocator
 			sb.append(getLocalizationManager().getLocalizedTextString("linePrefixWhenDisplayingConsoleError")); //$NON-NLS-1$
 			sb.append(' ');
 			sb.append(e.information);
+
+            final String stackTrace = e.stackTrace();
+            if (stackTrace != null && stackTrace.length() > 0) {
+                sb.append("\n").append(stackTrace);
+            }
 		}
 		else
 		{
@@ -2360,6 +2365,11 @@ public class DebugCLI implements Runnable, SourceLocator
 				sb.append(getLocalizationManager().getLocalizedTextString("informationAboutFault")); //$NON-NLS-1$
 				sb.append(e.information);
 			}
+
+            final String stackTrace = e.stackTrace();
+            if (stackTrace != null && stackTrace.length() > 0) {
+                sb.append("\n").append(stackTrace);
+            }
 		}
 		out( sb.toString() );
 	}
