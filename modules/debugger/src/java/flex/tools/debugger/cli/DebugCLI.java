@@ -3324,34 +3324,37 @@ public class DebugCLI implements Runnable, SourceLocator
 
         // If we have a swf filter enabled then we only want to
         // set a breakpoint in a specific swf not all of them
-		try
-		{
-			if (singleSwfBreakpoint)
-			{
-				Location l = findAndEnableBreak(swf, f, line);
-				col.add(l);
-			}
-			else
-			{
-				// walk all swfs looking to add this breakpoint
-				SwfInfo[] swfs = m_fileInfo.getSwfs();
-				for(int i=0; i<swfs.length; i++)
-				{
-					swf = swfs[i];
-					if (swf != null)
-					{
-						Location l = findAndEnableBreak(swf, f, line);
-						if (l != null)
-							col.add(l);
-					}
-				}
-			}
-		}
-		catch(InProgressException ipe)
-		{
-			if (Trace.error)
-				Trace.trace( ( (swf==null)?"SWF ":swf.getUrl() )+" still loading, breakpoint at "+f.getName()+":"+line+" not set"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-		}
+        if (singleSwfBreakpoint)
+        {
+            Location l = null;
+            try {
+                l = findAndEnableBreak(swf, f, line);
+            }
+            catch(InProgressException ipe)
+            {
+                if (Trace.error)
+                    Trace.trace( ( (swf==null)?"SWF ":swf.getUrl() )+" still loading, breakpoint at "+f.getName()+":"+line+" not set"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+            }
+            col.add(l);
+        }
+        else
+        {
+            // walk all swfs looking to add this breakpoint
+            SwfInfo[] swfs = m_fileInfo.getSwfs();
+            for (SwfInfo swf1 : swfs) {
+                swf = swf1;
+                if (swf != null) {
+                    try {
+                        Location l = findAndEnableBreak(swf, f, line);
+                        if (l != null)
+                            col.add(l);
+                    } catch (InProgressException ipe) {
+                        if (Trace.error)
+                            Trace.trace((swf.getUrl()) + " still loading, breakpoint at " + f.getName() + ":" + line + " not set"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                    }
+                }
+            }
+        }
 		return col;
 	}
 
