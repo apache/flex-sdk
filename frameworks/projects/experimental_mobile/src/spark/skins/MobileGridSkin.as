@@ -170,7 +170,7 @@ public class MobileGridSkin extends MobileSkin
         setElementPosition(headerShadow, 0, headerHeight);
         // Scroller
         scroller.minViewportInset = borderWidth;
-        setElementSize(scroller, unscaledWidth, unscaledHeight);
+        setElementSize(scroller, unscaledWidth, unscaledHeight - headerHeight);
         setElementPosition(scroller, 0, headerHeight);
     }
 }
