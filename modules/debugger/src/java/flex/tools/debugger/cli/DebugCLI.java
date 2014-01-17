@@ -76,6 +76,7 @@ import flash.tools.debugger.VersionException;
 import flash.tools.debugger.Watch;
 import flash.tools.debugger.WatchKind;
 import flash.tools.debugger.concrete.DProtocol;
+import flash.tools.debugger.concrete.DSwfInfo;
 import flash.tools.debugger.events.BreakEvent;
 import flash.tools.debugger.events.ConsoleErrorFault;
 import flash.tools.debugger.events.DebugEvent;
@@ -1179,7 +1180,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			{
 				// keep spitting out frames until we can't
 				Frame frame = stack[i];
-				boolean valid = appendFrameInfo(sb, frame, i, showThis, false);
+				boolean valid = appendFrameInfo(sb, frame, i, showThis, true);
 				sb.append(m_newline);
                 if (!valid)
                     break;
@@ -2348,6 +2349,11 @@ public class DebugCLI implements Runnable, SourceLocator
 			sb.append(getLocalizationManager().getLocalizedTextString("linePrefixWhenDisplayingConsoleError")); //$NON-NLS-1$
 			sb.append(' ');
 			sb.append(e.information);
+
+            final String stackTrace = e.stackTrace();
+            if (stackTrace != null && stackTrace.length() > 0) {
+                sb.append("\n").append(stackTrace);
+            }
 		}
 		else
 		{
@@ -2360,6 +2366,11 @@ public class DebugCLI implements Runnable, SourceLocator
 				sb.append(getLocalizationManager().getLocalizedTextString("informationAboutFault")); //$NON-NLS-1$
 				sb.append(e.information);
 			}
+
+            final String stackTrace = e.stackTrace();
+            if (stackTrace != null && stackTrace.length() > 0) {
+                sb.append("\n").append(stackTrace);
+            }
 		}
 		out( sb.toString() );
 	}
@@ -3324,34 +3335,37 @@ public class DebugCLI implements Runnable, SourceLocator
 
         // If we have a swf filter enabled then we only want to
         // set a breakpoint in a specific swf not all of them
-		try
-		{
-			if (singleSwfBreakpoint)
-			{
-				Location l = findAndEnableBreak(swf, f, line);
-				col.add(l);
-			}
-			else
-			{
-				// walk all swfs looking to add this breakpoint
-				SwfInfo[] swfs = m_fileInfo.getSwfs();
-				for(int i=0; i<swfs.length; i++)
-				{
-					swf = swfs[i];
-					if (swf != null)
-					{
-						Location l = findAndEnableBreak(swf, f, line);
-						if (l != null)
-							col.add(l);
-					}
-				}
-			}
-		}
-		catch(InProgressException ipe)
-		{
-			if (Trace.error)
-				Trace.trace( ( (swf==null)?"SWF ":swf.getUrl() )+" still loading, breakpoint at "+f.getName()+":"+line+" not set"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-		}
+        if (singleSwfBreakpoint)
+        {
+            Location l = null;
+            try {
+                l = findAndEnableBreak(swf, f, line);
+            }
+            catch(InProgressException ipe)
+            {
+                if (Trace.error)
+                    Trace.trace( ( (swf==null)?"SWF ":swf.getUrl() )+" still loading, breakpoint at "+f.getName()+":"+line+" not set"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+            }
+            col.add(l);
+        }
+        else
+        {
+            // walk all swfs looking to add this breakpoint
+            SwfInfo[] swfs = m_fileInfo.getSwfs();
+            for (SwfInfo swf1 : swfs) {
+                swf = swf1;
+                if (swf != null) {
+                    try {
+                        Location l = findAndEnableBreak(swf, f, line);
+                        if (l != null)
+                            col.add(l);
+                    } catch (InProgressException ipe) {
+                        if (Trace.error)
+                            Trace.trace((swf.getUrl()) + " still loading, breakpoint at " + f.getName() + ":" + line + " not set"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                    }
+                }
+            }
+        }
 		return col;
 	}
 
@@ -3362,21 +3376,41 @@ public class DebugCLI implements Runnable, SourceLocator
 	 *			otherwise try to locate a matching source file in given swf.
 	 * @return null if the swf does not contain this source file
 	 */
-	Location findAndEnableBreak(SwfInfo swf, SourceFile f, int line) throws NotConnectedException, InProgressException
-	{
-		int fileId = f.getId();
-		if (swf != null)
-		{
-			SourceFile sameFile = m_fileInfo.similarFileInSwf(swf, f);
-			if (sameFile != null)
-				fileId = sameFile.getId();
-			else 
-				fileId = -1;
-		}
+    private Location findAndEnableBreak(final SwfInfo swf, final SourceFile file, final int line) throws NotConnectedException,
+            InProgressException {
+        if (swf == null) {
+            return breakEnableRequest(file.getId(), line);
+        }
 
-		Location l = (fileId > -1) ? breakEnableRequest(fileId, line) : null;
-		return l;
-	}
+        for (final SourceFile similarFile : getSimilarSourceFilesInSwf(swf, file)) {
+            final Location location = breakEnableRequest(similarFile.getId(), line);
+            if (location != null) {
+                return location;
+            }
+        }
+
+        return null;
+    }
+
+    private List<SourceFile> getSimilarSourceFilesInSwf(final SwfInfo info, final SourceFile file) throws InProgressException {
+        if (!info.isProcessingComplete()) {
+            // IDEA-94128. For unknown reason m_fileInfo.getSwfs() may contain "unknown" swf which is marked as not fully loaded,
+            // but in fact containing full list of correct sources. At the same time correct swf doesn't contain sources.
+            if (!(info instanceof DSwfInfo) || !((DSwfInfo) info).hasAllSource()) {
+                throw new InProgressException();
+            }
+        }
+
+        final List<SourceFile> result = new LinkedList<SourceFile>();
+
+        for (final SourceFile each : info.getSourceList(m_session)) {
+            if (m_fileInfo.filesMatch(file, each)) {
+                result.add(each);
+            }
+        }
+
+        return result;
+    }
 
 	/**
 	 * Received when a breakpoint has been removed (or disabled)
