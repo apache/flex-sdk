@@ -31,19 +31,23 @@ Differences from Apache Flex 4.11 include:
 
 AIR and Flash Player support
 ------------------------------
- - Support Flash Player 12.0 beta.
- - Support for AIR 4.0 beta.
+ - Support Flash Player 12.0.
+ - Support for AIR 4.0.
 
 SDK Changes
 -------------
 - Improved Callout for Desktop.
 - Improved UID generation performance.
+- Improved mobile memory usage/performance.
+- Improved CSS styles memory usage/performance.
 - Changed DPI to be 160 for iPad and 320 for iPad mini.
+- Fixed scaling of Checkbox and Radio button 320dpi skins.
 - Improvements to Falcon MXML code generation.
 - Option to not store last call result in RomoteObject and WebService.
 - StageTextInput can now be included in scrollable content.
 - new iOS os-version media css selector.
 - iOS7 status bar support.
+- Improved try/catch performance in several areas. 
 
 Build Changes
 ---------------
@@ -60,6 +64,12 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-34046  prints full stack if Flash Player detects not handled exception
+FLEX-34045  adds file id to the stack info printed by fdb
+FLEX-34044  Breakpoints in ActionScript files do not work when debugging app using ANE
+FLEX-34043  Impossible to set breakpoint in MXML files that contains item renderer
+FLEX-34038  experimental MobileGrid seems to overflow itself & leak out into any components below it
+FLEX-34019  ComboBox not closed when selecting an item from the dropdown list under certain conditions
 FLEX-34011  Axis Render throws RTE when axis is null
 FLEX-34006  RTE null reference in ViewTransitionBase.captureEndValues() when Skin doesn't provide an ActionBar
 FLEX-33999  spark.skins.mobile480.assets.BeveledActionButton_
@@ -68,12 +78,20 @@ FLEX-33989  ViewNavigatorBase discards MultiDPIBitmapSource information for icon
 FLEX-33984  Spark CheckBox does not support labelPlacement like it's mx counter part
 FLEX-33992  Zero division at Grid.as setters for horizontalScrollPosition and verticalScrollPosition
 FLEX-33984  Spark CheckBox does not support labelPlacement like it's mx counter part
+FLEX-33978  AIR mobile + flex sdk 4.10 + text field setFocus runtime error
 FLEX-33976  closing Alert from modal TitleWindow removes blur in main app
+FLEX-33971  480 DPI Display bug with Mobile CheckBox
 FLEX-33947  Errors in mobile ButtonBar Flex 4.11
 FLEX-33921  BitmapImage don't show up in specific case
 FLEX-33920  spark ComboBox.changeHighlightedSelection doesn't check the newindex upperbound
 FLEX-33919  Listbase selectItem getter does not validate selectedIndex for values below 0 other than -1.
+FLEX-33913  XMLListCollection addItem(item) modifies a parent XMLList of the item
+FLEX-33904  EffectManager#getEventForEffectTrigger : avoid unneeded memory allocations
+FLEX-33902  ResourceManager#getInstance should not allocate unneeded memory
 FLEX-33899  DataGrid goes blank when removing last item from dataProvider when requestedRowCount is set
+FLEX-33897  MediaQueryParser should not allocate memory for expressions already cached
+FLEX-33893  CSSStyleDeclaration is inefficient during style matching
+FLEX-33891  Styleprotochain#getstyleManager shouldn't be called twice during style computations
 FLEX-33885  BindingManager#executeBindings : Avoid unneeded memory allocation
 FLEX-33884  Android mobile app crashes when you click on a modal
 FLEX-33880  Popup modal blocks the application
@@ -89,17 +107,20 @@ FLEX-33861  Flex Incorrectly Scaling Down Application on iPad
 FLEX-33860  Support For iOS7 status bar
 FLEX-33853  Optimize UIDUtil / RPCUIDUtil fromByteArray() method
 FLEX-33852  Port UIDUtil optimizations to RPCUIDUtil
+FLEX-33842  CXFormWithAlpha doesn't override toString() method, causing swfdump to ignore alpha effects
 FLEX-33835  LocaleSorter#sortLocalesByPreference is slow
+FLEX-33836  ResourceManagerImpl should implement some kind of lazy loading
 FLEX-33830  SDK 4.10.0 spark datagrid header and horizontal scrollbar behavior effected by app state change
 FLEX-33829  Improve ArrayList performance
 FLEX-33824  Disappearing spark DataGrid columns when we set dataProvider to null
 FLEX-33813  Datagrid goes blank when assigning new dataProvider.source and calling refresh
 FLEX-33779  RTE in Label.as when it's 8px wide and uses the Myriad Web Pro font face
 FLEX-33772  Incorrect tab focus behavior (closed loops) when using focus groups (such as RadioButton components)
-FLEX-33745  Null error in the PopupManagerImpl if accessibility is deactivated
+FLEX-33745  Null error in the PopupManagerI		mpl if accessibility is deactivated
 FLEX-33715  Error: Attempted access of inaccessible method getStyle through a reference with static type MXFTETextInput.
 FLEX-33671  Warning messages when using experimental components.
 FLEX-33632  Getting Run Time Error when loading resource module at runtime.
+FLEX-26768  When debugging multi-module projects impossible to set breakpoint
 FLEX-25962  PopupAnchor needs modal functionality
 FLEX-24623  Remove private declarations in PopUpAnchor
 
