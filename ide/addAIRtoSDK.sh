@@ -104,11 +104,6 @@ downloadAIR()
         airDownload="http://airdownload.adobe.com/air/lin/download/${version}/AdobeAIRSDK.tbz2"
     fi
     
-    if [[ "${AIR_VERSION}" == "4.0" ]]
-    then
- 		airDownload="http://labsdownload.adobe.com/pub/labs/flashruntimes/air/air4-0_sdk_sa_mac.tbz2"
-    fi
-    
 	echo Downloading AIR ${version}
 	curl ${airDownload} > "${airTempDir}/air.tbz2"
 	
@@ -161,7 +156,7 @@ do
 	echo Updating ${configFile}
 
 	# 4.0 needs FP 12 and swf version 23
-	if [ ${AIR_VERSION} = "3.9" ]
+	if [ ${AIR_VERSION} = "4.0" ]
 	then
 		updatePlayerVersion 12.0 "${configFile}"
 		updateSWFVersion 23 "${configFile}"

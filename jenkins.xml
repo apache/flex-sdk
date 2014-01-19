@@ -186,7 +186,7 @@
 	
     <target name="playerglobal12.0-download" if="target12.0">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
-        <get src="http://labsdownload.adobe.com/pub/labs/flashruntimes/flashplayer/flashplayer12-0_playerglobal.swc" 
+        <get src="http://download.macromedia.com/get/flashplayer/updaters/12/playerglobal12_0.swc" 
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>

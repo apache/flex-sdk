@@ -88,7 +88,7 @@ determineVersion()
 
 	FLASH_VERSION="10.2"
 
-    if [[ $legacy = "N" ]]
+    if [[ $legacy = "Y" ]]
     then
        FLASH_VERSION="11.1"
     fi
@@ -99,13 +99,13 @@ determineVersion()
         then 
             FLASH_VERSION="11.1"
         else
-            FLASH_VERSION="11.8"
+            FLASH_VERSION="12.0"
         fi
     fi
     
     if [ ${latest} = "Y" ]
     then
-    	FLASH_VERSION="11.8"
+    	FLASH_VERSION="12.0"
     fi
     
     if [ ${useBeta} = "Y" ]
