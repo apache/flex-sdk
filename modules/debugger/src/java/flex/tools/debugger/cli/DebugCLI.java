@@ -241,7 +241,8 @@ public class DebugCLI implements Runnable, SourceLocator
 	StringTokenizer		m_currentTokenizer;
 	String				m_currentToken;
 	String				m_currentLine;
-	public String		m_repeatLine;	
+	public String		m_repeatLine;
+    private boolean     m_isIde;
 
 	/**
 	 * The module that the next "list" command should display if no
@@ -402,6 +403,7 @@ public class DebugCLI implements Runnable, SourceLocator
 	public static LocalizationManager getLocalizationManager() { return m_localizationManager; }
 	public Session				getSession()	{ return m_session; }
 	public FileInfoCache		getFileCache()	{ return m_fileInfo; }
+    public boolean              isIde()         { return m_isIde; }
 
 	/**
 	 * Convert a module to class name.  This is used
@@ -451,12 +453,16 @@ public class DebugCLI implements Runnable, SourceLocator
 					if (i+1 < args.length)
 						m_cdPath = args[i++];
 				}
-				else if (arg.equals("-p")) //$NON-NLS-1$
-				{
-					// consume the port
-					if (i+1 < args.length)
-						m_connectPort = args[++i];
-				}
+                else if (arg.equals("-p")) //$NON-NLS-1$
+                {
+                    // consume the port
+                    if (i+1 < args.length)
+                        m_connectPort = args[++i];
+                }
+                else if (arg.equals("-ide")) //$NON-NLS-1$
+                {
+                    m_isIde = true;
+                }
 				else
 				{
 					err("Unknown command-line argument: " + arg);
@@ -1225,7 +1231,7 @@ public class DebugCLI implements Runnable, SourceLocator
 
 			if (showThis && dis != null)
 			{
-				ExpressionCache.appendVariable(sb, dis);
+                m_exprCache.appendVariable(sb, dis);
 				sb.append("."); //$NON-NLS-1$
 			}
 
@@ -1240,7 +1246,7 @@ public class DebugCLI implements Runnable, SourceLocator
 					Variable v = var[j];
 					sb.append(v.getName());
 					sb.append('=');
-					ExpressionCache.appendVariableValue(sb, v.getValue());
+                    m_exprCache.appendVariableValue(sb, v.getValue());
 					if ((j+1)<var.length)
 						sb.append(", "); //$NON-NLS-1$
 				}
@@ -1297,7 +1303,7 @@ public class DebugCLI implements Runnable, SourceLocator
 				if ( !v.isAttributeSet(VariableAttribute.IS_LOCAL) &&
 					 !v.isAttributeSet(VariableAttribute.IS_ARGUMENT) )
 				{
-					ExpressionCache.appendVariable(sb, vars[i]);
+					m_exprCache.appendVariable(sb, vars[i]);
 					sb.append(m_newline);
 				}
 			}
@@ -1353,7 +1359,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			Variable[] vars = frames[num].getArguments(m_session);
 			for(int i=0; i<vars.length; i++)
 			{
-				ExpressionCache.appendVariable(sb, vars[i]);
+                m_exprCache.appendVariable(sb, vars[i]);
 				sb.append(m_newline);
 			}
 		}
@@ -1392,7 +1398,7 @@ public class DebugCLI implements Runnable, SourceLocator
 				// see if variable is local
 				if ( v.isAttributeSet(VariableAttribute.IS_LOCAL) )
 				{
-					ExpressionCache.appendVariable(sb, v);
+                    m_exprCache.appendVariable(sb, v);
 					sb.append(m_newline);
 				}
 			}
@@ -1428,7 +1434,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			for(int i=0; i<scopes.length; i++)
 			{
 				Variable scope = scopes[i];
-				ExpressionCache.appendVariable(sb, scope);
+                m_exprCache.appendVariable(sb, scope);
 				sb.append(m_newline);
 			}
 		}
@@ -3626,7 +3632,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			else if (isLookupMembers)
 				sb.append(result);
 			else
-				ExpressionCache.appendVariableValue(sb, result);
+                m_exprCache.appendVariableValue(sb, result);
 
 			out( sb.toString() );
 
@@ -4054,11 +4060,11 @@ public class DebugCLI implements Runnable, SourceLocator
 //			sb.append(val.getName());
 			if (fullName)
 				sb.append(name);
-			ExpressionCache.appendVariableValue(sb, key.getValue(), key.getName());
+            m_exprCache.appendVariableValue(sb, key.getValue(), key.getName());
 			sb.append("."); //$NON-NLS-1$
 			sb.append(memName);
 			sb.append(" = "); //$NON-NLS-1$
-			ExpressionCache.appendVariableValue(sb, val.getValue(), val.getName());
+            m_exprCache.appendVariableValue(sb, val.getValue(), val.getName());
 			sb.append(m_newline);
 		}
 		return sb;
@@ -6185,10 +6191,10 @@ public class DebugCLI implements Runnable, SourceLocator
 					Object result = m_exprCache.evaluate(a.getExpression()).value;
 
 					if (result instanceof Variable)
-						ExpressionCache.appendVariableValue(sb, ((Variable)result).getValue());
+                        m_exprCache.appendVariableValue(sb, ((Variable)result).getValue());
 
 					else if (result instanceof Value)
-						ExpressionCache.appendVariableValue(sb, (Value) result);
+                        m_exprCache.appendVariableValue(sb, (Value) result);
 
 					else if (result instanceof InternalProperty)
 						sb.append( ((InternalProperty)result).valueOf() );
