@@ -7432,20 +7432,24 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             for (;
                  _editedItemPosition.columnIndex != _columns.length;
                  _editedItemPosition.columnIndex++)
-	            {
-	                // If the editedItemPosition is valid, focus it,
-	                // otherwise find one.
-	                if (_columns[_editedItemPosition.columnIndex].editable &&
-	                    _columns[_editedItemPosition.columnIndex].visible)
-	                {
-						var row:Array = listItems[_editedItemPosition.rowIndex];
-						if (row && row[_editedItemPosition.columnIndex])
-						{
-							foundOne = true;
-							break;
-						}
-	                }
-	            }
+            {
+                // If the editedItemPosition is valid, focus it,
+                // otherwise find one.
+                if (_columns[_editedItemPosition.columnIndex].editable &&
+                    _columns[_editedItemPosition.columnIndex].visible)
+                {
+					var row:Array = listItems[_editedItemPosition.rowIndex];
+					if (row && row[_editedItemPosition.columnIndex])
+					{
+						foundOne = true;
+						break;
+					}
+                }
+            }
+			
+			// leave at last column or an RTE can occur
+			if (_editedItemPosition.columnIndex >= _columns.length)
+				_editedItemPosition.columnIndex = _columns.length - 1;
 
             if (foundOne)
             {
