@@ -39,6 +39,8 @@
     <component id="InlineScroller" class="spark.components.InlineScroller"/>
     <!-- ColorPicker -->
     <component id="ColorPicker" class="spark.components.ColorPicker"/>
+    <!-- MaskedTextInput -->
+    <component id="MaskedTextInput" class="spark.components.MaskedTextInput"/>
     <!-- Menu -->
     <component id="Menu" class="spark.components.Menu"/>
     <component id="MenuItemRenderer" class="spark.components.itemRenderers.MenuItemRenderer"/>
