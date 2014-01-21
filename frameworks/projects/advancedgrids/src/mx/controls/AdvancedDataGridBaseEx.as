@@ -7607,6 +7607,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         var target:DisplayObject = DisplayObject(event.target);
         var index:int = target.parent.getChildIndex(target);
         var optimumColumns:Array = getOptimumColumns();
+		if (index < 0 || index >= optimumColumns.length)
+			return;
         if (!optimumColumns[index].resizable)
             return;
 
