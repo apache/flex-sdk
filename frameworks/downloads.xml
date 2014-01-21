@@ -32,9 +32,10 @@
 
     <property name="adobe.flex.dir" value="adobe_flex_sdk_4.6"/>
     <property name="adobe.flex.zip.file" value="flex_sdk_4.6.0.23201B.zip"/>
-    <property name="pixelbender.bin.zip" value="apache-flex-sdk-pixelbender-1.0.0-bin.zip" />
-    <property name="pixelbender.url" value="http://www.apache.org/dyn/closer.cgi/flex/pixelbender/1.0.0/binaries" />
-        
+    <property name="pixelbender.url" value="http://www.apache.org/dyn/mirrors/mirrors.cgi" />
+    <property name="pixelbender.folder" value="flex/pixelbender/1.0/binaries" />
+    <property name="pixelbender.bin.zip" value="apache-flex-sdk-pixel-bender-1.0.0-bin.zip" />
+    
     <property name="adobe.flex.license" value="
         ${line.separator}
         ${line.separator}Adobe Flex SDK License Agreement:
@@ -148,9 +149,12 @@
         description="Downloads PixelBender from flex distribution server">
         
         <mkdir dir="${download.dir}"/>
-        <get src="${pixelbender.url}/${pixelbender.bin.zip}"
-        dest="${download.dir}/${pixelbender.bin.zip}"
-        verbose="false"/>
+        <antcall target="get_from_mirror" >
+            <param name="server" value="${pixelbender.url}" />
+            <param name="folder" value="${pixelbender.folder}" />
+            <param name="file" value="${pixelbender.bin.zip}" />
+            <param name="dest" value="${download.dir}/${pixelbender.bin.zip}" />
+        </antcall>
         
         <unzip src="${download.dir}/${pixelbender.bin.zip}" dest="${FLEX_HOME}">
             <patternset>
@@ -369,5 +373,42 @@
     
     <target name="clean-adobe-flex-sdk">
         <delete dir="${download.dir}/${adobe.flex.dir}"/>
-    </target>    
+    </target>
+    
+    <target name="get_from_mirror">
+        <condition property="usingmirror" value="true">
+            <contains string="${server}" substring="mirrors.cgi" />
+        </condition>
+        <antcall target="download_using_mirror">
+            <param name="server" value="${server}" />
+            <param name="folder" value="${folder}" />
+            <param name="file" value="${file}" />
+            <param name="dest" value="${dest}" />
+        </antcall>
+        <antcall target="download_using_get">
+            <param name="server" value="${server}" />
+            <param name="folder" value="${folder}" />
+            <param name="file" value="${file}" />
+            <param name="dest" value="${dest}" />
+        </antcall>
+    </target>
+    
+    <target name="download_using_mirror" if="usingmirror">
+        <get src="${server}/${folder}/${file}?asjson=true" verbose="true" dest="${basedir}/mirror.json" />
+        <replace file="${basedir}/mirror.json">
+            <replacefilter token="&quot;"
+            value="" />
+            <replacefilter token=": "
+            value="=" />
+        </replace>
+        <property file="${basedir}/mirror.json" />
+        <delete file="${basedir}/mirror.json" />
+        <echo>Using mirror: ${preferred}</echo>
+        <get src="${preferred}${folder}/${file}" dest="${dest}" />
+    </target>
+    
+    <target name="download_using_get" unless="usingmirror">
+        <get src="${server}/${folder}/${file}" dest="${dest}" />
+    </target>
+
 </project>
