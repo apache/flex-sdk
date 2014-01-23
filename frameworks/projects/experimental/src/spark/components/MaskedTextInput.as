@@ -22,6 +22,7 @@ package spark.components {
 
     import flashx.textLayout.edit.SelectionState;
     import flashx.textLayout.operations.CompositeOperation;
+    import flashx.textLayout.operations.CopyOperation;
     import flashx.textLayout.operations.DeleteTextOperation;
     import flashx.textLayout.operations.InsertTextOperation;
 
@@ -442,6 +443,12 @@ package spark.components {
 
                 an = ac = selectionActivePosition - offset;
             }
+            //copy
+            else if(event.operation is CopyOperation)
+            {
+                return; // avoid to remove all text on copy operation
+            }
+
 
             selectAll();
             insertText(outputText);
