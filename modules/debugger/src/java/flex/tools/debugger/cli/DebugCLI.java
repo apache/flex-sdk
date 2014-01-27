@@ -296,18 +296,6 @@ public class DebugCLI implements Runnable, SourceLocator
 	 */
 	private static final String INFO_STACK_SHOW_THIS = "$infostackshowthis"; //$NON-NLS-1$
 
-	/**
-	 * Number of milliseconds to wait for metadata.
-	 */
-	private static final String METADATA_ATTEMPTS_PERIOD = "$metadataattemptsperiod"; //$NON-NLS-1$
-
-	private static final String METADATA_NOT_AVAILABLE = "$metadatanotavailable"; //$NON-NLS-1$
-
-	/**
-	 * How many times we should try to get metadata.
-	 */
-	private static final String METADATA_ATTEMPTS = "$metadataattempts"; //$NON-NLS-1$
-
 	private static final String PLAYER_FULL_SUPPORT = "$playerfullsupport"; //$NON-NLS-1$
 
 	/**
@@ -1691,101 +1679,6 @@ public class DebugCLI implements Runnable, SourceLocator
 		}
 	}
 
-    public void waitForMetaData() throws InProgressException
-    {
-        // perform a query to see if our metadata has loaded
-        int metadatatries = propertyGet(METADATA_ATTEMPTS);
-        int maxPerCall = 8;   // cap on how many attempt we make per call
-
-        int tries = Math.min(maxPerCall, metadatatries);
-        if (tries > 0)
-        {
-            int remain = metadatatries - tries; // assume all get used up
-
-            // perform the call and then update our remaining number of attempts
-            try
-            {
-                tries = waitForMetaData(tries);
-                remain = metadatatries - tries; // update our used count
-            }
-            catch(InProgressException ipe)
-            {
-                propertyPut(METADATA_ATTEMPTS, remain);
-				throw ipe;
-            }
-        }
-    }
-
-	/**
-	 * Wait for the API to load function names, which
-	 * exist in the form of external meta-data.
-	 *
-	 * Only do this tries times, then give up
-	 *
-	 * We wait period * attempts
-	 */
-	public int waitForMetaData(int attempts) throws InProgressException
-	{
-        int start = attempts;
-        int period = propertyGet(METADATA_ATTEMPTS_PERIOD);
-		while(attempts > 0)
-		{
-			// are we done yet?
-			if (isMetaDataAvailable())
-				break;
-			else
-				try { attempts--; Thread.sleep(period); } catch(InterruptedException ie) {}
-		}
-
-		// throw exception if still not ready
-		if (!isMetaDataAvailable())
-			throw new InProgressException();
-
-        return start-attempts;  // remaining number of tries
-	}
-
-	/**
-	 * Ask each swf if metadata processing is complete
-	 */
-	public boolean isMetaDataAvailable()
-	{
-		boolean allLoaded = true;
-		try 
-		{
-			// we need to ask the session since our fileinfocache will hide the exception
-			SwfInfo[] swfs = m_session.getSwfs();
-			for(int i=0; i<swfs.length; i++)
-			{
-				// check if our processing is finished.
-				SwfInfo swf = swfs[i];
-				if (swf != null && !swf.isProcessingComplete())
-				{
-					allLoaded = false;
-					break;
-				}
-			}
-		}
-		catch(NoResponseException nre)
-		{
-			// ok we still need to wait for player to read the swd in
-			allLoaded = false;
-		}
-
-		// count the number of times we checked and it wasn't there
-		if (!allLoaded)
-		{
-			int count = propertyGet(METADATA_NOT_AVAILABLE);
-			count++;
-			propertyPut(METADATA_NOT_AVAILABLE, count);
-		}
-		else
-		{
-			// success so we reset our attempt counter
-			propertyPut(METADATA_ATTEMPTS, METADATA_RETRIES);
-		}
-		return allLoaded;
-	}
-
 	void doInfoHandle()
 	{
 		if (hasMoreTokens())
@@ -1825,9 +1718,6 @@ public class DebugCLI implements Runnable, SourceLocator
 		// we take an optional single arg which specifies a module
 		try
 		{
-			// let's wait a bit for the background load to complete
-			waitForMetaData();
-
 			if (hasMoreTokens())
 			{
 				arg = nextToken();
@@ -1868,10 +1758,6 @@ public class DebugCLI implements Runnable, SourceLocator
 		catch(AmbiguousException ae)
 		{
 			err(ae.getMessage());
-		}
-		catch(InProgressException ipe)
-		{
-		    err(getLocalizationManager().getLocalizedTextString("functionListBeingPrepared")); //$NON-NLS-1$
 		}
 	}
 
@@ -2218,10 +2104,6 @@ public class DebugCLI implements Runnable, SourceLocator
 		// then see if it because of a swfloaded event
 		if( reason == SuspendReason.ScriptLoaded)
 		{
-            // since the player takes a long time to provide swf/swd, try 80 * 250ms = ~20s
-            if (propertyGet(METADATA_ATTEMPTS) > 0)
-			    try { waitForMetaData(80); } catch(InProgressException ipe) { }
-
             m_fileInfo.setDirty();
 			processEvents();
             propagateBreakpoints();
@@ -4186,8 +4068,6 @@ public class DebugCLI implements Runnable, SourceLocator
 	 */
     private int[] parseFunctionName(int module, String partialFunctionName, boolean onlyThisModule) throws NoMatchException, AmbiguousException
     {
-        try { waitForMetaData(); } catch(InProgressException ipe) {}  // wait a bit before we try this to give the background thread time to complete
-
         SourceFile m = m_fileInfo.getFile(module);
 		ArrayList<ModuleFunctionPair> functionNames = new ArrayList<ModuleFunctionPair>(); // each member is a ModuleFunctionPair
 
@@ -4691,9 +4571,6 @@ public class DebugCLI implements Runnable, SourceLocator
 
 				// pause for a while during startup, don't let exceptions ripple outwards
 				try { waitTilHalted(); } catch(Exception e) {}
-
-				// pause for a while during startup, don't let exceptions ripple outwards
-				try { waitForMetaData(); } catch(Exception e) {}
 
 				setInitialSourceFile();
 
@@ -6484,9 +6361,6 @@ public class DebugCLI implements Runnable, SourceLocator
 		propertyPut(LAST_FRAME_DEPTH, 0);
 		propertyPut(CURRENT_FRAME_DEPTH, 0);
 		propertyPut(DISPLAY_FRAME_NUMBER, 0);
-		propertyPut(METADATA_ATTEMPTS_PERIOD, 250); // 1/4s per attempt
-		propertyPut(METADATA_NOT_AVAILABLE, 0);  // counter for failures
-		propertyPut(METADATA_ATTEMPTS, METADATA_RETRIES);
 		propertyPut(PLAYER_FULL_SUPPORT, correctVersion ? 1 : 0);
 
 		String previousURI = m_mruURI;
@@ -6513,10 +6387,6 @@ public class DebugCLI implements Runnable, SourceLocator
 	 */
 	void reapplyBreakpoints()
 	{
-		// give us a bit of time to process the newly loaded swf
-		if (propertyGet(METADATA_ATTEMPTS) > 0)
-			try { waitForMetaData(80); } catch(InProgressException ipe) { }
-
 		int count = breakpointCount();
 		for(int i=0; i<count; i++)
 		{

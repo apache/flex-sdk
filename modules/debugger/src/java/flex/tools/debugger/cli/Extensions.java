@@ -116,9 +116,6 @@ public class Extensions
 		// we take an optional single arg which specifies a module
 		try
 		{
-			// let's wait a bit for the background load to complete
-			cli.waitForMetaData();
-
 			if (cli.hasMoreTokens())
 			{
 				arg = cli.nextToken();
@@ -159,10 +156,6 @@ public class Extensions
 		catch(NoMatchException nme)
 		{
 			cli.err(nme.getMessage());
-		}
-		catch(InProgressException ipe)
-		{
-		    cli.err(getLocalizationManager().getLocalizedTextString("key20")); //$NON-NLS-1$
 		}
 	}
 
