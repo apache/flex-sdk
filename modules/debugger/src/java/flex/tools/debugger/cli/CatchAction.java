@@ -26,7 +26,7 @@ package flex.tools.debugger.cli;
  * 
  * @author Mike Morearty
  */
-class CatchAction
+public class CatchAction
 {
 	private final int m_id;
 	private final String m_typeToCatch;

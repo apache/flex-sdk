@@ -27,7 +27,7 @@ package flex.tools.debugger.cli;
  * ExtensionsDisabled emtpy stubs are provided that allow
  * for DebugCLI to be fully compliant with the API 
  */
-class ExtensionsDisabled
+public class ExtensionsDisabled
 {
 	public static void doShowStats(DebugCLI cli) { cli.out("Command not supported."); }
 	public static void doShowFuncs(DebugCLI cli) { cli.out("Command not supported."); }

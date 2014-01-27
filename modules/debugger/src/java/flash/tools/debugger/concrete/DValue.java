@@ -60,7 +60,7 @@ public class DValue implements Value
 	/**
 	 * Either my own ID, or else my parent's ID if I am <code>__proto__</code>.
 	 */
-    private long				m_nonProtoId;
+	long				m_nonProtoId;
 
 	/**
 	 * <code>m_value</code> can have one of several possible meanings:
@@ -106,7 +106,7 @@ public class DValue implements Value
 	 */
 	public DValue(long id)
 	{
-		init(VariableType.UNKNOWN, null, null, 0, id);
+		init(VariableType.UNKNOWN, null, null, 0, new Long(id));
 	}
 
 	/**
@@ -264,9 +264,12 @@ public class DValue implements Value
 		if (count > 0)
 		{
 			count = 0;
-            for (DVariable sf : m_members.values()) {
-                ar[count++] = sf;
-            }
+			Iterator<DVariable> itr = m_members.values().iterator();
+			while(itr.hasNext())
+			{
+				DVariable  sf = itr.next();
+				ar[count++] = sf;
+			}
 
 			// sort the member list by name
 			Arrays.sort(ar);
@@ -299,11 +302,15 @@ public class DValue implements Value
 					((PlayerSession)s).obtainMembers(id);
 				if (m_members != null)
 				{
-                    for (DVariable next : m_members.values()) {
-                        if (next instanceof DVariable) {
-                            ((DVariable) next).setSession(s);
-                        }
-                    }
+					Iterator<DVariable> iter = m_members.values().iterator();
+					while (iter.hasNext())
+					{
+						Object next = iter.next();
+						if (next instanceof DVariable)
+						{
+							((DVariable)next).setSession(s);
+						}
+					}
 				}
 			}
 		}
@@ -458,10 +465,13 @@ public class DValue implements Value
 			sb.append(PlayerSessionManager.getLocalizationManager().getLocalizedTextString("empty")); //$NON-NLS-1$
 		else
 		{
-            for (DVariable sf : m_members.values()) {
-                sb.append(sf);
-                sb.append(",\n"); //$NON-NLS-1$
-            }
+			Iterator<DVariable> itr = m_members.values().iterator();
+			while(itr.hasNext())
+			{
+				DVariable  sf = itr.next();
+				sb.append(sf);
+				sb.append(",\n"); //$NON-NLS-1$
+			}
 		}
 		return sb.toString();
 	}
@@ -482,12 +492,15 @@ public class DValue implements Value
 			return new DVariable[0];
 		
 		ArrayList<DVariable> finalList = new ArrayList<DVariable>();
-
-        for (List<DVariable> varList : m_inheritedPrivates.values()) {
-            finalList.addAll(varList);
-        }
 		
-		DVariable[] ar = finalList.toArray(new DVariable[finalList.size()]);
+		Iterator<List<DVariable>> itr = m_inheritedPrivates.values().iterator();
+		while(itr.hasNext())
+		{
+			List<DVariable>  varList = itr.next();
+			finalList.addAll(varList);
+		}
+		
+		DVariable[] ar = finalList.toArray(new DVariable[0]);
 		// sort the member list by name
 		Arrays.sort(ar);
 
@@ -499,7 +512,7 @@ public class DValue implements Value
 			return new DVariable[0];
 		List<DVariable> list = m_inheritedPrivates.get(name);
 		if (list != null) {
-			return list.toArray(new Variable[list.size()]);
+			return list.toArray(new Variable[0]);
 		}
 		return new DVariable[0];
 	}

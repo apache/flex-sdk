@@ -21,6 +21,7 @@ package flex.tools.debugger.cli;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -121,127 +122,127 @@ public class DebugCLI implements Runnable, SourceLocator
 {
 	public static final String VERSION			= "82"; //$NON-NLS-1$
 
-	private static final int CMD_UNKNOWN			= 0;
-	private static final int CMD_QUIT			= 1;
-	private static final int CMD_CONTINUE		= 2;
-	private static final int CMD_STEP			= 3;
-	private static final int CMD_NEXT			= 4;
-	private static final int CMD_FINISH			= 5;
-	private static final int CMD_BREAK			= 6;
-	private static final int CMD_SET				= 7;
-	private static final int CMD_LIST			= 8;
-	private static final int CMD_PRINT			= 9;
-	private static final int CMD_TUTORIAL		= 10;
-	private static final int CMD_INFO			= 11;
-	private static final int CMD_HOME			= 12;
-	private static final int CMD_RUN				= 13;
-	private static final int CMD_FILE			= 14;
-	private static final int CMD_DELETE			= 15;
-	private static final int CMD_SOURCE			= 16;
-	private static final int CMD_COMMENT			= 17;
-	private static final int CMD_CLEAR			= 18;
-	private static final int CMD_HELP			= 19;
-	private static final int CMD_SHOW			= 20;
-	private static final int CMD_KILL			= 21;
-	private static final int CMD_HANDLE			= 22;
-	private static final int CMD_ENABLE			= 23;
-	private static final int CMD_DISABLE			= 24;
-	private static final int CMD_DISPLAY			= 25;
-	private static final int CMD_UNDISPLAY		= 26;
- 	private static final int CMD_COMMANDS		= 27;
-    private static final int CMD_PWD             = 28;
-    private static final int CMD_CF              = 29;
-    private static final int CMD_CONDITION		= 30;
-	private static final int CMD_AWATCH			= 31;
-	private static final int CMD_WATCH			= 32;
-	private static final int CMD_RWATCH			= 33;
-	private static final int CMD_WHAT			= 34;
-	private static final int CMD_DISASSEMBLE		= 35;
-	private static final int CMD_HALT			= 36;
-	private static final int CMD_MCTREE			= 37;
-	private static final int CMD_VIEW_SWF		= 38;
-	private static final int CMD_DOWN			= 39;
-	private static final int CMD_UP				= 40;
-	private static final int CMD_FRAME			= 41;
-	private static final int CMD_DIRECTORY		= 42;
-	private static final int CMD_CATCH			= 43;
-	private static final int CMD_CONNECT			= 44;
+	public static final int CMD_UNKNOWN			= 0;
+	public static final int CMD_QUIT			= 1;
+	public static final int CMD_CONTINUE		= 2;
+	public static final int CMD_STEP			= 3;
+	public static final int CMD_NEXT			= 4;
+	public static final int CMD_FINISH			= 5;
+	public static final int CMD_BREAK			= 6;
+	public static final int CMD_SET				= 7;
+	public static final int CMD_LIST			= 8;
+	public static final int CMD_PRINT			= 9;
+	public static final int CMD_TUTORIAL		= 10;
+	public static final int CMD_INFO			= 11;
+	public static final int CMD_HOME			= 12;
+	public static final int CMD_RUN				= 13;
+	public static final int CMD_FILE			= 14;
+	public static final int CMD_DELETE			= 15;
+	public static final int CMD_SOURCE			= 16;
+	public static final int CMD_COMMENT			= 17;
+	public static final int CMD_CLEAR			= 18;
+	public static final int CMD_HELP			= 19;
+	public static final int CMD_SHOW			= 20;
+	public static final int CMD_KILL			= 21;
+	public static final int CMD_HANDLE			= 22;
+	public static final int CMD_ENABLE			= 23;
+	public static final int CMD_DISABLE			= 24;
+	public static final int CMD_DISPLAY			= 25;
+	public static final int CMD_UNDISPLAY		= 26;
+ 	public static final int CMD_COMMANDS		= 27;
+    public static final int CMD_PWD             = 28;
+    public static final int CMD_CF              = 29;
+    public static final int CMD_CONDITION		= 30;
+	public static final int CMD_AWATCH			= 31;
+	public static final int CMD_WATCH			= 32;
+	public static final int CMD_RWATCH			= 33;
+	public static final int CMD_WHAT			= 34;
+	public static final int CMD_DISASSEMBLE		= 35;
+	public static final int CMD_HALT			= 36;
+	public static final int CMD_MCTREE			= 37;
+	public static final int CMD_VIEW_SWF		= 38;
+	public static final int CMD_DOWN			= 39;
+	public static final int CMD_UP				= 40;
+	public static final int CMD_FRAME			= 41;
+	public static final int CMD_DIRECTORY		= 42;
+	public static final int CMD_CATCH			= 43;
+	public static final int CMD_CONNECT			= 44;
 
 	/* info sub commands */
-	private static final int INFO_UNKNOWN_CMD	= 100;
-	private static final int INFO_ARGS_CMD		= 101;
-	private static final int INFO_BREAK_CMD		= 102;
-	private static final int INFO_FILES_CMD		= 103;
-	private static final int INFO_HANDLE_CMD		= 104;
-	private static final int INFO_FUNCTIONS_CMD	= 105;
-	private static final int INFO_LOCALS_CMD		= 106;
-	private static final int INFO_SCOPECHAIN_CMD	= 107;
-	private static final int INFO_SOURCES_CMD	= 108;
-	private static final int INFO_STACK_CMD		= 109;
-	private static final int INFO_VARIABLES_CMD	= 110;
-	private static final int INFO_DISPLAY_CMD	= 111;
-    private static final int INFO_TARGETS_CMD    = 112;
-    private static final int INFO_SWFS_CMD		= 113;
+	public static final int INFO_UNKNOWN_CMD	= 100;
+	public static final int INFO_ARGS_CMD		= 101;
+	public static final int INFO_BREAK_CMD		= 102;
+	public static final int INFO_FILES_CMD		= 103;
+	public static final int INFO_HANDLE_CMD		= 104;
+	public static final int INFO_FUNCTIONS_CMD	= 105;
+	public static final int INFO_LOCALS_CMD		= 106;
+	public static final int INFO_SCOPECHAIN_CMD	= 107;
+	public static final int INFO_SOURCES_CMD	= 108;
+	public static final int INFO_STACK_CMD		= 109;
+	public static final int INFO_VARIABLES_CMD	= 110;
+	public static final int INFO_DISPLAY_CMD	= 111;
+    public static final int INFO_TARGETS_CMD    = 112;
+    public static final int INFO_SWFS_CMD		= 113;
 
 	/* show subcommands */
-	private static final int SHOW_UNKNOWN_CMD	= 200;
-	private static final int SHOW_NET_CMD		= 201;
-	private static final int SHOW_FUNC_CMD		= 202;
-	private static final int SHOW_URI_CMD		= 203;
-	private static final int SHOW_PROPERTIES_CMD	= 204;
-	private static final int SHOW_FILES_CMD		= 205;
-	private static final int SHOW_BREAK_CMD		= 206;
-	private static final int SHOW_VAR_CMD		= 207;
-	private static final int SHOW_MEM_CMD		= 208;
-	private static final int SHOW_LOC_CMD		= 209;
-	private static final int SHOW_DIRS_CMD		= 210;
+	public static final int SHOW_UNKNOWN_CMD	= 200;
+	public static final int SHOW_NET_CMD		= 201;
+	public static final int SHOW_FUNC_CMD		= 202;
+	public static final int SHOW_URI_CMD		= 203;
+	public static final int SHOW_PROPERTIES_CMD	= 204;
+	public static final int SHOW_FILES_CMD		= 205;
+	public static final int SHOW_BREAK_CMD		= 206;
+	public static final int SHOW_VAR_CMD		= 207;
+	public static final int SHOW_MEM_CMD		= 208;
+	public static final int SHOW_LOC_CMD		= 209;
+	public static final int SHOW_DIRS_CMD		= 210;
 
 	/* misc subcommands */
-	private static final int ENABLE_ONCE_CMD		= 301;
+	public static final int ENABLE_ONCE_CMD		= 301;
 
     // default metadata retry count 8 attempts per waitForMetadata() call * 5 calls
-    private static final int METADATA_RETRIES    = 0;
+    public static final int METADATA_RETRIES    = 8*5;
 
-	private final Stack<LineNumberReader> m_readerStack = new Stack<LineNumberReader>();
-	private PrintStream m_err;
-	private PrintStream m_out;
-	private Session		m_session;
-	private String		m_launchURI;
-	private boolean		m_fullnameOption; // emacs mode
-	private String		m_cdPath;
-	private String		m_mruURI;
-	private String      m_connectPort;
-	private final static String m_newline = System.getProperty("line.separator"); //$NON-NLS-1$
+	Stack<LineNumberReader> m_readerStack = new Stack<LineNumberReader>();
+	PrintStream m_err;
+	PrintStream m_out;
+	Session		m_session;
+	String		m_launchURI;
+	boolean		m_fullnameOption; // emacs mode
+	String		m_cdPath;
+	String		m_mruURI;
+	String m_connectPort;
+	public final static String m_newline = System.getProperty("line.separator"); //$NON-NLS-1$
 
 	private final static LocalizationManager m_localizationManager = new LocalizationManager();
 
-	private final List<String>	m_sourceDirectories; // List of String
-	private int				m_sourceDirectoriesChangeCount;
+	List<String>	m_sourceDirectories; // List of String
+	int				m_sourceDirectoriesChangeCount;
 	private File	m_flexHomeDirectory; // <application.home>/frameworks/projects/*/src always goes in m_sourceDirectories
 	private boolean	m_initializedFlexHomeDirectory;
 
 	// context information for our current session
-    private FileInfoCache	                m_fileInfo;
-	final ExpressionCache                   m_exprCache;
-	private final FaultActions	            m_faultTable;
-	private final Vector<BreakAction>	    m_breakpoints;
-	private final Vector<WatchAction>		m_watchpoints;
-	private final Vector<CatchAction>		m_catchpoints;
-	private final ArrayList<DisplayAction>	m_displays;
-	private boolean			                m_requestResume;
-	private boolean			                m_requestHalt;
-	private boolean			                m_stepResume;
+	FileInfoCache	m_fileInfo;
+	ExpressionCache m_exprCache;
+	FaultActions	m_faultTable;
+	Vector<BreakAction>	        m_breakpoints;
+	Vector<WatchAction>			m_watchpoints;
+	Vector<CatchAction>			m_catchpoints;
+	ArrayList<DisplayAction>	m_displays;
+	boolean			m_requestResume;
+	boolean			m_requestHalt;
+	boolean			m_stepResume;
 
 	/* our current input processing context */
-    private LineNumberReader	m_in;
-	private LineNumberReader	m_keyboardStream;
-	private final Vector<String> m_keyboardInput;
-	private boolean				m_keyboardReadRequest;
-	private StringTokenizer		m_currentTokenizer;
-	private String				m_currentToken;
-	private String				m_currentLine;
-	public String		        m_repeatLine;
-    private boolean             m_isIde;
+	LineNumberReader	m_in;
+	LineNumberReader	m_keyboardStream;
+	Vector<String>		m_keyboardInput;
+	boolean				m_keyboardReadRequest;
+	StringTokenizer		m_currentTokenizer;
+	String				m_currentToken;
+	String				m_currentLine;
+	public String		m_repeatLine;
+    private boolean     m_isIde;
 
 	/**
 	 * The module that the next "list" command should display if no
@@ -295,7 +296,17 @@ public class DebugCLI implements Runnable, SourceLocator
 	 */
 	private static final String INFO_STACK_SHOW_THIS = "$infostackshowthis"; //$NON-NLS-1$
 
+	/**
+	 * Number of milliseconds to wait for metadata.
+	 */
+	private static final String METADATA_ATTEMPTS_PERIOD = "$metadataattemptsperiod"; //$NON-NLS-1$
+
 	private static final String METADATA_NOT_AVAILABLE = "$metadatanotavailable"; //$NON-NLS-1$
+
+	/**
+	 * How many times we should try to get metadata.
+	 */
+	private static final String METADATA_ATTEMPTS = "$metadataattempts"; //$NON-NLS-1$
 
 	private static final String PLAYER_FULL_SUPPORT = "$playerfullsupport"; //$NON-NLS-1$
 
@@ -348,7 +359,7 @@ public class DebugCLI implements Runnable, SourceLocator
 				FileReader sr = new FileReader(new File(userDir, ".fdbinit")); //$NON-NLS-1$
 				cli.pushStream( new LineNumberReader(sr) );
 			}
-			catch(FileNotFoundException ignored) {}
+			catch(FileNotFoundException fnf) {}
 		}
 
 		/*
@@ -366,7 +377,7 @@ public class DebugCLI implements Runnable, SourceLocator
 				FileReader sr = new FileReader(new File(userHome, ".fdbinit")); //$NON-NLS-1$
 				cli.pushStream( new LineNumberReader(sr) );
 			}
-			catch(FileNotFoundException ignored) {}
+			catch(FileNotFoundException fnf) {}
 		}
 
 		cli.execute();
@@ -468,11 +479,11 @@ public class DebugCLI implements Runnable, SourceLocator
 
 	/**
 	 * Dispose of the current line and read the next from the current stream, if its an empty
-	 * line and we are console then pad last line.
+	 * line and we are console then repeat last line.
 	 */
 	String readLine() throws IOException
 	{
-		String line;
+		String line = null;
 		if (haveStreams())
 			line = m_in.readLine();
 		else
@@ -490,7 +501,7 @@ public class DebugCLI implements Runnable, SourceLocator
 	{
 		// enable a request then block on the queue
 		m_keyboardReadRequest = true;
-		try { wait(); } catch(InterruptedException ignored) {}
+		try { wait(); } catch(InterruptedException ie) {}
 
 		// pull from the front of the queue
 		return m_keyboardInput.remove(0);
@@ -529,7 +540,7 @@ public class DebugCLI implements Runnable, SourceLocator
 					synchronized(this) { notifyAll(); }
 				}
 				else
-					try { Thread.sleep(50); } catch(InterruptedException ignored) {}
+					try { Thread.sleep(50); } catch(InterruptedException ie) {}
 			}
 			catch(IOException io)
 			{
@@ -547,7 +558,7 @@ public class DebugCLI implements Runnable, SourceLocator
 		{
 			m_currentLine = m_currentLine.trim();
 
-			/* if nothing provided on this command then pull our 'pad' command  */
+			/* if nothing provided on this command then pull our 'repeat' command  */
 			if (m_repeatLine != null && !haveStreams() && m_currentLine.length() == 0)
 				m_currentLine = m_repeatLine;
 
@@ -558,11 +569,11 @@ public class DebugCLI implements Runnable, SourceLocator
 	/* Helpers for extracting tokens from the current line */
 	public boolean		hasMoreTokens()									{ return m_currentTokenizer.hasMoreTokens(); }
 	public String		nextToken()										{ m_currentToken = m_currentTokenizer.nextToken(); return m_currentToken; }
-	int			nextIntToken() throws NumberFormatException		{ nextToken(); return Integer.parseInt(m_currentToken);	}
+	public int			nextIntToken() throws NumberFormatException		{ nextToken(); return Integer.parseInt(m_currentToken);	}
 	public long			nextLongToken() throws NumberFormatException	{ nextToken(); return Long.parseLong(m_currentToken);	}
-	String		restOfLine()									{ return m_currentTokenizer.nextToken("").trim(); } //$NON-NLS-1$
+	public String		restOfLine()									{ return m_currentTokenizer.nextToken("").trim(); } //$NON-NLS-1$
 
-	void execute()
+	public void execute()
 	{
 		/* dump console message */
 		displayStartMessage();
@@ -574,8 +585,21 @@ public class DebugCLI implements Runnable, SourceLocator
 		/* keep processing streams until we have no more to do */
 		while(haveStreams())
 		{
-            m_in = popStream();
-            process();
+			try
+			{
+				m_in = popStream();
+				process();
+			}
+			catch(EOFException eof)
+			{
+				; /* quite allright */
+			}
+			catch(IOException io)
+			{
+				Map<String, Object> args = new HashMap<String, Object>();
+				args.put("exceptionMessage", io); //$NON-NLS-1$
+				err(getLocalizationManager().getLocalizedTextString("errorWhileProcessingFile", args)); //$NON-NLS-1$
+			}
 		}
 
 		/* we done kill everything */
@@ -622,10 +646,10 @@ public class DebugCLI implements Runnable, SourceLocator
 	}
 
 	// add the given character n times to sb
-	void pad(StringBuilder sb, int n)
+	void repeat(StringBuilder sb, char c, int n)
 	{
 		while(n-- > 0)
-			sb.append(' ');
+			sb.append(c);
 	}
 
 	// Prompt the user to respond to a yes or no type question
@@ -662,7 +686,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			m_out.println(s);
 	}
 
-	private static String uft()
+	static String uft()
 	{
 		Runtime rt = Runtime.getRuntime();
 		long free = rt.freeMemory(), total = rt.totalMemory(), used =  total - free;
@@ -694,13 +718,14 @@ public class DebugCLI implements Runnable, SourceLocator
 
 	// getter/setter for properties; in the expression cache, so that they can be used in expressions!
 	public void propertyPut(String k, int v)  { m_exprCache.put(k,v); }
-	public int  propertyGet(String k)		  { return (Integer) m_exprCache.get(k); }
+	public int  propertyGet(String k)		  { return ((Integer)m_exprCache.get(k)).intValue(); }
 	public Set<String>  propertyKeys()		  { return m_exprCache.keySet(); }
 
 	/**
 	 * Process this reader until its done
 	 */
-	void process() {
+	void process() throws IOException
+	{
 		boolean done = false;
 		while(!done)
 		{
@@ -872,7 +897,10 @@ public class DebugCLI implements Runnable, SourceLocator
 		// dump the URI that the player has sent us
 		try
 		{
-            out("URI = " + m_session.getURI());
+			StringBuilder sb = new StringBuilder();
+			sb.append("URI = "); //$NON-NLS-1$
+			sb.append( m_session.getURI() );
+			out( sb.toString() );
 		}
 		catch(Exception e)
 		{
@@ -921,7 +949,7 @@ public class DebugCLI implements Runnable, SourceLocator
 	void doShowLocations()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("Num Type           Disp Enb Address    What").append(m_newline);
+		sb.append("Num Type           Disp Enb Address    What"+m_newline);
 
 		// our list of breakpoints
 		int count = breakpointCount();
@@ -967,9 +995,12 @@ public class DebugCLI implements Runnable, SourceLocator
 				}
 
 				sb.append(file.getName());
-                sb.append("#"); //$NON-NLS-1$
-                sb.append(file.getId());
-                sb.append(':');
+				if (file != null)
+				{
+					sb.append("#"); //$NON-NLS-1$
+					sb.append(file.getId());
+				}
+				sb.append(':');
 				sb.append(l.getLine());
 
 				try
@@ -1009,9 +1040,12 @@ public class DebugCLI implements Runnable, SourceLocator
 	void doShowDirectories()
 	{
 		out(getLocalizationManager().getLocalizedTextString("sourceDirectoriesSearched")); //$NON-NLS-1$
-        for (String dir : m_sourceDirectories) {
-            out("  " + dir); //$NON-NLS-1$
-        }
+		Iterator<String> iter = m_sourceDirectories.iterator();
+		while (iter.hasNext())
+		{
+			String dir = iter.next();
+			out("  " + dir); //$NON-NLS-1$
+		}
 	}
 
 	void doHalt() throws SuspendedException, NotConnectedException, NoResponseException
@@ -1152,7 +1186,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			{
 				// keep spitting out frames until we can't
 				Frame frame = stack[i];
-				boolean valid = appendFrameInfo(sb, frame, i, showThis);
+				boolean valid = appendFrameInfo(sb, frame, i, showThis, true);
 				sb.append(m_newline);
                 if (!valid)
                     break;
@@ -1166,9 +1200,12 @@ public class DebugCLI implements Runnable, SourceLocator
 	/**
 	 * Spit out frame information for a given frame number 
 	 */
-	boolean appendFrameInfo(StringBuilder sb, Frame ctx, int frameNumber, boolean showThis) throws PlayerDebugException
+	boolean appendFrameInfo(StringBuilder sb, Frame ctx, int frameNumber, boolean showThis, boolean showFileId) throws PlayerDebugException
 	{
 		boolean validFrame = true;
+
+		// some formatting properties
+		int i = frameNumber;
 
 		Location loc = ctx.getLocation();
 		SourceFile file = loc.getFile();
@@ -1189,7 +1226,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			boolean displayArgs = (func != null) || (var != null);
 
 			sb.append('#');
-			FieldFormat.formatLong(sb, frameNumber, 3);
+			FieldFormat.formatLong(sb, i, 3);
 			sb.append(' ');
 
 			if (showThis && dis != null)
@@ -1220,7 +1257,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			sb.append(name);
 
 			// if this file is currently being filtered put the source file id after it
-			if (file != null)
+			if (file != null && (showFileId || !m_fileInfo.inFileList(file)))
 			{
 				sb.append('#');
 				sb.append( file.getId() );
@@ -1233,7 +1270,7 @@ public class DebugCLI implements Runnable, SourceLocator
 	}
 
 	/** extract the function name from a signature */
-	private static String extractFunctionName(String sig)
+	public static String extractFunctionName(String sig)
 	{ 
 		// strip everything after the leading ( 
 		int at = sig.indexOf('(');
@@ -1258,14 +1295,18 @@ public class DebugCLI implements Runnable, SourceLocator
 		try
 		{
 			Variable[] vars = m_session.getVariableList();
-            for (Variable v : vars) {
-                // all non-local and non-arg variables
-                if (!v.isAttributeSet(VariableAttribute.IS_LOCAL) &&
-                        !v.isAttributeSet(VariableAttribute.IS_ARGUMENT)) {
-                    m_exprCache.appendVariable(sb, v);
-                    sb.append(m_newline);
-                }
-            }
+			for(int i=0; i<vars.length; i++)
+			{
+				Variable v = vars[i];
+
+				// all non-local and non-arg variables
+				if ( !v.isAttributeSet(VariableAttribute.IS_LOCAL) &&
+					 !v.isAttributeSet(VariableAttribute.IS_ARGUMENT) )
+				{
+					m_exprCache.appendVariable(sb, vars[i]);
+					sb.append(m_newline);
+				}
+			}
 		}
 		catch(NullPointerException npe)
 		{
@@ -1278,7 +1319,7 @@ public class DebugCLI implements Runnable, SourceLocator
 	void doInfoDisplay()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("Num Enb Expression").append(m_newline); //$NON-NLS-1$
+		sb.append("Num Enb Expression"+m_newline); //$NON-NLS-1$
 
 		// our list of displays
 		int count = displayCount();
@@ -1316,10 +1357,11 @@ public class DebugCLI implements Runnable, SourceLocator
 			int num = propertyGet(DISPLAY_FRAME_NUMBER);
 			Frame[] frames = m_session.getFrames();
 			Variable[] vars = frames[num].getArguments(m_session);
-            for (Variable var : vars) {
-                m_exprCache.appendVariable(sb, var);
-                sb.append(m_newline);
-            }
+			for(int i=0; i<vars.length; i++)
+			{
+                m_exprCache.appendVariable(sb, vars[i]);
+				sb.append(m_newline);
+			}
 		}
 		catch(NullPointerException npe)
 		{
@@ -1349,13 +1391,17 @@ public class DebugCLI implements Runnable, SourceLocator
 			Frame ctx = ar[num];
 			Variable[] vars = ctx.getLocals(m_session);
 
-            for (Variable v : vars) {
-                // see if variable is local
-                if (v.isAttributeSet(VariableAttribute.IS_LOCAL)) {
+			for(int i=0; i<vars.length; i++)
+			{
+				Variable v = vars[i];
+
+				// see if variable is local
+				if ( v.isAttributeSet(VariableAttribute.IS_LOCAL) )
+				{
                     m_exprCache.appendVariable(sb, v);
-                    sb.append(m_newline);
-                }
-            }
+					sb.append(m_newline);
+				}
+			}
 		}
 		catch(NullPointerException npe)
 		{
@@ -1385,10 +1431,12 @@ public class DebugCLI implements Runnable, SourceLocator
 			Frame ctx = ar[num];
 			Variable[] scopes = ctx.getScopeChain(m_session);
 
-            for (Variable scope : scopes) {
+			for(int i=0; i<scopes.length; i++)
+			{
+				Variable scope = scopes[i];
                 m_exprCache.appendVariable(sb, scope);
-                sb.append(m_newline);
-            }
+				sb.append(m_newline);
+			}
 		}
 		catch(NullPointerException npe)
 		{
@@ -1433,40 +1481,47 @@ public class DebugCLI implements Runnable, SourceLocator
 		{
 			StringBuilder sb = new StringBuilder();
 			SwfInfo[] swfs = m_fileInfo.getSwfs();
-            for (SwfInfo e : swfs) {
-                if (e == null || e.isUnloaded())
-                    continue;
+			for(int i=0; i<swfs.length; i++)
+			{
+				SwfInfo e = swfs[i];
+				if (e == null || e.isUnloaded())
+					continue;
 
-                Map<String, Object> args = new HashMap<String, Object>();
-                args.put("swfName", FileInfoCache.nameOfSwf(e)); //$NON-NLS-1$
-                args.put("size", NumberFormat.getInstance().format(e.getSwfSize())); //$NON-NLS-1$
+				Map<String, Object> args = new HashMap<String, Object>();
+				args.put("swfName", FileInfoCache.nameOfSwf(e)); //$NON-NLS-1$
+				args.put("size", NumberFormat.getInstance().format(e.getSwfSize())); //$NON-NLS-1$
 
-                try {
-                    int size = e.getSwdSize(m_session);
+				try
+				{
+					int size = e.getSwdSize(m_session);
 
-                    // our swd is loaded so let's comb through our
-                    // list of scripts and locate the range of ids.
-                    SourceFile[] files = e.getSourceList(m_session);
-                    int max = Integer.MIN_VALUE;
-                    int min = Integer.MAX_VALUE;
-                    for (SourceFile f : files) {
-                        int id = f.getId();
-                        max = (id > max) ? id : max;
-                        min = (id < min) ? id : min;
-                    }
+					// our swd is loaded so let's comb through our
+					// list of scripts and locate the range of ids.
+					SourceFile[] files = e.getSourceList(m_session);
+					int max = Integer.MIN_VALUE;
+					int min = Integer.MAX_VALUE;
+					for(int j=0; j<files.length; j++)
+					{
+						SourceFile f = files[j];
+						int id = f.getId();
+						max = (id > max) ? id : max;
+						min = (id < min) ? id : min;
+					}
 
-                    args.put("scriptCount", Integer.toString(e.getSourceCount(m_session))); //$NON-NLS-1$
-                    args.put("min", Integer.toString(min)); //$NON-NLS-1$
-                    args.put("max", Integer.toString(max)); //$NON-NLS-1$
-                    args.put("plus", (e.isProcessingComplete()) ? "+" : ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                    args.put("moreInfo", (size == 0) ? getLocalizationManager().getLocalizedTextString("remainingSourceBeingLoaded") : ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                } catch (InProgressException ipe) {
-                    sb.append(getLocalizationManager().getLocalizedTextString("debugInfoBeingLoaded")); //$NON-NLS-1$
-                }
-                args.put("url", e.getUrl()); //$NON-NLS-1$
-                sb.append(getLocalizationManager().getLocalizedTextString("swfInfo", args)); //$NON-NLS-1$
-                sb.append(m_newline);
-            }
+					args.put("scriptCount", Integer.toString(e.getSourceCount(m_session))); //$NON-NLS-1$
+					args.put("min", Integer.toString(min)); //$NON-NLS-1$
+					args.put("max", Integer.toString(max)); //$NON-NLS-1$
+					args.put("plus", (e.isProcessingComplete()) ? "+" : ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					args.put("moreInfo", (size==0) ? getLocalizationManager().getLocalizedTextString("remainingSourceBeingLoaded") : ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				}
+				catch(InProgressException ipe)
+				{
+					sb.append(getLocalizationManager().getLocalizedTextString("debugInfoBeingLoaded")); //$NON-NLS-1$
+				}
+				args.put("url", e.getUrl()); //$NON-NLS-1$
+				sb.append(getLocalizationManager().getLocalizedTextString("swfInfo", args)); //$NON-NLS-1$
+				sb.append(m_newline);
+			}
 			out( sb.toString() );
 		}
 		catch(NullPointerException npe)
@@ -1526,26 +1581,29 @@ public class DebugCLI implements Runnable, SourceLocator
 		Vector<String> syntheticFiles = new Vector<String>();
 		Vector<String> actionsFiles = new Vector<String>();
 
-        for (SourceFile m : ar) {
-            int fileType = getFileType(m);
-            int id = m.getId();
-            String entry = m.getName() + "#" + id; //$NON-NLS-1$
+		for (int i = 0; i < ar.length; i++)
+		{
+ 			SourceFile m = ar[i];
+			int fileType = getFileType(m);
+			int id = m.getId();
+			String entry = m.getName() + "#" + id; //$NON-NLS-1$
 
-            switch (fileType) {
-                case SYNTHETIC_FILE:
-                    syntheticFiles.add(entry);
-                    break;
-                case FRAMEWORK_FILE:
-                    frameworkFiles.add(entry);
-                    break;
-                case ACTIONS_FILE:
-                    actionsFiles.add(entry);
-                    break;
-                case AUTHORED_FILE:
-                    authoredFiles.add(entry);
-                    break;
-            }
-        }
+			switch (fileType)
+			{
+			case SYNTHETIC_FILE:
+				syntheticFiles.add(entry);
+				break;
+			case FRAMEWORK_FILE:
+				frameworkFiles.add(entry);
+				break;
+			case ACTIONS_FILE:
+				actionsFiles.add(entry);
+				break;
+			case AUTHORED_FILE:
+				authoredFiles.add(entry);
+				break;
+			}
+		}
 
 		int wrapAt = propertyGet(FILE_LIST_WRAP);
 
@@ -1558,17 +1616,17 @@ public class DebugCLI implements Runnable, SourceLocator
 
 			if (frameworkFiles.size() > 0)
 			{
-				sb.append("---").append(m_newline); //$NON-NLS-1$
+				sb.append("---"+m_newline); //$NON-NLS-1$
 				appendStrings(sb, frameworkFiles, (frameworkFiles.size() > wrapAt) );
 			}
 
 			if (syntheticFiles.size() > 0)
 			{
-				sb.append("---").append(m_newline); //$NON-NLS-1$
+				sb.append("---"+m_newline); //$NON-NLS-1$
 				appendStrings(sb, syntheticFiles, (syntheticFiles.size() > wrapAt) );
 			}
 
-			sb.append("---").append(m_newline); //$NON-NLS-1$
+			sb.append("---"+m_newline); //$NON-NLS-1$
 		}
 
 		appendStrings(sb, authoredFiles, (authoredFiles.size() > wrapAt) );
@@ -1581,23 +1639,30 @@ public class DebugCLI implements Runnable, SourceLocator
 	 */
 	void appendStrings(StringBuilder sb, Vector<String> v, boolean flow)
 	{
+		int count = v.size();
 		int width = 0;
 		int maxCol = propertyGet(COLUMN_WIDTH);
 
-        for (String s : v) {
-            sb.append(s);
+		for (int i = 0; i < count; i++)
+		{
+			String s = v.get(i);
+			sb.append(s);
 
-            // too many of them, then wrap according to columnwidth
-            if (flow) {
-                width += (s.length() + 2);
-                if (width >= maxCol) {
-                    sb.append(m_newline);
-                    width = 0;
-                } else
-                    sb.append(", "); //$NON-NLS-1$
-            } else
-                sb.append(m_newline);
-        }
+			// too many of them, then wrap according to columnwidth
+			if (flow)
+			{
+				width += (s.length() + 2);
+				if (width >= maxCol)
+				{
+					sb.append(m_newline);
+					width = 0;
+				}
+				else
+					sb.append(", "); //$NON-NLS-1$
+			}
+			else
+				sb.append(m_newline);
+		}
 
 		// add a line feed for flow based
 		if (flow && width > 0)
@@ -1626,6 +1691,101 @@ public class DebugCLI implements Runnable, SourceLocator
 		}
 	}
 
+    public void waitForMetaData() throws InProgressException
+    {
+        // perform a query to see if our metadata has loaded
+        int metadatatries = propertyGet(METADATA_ATTEMPTS);
+        int maxPerCall = 8;   // cap on how many attempt we make per call
+
+        int tries = Math.min(maxPerCall, metadatatries);
+        if (tries > 0)
+        {
+            int remain = metadatatries - tries; // assume all get used up
+
+            // perform the call and then update our remaining number of attempts
+            try
+            {
+                tries = waitForMetaData(tries);
+                remain = metadatatries - tries; // update our used count
+            }
+            catch(InProgressException ipe)
+            {
+                propertyPut(METADATA_ATTEMPTS, remain);
+				throw ipe;
+            }
+        }
+    }
+
+	/**
+	 * Wait for the API to load function names, which
+	 * exist in the form of external meta-data.
+	 *
+	 * Only do this tries times, then give up
+	 *
+	 * We wait period * attempts
+	 */
+	public int waitForMetaData(int attempts) throws InProgressException
+	{
+        int start = attempts;
+        int period = propertyGet(METADATA_ATTEMPTS_PERIOD);
+		while(attempts > 0)
+		{
+			// are we done yet?
+			if (isMetaDataAvailable())
+				break;
+			else
+				try { attempts--; Thread.sleep(period); } catch(InterruptedException ie) {}
+		}
+
+		// throw exception if still not ready
+		if (!isMetaDataAvailable())
+			throw new InProgressException();
+
+        return start-attempts;  // remaining number of tries
+	}
+
+	/**
+	 * Ask each swf if metadata processing is complete
+	 */
+	public boolean isMetaDataAvailable()
+	{
+		boolean allLoaded = true;
+		try 
+		{
+			// we need to ask the session since our fileinfocache will hide the exception
+			SwfInfo[] swfs = m_session.getSwfs();
+			for(int i=0; i<swfs.length; i++)
+			{
+				// check if our processing is finished.
+				SwfInfo swf = swfs[i];
+				if (swf != null && !swf.isProcessingComplete())
+				{
+					allLoaded = false;
+					break;
+				}
+			}
+		}
+		catch(NoResponseException nre)
+		{
+			// ok we still need to wait for player to read the swd in
+			allLoaded = false;
+		}
+
+		// count the number of times we checked and it wasn't there
+		if (!allLoaded)
+		{
+			int count = propertyGet(METADATA_NOT_AVAILABLE);
+			count++;
+			propertyPut(METADATA_NOT_AVAILABLE, count);
+		}
+		else
+		{
+			// success so we reset our attempt counter
+			propertyPut(METADATA_ATTEMPTS, METADATA_RETRIES);
+		}
+		return allLoaded;
+	}
+
 	void doInfoHandle()
 	{
 		if (hasMoreTokens())
@@ -1649,7 +1809,8 @@ public class DebugCLI implements Runnable, SourceLocator
 			Object names[]  = m_faultTable.names();
 			Arrays.sort(names);
 
-            for (Object name : names) appendFault(sb, (String) name);
+			for(int i=0; i<names.length; i++)
+				appendFault(sb, (String)names[i]);
 
 			out ( sb.toString() );
 		}
@@ -1659,11 +1820,14 @@ public class DebugCLI implements Runnable, SourceLocator
 	{
 		StringBuilder sb = new StringBuilder();
 
-		String arg;
+		String arg = null;
 
 		// we take an optional single arg which specifies a module
 		try
 		{
+			// let's wait a bit for the background load to complete
+			waitForMetaData();
+
 			if (hasMoreTokens())
 			{
 				arg = nextToken();
@@ -1679,7 +1843,9 @@ public class DebugCLI implements Runnable, SourceLocator
 					err(getLocalizationManager().getLocalizedTextString("noSourceFilesFound")); //$NON-NLS-1$
 				else
                 {
-                    for (SourceFile m : ar) {
+                    for(int i = 0; ar != null && i < ar.length; i++)
+                    {
+                        SourceFile m = ar[i];
                         listFunctionsFor(sb, m);
                     }
                 }
@@ -1703,6 +1869,10 @@ public class DebugCLI implements Runnable, SourceLocator
 		{
 			err(ae.getMessage());
 		}
+		catch(InProgressException ipe)
+		{
+		    err(getLocalizationManager().getLocalizedTextString("functionListBeingPrepared")); //$NON-NLS-1$
+		}
 	}
 
 	void listFunctionsFor(StringBuilder sb, SourceFile m)
@@ -1718,24 +1888,28 @@ public class DebugCLI implements Runnable, SourceLocator
 		sb.append(getLocalizationManager().getLocalizedTextString("functionsInSourceFile", args)); //$NON-NLS-1$
 		sb.append(m_newline);
 
-        for (String fname : names) {
-            sb.append(' ');
-            sb.append(fname);
-            sb.append(' ');
-            sb.append(m.getLineForFunctionName(m_session, fname));
-            sb.append(m_newline);
-        }
+        for (int j = 0; j < names.length; j++)
+		{
+			String fname = names[j];
+			sb.append(' ');
+			sb.append(fname);
+			sb.append(' ');
+			sb.append(m.getLineForFunctionName(m_session, fname));
+			sb.append(m_newline);
+		}
 	}
 
     void listFilesMatching(StringBuilder sb, String match)
     {
         SourceFile[] sourceFiles = m_fileInfo.getFiles(match);
 
-        for (SourceFile sourceFile : sourceFiles) {
+        for (int j = 0; j < sourceFiles.length; j++)
+        {
+            SourceFile sourceFile = sourceFiles[j];
             sb.append(sourceFile.getName());
-            sb.append('#');
-            sb.append(sourceFile.getId());
-            sb.append(m_newline);
+			sb.append('#');
+			sb.append(sourceFile.getId());
+			sb.append(m_newline);
         }
     }
 
@@ -1753,11 +1927,12 @@ public class DebugCLI implements Runnable, SourceLocator
 		}
 	}
 
-	void doInfoBreak() {
+	void doInfoBreak() throws NotConnectedException
+	{
 //		waitTilHalted();
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("Num Type           Disp Enb Address    What").append(m_newline);
+		sb.append("Num Type           Disp Enb Address    What"+m_newline);
 
 		// our list of breakpoints
 		int count = breakpointCount();
@@ -1878,7 +2053,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			if (silent)
 			{
 				sb.append(INDENT);
-				sb.append(getLocalizationManager().getLocalizedTextString("silentBreakpoint")).append(m_newline); //$NON-NLS-1$
+				sb.append(getLocalizationManager().getLocalizedTextString("silentBreakpoint")+m_newline); //$NON-NLS-1$
 			}
 
 			// now if any commands are trailing then we pump them out
@@ -2026,9 +2201,9 @@ public class DebugCLI implements Runnable, SourceLocator
 
 	void dumpBreakLine(boolean postStep, StringBuilder sb) throws NotConnectedException
 	{
-		int bp;
-		String name; //$NON-NLS-1$
-		int line;
+		int bp = -1;
+		String name = getLocalizationManager().getLocalizedTextString("unknownFilename"); //$NON-NLS-1$
+		int line = -1;
 
 		// clear our current frame display
 		propertyPut(DISPLAY_FRAME_NUMBER, 0);
@@ -2038,11 +2213,15 @@ public class DebugCLI implements Runnable, SourceLocator
 
 		// figure out why we stopped
 		int reason = SuspendReason.Unknown;
-		try { reason = m_session.suspendReason(); } catch(PlayerDebugException ignored) {}
+		try { reason = m_session.suspendReason(); } catch(PlayerDebugException pde) {}
 
 		// then see if it because of a swfloaded event
 		if( reason == SuspendReason.ScriptLoaded)
 		{
+            // since the player takes a long time to provide swf/swd, try 80 * 250ms = ~20s
+            if (propertyGet(METADATA_ATTEMPTS) > 0)
+			    try { waitForMetaData(80); } catch(InProgressException ipe) { }
+
             m_fileInfo.setDirty();
 			processEvents();
             propagateBreakpoints();
@@ -2051,9 +2230,9 @@ public class DebugCLI implements Runnable, SourceLocator
             sb.append(m_newline);
 
 			if (resolveBreakpoints(sb))
-				sb.append(getLocalizationManager().getLocalizedTextString("setAdditionalBreakpoints")).append(m_newline); //$NON-NLS-1$
+				sb.append(getLocalizationManager().getLocalizedTextString("setAdditionalBreakpoints")+m_newline); //$NON-NLS-1$
 			else
-				sb.append(getLocalizationManager().getLocalizedTextString("fixBreakpoints")).append(m_newline); //$NON-NLS-1$
+				sb.append(getLocalizationManager().getLocalizedTextString("fixBreakpoints")+m_newline); //$NON-NLS-1$
 		}
 		else if ( l == null || l.getFile() == null )
 		{
@@ -2121,7 +2300,7 @@ public class DebugCLI implements Runnable, SourceLocator
 				}
 				sb.append(getLocalizationManager().getLocalizedTextString(formatString, args));
 
-				if (!m_fullnameOption)
+				if (!m_fullnameOption) 
 					sb.append(m_newline);				
 			}
 
@@ -2159,7 +2338,10 @@ public class DebugCLI implements Runnable, SourceLocator
 	// pretty print a trace statement to the console
 	void dumpTraceLine(String s)
 	{
-        out("[trace] " + s);
+		StringBuilder sb = new StringBuilder();
+		sb.append("[trace] "); //$NON-NLS-1$
+		sb.append(s);
+		out(sb.toString());
 	}
 
 	// pretty print a fault statement to the console
@@ -2288,7 +2470,11 @@ public class DebugCLI implements Runnable, SourceLocator
 		int at = e.path.lastIndexOf('?');
 		String name = (at > -1) ? e.path.substring(0, at) : e.path;
 
-        out(getLocalizationManager().getLocalizedTextString("linePrefixWhenSwfUnloaded") + ' ' + name);
+		StringBuilder sb = new StringBuilder();
+		sb.append(getLocalizationManager().getLocalizedTextString("linePrefixWhenSwfUnloaded")); //$NON-NLS-1$
+		sb.append(' ');
+		sb.append(name);
+		out(sb.toString());
 	}
 
 	void doContinue() throws NotConnectedException
@@ -2306,7 +2492,7 @@ public class DebugCLI implements Runnable, SourceLocator
 	void runningLoop() throws NoResponseException, NotConnectedException
 	{
 		int update = propertyGet(UPDATE_DELAY);
-		boolean nowait = (propertyGet(NO_WAITING) == 1);  // DEBUG ONLY; do not document
+		boolean nowait = (propertyGet(NO_WAITING) == 1) ? true : false;  // DEBUG ONLY; do not document
 		boolean stop = false;
 
 		// not there, not connected or already halted and no pending resume requests => we are done
@@ -2343,7 +2529,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			}
 
 			// sleep for a bit, then process our events.
-			try { Thread.sleep(update); } catch(InterruptedException ignored) {}
+			try { Thread.sleep(update); } catch(InterruptedException ie) {}
 			processEvents();
 
 			// lost connection?
@@ -2369,7 +2555,7 @@ public class DebugCLI implements Runnable, SourceLocator
 				 */
 				int tries = 3;
 				while (tries-- > 0 && m_session.suspendReason() == SuspendReason.Unknown)
-					try { Thread.sleep(100); processEvents(); } catch(InterruptedException ignored) {}
+					try { Thread.sleep(100); processEvents(); } catch(InterruptedException ie) {}
 
 				dumpHaltState(false);
 				if (!m_requestResume)
@@ -2488,7 +2674,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			processEvents();
 			if (!m_session.isSuspended())
 			{
-				try { Thread.sleep(1); } catch (InterruptedException ignored) { }
+				try { Thread.sleep(1); } catch (InterruptedException e) { }
 			}
 		}
 		if (System.currentTimeMillis() >= timeoutTime && !m_session.isSuspended())
@@ -2694,7 +2880,7 @@ public class DebugCLI implements Runnable, SourceLocator
 				// optionally specify  'display' or 'breakpoint'
 				String arg = nextToken();
 				int cmd = disableCommandFor(arg);
-				int id;
+				int id = -1;
 				if (cmd == CMD_DISPLAY)
 					doUnDisplay();
 				else
@@ -2776,7 +2962,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			if (hasMoreTokens())
 			{
                 arg = nextToken();
-                int[] result = parseLocationArg(module, arg);
+                int[] result = parseLocationArg(module, line, arg);
                 module = result[0];
                 line = result[1];
 			}
@@ -2894,7 +3080,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			if (hasMoreTokens())
 			{
                 arg = nextToken();
-                int[] result = parseLocationArg(module, arg);
+                int[] result = parseLocationArg(module, line, arg);
                 module = result[0];
                 line = result[1];
 			}
@@ -3062,13 +3248,13 @@ public class DebugCLI implements Runnable, SourceLocator
 		    	else
 		    	{
 			        int module = propertyGet(LIST_MODULE);
-					int line;
+					int line = propertyGet(LIST_LINE);
 
 			        String arg = b.getBreakpointExpression();
 
 			        if (arg != null)
 			        {
-			            int[] result = parseLocationArg(module, arg);
+			            int[] result = parseLocationArg(module, line, arg);
 		
 						// whoo-hoo, it resolved!
 		                module = result[0];
@@ -3089,12 +3275,12 @@ public class DebugCLI implements Runnable, SourceLocator
 						String formatString;
 						args.put("breakpointNumber", Integer.toString(b.getId())); //$NON-NLS-1$
 						String filename = file.getName();
-						if (b.isSingleSwf())
+						if (b.isSingleSwf() && file != null)
 						{
 							filename = filename + "#" + file.getId(); //$NON-NLS-1$
 						}
 						args.put("file", filename); //$NON-NLS-1$
-						args.put("line", l.getLine()); //$NON-NLS-1$
+						args.put("line", new Integer(l.getLine())); //$NON-NLS-1$
 
 						if (funcName != null)
 						{
@@ -3285,7 +3471,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			while(itr.hasNext())
 			{
 				l = itr.next();
-				try { m_session.clearBreakpoint(l); } catch(NoResponseException ignored) {}
+				try { m_session.clearBreakpoint(l); } catch(NoResponseException nre) {}
 			}
 		}
 	}
@@ -3351,12 +3537,13 @@ public class DebugCLI implements Runnable, SourceLocator
 		return hit;
 	}
 
-	void doSet() {
+	void doSet() throws NotConnectedException
+	{
 		/* wait a bit if we are not halted */
 //		waitTilHalted();
 		try
 		{
-			ValueExp exp;
+			ValueExp exp = null;
 
 			if (!hasMoreTokens())
 				err(getLocalizationManager().getLocalizedTextString("setCommand")); //$NON-NLS-1$
@@ -3390,12 +3577,13 @@ public class DebugCLI implements Runnable, SourceLocator
 		}
 	}
 
-	void doPrint() {
+	void doPrint() throws NotConnectedException
+	{
 		/* wait a bit if we are not halted */
 //		waitTilHalted();
 		try
 		{
-			Object result;
+			Object result = null;
 			boolean isLookupMembers = false;
 
 			if (!hasMoreTokens())
@@ -3554,7 +3742,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			String var = nextToken();  // our variable reference
 			String member = "_target"; //$NON-NLS-1$
 			boolean printPath = false;
-			Object result;
+			Object result = null;
 			String name = null;
 
 			// did the user specify a member name
@@ -3742,7 +3930,7 @@ public class DebugCLI implements Runnable, SourceLocator
 	{
 		StringBuilder sb = new StringBuilder();
 		Frame[] ar = m_session.getFrames();
-		appendFrameInfo(sb, ar[frm], frm, false);
+		appendFrameInfo(sb, ar[frm], frm, false, true);
 
 		sb.append(m_newline);
 		out(sb.toString());
@@ -3812,41 +4000,48 @@ public class DebugCLI implements Runnable, SourceLocator
 			proto = null;
 
 			// see if we find one called 'member'
-            for (Variable m : members) {
-                String memName = m.getName();
-                if (memName.equals(member) && !tree.containsKey(m)) {
-                    e.add(name);
-                    e.add(result);
-                    e.add(m);
-                    tree.put(m, name + "." + memName); //$NON-NLS-1$
-                    done = true;
-                } else if (memName.equals("__proto__")) //$NON-NLS-1$
-                    proto = m.getValue();
-            }
+			for(int i=0; i<members.length; i++)
+			{
+				Variable m = members[i];
+				String memName = m.getName();
+				if (memName.equals(member) && !tree.containsKey(m))
+				{
+					e.add(name);
+					e.add(result);
+					e.add(m);
+					tree.put(m, name+"."+memName); //$NON-NLS-1$
+					done = true;
+				}
+				else if (memName.equals("__proto__")) //$NON-NLS-1$
+					proto = members[i].getValue();
+			}
 		}
 
 		// now traverse other mcs recursively
+		done = false;
 		proto = result;
-		while(proto != null)
+		while(!done && proto != null)
 		{
 			Variable[] members = proto.getMembers(m_session);
 			proto = null;
 
 			// see if we find an mc
-            for (Variable m : members) {
-                String memName = m.getName();
+			for(int i=0; i<members.length; i++)
+			{
+				Variable m = members[i];
+				String memName = m.getName();
 
-                // if our type is NOT object or movieclip then we are done
-                if (m.getValue().getType() != VariableType.OBJECT && m.getValue().getType() != VariableType.MOVIECLIP)
-                    ;
-                else if (m.getValue().getId() != Value.UNKNOWN_ID)
-                    dumpTree(tree, e, name, m.getValue(), member);
-                else if (memName.equals("__proto__")) //$NON-NLS-1$
-                {
-                    proto = m.getValue();
+				// if our type is NOT object or movieclip then we are done
+				if (m.getValue().getType() != VariableType.OBJECT && m.getValue().getType() != VariableType.MOVIECLIP)
+					;
+				else if (m.getValue().getId() != Value.UNKNOWN_ID)
+					dumpTree(tree, e, name, m.getValue(), member);
+				else if (memName.equals("__proto__")) //$NON-NLS-1$
+				{
+					proto = m.getValue();
 //					name = name + ".__proto__";
-                }
-            }
+				}
+			}
 		}
 	}
 
@@ -3896,7 +4091,7 @@ public class DebugCLI implements Runnable, SourceLocator
 		else
 			sb.append(' ');
 		sb.append(lineS);
-		pad(sb, padding);
+		repeat(sb, ' ', padding);
 		sb.append(s);
 	}
 
@@ -3976,8 +4171,8 @@ public class DebugCLI implements Runnable, SourceLocator
 			this.moduleId = moduleId;
 			this.functionName = functionName;
 		}
-		public final int moduleId;
-		public final String functionName;
+		public int moduleId;
+		public String functionName;
 
 		public int compareTo(ModuleFunctionPair other) {
 			return functionName.compareTo(other.functionName);
@@ -3991,6 +4186,8 @@ public class DebugCLI implements Runnable, SourceLocator
 	 */
     private int[] parseFunctionName(int module, String partialFunctionName, boolean onlyThisModule) throws NoMatchException, AmbiguousException
     {
+        try { waitForMetaData(); } catch(InProgressException ipe) {}  // wait a bit before we try this to give the background thread time to complete
+
         SourceFile m = m_fileInfo.getFile(module);
 		ArrayList<ModuleFunctionPair> functionNames = new ArrayList<ModuleFunctionPair>(); // each member is a ModuleFunctionPair
 
@@ -4176,14 +4373,13 @@ public class DebugCLI implements Runnable, SourceLocator
      *
      * A variety of exceptions are thrown for other formats.
      */
-    public int[] parseLocationArg(int module, String arg) throws ParseException, AmbiguousException, NoMatchException
+    public int[] parseLocationArg(int module, int line, String arg) throws ParseException, AmbiguousException, NoMatchException
     {
         int colonAt = arg.indexOf(':');
 		int wasFunc = 0;  // set to 1 if a function was named
 
         /* First deal with the case where arg doesn't contain a ':'
            and therefore might be specifying either a file or a line. */
-        int line;
         if (colonAt < 0)
         {
             char firstChar = arg.charAt(0);
@@ -4251,7 +4447,7 @@ public class DebugCLI implements Runnable, SourceLocator
 		waitTilHalted();
 		try
 		{
-			Object result;
+			Object result = null;
 
 			/* pull the rest of the line */
 			String s = restOfLine();
@@ -4335,7 +4531,7 @@ public class DebugCLI implements Runnable, SourceLocator
                 }
                 else
                 {
-                    int[] result = parseLocationArg(currentModule, arg1);
+                    int[] result = parseLocationArg(currentModule, currentLine, arg1);
                     module1 = result[0];
                     line2 = line1 = result[1];
 
@@ -4494,7 +4690,10 @@ public class DebugCLI implements Runnable, SourceLocator
 				initSession(m_session);
 
 				// pause for a while during startup, don't let exceptions ripple outwards
-				try { waitTilHalted(); } catch(Exception ignored) {}
+				try { waitTilHalted(); } catch(Exception e) {}
+
+				// pause for a while during startup, don't let exceptions ripple outwards
+				try { waitForMetaData(); } catch(Exception e) {}
 
 				setInitialSourceFile();
 
@@ -4506,7 +4705,7 @@ public class DebugCLI implements Runnable, SourceLocator
 					if (m_session.getPreference(SessionManager.PLAYER_SUPPORTS_GET) == 0 )
 						err(m_newline + getLocalizationManager().getLocalizedTextString("warningNotAllCommandsSupported")); //$NON-NLS-1$
 				}
-				catch(Exception ignored) {}
+				catch(Exception npe) {}
 			}
 		}
 		catch (FileNotFoundException fnf)
@@ -4571,10 +4770,12 @@ public class DebugCLI implements Runnable, SourceLocator
 	{
 		int largestAuthoredId = -1;
 		SourceFile[] files = m_fileInfo.getFileList();
-        for (SourceFile sf : files) {
-            if (sf.getId() > largestAuthoredId && getFileType(sf) == AUTHORED_FILE)
-                largestAuthoredId = sf.getId();
-        }
+		for (int i=0; i<files.length; ++i)
+		{
+			SourceFile sf = files[i];
+			if (sf.getId() > largestAuthoredId && getFileType(sf) == AUTHORED_FILE)
+				largestAuthoredId = sf.getId();
+		}
 		if (largestAuthoredId != -1)
 			setListingPosition(largestAuthoredId, 1);
 	}
@@ -4656,21 +4857,21 @@ public class DebugCLI implements Runnable, SourceLocator
 		sb.append(f);
 
 		int space = 30 - f.length();
-		pad(sb, space);
+		repeat(sb, ' ', space);
 
 		boolean stop = m_faultTable.is(f, "stop"); //$NON-NLS-1$
 		boolean print = m_faultTable.is(f, "print"); //$NON-NLS-1$
 
 		sb.append( stop ? "Yes" : "No" );
-		pad(sb, stop ? 0 : 1);
+		repeat(sb, ' ', stop ? 0 : 1);
 
-		pad(sb, 5);
+		repeat(sb, ' ', 5);
 
 		sb.append( print ? "Yes" : "No" );
-		pad(sb, print ? 0 : 1);
+		repeat(sb, ' ', print ? 0 : 1);
 
 		// description
-		pad(sb, 7);
+		repeat(sb, ' ', 7);
 
 		String desc = m_faultTable.getDescription(f);
 		sb.append(desc);
@@ -4679,8 +4880,8 @@ public class DebugCLI implements Runnable, SourceLocator
 
 	void appendFaultTitles(StringBuilder sb)
 	{
-		sb.append("Fault                         Stop    Print     Description").append(m_newline);
-		sb.append("-----                         ----    -----     -----------").append(m_newline);
+		sb.append("Fault                         Stop    Print     Description"+m_newline);
+		sb.append("-----                         ----    -----     -----------"+m_newline);
 	}
 
 	/**
@@ -4717,7 +4918,8 @@ public class DebugCLI implements Runnable, SourceLocator
 						while(hasMoreTokens())
 						{
 							action = nextToken();
-                            for (Object name : names) m_faultTable.action((String) name, action);
+							for(int i=0; i<names.length; i++)
+								m_faultTable.action((String)names[i], action);
 						}
 					}
 					catch(IllegalArgumentException iae)
@@ -4740,7 +4942,7 @@ public class DebugCLI implements Runnable, SourceLocator
 	{
 		try
 		{
-			int id;
+			int id = -1;
 			if (hasMoreTokens())
 				id = nextIntToken();
 			else
@@ -4755,9 +4957,9 @@ public class DebugCLI implements Runnable, SourceLocator
 			a.setSilent(false);
 
 			// now just pull the commands as they come while not end
-			String line;
+			String line = null;
 			boolean first = true;
-			boolean isEnd;
+			boolean isEnd = false;
 
 			Map<String, Object> args = new HashMap<String, Object>();
 			args.put("breakpointNumber", Integer.toString(id)); //$NON-NLS-1$
@@ -4871,18 +5073,25 @@ public class DebugCLI implements Runnable, SourceLocator
 	 * rwatch will trigger a break if the expression is read.
 	 * watch will trigger a break if the expression is written.
 	 */
-	void doWatch() throws PlayerDebugException
+	void doWatch(boolean read, boolean write) throws PlayerDebugException
 	{
 		try
 		{
+			if (read)
+			{
+				err("Only break-on-write watchpoints are supported.");
+				return;
+			}
 
-            StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new StringBuilder();
 
 			/* pull the rest of the line */
 			String s = restOfLine();
 
-			int flags;
-            flags = WatchKind.WRITE;
+			int flags = 3;
+			if(read && write) flags = WatchKind.READWRITE;
+			else if(read) flags = WatchKind.READ;
+			else if(write) flags = WatchKind.WRITE;
 
 			// snapshot of our existing list
 			Watch[] list = m_session.getWatchList();
@@ -4918,7 +5127,7 @@ public class DebugCLI implements Runnable, SourceLocator
 					// modified, lets locate the one that changed
 					// and reset it
 					int at = missingWatchpointIndexOf(newList);
-					WatchAction a;
+					WatchAction a = null;
 					try	
 					{ 
 						a = watchpointAt(at); 
@@ -5002,7 +5211,7 @@ public class DebugCLI implements Runnable, SourceLocator
 		WatchAction b = watchpointAt(at);
 		boolean worked = false;
 
-		try { worked = (m_session.clearWatch(b.getWatch()) != null); } catch(NoResponseException ignored) {}
+		try { worked = (m_session.clearWatch(b.getWatch()) == null) ? false : true; } catch(NoResponseException nre) {}
 
 		if(!worked)
 		{
@@ -5169,7 +5378,7 @@ public class DebugCLI implements Runnable, SourceLocator
 				// optionally specify  'display' or 'breakpoint'
 				String arg = nextToken();
 				int cmd = disableCommandFor(arg);
-				int id;
+				int id = -1;
 				if (cmd == CMD_DISPLAY)
 					doDisableDisplay();
 				else
@@ -5287,7 +5496,7 @@ public class DebugCLI implements Runnable, SourceLocator
 				// optionally specify  'display' or 'breakpoint'
 				String arg = nextToken();
 				int cmd = enableCommandFor(arg);
-				int id;
+				int id = -1;
 				boolean autoDelete = false;
 				boolean autoDisable = false;
 				if (cmd == CMD_DISPLAY)
@@ -5309,7 +5518,7 @@ public class DebugCLI implements Runnable, SourceLocator
 					else
 						id = Integer.parseInt(arg);
 
-					boolean worked;
+					boolean worked = true;
 					do
 					{
 						int at = breakpointIndexOf(id);
@@ -5407,7 +5616,13 @@ public class DebugCLI implements Runnable, SourceLocator
              }
 
             SourceFile sourceFile = m_fileInfo.getFile(module);
-            out(sourceFile.getName() + '#' + sourceFile.getId() + ':' + currentLine);
+			StringBuilder sb = new StringBuilder();
+			sb.append(sourceFile.getName());
+			sb.append('#');
+			sb.append(sourceFile.getId());
+			sb.append(':');
+			sb.append(currentLine);
+			out( sb.toString() );
         }
 		catch(NullPointerException npe)
 		{
@@ -5442,7 +5657,7 @@ public class DebugCLI implements Runnable, SourceLocator
 	/* Terminates fdb */
 	boolean doQuit() throws IOException
 	{
-		boolean quit;
+		boolean quit = false;
 
 		// no session, no questions
 		if (m_session == null)
@@ -5470,31 +5685,41 @@ public class DebugCLI implements Runnable, SourceLocator
 		else
 			pkgPlusName = null;
 
-        for (String dir : m_sourceDirectories) {
-            // new File("", filename) searches the root dir -- that's not what we want!
-            if (dir.equals("")) //$NON-NLS-1$
-                dir = "."; //$NON-NLS-1$
+		Iterator<String> iter = m_sourceDirectories.iterator();
+		while (iter.hasNext())
+		{
+			String dir = iter.next();
 
-            // look for sourcedir\package\filename
-            if (pkgPlusName != null) {
-                f = new File(dir, pkgPlusName);
-                exists = f.exists();
-            }
+			// new File("", filename) searches the root dir -- that's not what we want!
+			if (dir.equals("")) //$NON-NLS-1$
+				dir = "."; //$NON-NLS-1$
 
-            // look for sourcedir\filename
-            if (!exists) {
-                f = new File(dir, name);
-                exists = f.exists();
-            }
+			// look for sourcedir\package\filename
+			if (pkgPlusName != null)
+			{
+				f = new File(dir, pkgPlusName);
+				exists = f.exists();
+			}
 
-            if (exists) {
-                try {
-                    return new FileInputStream(f);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace(); // shouldn't happen
-                }
-            }
-        }
+			// look for sourcedir\filename
+			if (!exists)
+			{
+				f = new File(dir, name);
+				exists = f.exists();
+			}
+
+			if (exists)
+			{
+				try
+				{
+					return new FileInputStream(f);
+				}
+				catch (FileNotFoundException e)
+				{
+					e.printStackTrace(); // shouldn't happen
+				}
+			}
+		}
 
 		return null;
 	}
@@ -5574,7 +5799,7 @@ public class DebugCLI implements Runnable, SourceLocator
 		doShowDirectories();
 	}
 
-	void initSourceDirectoriesList()
+	protected void initSourceDirectoriesList()
 	{
 		m_sourceDirectories.clear();
 		File flexHome = getFlexHomeDirectory();
@@ -5586,14 +5811,17 @@ public class DebugCLI implements Runnable, SourceLocator
 				File[] files = projectsDir.listFiles();
 				if (files != null)
 				{
-                    for (File file : files) {
-                        if (file.isDirectory()) {
-                            File srcDir = new File(file, "src"); //$NON-NLS-1$
-                            if (srcDir.isDirectory()) {
-                                m_sourceDirectories.add(srcDir.getCanonicalPath());
-                            }
-                        }
-                    }
+					for (int i=0; i<files.length; ++i)
+					{
+						if (files[i].isDirectory())
+						{
+							File srcDir = new File(files[i], "src"); //$NON-NLS-1$
+							if (srcDir.isDirectory())
+							{
+								m_sourceDirectories.add(srcDir.getCanonicalPath());
+							}
+						}
+					}
 				}
 			}
 			catch (IOException e)
@@ -5610,7 +5838,7 @@ public class DebugCLI implements Runnable, SourceLocator
 	 * This directory is one up from the "bin" and "lib" directories.  For example,
 	 * <code>&lt;flexhome&gt;/lib/fdb.jar</code> can be used to refer to the fdb jar.
 	 */
-    File getFlexHomeDirectory()
+	protected File getFlexHomeDirectory()
 	{
 		if (!m_initializedFlexHomeDirectory)
 		{
@@ -5668,7 +5896,7 @@ public class DebugCLI implements Runnable, SourceLocator
 		/* wait a bit if we are not halted */
 		waitTilHalted();
 
-        String typeToCatch;
+        String typeToCatch = null;
 
 		/* currentXXX may NOT be invalid! */
 		if (!hasMoreTokens())
@@ -5684,7 +5912,7 @@ public class DebugCLI implements Runnable, SourceLocator
         	return;
         }
 
-        Value type;
+        Value type = null;
         if (typeToCatch.equals("*")) //$NON-NLS-1$
         {
         	typeToCatch = null;
@@ -5709,12 +5937,18 @@ public class DebugCLI implements Runnable, SourceLocator
 	        }
         }
 
+        CatchAction c;
 		try {
-			addCatch(typeToCatch);
+			c = addCatch(typeToCatch);
 		} catch (NotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-        }
+			return;
+		}
+
+    	Map<String, Object> args = new HashMap<String, Object>();
+    	args.put("id", c.getId()); //$NON-NLS-1$
+    	c.getId();
 	}
 
 	private CatchAction addCatch(String typeToCatch) throws NotSupportedException, NoResponseException {
@@ -5747,20 +5981,22 @@ public class DebugCLI implements Runnable, SourceLocator
 		return -1;
 	}
 
-	void removeAllCatchpoints() {
+	void removeAllCatchpoints() throws NotConnectedException
+	{
 		while(catchpointCount() > 0)
 			removeCatchpointAt(0);
 	}
 
-	void removeCatchpointAt(int at) {
+	void removeCatchpointAt(int at) throws NotConnectedException
+	{
 		// remove in any event
 		m_catchpoints.remove(at);
 
 		if (catchpointCount() == 0) {
 			try {
 				getSession().breakOnCaughtExceptions(false);
-			} catch (NotSupportedException ignored) {
-			} catch (NoResponseException ignored) {
+			} catch (NotSupportedException e) {
+			} catch (NoResponseException e) {
 			}
 		}
 	}
@@ -5873,12 +6109,12 @@ public class DebugCLI implements Runnable, SourceLocator
 				 * won't stop here, otherwise we will process the breakpoint.
 				 */
 				stoppedDueToBp = (m_session.suspendReason() == SuspendReason.Breakpoint);
-				if (shouldBreak(a))
+				if (shouldBreak(a, fileId, line))
 				{
 					// its a hit
 					bpHit = true;
 					a.hit();
-					isSilent = (isSilent) || a.isSilent();
+					isSilent = (isSilent) ? true : a.isSilent();
 
 					// autodelete, autodisable
 					if (a.isAutoDisable())
@@ -5919,7 +6155,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			m_stepResume = postStep;    // resume without losing our stepping
 			isSilent = true;			// do so quietly
 		}
-		else if (stoppedDueToBp && m_requestResume && !previousResume)
+		else if (stoppedDueToBp && bpHit && m_requestResume && !previousResume)
 		{
 			m_requestResume = true;
 			m_stepResume = postStep;    // resume as we would
@@ -5984,11 +6220,11 @@ public class DebugCLI implements Runnable, SourceLocator
 				}
 				catch(PlayerFaultException pfe)
 				{
-					sb.append(pfe.getMessage()).append(m_newline);
+					sb.append(pfe.getMessage() + m_newline);
 				}
 				catch (PlayerDebugException e)
 				{
-					sb.append(e.getMessage()).append(m_newline);
+					sb.append(e.getMessage() + m_newline);
 				}
 				catch(NullPointerException npe)
 				{
@@ -6002,7 +6238,7 @@ public class DebugCLI implements Runnable, SourceLocator
 	 * Determines if the given BreakAction requests a halt given the file
 	 * line and optionally a conditional to evaluate.'
 	 */
-	boolean shouldBreak(BreakAction a)
+	boolean shouldBreak(BreakAction a, int fileId, int line)
 	{
 		boolean should = a.isEnabled();
 		ValueExp exp = a.getCondition();
@@ -6015,8 +6251,8 @@ public class DebugCLI implements Runnable, SourceLocator
 				if (result != null)
 					should = ECMA.toBoolean(result.context.toValue(result.value));
 			}
-			catch(NullPointerException ignored) {}
-			catch(NumberFormatException ignored) {}
+			catch(NullPointerException npe) {}
+			catch(NumberFormatException nfe) {}
 		}
 		return should;
 	}
@@ -6122,6 +6358,11 @@ public class DebugCLI implements Runnable, SourceLocator
 				{
 					stop = false;
 
+					String typeName = thrownValue.getTypeName();
+					int at = typeName.indexOf('@');
+					if (at != -1)
+						typeName = typeName.substring(0, at);
+
 					for (int i=0; i<catchpointCount(); ++i)
 					{
 						CatchAction c = catchpointAt(i);
@@ -6167,7 +6408,7 @@ public class DebugCLI implements Runnable, SourceLocator
 
 		int timeout = propertyGet(HALT_TIMEOUT);
 		int update = propertyGet(UPDATE_DELAY);
-		boolean wait = (propertyGet(NO_WAITING) != 1);
+		boolean wait = (propertyGet(NO_WAITING) == 1) ? false : true;
 
 		if (wait)
 		{
@@ -6196,7 +6437,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			if (m_session.isSuspended())
 				break;
 
-			try { Thread.sleep(period); } catch(InterruptedException ignored) {}
+			try { Thread.sleep(period); } catch(InterruptedException ie) {}
 			timeout -= period;
 		}
 	}
@@ -6243,7 +6484,9 @@ public class DebugCLI implements Runnable, SourceLocator
 		propertyPut(LAST_FRAME_DEPTH, 0);
 		propertyPut(CURRENT_FRAME_DEPTH, 0);
 		propertyPut(DISPLAY_FRAME_NUMBER, 0);
+		propertyPut(METADATA_ATTEMPTS_PERIOD, 250); // 1/4s per attempt
 		propertyPut(METADATA_NOT_AVAILABLE, 0);  // counter for failures
+		propertyPut(METADATA_ATTEMPTS, METADATA_RETRIES);
 		propertyPut(PLAYER_FULL_SUPPORT, correctVersion ? 1 : 0);
 
 		String previousURI = m_mruURI;
@@ -6270,6 +6513,10 @@ public class DebugCLI implements Runnable, SourceLocator
 	 */
 	void reapplyBreakpoints()
 	{
+		// give us a bit of time to process the newly loaded swf
+		if (propertyGet(METADATA_ATTEMPTS) > 0)
+			try { waitForMetaData(80); } catch(InProgressException ipe) { }
+
 		int count = breakpointCount();
 		for(int i=0; i<count; i++)
 		{
@@ -6412,9 +6659,17 @@ public class DebugCLI implements Runnable, SourceLocator
 				doCF();
 				break;
 
+//			case CMD_AWATCH:
+//				doWatch(true, true);
+//				break;
+
 			case CMD_WATCH:
-				doWatch();
+				doWatch(false, true);
 				break;
+
+//			case CMD_RWATCH:
+//				doWatch(true, false);
+//				break;
 
             case CMD_CONDITION:
                 doCondition();
@@ -6453,11 +6708,11 @@ public class DebugCLI implements Runnable, SourceLocator
                 break;
 
 			case CMD_COMMENT:
-                // nop
+				; // nop
 				break;
 
 			case INFO_STACK_CMD:
-                // from bt
+				; // from bt
 				doInfoStack();
 				break;
 
@@ -6638,9 +6893,9 @@ public class DebugCLI implements Runnable, SourceLocator
 			// only 1 match or our input is 1 character or first match is exact
 			else if (size == 1 ||
 					 input.length() == 1 ||
-					 cmdList.getString((Integer) ar.get(0)).compareTo(input) == 0)
+					 cmdList.getString( ((Integer)ar.get(0)).intValue() ).compareTo(input) == 0)
 			{
-				cmd = cmdList.getInteger((Integer) ar.get(0));
+				cmd = (cmdList.getInteger( ((Integer)ar.get(0)).intValue() )).intValue();
 			}
 			else
 			{
@@ -6653,7 +6908,7 @@ public class DebugCLI implements Runnable, SourceLocator
 				sb.append(input);
 				for(int i=0; i<size; i++)
 				{
-					String s = cmdList.getString((Integer) ar.get(i));
+					String s = cmdList.getString( ((Integer)ar.get(i)).intValue() );
 					sb.append(s);
 					if (i+1 < size)
 						sb.append(", "); //$NON-NLS-1$
@@ -6689,113 +6944,113 @@ public class DebugCLI implements Runnable, SourceLocator
 	 * NOTE: order matters!  For the case of a single character
 	 *       match, we let the first hit act like an unambiguous match.
 	 */
-	private static final StringIntArray g_commandArray = new StringIntArray( new Object[][]
+	static StringIntArray g_commandArray = new StringIntArray( new Object[][]
 	{
-		{ "awatch", CMD_AWATCH}, //$NON-NLS-1$
-		{ "break", CMD_BREAK}, //$NON-NLS-1$
-		{ "bt", INFO_STACK_CMD}, //$NON-NLS-1$
-        { "continue", CMD_CONTINUE}, //$NON-NLS-1$
-        { "catch", CMD_CATCH}, //$NON-NLS-1$
-        { "cf", CMD_CF}, //$NON-NLS-1$
-		{ "clear", CMD_CLEAR}, //$NON-NLS-1$
-		{ "commands", CMD_COMMANDS}, //$NON-NLS-1$
-		{ "condition", CMD_CONDITION}, //$NON-NLS-1$
-		{ "connect", CMD_CONNECT}, //$NON-NLS-1$
-		{ "delete", CMD_DELETE}, //$NON-NLS-1$
-		{ "disable", CMD_DISABLE}, //$NON-NLS-1$
-		{ "disassemble", CMD_DISASSEMBLE}, //$NON-NLS-1$
-		{ "display", CMD_DISPLAY}, //$NON-NLS-1$
-		{ "directory", CMD_DIRECTORY}, //$NON-NLS-1$
-        { "down", CMD_DOWN}, //$NON-NLS-1$
-		{ "enable", CMD_ENABLE}, //$NON-NLS-1$
-		{ "finish", CMD_FINISH}, //$NON-NLS-1$
-		{ "file", CMD_FILE}, //$NON-NLS-1$
-        { "frame", CMD_FRAME}, //$NON-NLS-1$
-		{ "help", CMD_HELP}, //$NON-NLS-1$
-		{ "halt", CMD_HALT}, //$NON-NLS-1$
-		{ "handle", CMD_HANDLE}, //$NON-NLS-1$
-		{ "home", CMD_HOME}, //$NON-NLS-1$
-		{ "info", CMD_INFO}, //$NON-NLS-1$
-		{ "kill", CMD_KILL}, //$NON-NLS-1$
-		{ "list", CMD_LIST}, //$NON-NLS-1$
-		{ "next", CMD_NEXT}, //$NON-NLS-1$
-		{ "nexti", CMD_NEXT}, //$NON-NLS-1$
-		{ "mctree", CMD_MCTREE}, //$NON-NLS-1$
-        { "print", CMD_PRINT}, //$NON-NLS-1$
-        { "pwd", CMD_PWD}, //$NON-NLS-1$
-		{ "quit", CMD_QUIT}, //$NON-NLS-1$
-		{ "run", CMD_RUN}, //$NON-NLS-1$
-		{ "rwatch", CMD_RWATCH}, //$NON-NLS-1$
-		{ "step", CMD_STEP}, //$NON-NLS-1$
-		{ "stepi", CMD_STEP}, //$NON-NLS-1$
-		{ "set", CMD_SET}, //$NON-NLS-1$
-		{ "show", CMD_SHOW}, //$NON-NLS-1$
-		{ "source", CMD_SOURCE}, //$NON-NLS-1$
-		{ "tutorial", CMD_TUTORIAL}, //$NON-NLS-1$
-		{ "undisplay", CMD_UNDISPLAY}, //$NON-NLS-1$
-        { "up", CMD_UP}, //$NON-NLS-1$
-		{ "where", INFO_STACK_CMD}, //$NON-NLS-1$
-		{ "watch", CMD_WATCH}, //$NON-NLS-1$
-		{ "what", CMD_WHAT}, //$NON-NLS-1$
-		{ "viewswf", CMD_VIEW_SWF}, //$NON-NLS-1$
+		{ "awatch", new Integer(CMD_AWATCH) }, //$NON-NLS-1$
+		{ "break", new Integer(CMD_BREAK) }, //$NON-NLS-1$
+		{ "bt", new Integer(INFO_STACK_CMD) }, //$NON-NLS-1$
+        { "continue", new Integer(CMD_CONTINUE) }, //$NON-NLS-1$
+        { "catch", new Integer(CMD_CATCH) }, //$NON-NLS-1$
+        { "cf", new Integer(CMD_CF) }, //$NON-NLS-1$
+		{ "clear", new Integer(CMD_CLEAR) }, //$NON-NLS-1$
+		{ "commands", new Integer(CMD_COMMANDS) }, //$NON-NLS-1$
+		{ "condition", new Integer(CMD_CONDITION) }, //$NON-NLS-1$
+		{ "connect", new Integer(CMD_CONNECT) }, //$NON-NLS-1$
+		{ "delete", new Integer(CMD_DELETE) }, //$NON-NLS-1$
+		{ "disable", new Integer(CMD_DISABLE) }, //$NON-NLS-1$
+		{ "disassemble", new Integer(CMD_DISASSEMBLE) }, //$NON-NLS-1$
+		{ "display", new Integer(CMD_DISPLAY) }, //$NON-NLS-1$
+		{ "directory", new Integer(CMD_DIRECTORY) }, //$NON-NLS-1$
+        { "down", new Integer(CMD_DOWN) }, //$NON-NLS-1$
+		{ "enable", new Integer(CMD_ENABLE) }, //$NON-NLS-1$
+		{ "finish", new Integer(CMD_FINISH) }, //$NON-NLS-1$
+		{ "file", new Integer(CMD_FILE) }, //$NON-NLS-1$
+        { "frame", new Integer(CMD_FRAME) }, //$NON-NLS-1$
+		{ "help", new Integer(CMD_HELP) }, //$NON-NLS-1$
+		{ "halt", new Integer(CMD_HALT) }, //$NON-NLS-1$
+		{ "handle", new Integer(CMD_HANDLE) }, //$NON-NLS-1$
+		{ "home", new Integer(CMD_HOME) }, //$NON-NLS-1$
+		{ "info", new Integer(CMD_INFO) }, //$NON-NLS-1$
+		{ "kill", new Integer(CMD_KILL) }, //$NON-NLS-1$
+		{ "list", new Integer(CMD_LIST) }, //$NON-NLS-1$
+		{ "next", new Integer(CMD_NEXT) }, //$NON-NLS-1$
+		{ "nexti", new Integer(CMD_NEXT) }, //$NON-NLS-1$
+		{ "mctree", new Integer(CMD_MCTREE) }, //$NON-NLS-1$
+        { "print", new Integer(CMD_PRINT) }, //$NON-NLS-1$
+        { "pwd", new Integer(CMD_PWD) }, //$NON-NLS-1$
+		{ "quit", new Integer(CMD_QUIT) }, //$NON-NLS-1$
+		{ "run", new Integer(CMD_RUN) }, //$NON-NLS-1$
+		{ "rwatch", new Integer(CMD_RWATCH) }, //$NON-NLS-1$
+		{ "step", new Integer(CMD_STEP) }, //$NON-NLS-1$
+		{ "stepi", new Integer(CMD_STEP) }, //$NON-NLS-1$
+		{ "set", new Integer(CMD_SET) }, //$NON-NLS-1$
+		{ "show", new Integer(CMD_SHOW) }, //$NON-NLS-1$
+		{ "source", new Integer(CMD_SOURCE) }, //$NON-NLS-1$
+		{ "tutorial", new Integer(CMD_TUTORIAL) }, //$NON-NLS-1$
+		{ "undisplay", new Integer(CMD_UNDISPLAY) }, //$NON-NLS-1$
+        { "up", new Integer(CMD_UP) }, //$NON-NLS-1$
+		{ "where", new Integer(INFO_STACK_CMD) }, //$NON-NLS-1$
+		{ "watch", new Integer(CMD_WATCH) }, //$NON-NLS-1$
+		{ "what", new Integer(CMD_WHAT) }, //$NON-NLS-1$
+		{ "viewswf", new Integer(CMD_VIEW_SWF) }, //$NON-NLS-1$
 
 	} );
 
 	/**
 	 * Info sub-commands
 	 */
-	private static final StringIntArray g_infoCommandArray = new StringIntArray( new Object[][]
+	static StringIntArray g_infoCommandArray = new StringIntArray( new Object[][]
 	{
-		{ "arguments", INFO_ARGS_CMD}, //$NON-NLS-1$
-		{ "breakpoints", INFO_BREAK_CMD}, //$NON-NLS-1$
-		{ "display", INFO_DISPLAY_CMD}, //$NON-NLS-1$
-		{ "files", INFO_FILES_CMD}, //$NON-NLS-1$
-		{ "functions", INFO_FUNCTIONS_CMD}, //$NON-NLS-1$
-		{ "handle", INFO_HANDLE_CMD}, //$NON-NLS-1$
-		{ "locals", INFO_LOCALS_CMD}, //$NON-NLS-1$
-		{ "stack", INFO_STACK_CMD}, //$NON-NLS-1$
-		{ "scopechain", INFO_SCOPECHAIN_CMD}, //$NON-NLS-1$
-        { "sources", INFO_SOURCES_CMD}, //$NON-NLS-1$
-        { "swfs", INFO_SWFS_CMD}, //$NON-NLS-1$
-        { "targets", INFO_TARGETS_CMD}, //$NON-NLS-1$
-		{ "variables", INFO_VARIABLES_CMD}, //$NON-NLS-1$
+		{ "arguments", new Integer(INFO_ARGS_CMD) }, //$NON-NLS-1$
+		{ "breakpoints", new Integer(INFO_BREAK_CMD) }, //$NON-NLS-1$
+		{ "display", new Integer(INFO_DISPLAY_CMD) }, //$NON-NLS-1$
+		{ "files", new Integer(INFO_FILES_CMD) }, //$NON-NLS-1$
+		{ "functions", new Integer(INFO_FUNCTIONS_CMD) }, //$NON-NLS-1$
+		{ "handle", new Integer(INFO_HANDLE_CMD) }, //$NON-NLS-1$
+		{ "locals", new Integer(INFO_LOCALS_CMD) }, //$NON-NLS-1$
+		{ "stack", new Integer(INFO_STACK_CMD) }, //$NON-NLS-1$
+		{ "scopechain", new Integer(INFO_SCOPECHAIN_CMD) }, //$NON-NLS-1$
+        { "sources", new Integer(INFO_SOURCES_CMD) }, //$NON-NLS-1$
+        { "swfs", new Integer(INFO_SWFS_CMD) }, //$NON-NLS-1$
+        { "targets", new Integer(INFO_TARGETS_CMD) }, //$NON-NLS-1$
+		{ "variables", new Integer(INFO_VARIABLES_CMD) }, //$NON-NLS-1$
 	} );
 
 	/**
 	 * Show sub-commands
 	 */
-	private static final StringIntArray g_showCommandArray = new StringIntArray( new Object[][]
+	static StringIntArray g_showCommandArray = new StringIntArray( new Object[][]
 	{
-		{ "break", SHOW_BREAK_CMD}, //$NON-NLS-1$
-		{ "directories", SHOW_DIRS_CMD}, //$NON-NLS-1$
-		{ "files", SHOW_FILES_CMD}, //$NON-NLS-1$
-		{ "functions", SHOW_FUNC_CMD}, //$NON-NLS-1$
-		{ "locations", SHOW_LOC_CMD}, //$NON-NLS-1$
-		{ "memory", SHOW_MEM_CMD}, //$NON-NLS-1$
-		{ "net", SHOW_NET_CMD}, //$NON-NLS-1$
-		{ "properties", SHOW_PROPERTIES_CMD}, //$NON-NLS-1$
-		{ "uri", SHOW_URI_CMD}, //$NON-NLS-1$
-		{ "variable", SHOW_VAR_CMD}, //$NON-NLS-1$
+		{ "break", new Integer(SHOW_BREAK_CMD) }, //$NON-NLS-1$
+		{ "directories", new Integer(SHOW_DIRS_CMD) }, //$NON-NLS-1$
+		{ "files", new Integer(SHOW_FILES_CMD) }, //$NON-NLS-1$
+		{ "functions", new Integer(SHOW_FUNC_CMD) }, //$NON-NLS-1$
+		{ "locations", new Integer(SHOW_LOC_CMD) }, //$NON-NLS-1$
+		{ "memory", new Integer(SHOW_MEM_CMD) }, //$NON-NLS-1$
+		{ "net", new Integer(SHOW_NET_CMD) }, //$NON-NLS-1$
+		{ "properties", new Integer(SHOW_PROPERTIES_CMD) }, //$NON-NLS-1$
+		{ "uri", new Integer(SHOW_URI_CMD) }, //$NON-NLS-1$
+		{ "variable", new Integer(SHOW_VAR_CMD) }, //$NON-NLS-1$
 	} );
 
 	/**
 	 * enable sub-commands
 	 */
-	private static final StringIntArray g_enableCommandArray = new StringIntArray( new Object[][]
+	static StringIntArray g_enableCommandArray = new StringIntArray( new Object[][]
 	{
-		{ "breakpoints", CMD_BREAK}, //$NON-NLS-1$
-		{ "display", CMD_DISPLAY}, //$NON-NLS-1$
-		{ "delete", CMD_DELETE}, //$NON-NLS-1$
-		{ "once", ENABLE_ONCE_CMD}, //$NON-NLS-1$
+		{ "breakpoints", new Integer(CMD_BREAK) }, //$NON-NLS-1$
+		{ "display", new Integer(CMD_DISPLAY) }, //$NON-NLS-1$
+		{ "delete", new Integer(CMD_DELETE) }, //$NON-NLS-1$
+		{ "once", new Integer(ENABLE_ONCE_CMD) }, //$NON-NLS-1$
 	} );
 
 	/**
 	 * disable sub-commands
 	 */
-	private static final StringIntArray g_disableCommandArray = new StringIntArray( new Object[][]
+	static StringIntArray g_disableCommandArray = new StringIntArray( new Object[][]
 	{
-		{ "display", CMD_DISPLAY}, //$NON-NLS-1$
-		{ "breakpoints", CMD_BREAK}, //$NON-NLS-1$
+		{ "display", new Integer(CMD_DISPLAY) }, //$NON-NLS-1$
+		{ "breakpoints", new Integer(CMD_BREAK) }, //$NON-NLS-1$
 	} );
 
 	void populateFaultTable()

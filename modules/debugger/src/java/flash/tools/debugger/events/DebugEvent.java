@@ -24,8 +24,8 @@ package flash.tools.debugger.events;
  */
 public abstract class DebugEvent
 {
-	public final String information;
+	public String information;
 
-	DebugEvent()					{ information = ""; } //$NON-NLS-1$
-	DebugEvent(String info)		{ information = info; }
+	public DebugEvent()					{ information = ""; } //$NON-NLS-1$
+	public DebugEvent(String info)		{ information = info; }
 }

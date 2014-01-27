@@ -31,13 +31,13 @@ import java.util.HashMap;
  * 
  * Add new actions by calling addAction("name") 
  */
-class FaultActions
+public class FaultActions
 {
-	private final HashMap<String, Integer> m_faults = new HashMap<String, Integer>();
-	private final HashMap<String, String> m_description = new HashMap<String, String>();  // @todo should really use an object within the faults map for this
-	private final HashMap<String, Integer> m_actions = new HashMap<String, Integer>();
+	HashMap<String, Integer> m_faults = new HashMap<String, Integer>();
+	HashMap<String, String> m_description = new HashMap<String, String>();  // @todo should really use an object within the faults map for this 
+	HashMap<String, Integer> m_actions = new HashMap<String, Integer>();
 
-	private int m_nextBitForAction = 0x1;  // the next bit to use for the action
+	int m_nextBitForAction = 0x1;  // the next bit to use for the action
 
 	public FaultActions() {}
 
@@ -50,7 +50,7 @@ class FaultActions
 	public int			size()					{ return m_faults.size(); }
 	public Object[]     names()					{ return m_faults.keySet().toArray(); }
 	public Object[]     actions()				{ return m_actions.keySet().toArray(); }
-	public boolean		exists(String k)		{ return (get(k) != null);  }
+	public boolean		exists(String k)		{ return (get(k) == null) ? false : true;  }
 
 	public void			putDescription(String k, String v)	{ m_description.put(k,v);	}
 	public String		getDescription(String k)			{ return (m_description.get(k) == null) ? "" :  m_description.get(k);	} //$NON-NLS-1$
@@ -60,7 +60,7 @@ class FaultActions
 	 */
 	public void add(String k)				
 	{ 
-		put(k, 0);
+		put(k, new Integer(0)); 
 	}
 
 	/**
@@ -68,7 +68,7 @@ class FaultActions
 	 */
 	public void addAction(String k)	
 	{ 
-		Integer v = m_nextBitForAction++;
+		Integer v = new Integer(m_nextBitForAction++);
 		m_actions.put(k,v); 
 	}
 
@@ -77,10 +77,11 @@ class FaultActions
 	 */
 	public boolean is(String fault, String action)
 	{
-		int mask  = getAction(action);
-		int bits = get(fault);
+		int mask  = getAction(action).intValue();
+		int bits = get(fault).intValue();
 
-		return ((bits & mask) == mask);
+		boolean set = ( (bits & mask) == mask ) ? true : false;
+		return set;
 	}
 
 	/**
@@ -105,13 +106,13 @@ class FaultActions
 			throw new IllegalArgumentException(action);
 
 		// now do the math
-		int old = current;
-		int mask = bit;
+		int old = current.intValue();
+		int mask = bit.intValue();
 
 		int n = (old & (~mask));  // turn it off
 		n = (no) ? n : (n | mask); // leave it off or turn it on
 
-		put(fault, n);
+		put(fault, new Integer(n));
 
 		return n;
 	}

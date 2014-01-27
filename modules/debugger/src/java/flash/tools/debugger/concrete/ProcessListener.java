@@ -34,21 +34,21 @@ import flash.tools.debugger.ILaunchNotification;
  * When a process exits, the ProcessListener can send out a notification.  If
  * you want that to happen, call startLaunchNotifier().
  */
-class ProcessListener
+public class ProcessListener
 {
-	private final Process					m_process;
-	private final ILaunchNotification		m_launchNotification;
-	private final boolean					m_isDebugging;
-	private final boolean					m_isAIRapp;
+	private Process					m_process;
+	private ILaunchNotification		m_launchNotification;
+	private boolean					m_isDebugging;
+	private boolean					m_isAIRapp;
 	private final String[]			m_launchCommand;
-	private final StringWriter			m_processMessages;
+	private StringWriter			m_processMessages;
 	private boolean 				m_isRunLaunch;
 
 	/**
 	 * A background thread that will wait until the process terminates, and then
 	 * call the launch listener.
 	 */
-	private final Thread m_launchNotifierThread = new Thread("DJAPI ProcessListener") //$NON-NLS-1$
+	private Thread m_launchNotifierThread = new Thread("DJAPI ProcessListener") //$NON-NLS-1$
 	{
 		public void run()
 		{
@@ -116,7 +116,7 @@ class ProcessListener
 	/**
 	 * Returns the command args that were used to launch the process.
 	 */
-    String[] getLaunchCommand()
+	public String[] getLaunchCommand()
 	{
 		return m_launchCommand;
 	}
@@ -137,7 +137,7 @@ class ProcessListener
 		}
 	}
 
-	int getProcessExitValue() throws IllegalThreadStateException
+	public int getProcessExitValue() throws IllegalThreadStateException
 	{
 		return m_process.exitValue();
 	}
@@ -146,7 +146,7 @@ class ProcessListener
 	 * Returns all messages that were sent to stdout and stderr by the process,
 	 * combined into one string.
 	 */
-    String getProcessMessages()
+	public String getProcessMessages()
 	{
 		return m_processMessages.toString();
 	}

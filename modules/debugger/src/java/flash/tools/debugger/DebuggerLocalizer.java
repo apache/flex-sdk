@@ -39,9 +39,9 @@ import flash.localization.ResourceBundleLocalizer;
  */
 public class DebuggerLocalizer implements ILocalizer
 {
-	private final ResourceBundleLocalizer m_resourceBundleLocalizer = new ResourceBundleLocalizer();
-	private final String m_prefix;
-	private final static String m_newline = System.getProperty("line.separator"); //$NON-NLS-1$
+	private ResourceBundleLocalizer m_resourceBundleLocalizer = new ResourceBundleLocalizer();
+	private String m_prefix;
+	public final static String m_newline = System.getProperty("line.separator"); //$NON-NLS-1$
 
 	public DebuggerLocalizer(String prefix)
 	{

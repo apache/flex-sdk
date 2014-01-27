@@ -21,10 +21,10 @@ package flex.tools.debugger.cli;
 
 import flash.tools.debugger.expression.NoSuchVariableException;
 
-class InternalProperty
+public class InternalProperty
 {
-	private final String m_key;
-	final Object m_value;
+	String m_key;
+	Object m_value;
 
 	public InternalProperty(String key, Object value)
 	{

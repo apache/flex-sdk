@@ -25,13 +25,13 @@ package flash.tools.debugger.events;
 public class SwfUnloadedEvent extends DebugEvent
 {
 	/** unique identifier for the SWF */
-	private final long			id;
+	public long			id;
 
 	/** index of SWF in Session.getSwfs() array */
-	private final int			index;
+	public int			index;
 
 	/** full path name for the SWF */
-	public final String		path;
+	public String		path;
 
 	public SwfUnloadedEvent(long sId, String sPath, int sIndex)
 	{

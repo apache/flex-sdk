@@ -28,7 +28,7 @@ package flash.tools.debugger.concrete;
  *
  * @author mmorearty
  */
-interface GetVariableFlag
+public interface GetVariableFlag
 {
 	/**
 	 * Indicates that if the variable which is being retrieved is a

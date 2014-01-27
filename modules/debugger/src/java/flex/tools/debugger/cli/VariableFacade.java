@@ -37,10 +37,10 @@ import flash.tools.debugger.events.FaultEvent;
  */
 public class VariableFacade implements Variable
 {
-	private Variable	m_var;
-	private long		m_context;
-	private String		m_name;
-	private String		m_path;
+	Variable	m_var;
+	long		m_context;
+	String		m_name;
+	String		m_path;
 
 	public VariableFacade(Variable v, long context)		{ init(context, v, null); }
 	public VariableFacade(long context, String name)	{ init(context, null, name); }

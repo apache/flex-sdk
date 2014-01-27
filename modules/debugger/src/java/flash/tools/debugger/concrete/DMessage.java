@@ -45,7 +45,7 @@ public class DMessage
 	 * through our debug socket
 	 */
 	public static final int InUnknown					= -1;
-	private static final int InSetMenuState				=  0;
+	public static final int InSetMenuState				=  0;
 	public static final int InSetProperty				=  1;
 	public static final int InExit						=  2;
 	public static final int InNewObject					=  3;
@@ -68,7 +68,7 @@ public class DMessage
 	public static final int InNumScript					= 20;
 	public static final int InRemoveScript				= 21;
 	public static final int InRemoveBreakpoint			= 22;
-	private static final int InNotSynced					= 23;
+	public static final int InNotSynced					= 23;
 	public static final int InErrorURLOpen				= 24;
 	public static final int InProcessTag				= 25;
 	public static final int InVersion					= 26;
@@ -105,26 +105,26 @@ public class DMessage
      * debug socket (WARNING: ID space overlaps with InXXX)
 	 */
 	public static final int OutUnknown					= -2;
-	private static final int OutZoomIn					=  0;
-	private static final int OutZoomOut					=  1;
-	private static final int OutZoom100					=  2;
-	private static final int OutHome						=  3;
-	private static final int OutSetQuality				=  4;
-	private static final int OutPlay						=  5;
-	private static final int OutLoop						=  6;
-	private static final int OutRewind					=  7;
-	private static final int OutForward					=  8;
-	private static final int OutBack						=  9;
-	private static final int OutPrint					= 10;
+	public static final int OutZoomIn					=  0;
+	public static final int OutZoomOut					=  1;
+	public static final int OutZoom100					=  2;
+	public static final int OutHome						=  3;
+	public static final int OutSetQuality				=  4;
+	public static final int OutPlay						=  5;
+	public static final int OutLoop						=  6;
+	public static final int OutRewind					=  7;
+	public static final int OutForward					=  8;
+	public static final int OutBack						=  9;
+	public static final int OutPrint					= 10;
 	public static final int OutSetVariable				= 11;
-	private static final int OutSetProperty				= 12;
+	public static final int OutSetProperty				= 12;
 	public static final int OutExit						= 13;
-	private static final int OutSetFocus					= 14;
+	public static final int OutSetFocus					= 14;
 	public static final int OutContinue					= 15;
 	public static final int OutStopDebug				= 16;
 	public static final int OutSetBreakpoints			= 17;
 	public static final int OutRemoveBreakpoints		= 18;
-	private static final int OutRemoveAllBreakpoints		= 19;
+	public static final int OutRemoveAllBreakpoints		= 19;
 	public static final int OutStepOver					= 20;
 	public static final int OutStepInto					= 21;
 	public static final int OutStepOut					= 22;
@@ -134,17 +134,17 @@ public class DMessage
 	public static final int OutGetFrame					= 26;
 	public static final int OutGetOption				= 27;
 	public static final int OutSetOption				= 28;
-	private static final int OutAddWatch					= 29; // 16-bit id; used for as2
-	private static final int OutRemoveWatch				= 30; // 16-bit id; used for as2
+	public static final int OutAddWatch					= 29; // 16-bit id; used for as2
+	public static final int OutRemoveWatch				= 30; // 16-bit id; used for as2
     public static final int OutStepContinue				= 31;
     public static final int OutGetSwf				    = 32;
     public static final int OutGetSwd				    = 33;
 	public static final int OutGetVariableWhichInvokesGetter = 34;
 	public static final int OutGetBreakReason			= 35;
 	public static final int OutGetActions				= 36;
-	private static final int OutSetActions				= 37;
+	public static final int OutSetActions				= 37;
 	public static final int OutSwfInfo					= 38;
-	private static final int OutConstantPool				= 39;
+	public static final int OutConstantPool				= 39;
     public static final int OutGetFncNames              = 40;
 	// 41 through 47 are for profiling
     public static final int OutCallFunction				= 48;
@@ -188,9 +188,9 @@ public class DMessage
 														// used by the AVM+ debugger.
 
 	/* byte array of our message and current index into it */
-    private final byte[] m_content;	/* the data bytes of the message */
-	private int	   m_index;		/* current position within the content array */
-	private int    m_type;		/* one of OutXXX or InXXX integer constants */
+	byte[] m_content;	/* the data bytes of the message */
+	int	   m_index;		/* current position within the content array */
+	int    m_type;		/* one of OutXXX or InXXX integer constants */
 
 	/**
 	 * Pointer size (in bytes) expected by the Flash player; either
@@ -199,7 +199,7 @@ public class DMessage
 	private static int m_sizeofPtr;
 
 	/* Debugging only: The contents of this message, formatted as a string for display */
-	private final StringBuilder m_debugFormatted;
+	private StringBuilder m_debugFormatted;
 	/* Debugging only: The number of bytes from the input that we have formatted into m_debugFormatted */
 	private int m_debugFormattedThroughIndex;
 
@@ -214,8 +214,8 @@ public class DMessage
 
 	/* getters/setters */
 	public int    getType()				{ return m_type; }
-	String getInTypeName()		{ return inTypeName(getType()); }
-	String getOutTypeName()		{ return outTypeName(getType()); }
+	public String getInTypeName()		{ return inTypeName(getType()); }
+	public String getOutTypeName()		{ return outTypeName(getType()); }
 	public byte[] getData()				{ return m_content; }
 	public int    getSize()				{ return (m_content == null) ? 0 : m_content.length; }
 	public int    getRemaining()		{ return getSize()-m_index; }
@@ -358,7 +358,7 @@ public class DMessage
 	 * @param val the number
 	 * @param bytes how many bytes should be written
 	 */
-    void put(long val, int bytes) throws ArrayIndexOutOfBoundsException
+	public void put(long val, int bytes) throws ArrayIndexOutOfBoundsException
 	{
 		if (m_index+bytes > m_content.length)
 			throw new ArrayIndexOutOfBoundsException(m_content.length-m_index+" < "+bytes); //$NON-NLS-1$
@@ -519,7 +519,7 @@ public class DMessage
 		return sb.toString();
 	}
 
-	StringBuilder appendContent(StringBuilder sb, int max)
+	public StringBuilder appendContent(StringBuilder sb, int max)
 	{
 		int size = getSize();
 		byte[] data = getData();

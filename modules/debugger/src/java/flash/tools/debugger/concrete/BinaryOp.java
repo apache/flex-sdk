@@ -31,8 +31,8 @@ public enum BinaryOp {
 	In(2, "in"), //$NON-NLS-1$
 	As(3, "as"); //$NON-NLS-1$
 
-	private final int m_value;
-	private final String m_name;
+	private int m_value;
+	private String m_name;
 
 	private BinaryOp(int value, String name) {
 		m_value = value;

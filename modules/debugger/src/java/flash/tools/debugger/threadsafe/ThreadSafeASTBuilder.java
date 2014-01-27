@@ -36,7 +36,7 @@ public class ThreadSafeASTBuilder extends ThreadSafeDebuggerObject implements IA
 	/**
 	 * @param syncObj
 	 */
-    private ThreadSafeASTBuilder(Object syncObj, IASTBuilder astBuilder)
+	public ThreadSafeASTBuilder(Object syncObj, IASTBuilder astBuilder)
 	{
 		super(syncObj);
 		m_astBuilder = astBuilder;

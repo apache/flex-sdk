@@ -38,16 +38,16 @@ import java.util.Iterator;
  */
 public class FileInfoCache implements Comparator<SourceFile>
 {
-	private Session m_session;
+	Session m_session;
 
 	/**
 	 * We can get at files by module id or path
 	 */
-    private final IntMap				m_byInt = new IntMap();
-	private SourceFile[]		m_files = null;
-	private SwfInfo				m_swfFilter = null;
-	private int					m_swfsLoaded = 0;
-    private boolean             m_dirty = false;
+	IntMap				m_byInt = new IntMap();
+	SourceFile[]		m_files = null;
+	SwfInfo				m_swfFilter = null;
+	int					m_swfsLoaded = 0;
+    boolean             m_dirty = false;
 
 	public FileInfoCache() {}
 
@@ -117,7 +117,7 @@ public class FileInfoCache implements Comparator<SourceFile>
 		for(int i=0; i<swfs.length; i++)
 		{
 			if (swfs[i] != null)
-				worked = loadSwfFiles(files, swfs[i]) && worked;
+				worked = loadSwfFiles(files, swfs[i]) ? worked : false;
 		}
 
 		// trim the file list
@@ -445,7 +445,7 @@ public class FileInfoCache implements Comparator<SourceFile>
                 fileList.add(sourceFile);
 			else if (doEndsWith && name.endsWith(match))
                 fileList.add(sourceFile);
-			else if (doIndexOf && name.contains(match))
+			else if (doIndexOf && name.indexOf(match) > -1)
 				fileList.add(sourceFile);
         }
 

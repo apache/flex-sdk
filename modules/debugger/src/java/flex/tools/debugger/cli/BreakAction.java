@@ -33,7 +33,7 @@ import flash.tools.debugger.expression.ValueExp;
  * A breakpoint can be enabled or disabled.  It can be set such
  * that it disabled or deletes itself after being hit N times.
  */
-class BreakAction
+public class BreakAction
 {
 	// return values for getStatus()
 	public final static int		RESOLVED = 1;

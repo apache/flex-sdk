@@ -26,13 +26,13 @@ package flash.tools.debugger.threadsafe;
  */
 class ThreadSafeDebuggerObject {
 
-	private final Object fSyncObj;
+	private Object fSyncObj;
 
-	ThreadSafeDebuggerObject(Object syncObj) {
+	protected ThreadSafeDebuggerObject(Object syncObj) {
 		fSyncObj = syncObj;
 	}
 
-	final Object getSyncObject() {
+	public final Object getSyncObject() {
 		return fSyncObj;
 	}
 }

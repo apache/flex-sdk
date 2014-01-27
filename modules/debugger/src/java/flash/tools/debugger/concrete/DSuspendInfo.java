@@ -27,11 +27,11 @@ import flash.tools.debugger.SuspendReason;
  */
 public class DSuspendInfo
 {
-	private final int m_reason;
-	private final int m_actionIndex;  // which script caused the halt
-	private final int m_offset;		// offset into the actions that the player has halted
-	private final int m_previousOffset;  // previous offset, if any, which lies on the same source line (-1 means unknown)
-	private final int m_nextOffset;  // next offset, if any, which lies on the same source line (-1 means unknown)
+	int m_reason;
+	int m_actionIndex;  // which script caused the halt
+	int m_offset;		// offset into the actions that the player has halted
+	int m_previousOffset;  // previous offset, if any, which lies on the same source line (-1 means unknown)
+	int m_nextOffset;  // next offset, if any, which lies on the same source line (-1 means unknown)
 
 	public DSuspendInfo()
 	{

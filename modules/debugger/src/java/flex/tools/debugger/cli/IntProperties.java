@@ -22,9 +22,9 @@ package flex.tools.debugger.cli;
 import java.util.HashMap;
 import java.util.Set;
 
-class IntProperties
+public class IntProperties
 {
-	private final HashMap<String, Integer> m_map = new HashMap<String, Integer>();
+	HashMap<String, Integer> m_map = new HashMap<String, Integer>();
 
 	/* getters */
 	public Integer					getInteger(String s)	{ return m_map.get(s); }
@@ -33,6 +33,6 @@ class IntProperties
 	public HashMap<String, Integer>	map()					{ return m_map; }
 
 	/* setters */
-	public void put(String s, int value)		{ m_map.put(s, value); }
+	public void put(String s, int value)		{ m_map.put(s, new Integer(value)); }
 
 }

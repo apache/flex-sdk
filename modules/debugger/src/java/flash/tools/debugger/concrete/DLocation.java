@@ -24,9 +24,9 @@ import flash.tools.debugger.SourceFile;
 
 public class DLocation implements Location
 {
-	private final SourceFile	m_source;
-	private final int			m_line;
-	private boolean     m_removed;
+	SourceFile	m_source;
+	int			m_line;
+	boolean     m_removed;
 
 	DLocation(SourceFile src, int line)
 	{
@@ -44,17 +44,17 @@ public class DLocation implements Location
 	public int			getId() { return encodeId(getFile().getId(), getLine()); }
 
 	/* encode /decode */
-	public static int encodeId(int fileId, int line)
+	public static final int encodeId(int fileId, int line)
 	{
 		return ( (line << 16) | fileId );
 	}
 	
-	public static int decodeFile(long id)
+	public static final int decodeFile(long id)
 	{
 		return (int)(id & 0xffff);
 	}
 
-	public static int decodeLine(long id)
+	public static final int decodeLine(long id)
 	{
 		return (int)(id >> 16 & 0xffff);
 	}

@@ -28,7 +28,7 @@ import flash.tools.debugger.SourceFile;
  */
 public class ThreadSafeSourceFile extends ThreadSafeDebuggerObject implements SourceFile {
 	
-	private final SourceFile fSourceFile;
+	private SourceFile fSourceFile;
 	
 	private ThreadSafeSourceFile(Object syncObj, SourceFile sourceFile) {
 		super(syncObj);

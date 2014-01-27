@@ -27,6 +27,6 @@ public class PlayerDebugException extends Exception
 {
 	private static final long serialVersionUID = 757986761482127248L;
 
-    PlayerDebugException()				{ super(); }
+    public PlayerDebugException()				{ super(); }
 	public PlayerDebugException(String s)		{ super(s); }
 }

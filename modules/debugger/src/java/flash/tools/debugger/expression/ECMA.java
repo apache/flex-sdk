@@ -43,7 +43,7 @@ public class ECMA
 	/**
 	 * ECMA 4.3.2
 	 */
-	private static boolean isPrimitive(Value v)
+	public static boolean isPrimitive(Value v)
 	{
 		v = safeValue(v);
 		Object o = v.getValueAsObject();
@@ -93,7 +93,7 @@ public class ECMA
 	 * @param optionalPreferredType
 	 *            either NUMBER, STRING, or null.
 	 */
-	private static Value defaultValue(Session session, Value v, PreferredType optionalPreferredType)
+	public static Value defaultValue(Session session, Value v, PreferredType optionalPreferredType)
 	{
 		v = safeValue(v);
 		String typename = v.getTypeName();
@@ -171,7 +171,14 @@ public class ECMA
 		case VariableType.NUMBER:
 		{
 			double d = ((Double) v.getValueAsObject()).doubleValue();
-            return !(d == 0 || Double.isNaN(d));
+			if (d == 0 || Double.isNaN(d))
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
 		}
 		case VariableType.STRING:
 			return ((String) v.getValueAsObject()).length() != 0;
@@ -291,7 +298,7 @@ public class ECMA
 		{
 			String sx = px.getValueAsString();
 			String sy = py.getValueAsString();
-			return DValue.forPrimitive(sx.compareTo(sy) < 0);
+			return DValue.forPrimitive(new Boolean(sx.compareTo(sy) < 0));
 		}
 		else
 		{
@@ -299,7 +306,7 @@ public class ECMA
 			double dy = toNumber(session, py);
 			if (Double.isNaN(dx) || Double.isNaN(dy))
 				return DValue.forPrimitive(Value.UNDEFINED);
-			return DValue.forPrimitive(dx < dy);
+			return DValue.forPrimitive(new Boolean(dx < dy));
 		}
 	}
 
@@ -328,8 +335,10 @@ public class ECMA
 				return x.equals(y);
 
 			// see if they are the same object
-            return (xv.getId() != -1 || yv.getId() != -1) && xv.getId() == yv.getId();
-        }
+			if (xv.getId() != -1 || yv.getId() != -1)
+				return xv.getId() == yv.getId();
+			return false;
+		}
 		else
 		{
 			if (x == null && y == Value.UNDEFINED)
@@ -349,15 +358,19 @@ public class ECMA
 				return dx == dy;
 			}
 			if (x instanceof Boolean)
-				return equals(session, DValue.forPrimitive(toNumber(session, xv)), yv);
+				return equals(session, DValue.forPrimitive(new Double(toNumber(session, xv))), yv);
 			if (y instanceof Boolean)
-				return equals(session, xv, DValue.forPrimitive(toNumber(session, yv)));
+				return equals(session, xv, DValue.forPrimitive(new Double(toNumber(session, yv))));
 			if ((x instanceof String || x instanceof Double) && yv.getType() == VariableType.OBJECT)
 			{
 				return equals(session, xv, toPrimitive(session, yv, null));
 			}
-            return xv.getType() == VariableType.OBJECT && (y instanceof String || y instanceof Double) && equals(session, toPrimitive(session, xv, null), yv);
-        }
+			if (xv.getType() == VariableType.OBJECT && (y instanceof String || y instanceof Double))
+			{
+				return equals(session, toPrimitive(session, xv, null), yv);
+			}
+			return false;
+		}
 	}
 
 	/** ECMA 11.9.6 */
@@ -385,8 +398,10 @@ public class ECMA
 				return x.equals(y);
 
 			// see if they are the same object
-            return (xv.getId() != -1 || yv.getId() != -1) && xv.getId() == yv.getId();
-        }
+			if (xv.getId() != -1 || yv.getId() != -1)
+				return xv.getId() == yv.getId();
+			return false;
+		}
 		else
 		{
 			return false;
@@ -402,7 +417,7 @@ public class ECMA
 	 *            any Value, possibly null
 	 * @return a non-null Value
 	 */
-	private static Value safeValue(Value v)
+	public static Value safeValue(Value v)
 	{
 		if (v == null)
 		{

@@ -25,10 +25,10 @@ package flash.tools.debugger.events;
 public class BreakEvent extends DebugEvent
 {
 	/** unique identifier for the source file where the Player has suspened. */
-	private final int fileId;
+	public int fileId;
 
 	/** line number in the source file where the Player has suspended. */
-	private final int line;
+	public int line;
 
 	public BreakEvent(int fId, int l)
 	{

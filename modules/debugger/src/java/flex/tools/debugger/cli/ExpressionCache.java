@@ -47,11 +47,11 @@ import flash.tools.debugger.expression.ValueExp;
 
 public class ExpressionCache
 {
-	private Session				m_session;
-	private final IASTBuilder			m_builder;
-	private final Vector<Object>		m_expressions;
-	private final IntProperties		m_props;
-	private final DebugCLI			m_cli;
+	Session				m_session;
+	IASTBuilder			m_builder;
+	Vector<Object>		m_expressions;
+	IntProperties		m_props;
+	DebugCLI			m_cli;
 
 	/**
 	 * Returned by evaluate().
@@ -85,8 +85,8 @@ public class ExpressionCache
 
 	public void			clear()			{ m_expressions.clear(); }
 	public void			unbind()		{ m_session = null; }
-	int			size()			{ return m_expressions.size(); }
-	Object		at(int i)		{ return m_expressions.elementAt(i); }
+	public int			size()			{ return m_expressions.size(); }
+	public Object		at(int i)		{ return m_expressions.elementAt(i); }
 
 	void setSession(Session s)	{ m_session = s; }
 
@@ -98,7 +98,7 @@ public class ExpressionCache
 		setSession(s); 
 
 		// propagates our properties to the session / non-critical if fails
-		try { ((flash.tools.debugger.concrete.PlayerSession)s).setPreferences(m_props.map()); } catch(Exception ignored) {}
+		try { ((flash.tools.debugger.concrete.PlayerSession)s).setPreferences(m_props.map()); } catch(Exception e) {}
 	}
 
 	public EvaluationResult evaluate(ValueExp e) throws NumberFormatException, NoSuchVariableException, PlayerFaultException, PlayerDebugException
@@ -171,7 +171,7 @@ public class ExpressionCache
 			throw new NoSuchElementException(s);
 
 	    String num = s.substring(1);
-		if (num.length() == 0)
+		if (num == null || num.length() == 0)
 			exp = at(size()-1);
 		else if (num.equals("$")) //$NON-NLS-1$
 			exp = at(size()-2);
@@ -544,7 +544,7 @@ public class ExpressionCache
         return m_cli != null && m_cli.isIde() ? escape(s) : s;
     }
 
-    private static String escape(final String str) {
+    public static String escape(final String str) {
         final StringBuilder buffer = new StringBuilder();
 
         for (int idx = 0; idx < str.length(); idx++) {

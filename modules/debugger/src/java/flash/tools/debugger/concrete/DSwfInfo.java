@@ -34,9 +34,9 @@ import flash.util.IntMap;
 
 public class DSwfInfo implements SwfInfo
 {
-	private final int			m_index;
+	private int			m_index;
 	private long		m_id;
-	private final IntMap		m_source;
+	private IntMap		m_source;
 	private String		m_path;
 	private String		m_url;
 	private String		m_host;
@@ -95,12 +95,12 @@ public class DSwfInfo implements SwfInfo
 	public boolean		isPopulated()			{ return m_populated; }
 	public byte[]		getSwf()				{ return m_swf; }
 	public byte[]		getSwd()				{ return m_swd; }
-	int			getSourceExpectedCount()	{ return m_scriptsExpected; }
+	public int			getSourceExpectedCount()	{ return m_scriptsExpected; }
     public int          getVmVersion()          { return m_vmVersion;  }
 
 //	public int			getBreakpointCount() throws InProgressException	{ swdLoading(); return m_bpCount; }
 //	public int			getOffsetCount() 		{ swdLoading(); return m_offsetCount; }
-int			getSourceCount() 	{ return m_source.size(); }
+	public int			getSourceCount() 	{ return m_source.size(); }
 	public int			getFirstSourceId() 	{ return m_minId; }
 	public int			getLastSourceId() 	{ return m_maxId; }
 
@@ -150,7 +150,7 @@ int			getSourceCount() 	{ return m_source.size(); }
 		if (isSwdLoading() && !isUnloaded())
 		{
 			// make the request 
-			try { ((PlayerSession)s).requestSwfInfo(m_index); } catch(NoResponseException ignored) {}
+			try { ((PlayerSession)s).requestSwfInfo(m_index); } catch(NoResponseException nre) {}
 
 			// I should now be complete
 			if (!m_swdLoading)
@@ -182,7 +182,10 @@ int			getSourceCount() 	{ return m_source.size(); }
 		// our expectation has not been set and have not yet loaded our swd
 		if (expect == -1 && isSwdLoading())
 			yes = false;
-		else yes = expect == have;
+		else if (expect == have)
+			yes = true;
+		else
+			yes = false;
 
 		return yes;
 	}
@@ -228,7 +231,7 @@ int			getSourceCount() 	{ return m_source.size(); }
 		return locateSourceLineEnd(l, -1);
 	}
 
-	ActionLocation locateSourceLineEnd(ActionLocation l, int stopAt)
+	public ActionLocation locateSourceLineEnd(ActionLocation l, int stopAt)
 	{
 		ActionLocation end = m_container.endOfSourceLine(l);
 		if (stopAt > -1 && end.at > stopAt)
@@ -258,7 +261,7 @@ int			getSourceCount() 	{ return m_source.size(); }
 	 */
 
 	// temporary while we parse
-    private DManager m_manager;
+	DManager m_manager;
 
 	/**
 	 * Extracts information out of the SWF/SWD in order to populate

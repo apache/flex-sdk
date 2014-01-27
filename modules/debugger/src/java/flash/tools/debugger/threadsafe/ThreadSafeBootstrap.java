@@ -25,7 +25,7 @@ import flash.tools.debugger.Bootstrap;
  * Thread-safe wrapper for flash.tools.debugger.Bootstrap
  * @author Mike Morearty
  */
-class ThreadSafeBootstrap {
+public class ThreadSafeBootstrap {
 
 	private static ThreadSafeSessionManager fMgr;
 

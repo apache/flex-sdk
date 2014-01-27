@@ -21,15 +21,15 @@ package flash.util;
 
 import java.io.*;
 
-final class URLEncoder
+public final class URLEncoder
 {
-	private static final String charset = "UTF8"; //$NON-NLS-1$
+	public static final String charset = "UTF8"; //$NON-NLS-1$
 
 	private URLEncoder()
 	{
 	}
 
-	public static String encode(String s)
+	public static final String encode(String s)
 	{
 		try
 		{
@@ -41,7 +41,7 @@ final class URLEncoder
 		}
 	}
 
-	private static String encode(String s, String enc) throws UnsupportedEncodingException
+	public static final String encode(String s, String enc) throws UnsupportedEncodingException
 	{
 		if (!needsEncoding(s))
 		{
@@ -101,7 +101,7 @@ final class URLEncoder
 		return out.toString();
 	}
 
-	private static void toHex(StringBuilder buffer, byte[] b)
+	private static final void toHex(StringBuilder buffer, byte[] b)
 	{
 		for (int i = 0; i < b.length; i++)
 		{
@@ -123,7 +123,7 @@ final class URLEncoder
 		}
 	}
 
-	private static boolean needsEncoding(String s)
+	private static final boolean needsEncoding(String s)
 	{
 		if (s == null)
 		{

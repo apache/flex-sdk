@@ -22,7 +22,7 @@ package flex.tools.debugger.cli;
 /**
  * An singleton object that doles out unique identifiers to breakpoints and watchpoints
  */
-class BreakIdentifier
+public class BreakIdentifier
 {
 	private static int s_uniqueIdentifier  = 1;
 

@@ -22,6 +22,7 @@ package flash.tools.debugger.concrete;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -85,7 +86,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 	 */
 	private Map<Long,DValue>				m_previousValues;
 
-	private final LinkedList<DebugEvent> m_event;	/* our event queue; WARNING: accessed from multiple threads */
+	private LinkedList<DebugEvent> m_event;	/* our event queue; WARNING: accessed from multiple threads */
 	private DSuspendInfo	m_suspendInfo;	/* info for when we are stopped */
 	private SourceLocator	m_sourceLocator;
 
@@ -112,10 +113,10 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 	private boolean		m_executingPlayerCode;
 	private FaultEvent	m_faultEventDuringPlayerCodeExecution;
 
-	private final Map<String, String>	m_options = new HashMap<String, String>();	// Player options that have been queried by OutGetOption, and come back via InOption
+	private Map<String, String>	m_options = new HashMap<String, String>();	// Player options that have been queried by OutGetOption, and come back via InOption
 
-	private static final String ARGUMENTS_MARKER = "$arguments"; //$NON-NLS-1$
-	private static final String SCOPE_CHAIN_MARKER = "$scopechain"; //$NON-NLS-1$
+	public static final String ARGUMENTS_MARKER = "$arguments"; //$NON-NLS-1$
+	public static final String SCOPE_CHAIN_MARKER = "$scopechain"; //$NON-NLS-1$
 
 	public DManager()
 	{
@@ -408,7 +409,8 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 
 	public DValue getValue(long id)
 	{
-		return m_values.get(id);
+		DValue v = m_values.get(id);
+		return v;
 	}
 
 	/**
@@ -659,10 +661,12 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 
 	/**
 	 * Frame stack management related stuff
+	 * @return true if we added this frame; false if we ignored it
 	 */
-	void addFrame(DStackContext ds)
+	boolean addFrame(DStackContext ds)
 	{
 		m_frames.add(ds);
+		return true;
 	}
 
 	void clearFrames()
@@ -697,7 +701,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 		// discard all old frames (we will restore some of them below)
 		DValue[] oldFrames = new DValue[oldSize];
 		for (int depth = 0; depth < oldSize; depth++) {
-			oldFrames[depth] = m_previousValues.remove(Value.BASE_ID - depth);
+			oldFrames[depth] = (DValue) m_previousValues.remove(Value.BASE_ID - depth);
 		}
 
 		// Start at the end of the stack (the stack frame farthest from the
@@ -875,7 +879,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 					{
 						if (msg.getByte() != 0)
 						{
-							willExceptionBeCaught = (msg.getByte() != 0);
+							willExceptionBeCaught = (msg.getByte() != 0 ? true : false);
 							msg.getPtr();
 							DVariable thrownVar = extractVariable(msg);
 							thrown = thrownVar.getValue();
@@ -927,7 +931,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 			case DMessage.InSquelch:
 			{
 				long state = msg.getDWord();
-				m_squelchEnabled = (state != 0);
+				m_squelchEnabled = (state != 0) ? true : false;
 				break;
 			}
 
@@ -1163,8 +1167,12 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 					int  line = DLocation.decodeLine (bpi);
 					DModule m = getSource(module);
 					DStackContext c = new DStackContext( module, line, m, id, stack, depth);
-                    addFrame(c);
-					++depth;
+					// If addFrame() returns false, that means it chose to ignore this
+					// frame, so we do NOT want to increment our depth for the next
+					// time through the loop.  If it returns true, then we do want to.
+					if (addFrame(c))
+						++depth;
+//					System.out.println("   this="+id+",@"+(bpi&0xffff)+":"+(bpi>>16)+",stack="+stack);
 				}
 				mapOldFramesToNew();
 				break;
@@ -1466,7 +1474,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 
 					if (id != 0)
 					{
-						boolean  debugComing = (msg.getByte() != 0);
+						boolean  debugComing = (msg.getByte() == 0) ? false : true;
 						byte vmVersion = (byte)msg.getByte();  // AS vm version number (1 = avm+, 0 == avm-)
 						int rsvd1 = msg.getWord();
 
@@ -1581,7 +1589,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
             {
 				// For InCallFunction the first element is the original function we requested
 				DValue parent = null;
-				DVariable child;
+				DVariable child = null;
 				String definingClass = null;
 				int level = 0;
 				int highestLevelWithMembers = -1;
@@ -1675,8 +1683,10 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 	 */
 	private boolean showMember(DVariable child)
 	{
-        return !isTraits(child);
-    }
+		if (isTraits(child))
+			return false;
+		return true;
+	}
 
 	/**
 	 * Returns whether this is not a variable at all, but is instead a representation
@@ -1685,8 +1695,11 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 	 */
 	private boolean isTraits(DVariable variable) {
 		Value value = variable.getValue();
-        return value.getType() == VariableType.UNKNOWN && Value.TRAITS_TYPE_NAME.equals(value.getTypeName());
-    }
+		if (value.getType() == VariableType.UNKNOWN && Value.TRAITS_TYPE_NAME.equals(value.getTypeName())) {
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * Here's where some ugly stuff happens. Since our context contains
@@ -1743,66 +1756,79 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 			context.removeAllVariables();
 
 		// use the ordered child list
-        for (DVariable v : frameVars) {
-            String name = v.getName();
+		Iterator<DVariable> e = frameVars.iterator();
+		while(e.hasNext())
+		{
+			DVariable v = e.next();
+			String name = v.getName();
 
-            // let's clear a couple of attributes that may get in our way
-            v.clearAttribute(VariableAttribute.IS_LOCAL);
-            v.clearAttribute(VariableAttribute.IS_ARGUMENT);
-            if (name.equals("this")) //$NON-NLS-1$
-            {
-                if (context != null)
-                    context.setThis(v);
+			// let's clear a couple of attributes that may get in our way
+			v.clearAttribute(VariableAttribute.IS_LOCAL);
+			v.clearAttribute(VariableAttribute.IS_ARGUMENT);
+			if (name.equals("this")) //$NON-NLS-1$
+			{
+				if (context != null)
+					context.setThis(v);
 
-                // from our current frame, put a pseudo this entry into the cache and hang it off base, mark it as an implied arg
-                v.setAttribute(VariableAttribute.IS_ARGUMENT);
-                addVariableMember(root, v);
+				// from our current frame, put a pseudo this entry into the cache and hang it off base, mark it as an implied arg
+				v.setAttribute(VariableAttribute.IS_ARGUMENT);
+				addVariableMember(root, v);
 
-                // also add this variable under THIS_ID
-                if (depth == 0)
-                    putValue(Value.THIS_ID, (DValue) v.getValue());
-            } else if (name.equals("super")) //$NON-NLS-1$
-            {
-                // we are at the end of the arg list and let's make super part of global
-                inArgs = false;
-            } else if (name.equals(ARGUMENTS_MARKER)) {
-                inArgs = true;
+				// also add this variable under THIS_ID
+				if (depth == 0)
+					putValue(Value.THIS_ID, (DValue) v.getValue());
+			}
+			else if (name.equals("super")) //$NON-NLS-1$
+			{
+				// we are at the end of the arg list and let's make super part of global
+				inArgs = false;
+			}
+			else if (name.equals(ARGUMENTS_MARKER))
+			{
+				inArgs = true;
 
-                // see if we can extract an arg count from this variable
-                try {
-                    nArgs = ((Number) (v.getValue().getValueAsObject())).intValue();
-                } catch (NumberFormatException ignored) {
-                }
-            } else if (name.equals(SCOPE_CHAIN_MARKER)) {
-                inArgs = false;
-                inScopeChain = true;
-            } else {
-                // add it to our root, marking it as an arg if we know, otherwise local
-                if (inArgs) {
-                    v.setAttribute(VariableAttribute.IS_ARGUMENT);
+				// see if we can extract an arg count from this variable
+				try { nArgs = ((Number)(v.getValue().getValueAsObject())).intValue(); } catch(NumberFormatException nfe){}
+			}
+			else if (name.equals(SCOPE_CHAIN_MARKER))
+			{
+				inArgs = false;
+				inScopeChain = true;
+			}
+			else
+			{
+				// add it to our root, marking it as an arg if we know, otherwise local
+				if (inArgs)
+				{
+					v.setAttribute(VariableAttribute.IS_ARGUMENT);
 
-                    if (context != null)
-                        context.addArgument(v);
+					if (context != null)
+						context.addArgument(v);
 
-                    // decrement arg count if we have it
-                    if (nArgs > -1) {
-                        if (--nArgs <= 0)
-                            inArgs = false;
-                    }
-                } else if (inScopeChain) {
-                    if (context != null)
-                        context.addScopeChainEntry(v);
-                } else {
-                    v.setAttribute(VariableAttribute.IS_LOCAL);
-                    if (context != null)
-                        context.addLocal(v);
-                }
+					// decrement arg count if we have it
+					if (nArgs > -1)
+					{
+						if (--nArgs <= 0)
+							inArgs = false;
+					}
+				}
+				else if (inScopeChain)
+				{
+					if (context != null)
+						context.addScopeChainEntry(v);
+				}
+				else
+				{
+					v.setAttribute(VariableAttribute.IS_LOCAL);
+					if (context != null)
+						context.addLocal(v);
+				}
 
-                // add locals and arguments to root
-                if (!inScopeChain)
-                    addVariableMember(root, v);
-            }
-        }
+				// add locals and arguments to root
+				if (!inScopeChain)
+					addVariableMember(root, v);
+			}
+		}
 	}
 
 	/**
@@ -1810,12 +1836,14 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 	 */
 	int toAttributes(int pAttr)
 	{
-		return pAttr;  /* 1-1 mapping */
+		int attr = pAttr;  /* 1-1 mapping */
+		return attr;
 	}
 
 	DVariable extractVariable(DMessage msg)
 	{
-		return extractVariable(msg, msg.getString());
+		DVariable v = extractVariable(msg, msg.getString());
+		return v;
 	}
 
 	/**
@@ -1860,9 +1888,9 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 				{
 					dval = Double.parseDouble(s);
 				}
-				catch(NumberFormatException ignored) {}
+				catch(NumberFormatException nfe) {}
 
-				value = dval;
+				value = new Double(dval);
 				isPrimitive = true;
 				break;
 			}
@@ -1870,14 +1898,16 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 			case DMessage.kBooleanType:
 			{
 				int bval = msg.getByte();
-				value = (bval != 0);
+				value = new Boolean ( (bval == 0) ? false : true );
 				isPrimitive = true;
 				break;
 			}
 
             case DMessage.kStringType:
             {
-                value = msg.getString();
+                String s = msg.getString();
+
+                value = s;
                 isPrimitive = true;
                 break;
             }
@@ -1892,7 +1922,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 				typeName =   (oid == -1) ? "" : msg.getString(); //$NON-NLS-1$
 				className = DVariable.classNameFor(cType, false);
 
-				value = oid;
+				value = new Long(oid);
 				vType = (isFnc == 0) ? VariableType.OBJECT : VariableType.FUNCTION;
 				break;
 			}
@@ -1905,7 +1935,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 				typeName =   (oid == -1) ? "" : msg.getString(); //$NON-NLS-1$
 				className = DVariable.classNameFor(cType, true);
 
-				value = oid;
+				value = new Long(oid);
 				vType = VariableType.MOVIECLIP;
 				break;
 			}
@@ -1965,7 +1995,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 		// existing object with the new values.
 		if (value instanceof Long)
 		{
-			valueObject = getValue((Long) value);
+			valueObject = getValue(((Long)value).longValue());
 		}
 
 		if (valueObject == null)
@@ -1983,7 +2013,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 			}
 
 			if (value instanceof Long && (toAttributes(flags) & VariableAttribute.HAS_GETTER) == 0)
-				putValue((Long) value, valueObject);
+				putValue(((Long)value).longValue(), valueObject);
 		}
 		else
 		{
@@ -2006,13 +2036,14 @@ public class DManager implements DProtocolNotifierIF, SourceLocator
 			valueObject.setValue(value);
 		}
 
-		return new DVariable(name, valueObject);
+		DVariable var = new DVariable(name, valueObject);
+		return var;
 	}
 
 	/**
 	 * The player sends us a URI using '|' instead of ':'
 	 */
-	private static String convertToURI(String playerURL)
+	public static String convertToURI(String playerURL)
 	{
 		int index = playerURL.indexOf('|');
 		StringBuilder sb = new StringBuilder(playerURL);

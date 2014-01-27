@@ -33,7 +33,7 @@ import flash.tools.debugger.Variable;
  */
 public class ThreadSafeFrame extends ThreadSafeDebuggerObject implements Frame {
 	
-	private final Frame fFrame;
+	private Frame fFrame;
 	
 	private ThreadSafeFrame(Object syncObj, Frame frame) {
 		super(syncObj);
@@ -44,7 +44,7 @@ public class ThreadSafeFrame extends ThreadSafeDebuggerObject implements Frame {
 	 * Wraps a Frame inside a ThreadSafeFrame.  If the passed-in Frame
 	 * is null, then this function returns null.
 	 */
-	private static ThreadSafeFrame wrap(Object syncObj, Frame frame) {
+	public static ThreadSafeFrame wrap(Object syncObj, Frame frame) {
 		if (frame != null)
 			return new ThreadSafeFrame(syncObj, frame);
 		else
@@ -79,8 +79,11 @@ public class ThreadSafeFrame extends ThreadSafeDebuggerObject implements Frame {
 			if (other instanceof ThreadSafeFrame) {
 				return (fFrame.equals(((ThreadSafeFrame)other).fFrame));
 			}
-            return other instanceof Frame && (fFrame.equals(other));
-        }
+			if (other instanceof Frame) {
+				return (fFrame.equals(other));
+			}
+			return false;
+		}
 	}
 
 	public String toString() {

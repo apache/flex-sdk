@@ -28,8 +28,8 @@ import flash.tools.debugger.Browser;
  */
 public class DBrowser implements Browser
 {
-	private final File m_path;
-	private final int m_type;
+	private File m_path;
+	private int m_type;
 
 	public DBrowser(File exepath)
 	{

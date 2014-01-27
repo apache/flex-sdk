@@ -26,8 +26,8 @@ package flash.tools.debugger.concrete;
  */
 public class DMessageCounter implements DProtocolNotifierIF
 {
-	private final long[] m_inCounts;
-	private final long[] m_outCounts;
+	long[] m_inCounts;
+	long[] m_outCounts;
 
 	public DMessageCounter()
 	{
@@ -61,7 +61,7 @@ public class DMessageCounter implements DProtocolNotifierIF
 	 * Returns the object on which external code can call "wait" in order
 	 * to block until a message is sent.
 	 */
-    Object getOutLock() { return m_outCounts; }
+	public Object getOutLock() { return m_outCounts; }
 
 	/**
 	 * Collect stats on outgoing messages 

@@ -33,7 +33,7 @@ import flash.tools.debugger.events.FaultEvent;
  */
 public class ThreadSafeVariable extends ThreadSafeDebuggerObject implements Variable {
 
-	private final Variable fVar;
+	private Variable fVar;
 
 	private ThreadSafeVariable(Object syncObj, Variable var) {
 		super(syncObj);

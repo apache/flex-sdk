@@ -76,7 +76,7 @@ public class DProtocol implements Runnable
 		MessageCounter
 	}
 
-	private DProtocol(BufferedInputStream in, BufferedOutputStream out)
+	public DProtocol(BufferedInputStream in, BufferedOutputStream out)
 	{
 		m_in = in;
 		m_out = out;
@@ -91,8 +91,8 @@ public class DProtocol implements Runnable
 		addListener(ListenerIndex.MessageCounter, new DMessageCounter());
 	}
 	
-	private DProtocol(BufferedInputStream in, BufferedOutputStream out,
-                      Socket s, boolean detectBrokenSocket)
+	public DProtocol(BufferedInputStream in, BufferedOutputStream out, 
+			Socket s, boolean detectBrokenSocket)
 	{
 		this(in, out);
 		m_socket = s;
@@ -103,7 +103,7 @@ public class DProtocol implements Runnable
 	 * Set the base socket options
 	 * @throws SocketException
 	 */
-	private static void applyBaseSocketSettings(Socket s) throws SocketException
+	static void applyBaseSocketSettings(Socket s) throws SocketException 
 	{
 		// For performance reasons, it is very important that we setTcpNoDelay(true),
 		// thus disabling Nagle's algorithm.  Google for TCP_NODELAY or Nagle
@@ -115,12 +115,13 @@ public class DProtocol implements Runnable
 		s.setTcpNoDelay(true);		
 	}
 	
-	private static DProtocol createDProtocolFromSocket(Socket s, boolean detectBrokenSocket) throws IOException
+	static DProtocol createDProtocolFromSocket(Socket s, boolean detectBrokenSocket) throws IOException
 	{
 		BufferedInputStream in = new BufferedInputStream(s.getInputStream());
 		BufferedOutputStream out = new BufferedOutputStream(s.getOutputStream());
 
-		return new DProtocol(in, out, s, detectBrokenSocket);
+		DProtocol dp = new DProtocol(in, out, s, detectBrokenSocket);
+		return dp;
 	}
 
 	/**
@@ -159,12 +160,13 @@ public class DProtocol implements Runnable
 	 * @param n
 	 *            the listener
 	 */
-	public void addListener(ListenerIndex index, DProtocolNotifierIF n)
+	public boolean addListener(ListenerIndex index, DProtocolNotifierIF n)
 	{
 		synchronized (m_listeners)
 		{
 			m_listeners.put(index, n);
 		}
+		return true;
 	}
 
 	public long messagesReceived()		{ synchronized (this) { return m_msgRx; } }
@@ -469,8 +471,9 @@ public class DProtocol implements Runnable
 		int b1 = m_in.read();
 		int b2 = m_in.read();
 		int b3 = m_in.read();
-
-		return ((b3 << 24) & 0xff000000) | ((b2 << 16) & 0xff0000) | ((b1 << 8) & 0xff00) | (b0 & 0xff);
+		
+		long value = ((b3 << 24) & 0xff000000) | ((b2 << 16) & 0xff0000) | ((b1 << 8) & 0xff00) | (b0 & 0xff);
+		return value;
 	}
 
 	public DMessageCounter getMessageCounter()

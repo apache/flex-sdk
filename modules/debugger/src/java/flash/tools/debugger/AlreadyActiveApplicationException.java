@@ -30,7 +30,7 @@ import java.io.IOException;
 public class AlreadyActiveApplicationException extends IOException {
 	private static final long serialVersionUID = 0L;
 	
-	private final boolean m_isDebugging;
+	private boolean m_isDebugging;
 	
 	public AlreadyActiveApplicationException (String detailedMessage,boolean isDebugging)
 	{

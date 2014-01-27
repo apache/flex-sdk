@@ -25,10 +25,10 @@ import flash.tools.debugger.Watch;
  * An object that relates a CLI debugger watchpoint with the
  * actual Watch obtained from the Session
  */
-class WatchAction
+public class WatchAction
 {
-	private Watch		m_watch;
-	private int			m_id;
+	Watch		m_watch;
+	int			m_id;             
 
 	public WatchAction(Watch w) 
 	{
@@ -43,7 +43,7 @@ class WatchAction
 
 	/* getters */
 	public int			getId()					{ return m_id; }
-	long			getVariableId()			{ return m_watch.getValueId(); }
+	public long			getVariableId()			{ return m_watch.getValueId(); }
 	public int			getKind()				{ return m_watch.getKind(); }
 	public Watch		getWatch()				{ return m_watch; }
 

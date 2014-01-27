@@ -32,7 +32,7 @@ import flash.tools.debugger.Variable;
  */
 public class ThreadSafeValue extends ThreadSafeDebuggerObject implements Value {
 
-	private final Value fVal;
+	private Value fVal;
 
 	private ThreadSafeValue(Object syncObj, Value val) {
 		super(syncObj);
@@ -76,7 +76,10 @@ public class ThreadSafeValue extends ThreadSafeDebuggerObject implements Value {
 	}
 	
 	public boolean equals(Object other) {
-        return other instanceof Value && fVal.equals(getRaw((Value) other));
+		if (other instanceof Value)
+			return fVal.equals(getRaw((Value)other));
+		else
+			return false;
 	}
 
 	public int getAttributes() {

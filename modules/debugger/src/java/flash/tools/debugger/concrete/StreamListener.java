@@ -27,9 +27,9 @@ import java.io.Writer;
  * Reads a stream, and sends the contents somewhere.
  * @author mmoreart
  */
-class StreamListener extends Thread {
-	private final Reader fIn;
-	private final Writer fOut;
+public class StreamListener extends Thread {
+	Reader fIn;
+	Writer fOut;
 
 	/**
 	 * Creates a StreamListener which will copy everything from

@@ -29,6 +29,7 @@ import flash.tools.debugger.Player;
 import flash.tools.debugger.Session;
 import flash.tools.debugger.SessionManager;
 import flash.tools.debugger.SessionManager2;
+import flash.tools.debugger.VersionException;
 
 /**
  * Thread-safe wrapper for flash.tools.debugger.SessionManager
@@ -36,7 +37,7 @@ import flash.tools.debugger.SessionManager2;
  */
 public class ThreadSafeSessionManager extends ThreadSafeDebuggerObject implements SessionManager2 {
 
-	private final SessionManager fSessionManager;
+	private SessionManager fSessionManager;
 	
 	private ThreadSafeSessionManager(SessionManager sessionManager) {
 		super(new Object());
@@ -96,8 +97,10 @@ public class ThreadSafeSessionManager extends ThreadSafeDebuggerObject implement
 		 * We just return the process to be consistent with PlayerSessionManager. 
 		 */
 		assert fSessionManager instanceof SessionManager2;
-
-		return ((SessionManager2) fSessionManager).launchForRun(uri, airLaunchInfo, waitReporter, launchNotification);
+		
+		Process process = ((SessionManager2) fSessionManager).launchForRun(uri, airLaunchInfo, waitReporter, launchNotification);
+			
+		return process;	
 		
   }
 

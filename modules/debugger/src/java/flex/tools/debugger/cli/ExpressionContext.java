@@ -39,12 +39,12 @@ import flash.tools.debugger.expression.PlayerFaultException;
 
 public class ExpressionContext implements Context
 {
-	private final ExpressionCache		m_cache;
-	private Object				m_current;
-	private boolean				m_createIfMissing;  // set if we need to create a variable if it doesn't exist
-	private final Vector<String>		m_namedPath;
-	private boolean				m_nameLocked;
-	private final String				m_newline = System.getProperty("line.separator"); //$NON-NLS-1$
+	ExpressionCache		m_cache;
+	Object				m_current;
+	boolean				m_createIfMissing;  // set if we need to create a variable if it doesn't exist
+	Vector<String>		m_namedPath;
+	boolean				m_nameLocked;
+	String				m_newline = System.getProperty("line.separator"); //$NON-NLS-1$
 
 	// used when evaluating an expression
 	public ExpressionContext(ExpressionCache cache)
@@ -59,10 +59,10 @@ public class ExpressionContext implements Context
 	void		setContext(Object o)	{ m_current = o; }
 
 	void		pushName(String name)	{ if (m_nameLocked || name.length() < 1) return; m_namedPath.add(name);  }
-	boolean		setName(String name)	{ if (!m_nameLocked) {m_namedPath.clear(); pushName(name);} return true; }
+	boolean		setName(String name)	{ if (m_nameLocked) return true; m_namedPath.clear(); pushName(name); return true; }
 	void		lockName()				{ m_nameLocked = true; }
 
-	String getName()
+	public String getName()
 	{
 		int size = m_namedPath.size();
 		StringBuilder sb = new StringBuilder();
@@ -84,10 +84,10 @@ public class ExpressionContext implements Context
 			Integer o = (Integer)m_cache.get(DebugCLI.LIST_MODULE);
 			s = m_cache.getPackageName(o.intValue());
 		}
-		catch(NullPointerException ignored)
+		catch(NullPointerException npe)
 		{
 		}
-		catch(ClassCastException ignored)
+		catch(ClassCastException cce)
 		{
 		}
 		return s; 
@@ -135,7 +135,7 @@ public class ExpressionContext implements Context
 				}
 
 				if (var == null)
-					throw new NoSuchVariableException(m_current);
+					throw new NoSuchVariableException((var == null) ? m_current : var.getName());
 
 				// set the value, for the case of a variable that does not exist it will not have a type
 				// so we try to glean one from v.
@@ -177,7 +177,7 @@ public class ExpressionContext implements Context
 				throw new NoSuchVariableException(o);
 
 			// take on the path to the variable; so 'what' command prints something nice
-			if (result instanceof VariableFacade)
+			if ((result != null) && result instanceof VariableFacade)
 			{
 				((VariableFacade)result).setPath(getName());
 			}
@@ -291,7 +291,8 @@ public class ExpressionContext implements Context
 	//
 
 	// used to assign a value to an internal variable 
-	private void assignInternal(InternalProperty var, Value v) throws NumberFormatException {
+	private void assignInternal(InternalProperty var, Value v) throws NoSuchVariableException, NumberFormatException, PlayerDebugException
+	{
 		// otherwise set it
 		if (v.getType() != VariableType.NUMBER)
 			throw new NumberFormatException(v.getValueAsString());
@@ -306,7 +307,7 @@ public class ExpressionContext implements Context
 			String key = (String)o;
 			Object value = null;
 
-			try { value = m_cache.get(key); } catch(Exception ignored) {}
+			try { value = m_cache.get(key); } catch(Exception e) {}
 			return new InternalProperty(key, value);
 		}
 
@@ -350,7 +351,7 @@ public class ExpressionContext implements Context
 				v = locateForNamed(id, name, true);
 				if (v != null)
 					v = new VariableFacade(v, id);
-				else if (m_createIfMissing && name.charAt(0) != '$')
+				else if (v == null && m_createIfMissing && name.charAt(0) != '$')
 					v = new VariableFacade(id, name);
 			}
 		}

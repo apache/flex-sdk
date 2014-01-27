@@ -24,7 +24,7 @@ package flash.tools.debugger.events;
  */
 public class ConsoleErrorFault extends FaultEvent
 {
-	private final static String name = "console_error";  //$NON-NLS-1$
+	public final static String name = "console_error";  //$NON-NLS-1$
 
 	public ConsoleErrorFault(String s) { super(s); }
 
