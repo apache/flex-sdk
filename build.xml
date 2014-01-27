@@ -557,6 +557,8 @@
                 <include name="build.properties"/>
 				<include name="env-template.properties"/>
                 <include name="flex-sdk-description.xml"/>
+                <include name="installer.xml"/>
+                <include name="installer.properties/**"/>
                 <include name="CHANGES"/>
                 <include name="LICENSE"/>
                 <include name="NOTICE"/>
@@ -1003,6 +1005,7 @@ There are no known issues.
                 
         <antcall target="binary-package-zip"/>        
         <antcall target="binary-package-tgz"/>        
+        <copy todir="${basedir}/out" file="${basedir}/apache-flex-sdk-installer-config.xml" />
     </target>
         
     <target name="stage-lib">
