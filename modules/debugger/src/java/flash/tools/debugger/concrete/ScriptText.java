@@ -46,8 +46,7 @@ public class ScriptText
 		int start = m_lineMap[2*index];
 		int end = m_lineMap[(2*index)+1];
 
-		String s = m_text.substring(start, end);
-		return s;
+		return m_text.substring(start, end);
 	}
 
 	/* line count in module */
@@ -136,7 +135,7 @@ public class ScriptText
 	/**
 	 * Count the number of lines within this string.
 	 */
-	public static int lineCountFor(String s)
+	private static int lineCountFor(String s)
 	{
 		int i = 0;
 		int lineNum = 0;

@@ -54,9 +54,9 @@ import flash.util.URLHelper;
 public class PlayerSessionManager implements SessionManager2
 {
 	private ServerSocket m_serverSocket;
-	private HashMap<String, Object> m_prefs;
+	private final HashMap<String, Object> m_prefs;
 	private IDebuggerCallbacks m_debuggerCallbacks;
-	private static LocalizationManager m_localizationManager;
+	private static final LocalizationManager m_localizationManager;
 	private Socket m_connectSocket;
 	private boolean m_cancelConnect;
 	
@@ -107,7 +107,7 @@ public class PlayerSessionManager implements SessionManager2
 	 * Set preference 
 	 * If an invalid preference is passed, it will be silently ignored.
 	 */
-	public void			setPreference(String pref, int value)	{ m_prefs.put(pref, new Integer(value)); }
+	public void			setPreference(String pref, int value)	{ m_prefs.put(pref, value); }
 	public void			setPreference(String pref, String value){ m_prefs.put(pref, value);	}
 	public Set<String>	keySet()								{ return m_prefs.keySet(); }
 	public Object		getPreferenceAsObject(String pref)		{ return m_prefs.get(pref); }
@@ -117,11 +117,11 @@ public class PlayerSessionManager implements SessionManager2
 	 */
 	public int getPreference(String pref)
 	{
-		int val = 0;
+		int val;
 		Integer i = (Integer)m_prefs.get(pref);
 		if (i == null)
 			throw new NullPointerException();
-		val = i.intValue();
+		val = i;
 		return val;
 	}
 
@@ -151,12 +151,12 @@ public class PlayerSessionManager implements SessionManager2
 	 */
 	public boolean isListening()
 	{
-		return (m_serverSocket == null) ? false : true;
+		return (m_serverSocket != null);
 	}
 
 	private class LaunchInfo
 	{
-		private String m_uri;
+		private final String m_uri;
 
 		public LaunchInfo(String uri)
 		{
@@ -239,7 +239,7 @@ public class PlayerSessionManager implements SessionManager2
 			launchCommand = getAIRLaunchArgs(uri, airLaunchInfo);
 		}
 
-		ProcessListener pl = null; 
+		ProcessListener pl;
 		PlayerSession session = null;
 
 		// create the process and attach a thread to watch it during our accept phase
@@ -285,7 +285,7 @@ public class PlayerSessionManager implements SessionManager2
 			launchCommand = getAIRLaunchArgs(uri, airLaunchInfo);
 		}
 
-		ProcessListener pl = null; 
+		ProcessListener pl;
 
 		// create the process and attach a thread to watch it during our accept phase
 		Process proc = m_debuggerCallbacks.launchDebugTarget(launchCommand);
@@ -307,8 +307,7 @@ public class PlayerSessionManager implements SessionManager2
 	 * Tweaks the launch URI if necessary, e.g. may append "?debug=true"
 	 */
 	private String tweakNativeLaunchUri(String uri, boolean forDebugging,
-			LaunchInfo launchInfo) throws IOException, FileNotFoundException
-	{
+			LaunchInfo launchInfo) throws IOException {
 		// first let's see if it's an HTTP URL or not
 		if (launchInfo.isHttpOrAbout())
 		{
@@ -332,7 +331,7 @@ public class PlayerSessionManager implements SessionManager2
 		{
 			// ok, its not an http: type request therefore we should be able to see
 			// it on the file system, right?  If not then it's probably not valid
-			File f = null;
+			File f;
 			if (uri.startsWith("file:")) //$NON-NLS-1$
 			{
 				try
@@ -351,7 +350,7 @@ public class PlayerSessionManager implements SessionManager2
 				f = new File(uri);
 			}
 
-			if (f != null && f.exists()) {
+			if (f.exists()) {
 				// Do not use getCanonicalPath() -- see FB-24595
 				uri = f.getAbsolutePath();
 			} else {
@@ -396,9 +395,7 @@ public class PlayerSessionManager implements SessionManager2
 					launchCommand[1] = "-a";
 					launchCommand[2] = httpExe.toString();
 					launchCommand[3] = "--args";
-					for ( int i = 0; i < customParams.length; i++) {
-						launchCommand[i + prependLen] = customParams[i];
-					}
+                    System.arraycopy(customParams, 0, launchCommand, 4, customParams.length);
 				}
 			}
 			else if (launchInfo.isPlayerNativeLaunch())
@@ -427,9 +424,7 @@ public class PlayerSessionManager implements SessionManager2
 					final int prependLen = 1;
 					launchCommand = new String[customParams.length + prependLen];
 					launchCommand[0] = httpExe.toString();
-					for ( int i = 0; i < customParams.length; i++) {
-						launchCommand[i + prependLen] = customParams[i];
-					}
+                    System.arraycopy(customParams, 0, launchCommand, 1, customParams.length);
 				}
 			}
 			else if (launchInfo.isPlayerNativeLaunch())
@@ -477,16 +472,11 @@ public class PlayerSessionManager implements SessionManager2
 		{
 			boolean isIE8 = false;
 
-			try
-			{
-				int[] ieVersion = m_debuggerCallbacks.getAppVersion(httpExe);
-				if (ieVersion != null)
-					isIE8 = (ieVersion[0] >= 8);
-			} catch (IOException e) {
-				// ignore
-			}
+            int[] ieVersion = m_debuggerCallbacks.getAppVersion(httpExe);
+            if (ieVersion != null)
+                isIE8 = (ieVersion[0] >= 8);
 
-			if (isIE8)
+            if (isIE8)
 			{
 				// FB-22107: Tell IE to keep using the new process we are
 				// launching, rather than merging the new process into the
@@ -567,7 +557,7 @@ public class PlayerSessionManager implements SessionManager2
 		// If it's a "file:" URL, then pass the actual filename; otherwise, use the URL
 		// ok, its not an http: type request therefore we should be able to see
 		// it on the file system, right?  If not then it's probably not valid
-		File f = null;
+		File f;
 		if (uri.startsWith("file:")) //$NON-NLS-1$
 		{
 			try
@@ -641,8 +631,7 @@ public class PlayerSessionManager implements SessionManager2
 				// keep looping
 				i++;
 			} else if (ch == '"' || (isMacOrUnix && ch == '\'')) {
-				char quote = ch;
-				int nextQuote = arguments.indexOf(quote, i+1);
+				int nextQuote = arguments.indexOf(ch, i+1);
 				if (nextQuote == -1) {
 					retval.add(arguments.substring(i+1));
 					return retval;
@@ -788,19 +777,15 @@ public class PlayerSessionManager implements SessionManager2
 		// they don't agree with that -- they want HKEY_LOCAL_MACHINE first.
 
 		String[] roots = { "HKEY_LOCAL_MACHINE", "HKEY_CURRENT_USER" }; //$NON-NLS-1$ //$NON-NLS-2$
-		for (int i=0; i<roots.length; ++i)
-		{
-			try
-			{
-				String path = m_debuggerCallbacks.queryWindowsRegistry(roots[i] + KEY, PATH);
-				if (path != null)
-					return  new File(path);
-			}
-			catch (IOException e)
-			{
-				// ignore
-			}
-		}
+        for (String root : roots) {
+            try {
+                String path = m_debuggerCallbacks.queryWindowsRegistry(root + KEY, PATH);
+                if (path != null)
+                    return new File(path);
+            } catch (IOException e) {
+                // ignore
+            }
+        }
 
 		return null;
 	}
@@ -838,7 +823,7 @@ public class PlayerSessionManager implements SessionManager2
 		int totalTimeout = timeout;
 		int iterateOn = 100;
 
-		PlayerSession session = null;
+		PlayerSession session;
 		try
 		{
 			m_serverSocket.setSoTimeout(iterateOn);
@@ -1122,7 +1107,7 @@ public class PlayerSessionManager implements SessionManager2
 	 */
 	public boolean isConnecting()
 	{
-		return (m_connectSocket == null) ? false : true;
+		return (m_connectSocket != null);
 	}
 	
 	/**

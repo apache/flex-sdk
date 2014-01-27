@@ -30,7 +30,7 @@ import flash.tools.debugger.SwfInfo;
  */
 public class ThreadSafeSwfInfo extends ThreadSafeDebuggerObject implements SwfInfo {
 	
-	private SwfInfo fSwfInfo;
+	private final SwfInfo fSwfInfo;
 	
 	private ThreadSafeSwfInfo(Object syncObj, SwfInfo swfInfo) {
 		super(syncObj);
@@ -41,7 +41,7 @@ public class ThreadSafeSwfInfo extends ThreadSafeDebuggerObject implements SwfIn
 	 * Wraps a SwfInfo inside a ThreadSafeSwfInfo.  If the passed-in SwfInfo
 	 * is null, then this function returns null.
 	 */
-	public static ThreadSafeSwfInfo wrap(Object syncObj, SwfInfo swfInfo) {
+	private static ThreadSafeSwfInfo wrap(Object syncObj, SwfInfo swfInfo) {
 		if (swfInfo != null)
 			return new ThreadSafeSwfInfo(syncObj, swfInfo);
 		else

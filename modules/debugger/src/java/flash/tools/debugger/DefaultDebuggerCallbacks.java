@@ -264,7 +264,7 @@ public class DefaultDebuggerCallbacks implements IDebuggerCallbacks
 	 * 
 	 * return the path_to_exe.  Note that path_to_exe may contain spaces.
 	 */
-	protected String extractExenameFromCommandString(String cmd)
+    String extractExenameFromCommandString(String cmd)
 	{
 		// now strip trailing junk if any
 		if (cmd.startsWith("\"")) { //$NON-NLS-1$
@@ -320,8 +320,7 @@ public class DefaultDebuggerCallbacks implements IDebuggerCallbacks
 	/*
 	 * @see flash.tools.debugger.IDebuggerCallbacks#terminateDebugTarget(java.lang.Process)
 	 */
-	public void terminateDebugTarget(Process process) throws IOException
-	{
+	public void terminateDebugTarget(Process process) {
 		process.destroy();
 	}
 
@@ -395,7 +394,7 @@ public class DefaultDebuggerCallbacks implements IDebuggerCallbacks
 	 * Default implementation does not know how to get the version
 	 * of an application.
 	 */
-	public int[] getAppVersion(File application) throws IOException {
+	public int[] getAppVersion(File application) {
 		return null;
 	}
 	

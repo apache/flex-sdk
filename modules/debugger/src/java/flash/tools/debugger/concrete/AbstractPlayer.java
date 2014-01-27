@@ -30,9 +30,9 @@ import flash.tools.debugger.Player;
 public abstract class AbstractPlayer implements Player
 {
 	private Browser m_browser;
-	private File m_flashPlayer;
+	private final File m_flashPlayer;
 
-	public AbstractPlayer(File webBrowser, File flashPlayer)
+	AbstractPlayer(File webBrowser, File flashPlayer)
 	{
 		if (webBrowser != null)
 			m_browser = new DBrowser(webBrowser);

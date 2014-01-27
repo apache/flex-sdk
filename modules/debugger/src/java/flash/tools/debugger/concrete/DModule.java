@@ -65,7 +65,7 @@ public class DModule implements SourceFile
 	private String				m_packageName;
 	private boolean				m_gotAllFncNames;
 	private int					m_anonymousFunctionCounter = 0;
-	private SourceLocator		m_sourceLocator;
+	private final SourceLocator		m_sourceLocator;
 	private int					m_sourceLocatorChangeCount;
 	private final static String	m_newline = System.getProperty("line.separator"); //$NON-NLS-1$
 
@@ -100,7 +100,7 @@ public class DModule implements SourceFile
         m_gotAllFncNames = false;
 	}
 
-	public synchronized ScriptText getScript()
+	synchronized ScriptText getScript()
 	{
 		// If we have been using "dummy" source, and the user has changed the list of
 		// directories that are searched for source, then we want to search again
@@ -338,13 +338,11 @@ public class DModule implements SourceFile
             {
                 ps.requestFunctionNames(m_id, -1);
             }
-            catch (VersionException e)
+            catch (VersionException ignored)
             {
-                ;
             }
-            catch (NoResponseException e)
+            catch (NoResponseException ignored)
             {
-                ;
             }
         }
         m_gotAllFncNames = true;
@@ -402,7 +400,7 @@ public class DModule implements SourceFile
 			m_line2Offset.add(null);
 
 		// add the offset mapping
-		m_line2Offset.set(firstLine, new Integer(offset));
+		m_line2Offset.set(firstLine, offset);
 
 		// make sure m_line2Func is big enough for the lines we're about to se
 		m_line2Func.ensureCapacity(lastLine+1);
@@ -442,8 +440,8 @@ public class DModule implements SourceFile
 		// add to our function name list
 		if (m_func2FirstLine.get(funcName) == null)
 		{
-			m_func2FirstLine.put(funcName, new Integer(firstLine));
-			m_func2LastLine.put(funcName, new Integer(lastLine));
+			m_func2FirstLine.put(funcName, firstLine);
+			m_func2LastLine.put(funcName, lastLine);
 		}
 	}
 
@@ -540,7 +538,7 @@ public class DModule implements SourceFile
         		}
         		finally
         		{
-        			try { in.close(); } catch (IOException e) {}
+        			try { in.close(); } catch (IOException ignored) {}
         		}
         	}
         	
@@ -562,7 +560,7 @@ public class DModule implements SourceFile
 					}
 					finally
 					{
-						try { in.close(); } catch (IOException e) {}
+						try { in.close(); } catch (IOException ignored) {}
 					}
 	            }
         	}
@@ -684,7 +682,7 @@ public class DModule implements SourceFile
     		{
     			return Charset.forName(encoding);
     		}
-    		catch (IllegalArgumentException e)
+    		catch (IllegalArgumentException ignored)
     		{}
     	}
     	return null;
@@ -740,7 +738,7 @@ public class DModule implements SourceFile
 	 */
 	private static class NameParser
 	{
-		private String fOriginalName;
+		private final String fOriginalName;
 		private String fBasePath;
 		private String fPackage;
 		private String fFilename;

@@ -27,7 +27,7 @@ import flash.tools.debugger.Watch;
  */
 public class ThreadSafeWatch extends ThreadSafeDebuggerObject implements Watch {
 	
-	private Watch fWatch;
+	private final Watch fWatch;
 	
 	private ThreadSafeWatch(Object syncObj, Watch watch) {
 		super(syncObj);

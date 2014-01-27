@@ -38,7 +38,7 @@ import flash.tools.debugger.Location;
  */
 public class LocationCollection
 {
-	private ArrayList<Location> m_locations = new ArrayList<Location>();
+	private final ArrayList<Location> m_locations = new ArrayList<Location>();
 
 	public boolean		add(Location l)			{ return m_locations.add(l); }
 	public boolean		contains(Location l)	{ return m_locations.contains(l); }

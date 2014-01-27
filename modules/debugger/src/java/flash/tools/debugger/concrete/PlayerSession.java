@@ -74,14 +74,14 @@ import flash.util.Trace;
 public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 {
 	public static final int MAX_STACK_DEPTH = 256;
-	public static final long MAX_TERMINATE_WAIT_MILLIS = 10000;
+	private static final long MAX_TERMINATE_WAIT_MILLIS = 10000;
 
-	private Socket				m_socket;
-	private DProtocol			m_protocol;
-	private DManager			m_manager;
-	private IDebuggerCallbacks	m_debuggerCallbacks;
+	private final Socket				m_socket;
+	private final DProtocol			m_protocol;
+	private final DManager			m_manager;
+	private final IDebuggerCallbacks	m_debuggerCallbacks;
 	private Process				m_process;
-	private Map<String, Object> m_prefs; // WARNING -- accessed from multiple threads
+	private final Map<String, Object> m_prefs; // WARNING -- accessed from multiple threads
 	private static final String	s_newline = System.getProperty("line.separator"); //$NON-NLS-1$
 
 	private volatile boolean m_isConnected; // WARNING -- accessed from multiple threads
@@ -105,15 +105,15 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	private AIRLaunchInfo	m_airLaunchInfo; // null if this is not an AIR app
 
 	static volatile boolean	m_debugMsgOn;		// debug ONLY; turned on with "set $debug_messages = 1"
-	volatile int			m_debugMsgSize;		// debug ONLY; controlled with "set $debug_message_size = NNN"
+	private volatile int			m_debugMsgSize;		// debug ONLY; controlled with "set $debug_message_size = NNN"
 	static volatile boolean	m_debugMsgFileOn;	// debug ONLY for file dump; turned on with "set $debug_message_file = 1"
-	volatile int			m_debugMsgFileSize;	// debug ONLY for file dump; controlled with "set $debug_message_file_size = NNN"
+	private volatile int			m_debugMsgFileSize;	// debug ONLY for file dump; controlled with "set $debug_message_file_size = NNN"
 
 	/**
 	 * A simple cache of previous "is" and "instanceof" queries, in order to
 	 * avoid having to send redundant messages to the player.
 	 */
-	private Map<String, Boolean> m_evalIsAndInstanceofCache = new HashMap<String, Boolean>();
+	private final Map<String, Boolean> m_evalIsAndInstanceofCache = new HashMap<String, Boolean>();
 
 	private static final String DEBUG_MESSAGES = "$debug_messages"; //$NON-NLS-1$
 	private static final String DEBUG_MESSAGE_SIZE = "$debug_message_size"; //$NON-NLS-1$
@@ -124,7 +124,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 
 	private static final String FLASH_PREFIX = "$flash_"; //$NON-NLS-1$
 
-	PlayerSession(Socket s, DProtocol proto, DManager manager, IDebuggerCallbacks debuggerCallbacks)
+	private PlayerSession(Socket s, DProtocol proto, DManager manager, IDebuggerCallbacks debuggerCallbacks)
 	{
 		m_isConnected = false;
 		m_isHalted = false;
@@ -142,13 +142,11 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		m_debuggerCallbacks = debuggerCallbacks;
 	}
 	
-	private static PlayerSession createFromSocketHelper(Socket s, IDebuggerCallbacks debuggerCallbacks, DProtocol proto) throws IOException
-	{
+	private static PlayerSession createFromSocketHelper(Socket s, IDebuggerCallbacks debuggerCallbacks, DProtocol proto) {
 		// let the manager hear incoming messages
 		DManager manager = new DManager();
 
-		PlayerSession session = new PlayerSession(s, proto, manager, debuggerCallbacks);
-		return session;
+		return new PlayerSession(s, proto, manager, debuggerCallbacks);
 	}
 
 	/**
@@ -184,7 +182,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	/* getter */
 	public DMessageCounter		getMessageCounter()		{ return m_protocol.getMessageCounter(); }
 	public String				getURI()				{ return m_manager.getURI(); }
-	public boolean				playerSupportsGet()		{ return m_manager.isGetSupported(); }
+	boolean				playerSupportsGet()		{ return m_manager.isGetSupported(); }
     public int                  playerVersion()         { return m_manager.getVersion(); }
     public SourceLocator        getSourceLocator()      { return m_manager.getSourceLocator(); }
 
@@ -217,7 +215,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 * Set preference
 	 * If an invalid preference is passed, it will be silently ignored.
 	 */
-	public void			setPreferences(Map<String, ? extends Object> map)	{ m_prefs.putAll(map); mapBack(); }
+	public void			setPreferences(Map<String, ?> map)	{ m_prefs.putAll(map); mapBack(); }
 	public Set<String>	keySet()								{ return m_prefs.keySet(); }
 	public Object		getPreferenceAsObject(String pref)		{ return m_prefs.get(pref); }
 
@@ -226,7 +224,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public void setPreference(String pref, int value)
 	{
-		m_prefs.put(pref, new Integer(value));
+		m_prefs.put(pref, value);
 		mapBack();
 
 		// change in console messages?
@@ -243,7 +241,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	{
 		Object prefValue = getPreferenceAsObject(preferenceName);
 		if (prefValue != null)
-			return ((Integer)prefValue).intValue();
+			return (Integer) prefValue;
 		else
 			return defaultValue;
 	}
@@ -253,7 +251,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	{
 		Object prefValue = getPreferenceAsObject(preferenceName);
 		if (prefValue != null)
-			return ((Integer)prefValue).intValue() != 0 ? true : false;
+			return (Integer) prefValue != 0;
 		else
 			return defaultValue;
 	}
@@ -270,12 +268,12 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 
 	public int getPreference(String pref)
 	{
-		int val = 0;
+		int val;
 		Integer i = (Integer)m_prefs.get(pref);
 		if (i == null)
 			throw new NullPointerException();
 		else
-			val = i.intValue();
+			val = i;
 		return val;
 	}
 
@@ -304,7 +302,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public boolean bind() throws VersionException
 	{
-		boolean bound = false;
+		boolean bound;
 
 		if (m_isConnected)
 			return false;
@@ -379,7 +377,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		m_protocol.unbind();
 
 		// kill the socket
-		try { m_socket.close(); } catch(IOException io) {}
+		try { m_socket.close(); } catch(IOException ignored) {}
 
 		m_isConnected = false;
 		m_isHalted = false;
@@ -409,16 +407,14 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 			execArgs.add("-"); //$NON-NLS-1$
 			if (argv != null)
 			{
-				for (int i=0; i<argv.length; ++i)
-					execArgs.add(argv[i]);
+                Collections.addAll(execArgs, argv);
 			}
 			Process osascript = Runtime.getRuntime().exec(execArgs.toArray(new String[execArgs.size()]));
 			// feed our AppleScript code to osascript's stdin
 			OutputStream outputStream = osascript.getOutputStream();
 			PrintWriter writer = new PrintWriter(outputStream, true);
 			writer.println("on run argv"); //$NON-NLS-1$ // this gives the name "argv" to the command-line args
-			for (int i=0; i<appleScript.length; ++i)
-				writer.println(appleScript[i]);
+            for (String anAppleScript : appleScript) writer.println(anAppleScript);
 			writer.println("end run"); //$NON-NLS-1$
 			writer.close();
 			InputStreamReader reader = new InputStreamReader(osascript.getInputStream());
@@ -470,7 +466,6 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 * running.  You should only call this function if you have already
 	 * checked that you are running on a Mac.
 	 *
-	 * @param browserName a name, e.g. "Safari", "Firefox", "Camino"
 	 * @return true if currently running
 	 */
 	private Set<String> runningApplications()
@@ -486,8 +481,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		);
 		String[] apps = running.split(", "); //$NON-NLS-1$
 		Set<String> retval = new HashSet<String>();
-		for (int i=0; i<apps.length; ++i)
-			retval.add(apps[i]);
+        Collections.addAll(retval, apps);
 		return retval;
 	}
 
@@ -509,7 +503,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 			// currently never terminate when you tell it to, but the AIR player will
 			// terminate.
 			playerWillTerminateItself = unbind(true);
-		} catch(Exception e)
+		} catch(Exception ignored)
 		{
 		}
 
@@ -517,16 +511,13 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		{
 			if (System.getProperty("os.name").toLowerCase().startsWith("mac os x")) //$NON-NLS-1$ //$NON-NLS-2$
 			{
-				if (m_airLaunchInfo != null)
-				{
-					// nothing we need to do -- Process.destroy() will kill the AIR app
-				}
-				else if (m_launchUrl != null && m_launchUrl.length() > 0)
+
+				if (m_airLaunchInfo == null && m_launchUrl != null && m_launchUrl.length() > 0)
 				{
 					boolean closedAnyWindows = false;
 					Set<String> runningApps = runningApplications();
 
-					if (!closedAnyWindows && runningApps.contains("Safari")) //$NON-NLS-1$
+					if (runningApps.contains("Safari")) //$NON-NLS-1$
 					{
 						try {
 							String url = m_launchUrl.replaceAll(" ", "%20"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -589,21 +580,14 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 			// if we have a process pop it
 			if (m_process != null)
 			{
-				try
-				{
-					m_debuggerCallbacks.terminateDebugTarget(m_process);
-				}
-				catch (IOException e)
-				{
-					// ignore
-				}
-			}
+                m_debuggerCallbacks.terminateDebugTarget(m_process);
+            }
 		}
 		else if (m_process != null) {
 			try {
 				m_process.waitFor();
 			}
-			catch (Exception e) {
+			catch (Exception ignored) {
 			}
 		}
 
@@ -623,7 +607,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	private Set<String> waitForMacAppQuit(String browser) {
 		Set<String> runningApps;
-		boolean appClosed = true;
+		boolean appClosed;
 		final long startMillis = System.currentTimeMillis();		
 		final long waitMillis = 100;
 		do {
@@ -751,8 +735,8 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 			// doesn't send it
 			requestSwfInfo(0);
 		}
-		SwfInfo[] swfs = m_manager.getSwfInfos();
-		return swfs;
+
+		return m_manager.getSwfInfos();
 	}
 
 	/**
@@ -778,7 +762,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public byte[] getActions(int which, int at, int len) throws NoResponseException
 	{
-		byte[] actions = null;
+		byte[] actions;
 
 		// send a actions message
 		DMessage dm = DMessageCache.alloc(12);
@@ -910,7 +894,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	public Location setBreakpoint(int fileId, int lineNum) throws NoResponseException, NotConnectedException
 	{
 		/* send the message to the player and await a response */
-		Location l = null;
+		Location l;
 		int bp = DLocation.encodeId(fileId, lineNum);
 
 		DMessage dm = DMessageCache.alloc(8);
@@ -964,7 +948,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		return m_manager.getWatchpoints();
 	}
 
-	private Watch setWatch(long varId, String memberName, int kind) throws NoResponseException, NotConnectedException, NotSupportedException
+	private Watch setWatch(long varId, String memberName, int kind) throws NotSupportedException
 	{
 		// we really have two cases here, one where we add a completely new
 		// watchpoint and the other where we modify an existing one.
@@ -1053,7 +1037,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 
 		// request as many levels as we can get
 		int i = 0;
-		Value v = null;
+		Value v;
 		do
 		{
 			v = getValue(Value.LEVEL_ID-i);
@@ -1126,55 +1110,49 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 
 		// loop through all frame variables, and separate them into two
 		// groups: activation objects, and all others (locals and arguments)
-		for (int i=0; i<frameVars.length; ++i)
-		{
-			DVariable member = frameVars[i];
-			Matcher matcher = activationObjectNamePattern.matcher(member.getName());
-			if (matcher.matches())
-				activationObjects.add(member);
-			else
-				varmap.put(member.getName(), member);
-		}
+        for (DVariable member : frameVars) {
+            Matcher matcher = activationObjectNamePattern.matcher(member.getName());
+            if (matcher.matches())
+                activationObjects.add(member);
+            else
+                varmap.put(member.getName(), member);
+        }
 
 		// If there are no activation objects, then we don't need to do anything
 		if (activationObjects.size() == 0)
 			return;
 
 		// overwrite existing args and locals with ones pulled from the activation objects
-		for (int i=0; i<activationObjects.size(); ++i)
-		{
-			DVariable activationObject = activationObjects.get(i);
-			DVariable[] activationMembers = (DVariable[]) activationObject.getValue().getMembers(this);
-			for (int j=0; j<activationMembers.length; ++j)
-			{
-				DVariable member = activationMembers[j];
-				int attributes = member.getAttributes();
+        for (DVariable activationObject : activationObjects) {
+            DVariable[] activationMembers = (DVariable[]) activationObject.getValue().getMembers(this);
+            for (DVariable member : activationMembers) {
+                int attributes = member.getAttributes();
 
-				// For some odd reason, the activation object often contains a whole bunch of
-				// other variables that we shouldn't be displaying.  I don't know what they
-				// are, but I do know that they are all marked "static".
-				if ((attributes & VariableAttribute.IS_STATIC) != 0)
-					continue;
+                // For some odd reason, the activation object often contains a whole bunch of
+                // other variables that we shouldn't be displaying.  I don't know what they
+                // are, but I do know that they are all marked "static".
+                if ((attributes & VariableAttribute.IS_STATIC) != 0)
+                    continue;
 
-				// No matter what the activation object member's scope is, we want all locals
-				// and arguments to be considered "public"
-				attributes &= ~(VariableAttribute.PRIVATE_SCOPE | VariableAttribute.PROTECTED_SCOPE | VariableAttribute.NAMESPACE_SCOPE);
-				attributes |= VariableAttribute.PUBLIC_SCOPE;
-				member.setAttributes(attributes);
+                // No matter what the activation object member's scope is, we want all locals
+                // and arguments to be considered "public"
+                attributes &= ~(VariableAttribute.PRIVATE_SCOPE | VariableAttribute.PROTECTED_SCOPE | VariableAttribute.NAMESPACE_SCOPE);
+                attributes |= VariableAttribute.PUBLIC_SCOPE;
+                member.setAttributes(attributes);
 
-				String name = member.getName();
-				DVariable oldvar = varmap.get(name);
-				int vartype;
-				if (oldvar != null)
-					vartype = oldvar.getAttributes() & (VariableAttribute.IS_ARGUMENT | VariableAttribute.IS_LOCAL);
-				else
-					vartype = VariableAttribute.IS_LOCAL;
-				member.setAttributes(member.getAttributes() | vartype);
-				varmap.put(name, member);
-			}
+                String name = member.getName();
+                DVariable oldvar = varmap.get(name);
+                int vartype;
+                if (oldvar != null)
+                    vartype = oldvar.getAttributes() & (VariableAttribute.IS_ARGUMENT | VariableAttribute.IS_LOCAL);
+                else
+                    vartype = VariableAttribute.IS_LOCAL;
+                member.setAttributes(member.getAttributes() | vartype);
+                varmap.put(name, member);
+            }
 
-			context.convertLocalToActivationObject(activationObject);
-		}
+            context.convertLocalToActivationObject(activationObject);
+        }
 
 		for (DVariable var: varmap.values())
 		{
@@ -1198,7 +1176,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public Value getValue(long valueId) throws NotSuspendedException, NoResponseException, NotConnectedException
 	{
-		DValue val = null;
+		DValue val;
 
 		if (!isSuspended())
 			throw new NotSuspendedException();
@@ -1423,7 +1401,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 * $obj(), and if so, handles that directly rather than calling the player.  Returns
 	 * null if the function being called is not a pseudofunction.
 	 */
-	private Value callPseudoFunction(Value thisValue, String funcname, Value[] args) throws PlayerDebugException{
+	private Value callPseudoFunction(Value thisValue, String funcname, Value[] args) {
 		if (thisValue.getType() == VariableType.UNDEFINED || thisValue.getType() == VariableType.NULL) {
 			if ("$obj".equals(funcname)) { //$NON-NLS-1$
 				return callObjPseudoFunction(args);
@@ -1437,7 +1415,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 * Handles a call to the debugger pseudofunction $obj() -- e.g. $obj(1234) returns
 	 * a pointer to the object with id 1234.
 	 */
-	private Value callObjPseudoFunction(Value[] args) throws PlayerDebugException {
+	private Value callObjPseudoFunction(Value[] args) {
 		if (args.length != 1) {
 			return DValue.forPrimitive(DValue.UNDEFINED);
 		}
@@ -1649,7 +1627,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		// convert type to typeName
 		String type = DVariable.typeNameFor(t);
 		DMessage dm = buildOutSetMessage(id, name, type, value);
-		FaultEvent faultEvent = null;
+		FaultEvent faultEvent;
 //		System.out.println("setmsg id="+id+",name="+name+",t="+type+",value="+value);
 
 		// make sure any exception during the setter gets held onto
@@ -1734,7 +1712,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 * @throws NotSupportedException
 	 * @throws NotSuspendedException
 	 */
-	public boolean addWatch(long varId, String varName, int type, int tag) throws NoResponseException, NotConnectedException, NotSupportedException
+    boolean addWatch(long varId, String varName, int type, int tag) throws NotSupportedException
 	{
 		// TODO check for NoResponse, NotConnected
 
@@ -1750,8 +1728,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		dm.putWord(tag);
 
 		int timeout = getPreference(SessionManager.PREF_GETVAR_RESPONSE_TIMEOUT);
-		boolean result = simpleRequestResponseMessage(dm, DMessage.InWatch2, timeout);
-		return result;
+		return simpleRequestResponseMessage(dm, DMessage.InWatch2, timeout);
 	}
 
 	/**
@@ -1760,8 +1737,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 * @throws NoResponseException
 	 * @throws NotSuspendedException
 	 */
-	public boolean removeWatch(long varId, String memberName) throws NoResponseException, NotConnectedException
-	{
+    boolean removeWatch(long varId, String memberName) {
 		memberName = getRawMemberName(varId, memberName);
 		DMessage dm = DMessageCache.alloc(DMessage.getSizeofPtr()+DMessage.getStringLength(memberName)+1);
 		dm.setType(DMessage.OutRemoveWatch2);
@@ -1769,8 +1745,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		try { dm.putString(memberName); } catch(UnsupportedEncodingException uee) { dm.putByte((byte)'\0'); }
 
 		int timeout = getPreference(SessionManager.PREF_GETVAR_RESPONSE_TIMEOUT);
-		boolean result = simpleRequestResponseMessage(dm, DMessage.InWatch2, timeout);
-		return result;
+		return simpleRequestResponseMessage(dm, DMessage.InWatch2, timeout);
 	}
 
 	/**
@@ -1914,27 +1889,27 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	public boolean supportsWatchpoints()
 	{
 		if (m_playerSupportsWatchpoints == null)
-			m_playerSupportsWatchpoints = new Boolean(getOption("can_set_watchpoints", false)); //$NON-NLS-1$
-		return m_playerSupportsWatchpoints.booleanValue();
+			m_playerSupportsWatchpoints = getOption("can_set_watchpoints", false); //$NON-NLS-1$
+		return m_playerSupportsWatchpoints;
 	}
 
-	public boolean playerCanBreakOnAllExceptions()
+	boolean playerCanBreakOnAllExceptions()
 	{
 		if (m_playerCanBreakOnAllExceptions == null)
-			m_playerCanBreakOnAllExceptions = new Boolean(getOption("can_break_on_all_exceptions", false)); //$NON-NLS-1$
-		return m_playerCanBreakOnAllExceptions.booleanValue();
+			m_playerCanBreakOnAllExceptions = getOption("can_break_on_all_exceptions", false); //$NON-NLS-1$
+		return m_playerCanBreakOnAllExceptions;
 	}
 
-	public boolean playerCanTerminate()
+	boolean playerCanTerminate()
 	{
 		return getOption("can_terminate", false); //$NON-NLS-1$
 	}
 
-	public boolean playerCanCallFunctions()
+	boolean playerCanCallFunctions()
 	{
 		if (m_playerCanCallFunctions == null)
-			m_playerCanCallFunctions = new Boolean(getOption("can_call_functions", false)); //$NON-NLS-1$
-		return m_playerCanCallFunctions.booleanValue();
+			m_playerCanCallFunctions = getOption("can_call_functions", false); //$NON-NLS-1$
+		return m_playerCanCallFunctions;
 	}
 
 	/**
@@ -1945,13 +1920,13 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 *            the name of the option
 	 * @return its value, or null
 	 */
-	public boolean getOption(String optionName, boolean defaultValue)
+    boolean getOption(String optionName, boolean defaultValue)
 	{
 		boolean retval = defaultValue;
 		String optionValue = getOption(optionName, null);
 
 		if (optionValue != null)
-			retval = Boolean.valueOf(optionValue).booleanValue();
+			retval = Boolean.valueOf(optionValue);
 
 		return retval;
 	}
@@ -1964,7 +1939,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 *            the name of the option
 	 * @return its value, or null
 	 */
-	public String getOption(String optionName, String defaultValue)
+    String getOption(String optionName, String defaultValue)
 	{
 		String optionValue = defaultValue;
 
@@ -2194,7 +2169,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		while(isConnected())
 		{
 			// try every 250ms
-			try { Thread.sleep(250); } catch(InterruptedException ie) {}
+			try { Thread.sleep(250); } catch(InterruptedException ignored) {}
 
 			try
 			{
@@ -2299,7 +2274,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	{
 		/* send the message */
 		int to = getPreference(SessionManager.PREF_SWFSWD_LOAD_TIMEOUT);
-		byte[] swf = null;
+		byte[] swf;
 
 		// the query
 		DMessage dm = DMessageCache.alloc(2);
@@ -2318,7 +2293,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	{
 		/* send the message */
 		int to = getPreference(SessionManager.PREF_SWFSWD_LOAD_TIMEOUT);
-		byte[] swd = null;
+		byte[] swd;
 
 		// the query
 		DMessage dm = DMessageCache.alloc(2);
@@ -2351,11 +2326,11 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 				m_trace.flush();
 			}
 		}
-		catch(Exception e) {}
+		catch(Exception ignored) {}
 	}
 
 	// i/o for tracing
-    java.io.Writer m_trace;
+    private java.io.Writer m_trace;
 
 	java.io.Writer traceFile() throws IOException
 	{
@@ -2440,11 +2415,11 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		Boolean retval = m_evalIsAndInstanceofCache.get(key);
 		if (retval == null)
 		{
-			retval = new Boolean(ECMA.toBoolean(evalBinaryOp(op, value, type)));
+			retval = ECMA.toBoolean(evalBinaryOp(op, value, type));
 			m_evalIsAndInstanceofCache.put(key, retval);
 		}
 
-		return retval.booleanValue();
+		return retval;
 	}
 
 	private boolean evalIsOrInstanceof(BinaryOp op, Value value, String type) throws PlayerDebugException, PlayerFaultException
@@ -2457,11 +2432,11 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 			if (typeval == null)
 				retval = Boolean.FALSE;
 			else
-				retval = new Boolean(ECMA.toBoolean(evalBinaryOp(op, value, typeval)));
+				retval = ECMA.toBoolean(evalBinaryOp(op, value, typeval));
 			m_evalIsAndInstanceofCache.put(key, retval);
 		}
 
-		return retval.booleanValue();
+		return retval;
 	}
 
 	public boolean evalIn(Value property, Value object) throws PlayerDebugException, PlayerFaultException

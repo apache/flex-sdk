@@ -50,17 +50,17 @@ import java.util.Iterator;
  */
 public class SwfActionContainer extends TagHandler
 {
-	boolean		errorProcessing = true;
-	ActionList	m_master;
+	private boolean		errorProcessing = true;
+	private ActionList	m_master;
 
 	// temporaries used while decoding
-	Dictionary  m_dictionary; 
-	Header		m_header;
+    private Dictionary  m_dictionary;
+	private Header		m_header;
 
-    public SwfActionContainer(byte[] swf, byte[] swd)	{ this(new ByteArrayInputStream(swf), new ByteArrayInputStream(swd));	}
+    protected SwfActionContainer(byte[] swf, byte[] swd)	{ this(new ByteArrayInputStream(swf), new ByteArrayInputStream(swd));	}
     public SwfActionContainer(InputStream swfIn)		{ this(swfIn, null); }
 
-    public SwfActionContainer(InputStream swfIn, InputStream swdIn)
+    private SwfActionContainer(InputStream swfIn, InputStream swdIn)
 	{
 		TagDecoder p = new TagDecoder(swfIn, swdIn);
 		try
@@ -76,8 +76,8 @@ public class SwfActionContainer extends TagHandler
 	}
 
 	// getters 
-	public ActionList	getMasterList() { return m_master; }
-	public Header		getHeader()		{ return m_header; }
+    protected ActionList	getMasterList() { return m_master; }
+	protected Header		getHeader()		{ return m_header; }
 	public Dictionary	getDictionary() { return m_dictionary; }
 
 	// Did we hit an error in processing the swf? 
@@ -106,7 +106,7 @@ public class SwfActionContainer extends TagHandler
 		return l;
 	}
 
-    public static ActionLocation locationLessOrEqualTo(ActionLocation location, ActionList list, int offset)
+    private static ActionLocation locationLessOrEqualTo(ActionLocation location, ActionList list, int offset)
 	{
 		int at = findLessOrEqualTo(list, offset);
 		if (at > -1)
@@ -138,7 +138,7 @@ public class SwfActionContainer extends TagHandler
 
 	// find the index of the largest offset in the list that does not
 	// exceed the offset value provided. 
-	public static int findLessOrEqualTo(ActionList list, int offset)
+	private static int findLessOrEqualTo(ActionList list, int offset)
 	{
 		int i = find(list, offset);
 		if (i < 0)
@@ -154,7 +154,7 @@ public class SwfActionContainer extends TagHandler
 	// list of offsets within the action list.
 	// if no match then (-i - 1) provides the index of where an insertion
 	// would occur for this offset in the list.
-	public static int find(ActionList list, int offset)
+	private static int find(ActionList list, int offset)
 	{
         int lo = 0;
         int hi = list.size()-1;
@@ -190,7 +190,7 @@ public class SwfActionContainer extends TagHandler
 		public String			getClassName()					{ return m_className; }
 		public void				setClassName(String name)		{ m_className = name; }
 
-		private ActionList		m_actionList;
+		private final ActionList		m_actionList;
 		private String			m_className;
 	}
 
@@ -245,11 +245,9 @@ public class SwfActionContainer extends TagHandler
 	{
 		if (tag.hasClipAction())
 		{
-            Iterator it = tag.clipActions.clipActionRecords.iterator();
-            while (it.hasNext())
-            {
-    		    ClipActionRecord record = (ClipActionRecord) it.next();
-   			    recordActions(record.actionList);
+            for (Object clipActionRecord : tag.clipActions.clipActionRecords) {
+                ClipActionRecord record = (ClipActionRecord) clipActionRecord;
+                recordActions(record.actionList);
             }
 		}
 	}

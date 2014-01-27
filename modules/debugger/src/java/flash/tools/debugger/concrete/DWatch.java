@@ -26,10 +26,10 @@ import flash.tools.debugger.Watch;
  */
 public class DWatch implements Watch
 {
-	long		m_parentValueId;
-	String		m_rawMemberName; // corresponds to Variable.getRawName()
-	int			m_kind;
-	int			m_tag;
+	private final long		m_parentValueId;
+	private final String		m_rawMemberName; // corresponds to Variable.getRawName()
+	private final int			m_kind;
+	private final int			m_tag;
 
 	public DWatch(long id, String name, int kind, int tag)
 	{

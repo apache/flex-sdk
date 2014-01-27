@@ -29,7 +29,6 @@ import flash.swf.tools.Disassembler;
 import flash.swf.types.ActionList;
 import flash.tools.ActionLocation;
 import flash.tools.debugger.Bootstrap;
-import flash.tools.debugger.InProgressException;
 import flash.tools.debugger.NotConnectedException;
 import flash.tools.debugger.PlayerDebugException;
 import flash.tools.debugger.Session;
@@ -54,9 +53,9 @@ import flash.util.FieldFormat;
  * from the cli if the implementation does not
  * support these calls.
  */
-public class Extensions
+class Extensions
 {
-	public final static String m_newline = System.getProperty("line.separator"); //$NON-NLS-1$
+	private final static String m_newline = System.getProperty("line.separator"); //$NON-NLS-1$
 
 	public static void doShowStats(DebugCLI cli) throws IllegalStateException
 	{
@@ -110,15 +109,12 @@ public class Extensions
 	{
 		StringBuilder sb = new StringBuilder();
 
-		String arg = null;
+		String arg;
 		FileInfoCache fileInfo = cli.getFileCache();
 
 		// we take an optional single arg which specifies a module
 		try
 		{
-			// let's wait a bit for the background load to complete
-			cli.waitForMetaData();
-
 			if (cli.hasMoreTokens())
 			{
 				arg = cli.nextToken();
@@ -134,9 +130,8 @@ public class Extensions
 					cli.err(getLocalizationManager().getLocalizedTextString("key18")); //$NON-NLS-1$
 				else
                 {
-                    for (int i = 0; ar != null && i < ar.length; i++)
-                    {
-                        DModule m = (DModule)ar[i];
+                    for (SourceFile anAr : ar) {
+                        DModule m = (DModule) anAr;
                         m.lineMapping(sb);
                     }
                 }
@@ -159,10 +154,6 @@ public class Extensions
 		catch(NoMatchException nme)
 		{
 			cli.err(nme.getMessage());
-		}
-		catch(InProgressException ipe)
-		{
-		    cli.err(getLocalizationManager().getLocalizedTextString("key20")); //$NON-NLS-1$
 		}
 	}
 
@@ -254,7 +245,7 @@ public class Extensions
 		int index = ((PlayerSession)session).getSuspendActionIndex();
 
 		SwfInfo info = null;
-		try { info = fileInfo.getSwfs()[index]; } catch(ArrayIndexOutOfBoundsException oobe) {}
+		try { info = fileInfo.getSwfs()[index]; } catch(ArrayIndexOutOfBoundsException ignored) {}
 		if (info != null)
 		{
 			Map<String, String> args = new HashMap<String, String>();
@@ -302,8 +293,7 @@ public class Extensions
 		}
 	}
 
- 	public static void doDisassemble(DebugCLI cli) throws PlayerDebugException
- 	{
+ 	public static void doDisassemble(DebugCLI cli) {
 		/* currentXXX may NOT be invalid! */
 		int currentModule = cli.propertyGet(DebugCLI.LIST_MODULE);
 		int currentLine = cli.propertyGet(DebugCLI.LIST_LINE);
@@ -331,10 +321,10 @@ public class Extensions
 				}
 				else
 				{
-					int[] result = cli.parseLocationArg(currentModule, currentLine, arg1);
+					int[] result = cli.parseLocationArg(currentModule, arg1);
 					module1 = result[0];
 					line2 = line1 = result[1];
- 					functionNamed = (result[2] == 0) ? false : true;
+ 					functionNamed = (result[2] != 0);
  
 					if (cli.hasMoreTokens())
 					{
@@ -527,7 +517,7 @@ public class Extensions
 	/**
  	 * Disassemble part of the swf to the output 
  	 */
- 	public static ActionLocation outputAssembly(DebugCLI cli, DSwfInfo swf, int start, int end)
+ 	private static ActionLocation outputAssembly(DebugCLI cli, DSwfInfo swf, int start, int end)
  	{
  		// first we need to locate the action list associated with this
  		// portion of the swf
@@ -537,7 +527,7 @@ public class Extensions
  		return outputAssembly(cli, swf, lStart, lEnd);
  	}
  
- 	public static ActionLocation outputAssembly(DebugCLI cli, SwfInfo info, ActionLocation lStart, ActionLocation lEnd)
+ 	private static ActionLocation outputAssembly(DebugCLI cli, SwfInfo info, ActionLocation lStart, ActionLocation lEnd)
  	{
  		// now make sure our actions lists are the same (i.e we haven't spanned past one tag)
  		if (lStart.actions != lEnd.actions)

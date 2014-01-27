@@ -34,9 +34,9 @@ import flash.util.IntMap;
 
 public class DSwfInfo implements SwfInfo
 {
-	private int			m_index;
+	private final int			m_index;
 	private long		m_id;
-	private IntMap		m_source;
+	private final IntMap		m_source;
 	private String		m_path;
 	private String		m_url;
 	private String		m_host;
@@ -95,12 +95,12 @@ public class DSwfInfo implements SwfInfo
 	public boolean		isPopulated()			{ return m_populated; }
 	public byte[]		getSwf()				{ return m_swf; }
 	public byte[]		getSwd()				{ return m_swd; }
-	public int			getSourceExpectedCount()	{ return m_scriptsExpected; }
+	int			getSourceExpectedCount()	{ return m_scriptsExpected; }
     public int          getVmVersion()          { return m_vmVersion;  }
 
 //	public int			getBreakpointCount() throws InProgressException	{ swdLoading(); return m_bpCount; }
 //	public int			getOffsetCount() 		{ swdLoading(); return m_offsetCount; }
-	public int			getSourceCount() 	{ return m_source.size(); }
+int			getSourceCount() 	{ return m_source.size(); }
 	public int			getFirstSourceId() 	{ return m_minId; }
 	public int			getLastSourceId() 	{ return m_maxId; }
 
@@ -150,7 +150,7 @@ public class DSwfInfo implements SwfInfo
 		if (isSwdLoading() && !isUnloaded())
 		{
 			// make the request 
-			try { ((PlayerSession)s).requestSwfInfo(m_index); } catch(NoResponseException nre) {}
+			try { ((PlayerSession)s).requestSwfInfo(m_index); } catch(NoResponseException ignored) {}
 
 			// I should now be complete
 			if (!m_swdLoading)
@@ -182,10 +182,7 @@ public class DSwfInfo implements SwfInfo
 		// our expectation has not been set and have not yet loaded our swd
 		if (expect == -1 && isSwdLoading())
 			yes = false;
-		else if (expect == have)
-			yes = true;
-		else
-			yes = false;
+		else yes = expect == have;
 
 		return yes;
 	}
@@ -231,7 +228,7 @@ public class DSwfInfo implements SwfInfo
 		return locateSourceLineEnd(l, -1);
 	}
 
-	public ActionLocation locateSourceLineEnd(ActionLocation l, int stopAt)
+	ActionLocation locateSourceLineEnd(ActionLocation l, int stopAt)
 	{
 		ActionLocation end = m_container.endOfSourceLine(l);
 		if (stopAt > -1 && end.at > stopAt)
@@ -261,7 +258,7 @@ public class DSwfInfo implements SwfInfo
 	 */
 
 	// temporary while we parse
-	DManager m_manager;
+    private DManager m_manager;
 
 	/**
 	 * Extracts information out of the SWF/SWD in order to populate

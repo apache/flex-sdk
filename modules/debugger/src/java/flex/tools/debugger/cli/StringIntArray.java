@@ -30,11 +30,11 @@ import java.util.AbstractList;
  * which returns a ArrayList of index numbers for each element whose
  * String component matches the provided argument.
  */
-public class StringIntArray extends AbstractList<Object>
+class StringIntArray extends AbstractList<Object>
 {
-	Object[]    m_ar;
-	int			m_size = 0;
-	double		m_growthRatio = 1.60;
+	private Object[]    m_ar;
+	private int			m_size = 0;
+	private final double		m_growthRatio = 1.60;
 
 	public StringIntArray(Object[] ar)
 	{
@@ -44,7 +44,7 @@ public class StringIntArray extends AbstractList<Object>
 
 	public StringIntArray()	{ this(10); }
 
-	public StringIntArray(int size)
+	private StringIntArray(int size)
 	{
 		m_ar = new Object[size];
 		m_size = 0;
@@ -53,7 +53,7 @@ public class StringIntArray extends AbstractList<Object>
 	public Object		get(int at)				{ return m_ar[at];	}
 	public int			size()					{ return m_size; }
 
-	public Object[]		getElement(int at)		{ return (Object[])get(at);	}
+	Object[]		getElement(int at)		{ return (Object[])get(at);	}
 	public String		getString(int at)		{ return (String)getElement(at)[0]; }
 	public Integer		getInteger(int at)		{ return (Integer)getElement(at)[1]; }
 	public int			getInt(int at)			{ return getInteger(at).intValue(); }
@@ -68,7 +68,7 @@ public class StringIntArray extends AbstractList<Object>
 		ArrayList<Integer> alist = new ArrayList<Integer>();
 		for(int i=0; i<m_size; i++)
 			if ( getString(i).startsWith(s) )
-				alist.add( new Integer(i) );
+				alist.add(i);
 
 		return alist;
 	}

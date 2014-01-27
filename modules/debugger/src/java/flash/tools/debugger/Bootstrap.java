@@ -29,8 +29,8 @@ import flash.tools.debugger.concrete.PlayerSessionManager;
  */
 public class Bootstrap
 {
-	static SessionManager m_mgr = null;
-	private static LocalizationManager m_localizationManager;
+	private static SessionManager m_mgr = null;
+	private static final LocalizationManager m_localizationManager;
 
 	static
 	{

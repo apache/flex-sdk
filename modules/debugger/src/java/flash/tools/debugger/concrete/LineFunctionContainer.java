@@ -35,7 +35,7 @@ import flash.util.Trace;
  * action list in order to extract line/function
  * mapping information.
  */
-public class LineFunctionContainer extends SwfActionContainer
+class LineFunctionContainer extends SwfActionContainer
 {
     public LineFunctionContainer(byte[] swf, byte[] swd)
 	{

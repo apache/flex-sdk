@@ -40,12 +40,12 @@ package flash.tools.debugger.concrete;
  * 
  * This is class is a singleton.
  */
-public class DMessageCache
+class DMessageCache
 {
-	public static final int MAX_CACHED_DATA_SIZE		= 128;  /* should consume around 4n + n(n+1)/2 bytes */
+	private static final int MAX_CACHED_DATA_SIZE		= 128;  /* should consume around 4n + n(n+1)/2 bytes */
 
 	/* our cache */
-	static DMessage[] m_cache = new DMessage[MAX_CACHED_DATA_SIZE];
+	private static final DMessage[] m_cache = new DMessage[MAX_CACHED_DATA_SIZE];
 
 	/**
 	 * Obtain a DMessage from the cache if possible, otherwise make one for me.
@@ -107,6 +107,6 @@ public class DMessageCache
 			m_cache[index] = msg;
 	}
 
-	public static int size2Index(int size) { return ((size < MAX_CACHED_DATA_SIZE) ? size : -1); }
+	private static int size2Index(int size) { return ((size < MAX_CACHED_DATA_SIZE) ? size : -1); }
 //	public static int size2Index(int size) { return -1; }
 }

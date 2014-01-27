@@ -30,7 +30,7 @@ public abstract class FaultEvent extends DebugEvent
 {
 	private String stackTrace = ""; //$NON-NLS-1$
 
-	public FaultEvent(String info)
+	FaultEvent(String info)
 	{
 		super(getFirstLine(info));
 		int newline = info.indexOf('\n');
@@ -38,7 +38,7 @@ public abstract class FaultEvent extends DebugEvent
 			stackTrace = info.substring(newline+1);
 	}
 
-	public FaultEvent()
+	FaultEvent()
 	{
 		super();
 	}

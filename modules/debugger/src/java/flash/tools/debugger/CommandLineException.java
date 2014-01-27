@@ -32,9 +32,9 @@ public class CommandLineException extends IOException
 {
 	private static final long serialVersionUID = -5696392627123516956L;
     
-    private String[] m_commandLine;
-	private String m_commandOutput;
-	private int m_exitValue;
+    private final String[] m_commandLine;
+	private final String m_commandOutput;
+	private final int m_exitValue;
 
 	/**
 	 * @param detailMessage

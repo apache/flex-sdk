@@ -34,16 +34,16 @@ import flash.tools.debugger.Variable;
 
 public class DStackContext implements Frame
 {
-	private DModule		m_source;
-	private String		m_functionSignature;
+	private final DModule		m_source;
+	private final String		m_functionSignature;
 	private int			m_depth;
-	private int			m_module;
-	private int			m_line;
+	private final int			m_module;
+	private final int			m_line;
 	private DVariable	m_this;
-	private Map<String, DVariable> m_args;
-	private Map<String, DVariable> m_locals;
-	private List<DVariable>        m_scopeChain;
-	private DLocation	m_location;
+	private final Map<String, DVariable> m_args;
+	private final Map<String, DVariable> m_locals;
+	private final List<DVariable>        m_scopeChain;
+	private final DLocation	m_location;
 	private int			m_swfIndex; /* index of swf that we halted within (really part of location) */
 	private int			m_offset;   /* offset within swf where we halted. (really part of location) */
 	private boolean		m_populated;
@@ -114,7 +114,7 @@ public class DStackContext implements Frame
 	public String		getCallSignature()		{ return m_functionSignature; }
 	public int			getModule()				{ return m_module; }
 	public int			getLine()				{ return m_line; }
-	public DVariable	getThis()				{ return m_this; }
+	DVariable	getThis()				{ return m_this; }
 
 	/* setters */
 	void addArgument(DVariable v)				{ m_args.put(v.getName(), v); }

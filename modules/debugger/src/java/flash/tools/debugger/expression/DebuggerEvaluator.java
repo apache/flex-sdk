@@ -56,7 +56,7 @@ class DebuggerEvaluator implements Evaluator
 	 */
 	public static class DebuggerValue extends Value
 	{
-		public Object debuggerValue;
+		public final Object debuggerValue;
 
 		public DebuggerValue(Object v)
 		{
@@ -74,7 +74,7 @@ class DebuggerEvaluator implements Evaluator
 			this.expressionEvaluatorContext = expressionEvaluatorContext;
 		}
 
-		public Context expressionEvaluatorContext;
+		public final Context expressionEvaluatorContext;
 	}
 
 	private Context eeContext(macromedia.asc.util.Context cx)
@@ -116,16 +116,16 @@ class DebuggerEvaluator implements Evaluator
 				after = before + 1;
 			}
 
-			debuggerContext.assign(memberName, debuggerContext.toValue(new Double(after)));
+			debuggerContext.assign(memberName, debuggerContext.toValue(after));
 
 			Object result;
 			if (node.isPostfix)
 			{
-				result = new Double(before);
+				result = before;
 			}
 			else
 			{
-				result = new Double(after);
+				result = after;
 			}
 
 			return new DebuggerValue(result);
@@ -189,7 +189,7 @@ class DebuggerEvaluator implements Evaluator
 
 	public Value evaluate(macromedia.asc.util.Context cx, LiteralBooleanNode node)
 	{
-		return new DebuggerValue(new Boolean(node.value));
+		return new DebuggerValue(node.value);
 	}
 
 	public Value evaluate(macromedia.asc.util.Context cx, LiteralNumberNode node)
@@ -496,11 +496,8 @@ class DebuggerEvaluator implements Evaluator
 		} else if (context != null && index != null) {
 			//Resolve the Value to see if it is a Number
 			flash.tools.debugger.Value value = context.toValue(index);
-			if (value != null && value.getType() == VariableType.NUMBER) {
-				return true;
-			}
-			return false;
-		}		
+            return value != null && value.getType() == VariableType.NUMBER;
+        }
 		else {
 			return false;
 		}
@@ -558,7 +555,7 @@ class DebuggerEvaluator implements Evaluator
 		else if (contextValue != null && contextValue.getType() == VariableType.STRING && name.equals("length")) //$NON-NLS-1$
 		{
 			String valuestr = contextValue.getValueAsString();
-			return new DebuggerValue(new Double(valuestr.length()));
+			return new DebuggerValue((double) valuestr.length());
 		}
 		else
 		{
@@ -580,7 +577,7 @@ class DebuggerEvaluator implements Evaluator
 		}
 	}
 
-	public Value getOrSet(macromedia.asc.util.Context cx, SelectorNode node)
+	Value getOrSet(macromedia.asc.util.Context cx, SelectorNode node)
 	{
 		assert (node.getMode() == Tokens.LEFTBRACKET_TOKEN || // base[expr]
 				node.getMode() == Tokens.LEFTPAREN_TOKEN || // base.(expr)
@@ -680,25 +677,25 @@ class DebuggerEvaluator implements Evaluator
 		case Tokens.PLUS_TOKEN:
 		{
 			// ECMA 11.4.6
-			return new DebuggerValue(new Double(ECMA.toNumber(eeContext(cx).getSession(), eeContext(cx).toValue(
-					arg.debuggerValue))));
+			return new DebuggerValue(ECMA.toNumber(eeContext(cx).getSession(), eeContext(cx).toValue(
+                    arg.debuggerValue)));
 		}
 		case Tokens.MINUS_TOKEN:
 		{
 			// ECMA 11.4.7
-			return new DebuggerValue(new Double(-ECMA.toNumber(eeContext(cx).getSession(), eeContext(cx).toValue(
-					arg.debuggerValue))));
+			return new DebuggerValue(-ECMA.toNumber(eeContext(cx).getSession(), eeContext(cx).toValue(
+                    arg.debuggerValue)));
 		}
 		case Tokens.BITWISENOT_TOKEN:
 		{
 			// ECMA 11.4.8
-			return new DebuggerValue(new Double(~ECMA.toInt32(eeContext(cx).getSession(), eeContext(cx).toValue(
-					arg.debuggerValue))));
+			return new DebuggerValue((double) ~ECMA.toInt32(eeContext(cx).getSession(), eeContext(cx).toValue(
+                    arg.debuggerValue)));
 		}
 		case Tokens.NOT_TOKEN:
 		{
 			// ECMA 11.4.9
-			return new DebuggerValue(new Boolean(!ECMA.toBoolean(eeContext(cx).toValue(arg.debuggerValue))));
+			return new DebuggerValue(!ECMA.toBoolean(eeContext(cx).toValue(arg.debuggerValue)));
 		}
 		default:
 			cx.internalError(ASTBuilder.getLocalizationManager().getLocalizedTextString("unrecognizedUnaryOperator")); //$NON-NLS-1$
@@ -726,21 +723,21 @@ class DebuggerEvaluator implements Evaluator
 			// ECMA 11.5
 			double d1 = ECMA.toNumber(session, eeContext.toValue(lhs.debuggerValue));
 			double d2 = ECMA.toNumber(session, eeContext.toValue(rhs.debuggerValue));
-			return new DebuggerValue(new Double(d1 * d2));
+			return new DebuggerValue(d1 * d2);
 		}
 		case Tokens.DIV_TOKEN:
 		{
 			// ECMA 11.5
 			double d1 = ECMA.toNumber(session, eeContext.toValue(lhs.debuggerValue));
 			double d2 = ECMA.toNumber(session, eeContext.toValue(rhs.debuggerValue));
-			return new DebuggerValue(new Double(d1 / d2));
+			return new DebuggerValue(d1 / d2);
 		}
 		case Tokens.MODULUS_TOKEN:
 		{
 			// ECMA 11.5
 			double d1 = ECMA.toNumber(session, eeContext.toValue(lhs.debuggerValue));
 			double d2 = ECMA.toNumber(session, eeContext.toValue(rhs.debuggerValue));
-			return new DebuggerValue(new Double(d1 % d2));
+			return new DebuggerValue(d1 % d2);
 		}
 		case Tokens.PLUS_TOKEN:
 		{
@@ -793,7 +790,7 @@ class DebuggerEvaluator implements Evaluator
 				}
 				else
 				{
-					return new DebuggerValue(new Double(ECMA.toNumber(session, v1) + ECMA.toNumber(session, v2)));
+					return new DebuggerValue(ECMA.toNumber(session, v1) + ECMA.toNumber(session, v2));
 				}
 			}
 		}
@@ -802,28 +799,28 @@ class DebuggerEvaluator implements Evaluator
 			// ECMA 11.6.2
 			double d1 = ECMA.toNumber(session, eeContext.toValue(lhs.debuggerValue));
 			double d2 = ECMA.toNumber(session, eeContext.toValue(rhs.debuggerValue));
-			return new DebuggerValue(new Double(d1 - d2));
+			return new DebuggerValue(d1 - d2);
 		}
 		case Tokens.LEFTSHIFT_TOKEN:
 		{
 			// ECMA 11.7.1
 			int n1 = ECMA.toInt32(session, eeContext.toValue(lhs.debuggerValue));
 			int n2 = (int) (ECMA.toUint32(session, eeContext.toValue(rhs.debuggerValue)) & 0x1F);
-			return new DebuggerValue(new Double(n1 << n2));
+			return new DebuggerValue((double) (n1 << n2));
 		}
 		case Tokens.RIGHTSHIFT_TOKEN:
 		{
 			// ECMA 11.7.1
 			int n1 = ECMA.toInt32(session, eeContext.toValue(lhs.debuggerValue));
 			int n2 = (int) (ECMA.toUint32(session, eeContext.toValue(rhs.debuggerValue)) & 0x1F);
-			return new DebuggerValue(new Double(n1 >> n2));
+			return new DebuggerValue((double) (n1 >> n2));
 		}
 		case Tokens.UNSIGNEDRIGHTSHIFT_TOKEN:
 		{
 			// ECMA 11.7.1
 			long n1 = ECMA.toUint32(session, eeContext.toValue(lhs.debuggerValue));
 			long n2 = (ECMA.toUint32(session, eeContext.toValue(rhs.debuggerValue)) & 0x1F);
-			return new DebuggerValue(new Double(n1 >>> n2));
+			return new DebuggerValue((double) (n1 >>> n2));
 		}
 		case Tokens.LESSTHAN_TOKEN:
 		{
@@ -831,14 +828,7 @@ class DebuggerEvaluator implements Evaluator
 			flash.tools.debugger.Value lessThan = ECMA.lessThan(session, eeContext.toValue(lhs.debuggerValue), eeContext
 					.toValue(rhs.debuggerValue));
 			boolean result;
-			if (lessThan.getType() == VariableType.UNDEFINED)
-			{
-				result = false;
-			}
-			else
-			{
-				result = ECMA.toBoolean(lessThan);
-			}
+            result = lessThan.getType() != VariableType.UNDEFINED && ECMA.toBoolean(lessThan);
 			return new DebuggerValue(result);
 		}
 		case Tokens.GREATERTHAN_TOKEN:
@@ -847,14 +837,7 @@ class DebuggerEvaluator implements Evaluator
 			flash.tools.debugger.Value greaterThan = ECMA.lessThan(session, eeContext.toValue(rhs.debuggerValue), eeContext
 					.toValue(lhs.debuggerValue));
 			boolean result;
-			if (greaterThan.getType() == VariableType.UNDEFINED)
-			{
-				result = false;
-			}
-			else
-			{
-				result = ECMA.toBoolean(greaterThan);
-			}
+            result = greaterThan.getType() != VariableType.UNDEFINED && ECMA.toBoolean(greaterThan);
 			return new DebuggerValue(result);
 		}
 		case Tokens.LESSTHANOREQUALS_TOKEN:
@@ -863,14 +846,7 @@ class DebuggerEvaluator implements Evaluator
 			flash.tools.debugger.Value lessThan = ECMA.lessThan(session, eeContext.toValue(rhs.debuggerValue), eeContext
 					.toValue(lhs.debuggerValue));
 			boolean result;
-			if (lessThan.getType() == VariableType.UNDEFINED)
-			{
-				result = false;
-			}
-			else
-			{
-				result = !ECMA.toBoolean(lessThan);
-			}
+            result = lessThan.getType() != VariableType.UNDEFINED && !ECMA.toBoolean(lessThan);
 			return new DebuggerValue(result);
 		}
 		case Tokens.GREATERTHANOREQUALS_TOKEN:
@@ -879,14 +855,7 @@ class DebuggerEvaluator implements Evaluator
 			flash.tools.debugger.Value lessThan = ECMA.lessThan(session, eeContext.toValue(lhs.debuggerValue), eeContext
 					.toValue(rhs.debuggerValue));
 			boolean result;
-			if (lessThan.getType() == VariableType.UNDEFINED)
-			{
-				result = false;
-			}
-			else
-			{
-				result = !ECMA.toBoolean(lessThan);
-			}
+            result = lessThan.getType() != VariableType.UNDEFINED && !ECMA.toBoolean(lessThan);
 			return new DebuggerValue(result);
 		}
 		case Tokens.INSTANCEOF_TOKEN:
@@ -932,44 +901,44 @@ class DebuggerEvaluator implements Evaluator
 		case Tokens.EQUALS_TOKEN:
 		{
 			// ECMA 11.9.1
-			return new DebuggerValue(new Boolean(ECMA.equals(session, eeContext.toValue(lhs.debuggerValue), eeContext
-					.toValue(rhs.debuggerValue))));
+			return new DebuggerValue(ECMA.equals(session, eeContext.toValue(lhs.debuggerValue), eeContext
+                    .toValue(rhs.debuggerValue)));
 		}
 		case Tokens.NOTEQUALS_TOKEN:
 		{
 			// ECMA 11.9.2
-			return new DebuggerValue(new Boolean(!ECMA.equals(session, eeContext.toValue(lhs.debuggerValue), eeContext
-					.toValue(rhs.debuggerValue))));
+			return new DebuggerValue(!ECMA.equals(session, eeContext.toValue(lhs.debuggerValue), eeContext
+                    .toValue(rhs.debuggerValue)));
 		}
 		case Tokens.STRICTEQUALS_TOKEN:
 		{
 			// ECMA 11.9.4
-			return new DebuggerValue(new Boolean(ECMA.strictEquals(eeContext.toValue(lhs.debuggerValue), eeContext
-					.toValue(rhs.debuggerValue))));
+			return new DebuggerValue(ECMA.strictEquals(eeContext.toValue(lhs.debuggerValue), eeContext
+                    .toValue(rhs.debuggerValue)));
 		}
 		case Tokens.STRICTNOTEQUALS_TOKEN:
 		{
 			// ECMA 11.9.5
-			return new DebuggerValue(new Boolean(!ECMA.strictEquals(eeContext.toValue(lhs.debuggerValue), eeContext
-					.toValue(rhs.debuggerValue))));
+			return new DebuggerValue(!ECMA.strictEquals(eeContext.toValue(lhs.debuggerValue), eeContext
+                    .toValue(rhs.debuggerValue)));
 		}
 		case Tokens.BITWISEAND_TOKEN:
 		{
 			// ECMA 11.10
-			return new DebuggerValue(new Double(ECMA.toInt32(session, eeContext.toValue(lhs.debuggerValue))
-					& ECMA.toInt32(session, eeContext.toValue(rhs.debuggerValue))));
+			return new DebuggerValue((double) (ECMA.toInt32(session, eeContext.toValue(lhs.debuggerValue))
+                    & ECMA.toInt32(session, eeContext.toValue(rhs.debuggerValue))));
 		}
 		case Tokens.BITWISEXOR_TOKEN:
 		{
 			// ECMA 11.10
-			return new DebuggerValue(new Double(ECMA.toInt32(session, eeContext.toValue(lhs.debuggerValue))
-					^ ECMA.toInt32(session, eeContext.toValue(rhs.debuggerValue))));
+			return new DebuggerValue((double) (ECMA.toInt32(session, eeContext.toValue(lhs.debuggerValue))
+                    ^ ECMA.toInt32(session, eeContext.toValue(rhs.debuggerValue))));
 		}
 		case Tokens.BITWISEOR_TOKEN:
 		{
 			// ECMA 11.10
-			return new DebuggerValue(new Double(ECMA.toInt32(session, eeContext.toValue(lhs.debuggerValue))
-					| ECMA.toInt32(session, eeContext.toValue(rhs.debuggerValue))));
+			return new DebuggerValue((double) (ECMA.toInt32(session, eeContext.toValue(lhs.debuggerValue))
+                    | ECMA.toInt32(session, eeContext.toValue(rhs.debuggerValue))));
 		}
 		case Tokens.LOGICALAND_TOKEN:
 		{

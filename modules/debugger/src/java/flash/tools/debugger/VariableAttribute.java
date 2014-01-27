@@ -163,7 +163,7 @@ public interface VariableAttribute
 	 * 		if (myVar.getScope() == VariableAttribute.PRIVATE_SCOPE) ...
 	 * </pre>
 	 */
-	public static final int SCOPE_MASK				= PUBLIC_SCOPE|PRIVATE_SCOPE|PROTECTED_SCOPE|INTERNAL_SCOPE|NAMESPACE_SCOPE;
+	public static final int SCOPE_MASK				= PRIVATE_SCOPE | PROTECTED_SCOPE | INTERNAL_SCOPE | NAMESPACE_SCOPE;
 
 	// 0x04000000 is reserved for IS_CLASS, which is now part of
 	// ValueAttribute rather than VariableAttribute.

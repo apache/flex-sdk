@@ -30,7 +30,7 @@ import flash.tools.debugger.Player;
  */
 public class ThreadSafePlayer extends ThreadSafeDebuggerObject implements Player {
 
-	private Player fPlayer;
+	private final Player fPlayer;
 	
 	private ThreadSafePlayer(Object syncObj, Player player) {
 		super(syncObj);

@@ -37,7 +37,7 @@ public class NoResponseException extends PlayerDebugException
 	 * Number of milliseconds that elapsed causing the timeout
 	 * -1 means unknown.
 	 */
-	public int m_waitedFor;
+	private final int m_waitedFor;
 
 	public NoResponseException(int t) 
 	{

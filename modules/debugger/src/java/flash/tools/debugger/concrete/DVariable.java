@@ -39,7 +39,7 @@ public class DVariable implements Variable, Comparable
 	 * might be <code>mynamespace@12345678::myvar</code>, which indicates that
 	 * the variable is in namespace "mynamespace", which has atom 12345678.
 	 */
-	private String		m_rawName;
+	private final String		m_rawName;
 
 	/** Just name, without namespace */
 	private String		m_name;
@@ -53,7 +53,7 @@ public class DVariable implements Variable, Comparable
 	/**
 	 * The variable's value.
 	 */
-	protected Value		m_value;
+    private Value		m_value;
 
 	/**
 	 * Whether we have fired the getter for this value.  Only applicable if
@@ -221,13 +221,13 @@ public class DVariable implements Variable, Comparable
 		if ((att & VariableAttribute.SCOPE_MASK) == att)
 			return (getScope() == att);
 		else
-			return ( ( (getAttributes() & att) == att) ? true : false );
+			return (((getAttributes() & att) == att));
 	}
 
 	public void clearAttribute(int att)
 	{
 		if ((att & VariableAttribute.SCOPE_MASK) == att)
-			m_attribs = (m_attribs & ~VariableAttribute.SCOPE_MASK) | VariableAttribute.PUBLIC_SCOPE;
+			m_attribs = (m_attribs & ~VariableAttribute.SCOPE_MASK);
 		else
 			m_attribs &= ~att;
 	}
@@ -385,33 +385,33 @@ public class DVariable implements Variable, Comparable
 	 * These values are obtained directly from the Player.
 	 * See ScriptObject in splay.h.
 	 */
-	public static final int kNormalObjectType			= 0;
-	public static final int kXMLSocketObjectType		= 1;
-	public static final int kTextFieldObjectType		= 2;
-	public static final int kButtonObjectType			= 3;
-	public static final int kNumberObjectType			= 4;
-	public static final int kBooleanObjectType			= 5;
-	public static final int kNativeStringObject			= 6;
-	public static final int kNativeArrayObject			= 7;
-	public static final int kDateObjectType				= 8;
-	public static final int kSoundObjectType			= 9;
-	public static final int kNativeXMLDoc				= 10;
-	public static final int kNativeXMLNode				= 11;
-	public static final int kNativeCameraObject			= 12;
-	public static final int kNativeMicrophoneObject		= 13;
-	public static final int kNativeCommunicationObject	= 14;
-	public static final int kNetConnectionObjectType  	= 15;
-	public static final int kNetStreamObjectType		= 16;
-	public static final int kVideoObjectType			= 17;
-	public static final int kTextFormatObjectType		= 18;
-	public static final int kSharedObjectType			= 19;
-	public static final int kSharedObjectDataType		= 20;
-	public static final int kPrintJobObjectType			= 21;
-	public static final int kMovieClipLoaderObjectType	= 22;
-	public static final int kStyleSheetObjectType		= 23;
-	public static final int kFapPacketDummyObject		= 24;
-	public static final int kLoadVarsObject				= 25;
-	public static final int kTextSnapshotType			= 26;
+	private static final int kNormalObjectType			= 0;
+	private static final int kXMLSocketObjectType		= 1;
+	private static final int kTextFieldObjectType		= 2;
+	private static final int kButtonObjectType			= 3;
+	private static final int kNumberObjectType			= 4;
+	private static final int kBooleanObjectType			= 5;
+	private static final int kNativeStringObject			= 6;
+	private static final int kNativeArrayObject			= 7;
+	private static final int kDateObjectType				= 8;
+	private static final int kSoundObjectType			= 9;
+	private static final int kNativeXMLDoc				= 10;
+	private static final int kNativeXMLNode				= 11;
+	private static final int kNativeCameraObject			= 12;
+	private static final int kNativeMicrophoneObject		= 13;
+	private static final int kNativeCommunicationObject	= 14;
+	private static final int kNetConnectionObjectType  	= 15;
+	private static final int kNetStreamObjectType		= 16;
+	private static final int kVideoObjectType			= 17;
+	private static final int kTextFormatObjectType		= 18;
+	private static final int kSharedObjectType			= 19;
+	private static final int kSharedObjectDataType		= 20;
+	private static final int kPrintJobObjectType			= 21;
+	private static final int kMovieClipLoaderObjectType	= 22;
+	private static final int kStyleSheetObjectType		= 23;
+	private static final int kFapPacketDummyObject		= 24;
+	private static final int kLoadVarsObject				= 25;
+	private static final int kTextSnapshotType			= 26;
 
 	public static String classNameFor(long clsType, boolean isMc)
 	{

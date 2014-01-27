@@ -28,7 +28,7 @@ import flash.tools.debugger.SourceFile;
  */
 public class ThreadSafeLocation extends ThreadSafeDebuggerObject implements Location {
 
-	private Location fLocation;
+	private final Location fLocation;
 	
 	private ThreadSafeLocation(Object syncObj, Location location) {
 		super(syncObj);

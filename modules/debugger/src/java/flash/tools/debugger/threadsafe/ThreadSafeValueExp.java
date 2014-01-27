@@ -33,7 +33,7 @@ public class ThreadSafeValueExp extends ThreadSafeDebuggerObject implements Valu
 {
 	private final ValueExp m_valueExp;
 
-	public ThreadSafeValueExp(Object syncObj, ValueExp valueExp)
+	private ThreadSafeValueExp(Object syncObj, ValueExp valueExp)
 	{
 		super(syncObj);
 		m_valueExp = valueExp;

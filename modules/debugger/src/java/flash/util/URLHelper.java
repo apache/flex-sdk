@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 
 public class URLHelper
 {
-	private static Pattern URL_PATTERN = Pattern.compile("^(.*?)(\\?.*?)?(#.*)?$"); //$NON-NLS-1$
+	private static final Pattern URL_PATTERN = Pattern.compile("^(.*?)(\\?.*?)?(#.*)?$"); //$NON-NLS-1$
 
 	/**
 	 * Everything before the "query" part of the URL.  E.g. for
@@ -75,7 +75,7 @@ public class URLHelper
 	 * "http://www.example.com/file?firstname=Bob&lastname=Smith#foo"
 	 * this would be "http://www.example.com/file".
 	 */
-	public String getEverythingBeforeQuery()
+    String getEverythingBeforeQuery()
 	{
 		return m_everythingBeforeQuery;
 	}
@@ -91,7 +91,7 @@ public class URLHelper
 	 * "?firstname=Bob&lastname=Smith" part. m_query contains the query
 	 * (including "?"), or "" if the URL has no query. Never null.
 	 */
-	public String getQuery()
+    String getQuery()
 	{
 		return m_query;
 	}
@@ -100,7 +100,7 @@ public class URLHelper
 	 * Sets the "query" portion of the URL.  This must be either the
 	 * empty string or a string that begins with "?".
 	 */
-	public void setQuery(String query)
+    void setQuery(String query)
 	{
 		// if there is a query, make sure it starts with "?"
 		if (query.length() > 0 && query.charAt(0) != '?')
@@ -115,7 +115,7 @@ public class URLHelper
 	 * Returns the "fragment" portion of the URL, e.g. the "#foo" part, or
 	 * "" if the URL has no fragment. Never null.
 	 */
-	public String getFragment()
+    String getFragment()
 	{
 		return m_fragment;
 	}
@@ -150,15 +150,11 @@ public class URLHelper
 			return false;
 
 		URLHelper newHelper = new URLHelper(everythingBeforeQuery + query + fragment);
-		if (!newHelper.getEverythingBeforeQuery().equals(everythingBeforeQuery) ||
-			!newHelper.getQuery().equals(query) ||
-			!newHelper.getFragment().equals(fragment))
-		{
-			return false;
-		}
-		
-		return true;
-	}
+        return !(!newHelper.getEverythingBeforeQuery().equals(everythingBeforeQuery) ||
+                !newHelper.getQuery().equals(query) ||
+                !newHelper.getFragment().equals(fragment));
+
+    }
 
 	/**
 	 * Returns the entire URL.
@@ -247,7 +243,7 @@ public class URLHelper
 	 * Locates characters 'c' in the scheme specific portion of a URI and
 	 * translates them into 'to'
 	 */
-	public static String escapeCharacter(String uri, char c, String to)
+	private static String escapeCharacter(String uri, char c, String to)
 	{
 		StringBuilder sb = new StringBuilder();
 

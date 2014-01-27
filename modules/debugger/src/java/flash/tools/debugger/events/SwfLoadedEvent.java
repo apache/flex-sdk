@@ -26,25 +26,25 @@ package flash.tools.debugger.events;
 public class SwfLoadedEvent extends DebugEvent
 {
 	/** unique identifier for the SWF */
-	public long id;				
+	private final long id;
 
 	/** index of swf in Session.getSwfs() array */
-	public int index;
+	private final int index;
 
 	/** full path name for  SWF */
-	public String path;
+	public final String path;
 
 	/** size of the loaded SWF in bytes */
-	public long swfSize;
+	public final long swfSize;
 
 	/** URL of the loaded SWF */
-	public String url;
+	private final String url;
 
 	/** port number related to the URL */
-	public long port;
+	private final long port;
 
 	/** name of host in which the SWF was loaded */
-	public String host;
+	private final String host;
 
 	public SwfLoadedEvent(long sId, int sIndex, String sPath, String sUrl, String sHost, long sPort, long sSwfSize)
 	{

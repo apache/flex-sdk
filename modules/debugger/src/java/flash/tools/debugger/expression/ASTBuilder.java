@@ -49,7 +49,7 @@ import flash.tools.debugger.DebuggerLocalizer;
  */
 public class ASTBuilder implements IASTBuilder
 {
-	private static LocalizationManager s_localizationManager;
+	private static final LocalizationManager s_localizationManager;
 
 	/**
 	 * whether the fdb indirection operators are allowed, e.g. asterisk (*x) or
@@ -78,7 +78,7 @@ public class ASTBuilder implements IASTBuilder
 	 * @return whether the fdb indirection operators are allowed, e.g. asterisk
 	 *         (*x) or trailing dot (x.)
 	 */
-	public boolean isIndirectionOperatorAllowed()
+    boolean isIndirectionOperatorAllowed()
 	{
 		return m_isIndirectionOperatorAllowed;
 	}

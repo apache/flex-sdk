@@ -28,12 +28,12 @@ import flash.tools.debugger.SourceLocator;
  */
 public class ThreadSafeSourceLocator extends ThreadSafeDebuggerObject implements SourceLocator
 {
-	private SourceLocator fSourceLocator;
+	private final SourceLocator fSourceLocator;
 	
 	/**
 	 * @param syncObj
 	 */
-	public ThreadSafeSourceLocator(Object syncObj, SourceLocator sourceLocator)
+    private ThreadSafeSourceLocator(Object syncObj, SourceLocator sourceLocator)
 	{
 		super(syncObj);
 		fSourceLocator = sourceLocator;

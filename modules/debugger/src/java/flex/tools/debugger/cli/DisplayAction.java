@@ -25,14 +25,14 @@ import flash.tools.debugger.expression.ValueExp;
  * An object that relates a CLI debugger 'display' command
  * with the contents of the display 
  */
-public class DisplayAction
+class DisplayAction
 {
 	private static int s_uniqueIdentifier  = 1;
 
-	boolean		m_enabled;
-	int			m_id;
-	ValueExp	m_expression;
-	String		m_content;
+	private boolean		m_enabled;
+	private int			m_id;
+	private final ValueExp	m_expression;
+	private final String		m_content;
 
 	public DisplayAction(ValueExp expr, String content)
 	{

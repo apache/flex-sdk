@@ -43,7 +43,7 @@ import flash.tools.debugger.expression.PlayerFaultException;
  */
 public class ThreadSafeSession extends ThreadSafeDebuggerObject implements Session {
 
-	private Session fSession;
+	private final Session fSession;
 
 	private ThreadSafeSession(Object syncObj, Session session) {
 		super(syncObj);

@@ -81,7 +81,7 @@ public interface IDebuggerCallbacks
 	/**
 	 * Terminates a debug target process.
 	 */
-	public void terminateDebugTarget(Process process) throws IOException;
+	public void terminateDebugTarget(Process process);
 
 	/**
 	 * Query the Windows registry.
@@ -130,5 +130,5 @@ public interface IDebuggerCallbacks
 	 * @throws IOException
 	 *             e.g. for file not found, etc.
 	 */
-	public int[] getAppVersion(File application) throws IOException;
+	public int[] getAppVersion(File application);
 }

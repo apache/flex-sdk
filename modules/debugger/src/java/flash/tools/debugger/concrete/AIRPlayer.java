@@ -29,7 +29,7 @@ import flash.tools.debugger.Player;
  */
 public class AIRPlayer implements Player
 {
-	File m_adl;
+	private final File m_adl;
 
 	/**
 	 * @param adl

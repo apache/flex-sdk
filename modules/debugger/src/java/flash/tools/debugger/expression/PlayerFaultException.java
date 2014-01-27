@@ -30,7 +30,7 @@ import flash.tools.debugger.events.FaultEvent;
  */
 public class PlayerFaultException extends Exception {
 	private static final long serialVersionUID = 7754580337597815207L;
-    private FaultEvent m_event;
+    private final FaultEvent m_event;
 
 	public PlayerFaultException(FaultEvent event)
 	{
