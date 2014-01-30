@@ -1591,10 +1591,12 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
 
         // Make sure any pending style changes get saved before replacing
         // the StageText with a bitmap
+        //we force style update, because it's not updated correctly on iOS7 (see   https://issues.apache.org/jira/browse/FLEX-34059)
+        invalidateStyleFlag = true;
         commitStyles();
 
         var bitmap:BitmapData = new BitmapData(stageText.viewPort.width,
-                stageText.viewPort.height, !debugProxyImage, debugProxyImage ? 0xFF00FF : 0x00FFFFFF);
+                stageText.viewPort.height, !debugProxyImage, debugProxyImage ? 0xFF90FF : 0x00FFFFFF);
 
         stageText.drawViewPortToBitmapData(bitmap);
 
