@@ -31,8 +31,9 @@ Differences from Apache Flex 4.11 include:
 
 AIR and Flash Player support
 ------------------------------
- - Support Flash Player 12.0.
- - Support for AIR 4.0.
+ - Support Flash Player 12.0 and 13.0 beta.
+ - Support for AIR 4.0 and 4.0 beta.
+
 
 SDK Changes
 -------------
