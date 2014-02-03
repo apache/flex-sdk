@@ -48,10 +48,16 @@ SDK Changes
 - new iOS os-version media css selector.
 - iOS7 status bar support.
 - Improved try/catch performance in several areas. 
+- New MaskedTextinput component.
 
 Build Changes
 ---------------
 - Made PixelBender a separate release.
+- Support for compiling with Java 7
+
+Compiler Changes
+------------------
+- Fixed FDB waiting before you can start debugging a SWF
 
 Bug Fixes
 ----------
@@ -64,6 +70,11 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-34065  AdvancedDataGrid throws RTE #1009 when groupedColumns is set to null
+FLEX-34059  StageTextInput with prompt turns entered text gray on iOS 7
+FLEX-34052  ADG RTE in columnResizeMouseOverHandler
+FLEX-34051  RTE in endEdit() when clicking at bottom of column
+FLEX-34049  Allow the output symbols to be escaped when called from an IDE
 FLEX-34046  prints full stack if Flash Player detects not handled exception
 FLEX-34045  adds file id to the stack info printed by fdb
 FLEX-34044  Breakpoints in ActionScript files do not work when debugging app using ANE
