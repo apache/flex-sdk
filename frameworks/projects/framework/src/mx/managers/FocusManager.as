@@ -142,7 +142,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 		this.popup = popup;
 
         IMEEnabled = true;
-        browserMode = Platform.isBrowser && !popup;
+		// Only <= IE8 supported focus cycling out of the SWF
+        browserMode = Capabilities.playerType == "ActiveX" && !popup;
         desktopMode = Platform.isAir && !popup;
         // Flash main windows come up activated, AIR main windows don't
         windowActivated = !desktopMode;
