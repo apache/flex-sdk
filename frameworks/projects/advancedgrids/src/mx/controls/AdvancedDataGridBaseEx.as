@@ -2370,8 +2370,15 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             // Force visibleColumns to be recomputed now so if there are lockedColumns and
             // updateSubContent() is called before updateDisplayList() is called,
             // visibleColumns will be correct.
-            if (horizontalScrollPosition > visibleHeaderInfos.length)
-                horizontalScrollPosition = visibleHeaderInfos.length - 1;
+			if (visibleHeaderInfos)
+			{
+				if (horizontalScrollPosition > visibleHeaderInfos.length)
+					horizontalScrollPosition = visibleHeaderInfos.length - 1;
+			}
+			else
+			{
+				horizontalScrollPosition = 0;
+			}
         }
 
         super.commitProperties();
