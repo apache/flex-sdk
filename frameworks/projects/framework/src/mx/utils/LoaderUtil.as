@@ -137,7 +137,7 @@ use namespace mx_internal;
         // On the mac, the player doesn't like filenames with high-ascii
         // characters. Calling encodeURI fixes this problem. We restrict
         // this call to mac-only since it causes problems on Windows.
-        if (isMac())
+        if (Platform.isMac)
             return encodeURI(url);
         
         return url;
@@ -630,14 +630,6 @@ use namespace mx_internal;
         }
     }
     
-    /**
-     *  @private
-     */
-    private static function isMac():Boolean
-    {
-        return Capabilities.os.substring(0, 3) == "Mac";
-    }
-
     /**
      *  @private
      * 

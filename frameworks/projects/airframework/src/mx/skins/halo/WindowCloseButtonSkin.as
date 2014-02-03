@@ -25,6 +25,7 @@ import mx.core.UIComponent;
 import mx.controls.Image;
 import mx.states.SetProperty;
 import mx.states.State;
+import mx.utils.Platform;
 
 /**
  *  The skin for the close button in the TitleBar
@@ -80,7 +81,7 @@ public class WindowCloseButtonSkin extends UIComponent
     {
         super();
 
-        isMac = Capabilities.os.substring(0,3) == "Mac";
+        isMac = Platform.isMac;
     }
     
     //--------------------------------------------------------------------------
