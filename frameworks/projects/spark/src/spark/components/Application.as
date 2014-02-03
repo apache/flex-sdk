@@ -55,6 +55,7 @@ import mx.managers.ToolTipManager;
 import mx.utils.BitFlagUtil;
 import mx.utils.DensityUtil;
 import mx.utils.LoaderUtil;
+import mx.utils.Platform;
 
 import spark.layouts.supportClasses.LayoutBase;
 
@@ -1355,7 +1356,7 @@ public class Application extends SkinnableContainer
             systemManager.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
 
         // Determine if we are running on an iOS device
-        isIOS = Capabilities.version.indexOf("IOS") == 0;
+        isIOS = Platform.isIOS;
         
         // To prevent a flicker described in SDK-30133, a flex application listens
         // for orientationChanging events dispatched by iOS AIR applications.
@@ -1854,14 +1855,10 @@ public class Application extends SkinnableContainer
      */
     private function initResizeBehavior():void
     {
-        var version:Array = Capabilities.version.split(' ')[1].split(',');
-        var versionPrefix:String = Capabilities.version.substr(0, 3).toLowerCase();
-        var runningOnMobile:Boolean = (versionPrefix != "win" && 
-                                       versionPrefix != "mac" && 
-                                       versionPrefix != "lnx");
-        
-        synchronousResize = (parseFloat(version[0]) > 10 ||
-                             (parseFloat(version[0]) == 10 && parseFloat(version[1]) >= 1)) && (Capabilities.playerType != "Desktop" || runningOnMobile);
+		var version:Array = Capabilities.version.split(' ')[1].split(',');
+		
+		synchronousResize = (parseFloat(version[0]) > 10 ||
+			(parseFloat(version[0]) == 10 && parseFloat(version[1]) >= 1)) && !Platform.isAir;
     }
     
     /**

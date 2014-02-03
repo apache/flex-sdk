@@ -48,6 +48,7 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.SystemManager;
 import mx.utils.MatrixUtil;
+import mx.utils.Platform;
 
 import spark.components.Application;
 import spark.core.IProxiedStageTextWrapper;
@@ -318,8 +319,8 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
     //
     //--------------------------------------------------------------------------
 
-    protected static const isAndroid:Boolean = Capabilities.version.indexOf("AND") == 0;
-    protected static const isDesktop:Boolean = Capabilities.os.indexOf("Windows") != -1 || Capabilities.os.indexOf("Mac OS") != -1;
+    protected static const isAndroid:Boolean = Platform.isAndroid;
+    protected static const isDesktop:Boolean = Platform.isDesktop;
     /**
      *  Text measuring behavior needs to be slightly different on Android
      *  devices to account for its native text being slightly taller. Without

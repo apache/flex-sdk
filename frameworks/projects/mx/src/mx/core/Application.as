@@ -43,6 +43,7 @@ import mx.managers.ISystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleClient;
 import mx.utils.LoaderUtil;
+import mx.utils.Platform;
 
 use namespace mx_internal;
 
@@ -1699,9 +1700,8 @@ public class Application extends LayoutContainer
     {
         var version:Array = Capabilities.version.split(' ')[1].split(',');
         
-        synchronousResize = (parseFloat(version[0]) > 10 || 
-            (parseFloat(version[0]) == 10 && parseFloat(version[1]) >= 1))
-            && (Capabilities.playerType != "Desktop");
+		synchronousResize = (parseFloat(version[0]) > 10 ||
+			(parseFloat(version[0]) == 10 && parseFloat(version[1]) >= 1)) && !Platform.isAir;
     }
     
     //--------------------------------------------------------------------------

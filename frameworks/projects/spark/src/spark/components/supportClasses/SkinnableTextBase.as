@@ -43,6 +43,7 @@ import mx.events.SandboxMouseEvent;
 import mx.events.TouchInteractionEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.BitFlagUtil;
+import mx.utils.Platform;
 
 import spark.components.Application;
 import spark.components.RichEditableText;
@@ -462,7 +463,7 @@ public class SkinnableTextBase extends SkinnableComponent
      *  @private
      *  Variable that determines whether this application is running on iOS.
      */
-    private static var isIOS:Boolean = (Capabilities.version.indexOf("IOS") == 0);
+    private static var isIOS:Boolean = Platform.isIOS;
     
     //--------------------------------------------------------------------------
     //

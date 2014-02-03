@@ -27,6 +27,7 @@ import mx.core.DPIClassification;
 import mx.core.EventPriority;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.utils.Platform;
 
 import spark.components.TextInput;
 import spark.components.supportClasses.StyleableTextField;
@@ -71,7 +72,7 @@ public class TextInputSkin extends TextSkinBase
         super();
         
         // on iOS, make adjustments for native text rendering
-        _isIOS = (Capabilities.version.indexOf("IOS") == 0);
+        _isIOS = Platform.isIOS;
         
         switch (applicationDPI)
         {

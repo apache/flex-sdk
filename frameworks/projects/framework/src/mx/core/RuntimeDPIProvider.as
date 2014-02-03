@@ -25,6 +25,7 @@ import flash.system.Capabilities;
 
 import mx.core.mx_internal;
 import mx.managers.SystemManager;
+import mx.utils.Platform;
 
 use namespace mx_internal;
 
@@ -118,12 +119,11 @@ public class RuntimeDPIProvider
 
     public function get runtimeDPI():Number
     {
+        var isIOS:Boolean = Platform.isIOS;
+        var screenDPI:Number = Capabilities.screenDPI;
 
-        var isIOS:Boolean = Capabilities.version.indexOf("IOS") == 0;
-        var screenDPI : Number= Capabilities.screenDPI;
-
-        if (isIOS) {
-
+        if (isIOS)
+		{
             var root:DisplayObject = SystemManager.getSWFRoot(this);
             if (root != null )  {
                 var stage:Stage = root.stage;
@@ -140,8 +140,8 @@ public class RuntimeDPIProvider
                 }
             }
         }
+		
         return classifyDPI(screenDPI);
-
     }
     
     /**

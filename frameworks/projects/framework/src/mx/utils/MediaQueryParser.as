@@ -421,33 +421,38 @@ public class MediaQueryParser
      * os on ADL will return the host OS and not the device OS.
      * That why we need to check for a specific sequence for iOS and Android
      * */
-    private function getOSVersion(osPlatform: String ):Number {
-
+    private function getOSVersion(osPlatform:String):Number {
         //TODO (mamsellem)  retrieve  os version for Android, reading  system/build.prop
-
         var os: String = Capabilities.os;
         var osMatch: Array;
-        if (osPlatform == "ios"){
+		
+        if (osPlatform == "ios")
+		{
             osMatch = os.match(/iPhone OS\s([\d\.]+)/);
         }
-        else {
+        else
+		{
             osMatch = os.match(/[A-Za-z\s]+([\d\.]+)/);
         }
-       return osMatch ? convertVersionStringToNumber(osMatch [1]) : 0.0;
+		
+		return osMatch ? convertVersionStringToNumber(osMatch[1]) : 0.0;
     }
 
     /** @private  converts string version such as "X" or "X.Y" or "X.Y.Z" into a number.
      * minor version parts are normalized to 100  so that eg. X.1 < X.10
      * so "7.1" return 7.01 and "7.12" return 7.12
   */
-    private function convertVersionStringToNumber(versionString: String): Number {
+    private function convertVersionStringToNumber(versionString: String): Number
+	{
         var versionParts: Array = versionString.split(".");
         var version: Number = 0;
         var scale: Number = 1;
+		
         for each (var part: String in versionParts) {
             version += Number(part) * scale;
             scale /= 100;
         }
+		
         return version;
     }
 

@@ -46,6 +46,7 @@ import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.utils.Platform;
 
 use namespace mx_internal;
 
@@ -141,8 +142,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 		this.popup = popup;
 
         IMEEnabled = true;
-        browserMode = Capabilities.playerType == "ActiveX" && !popup;
-        desktopMode = Capabilities.playerType == "Desktop" && !popup;
+        browserMode = Platform.isBrowser && !popup;
+        desktopMode = Platform.isAir && !popup;
         // Flash main windows come up activated, AIR main windows don't
         windowActivated = !desktopMode;
     

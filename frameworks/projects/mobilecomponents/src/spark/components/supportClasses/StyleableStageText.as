@@ -61,6 +61,7 @@ import mx.managers.FocusManager;
 import mx.managers.SystemManager;
 import mx.managers.systemClasses.ActiveWindowManager;
 import mx.utils.MatrixUtil;
+import mx.utils.Platform;
 
 import spark.components.Application;
 import spark.components.ViewNavigator;
@@ -378,8 +379,8 @@ public class StyleableStageText extends UIComponent implements IStyleableEditabl
      *  scroll vertically.
      */
     mx_internal static var androidHeightMultiplier:Number = 1.15;
-    private static const isAndroid:Boolean = Capabilities.version.indexOf("AND") == 0;
-    private static const isDesktop:Boolean = Capabilities.os.indexOf("Windows") != -1 || Capabilities.os.indexOf("Mac OS") != -1;    
+    private static const isAndroid:Boolean = Platform.isAndroid;
+    private static const isDesktop:Boolean = Platform.isDesktop;    
 
     //--------------------------------------------------------------------------
     //

@@ -23,6 +23,7 @@ import flash.system.Capabilities;
 
 import mx.core.DPIClassification;
 import mx.core.mx_internal;
+import mx.utils.Platform;
 
 import spark.components.TextArea;
 import spark.components.supportClasses.StyleableTextField;
@@ -151,7 +152,7 @@ public class StageTextAreaSkin extends StageTextSkinBase
             var verticalPosAdjustment:Number = 0;
             var heightAdjustment:Number = 0;
             
-            if (Capabilities.version.indexOf("IOS") == 0)
+            if (Platform.isIOS)
             {
                 verticalPosAdjustment = Math.min(iOSVerticalPaddingAdjustment, paddingTop);
                 heightAdjustment = verticalPosAdjustment + Math.min(iOSVerticalPaddingAdjustment, paddingBottom);
