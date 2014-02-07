@@ -34,7 +34,6 @@ AIR and Flash Player support
  - Support Flash Player 12.0 and 13.0 beta.
  - Support for AIR 4.0 and 4.0 beta.
 
-
 SDK Changes
 -------------
 - Improved Callout for Desktop.
@@ -71,8 +70,10 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-34070  Build script does not update target-player and swf-version values in air/airmobile config files
 FLEX-34065  AdvancedDataGrid throws RTE #1009 when groupedColumns is set to null
 FLEX-34059  StageTextInput with prompt turns entered text gray on iOS 7
+FLEX-34054  Formatting applied to NumericStepper when using increment/decrement arrows
 FLEX-34052  ADG RTE in columnResizeMouseOverHandler
 FLEX-34051  RTE in endEdit() when clicking at bottom of column
 FLEX-34049  Allow the output symbols to be escaped when called from an IDE
@@ -107,7 +108,6 @@ FLEX-33891  Styleprotochain#getstyleManager shouldn't be called twice during sty
 FLEX-33885  BindingManager#executeBindings : Avoid unneeded memory allocation
 FLEX-33884  Android mobile app crashes when you click on a modal
 FLEX-33880  Popup modal blocks the application
-[REVERTED] FLEX-33879  LayoutBase->getScrollPositionDeltaToElementHelper isn't ideal
 FLEX-33878  Matrix computations : avoid unneeded flash.geom.Transform and flash.geom.Matrix allocations
 FLEX-33877  BusyCursor : Avoid unneeded Point allocations
 FLEX-33875  Runtime error #1069 in MobileSkin class on focus out
@@ -128,7 +128,7 @@ FLEX-33824  Disappearing spark DataGrid columns when we set dataProvider to null
 FLEX-33813  Datagrid goes blank when assigning new dataProvider.source and calling refresh
 FLEX-33779  RTE in Label.as when it's 8px wide and uses the Myriad Web Pro font face
 FLEX-33772  Incorrect tab focus behavior (closed loops) when using focus groups (such as RadioButton components)
-FLEX-33745  Null error in the PopupManagerI		mpl if accessibility is deactivated
+FLEX-33745  Null error in the PopupManagerImpl if accessibility is deactivated
 FLEX-33715  Error: Attempted access of inaccessible method getStyle through a reference with static type MXFTETextInput.
 FLEX-33671  Warning messages when using experimental components.
 FLEX-33632  Getting Run Time Error when loading resource module at runtime.
