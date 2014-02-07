@@ -372,14 +372,16 @@ package spark.components {
             }
             //insert
             else if (event.operation is InsertTextOperation) {
-
-                if ((event.operation as InsertTextOperation).deleteSelectionState != null) {
+                var insertOp:InsertTextOperation = event.operation as InsertTextOperation;
+                if (insertOp.deleteSelectionState != null) {
                     //OVERRIDING INSERT
                     if (ac < maxChars && isSeparator(ac)) {
-                        outputText = super.text.substring(0, ac + 1) + (event.operation as InsertTextOperation).text + super.text.substring(ac + 2);
+                        outputText = super.text.substring(0, insertOp.originalSelectionState.anchorPosition + 1) + (event.operation as InsertTextOperation).text + super.text.substring(insertOp.originalSelectionState.activePosition + 2);
                     } else {
-                        outputText = super.text.substring(0, ac) + (event.operation as InsertTextOperation).text + super.text.substring(ac + 1);
+                        outputText = super.text.substring(0, insertOp.originalSelectionState.anchorPosition) + (event.operation as InsertTextOperation).text + super.text.substring(insertOp.originalSelectionState.activePosition);
                     }
+
+                    outputText = formatTextWithMask(cleanText(outputText));
 
                     if (isSeparator(ac)) {
                         an = an + 2;
