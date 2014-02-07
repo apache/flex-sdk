@@ -27,14 +27,12 @@ package spark.components {
     import flashx.textLayout.operations.InsertTextOperation;
     import flashx.textLayout.tlf_internal;
 
-    import mx.core.mx_internal;
     import mx.utils.StringUtil;
 
     import spark.components.RichEditableText;
     import spark.components.TextInput;
     import spark.events.TextOperationEvent;
 
-    use namespace mx_internal;
     use namespace tlf_internal;
 
     /**
@@ -378,7 +376,7 @@ package spark.components {
                 if (insertOp.deleteSelectionState != null && !insertOp.deleteSelectionState.tlf_internal::selectionManagerOperationState) {
                     //OVERRIDING INSERT
                     if (isSeparator(ac)) {
-                        outputText = super.text.substring(0, insertOp.originalSelectionState.anchorPosition + 1) + insertOp.text + super.text.substring(insertOp.originalSelectionState.activePosition + 2);
+                        outputText = super.text.substring(0, insertOp.originalSelectionState.anchorPosition + 1) + insertOp.text + super.text.substring(insertOp.originalSelectionState.activePosition + 1);
                     } else {
                         outputText = super.text.substring(0, insertOp.originalSelectionState.anchorPosition) + insertOp.text + super.text.substring(insertOp.originalSelectionState.activePosition);
                     }
@@ -448,8 +446,7 @@ package spark.components {
                 an = ac = selectionActivePosition - offset;
             }
             //copy
-            else if(event.operation is CopyOperation)
-            {
+            else if (event.operation is CopyOperation) {
                 return; // avoid to remove all text on copy operation
             }
 
