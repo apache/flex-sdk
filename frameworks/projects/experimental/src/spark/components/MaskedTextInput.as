@@ -25,6 +25,7 @@ package spark.components {
     import flashx.textLayout.operations.CopyOperation;
     import flashx.textLayout.operations.DeleteTextOperation;
     import flashx.textLayout.operations.InsertTextOperation;
+    import flashx.textLayout.tlf_internal;
 
     import mx.core.mx_internal;
     import mx.utils.StringUtil;
@@ -34,6 +35,7 @@ package spark.components {
     import spark.events.TextOperationEvent;
 
     use namespace mx_internal;
+    use namespace tlf_internal;
 
     /**
      * Masked Text Input Component
@@ -373,12 +375,12 @@ package spark.components {
             //insert
             else if (event.operation is InsertTextOperation) {
                 var insertOp:InsertTextOperation = event.operation as InsertTextOperation;
-                if (insertOp.deleteSelectionState != null) {
+                if (insertOp.deleteSelectionState != null && !insertOp.deleteSelectionState.tlf_internal::selectionManagerOperationState) {
                     //OVERRIDING INSERT
-                    if (ac < maxChars && isSeparator(ac)) {
-                        outputText = super.text.substring(0, insertOp.originalSelectionState.anchorPosition + 1) + (event.operation as InsertTextOperation).text + super.text.substring(insertOp.originalSelectionState.activePosition + 2);
+                    if (isSeparator(ac)) {
+                        outputText = super.text.substring(0, insertOp.originalSelectionState.anchorPosition + 1) + insertOp.text + super.text.substring(insertOp.originalSelectionState.activePosition + 2);
                     } else {
-                        outputText = super.text.substring(0, insertOp.originalSelectionState.anchorPosition) + (event.operation as InsertTextOperation).text + super.text.substring(insertOp.originalSelectionState.activePosition);
+                        outputText = super.text.substring(0, insertOp.originalSelectionState.anchorPosition) + insertOp.text + super.text.substring(insertOp.originalSelectionState.activePosition);
                     }
 
                     outputText = formatTextWithMask(cleanText(outputText));
