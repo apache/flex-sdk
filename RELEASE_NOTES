@@ -8,9 +8,10 @@ _____________
 
 Adobe Flash Builder Integration
 
-Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where, 
-when generating the .mxml file for a new project that uses Apache Flex 4.10.0 
-and Spark Application, Flash Builder will incorrectly insert the attribute:
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
+when generating the .mxml file for a new project that uses Apache Flex SDK
+4.10.0 or later Spark Application, Flash Builder will incorrectly insert the
+attribute:
 
 	layout="absolute"
 
