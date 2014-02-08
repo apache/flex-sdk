@@ -21,7 +21,7 @@
 
 if [ $# -ne 2 ]
 then
-    echo "Usage: deploy_release_branch flex_version ([0-99].[0-99].[0-999]) release_candidate ([0-100])"
+    echo "Usage: check_sigs flex_version ([0-99].[0-99].[0-999]) release_candidate ([0-100])"
     exit 1
 fi
 
@@ -68,10 +68,10 @@ function checkFile() {
 
 }
 
-checkFile "${RC_DIR}/apache-flex-sdk-4.11.0-src.tar.gz"
-checkFile "${RC_DIR}/apache-flex-sdk-4.11.0-src.zip"
+checkFile "${RC_DIR}/apache-flex-sdk-${FLEX_VERSION}-src.tar.gz"
+checkFile "${RC_DIR}/apache-flex-sdk-${FLEX_VERSION}-src.zip"
 
-checkFile "${BIN_DIR}/apache-flex-sdk-4.11.0-bin.tar.gz"
-checkFile "${BIN_DIR}/apache-flex-sdk-4.11.0-bin.zip"
+checkFile "${BIN_DIR}/apache-flex-sdk-${FLEX_VERSION}-bin.tar.gz"
+checkFile "${BIN_DIR}/apache-flex-sdk-${FLEX_VERSION}-bin.zip"
 
-checkFile "${DOC_DIR}/apache-flex-sdk-4.11.0-asdocs.zip"
+checkFile "${DOC_DIR}/apache-flex-sdk-${FLEX_VERSION}-asdocs.zip"
