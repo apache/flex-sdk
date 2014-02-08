@@ -4,7 +4,7 @@ Apache Flex (Flex)
     Apache Flex is an application framework for easily building Flash-based applications 
     for mobile devices, the browser and desktop.
 
-    Apache Flex 4.11 is a follow up release to Apache Flex 4.10. This version adds new
+    Apache Flex 4.12 is a follow up release to Apache Flex 4.11. This version adds new
     features and implements bug fixes that were unavailable in previous versions.  It is
     compatible with most code written to target Adobe Flex 4.6.
 
@@ -26,8 +26,11 @@ Apache Flex (Flex)
     Apache Flex is the software evolution of the popular Adobe Flex SDK project.
     
     The community surrounding Flex is vast, diverse, distributed globally, and with all 
-    levels of proficiency in software development. It is estimated that there are between 
-    350,000 and 500,000 Flex developers worldwide. 
+    levels of proficiency in software development.
+    
+    There has been more that 30,000 installs of Apache Flex. The Apache Flex web site
+    gets 3 quarters of a million page views a year and more than 250,000 unique visitors
+    a year.
 
 
 Getting the convenience packages for Apache Flex
@@ -85,7 +88,7 @@ Getting the latest sources via git
 
     For further information visit http://flex.apache.org/download-source.html
     
-Building Apache Flex 4.11
+Building Apache Flex 4.12
 =========================
 
     Apache Flex is a large project. It requires some build tools which must be installed
@@ -166,15 +169,15 @@ Install Prerequisites
          you will get compile errors.
         
     *3) The Adobe AIR integration kit for Windows can be downloaded from:
-           http://airdownload.adobe.com/air/win/download/3.9/AdobeAIRSDK.zip
+           http://airdownload.adobe.com/air/win/download/4.0/AdobeAIRSDK.zip
         
          The Adobe AIR integration kit for Mac can be downloaded from:
-            http://airdownload.adobe.com/air/mac/download/3.9/AdobeAIRSDK.tbz2
+            http://airdownload.adobe.com/air/mac/download/4.0/AdobeAIRSDK.tbz2
             
           The Adobe AIR integration kit for Linux can be downloaded from:
             http://airdownload.adobe.com/air/lin/download/2.6/AdobeAIRSDK.tbz2        
 
-        This version of Apache Flex was certified for use with AIR 3.9, and should
+        This version of Apache Flex was certified for use with AIR 4.0, and should
         be compatible with other versions of AIR newer than 3.1. However it hasn't
         been fully tested on AIR 3.2, 3.3, 3.5, 3.6 or 3.7.
 
@@ -185,8 +188,8 @@ Install Prerequisites
             http://www.adobe.com/support/flashplayer/downloads.html
 
         This version of Apache Flex was certified for use with Adobe Flash Player 11.1,
-        and is compatible with versions 10.2 through 11.9. It has been tested with
-        versions 11.1, 11.7, 11.8 and 11.9 on Windows and Mac. It has been compiled
+        and is compatible with versions 10.2 through 13.0. It has been tested with
+        versions 11.1, 11.7, 11.8, 11.9 and 12.0 on Windows and Mac. It has been compiled
         against other Adobe Flash Player versions but has not been fully tested. It has
         not been fully tested on Linux.
             
@@ -235,8 +238,9 @@ Install Prerequisites
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_7.swc
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_8.swc
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_9.swc
+            http://download.macromedia.com/get/flashplayer/updaters/12/playerglobal12_0.swc
             
-        These can be used with Apache Flex but have not been fully tested.
+        These can be used with Apache Flex but not all have not been fully tested.
         
     *7) The Adobe Extension Manager is only required for those creating releases or
         testing changes to the flash-integration swc.  Note that if you change APIs on
@@ -305,7 +309,7 @@ Adobe Flash Player Version Support
 
     The Apache Flex SDK defaults to using the Adobe Flash Player 11.1. The SDK can be
     used with Flash Player versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5,
-    11.6, 11.7, 11.8 and 11.9.
+    11.6, 11.7, 11.8, 11.9, 12.0 and 13.0.
     
     It is recommended that you update to the latest version of Adobe Flash Player.
     Newer versions of the Adobe Flash player address security vulnerabilities, fix
@@ -348,6 +352,7 @@ Adobe Flash Player Version Support
     http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_7.swc
     http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_8.swc
     http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_9.swc
+    http://download.macromedia.com/get/flashplayer/updaters/12/playerglobal12_0.swc
      
     Copy the target playerglobal.swc to the directory:
     
@@ -386,9 +391,11 @@ Adobe Flash Player Version Support
                          /playerglobal.swc  
                     /11.9
                          /playerglobal.swc  
+                    /12.0
+                         /playerglobal.swc                          
     
-    Apache Flex has been tested with Adobe Flash Player 11.1, 11.5, 11.7, 11.8 and
-    11.9 on Windows and Mac.
+    Apache Flex has been tested with Adobe Flash Player 11.1, 11.5, 11.7, 11.8, 11.9
+    and 12.0 on Windows and Mac.
     
     Apache Flex has not been tested on Linux so some issue may exist in this release.
     
@@ -486,7 +493,7 @@ Using the Binary Distribution
 		/ide/constructFlexForIDE.sh (on Mac and Linux)
 		/ide/constructFlexForIDE.bat (on Windows)
 		
-	This will create an Apache Flex 4.11 SDK that can be used with Flash Builder by
+	This will create an Apache Flex 4.12 SDK that can be used with Flash Builder by
 	copying the required files from the Adobe Flex 4.6 SDK.
 	
 	To create an SDK for other IDE or if you want to use Adobe AIR 3.9 (rather than
@@ -495,8 +502,8 @@ Using the Binary Distribution
 		/ide/flashbuilder/makeApacheFlexForIDE.sh (on Mac and Linux)
 		/ide/flashbuilder/makeApacheFlexForIDE.bat (on Windows)
 		
-	This will create an Apache Flex 4.11 SDK that can be used by an IDE by downloading
-	Adobe Flex 4.6 SDK and Adobe AIR 3.9.
+	This will create an Apache Flex 4.12 SDK that can be used by an IDE by downloading
+	Adobe Flex 4.6 SDK and Adobe AIR 4.0.
     
 Building the Framework in a Binary Distribution
 -----------------------------------------------
@@ -565,7 +572,7 @@ Building the Source in the Source Distribution
         
     To generate a source distribution package and a binary distribution package use
         
-        ant -Dbuild.number=<YYYYMMDD> -Dbuild.noprompt=  release
+        ant -Dbuild.number=<YYYYMMDD> -Dbuild.noprompt= release
 
     The packages can be found in the "out" subdirectory.
             
