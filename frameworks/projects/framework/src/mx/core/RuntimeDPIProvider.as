@@ -119,10 +119,10 @@ public class RuntimeDPIProvider
 
     public function get runtimeDPI():Number
     {
-        var isIOS:Boolean = Platform.isIOS;
+        var isIPad:Boolean = Platform.isIPad;
         var screenDPI:Number = Capabilities.screenDPI;
 
-        if (isIOS)
+        if (isIPad)
 		{
             var root:DisplayObject = SystemManager.getSWFRoot(this);
             if (root != null )  {

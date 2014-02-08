@@ -38,6 +38,7 @@ public class Platform
 	protected static var _initilised:Boolean;
 	protected static var _isAndroid:Boolean;
 	protected static var _isIOS:Boolean;
+	protected static var _isIPad:Boolean;
 	protected static var _isBlackBerry:Boolean;
 	protected static var _isMobile:Boolean;
 	protected static var _isMac:Boolean;
@@ -60,6 +61,21 @@ public class Platform
 		getPlatforms();
 		
 		return _isIOS;
+	}
+	
+	/**
+	 *  Returns true if the applciation is runing on an iPad.
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.0
+	 *  @productversion Flex 4.12
+	 */
+	public static function get isIPad():Boolean
+	{
+		getPlatforms();
+		
+		return _isIPad;
 	}
 	
 	/**
@@ -208,6 +224,7 @@ public class Platform
 			_isMac = Capabilities.os.indexOf("Mac OS") != -1;
 			_isWindows = Capabilities.os.indexOf("Windows") != -1;
 			_isLinux = Capabilities.os.indexOf("Linux") != -1; // note that Android is also Linux
+			_isIPad = Capabilities.os.indexOf('iPad') > -1;
 			_isDesktop = !_isMobile;
 			
 			_isAir = Capabilities.playerType == "Desktop";
