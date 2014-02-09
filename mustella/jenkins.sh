@@ -57,20 +57,22 @@ fi
 # Toggle between versions:
 # 11.1 is the default version
 # 11.7 is the "current long term support" version
-# 11.9 is the latest release
-# 12 is the current beta version
+# 12.0 is the latest release
+# 13 is the current beta version
+# Note: the previous release and current beta versions of AIR are both '4', 
+#       so to make the distinction, the beta version is '4.01' on the VM
 if [ "$FLASH_VERSION" == "11.1" ]
 then
   FLASH_VERSION=11.7
   AIR_VERSION=3.7
 elif [ "$FLASH_VERSION" == "11.7" ]
 then
-  FLASH_VERSION=11.9
-  AIR_VERSION=3.9
-elif [ "$FLASH_VERSION" == "11.9" ]
-then
   FLASH_VERSION=12.0
   AIR_VERSION=4
+elif [ "$FLASH_VERSION" == "12.0" ]
+then
+  FLASH_VERSION=13
+  AIR_VERSION=4.01
 else
   FLASH_VERSION=11.1
   AIR_VERSION=3.7
@@ -99,11 +101,11 @@ case "$FLASH_VERSION" in
   11.7)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer11_7r700_232_win_sa_debug.exe"
   ;;
-  11.9)
-    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer11-9_debugsa_win_32.exe"
-  ;;
   12.0)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer12-0_debugsa_win_32.exe"
+  ;;
+  13.0)
+    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer13_debugsa_win_32.exe"
   ;;
   *)
     echo "No valid Flash Player Debugger variable value could be parsed."
