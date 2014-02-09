@@ -124,15 +124,7 @@ END
 
 
 
-# ANT
-ant -f ../build.xml clean -Dbuild.noprompt=true
-ant -f ../build.xml main -Dbuild.noprompt=true
-ant -f ../build.xml other.locales -Dbuild.noprompt=true
-LOG=$LOG"- Ran 'clean', 'main' and 'other.locales' ant targets to prepare the SDK for testing"$'\n'
-
-
-
-# RUN
+# RUN SETTINGS
 
 RUN_TYPE="main"
 while [ "$1" != "" ]; do
@@ -168,6 +160,48 @@ END
   TEST_SET=tests/mobile
 fi
 
+
+
+# SETTINGS REPORT
+START=$(date +"%m-%d-%Y %H:%M")
+START_TIME=$(date +"%s")
+
+cat <<END
+
+
+
+============ JENKINS MUSTELLA SETTINGS REPORT ============
+
+Date/Time: $START
+
+Settings:
+player.version = $FLASH_VERSION
+air.version = $AIR_VERSION
+FLASHPLAYER_DEBUGGER = $FLASHPLAYER_DEBUGGER
+AIR_HOME = $AIR_HOME
+
+Build: 
+  type = $RUN_TYPE
+  command = $TEST_COMMAND
+  set = $TEST_SET
+
+=====================================================
+
+
+
+END
+
+
+
+# ANT
+ant -f ../build.xml clean -Dbuild.noprompt=true
+ant -f ../build.xml main -Dbuild.noprompt=true
+ant -f ../build.xml other.locales -Dbuild.noprompt=true
+LOG=$LOG"- Ran 'clean', 'main' and 'other.locales' ant targets to prepare the SDK for testing"$'\n'
+
+
+
+# RUN
 sh ./mini_run.sh $TEST_COMMAND $TEST_SET 
 
 LOG=$LOG"- Ran Mustella on the SDK with these parameters: '$TEST_COMMAND $TEST_SET'"$'\n'
@@ -193,15 +227,28 @@ fi
 
 
 
-# REPORT
-NOW=$(date +"%m-%d-%Y %H:%M")
+# RUN REPORT
+END=$(date +"%m-%d-%Y %H:%M")
+END_TIME=$(date +"%s")
+
+DURATION=$(($END_TIME - $START_TIME))
+
+DAYS=$(($DURATION / 60 / 60 / 24))
+HOURS=$((($DURATION / 60 / 60) - ($DAYS * 24)))
+MINUTES=$((($DURATION / 60) - (($DAYS * 24 + $HOURS) * 60)))
+SECONDS=$((($DURATION) - ((($DAYS * 24 + $HOURS) * 60 + $MINUTES) * 60)))
+
+DURATION_STR="$DAYS days $HOURS hours $MINUTES mins $SECONDS seconds"
+
 cat <<END
 
 
 
 ============ JENKINS MUSTELLA RUN REPORT ============
 
-Date and time: $NOW
+Date/Time: $END
+
+Run duration: $DURATION_STR
 
 Settings:
 player.version = $FLASH_VERSION
