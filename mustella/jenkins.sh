@@ -104,7 +104,7 @@ case "$FLASH_VERSION" in
   12.0)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer12-0_debugsa_win_32.exe"
   ;;
-  13.0)
+  13)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer13_debugsa_win_32.exe"
   ;;
   *)
