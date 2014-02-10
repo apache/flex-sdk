@@ -464,9 +464,9 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 		var startIndex:int = 0;
 		if (numModalWindows > 0)
 		{
-			// if there is a modal window, only non-modal
+			// if there is a modal window, only the top modal and non-modal
 			// windows above it are in play
-			startIndex = findHighestModalForm() + 1;
+			startIndex = findHighestModalForm();
 		}
 		
 		if (!systemManager.isTopLevelRoot() || forms.length > 1)
@@ -520,7 +520,10 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 
 						index = childList.getChildIndex(p); 
 						newIndex = index;
-						
+                        // activating top-most modal so don't switch it to the top
+						if (p == forms[startIndex])
+                            return;
+                        
 						//we need to reset n because activating p's 
 						//FocusManager could have caused 
 						//forms.length to have changed. 
