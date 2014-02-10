@@ -20,6 +20,8 @@ package spark.components {
     import flash.events.Event;
     import flash.events.TextEvent;
 
+    import flashx.textLayout.edit.EditManager;
+
     import flashx.textLayout.edit.SelectionState;
     import flashx.textLayout.operations.CompositeOperation;
     import flashx.textLayout.operations.CopyOperation;
@@ -375,7 +377,17 @@ package spark.components {
                 var insertOp:InsertTextOperation = event.operation as InsertTextOperation;
                 if (insertOp.deleteSelectionState != null && !insertOp.deleteSelectionState.tlf_internal::selectionManagerOperationState) {
                     //OVERRIDING INSERT
-                    if (isSeparator(ac)) {
+                    if (EditManager.overwriteMode) {
+                        //windows insert mode on (note that Flash Player does not track insertion mode state before running a SWF)
+                        if (isSeparator(ac - 1)) {
+                            outputText = super.text.substring(0, insertOp.originalSelectionState.anchorPosition + 1) + super.text.substring(insertOp.originalSelectionState.anchorPosition + 2);
+                        } else {
+                            outputText = super.text;
+                        }
+                        an -= 1;
+                        ac -= 1;
+                    }
+                    else if (isSeparator(ac)) {
                         outputText = super.text.substring(0, insertOp.originalSelectionState.anchorPosition + 1) + insertOp.text + super.text.substring(insertOp.originalSelectionState.activePosition + 1);
                     } else {
                         outputText = super.text.substring(0, insertOp.originalSelectionState.anchorPosition) + insertOp.text + super.text.substring(insertOp.originalSelectionState.activePosition);
@@ -392,7 +404,7 @@ package spark.components {
                         ac = ac + 1;
                     }
                 } else {
-
+                    //INSERT (TEXT NOT COMPLETE)
                     for (var i:int = 0; i < maskText.length; i++) {
                         if (stack.length == 0) {
                             break;
@@ -467,6 +479,11 @@ package spark.components {
          * @param event the TextEvent
          */
         protected function overrideText(event:TextEvent):void {
+            //windows insert mode on (note that Flash Player does not track insertion mode state before running a SWF)
+            if (EditManager.overwriteMode) {
+                return;
+            }
+
             var an:int = selectionAnchorPosition;
             var ac:int = selectionActivePosition;
 
