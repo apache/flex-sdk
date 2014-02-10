@@ -65,17 +65,21 @@ if [ "$FLASH_VERSION" == "11.1" ]
 then
   FLASH_VERSION=11.7
   AIR_VERSION=3.7
+  AIR_SDK_DIR=3.7
 elif [ "$FLASH_VERSION" == "11.7" ]
 then
   FLASH_VERSION=12.0
-  AIR_VERSION=4
+  AIR_VERSION=4.0
+  AIR_SDK_DIR=4.0
 elif [ "$FLASH_VERSION" == "12.0" ]
 then
-  FLASH_VERSION=13
-  AIR_VERSION=4.01
+  FLASH_VERSION=13.0
+  AIR_VERSION=4.0
+  AIR_SDK_DIR=4.0_beta
 else
   FLASH_VERSION=11.1
   AIR_VERSION=3.7
+  AIR_SDK_DIR=3.7
 fi
 
 # write toggled values to 'versions' file
@@ -90,7 +94,7 @@ LOG=$LOG"- Set FLASH_VERSION to '$FLASH_VERSION' and AIR_VERSION to '$AIR_VERSIO
 
 # LOCATIONS
 #export AIR_HOME="/Users/erik/Documents/ApacheFlex/dependencies/AdobeAIRSDK"
-export AIR_HOME="C:\\ApacheFlex\\dependencies\\AdobeAIRSDK\\$AIR_VERSION"
+export AIR_HOME="C:\\ApacheFlex\\dependencies\\AdobeAIRSDK\\$AIR_SDK_DIR"
 LOG=$LOG"- Set AIR_HOME to '$AIR_HOME'"$'\n'
 
 case "$FLASH_VERSION" in
@@ -104,7 +108,7 @@ case "$FLASH_VERSION" in
   12.0)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer12-0_debugsa_win_32.exe"
   ;;
-  13)
+  13.0)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer13_debugsa_win_32.exe"
   ;;
   *)
@@ -119,7 +123,7 @@ LOG=$LOG"- Set FLASHPLAYER_DEBUGGER to '$FLASHPLAYER_DEBUGGER'"$'\n'
 # To build the SDK using the versions specified above, write '../local.properties'
 cat > ../local.properties <<END 
 playerglobal.version = $FLASH_VERSION
-air.version = AIR_VERSION
+air.version = $AIR_VERSION
 END
 
 
