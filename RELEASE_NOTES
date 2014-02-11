@@ -83,14 +83,16 @@ FLEX-34045  adds file id to the stack info printed by fdb
 FLEX-34044  Breakpoints in ActionScript files do not work when debugging app using ANE
 FLEX-34043  Impossible to set breakpoint in MXML files that contains item renderer
 FLEX-34038  experimental MobileGrid seems to overflow itself & leak out into any components below it
+FLEX-34032  abnormal focus behavior in popup ultimiately causes unhandled exception
+FLEX-34020  Null object reference when truncating RichText
 FLEX-34019  ComboBox not closed when selecting an item from the dropdown list under certain conditions
 FLEX-34011  Axis Render throws RTE when axis is null
 FLEX-34006  RTE null reference in ViewTransitionBase.captureEndValues() when Skin doesn't provide an ActionBar
 FLEX-33999  spark.skins.mobile480.assets.BeveledActionButton_
+FLEX-33992  Zero division at Grid.as setters for horizontalScrollPosition and verticalScrollPosition
 FLEX-33990  RTE in AdvancedDataGridBase drawItem
 FLEX-33989  ViewNavigatorBase discards MultiDPIBitmapSource information for icon when saving and re-loading view
-FLEX-33984  Spark CheckBox does not support labelPlacement like it's mx counter part
-FLEX-33992  Zero division at Grid.as setters for horizontalScrollPosition and verticalScrollPosition
+FLEX-33985  [TLF] Pressing BACKSPACE key when editing a TextInput deletes a whole line
 FLEX-33984  Spark CheckBox does not support labelPlacement like it's mx counter part
 FLEX-33978  AIR mobile + flex sdk 4.10 + text field setFocus runtime error
 FLEX-33976  closing Alert from modal TitleWindow removes blur in main app

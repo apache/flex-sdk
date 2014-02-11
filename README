@@ -112,7 +112,7 @@ Install Prerequisites
     will result in build errors.
     
     The environment variables PLAYERGLOBAL_HOME, AIR_HOME, FLASHPLAYER_DEBUGGER, TLF_HOME,
-    PIXELBENDER_HOME and ADOBE_EXTENSION_MANAGER can also be set in the property file 
+    and ADOBE_EXTENSION_MANAGER can also be set in the property file 
     called env.properties. See the env-template.properties file for instructions.
     
     The Adobe Flash Player playerglobal.swc is needed to compile all the components
@@ -120,8 +120,7 @@ Install Prerequisites
     airglobal.swc from the AIR Integration Kit.  The AIR Integration kit is also needed
     to build and debug mobile applications.  The Adobe Flash Player content debugger is
     used by checkintests and other pieces of the test subsystem to run compiled
-    applications.  The Adobe Pixel Bender Toolkit is needed to build some
-    files needed for effects.
+    applications.
 
     The build scripts assume that the folder containing the Text Layout Framework (tlf)
     folder is a sibling of the sdk folder.  If this is not true, then you must set the
@@ -141,11 +140,9 @@ Install Prerequisites
     
     Adobe Flash Player Content Debugger (*4)    FLASHPLAYER_DEBUGGER
         
-    Adobe Pixel Bender Toolkit (*5)             PIXELBENDER_HOME
-    
-    Adobe Flash Player playerglobal swcs (*6)   PLAYERGLOBAL_HOME
+    Adobe Flash Player playerglobal swcs (*5)   PLAYERGLOBAL_HOME
 
-    Adobe Extension Manager CS5 (*7)            ADOBE_EXTENSION_MANAGER
+    Adobe Extension Manager CS5 (*6)            ADOBE_EXTENSION_MANAGER
 
     Text Layout Framework                       TLF_HOME
 
@@ -203,22 +200,7 @@ Install Prerequisites
         
         On Linux, set FLASHPLAYER_DEBUGGER to the absolute path of flashplayerdebugger
             
-    *5) The Adobe Pixel Bender Toolkit for Windows can be downloaded from:
-            http://www.adobe.com/go/pixelbender_toolkit_zip/
-        
-         The Adobe Pixel Bender Toolkit for Mac can be downloaded from:
-            http://www.adobe.com/go/pixelbender_toolkit_dmg/
-            
-         No Pixel Bender Toolkit for Linux exists but the compiled Pixel Bender files
-         can be downloaded from:
-            https://builds.apache.org/pview/job/flex-sdk_pixelbender/lastSuccessfulBuild/artifact/out/pb.tar.gz
-                    
-         Download the Pixel Bender Toolkit for your platform and install or unzip it.
-         On Windows and Mac Set PIXELBENDER_HOME to the absolute path of the Pixel Bender
-         Toolkit directory, on Linux set it to be the absolute path of the compiled
-         Pixel Bender files.
-
-    *6) The Adobe Flash Player playerglobal.swc for 11.1 can be downloaded from:
+    *5) The Adobe Flash Player playerglobal.swc for 11.1 can be downloaded from:
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc 
         
         Use URL above to download playerglobal11_1.swc. Create the directory, player/11.1
@@ -242,7 +224,7 @@ Install Prerequisites
             
         These can be used with Apache Flex but not all have not been fully tested.
         
-    *7) The Adobe Extension Manager is only required for those creating releases or
+    *6) The Adobe Extension Manager is only required for those creating releases or
         testing changes to the flash-integration swc.  Note that if you change APIs on
         classes that flash-integration depends on, you may need to update
         flash-integration.
