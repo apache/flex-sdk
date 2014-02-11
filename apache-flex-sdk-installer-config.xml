@@ -36,42 +36,49 @@
             <de_DE>Adobe AIR SDK (Benötigt)</de_DE>
             <el_GR>Αποσυμπίεση του Adobe AIR Runtime Kit</el_GR>
             <en_US>Adobe AIR SDK (Required)</en_US>
+            <nl_NL>Adobe AIR SDK (Verplicht)</nl_NL>
             <pt_BR>Adobe AIR SDK (Required)</pt_BR>
         </step>
         <step id="flash-download" property="do.flash.install">
             <de_DE>Adobe Flash Player playerglobal.swc (Benötigt)</de_DE>
             <el_GR>Λήψη Flash Player swc</el_GR>
             <en_US>Adobe Flash Player playerglobal.swc (Required)</en_US>
+            <nl_NL>Adobe Flash Player playerglobal.swc (Verplicht)</nl_NL>
             <pt_BR>Adobe Flash Player playerglobal.swc (Required)</pt_BR>
         </step>
         <step id="swfobject-download" property="do.swfobject.install">
             <de_DE>SWFObject (Benötigt)</de_DE>
             <el_GR>SWFObject (Απαιτούμενο)</el_GR>
             <en_US>SWFObject (Required)</en_US>
+            <nl_NL>SWFObject (Verplicht)</nl_NL>
             <pt_BR>SWFObject (Required)</pt_BR>
         </step>
         <step id="osmf-download" property="do.swfobject.install">
             <de_DE>OSMF (Benötigt)</de_DE>
             <el_GR>OSMF (Απαιτούμενο)</el_GR>
             <en_US>OSMF (Required)</en_US>
+            <nl_NL>OSMF (Verplicht)</nl_NL>
             <pt_BR>OSMF (Obrigatório)</pt_BR>
         </step>
         <step id="fontswf-download" property="do.swfobject.install">
             <de_DE>Adobe Bibliothek zur Einbettung von Schriften (Optional)</de_DE>
             <el_GR>Adobe Embedded Font Libraries and Utilities (Προαιρετικό)</el_GR>
             <en_US>Adobe Embedded Font Libraries and Utilities (Required)</en_US>
+            <nl_NL>Adobe Embedded Font Libraries en Utilities (Optioneel)</nl_NL>
             <pt_BR>Adobe Embedded Font Libraries and Utilities (Opcional)</pt_BR>
         </step>
         <step id="blazeds-download" property="do.swfobject.install">
             <de_DE>Remoting Support (Optional)</de_DE>
             <el_GR>Remoting Support (Προαιρετικό)</el_GR>
             <en_US>Remoting Support (Required)</en_US>
+            <nl_NL>Remoting Support (Optioneel)</nl_NL>
             <pt_BR>Suporte para Remoting (Opcional)</pt_BR>
         </step>
         <step id="fixup-config-files">
             <de_DE>Installiere Framework Konfigurationsdateien</de_DE>
             <el_GR>Εγκατάσταση των αρχείων ρυθμίσεων του Framework</el_GR>
             <en_US>Install Framework Configuration Files</en_US>
+            <nl_NL>Framework Configuratie Bestanden Installeren</nl_NL>
             <pt_BR>Instalando arquivos de configuração do Framework</pt_BR>
         </step>
     </steps>
@@ -90,6 +97,10 @@
             <license>Apache V2 License</license>
             <licenseURL>http://www.apache.org/licenses/LICENSE-2.0.html</licenseURL>
         </en_US>
+        <nl_NL>
+            <label>Apache Flex SDK (Verplicht)</label>
+            <message>De Apache License V2 geldt voor de Apache Flex SDK. Wilt u de Apache Flex SDK installeren?</message>
+        </nl_NL>
         <pt_BR>
         </pt_BR>
     </component>
@@ -109,6 +120,10 @@
             <license>Adobe AIR SDK License</license>
             <licenseURL>http://www.adobe.com/products/air/sdk-eula.html</licenseURL>
         </en_US>
+        <nl_NL>
+            <label>Adobe AIR SDK (Verplicht)</label>
+            <message>De Adobe SDK licentie overeenkomst geldt voor de Adobe AIR SDK. Wilt u de Adobe AIR SDK installeren?</message>
+        </nl_NL>
         <pt_BR>
         </pt_BR>
     </component>
@@ -128,6 +143,10 @@
             <license>Adobe Flex SDK License</license>
             <licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
         </en_US>
+        <nl_NL>
+            <label>Adobe Flash Player playerglobal.swc (Verplicht)</label>
+            <message>De Adobe SDK licentie overeenkomst geldt voor de Adobe Flash Player playerglobal.swc. Wilt u de Adobe Flash Player playerglobal.swc installeren?</message>
+        </nl_NL>
         <pt_BR>
         </pt_BR>
     </component>
@@ -146,6 +165,10 @@
             <license>MIT License</license>
             <licenseURL>http://opensource.org/licenses/mit-license.php</licenseURL>
         </en_US>
+        <nl_NL>
+            <label>SWFObject (Verplicht)</label>
+            <message>De MIT License (MIT) geldt voor de SWFObject utility. Wilt u de SWFObject utility installeren?</message>
+        </nl_NL>
         <pt_BR>
             <label>Apache Flex SDK (Benötigt)</label>
             <message>Das Apache Flex SDK verwendet die Apache License V2. Möchten Sie jetzt das Apache Flex SDK installieren?</message>
@@ -166,6 +189,10 @@
             <license>Mozilla Public License Version 1.1</license>
             <licenseURL>http://www.mozilla.org/MPL/</licenseURL>
         </en_US>
+        <nl_NL>
+            <label>OSMF (Verplicht)</label>
+            <message>Het Open Source Media Framework (OSMF) dat gebruikt wordt door de video componenten is gelicenseerd onder de Mozilla Public License Versie 1.1. Wilt u het Open Source Media Framework (OSMF) installeren?</message>
+        </nl_NL>
         <pt_BR>
             <label>OSMF (Obrigatório)</label>
             <message>O Open Source Media Framework (OSMF) utilizado pelos componentes de video está sob a licença Mozilla Public License Version 1.1.</message>
@@ -187,6 +214,10 @@
             <license>Adobe Flex SDK License</license>
             <licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
         </en_US>
+        <nl_NL>
+            <label>Remoting Support (Optioneel)</label>
+            <message>Apache Flex kan optioneel integreren met remoting providers zoals BlazeDS, GraniteDS, WebORB, Red5, AMFPHP, RubyAMF, PyAMF en andere. Deze feature vereist flex-messaging-common.jar uit de Adobe Flex SDK. De Adobe SDK licentie overeenkomst voor Adobe Flex 4.6 geldt voor deze jar. Deze licentie is niet compatibel met de Apache V2 licentie. Wilt u deze jar uit de Adobe Flex SDK installeren?</message>
+        </nl_NL>
         <pt_BR>
             <label>Suporte para Remoting (Opcional)</label>
             <message>Apache Flex pode, opcionalmente, integrar-se com serviços de remoting como BlazeDS, GraniteDS, WebORB, Red5, AMFPHP, RubyAMF, PyAMF e outros. Esta funcionalidade requer a biblioteca flex-messaging-common.jar do SDK Adobe Flex. A licença do SDK Adobe Flex 4.6 aplica-se a esta biblioteca. Esta licença não é compatível com a licença Apache V2. Deseja instalar a biblioteca a partir do SDK Adobe Flex</message>
@@ -208,6 +239,10 @@
             <license>Adobe Flex SDK License</license>
             <licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
         </en_US>
+        <nl_NL>
+            <label>Adobe Embedded Font Libraries en Utilities (Optioneel)</label>
+            <message>Apache Flex kan optioneel integreren met Adobe's embedded font support. Deze feature vereist een aantal font jars uit de Adobe Flex SDK. De Adobe SDK licentie overeenkomst voor Adobe Flex 4.6 geldt voor deze jars. Deze licentie is niet compatibel met de Apache V2 licentie. Wilt u deze jars uit de Adobe Flex SDK installeren?</message>
+        </nl_NL>
         <pt_BR>
             <label>Adobe Embedded Font Libraries and Utilities (Opcional)</label>
             <message>Apache Flex pode, opcionalmente, integrar-se com o suporte de fontes embutidas da Adobe. Este recurso requer alguns jars do Adobe Flex SDK, que estão sob o contrato de licença do Adobe Flex 4.6. Esta licença não é compatível com a licença Apache V2. Você quer instalar estes jars a partir do Adobe Flex SDK?</message>
