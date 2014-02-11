@@ -37,13 +37,6 @@ fi
 
 
 
-# CLEAN
-rm -f ../local.properties
-rm -f local.properties
-LOG=$LOG"- Cleaned up 'local.properties' files from previous runs"$'\n'
-
-
-
 # VERSIONS
 
 VERSIONS_FILE="versions.txt"
@@ -82,12 +75,6 @@ else
   AIR_SDK_DIR=3.7
 fi
 
-# write toggled values to 'versions' file
-cat > $VERSIONS_FILE <<END 
-FLASH_VERSION=$FLASH_VERSION
-AIR_VERSION=$AIR_VERSION
-END
-
 LOG=$LOG"- Set FLASH_VERSION to '$FLASH_VERSION' and AIR_VERSION to '$AIR_VERSION'"$'\n'
 
 
@@ -120,14 +107,6 @@ LOG=$LOG"- Set FLASHPLAYER_DEBUGGER to '$FLASHPLAYER_DEBUGGER'"$'\n'
 
 
 
-# To build the SDK using the versions specified above, write '../local.properties'
-cat > ../local.properties <<END 
-playerglobal.version = $FLASH_VERSION
-air.version = $AIR_VERSION
-END
-
-
-
 # RUN SETTINGS
 
 RUN_TYPE="main"
@@ -153,13 +132,6 @@ then
   TEST_SET=tests/apollo
 elif [ "$RUN_TYPE" == "mobile" ]
 then
-  cat > local.properties <<END 
-target_os_name=android
-android_sdk=C:/ApacheFlex/dependencies/AndroidSDK/adt-bundle-windows-x86_64-20130522/sdk
-runtimeApk=${AIR_HOME}/runtimes/air/android/emulator/Runtime.apk
-device_name=win
-END
-
   TEST_COMMAND=-mobile
   TEST_SET=tests/mobile
 fi
@@ -197,10 +169,38 @@ END
 
 
 
+# Remove old 'local.properties' files
+rm -f ../local.properties
+rm -f local.properties
+
+LOG=$LOG"- Cleaned up 'local.properties' files from previous runs"$'\n'
+
+
+
+# To build the SDK using the values specified above, write both 'local.properties' files
+cat > ../local.properties <<END 
+playerglobal.version = $FLASH_VERSION
+air.version = $AIR_VERSION
+END
+
+if [ "$RUN_TYPE" == "mobile" ]
+then
+  cat > local.properties <<END 
+target_os_name=android
+android_sdk=C:/ApacheFlex/dependencies/AndroidSDK/adt-bundle-windows-x86_64-20130522/sdk
+runtimeApk=${AIR_HOME}/runtimes/air/android/emulator/Runtime.apk
+device_name=win
+END
+
+LOG=$LOG"- Created fresh 'local.properties' files with containing run specific values"$'\n'
+
+
+
 # ANT
 ant -f ../build.xml clean -Dbuild.noprompt=true
 ant -f ../build.xml main -Dbuild.noprompt=true
 ant -f ../build.xml other.locales -Dbuild.noprompt=true
+
 LOG=$LOG"- Ran 'clean', 'main' and 'other.locales' ant targets to prepare the SDK for testing"$'\n'
 
 
@@ -279,4 +279,10 @@ END
 if ! $SUCCESS
 then
   exit 1
+else
+  # write 'used' values to 'versions' file upon success
+  cat > $VERSIONS_FILE <<END 
+  FLASH_VERSION=$FLASH_VERSION
+  AIR_VERSION=$AIR_VERSION
+END
 fi
