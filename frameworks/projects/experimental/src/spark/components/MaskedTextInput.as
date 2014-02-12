@@ -58,7 +58,7 @@ package spark.components {
      *      maskText            : The mask base string for the component logic
      *                            defaults to ""
      *      separators          : The characters specified to act as separators that must be present in the maskText
-     *                            defaults to "-+/|()[]{}."
+     *                            defaults to "- +/|()[]{}."
      *      textMaskPrompt      : User defined prompt to override default behaviour.
      *                            defaults to ""
      *      placeHolder         : A character to show instead internal mask template characters (#, @ and ?)
