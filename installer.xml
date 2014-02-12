@@ -67,6 +67,11 @@
         <os family="unix" />
     </condition>
     
+    <condition property="AIRDownloadEcho" value="${INFO_DOWNLOADING_AIR_RUNTIME_KIT_WINDOWS}">
+        <os family="windows" />
+    </condition>
+    <property name="AIRDownloadEcho" value="${INFO_DOWNLOADING_AIR_RUNTIME_KIT_MAC}" />
+    
     <condition property="air.donot.ask" value="true">
         <isset property="installer" />
     </condition>
@@ -244,6 +249,7 @@
     </target>
         
     <target name="air-get" depends="air-get-check" unless="air.downloaded" >
+        <echo>${AIRDownloadEcho} ${air.sdk.url.path}/${air.sdk.url.file}</echo>
         <get src="${air.sdk.url.path}/${air.sdk.url.file}"
             dest="${download.dir}/${air.sdk.url.file}"
             verbose="false"/>
@@ -251,6 +257,7 @@
     
     <target name="air-setup-win" if="isWindows">
         <unzip src="${download.dir}/${air.sdk.url.file}" dest="${download.dir}/airsdk" />
+        <echo>${INFO_FINISHED_UNZIPPING} ${download.dir}/${air.sdk.url.file}</echo>
         <copy todir="${FLEX_HOME}" overwrite="true">
             <fileset dir="${download.dir}/airsdk">
                 <include name="AIR SDK license.pdf" />
@@ -291,6 +298,7 @@
             <arg value="-xvf" />
             <arg value="${air.tar.name}" />
         </exec>
+        <echo>${INFO_FINISHED_UNTARING} ${download.dir}/airsdk/${air.tar.name}</echo>
         <delete file="${basedir}/airtar.properties" />
         <antcall target="mac-copy-file">
             <param name="srcdir" value="." />
@@ -413,6 +421,7 @@
         
         <mkdir dir="${download.dir}"/>
         <mkdir dir="${FLEX_HOME}/frameworks/libs/player/${flash.sdk.version}"/>
+        <echo>${INFO_INSTALLING_PLAYERGLOBAL_SWC} ${flash.sdk.url.path}/${flash.sdk.url.file}</echo>
         <get src="${flash.sdk.url.path}/${flash.sdk.url.file}"
         dest="${FLEX_HOME}/frameworks/libs/player/${flash.sdk.version}/playerglobal.swc"
         verbose="false"/>
@@ -427,11 +436,19 @@
     <target name="swfobject-download" depends="swfobject-check" unless="swfobject.js.present"
         description="Copies SWFObject from code.google.com">
         
+        <echo file="${basedir}/swfobject.properties">swfobject.echo=${INFO_DOWNLOADING_FILE_FROM}</echo>
+        <replace file="${basedir}/swfobject.properties" token="{0}" value="swfobject_2_2.zip" />
+        <replace file="${basedir}/swfobject.properties" token="{1}" value="http://swfobject.googlecode.com/files" />
+        <property file="${basedir}/swfobject.properties" />
+        <delete file="${basedir}/swfobject.properties" />
+        <echo>${swfobject.echo}</echo>
+        
         <mkdir dir="${download.dir}"/>
         <get src="http://swfobject.googlecode.com/files/swfobject_2_2.zip"
             dest="${download.dir}/swfobject_2_2.zip"
             verbose="false"/>
         
+        <echo>${INFO_DOWNLOADED}</echo>
         <unzip src="${download.dir}/swfobject_2_2.zip" dest="${FLEX_HOME}/templates">
             <patternset>
                 <include name="swfobject/expressInstall.swf"/>
@@ -449,6 +466,13 @@
     <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present"
         description="Copies OSMF from Open@Adobe">
         
+        <echo file="${basedir}/osmf.properties">osmf.echo=${INFO_DOWNLOADING_FILE_FROM}</echo>
+        <replace file="${basedir}/osmf.properties" token="{0}" value="OSMF.swc" />
+        <replace file="${basedir}/osmf.properties" token="{1}" value="http://downloads.sourceforge.net/project/osmf.adobe/OSMF%202.0%20Release%20%28final%20source%2C%20ASDocs%2C%20pdf%20guides%20and%20release%20notes%29" />
+        <property file="${basedir}/osmf.properties" />
+        <delete file="${basedir}/osmf.properties" />
+        <echo>${osmf.echo}</echo>
+
         <mkdir dir="${basedir}/frameworks/libs/"/>
         <get src="http://downloads.sourceforge.net/project/osmf.adobe/OSMF%202.0%20Release%20%28final%20source%2C%20ASDocs%2C%20pdf%20guides%20and%20release%20notes%29/OSMF.swc"
         dest="${basedir}/frameworks/libs/OSMF.swc"
@@ -472,16 +496,48 @@
     <target name="fontswf-download" depends="fontswf-check" unless="fontswf.jars.present"
         description="Copies OSMF from Open@Adobe">
         
+        <echo file="${basedir}/afe.properties">afe.echo=${INFO_DOWNLOADING_FILE_FROM}</echo>
+        <replace file="${basedir}/afe.properties" token="{0}" value="afe.jar" />
+        <replace file="${basedir}/afe.properties" token="{1}" value="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/lib" />
+        <property file="${basedir}/afe.properties" />
+        <delete file="${basedir}/afe.properties" />
+        <echo>${afe.echo}</echo>
+
         <mkdir dir="${basedir}/lib/external/optional"/>
         <get src="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/lib/afe.jar"
         dest="${basedir}/lib/external/optional/afe.jar"
         verbose="false"/>
+
+        <echo file="${basedir}/agl.properties">agl.echo=${INFO_DOWNLOADING_FILE_FROM}</echo>
+        <replace file="${basedir}/agl.properties" token="{0}" value="aglj40.jar" />
+        <replace file="${basedir}/agl.properties" token="{1}" value="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/lib" />
+        <property file="${basedir}/agl.properties" />
+        <delete file="${basedir}/agl.properties" />
+        <echo>${agl.echo}</echo>
+        
         <get src="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/lib/aglj40.jar"
         dest="${basedir}/lib/external/optional/aglj40.jar"
         verbose="false"/>
+
+        <echo file="${basedir}/fontkit.properties">fontkit.echo=${INFO_DOWNLOADING_FILE_FROM}</echo>
+        <replace file="${basedir}/fontkit.properties" token="{0}" value="flex-fontkit.jar" />
+        <replace file="${basedir}/fontkit.properties" token="{1}" value="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/lib" />
+        <property file="${basedir}/fontkit.properties" />
+        <delete file="${basedir}/fontkit.properties" />
+        <echo>${fontkit.echo}</echo>
+        
         <get src="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/lib/flex-fontkit.jar"
         dest="${basedir}/lib/external/optional/flex-fontkit.jar"
         verbose="false"/>
+
+
+        <echo file="${basedir}/rideau.properties">rideau.echo=${INFO_DOWNLOADING_FILE_FROM}</echo>
+        <replace file="${basedir}/rideau.properties" token="{0}" value="rideau.jar" />
+        <replace file="${basedir}/rideau.properties" token="{1}" value="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/lib" />
+        <property file="${basedir}/rideau.properties" />
+        <delete file="${basedir}/rideau.properties" />
+        <echo>${rideau.echo}</echo>
+        
         <get src="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/lib/rideau.jar"
         dest="${basedir}/lib/external/optional/rideau.jar"
         verbose="false"/>
@@ -496,6 +552,13 @@
     <target name="blazeds-download" depends="blazeds-check" unless="blazeds.jar.present"
         description="Copies BlazeDS from Open@Adobe">
         
+        <echo file="${basedir}/blaze.properties">blaze.echo=${INFO_DOWNLOADING_FILE_FROM}</echo>
+        <replace file="${basedir}/blaze.properties" token="{0}" value="flex-messaging-common.jar" />
+        <replace file="${basedir}/blaze.properties" token="{1}" value="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/lib" />
+        <property file="${basedir}/blaze.properties" />
+        <delete file="${basedir}/blaze.properties" />
+        <echo>${blaze.echo}</echo>
+        
         <mkdir dir="${basedir}/lib/external/optional"/>
         <get src="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/lib/flex-messaging-common.jar"
         dest="${basedir}/lib/external/optional/flex-messaging-common.jar"
@@ -504,6 +567,7 @@
 
 
     <target name="fixup-config-files">
+        <echo>${INFO_INSTALLING_CONFIG_FILES}</echo>
         <replace file="${FLEX_HOME}/frameworks/flex-config.xml">
             <replacefilter token="@playerversion@"
                             value="${flash.sdk.version}"/>
