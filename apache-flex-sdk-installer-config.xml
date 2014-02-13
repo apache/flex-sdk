@@ -73,16 +73,16 @@
             <el_GR>Adobe Embedded Font Libraries and Utilities (Προαιρετικό)</el_GR>
             <en_US>Adobe Embedded Font Libraries and Utilities (Required)</en_US>
             <es_ES>Adobe Embedded Font Libraries and Utilities (Opcional)</es_ES>
-            <fr_FR>Bibliothèques Adobe Font embarqués et utilitaires (facultatif)</fr_FR>
+            <fr_FR>Bibliothèques Adobe Font embarquées et utilitaires (Facultatif)</fr_FR>
             <nl_NL>Adobe Embedded Font Libraries en Utilities (Optioneel)</nl_NL>
             <pt_BR>Adobe Embedded Font Libraries and Utilities (Opcional)</pt_BR>
         </step>
         <step id="blazeds-download" property="do.swfobject.install">
             <de_DE>Remoting Support (Optional)</de_DE>
             <el_GR>Remoting Support (Προαιρετικό)</el_GR>
-            <en_US>Remoting Support (Required)</en_US>
+            <en_US>Remoting Support (Optional)</en_US>
             <es_ES>Suporte para Remoting (Opcional)</es_ES>
-            <fr_FR>Remoting Support (facultatif)</fr_FR>
+            <fr_FR>Support du Remoting (Facultatif)</fr_FR>
             <nl_NL>Remoting Support (Optioneel)</nl_NL>
             <pt_BR>Suporte para Remoting (Opcional)</pt_BR>
         </step>
@@ -241,7 +241,7 @@
         </es_ES>
         <fr_FR>
             <label>OSMF (Requis)</label>
-            <message>L'Open Source Media Framework (OSMF) utilisé par les composants vidéo est sous la licence Mozilla Public License Version 1.1. Voulez-vous installer le Open Source Media Framework (OSMF)?</message>
+            <message>L'Open Source Media Framework (OSMF) utilisé par les composants vidéo est sous licence Mozilla Public License Version 1.1. Voulez-vous installer le Open Source Media Framework (OSMF)?</message>
         </fr_FR>
         <nl_NL>
             <label>OSMF (Verplicht)</label>
@@ -273,8 +273,8 @@
             <message>Apache Flex puede integrarse de manera opcional con Adobe BlazeDS. Esta característica necesita flex-messaging-common.jar del SDK de Adobe Flex. Este archivo se ofrecen bajo los términos de la licencia de Adobe SDK para Adobe Flex 4.6. Esta licencia no es compatible con la licencia Apache V2. ¿Quieres instalar este archivo desde el SDK de Adobe Flex?</message>
         </es_ES>
         <fr_FR>
-            <label>Remoting Support (facultatif)</label>
-            <message>Apache Flex peut éventuellement s'intégrer à Adobe BlazeDS. Cette fonctionalité nécessite flex-messaging-common.jar du SDK Adobe Flex. L'accord de licence Adobe SDK pour Adobe Flex 4.6 s'applique à ce jar. Cette licence n'est pas compatible avec la licence Apache V2. Voulez-vous installer ce jar à partir du SDK Adobe Flex?</message>
+            <label>Remoting Support (Facultatif)</label>
+            <message>Apache Flex peut éventuellement s'intégrer à Adobe BlazeDS. Cette fonctionnalité nécessite flex-messaging-common.jar du SDK Adobe Flex. L'accord de licence Adobe SDK pour Adobe Flex 4.6 s'applique à ce jar. Cette licence n'est pas compatible avec la licence Apache V2. Voulez-vous installer ce jar à partir du SDK Adobe Flex?</message>
         </fr_FR>
         <nl_NL>
             <label>Remoting Support (Optioneel)</label>
@@ -306,8 +306,8 @@
             <message>Apache Flex puede integrarse de manera opcional con el soporte para fuentes embebidas de Adobe. Esta característica necesita algunos ficheros de fuentes del SDK de Adobe Flex. Estos archivos se ofrecen bajo los términos de la licencia de Adobe SDK para Adobe Flex 4.6. Esta licencia no es compatibla con la licencia Apache V2. ¿Quieres instalar estos archivos desde el SDK de Adobe Flex?</message>
         </es_ES>
         <fr_FR>
-            <label>Bibliothèques Adobe Font embarqués et utilitaires (facultatif)</label>
-            <message>Apache Flex peut éventuellement s'intégrer avec le support de polices embarquées Adobe (Adobe's embedded font support). Cette fonctionalité nécessite quelques jars de polices du SDK Adobe Flex. L'accord de licence Adobe SDK pour Adobe Flex 4.6 s'applique à ces jarres. Cette licence n'est pas compatible avec la licence Apache V2. Voulez-vous installer ces jars à partir du SDK Adobe Flex?</message>
+            <label>Bibliothèques Adobe Font embarquées et utilitaires (Facultatif)</label>
+            <message>Apache Flex peut éventuellement s'intégrer avec le support de polices embarquées Adobe (Adobe's embedded font support). Cette fonctionnalité nécessite quelques jars de polices du SDK Adobe Flex. L'accord de licence Adobe SDK pour Adobe Flex 4.6 s'applique à ces jars. Cette licence n'est pas compatible avec la licence Apache V2. Voulez-vous installer ces jars à partir du SDK Adobe Flex?</message>
         </fr_FR>
         <nl_NL>
             <label>Adobe Embedded Font Libraries en Utilities (Optioneel)</label>
