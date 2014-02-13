@@ -191,6 +191,7 @@ android_sdk=C:/ApacheFlex/dependencies/AndroidSDK/adt-bundle-windows-x86_64-2013
 runtimeApk=${AIR_HOME}/runtimes/air/android/emulator/Runtime.apk
 device_name=win
 END
+fi
 
 LOG=$LOG"- Created fresh 'local.properties' files with containing run specific values"$'\n'
 
