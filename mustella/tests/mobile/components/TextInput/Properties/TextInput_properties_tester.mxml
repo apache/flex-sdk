@@ -543,7 +543,7 @@
 				            <SetProperty target="tic1.ti1" propertyName="text" waitEvent="updateComplete" valueExpression="value = FlexGlobals.topLevelApplication.shortString" />
 				        </setup>
 				        <body>
-				            <AssertMethodValue method="value=Number(FlexGlobals.topLevelApplication.tic1.ti1.alpha.toFixed(1))" value="0.1" />
+				            <AssertMethodValue method="value=FlexGlobals.topLevelApplication.tic1.ti1.alpha.toFixed(2)" valueExpression="value='0.10'" />
 				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic1.ti1">
 											<ConditionalValue deviceDensity="160" />
 											<ConditionalValue deviceDensity="240" />
