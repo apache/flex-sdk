@@ -36,7 +36,7 @@
             <de_DE>Adobe AIR SDK (Benötigt)</de_DE>
             <el_GR>Αποσυμπίεση του Adobe AIR Runtime Kit</el_GR>
             <en_US>Adobe AIR SDK (Required)</en_US>
-            <es_ES>Adobe AIR SDK (Necesario)</es_ES>
+            <es_ES>Adobe AIR SDK (Requerido)</es_ES>
             <fr_FR>Adobe AIR SDK (Requis)</fr_FR>
             <nl_NL>Adobe AIR SDK (Verplicht)</nl_NL>
             <pt_BR>Adobe AIR SDK (Required)</pt_BR>
@@ -45,7 +45,7 @@
             <de_DE>Adobe Flash Player playerglobal.swc (Benötigt)</de_DE>
             <el_GR>Λήψη Flash Player swc</el_GR>
             <en_US>Adobe Flash Player playerglobal.swc (Required)</en_US>
-            <es_ES>Adobe Flash Player playerglobal.swc (Necesario)</es_ES>
+            <es_ES>Adobe Flash Player playerglobal.swc (Requerido)</es_ES>
             <fr_FR>Adobe Flash Player playerglobal.swc (Requis)</fr_FR>
             <nl_NL>Adobe Flash Player playerglobal.swc (Verplicht)</nl_NL>
             <pt_BR>Adobe Flash Player playerglobal.swc (Required)</pt_BR>
@@ -54,7 +54,7 @@
             <de_DE>SWFObject (Benötigt)</de_DE>
             <el_GR>SWFObject (Απαιτούμενο)</el_GR>
             <en_US>SWFObject (Required)</en_US>
-            <es_ES>SWFObject (Necesario)</es_ES>
+            <es_ES>SWFObject (Requerido)</es_ES>
             <fr_FR>SWFObject (Requis)</fr_FR>
             <nl_NL>SWFObject (Verplicht)</nl_NL>
             <pt_BR>SWFObject (Required)</pt_BR>
@@ -63,7 +63,7 @@
             <de_DE>OSMF (Benötigt)</de_DE>
             <el_GR>OSMF (Απαιτούμενο)</el_GR>
             <en_US>OSMF (Required)</en_US>
-            <es_ES>OSMF (Necesario)</es_ES>
+            <es_ES>OSMF (Requerido)</es_ES>
             <fr_FR>OSMF (Requis)</fr_FR>
             <nl_NL>OSMF (Verplicht)</nl_NL>
             <pt_BR>OSMF (Obrigatório)</pt_BR>
@@ -72,7 +72,7 @@
             <de_DE>Adobe Bibliothek zur Einbettung von Schriften (Optional)</de_DE>
             <el_GR>Adobe Embedded Font Libraries and Utilities (Προαιρετικό)</el_GR>
             <en_US>Adobe Embedded Font Libraries and Utilities (Required)</en_US>
-            <es_ES>Adobe Embedded Font Libraries and Utilities (Opcional)</es_ES>
+            <es_ES>Librería y utilidades de fuentes embebidas de Adobe (Opcional)</es_ES>
             <fr_FR>Bibliothèques Adobe Font embarquées et utilitaires (Facultatif)</fr_FR>
             <nl_NL>Adobe Embedded Font Libraries en Utilities (Optioneel)</nl_NL>
             <pt_BR>Adobe Embedded Font Libraries and Utilities (Opcional)</pt_BR>
@@ -81,7 +81,7 @@
             <de_DE>Remoting Support (Optional)</de_DE>
             <el_GR>Remoting Support (Προαιρετικό)</el_GR>
             <en_US>Remoting Support (Optional)</en_US>
-            <es_ES>Suporte para Remoting (Opcional)</es_ES>
+            <es_ES>Soporte para Remoting (Opcional)</es_ES>
             <fr_FR>Support du Remoting (Facultatif)</fr_FR>
             <nl_NL>Remoting Support (Optioneel)</nl_NL>
             <pt_BR>Suporte para Remoting (Opcional)</pt_BR>
@@ -90,7 +90,7 @@
             <de_DE>Installiere Framework Konfigurationsdateien</de_DE>
             <el_GR>Εγκατάσταση των αρχείων ρυθμίσεων του Framework</el_GR>
             <en_US>Install Framework Configuration Files</en_US>
-            <es_ES>Instalar ficheros de coniguración</es_ES>
+            <es_ES>Instalar ficheros de configuración</es_ES>
             <fr_FR>Installer les fichiers de configuration du framework</fr_FR>
             <nl_NL>Framework Configuratie Bestanden Installeren</nl_NL>
             <pt_BR>Instalando arquivos de configuração do Framework</pt_BR>
@@ -112,8 +112,8 @@
             <licenseURL>http://www.apache.org/licenses/LICENSE-2.0.html</licenseURL>
         </en_US>
         <es_ES>
-            <label>Apache Flex SDK (Necesario)</label>
-            <message>Apache Flex SDK se ofrece bajo los términos de la licencia Apache License V2. ¿Quieres instalar Apache Flex SDK?</message>
+            <label>Apache Flex SDK (Requerido)</label>
+            <message>Apache Flex SDK se ofrece bajo los términos de la licencia Apache License V2. ¿Quiere instalar el SDK de Apache Flex?</message>
         </es_ES>
         <fr_FR>
             <label>Apache Flex SDK (Requis)</label>
@@ -143,8 +143,8 @@
             <licenseURL>http://www.adobe.com/products/air/sdk-eula.html</licenseURL>
         </en_US>
         <es_ES>
-            <label>Adobe AIR SDK (Necesario)</label>
-            <message>Adobe AIR SDK se ofrece bajo los térmios de la licencia de Adobe SDK. ¿Quieres instalar Adobe AIR SDK?</message>
+            <label>Adobe AIR SDK (Requerido)</label>
+            <message>Adobe AIR SDK se ofrece bajo los términos de la licencia de Adobe SDK. ¿Quiere instalar el SDK de Adobe AIR?</message>
         </es_ES>
         <fr_FR>
             <label>Adobe AIR SDK (Requis)</label>
@@ -174,8 +174,8 @@
             <licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
         </en_US>
         <es_ES>
-            <label>Adobe Flash Player playerglobal.swc (Necesario)</label>
-            <message>Adobe Flash Player playerglobal.swc se ofrece bajo los términos de la licencia de Adobe SDK. ¿Quieres instalar Adobe Flash Player playerglobal.swc?</message>
+            <label>Adobe Flash Player playerglobal.swc (Requerido)</label>
+            <message>Adobe Flash Player playerglobal.swc se ofrece bajo los términos de la licencia de Adobe SDK. ¿Quiere instalar el reproductor de Adobe Flash playerglobal.swc?</message>
         </es_ES>
         <fr_FR>
             <label>Adobe Flash Player playerglobal.swc (Requis)</label>
@@ -204,8 +204,8 @@
             <licenseURL>http://opensource.org/licenses/mit-license.php</licenseURL>
         </en_US>
         <es_ES>
-            <label>SWFObject (Necesario)</label>
-            <message>SWFObject se ofrece bajo licencia MIT (MIT). ¿Quieres instalar SWFObject?</message>
+            <label>SWFObject (Requerido)</label>
+            <message>SWFObject se ofrece bajo licencia MIT (MIT). ¿Quiere instalar SWFObject?</message>
         </es_ES>
         <fr_FR>
             <label>SWFObject (Requis)</label>
@@ -236,8 +236,8 @@
             <licenseURL>http://www.mozilla.org/MPL/</licenseURL>
         </en_US>
         <es_ES>
-            <label>OSMF (Necesario)</label>
-            <message>Open Source Media Framework (OSMF), utilizado en los componentes de video, se ofrece bajo los términos de la Mozilla Public License Version 1.1. ¿Quieres instalar Open Source Media Framework (OSMF)?</message>
+            <label>OSMF (Requerido)</label>
+            <message>Open Source Media Framework (OSMF), utilizado en los componentes de video, se ofrece bajo los términos de la Mozilla Public License Version 1.1. ¿Quiere instalar Open Source Media Framework (OSMF)?</message>
         </es_ES>
         <fr_FR>
             <label>OSMF (Requis)</label>
@@ -269,8 +269,8 @@
             <licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
         </en_US>
         <es_ES>
-            <label>Suporte para Remoting (Opcional)</label>
-            <message>Apache Flex puede integrarse de manera opcional con Adobe BlazeDS. Esta característica necesita flex-messaging-common.jar del SDK de Adobe Flex. Este archivo se ofrecen bajo los términos de la licencia de Adobe SDK para Adobe Flex 4.6. Esta licencia no es compatible con la licencia Apache V2. ¿Quieres instalar este archivo desde el SDK de Adobe Flex?</message>
+            <label>Soporte para Remoting (Opcional)</label>
+            <message>Apache Flex puede integrarse de manera opcional con Adobe BlazeDS. Esta característica necesita flex-messaging-common.jar del SDK de Adobe Flex. Este archivo se ofrecen bajo los términos de la licencia de Adobe SDK para Adobe Flex 4.6. Esta licencia no es compatible con la licencia Apache V2. ¿Quiere instalar este archivo desde el SDK de Adobe Flex?</message>
         </es_ES>
         <fr_FR>
             <label>Remoting Support (Facultatif)</label>
@@ -302,8 +302,8 @@
             <licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
         </en_US>
         <es_ES>
-            <label>Adobe Embedded Font Libraries and Utilities (Opcional)</label>
-            <message>Apache Flex puede integrarse de manera opcional con el soporte para fuentes embebidas de Adobe. Esta característica necesita algunos ficheros de fuentes del SDK de Adobe Flex. Estos archivos se ofrecen bajo los términos de la licencia de Adobe SDK para Adobe Flex 4.6. Esta licencia no es compatibla con la licencia Apache V2. ¿Quieres instalar estos archivos desde el SDK de Adobe Flex?</message>
+            <label>Librería y utilidades de fuentes embebidas de Adobe (Opcional)</label>
+            <message>Apache Flex puede integrarse de manera opcional con el soporte para fuentes embebidas de Adobe. Esta característica necesita algunos ficheros de fuentes del SDK de Adobe Flex. Estos archivos se ofrecen bajo los términos de la licencia de Adobe SDK para Adobe Flex 4.6. Esta licencia no es compatible con la licencia Apache V2. ¿Quiere instalar estos archivos desde el SDK de Adobe Flex?</message>
         </es_ES>
         <fr_FR>
             <label>Bibliothèques Adobe Font embarquées et utilitaires (Facultatif)</label>
