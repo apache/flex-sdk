@@ -323,17 +323,20 @@ public class HScrollBar extends ScrollBarBase
             thumbPosTrackX = trackSize - thumbSize;
         }
         
-        if (!fixedThumbSize)
-            thumb.setLayoutBoundsSize(thumbSize, NaN);
         if (getStyle("autoThumbVisibility") === true)
             thumb.visible = thumbSize < trackSize;
         
-        // convert thumb position to parent's coordinates.
-        thumbPos = track.localToGlobal(new Point(thumbPosTrackX, 0));
-        if (thumb.parent)
-            thumbPosParentX = thumb.parent.globalToLocal(thumbPos).x;
-        
-        thumb.setLayoutBoundsPosition(Math.round(thumbPosParentX), thumb.getLayoutBoundsY());
+		if (thumb.visible) {
+			if (!fixedThumbSize)
+				thumb.setLayoutBoundsSize(thumbSize, NaN);
+			
+	        // convert thumb position to parent's coordinates.
+	        thumbPos = track.localToGlobal(new Point(thumbPosTrackX, 0));
+	        if (thumb.parent)
+	            thumbPosParentX = thumb.parent.globalToLocal(thumbPos).x;
+	        
+	        thumb.setLayoutBoundsPosition(Math.round(thumbPosParentX), thumb.getLayoutBoundsY());
+		}
     }
     
     /**
@@ -517,7 +520,7 @@ public class HScrollBar extends ScrollBarBase
             {
                 // SDK-28898: reverted previous behavior for desktop, resets
                 // scroll position to zero when all content is removed.
-                maximum = viewport.contentWidth - viewport.width;
+                maximum = Math.max(0, viewport.contentWidth - viewport.width);
             }
         }
     }

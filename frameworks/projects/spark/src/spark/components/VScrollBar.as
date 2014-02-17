@@ -312,17 +312,20 @@ public class VScrollBar extends ScrollBarBase
             thumbPosTrackY = trackSize - thumbSize;
         }
 
-        if (!fixedThumbSize)
-            thumb.setLayoutBoundsSize(NaN, thumbSize);
-        if (getStyle("autoThumbVisibility") === true)
-            thumb.visible = thumbSize < trackSize;
-        
-        // convert thumb position to parent's coordinates.
-        thumbPos = track.localToGlobal(new Point(0, thumbPosTrackY));
-        if (thumb.parent)
-            thumbPosParentY = thumb.parent.globalToLocal(thumbPos).y;
-        
-        thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), Math.round(thumbPosParentY));
+		if (getStyle("autoThumbVisibility") === true)
+			thumb.visible = thumbSize < trackSize;
+		
+		if (thumb.visible) {
+	        if (!fixedThumbSize)
+	            thumb.setLayoutBoundsSize(NaN, thumbSize);
+	        
+	        // convert thumb position to parent's coordinates.
+	        thumbPos = track.localToGlobal(new Point(0, thumbPosTrackY));
+	        if (thumb.parent)
+	            thumbPosParentY = thumb.parent.globalToLocal(thumbPos).y;
+	        
+	        thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), Math.round(thumbPosParentY));
+		}
     }
     
     
@@ -508,7 +511,7 @@ public class VScrollBar extends ScrollBarBase
             {
                 // SDK-28898: reverted previous behavior for desktop, resets
                 // scroll position to zero when all content is removed.
-                maximum = viewport.contentHeight - viewport.height;
+                maximum = Math.max(0, viewport.contentHeight - viewport.height);
             }
         }
     }
