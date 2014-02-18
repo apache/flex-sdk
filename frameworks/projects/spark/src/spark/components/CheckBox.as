@@ -87,7 +87,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="labelPlacement", type="String", enumeration="top,bottom,left,right", inherit="no", defaultValue="right")]
+[Style(name="labelPlacement", type="String", enumeration="top,bottom,left,right", inherit="yes")]
 
 
 /**
