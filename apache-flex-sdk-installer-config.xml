@@ -40,6 +40,7 @@
             <fr_FR>Adobe AIR SDK (Requis)</fr_FR>
             <nl_NL>Adobe AIR SDK (Verplicht)</nl_NL>
             <pt_BR>Adobe AIR SDK (Required)</pt_BR>
+            <ko_KR>Adobe AIR SDK (필수)</ko_KR>
         </step>
         <step id="flash-download" property="do.flash.install">
             <de_DE>Adobe Flash Player playerglobal.swc (Benötigt)</de_DE>
@@ -49,6 +50,7 @@
             <fr_FR>Adobe Flash Player playerglobal.swc (Requis)</fr_FR>
             <nl_NL>Adobe Flash Player playerglobal.swc (Verplicht)</nl_NL>
             <pt_BR>Adobe Flash Player playerglobal.swc (Required)</pt_BR>
+            <ko_KR>Adobe Flash Player playerglobal.swc (필수)</ko_KR>
         </step>
         <step id="swfobject-download" property="do.swfobject.install">
             <de_DE>SWFObject (Benötigt)</de_DE>
@@ -58,6 +60,7 @@
             <fr_FR>SWFObject (Requis)</fr_FR>
             <nl_NL>SWFObject (Verplicht)</nl_NL>
             <pt_BR>SWFObject (Required)</pt_BR>
+            <ko_KR>SWFObject (필수)</ko_KR>
         </step>
         <step id="osmf-download" property="do.swfobject.install">
             <de_DE>OSMF (Benötigt)</de_DE>
@@ -67,6 +70,7 @@
             <fr_FR>OSMF (Requis)</fr_FR>
             <nl_NL>OSMF (Verplicht)</nl_NL>
             <pt_BR>OSMF (Obrigatório)</pt_BR>
+            <ko_KR>OSMF (필수)</ko_KR>
         </step>
         <step id="fontswf-download" property="do.swfobject.install">
             <de_DE>Adobe Bibliothek zur Einbettung von Schriften (Optional)</de_DE>
@@ -76,6 +80,7 @@
             <fr_FR>Bibliothèques Adobe Font embarquées et utilitaires (Facultatif)</fr_FR>
             <nl_NL>Adobe Embedded Font Libraries en Utilities (Optioneel)</nl_NL>
             <pt_BR>Adobe Embedded Font Libraries and Utilities (Opcional)</pt_BR>
+            <ko_KR>Adobe Embedded Font 라이브러리 와 유틸리티 (선택)</ko_KR>
         </step>
         <step id="blazeds-download" property="do.swfobject.install">
             <de_DE>Remoting Support (Optional)</de_DE>
@@ -85,6 +90,7 @@
             <fr_FR>Support du Remoting (Facultatif)</fr_FR>
             <nl_NL>Remoting Support (Optioneel)</nl_NL>
             <pt_BR>Suporte para Remoting (Opcional)</pt_BR>
+            <ko_KR>리모팅 지원 (선택)</ko_KR>
         </step>
         <step id="fixup-config-files">
             <de_DE>Installiere Framework Konfigurationsdateien</de_DE>
@@ -94,6 +100,7 @@
             <fr_FR>Installer les fichiers de configuration du framework</fr_FR>
             <nl_NL>Framework Configuratie Bestanden Installeren</nl_NL>
             <pt_BR>Instalando arquivos de configuração do Framework</pt_BR>
+            <ko_KR>프레임워크 설정파일 설치</ko_KR>
         </step>
     </steps>
     <component id="STEP_REQUIRED_INSTALL_APACHE_FLEX_SDK" required="true" property="do.flex.install">
@@ -125,6 +132,10 @@
         </nl_NL>
         <pt_BR>
         </pt_BR>
+        <ko_KR>
+            <label>Apache Flex SDK (필수)</label>
+            <message>Apache Flex SDK에는 Apache License V2 가 적용됩니다. Apache Flex SDK를 설치하시겠습니까?</message>
+        </ko_KR>
     </component>
     <component id="STEP_REQUIRED_INSTALL_ADOBE_AIR_SDK" required="true" property="do.air.install">
         <de_DE>
@@ -156,6 +167,10 @@
         </nl_NL>
         <pt_BR>
         </pt_BR>
+        <ko_KR>
+            <label>Adobe AIR SDK (필수)</label>
+            <message>Adobe AIR SDK에는 Adobe SDK License가 적용됩니다. Adobe AIR SDK를 설치하시겠습니까?</message>
+        </ko_KR>
     </component>
     <component id="STEP_REQUIRED_INSTALL_FLASH_PLAYER_GLOBAL_SWC" required="true" property="do.flash.install">
         <de_DE>
@@ -187,6 +202,10 @@
         </nl_NL>
         <pt_BR>
         </pt_BR>
+        <ko_KR>
+            <label>Adobe Flash Player playerglobal.swc (필수)</label>
+            <message>Adobe Flash Player의 playerglobal.swc에는 Adobe SDK License 가 적용됩니다. Adobe Flash Player의 playerglobal.swc를 설치하시겠습니까? </message>
+        </ko_KR>
     </component>
     <component id="SWFObject (Required)" required="true" property="do.swfobject.install">
         <de_DE>
@@ -219,6 +238,10 @@
             <label>Apache Flex SDK (Benötigt)</label>
             <message>Das Apache Flex SDK verwendet die Apache License V2. Möchten Sie jetzt das Apache Flex SDK installieren?</message>
         </pt_BR>
+        <ko_KR>
+            <label>SWFObject (필수)</label>
+            <message>SWFObject 유틸리티에는 MIT License (MIT)가 적용됩니다. SWFObject 유틸리티를 설치하시겠습니까?</message>
+        </ko_KR>
     </component>
     <component id="OSMF (Required)" required="true" property="do.osmf.install">
         <de_DE>
@@ -251,6 +274,10 @@
             <label>OSMF (Obrigatório)</label>
             <message>O Open Source Media Framework (OSMF) utilizado pelos componentes de video está sob a licença Mozilla Public License Version 1.1.</message>
         </pt_BR>
+        <ko_KR>
+            <label>OSMF (필수)</label>
+            <message>Video 컴포넌트에서 사용된 Open Source Media Framework (OSMF)는 Mozilla Public License Version 1.1로 라이센스 되어있습니다. Open Source Media Framework (OSMF)를 설치하시겠습니까?</message>
+        </ko_KR>
     </component>
     <component id="BlazeDS (Optional)" required="false" property="do.blazeds.install">
         <de_DE>
@@ -284,6 +311,10 @@
             <label>Suporte para Remoting (Opcional)</label>
             <message>Apache Flex pode, opcionalmente, integrar-se com serviços de remoting como BlazeDS, GraniteDS, WebORB, Red5, AMFPHP, RubyAMF, PyAMF e outros. Esta funcionalidade requer a biblioteca flex-messaging-common.jar do SDK Adobe Flex. A licença do SDK Adobe Flex 4.6 aplica-se a esta biblioteca. Esta licença não é compatível com a licença Apache V2. Deseja instalar a biblioteca a partir do SDK Adobe Flex</message>
         </pt_BR>
+        <ko_KR>
+            <label>리모팅 지원 (선택)</label>
+            <message>Apache Flex에서는 선택적으로 BlazeDS, GraniteDS, WebORB, Red5, AMFPHP, RubyAMF, PyAMF 등등과 같은 리모팅 공급자(Remoting Provider) 기능을 통합할 수 있습니다. 이 기능은 Adobe Flex SDK에서 flex-messaging-common.jar 파일이 필요합니다. Adobe Flex 4.6에 대한 Adobe SDK 라이센스 계약이 jar 파일에 적용됩니다. 이 라이센스는 Apache V2 라이센스와 호환되지 않습니다. Adobe Flex SDK에서 이 jar 파일을 가져와 설치 하시겠습니까?</message>
+        </ko_KR>
     </component>
     <component id="FontSWF (Optional)" required="false" property="do.fontswf.install">
         <de_DE>
@@ -317,5 +348,9 @@
             <label>Adobe Embedded Font Libraries and Utilities (Opcional)</label>
             <message>Apache Flex pode, opcionalmente, integrar-se com o suporte de fontes embutidas da Adobe. Este recurso requer alguns jars do Adobe Flex SDK, que estão sob o contrato de licença do Adobe Flex 4.6. Esta licença não é compatível com a licença Apache V2. Você quer instalar estes jars a partir do Adobe Flex SDK?</message>
         </pt_BR>
+        <ko_KR>
+            <label>Adobe Embedded Font 라이브러리 와 유틸리티 (선택)</label>
+            <message>Apache Flex는 선택적으로 Adobe의 임베드 폰트지원 기능을 통합할 수 있습니다. 이 기능에는 Adobe Flex SDK에 있는 폰트 jar 파일들이 필요합니다. 이 jar 파일들에는 Adobe Flex 4.6에 대한 Adobe SDK 라이센스 계약이 적용됩니다. 이 라이센스는 Apache V2 라이센스와 호환되지 않습니다. Adobe Flex SDK에서 이 jar 파일들을 가져와 설치하시겠습니까? </message>
+        </ko_KR>
     </component>
 </config>
