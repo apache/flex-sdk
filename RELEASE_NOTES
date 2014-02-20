@@ -71,10 +71,15 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-34097  Missing Assets In The mobile.swc Theme File
+FLEX-34088  CalloutButton with Dropdown
+FLEX-34084  Error with PopupButton/Menu in headerrenderer in DataGrid
 FLEX-34070  Build script does not update target-player and swf-version values in air/airmobile config files
 FLEX-34065  AdvancedDataGrid throws RTE #1009 when groupedColumns is set to null
+FLEX-34062  FDB waits up to 20s per SWF before we can start debugging
 FLEX-34059  StageTextInput with prompt turns entered text gray on iOS 7
 FLEX-34054  Formatting applied to NumericStepper when using increment/decrement arrows
+FLEX-34053  Create a new MaskedTextInput Component
 FLEX-34052  ADG RTE in columnResizeMouseOverHandler
 FLEX-34051  RTE in endEdit() when clicking at bottom of column
 FLEX-34049  Allow the output symbols to be escaped when called from an IDE
@@ -138,7 +143,6 @@ FLEX-33632  Getting Run Time Error when loading resource module at runtime.
 FLEX-26768  When debugging multi-module projects impossible to set breakpoint
 FLEX-25962  PopupAnchor needs modal functionality
 FLEX-24623  Remove private declarations in PopUpAnchor
-
 
 Apache Flex 4.11
 =================
