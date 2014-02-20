@@ -312,20 +312,18 @@ public class VScrollBar extends ScrollBarBase
             thumbPosTrackY = trackSize - thumbSize;
         }
 
+		if (!fixedThumbSize)
+			thumb.setLayoutBoundsSize(NaN, thumbSize);
+		
 		if (getStyle("autoThumbVisibility") === true)
 			thumb.visible = thumbSize < trackSize;
-		
-		if (thumb.visible) {
-	        if (!fixedThumbSize)
-	            thumb.setLayoutBoundsSize(NaN, thumbSize);
-	        
-	        // convert thumb position to parent's coordinates.
-	        thumbPos = track.localToGlobal(new Point(0, thumbPosTrackY));
-	        if (thumb.parent)
-	            thumbPosParentY = thumb.parent.globalToLocal(thumbPos).y;
-	        
-	        thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), Math.round(thumbPosParentY));
-		}
+
+        // convert thumb position to parent's coordinates.
+        thumbPos = track.localToGlobal(new Point(0, thumbPosTrackY));
+        if (thumb.parent)
+            thumbPosParentY = thumb.parent.globalToLocal(thumbPos).y;
+        
+        thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), Math.round(thumbPosParentY));
     }
     
     

@@ -323,20 +323,18 @@ public class HScrollBar extends ScrollBarBase
             thumbPosTrackX = trackSize - thumbSize;
         }
         
+		if (!fixedThumbSize)
+			thumb.setLayoutBoundsSize(thumbSize, NaN);
+		
         if (getStyle("autoThumbVisibility") === true)
             thumb.visible = thumbSize < trackSize;
+
+        // convert thumb position to parent's coordinates.
+        thumbPos = track.localToGlobal(new Point(thumbPosTrackX, 0));
+        if (thumb.parent)
+            thumbPosParentX = thumb.parent.globalToLocal(thumbPos).x;
         
-		if (thumb.visible) {
-			if (!fixedThumbSize)
-				thumb.setLayoutBoundsSize(thumbSize, NaN);
-			
-	        // convert thumb position to parent's coordinates.
-	        thumbPos = track.localToGlobal(new Point(thumbPosTrackX, 0));
-	        if (thumb.parent)
-	            thumbPosParentX = thumb.parent.globalToLocal(thumbPos).x;
-	        
-	        thumb.setLayoutBoundsPosition(Math.round(thumbPosParentX), thumb.getLayoutBoundsY());
-		}
+        thumb.setLayoutBoundsPosition(Math.round(thumbPosParentX), thumb.getLayoutBoundsY());
     }
     
     /**
