@@ -91,6 +91,22 @@
         <isset property="installer" />
     </condition>
     
+    <condition property="flash.version.changed" value="true">
+        <not>
+            <equals arg1="${playerglobal.version}" arg2="${flash.sdk.version}" />
+        </not>
+    </condition>
+    <condition property="air.version.changed" value="true">
+        <not>
+            <equals arg1="${air.version}" arg2="${air.sdk.version}" />
+        </not>
+    </condition>
+    <condition property="locale.changed" value="true">
+        <not>
+            <equals arg1="${locale}" arg2="${bundle}" />
+        </not>
+    </condition>
+    
     <condition property="java.home" value="${env.JAVA_HOME}" >
         <and>
             <available file="${env.JAVA_HOME}" type="dir" />
@@ -566,7 +582,7 @@
     </target>
 
 
-    <target name="fixup-config-files">
+    <target name="fixup-config-files" depends="flex-sdk-description-flash,flex-sdk-description-air,flex-sdk-description-locale">
         <echo>${INFO_INSTALLING_CONFIG_FILES}</echo>
         <replace file="${FLEX_HOME}/frameworks/flex-config.xml">
             <replacefilter token="@playerversion@"
@@ -577,6 +593,26 @@
                             value="${bundle}"/>
             <replacefilter token="{playerglobalHome}"
                             value="libs/player"/>
+        </replace>
+    </target>
+
+    <target name="flex-sdk-description-flash" if="flash.version.changed">
+        <replace file="${FLEX_HOME}/flex-sdk-description.xml">
+            <replacefilter token="FP${playerglobal.version}"
+                value="FP${flash.sdk.version}"/>
+        </replace>
+    </target>
+    <target name="flex-sdk-description-air" if="air.version.changed">
+        <replace file="${FLEX_HOME}/flex-sdk-description.xml">
+            <replacefilter token="AIR${air.version}"
+                value="AIR${air.sdk.version}"/>
+        </replace>
+    </target>
+    
+    <target name="flex-sdk-description-locale" if="locale.changed">
+        <replace file="${FLEX_HOME}/flex-sdk-description.xml">
+            <replacefilter token="${locale}"
+                value="${bundle}"/>
         </replace>
     </target>
     
