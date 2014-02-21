@@ -557,6 +557,9 @@
         <get src="http://opensource.adobe.com/svn/opensource/flex/sdk/branches/4.y/lib/rideau.jar"
         dest="${basedir}/lib/external/optional/rideau.jar"
         verbose="false"/>
+        
+        <!-- fontkit expects swfutils in the same folder -->
+        <copy file="${basedir}/lib/swfutils.jar" tofile="${basedir}/lib/external/optional/swfutils.jar" />
     </target>
 
     <!-- BlazeDS  -->
