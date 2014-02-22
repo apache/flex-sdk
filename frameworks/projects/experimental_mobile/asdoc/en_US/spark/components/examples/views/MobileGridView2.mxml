@@ -45,22 +45,22 @@
         import spark.utils.MultiDPIBitmapSource;
 
         [Embed('../../embedded/images/aqua_inset_36_red.png')]
-        private const iconRed36:Class;
+        private var iconRed36:Class;
 
         [Embed('../../embedded/images/aqua_inset_36_green.png')]
-        private const iconGreen36:Class;
+        private var iconGreen36:Class;
 
         [Embed('../../embedded/images/status_aqua24_red.png')]
-        private const iconRed24:Class;
+        private var iconRed24:Class;
 
         [Embed('../../embedded/images/status_aqua24_green.png')]
-        private const iconGreen24:Class;
+        private var iconGreen24:Class;
 
         [Embed('../../embedded/images/status_aqua16_red.png')]
-        private const iconRed18:Class;
+        private var iconRed18:Class;
 
         [Embed('../../embedded/images/status_aqua16_green.png')]
-        private const iconGreen18:Class;
+        private var iconGreen18:Class;
 
         private const dataProvider:ArrayCollection = new ArrayCollection();
 

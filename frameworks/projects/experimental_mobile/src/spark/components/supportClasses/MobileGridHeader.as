@@ -48,16 +48,16 @@ public class MobileGridHeader extends ButtonBar
 {
 
     [Embed(source="../../../../assets/images/mobile320/dg_header_asc.png")]
-    private const ascIcon320Cls:Class;
+    private var ascIcon320Cls:Class;
 
     [Embed(source="../../../../assets/images/mobile320/dg_header_desc.png")]
-    private const descIcon320Cls:Class;
+    private var descIcon320Cls:Class;
 
     [Embed(source="../../../../assets/images/mobile160/dg_header_asc.png")]
-    private const ascIcon160Cls:Class;
+    private var ascIcon160Cls:Class;
 
     [Embed(source="../../../../assets/images/mobile160/dg_header_desc.png")]
-    private const descIcon160Cls:Class;
+    private var descIcon160Cls:Class;
 
     protected var descIconCls:MultiDPIBitmapSource;
     protected var ascIconCls:MultiDPIBitmapSource;
