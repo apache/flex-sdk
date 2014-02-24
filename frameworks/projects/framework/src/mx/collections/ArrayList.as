@@ -19,9 +19,10 @@
 
 package mx.collections 
 {
-    
+ 
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
+import flash.system.ApplicationDomain;
 import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 import flash.utils.IExternalizable;
@@ -282,7 +283,16 @@ public class ArrayList extends EventDispatcher
 	public function toJSON(s:String):*
 	{
 		var array:Array = toArray();
-		return this["JSON"].stringify(array);
+		
+		if (ApplicationDomain.currentDomain.hasDefinition("JSON"))
+		{
+			var json:Class = Class(ApplicationDomain.currentDomain.getDefinition("JSON"));
+			return json["stringify"](array);
+		}
+		else
+		{
+			return '{"error": "Not supported on Flash Player 10"}';
+		}
 	}
 	
     /**
