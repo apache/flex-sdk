@@ -19,9 +19,10 @@
 
 package mx.collections 
 {
-    
+ 
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
+import flash.system.ApplicationDomain;
 import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 import flash.utils.IExternalizable;
@@ -271,6 +272,29 @@ public class ArrayList extends EventDispatcher
     // 
     //--------------------------------------------------------------------------
 
+	/**
+	 *  Converts an Array Collection to JavaScript Object Notation (JSON) format.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 11
+	 *  @playerversion AIR 3.0
+	 *  @productversion Apache Flex 4.12
+	 */
+	public function toJSON(s:String):*
+	{
+		var array:Array = toArray();
+		
+		if (ApplicationDomain.currentDomain.hasDefinition("JSON"))
+		{
+			var json:Class = Class(ApplicationDomain.currentDomain.getDefinition("JSON"));
+			return json["stringify"](array);
+		}
+		else
+		{
+			return '{"error": "Not supported on Flash Player 10"}';
+		}
+	}
+	
     /**
      *  Get the item at the specified index.
      * 

@@ -68,7 +68,7 @@
     <!-- 
         Optional jars but should be in place for a real release build.
         
-        For <grep> put AntelopeTasks_*.jar in this path.
+        For <grep> put antelopetasks*.jar in this path.
         See version-update.
 
         For <rat> apache-rat-0.8.jar and apache-rat-tasks-0.8.jar should be in classpath.
@@ -76,11 +76,11 @@
     -->
     <path id="anttask.classpath">
         <fileset dir="${env.ANT_HOME}/lib">
-           <include name="**/AntelopeTasks_*.jar"/>
+           <include name="**/antelopetasks*.jar"/>
            <include name="**/apache-rat*.jar"/>
         </fileset>
         <fileset dir="${user.home}">
-           <include name=".ant/lib/**/AntelopeTasks_*.jar"/>
+           <include name=".ant/lib/**/antelopetasks*.jar"/>
            <include name=".ant/lib/**/apache-rat*.jar"/>
         </fileset>
     </path>
@@ -1161,7 +1161,7 @@ There are no known issues.
 	    Update all frameworks Version.as files in the kit stagging area with the 
 	    latest version build number info.
 	    
-	    You need to place the AntelopeTasks_*.jar jar file in the anttask.classpath
+	    You need to place the antelopetasks*.jar jar file in the anttask.classpath
 	    in order to do this.  If the jar isn't found, the update is skipped.
 	-->
 	<target name="version-update"
@@ -1176,14 +1176,17 @@ There are no known issues.
     </target>
 
     <target name="have-greptask" if="have.greptask">
-		<taskdef name="grep" classname="ise.antelope.tasks.Find"
-                 classpathref="anttask.classpath"/>                 
+		<taskdef name="grep" classname="ise.antelope.tasks.Find" classpathref="anttask.classpath"/>                 
 
+        <tstamp>
+        	<format property="build.number.date" pattern="yyyyMMdd" />
+        </tstamp>
+        	
         <echo message="Updating all frameworks/projects/**/Version.as files with version ${release.version}.${build.number.date}"/>
 		
         <!-- Update all Version.as files in the kit frameworks directory-->
         <replaceregexp>
-            <regexp pattern='"[0-9].[0-9].[0-9].[0-9]";'/>
+            <regexp pattern='"[0-9]\.[0-9]+\.[0-9]+\.[0-9]+";'/>
             <substitution expression='"${release.version}.${build.number.date}";'/>
             <fileset dir="${FLEX_HOME}/temp/frameworks/projects">
                 <include name="**/Version.as"/>
@@ -1193,7 +1196,7 @@ There are no known issues.
 
     <target name="no-greptask" unless="have.greptask">
         <echo message="Version files not updated."/>
-        <echo message="AntelopeTasks_*.jar not found in anttask.classpath"/>
+        <echo message="antelopetasks*.jar not found in anttask.classpath"/>
     </target>   
 
     <target name="stage-locales"
