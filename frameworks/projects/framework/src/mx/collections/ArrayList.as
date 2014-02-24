@@ -271,6 +271,20 @@ public class ArrayList extends EventDispatcher
     // 
     //--------------------------------------------------------------------------
 
+	/**
+	 *  Converts an Array Collection to JavaScript Object Notation (JSON) format.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 11
+	 *  @playerversion AIR 3.0
+	 *  @productversion Apache Flex 4.12
+	 */
+	public function toJSON(s:String):*
+	{
+		var array:Array = toArray();
+		return JSON.stringify(array);
+	}
+	
     /**
      *  Get the item at the specified index.
      * 
