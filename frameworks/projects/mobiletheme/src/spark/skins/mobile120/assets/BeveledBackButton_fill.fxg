@@ -18,19 +18,20 @@
 
 -->
 
+
 <Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008"
-	scaleGridLeft="20" scaleGridRight="80" scaleGridTop="6" scaleGridBottom="36">
+	scaleGridLeft="13" scaleGridRight="54" scaleGridTop="5" scaleGridBottom="23">
 
 	<!-- invisible fix for scaling -->
-	<Rect x="0" y="0" width="87" height="42">
+	<Rect x="0" y="0" width="58" height="28">
 		<fill>
 			<SolidColor color="#ffffff" alpha="0"/>
 		</fill>
 	</Rect>
 
 	<!-- chromeColor fill -->
-      <Path x="1.5" y="1" winding="nonZero" data="M79.5 0C82.2568 0 84.5 2.24316 84.5 5L84.5 35C84.5 37.7568 82.2568 40 79.5 40L17.5337 40.001C13.7959 40.001 11.8623 35.8662 10.6064 34.6104 10.5649 34.5498 3.84229 25.6387 0 19.8906 3.84668 14.1328 10.6392 5.30762 10.6753 5.25586 12.9209 2.43457
- 14.313 0 17.5 0L79.5 0 79.5 0Z">
+      <Path x="1" y="0.666504" winding="nonZero" data="M53 0C54.8374 0 56.333 1.49561 56.333 3.3335L56.333 23.3335C56.333 25.1714 54.8374 26.667 53 26.667L11.6895 26.667C9.19727 26.667 7.9082 23.9106 7.0708 23.0737 7.04346 23.0337 2.56152 17.0923 0 13.2607 2.56445 9.42188 7.09277 3.53857 7.1167 3.50439
+ 8.61377 1.62305 9.54199 0 11.667 0L53 0 53 0Z">
         <fill>
           <SolidColor color="#484848"/>
         </fill>
