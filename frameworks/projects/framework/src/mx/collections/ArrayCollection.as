@@ -158,7 +158,7 @@ public class ArrayCollection extends ListCollectionView implements IExternalizab
 	public function toJSON(s:String):*
 	{
 		var array:Array = toArray();
-		return JSON.stringify(array);
+		return this["JSON"].stringify(array);
 	}
 	
     /**
