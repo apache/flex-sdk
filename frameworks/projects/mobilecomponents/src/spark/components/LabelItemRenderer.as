@@ -329,6 +329,23 @@ public class LabelItemRenderer extends UIComponent
      *  Whether or not we're the last element in the list
      */
     mx_internal var isLastItem:Boolean = false;
+
+    private var _useOpaqueBackground: Boolean = true;
+
+    /**
+     * Option to use an opaqueBackground property for this renderer. This can improve scrolling speed.
+     * Since opaqueBackground adds  space around the text proportional to the font's size,
+     * you might need to turn it off when using large fonts to avoid background overflow.
+     * @default  true
+     */
+    public function get useOpaqueBackground(): Boolean {
+        return _useOpaqueBackground;
+    }
+
+    public function set useOpaqueBackground(value: Boolean): void {
+        _useOpaqueBackground = value;
+        invalidateDisplayList();
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -892,13 +909,14 @@ public class LabelItemRenderer extends UIComponent
 		{
 			// If our background is a solid color, use it as the opaqueBackground property
 			// for this renderer. This makes scrolling considerably faster.
-			opaqueBackgroundColor = backgroundColor;
+            if (_useOpaqueBackground)
+			     opaqueBackgroundColor = backgroundColor;
 		}
 
         // Draw the separator for the item renderer
         drawBorder(unscaledWidth, unscaledHeight);
-        
-		opaqueBackground = opaqueBackgroundColor;
+
+		opaqueBackground =  opaqueBackgroundColor;
     }
     
     /**
@@ -1178,5 +1196,7 @@ public class LabelItemRenderer extends UIComponent
         down = (interactionStateDetector.state == InteractionState.DOWN);
         hovered = (interactionStateDetector.state == InteractionState.OVER);
     }
+
+
 }
 }
