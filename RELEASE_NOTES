@@ -145,6 +145,7 @@ FLEX-33715  Error: Attempted access of inaccessible method getStyle through a re
 FLEX-33671  Warning messages when using experimental components.
 FLEX-33632  Getting Run Time Error when loading resource module at runtime.
 FLEX-26768  When debugging multi-module projects impossible to set breakpoint
+FLEX-26308  ListCollectionView addAllAt causes RTE on filtered collections
 FLEX-25962  PopupAnchor needs modal functionality
 FLEX-24623  Remove private declarations in PopUpAnchor
 
