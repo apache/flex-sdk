@@ -50,6 +50,7 @@ SDK Changes
 - iOS7 status bar support.
 - Improved try/catch performance in several areas. 
 - New MaskedTextinput component.
+- JSON support for ArrayCollection and ArrayList.
 
 Build Changes
 ---------------
@@ -71,6 +72,9 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-34108  JSON.stringify and arraycollection
+FLEX-34104  fontswf utility fails with exception
+FLEX-34101  Regression from 4.8 to 4.10: Spark list doesn't refresh with filterFunction
 FLEX-34097  Missing Assets In The mobile.swc Theme File
 FLEX-34088  CalloutButton with Dropdown
 FLEX-34084  Error with PopupButton/Menu in headerrenderer in DataGrid
