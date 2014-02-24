@@ -72,6 +72,8 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-34109  Bevel 120DPI back-arrow design problem
+FLEX-34107  IconItemRenderer separators disappear when using a large font
 FLEX-34108  JSON.stringify and arraycollection
 FLEX-34104  fontswf utility fails with exception
 FLEX-34101  Regression from 4.8 to 4.10: Spark list doesn't refresh with filterFunction
