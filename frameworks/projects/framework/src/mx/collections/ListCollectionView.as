@@ -1208,7 +1208,7 @@ public class ListCollectionView extends Proxy
 			throw new CollectionViewError(message);
 		}
 
-        if (localIndex && addedItems.length > 0)
+        if (localIndex && addedItems.length > 1)
         {
             addLocation = -1;
         }
