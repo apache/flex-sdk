@@ -273,7 +273,8 @@ public class ArrayList extends EventDispatcher
     //--------------------------------------------------------------------------
 
 	/**
-	 *  Converts an Array Collection to JavaScript Object Notation (JSON) format.
+	 *  Converts an Array List to JavaScript Object Notation (JSON) format.
+	 * 	Called by the JSON.stringify() method and should not be called directly.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 11
@@ -282,17 +283,7 @@ public class ArrayList extends EventDispatcher
 	 */
 	public function toJSON(s:String):*
 	{
-		var array:Array = toArray();
-		
-		if (ApplicationDomain.currentDomain.hasDefinition("JSON"))
-		{
-			var json:Class = Class(ApplicationDomain.currentDomain.getDefinition("JSON"));
-			return json["stringify"](array);
-		}
-		else
-		{
-			return '{"error": "Not supported on Flash Player 10"}';
-		}
+		return toArray();
 	}
 	
     /**
