@@ -129,6 +129,13 @@
         <property name="flash.sdk.url.file" refid="${flash.sdk.url.file.ref}" />
         <property name="flash.sdk.swfversion.ref" value="flash.sdk.swfversion.${flash.sdk.version}" />
         <property name="flash.sdk.swfversion" refid="${flash.sdk.swfversion.ref}" />
+        <property name="flash.sdk.default.swfversion.ref" value="flash.sdk.swfversion.${playerglobal.version}" />
+        <property name="flash.sdk.default.swfversion" refid="${flash.sdk.default.swfversion.ref}" />
+        <condition property="flash.swfversion.changed" value="true">
+            <not>
+                <equals arg1="${flash.sdk.swfversion}" arg2="${flash.sdk.default.swfversion}" />
+            </not>
+        </condition>
     </target>
     
     <target name="install" depends="get-data,check-binary,ask-licenses,get-third-party-files,fixup-config-files" description="Converts binary package to IDE compatible folder">
@@ -587,15 +594,53 @@
 
     <target name="fixup-config-files" depends="flex-sdk-description-flash,flex-sdk-description-air,flex-sdk-description-locale">
         <echo>${INFO_INSTALLING_CONFIG_FILES}</echo>
+        <antcall target="fixup-config-files-version" />
+        <antcall target="fixup-config-files-swfversion" />
+        <antcall target="fixup-config-files-locale" />
+    </target>
+    
+    <target name="fixup-config-files-version" if="flash.version.changed">
         <replace file="${FLEX_HOME}/frameworks/flex-config.xml">
-            <replacefilter token="@playerversion@"
-                            value="${flash.sdk.version}"/>
-            <replacefilter token="@swfversion@"
-                            value="${flash.sdk.swfversion}"/>
-            <replacefilter token="@locale@"
-                            value="${bundle}"/>
-            <replacefilter token="{playerglobalHome}"
-                            value="libs/player"/>
+            <replacefilter token="&lt;target-player&gt;${playerglobal.version}&lt;/target-player&gt;"
+                            value="&lt;target-player&gt;${flash.sdk.version}&lt;/target-player&gt;"/>
+        </replace>
+        <replace file="${FLEX_HOME}/frameworks/air-config.xml">
+            <replacefilter token="&lt;target-player&gt;${playerglobal.version}&lt;/target-player&gt;"
+            value="&lt;target-player&gt;${flash.sdk.version}&lt;/target-player&gt;"/>
+        </replace>
+        <replace file="${FLEX_HOME}/frameworks/airmobile-config.xml">
+            <replacefilter token="&lt;target-player&gt;${playerglobal.version}&lt;/target-player&gt;"
+            value="&lt;target-player&gt;${flash.sdk.version}&lt;/target-player&gt;"/>
+        </replace>
+    </target>
+    
+    <target name="fixup-config-files-swfversion" if="flash.swfversion.changed">
+        <replace file="${FLEX_HOME}/frameworks/flex-config.xml">
+            <replacefilter token="&lt;swf-version&gt;${flash.sdk.default.swfversion}&lt;/swf-version&gt;"
+                            value="&lt;swf-version&gt;${flash.sdk.swfversion}&lt;/swf-version&gt;"/>
+        </replace>
+        <replace file="${FLEX_HOME}/frameworks/air-config.xml">
+            <replacefilter token="&lt;swf-version&gt;${flash.sdk.default.swfversion}&lt;/swf-version&gt;"
+            value="&lt;swf-version&gt;${flash.sdk.swfversion}&lt;/swf-version&gt;"/>
+        </replace>
+        <replace file="${FLEX_HOME}/frameworks/airmobile-config.xml">
+            <replacefilter token="&lt;swf-version&gt;${flash.sdk.default.swfversion}&lt;/swf-version&gt;"
+            value="&lt;swf-version&gt;${flash.sdk.swfversion}&lt;/swf-version&gt;"/>
+        </replace>
+    </target>
+    
+    <target name="fixup-config-files-locale" if="locale.changed">
+        <replace file="${FLEX_HOME}/frameworks/flex-config.xml">
+            <replacefilter token="&lt;locale-element&gt;${locale}&lt;/locale-element&gt;"
+                            value="&lt;locale-element&gt;${bundle}&lt;/locale-element&gt;"/>
+        </replace>
+        <replace file="${FLEX_HOME}/frameworks/air-config.xml">
+            <replacefilter token="&lt;locale-element&gt;${locale}&lt;/locale-element&gt;"
+            value="&lt;locale-element&gt;${bundle}&lt;/locale-element&gt;"/>
+        </replace>
+        <replace file="${FLEX_HOME}/frameworks/airmobile-config.xml">
+            <replacefilter token="&lt;locale-element&gt;${locale}&lt;/locale-element&gt;"
+            value="&lt;locale-element&gt;${bundle}&lt;/locale-element&gt;"/>
         </replace>
     </target>
 
