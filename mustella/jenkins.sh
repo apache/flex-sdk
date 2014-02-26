@@ -67,8 +67,8 @@ then
 elif [ "$FLASH_VERSION" == "12.0" ]
 then
   FLASH_VERSION=13.0
-  AIR_VERSION=4.0
-  AIR_SDK_DIR=4.0_beta
+  AIR_VERSION=13
+  AIR_SDK_DIR=13_beta
 else
   FLASH_VERSION=11.1
   AIR_VERSION=3.7
