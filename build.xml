@@ -65,7 +65,12 @@
             property="TLF_HOME"
             value="${env.TLF_HOME}"/>
 
-    <!-- 
+    <available file="${FLEX_HOME}/frameworks/projects/textLayout/src"
+            type="dir"
+            property="TLF_HOME"
+            value="${FLEX_HOME}/frameworks/projects" />
+
+    <!--
         Optional jars but should be in place for a real release build.
         
         For <grep> put antelopetasks*.jar in this path.

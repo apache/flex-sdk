@@ -111,8 +111,8 @@ Install Prerequisites
     corresponding environment variables using absolute file paths.  Relative file paths
     will result in build errors.
 
-    The environment variables PLAYERGLOBAL_HOME, AIR_HOME, FLASHPLAYER_DEBUGGER, TLF_HOME,
-    and ADOBE_EXTENSION_MANAGER can also be set in the property file
+    The environment variables PLAYERGLOBAL_HOME, AIR_HOME, FLASHPLAYER_DEBUGGER,
+    TLF_HOME, and ADOBE_EXTENSION_MANAGER can also be set in the property file
     called env.properties. See the env-template.properties file for instructions.
 
     The Adobe Flash Player playerglobal.swc is needed to compile all the components
@@ -123,8 +123,8 @@ Install Prerequisites
     applications.
 
     The build scripts assume that the folder containing the Text Layout Framework (tlf)
-    folder is a sibling of the sdk folder.  If this is not true, then you must set the
-    TLF_HOME environment variable to point to the tlf folder.
+    folder is at the same level as the sdk folder.  If this is not true, then you must
+    set the TLF_HOME environment variable to point to the tlf folder.
 
     ==================================================================================
     SOFTWARE                                    ENVIRONMENT VARIABLE (absolute paths)
@@ -478,7 +478,7 @@ Using the Binary Distribution
 	This will create an Apache Flex 4.12 SDK that can be used with Flash Builder by
 	copying the required files from the Adobe Flex 4.6 SDK.
 
-	To create an SDK for other IDE or if you want to use Adobe AIR 3.9 (rather than
+	To create an SDK for other IDE or if you want to use Adobe AIR 4.0 (rather than
 	AIR 3.1 contained in Adobe Flex 4.6) run:
 
 		/ide/flashbuilder/makeApacheFlexForIDE.sh (on Mac and Linux)

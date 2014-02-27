@@ -33,7 +33,7 @@ Differences from Apache Flex 4.11 include:
 AIR and Flash Player support
 ------------------------------
  - Support Flash Player 12.0 and 13.0 beta.
- - Support for AIR 4.0 and 4.0 beta.
+ - Support for AIR 4.0 and 13.0 beta.
 
 SDK Changes
 -------------
@@ -43,7 +43,6 @@ SDK Changes
 - Improved CSS styles memory usage/performance.
 - Changed DPI to be 160 for iPad and 320 for iPad mini.
 - Fixed scaling of Checkbox and Radio button 320dpi skins.
-- Improvements to Falcon MXML code generation.
 - Option to not store last call result in RomoteObject and WebService.
 - StageTextInput can now be included in scrollable content.
 - new iOS os-version media css selector.
@@ -54,7 +53,7 @@ SDK Changes
 
 Build Changes
 ---------------
-- Made PixelBender a separate release.
+- Made PixelBender shader binaries a separate release.
 - Support for compiling with Java 7
 
 Compiler Changes
@@ -103,6 +102,7 @@ FLEX-33999  spark.skins.mobile480.assets.BeveledActionButton_
 FLEX-33992  Zero division at Grid.as setters for horizontalScrollPosition and verticalScrollPosition
 FLEX-33990  RTE in AdvancedDataGridBase drawItem
 FLEX-33989  ViewNavigatorBase discards MultiDPIBitmapSource information for icon when saving and re-loading view
+FLEX-33987  FocusManager NPE
 FLEX-33985  [TLF] Pressing BACKSPACE key when editing a TextInput deletes a whole line
 FLEX-33984  Spark CheckBox does not support labelPlacement like it's mx counter part
 FLEX-33978  AIR mobile + flex sdk 4.10 + text field setFocus runtime error
