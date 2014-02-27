@@ -388,7 +388,7 @@ public class Application extends SkinnableContainer
      *  @private
      */
     private static var _softKeyboardBehavior:String = null;
-    
+
     /**
      *  @private
      */
@@ -1368,6 +1368,11 @@ public class Application extends SkinnableContainer
             sm.stage.addEventListener("orientationChanging", stage_orientationChangingHandler);
             sm.stage.addEventListener("orientationChange", stage_orientationChange);
             sm.stage.addEventListener(FullScreenEvent.FULL_SCREEN, stage_fullScreenHandler)  ;
+
+            // if full screen app,  clear status bar height
+            if ( sm.stage.displayState == StageDisplayState.FULL_SCREEN || sm.stage.displayState == StageDisplayState.FULL_SCREEN_INTERACTIVE )  {
+                setStyle("osStatusBarHeight", 0);
+            }
         }
         
         _url = LoaderUtil.normalizeURL(sm.loaderInfo);
