@@ -1590,7 +1590,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     public function getNextFocusManagerComponent(
                             backward:Boolean = false):IFocusManagerComponent
 	{
-		return getNextFocusManagerComponent2(backward, fauxFocus).displayObject as IFocusManagerComponent;
+        const focusInfo:FocusInfo = getNextFocusManagerComponent2(backward, fauxFocus); 
+        return focusInfo ? focusInfo.displayObject as IFocusManagerComponent : null; 
 	}
 	
 	/**
