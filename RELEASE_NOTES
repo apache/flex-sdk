@@ -41,7 +41,7 @@ SDK Changes
 - Improved UID generation performance.
 - Improved mobile memory usage/performance.
 - Improved CSS styles memory usage/performance.
-- Changed DPI to be 160 for iPad and 320 for iPad mini.
+- Changed DPI to be 160 for iPad/iPad mini and 320 for iPad retina/iPad mini retina.
 - Fixed scaling of Checkbox and Radio button 320dpi skins.
 - Option to not store last call result in RomoteObject and WebService.
 - StageTextInput can now be included in scrollable content.
