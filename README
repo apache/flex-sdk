@@ -52,7 +52,7 @@ Getting the convenience packages for Apache Flex
     The SDK installer requires the Adobe AIR runtime to be installed.
 
     Starting with Apache Flex 4.12 the binary distribution can be installed using only Ant.
-    This is the recomended method for Linux users.
+    This is the recommended method for Linux users.
 
       https://cwiki.apache.org/confluence/display/FLEX/Installation+help#Installationhelp-Antinstaller
 
@@ -122,9 +122,10 @@ Install Prerequisites
     used by checkintests and other pieces of the test subsystem to run compiled
     applications.
 
-    The build scripts assume that the folder containing the Text Layout Framework (tlf)
-    folder is at the same level as the sdk folder.  If this is not true, then you must
-    set the TLF_HOME environment variable to point to the tlf folder.
+    The build scripts assume that the source code folder containing the Text Layout
+    Framework (tlf) folder is at the same level as the sdk folder or located inside
+    the frameworks/projects folder.   If this is not true, then you must set the 
+    TLF_HOME environment variable to point to the tlf folder.
 
     ==================================================================================
     SOFTWARE                                    ENVIRONMENT VARIABLE (absolute paths)

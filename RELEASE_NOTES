@@ -102,6 +102,7 @@ FLEX-33999  spark.skins.mobile480.assets.BeveledActionButton_
 FLEX-33992  Zero division at Grid.as setters for horizontalScrollPosition and verticalScrollPosition
 FLEX-33990  RTE in AdvancedDataGridBase drawItem
 FLEX-33989  ViewNavigatorBase discards MultiDPIBitmapSource information for icon when saving and re-loading view
+FLEX-33987  FocusManager NPE
 FLEX-33985  [TLF] Pressing BACKSPACE key when editing a TextInput deletes a whole line
 FLEX-33984  Spark CheckBox does not support labelPlacement like it's mx counter part
 FLEX-33978  AIR mobile + flex sdk 4.10 + text field setFocus runtime error
