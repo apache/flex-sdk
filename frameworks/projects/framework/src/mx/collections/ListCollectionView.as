@@ -1173,6 +1173,7 @@ public class ListCollectionView extends Proxy
 					else
 					{
 						loc = -1;
+						addLocation = -1;
 					}
 				}
 				else if (sort)
