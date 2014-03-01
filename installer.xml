@@ -117,6 +117,7 @@
     </condition>
 
     <target name="get-data" >
+        <property name="do-not-cache-next-get" value="true" />
         <get src="${xml.properties}" dest="${basedir}/sdk-installer-config-4.0.xml" />
         <xmlproperty file="${basedir}/sdk-installer-config-4.0.xml" semanticAttributes="true" collapseAttributes="true"/>
         <property name="air.sdk.url.path.ref" value="air.sdk.path.${platform}.${air.sdk.version}" />
