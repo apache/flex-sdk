@@ -608,8 +608,11 @@ public class DropDownController extends EventDispatcher
                 return;
 			
 			// don't close if something just been selected in a DropDownList
-			if (target is IUIComponent && (target as IUIComponent).document.hostComponent is DropDownList)
-				return;	
+			if (target is IUIComponent){
+                   var doc:  Object = (target as IUIComponent).document;
+                   if ( ("hostComponent" in doc ) && doc.hostComponent is DropDownList )
+			                  	return;
+            }
 
             if (hitAreaAdditions != null)
             {
