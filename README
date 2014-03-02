@@ -51,8 +51,10 @@ Getting the convenience packages for Apache Flex
 
     The SDK installer requires the Adobe AIR runtime to be installed.
 
-    Starting with Apache Flex 4.12 the binary distribution can be installed using only Ant.
-    This is the recommended method for Linux users.
+    Starting with Apache Flex 4.12 the binary distribution can be installed using only ANT
+    in addition to the AIR installer mentioned above. This is the recommended method for
+    Linux users.  More information about installing the binary installtion with ANT can be
+    found on our wiki at :
 
       https://cwiki.apache.org/confluence/display/FLEX/Installation+help#Installationhelp-Antinstaller
 
