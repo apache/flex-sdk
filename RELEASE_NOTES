@@ -71,6 +71,7 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-34124  1069 error when try to close a Callout by clicking outside the component
 FLEX-34109  Bevel 120DPI back-arrow design problem
 FLEX-34107  IconItemRenderer separators disappear when using a large font
 FLEX-34108  JSON.stringify and arraycollection
