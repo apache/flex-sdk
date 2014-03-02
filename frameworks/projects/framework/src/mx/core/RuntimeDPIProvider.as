@@ -119,10 +119,10 @@ public class RuntimeDPIProvider
 
     public function get runtimeDPI():Number
     {
-        var isIPad:Boolean = Platform.isIPad;
+        var isIOS:Boolean = Platform.isIOS;
         var screenDPI:Number = Capabilities.screenDPI;
 
-        if (isIPad)
+        if (isIOS) // as isIPad returns false in the simulator
 		{
             var root:DisplayObject = SystemManager.getSWFRoot(this);
             if (root != null )  {
@@ -130,7 +130,7 @@ public class RuntimeDPIProvider
                 if (stage != null){
                     var scX:Number = stage.fullScreenWidth;
                     var scY:Number = stage.fullScreenHeight;
-                    /*  as of Dec 2013,  iPad (resp. iPad retina)   are the only iOS devices to have 1024 (resp. 2048) screen width or height
+                    /*  as of Dec 2013,  iPad (resp. iPad retina) are the only iOS devices to have 1024 (resp. 2048) screen width or height
                      cf http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density#Apple
                      * */
                     if ((scX == IPAD_RETINA_MAX_EXTENT || scY == IPAD_RETINA_MAX_EXTENT))

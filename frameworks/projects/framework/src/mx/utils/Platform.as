@@ -65,6 +65,7 @@ public class Platform
 	
 	/**
 	 *  Returns true if the applciation is runing on an iPad.
+	 *  Note this returns false in the mobile device simulator.
 	 *
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
