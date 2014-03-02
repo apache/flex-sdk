@@ -598,6 +598,18 @@
         <antcall target="fixup-config-files-version" />
         <antcall target="fixup-config-files-swfversion" />
         <antcall target="fixup-config-files-locale" />
+        <replace file="${FLEX_HOME}/frameworks/flex-config.xml">
+            <replacefilter token="{playerglobalHome}"
+                value="libs/player"/>
+        </replace>
+        <replace file="${FLEX_HOME}/frameworks/air-config.xml">
+            <replacefilter token="{airHome}/frameworks/libs"
+            value="libs"/>
+        </replace>
+        <replace file="${FLEX_HOME}/frameworks/airmobile-config.xml">
+            <replacefilter token="{airHome}/frameworks/libs"
+            value="libs"/>
+        </replace>
     </target>
     
     <target name="fixup-config-files-version" if="flash.version.changed">
