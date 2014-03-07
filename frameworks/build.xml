@@ -134,7 +134,7 @@
         <antcall target="compile-automation"/>
     </target>
 	
-	<target name="flex-config" depends="playerglobal-setswfversion" description="Copy the flex config template to flex-config.xml and inject version numbers">
+	<target name="flex-config" depends="playerglobal-setswfversion" description="Copy the flex/air/airmobile config templates to flex/air/airmobile-config.xml and inject version numbers">
 		<copy file="${basedir}/flex-config-template.xml" tofile="${basedir}/flex-config.xml" overwrite="true">
 			<filterset>
 				<filter token="playerversion" value="${playerglobal.version}"/>
@@ -142,6 +142,20 @@
 				<filter token="locale" value="${locale}"/>
 			</filterset>
 		</copy>
+        <copy file="${basedir}/air-config-template.xml" tofile="${basedir}/air-config.xml" overwrite="true">
+            <filterset>
+                <filter token="playerversion" value="${playerglobal.version}"/>
+                <filter token="swfversion" value="${playerglobal.swfversion}"/>
+                <filter token="locale" value="${locale}"/>
+            </filterset>
+        </copy>
+        <copy file="${basedir}/airmobile-config-template.xml" tofile="${basedir}/airmobile-config.xml" overwrite="true">
+            <filterset>
+                <filter token="playerversion" value="${playerglobal.version}"/>
+                <filter token="swfversion" value="${playerglobal.swfversion}"/>
+                <filter token="locale" value="${locale}"/>
+            </filterset>
+        </copy>
 	</target>
 		
 	<target name="playerglobal-setswfversion" description="Set the swfversion to insert into the flex config file">
@@ -180,6 +194,12 @@
 		</condition>
 		<condition property="playerglobal.swfversion" value="22">
 			<equals arg1="${playerglobal.version}" arg2="11.9" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="23">
+			<equals arg1="${playerglobal.version}" arg2="12.0" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="24">
+			<equals arg1="${playerglobal.version}" arg2="13.0" />
 		</condition>
 	</target>	
 
@@ -259,6 +279,8 @@
     
     <target name="clean" depends="check-tlf-home,automation-clean,airsdk-clean" description="Cleans all SWCs and their resource bundles">
         <delete file="${basedir}/flex-config.xml"/>
+        <delete file="${basedir}/air-config.xml"/>
+        <delete file="${basedir}/airmobile-config.xml"/>
         <!-- Delete output from SWC projects -->
         <ant dir="${basedir}/projects/textLayout" target="clean"/>
         <ant dir="${basedir}/projects/framework" target="clean"/>

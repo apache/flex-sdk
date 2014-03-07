@@ -242,9 +242,9 @@ public class ExpressionContext implements Context
   		StringBuilder sb = new StringBuilder();
 
   		if (var != null)
-  			ExpressionCache.appendVariable(sb, var);
+            m_cache.appendVariable(sb, var);
   		else
-  			ExpressionCache.appendVariableValue(sb, val);
+            m_cache.appendVariableValue(sb, val);
 
 		boolean attrs = m_cache.propertyEnabled(DebugCLI.DISPLAY_ATTRIBUTES);
 		if (attrs && var != null)
@@ -263,7 +263,7 @@ public class ExpressionContext implements Context
 					if (classname.equals(mems[i].getDefiningClass()))
 					{
 			  			sb.append(m_newline + " "); //$NON-NLS-1$
-			  			ExpressionCache.appendVariable(sb, mems[i]);
+                        m_cache.appendVariable(sb, mems[i]);
 						if (attrs)
 							ExpressionCache.appendVariableAttributes(sb, mems[i]);
 					}
@@ -275,7 +275,7 @@ public class ExpressionContext implements Context
 	  		for(int i=0; i<mems.length; i++)
 	  		{
 	  			sb.append(m_newline + " "); //$NON-NLS-1$
-	  			ExpressionCache.appendVariable(sb, mems[i]);
+                m_cache.appendVariable(sb, mems[i]);
 				if (attrs)
 					ExpressionCache.appendVariableAttributes(sb, mems[i]);
 	  		}

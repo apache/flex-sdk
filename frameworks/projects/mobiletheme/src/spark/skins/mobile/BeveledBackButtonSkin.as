@@ -146,11 +146,10 @@ public class BeveledBackButtonSkin extends ButtonSkin
 			}
 			case DPIClassification.DPI_120:
 			{
-				// Note provisional may need changes
 				layoutBorderSize = 0;
 				layoutPaddingTop = 0;
 				layoutPaddingBottom = 0;
-				layoutPaddingLeft = 12;
+				layoutPaddingLeft = 14;
 				layoutPaddingRight = 8;
 				measuredDefaultWidth = 44;
 				measuredDefaultHeight = 21;

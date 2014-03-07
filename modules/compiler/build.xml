@@ -111,7 +111,10 @@
     <target name="compile" depends="prepare,run-depend" description="compile">
         <javac source="${javac.src}" target="${javac.src}" debug="${src.debug}" destdir="${module.classes}" srcdir="${module.src}"
             includes="**/*.java" classpathref="classpath"/>
-        <echo file="${module.classes}/flex2/tools/version.properties" append="false">build=${build.number}</echo>
+	        <tstamp>
+	        	<format property="build.number.date" pattern="yyyyMMdd" />
+	        </tstamp>
+        <echo file="${module.classes}/flex2/tools/version.properties" append="false">build=${build.number.date}</echo>
     </target>
 
     <target name="javacc">
@@ -407,7 +410,10 @@
         <!-- Dynamically creating /flex2/tools/version.properties,
              other locales would need to be manually created here -->
         <delete failonerror="false" file="${module.classes}/flex2/tools/version.properties" />
-        <echo file="${module.classes}/flex2/tools/version.properties" append="false">build=${build.number}</echo>
+        <tstamp>
+        	<format property="build.number.date" pattern="yyyyMMdd" />
+        </tstamp>
+        <echo file="${module.classes}/flex2/tools/version.properties" append="false">build=${build.number.date}</echo>
     </target>
 
 	<target name="clean" description="clean">

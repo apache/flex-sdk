@@ -76,6 +76,7 @@ import flash.tools.debugger.VersionException;
 import flash.tools.debugger.Watch;
 import flash.tools.debugger.WatchKind;
 import flash.tools.debugger.concrete.DProtocol;
+import flash.tools.debugger.concrete.DSwfInfo;
 import flash.tools.debugger.events.BreakEvent;
 import flash.tools.debugger.events.ConsoleErrorFault;
 import flash.tools.debugger.events.DebugEvent;
@@ -240,7 +241,8 @@ public class DebugCLI implements Runnable, SourceLocator
 	StringTokenizer		m_currentTokenizer;
 	String				m_currentToken;
 	String				m_currentLine;
-	public String		m_repeatLine;	
+	public String		m_repeatLine;
+    private boolean     m_isIde;
 
 	/**
 	 * The module that the next "list" command should display if no
@@ -293,18 +295,6 @@ public class DebugCLI implements Runnable, SourceLocator
 	 * Show this pointer for info stack.
 	 */
 	private static final String INFO_STACK_SHOW_THIS = "$infostackshowthis"; //$NON-NLS-1$
-
-	/**
-	 * Number of milliseconds to wait for metadata.
-	 */
-	private static final String METADATA_ATTEMPTS_PERIOD = "$metadataattemptsperiod"; //$NON-NLS-1$
-
-	private static final String METADATA_NOT_AVAILABLE = "$metadatanotavailable"; //$NON-NLS-1$
-
-	/**
-	 * How many times we should try to get metadata.
-	 */
-	private static final String METADATA_ATTEMPTS = "$metadataattempts"; //$NON-NLS-1$
 
 	private static final String PLAYER_FULL_SUPPORT = "$playerfullsupport"; //$NON-NLS-1$
 
@@ -401,6 +391,7 @@ public class DebugCLI implements Runnable, SourceLocator
 	public static LocalizationManager getLocalizationManager() { return m_localizationManager; }
 	public Session				getSession()	{ return m_session; }
 	public FileInfoCache		getFileCache()	{ return m_fileInfo; }
+    public boolean              isIde()         { return m_isIde; }
 
 	/**
 	 * Convert a module to class name.  This is used
@@ -450,12 +441,16 @@ public class DebugCLI implements Runnable, SourceLocator
 					if (i+1 < args.length)
 						m_cdPath = args[i++];
 				}
-				else if (arg.equals("-p")) //$NON-NLS-1$
-				{
-					// consume the port
-					if (i+1 < args.length)
-						m_connectPort = args[++i];
-				}
+                else if (arg.equals("-p")) //$NON-NLS-1$
+                {
+                    // consume the port
+                    if (i+1 < args.length)
+                        m_connectPort = args[++i];
+                }
+                else if (arg.equals("-ide")) //$NON-NLS-1$
+                {
+                    m_isIde = true;
+                }
 				else
 				{
 					err("Unknown command-line argument: " + arg);
@@ -1179,7 +1174,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			{
 				// keep spitting out frames until we can't
 				Frame frame = stack[i];
-				boolean valid = appendFrameInfo(sb, frame, i, showThis, false);
+				boolean valid = appendFrameInfo(sb, frame, i, showThis, true);
 				sb.append(m_newline);
                 if (!valid)
                     break;
@@ -1224,7 +1219,7 @@ public class DebugCLI implements Runnable, SourceLocator
 
 			if (showThis && dis != null)
 			{
-				ExpressionCache.appendVariable(sb, dis);
+                m_exprCache.appendVariable(sb, dis);
 				sb.append("."); //$NON-NLS-1$
 			}
 
@@ -1239,7 +1234,7 @@ public class DebugCLI implements Runnable, SourceLocator
 					Variable v = var[j];
 					sb.append(v.getName());
 					sb.append('=');
-					ExpressionCache.appendVariableValue(sb, v.getValue());
+                    m_exprCache.appendVariableValue(sb, v.getValue());
 					if ((j+1)<var.length)
 						sb.append(", "); //$NON-NLS-1$
 				}
@@ -1296,7 +1291,7 @@ public class DebugCLI implements Runnable, SourceLocator
 				if ( !v.isAttributeSet(VariableAttribute.IS_LOCAL) &&
 					 !v.isAttributeSet(VariableAttribute.IS_ARGUMENT) )
 				{
-					ExpressionCache.appendVariable(sb, vars[i]);
+					m_exprCache.appendVariable(sb, vars[i]);
 					sb.append(m_newline);
 				}
 			}
@@ -1352,7 +1347,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			Variable[] vars = frames[num].getArguments(m_session);
 			for(int i=0; i<vars.length; i++)
 			{
-				ExpressionCache.appendVariable(sb, vars[i]);
+                m_exprCache.appendVariable(sb, vars[i]);
 				sb.append(m_newline);
 			}
 		}
@@ -1391,7 +1386,7 @@ public class DebugCLI implements Runnable, SourceLocator
 				// see if variable is local
 				if ( v.isAttributeSet(VariableAttribute.IS_LOCAL) )
 				{
-					ExpressionCache.appendVariable(sb, v);
+                    m_exprCache.appendVariable(sb, v);
 					sb.append(m_newline);
 				}
 			}
@@ -1427,7 +1422,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			for(int i=0; i<scopes.length; i++)
 			{
 				Variable scope = scopes[i];
-				ExpressionCache.appendVariable(sb, scope);
+                m_exprCache.appendVariable(sb, scope);
 				sb.append(m_newline);
 			}
 		}
@@ -1684,101 +1679,6 @@ public class DebugCLI implements Runnable, SourceLocator
 		}
 	}
 
-    public void waitForMetaData() throws InProgressException
-    {
-        // perform a query to see if our metadata has loaded
-        int metadatatries = propertyGet(METADATA_ATTEMPTS);
-        int maxPerCall = 8;   // cap on how many attempt we make per call
-
-        int tries = Math.min(maxPerCall, metadatatries);
-        if (tries > 0)
-        {
-            int remain = metadatatries - tries; // assume all get used up
-
-            // perform the call and then update our remaining number of attempts
-            try
-            {
-                tries = waitForMetaData(tries);
-                remain = metadatatries - tries; // update our used count
-            }
-            catch(InProgressException ipe)
-            {
-                propertyPut(METADATA_ATTEMPTS, remain);
-				throw ipe;
-            }
-        }
-    }
-
-	/**
-	 * Wait for the API to load function names, which
-	 * exist in the form of external meta-data.
-	 *
-	 * Only do this tries times, then give up
-	 *
-	 * We wait period * attempts
-	 */
-	public int waitForMetaData(int attempts) throws InProgressException
-	{
-        int start = attempts;
-        int period = propertyGet(METADATA_ATTEMPTS_PERIOD);
-		while(attempts > 0)
-		{
-			// are we done yet?
-			if (isMetaDataAvailable())
-				break;
-			else
-				try { attempts--; Thread.sleep(period); } catch(InterruptedException ie) {}
-		}
-
-		// throw exception if still not ready
-		if (!isMetaDataAvailable())
-			throw new InProgressException();
-
-        return start-attempts;  // remaining number of tries
-	}
-
-	/**
-	 * Ask each swf if metadata processing is complete
-	 */
-	public boolean isMetaDataAvailable()
-	{
-		boolean allLoaded = true;
-		try 
-		{
-			// we need to ask the session since our fileinfocache will hide the exception
-			SwfInfo[] swfs = m_session.getSwfs();
-			for(int i=0; i<swfs.length; i++)
-			{
-				// check if our processing is finished.
-				SwfInfo swf = swfs[i];
-				if (swf != null && !swf.isProcessingComplete())
-				{
-					allLoaded = false;
-					break;
-				}
-			}
-		}
-		catch(NoResponseException nre)
-		{
-			// ok we still need to wait for player to read the swd in
-			allLoaded = false;
-		}
-
-		// count the number of times we checked and it wasn't there
-		if (!allLoaded)
-		{
-			int count = propertyGet(METADATA_NOT_AVAILABLE);
-			count++;
-			propertyPut(METADATA_NOT_AVAILABLE, count);
-		}
-		else
-		{
-			// success so we reset our attempt counter
-			propertyPut(METADATA_ATTEMPTS, METADATA_RETRIES);
-		}
-		return allLoaded;
-	}
-
 	void doInfoHandle()
 	{
 		if (hasMoreTokens())
@@ -1818,9 +1718,6 @@ public class DebugCLI implements Runnable, SourceLocator
 		// we take an optional single arg which specifies a module
 		try
 		{
-			// let's wait a bit for the background load to complete
-			waitForMetaData();
-
 			if (hasMoreTokens())
 			{
 				arg = nextToken();
@@ -1861,10 +1758,6 @@ public class DebugCLI implements Runnable, SourceLocator
 		catch(AmbiguousException ae)
 		{
 			err(ae.getMessage());
-		}
-		catch(InProgressException ipe)
-		{
-		    err(getLocalizationManager().getLocalizedTextString("functionListBeingPrepared")); //$NON-NLS-1$
 		}
 	}
 
@@ -2211,10 +2104,6 @@ public class DebugCLI implements Runnable, SourceLocator
 		// then see if it because of a swfloaded event
 		if( reason == SuspendReason.ScriptLoaded)
 		{
-            // since the player takes a long time to provide swf/swd, try 80 * 250ms = ~20s
-            if (propertyGet(METADATA_ATTEMPTS) > 0)
-			    try { waitForMetaData(80); } catch(InProgressException ipe) { }
-
             m_fileInfo.setDirty();
 			processEvents();
             propagateBreakpoints();
@@ -2348,6 +2237,11 @@ public class DebugCLI implements Runnable, SourceLocator
 			sb.append(getLocalizationManager().getLocalizedTextString("linePrefixWhenDisplayingConsoleError")); //$NON-NLS-1$
 			sb.append(' ');
 			sb.append(e.information);
+
+            final String stackTrace = e.stackTrace();
+            if (stackTrace != null && stackTrace.length() > 0) {
+                sb.append("\n").append(stackTrace);
+            }
 		}
 		else
 		{
@@ -2360,6 +2254,11 @@ public class DebugCLI implements Runnable, SourceLocator
 				sb.append(getLocalizationManager().getLocalizedTextString("informationAboutFault")); //$NON-NLS-1$
 				sb.append(e.information);
 			}
+
+            final String stackTrace = e.stackTrace();
+            if (stackTrace != null && stackTrace.length() > 0) {
+                sb.append("\n").append(stackTrace);
+            }
 		}
 		out( sb.toString() );
 	}
@@ -3324,34 +3223,37 @@ public class DebugCLI implements Runnable, SourceLocator
 
         // If we have a swf filter enabled then we only want to
         // set a breakpoint in a specific swf not all of them
-		try
-		{
-			if (singleSwfBreakpoint)
-			{
-				Location l = findAndEnableBreak(swf, f, line);
-				col.add(l);
-			}
-			else
-			{
-				// walk all swfs looking to add this breakpoint
-				SwfInfo[] swfs = m_fileInfo.getSwfs();
-				for(int i=0; i<swfs.length; i++)
-				{
-					swf = swfs[i];
-					if (swf != null)
-					{
-						Location l = findAndEnableBreak(swf, f, line);
-						if (l != null)
-							col.add(l);
-					}
-				}
-			}
-		}
-		catch(InProgressException ipe)
-		{
-			if (Trace.error)
-				Trace.trace( ( (swf==null)?"SWF ":swf.getUrl() )+" still loading, breakpoint at "+f.getName()+":"+line+" not set"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-		}
+        if (singleSwfBreakpoint)
+        {
+            Location l = null;
+            try {
+                l = findAndEnableBreak(swf, f, line);
+            }
+            catch(InProgressException ipe)
+            {
+                if (Trace.error)
+                    Trace.trace( ( (swf==null)?"SWF ":swf.getUrl() )+" still loading, breakpoint at "+f.getName()+":"+line+" not set"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+            }
+            col.add(l);
+        }
+        else
+        {
+            // walk all swfs looking to add this breakpoint
+            SwfInfo[] swfs = m_fileInfo.getSwfs();
+            for (SwfInfo swf1 : swfs) {
+                swf = swf1;
+                if (swf != null) {
+                    try {
+                        Location l = findAndEnableBreak(swf, f, line);
+                        if (l != null)
+                            col.add(l);
+                    } catch (InProgressException ipe) {
+                        if (Trace.error)
+                            Trace.trace((swf.getUrl()) + " still loading, breakpoint at " + f.getName() + ":" + line + " not set"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                    }
+                }
+            }
+        }
 		return col;
 	}
 
@@ -3362,21 +3264,41 @@ public class DebugCLI implements Runnable, SourceLocator
 	 *			otherwise try to locate a matching source file in given swf.
 	 * @return null if the swf does not contain this source file
 	 */
-	Location findAndEnableBreak(SwfInfo swf, SourceFile f, int line) throws NotConnectedException, InProgressException
-	{
-		int fileId = f.getId();
-		if (swf != null)
-		{
-			SourceFile sameFile = m_fileInfo.similarFileInSwf(swf, f);
-			if (sameFile != null)
-				fileId = sameFile.getId();
-			else 
-				fileId = -1;
-		}
+    private Location findAndEnableBreak(final SwfInfo swf, final SourceFile file, final int line) throws NotConnectedException,
+            InProgressException {
+        if (swf == null) {
+            return breakEnableRequest(file.getId(), line);
+        }
 
-		Location l = (fileId > -1) ? breakEnableRequest(fileId, line) : null;
-		return l;
-	}
+        for (final SourceFile similarFile : getSimilarSourceFilesInSwf(swf, file)) {
+            final Location location = breakEnableRequest(similarFile.getId(), line);
+            if (location != null) {
+                return location;
+            }
+        }
+
+        return null;
+    }
+
+    private List<SourceFile> getSimilarSourceFilesInSwf(final SwfInfo info, final SourceFile file) throws InProgressException {
+        if (!info.isProcessingComplete()) {
+            // IDEA-94128. For unknown reason m_fileInfo.getSwfs() may contain "unknown" swf which is marked as not fully loaded,
+            // but in fact containing full list of correct sources. At the same time correct swf doesn't contain sources.
+            if (!(info instanceof DSwfInfo) || !((DSwfInfo) info).hasAllSource()) {
+                throw new InProgressException();
+            }
+        }
+
+        final List<SourceFile> result = new LinkedList<SourceFile>();
+
+        for (final SourceFile each : info.getSourceList(m_session)) {
+            if (m_fileInfo.filesMatch(file, each)) {
+                result.add(each);
+            }
+        }
+
+        return result;
+    }
 
 	/**
 	 * Received when a breakpoint has been removed (or disabled)
@@ -3592,7 +3514,7 @@ public class DebugCLI implements Runnable, SourceLocator
 			else if (isLookupMembers)
 				sb.append(result);
 			else
-				ExpressionCache.appendVariableValue(sb, result);
+                m_exprCache.appendVariableValue(sb, result);
 
 			out( sb.toString() );
 
@@ -4020,11 +3942,11 @@ public class DebugCLI implements Runnable, SourceLocator
 //			sb.append(val.getName());
 			if (fullName)
 				sb.append(name);
-			ExpressionCache.appendVariableValue(sb, key.getValue(), key.getName());
+            m_exprCache.appendVariableValue(sb, key.getValue(), key.getName());
 			sb.append("."); //$NON-NLS-1$
 			sb.append(memName);
 			sb.append(" = "); //$NON-NLS-1$
-			ExpressionCache.appendVariableValue(sb, val.getValue(), val.getName());
+            m_exprCache.appendVariableValue(sb, val.getValue(), val.getName());
 			sb.append(m_newline);
 		}
 		return sb;
@@ -4146,8 +4068,6 @@ public class DebugCLI implements Runnable, SourceLocator
 	 */
     private int[] parseFunctionName(int module, String partialFunctionName, boolean onlyThisModule) throws NoMatchException, AmbiguousException
     {
-        try { waitForMetaData(); } catch(InProgressException ipe) {}  // wait a bit before we try this to give the background thread time to complete
-
         SourceFile m = m_fileInfo.getFile(module);
 		ArrayList<ModuleFunctionPair> functionNames = new ArrayList<ModuleFunctionPair>(); // each member is a ModuleFunctionPair
 
@@ -4651,9 +4571,6 @@ public class DebugCLI implements Runnable, SourceLocator
 
 				// pause for a while during startup, don't let exceptions ripple outwards
 				try { waitTilHalted(); } catch(Exception e) {}
-
-				// pause for a while during startup, don't let exceptions ripple outwards
-				try { waitForMetaData(); } catch(Exception e) {}
 
 				setInitialSourceFile();
 
@@ -6151,10 +6068,10 @@ public class DebugCLI implements Runnable, SourceLocator
 					Object result = m_exprCache.evaluate(a.getExpression()).value;
 
 					if (result instanceof Variable)
-						ExpressionCache.appendVariableValue(sb, ((Variable)result).getValue());
+                        m_exprCache.appendVariableValue(sb, ((Variable)result).getValue());
 
 					else if (result instanceof Value)
-						ExpressionCache.appendVariableValue(sb, (Value) result);
+                        m_exprCache.appendVariableValue(sb, (Value) result);
 
 					else if (result instanceof InternalProperty)
 						sb.append( ((InternalProperty)result).valueOf() );
@@ -6444,9 +6361,6 @@ public class DebugCLI implements Runnable, SourceLocator
 		propertyPut(LAST_FRAME_DEPTH, 0);
 		propertyPut(CURRENT_FRAME_DEPTH, 0);
 		propertyPut(DISPLAY_FRAME_NUMBER, 0);
-		propertyPut(METADATA_ATTEMPTS_PERIOD, 250); // 1/4s per attempt
-		propertyPut(METADATA_NOT_AVAILABLE, 0);  // counter for failures
-		propertyPut(METADATA_ATTEMPTS, METADATA_RETRIES);
 		propertyPut(PLAYER_FULL_SUPPORT, correctVersion ? 1 : 0);
 
 		String previousURI = m_mruURI;
@@ -6473,10 +6387,6 @@ public class DebugCLI implements Runnable, SourceLocator
 	 */
 	void reapplyBreakpoints()
 	{
-		// give us a bit of time to process the newly loaded swf
-		if (propertyGet(METADATA_ATTEMPTS) > 0)
-			try { waitForMetaData(80); } catch(InProgressException ipe) { }
-
 		int count = breakpointCount();
 		for(int i=0; i<count; i++)
 		{

@@ -129,9 +129,10 @@ public class TabbedViewNavigatorApplicationSkin extends MobileSkin
     override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.layoutContents(unscaledWidth, unscaledHeight);
-        
-        tabbedNavigator.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
-        tabbedNavigator.setLayoutBoundsPosition(0, 0);
+        var osStatusBarHeight: Number = Number(getStyle("osStatusBarHeight"));
+        if (isNaN(osStatusBarHeight)) osStatusBarHeight = 0;
+        tabbedNavigator.setLayoutBoundsSize(unscaledWidth, unscaledHeight - osStatusBarHeight);
+        tabbedNavigator.setLayoutBoundsPosition(0, osStatusBarHeight);
     }
 }
 }

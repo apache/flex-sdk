@@ -1398,8 +1398,11 @@ public class Menu extends List implements IFocusManagerContainer
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-        border.move(0, 0); 
-        border.visible = (dataProvider != null && dataProvider.length > 0);
+		if (border)
+		{
+        	border.move(0, 0); 
+        	border.visible = (dataProvider != null && dataProvider.length > 0);
+		}
 
         // there's sort of a bug in the player that if we don't give size to the
         // hiddenItem it gets set to width = 0 and then you can't measure text anymore.

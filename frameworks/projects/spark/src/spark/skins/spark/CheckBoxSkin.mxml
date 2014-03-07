@@ -70,6 +70,9 @@
     
     <fx:Script>
         <![CDATA[
+            import spark.components.supportClasses.LabelPlacement;
+
+
             /** 
              * @private 
              */     
@@ -79,6 +82,152 @@
              * @private
              */
             override public function get focusSkinExclusions():Array { return focusExclusions;};
+
+
+            //--------------------------------------------------------------------------
+            //
+            //  Overridden methods
+            //
+            //--------------------------------------------------------------------------
+
+            /**
+             *  @copy mx.core.UIComponent#styleChanged
+             *
+             *  @langversion 3.0
+             *  @playerversion Flash 11.8
+             *  @playerversion AIR 3.8
+             *  @productversion Flex 4.12
+             */
+            override public function styleChanged(styleProp:String):void
+            {
+                super.styleChanged(styleProp);
+
+                //Check if the style is null for mass style changes or if the labelPlacement/gap styles were changed.
+                if (styleProp == "labelPlacement" || styleProp == "gap" || styleProp === null)
+                {
+                    updateLabelPlacement();
+                }
+            }
+
+            
+            //--------------------------------------------------------------------------
+            //
+            //  Methods
+            //
+            //--------------------------------------------------------------------------
+
+            /**
+             *  Sets the label placement in relation to the checkbox.
+             *  Requires the SkinParts <code>checkDisplay</code> and <code>labelDisplay</code>.  
+             *
+             *  @langversion 3.0
+             *  @playerversion Flash 11.8
+             *  @playerversion AIR 3.8
+             *  @productversion Flex 4.12
+             */
+            public function updateLabelPlacement():void
+            {
+                var spacing:int;
+
+
+                if (!checkDisplay || !labelDisplay)
+                {
+                    return;
+                }
+
+                if (getStyle("gap") == undefined)
+                {
+                    //Add a default gap if the gap style is undefined.
+                    spacing = 5;
+                }
+                else
+                {
+                    spacing = int(getStyle("gap"));
+                }
+
+
+                switch (String(getStyle("labelPlacement")).toLowerCase())
+                {
+                    case LabelPlacement.BOTTOM:
+                    {
+                        //Adjust the labels position to the bottom.
+                        labelDisplay.horizontalCenter = 0;
+                        labelDisplay.verticalCenter = undefined;
+                        labelDisplay.top = checkDisplay.height + spacing;
+                        labelDisplay.bottom = 0;
+                        labelDisplay.left = 0;
+                        labelDisplay.right = 0;
+
+                        //Adjust the checkboxes position to the top.
+                        checkDisplay.horizontalCenter = 0;
+                        checkDisplay.verticalCenter = undefined;
+                        checkDisplay.top = 0;
+                        checkDisplay.bottom = undefined;
+
+                        break;
+                    }
+
+                    case LabelPlacement.LEFT:
+                    {
+                        //Adjust the labels position to left side.
+                        labelDisplay.horizontalCenter = undefined;
+                        labelDisplay.verticalCenter = 2;
+                        labelDisplay.top = 3;
+                        labelDisplay.bottom = 3;
+                        labelDisplay.left = 0;
+                        labelDisplay.right = checkDisplay.width + spacing;
+
+                        //Adjust the checkboxes position to right side.
+                        checkDisplay.horizontalCenter = undefined;
+                        checkDisplay.verticalCenter = 0;
+                        checkDisplay.left = undefined;
+                        checkDisplay.right = 0;
+
+                        break;
+                    }
+
+                    case LabelPlacement.TOP:
+                    {
+                        //Adjust the labels position to the top.
+                        labelDisplay.horizontalCenter = 0;
+                        labelDisplay.verticalCenter = undefined;
+                        labelDisplay.top = 0;
+                        labelDisplay.bottom = checkDisplay.height + spacing;
+                        labelDisplay.left = 0;
+                        labelDisplay.right = 0;
+
+                        //Adjust the checkboxes position to the bottom.
+                        checkDisplay.horizontalCenter = 0;
+                        checkDisplay.verticalCenter = undefined;
+                        checkDisplay.top = undefined;
+                        checkDisplay.bottom = 0;
+
+                        break;
+                    }
+
+                    //Making the rightside labelPlacement the default.
+                    case LabelPlacement.RIGHT:
+                    default:
+                    {
+                        //Adjust the labels position to right side.
+                        labelDisplay.horizontalCenter = undefined;
+                        labelDisplay.verticalCenter = 2;
+                        labelDisplay.top = 3;
+                        labelDisplay.bottom = 3;
+                        labelDisplay.left = checkDisplay.width + spacing;
+                        labelDisplay.right = 0;
+
+                        //Adjust the checkboxes position to left side.
+                        checkDisplay.horizontalCenter = undefined;
+                        checkDisplay.verticalCenter = 0;
+                        checkDisplay.left = 0;
+                        checkDisplay.right = undefined;
+
+                        break;
+                    }
+                }
+            }
+
         ]]>
     </fx:Script>
     
@@ -93,7 +242,9 @@
         <s:State name="disabledAndSelected" stateGroups="disabledStates, selectedStates" />
     </s:states>
     
-    <s:Group verticalCenter="0" width="13" height="13" layoutDirection="ltr">
+    <!-- Checkbox container -->
+    <!--- Group that houses the CheckBox and check -->
+    <s:Group id="checkDisplay" verticalCenter="0" width="13" height="13" layoutDirection="ltr">
         <!-- drop shadow -->
         <s:Rect left="-1" top="-1" right="-1" bottom="-1">
             <s:stroke>

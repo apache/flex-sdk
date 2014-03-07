@@ -52,6 +52,7 @@ package
 		import spark.skins.ArrowDownToggleButtonSkin; ArrowDownToggleButtonSkin;
 		import spark.skins.ArrowRightToggleButtonSkin; ArrowRightToggleButtonSkin;
 		import spark.skins.BorderDataNavigatorSkin; BorderDataNavigatorSkin;
+        import spark.components.BorderDataNavigator; BorderDataNavigator;
 		import spark.skins.ColorPickerButtonSkin; ColorPickerButtonSkin;
 		import spark.skins.ColorPickerSkin; ColorPickerSkin;
 		import spark.skins.DataAccordionSkin; DataAccordionSkin;

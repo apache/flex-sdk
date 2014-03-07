@@ -875,6 +875,17 @@ public class ComboBox extends DropDownListBase implements IIMESupport
             textInput.removeEventListener(FocusEvent.FOCUS_OUT, textInput_focusOutHandler, true);
         }
     }
+	
+	/**
+	 *  @private
+	 */
+	override public function set enabled(value:Boolean):void
+	{
+		if (enabled == value)
+			return;
+		
+		super.enabled = value;
+	}
     
     /**
      *  @private 
@@ -883,7 +894,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     {
         super.changeHighlightedSelection(newIndex, scrollToTop);
         
-        if (newIndex >= 0)
+        if (newIndex >= 0 && newIndex < dataProvider.length)
         {
             var item:Object = dataProvider ? dataProvider.getItemAt(newIndex) : undefined;
             if (item && textInput)

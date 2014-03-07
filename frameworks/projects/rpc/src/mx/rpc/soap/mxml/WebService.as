@@ -327,6 +327,7 @@ public dynamic class WebService extends mx.rpc.soap.WebService implements IMXMLS
             op = new Operation(this, name);
             _operations[name] = op;
             op.asyncRequest = asyncRequest;
+            op.setKeepLastResultIfNotSet(_keepLastResult);
             initializeOperation(op as Operation);
         }
         return op;

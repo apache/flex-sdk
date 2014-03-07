@@ -2370,8 +2370,15 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             // Force visibleColumns to be recomputed now so if there are lockedColumns and
             // updateSubContent() is called before updateDisplayList() is called,
             // visibleColumns will be correct.
-            if (horizontalScrollPosition > visibleHeaderInfos.length)
-                horizontalScrollPosition = visibleHeaderInfos.length - 1;
+			if (visibleHeaderInfos)
+			{
+				if (horizontalScrollPosition > visibleHeaderInfos.length)
+					horizontalScrollPosition = visibleHeaderInfos.length - 1;
+			}
+			else
+			{
+				horizontalScrollPosition = 0;
+			}
         }
 
         super.commitProperties();
@@ -7432,20 +7439,24 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             for (;
                  _editedItemPosition.columnIndex != _columns.length;
                  _editedItemPosition.columnIndex++)
-	            {
-	                // If the editedItemPosition is valid, focus it,
-	                // otherwise find one.
-	                if (_columns[_editedItemPosition.columnIndex].editable &&
-	                    _columns[_editedItemPosition.columnIndex].visible)
-	                {
-						var row:Array = listItems[_editedItemPosition.rowIndex];
-						if (row && row[_editedItemPosition.columnIndex])
-						{
-							foundOne = true;
-							break;
-						}
-	                }
-	            }
+            {
+                // If the editedItemPosition is valid, focus it,
+                // otherwise find one.
+                if (_columns[_editedItemPosition.columnIndex].editable &&
+                    _columns[_editedItemPosition.columnIndex].visible)
+                {
+					var row:Array = listItems[_editedItemPosition.rowIndex];
+					if (row && row[_editedItemPosition.columnIndex])
+					{
+						foundOne = true;
+						break;
+					}
+                }
+            }
+			
+			// leave at last column or an RTE can occur
+			if (_editedItemPosition.columnIndex >= _columns.length)
+				_editedItemPosition.columnIndex = _columns.length - 1;
 
             if (foundOne)
             {
@@ -7603,6 +7614,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         var target:DisplayObject = DisplayObject(event.target);
         var index:int = target.parent.getChildIndex(target);
         var optimumColumns:Array = getOptimumColumns();
+		if (index < 0 || index >= optimumColumns.length)
+			return;
         if (!optimumColumns[index].resizable)
             return;
 

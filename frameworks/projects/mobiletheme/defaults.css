@@ -313,7 +313,7 @@ TextArea
     paddingRight: 9;
     paddingTop: 9;
     showPromptWhenFocused: true;
-    skinClass: ClassReference("spark.skins.mobile.StageTextAreaSkin");
+    skinClass: ClassReference("spark.skins.mobile.ScrollingStageTextAreaSkin");
 }
 
 TextArea VScrollBar
@@ -333,7 +333,7 @@ TextInput
     paddingRight: 9;
     paddingTop: 9;
     showPromptWhenFocused: true;
-    skinClass: ClassReference("spark.skins.mobile.StageTextInputSkin");
+    skinClass: ClassReference("spark.skins.mobile.ScrollingStageTextInputSkin");
 }
 
 ToggleSwitch
@@ -927,5 +927,48 @@ global
     {
         leading: 4.5;
         paddingRight: 3;
+    }
+}
+
+/* ios 7 status bar
+ requires new os-version selector (cf FLEX-FLEX-33949)
+ */
+
+@media (application-dpi: 120) AND (os-platform:"IOS") AND (min-os-version: 7)
+{
+    Application
+    {
+        osStatusBarHeight: 15;
+    }
+}
+
+@media (application-dpi: 160) AND (os-platform:"IOS") AND (min-os-version: 7)
+{
+    Application {
+         osStatusBarHeight: 20;
+    }
+}
+
+@media (application-dpi: 240) AND (os-platform:"IOS") AND (min-os-version: 7)
+{
+    Application
+    {
+        osStatusBarHeight: 30;
+    }
+}
+
+@media (application-dpi: 320) AND (os-platform:"IOS") AND (min-os-version: 7)
+{
+    Application
+    {
+        osStatusBarHeight: 40;
+    }
+}
+
+@media (application-dpi: 480) AND (os-platform:"IOS") AND (min-os-version: 7)
+{
+    Application
+    {
+        osStatusBarHeight: 60;
     }
 }

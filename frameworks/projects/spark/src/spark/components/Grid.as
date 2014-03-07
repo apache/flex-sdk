@@ -735,9 +735,9 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         {
             const gridViewLayout:GridViewLayout = centerGridView.gridViewLayout;
             const gridMaxHSP:Number = contentWidth - width;
-            const centerContentWidth:Number = Math.ceil(gridViewLayout.gridDimensionsView.getContentWidth());
-            const centerMaxHSP:Number = centerContentWidth - centerGridView.width;
-            const hsp:Number = (centerMaxHSP / gridMaxHSP) * value;
+	        const centerContentWidth:Number = Math.ceil(gridViewLayout.gridDimensionsView.getContentWidth());
+	        const centerMaxHSP:Number = centerContentWidth - centerGridView.width;
+			const hsp:Number = (gridMaxHSP > 0) ? (centerMaxHSP / gridMaxHSP) * value : 0;
 
             centerGridView.horizontalScrollPosition = hsp;
             
@@ -853,7 +853,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             const gridMaxVSP:Number = contentHeight - height;
             const centerContentHeight:Number = Math.ceil(gridViewLayout.gridDimensionsView.getContentHeight());
             const centerMaxVSP:Number = centerContentHeight - centerGridView.height;
-            const vsp:Number = (centerMaxVSP / gridMaxVSP) * value;
+            const vsp:Number = (gridMaxVSP > 0) ? (centerMaxVSP / gridMaxVSP) * value : 0;
             
             centerGridView.verticalScrollPosition = vsp;
             
@@ -4609,7 +4609,6 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
 		
 		if (!variableRowHeight)
 			setFixedRowHeight(gridDimensions.getRowHeight(0));
-
 	}
         
     //--------------------------------------------------------------------------
@@ -5456,6 +5455,8 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
                 else 
                 {
                     caretRowIndex = _dataProvider.length > 0 ? 0 : -1;
+                    // we need to call validateSize() to force computing maxTypicalCellHeight  or verticalScrollPosition will fail
+                   GridLayout(layout).centerGridView.validateSize();
                    verticalScrollPosition = 0;
                 }
                 
@@ -5595,16 +5596,17 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
     private function dataProvider_collectionChangeHandler(event:CollectionEvent):void
     {
         var selectionChanged:Boolean = false;
-        
+
+
         // If no columns exist, we should try to generate them.
         if (!columns && dataProvider.length > 0)
         {
             columns = generateColumns();
             generatedColumns = (columns != null);
-            gridDimensions.columnCount = generatedColumns ? columns.length : 0;
+            this.gridDimensions.columnCount = generatedColumns ? columns.length : 0;
         }
-        
-        const gridDimenions:GridDimensions = this.gridDimensions;
+
+        const gridDimensions:GridDimensions = this.gridDimensions;
         if (gridDimensions)
         {
             gridDimensions.dataProviderCollectionChanged(event);

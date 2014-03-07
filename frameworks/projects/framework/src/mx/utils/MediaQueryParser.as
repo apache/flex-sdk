@@ -103,6 +103,7 @@ public class MediaQueryParser
                 applicationDpi = moduleFactory.info()["applicationDPI"];
         }
         osPlatform = getPlatform();
+        osVersion = getOSVersion(osPlatform);
     }
     
     /**
@@ -131,15 +132,20 @@ public class MediaQueryParser
     {
         // remove whitespace
         expression = StringUtil.trim(expression);
-        // force to lower case cuz case-insensitive
-        expression = expression.toLowerCase();
-        
+       
         // degenerate expressions
         if (expression == "") return true;
-        if (expression == "all") return true;
-
+        
+        // known queries
         if (goodQueries[expression]) return true;
         if (badQueries[expression]) return false;
+                
+        // force to lower case cuz case-insensitive
+        var originalExpression:String = expression;
+        expression = expression.toLowerCase();
+        
+        //TODO : be smart and do not do a lowercase to do this test
+        if (expression == "all") return true;
         
         // get a list of queries.  If any pass then
         // we're good
@@ -169,7 +175,7 @@ public class MediaQueryParser
             {
                 if (numExpressions == 1 && !notFlag)
                 {
-                    goodQueries[expression] = true;
+                    goodQueries[originalExpression] = true;
                     return true;                                            
                 }
                 // bail if "and" and no media features (invalid query)
@@ -182,7 +188,7 @@ public class MediaQueryParser
                 // early exit if it returned true;
                 if ((result && !notFlag) || (!result && notFlag))
                 {
-                    goodQueries[expression] = true;
+                    goodQueries[originalExpression] = true;
                     return true;                    
                 }
             }
@@ -190,11 +196,11 @@ public class MediaQueryParser
             // then we match
             else if (notFlag)
             {
-                goodQueries[expression] = true;                
+                goodQueries[originalExpression] = true;                
                 return true;
             }
         }
-        badQueries[expression] = true;
+        badQueries[originalExpression] = true;
         return false;
     }
     
@@ -407,7 +413,49 @@ public class MediaQueryParser
         // expression
         return s.toLowerCase();
     }
-    
+
+    /** @private
+     * extract OS version information from os
+     * os is typically a non-numeric string (such as Windows,  iPhone OS, Android, etc...)  followed by a number.
+     * if no number is found, OS version is set to 0.
+     * os on ADL will return the host OS and not the device OS.
+     * That why we need to check for a specific sequence for iOS and Android
+     * */
+    private function getOSVersion(osPlatform:String):Number {
+        //TODO (mamsellem)  retrieve  os version for Android, reading  system/build.prop
+        var os: String = Capabilities.os;
+        var osMatch: Array;
+		
+        if (osPlatform == "ios")
+		{
+            osMatch = os.match(/iPhone OS\s([\d\.]+)/);
+        }
+        else
+		{
+            osMatch = os.match(/[A-Za-z\s]+([\d\.]+)/);
+        }
+		
+		return osMatch ? convertVersionStringToNumber(osMatch[1]) : 0.0;
+    }
+
+    /** @private  converts string version such as "X" or "X.Y" or "X.Y.Z" into a number.
+     * minor version parts are normalized to 100  so that eg. X.1 < X.10
+     * so "7.1" return 7.01 and "7.12" return 7.12
+  */
+    private function convertVersionStringToNumber(versionString: String): Number
+	{
+        var versionParts: Array = versionString.split(".");
+        var version: Number = 0;
+        var scale: Number = 1;
+		
+        for each (var part: String in versionParts) {
+            version += Number(part) * scale;
+            scale /= 100;
+        }
+		
+        return version;
+    }
+
     // the type of the media
     public var type:String = "screen";
     
@@ -416,6 +464,9 @@ public class MediaQueryParser
     
     // the platform of the media
     public var osPlatform:String;
+
+    // the platform os version of the media
+    public var osVersion: Number;
     
 }
 

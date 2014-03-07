@@ -188,7 +188,7 @@ public class Skin extends Group implements IHighlightBitmapCaptureClient
         var exclusions:Array = focusSkinExclusions;
         if (!exclusions)
         {
-            if (this["hostComponent"] is SkinnableComponent)
+            if ("hostComponent" in this && this["hostComponent"] is SkinnableComponent)
                 exclusions = SkinnableComponent(this["hostComponent"]).suggestedFocusSkinExclusions;
         }
         var exclusionCount:Number = (exclusions == null) ? 0 : exclusions.length;

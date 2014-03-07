@@ -35,6 +35,7 @@ import mx.events.TouchInteractionEvent;
 import mx.events.TouchInteractionReason;
 import mx.managers.ISystemManager;
 import mx.utils.GetTimerUtil;
+import mx.utils.Platform;
 
 use namespace mx_internal;
     
@@ -93,7 +94,7 @@ public class TouchScrollHelper
     {
         super();
         
-        isIOS = (Capabilities.version.indexOf("IOS") == 0);
+        isIOS = Platform.isIOS;
         
         mouseEventCoordinatesHistory = new Vector.<Point>(EVENT_HISTORY_LENGTH);
         mouseEventTimeHistory = new Vector.<int>(EVENT_HISTORY_LENGTH);

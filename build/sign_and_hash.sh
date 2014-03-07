@@ -47,11 +47,19 @@
 #------------------------------------------------------------------------------
 `rm -f *.asc`
 `rm -f *.md5`
-for file in *; do
+for file in *.zip; do
     if [ -f "$file" ]; then
         #md5sum -b $file > ${file}.md5
         md5 -q $file > ${file}.md5
         gpg --armor --output ${file}.asc --detach-sig $file
         gpg --verify ${file}.asc $file
+    fi
+done
+for file in *.gz; do
+    if [ -f "$file" ]; then
+         #md5sum -b $file > ${file}.md5
+         md5 -q $file > ${file}.md5
+         gpg --armor --output ${file}.asc --detach-sig $file
+         gpg --verify ${file}.asc $file
     fi
 done

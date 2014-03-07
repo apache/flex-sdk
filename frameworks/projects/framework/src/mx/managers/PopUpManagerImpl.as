@@ -1030,19 +1030,27 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             o.fade = fade;
             fade.play();
             
-            // Blur effect on the application
-            const blurAmount:Number = popUpStyleClient.getStyle("modalTransparencyBlur");
-            
-            if (blurAmount)
+            var sm:ISystemManager = o.systemManager;
+            var awm:IActiveWindowManager = 
+                IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
+            // don't remove blur unless this is the last modal window
+            if (awm.numModalWindows == 1)
             {
-                const blur:Blur = new Blur(o.blurTarget);
-                blur.blurXFrom = blur.blurYFrom = blurAmount;
-                blur.blurXTo = blur.blurYTo = 0;
-                blur.duration = duration;
-                blur.addEventListener(EffectEvent.EFFECT_END, effectEndHandler);
-                o.blur = blur;
                 
-                blur.play();
+                // Blur effect on the application
+                const blurAmount:Number = popUpStyleClient.getStyle("modalTransparencyBlur");
+                
+                if (blurAmount)
+                {
+                    const blur:Blur = new Blur(o.blurTarget);
+                    blur.blurXFrom = blur.blurYFrom = blurAmount;
+                    blur.blurXTo = blur.blurYTo = 0;
+                    blur.duration = duration;
+                    blur.addEventListener(EffectEvent.EFFECT_END, effectEndHandler);
+                    o.blur = blur;
+                    
+                    blur.play();
+                }
             }
         }
         else
@@ -1466,7 +1474,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 					var o:PopUpData = popupInfo[i];
 					if (o && o != p && o.owner.accessibilityProperties)
 					{
-						o.owner.accessibilityProperties.silent	= true;
+						o.owner.accessibilityProperties.silent = true;
 					}
 				}
 				
@@ -1510,7 +1518,8 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 				if (popupInfo.length<=1)
 				{
 					var sbRoot:Object = p.systemManager.getSandboxRoot();
-					sbRoot.document.accessibilityProperties.silent = false;
+					if (sbRoot.document.accessibilityProperties)
+						sbRoot.document.accessibilityProperties.silent = false;
 				}
 				
 				try {

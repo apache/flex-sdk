@@ -34,6 +34,19 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
+ *  The space between layout elements, in pixels.
+ * 
+ *  @default 5
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 11.8
+ *  @playerversion AIR 3.8
+ *  @productversion Flex 4.12
+ */
+[Style(name="gap", type="int", inherit="no")]
+
+
+/**
  *  Orientation of the icon in relation to the label.
  *  Valid MXML values are <code>right</code>, <code>left</code>,
  *  <code>bottom</code>, and <code>top</code>.
@@ -53,6 +66,29 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 [Style(name="iconPlacement", type="String", enumeration="top,bottom,right,left", inherit="no", theme="mobile")]
+
+
+/**
+ *  Orientation of the Label in relation to the CheckBox.
+ *  Valid MXML values are <code>"left"</code>, <code>"right"</code>,
+ *  <code>"top"</code>, and <code>"bottom"</code>.
+ *
+ *  <p>In ActionScript, you can use the following constants
+ *  to set this property:
+ *  <code>LabelPlacement.LEFT</code>,
+ *  <code>LabelPlacement.RIGHT</code>,
+ *  <code>LabelPlacement.TOP</code>, and
+ *  <code>LabelPlacement.BOTTOM</code>.</p>
+ *
+ *  @see spark.components.supportClasses.LabelPlacement
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="labelPlacement", type="String", enumeration="top,bottom,left,right", inherit="yes")]
+
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
@@ -172,7 +208,70 @@ public class CheckBox extends ToggleButtonBase
     {
         super();
     }
-    
+
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  gap
+    //----------------------------------
+
+    /**
+     *  The space between layout elements, in pixels.  This is mearly a wrapper for the
+     *  <code>gap</code> style.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.12
+     */
+    public function get gap():int
+    {
+        return int(getStyle("gap"));
+    }
+
+    /**
+     *  @private
+     */
+    public function set gap(value:int):void
+    {
+        setStyle("gap", value);
+    }
+
+
+    //----------------------------------
+    //  labelPlacement
+    //----------------------------------
+
+    /**
+     *  Affects the placement of the label in relation to the checkbox.  This is mearly a wrapper for the
+     *  <code>labelPlacement</code> style.
+     *
+     *  @default LabelPlacement.RIGHT
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.12
+     */
+    public function get labelPlacement():String
+    {
+        return String(getStyle("labelPlacement"));
+    }
+
+    /**
+     *  @private
+     */
+    public function set labelPlacement(value:String):void
+    {
+        setStyle("labelPlacement", value);
+    }
+
+
     //--------------------------------------------------------------------------
     //
     //  Overridden Properties
@@ -195,6 +294,7 @@ public class CheckBox extends ToggleButtonBase
         return focusExclusions;
     }
 
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -209,6 +309,7 @@ public class CheckBox extends ToggleButtonBase
         if (CheckBox.createAccessibilityImplementation != null)
             CheckBox.createAccessibilityImplementation(this);
     }
+
 }
 
 }

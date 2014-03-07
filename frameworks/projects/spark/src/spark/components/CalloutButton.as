@@ -75,6 +75,23 @@ use namespace mx_internal;
 [Event(name="open", type="spark.events.DropDownEvent")]
 
 //--------------------------------------
+//  Styles
+//--------------------------------------
+/**
+ *  Specifies the delay, in milliseconds, to wait for opening the Callout
+ *  when the button is rolled over.
+ *  If set to <code>NaN</code>, then the Callout opens when clicking the button.
+ *
+ *  @default NaN
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 3.8
+ *  @productversion Flex 4.11
+ */
+[Style(name="rollOverOpenDelay", type="Number", inherit="no",theme="spark",minValue="0")]
+
+//--------------------------------------
 //  Other metadata
 //--------------------------------------
 
@@ -260,7 +277,7 @@ public class CalloutButton extends Button
      *  have been explicitely set or not.
      */
     mx_internal var calloutProperties:Object = {};
-    
+
     //--------------------------------------------------------------------------
     //
     //  Properties proxied to callout
@@ -503,14 +520,29 @@ public class CalloutButton extends Button
         _dropDownController.closeOnResize = false;
         _dropDownController.addEventListener(DropDownEvent.OPEN, dropDownController_openHandler);
         _dropDownController.addEventListener(DropDownEvent.CLOSE, dropDownController_closeHandler);
-        
+        _dropDownController.rollOverOpenDelay = getStyle("rollOverOpenDelay");
         _dropDownController.openButton = this;
         
         if (callout)
             _dropDownController.dropDown = callout;    
     }
-    
-    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        super.styleChanged(styleProp);
+        var allStyles:Boolean = (styleProp == null || styleProp == "styleName");
+
+        if (allStyles || styleProp == "rollOverOpenDelay")
+        {
+            if (dropDownController)
+                dropDownController.rollOverOpenDelay = getStyle("rollOverOpenDelay");
+        }
+    }
+
+//----------------------------------
     //  isDropDownOpen
     //----------------------------------
     
@@ -575,7 +607,7 @@ public class CalloutButton extends Button
             destroyCallout();
         }
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods

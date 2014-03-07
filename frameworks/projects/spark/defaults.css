@@ -60,8 +60,14 @@ Callout
     borderThickness: 1;
 }
 
+CalloutButton {
+    rollOverOpenDelay: NaN;   /* default behavior is clicking button to open callout*/
+}
+
 CheckBox
 {
+    gap: 5;
+    labelPlacement: "right";
     skinClass: ClassReference("spark.skins.spark.CheckBoxSkin");
 }
 

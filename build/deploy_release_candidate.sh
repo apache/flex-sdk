@@ -76,6 +76,7 @@ cp README "${RC_DIR}"
 cp RELEASE_NOTES "${RC_DIR}"
 cp ./out/*-src.* "${RC_DIR}"
 cp ./out/*-bin.* "${BIN_DIR}"
+cp ./out/*-config.xml "${BIN_DIR}"
 cp ./out/*-asdocs.* "${DOC_DIR}"
 
 

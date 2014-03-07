@@ -35,6 +35,7 @@ import mx.core.EventPriority;
 import mx.core.FlexGlobals;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.utils.Platform;
 
 import spark.components.Group;
 import spark.components.Scroller;
@@ -249,7 +250,7 @@ public class TextAreaSkin extends TextSkinBase
             textDisplay.scrollToRangeDelegate = scrollToRange;
             
             // on iOS, resize the TextField and let the native control handle scrolling
-            _isIOS = (Capabilities.version.indexOf("IOS") == 0);
+            _isIOS = Platform.isIOS;
             
             if (_isIOS)
             {

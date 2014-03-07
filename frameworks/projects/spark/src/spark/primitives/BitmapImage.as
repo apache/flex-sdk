@@ -1095,7 +1095,7 @@ public class BitmapImage extends GraphicElement
                 if ((!isNaN(percentWidth) && isNaN(percentHeight) && isNaN(explicitHeight)) ||
                     (!isNaN(percentHeight) && isNaN(percentWidth) && isNaN(explicitWidth)))
                 {
-                    if (aspectRatio != imageAspectRatio)
+                    if (Math.abs(aspectRatio - imageAspectRatio) > 0.001)
                     {
                         invalidateSize();
                         return;
