@@ -1,3 +1,64 @@
+Apache Flex 4.13
+=================
+
+Apache Flex 4.13 is an update to Apache Flex 4.12. 
+
+Known Issues
+_____________
+
+Adobe Flash Builder Integration
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
+when generating the .mxml file for a new project that uses Apache Flex SDK
+4.10.0 or later Spark Application, Flash Builder will incorrectly insert the
+attribute:
+
+	layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
+
+http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
+
+
+Differences from Apache Flex 4.12 include:
+
+AIR and Flash Player support
+------------------------------
+
+
+SDK Changes
+-------------
+
+
+Build Changes
+---------------
+
+
+Compiler Changes
+------------------
+
+
+Bug Fixes
+----------
+ Below is a complete list of all the bug fixes that have been included since
+ the last full release, Apache Flex 4.12.0.
+ If you would like specific information about any of the items below, go to
+ https://issues.apache.org and search for the JIRA Issue Number by using the
+ Quick Search.  Details of the bug and its fix will be included on the
+ resulting page.
+
+JIRA Issue Number and Summary                                                                                        
+-------------------------------------------------------------------------------------------------------------------
+
+
 Apache Flex 4.12
 =================
 
