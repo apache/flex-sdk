@@ -157,7 +157,6 @@ public class UnitTester extends EventDispatcher
 		if (!_root)
 			_root = root;
 
-
 		/// set device if not set.
 		if (cv == null){
 			cv = new ConditionalValue();
@@ -261,8 +260,16 @@ public class UnitTester extends EventDispatcher
 			}
 		}
 
+        var passive:Boolean;
+        try {
+            passive = !(root.loaderInfo.parentAllowsChild && root.loaderInfo.childAllowsParent);
+        } catch (e:Error)
+        {
+            // in single-frame apps, loaderInfo may not be ready
+            passive = false;
+        }
 		// if we're sandboxed and have no scripts, assume we're passive.
-		if (!(root.loaderInfo.parentAllowsChild && root.loaderInfo.childAllowsParent))
+		if (passive)
 		{
 			if (eventScripts == null)
 			{
@@ -312,7 +319,8 @@ public class UnitTester extends EventDispatcher
 		}
 		*/
 
-		var g:Class = Class(appdom.getDefinition("mx.core.UIComponentGlobals"));
+		var g:Class = appdom.hasDefinition("mx.core.UIComponentGlobals") ? 
+                            Class(appdom.getDefinition("mx.core.UIComponentGlobals")) : null;
 		if (g)
         {
 			g["catchCallLaterExceptions"] = true;
@@ -1107,7 +1115,7 @@ public class UnitTester extends EventDispatcher
         // just as it is waiting for a focusIn event or
         // deferring focus assignment
         // but I think that's the best we can do for now
-        if (waitEvent == "focusIn" || uiComponentGlobals.nextFocusObject != null)
+        if (waitEvent == "focusIn" || (uiComponentGlobals && uiComponentGlobals.nextFocusObject != null))
             return;
         
 		if (blockFocusEvents && event.relatedObject == null)
@@ -1165,7 +1173,8 @@ public class UnitTester extends EventDispatcher
 
 	public static function pre_startEventHandler(event:Event):void 
 	{
-		_root["topLevelSystemManager"].addEventListener("callLaterError", callLaterErrorDefaultHandler, false, -1);
+        if ("topLevelSystemManager" in _root)
+    		_root["topLevelSystemManager"].addEventListener("callLaterError", callLaterErrorDefaultHandler, false, -1);
 
 		if (event.type == "applicationComplete")
 		{
@@ -1269,9 +1278,14 @@ public class UnitTester extends EventDispatcher
 			_root = originalRoot;
 
 		TestOutput.logResult("ScriptComplete: completely done");
-		_root[mouseX] = undefined;
-		_root[mouseY] = undefined;
-		setMouseXY(null);
+        try {
+    		_root[mouseX] = undefined;
+	    	_root[mouseY] = undefined;
+		    setMouseXY(null);
+        } catch (e:Error)
+        {
+            // not all use cases support this
+        }
 		_root.removeEventListener("focusIn", focusBlockingHandler, true);
 		_root.removeEventListener("focusOut", focusBlockingHandler, true);
 		_root.removeEventListener("deactivate", activateBlockingHandler, true);
@@ -1464,6 +1478,11 @@ public class UnitTester extends EventDispatcher
 	 */
 	public static var _root:DisplayObject;
 
+    /**
+     *  the object to use for property lookups in stringToObject
+     */
+    public static var contextFunction:Function;
+    
 	/**
 	 *  the list of tests to run (if not specified, runs all tests)
 	 */
@@ -1581,8 +1600,14 @@ public class UnitTester extends EventDispatcher
 	 */
 	public function stringToObject(s:*):Object
 	{
+        var context:Object;
+        if (contextFunction != null)
+            context = contextFunction();
+        else
+            context = _root["document"];
+        
 		if (s == null || s == "")
-			return _root["document"];
+			return context;
 
 		var original:String = s;
 
@@ -1595,26 +1620,26 @@ public class UnitTester extends EventDispatcher
 			{
 				s = s.substring(11);
 				s = s.substring(0, s.indexOf(")"));
-				return _root["document"].getChildAt(parseInt(s));
+				return context.getChildAt(parseInt(s));
 			}
 			if (s.indexOf("getLayoutElementAt(") == 0 && s.indexOf(".") == -1)
 			{
 				s = s.substring(19);
 				s = s.substring(0, s.indexOf(")"));
-				return _root["document"].getLayoutElementAt(parseInt(s));
+				return context.getLayoutElementAt(parseInt(s));
 			}
 			if (s.indexOf("getElementAt(") == 0 && s.indexOf(".") == -1)
 			{
 				s = s.substring(13);
 				s = s.substring(0, s.indexOf(")"));
-				return _root["document"].getElementAt(parseInt(s));
+				return context.getElementAt(parseInt(s));
 			}
 			if (s.indexOf("script:") == 0)
 			{
 				propName = s.substring(7);
 				return this[propName];
 			}
-			return _root["document"][propName];
+			return context[propName];
 		}
 		catch (e:Error)
 		{
@@ -1625,7 +1650,7 @@ public class UnitTester extends EventDispatcher
 			var cc:int = s.indexOf("::");
 			var gd:int = -1;
             var className:String = s;
-            var obj:Object = _root["document"];
+            var obj:Object = context;
             if (cc > 0)
             {
 				gd = s.indexOf("getDefinition");
@@ -1845,8 +1870,11 @@ public class UnitTester extends EventDispatcher
 			generateMXMLInstances(this, children);
 
 		var r:Object = _root;
-		r = r["topLevelSystemManager"];
-		r = r.rawChildren;
+        if ("topLevelSystemManager" in _root)
+        {
+    		r = r["topLevelSystemManager"];
+	    	r = r.rawChildren;
+        }
 		var n:int = r.numChildren;
 		for (var i:int = 0; i < n; i++)
 		{
@@ -1863,7 +1891,8 @@ public class UnitTester extends EventDispatcher
 		// if (RTESocket)
 		//	RTESocket.addEventListener(ProgressEvent.SOCKET_DATA, RTEHandler);
 
-		_root["topLevelSystemManager"].addEventListener("callLaterError", callLaterErrorHandler);
+        if ("topLevelSystemManager" in _root)
+    		_root["topLevelSystemManager"].addEventListener("callLaterError", callLaterErrorHandler);
 
 		if (testCases)
 			numTests = testCases.length;
@@ -1993,7 +2022,8 @@ public class UnitTester extends EventDispatcher
 		// if (RTESocket)
 		// 	RTESocket.removeEventListener(ProgressEvent.SOCKET_DATA, RTEHandler);
 
-		_root["topLevelSystemManager"].removeEventListener("callLaterError", callLaterErrorHandler);
+        if ("topLevelSystemManager" in _root)
+    		_root["topLevelSystemManager"].removeEventListener("callLaterError", callLaterErrorHandler);
 		TestOutput.logResult("testComplete");
 		dispatchEvent(new Event("testComplete"));
 	}
@@ -2044,7 +2074,8 @@ public class UnitTester extends EventDispatcher
 		if (!appdom)
 			appdom = ApplicationDomain.currentDomain;
 
-		var g:Class = Class(appdom.getDefinition("mx.core.UIComponentGlobals"));
+		var g:Class = appdom.hasDefinition("mx.core.UIComponentGlobals") ?
+                        Class(appdom.getDefinition("mx.core.UIComponentGlobals")) : null;
 		if (g)
 		{
 			o = g[layoutManager];
