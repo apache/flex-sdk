@@ -23,6 +23,7 @@ import mx.collections.ArrayList;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.styles.IStyleClient;
 
 import spark.components.ButtonBar;
 import spark.components.MobileGrid;
@@ -149,6 +150,15 @@ public class MobileGridHeader extends ButtonBar
             return null;
 
         return dataGroup.getElementAt(index);
+    }
+
+    /**
+     *  @private
+     */
+    override public function updateRenderer(renderer: IVisualElement, itemIndex: int, data: Object): void
+    {
+        super.updateRenderer(renderer, itemIndex, data);
+        IStyleClient(renderer).styleName = MobileGridColumn(data).headerStyleName;
     }
 
     public function updateHeaderWidths():void
