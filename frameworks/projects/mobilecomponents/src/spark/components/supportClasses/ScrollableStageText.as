@@ -1567,6 +1567,7 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
                 proxy.transform.matrix = mirrorMatrix;
             }
         }
+    }
 
     /** Dispose the proxy resources once it has been removed from the stage */
     protected function disposeProxy():void
