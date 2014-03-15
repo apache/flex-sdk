@@ -30,7 +30,6 @@ import flash.events.SoftKeyboardEvent;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.system.Capabilities;
 import flash.text.AutoCapitalize;
 import flash.text.ReturnKeyLabel;
 import flash.text.SoftKeyboardType;
@@ -47,7 +46,6 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.SystemManager;
-import mx.utils.MatrixUtil;
 import mx.utils.Platform;
 
 import spark.components.Application;
@@ -1753,8 +1751,9 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
             stageText.addEventListener(Event.CHANGE, stageText_changeHandler);
             stageText.addEventListener(FocusEvent.FOCUS_IN, stageText_focusInHandler);
             stageText.addEventListener(FocusEvent.FOCUS_OUT, stageText_focusOutHandler);
+            stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, stageText_softKeyboardHandler);
             stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, stageText_softKeyboardActivateHandler);
-            stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, stageText_softKeyboardDeactivateHandler);
+            stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, stageText_softKeyboardHandler);
             stageText.addEventListener(KeyboardEvent.KEY_DOWN, stageText_keyDownHandler);
             stageText.addEventListener(KeyboardEvent.KEY_UP, stageText_keyUpHandler);
         }
@@ -1777,8 +1776,9 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
         stageText.removeEventListener(Event.COMPLETE, stageText_completeHandler);
         stageText.removeEventListener(FocusEvent.FOCUS_IN, stageText_focusInHandler);
         stageText.removeEventListener(FocusEvent.FOCUS_OUT, stageText_focusOutHandler);
+        stageText.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, stageText_softKeyboardHandler);
         stageText.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, stageText_softKeyboardActivateHandler);
-        stageText.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, stageText_softKeyboardDeactivateHandler);
+        stageText.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, stageText_softKeyboardHandler);
         stageText.removeEventListener(KeyboardEvent.KEY_DOWN, stageText_keyDownHandler);
         stageText.removeEventListener(KeyboardEvent.KEY_UP, stageText_keyUpHandler);
 
@@ -1886,18 +1886,20 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
         }
     }
 
+
+    /*  start edition and  bubbles up the event */
     private function stageText_softKeyboardActivateHandler(event:SoftKeyboardEvent):void
     {
 
-        if ( startTextEdit()) {
-            dispatchEvent(new SoftKeyboardEvent(event.type,
+        startTextEdit();
+        dispatchEvent(new SoftKeyboardEvent(event.type,
                     true, event.cancelable, this, event.triggerType));
-        }
     }
 
-    private function stageText_softKeyboardDeactivateHandler(event:SoftKeyboardEvent):void
+    /*  just bubbles up the event */
+    private function stageText_softKeyboardHandler(event:SoftKeyboardEvent):void
     {
-            dispatchEvent(new SoftKeyboardEvent(event.type,
+          dispatchEvent(new SoftKeyboardEvent(event.type,
                     true, event.cancelable, this, event.triggerType));
     }
 
