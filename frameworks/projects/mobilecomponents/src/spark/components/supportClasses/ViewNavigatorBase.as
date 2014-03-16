@@ -35,6 +35,7 @@ import mx.utils.DensityUtil;
 import spark.components.SkinnableContainer;
 import spark.components.View;
 import spark.utils.MultiDPIBitmapSource;
+import spark.utils.PlatformMobileHelper;
 
 use namespace mx_internal;
 
@@ -91,6 +92,14 @@ public class ViewNavigatorBase extends SkinnableContainer
     // Variables
     // 
     //--------------------------------------------------------------------------
+
+    /**
+     * @private this is to force inclusion by dependency of PlatformMobileHelper in the final application swf ,
+     * as it's only accessed by QName from framework's mx.utils.Platform class.
+     * We use ViewNavigatorBase as the referring class because it's always  included in a mobile application.
+     * Note that including PlatformMobileHelper in MobileComponentClasses only ensures that its included in mobilecomponents.swc
+     */
+    private static const __includeClasses: Array = [ PlatformMobileHelper];
     
     /**
      *  @private
