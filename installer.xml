@@ -101,11 +101,6 @@
             <equals arg1="${air.version}" arg2="${air.sdk.version}" />
         </not>
     </condition>
-    <condition property="locale.changed" value="true">
-        <not>
-            <equals arg1="${locale}" arg2="${bundle}" />
-        </not>
-    </condition>
     
     <condition property="java.home" value="${env.JAVA_HOME}" >
         <and>
@@ -593,11 +588,10 @@
     </target>
 
 
-    <target name="fixup-config-files" depends="flex-sdk-description-flash,flex-sdk-description-air,flex-sdk-description-locale">
+    <target name="fixup-config-files" depends="flex-sdk-description-flash,flex-sdk-description-air">
         <echo>${INFO_INSTALLING_CONFIG_FILES}</echo>
         <antcall target="fixup-config-files-version" />
         <antcall target="fixup-config-files-swfversion" />
-        <antcall target="fixup-config-files-locale" />
         <replace file="${FLEX_HOME}/frameworks/flex-config.xml">
             <replacefilter token="{playerglobalHome}"
                 value="libs/player"/>
@@ -642,21 +636,6 @@
         </replace>
     </target>
     
-    <target name="fixup-config-files-locale" if="locale.changed">
-        <replace file="${FLEX_HOME}/frameworks/flex-config.xml">
-            <replacefilter token="&lt;locale-element&gt;${locale}&lt;/locale-element&gt;"
-                            value="&lt;locale-element&gt;${bundle}&lt;/locale-element&gt;"/>
-        </replace>
-        <replace file="${FLEX_HOME}/frameworks/air-config.xml">
-            <replacefilter token="&lt;locale-element&gt;${locale}&lt;/locale-element&gt;"
-            value="&lt;locale-element&gt;${bundle}&lt;/locale-element&gt;"/>
-        </replace>
-        <replace file="${FLEX_HOME}/frameworks/airmobile-config.xml">
-            <replacefilter token="&lt;locale-element&gt;${locale}&lt;/locale-element&gt;"
-            value="&lt;locale-element&gt;${bundle}&lt;/locale-element&gt;"/>
-        </replace>
-    </target>
-
     <target name="flex-sdk-description-flash" if="flash.version.changed">
         <replace file="${FLEX_HOME}/flex-sdk-description.xml">
             <replacefilter token="FP${playerglobal.version}"
@@ -669,12 +648,5 @@
                 value="AIR${air.sdk.version}"/>
         </replace>
     </target>
-    
-    <target name="flex-sdk-description-locale" if="locale.changed">
-        <replace file="${FLEX_HOME}/flex-sdk-description.xml">
-            <replacefilter token="${locale}"
-                value="${bundle}"/>
-        </replace>
-    </target>
-    
+        
 </project>
