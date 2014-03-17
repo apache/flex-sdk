@@ -1783,7 +1783,7 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
 	            if (dataField in data)
 	                data = data[dataField];
 				else
-					data = null;
+					return " "; // stops "[object Object]" showing
 			}
         }
 
