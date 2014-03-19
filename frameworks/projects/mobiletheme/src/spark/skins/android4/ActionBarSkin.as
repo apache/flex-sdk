@@ -559,7 +559,7 @@ public class ActionBarSkin extends MobileSkin
     /**
      *  @private
      */
-/*    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.drawBackground(unscaledWidth, unscaledHeight);
 
@@ -579,7 +579,7 @@ public class ActionBarSkin extends MobileSkin
         graphics.beginGradientFill(GradientType.LINEAR, colors, backgroundAlphas, ACTIONBAR_CHROME_COLOR_RATIOS, colorMatrix);
         graphics.drawRect(0, borderSize, unscaledWidth, unscaledHeight - (borderSize * 2));
         graphics.endFill();
-    }*/
+    }
     
 }
 }
