@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.mobile
+package spark.skins.android4
 {
 import flash.display.GradientType;
 import flash.events.Event;
@@ -34,13 +34,8 @@ import spark.core.SpriteVisualElement;
 import spark.layouts.HorizontalAlign;
 import spark.layouts.HorizontalLayout;
 import spark.layouts.VerticalAlign;
+import spark.skins.android4.assets.ActionBarBackground;
 import spark.skins.mobile.supportClasses.MobileSkin;
-import spark.skins.mobile120.assets.ActionBarBackground;
-import spark.skins.mobile160.assets.ActionBarBackground;
-import spark.skins.mobile240.assets.ActionBarBackground;
-import spark.skins.mobile320.assets.ActionBarBackground;
-import spark.skins.mobile480.assets.ActionBarBackground;
-import spark.skins.mobile640.assets.ActionBarBackground;
 
 use namespace mx_internal;
 
@@ -87,18 +82,18 @@ public class ActionBarSkin extends MobileSkin
     public function ActionBarSkin()
     {
         super();
+		
+		borderClass = spark.skins.android4.assets.ActionBarBackground;
         
         switch (applicationDPI)
         {
-
+			
 			case DPIClassification.DPI_640:
 			{
 				borderSize = 2;
 				layoutShadowHeight = 12;
 				layoutContentGroupHeight = 172;
 				layoutTitleGroupHorizontalPadding = 52;
-				
-				borderClass = spark.skins.mobile640.assets.ActionBarBackground;
 				
 				break;
 			}
@@ -110,7 +105,6 @@ public class ActionBarSkin extends MobileSkin
 				layoutContentGroupHeight = 130;
 				layoutTitleGroupHorizontalPadding = 40;
 				
-				borderClass = spark.skins.mobile480.assets.ActionBarBackground;
 				
 				break;
 			}
@@ -121,8 +115,6 @@ public class ActionBarSkin extends MobileSkin
                 layoutContentGroupHeight = 86;
                 layoutTitleGroupHorizontalPadding = 26;
                 
-                borderClass = spark.skins.mobile320.assets.ActionBarBackground;
-                
                 break;
             }
             case DPIClassification.DPI_240:
@@ -131,8 +123,6 @@ public class ActionBarSkin extends MobileSkin
                 layoutShadowHeight = 3;
                 layoutContentGroupHeight = 65;
                 layoutTitleGroupHorizontalPadding = 20;
-                
-                borderClass = spark.skins.mobile240.assets.ActionBarBackground;
                 
                 break;
             }
@@ -143,8 +133,6 @@ public class ActionBarSkin extends MobileSkin
 				layoutContentGroupHeight = 32;
 				layoutTitleGroupHorizontalPadding = 10;
 				
-				borderClass = spark.skins.mobile120.assets.ActionBarBackground;
-				
 				break;
 			}	
             default:
@@ -154,8 +142,6 @@ public class ActionBarSkin extends MobileSkin
                 layoutShadowHeight = 3;
                 layoutContentGroupHeight = 43;
                 layoutTitleGroupHorizontalPadding = 13;
-                
-                borderClass = spark.skins.mobile160.assets.ActionBarBackground;
                 
                 break;
             }
@@ -573,7 +559,7 @@ public class ActionBarSkin extends MobileSkin
     /**
      *  @private
      */
-    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+/*    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.drawBackground(unscaledWidth, unscaledHeight);
 
@@ -593,7 +579,7 @@ public class ActionBarSkin extends MobileSkin
         graphics.beginGradientFill(GradientType.LINEAR, colors, backgroundAlphas, ACTIONBAR_CHROME_COLOR_RATIOS, colorMatrix);
         graphics.drawRect(0, borderSize, unscaledWidth, unscaledHeight - (borderSize * 2));
         graphics.endFill();
-    }
+    }*/
     
 }
 }

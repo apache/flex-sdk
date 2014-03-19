@@ -18,13 +18,38 @@
 
 -->
 
-<Graphic aaa:symType="1" version="2.0" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008" xmlns:aaa="http://ns.adobe.com/ai/2009">
-  <Group scaleGridLeft="90" scaleGridRight="270" scaleGridTop="36" scaleGridBottom="12" aaa:symType="1">
-    <Path winding="nonZero" aaa:seqID="104" data="M360 48 0 48 0 0 360 0 360 48Z">
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group>
+      <Path winding="nonZero" data="M360 48 0 48 0 0 360 0 360 48Z">
+        <fill>
+          <SolidColor color="#DEDEDD"/>
+        </fill>
+      </Path>
+    </Group>
+    <Path winding="nonZero" data="M360 1 0 1 0 0 360 0 360 1Z">
       <fill>
-        <SolidColor color="#222222"/>
+        <SolidColor color="#E0E0E0"/>
       </fill>
     </Path>
-    <Path visible="false" winding="nonZero" aaa:seqID="105" data="M0 0 360 0 360 48 0 48 0 0Z"/>
+    <Group y="46" alpha="0.100006">
+      <Group>
+        <mask>
+          <Group>
+            <Path winding="nonZero" data="M0 2 360 2 360 0 0 0 0 2Z">
+              <fill>
+                <SolidColor color="#FFFFFF"/>
+              </fill>
+            </Path>
+          </Group>
+        </mask>
+        <Path winding="nonZero" data="M360 2 0 2 0 0 360 0 360 2Z">
+          <fill>
+            <SolidColor color="#333333"/>
+          </fill>
+        </Path>
+      </Group>
+    </Group>
+    <Path visible="false" winding="nonZero" data="M0 0 360 0 360 48 0 48 0 0Z"/>
   </Group>
 </Graphic>

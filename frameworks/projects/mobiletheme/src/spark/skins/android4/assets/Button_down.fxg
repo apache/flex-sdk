@@ -18,39 +18,56 @@
 
 -->
 
-<Graphic aaa:symType="1" version="2.0" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns="http://ns.adobe.com/fxg/2008" xmlns:aaa="http://ns.adobe.com/ai/2009"
-scaleGridLeft="4" scaleGridRight="246" scaleGridTop="4" scaleGridBottom="44">
-    <Path x="4" y="4" alpha="0.85" winding="nonZero" aaa:seqID="2207" data="M242 40 0 40 0 0 242 0 242 40Z">
-      <fill>
-        <SolidColor color="#33B5E5"/>
-      </fill>
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Path x="2.5" y="2.5" winding="nonZero" data="M184 39 0 39 0 0 184 0 184 39Z">
+      <stroke>
+        <SolidColorStroke weight="5" caps="none" miterLimit="10" color="#CDCCCC"/>
+      </stroke>
     </Path>
-    <Path x="5" y="4" alpha="0.3" winding="nonZero" aaa:seqID="2208" data="M241 1 0 1 0 0 241 0 241 1Z">
-      <fill>
-        <SolidColor color="#69B2CC"/>
-      </fill>
-    </Path>
-    <Path x="4" y="4" alpha="0.3" winding="nonZero" aaa:seqID="2209" data="M1 39 0 39 0 0 1 0 1 39Z">
-      <fill>
-        <SolidColor color="#338DB0"/>
-      </fill>
-    </Path>
-    <Path x="245" y="5" alpha="0.3" winding="nonZero" aaa:seqID="2210" data="M1 38 0 38 0 0 1 0 1 38Z">
-      <fill>
-        <SolidColor color="#338DB0"/>
-      </fill>
-    </Path>
-    <Path x="4" y="43" alpha="0.4" winding="nonZero" aaa:seqID="2211" data="M242 1 0 1 0 0 242 0 242 1Z">
-      <fill>
-        <SolidColor color="#297491"/>
-      </fill>
-    </Path>
-    <Group alpha="0.4" aaa:seqID="2212" flm:isolated="false" flm:knockout="false">
-      <Path winding="nonZero" aaa:seqID="2213" data="M246 4 246 44 4 44 4 4 246 4M246 0 4 0C1.79102 0 0 1.79102 0 4L0 44C0 46.209 1.79102 48 4 48L246 48C248.209 48 250 46.209 250 44L250 4C250 1.79102 248.209 0 246 0L246 0Z">
+    <Group x="3" y="2">
+      <Path winding="nonZero" data="M184 39 0 39 0 0 184 0 184 39Z">
         <fill>
-          <SolidColor color="#33B5E5"/>
+          <SolidColor color="#B3B3B3"/>
         </fill>
       </Path>
     </Group>
-    <Path visible="false" winding="nonZero" aaa:seqID="2214" data="M0 0 250 0 250 48 0 48 0 0Z"/>
+    <Group x="3" y="2" alpha="0.5">
+      <Group>
+        <mask>
+          <Group>
+            <Path winding="nonZero" data="M0 1 184 1 184 0 0 0 0 1Z">
+              <fill>
+                <SolidColor color="#FFFFFF"/>
+              </fill>
+            </Path>
+          </Group>
+        </mask>
+        <Path winding="nonZero" data="M184 1 0 1 0 0 184 0 184 1Z">
+          <fill>
+            <SolidColor color="#FFFFFF"/>
+          </fill>
+        </Path>
+      </Group>
+    </Group>
+    <Group x="3" y="2" alpha="0.199997">
+      <Group>
+        <mask>
+          <Group>
+            <Path winding="nonZero" data="M0 39 184 39 184 0 0 0 0 39Z">
+              <fill>
+                <SolidColor color="#FFFFFF"/>
+              </fill>
+            </Path>
+          </Group>
+        </mask>
+        <Path winding="nonZero" data="M183 0 183 38 0 38 0 39 184 39 184 0 183 0Z">
+          <fill>
+            <SolidColor color="#484849"/>
+          </fill>
+        </Path>
+      </Group>
+    </Group>
+    <Path visible="false" winding="nonZero" data="M0 0 189 0 189 44 0 44 0 0Z"/>
+  </Group>
 </Graphic>
