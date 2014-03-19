@@ -30,7 +30,7 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.utils.*;
+import flash.utils.Dictionary;
 
 import mx.charts.ChartItem;
 import mx.charts.HitData;
@@ -1859,17 +1859,20 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
                                priority, useWeakReference);
     }
     
-    /**
+	/**
      *  @private
      */
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
 		
-		var chartBaseStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.chartClasses.ChartBase");
-		chartBaseStyle.setStyle("chartSeriesStyles", HaloDefaults.chartBaseChartSeriesStyles);
-		chartBaseStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
-		chartBaseStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+		var chartBaseStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.chartClasses.ChartBase");
+		if (chartBaseStyle)
+		{
+			chartBaseStyle.setStyle("chartSeriesStyles", HaloDefaults.chartBaseChartSeriesStyles);
+			chartBaseStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+			chartBaseStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+		}
 		
         return true;
     }

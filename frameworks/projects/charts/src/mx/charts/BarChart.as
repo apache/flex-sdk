@@ -316,19 +316,22 @@ public class BarChart extends CartesianChart
     //
     //--------------------------------------------------------------------------
     
-    
     /**
      *  @private
      */
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
-		var barChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.BarChart");
-		barChartStyle.setStyle("chartSeriesStyles", HaloDefaults.chartBaseChartSeriesStyles);
-		barChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
-		barChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
-		barChartStyle.setStyle("horizontalAxisStyleNames", ["blockNumericAxis"]);
-		barChartStyle.setStyle("verticalAxisStyleNames", ["blockCategoryAxis"]);
+		var barChartStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.BarChart");
+		if (barChartStyle)
+		{
+			barChartStyle.setStyle("chartSeriesStyles", HaloDefaults.chartBaseChartSeriesStyles);
+			barChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+			barChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+			barChartStyle.setStyle("horizontalAxisStyleNames", ["blockNumericAxis"]);
+			barChartStyle.setStyle("verticalAxisStyleNames", ["blockCategoryAxis"]);
+		}
+		
         return true;
     }
 

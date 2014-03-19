@@ -604,7 +604,7 @@ public class GridHeaderViewLayout extends LayoutBase
         if (!gridColumnHeaderGroup || !grid)
             return null;
         
-        const columns:IList = columns;
+        const columns:IList = columnsView;
         const columnsLength:int = (columns) ? columns.length : 0;
         
         if (columnIndex >= columnsLength)
@@ -679,7 +679,7 @@ public class GridHeaderViewLayout extends LayoutBase
             
         // create a new renderer
 
-        const columns:IList = columns;
+        const columns:IList = columnsView;
         if (!columns || (columns.length <= columnIndex))
             return null;
         const column:GridColumn = columns.getItemAt(columnIndex) as GridColumn;
@@ -853,7 +853,7 @@ public class GridHeaderViewLayout extends LayoutBase
      */
     private function updateRendererHeights(inUpdateDisplayList:Boolean = false):void
     {
-        const columns:IList = this.columnsView;
+        const columns:IList = columnsView;
         rendererHeights.length = (columns) ? columns.length : 0;
         
         var newHeight:Number = 0;

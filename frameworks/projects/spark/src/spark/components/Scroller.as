@@ -2854,7 +2854,7 @@ public class Scroller extends SkinnableComponent
                 // In case we're not in touch mode, we need to instantiate our deferred skin parts immediately
                 // TODO (egeorgie): support deferred scrollbar parts in non-touch mode
                 ensureDeferredHScrollBarCreated();
-                ensureDeferredHScrollBarCreated();
+                ensureDeferredVScrollBarCreated();
                 
                 uninstallTouchListeners();
                 

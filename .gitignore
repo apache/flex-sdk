@@ -31,7 +31,6 @@ lib/
 libs/
 in/
 swfobject/
-ide/
 flex2/
 thirdparty/
 META-INF/
@@ -118,3 +117,20 @@ _ReSharper*/
 *.reply
 mailbody.txt
 gitstatus.txt
+
+#AIR SDK
+frameworks/projects/air/
+runtimes/
+templates/air/
+samples/badge/
+samples/icons/
+templates/air/
+templates/extensions/
+templates/sdk/
+install/android
+AIR SDK Readme.txt
+AIR SDK license.pdf
+air-sdk-description.xml
+samples/descriptor-sample.xml
+include/FlashRuntimeExtensions.h
+

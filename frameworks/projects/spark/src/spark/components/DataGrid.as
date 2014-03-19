@@ -3427,7 +3427,10 @@ public class DataGrid extends SkinnableContainerBase
         
         elt.dataGrid = this;
         if (elt.nestLevel <= grid.nestLevel)
+        {
+            elt.validateNow();
             elt.nestLevel = grid.nestLevel + 1;
+        }
     }
     
     /**
@@ -6272,7 +6275,11 @@ public class DataGrid extends SkinnableContainerBase
             return null;
         
         // Calculate the drop location
-        return grid.layout.calculateDropLocation(event);
+        var location:DropLocation = grid.layout.calculateDropLocation(event);
+		if (location.dropIndex > dataProvider.length) 
+			location.dropIndex = dataProvider.length;
+		
+		return location;
     }
     
     /**

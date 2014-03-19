@@ -640,10 +640,10 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
 
         _axis = value;
 
-        value.addEventListener("axisChange", axisChangeHandler,
-                               false, 0, true);
-        value.addEventListener("titleChange", titleChangeHandler,
-                               false, 0, true);
+		if (_axis) {
+        	value.addEventListener("axisChange", axisChangeHandler, false, 0, true);
+        	value.addEventListener("titleChange", titleChangeHandler, false, 0, true);
+		}
     }
     
     //----------------------------------
@@ -1100,44 +1100,65 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
     //  Overridden methods: UIComponent
     //
     //--------------------------------------------------------------------------
-
+	
 	/**
 	 *  @private
 	 */
 	private function initStyles():Boolean
 	{
 		HaloDefaults.init(styleManager);
-		var axisRenderer:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.AxisRenderer");
-		axisRenderer.setStyle("axisStroke", new SolidColorStroke(0, 0, 1));
-		axisRenderer.setStyle("tickStroke", new SolidColorStroke(0, 0, 1));
-		axisRenderer.setStyle("minorTickStroke", new SolidColorStroke(0, 0, 1));
+		var axisRenderer:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.AxisRenderer");
+		if (axisRenderer)
+		{
+			axisRenderer.setStyle("axisStroke", new SolidColorStroke(0, 0, 1));
+			axisRenderer.setStyle("tickStroke", new SolidColorStroke(0, 0, 1));
+			axisRenderer.setStyle("minorTickStroke", new SolidColorStroke(0, 0, 1));
+		}
 		
-		var blockCategoryAxis:CSSStyleDeclaration = styleManager.getStyleDeclaration(".blockCategoryAxis");
-		blockCategoryAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 8, 1, false, "normal", "none"));
-		blockCategoryAxis.setStyle("tickStroke", new SolidColorStroke(0xFFFFFF, 2, 1, false, "normal", "none"));
+		var blockCategoryAxis:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, ".blockCategoryAxis");
+		if (blockCategoryAxis)
+		{
+			blockCategoryAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 8, 1, false, "normal", "none"));
+			blockCategoryAxis.setStyle("tickStroke", new SolidColorStroke(0xFFFFFF, 2, 1, false, "normal", "none"));
+		}
 		
-		var blockNumericAxis:CSSStyleDeclaration = styleManager.getStyleDeclaration(".blockNumericAxis");
-		blockNumericAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 8, 1, false, "normal", "none"));
-		blockNumericAxis.setStyle("tickStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
-		blockNumericAxis.setStyle("minorTickStroke", new SolidColorStroke(0xFFFFFF, 1, 1, false, "normal", "none"));
+		var blockNumericAxis:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, ".blockNumericAxis");
+		if (blockNumericAxis)
+		{
+			blockNumericAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 8, 1, false, "normal", "none"));
+			blockNumericAxis.setStyle("tickStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
+			blockNumericAxis.setStyle("minorTickStroke", new SolidColorStroke(0xFFFFFF, 1, 1, false, "normal", "none"));
+		}
 		
-		var lineNumericAxis:CSSStyleDeclaration = styleManager.getStyleDeclaration(".linedNumericAxis");
-		lineNumericAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 1, 1, false, "normal", "none"));
-		lineNumericAxis.setStyle("tickStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
-		lineNumericAxis.setStyle("minorTickStroke", new SolidColorStroke(0xBBCCDD, 1, 1, false, "normal", "none"));
+		var lineNumericAxis:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, ".linedNumericAxis");
+		if (lineNumericAxis)
+		{
+			lineNumericAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 1, 1, false, "normal", "none"));
+			lineNumericAxis.setStyle("tickStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
+			lineNumericAxis.setStyle("minorTickStroke", new SolidColorStroke(0xBBCCDD, 1, 1, false, "normal", "none"));
+		}
 		
-		var dashedNumericAxis:CSSStyleDeclaration = styleManager.getStyleDeclaration(".dashedNumericAxis");
-		dashedNumericAxis.setStyle("tickStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
-		dashedNumericAxis.setStyle("minorTickStroke", new SolidColorStroke(0xBBCCDD, 1, 1, false, "normal", "none"));
+		var dashedNumericAxis:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, ".dashedNumericAxis");
+		if (dashedNumericAxis)
+		{
+			dashedNumericAxis.setStyle("tickStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
+			dashedNumericAxis.setStyle("minorTickStroke", new SolidColorStroke(0xBBCCDD, 1, 1, false, "normal", "none"));
+		}
 		
-		var dashedCategoryAxis:CSSStyleDeclaration = styleManager.getStyleDeclaration(".dashedCategoryAxis");
-		dashedCategoryAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
-		dashedCategoryAxis.setStyle("tickStroke", new SolidColorStroke(0xFFFFFF, 2, 1, false, "normal", "none"));
+		var dashedCategoryAxis:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, ".dashedCategoryAxis");
+		if (dashedCategoryAxis)
+		{
+			dashedCategoryAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
+			dashedCategoryAxis.setStyle("tickStroke", new SolidColorStroke(0xFFFFFF, 2, 1, false, "normal", "none"));
+		}
 		
-		var hangingCategoryAxis:CSSStyleDeclaration = styleManager.getStyleDeclaration(".hangingCategoryAxis");
-		hangingCategoryAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
-		hangingCategoryAxis.setStyle("tickStroke", new SolidColorStroke(0xBBCCDD, 1, 1, false, "normal", "none"));
-		hangingCategoryAxis.setStyle("minorTickStroke", new SolidColorStroke(0,0,0));
+		var hangingCategoryAxis:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, ".hangingCategoryAxis");
+		if (hangingCategoryAxis)
+		{
+			hangingCategoryAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
+			hangingCategoryAxis.setStyle("tickStroke", new SolidColorStroke(0xBBCCDD, 1, 1, false, "normal", "none"));
+			hangingCategoryAxis.setStyle("minorTickStroke", new SolidColorStroke(0,0,0));
+		}
 		return true;
 	}
 

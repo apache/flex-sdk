@@ -192,10 +192,12 @@ public class PieChart extends PolarChart
     {
         HaloDefaults.init(styleManager);
 		
-		var pieChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.PieChart");
-		pieChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
-		pieChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
-		
+		var pieChartStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.PieChart");
+		if (pieChartStyle)
+		{
+			pieChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+			pieChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+		}		
         return true;
     }
     

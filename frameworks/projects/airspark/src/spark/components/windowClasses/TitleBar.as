@@ -29,6 +29,7 @@ import flash.system.Capabilities;
 
 import mx.core.IWindow;
 import mx.core.mx_internal;
+import mx.utils.Platform;
 
 import spark.components.Button;
 import spark.components.supportClasses.SkinnableComponent;
@@ -87,20 +88,6 @@ use namespace mx_internal;
 public class TitleBar extends SkinnableComponent
 {
     include "../../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private static function isMac():Boolean
-    {
-        return Capabilities.os.substring(0, 3) == "Mac";
-    }
 
     //--------------------------------------------------------------------------
     //
@@ -342,7 +329,7 @@ public class TitleBar extends SkinnableComponent
      */
     override protected function attachSkin():void
     {
-       if (isMac() && getStyle("skinClass") == TitleBarSkin)
+       if (Platform.isMac && getStyle("skinClass") == TitleBarSkin)
        {
             setStyle("skinClass", MacTitleBarSkin);  
        } 
@@ -535,7 +522,7 @@ public class TitleBar extends SkinnableComponent
      */
     protected function doubleClickHandler(event:MouseEvent):void
     {
-        if (isMac())
+        if (Platform.isMac)
         {
             window.minimize();
         }

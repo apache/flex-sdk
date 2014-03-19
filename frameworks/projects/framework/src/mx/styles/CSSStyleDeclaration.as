@@ -113,6 +113,11 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  @private
      */
     private static const FILTERMAP_PROP:String = "__reserved__filterMap";
+    
+    /**
+     *  @private
+     */
+    private static var emptyObjectFactory:Function = function():void {};
         
     //--------------------------------------------------------------------------
     //
@@ -934,9 +939,6 @@ public class CSSStyleDeclaration extends EventDispatcher
             if (addedParentStyleToProtoChain)
             {
                 // There are parent styles so create an empty node.
-                var emptyObjectFactory:Function = function():void
-                {
-                };
                 emptyObjectFactory.prototype = chain;
                 chain = new emptyObjectFactory();
                 emptyObjectFactory.prototype = null;
@@ -994,10 +996,8 @@ public class CSSStyleDeclaration extends EventDispatcher
         
         // If there's a factory for this style sheet,
         // then add the object it produces to the chain.
-        var objectFactory:Object = null;
         if (factory != null)
         {
-            objectFactory = new factory();
             factory.prototype = chain;
             chain = new factory();
             factory.prototype = null;
@@ -1013,9 +1013,6 @@ public class CSSStyleDeclaration extends EventDispatcher
             // of the chain.
             if (factory == null)
             {
-                var emptyObjectFactory:Function = function():void
-                {
-                };
                 emptyObjectFactory.prototype = chain;
                 chain = new emptyObjectFactory();
                 emptyObjectFactory.prototype = null;
@@ -1052,12 +1049,9 @@ public class CSSStyleDeclaration extends EventDispatcher
     {
         var filteredChain:Object = {};
         // Create an object on the head of the chain using the original chain       
-        var filterObjectFactory:Function = function():void
-        {
-        };
-        filterObjectFactory.prototype = originalChain;
-        filteredChain = new filterObjectFactory();
-        filterObjectFactory.prototype = null;
+        emptyObjectFactory.prototype = originalChain;
+        filteredChain = new emptyObjectFactory();
+        emptyObjectFactory.prototype = null;
         
         for (var i:String in chain)
         {

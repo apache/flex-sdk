@@ -1778,14 +1778,13 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
 
         if (typeof(data) == "object" || typeof(data) == "xml")
         {
-            try
-            {
-                data = data[dataField];
-            }
-            catch(e:Error)
-            {
-                data = null;
-            }
+			if (dataField != null)
+			{
+	            if (dataField in data)
+	                data = data[dataField];
+				else
+					return " "; // stops "[object Object]" showing
+			}
         }
 
         if (data is String)
@@ -1838,17 +1837,19 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
             var field:String = dataTipField;
             if (!field)
                 field = owner.dataTipField;
-            try
-            {
-                if (data[field] != null)
-                    data = data[field];
-                else if (data[dataField] != null)
-                    data = data[dataField];
-            }
-            catch(e:Error)
-            {
-                data = null;
-            }                
+
+            if (field != null)
+			{
+				if (field in data && data[field] != null)
+					data = data[field];
+			}
+            else if (dataField != null)
+			{
+				if (dataField in data && data[dataField] != null)
+	                data = data[dataField];
+				else
+					data = null;  
+			}
         }
 
         if (data is String)

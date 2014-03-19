@@ -206,7 +206,7 @@ public class AreaChart extends CartesianChart
     //
     //--------------------------------------------------------------------------
     
-    /**
+	/**
      *  @private
      */
     private function initStyles():Boolean
@@ -237,13 +237,16 @@ public class AreaChart extends CartesianChart
             f(o, null, HaloDefaults.defaultFills[i]);
         }
 		
-		var areaChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.AreaChart");
-		areaChartStyle.setStyle("chartSeriesStyles", areaChartSeriesStyles);
-		areaChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
-		areaChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
-		areaChartStyle.setStyle("horizontalAxisStyleNames", ["hangingCategoryAxis"]);
-		areaChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
-        
+		var areaChartStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.AreaChart");
+		if (areaChartStyle)
+		{
+			areaChartStyle.setStyle("chartSeriesStyles", areaChartSeriesStyles);
+			areaChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+			areaChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+			areaChartStyle.setStyle("horizontalAxisStyleNames", ["hangingCategoryAxis"]);
+			areaChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+		}
+		
         return true;
     }
     

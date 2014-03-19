@@ -1379,6 +1379,11 @@ public class Label extends TextBase
                     if (truncateAtCharPosition == 0)
                         break;
                     
+                    // sometimes the player decides there isn't enough
+                    // room to render anything so bail
+                    if (textLines.length == 0)
+                        break;
+                    
                     // Try again by truncating at the beginning of the 
                     // preceding atom.
                     var oldCharPosition:int = truncateAtCharPosition;

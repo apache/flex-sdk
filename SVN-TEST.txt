@@ -1,4 +1,5 @@
-﻿junheider is Top Posting this file�people hate this on mailing lists.
+﻿Test by piotrz :)
+junheider is Top Posting this file�people hate this on mailing lists.
 
 Flex committers can use this file to check their svn access.
 "I love work; it fascinates me; I can sit and watch it for hours." -- Jerome K. Jerome
@@ -11,20 +12,21 @@ rduartes wrote this here:
 (you have to listen to this being recited by Douglas Campbell in Loreena McKennit's Lullaby song)
 
 Oh for a voice like Thunder, and a tongue to drown the voice of war,
-When the soul is driven to madness, 
+When the soul is driven to madness,
 WHO CAN STAND ?
-When the souls of the oppressed fight in the troubled air that rages, 
+When the souls of the oppressed fight in the troubled air that rages,
 WHO CAN STAND ?
-When the whirlwind of fury comes from the throne of GOD, 
+When the whirlwind of fury comes from the throne of GOD,
 WHO CAN STAND ?
-When the frowns of his countenance drive the nations together, 
+Testing CR-LF on commit / only this line was changed.
+When the frowns of his countenance drive the nations together,
 WHO CAN STAND?
 When sin claps his broad wings over the battle, and sails rejoicing in the flood of death,
 When the souls are torn to everlasting fire, and fiends of Hell rejoice upon the slain,
 Oh who can stand?
 Oh who has caused this?
 Oh who can answer at the throne of God?
-The Kings and Nobles of the land have done it, 
+The Kings and Nobles of the land have done it,
 Hear it not Heaven,
 Thy Ministers have done it !
 
@@ -68,5 +70,6 @@ Checking to see if I'm able to push this back to origin.
 
 Me too.  Woot.
 
+mamsellem git commit first try (2013/09/29)
 
-
+Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it. (Brian Kernighan)

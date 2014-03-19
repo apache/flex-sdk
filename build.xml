@@ -44,9 +44,12 @@
     <property name="javac.src" value="1.5"/>
     
     <property name="kit.prefix" value="apache-flex-sdk-${release.version}"/>
+    <property name="kit-pixelbender.prefix" value="apache-flex-sdk-pixel-bender-1.0.0"/>
     <property name="source.kit" value="${kit.prefix}-src"/>
     <property name="binary.kit" value="${kit.prefix}-bin"/>
-      
+    <property name="source-pixelbender.kit" value="${kit-pixelbender.prefix}-src"/>
+    <property name="binary-pixelbender.kit" value="${kit-pixelbender.prefix}-bin"/>
+    
     <available file="${FLEX_HOME}/../flex-tlf/textLayout" 
             type="dir" 
             property="TLF_HOME"
@@ -62,10 +65,15 @@
             property="TLF_HOME"
             value="${env.TLF_HOME}"/>
 
-    <!-- 
+    <available file="${FLEX_HOME}/frameworks/projects/textLayout/src"
+            type="dir"
+            property="TLF_HOME"
+            value="${FLEX_HOME}/frameworks/projects" />
+
+    <!--
         Optional jars but should be in place for a real release build.
         
-        For <grep> put AntelopeTasks_*.jar in this path.
+        For <grep> put antelopetasks*.jar in this path.
         See version-update.
 
         For <rat> apache-rat-0.8.jar and apache-rat-tasks-0.8.jar should be in classpath.
@@ -73,11 +81,11 @@
     -->
     <path id="anttask.classpath">
         <fileset dir="${env.ANT_HOME}/lib">
-           <include name="**/AntelopeTasks_*.jar"/>
+           <include name="**/antelopetasks*.jar"/>
            <include name="**/apache-rat*.jar"/>
         </fileset>
         <fileset dir="${user.home}">
-           <include name=".ant/lib/**/AntelopeTasks_*.jar"/>
+           <include name=".ant/lib/**/antelopetasks*.jar"/>
            <include name=".ant/lib/**/apache-rat*.jar"/>
         </fileset>
     </path>
@@ -104,7 +112,11 @@
         depends="check-compile-env,check-runtime-env,check-adobe-extension-manager-env,source-release,binary-release,rat-check"
         description="Creates source and binary kits for Apache Flex."/>
         
-    <target name="source-release" 
+    <target name="release-pixelbender"
+        depends="check-compile-env,check-runtime-env,source-package-pixelbender,binary-package-pixelbender"
+        description="Creates source and binary kits for Apache Flex's Pixel Bender package."/>
+        
+    <target name="source-release"
         depends="super-clean,create-description,create-config,source-package" 
         description="Packages the source release kit which is the official Apache release."/>
         
@@ -146,7 +158,7 @@
     <target name="prebuild" depends="check-compile-env,thirdparty-downloads,create-description" 
         description="Stuff that needs to be done before any builds." />
 
-    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-pixelbender-home,check-tlf-home"
+    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-tlf-home"
         description="Check for the required environment variables for compilation.">
             <echo>OS: ${os.name} / ${os.version} / ${os.arch}</echo>
             <echo>VM: ${java.vm.name} / ${java.vm.version}</echo>
@@ -197,43 +209,6 @@
             unless="AIR_HOME.set"/>
     </target>
     
-    <target name="check-pixelbender-home" unless="pbutil.exe.exists"
-        description="Check PIXELBENDER_HOME for both a directory and an exe file">
-
-        <echo message="PIXELBENDER_HOME is ${env.PIXELBENDER_HOME}"/>
-
-        <available file="${env.PIXELBENDER_HOME}" 
-            type="dir" 
-            property="PIXELBENDER_HOME.set"/>
-
-        <fail message="The environment variable PIXELBENDER_HOME is not set to a directory" 
-            unless="PIXELBENDER_HOME.set"/>
-
-        <condition property="pbutil.exe.exists">
-            <and>
-                <os family="mac"/>
-                <available file="${env.PIXELBENDER_HOME}/pbutil" type="file"/> 
-            </and>
-        </condition>
-        	
-        <condition property="pbutil.exe.exists">
-            <and>
-                <os family="unix"/>
-                <available file="${env.PIXELBENDER_HOME}/pb.tar.gz" type="file"/> 
-            </and>
-        </condition>
-                	
-        <condition property="pbutil.exe.exists">
-            <and>
-                <os family="windows"/>
-                <available file="${env.PIXELBENDER_HOME}/pbutil.exe" type="file"/>
-            </and>
-        </condition>
-
-        <fail message="The directory ${env.PIXELBENDER_HOME} does not contain the pbutil executable or pb files" 
-            unless="pbutil.exe.exists"/>
-    </target>
-
     <target name="check-tlf-home" unless="TLF_HOME"
         description="Check TLF_HOME is a directory.">
         
@@ -491,6 +466,8 @@
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="apache" build-number="${release.version}.${build.number.date}"/>		
 		<!-- experimental RSL -->
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="experimental" build-number="${release.version}.${build.number.date}"/>		
+		<!-- mobile experimental RSL -->
+		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="experimental_mobile" build-number="${release.version}.${build.number.date}"/>		
 	</target>
 
     <target name="other.locales" description="Build resource SWCs for additional locales">
@@ -548,12 +525,20 @@
         description="Package source files required to build in zip and tar-gzip file">
     </target>
 
-    <!-- 
+    <target name="source-package-pixelbender" depends="stage-source-pixelbender,source-package-zip-pixelbender,source-package-tgz-pixelbender"
+        description="Package Pixel Bender source files required to build in zip and tar-gzip file">
+    </target>
+    
+    <!--
         Packages the source distribution with ZIP.
     -->
     <target name="source-package-zip" unless="no.zip">
         <mkdir dir="${basedir}/out"/>
         <zip destfile="${basedir}/out/${source.kit}.zip" basedir="${basedir}/temp"/>
+    </target>
+    <target name="source-package-zip-pixelbender" unless="no.zip">
+        <mkdir dir="${basedir}/out"/>
+        <zip destfile="${basedir}/out/${source-pixelbender.kit}.zip" basedir="${basedir}/temp"/>
     </target>
 
     <!-- 
@@ -561,6 +546,9 @@
     -->
     <target name="source-package-tgz" unless="no.zip">
         <tar-gzip name="${source.kit}" />
+    </target>
+    <target name="source-package-tgz-pixelbender" unless="no.zip">
+        <tar-gzip name="${source-pixelbender.kit}" />
     </target>
 
     <target name="stage-source"
@@ -574,6 +562,8 @@
                 <include name="build.properties"/>
 				<include name="env-template.properties"/>
                 <include name="flex-sdk-description.xml"/>
+                <include name="installer.xml"/>
+                <include name="installer.properties/**"/>
                 <include name="CHANGES"/>
                 <include name="LICENSE"/>
                 <include name="NOTICE"/>
@@ -596,7 +586,9 @@
         
         <!-- asdoc -->
         <copy todir="${basedir}/temp/asdoc" includeEmptyDirs="false">
-            <fileset dir="${basedir}/asdoc"/>
+            <fileset dir="${basedir}/asdoc">
+            	<exclude name="test/**" />
+            </fileset>
         </copy>  
 
         <!-- ide -->
@@ -801,6 +793,58 @@
             </fileset>
         </copy>
     </target>
+    
+    <target name="stage-source-pixelbender"
+        description="Package Pixel Bender source files required to build in zip file">
+        
+        <antcall target="clean-temp"/>
+        
+        <copy todir="${basedir}/temp" includeEmptyDirs="false">
+            <fileset dir="${basedir}">
+                <include name="pixelbender.xml"/>
+				<include name="env-template.properties"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/temp" includeEmptyDirs="false">
+            <fileset dir="${basedir}">
+                <include name="**/*.pbk"/>
+                <include name="frameworks/projects/framework/build.xml" />
+                <include name="frameworks/projects/spark/build.xml" />
+                <exclude name="**/mustella/**"/>
+            </fileset>
+        </copy>
+        <copy file="${basedir}/README.pb" tofile="${basedir}/temp/README" />
+        <copy file="${basedir}/LICENSE.pb" tofile="${basedir}/temp/LICENSE" />
+        <copy file="${basedir}/NOTICE.pb" tofile="${basedir}/temp/NOTICE" />
+        <echo file="${basedir}/temp/RELEASE_NOTES">
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Apache Flex Pixel Bender Package 1.0.0
+=====================================
+
+This package contains Adobe Pixel Bender shaders used by the Apache
+Flex SDK.
+
+See the README for instructions on compiling the shaders on Windows and
+Mac.  There is no compiler for Linux.
+
+There are no known issues.
+</echo>
+
+    </target>
 
     <target name="binary-package"
         description="Package binary files in zip and tar-gzip file.">
@@ -893,7 +937,8 @@
                 <include name="apache.swc"/>
                 <include name="authoringsupport.swc"/>
                 <include name="core.swc"/>
-                <include name="experimental.swc"/>
+            	<include name="experimental.swc"/>
+            	<include name="experimental_mobile.swc"/>
                 <include name="spark.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
@@ -965,6 +1010,7 @@
                 
         <antcall target="binary-package-zip"/>        
         <antcall target="binary-package-tgz"/>        
+        <copy todir="${basedir}/out" file="${basedir}/apache-flex-sdk-installer-config.xml" />
     </target>
         
     <target name="stage-lib">
@@ -1029,7 +1075,13 @@
         <mkdir dir="${basedir}/out"/>
         <zip destfile="${basedir}/out/${binary.kit}.zip" basedir="${basedir}/temp"/>
     </target>
-       
+    <target name="binary-package-zip-pixelbender" unless="no.zip"
+        description="Zips up the Pixel Bender files in the temp directory into the binary zipfile.">
+        
+        <mkdir dir="${basedir}/out"/>
+        <zip destfile="${basedir}/out/${binary-pixelbender.kit}.zip" basedir="${basedir}/temp"/>
+    </target>
+    
     <!-- 
         Packages the binary distribution with TAR-GZIP.         
     -->
@@ -1038,7 +1090,32 @@
         
         <tar-gzip name="${binary.kit}" />
     </target>
+    <target name="binary-package-tgz-pixelbender" unless="no.zip"
+        description="Tar-Gzip up the files in the temp directory into the binary tgz file.">
+        
+        <tar-gzip name="${binary-pixelbender.kit}" />
+    </target>
 
+    <target name="binary-package-pixelbender" depends="build-pixelbender"
+        description="Package Pixel Bender binary files in zip and tar-gzip file.">
+        
+        <antcall target="stage-source-pixelbender"/>
+        
+        <copy todir="${basedir}/temp">
+            <fileset dir="${basedir}">
+                <include name="**/*.pbj"/>
+                <exclude name="**/mustella/**"/>
+            </fileset>
+        </copy>
+        
+        <antcall target="binary-package-zip-pixelbender"/>
+        <antcall target="binary-package-tgz-pixelbender"/>
+    </target>
+
+    <target name="build-pixelbender">
+        <ant dir="${basedir}" antfile="pixelbender.xml"/>
+    </target>
+    
     <macrodef name="fix-config-file">
         <attribute name="file"/>
         <attribute name="version"/>
@@ -1089,7 +1166,7 @@
 	    Update all frameworks Version.as files in the kit stagging area with the 
 	    latest version build number info.
 	    
-	    You need to place the AntelopeTasks_*.jar jar file in the anttask.classpath
+	    You need to place the antelopetasks*.jar jar file in the anttask.classpath
 	    in order to do this.  If the jar isn't found, the update is skipped.
 	-->
 	<target name="version-update"
@@ -1104,14 +1181,17 @@
     </target>
 
     <target name="have-greptask" if="have.greptask">
-		<taskdef name="grep" classname="ise.antelope.tasks.Find"
-                 classpathref="anttask.classpath"/>                 
+		<taskdef name="grep" classname="ise.antelope.tasks.Find" classpathref="anttask.classpath"/>                 
 
+        <tstamp>
+        	<format property="build.number.date" pattern="yyyyMMdd" />
+        </tstamp>
+        	
         <echo message="Updating all frameworks/projects/**/Version.as files with version ${release.version}.${build.number.date}"/>
 		
         <!-- Update all Version.as files in the kit frameworks directory-->
         <replaceregexp>
-            <regexp pattern='"[0-9].[0-9].[0-9].[0-9]";'/>
+            <regexp pattern='"[0-9]\.[0-9]+\.[0-9]+\.[0-9]+";'/>
             <substitution expression='"${release.version}.${build.number.date}";'/>
             <fileset dir="${FLEX_HOME}/temp/frameworks/projects">
                 <include name="**/Version.as"/>
@@ -1121,7 +1201,7 @@
 
     <target name="no-greptask" unless="have.greptask">
         <echo message="Version files not updated."/>
-        <echo message="AntelopeTasks_*.jar not found in anttask.classpath"/>
+        <echo message="antelopetasks*.jar not found in anttask.classpath"/>
     </target>   
 
     <target name="stage-locales"
@@ -1796,9 +1876,17 @@
 		<checksum algorithm="md5" file="${basedir}/out/${source.kit}.zip" forceOverwrite="yes"/>
 	</target>
 	
+	<target name="create-md5-pixelbender" >
+		<echo message="Generating MD5 hashes for release artifacts"/>
+		<checksum algorithm="md5" file="${basedir}/out/${binary-pixelbender.kit}.tar.gz" forceOverwrite="yes"/>
+		<checksum algorithm="md5" file="${basedir}/out/${binary-pixelbender.kit}.zip" forceOverwrite="yes"/>
+		<checksum algorithm="md5" file="${basedir}/out/${source-pixelbender.kit}.tar.gz" forceOverwrite="yes"/>
+		<checksum algorithm="md5" file="${basedir}/out/${source-pixelbender.kit}.zip" forceOverwrite="yes"/>
+	</target>
+    
 	<target name="archive-pbj">
-		<echo message="Creating an archive of the compiled PixelBender files" />
-        <echo message="The compiled PixelBender files are taken from '${env.PIXELBENDER_COMPILED_HOME}'" />
+		<echo message="Creating an archive of the compiled Pixel Bender files" />
+        <echo message="The compiled Pixel Bender files are taken from '${env.PIXELBENDER_COMPILED_HOME}'" />
         
         <tar destfile="${basedir}/out/pb.tar">
           <tarfileset dir="${env.PIXELBENDER_COMPILED_HOME}">
@@ -1822,5 +1910,35 @@
         <gzip destfile="${basedir}/out/pb.tar.gz" src="${basedir}/out/pb.tar"/>
 	    <delete file="${basedir}/out/pb.tar" failonerror="false" />
 	</target>
+
+    <!--
+     Run the Apache Rat audit tool against a directory without filters.
+     The report is written to rat.report.
+     
+     Specify the folder to scan with -Drat.dir=<dir>.
+     
+     You need to place apache-rat-tasks-0.8.jar and apache-rat-0.8.jar in the
+     anttask.classpath in order to do this.  If the jar isn't found, the report
+     will not be generated.
+     -->
+    <target name="rat-dir" depends="rat-taskdef" if="have.rattasks"
+        description="Report on licenses in a folder">
+        
+        <fail message="rat.dir not specified">
+            <condition>
+                <not>
+                    <isset property="rat.dir"/>
+                </not>
+            </condition>
+        </fail>
+        
+        <property name="rat.report" value="${basedir}/rat.report"/>
+        <echo message="Checking files at ${rat.dir}, report is ${rat.report}"/>
+        
+        <rat:report xmlns:rat="antlib:org.apache.rat.anttasks" reportFile="${rat.report}">
+            <fileset dir="${rat.dir}">
+            </fileset>
+        </rat:report>
+    </target>
 
 </project>

@@ -1,0 +1,138 @@
+/*
+*
+*  Licensed to the Apache Software Foundation (ASF) under one or more
+*  contributor license agreements.  See the NOTICE file distributed with
+*  this work for additional information regarding copyright ownership.
+*  The ASF licenses this file to You under the Apache License, Version 2.0
+*  (the "License"); you may not use this file except in compliance with
+*  the License.  You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*
+*/
+@namespace "http://flex.apache.org/experimental/ns";
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace supportClasses "spark.components.supportClasses.*";
+
+MobileGrid
+{
+    skinClass: ClassReference('spark.skins.MobileGridSkin');
+    contentBackgroundColor: #202020;
+    alternatingItemColors: #202020, #2a2a2a;
+    color: white;
+    selection-color: #00a2ff; /* blue  */
+
+}
+
+supportClasses|MobileGridHeader
+{
+    chromeColor: #383838;
+    skinClass: ClassReference('spark.skins.MobileGridHeaderButtonBarSkin');
+    fontWeight: bold;
+    /*   color: #f0f0f0;  */
+}
+
+supportClasses|MobileGridRowRenderer
+{
+    verticalAlign: "middle";
+    downColor: #000000;;
+}
+
+@media (application-dpi: 120)
+{
+
+    supportClasses|MobileGridHeader
+    {
+        fontSize: 10;
+    }
+
+    supportClasses|MobileGridRowRenderer
+    {
+        paddingTop: 1;
+        paddingLeft: 7;
+        paddingRight: 7;
+        paddingBottom: 0;
+    }
+
+}
+
+@media (application-dpi: 160)
+{
+
+    supportClasses|MobileGridHeader
+    {
+        fontSize: 18;
+    }
+
+    supportClasses|MobileGridRowRenderer
+    {
+        paddingTop: 1;
+        paddingLeft: 10;
+        paddingRight: 10;
+        paddingBottom: 0;
+    }
+
+}
+
+@media (application-dpi: 240)
+{
+
+    supportClasses|MobileGridHeader
+    {
+        fontSize: 20;
+    }
+
+    supportClasses|MobileGridRowRenderer
+    {
+        paddingTop: 2;
+        paddingLeft: 14;
+        paddingRight: 14;
+        paddingBottom: 0;
+    }
+
+}
+
+@media (application-dpi: 320)
+{
+
+    supportClasses|MobileGridHeader
+    {
+        fontSize: 28;
+    }
+
+    supportClasses|MobileGridRowRenderer
+    {
+        paddingTop: 2;
+        paddingLeft: 20;
+        paddingRight: 20;
+        paddingBottom: 0;
+    }
+
+}
+
+@media (application-dpi: 480)
+{
+
+    supportClasses|MobileGridHeader
+    {
+        fontSize: 40;
+    }
+
+    supportClasses|MobileGridRowRenderer
+    {
+        paddingTop: 4;
+        paddingLeft: 28;
+        paddingRight: 28;
+        paddingBottom: 0;
+    }
+
+}
+
+
+

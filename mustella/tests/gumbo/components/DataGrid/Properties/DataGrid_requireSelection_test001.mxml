@@ -420,7 +420,7 @@
 		<body>		
 		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
 		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
-		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.resetDP()"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.resetDP2()" waitEvent="updateComplete" waitTarget="dataGrid.grid"  />
 		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/> 
 		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID_cell.png" target="dataGrid"/>

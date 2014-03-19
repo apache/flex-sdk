@@ -26,8 +26,11 @@ package spark.supportClasses
 	import spark.components.supportClasses.GroupBase;
 	
 	import spark.layouts.supportClasses.INavigatorLayout;
-	
-	public interface INavigator extends ISelectableList, IVisualElement
+
+// for asdoc
+[Experimental]
+
+public interface INavigator extends ISelectableList, IVisualElement
 	{
 		
 		function get layout():INavigatorLayout;

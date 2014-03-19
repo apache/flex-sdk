@@ -186,7 +186,6 @@ public class HLOCSeries extends HLOCSeriesBase
 	//
 	//--------------------------------------------------------------------------
 	
-	
 	/**
 	 *  @private
 	 */
@@ -194,11 +193,14 @@ public class HLOCSeries extends HLOCSeriesBase
 	{
 		HaloDefaults.init(styleManager);
 		
-		var hlocSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.HLOCSeries");
-		hlocSeriesStyle.setStyle("closeTickStroke", new SolidColorStroke(0, 3, 1, false, "normal", "none"));
-		hlocSeriesStyle.setStyle("openTickStroke", new SolidColorStroke(0, 3, 1, false, "normal", "none"));
-		hlocSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.HLOCItemRenderer));
-		hlocSeriesStyle.setStyle("stroke", new SolidColorStroke(0,0));
+		var hlocSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.HLOCSeries");
+		if (hlocSeriesStyle)
+		{
+			hlocSeriesStyle.setStyle("closeTickStroke", new SolidColorStroke(0, 3, 1, false, "normal", "none"));
+			hlocSeriesStyle.setStyle("openTickStroke", new SolidColorStroke(0, 3, 1, false, "normal", "none"));
+			hlocSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.HLOCItemRenderer));
+			hlocSeriesStyle.setStyle("stroke", new SolidColorStroke(0,0));
+		}
 		
 		return true;
 	}

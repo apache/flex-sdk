@@ -22,6 +22,7 @@ package spark.components
 
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 
@@ -1325,6 +1326,23 @@ public class Group extends GroupBase implements IVisualElementContainer,
             }
         }
     }
+
+	/** 
+	 * 
+	 * @private
+	 * Spark components get their children created earlier than createChildren
+	 * but not parented until createChildren
+	 */ 
+	override public function parentChanged(p:DisplayObjectContainer):void
+	{
+		super.parentChanged(p);
+		var children:Array =  this.MXMLDescriptor;
+		if (children && !processedMXMLDescriptors)
+		{
+			generateMXMLInstances(document, children);
+			processedMXMLDescriptors = true;
+		}
+	}
 
     //--------------------------------------------------------------------------
     //

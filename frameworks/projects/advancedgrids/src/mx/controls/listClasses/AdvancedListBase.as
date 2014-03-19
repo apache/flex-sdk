@@ -6008,6 +6008,10 @@ public class AdvancedListBase extends ScrollControlBase
             {
                 _selectedIndex = index;
                 _selectedItem = data;
+				caretIndex = index;
+				caretBookmark = collectionIterator.bookmark;
+				anchorIndex = index;
+				anchorBookmark = collectionIterator.bookmark;
                 firstTime = false;
             }
             addSelectionData(itemToUID(data), new ListBaseSelectionData(data, index, false));

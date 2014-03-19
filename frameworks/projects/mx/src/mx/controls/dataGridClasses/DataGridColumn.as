@@ -1739,17 +1739,17 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
 
         if (typeof(data) == "object" || typeof(data) == "xml")
         {
-            try
-            {
-                if (!hasComplexFieldName) 
-                	data = data[dataField];
-                else 
-                    data = deriveComplexColumnData(data);
-            }
-            catch(e:Error)
-            {
-                data = null;
-            }
+            if (hasComplexFieldName)
+			{
+				data = deriveComplexColumnData(data);
+			}
+			else if (dataField != null)
+			{
+				if (dataField in data)
+	            	data = data[dataField];
+	            else 
+					data = null;
+			}
         }
 
         if (data is String)
@@ -1798,17 +1798,13 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             var field:String = dataTipField;
             if (!field)
                 field = owner.dataTipField;
-            try
-            {
-                if (data[field] != null)
-                    data = data[field];
-                else if (data[dataField] != null)
-                    data = data[dataField];
-            }
-            catch(e:Error)
-            {
-                data = null;
-            }
+
+            if (field in data && data[field] != null)
+                data = data[field];
+            else if (dataField in data && data[dataField] != null)
+                data = data[dataField];
+			else
+				data = null;
         }
 
         if (data is String)
@@ -1828,13 +1824,15 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
     /**
      * @private
      */
-    protected function deriveComplexColumnData( data:Object ):Object 
+    protected function deriveComplexColumnData(data:Object):Object 
     {
         var currentRef:Object = data;
-        if ( complexFieldNameComponents ) 
+		var length:int = complexFieldNameComponents.length
+		
+        if (complexFieldNameComponents) 
         {
-            for ( var i:int=0; currentRef && i < complexFieldNameComponents.length; i++ )
-                currentRef = currentRef[ complexFieldNameComponents[ i ] ];
+            for (var i:int=0; currentRef && i < length; i++)
+                currentRef = currentRef[complexFieldNameComponents[i]];
         }
         
         return currentRef?currentRef:"";

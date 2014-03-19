@@ -22,16 +22,18 @@ package mx.states
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.IEventDispatcher;
+
+import mx.binding.BindingManager;
 import mx.collections.IList;
 import mx.core.ContainerCreationPolicy;
 import mx.core.IChildList;
 import mx.core.IDeferredContentOwner;
 import mx.core.IMXMLObject;
 import mx.core.ITransientDeferredInstance;
+import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
-import mx.binding.BindingManager;
 
 [DefaultProperty("itemsFactory")]
 
@@ -547,125 +549,229 @@ public class AddItems extends OverrideBase implements IMXMLObject
         else if (!instanceCreated && !_items && !itemsFactory && _itemsDescriptor)
         {
             instanceCreated = true;
-            items = generateMXMLArray(itemsDescriptor, false);
+            items = generateMXMLArray(document, itemsDescriptor, false);
         }
     }
     
-    protected function generateMXMLObject(data:Array):Object
-    {
-        var i:int = 0;
-        var cls:Class = data[i++];
-        var comp:Object = new cls();
-        
-        var m:int;
-        var j:int;
-        var name:String;
-        var simple:*;
-        var value:Object;
-        var id:String;
-        
-        m = data[i++]; // num props
-        for (j = 0; j < m; j++)
-        {
-            name = data[i++];
-            simple = data[i++];
-            value = data[i++];
-            if (simple == null)
-                value = generateMXMLArray(value as Array);
-            else if (simple == false)
-                value = generateMXMLObject(value as Array);
-            comp[name] = value;
-        }
-        return comp;
-    }
-    
-    // varies slightly from version in UIComponent in how it handles documents
-    public function generateMXMLArray(data:Array, recursive:Boolean = true):Array
-    {
-        var comps:Array = [];
-        
-        var n:int = data.length;
-        var i:int = 0;
-        while (i < n)
-        {
-            var cls:Class = data[i++];
-            var comp:Object = new cls();
-            
-            var m:int;
-            var j:int;
-            var name:String;
-            var simple:*;
-            var value:Object;
-            var id:String = null;
-            
-            m = data[i++]; // num props
-            for (j = 0; j < m; j++)
-            {
-                name = data[i++];
-                simple = data[i++];
-                value = data[i++];
-                if (simple == null)
-                    value = generateMXMLArray(value as Array, recursive);
-                else if (simple == false)
-                    value = generateMXMLObject(value as Array);
-                if (name == "id")
-                    id = value as String;
-                if (name == "_id")
-                    id = value as String; // and don't assign to comp
-                else
-                    comp[name] = value;
-            }
-            m = data[i++]; // num styles
-            for (j = 0; j < m; j++)
-            {
-                name = data[i++];
-                simple = data[i++];
-                value = data[i++];
-                if (simple == null)
-                    value = generateMXMLArray(value as Array, recursive);
-                else if (simple == false)
-                    value = generateMXMLObject(value as Array);
-                comp.setStyle(name, value);
-            }
-            
-            m = data[i++]; // num effects
-            for (j = 0; j < m; j++)
-            {
-                name = data[i++];
-                simple = data[i++];
-                value = data[i++];
-                if (simple == null)
-                    value = generateMXMLArray(value as Array, recursive);
-                else if (simple == false)
-                    value = generateMXMLObject(value as Array);
-                comp.setStyle(name, value);
-            }
-            
-            m = data[i++]; // num events
-            for (j = 0; j < m; j++)
-            {
-                name = data[i++];
-                value = data[i++];
-                comp.addEventListener(name, value);
-            }
-            
-            var children:Array = data[i++];
-            if (children)
-            {
-                if (recursive)
-                    comp.generateMXMLInstances(children, recursive);
-                else
-                    comp.setMXMLDescriptor(children);
-            }
-            if (id)
-            {
-                document[id] = comp;
-                mx.binding.BindingManager.executeBindings(document, id, comp); 
-            }
-            comps.push(comp);
-        }
-        return comps;
-    }
+	protected function generateMXMLObject(document:Object, data:Array):Object
+	{
+		var i:int = 0;
+		var cls:Class = data[i++];
+		var comp:Object = new cls();
+		
+		var m:int;
+		var j:int;
+		var name:String;
+		var simple:*;
+		var value:Object;
+		var id:String;
+		
+		m = data[i++]; // num props
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple === null)
+				value = generateMXMLArray(document, value as Array);
+			else if (simple === undefined)
+				value = generateMXMLVector(document, value as Array);
+			else if (simple == false)
+				value = generateMXMLObject(document, value as Array);
+			if (name == "id")
+			{
+				document[value] = comp;
+				id = value as String;
+				if (comp is IMXMLObject)
+					continue;  // skip assigment to comp
+				if (!("id" in comp))
+					continue;
+			}
+			else if (name == "_id")
+			{
+				document[value] = comp;
+				id = value as String;
+				continue; // skip assignment to comp
+			}
+			comp[name] = value;
+		}
+		m = data[i++]; // num styles
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple == null)
+				value = generateMXMLArray(document, value as Array);
+			else if (simple == false)
+				value = generateMXMLObject(document, value as Array);
+			comp.setStyle(name, value);
+		}
+		
+		m = data[i++]; // num effects
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple == null)
+				value = generateMXMLArray(document, value as Array);
+			else if (simple == false)
+				value = generateMXMLObject(document, value as Array);
+			comp.setStyle(name, value);
+		}
+		
+		m = data[i++]; // num events
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			value = data[i++];
+			comp.addEventListener(name, value);
+		}
+		
+		if (comp is IUIComponent)
+		{
+			if (comp.document == null)
+				comp.document = document;
+		}
+		var children:Array = data[i++];
+		if (children)
+		{
+			comp.generateMXMLInstances(document, children);
+		}
+		
+		if (id)
+		{
+			document[id] = comp;
+			mx.binding.BindingManager.executeBindings(document, id, comp); 
+		}
+		if (comp is IMXMLObject)
+			comp.initialized(document, id);
+		return comp;
+	}
+	
+	public function generateMXMLVector(document:Object, data:Array, recursive:Boolean = true):*
+	{
+		var comps:Array;
+		
+		var n:int = data.length;
+		var hint:* = data.shift();
+		var generatorFunction:Function = data.shift();
+		comps = generateMXMLArray(document, data, recursive);
+		return generatorFunction(comps);
+	}
+	
+	public function generateMXMLArray(document:Object, data:Array, recursive:Boolean = true):Array
+	{
+		var comps:Array = [];
+		
+		var n:int = data.length;
+		var i:int = 0;
+		while (i < n)
+		{
+			var cls:Class = data[i++];
+			var comp:Object = new cls();
+			
+			var m:int;
+			var j:int;
+			var name:String;
+			var simple:*;
+			var value:Object;
+			var id:String = null;
+			
+			m = data[i++]; // num props
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				simple = data[i++];
+				value = data[i++];
+				if (simple === null)
+					value = generateMXMLArray(document, value as Array, recursive);
+				else if (simple === undefined)
+					value = generateMXMLVector(document, value as Array, recursive);
+				else if (simple == false)
+					value = generateMXMLObject(document, value as Array);
+				if (name == "id")
+				{
+					document[value] = comp;
+					id = value as String;
+					if (comp is IMXMLObject)
+						continue;  // skip assigment to comp
+					try {
+						if (!("id" in comp))
+							continue;
+					}
+					catch (e:Error)
+					{
+						continue; // proxy subclasses might throw here
+					}
+				}
+				if (name == "document" && !comp.document)
+					comp.document = document;
+				else if (name == "_id")
+					id = value as String; // and don't assign to comp
+				else
+					comp[name] = value;
+			}
+			m = data[i++]; // num styles
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				simple = data[i++];
+				value = data[i++];
+				if (simple == null)
+					value = generateMXMLArray(document, value as Array, recursive);
+				else if (simple == false)
+					value = generateMXMLObject(document, value as Array);
+				comp.setStyle(name, value);
+			}
+			
+			m = data[i++]; // num effects
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				simple = data[i++];
+				value = data[i++];
+				if (simple == null)
+					value = generateMXMLArray(document, value as Array, recursive);
+				else if (simple == false)
+					value = generateMXMLObject(document, value as Array);
+				comp.setStyle(name, value);
+			}
+			
+			m = data[i++]; // num events
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				value = data[i++];
+				comp.addEventListener(name, value);
+			}
+			
+			if (comp is IUIComponent)
+			{
+				if (comp.document == null)
+					comp.document = document;
+			}
+			var children:Array = data[i++];
+			if (children)
+			{
+				if (recursive)
+					comp.generateMXMLInstances(document, children, recursive);
+				else
+					comp.setMXMLDescriptor(children);
+			}
+			
+			if (id)
+			{
+				document[id] = comp;
+				mx.binding.BindingManager.executeBindings(document, id, comp); 
+			}
+			if (comp is IMXMLObject)
+				comp.initialized(document, id);
+			comps.push(comp);
+		}
+		return comps;
+	}
  
     /**
      *  @inheritDoc

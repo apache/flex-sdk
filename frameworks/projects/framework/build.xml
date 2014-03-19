@@ -152,7 +152,7 @@
         <bundler locale="el_GR"/><!-- Greek Language  resources -->
     </target>
     
-    <target name="clean" depends="bundles-clean, pixelbender-clean, assets-clean">
+    <target name="clean" depends="bundles-clean, assets-clean">
         <delete failonerror="false">
             <fileset dir="${basedir}" >
                 <include name="bundles.properties"/>
@@ -190,14 +190,9 @@
         </delete>
     </target>
 
-    <target name="pixelbender-unzip" if="isLinux">
-	    <echo message="Unziping pixel bender files" />
-		<gunzip src="${env.PIXELBENDER_HOME}/pb.tar.gz" dest="${FLEX_HOME}" />
-		<untar src="${FLEX_HOME}/pb.tar" dest="${FLEX_HOME}" />
-	    <delete file="${FLEX_HOME}/pb.tar" />
-    </target>
- 
     <target name="pixelbender-compile" unless="isLinux">
+        <!-- diagnose GPU and OpenGL -->
+        <exec executable="${env.PIXELBENDER_HOME}/sniffer_gpu.exe" os="windows"/>
         <exec executable="${env.PIXELBENDER_HOME}/pbutil">
             <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Color.pbk" />
             <arg value="${FLEX_HOME}/frameworks/projects/framework/src/mx/graphics/shaderClasses/Color.pbj" />
@@ -253,7 +248,7 @@
         </mxmlc>
     </target>
         
-    <target name="compile" depends="assets-compile,pixelbender-compile,pixelbender-unzip" description="Compiles framework.swc">
+    <target name="compile" depends="assets-compile" description="Compiles framework.swc">
         <echo message="Compiling frameworks/libs/framework.swc"/>
         <!-- Load the <compc> task. We can't do this at the <project> level -->
         <!-- because targets that run before flexTasks.jar gets built would fail. -->

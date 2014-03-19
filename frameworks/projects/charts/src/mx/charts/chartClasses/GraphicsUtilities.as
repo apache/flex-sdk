@@ -330,7 +330,7 @@ public class GraphicsUtilities
 
 			// Check for coincident points at the head of the list.
 			// We'll skip over any of those			
-			while (start != end)
+			while (start != end && ((start + incr) != end))
 			{
 				if (pts[start + incr][hProp] != pts[start][hProp] ||
 					pts[start + incr][vProp] != pts[start][vProp])

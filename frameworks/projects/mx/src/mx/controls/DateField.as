@@ -475,10 +475,19 @@ public class DateField extends ComboBase
 		if (valueString == null || inputFormat == null)
 			return null;
 		
+		var monthNames:Array = ResourceManager.getInstance()
+			.getStringArray("SharedResources", "monthNames");
+		
+		var noMonths:int = monthNames.length;
+		for (var i:int = 0; i < noMonths; i++) {
+			valueString = valueString.replace(monthNames[i], (i+1).toString());
+			valueString = valueString.replace(monthNames[i].substr(0,3), (i+1).toString());
+		}
+		
 		length = valueString.length;
 		
 		dateParts[part] = "";
-        for (var i:int = 0; i < length; i++)
+        for (i = 0; i < length; i++)
         {
 			dateChar = valueString.charAt(i);
  

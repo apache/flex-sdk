@@ -31,7 +31,10 @@ package spark.components {
     import spark.components.supportClasses.SkinnableComponent;
     import spark.core.IDisplayText;
 
-    /**
+    // for asdoc
+    [Experimental]
+
+/**
      * Plain and simple progress bar
      *
      * @author Bogdan Dinu (http://www.badu.ro)

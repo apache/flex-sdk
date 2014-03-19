@@ -29,7 +29,10 @@ package spark.layouts
 	import spark.layouts.supportClasses.AnimationNavigatorLayoutBase;
 	import spark.layouts.supportClasses.PerspectiveAnimationNavigatorLayoutBase;
 
-	/**
+// for asdoc
+[Experimental]
+
+/**
 	 *  The TimeMachineLayout class arranges the layout elements in a depth sequence,
 	 *  front to back, with optional depths between the elements and optional aligment
 	 *  the sequence of elements.

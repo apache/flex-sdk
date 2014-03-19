@@ -39,7 +39,10 @@ package spark.components
     import spark.events.MenuEvent;
     import spark.skins.MenuBarSkin;
 
-	/**
+    // for asdoc
+    [Experimental]
+
+/**
 	 * Plain simple MenuBar class, based upon list.
 	 *
 	 *  @langversion 3.0

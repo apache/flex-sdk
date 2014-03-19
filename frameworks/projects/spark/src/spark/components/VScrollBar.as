@@ -158,6 +158,8 @@ public class VScrollBar extends ScrollBarBase
     //
     //--------------------------------------------------------------------------
 
+	private var maxAndPageSizeInvalid:Boolean = false;
+	
     private function updateMaximumAndPageSize():void
     {
         var vsp:Number = viewport.verticalScrollPosition;
@@ -310,11 +312,12 @@ public class VScrollBar extends ScrollBarBase
             thumbPosTrackY = trackSize - thumbSize;
         }
 
-        if (!fixedThumbSize)
-            thumb.setLayoutBoundsSize(NaN, thumbSize);
-        if (getStyle("autoThumbVisibility") === true)
-            thumb.visible = thumbSize < trackSize;
-        
+		if (!fixedThumbSize)
+			thumb.setLayoutBoundsSize(NaN, thumbSize);
+		
+		if (getStyle("autoThumbVisibility") === true)
+			thumb.visible = thumbSize < trackSize;
+
         // convert thumb position to parent's coordinates.
         thumbPos = track.localToGlobal(new Point(0, thumbPosTrackY));
         if (thumb.parent)
@@ -506,7 +509,7 @@ public class VScrollBar extends ScrollBarBase
             {
                 // SDK-28898: reverted previous behavior for desktop, resets
                 // scroll position to zero when all content is removed.
-                maximum = viewport.contentHeight - viewport.height;
+                maximum = Math.max(0, viewport.contentHeight - viewport.height);
             }
         }
     }
@@ -523,11 +526,28 @@ public class VScrollBar extends ScrollBarBase
         if (allStyles || styleName == "interactionMode")
         {
             if (viewport)
-                updateMaximumAndPageSize();
+			{
+				// Some of the information needed
+				// is calculated in measure() on a child
+				maxAndPageSizeInvalid = true;
+				invalidateSize();
+			}
         }
     }
-    
-    
+
+	/**
+	 *  @private 
+	 */
+	override protected function measure():void
+	{
+		super.measure();
+		if (maxAndPageSizeInvalid)
+		{
+			maxAndPageSizeInvalid = false;
+			updateMaximumAndPageSize();
+		}
+	}
+	
     /**
      *  @private
      *  Scroll vertically by event.delta "steps".  This listener is added to both the scrollbar 

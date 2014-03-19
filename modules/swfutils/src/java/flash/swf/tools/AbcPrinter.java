@@ -29,11 +29,13 @@ import java.util.HashMap;
 public class AbcPrinter 
 {
     private byte[] abc;
+    private int abcEnd;
     private PrintWriter out;
     private boolean showOffset;
     private boolean showByteCode;
     private int indent;
     private int offset = 0;
+    private long numMetadata;
 		
     private int[] intConstants;
     private long[] uintConstants;
@@ -42,14 +44,18 @@ public class AbcPrinter
     private String[] namespaceConstants;
     private String[][] namespaceSetConstants;
     private MultiName[] multiNameConstants;
+    private String kAbcCorrupt = "Verify Error: ABC Corrupt";
+
 		
     private MethodInfo[] methods;
     private String[] instanceNames;
+    private String[] Names;
     private String indentString;
 		
     public AbcPrinter(byte[] abc, PrintWriter out, boolean showOffset, int indent, boolean showByteCode)
     {
         this.abc = abc;
+        this.abcEnd = abc.length;
         this.out = out;
         this.showOffset = showOffset;
         this.showByteCode = showByteCode;
@@ -583,6 +589,8 @@ public class AbcPrinter
         long n = readU32();
         printOffset();
         out.println(n + " Integer Constant Pool Entries");
+        if (n > abcEnd - offset)
+        	out.println(kAbcCorrupt);
         intConstants = new int[(n > 0) ? (int)n : 1];
         intConstants[0] = 0;
         for (int i = 1; i < n; i++)
@@ -599,6 +607,8 @@ public class AbcPrinter
         long n = readU32();
         printOffset();
         out.println(n + " Unsigned Integer Constant Pool Entries");
+        if (n > abcEnd - offset)
+        	out.println(kAbcCorrupt);
         uintConstants = new long[(n > 0) ? (int)n : 1];
         uintConstants[0] = 0;
         for (int i = 1; i < n; i++)
@@ -615,6 +625,8 @@ public class AbcPrinter
         long n = readU32();
         printOffset();
         out.println(n + " Floating Point Constant Pool Entries");
+        if (n > abcEnd - offset)
+        	out.println(kAbcCorrupt);
         if (n > 0)
             offset += (n - 1) * 8;
     }
@@ -624,13 +636,21 @@ public class AbcPrinter
         long n = readU32();
         printOffset();
         out.println(n + " String Constant Pool Entries");
+        if (n > abcEnd - offset)
+        	out.println(kAbcCorrupt);
         stringConstants = new String[(n > 0) ? (int)n : 1];
         stringConstants[0] = "";
         for (int i = 1; i < n; i++)
         {
             printOffset();
-            String s = readUTFBytes(readU32());
+            long strlen = readU32();
+            if (((strlen & 0xc0000000) != 0) || abcEnd <= offset + strlen)
+            	out.println(kAbcCorrupt + "strlen");
+            String s = readUTFBytes(strlen);
             stringConstants[i] = s;
+            s = s.replace("\r\n", "\\r\\n");
+            s = s.replace("\n", "\\n");
+            s = s.replace("\r", "\\r");
             out.println(" " + s);
         }
     }
@@ -640,6 +660,8 @@ public class AbcPrinter
         long n = readU32();
         printOffset();
         out.println(n + " Namespace Constant Pool Entries");
+        if (n > abcEnd - offset)
+        	out.println(kAbcCorrupt);
         namespaceConstants = new String[(n > 0) ? (int)n : 1];
         namespaceConstants[0] = "public";
         for (int i = 1; i < n; i++)
@@ -666,11 +688,15 @@ public class AbcPrinter
         long n = readU32();
         printOffset();
         out.println(n + " Namespace Set Constant Pool Entries");
+        if (n > abcEnd - offset)
+        	out.println(kAbcCorrupt);
         namespaceSetConstants = new String[(n > 0) ? (int)n : 1][];
         namespaceSetConstants[0] = new String[0];
         for (int i = 1; i < n; i++)
         {
             long val = readU32();
+            if (val > abcEnd - offset)
+               	out.println(kAbcCorrupt);
             String[] nsset = new String[(int)val];
             namespaceSetConstants[i] = nsset;
             for (int j = 0; j < val; j++)
@@ -685,6 +711,8 @@ public class AbcPrinter
         long n = readU32();
         printOffset();
         out.println(n + " MultiName Constant Pool Entries");
+        if (n > abcEnd - offset)
+        	out.println(kAbcCorrupt);       
         multiNameConstants = new MultiName[(n > 0) ? (int)n : 1];
         multiNameConstants[0] = new MultiName();
         for (int i = 1; i < n; i++)
@@ -723,6 +751,8 @@ public class AbcPrinter
                 int nameIndex = (int)readU32();
                 MultiName mn = multiNameConstants[nameIndex];
                 int count = (int)readU32();
+                if (count != 1)
+                   	out.println(kAbcCorrupt + "more than one typename");
                 MultiName types[] = new MultiName[count];
                 for (int t = 0; t < count; t++)
                 {
@@ -734,6 +764,29 @@ public class AbcPrinter
             }
             out.println(multiNameConstants[i]);
         }
+        // verify vectors (yes, the AVM does this)
+        for (int i = 1; i < n; i++)
+        {
+        	MultiName mn = multiNameConstants[i];
+        	if (mn.kind != 0x1D)
+        		continue;
+        	MultiName typeName = mn.typeName;
+        	if (typeName == null) // this came up as null in a working SWF.
+        		continue;
+        	if (typeName.kind == 0x1D)
+        		out.println(kAbcCorrupt + "typename is also a typename");
+        	HashMap<MultiName, String> seenMap = new HashMap<MultiName, String>();
+    		MultiName type = mn.types[0];
+        	while (type != null)
+        	{
+        		if (type.kind != 0x1D)
+        			break;
+        		seenMap.put(type, type.toString());
+        		type = type.types[0];
+        		if (seenMap.containsKey(type))
+            		out.println(kAbcCorrupt + "type cycle");        			
+        	}
+        }
     }
 		
     void printMethods()
@@ -741,6 +794,8 @@ public class AbcPrinter
         long n = readU32();
         printOffset();
         out.println(n + " Method Entries");
+        if (n > abcEnd - offset)
+        	out.println(kAbcCorrupt);
         methods = new MethodInfo[(int)n];
         for (int i = 0; i < n; i++)
         {
@@ -772,6 +827,8 @@ public class AbcPrinter
                     m.optionIndex[k] = (int)readU32();
                     m.optionKinds[k] = abc[offset++];
                 }
+                if (m.optionCount == 0 || m.optionCount > m.paramCount)
+                	out.println(kAbcCorrupt);
             }
             if ((m.flags & 0x80) == 0x80)
             {
@@ -807,6 +864,9 @@ public class AbcPrinter
         long n = readU32();
         printOffset();
         out.println(n + " Metadata Entries");
+        if (n > abcEnd - offset)
+        	out.println(kAbcCorrupt);
+        numMetadata = n;
         for (int i = 0; i < n; i++)
         {
             int start = offset;
@@ -837,6 +897,8 @@ public class AbcPrinter
         long n = readU32();
         printOffset();
         out.println(n + " Instance Entries");
+        if (n > abcEnd - offset)
+        	out.println(kAbcCorrupt);
         instanceNames = new String[(int)n];
         for (int i = 0; i < n; i++)
         {
@@ -849,6 +911,8 @@ public class AbcPrinter
             if ((b & 0x8) == 0x8)
                 readU32();	// eat protected namespace
             long val = readU32();
+            if (val >= 0x10000000)
+            	out.println(kAbcCorrupt);
             String s = "";
             for (int j = 0; j < val; j++)
             {
@@ -866,7 +930,7 @@ public class AbcPrinter
                     out.print(hex(abc[(int)x]) + " ");
                 }
             }
-            out.print(name + " ");
+            out.print("Instance Traits for: " + name + " ");
             if (base.length() > 0)
                 out.print("extends " + base + " ");
             if (s.length() > 0)
@@ -876,6 +940,8 @@ public class AbcPrinter
             int numTraits = (int)readU32(); // number of traits
             printOffset();
             out.println(numTraits + " Traits Entries");
+            if (numTraits > abcEnd - offset)
+            	out.println(kAbcCorrupt);
             for (int j = 0; j < numTraits; j++)
             {
                 printOffset();
@@ -897,20 +963,30 @@ public class AbcPrinter
                     readU32();	// id
                     readU32();	// value;
                     break;
-                default:
+                case 0x01:
+                case 0x02:
+                case 0x03:
+                case 0x05:
                     readU32();	// id
                     mi = methods[(int)readU32()];  // method
                     mi.name = s;
                     mi.className = name;
                     mi.kind = kind;
+                    if (mi.sawTraits)
+                    	out.println(kAbcCorrupt + "sawTraits");
+                    mi.sawTraits = true;
                     break;
+                default:
+                	out.println(kAbcCorrupt + "Unknown Trait");
                 }
                 if ((b >> 4 & 0x4) == 0x4)
                 {
                     val = readU32();	// metadata count
                     for (int k = 0; k < val; k++)
                     {
-                        readU32();	// metadata
+                        long index = readU32();	// metadata
+                        if (index >= numMetadata)
+                        	out.println(kAbcCorrupt);
                     }
                 }
                 if (showByteCode)
@@ -942,7 +1018,7 @@ public class AbcPrinter
                     out.print(hex(abc[(int)x]) + " ");
                 }
             }
-            out.print(name + " ");
+            out.print("Class Traits for: " + name + " ");
             if (base.length() > 0)
                 out.print("extends " + base + " ");
             out.println("");
@@ -950,6 +1026,8 @@ public class AbcPrinter
             int numTraits = (int)readU32(); // number of traits
             printOffset();
             out.println(numTraits + " Traits Entries");
+            if (numTraits > abcEnd - offset)
+            	out.println(kAbcCorrupt);
             for (int j = 0; j < numTraits; j++)
             {
                 printOffset();
@@ -971,20 +1049,30 @@ public class AbcPrinter
                     readU32();	// id
                     readU32();	// value;
                     break;
-                default:
+                case 0x01:
+                case 0x02:
+                case 0x03:
+                case 0x05:
                     readU32();	// id
                     mi = methods[(int)readU32()];  // method
                     mi.name = s;
                     mi.className = name;
                     mi.kind = kind;
+                    if (mi.sawTraits)
+                    	out.println(kAbcCorrupt + "sawTraits");
+                    mi.sawTraits = true;
                     break;
+                 default:
+                 	out.println(kAbcCorrupt);
                 }
                 if ((b >> 4 & 0x4) == 0x4)
                 {
                     int val = (int)readU32();	// metadata count
                     for (int k = 0; k < val; k++)
                     {
-                        readU32();	// metadata
+                        long index = readU32();	// metadata
+                        if (index > numMetadata)
+                        	out.println(kAbcCorrupt);
                     }
                 }
                 if (showByteCode)
@@ -1004,6 +1092,8 @@ public class AbcPrinter
         long n = readU32();
         printOffset();
         out.println(n + " Script Entries");
+        if (n > abcEnd - offset)
+        	out.println(kAbcCorrupt);
         for (int i = 0; i < n; i++)
         {
             int start = offset;
@@ -1026,6 +1116,8 @@ public class AbcPrinter
             int numTraits = (int)readU32(); // number of traits
             printOffset();
             out.println(numTraits + " Traits Entries");
+            if (numTraits > abcEnd - offset)
+            	out.println(kAbcCorrupt);
             for (int j = 0; j < numTraits; j++)
             {
                 printOffset();
@@ -1037,6 +1129,10 @@ public class AbcPrinter
                 {
                 case 0x00:	// slot
                 case 0x06:	// const
+                	if (kind == 0x00)
+                		s = "slot trait:  " + s;
+                	else
+                		s = "const trait:  " + s;
                     readU32();	// id
                     readU32();	// type
                     int index = (int)readU32();	// index;
@@ -1044,23 +1140,34 @@ public class AbcPrinter
                         offset++;	// kind
                     break;
                 case 0x04:	// class
+                	s = "class trait:  " + s;
                     readU32();	// id
-                    readU32();	// value;
+                    s += " " + instanceNames[(int)readU32()];	// value;
                     break;
-                default:
+                case 0x01:
+                case 0x02:
+                case 0x03:
+                case 0x05:
                     readU32();	// id
                     mi = methods[(int)readU32()];  // method
                     mi.name = s;
                     mi.className = name;
                     mi.kind = kind;
+                    if (mi.sawTraits)
+                    	out.println(kAbcCorrupt + "sawTraits");
+                    mi.sawTraits = true;
                     break;
+                 default:
+                 	out.println(kAbcCorrupt + "Unknown trait");
                 }
                 if ((b >> 4 & 0x4) == 0x4)
                 {
                     int val = (int)readU32();	// metadata count
                     for (int k = 0; k < val; k++)
                     {
-                        readU32();	// metadata
+                        long index = readU32();	// metadata
+                        if (index > numMetadata)
+                        	out.println(kAbcCorrupt);
                     }
                 }
                 if (showByteCode)
@@ -1103,6 +1210,8 @@ public class AbcPrinter
                     out.print("   ");
                 }
             }
+            if (abcEnd < codeLength + offset)
+            	out.println(kAbcCorrupt);
             MethodInfo mi = methods[methodIndex];
             out.print(traitKinds[mi.kind] + " ");
             out.print(mi.className + "::" + mi.name + "(");
@@ -1308,6 +1417,8 @@ public class AbcPrinter
             int numTraits = (int)readU32(); // number of traits
             printOffset();
             out.println(numTraits + " Traits Entries");
+            if (numTraits > abcEnd - offset)
+            	out.println(kAbcCorrupt);
             for (int j = 0; j < numTraits; j++)
             {
                 printOffset();
@@ -1329,17 +1440,24 @@ public class AbcPrinter
                     readU32();	// id
                     readU32();	// value;
                     break;
-                default:
+                case 0x01:
+                case 0x02:
+                case 0x03:
+                case 0x05:
                     readU32();	// id
                     readU32();  // method
                     break;
+                default:
+                	out.println(kAbcCorrupt);
                 }
                 if ((b >> 4 & 0x4) == 0x4)
                 {
                     int val = (int)readU32();	// metadata count
                     for (int k = 0; k < val; k++)
                     {
-                        readU32();	// metadata
+                        long index = readU32();	// metadata
+                        if (index > numMetadata)
+                        	out.println(kAbcCorrupt);
                     }
                 }
                 if (showByteCode)
@@ -1447,6 +1565,7 @@ public class AbcPrinter
         int[] optionIndex;
         int[] paramNames;
         String className;
+        boolean sawTraits;
     }
 		
     class LabelMgr

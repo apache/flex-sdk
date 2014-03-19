@@ -31,6 +31,12 @@ use namespace mx_internal;
  *  Parser for CSS Media Query syntax.  Not a full-fledged parser.
  *  Doesn't report syntax errors, assumes you have your attributes
  *  and identifiers spelled correctly, etc.
+ *  Media query parser now supports os-version selectors such as X, X.Y or X.Y.Z
+ *  Note that version with 3 parts must be  quoted
+Examples:
+ (os-platform: "ios") AND (min-os-version: 7)
+ (os-platform: "android") AND (min-os-version: "4.1.2")
+
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.2
@@ -103,6 +109,7 @@ public class MediaQueryParser
                 applicationDpi = moduleFactory.info()["applicationDPI"];
         }
         osPlatform = getPlatform();
+        osVersion = getOSVersion();
     }
     
     /**
@@ -131,15 +138,20 @@ public class MediaQueryParser
     {
         // remove whitespace
         expression = StringUtil.trim(expression);
-        // force to lower case cuz case-insensitive
-        expression = expression.toLowerCase();
-        
+       
         // degenerate expressions
         if (expression == "") return true;
-        if (expression == "all") return true;
-
+        
+        // known queries
         if (goodQueries[expression]) return true;
         if (badQueries[expression]) return false;
+                
+        // force to lower case cuz case-insensitive
+        var originalExpression:String = expression;
+        expression = expression.toLowerCase();
+        
+        //TODO : be smart and do not do a lowercase to do this test
+        if (expression == "all") return true;
         
         // get a list of queries.  If any pass then
         // we're good
@@ -169,7 +181,7 @@ public class MediaQueryParser
             {
                 if (numExpressions == 1 && !notFlag)
                 {
-                    goodQueries[expression] = true;
+                    goodQueries[originalExpression] = true;
                     return true;                                            
                 }
                 // bail if "and" and no media features (invalid query)
@@ -182,7 +194,7 @@ public class MediaQueryParser
                 // early exit if it returned true;
                 if ((result && !notFlag) || (!result && notFlag))
                 {
-                    goodQueries[expression] = true;
+                    goodQueries[originalExpression] = true;
                     return true;                    
                 }
             }
@@ -190,11 +202,11 @@ public class MediaQueryParser
             // then we match
             else if (notFlag)
             {
-                goodQueries[expression] = true;                
+                goodQueries[originalExpression] = true;                
                 return true;
             }
         }
-        badQueries[expression] = true;
+        badQueries[originalExpression] = true;
         return false;
     }
     
@@ -285,49 +297,52 @@ public class MediaQueryParser
             
             // break into two pieces
             var parts:Array = expr.split(":");
+            var key: String = parts[0];
             var min:Boolean = false;
             var max:Boolean = false;
             // look for min
-            if (parts[0].indexOf("min-") == 0)
+            if (key.indexOf("min-") == 0)
             {
                 min = true;
-                parts[0] = parts[0].substr(4);
+                key = key.substr(4);
             }
             // look for max
-            else if (parts[0].indexOf("max-") == 0)
+            else if (key.indexOf("max-") == 0)
             {
                 max = true;
-                parts[0] = parts[0].substr(4);
+                key = key.substr(4);
             }
             // collapse hypens into camelcase
-            if (parts[0].indexOf("-") > 0)
-                parts[0] = deHyphenate(parts[0]);
+            if (key.indexOf("-") > 0)
+                key = deHyphenate(key);
             // if only one part, then it only matters that this property exists
             if (parts.length == 1)
             {
-                if (!(parts[0] in this))
+                if (!(key in this))
                     return false;
             }
             // if two parts, then make sure the property exists and value matches
             if (parts.length == 2)
             {
                 // if property doesn't exist, then bail
-                if (!(parts[0] in this))
+                if (!(key in this))
                     return false;
+                var value: Object = normalize(parts[1], this[key]) ;
+                var cmp: int = compareValues(this[key], value) ;
                 // handle min (we don't check if min is allowed for this property)
                 if (min)
                 {
-                    if (this[parts[0]] < normalize(parts[1], typeof(this[parts[0]])))
-                        return false;
+                   if (cmp < 0)
+                       return false;
                 }
                 // handle max (we don't check if min is allowed for this property)
                 else if (max)
                 {
-                    if (this[parts[0]] > normalize(parts[1], typeof(this[parts[0]])))
+                    if (cmp > 0)
                         return false;
                 }
                 // bail if the value doesn't match
-                else if (this[parts[0]] != normalize(parts[1], typeof(this[parts[0]])))
+                else if (cmp != 0)
                 {
                     return false;
                 }
@@ -338,8 +353,9 @@ public class MediaQueryParser
         return true;
     }
     
-    // strip off metrics (maybe convert metrics some day)
-    private function normalize(s:String, type:String):Object
+    // strip off  unit if currentValue is Number or int
+    //  now supports versions (X.Y.Z) and numbers with units
+    private function normalize(s:String, currentValue: Object ):Object
     {
         var index:int;
         
@@ -350,7 +366,7 @@ public class MediaQueryParser
         // for the numbers we currently handle, we
         // might find dpi or ppi on it, that we just strip off.
         // We don't handle dpcm yet.
-        if (type == "number")
+        if (currentValue is Number)
         {
             index = s.indexOf("dpi");
             if (index != -1)
@@ -359,25 +375,51 @@ public class MediaQueryParser
             }
             return Number(s);
         }
-        else if (type == "int")
+        else if (currentValue is int)
         {
             return int(s);
         }
-        else if (type == "string")
-        {
-            // strip quotes of strings
-            if (s.indexOf('"') == 0)
-            {
-                if (s.lastIndexOf('"') == s.length - 1)
-                    s = s.substr(1, s.length - 2);
-                else
-                    s = s.substr(1);
-            }
+        // string or CSS value
+        // strip quotes of strings
+        if (s.indexOf('"') == 0) {
+            if (s.lastIndexOf('"') == s.length - 1)
+                s = s.substr(1, s.length - 2);
+            else
+                s = s.substr(1);
         }
-        
+        //  string , return
+         if (currentValue is String)
+        {
+             return s;
+        }
+        else if (currentValue is CssOsVersion) {
+            return new CssOsVersion(s) ;
+        }
         return s;
     }
-    
+
+    /**  @private
+     * Compares current value with test values, using currentValue type to determine comparison function
+     *  accepts number, int, string and CssOsVersion.
+     *  Will accept LexicalUnit in the future
+     *
+     * @param currentValue
+     * @param testValue
+     * @return   -1 if currentValue < testValue, 1 if currentValue > testValue and 0 if equal
+     */
+    private function compareValues ( currentValue: Object, testValue: Object): int
+    {
+        if (currentValue is CssOsVersion)
+           return CssOsVersion(currentValue).compareTo(CssOsVersion(testValue))  ;
+        else // scalar compare operators
+           if ( currentValue == testValue)
+              return 0;
+           else if ( currentValue < testValue)
+             return -1;
+           else
+             return 1;
+    }
+
     // collapse "-" to camelCase
     private function deHyphenate(s:String):String
     {
@@ -407,7 +449,14 @@ public class MediaQueryParser
         // expression
         return s.toLowerCase();
     }
-    
+
+    /** @private
+     * returns a CssOsVersion suitable for MediaQueryParser for the current device operating system version.
+     * */
+    private function getOSVersion():CssOsVersion {
+		return  new CssOsVersion(Platform.osVersion) ;
+    }
+
     // the type of the media
     public var type:String = "screen";
     
@@ -416,7 +465,94 @@ public class MediaQueryParser
     
     // the platform of the media
     public var osPlatform:String;
+
+    // the platform os version of the media
+    public var osVersion: CssOsVersion;
     
 }
-
 }
+
+/**
+ * Support class for MediaQueryParser to store and compare versions such as X.Y.Z
+ * Its mainly used in os-version  media selector.
+ */
+internal class CssOsVersion
+{
+     /* separator between version parts*/
+    private static const SEPARATOR: String = ".";
+
+    /** Contructor
+     *   Returns an CssOsVersion with the
+     * @param versionString
+     */
+    public function CssOsVersion(versionString: String = "")
+    {
+        var versionParts: Array = versionString.split(SEPARATOR);
+        var l: int = versionParts.length;
+        if (l >= 1)
+            major = Number(versionParts[0]);
+        if (l >= 2)
+            minor = Number(versionParts[1]);
+        if (l >= 3)
+            revision = Number(versionParts[2]);
+        // ignore remaining parts
+    }
+
+    /**
+     *  major figure of the version.
+     */
+    public var major: int = 0;
+    /**
+     *  minor figure  of the version.
+     */
+    public var minor: int = 0;
+    /**
+     *  revision figure  of the version.
+     */
+    public var revision: int = 0;
+
+    /**
+     * Printable string of the version, as X.Y.Z
+     * @return version as a string
+     */
+    public function toString(): String
+    {
+        return  major.toString() + SEPARATOR + minor.toString() + SEPARATOR + revision.toString();
+    }
+
+    /**
+     *  Compares to another version.
+     *
+     *  @param other Second Version.
+     *
+     *  @return 0 if both versions are equal
+     *  -1 if <code>this</code> is lower than <code>otherVersion</code>.
+     *  1 if <code>this</code> is greater than <code>otherVersion</code>.
+     *  @langversion 3.0
+     *  @productversion Flex 4.13
+     */
+    public function compareTo(otherVersion: CssOsVersion): int
+    {
+        if (major > otherVersion.major)
+            return 1;
+        else if (major < otherVersion.major)
+            return -1;
+        else //major == other.major)
+        {
+            if (minor > otherVersion.minor)
+                return 1;
+            else if (minor < otherVersion.minor)
+                return -1;
+            else //minor == other.minor)
+            {
+                if (revision > otherVersion.revision)
+                    return 1;
+                else if (revision < otherVersion.revision)
+                    return -1;
+                else
+                    return 0; // all equal
+            }
+        }
+    }
+}
+

@@ -629,18 +629,20 @@ public class PlotSeries extends Series
     //
     //--------------------------------------------------------------------------
 
-    /**
+	/**
      *  @private
      */
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
 		
-		var plotSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.PlotSeries");
-		plotSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.DiamondItemRenderer));
-		plotSeriesStyle.setStyle("fill", new SolidColor(0x4444AA));
-		plotSeriesStyle.setStyle("fills", []);
-		
+		var plotSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.PlotSeries");
+		if (plotSeriesStyle)
+		{
+			plotSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.DiamondItemRenderer));
+			plotSeriesStyle.setStyle("fill", new SolidColor(0x4444AA));
+			plotSeriesStyle.setStyle("fills", []);
+		}		
         return true;
     }
 

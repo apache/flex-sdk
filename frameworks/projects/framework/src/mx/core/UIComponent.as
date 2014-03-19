@@ -53,7 +53,13 @@ import flash.utils.Dictionary;
 import flash.utils.getQualifiedClassName;
 
 import mx.automation.IAutomationObject;
+import mx.binding.Binding;
 import mx.binding.BindingManager;
+import mx.binding.FunctionReturnWatcher;
+import mx.binding.PropertyWatcher;
+import mx.binding.StaticPropertyWatcher;
+import mx.binding.Watcher;
+import mx.binding.XMLWatcher;
 import mx.controls.IFlexContextMenu;
 import mx.core.LayoutDirection;
 import mx.effects.EffectManager;
@@ -1724,10 +1730,6 @@ public class UIComponent extends FlexSprite
         _width = super.width;
         _height = super.height;
         
-        var attributes:Array =  this.MXMLProperties;
-        if (attributes)
-            generateMXMLAttributes(attributes);
-
     }
 
     //--------------------------------------------------------------------------
@@ -1786,6 +1788,12 @@ public class UIComponent extends FlexSprite
      */
     private var layoutDirectionCachedValue:String = LAYOUT_DIRECTION_CACHE_UNSET;
     
+	/**
+	 *  @private
+	 *  Whether or not we've processed the MXMLDescriptors 
+	 */
+	mx_internal var processedMXMLDescriptors:Boolean = false;
+
     //--------------------------------------------------------------------------
     //
     //  Variables: Creation
@@ -6091,7 +6099,8 @@ public class UIComponent extends FlexSprite
         {
             if (_layoutFeatures == null)
             {
-                _hasComplexLayoutMatrix = super.transform.matrix && !MatrixUtil.isDeltaIdentity(super.transform.matrix);
+            	var tmpMatrix:Matrix = super.transform.matrix;
+                _hasComplexLayoutMatrix = tmpMatrix && !MatrixUtil.isDeltaIdentity(tmpMatrix);
                 return _hasComplexLayoutMatrix;
             }
             else
@@ -7808,15 +7817,18 @@ public class UIComponent extends FlexSprite
     protected function createChildren():void
     {
         var children:Array =  this.MXMLDescriptor;
-        if (children)
+        if (children && !processedMXMLDescriptors)
+		{
             generateMXMLInstances(document, children);
+			processedMXMLDescriptors = true;
+		}
     }
     
     protected function addMXMLChildren(comps:Array):void
     {
-        for each (var i:DisplayObject in comps)
+        for each (var i:Object in comps)
         {
-            addChild(i);
+		    addChild(i as DisplayObject);
         }
     }
     
@@ -7839,14 +7851,20 @@ public class UIComponent extends FlexSprite
             name = data[i++];
             simple = data[i++];
             value = data[i++];
-            if (simple == null)
-                value = generateMXMLArray(document, value as Array);
+			if (simple === null)
+				value = generateMXMLArray(document, value as Array);
+			else if (simple === undefined)
+				value = generateMXMLVector(document, value as Array);
             else if (simple == false)
                 value = generateMXMLObject(document, value as Array);
             if (name == "id")
             {
                 document[value] = comp;
                 id = value as String;
+				if (comp is IMXMLObject)
+					continue;  // skip assigment to comp
+				if (!("id" in comp))
+					continue;
             }
             else if (name == "_id")
             {
@@ -7856,107 +7874,194 @@ public class UIComponent extends FlexSprite
             }
             comp[name] = value;
         }
-        if (comp is IMXMLObject)
-            comp.initialized(document, id);
-        return comp;
+		m = data[i++]; // num styles
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple == null)
+				value = generateMXMLArray(document, value as Array);
+			else if (simple == false)
+				value = generateMXMLObject(document, value as Array);
+			comp.setStyle(name, value);
+		}
+		
+		m = data[i++]; // num effects
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple == null)
+				value = generateMXMLArray(document, value as Array);
+			else if (simple == false)
+				value = generateMXMLObject(document, value as Array);
+			comp.setStyle(name, value);
+		}
+		
+		m = data[i++]; // num events
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			value = data[i++];
+			comp.addEventListener(name, value);
+		}
+		
+		if (comp is IUIComponent)
+		{
+			if (comp.document == null)
+				comp.document = document;
+		}
+		var children:Array = data[i++];
+		if (children)
+		{
+			comp.generateMXMLInstances(document, children);
+		}
+		
+		if (id)
+		{
+			document[id] = comp;
+			mx.binding.BindingManager.executeBindings(document, id, comp); 
+		}
+		if (comp is IMXMLObject)
+			comp.initialized(document, id);
+		return comp;
     }
     
-    public function generateMXMLArray(document:Object, data:Array, recursive:Boolean = true):Array
+    public function generateMXMLVector(document:Object, data:Array, recursive:Boolean = true):*
     {
-        var comps:Array = [];
+        var comps:Array;
         
         var n:int = data.length;
-        var i:int = 0;
-        while (i < n)
-        {
-            var cls:Class = data[i++];
-            var comp:Object = new cls();
-            
-            var m:int;
-            var j:int;
-            var name:String;
-            var simple:*;
-            var value:Object;
-            var id:String = null;
-            
-            m = data[i++]; // num props
-            for (j = 0; j < m; j++)
-            {
-                name = data[i++];
-                simple = data[i++];
-                value = data[i++];
-                if (simple == null)
-                    value = generateMXMLArray(document, value as Array, recursive);
-                else if (simple == false)
-                    value = generateMXMLObject(document, value as Array);
-                if (name == "id")
-                    id = value as String;
-                if (name == "document" && !comp.document)
-                    comp.document = document;
-                else if (name == "_id")
-                    id = value as String; // and don't assign to comp
-                else
-                    comp[name] = value;
-            }
-            m = data[i++]; // num styles
-            for (j = 0; j < m; j++)
-            {
-                name = data[i++];
-                simple = data[i++];
-                value = data[i++];
-                if (simple == null)
-                    value = generateMXMLArray(document, value as Array, recursive);
-                else if (simple == false)
-                    value = generateMXMLObject(document, value as Array);
-                comp.setStyle(name, value);
-            }
-            
-            m = data[i++]; // num effects
-            for (j = 0; j < m; j++)
-            {
-                name = data[i++];
-                simple = data[i++];
-                value = data[i++];
-                if (simple == null)
-                    value = generateMXMLArray(document, value as Array, recursive);
-                else if (simple == false)
-                    value = generateMXMLObject(document, value as Array);
-                comp.setStyle(name, value);
-            }
-            
-            m = data[i++]; // num events
-            for (j = 0; j < m; j++)
-            {
-                name = data[i++];
-                value = data[i++];
-                comp.addEventListener(name, value);
-            }
-            
-            var children:Array = data[i++];
-            if (children)
-            {
-                if (recursive)
-                    comp.generateMXMLInstances(document, children, recursive);
-                else
-                    comp.setMXMLDescriptor(children);
-            }
-            
-            if (id)
-            {
-                document[id] = comp;
-                mx.binding.BindingManager.executeBindings(document, id, comp); 
-            }
-            if (comp is IMXMLObject)
-                comp.initialized(document, id);
-            comps.push(comp);
-        }
-        return comps;
+		var hint:* = data.shift();
+		var generatorFunction:Function = data.shift();
+		comps = generateMXMLArray(document, data, recursive);
+		return generatorFunction(comps);
     }
     
+	public function generateMXMLArray(document:Object, data:Array, recursive:Boolean = true):Array
+	{
+		var comps:Array = [];
+		
+		var n:int = data.length;
+		var i:int = 0;
+		while (i < n)
+		{
+			var cls:Class = data[i++];
+			var comp:Object = new cls();
+			
+			var m:int;
+			var j:int;
+			var name:String;
+			var simple:*;
+			var value:Object;
+			var id:String = null;
+			
+			m = data[i++]; // num props
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				simple = data[i++];
+				value = data[i++];
+				if (simple === null)
+					value = generateMXMLArray(document, value as Array, recursive);
+				else if (simple === undefined)
+					value = generateMXMLVector(document, value as Array, recursive);
+				else if (simple == false)
+					value = generateMXMLObject(document, value as Array);
+				if (name == "id")
+				{
+					document[value] = comp;
+					id = value as String;
+					if (comp is IMXMLObject)
+						continue;  // skip assigment to comp
+					try {
+						if (!("id" in comp))
+							continue;
+					}
+					catch (e:Error)
+					{
+						continue; // proxy subclasses might throw here
+					}
+				}
+				if (name == "document" && !comp.document)
+					comp.document = document;
+				else if (name == "_id")
+					id = value as String; // and don't assign to comp
+				else
+					comp[name] = value;
+			}
+			m = data[i++]; // num styles
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				simple = data[i++];
+				value = data[i++];
+				if (simple == null)
+					value = generateMXMLArray(document, value as Array, recursive);
+				else if (simple == false)
+					value = generateMXMLObject(document, value as Array);
+				comp.setStyle(name, value);
+			}
+			
+			m = data[i++]; // num effects
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				simple = data[i++];
+				value = data[i++];
+				if (simple == null)
+					value = generateMXMLArray(document, value as Array, recursive);
+				else if (simple == false)
+					value = generateMXMLObject(document, value as Array);
+				comp.setStyle(name, value);
+			}
+			
+			m = data[i++]; // num events
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				value = data[i++];
+				comp.addEventListener(name, value);
+			}
+			
+			if (comp is IUIComponent)
+			{
+				if (comp.document == null)
+					comp.document = document;
+			}
+			var children:Array = data[i++];
+			if (children)
+			{
+				if (recursive)
+					comp.generateMXMLInstances(document, children, recursive);
+				else
+					comp.setMXMLDescriptor(children);
+			}
+			
+			if (id)
+			{
+				document[id] = comp;
+				mx.binding.BindingManager.executeBindings(document, id, comp); 
+			}
+			if (comp is IMXMLObject)
+				comp.initialized(document, id);
+			comps.push(comp);
+		}
+		return comps;
+	}
+	
     protected function generateMXMLInstances(document:Object, data:Array, recursive:Boolean = true):void
     {
         var comps:Array = generateMXMLArray(document, data, recursive);
-        addMXMLChildren(comps);
+		var children:Array = [];
+		for each (var comp:Object in comps)
+		{
+			if (comp is DisplayObject || comp is IVisualElement)
+				children.push(comp);
+		}
+        addMXMLChildren(children);
     }
     
     protected function generateMXMLAttributes(data:Array):void
@@ -7975,8 +8080,10 @@ public class UIComponent extends FlexSprite
             name = data[i++];
             simple = data[i++];
             value = data[i++];
-            if (simple == null)
-                value = generateMXMLArray(this, value as Array, false);
+			if (simple === null)
+				value = generateMXMLArray(this, value as Array);
+			else if (simple === undefined)
+				value = generateMXMLVector(this, value as Array);
             else if (simple == false)
                 value = generateMXMLObject(this, value as Array);
             if (name == "id")
@@ -8020,6 +8127,168 @@ public class UIComponent extends FlexSprite
             this.addEventListener(name, value as Function);
         }
     }
+	
+	mx_internal function setupBindings(bindingData:Array):void
+	{
+		var fieldWatcher:Object;
+		var n:int = bindingData[0];
+		var bindings:Array = [];
+		var i:int;
+		var index:int = 1;
+		for (i = 0; i < n; i++)
+		{
+			var source:Object = bindingData[index++];
+			var destFunc:Object = bindingData[index++];
+			var destStr:Object = bindingData[index++];
+			var binding:Binding = new Binding(this,
+				(source is Function) ? source as Function : null,
+				(destFunc is Function) ? destFunc as Function : null,
+				(destStr is String) ? destStr as String : destStr.join("."),
+				(source is Function) ? null : (source is String) ? source as String : source.join("."));
+			bindings.push(binding);
+		}
+		var watchers:Object = decodeWatcher(this, bindingData.slice(index), bindings);
+		this["_bindings"] = bindings;
+		this["_watchers"] = watchers;
+		for each (binding in bindings)
+			binding.execute();
+
+	}
+	
+	private function decodeWatcher(target:Object, bindingData:Array, bindings:Array):Array
+	{
+		var watcherMap:Object = {};
+		var watchers:Array = [];
+		var n:int = bindingData.length;
+		var index:int = 0;
+		var watcherData:Object;
+		var theBindings:Array;
+		var bindingIndices:Array;
+		var bindingIndex:int;
+		var propertyName:String;
+		var eventNames:Array;
+		var eventName:String;
+		var eventObject:Object;
+		var getterFunction:Function;
+		var value:*;
+		var w:Watcher;
+		
+		while (index < n)
+		{
+			var parentObj:Object = target;
+			var watcherIndex:int = bindingData[index++];
+			var type:int = bindingData[index++];
+			switch (type)
+			{
+				case 0:
+				{
+					var functionName:String = bindingData[index++];
+					var paramFunction:Function = bindingData[index++];
+					value = bindingData[index++];
+					if (value is String)
+						eventNames = [ value ];
+					else
+						eventNames = value;
+					eventObject = {};
+					for each (eventName in eventNames)
+						eventObject[eventName] = true;
+					value = bindingData[index++];
+					if (value is Array)
+						bindingIndices = value;
+					else
+						bindingIndices = [ value ];
+					theBindings = [];
+					for each (bindingIndex in bindingIndices)
+						theBindings.push(bindings[bindingIndex]);
+					w = new FunctionReturnWatcher(functionName,
+						this,
+						paramFunction,
+						eventObject,
+						theBindings);
+					break;
+				}
+				case 1:
+				{
+					propertyName = bindingData[index++];
+					value = bindingData[index++];
+					if (value is String)
+						eventNames = [ value ];
+					else
+						eventNames = value;
+					eventObject = {};
+					for each (eventName in eventNames)
+						eventObject[eventName] = true;
+					value = bindingData[index++];
+					if (value is Array)
+						bindingIndices = value;
+					else
+						bindingIndices = [ value ];
+					theBindings = [];
+					for each (bindingIndex in bindingIndices)
+						theBindings.push(bindings[bindingIndex]);
+					getterFunction = bindingData[index++];
+					w = new StaticPropertyWatcher(propertyName, 
+						eventObject, theBindings, getterFunction);
+					parentObj = bindingData[index++];
+					break;
+				}
+				case 2:
+				{
+					propertyName = bindingData[index++];
+					value = bindingData[index++];
+					if (value is String)
+						eventNames = [ value ];
+					else
+						eventNames = value;
+					eventObject = {};
+					for each (eventName in eventNames)
+						eventObject[eventName] = true;
+					value = bindingData[index++];
+					if (value is Array)
+						bindingIndices = value;
+					else
+						bindingIndices = [ value ];
+					theBindings = [];
+					for each (bindingIndex in bindingIndices)
+						theBindings.push(bindings[bindingIndex]);
+					getterFunction = bindingData[index++];
+					w = new PropertyWatcher(propertyName, 
+						eventObject, theBindings, getterFunction);
+					break;
+				}
+				case 3:
+				{
+					propertyName = bindingData[index++];
+					value = bindingData[index++];
+					if (value is Array)
+						bindingIndices = value;
+					else
+						bindingIndices = [ value ];
+					theBindings = [];
+					for each (bindingIndex in bindingIndices)
+						theBindings.push(bindings[bindingIndex]);
+					w = new XMLWatcher(propertyName, theBindings);
+					break;
+				}
+			}
+			watchers.push(w);
+			w.updateParent(parentObj);
+			if (target is Watcher)
+			{
+				if (w is FunctionReturnWatcher)
+					FunctionReturnWatcher(w).parentWatcher = Watcher(target);
+				Watcher(target).addChild(w);
+			}
+
+			var children:Array = bindingData[index++];
+			if (children != null)
+			{
+				children = decodeWatcher(w, children, bindings);
+			}
+		}            
+		return watchers;
+	}
+	
     /**
      *  Performs any final processing after child objects are created.
      *  This is an advanced method that you might override
@@ -14215,7 +14484,8 @@ public class UIComponent extends FlexSprite
      */
     public function getLayoutMatrix():Matrix
     {
-        if (_layoutFeatures != null || super.transform.matrix == null)
+    	var superMatrix:Matrix = super.transform.matrix;
+        if (_layoutFeatures != null || superMatrix == null)
         {
             // TODO: this is a workaround for a situation in which the
             // object is in 2D, but used to be in 3D and the player has not
@@ -14239,7 +14509,7 @@ public class UIComponent extends FlexSprite
         else
         {
             // flash also returns copies.
-            return super.transform.matrix;
+            return superMatrix;
         }
     }
 

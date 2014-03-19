@@ -4996,6 +4996,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
                     break;
                 }
             }
+			
+			// leave at last column or an RTE can occur
+			if (_editedItemPosition.columnIndex >= _columns.length)
+				_editedItemPosition.columnIndex = _columns.length - 1;
 
             if (foundOne)
             {

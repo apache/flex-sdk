@@ -50,11 +50,14 @@ package spark.containers
 	import spark.layouts.BasicLayout;
 	import spark.layouts.supportClasses.LayoutBase;
 	
-	import spark.containers.supportClazzes.DeferredCreationPolicy;
+	import spark.containers.supportClasses.DeferredCreationPolicy;
 	
 	use namespace mx_internal;
-	
-	//--------------------------------------
+
+// for asdoc
+[Experimental]
+
+//--------------------------------------
 	//  Events
 	//--------------------------------------
 	

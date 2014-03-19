@@ -39,6 +39,7 @@ import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
 import mx.events.ResizeEvent;
 import mx.managers.SystemManager;
+import mx.utils.Platform;
 
 import spark.components.Application;
 import spark.components.View;
@@ -554,8 +555,7 @@ public class ViewNavigatorApplicationBase extends Application
         // So the DEACTIVATE event is ignored on desktop machines.
         var os:String = Capabilities.os;
         
-        // TODO (chiedozi): If the framework ever supports Windows Mobile, we'll need to update this check.
-        var runningOnDesktop:Boolean = (os.indexOf("Windows") != -1 || os.indexOf("Mac OS") != -1);
+        var runningOnDesktop:Boolean = Platform.isDesktop;
         if (!runningOnDesktop)
             NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, deactivateHandler);
         
@@ -570,8 +570,7 @@ public class ViewNavigatorApplicationBase extends Application
     {
         var os:String = Capabilities.os;
         
-        // TODO (chiedozi): If the framework ever supports Windows Mobile, we'll need to update this check.
-        var runningOnDesktop:Boolean = (os.indexOf("Windows") != -1 || os.indexOf("Mac OS") != -1);
+        var runningOnDesktop:Boolean = Platform.isDesktop;
         if (!runningOnDesktop)
             NativeApplication.nativeApplication.removeEventListener(Event.DEACTIVATE, deactivateHandler);
         

@@ -763,14 +763,14 @@ public final class Mxmlc extends Tool
             ThreadLocalToolkit.logInfo( getStartMessage( program ) );
             System.out.println();
             System.out.println( CommandLineConfigurator.usage( program, defaultVar, cfgbuf, keywords, lmgr, l10nConfigPrefix ));
-            System.exit( 1 );
+            System.exit( 0 );
         }
 
         if (args.length == 0 && ("mxmlc".equals(program) || "compc".equals(program)))
         {
         	ThreadLocalToolkit.logInfo( getStartMessage( program ) );
             System.err.println( CommandLineConfigurator.brief( program, defaultVar, lmgr, l10nConfigPrefix ));
-            System.exit(1);
+            System.exit( 1 );
         }
     }
 

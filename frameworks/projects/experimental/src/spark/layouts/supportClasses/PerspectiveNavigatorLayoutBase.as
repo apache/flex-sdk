@@ -25,7 +25,10 @@ package spark.layouts.supportClasses
 	import spark.layouts.HorizontalAlign;
 	import spark.layouts.VerticalAlign;
 
-	public class PerspectiveNavigatorLayoutBase extends NavigatorLayoutBase
+// for asdoc
+[Experimental]
+
+public class PerspectiveNavigatorLayoutBase extends NavigatorLayoutBase
 	{
 		
 		private var _projectionChanged	: Boolean;

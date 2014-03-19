@@ -119,7 +119,7 @@ public class PlotChart extends CartesianChart
     //
     //--------------------------------------------------------------------------
     
-    /**
+	/**
      *  @private
      */
     private function initStyles():Boolean
@@ -128,43 +128,45 @@ public class PlotChart extends CartesianChart
         
         var plotChartSeriesStyles:Array /* of Object */ = [];
         
-		var plotChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.PlotChart");
-		plotChartStyle.setStyle("chartSeriesStyles", plotChartSeriesStyles);
-		plotChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
-		plotChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
-		plotChartStyle.setStyle("horizontalAxisStyleNames", ["blockNumericAxis"]);
-		plotChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
-		
-        var defaultSkins:Array /* of IFactory */ = [ new ClassFactory(DiamondItemRenderer),
-            new ClassFactory(CircleItemRenderer),
-            new ClassFactory(BoxItemRenderer) ];
-        var defaultSizes:Array /* of Number */ = [ 5, 3.5, 3.5 ];
-        
-        var n:int = HaloDefaults.defaultFills.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            var styleName:String = "haloPlotSeries"+i;
-            plotChartSeriesStyles[i] = styleName;
-            
-            var o:CSSStyleDeclaration =
-                HaloDefaults.createSelector("." + styleName, styleManager);
-            
-            var f:Function = function(o:CSSStyleDeclaration, skin:IFactory,
-                                      fill:IFill, radius:Number):void
-            {
-                o.defaultFactory = function():void
-                {
-                    this.fill = fill;
-                    this.itemRenderer = skin;
-                    this.radius = radius
-                }
-            }
-            
-            f(o, defaultSkins[i % defaultSkins.length],
-                HaloDefaults.defaultFills[i],
-                defaultSizes[i % defaultSizes.length]);
-        }
-        
+		var plotChartStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.PlotChart");
+		if (plotChartStyle)
+		{
+			plotChartStyle.setStyle("chartSeriesStyles", plotChartSeriesStyles);
+			plotChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+			plotChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+			plotChartStyle.setStyle("horizontalAxisStyleNames", ["blockNumericAxis"]);
+			plotChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+			
+	        var defaultSkins:Array /* of IFactory */ = [ new ClassFactory(DiamondItemRenderer),
+	            new ClassFactory(CircleItemRenderer),
+	            new ClassFactory(BoxItemRenderer) ];
+	        var defaultSizes:Array /* of Number */ = [ 5, 3.5, 3.5 ];
+	        
+	        var n:int = HaloDefaults.defaultFills.length;
+	        for (var i:int = 0; i < n; i++)
+	        {
+	            var styleName:String = "haloPlotSeries"+i;
+	            plotChartSeriesStyles[i] = styleName;
+	            
+	            var o:CSSStyleDeclaration =
+	                HaloDefaults.createSelector("." + styleName, styleManager);
+	            
+	            var f:Function = function(o:CSSStyleDeclaration, skin:IFactory,
+	                                      fill:IFill, radius:Number):void
+	            {
+	                o.defaultFactory = function():void
+	                {
+	                    this.fill = fill;
+	                    this.itemRenderer = skin;
+	                    this.radius = radius
+	                }
+	            }
+	            
+	            f(o, defaultSkins[i % defaultSkins.length],
+	                HaloDefaults.defaultFills[i],
+	                defaultSizes[i % defaultSizes.length]);
+	        }
+		}        
        return true;
     }
 

@@ -551,10 +551,7 @@ public class EffectManager extends EventDispatcher
             {
                 return eventsForEffectTriggers[effectTrigger];
             }
-            catch(e:Error)
-            {
-                return "";
-            }
+            catch(e:Error) {}
         }
         
         return "";

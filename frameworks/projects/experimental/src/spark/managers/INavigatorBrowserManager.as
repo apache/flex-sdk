@@ -20,7 +20,10 @@ package spark.managers
 {
 	import spark.layouts.supportClasses.INavigatorLayout;
 
-	/**
+// for asdoc
+[Experimental]
+
+/**
 	 *  The interface that the shared instance of the NavigtorBrowserManager
 	 *  implements, which is accessed with the <code>NavigtorBrowserManager.getInstance()</code> method.
 	 * 

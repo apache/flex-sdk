@@ -923,7 +923,7 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
         if (allowCustomSelectedItem && selectedIndex == CUSTOM_SELECTED_ITEM)
             return _selectedItem;
         
-        if (selectedIndex == NO_SELECTION || dataProvider == null)
+        if (selectedIndex < 0 || dataProvider == null)
            return undefined;
            
         return dataProvider.length > selectedIndex ? dataProvider.getItemAt(selectedIndex) : undefined;

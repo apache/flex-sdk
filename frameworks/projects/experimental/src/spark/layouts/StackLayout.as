@@ -45,8 +45,11 @@ package spark.layouts
 	import spark.layouts.supportClasses.NavigatorLayoutBase;
 
 	use namespace mx_internal;
-	
-	/**
+
+// for asdoc
+[Experimental]
+
+/**
 	 *  An StackLayout class shows a single element at a time..
 	 * 
 	 *  <p>The horizontal position of the shown element is determined by the layout's

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Licensed to the Apache Software Foundation (ASF) under one or more
+//  contributor license agreements.  See the NOTICE file distributed with
+//  this work for additional information regarding copyright ownership.
+//  The ASF licenses this file to You under the Apache License, Version 2.0
+//  (the "License"); you may not use this file except in compliance with
+//  the License.  You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//
+////////////////////////////////////////////////////////////////////////////////
+-->
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008"
+         scaleGridLeft="5" scaleGridRight="49" scaleGridTop="10" scaleGridBottom="54">
+    <Rect width="50" height="64">
+        <fill>
+            <LinearGradient x="0" y="0" scaleX="64" rotation="90">
+                <GradientEntry color="#999999" ratio="0"/>
+                <GradientEntry color="#404040" ratio="0.05"/>
+                <GradientEntry color="#303030" ratio="0.75"/>
+                <GradientEntry color="#202020" ratio="1"/>
+            </LinearGradient>
+        </fill>
+    </Rect>
+    <Rect width="1" height="40" x="0" y="12">
+        <fill>
+            <SolidColor color="#666666" alpha="0.5"/>
+        </fill>
+    </Rect>
+    <Rect width="1" height="40" x="1" y="12">
+        <fill>
+            <SolidColor color="#cccccc" alpha="0.5"/>
+        </fill>
+    </Rect>
+</Graphic>

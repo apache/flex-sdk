@@ -51,6 +51,7 @@ import mx.managers.dragClasses.DragProxy;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleManager2;
 import mx.styles.StyleManager;
+import mx.utils.Platform;
 
 use namespace mx_internal;
 
@@ -671,7 +672,7 @@ public class NativeDragManagerImpl implements IDragManager
         
         //translate either commandKey or controlKey to old-style ctrlKey 
         var ctrlKey:Boolean = false;
-        if (Capabilities.os.substring(0,3) == "Mac")
+        if (Platform.isMac)
             ctrlKey = event.commandKey;
         else
             ctrlKey = event.controlKey;    

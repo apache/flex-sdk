@@ -16,7 +16,7 @@ rem limitations under the License.
 
 if "%FLEX_HOME%"=="" set FLEX_HOME=%~dp0\..
 
-if exist $FLEX_HOME\lib\external\optional\flex-fontkit.jar (
+if exist %FLEX_HOME%\lib\external\optional\flex-fontkit.jar (
     @java -Dsun.io.useCanonCaches=false -Xms32m -Xmx512m -jar "%FLEX_HOME%\lib\external\optional\flex-fontkit.jar" %*
 ) else (
     echo Apache Flex can optionally integrate with Adobe's embedded font support.

@@ -24,15 +24,14 @@ package spark.collections
     *  The SortFieldCompareTypes class defines the valid constant values for the 
     *  <code>sortCompareType</code> property of the <code>SortField</code> and <code>GridColumn</code>.
     * 
-    *  <p>Designed to be used from a DataGrids column, but can be referenced directly on the </code>SortField</code></p>
+    *  <p>Designed to be used from a DataGrids column, but can be referenced directly on the <code>SortField</code></p>
     *  
-    *  <p>Use the constants in ActionsScript, as the following example shows: </p>
+    *  <p>Use the constants in ActionsScript, as the following example shows:</p>
     *  <pre>
     *    column.sortCompareType = SortFieldCompareTypes.NUMERIC;
     *  </pre>
     *
-    *  <p>In MXML, use the String value of the constants, 
-    *  as the following example shows:</p>
+    *  <p>In MXML, use the String value of the constants, as the following example shows:</p>
     *  <pre>
     *    &lt;s:GridColumn sortCompareType="numeric" /&gt; 
     *  </pre>

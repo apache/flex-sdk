@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="spark/components/CalloutButton/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="CalloutButton_Main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<mx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}
+
+		]]>
+
+	</mx:Script>
+
+
+	<mx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</mx:Metadata>
+
+
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<testCases>
+
+
+	<TestCase testID="calloutButton_click" keywords="[CalloutButton, click]"
+			description="Verifies triggerEvent click on CalloutButton">
+			<setup>
+				<DispatchMouseEvent target="calloutClickButton" type="rollOver" localX="1" localY="1" waitEvent="updateComplete" />
+				<DispatchEvent target="calloutClickButton" type="buttonDown" eventClass="mx.events.FlexEvent"  waitEvent="open" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/calloutbutton_click.png"/>
+			</body>
+            <cleanup>
+                <DispatchEvent target="calloutClickButton" type="buttonDown" eventClass="mx.events.FlexEvent"   waitEvent="close"/>
+            </cleanup>
+		</TestCase>
+
+		<TestCase testID="calloutButton_rollOver" keywords="[CalloutButton, rollOver]"
+			description="Verifies triggerEvent rollOver on CalloutButton">
+			<setup>
+				<DispatchMouseEvent target="calloutRollOverButton" type="rollOver" localX="1" localY="1" waitEvent="open" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/calloutbutton_over.png"/>
+			</body>
+            <cleanup>
+                <DispatchMouseEvent target="calloutRollOverButton" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"  waitTarget="calloutRollOverButton" waitEvent="close"/>
+            </cleanup>
+		</TestCase>
+
+        <!-- Test Callout positions -->
+
+		<!-- after* -->
+		<TestCase testID="calloutButton_afterAfter" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+			description="Verifies horizontalPosition=after verticalPosition=after on CallOutButton">
+			<setup>
+                <DispatchMouseEvent target="callOutAfterAfter" type="rollOver" localX="5" localY="5"  waitEvent="open"/>
+			</setup>
+			<body>
+		       	<CompareBitmap url="../Properties/baselines/calloutbutton_afterAfter.png"/>
+			</body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutAfterAfter" type="rollOut"   />
+               <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutAfterAfter" waitEvent="close"  />
+            </cleanup>
+		</TestCase>
+
+		<TestCase testID="calloutButton_afterAuto" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+			description="Verifies horizontalPosition=after verticalPosition=auto on CallOutButton">
+			<setup>
+                <DispatchMouseEvent target="callOutAfterAuto" type="rollOver" localX="1" localY="1" waitEvent="open"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/calloutbutton_afterAuto.png"/>
+			</body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutAfterAuto" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutAfterAuto" waitEvent="close"/>
+            </cleanup>
+		</TestCase>
+
+		<TestCase testID="calloutButton_afterBefore" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+			description="Verifies horizontalPosition=after verticalPosition=before on CallOutButton">
+			<setup>
+                <DispatchMouseEvent target="callOutAfterBefore" type="rollOver" localX="5" localY="5" waitEvent="open"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/calloutbutton_afterBefore.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutAfterBefore" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutAfterBefore" waitEvent="close"/>
+            </cleanup>
+		</TestCase>
+
+		<TestCase testID="calloutButton_afterEnd" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+			description="Verifies horizontalPosition=after verticalPosition=end on CallOutButton">
+			<setup>
+                <DispatchMouseEvent target="callOutAfterEnd" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/calloutbutton_afterEnd.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutAfterEnd" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutAfterEnd" waitEvent="close"/>
+            </cleanup>
+		</TestCase>
+
+		<TestCase testID="calloutButton_afterMiddle" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+			description="Verifies horizontalPosition=after verticalPosition=middle on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutAfterMiddle" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_afterMiddle.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutAfterMiddle" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutAfterMiddle" waitEvent="close"/>
+            </cleanup>
+		</TestCase>
+
+		<TestCase testID="calloutButton_afterStart" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+			description="Verifies horizontalPosition=after verticalPosition=start on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutAfterStart" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/calloutbutton_afterStart.png"/>
+			</body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutAfterStart" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutAfterStart" waitEvent="close"/>
+            </cleanup>
+		</TestCase>
+
+
+		<!-- auto* -->
+
+        <TestCase testID="calloutButton_autoAfter" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=auto verticalPosition=after on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutAutoAfter" type="rollOver" localX="5" localY="5" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_autoAfter.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutAutoAfter" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutAutoAfter" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_autoAuto" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=auto verticalPosition=auto on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutAutoAuto" type="rollOver" localX="1" localY="1" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_autoAuto.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutAutoAuto" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutAutoAuto" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_autoBefore" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=auto verticalPosition=before on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutAutoBefore" type="rollOver" localX="5" localY="5" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_autoBefore.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutAutoBefore" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutAutoBefore" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_autoEnd" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=auto verticalPosition=end on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutAutoEnd" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_autoEnd.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutAutoEnd" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutAutoEnd" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_autoMiddle" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=auto verticalPosition=middle on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutAutoMiddle" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_autoMiddle.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutAutoMiddle" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutAutoMiddle" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_autoStart" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=auto verticalPosition=start on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutAutoStart" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_autoStart.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutAutoStart" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutAutoStart" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+
+
+		<!-- before* -->
+
+        <TestCase testID="calloutButton_BeforeAfter" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Before verticalPosition=after on CalloutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutBeforeAfter" type="rollOver" localX="5" localY="5" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_BeforeAfter.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutBeforeAfter" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutBeforeAfter" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_BeforeAuto" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Before verticalPosition=auto on CalloutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutBeforeAuto" type="rollOver" localX="1" localY="1" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_BeforeAuto.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutBeforeAuto" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutBeforeAuto" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_BeforeBefore" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Before verticalPosition=before on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutBeforeBefore" type="rollOver" localX="5" localY="5" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_BeforeBefore.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutBeforeBefore" type="rollOut"  />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutBeforeBefore" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_BeforeEnd" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Before verticalPosition=end on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutBeforeEnd" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_BeforeEnd.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutBeforeEnd" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutBeforeEnd" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_BeforeMiddle" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Before verticalPosition=middle on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutBeforeMiddle" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_BeforeMiddle.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutBeforeMiddle" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutBeforeMiddle" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_BeforeStart" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Before verticalPosition=start on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutBeforeStart" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_BeforeStart.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutBeforeStart" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutBeforeStart" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+		<!-- end* -->
+
+        <TestCase testID="calloutButton_EndAfter" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=End verticalPosition=after on CalloutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutEndAfter" type="rollOver" localX="5" localY="5" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_EndAfter.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutEndAfter" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutEndAfter" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_EndAuto" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=End verticalPosition=auto on CalloutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutEndAuto" type="rollOver" localX="1" localY="1" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_EndAuto.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutEndAuto" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutEndAuto" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_EndBefore" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=End verticalPosition=before on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutEndBefore" type="rollOver" localX="5" localY="5" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_EndBefore.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutEndBefore" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutEndBefore" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_EndEnd" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=End verticalPosition=end on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutEndEnd" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_EndEnd.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutEndEnd" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutEndEnd" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_EndMiddle" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=End verticalPosition=middle on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutEndMiddle" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_EndMiddle.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutEndMiddle" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutEndMiddle" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_EndStart" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=End verticalPosition=start on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutEndStart" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_EndStart.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutEndStart" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutEndStart" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+
+		<!-- middle* -->
+        <TestCase testID="calloutButton_MiddleAfter" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Middle verticalPosition=after on CalloutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutMiddleAfter" type="rollOver" localX="5" localY="5" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_MiddleAfter.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutMiddleAfter" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutMiddleAfter" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_MiddleAuto" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Middle verticalPosition=auto on CalloutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutMiddleAuto" type="rollOver" localX="1" localY="1" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_MiddleAuto.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutMiddleAuto" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutMiddleAuto" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_MiddleBefore" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Middle verticalPosition=before on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutMiddleBefore" type="rollOver" localX="5" localY="5" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_MiddleBefore.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutMiddleBefore" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutMiddleBefore" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_MiddleEnd" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Middle verticalPosition=end on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutMiddleEnd" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_MiddleEnd.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutMiddleEnd" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutMiddleEnd" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_MiddleMiddle" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Middle verticalPosition=middle on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutMiddleMiddle" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_MiddleMiddle.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutMiddleMiddle" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutMiddleMiddle" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_MiddleStart" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Middle verticalPosition=start on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutMiddleStart" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_MiddleStart.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutMiddleStart" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutMiddleStart" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+		<!-- start* -->
+        <TestCase testID="calloutButton_StartAfter" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Start verticalPosition=after on CalloutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutStartAfter" type="rollOver" localX="5" localY="5" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_StartAfter.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutStartAfter" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutStartAfter" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_StartAuto" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Start verticalPosition=auto on CalloutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutStartAuto" type="rollOver" localX="1" localY="1" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_StartAuto.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutStartAuto" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutStartAuto" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_StartBefore" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Start verticalPosition=before on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutStartBefore" type="rollOver" localX="5" localY="5" waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_StartBefore.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutStartBefore" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutStartBefore" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_StartEnd" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Start verticalPosition=end on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutStartEnd" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_StartEnd.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutStartEnd" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutStartEnd" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_StartMiddle" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Start verticalPosition=middle on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutStartMiddle" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_StartMiddle.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutStartMiddle" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutStartMiddle" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="calloutButton_StartStart" keywords="[CalloutButton, horizontalPosition, verticalPosition]"
+                  description="Verifies horizontalPosition=Start verticalPosition=start on CallOutButton">
+            <setup>
+                <DispatchMouseEvent target="callOutStartStart" type="rollOver" localX="1" localY="1"
+                                    waitEvent="open"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/calloutbutton_StartStart.png"/>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent target="callOutStartStart" type="rollOut" />
+                <DispatchMouseEvent target="stage" type="mouseMove" stageX="5" stageY="5"
+                                    waitTarget="callOutStartStart" waitEvent="close"/>
+            </cleanup>
+        </TestCase>
+
+	</testCases>
+
+</UnitTester>

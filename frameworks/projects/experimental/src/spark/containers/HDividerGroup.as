@@ -24,7 +24,11 @@ package spark.containers
 	import mx.core.IVisualElement;
 
 	import spark.layouts.HorizontalLayout;
-	/**
+
+// for asdoc
+[Experimental]
+
+/**
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10.1
 	 *  @playerversion AIR 2.5

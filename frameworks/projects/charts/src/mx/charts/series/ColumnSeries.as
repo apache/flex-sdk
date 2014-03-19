@@ -1050,12 +1050,14 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
     {
         HaloDefaults.init(styleManager);
 		
-		var columnSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.ColumnSeries");
-		columnSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.BoxItemRenderer));
-		columnSeriesStyle.setStyle("fill", new SolidColor(0x000000));
-		columnSeriesStyle.setStyle("fills", []);
-		columnSeriesStyle.setStyle("stroke", HaloDefaults.emptyStroke);
-		
+		var columnSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.ColumnSeries");
+		if (columnSeriesStyle)
+		{
+			columnSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.BoxItemRenderer));
+			columnSeriesStyle.setStyle("fill", new SolidColor(0x000000));
+			columnSeriesStyle.setStyle("fills", []);
+			columnSeriesStyle.setStyle("stroke", HaloDefaults.emptyStroke);
+		}		
         return true;
     }
 
