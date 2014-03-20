@@ -1743,12 +1743,13 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
 			{
 				data = deriveComplexColumnData(data);
 			}
-			else if (dataField != null)
+			else if (dataField != null && dataField in data)
 			{
-				if (dataField in data)
-	            	data = data[dataField];
-	            else 
-					data = null;
+				data = data[dataField];
+			}
+	        else
+			{
+				data = null;
 			}
         }
 

@@ -36,6 +36,8 @@ AIR and Flash Player support
 
 SDK Changes
 -------------
+- New Android skins
+- Extended mobile media query support
 
 
 Build Changes
@@ -44,6 +46,7 @@ Build Changes
 
 Compiler Changes
 ------------------
+- Fix issue with 3rd party license components not working
 
 
 Bug Fixes
@@ -57,7 +60,15 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
-
+FLEX-34145  Mobile Theme: TextInput with layoutDirection="rtl" becomes mirror on focus out.
+FLEX-34142  Can not change the color of the header with the property headerStyleName (MobileGridColumn)
+FLEX-34141  softkeyboardActivate events are not dispatched in Flex 4.12 on iOS
+FLEX-34139  Missing 120DPI Skin References
+FLEX-34133  ADG RTE in columnHeaderWordWrap
+FLEX-34132  DataGrid columns with no dataField specified give "[object Object]"
+FLEX-34125  CheckAllPlayerGlobals script in ide folder is missing Windows implementation
+FLEX-34117  Button: Small gap in the corner
+FLEX-33421  Broken metadata RequiresLicense
 
 Apache Flex 4.12
 =================
