@@ -266,7 +266,7 @@ public class AdvancedDataGridColumnGroup extends AdvancedDataGridColumn
        {
             if (dataField != null)
 			{
-				if (dataField in data)
+				if (dataField != null && dataField in data)
                 	data = data[dataField];
 				else
 					data = null;
