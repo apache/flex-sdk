@@ -80,11 +80,9 @@ package spark.components
     import mx.core.IIMESupport;
     import mx.core.ISystemCursorClient;
     import mx.core.UIComponent;
-    import mx.core.mx_internal;
     import mx.events.FlexEvent;
     import mx.managers.IFocusManager;
     import mx.managers.IFocusManagerComponent;
-    import mx.resources.ResourceManager;
     import mx.utils.StringUtil;
     
     import spark.components.supportClasses.RichEditableTextContainerManager;
@@ -4749,7 +4747,11 @@ package spark.components
                 if (!multiline)
                 {
                     var po:PasteOperation = PasteOperation(op);
-                    
+
+                    // Make sure the clipboard has something to paste.
+                    if (po.textScrap == null || po.textScrap.textFlow == null)
+                        return;
+
                     // If copied/cut from displayAsPassword field the pastedText
                     // is '*' characters but this is correct.
                     var pastedText:String = staticPlainTextExporter.export(
