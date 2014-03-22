@@ -19,9 +19,18 @@
 
 package mx.utils
 {
+import flash.events.Event;
+import flash.events.EventDispatcher;
 import flash.system.Capabilities;
 import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
+import mx.managers.ISystemManager;
+import mx.managers.SystemManagerGlobals;
+import mx.styles.CSSDimension;
+import mx.styles.CSSOSVersion;
+import mx.styles.IStyleManager2;
+import mx.styles.StyleManager;
+
 use namespace mx_internal;
 
 [ExcludeClass]
@@ -32,10 +41,14 @@ use namespace mx_internal;
  *  Doesn't report syntax errors, assumes you have your attributes
  *  and identifiers spelled correctly, etc.
  *  Media query parser now supports os-version selectors such as X, X.Y or X.Y.Z
- *  Note that version with 3 parts must be  quoted
+ *  Note that version with 2 or 3 parts must be  quoted
 Examples:
  (os-platform: "ios") AND (min-os-version: 7)
  (os-platform: "android") AND (min-os-version: "4.1.2")
+
+ non standard selectors:
+ -flex-device-diagonal
+ -flex-min-device-diagonal
 
  *  
  *  @langversion 3.0
@@ -43,7 +56,7 @@ Examples:
  *  @playerversion AIR 2.6
  *  @productversion Flex 4.5
  */ 
-public class MediaQueryParser
+public class MediaQueryParser  extends EventDispatcher
 {
     /**
      *  @private
@@ -107,11 +120,21 @@ public class MediaQueryParser
         {
             if (moduleFactory.info()["applicationDPI"] != null)
                 applicationDpi = moduleFactory.info()["applicationDPI"];
+            if (moduleFactory is ISystemManager){
+                sm = ISystemManager(moduleFactory);
+                if (sm.stage)
+                    sm.stage.addEventListener(Event.RESIZE, stage_resizeHandler, false);
+            }
         }
         osPlatform = getPlatform();
         osVersion = getOSVersion();
+        // compute device  DPI
+        deviceDPI = Capabilities.screenDPI;
+        // compute width, height and diagonal
+        computeDeviceDimensions( );
+
     }
-    
+
     /**
      *  Queries that were true
      */
@@ -121,6 +144,18 @@ public class MediaQueryParser
      *  Queries that were false
      */
     mx_internal var badQueries:Object = {};
+
+    /**
+     * system manager for the MQP to compute device dimensions
+     */
+    private var sm: ISystemManager;
+
+    /** flags are set if device-width / device height are used in any media query.
+     * This is an optimization, so that   we know when it's necessary to regenerate styles
+     * */
+    private var usesDeviceWidth: Boolean = false ;
+    private var usesDeviceHeight: Boolean =false;
+    private var usesDeviceDiagonal: Boolean = false;
     
     /**
      *  @private
@@ -300,6 +335,14 @@ public class MediaQueryParser
             var key: String = parts[0];
             var min:Boolean = false;
             var max:Boolean = false;
+            var flex: Boolean = false;
+
+            // process custom  selectors
+            if (key.indexOf("-flex-") == 0){
+                 flex =true;
+                key = key.substr(6);
+            }
+
             // look for min
             if (key.indexOf("min-") == 0)
             {
@@ -312,9 +355,17 @@ public class MediaQueryParser
                 max = true;
                 key = key.substr(4);
             }
-            // collapse hypens into camelcase
+            // collapse hypens into camelcase ;
             if (key.indexOf("-") > 0)
-                key = deHyphenate(key);
+                key = deHyphenate(key, flex);
+
+            if ( key == "deviceWidth")
+                 usesDeviceWidth = true;
+            else if (key  =="deviceHeight" )
+               usesDeviceHeight = true;
+            else if (key == "flexDeviceDiagonal")
+                usesDeviceDiagonal = true;
+
             // if only one part, then it only matters that this property exists
             if (parts.length == 1)
             {
@@ -392,15 +443,28 @@ public class MediaQueryParser
         {
              return s;
         }
-        else if (currentValue is CssOsVersion) {
-            return new CssOsVersion(s) ;
+        else if (currentValue is CSSOSVersion) {
+            return new CSSOSVersion(s) ;
         }
+        else if (currentValue is CSSDimension) {
+              var matches: Array = s.match(/([\d\.]+)(in|cm|dp|pt|px|)$/);    // decimal number following by either units or no unit
+             if (matches!= null && matches.length == 3) {
+                 var unit: String =  matches[2];
+                 var refDPI: Number = unit == CSSDimension.UNIT_DP ? applicationDpi : deviceDPI ; // DPI use applicationDPI  for conversion
+                 return new CSSDimension(Number(matches[1]), refDPI,unit );
+             }
+             else {
+                 throw new Error("Unknown unit in css media query:" + s); //TODO NLS Error message
+                 return s;
+             }
+
+         }
         return s;
     }
 
     /**  @private
      * Compares current value with test values, using currentValue type to determine comparison function
-     *  accepts number, int, string and CssOsVersion.
+     *  accepts number, int, string and CSSOSVersion.
      *  Will accept LexicalUnit in the future
      *
      * @param currentValue
@@ -409,8 +473,10 @@ public class MediaQueryParser
      */
     private function compareValues ( currentValue: Object, testValue: Object): int
     {
-        if (currentValue is CssOsVersion)
-           return CssOsVersion(currentValue).compareTo(CssOsVersion(testValue))  ;
+        if (currentValue is CSSOSVersion)
+           return CSSOSVersion(currentValue).compareTo(CSSOSVersion(testValue))  ;
+        else if (currentValue is CSSDimension)
+            return CSSDimension(currentValue).compareTo(CSSDimension(testValue));
         else // scalar compare operators
            if ( currentValue == testValue)
               return 0;
@@ -421,17 +487,24 @@ public class MediaQueryParser
     }
 
     // collapse "-" to camelCase
-    private function deHyphenate(s:String):String
+    private function deHyphenate(s:String, flex: Boolean):String
     {
         var i:int = s.indexOf("-");
+        var part: String;
+        var c: String;
+
         while (i > 0)
         {
-            var part:String = s.substr(i + 1);
+             part = s.substr(i + 1);
             s = s.substr(0, i);
-            var c:String = part.charAt(0);
-            c = c.toUpperCase();
+            c = (part.charAt(0)).toUpperCase();
             s += c + part.substr(1);
             i = s.indexOf("-");
+        }
+        // if flex, camel case and prefix with flex
+        if (flex){
+            c = (s.charAt(0)).toUpperCase();
+            s = "flex" + c + s.substr(1);
         }
         return s;
     }
@@ -451,11 +524,83 @@ public class MediaQueryParser
     }
 
     /** @private
-     * returns a CssOsVersion suitable for MediaQueryParser for the current device operating system version.
+     * returns a CSSOSVersion suitable for MediaQueryParser for the current device operating system version.
      * */
-    private function getOSVersion():CssOsVersion {
-		return  new CssOsVersion(Platform.osVersion) ;
+    private function getOSVersion():CSSOSVersion {
+		return  new CSSOSVersion(Platform.osVersion) ;
     }
+
+    /** @private recompute device dimension
+     *
+     * @return true if any dimension that is used in media queries has changed, and styles need to be regenerated
+     *   we ignore changes to deviceDiagonal on purpose, so that only changing
+     */
+    private function computeDeviceDimensions(): Boolean
+    {
+        if (sm) {
+            var w: Number = sm.stage.stageWidth;
+            var h: Number = sm.stage.stageHeight;
+            var diag: Number = Math.sqrt(w * w + h * h);
+
+           // we need to update styles if device-width is used and has changed or device-height is used and has changed
+            // for example after switching orientation or going fullscreen
+            // we ignore changes to device diagonal on purpose
+
+            var needToUpdateStyles: Boolean = (usesDeviceWidth && w != deviceWidth.pixelValue)     || (usesDeviceHeight && h != deviceHeight.pixelValue) ;
+
+            deviceWidth = new CSSDimension(w, deviceDPI);
+            deviceHeight = new CSSDimension(h, deviceDPI);
+            flexDeviceDiagonal = new CSSDimension(  diag, deviceDPI );
+            trace(" width:", deviceWidth, " height: ", deviceHeight, " diag:", flexDeviceDiagonal);
+
+           return needToUpdateStyles;
+        }
+        return false;
+    }
+
+    private function stage_resizeHandler(event: Event): void
+    {
+        if (computeDeviceDimensions())  {
+            // reinit query cache then reload styles
+            goodQueries = {};
+            badQueries = {};
+            reinitApplicationStyles();
+        }
+
+    }
+
+    private function reinitApplicationStyles( ):void {
+
+        var styleManager: IStyleManager2 = StyleManager.getStyleManager(sm);
+
+        styleManager.stylesRoot = null;
+        styleManager.initProtoChainRoots();
+
+        var sms: Array = SystemManagerGlobals.topLevelSystemManagers;
+        var n: int = sms.length;
+        var i: int;
+
+        // Type as Object to avoid dependency on SystemManager.
+        var sm: ISystemManager;
+        var cm: Object;
+
+            // Regenerate all the proto chains
+            // for all objects in the application.
+            for (i = 0; i < n; i++) {
+                sm = sms[i];
+                cm = sm.getImplementation("mx.managers::ISystemManagerChildManager");
+                cm.regenerateStyleCache(true);
+            }
+
+        for (i = 0; i < n; i++) {
+            sm = sms[i];
+            cm = sm.getImplementation("mx.managers::ISystemManagerChildManager");
+            cm.notifyStyleChangeInChildren(null, true);      // all styles
+        }
+    }
+
+    /* real device DPI, use for converting physical units */
+    private var deviceDPI: Number ;
 
     // the type of the media
     public var type:String = "screen";
@@ -467,92 +612,31 @@ public class MediaQueryParser
     public var osPlatform:String;
 
     // the platform os version of the media
-    public var osVersion: CssOsVersion;
-    
-}
-}
-
-/**
- * Support class for MediaQueryParser to store and compare versions such as X.Y.Z
- * Its mainly used in os-version  media selector.
- */
-internal class CssOsVersion
-{
-     /* separator between version parts*/
-    private static const SEPARATOR: String = ".";
-
-    /** Contructor
-     *   Returns an CssOsVersion with the
-     * @param versionString
-     */
-    public function CssOsVersion(versionString: String = "")
-    {
-        var versionParts: Array = versionString.split(SEPARATOR);
-        var l: int = versionParts.length;
-        if (l >= 1)
-            major = Number(versionParts[0]);
-        if (l >= 2)
-            minor = Number(versionParts[1]);
-        if (l >= 3)
-            revision = Number(versionParts[2]);
-        // ignore remaining parts
-    }
+    public var osVersion: CSSOSVersion;
 
     /**
-     *  major figure of the version.
+     * Physical device width.
+     * matches "device-width" selector.
      */
-    public var major: int = 0;
-    /**
-     *  minor figure  of the version.
-     */
-    public var minor: int = 0;
-    /**
-     *  revision figure  of the version.
-     */
-    public var revision: int = 0;
+    [Bindable]
+    public var deviceWidth: CSSDimension ;
 
     /**
-     * Printable string of the version, as X.Y.Z
-     * @return version as a string
+     * Physical device height.
+     * matches "device-height" selector
      */
-    public function toString(): String
-    {
-        return  major.toString() + SEPARATOR + minor.toString() + SEPARATOR + revision.toString();
-    }
+    [Bindable]
+    public var deviceHeight: CSSDimension;
 
     /**
-     *  Compares to another version.
+     *  Physical device diagonal.
+     *  matches  "-flex-device-diagonal" selector
+     *  prefixed by "-flex" because it's not W3C standard
      *
-     *  @param other Second Version.
-     *
-     *  @return 0 if both versions are equal
-     *  -1 if <code>this</code> is lower than <code>otherVersion</code>.
-     *  1 if <code>this</code> is greater than <code>otherVersion</code>.
-     *  @langversion 3.0
-     *  @productversion Flex 4.13
      */
-    public function compareTo(otherVersion: CssOsVersion): int
-    {
-        if (major > otherVersion.major)
-            return 1;
-        else if (major < otherVersion.major)
-            return -1;
-        else //major == other.major)
-        {
-            if (minor > otherVersion.minor)
-                return 1;
-            else if (minor < otherVersion.minor)
-                return -1;
-            else //minor == other.minor)
-            {
-                if (revision > otherVersion.revision)
-                    return 1;
-                else if (revision < otherVersion.revision)
-                    return -1;
-                else
-                    return 0; // all equal
-            }
-        }
-    }
+    public var flexDeviceDiagonal: CSSDimension;
+
 }
+}
+
 
