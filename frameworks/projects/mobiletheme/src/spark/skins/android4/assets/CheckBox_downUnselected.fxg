@@ -5,7 +5,7 @@
         <SolidColor color="#DEDEDD"/>
       </fill>
     </Path>
-    <Path x="8" y="8" winding="nonZero" data="M16 16 0 16 0 0 16 0 16 16ZM1 15 15 15 15 1 1 1 1 15Z">
+    <Path x="8" y="8" winding="nonZero" data="M15 7 15 15 1 15 1 1 14 1 14 0 0 0 0 16 16 16 16 7 15 7Z">
       <fill>
         <SolidColor color="#676767"/>
       </fill>
