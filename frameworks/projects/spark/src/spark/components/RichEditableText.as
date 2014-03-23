@@ -80,6 +80,7 @@ package spark.components
     import mx.core.IIMESupport;
     import mx.core.ISystemCursorClient;
     import mx.core.UIComponent;
+	import mx.core.mx_internal;
     import mx.events.FlexEvent;
     import mx.managers.IFocusManager;
     import mx.managers.IFocusManagerComponent;
