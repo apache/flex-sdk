@@ -19,249 +19,250 @@
 
 package spark.skins.android4
 {
-import flash.display.DisplayObject;
+	import flash.display.DisplayObject;
+	
+	import mx.core.DPIClassification;
+	
+	import spark.skins.android4.assets.CheckBox_up;
+	import spark.skins.mobile.supportClasses.SelectableButtonSkinBase;
+	
+	/**
+	 *  ActionScript-based skin for CheckBox components in mobile applications. 
+	 * 
+	 *  @see spark.components.CheckBox
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5 
+	 *  @productversion Flex 4.5
+	 */
+	public class CheckBoxSkin extends SelectableButtonSkinBase
+	{
+		//--------------------------------------------------------------------------
+		//
+		//  Class constants
+		//
+		//--------------------------------------------------------------------------
+		
+		private static const exclusions:Array = ["labelDisplay", "labelDisplayShadow"];
 
-import mx.core.DPIClassification;
+		//--------------------------------------------------------------------------
+		//
+		//  Member variables
+		//
+		//--------------------------------------------------------------------------
 
-import spark.skins.android4.assets.CheckBox_up;
-import spark.skins.mobile.supportClasses.SelectableButtonSkinBase;
-import spark.skins.mobile120.assets.CheckBox_down;
-import spark.skins.mobile120.assets.CheckBox_downSymbol;
-import spark.skins.mobile120.assets.CheckBox_downSymbolSelected;
-import spark.skins.mobile120.assets.CheckBox_up;
-import spark.skins.mobile120.assets.CheckBox_upSymbol;
-import spark.skins.mobile120.assets.CheckBox_upSymbolSelected;
-import spark.skins.mobile160.assets.CheckBox_down;
-import spark.skins.mobile160.assets.CheckBox_downSymbol;
-import spark.skins.mobile160.assets.CheckBox_downSymbolSelected;
-import spark.skins.mobile160.assets.CheckBox_up;
-import spark.skins.mobile160.assets.CheckBox_upSymbol;
-import spark.skins.mobile160.assets.CheckBox_upSymbolSelected;
-import spark.skins.mobile240.assets.CheckBox_down;
-import spark.skins.mobile240.assets.CheckBox_downSymbol;
-import spark.skins.mobile240.assets.CheckBox_downSymbolSelected;
-import spark.skins.mobile240.assets.CheckBox_up;
-import spark.skins.mobile240.assets.CheckBox_upSymbol;
-import spark.skins.mobile240.assets.CheckBox_upSymbolSelected;
-import spark.skins.mobile320.assets.CheckBox_down;
-import spark.skins.mobile320.assets.CheckBox_downSymbol;
-import spark.skins.mobile320.assets.CheckBox_downSymbolSelected;
-import spark.skins.mobile320.assets.CheckBox_up;
-import spark.skins.mobile320.assets.CheckBox_upSymbol;
-import spark.skins.mobile320.assets.CheckBox_upSymbolSelected;
-import spark.skins.mobile480.assets.CheckBox_down;
-import spark.skins.mobile480.assets.CheckBox_downSymbol;
-import spark.skins.mobile480.assets.CheckBox_downSymbolSelected;
-import spark.skins.mobile480.assets.CheckBox_up;
-import spark.skins.mobile480.assets.CheckBox_upSymbol;
-import spark.skins.mobile480.assets.CheckBox_upSymbolSelected;
-import spark.skins.mobile640.assets.CheckBox_down;
-import spark.skins.mobile640.assets.CheckBox_downSymbol;
-import spark.skins.mobile640.assets.CheckBox_downSymbolSelected;
-import spark.skins.mobile640.assets.CheckBox_up;
-import spark.skins.mobile640.assets.CheckBox_upSymbol;
-import spark.skins.mobile640.assets.CheckBox_upSymbolSelected;
-
-/**
- *  ActionScript-based skin for CheckBox components in mobile applications. 
- * 
- *  @see spark.components.CheckBox
- * 
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 2.5 
- *  @productversion Flex 4.5
- */
-public class CheckBoxSkin extends SelectableButtonSkinBase
-{
-    //--------------------------------------------------------------------------
-    //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-    
-    private static const exclusions:Array = ["labelDisplay", "labelDisplayShadow"];
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Constructor
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  Constructor.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function CheckBoxSkin()
-    {
-        super();
-        
-        layoutPaddingLeft = 0;
-        layoutPaddingRight = 0;
-        layoutPaddingTop = 0;
-        layoutPaddingBottom = 0;
-        
-        switch (applicationDPI)
-        {
-			case DPIClassification.DPI_640:
+		protected var symbolOffsetX:Number;
+		protected var symbolOffsetY:Number;
+		protected var iconWidth:Number;
+		protected var iconHeight:Number;
+		protected var symbolWidth:Number;
+		protected var symbolHeight:Number;
+		
+		//--------------------------------------------------------------------------
+		//
+		//  Constructor
+		//
+		//--------------------------------------------------------------------------
+		
+		/**
+		 *  Constructor.
+		 *  
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10
+		 *  @playerversion AIR 2.5
+		 *  @productversion Flex 4.5
+		 */
+		public function CheckBoxSkin()
+		{
+			super();
+			
+			layoutPaddingLeft = 0;
+			layoutPaddingRight = 0;
+			layoutPaddingTop = 0;
+			layoutPaddingBottom = 0;
+			
+			upIconClass = spark.skins.android4.assets.CheckBox_up;
+			upSelectedIconClass = spark.skins.android4.assets.CheckBox_upSelected;
+			downIconClass = spark.skins.android4.assets.CheckBox_down;
+			downSelectedIconClass = spark.skins.android4.assets.CheckBox_downSelected;
+			upSymbolIconClass = null;
+			upSymbolIconSelectedClass = spark.skins.android4.assets.CheckBox_upSymbolSelected;
+			downSymbolIconSelectedClass = spark.skins.android4.assets.CheckBox_downSymbolSelected;
+			downSymbolIconClass = null;
+					
+			switch (applicationDPI)
 			{
-				upIconClass = spark.skins.mobile640.assets.CheckBox_up;
-				upSelectedIconClass = spark.skins.mobile640.assets.CheckBox_up;
-				downIconClass = spark.skins.mobile640.assets.CheckBox_down;
-				downSelectedIconClass = spark.skins.mobile640.assets.CheckBox_down;
-				upSymbolIconClass = spark.skins.mobile640.assets.CheckBox_upSymbol;
-				upSymbolIconSelectedClass = spark.skins.mobile640.assets.CheckBox_upSymbolSelected;
-				downSymbolIconClass = spark.skins.mobile640.assets.CheckBox_downSymbol;
-				downSymbolIconSelectedClass = spark.skins.mobile640.assets.CheckBox_downSymbolSelected;
-				
-				layoutGap = 40;
-				minWidth = 128;
-				minHeight = 128;
-				layoutBorderSize = 6;
-				
-				break;
+				case DPIClassification.DPI_640:
+				{
+					
+					layoutGap = 16;
+					minWidth = 128;
+					minHeight = 128;
+					layoutBorderSize = 6;
+					iconWidth = 128;
+					iconHeight = 128;
+					symbolWidth = 64;
+					symbolHeight = 64;
+					symbolOffsetX = 32;
+					symbolOffsetY = 32;
+					
+					break;
+				}
+				case DPIClassification.DPI_480:
+				{
+					
+					layoutGap = 12;
+					minWidth = 96;
+					minHeight = 96;
+					layoutBorderSize = 4;
+					iconWidth = 96;
+					iconHeight = 96;
+					symbolWidth = 48;
+					symbolHeight = 48;
+					symbolOffsetX = 24;
+					symbolOffsetY = 24;
+					
+					break;
+				}
+				case DPIClassification.DPI_320:
+				{
+					
+					layoutGap = 8;
+					minWidth = 64;
+					minHeight = 64;
+					layoutBorderSize = 3;
+					iconWidth = 64;
+					iconHeight = 64;
+					symbolWidth = 32;
+					symbolHeight = 32;
+					symbolOffsetX = 16;
+					symbolOffsetY = 16;
+					
+					break;
+				}
+				case DPIClassification.DPI_240:
+				{
+					
+					layoutGap = 6;
+					minWidth = 48;
+					minHeight = 48;
+					layoutBorderSize = 2;
+					iconWidth = 48;
+					iconHeight = 48;
+					symbolWidth = 24;
+					symbolHeight = 24;
+					symbolOffsetX = 12;
+					symbolOffsetY = 12;
+					
+					break;
+				}
+				case DPIClassification.DPI_120:
+				{
+					
+					layoutGap = 3;
+					minWidth = 24;
+					minHeight = 24;
+					layoutBorderSize = 1;
+					iconWidth = 24;
+					iconHeight = 24;
+					symbolWidth = 12;
+					symbolHeight = 12;
+					symbolOffsetX = 6;
+					symbolOffsetY = 6;
+					
+					break;
+				}
+				default:
+				{
+					// default DPI_160
+					
+					layoutGap = 4;
+					minWidth = 32;
+					minHeight = 32;
+					layoutBorderSize = 2;
+					iconWidth = 32;
+					iconHeight = 32;
+					symbolWidth = 16;
+					symbolHeight = 16;
+					symbolOffsetX = 8;
+					symbolOffsetY = 8;
+					
+					
+					break;
+				}
 			}
-			case DPIClassification.DPI_480:
+		}
+		
+		//--------------------------------------------------------------------------
+		//
+		//  Overridden methods
+		//
+		//--------------------------------------------------------------------------
+		
+		/**
+		 *  @private
+		 *  CheckBox <code>chromeColor</code> is drawn to match the FXG rectangle
+		 *  shape and position.
+		 */
+		override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+		{
+			// super draws a transparent hit zone
+			super.drawBackground(unscaledWidth, unscaledHeight);
+			
+			// get the size and position of iconDisplay
+			var currentIcon:DisplayObject = getIconDisplay();
+			var widthAdjustment:Number = layoutBorderSize * 2;
+			
+			graphics.beginFill(getStyle("chromeColor"));
+			graphics.drawRoundRect(currentIcon.x + layoutBorderSize,
+				currentIcon.y + layoutBorderSize,
+				currentIcon.width - widthAdjustment,
+				currentIcon.height - widthAdjustment, layoutBorderSize, layoutBorderSize);
+			graphics.endFill();
+		}
+		
+		/**
+		 *  List of IDs of items that should be excluded when rendering the focus ring.
+		 *  Only items of type DisplayObject or GraphicElement should be excluded. Items
+		 *  of other types are ignored.
+		 *  
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10
+		 *  @playerversion AIR 2.5
+		 *  @productversion Flex 4.5
+		 */
+		override protected function get focusSkinExclusions():Array 
+		{
+			return exclusions;
+		}
+		
+		override protected function commitCurrentState():void
+		{
+			super.commitCurrentState();
+			if(symbolIcon != null)
 			{
-				// Note provisional may need changes
-				upIconClass = spark.skins.mobile480.assets.CheckBox_up;
-				upSelectedIconClass = spark.skins.mobile480.assets.CheckBox_up;
-				downIconClass = spark.skins.mobile480.assets.CheckBox_down;
-				downSelectedIconClass = spark.skins.mobile480.assets.CheckBox_down;
-				upSymbolIconClass = spark.skins.mobile480.assets.CheckBox_upSymbol;
-				upSymbolIconSelectedClass = spark.skins.mobile480.assets.CheckBox_upSymbolSelected;
-				downSymbolIconClass = spark.skins.mobile480.assets.CheckBox_downSymbol;
-				downSymbolIconSelectedClass = spark.skins.mobile480.assets.CheckBox_downSymbolSelected;
-				
-				layoutGap = 30;
-				minWidth = 96;
-				minHeight = 96;
-				layoutBorderSize = 4;
-				
-				break;
+				symbolIcon.width = symbolWidth;
+				symbolIcon.height = symbolHeight;
 			}
-            case DPIClassification.DPI_320:
-            {
-                upIconClass = spark.skins.mobile320.assets.CheckBox_up;
-                upSelectedIconClass = spark.skins.mobile320.assets.CheckBox_up;
-                downIconClass = spark.skins.mobile320.assets.CheckBox_down;
-                downSelectedIconClass = spark.skins.mobile320.assets.CheckBox_down;
-                upSymbolIconClass = spark.skins.mobile320.assets.CheckBox_upSymbol;
-                upSymbolIconSelectedClass = spark.skins.mobile320.assets.CheckBox_upSymbolSelected;
-                downSymbolIconClass = spark.skins.mobile320.assets.CheckBox_downSymbol;
-                downSymbolIconSelectedClass = spark.skins.mobile320.assets.CheckBox_downSymbolSelected;
-                 
-                layoutGap = 20;
-                minWidth = 64;
-                minHeight = 64;
-                layoutBorderSize = 3;
-                
-                break;
-            }
-            case DPIClassification.DPI_240:
-            {
-
-				upIconClass = spark.skins.android4.assets.CheckBox_up;
-				upSelectedIconClass = spark.skins.android4.assets.CheckBox_up;
-				downIconClass = spark.skins.android4.assets.CheckBox_downUnselected;
-				downSelectedIconClass = spark.skins.android4.assets.CheckBox_down;
-				upSymbolIconClass = null;
-				upSymbolIconSelectedClass = spark.skins.android4.assets.CheckBox_upSymbolSelected;
-				downSymbolIconSelectedClass = spark.skins.android4.assets.CheckBox_downSymbolSelected;
-				downSymbolIconClass = spark.skins.android4.assets.CheckBox_downUnselected;
-				
-                layoutGap = 15;
-                minWidth = 48;
-                minHeight = 48;
-                layoutBorderSize = 2;
-                
-                break;
-            }
-			case DPIClassification.DPI_120:
+			var iconDisplay:DisplayObject = getIconDisplay(); 
+			if(iconDisplay != null)
 			{
-				upIconClass = spark.skins.mobile120.assets.CheckBox_up;
-				upSelectedIconClass = spark.skins.mobile120.assets.CheckBox_up;
-				downIconClass = spark.skins.mobile120.assets.CheckBox_down;
-				downSelectedIconClass = spark.skins.mobile120.assets.CheckBox_down;
-				upSymbolIconClass = spark.skins.mobile120.assets.CheckBox_upSymbol;
-				upSymbolIconSelectedClass = spark.skins.mobile120.assets.CheckBox_upSymbolSelected;
-				downSymbolIconClass = spark.skins.mobile120.assets.CheckBox_downSymbol;
-				downSymbolIconSelectedClass = spark.skins.mobile120.assets.CheckBox_downSymbolSelected;
-				
-				layoutGap = 8;
-				minWidth = 24;
-				minHeight = 24;
-				layoutBorderSize = 1;
-				
-				break;
+				iconDisplay.width = iconWidth;
+				iconDisplay.height = iconHeight;
 			}
-            default:
-            {
-                // default DPI_160
-                upIconClass = spark.skins.mobile160.assets.CheckBox_up;
-                upSelectedIconClass = spark.skins.mobile160.assets.CheckBox_up;
-                downIconClass = spark.skins.mobile160.assets.CheckBox_down;
-                downSelectedIconClass = spark.skins.mobile160.assets.CheckBox_down;
-                upSymbolIconClass = spark.skins.mobile160.assets.CheckBox_upSymbol;
-                upSymbolIconSelectedClass = spark.skins.mobile160.assets.CheckBox_upSymbolSelected;
-                downSymbolIconClass = spark.skins.mobile160.assets.CheckBox_downSymbol;
-                downSymbolIconSelectedClass = spark.skins.mobile160.assets.CheckBox_downSymbolSelected;
-                
-                layoutGap = 10;
-                minWidth = 32;
-                minHeight = 32;
-                layoutBorderSize = 2;
-                
-                break;
-            }
-        }
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden methods
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  CheckBox <code>chromeColor</code> is drawn to match the FXG rectangle
-     *  shape and position.
-     */
-    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
-    {
-        // super draws a transparent hit zone
-        super.drawBackground(unscaledWidth, unscaledHeight);
-
-        // get the size and position of iconDisplay
-        var currentIcon:DisplayObject = getIconDisplay();
-        var widthAdjustment:Number = layoutBorderSize * 2;
-        
-        graphics.beginFill(getStyle("chromeColor"));
-        graphics.drawRoundRect(currentIcon.x + layoutBorderSize,
-            currentIcon.y + layoutBorderSize,
-            currentIcon.width - widthAdjustment,
-            currentIcon.height - widthAdjustment, layoutBorderSize, layoutBorderSize);
-        graphics.endFill();
-    }
-    
-    /**
-     *  List of IDs of items that should be excluded when rendering the focus ring.
-     *  Only items of type DisplayObject or GraphicElement should be excluded. Items
-     *  of other types are ignored.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    override protected function get focusSkinExclusions():Array 
-    {
-        return exclusions;
-    }
-}
+		}
+		
+		override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
+		{
+			super.layoutContents(unscaledWidth, unscaledHeight);
+			// position the symbols to align with the background "icon"
+			if (symbolIcon)
+			{
+				var currentIcon:DisplayObject = getIconDisplay();
+				setElementPosition(symbolIcon, symbolOffsetX, symbolOffsetY);
+			}
+		}
+		
+	}
 }
