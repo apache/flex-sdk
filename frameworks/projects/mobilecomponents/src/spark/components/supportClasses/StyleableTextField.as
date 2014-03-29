@@ -49,7 +49,6 @@ import mx.core.FlexGlobals;
 import mx.core.FlexTextField;
 import mx.core.IInvalidating;
 import mx.core.IVisualElement;
-import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -214,66 +213,6 @@ public class StyleableTextField extends FlexTextField
         {
             invalidateTightTextHeight = true;
             invalidateTextSizeFlag = true;
-        }
-        validateTransformMatrix();
-    }
-
-    /**
-     *  @private
-     *  True if we've inherited layoutDirection="rtl".
-     *  (implementation largely inspired from UITextField)
-     */
-    private var mirror: Boolean = false;
-
-    //----------------------------------
-    //  x
-    //----------------------------------
-
-    private var _x: Number = 0;
-
-    /**
-     *  @private
-     */
-    override public function set x(value: Number): void
-    {
-        _x = value;
-        super.x = value;
-        validateTransformMatrix();
-    }
-
-    /**
-     *  @private
-     */
-    override public function get x(): Number
-    {
-           return (mirror) ? _x : super.x;
-    }
-
-    /**
-     *  @private
-     *  Update the transform.matrix based on the mirror flag.  This method must be
-     *  called when x, width, or layoutDirection changes.
-     */
-    private function validateTransformMatrix(): void
-    {
-        if (mirror) {
-            var mirrorMatrix: Matrix = this.transform.matrix;
-            // matrix a must be negative
-            if (mirrorMatrix.a > 0){
-                mirrorMatrix.a = -mirrorMatrix.a;
-            }
-            mirrorMatrix.tx = _x + width;
-            transform.matrix = mirrorMatrix;
-        }
-        else // layoutDirection changed, mirror=false, reset transform.matrix to its default
-        {
-            var defaultMatrix: Matrix = this.transform.matrix;
-            if (defaultMatrix.a < 0) {
-                defaultMatrix.a = -defaultMatrix.a;
-            }
-            defaultMatrix.tx = _x;
-            defaultMatrix.ty = y;
-            transform.matrix = defaultMatrix;
         }
     }
     
@@ -1112,25 +1051,11 @@ public class StyleableTextField extends FlexTextField
     {
         if (invalidateStyleFlag)
         {
-            // compute mirror
-            const oldMirror: Boolean = mirror;
-            if (parent is IVisualElement)
-                mirror = IVisualElement(parent).layoutDirection == LayoutDirection.RTL;
-            if (mirror || oldMirror)
-                validateTransformMatrix();
-
             var align:String = getStyle("textAlign");
             if (align == "start")
                 align = TextFormatAlign.LEFT;
             if (align == "end")
                 align = TextFormatAlign.RIGHT;
-            // textalign must be mirrored as well
-            if (mirror){
-                if (align == TextFormatAlign.LEFT)
-                   align =TextFormatAlign.RIGHT;
-                else if (align == TextFormatAlign.RIGHT )
-                  align = TextFormatAlign.LEFT;
-            }
             textFormat.align = align;
             textFormat.font = getStyle("fontFamily");
             textFormat.bold = getStyle("fontWeight") == "bold";
@@ -1188,7 +1113,7 @@ public class StyleableTextField extends FlexTextField
             invalidateTightTextHeight = true;
         }
     }
-
+    
     /**
      *  @copy mx.core.UIComponent#getStyle()
      *
@@ -2239,7 +2164,7 @@ public class StyleableTextField extends FlexTextField
     mx_internal var leftMargin:Object;
     mx_internal var rightMargin:Object;
     
-    private static const supportedStyles:Vector.<String> = new <String>["textAlign", "fontFamily", "fontWeight", "fontStyle", "color", "fontSize"    , "textDecoration","textIndent" ,"leading" ,"letterSpacing" ,"layoutDirection"];
+    private static var supportedStyles:String = "textAlign fontFamily fontWeight fontStyle color fontSize textDecoration textIndent leading letterSpacing"
     
     private var invalidateStyleFlag:Boolean = true;
     
