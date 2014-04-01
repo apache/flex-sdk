@@ -551,7 +551,7 @@ public class MediaQueryParser  extends EventDispatcher
             deviceWidth = new CSSDimension(w, deviceDPI);
             deviceHeight = new CSSDimension(h, deviceDPI);
             flexDeviceDiagonal = new CSSDimension(  diag, deviceDPI );
-            trace(" width:", deviceWidth, " height: ", deviceHeight, " diag:", flexDeviceDiagonal);
+     //       trace(" width:", deviceWidth, " height: ", deviceHeight, " diag:", flexDeviceDiagonal);
 
            return needToUpdateStyles;
         }
