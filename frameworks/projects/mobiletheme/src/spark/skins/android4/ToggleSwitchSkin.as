@@ -233,6 +233,18 @@ package spark.skins.android4
 			drawLabel();
 		}
 		
+		override protected function measure():void 
+		{
+			// The skin must be at least as large as the thumb
+			measuredMinWidth = layoutThumbWidth;
+			measuredMinHeight = layoutThumbHeight;
+			
+			// The preferred size will display all label text
+			var labelWidth:Number = getElementPreferredWidth(selectedLabelDisplay);
+			measuredWidth = layoutThumbWidth + labelWidth;
+			measuredHeight = layoutThumbHeight;
+		}
+		
 		override protected function commitCurrentState():void
 		{
 			toggleSelectionState();
