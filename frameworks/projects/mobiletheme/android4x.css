@@ -1,0 +1,281 @@
+/*
+ *
+ *  Licensed to the Apache Software Foundation (ASF) under one or more
+ *  contributor license agreements.  See the NOTICE file distributed with
+ *  this work for additional information regarding copyright ownership.
+ *  The ASF licenses this file to You under the Apache License, Version 2.0
+ *  (the "License"); you may not use this file except in compliance with
+ *  the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
+@namespace "library://ns.adobe.com/flex/spark";
+
+
+/*
+Android 4.x specific Mobile Flex skins and styles. Defaults sizes are based on
+application-dpi=240.
+*/
+
+/*Roboto Fonts*/
+@font-face {
+	src: url("/spark/skins/android4/assets/fonts/Roboto-Regular.ttf");
+	fontFamily: RobotoRegular;
+	embed-as-cff: false;
+}
+
+@font-face {
+	src: url("/spark/skins/android4/assets/fonts/Roboto-Bold.ttf");
+	fontFamily: RobotoBold;
+	fontWeight: bold;
+	embed-as-cff: false;
+}
+
+global
+{
+	fontFamily: RobotoRegular;
+	fontWeight: "normal";
+	fontSize: 24;
+	color: #000000;
+	textShadowColor: #FFFFFF;
+	textShadowAlpha: 0;
+}
+
+ActionBar
+{
+	chromeColor: #DEDEDD;
+	defaultButtonAppearance: normal;
+	skinClass: ClassReference("spark.skins.android4.ActionBarSkin");
+	textShadowAlpha: 0;
+	textShadowColor: #000000;
+	paddingBottom: 1;
+	paddingLeft: 0;
+	paddingRight: 0;
+	paddingTop: 1;
+}
+
+ActionBar #titleDisplay
+{
+	color: #333333;
+	fontSize: 24;
+	fontFamily: RobotoBold;
+}
+
+ActionBar ButtonBase
+{
+	color: #333333;
+	fontFamily: RobotoBold;
+	fontWeight: bold;
+}
+
+ActionBar Group#actionGroup Button
+{
+	skinClass: ClassReference("spark.skins.android4.TransparentActionButtonSkin");
+}
+
+Button
+{
+	fontFamily: RobotoBold;
+	fontWeight: "bold";
+	skinClass: ClassReference("spark.skins.android4.ButtonSkin");
+}
+
+Button.emphasized
+{
+	skinClass: ClassReference("spark.skins.mobile.DefaultButtonSkin");
+}
+
+ButtonBar
+{
+	skinClass: ClassReference("spark.skins.android4.ButtonBarSkin");
+	fontFamily: RobotoBold;
+	fontWeight: "bold";
+}
+
+CheckBox
+{
+	skinClass: ClassReference("spark.skins.android4.CheckBoxSkin");
+	chromeColor: #FFFFFF;
+}
+
+RadioButton
+{
+	skinClass: ClassReference("spark.skins.android4.RadioButtonSkin");
+	chromeColor: #FFFFFF;
+}
+
+TabbedViewNavigator #tabBar
+{
+	fontFamily: RobotoRegular;
+	chromeColor: #484848;
+	color: #000000;
+	fontSize: 20;
+	fontWeight: normal;
+	iconPlacement: top;
+	interactionMode: mouse;
+	skinClass: ClassReference("spark.skins.android4.TabbedViewNavigatorTabBarSkin");
+	textShadowAlpha: 0;
+	textShadowColor: #000000;
+}
+
+ToggleSwitch
+{
+	accentColor: #3F7FBA;
+	color: #FFFFFF;
+	skinClass: ClassReference("spark.skins.android4.ToggleSwitchSkin");
+	slideDuration: 125;
+	textShadowAlpha: .65;
+	textShadowColor: #000000;
+}
+
+@media (application-dpi: 120)
+{
+	global
+	{
+		fontSize: 12;
+		focusThickness: 2;
+	}
+	
+	ActionBar.beveled
+	{
+		paddingLeft: 4;
+		paddingRight: 4;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 14;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 11;
+	}
+}
+
+@media (application-dpi: 160)
+{
+	global
+	{
+		fontSize: 16;
+		focusThickness: 2;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 1;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 1;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 18;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 14;
+	}
+}
+
+@media (application-dpi: 240)
+{
+	global
+	{
+		fontSize: 20;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 24;
+	}
+}
+
+@media (application-dpi: 320)
+{
+	global
+	{
+		fontSize: 32;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 2;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 2;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 36;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 28;
+	}
+}
+
+@media (application-dpi: 480)
+{
+	global
+	{
+		fontSize: 48;
+		focusThickness: 6;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 4;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 4;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 54;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 42;
+	}	
+}
+
+@media (application-dpi: 640)
+{
+	global
+	{
+		fontSize: 64;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 4;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 4;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 72;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 56;
+	}	
+}
