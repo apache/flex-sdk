@@ -706,7 +706,10 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
             {
                 if (bundleObject[obj] == localeBundleNameString)
                 {
-                    bundle = obj as IResourceBundle;
+					if (obj is ResourceBundleProxy)
+						bundle = loadResourceBundleProxy(ResourceBundleProxy(obj));
+					else 
+						bundle = obj as IResourceBundle;
                     break;
                 }
             }
