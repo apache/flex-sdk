@@ -28,7 +28,7 @@ import spark.skins.android4.assets.HSliderThumb_normal;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
- *  ActionScript-based skin for the HSlider thumb skin part in mobile applications.
+ *  Android 4.x specific ActionScript-based skin for the HSlider thumb skin part in mobile applications.
  *
  *  <p>Note that this particular implementation defines a hit zone which is larger than
  *  the visible thumb for better usability on mobile screens.</p>
@@ -73,11 +73,6 @@ public class HSliderThumbSkin extends MobileSkin
 				hitZoneOffset = 20;
 				hitZoneSideLength = 160;
 				
-				// chromeColor ellipse goes up to the thumb border
-				chromeColorEllipseWidth = chromeColorEllipseHeight = 112;
-				chromeColorEllipseX = 1;
-				chromeColorEllipseY = 1;
-				
 				break;              
 			}
 			case DPIClassification.DPI_480:
@@ -89,10 +84,6 @@ public class HSliderThumbSkin extends MobileSkin
 				hitZoneOffset = 20;
 				hitZoneSideLength = 130;
 				
-				// chromeColor ellipse goes up to the thumb border
-				chromeColorEllipseWidth = chromeColorEllipseHeight = 84; 
-				chromeColorEllipseX = chromeColorEllipseY = 1;
-				
 				break;
 			}
             case DPIClassification.DPI_320:
@@ -102,11 +93,6 @@ public class HSliderThumbSkin extends MobileSkin
                 
                 hitZoneOffset = 10;
                 hitZoneSideLength = 80;
-                
-                // chromeColor ellipse goes up to the thumb border
-                chromeColorEllipseWidth = chromeColorEllipseHeight = 56;
-                chromeColorEllipseX = 1;
-                chromeColorEllipseY = 1;
                 
                 break;              
             }
@@ -118,10 +104,6 @@ public class HSliderThumbSkin extends MobileSkin
 				hitZoneOffset = 10;
 				hitZoneSideLength = 65;
 				
-				// chromeColor ellipse goes up to the thumb border
-				chromeColorEllipseWidth = chromeColorEllipseHeight = 42; 
-				chromeColorEllipseX = chromeColorEllipseY = 1;
-				
 				break;
 			}
 			case DPIClassification.DPI_120:
@@ -131,10 +113,6 @@ public class HSliderThumbSkin extends MobileSkin
 				
 				hitZoneOffset = 5;
 				hitZoneSideLength = 33;
-				
-				// chromeColor ellipse goes up to the thumb border
-				chromeColorEllipseWidth = chromeColorEllipseHeight = 21; 
-				chromeColorEllipseX = chromeColorEllipseY = 1;
 				
 				break;
 			}
@@ -146,10 +124,6 @@ public class HSliderThumbSkin extends MobileSkin
                 
                 hitZoneOffset = 5;
                 hitZoneSideLength = 40;
-                
-                // chromeColor ellipse goes up to the thumb border
-                chromeColorEllipseWidth = chromeColorEllipseHeight = 29;
-                chromeColorEllipseX = chromeColorEllipseY = 0;
                 
                 break;
             }
@@ -244,47 +218,6 @@ public class HSliderThumbSkin extends MobileSkin
      *  @productversion Flex 4.5
      */    
     protected var thumbImageHeight:int;
-    
-    /**
-     *  Width of the chromeColor ellipse
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */    
-    protected var chromeColorEllipseWidth:int;
-    
-    /**
-     *  Height of the chromeColor ellipse
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */    
-    protected var chromeColorEllipseHeight:int;
-    
-    
-    /**
-     *  X position of the chromeColor ellipse
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */    
-    protected var chromeColorEllipseX:int;
-    
-    /**
-     *  Y position of the chromeColor ellipse
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */    
-    protected var chromeColorEllipseY:int;
     
     /**
      *  Length of the sizes of the hitzone (assumed to be square)

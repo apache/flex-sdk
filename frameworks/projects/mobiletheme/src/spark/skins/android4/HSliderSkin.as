@@ -30,7 +30,7 @@ import spark.skins.mobile.supportClasses.HSliderDataTip;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
- *  ActionScript-based skin for HSlider controls in mobile applications.
+ *  Android 4.x specific ActionScript-based skin for HSlider controls in mobile applications.
  * 
  *  <p>The base Flex implementation creates an HSlider with fixed height
  *  and variable width with a fixed-size thumb. As the height of the
