@@ -109,6 +109,8 @@ CheckBox
 HSlider
 {
     skinClass: ClassReference("spark.skins.android4.HSliderSkin");
+	fontFamily: RobotoBold;
+	fontWeight: bold;
 }
 
 RadioButton
