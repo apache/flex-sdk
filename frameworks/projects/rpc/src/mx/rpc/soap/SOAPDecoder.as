@@ -262,7 +262,7 @@ public class SOAPDecoder extends XMLDecoder implements ISOAPDecoder
         }
 
         log.info("Decoded SOAP response into result [{0} millis]", getTimer() - startTime);
-        return soapResult
+        return soapResult;
     }
 
     protected function decodeEnvelope(responseXML:XML):SOAPResult
