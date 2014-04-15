@@ -185,7 +185,7 @@ package spark.skins.android4
 		 *  @playerversion AIR 2.5
 		 *  @productversion Flex 4.5
 		 */
-		protected var visibleTrackOffset:int;
+		public var visibleTrackOffset:int;
 		
 		//--------------------------------------------------------------------------
 		//
