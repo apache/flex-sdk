@@ -513,7 +513,7 @@ public class DataGridEditor
     {
         // trace("destroyItemEditor");
         if (grid.root)
-            grid.systemManager.addEventListener(Event.DEACTIVATE, deactivateHandler, false, 0, true);
+            grid.systemManager.removeEventListener(Event.DEACTIVATE, deactivateHandler);
         
         grid.systemManager.getSandboxRoot().
             removeEventListener(MouseEvent.MOUSE_DOWN, sandBoxRoot_mouseDownHandler, true);
