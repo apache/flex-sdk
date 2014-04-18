@@ -4764,8 +4764,8 @@ package spark.components
                     {
                         pastedText = pastedText.replace(ALL_NEWLINES_REGEXP, "");
                         po.textScrap = 
-                            TextClipboard.importToScrap(pastedText, po.textScrap.isPlainText() ?
-                                TextConverter.PLAIN_TEXT_FORMAT : TextConverter.TEXT_LAYOUT_FORMAT);
+                            TextClipboard.importToScrap(pastedText, 
+                                TextConverter.PLAIN_TEXT_FORMAT);
                     }
                 }
             }
