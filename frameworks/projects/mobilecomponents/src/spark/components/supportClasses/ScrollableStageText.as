@@ -1736,14 +1736,20 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
         {
             restoreStageText();
         }
-        else if (savedSelectionAnchorIndex > 0 || savedSelectionActiveIndex > 0)
+        else
         {
-            // Even if the StageText has been retrieved from the cache, its
-            // selection is not preserved. Restore the selection if necessary.
-            if (savedSelectionAnchorIndex <= _text.length && savedSelectionActiveIndex <= _text.length)
-                stageText.selectRange(savedSelectionAnchorIndex, savedSelectionActiveIndex);
-            savedSelectionAnchorIndex = 0;
-            savedSelectionActiveIndex = 0;
+            //always restore text, even if recycled, as it may have changed when the SST was not on stage cf.   https://issues.apache.org/jira/browse/FLEX-34231
+            // for now, we ignore external changes to other props
+            stageText.text = _text ;
+            if (savedSelectionAnchorIndex > 0 || savedSelectionActiveIndex > 0)
+            {
+                // Even if the StageText has been retrieved from the cache, its
+                // selection is not preserved. Restore the selection if necessary.
+                if (savedSelectionAnchorIndex <= _text.length && savedSelectionActiveIndex <= _text.length)
+                    stageText.selectRange(savedSelectionAnchorIndex, savedSelectionActiveIndex);
+                savedSelectionAnchorIndex = 0;
+                savedSelectionActiveIndex = 0;
+            }
         }
 
         if (stageText != null)
