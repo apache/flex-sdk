@@ -776,7 +776,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         }
         else
         {
-            return false
+            return false;
         }
     }
 

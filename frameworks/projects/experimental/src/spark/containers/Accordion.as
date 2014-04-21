@@ -449,7 +449,7 @@ package spark.containers
 		 */
 		public function set labelField( value:String ):void
 		{
-			if( labelField == value ) return 
+			if( labelField == value ) return;
 				
 			if( buttonBar )
 			{

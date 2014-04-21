@@ -102,7 +102,7 @@
 			 */
 			override public function get contentItems():Array
 			{
-				return contentFill
+				return contentFill;
 			}
 			/**
 			 * @private

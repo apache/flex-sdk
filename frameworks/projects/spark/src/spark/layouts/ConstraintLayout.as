@@ -591,7 +591,7 @@ public class ConstraintLayout extends LayoutBase
      */
     override mx_internal function get virtualLayoutSupported():Boolean
     {
-        return false
+        return false;
     }
     
     /**

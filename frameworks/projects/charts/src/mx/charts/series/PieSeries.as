@@ -3070,7 +3070,7 @@ public class PieSeries extends Series
 //      angle = (angle - _startAngleRadians) % (twoMP);
 //      if (angle < 0)
 //          angle += twoMP;
-        return angle
+        return angle;
     }
 
     /**
