@@ -367,7 +367,7 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
         super();
 
         _multiline = multiline;
-        stageText = StageTextPool.current.acquireStageText(this);
+        stageText = StageTextPool.current.acquireStageText(multiline);
         stageText.visible = false;
 
         if (!defaultStyles)
@@ -452,6 +452,11 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
      *  editing.
      */
     protected var stageText:StageText;
+
+    /** @private
+     * last instance of stage text to be reused if added again to stage
+     */
+    protected var savedStageText: StageText = null;
 
     /**
      *  Flag indicating one or more styles have changed. If invalidateStyleFlag
@@ -1717,8 +1722,10 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
         var needsRestore:Boolean = false;
         if (stageText == null)
         {
-            needsRestore = !StageTextPool.current.hasCachedStageText(this);
-            stageText = StageTextPool.current.acquireStageText(this);
+            stageText = StageTextPool.current.acquireStageText(multiline, savedStageText);
+            if (stageText !==  savedStageText)
+                needsRestore = true ;  // returned a different stageText, so needs to restore its properties
+            savedStageText = null;  // clear savedStageText
             stageText.visible = false;
         }
 
@@ -1788,7 +1795,8 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
         stageText.removeEventListener(KeyboardEvent.KEY_DOWN, stageText_keyDownHandler);
         stageText.removeEventListener(KeyboardEvent.KEY_UP, stageText_keyUpHandler);
 
-        StageTextPool.current.releaseStageText(this, stageText);
+        StageTextPool.current.releaseStageText(stageText, multiline);
+        savedStageText = stageText;   // save for potential recycling
         stageText = null;
 
         if (proxy != null)
@@ -1999,11 +2007,22 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
 
 import flash.events.TimerEvent;
 import flash.text.StageText;
-import flash.utils.Dictionary;
-import flash.utils.Timer;
 import flash.text.StageTextInitOptions;
-import spark.components.supportClasses.ScrollableStageText;
+import flash.utils.Timer;
 
+/**  @private
+ * StageTextPool maintains a pool a StageText to avoid allocating a new StageText each time a TextInput  is added to stage.
+ *
+ * StageText are removed from the pool when a TextInput  is added to the stage and added back when it removed from stage.
+ *   If this causes the pool to grow
+ *  larger than its reserve size, this starts a timer to check and reduce
+ *  the size of the pool poolTimerInterval milliseconds later.
+ *  StageText are disposed before being purged  from the pool.
+ *
+ * Not that SST keeps a reference to its last used StageText in savedStageText property, when it's removed from stage.
+ * If the SST is added back to stage, it can reuse its saved StageText if it's also still in the pool (which means it has not been disposed, or used by anoter SST).
+ *
+ */
 class StageTextPool
 {
     //--------------------------------------------------------------------------
@@ -2030,11 +2049,11 @@ class StageTextPool
         return _current;
     }
 
-      //--------------------------------------------------------------------------
-        //
-        //  Constructor
-        //
-        //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
     /**
      * @private
@@ -2048,8 +2067,6 @@ class StageTextPool
         //
         //--------------------------------------------------------------------------
 
-    private  var map_StyleableStageText_to_StageText:Dictionary = new Dictionary(true);
-    private  var map_StageText_to_StyleableStageText:Dictionary = new Dictionary(true);
 
     private  var multilinePool:Vector.<StageText> = new Vector.<StageText>();
     private  var multilinePoolTimer:Timer;
@@ -2066,32 +2083,34 @@ class StageTextPool
     //--------------------------------------------------------------------------
 
     /**
-     *  Acquires a StageText and removes it from the pool. If the host
-     *  StyleableStageText2 has recently released a StageText and that StageText
-     *  is still in the pool, that StageText will be returned.
+     *  Acquires a StageText and removes it from the pool.
+     *  if savedStageText is not null, will use it only if it is still in the pool (which means not disposed, and not used by someone else)
+     *  if savedStageText is null => always create a new instance.
      */
-    public  function acquireStageText(host:ScrollableStageText):StageText
+    public  function acquireStageText(multiline: Boolean, savedStageText: StageText = null):StageText
     {
-        var result:StageText = map_StyleableStageText_to_StageText[host];
+        var result: StageText = null;
+        var pool: Vector.<StageText> = multiline ? multilinePool : singleLinePool;
 
-        if (!result)
+        if (savedStageText != null)
         {
-            if (host.multiline)
+            // reuse it if still in the pool.
+            var index: int;
+            index = pool.indexOf(savedStageText);
+            if (index >= 0)
             {
-                if (multilinePool.length == 0)
-                    while (multilinePool.length < poolReserve)
-                        multilinePool.push(new StageText(new StageTextInitOptions(true)));
-
-                result = multilinePool.pop();
+                result = savedStageText;
+                pool.splice(index, 1);
             }
-            else
-            {
-                if (singleLinePool.length == 0)
-                    while (singleLinePool.length < poolReserve)
-                        singleLinePool.push(new StageText(new StageTextInitOptions(false)));
+        }
 
-                result = singleLinePool.pop();
-            }
+        // not found or savedStageText was null,  always  create new
+        if (result == null)
+        {
+            if (pool.length == 0)
+                while (pool.length < poolReserve)
+                    pool.push(new StageText(new StageTextInitOptions(multiline)));
+            result = pool.pop();
 
             // The first time a StageText is acquired, it's guaranteed to have been
             // newly-created. Take that opportunity to stash away the StageText's
@@ -2132,50 +2151,20 @@ class StageTextPool
                     result[prop] = cleanProperties[prop];
             }
         }
-        else
-        {
-            var index:int;
-
-            if (host.multiline)
-            {
-                index = multilinePool.indexOf(result);
-                multilinePool.splice(index, 1);
-            }
-            else
-            {
-                index = singleLinePool.indexOf(result);
-                singleLinePool.splice(index, 1);
-            }
-        }
-
-        uncacheStageText(result);
-
         return result;
     }
 
-    /**
-     *  Returns true if the StageText that would be returned by acquireStageText
-     *  for the given StyleableStageText2 will be the same as the last StageText
-     *  it released.
-     */
-    public  function hasCachedStageText(host:ScrollableStageText):Boolean
-    {
-        return map_StyleableStageText_to_StageText[host] !== undefined;
-    }
 
     /**
-     *  Puts a StageText back into the pool and caches the StyleableStageText2/
-     *  StageText pair so the same StageText may be returned if the
-     *  StyleableStageText2 re-acquires it. If this causes the pool to grow
+     *  Puts a StageText back into the pool  when SST is removed from stage.
+     *  (note: the StageText has also been saved in the SST)
+     *  If this causes the pool to grow
      *  larger than its reserve size, this starts a timer to check and reduce
      *  the size of the pool poolTimerInterval milliseconds later.
      */
-    public  function releaseStageText(host:ScrollableStageText, stageText:StageText):void
+    public function releaseStageText(stageText: StageText, multiline: Boolean): void
     {
-        map_StyleableStageText_to_StageText[host] = stageText;
-        map_StageText_to_StyleableStageText[stageText] = host;
-
-        if (host.multiline)
+        if (multiline)
         {
             multilinePool.push(stageText);
 
@@ -2222,39 +2211,14 @@ class StageTextPool
     /**
      *  Return the pool to its reserve size.
      */
-    private  function shrinkPool(multiline:Boolean):void
+    private function shrinkPool(multiline: Boolean): void
     {
-        var oldStageText:StageText;
-
-        if (multiline)
+        var oldStageText: StageText;
+        var pool: Vector.<StageText> = multiline ? multilinePool : singleLinePool;
+        while (pool.length > poolReserve)
         {
-            while (multilinePool.length > poolReserve)
-            {
-                oldStageText = multilinePool.shift();
-                uncacheStageText(oldStageText);
-                oldStageText.dispose();
-            }
+            oldStageText = pool.shift();
+            oldStageText.dispose();
         }
-        else
-        {
-            while (singleLinePool.length > poolReserve)
-            {
-                oldStageText = singleLinePool.shift();
-                uncacheStageText(oldStageText);
-                oldStageText.dispose();
-            }
-        }
-    }
-
-    /**
-     *  Remove a StageText and its last known StyleableStageText2 host from the
-     *  cache.
-     */
-    private  function uncacheStageText(stageText:StageText):void
-    {
-        var host:ScrollableStageText = map_StageText_to_StyleableStageText[stageText];
-
-        delete map_StyleableStageText_to_StageText[host];
-        delete map_StageText_to_StyleableStageText[stageText];
     }
 }
