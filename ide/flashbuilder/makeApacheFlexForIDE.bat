@@ -102,7 +102,9 @@ if not exist "%tempDir%" mkdir "%tempDir%"
 REM
 REM the third-party downloads, including the optional components
 REM
-call ant -f "%FLEX_HOME%/frameworks/downloads.xml"
+REM (note: the %2 argument is to allow for '-Dbuild.noprompt=true' when building FlexUnit on CI.
+REM
+call ant -f "%FLEX_HOME%/frameworks/downloads.xml" %2
 
 REM
 REM     Download AIR Runtime Kit for Windows
