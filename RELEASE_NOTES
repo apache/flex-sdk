@@ -1,7 +1,7 @@
-Apache Flex 4.13
+Apache Flex 4.12.1
 =================
 
-Apache Flex 4.13 is an update to Apache Flex 4.12. 
+Apache Flex 4.12.1 is an update to Apache Flex 4.12. 
 
 Known Issues
 _____________
@@ -60,6 +60,14 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
+FLEX-34231  StageText displays wrong text
+FLEX-34230  StageText skins prevents garbage collection of component with TextInputs and TextAreas
+FLEX-34229  DataGridEditor doesn't remove the Event.DEACTIVATE listener on destroyItemEditor()
+FLEX-34228  spark datagrid syntax
+FLEX-34216  GridItemEditor's save() method is still called despite the grid not being on stage anymore
+FLEX-34209  DateFormatter's parseDateTime method doesn't handle AM PM properly when time is in the 12 PM hour
+FLEX-34200  ResourceModuleProxy doesn't load properly
+FLEX-34189  ActionBar button is too big in 640 DPI
 FLEX-34145  Mobile Theme: TextInput with layoutDirection="rtl" becomes mirror on focus out.
 FLEX-34142  Can not change the color of the header with the property headerStyleName (MobileGridColumn)
 FLEX-34141  softkeyboardActivate events are not dispatched in Flex 4.12 on iOS
@@ -68,7 +76,12 @@ FLEX-34133  ADG RTE in columnHeaderWordWrap
 FLEX-34132  DataGrid columns with no dataField specified give "[object Object]"
 FLEX-34125  CheckAllPlayerGlobals script in ide folder is missing Windows implementation
 FLEX-34117  Button: Small gap in the corner
+FLEX-34057  RTE on pasting empty data after Excel operation
+FLEX-34031  RTE at TextClipboard#importToScrap()
+FLEX-33994  Need a way to distinguish phone and tablet target devices through css
+FLEX-33948  Add touch behaviour to spark DropDownList classes
 FLEX-33421  Broken metadata RequiresLicense
+FLEX-33350  CallOutButton for Web (desktop / not AIR)
 
 Apache Flex 4.12
 =================
