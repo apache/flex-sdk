@@ -4,7 +4,7 @@ Apache Flex (Flex)
     Apache Flex SDK is an application development framework for easily building
     Flash-based applications for mobile devices, web browsers, and desktops.
 
-    Apache Flex 4.12 is a follow up release to Apache Flex 4.11. This version
+    Apache Flex 4.12.1 is a follow up release to Apache Flex 4.12.0. This version
     adds new features and implements bug fixes that were unavailable in previous
     versions.  It is compatible with most code written to target Adobe Flex 4.6.
 
@@ -90,7 +90,7 @@ Getting the latest sources via git
 
     For further information visit http://flex.apache.org/download-source.html
 
-Building Apache Flex 4.12
+Building Apache Flex 4.12.1
 =========================
 
     Apache Flex is a large project. It requires some build tools which must be
@@ -490,7 +490,7 @@ Using the Binary Distribution
 		/ide/constructFlexForIDE.sh (on Mac and Linux)
 		/ide/constructFlexForIDE.bat (on Windows)
 
-	This will create an Apache Flex 4.12 SDK that can be used with Flash
+	This will create an Apache Flex 4.12.1 SDK that can be used with Flash
         Builder by copying the required files from the Adobe Flex 4.6 SDK.
 
 	To create an SDK for other IDE or if you want to use Adobe AIR 4.0
@@ -499,7 +499,7 @@ Using the Binary Distribution
 		/ide/flashbuilder/makeApacheFlexForIDE.sh (on Mac and Linux)
 		/ide/flashbuilder/makeApacheFlexForIDE.bat (on Windows)
 
-	This will create an Apache Flex 4.12 SDK that can be used by an IDE by
+	This will create an Apache Flex 4.12.1 SDK that can be used by an IDE by
         downloading Adobe Flex 4.6 SDK and Adobe AIR 4.0.
 
 Building the Framework in a Binary Distribution
