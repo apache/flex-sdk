@@ -32,22 +32,16 @@ Differences from Apache Flex 4.12 include:
 
 AIR and Flash Player support
 ------------------------------
-
+ - Support Flash Player 13.0
+ - Support for AIR 13.0
 
 SDK Changes
 -------------
-- New Android skins
 - Extended mobile media query support
-
-
-Build Changes
----------------
-
 
 Compiler Changes
 ------------------
 - Fix issue with 3rd party license components not working
-
 
 Bug Fixes
 ----------
