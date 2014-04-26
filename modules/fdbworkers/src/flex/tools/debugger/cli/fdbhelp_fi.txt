@@ -1,0 +1,817 @@
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+
+This file contains the text displayed by the 'help' command in fdb.
+
+It is divided into "topics". For example, when an fdb user types
+'help break', the [break] topic below is displayed.
+
+The first and last lines of each topic should be blank.
+They don't get displayed in fdb; they are here only
+to make this file more easily readable.
+
+Help text should be formatted to not wrap
+when displayed on an 80-character-wide console.
+The following line is 80 characters wide.
+
+--------------------------------------------------------------------------------
+
+[?]
+
+Määrittämätön komento. Syöttämällä 'help' näet luettelon kaikista 
+fdb-komennoista.
+
+[break]
+
+Määritä keskeytyskohta tietyllä rivillä tai tietyssä toiminnossa.
+Esimerkkejä:
+  break 87
+    Asettaa keskeytyskohdan riville 87 nykyisessä tiedostossa.
+  break myapp.mxml:56
+    Asettaa keskeytyskohdan riville 56 tiedostossa myapp.mxml.
+  break #3:29
+    Asettaa keskeytyskohdan riville 29 tiedostossa #3.
+  break doThis
+    Asettaa keskeytyskohdan toimintoon doThis() nykyisessä tiedostossa.
+  break myapp.mxml:doThat
+    Asettaa keskeytyskohdan toimintoon doThat() tiedostossa myapp.mxml.
+  break #3:doOther
+    Asettaa keskeytyskohdan toimintoon doOther() tiedostossa #3.
+  break
+   Asettaa keskeytyskohdan nykyiseen suoritusosoitteeseen nykyisen pinon 
+   kehyksessä. Tämä on hyödyllistä, kun keskeytys tapahtuu pinokehykseen 
+   palattaessa.
+Tiedostonimet ja -numerot näet syöttämällä 'info sources' tai 'info files'.
+Toimintojen nimet näet syöttämällä 'info functions'.
+Lyhennetyt tiedostojen ja toimintojen nimet hyväksytään, jos ne ovat selviä.
+Jos määritetään rivinumero, keskeytys tapahtuu koodin alussa sillä rivillä.
+Jos määritetään toiminto, keskeytys tapahtuu koodin alussa siinä toiminnossa.
+Lisätietoa keskeytyskohdista näet komennoilla 'commands' ja 'condition'.
+
+[bt]
+
+Pinon backtrace.
+
+[catch]
+
+Keskeytys poikkeuksen sattuessa.  Vaikuttaa vain catch-lohkon käsittelemiin 
+poikkeuksiin.  Käsittelemättömät poikkeukset keskeyttävät aina 
+virheenkorjauksen.
+
+Voit poistaa käsittelypisteen Delete-komennolla.
+
+Esimerkkejä:
+  catch *
+    Keskeytys minkä tahansa poikkeuksen sattuessa.
+  catch ReferenceError
+    Keskeytys aina ReferenceError-virheen syntyessä, olipa se käsitelty tai ei.
+
+[cf]
+
+Näyttää nykyisen tiedoston nimen ja numeron tai vaihtaa nykyistä tiedostoa.
+Esimerkkejä:
+  cf
+    Näyttää nykyisen tiedoston nimen ja numeron.
+  cf myapp.mxml
+    Vaihtaa nykyisen tiedoston tiedostoksi myapp.mxml.
+  cf #29
+    Vaihtaa nykyisen tiedoston tiedostoksi #29.
+Tiedostonimet ja -numerot näet syöttämällä 'info sources' tai 'info files'.
+Lyhennetyt tiedostonimet hyväksytään, jos ne ovat selviä.
+Komennon 'list' käyttäminen tiedostoon tekee tiedostosta nykyisen tiedoston.
+
+[clear]
+
+Poistaa keskeytyskohdan tietyltä riviltä tai tietystä toiminnosta.
+Esimerkkejä:
+  clear 87
+    Poistaa keskeytyskohdan riviltä 87 nykyisessä tiedostossa.
+  clear myapp.mxml:56
+    Poistaa keskeytyskohdan riviltä 56 tiedostossa myapp.mxml.
+  clear #3:29
+    Poistaa keskeytyskohdan riviltä 29 tiedostossa #3.
+  clear doThis
+    Poistaa keskeytyskohdan toiminnosta doThis() nykyisessä tiedostossa.
+  clear myapp.mxml:doThat
+    Poistaa keskeytyskohdan toiminnosta doThat() tiedostossa myapp.mxml.
+  clear #3:doOther
+    Poistaa keskeytyskohdan toiminnosta doOther() tiedostossa #3.
+  clear
+    Poistaa keskeytyskohdan nykyisen tiedoston nykyiseltä riviltä. 
+Tiedostonimet ja -numerot näet syöttämällä 'info sources' tai 'info files'.
+Toimintojen nimet näet syöttämällä 'info functions'.
+Lyhennetyt tiedostojen ja toimintojen nimet hyväksytään, jos ne ovat selviä.
+Jos määritetään rivinumero, siltä riviltä poistetaan kaikki keskeytyskohdat.
+Jos määritetään toiminto, toiminnon alussa olevat keskeytyskohdat poistetaan.
+
+[continue]
+
+Jatka suorittamista keskeytyskohdassa pysähtymisen jälkeen.
+Tämä komento ei hyväksy argumentteja.
+
+[condition]
+
+
+Määritä keskeytyskohdan numero N. Keskeytys tapahtuu vain, jos COND toteutuu.
+Käyttö on `condition N COND', jossa N on kokonaisluku ja COND on lauseke, joka 
+arvioidaan aina, kun keskeytyskohta N saavutetaan.
+
+[commands]
+
+Määritä komennot, jotka suoritetaan, kun törmätään keskeytyskohtaan.
+Anna keskeytyskohdan numero argumenttina `commands`-komennon jälkeen.
+Jos argumenttia ei anneta, kohteena oleva keskeytyskohta määritetään viimeisenä.
+Komennot alkavat seuraavalta riviltä.
+Kirjoita rivi, joka sisältä sanan "end", merkitsemään kohtaa, missä komennot 
+loppuvat.
+Määrittämällä ehdon "silent" ensimmäiseksi riviksi teet keskeytyskohdasta 
+hiljaisen. Tällöin mitään ei tulosteta, kun kohta saavutetaan, lukuun ottamatta 
+komennon tulostamaa tulostetta.
+Esimerkki:
+  (fdb) commands
+  Kirjoita komennot sitä varten, kun keskeytyskohta 1 tulee vastaan, yksi 
+  komento riville.
+  Päätä rivillä, jolla lukee vain 'end'.
+  >w
+  >end
+
+[delete]
+
+Poista yksi tai useampi keskeytyskohta.
+Esimerkkejä:
+  delete
+    Poistaa kaikki keskeytyskohdat.
+  delete 2 5
+    Poistaa keskeytyskohdat #2 ja #5.
+Näet keskeytyskohtien numerot syöttämällä 'info breakpoints'.
+
+[directory]
+
+Määritä luettelo hakemistoista, joista fdb etsii lähdetiedostoja.
+
+Esimerkkejä:
+
+  directory
+    Palauttaa luettelon oletusasetuksiin. Luettelo sisältää silloin hakemiston, 
+    jossa lähdetiedosto koottiin objektikoodiksi, ja sen jälkeen nykyisen 
+    hakemiston.
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+    Lisää määritetyn hakemiston sen hakemistoluettelon alkuun, josta lähdettä 
+    haetaan.  Jos haetaan esimerkiksi luokan mypackage.MyClass lähdettä, 
+    virheenkorjaustoiminto etsii lähdettä sekä kansiosta 
+    C:\MySource\mypackage\MyClass.as että kansiosta C:\MySource\MyClass.as.
+
+  directory C:\Dir1;C:\Dir2    (Windows – käytä pilkkua ';' erottimena)
+  directory /Dir1:/Dir2        (Mac – käytä pistettä ':' erottimena)
+    Lisää useita hakemistoja sen hakemistoluettelon alkuun, josta lähdettä 
+    haetaan.
+
+Nykyisen luettelon näet syöttämällä 'show directories'.
+
+[disable]
+
+Poista käytöstä yksi tai useita keskeytyskohtia tai automaattisen näytön 
+ilmaukset.
+Esimerkkejä:
+  disable
+  disable breakpoints
+    Poistaa käytöstä kaikki keskeytyskohdat.
+  disable 2 5
+  disable breakpoints 2 5
+    Poistaa käytöstä keskeytyskohdat #2 ja #5.
+  disable display
+    Poistaa käytöstä kaikki automaattisen näytön ilmaukset.
+  disable display 1 3
+    Poistaa käytöstä automaattisen näytön ilmaukset #1 ja #3.
+Näet keskeytyskohtien numerot syöttämällä 'info breakpoints'.
+Näet automaattisen näytön ilmausten numerot syöttämällä 'info display'.
+
+[disassemble]
+
+(Vain ActionScript 2. Ei tukea ActionScript 3:n virheenkorjaukselle.)
+
+Pura jokin lähdekoodin tietty osa.
+Oletus on aina nykyinen rivi.
+Samoja argumentteja tuetaan kuin list-komennossakin.
+Esimerkkejä:
+  disassemble 87
+    Purkaa nykyisen tiedoston rivin 87.
+  disassemble 87 102
+    Purkaa nykyisen tiedoston rivit 87–102.
+  disassemble doThis
+      Purkaa toiminnon doThis() nykyisessä tiedostossa.
+Sen lisäksi, että käytät yksinkertaisia rivinumeroita yllä olevan esimerkin 
+mukaisesti, voit määrittää rivejä muillakin tavoilla:
+   myapp.mxml
+      Rivi 1 tiedostossa myapp.mxml.
+   myapp.mxml:doThat
+      Toiminnon doThat() ensimmäinen rivi tiedostossa myapp.mxml.
+   myapp.mxml:56
+      Rivi 56 tiedostossa myapp.mxml.
+   #3
+      Rivi 1 tiedostossa #3.
+   #3:doOther
+      Se tiedoston #3 rivi, jolla toiminto doOther() alkaa.
+   #3:29
+      Rivi 29 tiedostossa #3.
+
+[display]
+
+Lisää ilmaus automaattisen näytön ilmausten luetteloon.
+Esimerkki:
+  display employee.name
+    Lisää 'employee.name' automaattisen näytön ilmausten luetteloon.
+    Joka kerta, kun fdb pysähtyy, arvo employee.name tulee näkyviin.
+Tämän komennon argumentti on sama kuin komennolle 'print'.
+Näet automaattisen näytön ilmaukset ja niiden numerot syöttämällä 'info 
+display'.
+
+[down]
+
+Valitse ja tulosta tämän kutsuma pinokehys.
+Seuraavat 'info arguments'- ja 'info locals' -komennot näyttävät valitun 
+kehyksen argumentit ja paikalliset muuttujat.
+Katso komennot 'up' ja 'frame'. 
+
+[enable]
+
+Ota käyttöön yksi tai useita keskeytyskohtia tai automaattisen näytön ilmaukset.
+Esimerkkejä:
+  enable
+  enable breakpoints
+    Ottaa käyttöön kaikki keskeytyskohdat.
+  enable 2 5
+  enable breakpoints 2 5
+    Ottaa käyttöön keskeytyskohdat #2 ja #5.
+  enable display
+    Ottaa käyttöön kaikki automaattisen näytön ilmaukset.
+  enable display 1 3
+    Ottaa käyttöön automaattisen näytön ilmaukset #1 ja #3.
+Näet keskeytyskohtien numerot syöttämällä 'info breakpoints'.
+Näet automaattisen näytön ilmausten numerot syöttämällä 'info display'.
+
+[file]
+
+Määritä sovellus, josta korjataan virheitä, käynnistämättä sitä.
+Esimerkkejä:
+  file http://www.mysite.com/myapp.mxml
+    Määritä MXML-sovellus, josta korjataan virheitä.
+  file myapp.swf
+    Määritä nykyisestä hakemistosta paikallinen SWF-tiedosto, josta korjataan 
+    virheitä.
+    Tässä tapauksessa (virheenkorjaustiedot sisältävän) tiedoston myapp.swd 
+    pitää sijaita myös nykyisessä hakemistossa.
+Komento ei käynnistä sovellusta. Käynnistä sovelluksen virheenkorjaus 
+komennolla 'run' ilman argumentteja.
+Sen sijaan, että käyttäisit komentoa 'file <target>' ja sen jälkeen komentoa 
+'run', voit yksinkertaisesti määrittää korjattavan sovelluksen komennon 'run' 
+argumentiksi:
+  run http://mysite.com/myapp.mxml
+  run myapp.swf
+Voit myös määrätä tiedoston virheenkorjauksen komentorivin argumentilla, kun 
+käynnistät fdb:n:
+  fdb http://www.mysite.com/myapp.mxml
+  fdb myapp.swf
+Tässä tapauksessa sinun ei tarvitse käyttää komentoa 'file' eikä komentoa 'run'.
+Jos suoritat komennon 'run' määrittämättä sovellusta virheenkorjausta varten, 
+fdb odottaa, kunnes jokin sovellus muodostaa siihen yhteyden.
+
+[finish]
+
+Suorita, kunnes nykyinen toiminto palaa.
+Tämä komento ei hyväksy argumentteja.
+
+[frame]
+
+Valitse ja tulosta jokin tietty pinokehys.
+Tämä komento hyväksyy valinnaisen argumentin: kehyksen numeron.
+Jos argumenttia ei määritetä, oletuksena palataan nykyiseen ylimpään kehykseen 
+(kehykseen 0).
+Esimerkkejä:
+  frame 4
+  frame
+Seuraavat 'info arguments'- ja 'info locals' -komennot näyttävät valitun 
+kehyksen argumentit ja paikalliset muuttujat.
+Katso komennot 'up', 'down' ja 'bt'. 
+
+[handle]
+
+Määritä, miten fdb käsittelee Flash Playerin virheet.
+Esimerkkejä:
+  handle recursion_limit stop
+    Näytä fdb:ssä ilmoitus virheestä recursion_limit ja pysäytä, kuten 
+    keskeytyskohdassa.
+  handle all print nostop
+    Näytä ilmoitus kaikista virheistä fdb:ssä, mutta älä pysäytä.
+Ensimmäinen argumentti on virheen nimi tai 'all'.
+Lisäargumentit ovat toimintoja, jotka koskevat virhettä.
+Virheiden nimet näet syöttämällä 'info handle'.
+Toiminnot ovat print/noprint ja stop/nostop.
+Toiminnolla 'print' sanoma tulostetaan tämän virheen sattuessa.
+Toiminnolla 'stop' palataan virheenkorjaustoimintoon tämän virheen sattuessa. 
+Toiminto 'print' suoritetaan samalla.
+
+[help]
+
+Onko fdb sinulle uusi? Näet sen perustiedot syöttämällä 'tutorial'.
+Luettelo fdb:n komennoista:
+bt (bt)             Tulosta kaikkien pinokehysten backtrace-luettelot.
+break (b)           Määritä keskeytyskohta tietyllä rivillä tai tietyssä 
+                    toiminnossa.
+catch (ca)          Keskeytys poikkeuksen sattuessa.
+cf (cf)             Näytä nykyisen tiedoston nimi ja numero.
+clear (cl)          Poista keskeytyskohta tietyltä riviltä tai tietystä 
+                    toiminnosta.
+condition (cond)    Käytä ehdollista ilmausta keskeytyspisteessä tai poista 
+                    ilmaus.
+continue (c)        Jatka suorittamista keskeytyskohdassa pysähtymisen jälkeen.
+commands (com)      Määritä komennot, jotka suoritetaan keskeytyspisteeseen 
+                    saavuttaessa.
+delete (d)          Poista keskeytyspisteet tai automaattisen näytön ilmaukset.
+directory (dir)     Lisää hakemisto lähdetiedostojen hakupolkuun.
+disable (disab)     Poista keskeytyspisteet tai automaattisen näytön ilmaukset 
+                    käytöstä.
+disassemble (disas) Pura lähderivit tai -toiminnot.
+display (disp)      Lisää automaattisen näytön ilmaus.
+enable (e)          Ota keskeytyspisteet tai automaattisen näytön ilmaukset 
+                    käyttöön.
+file (fil)          Määritä sovelluksen virheenkorjaus.
+finish (f)          Suorita, kunnes nykyinen toiminto palaa.
+handle (han)        Määritä, miten virhe käsitellään.
+help (h)            Näytä fdb-komentojen ohje.
+home (ho)           Määritä luettelosijainti paikkaan, missä suorittaminen 
+                    keskeytetään.
+info (i)            Näytä tiedot ohjelmasta, josta korjataan virheitä.
+kill (k)            Lopeta sen ohjelman suorittaminen, josta korjataan virheitä.
+list (l)            Lisää määritetty toiminto tai rivi luetteloon.
+next (n)            Askelluta ohjelma.
+print (p)           Tulosta EXP-muuttujan arvo.
+pwd (pw)            Tulosta työhakemisto.
+quit (q)            Sulje fdb.
+run (r)             Käynnistä ohjelma, jonka virheet on korjattu.
+set (se)            Aseta muuttujan arvo.
+source (so)         Lue fdb-komennot tiedostosta.
+step (s)            Askelluta ohjelma, kunnes ohjelma saavuttaa eri lähderivin.
+tutorial (t)        Näytä opetusohjelma, jossa selitetään fdb:n käyttö.
+undisplay (u)       Poista automaattisen näytön ilmaus.
+viewswf (v)         Määritä tai tyhjennä suodatin tiedostoluettelolle swf:n 
+                    perusteella.
+watch (wa)          Lisää katselukohta annettuun muuttujaan.
+what (wh)           Näyttää muuttujan sisällön.
+where (w)           Sama kuin bt.
+Kirjoita 'help' ja sen jälkeen komennon nimi, niin näet täydet käyttöohjeet.
+
+[home]
+
+Määritä luettelosijainti paikkaan, missä suorittaminen keskeytetään.
+
+[info]
+
+Yleiskomento, jolla nähdään erilaisia tietoja ohjelmasta, josta korjataan 
+virheitä.
+Luettelo info-alikomennoista:
+info arguments (i a)    Nykyisen pinokehyksen argumenttimuuttujat.
+info breakpoints (i b)  Käyttäjän asetettavien keskeytyskohtien tilat.
+info display (i d)      Näytä luettelo automaattisen näytön ilmauksista.
+info files (i f)        Niiden kohteiden ja tiedostojen nimet, joista korjataan 
+                        virheitä.
+info functions (i fu)   Kaikki toimintojen nimet.
+info handle (i h)       Miten virhe käsitellään.
+info locals (i l)       Nykyisen pinokehyksen paikalliset muuttujat.
+info scopechain (i sc)  Nykyisen pinokehyksen vaikutusalueketju.
+info sources (i so)     Lähdetiedostot ohjelmassa.
+info stack (i s)        Pinon backtrace.
+info swfs (i sw)        Tämän istunnon swf-luettelo.
+info targets(i t)       Sovellus, josta korjataan virheitä.
+info variables (i v)    Kaikki yleisten ja staattisten muuttujien nimet.
+Kirjoita 'help info' ja sen jälkeen info-alikomennon nimi, niin näet täydet 
+käyttöohjeet.
+
+[info arguments]
+
+Näytä nykyisen pinokehyksen argumentit.
+
+[info breakpoints]
+
+Näytä kaikkien keskeytyskohtien ja katselukohtien tila.
+Type-sarakkeesta näkyy jompikumpi näistä:
+   breakpoint   - tavallinen keskeytyskohta
+   watchpoint   - katselukohta
+Disp-sarake sisältää jonkin seuraavista: 'keep', 'del', 'dis'. Tämä kertoo, 
+mitä keskeytyskohdassa tapahtuu. Vaihtoehto 'dis' tarkoittaa sitä, että 
+keskeytyskohta poistetaan käytöstä. Vaihtoehto 'del' tarkoittaa sitä, että 
+keskeytyskohta poistetaan.  
+'Address'-sarake kertoo osoitteen. 'What'-sarake kertoo tiedoston/rivinumeron. 
+
+[info display]
+
+Näytä luettelo automaattisen näytön ilmauksista ja niiden numeroista.
+
+[info files]
+
+Näytä tiedostojen nimet ja numerot sovellukselle, josta korjataan virheitä, 
+mukaan luettuna lähdetiedostot, kehystiedostot ja automaattisesti luodut 
+tiedostot.
+Esimerkkejä:
+  info files
+    Näyttää aakkosjärjestyksessä kaikki tiedostot luokan mukaan.
+  info files my
+  info files my*
+    Näyttää aakkosjärjestyksessä kaikki tiedostot, joiden nimi alkaa "my".
+  info files *.as
+    Näyttää aakkosjärjestyksessä kaikki tiedostot, joiden nimi päättyy ".as".
+  info files *foo*
+    Näyttää aakkosjärjestyksessä kaikki tiedostot, joiden nimeen sisältyy "foo".
+Tiedostot näytetään muodossa name#N, jossa N on tiedoston numero.
+Monissa komennoissa tiedoston nimen voi korvata #N.
+
+[info functions]
+
+Näytä toimintojen nimet.
+Esimerkkejä:
+  info functions .
+    Näytä kaikki toiminnot nykyisessä tiedostossa.
+  info functions myapp.mxml
+    Näytä kaikki toiminnot tiedostossa myapp.mxml.
+  info functions #3
+    Näytä kaikki toiminnot tiedostossa #3.
+  info functions
+    Näytä kaikki toiminnot kaikissa tiedostoissa.
+Tiedostonimet ja -numerot näet syöttämällä 'info sources' tai 'info files'.
+Lyhennetyt tiedostonimet hyväksytään, jos ne ovat selviä.
+
+[info handle]
+
+Näytä, mitä fdb tekee, kun Flash Playerissä tapahtuu virhe.
+Esimerkkejä:
+  info handle
+    Näytä, miten fdb käsittelee kaikki virheet.
+  info handle recursion_limit
+    Näytä, miten fdb käsittelee virheen recursion_limit.
+
+[info locals]
+
+Näytä nykyisen pinokehyksen paikalliset muuttujat.
+
+[info scopechain]
+
+Näytä nykyisen pinokehyksen vaikutusalueketju.  Vaikutusalueketju on 
+objektiluettelo, jossa Flash Player suorittaa haun yrittäessään ratkaista 
+symbolin nimen.
+
+[info sources]
+
+Näytä lähdetiedostojen nimet ja numerot sovellukselle, josta korjataan virheitä.
+Ei sisällä kehystiedostoja ja automaattisesti luotuja tiedostoja.
+Tiedostot näytetään muodossa name#N, jossa N on tiedoston numero.
+Monissa komennoissa tiedoston nimen voi korvata #N.
+
+[info stack]
+
+Pinon backtrace.
+
+[info swfs]
+
+Näytä virheenkorjausistunnon tuntemat swf-tiedostot.  Komennolla 'viewswf' näet 
+lisätietoja siitä, miten tiedostoluettelo voidaan suodattaa swf-nimen 
+perusteella. 
+
+[info targets]
+
+Näytä URL (http: tai tiedosto:) sovellukselle, josta korjataan virheitä.
+
+[info variables]
+
+Näytä kaikki yleisten ja staattisten muuttujien nimet ja arvot.
+
+[info ?]
+
+Määrittämätön info-komento. Kokeile komentoa 'help info'.
+
+[kill]
+
+Lopeta sen ohjelman suorittaminen, josta korjataan virheitä.
+Tämä komento ei hyväksy argumentteja.
+
+[list]
+
+Luetteloi koodirivit lähdetiedostossa.
+Esimerkkejä:
+  list
+    Luetteloi kymmenen lisäriviä nykyisessä tiedostossa edellisen luettelon 
+    jälkeen tai sen ympärille.
+  list -
+    Luetteloi kymmenen riviä nykyisessä tiedostossa ennen edellistä luetteloa.
+  list 87
+    Luetteloi kymmenen riviä nykyisessä tiedostossa rivin 87 ympärillä.
+  list 87 102
+    Luetteloi nykyisen tiedoston rivit 87–102.
+Sen lisäksi, että käytät yksinkertaisia rivinumeroita yllä olevan esimerkin 
+mukaisesti, voit määrittää rivejä seitsemällä muulla tavalla:
+  doThis
+      Toiminnon doThis() ensimmäinen rivi nykyisessä tiedostossa.
+   myapp.mxml
+      Rivi 1 tiedostossa myapp.mxml.
+   myapp.mxml:doThat
+      Toiminnon doThat() ensimmäinen rivi tiedostossa myapp.mxml.
+   myapp.mxml:56
+      Rivi 56 tiedostossa myapp.mxml.
+   #3
+      Rivi 1 tiedostossa #3.
+   #3:doOther
+      Se tiedoston #3 rivi, jolla toiminto doOther() alkaa.
+   #3:29
+      Rivi 29 tiedostossa #3.
+Tiedostonimet ja -numerot näet syöttämällä 'info sources' tai 'info files'.
+Toimintojen nimet näet syöttämällä 'info functions'.
+Lyhennetyt tiedostojen ja toimintojen nimet hyväksytään, jos ne ovat selviä.
+Tiedoston lisääminen luetteloon tekee tiedostosta nykyisen tiedoston. (Katso 
+komento 'cf'.)
+
+[next]
+
+Askelluta ohjelma alirutiinikutsujen läpi.
+  next
+    Askelluta kerran.
+  next 3
+    Askelluta kolmasti, tai kunnes ohjelma pysähtyy jostain muusta syystä.
+Toimii kuten komento 'step', kunhan alirutiinikutsuja ei tapahdu. Jos 
+alirutiinikutsu tapahtuu, sitä käsitellään yhtenä ohjeena.
+
+[print]
+
+Tulosta muuttujan tai ilmauksen arvo.
+Esimerkkejä:
+  print i
+    Tulosta 'i'-arvo.
+  print employee.name
+    Tulosta 'employee.name'-arvo.
+  print employee
+    Tulosta objektin 'employee' arvo.
+    Tulos saattaa olla esimerkiksi [Object 10378].
+  print employee.
+    Tulosta objektin 'employee' kaikkien ominaisuuksien arvot.
+  print *employee
+    Tulosta objektin 'employee' kaikkien ominaisuuksien arvot.
+    Etuliiteoperaattori * on jälkiliiteoperaattorin . etuliitevaihtoehto.
+  print #10378.
+    Tulosta kaikkien Object #10378:n ominaisuuksien arvot.
+Käytettävissä ovat valitun pinokehyksen sanastollisen ympäristön muuttujat sekä 
+kaikki ne muuttujat, joiden vaikutusalue on yleinen tai kokonainen tiedosto.
+
+[pwd]
+
+Tulosta nykyinen työhakemisto.
+Tämä on hakemisto, josta fdb käynnistettiin. Hakemistoa ei voi muuttaa fdb:n 
+sisällä. Komentojen 'run' ja 'source' argumentti voidaan määrittää suhteessa 
+tähän hakemistoon.
+Tämä komento ei hyväksy argumentteja.
+
+[quit]
+
+Sulje fdb.
+Tämä komento ei hyväksy argumentteja.
+
+[run]
+
+Aloita virheenkorjausistunto.
+Esimerkkejä:
+  run http://www.mysite.com/myapp.mxml
+    Suorittaa määritetyn MXML-sovelluksen.
+  run myapp.swf
+  run mydir\myapp.swf
+  run c:\mydir\myapp.swf
+    Suorittaa paikallisen SWF-tiedoston myapp.swf, joka voidaan määrittää joko 
+    suhteessa nykyiseen hakemistoon (katso komento 'pwd') tai käyttäen 
+    absoluuttista polkua. Näissä tapauksissa tiedoston myapp.swd 
+    (virheenkorjaustiedot sisältävä tiedosto) pitää sijaita samassa 
+    hakemistossa kuin tiedosto myapp.swf.
+  run
+    Suorita edellä komennossa 'file' määritetty sovellus.
+    Jos sovellusta ei ole määritetty, fdb odottaa, kunnes jokin sovellus 
+    muodostaa siihen yhteyden. Jos mikään sovellus ei tee niin, fdb suorittaa 
+    aikakatkaisun.
+Komento 'run' käynnistää sovelluksen selaimessa tai erillisessä Flash 
+Playerissä.
+Heti, kun sovellus käynnistyy, se keskeytyy fdb-tilaan, jotta voit määrittää 
+keskeytyskohdat.
+
+Macintosh-käyttöjärjestelmässä komennon ainoa tuettu muoto on 'run', ilman 
+argumentteja.  Flash Player pitää käynnistää manuaalisesti.
+
+[set]
+
+Määritä muuttujan tai mukavuusmuuttujan arvo.
+Mukavuusmuttujia esiintyy ainoastaan fdb:ssä. Ne eivät ole osa ohjelmaa.
+Mukavuusmuuttujilla on etuliite '$'. Muuttujilla voi olla mikä tahansa nimi, 
+joka ei ole jo olemassa olevan muuttujan nimi.  Esimerkiksi $myVar.  
+Mukavuusmuuttujilla voidaan hallita useita fdb:n ominaisuuksia.  
+
+Seuraavat mukavuusmuuttujat ovat fdb:n käytössä.
+$listsize          - komennolle 'list' näytettävien lähderivien määrä
+$columnwrap        - sen sarakkeen numero, jossa tulostus rivitetään
+$infostackshowthis - jos 0, pinon backtrace-luettelossa ei lue 'this'
+$invokegetters     - jos 0, estää fdb:tä suorittamasta get-funktioita
+$bpnum             - viimeinen määritetty keskeytyskohdan numero
+$displayattributes - jos 1, 'print var.' näyttää kaikki 'var'-jäsenien 
+                     attribuutit (esim. yksityinen, staattinen)
+
+Esimerkkejä:
+  set i = 3
+    Määrittää muuttujan 'i' numerolle 3.
+  set employee.name = "Susan"
+    Määrittää muuttujan 'employee.name' merkkijonolle "Susan".
+  set $myVar = 20
+    Määrittää mukavuusmuuttujan '$myVar' numerolle 20.
+
+[show]
+
+Yleiskomento, jolla nähdään erilaisia tilatietoja fdb:stä.
+Luettelo show-alikomennoista:
+show break (sh b)       Suorituksen keskeytyksen paikka ja syy.
+show directories (sh d) Hakemistot, joista etsitään lähdetiedostoja.
+show files (sh f)       Kohdetiedostot ja -polut.
+show functions (sh fu)  Toimintorivin määritystiedot. 
+show locations (sh l)   Keskeytyskohtien paikat.
+show memory (sh m)      Nykyinen muistin käyttö.
+show net (sh n)         Soittimen viestitilastot. 
+show properties (sh p)  Ominaisuuksien arvot.
+show uri (sh u)         Soittimen URI tätä istuntoa varten. 
+show variable (sh v)    Raw-muuttujan noutaminen.
+Kirjoita 'help show' ja sen jälkeen show-alikomennon nimi, niin näet täydet 
+käyttöohjeet.
+
+[show break]
+
+Näytä siirtymä SWF:ssä, johon ohjelma pysähtyi.
+
+[show directories]
+
+Näytä nykyinen hakupolku lähdetiedostojen löytämistä varten.
+
+[show files]
+
+Näytä kaikkien kohdetiedostojen polku ja tiedostonimi.
+
+[show functions]
+
+Näytä toiminnon/rivinumeron määritystiedot.
+Esimerkkejä:
+  show functions .
+    Näyttää kaikkien toimintojen määritystiedot nykyisessä tiedostossa.
+  show functions myapp.mxml
+    Näyttää kaikkien toimintojen määritystiedot tiedostossa myapp.mxml.
+  show functions #3
+    Näyttää kaikkien toimintojen määritystiedot tiedostossa #3.
+  show functions
+    Näyttää kaikkien toimintojen määritystiedot kaikissa tiedostoissa.
+Tiedostonimet ja -numerot näet syöttämällä 'info sources' tai 'info files'.
+Lyhennetyt tiedostonimet hyväksytään, jos ne ovat selviä.
+
+[show locations]
+
+Näyttää luettelon sijainneista, jotka kullekin keskeytyskohdalle on määritetty.
+
+[show memory]
+
+Näyttää Java-näennäismuistin tilastot.
+
+[show net]
+
+Näyttää tiedot Flash Playeriin lähetetyistä ja siltä vastaanotetuista 
+viesteistä.
+
+[show properties]
+
+Näyttää luettelon virheenkorjauksessa käytetyistä mukavuusmuuttujista. 
+
+[show uri]
+
+Näyttää URI:n, jonka soitin lähetti tätä istuntoa varten.
+
+[show variable]
+
+Näyttää muuttujan jäsenten arvot.  Vaaditaan kaksi parametriä. Ensimmäinen on 
+numeroarvoinen muuttujan tunniste. Toinen on muuttujan ominaisuuden nimi.  
+Mukavuusmuuttujaa $invokegetters käytetään määrittämään, käynnistetäänkö 
+get-ominaisuus, jos sellainen on olemassa.
+Esimerkki:
+    show variable 1 __proto__
+
+[show ?]
+
+Määrittämätön show-komento. Kokeile komentoa 'help show'.
+
+[source]
+
+Lue fdb-komennot tiedostosta ja suorita ne.
+  source mycommands.txt
+  source mydir\mycommands.txt
+  source c:\mydir\mycommands.txt
+    Lukee kohteen mycommands.txt ja suorittaa siinä olevat fdb-komennot.
+    Komennot sisältävä tiedosto voidaan määrittää joko
+	suhteessa nykyiseen hakemistoon (katso komento 'pwd')
+	tai käyttäen absoluuttista polkua.
+Tiedosto .fdbinit luetaan automaattisesti tällä tavalla, kun fdb käynnistetään.
+Tiedostoa .fdbinit haetaan vain nykyisestä hakemistosta. Tämä tarkoittaa sitä, 
+että voit määrittää useita .fdbinit-tiedostoja eri projekteja varten.
+
+[step]
+
+Askelluta ohjelma, kunnes ohjelma saavuttaa eri lähderivin.
+Esimerkkejä:
+  step
+    Askelluta kerran.
+  step 3
+    Askelluta kolmasti, tai kunnes ohjelma pysähtyy jostain muusta syystä.
+
+[tutorial]
+
+Näytä opetusohjelma, jossa selitetään fdb:n käyttö.
+Tämä komento ei hyväksy argumentteja.
+
+[Tutorial]
+
+Tyypillinen fdb-istunto:
+Käynnistä sovellus komennolla 'run'.
+Tarkastele tiedostonimiä komennolla 'info sources'.
+Lisää tiedosto luetteloon komenolla 'list'.
+Määritä keskeytyskohdat komennolla 'break'.
+Suorita ohjelma komennolla 'continue', kunnes osutaan keskeytyskohtaan.
+Tutki ohjelman tilaa komennoilla 'where', 'print', 'info locals'.
+Suorita yksittäisiä lausekkeita komennoilla 'next', 'step', 'finish'.
+Jatka suorittamista komennolla 'continue'.
+Sulje fdb komennolla 'quit'.
+
+[undisplay]
+
+Poista yksi tai usea automaattisen näytön ilmaus.
+Esimerkkejä:
+  undisplay
+    Poista kaikki automaattisen näytön ilmaukset.
+  undisplay 2 7
+    Poista automaattisen näytön ilmaukset #2 ja #7.
+Näet automaattisen näytön ilmaukset ja niiden numerot syöttämällä 'info 
+display'.
+
+[up]
+
+Valitse ja tulosta tätä kutsunut pinokehys.
+Seuraavat komennot 'info arguments' ja 'info locals' näyttävät
+valitun kehyksen paikalliset muuttujat ja argumentit.
+Katso komennot 'down' ja 'frame'.
+
+[viewswf]
+
+Määrittää tai tyhjentää tiedostoluettelon ('info files' tai 'info sources') 
+suodattimen swf-nimen perusteella. 
+Ilman parametrejä kaikki tiedostot näytetään.  Jos sama tiedosto esiintyy 
+useassa swf:ssä, luettelossa näkyy vain tiedoston ensimmäinen esiintymä.  
+Saat tiedoston muut esiintymät näkyviin käyttämällä tiedoston numeroa (esim. 
+'list #192') tai tätä komentoa parametrin kanssa (katso alla). Näin voit 
+tarkastella jonkin tietyn swf:n tiedostoja.  Jos käytössä on vain yksi 
+parametri, komennon 'info swfs' näyttämä swf-nimi, ainoastaan määritetyn swf:n 
+tiedostot tulevat näkyviin luetteloon.  
+Muissa swf-tiedostoissa olevia tiedostoja ei näytetä.  Tämä komento vaikuttaa 
+myös komentoihin, jotka hyväksyvät parametriksi tiedoston (esim. 'break').
+Esimerkki:
+  viewswf myApp.mxml.swf
+    Vain tiedostossa myApp.mxml.swf olevat tiedostot näytetään.
+  viewswf 
+    Kaikkien swf-tiedostojen kaikki tiedostot näytetään.
+ 
+[watch]
+
+Lisää katselukohta annettuun muuttujaan. Virheenkorjaustoiminto keskeyttää 
+suorittamisen muuttujan arvon vaihtuessa.
+Esimerkki:
+  watch foo
+
+[what]
+
+Näyttää kontekstin, jonka sisällä muuttuja ratkaistaan. 
+
+[where]
+
+Pinon backtrace.
+
+[zzz]
+
+((( Keep this unused topic at the end of the file    )))
+((( so that the next-to-last one is parsed properly. )))

@@ -1,0 +1,835 @@
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+
+This file contains the text displayed by the 'help' command in fdb.
+
+It is divided into "topics". For example, when an fdb user types
+'help break', the [break] topic below is displayed.
+
+The first and last lines of each topic should be blank.
+They don't get displayed in fdb; they are here only
+to make this file more easily readable.
+
+Help text should be formatted to not wrap
+when displayed on an 80-character-wide console.
+The following line is 80 characters wide.
+
+--------------------------------------------------------------------------------
+
+[?]
+
+Commande non définie. Saisissez « help » pour afficher la liste de toutes les commandes 
+fdb.
+
+[break]
+
+Définit un point d'arrêt à une ligne ou une fonction spécifique.
+Exemples :
+  break 87
+    Définit un point d'arrêt à la ligne 87 du fichier en cours.
+  break myapp.mxml:56
+    Définit un point d'arrêt à la ligne 56 du fichier myapp.mxml.
+  break #3:29
+    Définit un point d'arrêt à la ligne 29 du fichier n° 3.
+  break doThis
+    Définit un point d'arrêt à la fonction doThis() du fichier en cours.
+  break myapp.mxml:doThat
+    Définit un point d'arrêt à la fonction doThat() du fichier myapp.mxml.
+  break #3:doOther
+    Définit un point d'arrêt à la fonction doOther() du fichier n° 3.
+  break
+   Définit un point d'arrêt à l'adresse d'exécution actuelle dans le frame de pile en cours.
+Cela sert à l'arrêt d'un retour vers un frame de pile.
+Pour afficher les noms et numéros de fichiers, saisissez « info sources » ou « info files ».
+Pour afficher les noms de fonctions, saisissez « info functions ».
+Les noms de fichiers et de fonctions abrégés sont acceptés s'ils ne sont pas ambigus.
+Si un numéro de ligne est spécifié, l'arrêt se produit au début du code de cette ligne.
+Si une fonction est spécifiée, l'arrêt se produit au début du code de cette fonction.
+Pour plus de contrôle des points d'arrêt, voir « commands » et « condition ».
+
+[bt]
+
+Parcours arrière de la pile.
+
+[catch]
+
+S'arrête lorsqu'une exception est émise.  Cela affecte uniquement les exceptions 
+interceptées, c'est-à-dire celles qui seront gérées par un bloc « catch ».  
+Les exceptions non interceptées s'arrêtent toujours dans le débogueur.
+
+Utilisez la commande « delete » pour supprimer un point d'interception.
+
+Exemples :
+  catch *
+    S'arrête lorsqu'une exception est émise.
+  catch ReferenceError
+    S'arrête lorsqu'une erreur de référence (ReferenceError) est émise, qu'elle soit 
+interceptée ou non.
+
+[cf]
+
+Affiche le nom et le numéro du fichier en cours ou modifie le fichier en cours.
+Exemples :
+  cf
+    Affiche le nom et le numéro du fichier en cours.
+  cf myapp.mxml
+    myapp.mxml devient le fichier en cours.
+  cf #29
+    Le fichier n° 29 devient le fichier en cours.
+Pour afficher les noms et numéros de fichiers, saisissez « info sources » ou « info files ».
+Les noms de fichiers abrégés sont acceptés s'ils ne sont pas ambigus.
+Un fichier devient également le fichier en cours lorsque vous l'affichez avec la commande 
+« list ».
+
+[clear]
+
+Supprime un point d'arrêt à la ligne ou la fonction spécifiée.
+Exemples :
+  clear 87
+    Supprime le point d'arrêt à la ligne 87 du fichier en cours.
+  clear myapp.mxml:56
+    Supprime le point d'arrêt à la ligne 56 du fichier myapp.mxml.
+  clear #3:29
+    Supprime le point d'arrêt à la ligne 29 du fichier n° 3.
+  clear doThis
+    Supprime le point d'arrêt à la fonction doThis() du fichier en cours.
+  clear myapp.mxml:doThat
+    Supprime le point d'arrêt à la fonction doThat() du fichier myapp.mxml.
+  clear #3:doOther
+    Supprime le point d'arrêt à la fonction doOther() du fichier n° 3.
+  clear
+    Supprime le point d'arrêt à la ligne actuelle du fichier en cours. 
+Pour afficher les noms et numéros de fichiers, saisissez « info sources » ou « info files ».
+Pour afficher les noms de fonctions, saisissez « info functions ».
+Les noms de fichiers et de fonctions abrégés sont acceptés s'ils ne sont pas ambigus.
+Si une numéro de ligne est spécifié, tous les points d'arrêt de cette ligne sont supprimés.
+Si une fonction est spécifiée, les points d'arrêt situés en début de fonction sont supprimés.
+
+[continue]
+
+Continue l'exécution après l'arrêt au point d'arrêt.
+Cette commande ne prend aucun argument.
+
+[condition]
+
+
+Spécifie le numéro de point d'arrêt N auquel s'arrêter si COND est vrai.
+Utilisation : « condition N COND », où N est un entier et COND une expression à évaluer 
+lorsque le point d'arrêt N est atteint.
+
+[commands]
+
+Définit les commandes à exécuter lorsqu'un point d'arrêt est atteint.
+Indiquez le numéro de point d'arrêt en tant qu'argument après « commands ».
+Sans argument, le dernier point d'arrêt défini est celui ciblé.
+Les commandes sont insérées ensuite à partir de la ligne suivante.
+Tapez une ligne contenant « end » pour indiquer la fin des commandes.
+Saisissez « silent°» sur la première ligne pour rendre le point d'arrêt silencieux.
+Aucune sortie n'est alors imprimée lorsqu'il est atteint, excepté les éléments 
+imprimés par les commandes.
+Exemple :
+  (fdb) commands
+  Tapez les commandes, pour le moment où le point d'arrêt 1 est atteint, une par ligne.
+  Terminez avec une ligne indiquant simplement « end ».
+  >w
+  >end
+
+[connect]
+
+Se connecte à la version de débogage de Flash Player qui écoute un port.
+Le seul lecteur écoutant actuellement les connexions de débogage est spécifique au mobile, 
+les autres se connectent toujours.
+
+Exemples :
+  connect
+    Se connecte à la version de débogage de Flash Player qui écoute le port 7936.
+  connect 7938
+    Se connecte à la version de débogage de Flash Player qui écoute le port 7938.
+    
+[worker]
+
+Définit l'opérateur actif auquel les commandes de débogueur suivantes sont envoyées.
+Saisissez « info workers » pour obtenir la liste des opérateurs. 
+Le thread principal a l'ID 0.
+
+Exemples :
+  worker 3
+    Définit l'opérateur possédant l'ID 3 comme opérateur actif.        
+
+[delete]
+
+Supprime un ou plusieurs points d'arrêt.
+Exemples :
+  delete
+    Supprime tous les points d'arrêt.
+  delete 2 5
+    Supprime les points d'arrêt n° 2 et 5.
+Pour afficher les numéros des points d'arrêt, saisissez « info breakpoints ».
+
+[directory]
+
+Modifie la liste des répertoires dans lesquels fdb recherche les fichiers source.
+
+Exemples :
+
+  directory
+    Restaure la valeur par défaut de la liste, c'est-à-dire le répertoire dans lequel 
+le fichier source a été compilé en code objet, suivi par le répertoire de travail actuel.
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+    Ajoute le répertoire spécifié au début de la liste de répertoires, pour y rechercher 
+une source.  
+Lors d'une recherche de la source pour la classe mypackage.MyClass, par exemple,le débogueur 
+recherche C:\MySource\mypackage\MyClass.as et C:\MySource\MyClass.as.
+
+  directory C:\Dir1;C:\Dir2    (Windows : utiliser le séparateur « ; »)
+  directory /Dir1:/Dir2        (Mac : utiliser le séparateur « : »)
+    Ajoute plusieurs répertoires au début de la liste de répertoires, pour y rechercher 
+une source.
+
+Pour afficher la liste actuelle, saisissez « show directories ».
+
+[disable]
+
+Désactive un ou plusieurs points d'arrêt ou expressions d'affichage automatique.
+Exemples :
+  disable
+  disable breakpoints
+    Désactive tous les points d'arrêt.
+  disable 2 5
+  disable breakpoints 2 5
+    Désactive les points d'arrêt n° 2 et 5.
+  disable display
+    Désactive toutes les expressions d'affichage automatique.
+  disable display 1 3
+    Désactive les expressions d'affichage automatique n° 1 et 3.
+Pour afficher les numéros des points d'arrêt, saisissez « info breakpoints ».
+Pour afficher les numéros des expressions d'affichage automatique, 
+saisissez « info display ».
+
+[disassemble]
+
+(ActionScript 2 uniquement, non pris en charge lors du débogage d'ActionScript 3)
+
+Désassemble une partie spécifique du code source.
+La valeur par défaut est la ligne de la liste actuelle.
+Les arguments pris en charge sont les mêmes que ceux pour la commande list.
+Exemples :
+  disassemble 87
+    Désassemble la ligne 87 du fichier en cours.
+  disassemble 87 102
+    Désassemble les lignes 87 à 102 du fichier en cours.
+  disassemble doThis
+      Désassemble la fonction doThis() du fichier en cours.
+Outre l'utilisation des numéros de ligne, comme illustré ci-dessus, vous pouvez également 
+spécifier des lignes des manières suivantes :
+   myapp.mxml
+      Ligne 1 du fichier myapp.mxml.
+   myapp.mxml:doThat
+      La première ligne de la fonction doThat() du fichier myapp.mxml.
+   myapp.mxml:56
+      Ligne 56 du fichier myapp.mxml.
+   #3
+      Ligne 1 du fichier n° 3.
+   #3:doOther
+      La ligne du fichier n° 3 où commence la fonction doOther().
+   #3:29
+      Ligne 29 du fichier n° 3.
+
+[display]
+
+Ajoute une expression à la liste des expressions d'affichage automatique.
+Exemple :
+  display employee.name
+    Ajoute « employee.name » à la liste des expressions d'affichage automatique.
+    A chaque arrêt de fdb, la valeur employee.name s'affiche.
+L'argument de cette commande est similaire à celui de « print ».
+Pour afficher la liste des expressions d'affichage automatique avec leur numéro, 
+saisissez « info display ».
+
+[down]
+
+Sélectionne et imprime le frame de pile appelé par cette commande.
+Les commandes « info arguments » et « info locals » suivantes affichent les variables 
+locales et les arguments du frame sélectionné.
+Voir « up » et « frame » 
+
+[enable]
+
+Active un ou plusieurs points d'arrêt ou expressions d'affichage automatique.
+Exemples :
+  enable
+  enable breakpoints
+    Active tous les points d'arrêt.
+  enable 2 5
+  enable breakpoints 2 5
+    Active les points d'arrêt n° 2 et 5.
+  enable display
+    Active toutes les expressions d'affichage automatique.
+  enable display 1 3
+    Active les expressions d'affichage automatique n° 1 et 3.
+Pour afficher les numéros des points d'arrêt, saisissez « info breakpoints ».
+Pour afficher les numéros des expressions d'affichage automatique, 
+saisissez « info display ».
+
+[file]
+
+Spécifie une application à déboguer, sans la lancer.
+Exemples :
+  file http://www.mysite.com/myapp.mxml
+    Spécifie une application MXML à déboguer.
+  file myapp.swf
+    Spécifie un fichier SWF local à déboguer dans le répertoire actif.
+    Dans ce cas, myapp.swd (le fichier contenant les informations de débogage) doit également 
+exister dans le répertoire actif.
+Cette commande ne lance pas l'application ; utilisez la commande « run » sans argument 
+pour démarrer le débogage de l'application.
+Au lieu d'utiliser « file <cible> », puis « run », vous pouvez spécifier l'application 
+à déboguer en tant qu'argument de « run » :
+  run http://mysite.com/myapp.mxml
+  run myapp.swf
+Vous pouvez également spécifier l'application à déboguer en tant qu'argument de ligne 
+de commande lorsque vous lancez fdb :
+  fdb http://www.mysite.com/myapp.mxml
+  fdb myapp.swf
+Dans ce cas, vous n'avez pas besoin d'utiliser « file » ni « run ».
+Si vous utilisez « run » sans spécifier d'application à déboguer, fdb attend 
+qu'une application s'y connecte.
+
+[finish]
+
+S'exécute jusqu'au retour de la fonction en cours.
+Cette commande ne prend aucun argument.
+
+[frame]
+
+Sélectionne et imprime un frame de pile particulier.
+Cette commande prend un argument facultatif, un numéro de frame.
+Si aucun argument n'est fourni, la valeur par défaut renvoie au frame actif supérieur 
+(c'est-à-dire le frame 0).
+Exemples :
+  frame 4
+  frame
+Les commandes « info arguments » et « info locals » suivantes affichent les variables 
+locales et les arguments du frame sélectionné.
+Voir « up », « frame » et « bt » 
+
+[handle]
+
+Spécifie la manière dont fdb doit gérer une erreur dans Flash Player.
+Exemples :
+  handle recursion_limit stop
+    Lorsqu'une erreur recursion_limit se produit, affiche un message dans fdb et s'arrête 
+comme devant un point d'arrêt.
+  handle all print nostop
+    Quand une erreur se produit, affiche un message dans fdb, mais ne s'arrête pas.
+Le premier argument est un nom d'erreur ou « all ».
+Les autres arguments sont des actions à appliquer à cette erreur.
+Pour afficher le nom des erreurs, saisissez « info handle ».
+Les actions sont print/noprint et stop/nostop.
+« print » entraîne l'impression d'un message lorsque cette erreur se produit.
+« stop » entraîne la réouverture de la session du débogueur lorsque cette erreur se produit.
+Implique « print ».
+
+[help]
+
+Nouvel utilisateur de fdb ? Saisissez « tutorial » pour obtenir des informations de base.
+Liste des commandes fdb :
+bt (bt)               Imprime le parcours arrière de tous les frames de pile
+break (b)             Définit un point d'arrêt à une ligne ou une fonction spécifique
+catch (ca)            S'arrête lorsqu'une exception est émise
+cf (cf)               Affiche le nom et le numéro du fichier en cours
+clear (cl)           Supprime un point d'arrêt à la ligne ou la fonction spécifiée
+condition (cond)     Applique/supprime une expression conditionnelle à un point d'arrêt
+connect (con)        Se connecte à la version de débogage de Flash Player
+continue (c)        Continue l'exécution après l'arrêt au point d'arrêt
+commands (com)        Définit les commandes à exécuter lorsque le point d'arrêt est atteint
+delete (d)            Supprime les points d'arrêt ou les expressions d'affichage 
+                      automatique
+directory (dir)      Ajoute un répertoire au chemin de recherche de fichiers source
+disable (disab)      Désactive les points d'arrêt ou les expressions d'affichage 
+                      automatique
+disassemble (disas) Désassemble les fonctions ou les lignes source
+display (disp)       Ajoute des expressions d'affichage automatique
+enable (e)            Active des points d'arrêt ou des expressions d'affichage automatique
+file (fil)           Spécifie une application à déboguer
+finish (f)           S'exécute jusqu'au retour de la fonction en cours
+handle (han)         Spécifie la gestion d'une erreur
+help (h)             Affiche l'aide des commandes fdb
+home (ho)            Définit l'emplacement dans une liste où l'exécution est arrêtée
+info (i)             Affiche des informations sur le programme en cours de débogage
+kill (k)             Annule l'exécution du programme en cours de débogage
+list (l)            Liste une fonction ou ligne spécifiée
+next (n)             Avance d'un pas dans un programme
+print (p)            Imprime la valeur de la variable EXP
+pwd (pw)             Imprime le répertoire de travail
+quit (q)             Quitte fdb
+run (r)              Démarre le programme débogué
+set (se)             Définit la valeur d'une variable
+source (so)          Lit les commandes fdb à partir d'un fichier
+step (s)             Avance d'un ou plusieurs pas dans un programme jusqu'à atteindre 
+                      une ligne source différente
+tutorial (t)         Affiche un didacticiel sur l'utilisation de fdb
+undisplay (u)        Supprime une expression d'affichage automatique
+viewswf (v)          Définit ou supprime un filtre à appliquer à une liste de fichiers 
+                      basé sur l'extension .swf
+watch (wa)           Ajoute un point de contrôle sur une variable donnée
+what (wh)            Affiche le contexte d'une variable
+where (w)            Identique à bt
+worker (wo)          Définit l'opérateur actif
+Saisissez « help » suivi du nom de la commande pour obtenir une documentation complète.
+
+[home]
+
+Définit l'emplacement dans une liste où l'exécution est arrêtée.
+
+[info]
+
+Commande générique pour l'affichage d'informations relatives au programme 
+en cours de débogage.
+Liste des sous-commandes info :
+info arguments (i a)    Variables d'argument du frame de pile en cours
+info breakpoints (i b)  Etat des points d'arrêt définissables par l'utilisateur
+info display (i d)      Affiche la liste des expressions d'affichage automatique
+info files (i f)        Noms des cibles et fichiers en cours de débogage
+info functions (i fu)   Tous les noms de fonctions
+info handle (i h)       Gestion d'une erreur
+info locals (i l)       Variables locales du frame de pile en cours
+info scopechain (i sc)  Chaîne de portée du frame de pile en cours
+info sources (i so)     Fichiers source du programme
+info stack (i s)        Parcours arrière de la pile
+info swfs (i sw)        Liste les fichiers .swf de la session
+info targets(i t)       Application en cours de débogage
+info variables (i v)    Tous les noms des variables globales et statiques
+info workers (i w)      Liste tous les opérateurs
+Saisissez « help info » suivi du nom de la sous-commande info pour obtenir une documentation 
+complète.
+
+[info arguments]
+
+Affiche les arguments du frame de pile en cours.
+
+[info breakpoints]
+
+Affiche l'état de tous les points d'arrêt et points de contrôle.
+La colonne Type indique l'une des valeurs suivantes :
+   breakpoint   - point d'arrêt normal
+   watchpoint   - point de contrôle
+La colonne Disp contient « keep », « del » ou « dis » pour indiquer la disposition 
+du point d'arrêt une fois celui-ci atteint. « dis » signifie que le point d'arrêt 
+sera désactivé, alors que « del » signifie qu'il sera supprimé.  
+Les colonnes « Address » et « What » indiquent l'adresse et le numéro de fichier/ligne, 
+respectivement. 
+
+[info display]
+
+Affiche la liste des expressions d'affichage automatique, avec leur numéro.
+
+[info files]
+
+Affiche le nom et numéro des fichiers pour l'application en cours de débogage, 
+y compris des fichiers source, de structure et générés automatiquement.
+Exemples :
+  info files
+    Liste tous les fichiers, par ordre alphabétique des catégories
+  info files my
+  info files my*
+    Liste, par ordre alphabétique, tous les fichiers dont le nom commence par « my ».
+  info files *.as
+    Liste, par ordre alphabétique, tous les fichiers dont le nom finit par « as ».
+  info files *foo*
+    Liste, par ordre alphabétique, tous les fichiers dont le nom contient « foo ». 
+Les fichiers sont affichés au format nom#N, où N est le numéro de fichier.
+Dans de nombreuses commandes, vous pouvez utiliser #N à la place du nom d'un fichier.
+
+[info functions]
+
+Affiche le nom des fonctions.
+Exemples :
+  info functions .
+    Affiche toutes les fonctions du fichier en cours.
+  info functions myapp.mxml
+    Affiche toutes les fonctions du fichier myapp.mxml.
+  info functions #3
+    Affiche toutes les fonctions du fichier n° 3.
+  info functions
+    Affiche les fonctions de tous les fichiers.
+Pour afficher les noms et numéros de fichiers, saisissez « info sources » ou « info files ».
+Les noms de fichiers abrégés sont acceptés s'ils ne sont pas ambigus.
+
+[info handle]
+
+Affiche l'action prise par fdb lorsqu'une erreur se produit dans Flash Player.
+Exemples :
+  info handle
+    Affiche la gestion de toutes les erreurs par fdb.
+  info handle recursion_limit
+    Affiche la gestion d'une erreur recursion_limit par fdb.
+
+[info locals]
+
+Affiche les variables locales du frame de pile en cours.
+
+[info scopechain]
+
+Affiche la chaîne de portée du frame de pile en cours.  La chaîne de portée est la liste 
+d'objets dans laquelle Flash Player effectue des recherches lorsqu'il tente de résoudre 
+un nom de symbole.
+
+[info sources]
+
+Affiche le nom et le numéro des fichiers source pour l'application en cours de débogage. 
+Les fichiers de structure et générés automatiquement ne sont pas inclus.
+Les fichiers sont affichés au format nom#N, où N est le numéro de fichier.
+Dans de nombreuses commandes, vous pouvez utiliser #N à la place du nom d'un fichier.
+
+[info stack]
+
+Parcours arrière de la pile.
+
+[info swfs]
+
+Affiche les fichiers .swf connus dans la session de débogage.  
+Voir la commande « viewswf » pour obtenir des détails sur le filtrage d'une liste de fichiers 
+en fonction du nom d'un fichier .swf. 
+
+[info targets]
+
+Affiche l'URL (http: ou file:) de l'application en cours de débogage.
+
+[info variables]
+
+Affiche les noms et valeurs de toutes les variables globales et statiques.
+
+[info workers]
+
+Affiche tous les opérateurs qui ont été démarrés.
+
+[info ?]
+
+Commande info non définie. Essayez « help info ».
+
+[kill]
+
+Annule l'exécution du programme en cours de débogage.
+Cette commande ne prend aucun argument.
+
+[list]
+
+Liste les lignes de code d'un fichier source.
+Exemples :
+  list
+    Liste dix lignes de plus dans le fichier en cours après ou autour de la liste précédente.
+  list -
+    Liste les dix lignes du fichier en cours situées avant la liste précédente.
+  list 87
+    Liste dix lignes du fichier en cours autour de la ligne 87.
+  list 87 102
+    Liste les lignes 87 à 102 du fichier en cours.
+Outre l'utilisation des numéros de ligne, comme illustré ci-dessus, vous pouvez également 
+spécifier des lignes de sept manières différentes :
+  doThis
+      La première ligne de la fonction doThis() du fichier en cours.
+   myapp.mxml
+      Ligne 1 du fichier myapp.mxml.
+   myapp.mxml:doThat
+      La première ligne de la fonction doThat() du fichier myapp.mxml.
+   myapp.mxml:56
+      Ligne 56 du fichier myapp.mxml.
+   #3
+      Ligne 1 du fichier n° 3.
+   #3:doOther
+      La ligne du fichier n° 3 où commence la fonction doOther().
+   #3:29
+      Ligne 29 du fichier n° 3.
+Pour afficher les noms et numéros de fichiers, saisissez « info sources » ou « info files ».
+Pour afficher les noms de fonctions, saisissez « info functions ».
+Les noms de fichiers et de fonctions abrégés sont acceptés s'ils ne sont pas ambigus.
+Lorsque vous le listez, un fichier devient le fichier en cours. Voir la commande « cf ».
+
+[next]
+
+Avance d'un pas dans un programme, en procédant par appels de sous-routine.
+  next
+    Avance d'un pas.
+  next 3
+    Avance de trois pas ou jusqu'à ce que le programme s'arrête pour toute autre raison.
+Identique à la commande « step », lorsque les appels de sous-routine ne se produisent pas. 
+Lorsqu'ils surviennent, l'appel est traité comme une instruction.
+
+[print]
+
+Imprime la valeur de variable ou d'expression.
+Exemples :
+  print i
+    Imprime la valeur de « i ».
+  print employee.name
+    Imprime la valeur de « employee.name ».
+  print employee
+    Imprime la valeur de l'objet « employee ».
+    Une valeur de type [Object 10378] peut s'afficher.
+  print employee
+    Imprime les valeurs de toutes les propriétés de l'objet « employee ».
+  print *employee
+    Imprime les valeurs de toutes les propriétés de l'objet « employee ».
+    L'opérateur * placé en préfixe est une alternative à l'opérateur . placé en suffixe.
+  print #10378.
+    Imprime les valeurs de toutes les propriétés de l'objet n° 10378.
+Les variables accessibles sont celles de l'environnement lexical du frame de pile 
+sélectionné, auxquelles s'ajoutent toutes celles dont la portée est globale 
+ou d'un fichier entier.
+
+[pwd]
+
+Imprime le répertoire de travail actif.
+Il s'agit du répertoire à partir duquel a été lancé fdb ; il ne peut pas être modifié 
+dans fdb. L'argument pour « run » et « source » peut être spécifié par rapport 
+à ce répertoire.
+Cette commande ne prend aucun argument.
+
+[quit]
+
+Quitte fdb.
+Cette commande ne prend aucun argument.
+
+[run]
+
+Démarre une session de débogage.
+Exemples :
+  run http://www.mysite.com/myapp.mxml
+    Exécute l'application MXML spécifiée.
+  run myapp.swf
+  run mydir\myapp.swf
+  run c:\mydir\myapp.swf
+    Exécute le fichier SWF local myapp.swf, qui peut être spécifié soit par rapport 
+au répertoire actif (voir la commande « pwd ») soit en utilisant un chemin absolu. 
+Dans ces cas, myapp.swd(le fichier contenant les informations de débogage) doit également 
+être présent dans le même répertoire que le fichier myapp.swf.
+  run
+    Exécute l'application auparavant spécifiée par la commande « file ».
+    Si aucune application n'est spécifiée, fdb attend qu'une application s'y connecte 
+ou que le temps d'attente arrive à expiration.
+« run » démarre l'application dans un navigateur ou Flash Player autonome.
+Dès que l'application démarre, elle s'affiche dans fdb, pour que vous puissiez définir 
+des points d'arrêt, par exemple.
+
+Sur Macintosh, la seule forme prise en charge de la commande est « run » sans argument.  
+Vous devez ensuite lancer manuellement Flash Player.
+
+[set]
+
+Définit la valeur d'une variable ou d'une variable dite de convenance.
+Ces dernières sont des variables qui existent uniquement dans fdb ; elles ne font pas partie 
+de votre programme.
+Elles portent le préfixe « $ » et un nom quelconque, à condition qu'il ne soit pas identique 
+à celui d'une variable existante.  Par exemple, $myVar.  Ces variables servent également 
+à contrôler de nombreux aspects de fdb.  
+
+Les variables de convenance suivantes sont utilisées par fdb :
+$listsize          - nombre de lignes source à afficher pour « list »
+$columnwrap        - numéro de la colonne dans laquelle la sortie est renvoyée
+$infostackshowthis - si la valeur est 0, n'affiche pas « this » dans le parcours arrière 
+de la pile
+$invokegetters     - si la valeur est 0, empêche le lancement de fonctions d'accès get 
+par fdb
+$bpnum             - le dernier numéro de point d'arrêt défini
+$displayattributes - si la valeur est 1, « print var. » affiche tous les attributs des 
+membres
+                     de « var » (par ex., private et static)
+
+Exemples :
+  set i = 3
+    Définit la variable « i » sur le numéro 3.
+  set employee.name = "Susan"
+    Définit la variable « employee.name » sur la chaîne « Susan ».
+  set $myVar = 20
+    Définit la variable de convenance « $myVar » sur le numéro 20
+
+[show]
+
+Commande générique pour l'affichage d'informations relatives à l'état de fdb.
+Liste des sous-commandes show :
+show break (sh b)        Emplacement et raison de l'exécution suspendue
+show directories (sh d) Répertoires dans lesquels rechercher les fichiers source
+show files (sh f)        Chemins et fichiers cible
+show functions (sh fu)  Informations sur le mappage de lignes de fonctions 
+show locations (sh l)   Emplacement des points d'arrêt
+show memory (sh m)      Utilisation de la mémoire en cours
+show net (sh n)          Statistiques des messages du lecteur 
+show properties (sh p)  Valeurs des propriétés
+show uri (sh u)          URI du lecteur pour cette session 
+show variable (sh v)    Extraction de variables brutes
+Saisissez « help show » suivi du nom de la sous-commande show pour obtenir une documentation 
+complète.
+
+[show break]
+
+Affiche le décalage au sein du fichier SWF sur lequel s'est arrêté le programme.
+
+[show directories]
+
+Affiche le chemin de recherche actif pour trouver des fichiers source.
+
+[show files]
+
+Affiche le chemin et le nom de fichier pour tous les fichiers cible.
+
+[show functions]
+
+Affiche les informations de mappage des fonctions aux numéros de ligne.
+Exemples :
+  show functions .
+    Affiche les informations de mappage pour toutes les fonctions du fichier en cours.
+  show functions myapp.mxml
+    Affiche les informations de mappage pour toutes les fonctions du fichier myapp.mxml.
+  show functions #3
+    Affiche les informations de mappage pour toutes les fonctions du fichier n° 3.
+  show functions
+    Affiche les informations de mappage pour les fonctions de tous les fichiers.
+Pour afficher les noms et numéros de fichiers, saisissez « info sources » ou « info files ».
+Les noms de fichiers abrégés sont acceptés s'ils ne sont pas ambigus.
+
+[show locations]
+
+Affiche la liste des emplacements définis pour chaque point d'arrêt.
+
+[show memory]
+
+Affiche les statistiques de la mémoire de la VM Java.
+
+[show net]
+
+Affiche les informations relatives aux messages que Flash Player envoie et reçoit.
+
+[show properties]
+
+Affiche la liste des variables de convenance utilisées dans le débogueur. 
+
+[show uri]
+
+Affiche l'URI envoyé pour cette session par le lecteur.
+
+[show variable]
+
+Affiche la valeur des membres d'une variable.  Deux paramètres sont requis : le premier 
+est l'identificateur de variable numérique, le second est le nom de propriété sur la variable.  
+La variable de convenance $invokegetters est utilisée pour déterminer si la méthode d'accès 
+aux propriétés, en supposant qu'elle existe, sera lancée ou non.
+Exemple :
+    show variable 1 __proto__
+
+[show ?]
+
+Commande show non définie. Essayez « help show ».
+
+[source]
+
+Lit des commandes fdb à partir d'un fichier et les exécute.
+  source mycommands.txt
+  source mydir\mycommands.txt
+  source c:\mydir\mycommands.txt
+    Lit le fichier mycommands.txt et y exécute les commandes fdb.
+    Le fichier contenant les commandes peut être spécifié soit par rapport 
+au répertoire actif (voir la commande « pwd ») soit en utilisant un chemin absolu.
+Le fichier .fdbinit est automatiquement lu de cette manière lorsque fdb est lancé.
+Le fichier .fdbinit est uniquement recherché dans le répertoire actif. Cela signifie que 
+vous avez pu paramétrer plusieurs fichiers .fdbinit pour différents projets.
+
+[step]
+
+Avance d'un ou plusieurs pas dans un programme jusqu'à atteindre une ligne source différente.
+Exemples :
+  step
+    Avance d'un pas.
+  step 3
+    Avance de trois pas ou jusqu'à ce que le programme s'arrête pour toute autre raison.
+
+[tutorial]
+
+Affiche un didacticiel sur l'utilisation de fdb.
+Cette commande ne prend aucun argument.
+
+[Tutorial]
+
+Session fdb typique :
+Démarrez une application avec « run ».
+Affichez les noms de fichiers avec « info sources ».
+Listez un fichier avec « list ».
+Définissez des points d'arrêt avec « break ».
+Exécutez un programme avec « continue » jusqu'à ce qu'un point d'arrêt soit atteint.
+Examinez l'état d'un programme avec « where », « print » et « info locals ».
+Exécutez des instructions individuelles avec « next », « step » et « finish ».
+Reprenez l'exécution avec « continue ».
+Quittez fdb avec « quit ».
+
+[undisplay]
+
+Supprime une ou plusieurs expressions d'affichage automatique.
+Exemples :
+  undisplay
+    Supprime toutes les expressions d'affichage automatique.
+  undisplay 2 7
+    Supprime les expressions d'affichage automatique n° 2 et 7.
+Pour afficher la liste des expressions d'affichage automatique avec leur numéro, 
+saisissez « info display ».
+
+[up]
+
+Sélectionne et imprime le frame de pile ayant appelé cette commande.
+Les commandes « info arguments » et « info locals » suivantes affichent les variables 
+locales et les arguments du frame sélectionné.
+Voir « down » et « frame »
+
+[viewswf]
+
+Définit ou supprime un filtre d'une liste de fichiers (c.-à-d. « info files » et 
+« info sources »), en fonction du nom d'un fichier .swf. 
+Sans paramètre, tous les fichiers sont affichés.  Si le même fichier est présent dans un 
+ou plusieurs fichiers .swf, la liste affiche uniquement la première instance du fichier.  
+Pour accéder à d'autres instances du fichier, utilisez le numéro du fichier (par ex., 
+« list #192 ») ou utilisez cette commande avec un paramètre (voir ci-dessous) pour afficher 
+des fichiers d'un fichier .swf spécifique.  Avec un seul paramètre, et le nom du fichier .swf, 
+tel qu'il est affiché par la commande « info swfs », seuls les fichiers issus du fichier .swf 
+spécifié sont affichés dans la liste de fichiers.  
+Les fichiers issus d'autres fichiers .swf ne sont pas affichés.  Cette commande affecte 
+également les commandes qui acceptent un fichier en tant que paramètre (par ex., « break »)
+Exemple :
+  viewswf myApp.mxml.swf
+    Seuls les fichiers issus du fichier myApp.mxml.swf sont affichés.
+  viewswf 
+    Les fichiers de tous les fichiers .swf sont affichés.
+ 
+[watch]
+
+Ajoute un point de contrôle sur une variable donnée. Le débogueur arrête l'exécution lorsque 
+la valeur de la variable change.
+Exemple :
+  watch foo
+
+[what]
+
+Affiche le contexte dans lequel est résolue une variable. 
+
+[where]
+
+Parcours arrière de la pile.
+
+[zzz]
+
+((( Keep this unused topic at the end of the file    )))
+((( so that the next-to-last one is parsed properly. )))

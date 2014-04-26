@@ -1,0 +1,808 @@
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+
+This file contains the text displayed by the 'help' command in fdb.
+
+It is divided into "topics". For example, when an fdb user types
+'help break', the [break] topic below is displayed.
+
+The first and last lines of each topic should be blank.
+They don't get displayed in fdb; they are here only
+to make this file more easily readable.
+
+Help text should be formatted to not wrap
+when displayed on an 80-character-wide console.
+The following line is 80 characters wide.
+
+--------------------------------------------------------------------------------
+
+[?]
+
+Udefineret kommando. Skriv 'help' for at se en liste over alle fdb-kommandoer.
+
+[break]
+
+Indsæt pausepunkt ved angivne linje eller funktion.
+Eksempler:
+  break 87
+    Indsætter et pausepunkt på linje 87 i den nuværende fil.
+  break myapp.mxml:56
+    Indsætter et pausepunkt på linje 56 i myapp.mxml.
+  break #3:29
+    Indsætter et pausepunkt på linje 29 i fil nr. 3.
+  break doThis
+    Indsætter et pausepunkt ved funktionen doThis() i den nuværende fil.
+  break myapp.mxml:doThat
+    Indsætter et pausepunkt ved funktionen doThat() i myapp.mxml.
+  break #3:doOther
+    Indsætter et pausepunkt ved funktionen doOther() i fil nr. 3.
+  break
+   Indsætter et pausepunkt ved den nuværende eksekveringsadresse i den 
+   nuværende stakramme. Det kan være nyttigt hvis der kræves pauser ved 
+   returnering til en stakramme.
+Hvis du vil have vist filernes navne og numre, skal du skrive 'info sources' 
+eller 'info files'.
+Hvis du vil se funktionernes navne, skal du skrive 'info functions'.
+Forkortede filnavne og funktionsnavne accepteres hvis de er entydige.
+Hvis der angives linjenummer, indsættes pausepunktet i starten af linjen.
+Hvis der angives funktion, indsættes pausepunktet inden funktionens kode.
+Du kan se mere om kontrol over pausepunkter ved at skrive 'commands' eller 
+'condition'.
+
+[bt]
+
+Tilbagesporing af stakken.
+
+[catch]
+
+Stands når der opstår en undtagelse.  Dette gælder kun for undtagelser der 
+bliver fanget  dvs. undtagelser der bliver håndteret af en "catch"-blok.  
+Undtagelser der ikke fanges, standser altid i fejlfinding.
+
+Du kan slette et opfangningspunkt med kommandoen "delete".
+
+Eksempler:
+  catch *
+    Standser når der opstår en vilkårlig undtagelse.
+  catch ReferenceError
+    Standser når der opstår en ReferenceError, uanset om den fanges eller ej.
+
+[cf]
+
+Vis navn og nummer på den nuværende fil, eller skift fil.
+Eksempler:
+  cf
+    Viser navn og nummer på den nuværende fil.
+  cf myapp.mxml
+    Skifter til myapp.mxml som nuværende fil.
+  cf #29
+    Skifter til fil nr. 29 som nuværende fil.
+Hvis du vil have vist filernes navne og numre, skal du skrive 'info sources' 
+eller 'info files'.
+Forkortede filnavne accepteres hvis de er entydige.
+Når du viser en fil med 'list', bliver den også valgt som nuværende fil.
+
+[clear]
+
+Slet pausepunkt ved angivne linje eller funktion.
+Eksempler:
+  clear 87
+    Sletter pausepunktet på linje 87 i den nuværende fil.
+  clear myapp.mxml:56
+    Sletter pausepunktet på linje 56 i myapp.mxml.
+  clear #3:29
+    Sletter pausepunktet på linje 29 i fil nr. 3.
+  clear doThis
+    Sletter pausepunktet ved funktionen doThis() i den nuværende fil.
+  clear myapp.mxml:doThat
+    Sletter pausepunktet ved funktionen doThat() i myapp.mxml.
+  clear #3:doOther
+    Sletter pausepunktet ved funktionen doOther() i fil nr. 3.
+  clear
+    Sletter pausepunktet på den nuværende linje i den nuværende fil. 
+Hvis du vil have vist filernes navne og numre, skal du skrive 'info sources' 
+eller 'info files'.
+Hvis du vil se funktionernes navne, skal du skrive 'info functions'.
+Forkortede filnavne og funktionsnavne accepteres hvis de er entydige.
+Hvis der angives et linjenummer, slettes alle pausepunkter på den linje.
+Hvis der angives en funktion, slettes pausepunktet inden funktionen.
+
+[continue]
+
+Fortsæt afvikling efter at have stoppet ved pausepunkt.
+Denne kommando kan ikke bruges sammen med argumenter.
+
+[condition]
+
+
+Angiv at pausepunkt nummer N kun skal aktiveres, hvis COND overholdes.
+Bruges således: 'condition N COND' hvor N er et heltal og COND er det udtryk 
+der skal holdes op imod, når pausepunktet N nås.
+
+[commands]
+
+Angiv de kommandoer der skal afvikles når et pausepunkt nås.
+Skriv pausepunktets nummer som argument efter 'commands'.
+Hvis der ikke angives et argument, vælges det senest angivne pausepunkt.
+Selve kommandoerne skal skrives fra den efterfølgende linje.
+Du angiver slutningen ved at skrive "end" på den pågældende linje.
+Hvis du skriver "silent" på første linje, er pausepunktet diskret; der skrives 
+altså ikke noget output når pausepunktet nås  ud over det som kommandoerne skriver.
+Eksempel:
+  (fdb) commands
+  Indtast kommandoer der skal afvikles når pausepunkt 1 nås, én pr. linje.
+  Afslut med en linje der kun indeholder 'end'.
+  >w
+  >end
+
+[delete]
+
+Slet et eller flere pausepunkter.
+Eksempler:
+  delete
+    Sletter alle pausepunkter.
+  delete 2 5
+    Sletter pausepunkterne nr. 2 og nr. 5.
+Hvis du vil se pausepunkternes numre, skal du skrive 'info breakpoints'.
+
+[directory]
+
+Rediger listen over mapper som fdv søger efter kildefiler i.
+
+Eksempler:
+
+  directory
+    Gendanner listens standardindstillinger, dvs. mappen hvori kildefilen blev 
+    kompileret til objektkode efterfulgt af den nuværende arbejdsmappe.
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+    Føjer den angivne mappe til begyndelsen af listen over mapper, hvori der 
+    søges efter kilder.  Når der fx søges efter kilden til klassen 
+    mypackage.MyClass, søges der i fejlfinding både efter 
+    C:\MySource\mypackage\MyClass.as og C:\MySource\MyClass.as.
+
+  directory C:\Dir1;C:\Dir2    (Windows  brug ';' som skilletegn)
+  directory /Dir1:/Dir2        (Mac  brug ':' som skilletegn)
+    Føjer flere mapper til begyndelsen af listen over mapper, hvori der søges 
+    efter kilder.
+
+Du kan få vist listen i sin nuværende form ved at skrive 'show directories'.
+
+[disable]
+
+Deaktiver et eller flere pausepunkter eller auto-display-udtryk.
+Eksempler:
+  disable
+  disable breakpoints
+    Deaktiverer alle pausepunkter.
+  disable 2 5
+  disable breakpoints 2 5
+    Deaktiverer pausepunkterne nr. 2 og nr. 5.
+  disable display
+    Deaktiverer alle auto-display-udtryk.
+  disable display 1 3
+    Deaktiverer auto-display-udtryk nr. 1 og nr. 3.
+Hvis du vil se pausepunkternes numre, skal du skrive 'info breakpoints'.
+Hvis du vil se auto-display-udtrykkenes numre, skal du skrive 'info display'.
+
+[disassemble]
+
+(Kun til ActionScript 2; understøttes ikke ved fejlfinding i ActionScript 3)
+
+Opdel den angivne del af kildekoden.
+Som standard vælges den nuværende linje.
+Der understøttes samme argumenter som under listekommandoen
+Eksempler:
+  disassemble 87
+    Opdeler linje 87 i den nuværende fil.
+  disassemble 87 102
+    Opdeler linje 87  102 i den nuværende fil.
+  disassemble doThis
+      Opdeler funktionen doThis() i den nuværende fil.
+Ud over at bruge enkle linjenumre som vist ovenfor, kan du udpege linjer på 
+andre måder:
+   myapp.mxml
+      Linje 1 i myapp.mxml.
+   myapp.mxml:doThat
+      Den første linje af funktionen doThat() i myapp.mxml.
+   myapp.mxml:56
+      Linje 56 i myapp.mxml.
+   #3
+      Linje 1 i fil nr. 3.
+   #3:doOther
+      Linjen i fil nr. 3 hvor funktionen doOther() begynder.
+   #3:29
+      Linje 29 i fil nr. 3.
+
+[display]
+
+Føj et udtryk til listen over auto-display-udtryk.
+Eksempel:
+  display employee.name
+    Føj 'employee.name' til listen over auto-display-udtryk.
+    Hver gang fdb stopper, vises værdien for employee.name.
+Argumentet for denne kommando minder om kommandoen for 'print'.
+Hvis du vil se en liste over auto-display-udtrykkene og deres numre, skal du 
+skrive 'info display'.
+
+[down]
+
+Vælg og skriv stakrammen der kaldes af denne.
+Ved efterfølgende 'info' argumenter og 'info locals' kommandoer vises de lokale 
+variable og argumenterne for den valgte ramme.
+Læs mere under 'up' og 'frame' 
+
+[enable]
+
+Aktiver et eller flere pausepunkter eller auto-display-udtryk.
+Eksempler:
+  enable
+  enable breakpoints
+    Aktiverer alle pausepunkter.
+  enable 2 5
+  enable breakpoints 2 5
+    Aktiverer pausepunkterne nr. 2 og nr. 5.
+  enable display
+    Aktiverer alle auto-display-udtryk.
+  enable display 1 3
+    Aktiverer auto-display-udtryk nr. 1 og nr. 3.
+Hvis du vil se pausepunkternes numre, skal du skrive 'info breakpoints'.
+Hvis du vil se auto-display-udtrykkenes numre, skal du skrive 'info display'.
+
+[file]
+
+Vælg en applikation at køre fejlfinding i uden at starte den.
+Eksempler:
+  file http://www.mysite.com/myapp.mxml
+    Vælg en MXML-applikation at køre fejlfinding i.
+  file myapp.swf
+    Angiv en lokal SWF-fil i den nuværende mappe at køre fejlfinding i.
+    I dette tilfælde skal myapp.swd (filen der indeholder 
+    fejlfindingsoplysninger) også ligge i den nuværende mappe.
+Kommandoen får ikke applikationen til at starte; du kan starte fejlfindingen af 
+applikationen ved at bruge kommandoen 'run' uden argument.
+I stedet for at skrive 'file <filnavn>' efterfulgt af 'run', kan du angive 
+hvilken applikation der skal køres fejlfinding i som et argument til 'run':
+  run http://mysite.com/myapp.mxml
+  run myapp.swf
+Du kan også angive hvilken applikation der skal køres fejlfinding i, som et 
+argument i kommandolinjen når du starter fdb:
+  fdb http://www.mysite.com/myapp.mxml
+  fdb myapp.swf
+I dette tilfælde behøver du ikke at bruge 'file' eller 'run'.
+Hvis du bruger 'run' uden at angive en applikation at køre fejlfinding i, 
+venter fdb på at en applikation etablerer forbindelse.
+
+[finish]
+
+Eksekver indtil den valgte funktion returnerer.
+Denne kommando kan ikke bruges sammen med argumenter.
+
+[frame]
+
+Vælg og skriv en bestemt stakramme.
+Denne kommando kan evt. bruges med et argument, et rammenummer.
+Hvis der ikke angives noget argument, returneres der som standard til den 
+nuværende topramme (dvs. ramme 0).
+Eksempler:
+  frame 4
+  frame
+Ved efterfølgende 'info' argumenter og 'info locals' kommandoer vises de lokale 
+variable og argumenterne for den valgte ramme.
+Læs mere under 'down' og 'bt' 
+
+[handle]
+
+Angiv hvordan fdb skal håndtere fejl i Flash Player.
+Eksempler:
+  handle recursion_limit stop
+    Vis en meddelelse i fdb, og stop som om et pausepunkt er nået når der 
+    opstår en recursion_limit-fejl.
+  handle all print nostop
+    Vis en meddelelse i fdb når der opstår en fejl, men stop ikke.
+Første argument er et navn på fejlen eller 'all'.
+Yderligere argumenter er handlinger der vedrører fejlen.
+Hvis du vil se navne på fejl, skal du skrive 'info handle'.
+Mulige handlinger er print/noprint og stop/nostop.
+Med 'print' skrives der en meddelelse hvis fejlen opstår.
+Med 'stop' åbnes fejlfinding igen hvis fejlen opstår. Medfører 'print'.
+
+[help]
+
+Har du ikke brugt fdb før? Du kan få grundlæggende oplysninger ved at skrive 
+'tutorial'.
+Liste over kommandoer i fdb:
+bt (bt)             Skriv tilbagesporing af alle stakrammer
+break (b)           Indsæt pausepunkt ved angivne linje eller funktion
+catch (ca)          Stands når der opstår en undtagelse
+cf (cf)             Vis navn og nummer på den nuværende fil
+clear (cl)          Slet pausepunkt ved angivne linje eller funktion
+condition (cond)    Anvend/fjern betinget udtryk fra et pausepunkt
+continue (c)        Fortsæt afvikling efter at have stoppet ved pausepunkt
+commands (com)      Angiver de kommandoer der skal afvikles når et pausepunkt 
+                    nås
+delete (d)          Slet pausepunkter eller auto-display-udtryk
+directory (dir)     Føj en mappe til søgningen efter kildefiler
+disable (disab)     Deaktiver pausepunkter eller auto-display-udtryk
+disassemble (disas)       Opdel kildelinjer eller funktioner
+display (disp)      Tilføj et auto-display-udtryk
+enable (e)          Aktiver pausepunkter eller auto-display-udtryk
+file (fil)          Vælg en applikation at køre fejlfinding i.
+finish (f)          Eksekver indtil den valgte funktion returnerer
+handle (han)        Angiv hvordan fejl skal håndteres
+help (h)            Vis hjælp til fdb-kommandoer
+home (ho)           Angiv listeplacering der hvor afviklingen standsede
+info (i)            Vis oplysninger om programmet der undersøges for fejl
+kill (k)            Afbryd afviklingen af programmet der undersøges for fejl
+list (l)            Vis liste for den angivne funktion eller linje
+next (n)            Spring i program
+print (p)           Skriv værdien af variablen EXP
+pwd (pw)            Skriv arbejdsmappen
+quit (q)            Afslut fdb
+run (r)             Start det program der blev kørt fejlfinding i
+set (se)            Angiv værdien for en variabel
+source (so)         Læs fdb-kommandoer fra en fil
+step (s)            Spring i program indtil der nås en anden kildelinje
+tutorial (t)        Vis en vejledning om at bruge fdb
+undisplay (u)       Fjern et auto-display-udtryk
+viewswf (v)         Angiv eller fjern filter for filvisning baseret på swf
+watch (wa)          Føj et overvågningspunkt til en given variabel
+what (wh)           Viser konteksten for en variabel
+where (w)           Samme som bt
+Skriv 'help' efterfulgt af navnet på en kommando for at få vist alle 
+oplysninger.
+
+[home]
+
+Angiv listeplaceringen dér hvor afviklingen standsede.
+
+[info]
+
+Generisk kommando til at vise oplysninger om det program der findes fejl i.
+Liste over underkommandoer til info:
+info arguments (i a)    Argumentvariable for nuværende stakramme
+info breakpoints (i b)  Status for brugerdefinerbare pausepunkter
+info display (i d)      Vis liste over alle auto-display-udtryk
+info files (i f)        Navne på mål og filer der findes fejl i
+info functions (i fu)   Navne på alle funktioner
+info handle (i h)       Angiver hvordan fejl håndteres
+info locals (i l)       Lokale variable for nuværende stakramme
+info scopechain (i sc)  Virkefeltet (scope chain) for nuværende stakramme
+info sources (i so)     Kildefiler i programmet
+info stack (i s)        Tilbagesporing af stakken
+info swfs (i sw)        Liste over swf-filer i denne session
+info targets(i t)       Angiver hvilken applikation der søges efter fejl i
+info variables (i v)    Navne på alle globale og statiske variable
+Skriv 'help info' efterfulgt af navnet på en info-underkommando for at få vist 
+alle oplysninger.
+
+[info arguments]
+
+Vis argumenter for nuværende stakramme.
+
+[info breakpoints]
+
+Vis status for alle pausepunkter og overvågningspunkter.
+I kolonnen Type står der enten:
+   breakpoint   - almindeligt pausepunkt
+   watchpoint   - overvågningspunkt
+I kolonnen Disp står der 'keep', 'del' eller 'dis' alt efter hvad der skal ske 
+med pausepunktet, når det nås. Hvis der står 'dis', deaktiveres pausepunktet. 
+Står der 'del', bliver det slettet.  
+I kolonnerne 'Address' og 'What' angives hhv. adressen og fil-/linjenummeret. 
+
+[info display]
+
+Vis liste over alle auto-display-udtryk og deres numre.
+
+[info files]
+
+Vis navne og numre på filerne i det program der søges efter fejl i, inklusive 
+kildefiler, framework-filer og automatisk genererede filer.
+Eksempler:
+  info files
+    Viser en liste over alle filer, i alfabetisk rækkefølge efter kategori
+  info files my
+  info files my*
+    Viser en liste over alle de filer hvis navn starter med "my", i alfabetisk 
+    rækkefølge.
+  info files *.as
+    Viser en liste over alle de filer hvis navn slutter med ".as", i alfabetisk 
+    rækkefølge.
+  info files *foo*
+    Viser en liste over alle de filer hvis navn indeholder "foo", i alfabetisk 
+    rækkefølge. 
+Filerne vises i formatet navn#N, hvor N er filens nummer.
+I mange kommandoer kan du bruge #N i stedet for filnavnet.
+
+[info functions]
+
+Vis navne på funktioner.
+Eksempler:
+  info functions .
+    Vis alle funktioner i den nuværende fil.
+  info functions myapp.mxml
+    Vis alle funktioner i myapp.mxml.
+  info functions #3
+    Vis alle funktioner i fil nr. 3.
+  info functions
+    Viser alle funktioner i alle filer.
+Hvis du vil have vist filernes navne og numre, skal du skrive 'info sources' 
+eller 'info files'.
+Forkortede filnavne accepteres hvis de er entydige.
+
+[info handle]
+
+Hvad fdb gør når der opstår en fejl i Flash Player.
+Eksempler:
+  info handle
+    Vis hvordan fdb håndterer alle fejl.
+  info handle recursion_limit
+    Vis hvordan fdb håndterer en recursion_limit-fejl.
+
+[info locals]
+
+Vis lokale variable for nuværende stakramme.
+
+[info scopechain]
+
+Vis virkefelt for nuværende stakramme.  Virkefeltet er listen over objekter der 
+søges i når Flash Player forsøger at fortolke et symbolnavn.
+
+[info sources]
+
+Vis navne og numre på kildefilerne i det program der søges efter fejl i. 
+Framework-filer og automatisk genererede filer er ikke inkluderet.
+Filerne vises i formatet navn#N, hvor N er filens nummer.
+I mange kommandoer kan du bruge #N i stedet for filnavnet.
+
+[info stack]
+
+Tilbagesporing af stakken.
+
+[info swfs]
+
+Vis swf-filer der kendes i fejlfindings-sessionen.  Kig under kommandoen 
+'viewswf' hvis du vil have oplysninger om hvordan fillisten kan filtreres efter 
+swf-filnavn. 
+
+[info targets]
+
+Vis URL-adressen (http: eller file:) til den applikation der søges efter fejl i.
+
+[info variables]
+
+Vis navne og værdier på alle globale og statiske variable.
+
+[info ?]
+
+Udefineret info-kommando. Du kan få hjælp ved at skrive 'help info'
+
+[kill]
+
+Afbryd afviklingen af programmet der undersøges for fejl.
+Denne kommando kan ikke bruges sammen med argumenter.
+
+[list]
+
+Vis en liste over linjer med kode i en kildefil.
+Eksempler:
+  list
+    Viser yderligere ti linjer i den nuværende fil, efter eller omkring den 
+    tidligere viste linje.
+  list -
+    Viser de ti linjer i den nuværende fil, der står inden de tidligere viste.
+  list 87
+    Viser ti linjer omkring linje 87 i den nuværende fil.
+  list 87 102
+    Viser linje 87  102 i den nuværende fil.
+Ud over at bruge enkle linjenumre som vist ovenfor, kan du udpege linjer på syv 
+andre måder:
+  doThis
+      Den første linje af funktionen doThis() i den nuværende fil.
+   myapp.mxml
+      Linje 1 i myapp.mxml.
+   myapp.mxml:doThat
+      Den første linje af funktionen doThat() i myapp.mxml.
+   myapp.mxml:56
+      Linje 56 i myapp.mxml.
+   #3
+      Linje 1 i fil nr. 3.
+   #3:doOther
+      Linjen i fil nr. 3 hvor funktionen doOther() begynder.
+   #3:29
+      Linje 29 i fil nr. 3.
+Hvis du vil have vist filernes navne og numre, skal du skrive 'info sources' 
+eller 'info files'.
+Hvis du vil se funktionernes navne, skal du skrive 'info functions'.
+Forkortede filnavne og funktionsnavne accepteres hvis de er entydige.
+Når du får en fil vist, bliver den også valgt som den nuværende fil. (Læs mere 
+under kommandoen 'cf').
+
+[next]
+
+Spring i programmet, gennem kald fra underrutiner.
+  next
+    Spring en enkelt gang.
+  next 3
+    Spring 3 gange eller indtil programmet stopper af en anden grund.
+Fungerer som kommandoen 'step' så længe der ikke sker kald fra underrutiner. 
+Hvis der gør, behandles kaldet som én instruktion.
+
+[print]
+
+Skriv værdien af variablen eller udtrykket.
+Eksempler:
+  print i
+    Skriv værdien for 'i'.
+  print employee.name
+    Skriv værdien for 'employee.name'.
+  print employee
+    Skriv værdien for objektet 'employee'.
+    Der skrives muligvis noget i stil med [Object 10378].
+  print employee.
+    Skriv værdierne for alle egenskaber for objektet 'employee'.
+  print *employee
+    Skriv værdierne for alle egenskaber for objektet 'employee'.
+    Præfikset * fungerer på samme måde som suffikset '.' (punktum).
+  print #10378.
+    Skriv værdierne for alle egenskaber for objekt nr. 10378.
+Der kan bruges variable fra det leksikale miljø for den valgte stakramme, plus 
+de variable hvis virkefelt er globalt eller en hel fil.
+
+[pwd]
+
+Skriv den nuværende arbejdsmappe.
+Det er den mappe som fdb blev kørt fra; den kan ikke ændres fra fdb. Argumentet 
+for 'run' og 'source' kan angives i forhold til denne mappe.
+Denne kommando kan ikke bruges sammen med argumenter.
+
+[quit]
+
+Afslut fdb.
+Denne kommando kan ikke bruges sammen med argumenter.
+
+[run]
+
+Start en fejlfindings-session.
+Eksempler:
+  run http://www.mysite.com/myapp.mxml
+    Kører den angivne MXML-applikation.
+  run myapp.swf
+  run mydir\myapp.swf
+  run c:\mydir\myapp.swf
+    Kører den lokale SWF-fil myapp.swf som kan angives
+	enten i forhold til den nuværende mappe (læs mere under kommandoen 
+        'pwd')
+	eller med en komplet sti. I disse tilfælde skal myapp.swd (filen der 
+indeholder fejlfindingsoplysninger) også ligge i den samme mappe som myapp.swf.
+  run
+    Kør applikationen der tidligere blev angivet med kommandoen 'file'.
+    Hvis der ikke er angivet nogen applikation, venter fdb indtil der er en der 
+    har etableret forbindelse. Hvis det ikke sker, opstår der timeout.
+Applikationen kan startes i et browser- eller Flash Player-vindue med 'run'.
+Så snart applikationen startes, åbnes fdb så du kan angive pausepunkter osv.
+
+På Macintosh-computere understøttes kommandoen 'run' kun uden argumenter.  
+Du skal derefter manuelt starte Flash Player.
+
+[set]
+
+Angiv værdien for en variabel eller en simpel variabel.
+Simple variable er variable der kun findes indenfor fdb; de er ikke en del af 
+dit program.
+Simple variable har fortegnet '$' og kan have ethvert navn der ikke er benyttes 
+med eksisterende variable.  Eksempel: $myVar.  Simple variable bruges også til 
+at styre diverse dele af fdb.  
+
+Følgende simple variable bruges af fdb.
+$listsize          - antallet af kildelinjer der skal vises med 'list'
+$columnwrap        - nummeret på den kolonne som outputtet skal ombrydes i
+$infostackshowthis - hvis værdien er 0, vises 'this' ikke i tilbagesporing af 
+                     stakken
+$invokegetters     - hvis værdien er 0, forhindres fdb i at udløse 
+                     hentefunktioner
+$bpnum             - nummeret på det senest definerede pausepunkt
+$displayattributes - hvis værdien er 1, viser 'print var.' alle attributter for 
+                     'var' (fx privat, statisk etc.)
+
+Eksempler:
+  set i = 3
+    Definerer variablen 'i' som tallet 3.
+  set employee.name = "Susan"
+    Definerer variablen 'employee.name' som strengen "Susan".
+  set $myVar = 20
+    Definerer den simple variabel '$myVar' som tallet 20
+
+[show]
+
+Generisk kommando til at vise statusoplysninger om fdb.
+Liste over underkommandoer til 'show':
+show break (sh b)       Sted og begrundelse for standsning af afvikling
+show directories (sh d) Mapper hvori der skal søges efter kildefiler
+show files (sh f)       Målfiler og stier
+show functions (sh fu)  Tilknytningsoplysninger for funktionslinjen 
+show locations (sh l)   Placering af pausepunkter
+show memory (sh m)      Nuværende hukommelsesforbrug
+show net (sh n)         Meddelelsesstatistik for afspiller 
+show properties (sh p)  Værdier for egenskaber
+show uri (sh u)         Afspillerens URI for denne session 
+show variable (sh v)    Henter selve variablen
+Skriv 'help show' efterfulgt af navnet på en show-underkommando for at få vist 
+alle oplysninger.
+
+[show break]
+
+Vis hvor i swf-filen programmet standsede
+
+[show directories]
+
+Vis den nuværende sti til søgning efter kildefiler.
+
+[show files]
+
+Vis stier og filnavne for alle målfilerne
+
+[show functions]
+
+Vis oplysninger om sammenknytning af funktioner og linjenumre.
+Eksempler:
+  show functions .
+    Viser tilknytningsoplysninger for alle funktioner i den nuværende fil.
+  show functions myapp.mxml
+    Viser tilknytningsoplysninger for alle funktioner i myapp.mxml.
+  show functions #3
+    Viser tilknytningsoplysninger for alle funktioner i fil nr. 3.
+  show functions
+    Viser tilknytningsoplysninger for alle funktioner i alle filer.
+Hvis du vil have vist filernes navne og numre, skal du skrive 'info sources' 
+eller 'info files'.
+Forkortede filnavne accepteres hvis de er entydige.
+
+[show locations]
+
+Viser en liste over de placeringer der et angivet for hvert pausepunkt
+
+[show memory]
+
+Vis hukommelsesstatistik for Java VM.
+
+[show net]
+
+Vis oplysninger om meddelelser der er blevet sendt til eller modtaget fra Flash 
+Player.
+
+[show properties]
+
+Viser en liste over de simple variable der bruges af fejlfinding 
+
+[show uri]
+
+Vis den URI som afspilleren har sendt for denne session.
+
+[show variable]
+
+Vis værdien for medlemmer af en variabel.  Der kræves to parametre. den første 
+er til at identificere variablen numerisk, den anden er navnet på egenskaben 
+for variablen.  Den simple variabel $invokegetters bruges til at bestemme om 
+funktionen til at hente egenskaber skal udløses  under forudsætning af at den 
+findes.
+Eksempel:
+    show variable 1 __proto__
+
+[show ?]
+
+Udefineret show-kommando. Du kan få hjælp ved at skrive 'help show'
+
+[source]
+
+Læs fdb-kommandoer fra en fil, og eksekver dem.
+  source mycommands.txt
+  source mydir\mycommands.txt
+  source c:\mydir\mycommands.txt
+    Læser mycommands.txt og afvikler fdb-kommandoerne deri.
+    Filen der indeholder kommandoerne, kan angives enten
+	i forhold til den nuværende mappe (læs mere under kommandoen 'pwd')
+	eller med en komplet sti.
+På den måde indlæses filen .fdbinit automatisk når fdb startes.
+Der ledes kun efter .fdbinit i den nuværende mappe. Det betyder at du kan have 
+flere forskellige .fdbinit-filer liggende til forskellige lejligheder.
+
+[step]
+
+Spring i programmet indtil der nås en anden kildelinje.
+Eksempler:
+  step
+    Spring en enkelt gang.
+  step 3
+    Spring 3 gange eller indtil programmet stopper af en anden grund.
+
+[tutorial]
+
+Vis en vejledning til brug af fdb.
+Denne kommando kan ikke bruges sammen med argumenter.
+
+[Tutorial]
+
+En typisk fdb-session:
+Start en applikation med 'run'.
+Få filnavne vist med 'info sources'.
+Få vist en fil med 'list'.
+Angiv pausepunkter med 'break'.
+Eksekver program med 'continue' indtil der nås et pausepunkt.
+Undersøg programmets status med 'where', 'print' og 'info locals'.
+Eksekver individuelle udsagn med 'next', 'step' og 'finish'.
+Genoptag afvikling med 'continue'.
+Afslut fdb med 'quit'.
+
+[undisplay]
+
+Fjern et eller flere auto-display-udtryk.
+Eksempler:
+  undisplay
+    Fjern alle auto-display-udtryk.
+  undisplay 2 7
+    Fjern auto-display-udtryk nr. 2 og nr. 7.
+Hvis du vil se en liste over auto-display-udtrykkene og deres numre, skal du 
+skrive 'info display'.
+
+[up]
+
+Vælg og skriv stakrammen der kaldte denne.
+Ved efterfølgende 'info'-argumenter og 'info locals'-kommandoer vises de lokale 
+variable og argumenterne for den valgte ramme.
+Læs mere under 'down' og 'frame'
+
+[viewswf]
+
+Angiver eller fjerner filter for filvisning (dvs. 'info files' og 'info 
+sources') baseret på swf-filens navn 
+Hvis der ikke angives nogen parametre, vises alle filer.  Hvis samme fil findes 
+i flere swf-filer, er det kun den første forekomst af filen der vises.  Du kan 
+gå direkte til andre forekomster af filen ved at bruge filens nummer (fx 'list 
+#192') eller ved at bruge kommandoen med en parameter (læs mere herunder) for 
+at vise filer fra en bestemt swf-fil.  Hvis du angiver swf-filens navn med en 
+enkelt parameter, som vist med kommandoen 'info swfs', er det kun filerne fra 
+den angivne swf-fil som vises.  
+Filer fra andre swf-filer bliver ikke vist.  Kommandoen har også indflydelse på 
+kommandoer der accepterer en fil som parameter (fx 'break')
+Eksempel:
+  viewswf myApp.mxml.swf
+    Der bliver kun vist filer fra myApp.mxml.sfw.
+  viewswf 
+    Alle filer fra alle swf-filer bliver vist.
+ 
+[watch]
+
+Føj et overvågningspunkt til en given variabel. Fejlfinding standser 
+afviklingen når variablens værdi ændres.
+Eksempel:
+  watch foo
+
+[what]
+
+Viser hvilken kontekst variablen fortolkes i. 
+
+[where]
+
+Tilbagesporing af stakken.
+
+[zzz]
+
+((( Keep this unused topic at the end of the file    )))
+((( so that the next-to-last one is parsed properly. )))

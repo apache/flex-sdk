@@ -1,0 +1,803 @@
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+
+This file contains the text displayed by the 'help' command in fdb.
+
+It is divided into "topics". For example, when an fdb user types
+'help break', the [break] topic below is displayed.
+
+The first and last lines of each topic should be blank.
+They don't get displayed in fdb; they are here only
+to make this file more easily readable.
+
+Help text should be formatted to not wrap
+when displayed on an 80-character-wide console.
+The following line is 80 characters wide.
+
+--------------------------------------------------------------------------------
+
+[?]
+
+Udefinert kommando. Skriv "help" hvis du vil se en liste over alle 
+fdb-kommandoer.
+
+[break]
+
+Angi stoppunkt ved valgt linje eller funksjon.
+Eksempler:
+  break 87
+    Angir et stoppunkt ved linje 87 i gjeldende fil.
+  break myapp.mxml:56
+    Angir et stoppunkt ved linje 56 i myapp.mxml.
+  break #3:29
+    Angir et stoppunkt ved linje 29 i fil nr. 3.
+  break doThis
+    Angir et stoppunkt ved funksjonen doThis() i gjeldende fil.
+  break myapp.mxml:doThat
+    Angir et stoppunkt ved funksjonen doThat() i filen myapp.mxml.
+  break #3:doOther
+    Angir et stoppunkt ved funksjonen doOther() i fil nr. 3.
+  break
+   Angir et stoppunkt ved gjeldende kjøringsadresse i gjeldende stakkramme. 
+   Dette er nyttig for stopp ved retur til en stakkramme.
+Hvis du vil se filnavn og filnummer, skriver du "info sources" eller "info 
+files".
+Hvis du vil se funksjonsnavn, skriver du "info functions".
+Forkortede fil- og funksjonsnavn godtas hvis de ikke er tvetydige.
+Hvis linjenummer er angitt, legges stoppet på begynnelsen av koden for den 
+linjen.
+Hvis funksjon er angitt, legges stoppet på begynnelsen av koden for den 
+funksjonen.
+Du finner mer om stoppunktkontroll under "commands" og "condition".
+
+[bt]
+
+Tilbakesporing i stakk.
+
+[catch]
+
+Stopp hvis unntak oppstår. Dette påvirker kun unntak som blir fanget, dvs. 
+unntak som skal håndteres av en catch-blokk. Unntak som ikke blir fanget, 
+stanses alltid i feilsøkingen.
+
+Du sletter et catch-punkt med kommandoen "delete".
+
+Eksempler:
+  catch *
+    Stopper ved ethvert unntak som oppstår.
+  catch ReferenceError
+    Stopper hvis det oppstår en ReferenceError, enten den fanges eller ikke.
+
+[cf]
+
+Vis navn og nummer for gjeldende fil, eller endre gjeldende fil.
+Eksempler:
+  cf
+    Viser navn og nummer for gjeldende fil.
+  cf myapp.mxml
+    Endrer gjeldende fil til myapp.mxml.
+  cf #29
+    Endrer gjeldende fil til filnr. 29.
+Hvis du vil se filnavn og filnummer, skriver du "info sources" eller "info 
+files".
+Forkortede filnavn godtas hvis de ikke er tvetydige.
+Hvis du lister en fil med kommandoen "list", blir den filen til gjeldende fil.
+
+[clear]
+
+Fjern stoppunkt ved valgt linje eller funksjon.
+Eksempler:
+  clear 87
+    Fjerner stoppunktet ved linje 87 i gjeldende fil.
+  clear myapp.mxml:56
+    Fjerner stoppunktet ved linje 56 i myapp.mxml.
+  clear #3:29
+    Fjerner stoppunktet ved linje 29 i fil nr. 3.
+  clear doThis
+    Fjerner stoppunktet ved funksjonen doThis() i gjeldende fil.
+  clear myapp.mxml:doThat
+    Fjerner stoppunktet ved funksjonen doThat() i filen myapp.mxml.
+  clear #3:doOther
+    Fjerner stoppunktet ved funksjonen doOther() i fil nr. 3.
+  clear
+    Fjerner stoppunktet på gjeldende linje i gjeldende fil. 
+Hvis du vil se filnavn og filnummer, skriver du "info sources" eller "info 
+files".
+Hvis du vil se funksjonsnavn, skriver du "info functions".
+Forkortede fil- og funksjonsnavn godtas hvis de ikke er tvetydige.
+Hvis linjenummer er angitt, tømmes alle stoppunkt på den linjen
+Hvis funksjon er angitt, fjernes stoppunkt på begynnelsen av funksjonen.
+
+[continue]
+
+Fortsett kjøring etter stans ved stoppunkt.
+Denne kommandoen bruker ingen argumenter.
+
+[condition]
+
+
+Angi at stoppunkt nummer n skal stoppe kun hvis COND er sann.
+Brukes slik: "condition N COND", der N er et heltall og COND er et uttrykk som 
+skal evalueres hver gang kjøringen når stoppunkt N.
+
+[commands]
+
+Angi kommandoer som skal utføres ved stoppunkt.
+Angi nummeret til stoppunktet som et argument etter "commands".
+Hvis du ikke oppgir et argument, brukes siste angitte stoppunkt som mål.
+Kommandoene følger deretter, og starter på neste linje.
+Skriv en linje som inneholder "end" for å angi at de skal avsluttes.
+Angi "silent" på første linje for å gjøre stoppunktet stumt. Da vises ingen 
+utdata når kjøringen kommer til stoppunktet, med unntak av det kommandoen viser.
+Eksempel:
+  (fdb) commands
+  Skriv inn kommandoer for når stoppunkt 1 nås, én kommando per linje.
+  Avslutt med en linje der det bare står "end".
+  >w
+  >end
+
+[delete]
+
+Slett ett eller flere stoppunkt.
+Eksempler:
+  delete
+    Sletter alle stoppunkt
+  delete 2 5
+    Sletter stoppunkt nr. 2 og 5.
+Hvis du vil se numrene til stoppunktene, skriver du "info breakpoints".
+
+[directory]
+
+Endre listen over kataloger fdb søker etter kildefiler i.
+
+Eksempler:
+
+  directory
+    Gjenoppretter listen til standard, dvs. katalogen der kildefilen ble 
+    kompilert til objektkode, fulgt av gjeldende arbeidskatalog.
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+    Legger til angitt katalog i begynnelsen av listen over kataloger som blir 
+    gjennomsøkt etter kilde. Hvis du f.eks. ser etter kilden til klassen 
+    mypackage.MyClass, ser feilsøkingen etter både 
+    C:\MySource\mypackage\MyClass.as og C:\MySource\MyClass.as.
+
+  directory C:\Dir1;C:\Dir2    (Windows: bruk ; (semikolon) som skilletegn)
+  directory /Dir1:/Dir2        (Mac: bruk : (kolon) som skilletegn)
+    Legger til flere kataloger i begynnelsen av listen over kataloger som blir 
+    gjennomsøkt etter kilde.
+
+Hvis du vil se gjeldende liste, skriver du "show directories".
+
+[disable]
+
+Deaktiver ett eller flere stoppunkt eller automatvisningsuttrykk.
+Eksempler:
+  disable
+  disable breakpoints
+    Deaktiverer alle stoppunkt.
+  disable 2 5
+  disable breakpoints 2 5
+    Deaktiverer stoppunkt nr. 2 og 5.
+  disable display
+    Deaktiverer alle automatvisningsuttrykk.
+  disable display 1 3
+    Deaktiverer automatvisningsuttrykk nr. 1 og 3.
+Hvis du vil se numrene til stoppunktene, skriver du "info breakpoints".
+Hvis du vil se numrene til automatvisningsuttrykkene, skriver du "info display".
+
+[disassemble]
+
+(Kun ActionScript 2, støttes ikke ved feilsøking av ActionScript 3)
+
+Del opp en angitt del av kildekoden.
+Standard er gjeldende listelinje.
+Argumenter som støttes, er de samme som for listekommando.
+Eksempler:
+  disassemble 87
+    Deler opp linje 87 i gjeldende fil.
+  disassemble 87 102
+    Deler opp linje 87 til 102 i gjeldende fil.
+  disassemble doThis
+      Deler opp funksjonen doThis() i gjeldende fil.
+I tillegg til å bruke enkle linjenummer som ovenfor, kan du angi linjer på 
+flere måter:
+   myapp.mxml
+      Linje 1 i myapp.mxml.
+   myapp.mxml:doThat
+      Første linje i funksjonen doThat() i myapp.mxml.
+   myapp.mxml:56
+      Linje 56 i myapp.mxml.
+   #3
+      Linje 1 i fil nr. 3.
+   #3:doOther
+      Den linjen i fil nr. 3 der funksjonen doOther() begynner.
+   #3:29
+      Linje 29 i fil nr. 3.
+
+[display]
+
+Legg til et uttrykk i listen over automatvisningsuttrykk.
+Eksempel:
+  display employee.name
+    Legger "employee.name" til listen over automatvisningsuttrykk.
+    Hver gang fdb stanser, vises verdien for employee.name.
+Argumentet for denne kommandoen ligner argumentet for "print".
+Hvis du vil se listen over automatvisningsuttrykk og tilhørende nummer, skriver 
+du "info display".
+
+[down]
+
+Velg og vis stakkrammen som denne kaller.
+Påfølgende "info arguments"- og "info locals"-kommandoer viser lokale 
+innstillinger og argumenter for valgt ramme.
+Se også "up" og "frame". 
+
+[enable]
+
+Aktiver ett eller flere stoppunkt eller automatvisningsuttrykk.
+Eksempler:
+  enable
+  enable breakpoints
+    Aktiverer alle stoppunkt.
+  enable 2 5
+  enable breakpoints 2 5
+    Aktiverer stoppunkt nr. 2 og 5.
+  enable display
+    Aktiverer alle automatvisningsuttrykk.
+  enable display 1 3
+    Aktiverer automatvisningsuttrykk nr. 1 og 3.
+Hvis du vil se numrene til stoppunktene, skriver du "info breakpoints".
+Hvis du vil se numrene til automatvisningsuttrykkene, skriver du "info display".
+
+[file]
+
+Angi et program som skal feilsøkes uten at det startes.
+Eksempler:
+  file http://www.mysite.com/myapp.mxml
+    Angi et MXML-program som skal feilsøkes.
+  file myapp.swf
+    Angi en lokal SWF-fil som skal feilsøkes, og som ligger i gjeldende katalog.
+    I dette tilfellet må også myapp.swd (filen med feilsøkingsinformasjonen) 
+    ligge i gjeldende katalog.
+Denne kommandoen starter ikke programmet. Du bruker kommandoen "run" uten 
+argumenter for å starte feilsøkingen av programmet.
+I stedet for å bruke "file <mål>" fulgt av "run", kan du bare angi hvilket 
+program som skal feilsøkes som et argument i "run":
+  run http://mysite.com/myapp.mxml
+  run myapp.swf
+Du kan også angi programmet som skal feilsøkes som et kommandolinjeargument, 
+når du starter fdb:
+  fdb http://www.mysite.com/myapp.mxml
+  fdb myapp.swf
+I dette tilfellet trenger du ikke å bruke "file" eller "run".
+Hvis du bruker "run" uten å angi et program som skal feilsøkes, venter fdb til 
+et program kobler til det.
+
+[finish]
+
+Kjør til gjeldende funksjon kommer tilbake.
+Denne kommandoen bruker ingen argumenter.
+
+[frame]
+
+Velg og vis en bestemt stakkramme.
+Denne kommandoen tar et valgfritt argument: et rammenummer.
+Hvis det ikke oppgis et argument, er standard virkemåte retur til gjeldende 
+øverste ramme (ramme 0).
+Eksempler:
+  frame 4
+  frame
+Påfølgende "info arguments"- og "info locals"-kommandoer viser lokale 
+innstillinger og argumenter for valgt ramme.
+Se også "up", "down" og "bt". 
+
+[handle]
+
+Angi hvordan fdb skal håndtere en feil i Flash Player.
+Eksempler:
+  handle recursion_limit stop
+    Hvis det oppstår en recursion_limit-feil, vises en melding i fdb, og 
+    kjøringen stanser som ved et stoppunkt.
+  handle all print nostop
+    Hvis det oppstår en feil av noe slag, vises en melding i fdb, men 
+    kjøringen stanser ikke.
+Det første argumentet er navnet på en feil, eller "all".
+Tilleggsargumenter er handlinger som gjelder den angitte feilen.
+Hvis du vil se navn på feil, skriver du "info handle".
+Handlinger er print/noprint og stop/nostop.
+"print" vil si at en melding vises hvis denne feilen oppstår.
+"stop" vil si at feilsøkeren tas i bruk hvis feilen oppstår. "print" er 
+implisert.
+
+[help]
+
+Ny bruker av fdb? Skriv "tutorial" hvis du vil ha litt grunnleggende 
+informasjon.
+Liste over fdb-kommandoer:
+bt (bt)             Vis tilbakesporing av alle stakkrammer
+break (b)           Angi stoppunkt ved valgt linje eller funksjon
+catch (ca)          Stopp hvis unntak oppstår
+cf (cf)             Vis navn og nummer for gjeldende fil
+clear (cl)          Fjern stoppunkt ved valgt linje eller funksjon
+condition (cond)    Legg til / fjern betingelsesuttrykk på et stoppunkt
+continue (c)        Fortsett kjøring etter stans ved stoppunkt
+commands (com)      Angi at kommandoer skal kjøre ved stoppunkt
+delete (d)          Slett alle stoppunkt eller automatvisningsuttrykk
+directory (dir)     Legg til en katalog i søkebanen for kildefiler
+disable (disab)     Deaktiver alle stoppunkt eller automatvisningsuttrykk
+disassemble (disas)       Del opp kildelinjer eller funksjoner
+display (disp)      Legg til et automatvisningsuttrykk
+enable (e)          Aktiver alle stoppunkt eller automatvisningsuttrykk
+file (fil)          Angi hvilket program som skal feilsøkes.
+finish (f)          Kjør til gjeldende funksjon kommer tilbake
+handle (han)        Angi hvordan en feil skal håndteres
+help (h)            Vis hjelp for fdb-kommandoer
+home (ho)           Angi listeplassering der kjøring stanses
+info (i)            Vis informasjon om programmet som feilsøkes
+kill (k)            Avbryt kjøring av programmet som feilsøkes
+list (l)            List opp angitt funksjon eller linje
+next (n)            Gå gjennom program trinnvis
+print (p)           Vis verdien for variabelen EXP
+pwd (pw)            Vis arbeidskatalog
+quit (q)            Avslutt fdb
+run (r)             Start feilsøkt program
+set (se)            Angi verdien til en variabel
+source (so)         Les fdb-kommandoer fra en fil
+step (s)            Gå gjennom program trinnvis til det når en annen kildelinje
+tutorial (t)        Vis en opplæring for fdb
+undisplay (u)       Fjern et automatvisningsuttrykk
+viewswf (v)         Angi eller tøm filter for fillisting basert på SWF
+watch (wa)          Legg til et overvåkningspunkt på en angitt variabel
+what (wh)           Viser kontekst for en variabel
+where (w)           Samme som bt
+Skriv "help" fulgt av navnet på en kommando hvis du vil se hele dokumentasjonen 
+om den.
+
+[home]
+
+Angi listeplasseringen der kjøring stanses.
+
+[info]
+
+Generisk kommando som brukes til å vise ting om programmet som feilsøkes.
+Liste over info-delkommandoer:
+info arguments (i a)    Argumentvariabler for gjeldende stakkramme
+info breakpoints (i b)  Status for brukerdefinerbare stoppunkt
+info display (i d)      Vis liste over automatvisningsuttrykk
+info files (i f)        Navn på mål og filer som feilsøkes
+info functions (i fu)   Alle funksjonsnavn
+info handle (i h)       Hvordan feil håndteres
+info locals (i l)       Lokale variabler for gjeldende stakkramme
+info scopechain (i sc)  Scope chain for gjeldende stakkramme
+info sources (i so)     Kildefiler i programmet
+info stack (i s)        Tilbakesporing i stakk
+info swfs (i sw)        Liste over SWF-filer i denne økten
+info targets(i t)       Programmet som feilsøkes
+info variables (i v)    Alle globale og statiske variabelnavn
+Skriv "help info" fulgt av navnet på en info-delkommando hvis du vil se hele 
+dokumentasjonen om den.
+
+[info arguments]
+
+Vis argumenter for gjeldende stakkramme.
+
+[info breakpoints]
+
+Vis status for alle stoppunkt og overvåkningspunkt.
+Kolonnen Type viser ett av følgende:
+   breakpoint   - normalt stoppunkt
+   watchpoint   - overvåkningspunkt
+Kolonnen Disp inneholder enten "keep", "del" eller "dis", som viser 
+stoppunktets disposisjon etter at det er nådd. "dis" vil si at stoppunktet 
+deaktiveres, og "del" vil si at det slettes.  
+Kolonnene "Address" og "What" viser henholdsvis adresse og fil-/linjenummer. 
+
+[info display]
+
+Vis liste over automatvisningsuttrykk og tilhørende tall.
+
+[info files]
+
+Vis navn og nummer for filene til programmet som feilsøkes, inkludert 
+kildefiler, rammeverkfiler og automatisk opprettede filer.
+Eksempler:
+  info files
+    Lister alle filer alfabetisk etter kategori
+  info files my
+  info files my*
+    Lister alle filer hvis navn begynner på "my" alfabetisk.
+  info files *.as
+    Lister alle filer hvis navn slutter med ".as" alfabetisk.
+  info files *foo*
+    Lister alle filer hvis navn inneholder "foo" alfabetisk. 
+Filer vises i formatet navn#N, der N er filnummeret.
+Du kan bruke #N i stedet for et filnavn i flere kommandoer.
+
+[info functions]
+
+Vis funksjonsnavn.
+Eksempler:
+  info functions .
+    Vis alle funksjoner i gjeldende fil.
+  info functions myapp.mxml
+    Vis alle funksjoner i myapp.mxml.
+  info functions #3
+    Viser alle funksjoner i fil nr. 3.
+  info functions
+    Viser alle funksjoner i alle filer.
+Hvis du vil se filnavn og filnummer, skriver du "info sources" eller "info 
+files".
+Forkortede filnavn godtas hvis de ikke er tvetydige.
+
+[info handle]
+
+Vis hva fdb gjør når det oppstår en feil i Flash Player.
+Eksempler:
+  info handle
+    Vis hvordan fdb håndterer alle feil.
+  info handle recursion_limit
+    Vis hvordan fdb håndterer en recursion_limit-feil.
+
+[info locals]
+
+Vis lokale variabler for gjeldende stakkramme.
+
+[info scopechain]
+
+Vis scope chain for gjeldende stakkramme. En "scope chain" er listen med 
+objekter som blir gjennomsøkt når Flash Player prøver å løse et symbolnavn.
+
+[info sources]
+
+Vis navn og nummer for kildefilene til programmet som feilsøkes. Rammeverkfiler 
+og automatisk opprettede filer inkluderes ikke.
+Filer vises i formatet navn#N, der N er filnummeret.
+Du kan bruke #N i stedet for et filnavn i flere kommandoer.
+
+[info stack]
+
+Tilbakesporing i stakk.
+
+[info swfs]
+
+Vis SWF-filer som feilsøkingsøkten kjenner. Du kan bruke kommandoen "viewswf" 
+hvis du vil vite mer om hvordan fillisten kan filtreres ut fra navn på 
+SWF-filer. 
+
+[info targets]
+
+Vis URL-adresse (http: eller file:) for programmet som feilsøkes.
+
+[info variables]
+
+Vis alle globale og statiske variabelnavn og -verdier.
+
+[info ?]
+
+Udefinert info-kommando. Prøv å skrive "help info".
+
+[kill]
+
+Avbryt kjøring av programmet som feilsøkes.
+Denne kommandoen bruker ingen argumenter.
+
+[list]
+
+Vis liste med kodelinjer i en kildefil.
+Eksempler:
+  list
+    Viser ti linjer til i gjeldende fil, etter eller rundt forrige liste.
+  list -
+    Viser ti linjer før en tidligere liste i gjeldende fil.
+  list 87
+    Viser ti linjer i gjeldende fil rundt linje 87.
+  list 87 102
+    Viser linje 87 til 102 i gjeldende fil.
+I tillegg til å bruke enkle linjenummer som ovenfor, kan du angi linjer på sju 
+andre måter:
+  doThis
+      Den første linjen av funksjonen doThis() i gjeldende fil.
+   myapp.mxml
+      Linje 1 i myapp.mxml.
+   myapp.mxml:doThat
+      Første linje i funksjonen doThat() i myapp.mxml.
+   myapp.mxml:56
+      Linje 56 i myapp.mxml.
+   #3
+      Linje 1 i fil nr. 3.
+   #3:doOther
+      Den linjen i fil nr. 3 der funksjonen doOther() begynner.
+   #3:29
+      Linje 29 i fil nr. 3.
+Hvis du vil se filnavn og filnummer, skriver du "info sources" eller "info 
+files".
+Hvis du vil se funksjonsnavn, skriver du "info functions".
+Forkortede fil- og funksjonsnavn godtas hvis de ikke er tvetydige.
+Hvis du lister en fil, blir den filen til gjeldende fil. (Se under kommandoen 
+"cf".)
+
+[next]
+
+Gå gjennom program trinnvis, gjennom delrutinekall.
+  next
+    Gå videre ett trinn.
+  next 3
+    Gå videre tre trinn, eller til programmet stanser av en annen grunn.
+I likhet med kommandoen "step", utføres denne kommandoen såfremt det ikke 
+oppstår delrutinekall. Når delrutinekall oppstår, behandles kallet som én 
+instruksjon.
+
+[print]
+
+Vis verdien til en variabel eller et uttrykk.
+Eksempler:
+  print i
+    Vis verdien til i.
+  print employee.name
+    Vis verdien til employee.name.
+  print employee
+    Vis verdien til objektet employee.
+    Resultatet kan være så enkelt som [Object 10378].
+  print employee.
+    Vis verdiene til alle egenskaper for objektet employee.
+  print *employee
+    Vis verdiene til alle egenskaper for objektet employee.
+    Prefikset * som operator, brukes på samme måte som suffikset . som operator.
+  print #10378.
+    Vis verdiene til alle egenskaper for objekt nr. 10378.
+Tilgjengelige variabler er alle som er i den valgte stakkrammens leksikalske 
+miljø, samt alle med enten globalt omfang eller hvis omfang dekker en hel fil.
+
+[pwd]
+
+Vis gjeldende arbeidskatalog.
+Dette er katalogen fdb ble startet fra. Den kan ikke endres i fdb. Argumentet 
+for "run" og "source" kan spesifiseres i forhold til denne katalogen.
+Denne kommandoen bruker ingen argumenter.
+
+[quit]
+
+Avslutt fdb.
+Denne kommandoen bruker ingen argumenter.
+
+[run]
+
+Start en feilsøkingsøkt.
+Eksempler:
+  run http://www.mysite.com/myapp.mxml
+    Kjører angitt MXML-program.
+  run myapp.swf
+  run mydir\myapp.swf
+  run c:\mydir\myapp.swf
+    Kjører den lokale SWF-filen myapp.swf, som kan spesifiseres enten i forhold 
+    til gjeldende katalog (se under kommandoen "pwd") eller med en fast bane. 
+    I så fall må også myapp.swd (filen med feilsøkingsinformasjonen) finnes i 
+    samme katalog som myapp.swf.
+  run
+    Kjør programmet som tidligere ble spesifisert med kommandoen "file".
+    Hvis det ikke er angitt et program, venter fdb til et program kobles til. 
+    Det oppstår et tidsavbrudd hvis ingen programmer kobles til.
+"run" starter programmet i en nettleser eller en frittstående Flash Player.
+Så snart programmet starter, bryter det inn i fdb så du kan angi stoppunkt osv.
+
+På Macintosh støttes kun kommandoen "run" uten argumenter. Du må da starte 
+Flash Player manuelt.
+
+[set]
+
+Angi verdien til en variabel eller en enkel variabel.
+Enkle variabler er variabler som kun finnes i fdb, de er ikke en del av 
+programmet.
+Enkle variabler har prefikset $, og kan ha et hvilket som helst navn som ikke 
+kommer i konflikt med en eksisterende variabel. Eksempel: $minVar. Enkle 
+variabler brukes også til å kontrollere ulike deler av fdb. 
+
+Følgende enkle variabler brukes av fdb.
+$listsize           antall kildelinjer som skal vises når kommandoen "list" 
+                     brukes.
+$columnwrap         kolonnenummer som viser hvor utdata brytes for ny linje
+$infostackshowthis  hvis verdien er 0, vises ikke "this" i tilbakesporing av 
+                     stakk
+$invokegetters      hvis verdien er 0, kan ikke fdb sende getter-funksjoner
+$bpnum              siste definerte stoppunktnummer
+$displayattributes  hvis verdien er 1, viser "print var" alle attributter for 
+                     medlemmer av "var" (f.eks. private og statiske)
+
+Eksempler:
+  set i = 3
+    Angir at variabelen i har nummeret 3.
+  set employee.name = "Susan"
+    Angir at variabelen employee.name har verdien Susan.
+  set $myVar = 20
+    Angir at den enkle variabelen $myVar har nummeret 20.
+
+[show]
+
+Generisk kommando som brukes til å vise ting om status for fdb.
+Liste over show-delkommandoer:
+show break (sh b)       Plassering ved og grunn til utsettelse av kjøring
+show directories (sh d) Kataloger som skal gjennomsøkes etter kildefiler
+show files (sh f)       Målfiler og -baner
+show functions (sh fu)  Informasjon om tilordning av funksjonslinjer 
+show locations (sh l)   Plassering av stoppunkt
+show memory (sh m)      Minnebruk for øyeblikket
+show net (sh n)         Meldingsstatistikk for spilleren 
+show properties (sh p)  Verdier for egenskaper
+show uri (sh u)         Spillerens URI for denne økten 
+show variable (sh v)    Innhenting av ren variabel
+Skriv "help show" fulgt av navnet på en show-delkommando hvis du vil se hele 
+dokumentasjonen om den.
+
+[show break]
+
+Vis forskyvningen i SWF-filen som programmet har stanset ved
+
+[show directories]
+
+Vis gjeldende søkebane for henting av kildefiler.
+
+[show files]
+
+Vis bane og filnavn for alle målfiler
+
+[show functions]
+
+Vis tilordningsinformasjon for funksjon-til-linjenummer.
+Eksempler:
+  show functions .
+    Viser tilordningsinformasjon for alle funksjoner i gjeldende fil.
+  show functions myapp.mxml
+    Viser tilordningsinformasjon for alle funksjoner i myapp.mxml.
+  show functions #3
+    Viser tilordningsinformasjon for alle funksjoner i fil nr. 3.
+  show functions
+    Viser tilordningsinformasjon for alle funksjoner i alle filer.
+Hvis du vil se filnavn og filnummer, skriver du "info sources" eller "info 
+files".
+Forkortede filnavn godtas hvis de ikke er tvetydige.
+
+[show locations]
+
+Viser en liste over plasseringer som er angitt for hvert stoppunkt
+
+[show memory]
+
+Viser minnestatistikk for Java VM.
+
+[show net]
+
+Vis informasjon om meldinger som er sendt til og mottatt fra Flash Player.
+
+[show properties]
+
+Viser en liste over enkle variabler som brukes i feilsøkingen 
+
+[show uri]
+
+Vis URI som spilleren har sendt for denne økten.
+
+[show variable]
+
+Vis verdien til medlemmer av variabelen. Du trenger to parametere: den første 
+er en numerisk variabelidentifikator, den andre er navnet på egenskapen til 
+variabelen. Den enkle variabelen $invokegetters brukes til å avgjøre om 
+egenskaps-getteren sendes eller ikke, dersom den eksisterer.
+Eksempel:
+    show variable 1 __proto__
+
+[show ?]
+
+Udefinert show-kommando. Prøv å skrive "help show".
+
+[source]
+
+Les fdb-kommandoer fra en fil, og kjør dem.
+  source mycommands.txt
+  source mydir\mycommands.txt
+  source c:\mydir\mycommands.txt
+    Leser filen mycommands.txt og kjører fdb-kommandoene i den.
+    Du kan angi filen med kommandoene
+	i forhold til gjeldende katalog (se under kommandoen "pwd")
+	eller med en fast bane.
+Filen .fdbinit leses automatisk på denne måten når fdb startes.
+Kun gjeldende katalog gjennomsøkes etter .fdbinit. Du kan dermed konfigurere 
+flere .fdbinit-filer for ulike prosjekter.
+
+[step]
+
+Gå gjennom program trinnvis til det når en annen kildelinje.
+Eksempler:
+  step
+    Gå videre ett trinn.
+  step 3
+    Gå videre tre trinn, eller til programmet stanser av en annen grunn.
+
+[tutorial]
+
+Vis en opplæring for fdb.
+Denne kommandoen bruker ingen argumenter.
+
+[Tutorial]
+
+En typisk fdb-økt:
+Start et program med "run".
+Vis filnavn med "info sources".
+List opp en fil med "list".
+Angi stoppunkt med "break".
+Kjør programmet med "continue" til det når et stoppunkt.
+Se på status for programmet med "where", "print" og "info locals".
+Kjør enkeltsetninger med "next", "step" og "finish".
+Fortsett kjøringen med "continue".
+Avslutt fdb med "quit".
+
+[undisplay]
+
+Fjern ett eller flere automatvisningsuttrykk.
+Eksempler:
+  undisplay
+    Fjern alle automatvisningsuttrykk.
+  undisplay 2 7
+    Fjern automatvisningsuttrykk nr. 2 og 7.
+Hvis du vil se listen over automatvisningsuttrykk og tilhørende nummer, skriver 
+du "info display".
+
+[up]
+
+Velg og vis stakkrammen som kalte denne.
+Påfølgende "info arguments"- og "info locals"-kommandoer viser
+lokale innstillinger og argumenter for valgt ramme.
+Se også "down" og "frame".
+
+[viewswf]
+
+Angir eller tømmer filter for filliste (dvs. "info files" og "info sources"), 
+ut fra navn på SWF-fil. 
+Hvis du ikke angir noen parametere, vises alle filer. Hvis samme fil er i én 
+eller flere SWF-filer, viser listen kun første forekomst av filen. Hvis du vil 
+se andre forekomster av filen, bruker du filens nummer (f.eks. "list #192"), 
+eller du kan bruke denne kommandoen med en parameter (se nedenfor) for å vise 
+filer fra en bestemt SWF-fil. Med kun SWF-navnet som vises med kommandoen "info 
+swfs", som parameter, vises kun filene fra angitt SWF-fil. 
+Filer fra andre SWF-filer vises ikke. Denne kommandoen påvirker også kommandoer 
+som godtar en fil som parameter (som "break).
+Eksempel:
+  viewswf myApp.mxml.swf
+    Kun filer fra myApp.mxml.swf vises.
+  viewswf 
+    Alle filer fra alle SWF-filer vises.
+ 
+[watch]
+
+Legg til et overvåkningspunkt på en angitt variabel. Feilsøkeren stanser 
+kjøringen hvis variabelens verdi endres.
+Eksempel:
+  watch foo
+
+[what]
+
+Viser konteksten en variabel løses i. 
+
+[where]
+
+Tilbakesporing i stakk.
+
+[zzz]
+
+((( Keep this unused topic at the end of the file    )))
+((( so that the next-to-last one is parsed properly. )))

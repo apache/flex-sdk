@@ -1,0 +1,734 @@
+/*
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+*/
+Pattern foldedExpressionPattern
+FoldedExpressionID(void);
+ 
+foldedExpression = Pattern foldedExpressionPattern: 1
+JBurg.Reduction reducer.reduceLazyExpression(__p);
+
+Pattern logicalAndExprLazy
+Op_LogicalAndID(expression l, foldedExpression r);
+
+Pattern logicalOrExprLazy
+Op_LogicalOrID(expression l, foldedExpression r);
+
+/*
+ *  AS3DebuggerRules.jbg holds the rewrite rules for debugger support.
+ *  @see AS3Patterns.jbg, which holds the corresponding patterns.
+ */
+
+/*
+ *  Assignment to a simple name.
+ */
+expression = Pattern assignToNameExpr: 2
+JBurg.Reduction reducer.reduce_assignToNameExpr_to_expression(__p, lval,r);
+
+/*
+ *  Assignment to a more general lvalue.
+ */
+expression = Pattern assignToMemberExpr : 10
+JBurg.Reduction reducer.reduce_assignToMemberExpr_to_expression(__p, stem, member, r);
+
+/*
+ *  Assignment to a[i] type lvalue.
+ */
+expression = Pattern assignToBracketExpr: 1
+JBurg.Reduction reducer.reduce_assignToBracketExpr_to_expression(__p, stem, index, r, false);
+
+expression = Pattern assignToSuperBracketExpr: 1
+JBurg.Reduction reducer.reduce_assignToBracketExpr_to_expression(__p, null, index, r, true);
+
+/*
+ *  Assignment to qualified names and attributes.
+ */
+expression = Pattern assignToQualifiedMemberExpr : 1
+JBurg.Reduction reducer.reduce_assignToQualifiedMemberExpr(__p, stem, qualifier, member, r, NEED_VALUE);
+
+expression = Pattern assignToQualifiedRuntimeMemberExpr : 1
+JBurg.Reduction reducer.reduce_assignToQualifiedRuntimeMemberExpr(__p, stem, qualifier, member, r, NEED_VALUE);
+
+expression = Pattern assignToQualifiedAttributeExpr : 1
+JBurg.Reduction reducer.reduce_assignToQualifiedAttributeExpr(__p, stem, qualifier, attribute, r, NEED_VALUE);
+
+expression = Pattern assignToUnqualifiedRuntimeAttributeExpr : 1
+JBurg.Reduction reducer.reduce_assignToUnqualifiedRuntimeAttributeExpr(__p, stem, rt_attr_name, r, NEED_VALUE);
+
+expression = Pattern assignToUnqualifiedRuntimeDescendantsAttributeExpr : 1
+JBurg.Reduction reducer.reduce_assignToUnqualifiedRuntimeAttributeExpr(__p, stem, rt_attr_name, r, NEED_VALUE);
+
+/*
+ *  Assignment to descendants.
+ */
+expression = Pattern assignToDescendantsExpr : 1
+JBurg.Reduction reducer.reduce_assignToDescendantsExpr(__p, stem, member, r, NEED_VALUE);
+
+/*
+ *  Error trap for diagnosing parser/CG mismatches.
+ *  The cost is unfeasibly high for a normal reduction,
+ *  so this will only be chosen if no other reduction works.
+ */
+expression = Op_AssignId(expression non_lvalue, expression rvalue ) : ERROR_TRAP
+JBurg.Reduction reducer.error_reduce_Op_AssignId(__p, non_lvalue, rvalue);
+
+/*
+ *  Miscellaneous void expressions.
+ */
+expression = Pattern nilExpr : 1
+JBurg.Reduction reducer.reduce_nilExpr_to_expression(__p);
+
+/*
+ *  Binary logical operators.
+ */
+comparison_expression = Pattern equalExpr : 1
+JBurg.Reduction reducer.binaryOp (__p, l, r, OP_equals);
+
+comparison_expression = Pattern neqExpr : 1
+JBurg.Reduction reducer.reduce_neqExpr (__p, l, r);
+
+comparison_expression = Pattern stricteqExpr : 1
+JBurg.Reduction reducer.binaryOp (__p, l, r, OP_strictequals);
+
+comparison_expression = Pattern strictneqExpr : 1
+JBurg.Reduction reducer.reduce_strictneqExpr (__p, l, r);
+
+comparison_expression = Pattern greaterThanExpr: 1
+JBurg.Reduction reducer.binaryOp (__p, l, r, OP_greaterthan);
+
+comparison_expression = Pattern greaterThanEqExpr: 1
+JBurg.Reduction reducer.binaryOp (__p, l, r, OP_greaterequals);
+
+comparison_expression = Pattern lessExpr : 1
+JBurg.Reduction reducer.binaryOp (__p, l, r, OP_lessthan);
+
+comparison_expression = Pattern lessEqExpr : 1
+JBurg.Reduction reducer.binaryOp (__p, l, r, OP_lessequals);
+
+//  Closure rule: any comparison_expression
+//  is also an expression without further conversion.
+expression = comparison_expression;
+
+expression = Pattern logicalAndExprLazy : 5
+JBurg.Reduction reducer.reduce_logicalAndExpr (__p, l, r);
+
+expression = Pattern logicalOrExprLazy : 5
+JBurg.Reduction reducer.reduce_logicalOrExpr (__p, l, r);
+
+expression = Pattern logicalNotExpr : 1
+JBurg.Reduction reducer.reduce_logicalNotExpr (__p, expr);
+
+expression = Pattern ternaryExpr : 1
+JBurg.Reduction reducer.reduce_ternaryExpr (__p, test, when_true, when_false);
+
+/*
+ *  Binary arithmetic operators.
+ */
+
+expression = Pattern divideExpr : 1
+JBurg.Reduction reducer.binaryOp(__p, l, r, OP_divide);
+
+expression = Pattern multExpr : 1
+JBurg.Reduction reducer.binaryOp(__p, l, r, OP_multiply);
+
+expression = Pattern moduloExpr : 1
+JBurg.Reduction reducer.binaryOp(__p, l, r, OP_modulo);
+
+expression = Pattern addExpr : 1
+JBurg.Reduction reducer.binaryOp(__p, l, r, OP_add);
+
+expression = Pattern subtractExpr : 1
+JBurg.Reduction reducer.binaryOp(__p, l, r, OP_subtract);
+
+expression = Pattern bitwiseLeftShiftExpr : 1
+JBurg.Reduction reducer.binaryOp(__p, l, r, OP_lshift);
+
+expression = Pattern bitwiseRightShiftExpr : 1
+JBurg.Reduction reducer.binaryOp(__p, l, r, OP_rshift);
+
+expression = Pattern bitwiseUnsignedRightShiftExpr : 1
+JBurg.Reduction reducer.binaryOp(__p, l, r, OP_urshift);
+
+expression = Pattern bitwiseAndExpr : 1
+JBurg.Reduction reducer.binaryOp(__p, l, r, OP_bitand);
+
+expression = Pattern bitwiseOrExpr : 1
+JBurg.Reduction reducer.binaryOp(__p, l, r, OP_bitor);
+
+expression = Pattern bitwiseXorExpr : 1
+JBurg.Reduction reducer.binaryOp(__p, l, r, OP_bitxor);
+
+/*
+ *  pre/postfix unary operators.
+ */
+
+expression = Pattern postIncNameExpr : 7
+JBurg.Reduction reducer.reduce_postIncNameExpr(__p, unary, true);
+
+expression = Pattern preIncNameExpr : 7
+JBurg.Reduction reducer.reduce_preIncNameExpr(__p, unary, true);
+
+expression = Pattern preIncMemberExpr : 8
+JBurg.Reduction reducer.reduce_preIncMemberExpr(__p, stem, field, true);
+
+expression = Pattern postIncMemberExpr: 8
+JBurg.Reduction reducer.reduce_postIncMemberExpr(__p, stem, field, true);
+
+expression = Pattern preIncBracketExpr: 8
+JBurg.Reduction reducer.reduce_preIncBracketExpr(__p, stem, index, true);
+
+expression = Pattern postIncBracketExpr: 8
+JBurg.Reduction reducer.reduce_postIncBracketExpr(__p, stem, index, true);
+
+expression = Pattern postDecNameExpr : 7
+JBurg.Reduction reducer.reduce_postDecNameExpr(__p, unary, true);
+
+expression = Pattern preDecNameExpr : 7
+JBurg.Reduction reducer.reduce_preDecNameExpr(__p, unary, true);
+
+expression = Pattern preDecMemberExpr : 8
+JBurg.Reduction reducer.reduce_preDecMemberExpr(__p, stem, field, true);
+
+expression = Pattern postDecMemberExpr: 8
+JBurg.Reduction reducer.reduce_postDecMemberExpr(__p, stem, field, true);
+
+expression = Pattern preDecBracketExpr: 8
+JBurg.Reduction reducer.reduce_preDecBracketExpr(__p, stem, index, true);
+
+expression = Pattern postDecBracketExpr: 8
+JBurg.Reduction reducer.reduce_postDecBracketExpr(__p, stem, index, true);
+
+/*
+ *  Unary expressions.
+ */
+expression = Pattern unaryMinusExpr: 1
+JBurg.Reduction reducer.unaryOp(__p, e, OP_negate);
+
+expression = Pattern unaryPlusExpr: 0
+{
+    return reducer.unaryOp(__p, e, OP_convert_d);
+}
+
+expression = Pattern typeofExpr: 10
+JBurg.Reduction reducer.reduce_typeof_expr(__p, expr);
+
+expression = Pattern typeofName: 1
+JBurg.Reduction reducer.reduce_typeof_name(__p, n);
+
+expression = Pattern bitNotExpr: 1
+JBurg.Reduction reducer.unaryOp(__p, unary, OP_bitnot);
+
+/*
+ *  Miscellaneous binary expressions.
+ */
+expression = Pattern istypeExprLate : 1
+JBurg.Reduction reducer.binaryOp(__p, expr, typename, OP_istypelate);
+
+expression = Pattern astypeExprLate : 1
+JBurg.Reduction reducer.binaryOp(__p, expr, typename, OP_astypelate);
+
+expression = Pattern inExpr : 1
+JBurg.Reduction reducer.binaryOp(__p, needle, haystack, OP_in);
+
+expression = Pattern instanceofExpr : 1
+JBurg.Reduction reducer.binaryOp(__p, expr, typename, OP_instanceof);
+
+// lhs += rhs
+JBurg.include "AS3DebuggerCompoundAssignmentRules.jbg" \
+    Op_COMPOUND_ASSIGN="OP_add" \
+    compoundAssignToName="assignPlusToNameExpr" \
+    compoundAssignToMember="assignPlusToMemberExpr" \
+    compoundAssignToBracket="assignPlusToBracketExpr"
+
+// lhs *= rhs    
+JBurg.include "AS3DebuggerCompoundAssignmentRules.jbg" \
+    Op_COMPOUND_ASSIGN="OP_multiply" \
+    compoundAssignToName="assignMultiplyToNameExpr" \
+    compoundAssignToMember="assignMultiplyToMemberExpr" \
+    compoundAssignToBracket="assignMultiplyToBracketExpr"
+
+// lhs -= rhs
+JBurg.include "AS3DebuggerCompoundAssignmentRules.jbg" \
+    Op_COMPOUND_ASSIGN="OP_subtract" \
+    compoundAssignToName="assignMinusToNameExpr" \
+    compoundAssignToMember="assignMinusToMemberExpr" \
+    compoundAssignToBracket="assignMinusToBracketExpr"
+
+// lhs /= rhs
+JBurg.include "AS3DebuggerCompoundAssignmentRules.jbg" \
+    Op_COMPOUND_ASSIGN="OP_divide" \
+    compoundAssignToName="assignDivideToNameExpr" \
+    compoundAssignToMember="assignDivideToMemberExpr" \
+    compoundAssignToBracket="assignDivideToBracketExpr"
+
+// lhs %= rhs
+JBurg.include "AS3DebuggerCompoundAssignmentRules.jbg" \
+    Op_COMPOUND_ASSIGN="OP_modulo" \
+    compoundAssignToName="assignModuloToNameExpr" \
+    compoundAssignToMember="assignModuloToMemberExpr" \
+    compoundAssignToBracket="assignModuloToBracketExpr"
+
+// lhs <<= rhs
+JBurg.include "AS3DebuggerCompoundAssignmentRules.jbg" \
+    Op_COMPOUND_ASSIGN="OP_lshift" \
+    compoundAssignToName="assignLeftShiftToNameExpr" \
+    compoundAssignToMember="assignLeftShiftToMemberExpr" \
+    compoundAssignToBracket="assignLeftShiftToBracketExpr"
+
+// lhs <<= rhs
+JBurg.include "AS3DebuggerCompoundAssignmentRules.jbg" \
+    Op_COMPOUND_ASSIGN="OP_rshift" \
+    compoundAssignToName="assignRightShiftToNameExpr" \
+    compoundAssignToMember="assignRightShiftToMemberExpr" \
+    compoundAssignToBracket="assignRightShiftToBracketExpr"
+
+// lhs >>>= rhs
+JBurg.include "AS3DebuggerCompoundAssignmentRules.jbg" \
+    Op_COMPOUND_ASSIGN="OP_urshift" \
+    compoundAssignToName="assignUnsignedRightShiftToNameExpr" \
+    compoundAssignToMember="assignUnsignedRightShiftToMemberExpr" \
+    compoundAssignToBracket="assignUnsignedRightShiftToBracketExpr"
+
+// lhs &= rhs
+JBurg.include "AS3DebuggerCompoundAssignmentRules.jbg" \
+    Op_COMPOUND_ASSIGN="OP_bitand" \
+    compoundAssignToName="assignBitwiseAndToNameExpr" \
+    compoundAssignToMember="assignBitwiseAndToMemberExpr" \
+    compoundAssignToBracket="assignBitwiseAndToBracketExpr"
+  
+// lhs |= rhs
+JBurg.include "AS3DebuggerCompoundAssignmentRules.jbg" \
+    Op_COMPOUND_ASSIGN="OP_bitor" \
+    compoundAssignToName="assignBitwiseOrToNameExpr" \
+    compoundAssignToMember="assignBitwiseOrToMemberExpr" \
+    compoundAssignToBracket="assignBitwiseOrToBracketExpr"
+    
+// lhs ^= rhs
+JBurg.include "AS3DebuggerCompoundAssignmentRules.jbg" \
+    Op_COMPOUND_ASSIGN="OP_bitxor" \
+    compoundAssignToName="assignBitwiseXorToNameExpr" \
+    compoundAssignToMember="assignBitwiseXorToMemberExpr" \
+    compoundAssignToBracket="assignBitwiseXorToBracketExpr"
+    
+/*
+ *  Primary expressions.
+ */
+expression = Pattern memberAccessExpr : 10
+JBurg.Reduction reducer.reduce_memberAccessExpr (__p, stem, member, OP_getproperty);
+
+expression = Pattern  qualifiedMemberAccessExpr : 10
+JBurg.Reduction reducer.reduce_qualifiedMemberAccessExpr(__p, stem, qualifier, member, OP_getproperty);
+
+expression = Pattern  qualifiedDescendantsExpr : 10
+JBurg.Reduction reducer.reduce_qualifiedMemberAccessExpr(__p, stem, qualifier, member, OP_getdescendants);
+
+expression = Pattern qualifiedDescendantsRuntimeExpr : 1
+JBurg.Reduction reducer.reduce_qualifiedAttributeRuntimeMemberExpr(__p, stem, qualifier, runtime_member, OP_getdescendants);
+
+expression = Pattern qualifiedAttributeExpr : 1
+JBurg.Reduction reducer.reduce_qualifiedAttributeExpr(__p, stem, qualifier, member, OP_getproperty);
+
+expression = Pattern qualifiedDescendantsAttributeExpr : 1
+JBurg.Reduction reducer.reduce_qualifiedAttributeExpr(__p, stem, qualifier, member, OP_getdescendants);
+
+expression = Pattern qualifiedAttributeRuntimeMemberExpr : 1
+JBurg.Reduction reducer.reduce_qualifiedAttributeRuntimeMemberExpr(__p, stem, qualifier, runtime_member, OP_getproperty);
+
+expression = Pattern qualifiedDescendantsRuntimeMemberExpr : 1
+JBurg.Reduction reducer.reduce_qualifiedAttributeRuntimeMemberExpr(__p, stem, qualifier, runtime_member, OP_getdescendants);
+
+//  Prefer the basic memberAccessExpr pattern where feasible.
+expression = Pattern qualifiedMemberRuntimeNameExpr : 100
+JBurg.Reduction reducer.reduce_qualifiedMemberRuntimeNameExpr(__p, stem, qualifier, runtime_member);
+
+expression = Pattern unqualifiedAttributeExpr : 1
+JBurg.Reduction reducer.reduce_unqualifiedAttributeExpr(__p, stem, expr, OP_getproperty);
+
+expression = Pattern unqualifiedDescendantsAttributeExpr : 1
+JBurg.Reduction reducer.reduce_unqualifiedAttributeExpr(__p, stem, expr, OP_getdescendants);
+
+expression = Pattern runtimeAttributeExp : 1
+JBurg.Reduction reducer.reduce_runtimeAttributeExp(__p, expr);
+
+expression = Pattern arrayIndexExpr : 1
+JBurg.Reduction reducer.reduce_arrayIndexExpr (__p, stem, false, index);
+
+expression = Pattern superIndexExpr : 1
+JBurg.Reduction reducer.reduce_arrayIndexExpr (__p, null, true, index);
+
+expression = Pattern functionCallExpr : 3  // Cost artificially inflated
+JBurg.Reduction reducer.reduce_functionCallExpr_to_expression (__p, method_name, args);
+
+expression = Pattern newVectorLiteral: 0
+JBurg.Reduction reducer.reduce_newVectorLiteral(__p, literal);
+
+//  'new Whatever(...)' has cost 2, so it gets beaten by the two previous rules.
+//  Use this reduction if the type is known;
+//  it allows much better error checking of the constructor call.
+expression = Pattern newExpr : 2
+JBurg.Reduction reducer.reduce_newExpr (__p, class_binding, args);
+
+expression = Pattern newMemberProperty: 10
+JBurg.Reduction reducer.reduce_newMemberProperty(__p, stem, member, args);
+
+expression = Pattern newAsRandomExpr : 30
+JBurg.Reduction reducer.reduce_newAsRandomExpr (__p, random_expr, args);
+
+expression = Pattern functionCallOfSuperclassMethod : 2
+JBurg.Reduction reducer.reduce_functionCallOfSuperclassMethod_to_expression (__p, null, method_name, args);
+
+expression = Pattern functionCallOfExplicitObjectSuperclassMethod : 2
+JBurg.Reduction reducer.reduce_functionCallOfSuperclassMethod_to_expression (__p, stem, method_name, args);
+
+expression = Pattern functionAsMemberExpr : 4  //  Cost inflated to prefer functionCallOfSuperclassMethod
+JBurg.Reduction reducer.reduce_functionAsMemberExpr (__p, stem, method_name, args);
+
+expression = Pattern functionAsBracketExpr : 4
+JBurg.Reduction reducer.reduce_functionAsBracketExpr (__p, stem, index, args);
+
+expression = Pattern functionAsRandomExpr : 30
+JBurg.Reduction reducer.reduce_functionAsRandomExpr (__p, random_expr, args);
+
+/*
+ *  Delete expressions.
+ */
+expression = Pattern deleteNameExpr: 2
+JBurg.Reduction reducer.reduce_deleteNameExpr(__p, n);
+
+expression = Pattern deleteBracketExpr: 1
+JBurg.Reduction reducer.reduce_deleteBracketExpr(__p, stem, index);
+
+expression = Pattern deleteAtBracketExpr: 1
+JBurg.Reduction reducer.reduce_deleteAtBracketExpr(__p, stem, index);
+
+expression = Pattern deleteMemberExpr: 1
+JBurg.Reduction reducer.reduce_deleteMemberExpr(__p, stem, field);
+
+expression = Pattern deleteRuntimeNameExpr: 1
+JBurg.Reduction reducer.reduce_deleteRuntimeNameExpr(__p, stem, rt_name);
+
+expression = Pattern deleteDescendantsExpr: 1
+JBurg.Reduction reducer.reduce_deleteDescendantsExpr(__p, stem, field);
+
+expression = Pattern deleteAnyExprExprExpr: 2000
+JBurg.Reduction reducer.reduce_deleteExprExprExpr(__p, expr);
+
+/*
+ *  Comma expression.
+ */
+expression = Pattern commaExpr: 0
+JBurg.Reduction reducer.reduce_commaExpr(__p, payload_expr, exprs);
+
+/*
+ *  Names and reference expressions built from names.
+ */
+name = Pattern simpleName : 0
+JBurg.Reduction reducer.reduce_simpleName (__p);
+
+qualifiedNamePart = Pattern simpleName: 0
+JBurg.Reduction reducer.getIdentifierContent(__p);
+
+name = Pattern typedVariableExpression : 0
+JBurg.Reduction reducer.reduce_typedVariableExpression (__p, var_name, var_type);
+
+dottedNamePart = Pattern dottedName : 0
+JBurg.Reduction reducer.reduce_by_concatenation (__p, first, second);
+
+dottedNamePart = qualifiedNamePart;
+
+name = Pattern dottedName : isDottedName()
+JBurg.Reduction reducer.dottedName (__p, first, second);
+
+name = Pattern dottedName : isPackageName()
+JBurg.Reduction reducer.errorPackageName(__p, first, second);
+
+//  This reduction handles an entire dotted name subtree.
+name = Pattern fullName : 0
+JBurg.Reduction reducer.dottedName(__p, first, second);
+
+//  qualified namespace is the same as a full name,
+//  it's just what gets produced when we're in a use namespace directive
+//     use namespace a.b.Foo;
+name = Pattern qualifiedNamespaceName : 0
+JBurg.Reduction reducer.dottedName(__p, first, second);
+
+//  This reduction handles the bar.T part of foo.bar.T
+dottedNamePart = Pattern fullName : 0
+JBurg.Reduction reducer.reduce_by_concatenation (__p, first, second);
+
+name = Pattern superAccess : 0
+JBurg.Reduction reducer.reduce_superAccess (__p, qualified_name);
+
+//  A bare parameterized type name can only be
+//  used as a type annotation.  In code it's necessary
+//  to expand it into an expression that calls applytype.
+//  Note: this reduction gets an error-trapping cost if
+//  the parameter type is not constant; this forces
+//  expression-oriented reductions to try and reduce
+//  the type parameter as an expression.
+type_name = Pattern parameterizedName : parameterTypeIsConstant()
+JBurg.Reduction reducer.reduce_parameterizedTypeName (__p, base, param);
+
+//  A name can be a type_name, which in combination with
+//  the reduction above yields the set of possible type_names:
+//  identifiers and *
+type_name = name : 1
+JBurg.Reduction reducer.reduce_nameToTypeName(name, true);
+
+//  The 'new' expression takes a pseduo-type name:
+//  when it can be resolved, the semantic analysis
+//  code can check the constructor.  When it can't
+//  be resolved, it's a generalized expression.
+new_type_name = name;
+
+//  Inflate this cost so it's only selected
+//  if the type_name isn't a name.
+new_type_name = type_name : 20
+JBurg.Reduction reducer.reduce_nameToTypeName(type_name, false);
+
+// The parameter of a parameterized type expression may be an expression
+// or a type name; if it resolves to a type, it's a type name.
+type_param_expression = name: isKnownType()
+JBurg.Reduction reducer.reduce_typeNameParameterAsType(__p, name);
+
+// any expression can be used as a type param name in an expression context.
+type_param_expression = expression;
+
+expression = Pattern parameterizedTypeExpression : 1
+JBurg.Reduction reducer.reduce_parameterizedTypeExpression (__p, base, param);
+
+expression = name: 2000
+JBurg.Reduction reducer.transform_name_to_expression(__p, name);
+
+type_name = Pattern voidExpr : 0
+JBurg.Reduction reducer.reduce_voidExpr_to_type_name(__p);
+
+name = Pattern attributeName : 0
+JBurg.Reduction reducer.reduce_attributeName (__p, attr_name);
+
+//  ns1::foo and rt_ns::foo look alike to
+//  the parser, so they must be disambiguated
+//  by checking their semantic annotations.
+name = Pattern namespaceAccess : qualifierIsCompileTimeConstant()
+JBurg.Reduction reducer.reduce_namespaceAccess (__p, qualifier, qualified_name);
+
+//  Error trap for an unresolved namespace in a context
+//  where it must be declared.
+name = Pattern namespaceAccess: ERROR_TRAP
+JBurg.Reduction reducer.error_namespaceAccess(__p, qualifier, qualified_name);
+
+//  A namespace-qualified name reference whose name
+//  is a runtime expression, e.g., ns1::[foo].
+//  The parser doesn't know the difference between
+//  ns1::[foo] and rt_ns::[foo], so we need a cost
+//  function to disambiguate the tree.
+runtime_name_expression = Pattern namespaceMultinameL: qualifierIsCompileTimeConstant()
+JBurg.Reduction reducer.reduce_namespaceMultinameL(__p, qualifier, expr);
+
+runtime_name_expression = Pattern namespaceRTQName : 2000
+JBurg.Reduction reducer.reduce_namespaceRTQName (__p, qualifier, qualfied_name);
+
+expression = Pattern embedExpression : 2
+JBurg.Reduction reducer.reduce_embed(__p);
+
+/*
+ *  E4X expressions (except literals)
+ */
+
+expression = Pattern e4xFilter : 3
+JBurg.Reduction reducer.reduce_e4xFilter (__p, stem, filter);
+
+runtime_name_expression = Pattern namespaceRTQNameL : 2000
+JBurg.Reduction reducer.reduce_namespaceRTQNameL (__p, qualifier, expr);
+
+expression = runtime_name_expression : 1
+JBurg.Reduction reducer.transform_runtime_name_expression(__p, runtime_name_expression);
+
+expression = Pattern runtimeNameExpression: 1
+JBurg.Reduction reducer.reduce_runtimeNameExpression(__p, expr);
+
+name = Pattern namespaceAsName: 1
+JBurg.Reduction reducer.reduce_namespaceAsName_to_name(__p);
+
+expression = Pattern namespaceAsName: 1
+JBurg.Reduction reducer.reduce_namespaceAsName_to_expression(__p);
+
+void_expression = Pattern assignToRuntimeNameExpr: 1
+JBurg.Reduction reducer.reduce_assignToRuntimeNameExpr(__p, lval, r, DISCARD_VALUE);
+
+expression = Pattern assignToRuntimeNameExpr: 1
+JBurg.Reduction reducer.reduce_assignToRuntimeNameExpr(__p, lval, r, NEED_VALUE);
+
+expression = Pattern descendantsExpression : 1
+JBurg.Reduction reducer.reduce_memberAccessExpr(__p, stem, descendants, OP_getdescendants);
+
+/*
+ *  Literals.
+ */
+e4x_literal = Pattern XMLLiteral : 0
+JBurg.Reduction reducer.getStringLiteralContent (__p);
+
+string_constant = e4x_literal;
+
+expression = Pattern XMLContent: 1
+JBurg.Reduction reducer.reduce_XMLContent(__p, exprs);
+
+expression = Pattern XMLList: 2
+JBurg.Reduction reducer.reduce_XMLList(__p, exprs);
+
+expression = Pattern XMLListConst: 1
+JBurg.Reduction reducer.reduce_XMLListConst(__p, elements);
+
+expression = literal;
+literal = object_literal;
+literal = boolean_literal;
+literal = array_literal;
+
+expression = string_constant : 1
+JBurg.Reduction reducer.transform_string_constant(__p, string_constant);
+
+integer_constant = Pattern numericLiteral: isIntLiteral()
+JBurg.Reduction reducer.getIntegerContent(__p);
+
+expression = integer_constant : 1
+JBurg.Reduction reducer.transform_integer_constant(__p, integer_constant);
+
+uint_constant = Pattern numericLiteral: isIntLiteral()
+JBurg.Reduction reducer.getUintContent(__p);
+
+expression = uint_constant : 1
+JBurg.Reduction reducer.transform_uint_constant(__p, uint_constant);
+
+expression = boolean_constant : 1
+JBurg.Reduction reducer.transform_boolean_constant(__p, boolean_constant);
+
+
+/**
+ * Constant values
+ */
+//  Error trap for non-constant expressions
+//  used in a context where only a constant is valid,
+//  e.g., foo() in function needsConstantInit(x = foo()).
+required_constant_value = expression : ERROR_TRAP
+JBurg.Reduction reducer.transform_expression_to_constant_value(__p, expression);
+
+//  A name can be used as a constant in some contexts,
+//  e.g., if it's a Namespace or otherwise known to be
+//  a compile-time constant.
+
+integer_constant = LiteralIntegerZeroID(void) : 1
+JBurg.Reduction reducer.getIntegerZeroContent(__p);
+
+uint_constant = LiteralIntegerZeroID(void) : 1
+JBurg.Reduction reducer.getIntegerZeroContentAsLong(__p);
+
+float_constant = Pattern numericLiteral : isFloatLiteral()
+JBurg.Reduction reducer.getFloatContent(__p);
+
+constant_value = Pattern nullLiteral : 0
+JBurg.Reduction reducer.reduce_nullLiteral_to_constant_value (__p);
+
+constant_value =  Pattern void0Literal: 0
+JBurg.Reduction reducer.reduce_void0Literal_to_constant_value(__p);
+
+constant_value =  Pattern voidConstant: 0
+JBurg.Reduction reducer.reduce_voidOperator_to_constant_value(__p, value);
+
+boolean_constant = Pattern booleanLiteral: 0
+JBurg.Reduction reducer.reduce_booleanLiteral(__p);
+
+string_constant = Pattern stringLiteral : 0
+JBurg.Reduction reducer.getStringLiteralContent (__p);
+
+numeric_constant = integer_constant;
+numeric_constant = uint_constant;
+numeric_constant = double_constant;
+numeric_constant = float_constant;
+
+
+constant_value = string_constant : 1
+JBurg.Reduction reducer.transform_string_constant_to_constant(__p, string_constant);
+
+constant_value = boolean_constant : 1
+JBurg.Reduction reducer.transform_boolean_constant_to_constant(__p, boolean_constant);
+
+constant_value = numeric_constant : 1
+JBurg.Reduction reducer.transform_numeric_constant_to_constant(__p, numeric_constant);
+
+required_constant_value = constant_value;
+
+double_constant =  Pattern numericLiteral : isDoubleLiteral()
+JBurg.Reduction reducer.getDoubleContent(__p);
+
+//  Fallback code-gen choice if conversion to
+//  double failed in LiteralNumberNode.getNodeID().
+//  It's not likely to work better here,
+//  but the BURM will emit some diagnostics.
+double_constant =  Pattern numericLiteral : 3
+JBurg.Reduction reducer.getDoubleContent(__p);
+
+expression = double_constant : 5
+JBurg.Reduction reducer.transform_double_constant(__p, double_constant);
+
+expression = numeric_constant : 5
+JBurg.Reduction reducer.transform_numeric_constant(__p, numeric_constant);
+
+expression = float_constant : 5
+JBurg.Reduction reducer.transform_float_constant(__p, float_constant);
+
+expression = constant_value : 0
+JBurg.Reduction reducer.transform_constant_value(__p, constant_value);
+
+object_literal = Pattern nullLiteral : 1
+JBurg.Reduction reducer.reduce_nullLiteral_to_object_literal (__p);
+
+object_literal = Pattern objectLiteral : 3
+JBurg.Reduction reducer.reduce_objectLiteral (__p, elements);
+
+object_literal_element = Pattern objectLiteralElement : 0
+JBurg.Reduction reducer.reduce_objectLiteralElement (__p, id, value);
+
+non_resolving_identifier = Pattern nonResolvingIdentifier : 0
+JBurg.Reduction reducer.getIdentifierContent(__p);
+
+expression = non_resolving_identifier : 1
+JBurg.Reduction reducer.transform_non_resolving_identifier(__p, non_resolving_identifier);
+
+object_literal = Pattern regexLiteral: 5
+JBurg.Reduction reducer.reduce_regexLiteral(__p);
+
+object_literal = Pattern void0Literal: 1
+JBurg.Reduction reducer.reduce_void0Literal_to_object_literal(__p);
+
+object_literal = Pattern void0Operator: 1
+JBurg.Reduction reducer.reduce_void0Operator(__p);
+
+expression = Pattern voidOperator : 1
+JBurg.Reduction reducer.reduce_voidOperator_to_expression (__p, expr);
+
+boolean_literal = boolean_constant: 1
+JBurg.Reduction reducer.transform_boolean_constant(__p, boolean_constant);
+
+array_literal = Pattern arrayLiteral : 1
+JBurg.Reduction reducer.reduce_arrayLiteral (__p, elements);
+
+vector_literal = Pattern vectorLiteral: 1
+JBurg.Reduction reducer.reduce_vectorLiteral(__p, type_param, elements);
+
+decl_name = Pattern simpleName : 0
+JBurg.Reduction reducer.reduce_declName(__p);
+

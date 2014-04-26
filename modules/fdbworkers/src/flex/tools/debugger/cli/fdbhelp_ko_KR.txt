@@ -1,0 +1,824 @@
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+
+이 파일에는 fdb의 'help' 명령을 통해 표시되는 텍스트가 포함되어 
+있습니다.
+
+이러한 텍스트는 "항목"으로 나뉩니다.
+예를 들어 fdb 사용자가 'help break'를 입력하면 아래의 [break] 항목이 
+표시됩니다.
+
+각 항목의 첫 번째 행과 마지막 행은 비워 두어야 합니다.
+첫 번째 행과 마지막 행은 fdb에 표시되지 않으며 이 파일의 
+가독성을 높이는 역할만 합니다.
+
+도움말 텍스트가 80자 폭의 콘솔에 표시될 때 줄 바꿈되지 않도록 
+텍스트의 형식을 지정해야 합니다.
+다음은 80자 폭의 행입니다.
+
+--------------------------------------------------------------------------------
+
+[?]
+
+정의되지 않은 명령입니다.
+모든 fdb 명령 목록을 보려면 'help'만 실행합니다.
+
+[break]
+
+지정된 행이나 함수에서 중단점을 설정합니다.
+예:
+  break 87
+    현재 파일의 87행에서 중단점을 설정합니다.
+  break myapp.mxml:56
+    myapp.mxml의 56행에서 중단점을 설정합니다.
+  break #3:29
+    파일 #3의 29행에서 중단점을 설정합니다.
+  break doThis
+    현재 파일의 doThis() 함수에서 중단점을 설정합니다.
+  break myapp.mxml:doThat
+    myapp.mxml 파일의 doThat() 함수에서 중단점을 설정합니다.
+  break #3:doOther
+    파일 #3의 doOther() 함수에서 중단점을 설정합니다.
+  break
+   현재 스택 프레임의 현재 실행 주소에서 중단점을 설정합니다.
+   이렇게 하면 스택 프레임으로 돌아가는 지점에서 
+   중단할 때 편리합니다.
+파일 이름 및 번호를 보려면 'info sources' 또는 'info files'를 실행합니다.
+함수 이름을 보려면 'info functions'를 실행합니다.
+축약된 파일 이름 및 함수 이름이 모호하지 않다면 축약된 이름을 
+사용할 수 있습니다.
+행 번호를 지정하면 해당 행의 코드 시작 부분에서 중단됩니다.
+함수를 지정하면 해당 함수의 코드 시작 부분에서 중단됩니다.
+중단점 제어에 대한 자세한 내용은 '명령' 및 '조건'을 참조하십시오.
+
+[bt]
+
+스택 역추적입니다.
+
+[catch]
+
+예외가 발생하면 중단합니다. 이 명령은 Catch된 예외, 즉 
+"catch" 블록에서 처리하는 예외에만 영향을 줍니다.
+ Catch되지 않은 예외는 항상 디버거에서 중단됩니다.
+
+catch 지점을 삭제하려면 "delete" 명령을 사용합니다.
+
+예:
+  catch *
+    어떤 예외라도 발생하면 중단합니다.
+  catch ReferenceError
+    Catch되었는지에 관계없이 ReferenceError가 발생하면 
+    항상 중단합니다.
+
+[cf]
+
+현재 파일의 이름과 번호를 표시하거나 현재 파일을 변경합니다.
+예:
+  cf
+    현재 파일의 이름과 번호를 표시합니다.
+  cf myapp.mxml
+    현재 파일을 myapp.mxml로 변경합니다.
+  cf #29
+    현재 파일을 #29 파일로 변경합니다.
+파일 이름 및 번호를 보려면 'info sources' 또는 
+'info files'를 실행합니다.
+축약된 파일 이름이 모호하지 않다면 축약된 이름을 
+사용할 수 있습니다.
+'list'를 사용하여 파일을 나열하는 경우에도 해당 파일이 
+현재 파일로 설정됩니다.
+
+[clear]
+
+지정된 행이나 함수에서 중단점을 지웁니다.
+예:
+  clear 87
+    현재 파일의 87행에서 중단점을 지웁니다.
+  clear myapp.mxml:56
+    myapp.mxml의 56행에서 중단점을 지웁니다.
+  clear #3:29
+    파일 #3의 29행에서 중단점을 지웁니다.
+  clear doThis
+    현재 파일의 doThis() 함수에서 중단점을 지웁니다.
+  clear myapp.mxml:doThat
+    myapp.mxml 파일의 doThat() 함수에서 중단점을 지웁니다.
+  clear #3:doOther
+    파일 #3의 doOther() 함수에서 중단점을 지웁니다.
+  clear
+    현재 파일의 현재 행에서 중단점을 지웁니다.
+파일 이름 및 번호를 보려면 'info sources' 또는 
+'info files'를 실행합니다.
+함수 이름을 보려면 'info functions'를 실행합니다.
+축약된 파일 이름 및 함수 이름이 모호하지 않다면 
+축약된 이름을 사용할 수 있습니다.
+행 번호를 지정하면 해당 행의 모든 중단점이 지워집니다.
+함수를 지정하면 함수의 시작 부분에서 중단점이 지워집니다.
+
+[continue]
+
+중단점에서 중지한 후에 계속 실행합니다.
+이 명령에는 인수가 필요하지 않습니다.
+
+[condition]
+
+
+COND가 true인 경우에만 중단하려면 중단점 번호 N을 지정합니다.
+`조건 N COND'와 같은 형식을 사용합니다. 여기서 N은 정수이고 
+COND는 중단점 N에 도달할 때마다 평가되는 표현식입니다.
+
+[commands]
+
+중단점에 도달했을 때 실행할 명령을 설정합니다.
+중단점 번호를 `명령` 뒤에 인수로 지정합니다.
+인수를 지정하지 않으면 마지막으로 설정한 중단점이 
+목표 중단점이 됩니다.
+명령 자체는 다음 행의 시작 부분 뒤에 옵니다.
+행의 끝 부분임을 나타내려면 행을 입력할 때 "end"를 포함합니다.
+중단점을 표시하지 않으려면 첫 번째 행을 "silent"로 지정합니다.
+그러면 중단점에 도달해도 명령을 통해 인쇄되는 내용 외에 
+아무 내용도 인쇄되지 않습니다.
+예:
+  (fdb) 명령
+  중단점 1에 도달했을 때 사용할 명령을 한 행에 하나씩 입력합니다.
+  마지막 행에는 'end'만 입력합니다.
+  >w
+  >end
+
+[delete]
+
+중단점 하나 이상을 삭제합니다.
+예:
+  delete
+    모든 중단점을 삭제합니다.
+  delete 2 5
+    중단점 #2과 #5을 삭제합니다.
+중단점 번호를 보려면 'info breakpoints'를 실행합니다.
+
+[directory]
+
+fdb를 통해 소스 파일을 검색할 디렉토리 목록을 수정합니다.
+
+예:
+
+  directory
+   목록을 기본값으로 복원합니다. 기본값은 소스 파일이 
+   객체 코드로 컴파일된 디렉토리 뒤에 현재 작업 디렉토리가 
+   오는 형태입니다.
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+    지정한 디렉토리를 소스를 검색할 디렉토리 목록의 시작 부분에 
+    추가합니다. 예를 들어 mypackage.MyClass 클래스의 소스를 
+    검색하는 경우 디버거에서 C:\MySource\mypackage\MyClass.as와 
+    C:\MySource\MyClass.as를 모두 검색합니다.
+
+  directory C:\Dir1;C:\Dir2    (Windows -- 구분 기호로 ';' 사용)
+  directory /Dir1:/Dir2        (Mac -- 구분 기호로 ':' 사용)
+    여러 디렉토리를 소스를 검색할 디렉토리 목록의 시작 부분에 
+    추가합니다.
+
+현재 목록을 보려면 'show directories'를 실행합니다.
+
+[disable]
+
+중단점이나 자동 표시 표현식을 하나 이상 비활성화합니다.
+예:
+  disable
+  disable breakpoints
+    모든 중단점을 비활성화합니다.
+  disable 2 5
+  disable breakpoints 2 5
+    중단점 #2과 #5을 비활성화합니다.
+  disable display
+    자동 표시 표현식을 모두 비활성화합니다.
+  disable display 1 3
+    자동 표시 표현식 #1과 #3을 비활성화합니다.
+중단점 번호를 보려면 'info breakpoints'를 실행합니다.
+자동 표시 표현식 번호를 보려면 'info display'를 실행합니다.
+
+[disassemble]
+
+(ActionScript 2에만 해당하고 ActionScript 3 디버깅 시에는 
+지원되지 않습니다.)
+
+지정한 소스 코드 부분을 디스어셈블합니다.
+기본값은 현재 목록 행입니다.
+지원되는 인수는 다음에 예제로 나타난 list 명령과 같습니다.
+  disassemble 87
+    현재 파일의 87행을 디스어셈블합니다.
+  disassemble 87 102
+    현재 파일의 87행부터 102행까지 디스어셈블합니다.
+  disassemble doThis
+      현재 파일의 doThis() 함수를 디스어셈블합니다.
+위와 같이 간단한 행 번호를 사용하는 방법 외에 여러 가지 
+방법으로 행을 지정할 수 있습니다.
+   myapp.mxml
+      myapp.mxml의 1행입니다.
+   myapp.mxml:doThat
+      myapp.mxml에 있는 doThat() 함수의 첫 번째 행입니다.
+   myapp.mxml:56
+      myapp.mxml의 56행입니다.
+   #3
+      파일 #3의 1행입니다.
+   #3:doOther
+      파일 #3에서 doOther() 함수가 시작되는 행입니다.
+   #3:29
+      파일 #3의 29행입니다.
+
+[display]
+
+자동 표시 표현식 목록에 표현식을 추가합니다.
+예:
+  display employee.name
+    자동 표시 표현식 목록에 'employee.name'을 추가합니다.
+    fdb가 중지할 때마다 employee.name의 값이 표시됩니다.
+이 명령의 인수는 'print'의 인수와 비슷합니다.
+자동 표시 표현식 및 해당 번호 목록을 보려면 'info display'를 
+실행합니다.
+
+[down]
+
+이 명령으로 호출되는 스택 프레임을 선택한 후 인쇄합니다.
+이 명령 뒤에 'info arguments' 및 'info locals' 명령을 사용하면 선택한 
+프레임의 로컬 및 인수가 표시됩니다.
+'up' 및 'frame'을 참조하십시오.
+
+[enable]
+
+중단점이나 자동 표시 표현식을 하나 이상 활성화합니다.
+예:
+  enable
+  enable breakpoints
+    모든 중단점을 활성화합니다.
+  enable 2 5
+  enable breakpoints 2 5
+    중단점 #2과 #5을 활성화합니다.
+  enable display
+    자동 표시 표현식을 모두 활성화합니다.
+  enable display 1 3
+    자동 표시 표현식 #1과 #3을 활성화합니다.
+중단점 번호를 보려면 'info breakpoints'를 실행합니다.
+자동 표시 표현식 번호를 보려면 'info display'를 실행합니다.
+
+[file]
+
+시작하지 않고 디버깅할 응용 프로그램을 지정합니다.
+예:
+  file http://www.mysite.com/myapp.mxml
+   디버깅할 MXML 응용 프로그램을 지정합니다.
+  file myapp.swf
+   현재 디렉토리에서 디버깅할 로컬 SWF 파일을 지정합니다.
+   이 경우 현재 디렉토리에 myapp.swd(디버깅 정보가 포함된 파일)도 
+   있어야 합니다.
+이 명령을 실행하더라도 실제로 응용 프로그램이 
+시작되지 않습니다.
+ 인수가 없는 'run' 명령을 사용하여 응용 프로그램을 디버깅합니다.
+'file <target>' 뒤에 'run'을 사용할 필요가 없이 디버깅할 응용 프로그램을 
+'run'의 인수로 간단히 지정하면 됩니다.
+  run http://mysite.com/myapp.mxml
+  run myapp.swf
+fdb를 시작할 때, 디버깅할 응용 프로그램을 명령줄 인수로도 
+지정할 수 있습니다.
+  fdb http://www.mysite.com/myapp.mxml
+  fdb myapp.swf
+이 경우 'file' 또는 'run'을 사용할 필요가 없습니다.
+디버깅할 응용 프로그램을 지정하지 않고 'run'을 실행하면 fdb에서 
+응용 프로그램이 연결될 때까지 기다립니다.
+
+[finish]
+
+현재 함수가 반환될 때까지 실행합니다.
+이 명령에는 인수가 필요하지 않습니다.
+
+[frame]
+
+특정 스택 프레임을 선택한 후 인쇄합니다.
+이 명령에는 선택적 인수(프레임 번호)가 필요합니다.
+인수를 입력하지 않으면 기본적으로 현재 최상위 프레임
+(즉, 프레임 0)으로 돌아갑니다.
+예:
+  frame 4
+  frame
+이 명령 뒤에 'info arguments' 및 'info locals' 명령을 사용하면 
+선택한 프레임의 로컬 및 인수가 표시됩니다.
+'up', 'down' 및 'bt'를 참조하십시오.
+
+[handle]
+
+fdb를 통해 Flash Player의 결함을 처리할 방법을 지정합니다.
+예:
+  handle recursion_limit stop
+  recursion_limit 결함이 발생하면 fdb에 메시지가 표시되고 
+  중단점에서 중지되는 것처럼 중지됩니다.
+  handle all print nostop
+    결함이 발생하는 경우 fdb에 메시지가 표시되지만 
+    중지되지는 않습니다.
+결함 이름이나 'all'이 첫 번째 인수에 해당됩니다.
+그 외 인수로는 해당 결함에 적용되는 동작이 있습니다.
+결함 이름을 보려면 'info handle'을 실행합니다.
+동작에는 print/noprint 및 stop/nostop이 있습니다.
+'print'는 이 결함이 발생하는 경우에 메시지가 인쇄된다는 의미입니다.
+'stop'은 이 결함이 발생하는 경우에 디버거가 다시 시작된다는 의미로, 
+'print'를 내포하고 있습니다.
+
+[help]
+
+fdb를 처음 사용하십니까?  
+'tutorial'을 실행하여 기본 정보를 살펴보십시오.
+fdb 명령 목록:
+bt (bt)             모든 스택 프레임의 역추적 인쇄
+break (b)           지정된 행이나 함수에서 중단점 설정
+catch (ca)          예외가 발생하면 중단
+cf (cf)             현재 파일의 이름과 번호 표시
+clear (cl)          지정된 행이나 함수에서 중단점 지우기
+condition(cond)     중단점에 조건부 표현식 적용/제거
+continue (c)        중단점에서 중지한 후에 계속 실행
+commands (com)      중단점에 도달했을 때 실행할 명령 설정
+delete(d)           중단점이나 자동 표시 표현식 삭제
+directory (dir)     소스 파일의 검색 경로에 디렉토리 추가
+disable (disab)     중단점이나 자동 표시 표현식 비활성화
+disassemble (disas) 소스 행 또는 함수 디스어셈블
+display (disp)      자동 표시 표현식 추가
+enable (e)          중단점이나 자동 표시 표현식 활성화
+file(fil)           디버깅할 응용 프로그램 지정
+finish (f)          현재 함수가 반환될 때까지 실행
+handle (han)        결함 처리 방법 지정
+help (h)            fdb 명령에 대한 도움말 표시
+home (ho)           실행이 중단되는 목록 위치 설정
+info (i)            디버깅 중인 프로그램에 대한 정보 표시
+kill (k)            디버깅 중인 프로그램의 실행 종료
+list (l)            지정된 함수나 행 나열
+next (n)            프로그램 단계 진행
+print (p)           변수 EXP의 값 인쇄
+pwd (pw)            작업 디렉토리 인쇄
+quit (q)            fdb 종료
+run (r)             디버깅된 프로그램 시작
+set(se)             변수 값 설정
+source (so)         파일에서 fdb 명령 읽기
+step (s)            다른 소스 행에 도달할 때까지 프로그램 단계 진행
+tutorial (t)        fdb 사용 방법에 대한 자습서 표시
+undisplay (u)       자동 표시 표현식 제거
+viewswf (v)         swf를 기준으로 파일을 나열하는 필터 설정 또는 지우기
+watch (wa)          지정된 변수에 대한 감시점 추가
+what (wh)           변수의 컨텍스트 표시
+where (w)           bt와 동일
+전체 설명서를 보려면 'help'를 입력하고 명령 이름을 입력합니다.
+
+[home]
+
+실행이 중단되는 목록 위치를 설정합니다.
+
+[info]
+
+디버깅 중인 프로그램에 대한 정보를 표시하는 데 사용되는 
+일반 명령입니다.
+info 하위 명령 목록:
+info arguments (i a)    현재 스택 프레임의 인수 변수
+info breakpoints (i b)  사용자가 설정할 수 있는 중단점 상태
+info display (i d)      자동 표시 표현식의 목록 표시
+info files (i f)        디버깅 중인 파일 및 대상 이름
+info functions (i fu)   모든 함수 이름
+info handle (i h)       결함 처리 방법
+info locals (i l)       현재 스택 프레임의 로컬 변수
+info scopechain (i sc)  현재 스택 프레임의 범위 체인
+info sources (i so)     프로그램의 소스 파일
+info stack (i s)        스택 역추적
+info swfs (i sw)        이 세션의 swf 목록
+info targets(i t)       디버깅 중인 응용 프로그램
+info variables (i v)    모든 전역 및 정적 변수 이름
+전체 설명서를 보려면 'help info'를 입력한 다음 info 하위 명령 
+이름을 입력합니다.
+
+[info arguments]
+
+현재 스택 프레임의 인수를 표시합니다.
+
+[info breakpoints]
+
+모든 중단점과 감시점 상태를 표시합니다.
+'유형' 열은 다음 중 하나를 나타냅니다.
+   breakpoint   - 일반 중단점  
+   watchpoint   - 감시점
+'처리' 열에는 중단점에 도달한 후에 중단점이 처리되는 
+방법을 나타내는 'keep', 'del', 'dis' 중 하나가 포함됩니다.
+'dis'는 중단점이 비활성화된다는 의미이고 'del'은 
+삭제된다는 의미입니다.
+'주소' 및 '대상' 열은 각각 주소 및 파일/행 번호를 나타냅니다.
+
+[info display]
+
+자동 표시 표현식 및 해당 번호 목록을 표시합니다.
+
+[info files]
+
+소스 파일, 프레임워크 파일, 자동 생성된 파일 등 디버깅 중인 
+응용 프로그램의 파일 번호와 이름을 표시합니다.
+예:
+  info files
+    범주를 기준으로 모든 파일을 사전순으로 나열합니다.
+  info files my
+  info files my*
+    이름이 "my"로 시작하는 모든 파일을 사전순으로 나열합니다.
+  info files *.as
+    이름이 ".as"로 끝나는 모든 파일을 사전순으로 나열합니다.
+  info files *foo*
+    이름에 "foo"가 포함된 모든 파일을 사전순으로 나열합니다.
+name#N 형식으로 파일이 표시됩니다. 여기서 N은 파일 번호입니다.
+대부분의 명령에서 파일 이름 대신 #N을 사용할 수 있습니다.
+
+[info functions]
+
+함수 이름을 표시합니다.
+예:
+  info functions .
+    현재 파일의 모든 함수를 표시합니다.
+  info functions myapp.mxml
+    myapp.mxml의 모든 함수를 표시합니다.
+  info functions #3
+    파일 #3의 모든 함수를 표시합니다.
+  info functions
+    모든 파일의 모든 함수를 표시합니다.
+파일 이름 및 번호를 보려면 'info sources' 또는 'info files'를 실행합니다.
+축약된 파일 이름이 모호하지 않다면 축약된 이름을 사용할 수 있습니다.
+
+[info handle]
+
+Flash Player에서 결함이 발생할 경우 fdb에서 수행하는 작업을 표시합니다.
+예:
+  info handle
+    fdb에서 모든 결함을 처리하는 방법을 표시합니다.
+  info handle recursion_limit
+    fdb에서 recursion_limit 결함을 처리하는 방법을 표시합니다.
+
+[info locals]
+
+현재 스택 프레임의 로컬 변수를 표시합니다.
+
+[info scopechain]
+
+현재 스택 프레임의 범위 체인을 표시합니다.
+범위 체인은 Flash Player에서 심볼 이름을 확인하려고 할 때 검색되는 
+객체 목록을 말합니다.
+
+[info sources]
+
+디버깅 중인 응용 프로그램의 소스 파일 번호와 이름을 표시합니다.
+프레임워크 파일과 자동 생성된 파일은 포함되지 않습니다.
+name#N 형식으로 파일이 표시됩니다. 여기서 N은 파일 번호입니다.
+대부분의 명령에서 파일 이름 대신 #N을 사용할 수 있습니다.
+
+[info stack]
+
+스택 역추적입니다.
+
+[info swfs]
+
+디버깅 세션에 알려진 swf를 표시합니다. swf  이름을 기준으로 
+파일 목록을 필터링하는 방법에 대한 자세한 내용은 'viewswf' 명령을 
+참조하십시오.
+
+[info targets]
+
+디버깅 중인 응용 프로그램의 URL(http: 또는 file:)을 표시합니다.
+
+[info variables]
+
+모든 전역 변수 및 정적 변수의 이름과 값을 표시합니다.
+
+[info ?]
+
+정의되지 않은 info 명령입니다. 'help info'를 실행해 봅니다.
+
+[kill]
+
+디버깅 중인 프로그램의 실행을 종료합니다.
+이 명령에는 인수가 필요하지 않습니다.
+
+[list]
+
+소스 파일의 코드 행을 나열합니다.
+예:
+  list
+    현재 파일의 이전 목록 뒤나 주위에 행을 10개 더 나열합니다.
+  list -
+    현재 파일의 이전 목록 앞에 행을 10개 나열합니다.
+  list 87
+    현재 파일의 87행 주위에 행을 10개 나열합니다.
+  list 87 102
+    현재 파일의 87행부터 102행까지 나열합니다.
+위와 같이 간단한 행 번호를 사용하는 방법 외에 다른 일곱 가지 
+방법으로 행을 지정할 수 있습니다.
+  doThis
+      현재 파일에 있는 doThis() 함수의 첫 번째 행입니다.
+   myapp.mxml
+      myapp.mxml의 1행입니다.
+   myapp.mxml:doThat
+      myapp.mxml에 있는 doThat() 함수의 첫 번째 행입니다.
+   myapp.mxml:56
+      myapp.mxml의 56행입니다.
+   #3
+      파일 #3의 1행입니다.
+   #3:doOther
+      파일 #3에서 doOther() 함수가 시작되는 행입니다.
+   #3:29
+      파일 #3의 29행입니다.
+파일 이름 및 번호를 보려면 'info sources' 또는 'info files'를 
+실행합니다.
+함수 이름을 보려면 'info functions'를 실행합니다.
+축약된 파일 이름 및 함수 이름이 모호하지 않다면 
+축약된 이름을 사용할 수 있습니다.
+파일을 나열하면 해당 파일이 현재 파일로 설정됩니다.
+('cf' 명령을 참조하십시오.)
+
+[next]
+
+프로그램 단계를 진행하여 서브루틴 호출의 전 과정을 실행합니다.
+  next
+    단계를 한 번만 진행합니다.
+  next 3
+    단계를 세 번 진행하거나 다른 이유로 프로그램이 중지될 때까지 
+    진행합니다.
+서브루틴 호출이 발생하지 않으면 'step' 명령처럼 진행되지만 
+서브루틴 호출이 발생하면 이 호출이 하나의 명령으로 처리됩니다.
+
+[print]
+
+변수 또는 표현식 값을 인쇄합니다.
+예:
+  print i
+    'i' 값을 인쇄합니다.
+  print employee.name
+    'employee.name' 값을 인쇄합니다.
+  print employee
+    'employee' 객체 값을 인쇄합니다.
+    이 명령을 실행하면 [Object 10378]과 비슷한 형식으로만 정보가 
+    표시될 수 있습니다.
+  print employee.
+    'employee' 객체의 모든 속성 값을 인쇄합니다.
+  print *employee
+    'employee' 객체의 모든 속성 값을 인쇄합니다.
+    접두어 * 연산자는 접미어 . 연산자 대신 사용되는 접두어입니다.
+  print #10378.
+    #10378 객체의 모든 속성 값을 인쇄합니다.
+액세스 가능한 변수에는 선택한 스택 프레임의 어휘 환경에 
+대한 변수 외에도, 범위가 전역이거나 전체 파일인 모든 변수가 
+해당됩니다.
+
+[pwd]
+
+현재 작업 디렉토리를 인쇄합니다.
+이 디렉토리는 fdb가 시작된 디렉토리로, fdb 내에서 
+변경되지 못합니다.
+이 디렉토리를 기준으로 'run' 및 'source'에 대한 인수를 
+지정할 수 있습니다.
+이 명령에는 인수가 필요하지 않습니다.
+
+[quit]
+
+fdb를 종료합니다.
+이 명령에는 인수가 필요하지 않습니다.
+
+[run]
+
+디버깅 세션을 시작합니다.
+예:
+  run http://www.mysite.com/myapp.mxml
+    지정한 MXML 응용 프로그램을 실행합니다.
+  run myapp.swf
+  run mydir\myapp.swf
+  run c:\mydir\myapp.swf
+    로컬 SWF 파일인 myapp.swf를 실행합니다. 이 파일은 현재 
+    디렉토리('pwd' 명령 참조)를 기준으로 한 상대 경로 또는 
+    절대 경로를 지정할 수도 있습니다. 이러한 경우 myapp.swf가 있는 
+    디렉토리에 myapp.swd(디버깅 정보가 포함된 파일)도 있어야
+    합니다.
+  run
+    이전에 'file' 명령으로 지정한 응용 프로그램을 실행합니다.
+    지정한 응용 프로그램이 없으면 fdb에서 한 응용 프로그램이 
+    연결되기를 기다립니다. 연결되는 응용 프로그램이 없으면 
+    연결 시간이 초과됩니다.
+'run'을 실행하면 브라우저 또는 독립 실행형 Flash Player에서 
+응용 프로그램이 시작됩니다.
+응용 프로그램이 시작되면 즉시 fdb로 연결되기 때문에, 
+사용자가 중단점 등을 설정할 수 있습니다.
+
+Macintosh에서는 인수가 없는 'run' 명령만 실행할 수 있습니다.
+그런 다음 수동으로 Flash Player를 시작해야 합니다.
+
+[set]
+
+변수 또는 편리 변수 값을 설정합니다.
+편리 변수는 fdb 전체에 존재하는 변수로, 프로그램의 일부가 아닙니다.
+편리 변수에는 '$'가 접두어로 지정되고 기존 변수와 충돌하지 
+않는다면 어떤 이름이든 지정할 수 있습니다. 예를 들어 $myVar로 
+지정할 수 있습니다. 편리 변수는 fdb의 다양한 면을 제어하는 
+데에도 사용됩니다.
+
+다음은 fdb에서 사용되는 편리 변수입니다.
+$listsize          - '목록'에 표시할 소스 행 수
+$columnwrap        - 줄 바꿈하여 출력할 열 번호
+$infostackshowthis - 0인 경우 스택 역추적에 '이 정보'가 표시되지 않음
+$invokegetters     - 0인 경우 fdb에서 getter 함수가 실행되지 않음
+$bpnum             - 마지막으로 정의된 중단점 번호
+$displayattributes - 1인 경우 'print var.'를 실행하면 'var' 구성원의 
+                     모든 특성(예: 전용, 정적)이 표시됨
+
+예:
+  set i = 3
+    변수 'i'를 숫자 3으로 설정합니다.
+  set employee.name = "Susan"
+    변수 'employee.name'을 문자열 "Susan"으로 설정합니다.
+  set $myVar = 20
+    편리 변수 '$myVar'를 숫자 20으로 설정합니다.
+
+[show]
+
+fdb 상태에 대한 정보를 표시하는 데 사용되는 일반 명령입니다.
+show 하위 명령 목록:
+show break (sh b)       일시 중단된 실행 위치 및 이유
+show directories (sh d) 소스 파일을 검색할 디렉토리
+show files (sh f)       대상 파일 및 경로
+show functions (sh fu)  함수 행 매핑 정보
+show locations (sh l)   중단점 위치
+show memory (sh m)      현재 메모리 사용
+show net (sh n)         플레이어 메시지 통계
+show properties (sh p)  속성 값
+show uri (sh u)         이 세션 플레이어의 URI
+show variable (sh v)    원시 변수 검색
+전체 설명서를 보려면 'help show'를 입력한 다음 show 하위 명령 
+이름을 입력합니다.
+
+[show break]
+
+SWF 내에서 프로그램이 중단된 오프셋을 표시합니다.
+
+[show directories]
+
+소스 파일을 찾을 현재 검색 경로를 표시합니다.
+
+[show files]
+
+모든 대상 파일의 파일 이름과 경로를 표시합니다.
+
+[show functions]
+
+함수와 행 번호 간의 매핑 정보를 표시합니다.
+예:
+  show functions .
+    현재 파일의 모든 함수에 대한 매핑 정보를 표시합니다.
+  show functions myapp.mxml
+    myapp.mxml의 모든 함수에 대한 매핑 정보를 표시합니다.
+  show functions #3
+    파일 #3의 모든 함수에 대한 매핑 정보를 표시합니다.
+  show functions
+    모든 파일의 모든 함수에 대한 매핑 정보를 표시합니다.
+파일 이름 및 번호를 보려면 'info sources' 또는 'info files'를 
+실행합니다.
+축약된 파일 이름이 모호하지 않다면 축약된 이름을 
+사용할 수 있습니다.
+
+[show locations]
+
+각 중단점에 설정된 위치 목록을 표시합니다.
+
+[show memory]
+
+Java VM 메모리 통계를 표시합니다.
+
+[show net]
+
+Flash Player로 보내거나 Flash Player로부터 받은 메시지에 대한 
+정보를 표시합니다.
+
+[show properties]
+
+디버거 내에 사용된 편리 변수 목록을 표시합니다.
+
+[show uri]
+
+이 세션과 관련해 플레이어에서 보낸 URI를 표시합니다.
+
+[show variable]
+
+변수의 구성원 값을 표시합니다. 매개 변수 두 개가 필요합니다.
+하나는 숫자 변수 식별자이고 또 하나는 변수에 대한 속성 이름입니다.
+편리 변수 $invokegetters는 getter 속성이 있는 경우 이 속성을 
+실행할지 결정하는 데 사용됩니다.
+예:
+    show variable 1 __proto__
+
+[show ?]
+
+정의되지 않은 show 명령입니다. 'help show'를 실행해 보십시오.
+
+[source]
+
+파일에서 fdb 명령을 읽고 실행합니다.
+  source mycommands.txt
+  source mydir\mycommands.txt
+  source c:\mydir\mycommands.txt
+    mycommands.txt를 읽고 그 안의 fdb 명령을 실행합니다.
+    명령이 포함된 파일은 현재 디렉토리('pwd' 명령 참조)를 
+    기준으로 한 상대 경로 또는 절대 경로를 지정할 수 있습니다.
+fdb를 시작하면 이런 방식으로 .fdbinit 파일을 자동으로 읽습니다.
+.fdbinit의 현재 디렉토리만 검색됩니다. 따라서 서로 다른 
+프로젝트에 대해 여러 .fdbinit 파일을 설정할 수 있습니다.
+
+[step]
+
+다른 소스 행에 도달할 때까지 프로그램 단계를 진행합니다.
+예:
+  step
+    단계를 한 번만 진행합니다.
+  step 3
+    단계를 세 번 진행하거나 다른 이유로 프로그램이 중지될 
+    때까지 진행합니다.
+
+[tutorial]
+
+fdb 사용 방법에 대한 자습서를 표시합니다.
+이 명령에는 인수가 필요하지 않습니다.
+
+[Tutorial]
+
+일반적인 fdb 세션:
+'run'으로 응용 프로그램을 시작합니다.
+'info sources'로 파일 이름을 봅니다.
+'list'로 파일을 나열합니다.
+'break'로 중단점을 설정합니다.
+중단점에 도달할 때까지 'continue'로 프로그램을 실행합니다.
+'where', 'print', 'info locals'로 프로그램 상태를 검사합니다.
+'next', 'step', 'finish'로 개별 명령문을 실행합니다.
+'continue'로 실행을 다시 시작합니다.
+'quit'로 fdb를 종료합니다.
+
+[undisplay]
+
+자동 표시 표현식을 하나 이상 제거합니다.
+예:
+  undisplay
+    자동 표시 표현식을 모두 제거합니다.
+  undisplay 2 7
+    자동 표시 표현식 #2과 #7을 제거합니다.
+자동 표시 표현식 및 해당 번호 목록을 보려면 'info display'를 
+실행합니다.
+
+[up]
+
+이 명령을 호출하는 스택 프레임을 선택한 후 인쇄합니다.
+이 명령 뒤에 'info arguments' 및 'info locals' 명령을 사용하면 
+선택한 프레임의 로컬 및 인수가 표시됩니다.
+'down' 및 'frame'을 참조하십시오.
+
+[viewswf]
+
+swf 이름을 기준으로 파일을 나열하는 필터(즉: 'info files' 
+및 'info sources')를 설정하거나 지웁니다.
+매개 변수가 없으면 모든 파일이 표시됩니다. 같은 파일이 
+하나 이상의 swf에 있으면 해당 파일의 첫 번째 인스턴스만 
+목록에 표시됩니다. 파일의 다른 인스턴스에 액세스하려면
+파일 번호(예: 'list #192')를 사용하거나 이 명령을 매개 변수
+(아래 참조)와 함께 사용합니다. 그러면 특정 swf 파일이 
+표시됩니다. 매개 변수 하나, 즉 'info swfs' 명령을 통해 표시되는 
+swf 이름을 사용하면 지정한 swf 파일만 파일 목록에 표시됩니다.
+다른 swf 파일은 표시되지 않습니다. 이 명령은 파일을 
+매개 변수로 사용할 수 있는 명령(예: 'break')에도 영향을 줍니다.
+예:
+  viewswf myApp.mxml.swf
+    myApp.mxml.swf 파일만 표시됩니다.
+  viewswf
+    모든 swf 파일이 모두 표시됩니다.
+
+[watch]
+
+지정된 변수에 대한 감시점을 추가합니다. 변수 값이 변경되면 
+디버거가 실행을 중단합니다.
+예:
+  watch foo
+
+[what]
+
+변수가 확인된 컨텍스트를 표시합니다.
+
+[where]
+
+스택 역추적입니다.
+
+[zzz]
+
+((( 이 미사용 항목을 파일의 마지막으로 유지하면 )))
+((( 마지막 두 번째 항목을 제대로 구문 분석할 수 있습니다.)))
+
