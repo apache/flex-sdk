@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<project basedir="." default="jar" name="com.adobe.flash.fdb" >
+	<property file="build.properties" />
+	<!-- label is set by CruiseControl script based on P4 label incrementer -->
+	<condition property="build.number" value="${label}" else="0">
+	     <isset property="label" />
+	</condition>
+	<path id="classpath">
+			<fileset dir="${compiler.generated.lib}" includes="${jar.dependencies}" />
+		</path>
+
+		<target name="jar" depends="compile">
+		    <mkdir dir="${dist}" />
+			<jar destfile="${dist}/${jar}" basedir="${basedir.bin}" includes="**/*.class **/*.properties **/*.txt">
+				<manifest>
+	                <attribute name="Sealed" value="${manifest.sealed}" />
+	                <attribute name="Implementation-Title" value="${manifest.Implementation-Title}" />
+	                <attribute name="Implementation-Version" value="${manifest.Implementation-Version}.${build.number}" />
+	                <attribute name="Implementation-Vendor" value="${manifest.Implementation-Vendor}" />
+					<attribute name="Main-Class" value="${main.class}" />
+					<attribute name="Class-Path" value="${jar.dependencies}" />
+	            </manifest>
+			</jar>
+		</target>
+
+		<target name="compile" depends="clean, generate-burm" description="compile">
+			<javac includes="**/*.java" classpathref="classpath">
+				<src path="${basedir.swfutils}" />
+				<src path="${basedir.generated.src}" />
+				<src path="${basedir.src}" />
+			</javac>
+		</target>
+		
+		<target name="generate-burm">
+			    	<ant antfile="jburg-gen.xml" target="main" />
+			    </target>
+
+		<target name="clean" description="clean">
+			<echo message="Cleaning out dist dir: ${dist}" />
+			<ant antfile="jburg-gen.xml" target="clean" />
+			<delete quiet="true" includeemptydirs="true">
+				<fileset dir="${dist}" />
+			</delete>
+		</target>
+
+</project>

@@ -1,0 +1,873 @@
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+
+This file contains the text displayed by the 'help' command in fdb.
+
+It is divided into "topics". For example, when an fdb user types
+'help break', the [break] topic below is displayed.
+
+The first and last lines of each topic should be blank.
+They don't get displayed in fdb; they are here only
+to make this file more easily readable.
+
+Help text should be formatted to not wrap
+when displayed on an 80-character-wide console.
+The following line is 80 characters wide.
+
+--------------------------------------------------------------------------------
+
+[?]
+
+Nicht definierter Befehl. Geben Sie einfach ﾄhelpﾓ ein, um eine Liste aller 
+FDB-Befehle anzuzeigen.
+
+[break]
+
+Setzt bei einer bestimmten Zeile oder Funktion einen Haltepunkt.
+Beispiele:
+  break 87
+    Setzt einen Haltepunkt bei Zeile 87 der aktuellen Datei.  
+  break myapp.mxml:56
+    Setzt einen Haltepunkt bei Zeile 56 der Datei ﾄmyapp.mxmlﾓ.
+  break #3:29
+    Setzt einen Haltepunkt bei Zeile 29 in Datei 3.
+  break doThis
+    Setzt einen Haltepunkt bei der Funktion ﾄdoThis()ﾓ in der aktuellen Datei.
+  break myapp.mxml:doThat
+    Setzt einen Haltepunkt bei der Funktion ﾄdoThat()ﾓ in der Datei 
+    ﾄmyapp.mxmlﾓ.
+  break #3:doOther
+    Setzt einen Haltepunkt bei der Funktion ﾄdoOther()ﾓ in Datei 3.
+  break
+   Setzt einen Haltepunkt bei der aktuellen Ausf￼hrungsadresse im aktuellen 
+   Stapelrahmen. Dies ist n￼tzlich, wenn bei der R￼ckkehr zu einem Stapelrahmen 
+   angehalten werden soll.
+Geben Sie zum Anzeigen von Dateinamen und -nummern ﾄinfo sourcesﾓ oder ﾄinfo 
+filesﾓ ein.
+Geben Sie zum Anzeigen von Funktionsnamen ﾄinfo functionsﾓ ein.
+Abgek￼rzte Datei- und Funktionsnamen sind zul￤ssig, wenn sie eindeutig sind.
+Ist eine Zeilennummer angegeben, wird am Anfang des Codes der entsprechenden 
+Zeile angehalten.
+Ist eine Funktion angegeben, wird am Anfang des Codes der entsprechenden 
+Funktion angehalten.
+Weitere Informationen zur Steuerung von Haltepunkten finden Sie unter 
+ﾄcommandsﾓ und ﾄconditionﾓ.
+
+[bt]
+
+Ablaufverfolgung des Stapels.
+
+[catch]
+
+H￤lt bei Ausgabe einer Ausnahmebedingung an.  Dies betrifft nur abgefangene 
+Ausnahmebedingungen, also Ausnahmebedingungen, die durch einen ﾄCatchﾓ-Block 
+verarbeitet werden.  Bei nicht abgefangenen Ausnahmebedingungen erfolgt die 
+Unterbrechung immer im Debugger.
+
+Verwenden Sie zum L￶schen eines Catch-Points den Befehl ﾄdeleteﾓ.
+
+Beispiele:
+  catch *
+    Unterbricht bei Ausgabe einer beliebigen Ausnahmebedingung.
+  catch ReferenceError
+    Unterbricht bei jeder Ausgabe eines ReferenceError, unabh￤ngig davon, ob er 
+    abgefangen wurde.
+
+[cf]
+
+Zeigt den Namen und die Nummer der aktuellen Datei an oder ￤ndert die aktuelle 
+Datei.
+Beispiele:
+  cf
+    Zeigt den Namen und die Nummer der aktuellen Datei an.
+  cf myapp.mxml
+    ￄndert die aktuelle Datei in ﾄmyapp.mxmlﾓ.
+  cf #29
+    ￄndert die aktuelle Datei in Datei 29.
+Geben Sie zum Anzeigen von Dateinamen und -nummern ﾄinfo sourcesﾓ oder ﾄinfo 
+filesﾓ ein.
+Abgek￼rzte Dateinamen sind zul￤ssig, wenn sie eindeutig sind.
+Das Auflisten einer Datei mit ﾄlistﾓ f￼hrt ebenso dazu, dass die Datei zur 
+aktuellen Datei wird.
+
+[clear]
+
+L￶scht einen Haltepunkt bei einer bestimmten Zeile oder Funktion.
+Beispiele:
+  clear 87
+    L￶scht den Haltepunkt bei Zeile 87 der aktuellen Datei.
+  clear myapp.mxml:56
+    L￶scht den Haltepunkt bei Zeile 56 der Datei ﾄmyapp.mxmlﾓ.
+  clear #3:29
+    L￶scht den Haltepunkt bei Zeile 29 der Datei 3.
+  clear doThis
+    L￶scht den Haltepunkt bei der Funktion ﾄdoThis()ﾓ in der aktuellen Datei.
+  clear myapp.mxml:doThat
+    L￶scht den Haltepunkt bei der Funktion ﾄdoThat()ﾓ in der Datei ﾄmyapp.mxmlﾓ.
+  clear #3:doOther
+    L￶scht den Haltepunkt bei der Funktion ﾄdoOther()ﾓ in Datei 3.
+  clear
+    L￶scht den Haltepunkt der aktuellen Zeile in der aktuellen Datei. 
+Geben Sie zum Anzeigen von Dateinamen und -nummern ﾄinfo sourcesﾓ oder ﾄinfo 
+filesﾓ ein.
+Geben Sie zum Anzeigen von Funktionsnamen ﾄinfo functionsﾓ ein.
+Abgek￼rzte Datei- und Funktionsnamen sind zul￤ssig, wenn sie eindeutig sind.
+Ist die Zeilennummer angegeben, werden alle Haltepunkte in dieser Zeile 
+gel￶scht.
+Ist eine Funktion angegeben, werden die Haltepunkte am Anfang der Funktion 
+gel￶scht.
+
+[continue]
+
+Setzt die Ausf￼hrung nach dem Anhalten am Haltepunkt fort.
+Dieser Befehl hat keine Argumente.
+
+[condition]
+
+
+Gibt an, dass an Haltepunktnummer N nur dann angehalten wird, wenn COND wahr ist.
+Die Verwendung des Befehls erfolgt in der Form ﾄcondition N CONDﾓ, wobei N f￼r 
+eine Ganzzahl und COND f￼r einen Ausdruck steht, der bei jedem Erreichen von 
+Haltepunkt N ausgewertet werden muss.
+
+[commands]
+
+Legt fest, dass Befehle bei Erreichen eines Haltepunkts ausgef￼hrt werden.
+Geben Sie die Haltepunktnummer als Argument nach ﾄcommandsﾓ ein.
+Ist kein Argument vorhanden, ist der Zielhaltepunkt der letzte gesetzte 
+Haltepunkt.
+Die Befehle selbst folgen ab Beginn der n￤chsten Zeile.
+Geben Sie eine Zeile ein, die die Zeichenfolge ﾄendﾓ enth￤lt, um das Ende der 
+Befehle anzuzeigen.
+Geben Sie f￼r einen automatischen Haltepunkt ﾄsilentﾓ als erste Zeile an. 
+In diesem Fall erfolgt bei Erreichen des Haltepunkts keine Ausgabe au￟er 
+derjenigen der Befehle.
+Beispiel:
+  (fdb) commands
+  Geben Sie Befehle f￼r das Erreichen von Haltepunkt 1 ein (einen pro Zeile).
+  Beenden Sie die Folge der Befehle mit einer Zeile, in der einfach nur ﾄendﾓ 
+  steht.
+  >w
+  >end
+
+[delete]
+
+L￶scht einen oder mehrere Haltepunkte.
+Beispiele:
+  delete
+    L￶scht alle Haltepunkte.
+  delete 2 5
+    L￶scht die Haltepunkte 2 und 5.
+Geben Sie zum Anzeigen von Haltepunktnummern ﾄinfo breakpointsﾓ ein.
+
+[directory]
+
+ￄndert die Liste der Ordner, in denen FDB nach Quelldateien sucht.
+
+Beispiele:
+
+  directory
+    Stellt den Standard f￼r die Liste wieder her. Dies ist der Ordner, in dem 
+    die Quelldatei in Objektcode kompiliert wurde, gefolgt vom aktuellen 
+    Arbeitsordner.
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+    F￼gt den angegebenen Ordner am Anfang der Liste der Ordner, die nach der 
+    Quelle durchsucht werden, hinzu.  Bei der Suche nach der Quelle f￼r die 
+    Klasse ﾄmypackage.MyClassﾓ sucht der Debugger beispielsweise sowohl nach 
+    ﾄC:\MySource\mypackage\MyClass.asﾓ als auch nach ﾄC:\MySource\MyClass.asﾓ.
+
+  directory C:\Dir1;C:\Dir2    (Windows ﾖ verwenden Sie ﾄ;ﾓ als Trennzeichen)
+  directory /Dir1:/Dir2        (Mac ﾖ verwenden Sie ﾄ;ﾓ als Trennzeichen)
+    F￼gt mehrere Ordner am Anfang der Liste der Ordner, die nach der Quelle 
+    durchsucht werden, hinzu.
+
+Geben Sie zum Anzeigen einer aktuellen Liste ﾄshow directoriesﾓ ein.
+
+[disable]
+
+Deaktiviert einen oder mehrere Haltepunkte oder automatisch angezeigte 
+Ausdr￼cke.
+Beispiele:
+  disable
+  disable breakpoints
+    Deaktiviert alle Haltepunkte.
+  disable 2 5
+  disable breakpoints 2 5
+    Deaktiviert die Haltepunkte 2 und 5.
+  disable display
+    Deaktiviert alle automatisch angezeigten Ausdr￼cke.
+  disable display 1 3
+    Deaktiviert die automatisch angezeigten Ausdr￼cke 1 und 3.
+Geben Sie zum Anzeigen von Haltepunktnummern ﾄinfo breakpointsﾓ ein.
+Geben Sie zum Anzeigen der Nummern von automatisch angezeigten Ausdr￼cken ﾄinfo 
+displayﾓ ein.
+
+[disassemble]
+
+(Nur ActionScript 2; nicht unterst￼tzt beim Debugging von ActionScript 3)
+
+Disassembliert einen bestimmten Teil des Quellcodes.
+Standardm￤￟ig ist dies die aktuelle Listenzeile.
+Die unterst￼tzten Argumente sind identisch mit denjenigen des Listenbefehls.
+Beispiele:
+  disassemble 87
+    Disassembliert Zeile 87 in der aktuellen Datei.
+  disassemble 87 102
+    Disassembliert Zeile 87 bis 102 in der aktuellen Datei.
+  disassemble doThis
+      Disassembliert die Funktion ﾄdoThis()ﾓ in der aktuellen Datei.
+ￜber die oben dargestellte Verwendung einfacher Zeilennummern hinaus k￶nnen Sie 
+Zeilen auch auf andere Arten angeben:
+   myapp.mxml
+      Zeile 1 in ﾄmyapp.mxmlﾓ.
+   myapp.mxml:doThat
+      Die erste Zeile der Funktion ﾄdoThat()ﾓ in ﾄmyapp.mxmlﾓ.
+   myapp.mxml:56
+      Zeile 56 in ﾄmyapp.mxmlﾓ.
+   #3
+      Zeile 1 in Datei 3.
+   #3:doOther
+      Die Zeile in Datei 3, in der die Funktion ﾄdoOther()ﾓ beginnt.
+   #3:29
+      Zeile 29 in Datei 3.
+
+[display]
+
+F￼gt der Liste automatisch angezeigter Ausdr￼cke einen Ausdruck hinzu.
+Beispiel:
+  display employee.name
+    F￼gt der Liste automatisch angezeigter Ausdr￼cke ﾄemployee.nameﾓ hinzu.
+    Bei jedem Anhalten von FDB wird der Wert von ﾄemployee.nameﾓ angezeigt.
+Das Argument f￼r diesen Befehl ￤hnelt demjenigen f￼r ﾄprintﾓ.
+Geben Sie zum Anzeigen der Liste automatisch angezeigter Ausdr￼cke und ihrer 
+Nummern ﾄinfo displayﾓ ein.
+
+[down]
+
+W￤hlt den Stapelrahmen aus, der von diesem aufgerufen wurde, und gibt ihn aus.
+Die darauf folgenden Befehle ﾄinfo argumentsﾓ und ﾄinfo localsﾓ zeigen die 
+lokalen Variablen und Argumente des ausgew￤hlten Rahmens an.
+Weitere Informationen finden Sie unter ﾄupﾓ und ﾄframeﾓ. 
+
+[enable]
+
+Aktiviert einen oder mehrere Haltepunkte oder automatisch angezeigte Ausdr￼cke.
+Beispiele:
+  enable
+  enable breakpoints
+    Aktiviert alle Haltepunkte.
+  enable 2 5
+  enable breakpoints 2 5
+    Aktiviert die Haltepunkte 2 und 5.
+  enable display
+    Aktiviert alle automatisch angezeigten Ausdr￼cke.
+  enable display 1 3
+    Aktiviert die automatisch angezeigten Ausdr￼cke 1 und 3.
+Geben Sie zum Anzeigen von Haltepunktnummern ﾄinfo breakpointsﾓ ein.
+Geben Sie zum Anzeigen der Nummern von automatisch angezeigten Ausdr￼cken ﾄinfo 
+displayﾓ ein.
+
+[file]
+
+Gibt eine Anwendung an, f￼r die ein Debugging durchgef￼hrt werden soll, ohne 
+sie zu starten.
+Beispiele:
+  file http://www.mysite.com/myapp.mxml
+    Gibt eine MXML-Anwendung an, f￼r die ein Debugging erfolgen soll.
+  file myapp.swf
+    Gibt eine lokale SWF-Datei im aktuellen Ordner an, f￼r die ein Debugging 
+    erfolgen soll.
+    In diesem Fall muss auch ﾄmyapp.swdﾓ (die Datei mit den 
+    Debugging-Informationen) im aktuellen Ordner vorhanden sein.
+Dieser Befehl bewirkt nicht, dass die Anwendung gestartet wird. Verwenden Sie 
+den ﾄrunﾓ-Befehl ohne Argument, um das Debugging der Anwendung zu starten.
+Statt die Befehle ﾄfile <Ziel>ﾓ und dann ﾄrunﾓ zu verwenden, k￶nnen Sie einfach 
+die Anwendung, f￼r die ein Debugging erfolgen soll, als Argument von ﾄrunﾓ 
+angeben:
+  run http://mysite.com/myapp.mxml
+  run myapp.swf
+Sie k￶nnen die Anwendung, f￼r die das Debugging erfolgen soll, auch beim 
+Starten von FDB als Befehlszeilenargument angeben:
+  fdb http://www.mysite.com/myapp.mxml
+  fdb myapp.swf
+In diesem Fall brauchen Sie ﾄfileﾓ oder ﾄrunﾓ nicht zu verwenden.
+Wenn Sie ﾄrunﾓ ohne Angabe einer Anwendung, f￼r die ein Debugging erfolgen 
+soll, verwenden, wartet FDB, bis eine Verbindung zu einer beliebigen Anwendung 
+hergestellt wird.
+
+[finish]
+
+F￼hrt den Befehl aus, bis die aktuelle Funktion die Kontrolle an das Programm 
+zur￼ckgibt.
+Dieser Befehl hat keine Argumente.
+
+[frame]
+
+W￤hlt einen bestimmten Stapelrahmen aus und gibt ihn aus.
+Dieser Befehl hat als optionales Argument eine Rahmennummer.
+Ist kein Argument angegeben, kehrt die Anwendung standardm￤￟ig zum Rahmen der 
+obersten Ebene (frame 0) zur￼ck
+Beispiele:
+  frame 4
+  frame
+Die darauf folgenden Befehle ﾄinfo argumentsﾓ und ﾄinfo localsﾓ zeigen die 
+lokalen Variablen und Argumente des ausgew￤hlten Rahmens an.
+Weitere Informationen finden Sie unter ﾄupﾓ, ﾄdownﾓ und ﾄbtﾓ. 
+
+[handle]
+
+Geben Sie an, wie FDB einen Fehler in Flash Player behandeln soll.
+Beispiele:
+  handle recursion_limit stop
+    Zeigt bei Auftreten eines recursion_limit-Fehlers eine Meldung in FDB an 
+    und h￤lt wie bei einem Haltepunkt an.
+  handle all print nostop
+    Zeigt bei Auftreten einer beliebigen Art von Fehler eine Meldung in FDB an, 
+    h￤lt jedoch nicht an.
+Das erste Argument ist ein Fehlername oder ﾄallﾓ.
+Weitere Argumente sind auf diesen Fehler anzuwendende Aktionen.
+Geben Sie zum Anzeigen von Fehlernamen ﾄinfo handleﾓ ein.
+G￼ltige Aktionen sind: print/noprint und stop/nostop.
+ﾄprintﾓ bedeutet, dass eine Meldung ausgegeben wird, wenn dieser Fehler 
+auftritt.
+ﾄstopﾓ bedeutet, dass der Debugger erneut aufgerufen wird, wenn dieser Fehler 
+auftritt. Dies impliziert ﾄprintﾓ.
+
+[help]
+
+Sie kennen FDB noch nicht? Um grundlegende Informationen zu erhalten, geben Sie 
+ﾄtutorialﾓ ein.
+Liste der FDB-Befehle:
+bt (bt)             Gibt die Ablaufverfolgung aller Stapelrahmen aus.
+break (b)           Setzt bei einer bestimmten Zeile oder Funktion einen 
+                    Haltepunkt.
+catch (ca)          H￤lt bei Ausgabe einer Ausnahmebedingung an
+cf (cf)             Zeigt den Namen und die Nummer der aktuellen Datei an
+clear (cl)          L￶scht einen Haltepunkt bei einer bestimmten Zeile oder 
+                    Funktion
+condition (cond)    Wendet Bedingungsausdruck auf einen Haltepunkt an bzw. 
+                    entfernt ihn von einem Haltepunkt.
+continue (c)        Setzt die Ausf￼hrung nach dem Anhalten am Haltepunkt fort.
+commands (com)      Legt Befehle fest, die bei Erreichen eines Haltepunkts 
+                    ausgef￼hrt werden sollen.
+delete (d)          L￶scht Haltepunkte oder automatisch angezeigte Ausdr￼cke
+directory (dir)     F￼gt dem Suchpfad f￼r Quelldateien einen Ordner hinzu.
+disable (disab)     Deaktiviert Haltepunkte oder automatisch angezeigte 
+                    Ausdr￼cke
+disassemble (disas) Disassembliert Quellzeilen oder Funktionen
+display (disp)      F￼gt automatisch angezeigte Ausdr￼cke hinzu
+enable (e)          Aktiviert Haltepunkte oder automatisch angezeigte Ausdr￼cke
+file (fil)          Gibt eine Anwendung an, f￼r die ein Debugging erfolgen soll
+finish (f)          F￼hrt den Befehl aus, bis die aktuelle Funktion die 
+                    Kontrolle an das Programm zur￼ckgibt
+handle (han)        Gibt an, wie ein Fehler verarbeitet werden soll
+help (h)            Zeigt Hilfe zu den FDB-Befehlen an
+home (ho)           Legt die Listenposition auf die Position fest, an der die 
+                    Ausf￼hrung angehalten wird
+info (i)            Zeigt Informationen zu dem Programm an, f￼r das das 
+                    Debugging erfolgt
+kill (k)            Beendet die Ausf￼hrung des Programms, f￼r das das Debugging 
+                    erfolgt
+list (l)            F￼hrt die angegebene Funktion oder Zeile in einer Liste auf
+next (n)            Durchl￤uft das Programm schrittweise (Step)
+print (p)           Gibt den Wert der Variablen ﾄEXPﾓ aus.
+pwd (pw)            Gibt den Arbeitsordner aus.
+quit (q)            Beendet FDB
+run (r)             Startet das Programm, f￼r das das Debugging erfolgen soll
+set (se)            Legt den Wert einer Variablen fest
+source (so)         Liest FDB-Befehle aus einer Datei
+step (s)            Durchl￤uft das Programm schrittweise (Step) bis zum 
+                    Erreichen einer anderen Quellzeile
+tutorial (t)        Zeigt eine ￜbung zur Verwendung von FDB an
+undisplay (u)       Entfernt einen automatisch angezeigten Ausdruck
+viewswf (v)         Legt einen Filter f￼r eine Dateiliste basierend auf dem 
+                    SWF-Format fest oder l￶scht einen solchen Filter.
+watch (wa)          F￼gt einen Beobachtungspunkt f￼r eine gegebene Variable 
+                    hinzu
+what (wh)           Zeigt den Kontext einer Variablen an
+where (w)           Bewirkt dasselbe wie ﾄbtﾓ
+Geben Sie ﾄhelpﾓ gefolgt vom Namen des Befehls ein, wenn Sie die vollst￤ndige 
+Dokumentation zum entsprechenden Befehl erhalten m￶chten.
+
+[home]
+
+Legt die Listenposition auf die Position fest, an der die Ausf￼hrung angehalten 
+wird.
+
+[info]
+
+Generischer Befehl zum Anzeigen von Informationen ￼ber das Programm, f￼r das 
+das Debugging erfolgt.
+Liste der untergeordneten ﾄinfoﾓ-Befehle:
+info arguments (i a)    Argumentvariablen des aktuellen Stapelrahmens
+info breakpoints (i b)  Status der vom Benutzer einstellbaren Haltepunkte
+info display (i d)      Anzeige einer Liste der automatisch angezeigten Ausdr￼cke
+info files (i f)        Namen der Ziele und Dateien, f￼r die ein Debugging erfolgt
+info functions (i fu)   Alle Funktionsnamen
+info handle (i h)       Information zur Verarbeitung von Fehlern
+info locals (i l)       Lokale Variablen des aktuellen Stapelrahmens
+info scopechain (i sc)  Bereichskette des aktuellen Stapelrahmens
+info sources (i so)     Quelldateien im Programm
+info stack (i s)        Ablaufverfolgung des Stapels
+info swfs (i sw)        Liste von SWF-Dateien in dieser Sitzung
+info targets(i t)       Anwendung, f￼r die das Debugging erfolgt
+info variables (i v)    Alle Namen der globalen und statischen Variablen
+Geben Sie ﾄhelp infoﾓ gefolgt vom Namen eines untergeordneten ﾄinfoﾓ-Befehls 
+ein, um die vollst￤ndige Dokumentation zum entsprechenden Befehl zu erhalten.
+
+[info arguments]
+
+Zeigt die Argumente des aktuellen Stapelrahmens an.
+
+[info breakpoints]
+
+Zeigt den Status aller Halte- und Beobachtungspunkte an.
+Die Type-Spalte zeigt einen der folgenden beiden Typen an:
+   breakpoint   - Normaler Haltepunkt
+   watchpoint   - Beobachtungspunkt
+Die Disp-Spalte enth￤lt entweder ﾄkeepﾓ, ﾄdelﾓ oder ﾄdisﾓ, um anzuzeigen, was 
+mit dem Haltepunkt geschehen soll, nachdem er erreicht wurde. ﾄdisﾓ bedeutet, 
+dass der Haltepunkt deaktiviert wird, und ﾄdelﾓ bedeutet, dass er gel￶scht wird.
+Die Spalten ﾄAddressﾓ und ﾄWhatﾓ zeigen die Adresse bzw. die Datei- oder 
+Zeilennummer an. 
+
+[info display]
+
+Zeigt eine Liste der automatisch angezeigten Ausdr￼cke und ihrer Nummern an.
+
+[info files]
+
+Zeigt Dateinamen und -nummern der Anwendung an, f￼r die das Debugging erfolgen 
+soll. Es handelt sich um Quelldateien, Frameworkdateien und automatisch 
+generierte Dateien.
+Beispiele:
+  info files
+    Listet alle Dateien in alphabetischer Reihenfolge und nach Kategorie auf.
+  info files my
+  info files my*
+    Listet alle Dateien, deren Name mit ﾄmyﾓ beginnt, in alphabetischer 
+    Reihenfolge auf.
+  info files *.as
+    Listet alle Dateien, deren Name mit ﾄ.asﾓ endet, in alphabetischer 
+    Reihenfolge auf.
+  info files *foo*
+    Listet alle Dateien, deren Name ﾄfooﾓ enth￤lt, in alphabetischer 
+    Reihenfolge auf. 
+Dateien werden im Format ﾄName#Nﾓ angezeigt, wobei ﾄNﾓ f￼r die Dateinummer 
+steht.
+Bei vielen Befehlen k￶nnen Sie statt eines Dateinamens ﾄ#Nﾓ verwenden.
+
+[info functions]
+
+Zeigt Funktionsnamen an.
+Beispiele:
+  info functions .
+    Zeigt alle Funktionen in der aktuellen Datei an.
+  info functions myapp.mxml
+    Zeigt alle Funktionen in ﾄmyapp.mxmlﾓ an.
+  info functions #3
+    Zeigt alle Funktionen in Datei 3 an.
+  info functions
+    Zeigt alle Funktionen in allen Dateien an.
+Geben Sie zum Anzeigen von Dateinamen und -nummern ﾄinfo sourcesﾓ oder ﾄinfo 
+filesﾓ ein.
+Abgek￼rzte Dateinamen sind zul￤ssig, wenn sie eindeutig sind.
+
+[info handle]
+
+Zeigt an, welche Aktionen FDB durchf￼hrt, wenn in Flash Player ein Fehler 
+auftritt.
+Beispiele:
+  info handle
+    Zeigt an, wie FDB alle Fehler verarbeitet.
+  info handle recursion_limit
+    Zeigt an, wie FDB einen recursion_limit-Fehler verarbeitet.
+
+[info locals]
+
+Zeigt lokale Variablen des aktuellen Stapelrahmens an.
+
+[info scopechain]
+
+Zeigt die Bereichskette des aktuellen Stapelrahmens an.  Die Bereichskette ist 
+die Liste von Objekten, die durchsucht wird, wenn Flash Player versucht, einen 
+Symbolnamen aufzul￶sen.
+
+[info sources]
+
+Zeigt Namen und Nummern der Quelldateien der Anwendung an, f￼r die ein 
+Debugging erfolgt. Frameworkdateien und automatisch generierte Dateien sind 
+hierbei ausgeschlossen.
+Dateien werden im Format ﾄName#Nﾓ angezeigt, wobei ﾄNﾓ f￼r die Dateinummer 
+steht.
+Bei vielen Befehlen k￶nnen Sie statt eines Dateinamens ﾄ#Nﾓ verwenden.
+
+[info stack]
+
+Ablaufverfolgung des Stapels.
+
+[info swfs]
+
+Zeigt SWF-Dateien an, die in der Debugging-Sitzung bekannt sind.  Weitere 
+Informationen dazu, wie die Dateiauflistung basierend auf den SWF-Namen 
+gefiltert werden kann, finden Sie beim Befehl ﾄviewsfwﾓ. 
+
+[info targets]
+
+Zeigt die URL (http: oder file:) der Anwendung an, f￼r die das Debugging 
+erfolgt.
+
+[info variables]
+
+Zeigt die Namen und Werte aller globalen und statischen Variablen an.
+
+[info ?]
+
+Nicht definierter ﾄinfoﾓ-Befehl. Versuchen Sie es mit ﾄhelp infoﾓ.
+
+[kill]
+
+Beendet die Ausf￼hrung des Programms, f￼r das das Debugging erfolgt.
+Dieser Befehl hat keine Argumente.
+
+[list]
+
+Listet Codezeilen in einer Quelldatei auf.
+Beispiele:
+  list
+    Listet zehn weitere Zeilen in der aktuellen Datei nach oder in der N￤he der 
+    vorherigen Auflistung auf.
+  list -
+    Listet die zehn Zeilen in der aktuellen Datei vor einer vorherigen 
+    Auflistung auf.
+  list 87
+    Listet zehn Zeilen in der aktuellen Datei um die Zeile 87 herum auf.
+  list 87 102
+    Listet die Zeilen 87 bis 102 in der aktuellen Datei auf.
+ￜber die oben dargestellte Verwendung einfacher Zeilennummern hinaus k￶nnen Sie 
+Zeilen auch auf sieben andere Arten angeben:
+  doThis
+      Die erste Zeile der Funktion ﾄdoThis()ﾓ in der aktuellen Datei.
+   myapp.mxml
+      Zeile 1 in ﾄmyapp.mxmlﾓ.
+   myapp.mxml:doThat
+      Die erste Zeile der Funktion ﾄdoThat()ﾓ in ﾄmyapp.mxmlﾓ.
+   myapp.mxml:56
+      Zeile 56 in ﾄmyapp.mxmlﾓ.
+   #3
+      Zeile 1 in Datei 3.
+   #3:doOther
+      Die Zeile in Datei 3, in der die Funktion ﾄdoOther()ﾓ beginnt.
+   #3:29
+      Zeile 29 in Datei 3.
+Geben Sie zum Anzeigen von Dateinamen und -nummern ﾄinfo sourcesﾓ oder ﾄinfo 
+filesﾓ ein.
+Geben Sie zum Anzeigen von Funktionsnamen ﾄinfo functionsﾓ ein.
+Abgek￼rzte Datei- und Funktionsnamen sind zul￤ssig, wenn sie eindeutig sind.
+Das Auflisten einer Datei f￼hrt dazu, dass die Datei zur aktuellen Datei wird. 
+(Weitere Informationen finden Sie beim Befehl ﾄcfﾓ.)
+
+[next]
+
+Durchl￤uft das Programm schrittweise (Step), indem Aufrufe von untergeordneten 
+Routinen durchlaufen werden.
+  next
+    Ein Step-Vorgang.
+  next 3
+    3 Step-Vorg￤nge bzw. bis zum Anhalten des Programms aus einem anderen Grund.
+Verh￤lt sich wie der ﾄstepﾓ-Befehl solange keine Aufrufe von untergeordneten 
+Routinen erfolgen. Ist dies der Fall, wird der Aufruf als eine Anweisung 
+behandelt.
+
+[print]
+
+Gibt den Wert einer Variablen oder eines Ausdrucks aus.
+Beispiele:
+  print i
+    Gibt den Wert von ﾄiﾓ aus.
+  print employee.name
+    Gibt den Wert von ﾄemployee.nameﾓ aus.
+  print employee
+    Gibt den Wert des Objekts ﾄemployeeﾓ aus.
+    Hierbei wird m￶glicherweise ein Wert ￤hnlich dem folgenden angezeigt: 
+    [Object 10378].
+  print employee.
+    Gibt die Werte aller Eigenschaften des Objekts ﾄemployeeﾓ aus.
+  print *employee
+    Gibt die Werte aller Eigenschaften des Objekts ﾄemployeeﾓ aus.
+    Der vorgestellte Sternoperator (*) kann alternativ zum nachgestellten 
+    Punktoperator (.) verwendet werden.
+  print #10378.
+    Gibt die Werte aller Eigenschaften des Objekts 10378 aus.
+Zugreifbare Variablen sind diejenigen der lexikalischen Umgebung des 
+ausgew￤hlten Stapelrahmens sowie alle Variablen, deren Geltungsbereich global 
+ist oder sich ￼ber eine ganze Datei erstreckt.
+
+[pwd]
+
+Gibt den aktuellen Arbeitsordner aus.
+Dies ist der Ordner, von dem aus FDB gestartet wurde. Er kann in FDB nicht 
+ge￤ndert werden. Das Argument f￼r ﾄrunﾓ und ﾄsourceﾓ kann relativ zu diesem 
+Ordner angegeben werden.
+Dieser Befehl hat keine Argumente.
+
+[quit]
+
+Beendet FDB.
+Dieser Befehl hat keine Argumente.
+
+[run]
+
+Startet eine Debugging-Sitzung.
+Beispiele:
+  run http://www.mysite.com/myapp.mxml
+    F￼hrt die angegebene MXML-Anwendung aus.
+  run myapp.swf
+  run mydir\myapp.swf
+  run c:\mydir\myapp.swf
+    F￼hrt die lokale SWF-Datei ﾄmyapp.swfﾓ aus. Diese kann entweder relativ 
+    zum aktuellen Ordner (siehe Befehl ﾄpwdﾓ) oder mit einem absoluten Pfad 
+    angegeben werden. In diesen F￤llen muss auch ﾄmyapp.swdﾓ (die Datei mit den 
+    Debugging-Informationen) im selben Ordner wie ﾄmyapp.swf ﾓvorhanden sein.
+  run
+    F￼hrt die zuvor ￼ber den Befehl ﾄfileﾓ angegebene Anwendung aus.
+    Wurde keine Anwendung angegeben, wartet FDB darauf, dass eine Anwendung 
+    eine entsprechende Verbindung herstellt. Geschieht dies nicht innerhalb 
+    angemessener Zeit, tritt eine Zeit￼berschreitung auf.
+ﾄrunﾓ startet die Anwendung in einem Browser oder einem eigenst￤ndigen Flash 
+Player.
+Sobald die Anwendung gestartet wird, erfolgt eine Unterbrechung in FDB, sodass 
+Sie Haltepunkte setzen k￶nnen usw.
+
+Unter Macintosh ist die einzige unterst￼tzte Form dieses Befehls ﾄrunﾓ ohne 
+Argumente.  Sie m￼ssen Flash Player dann manuell starten.
+
+[set]
+
+Legt den Wert einer Variablen oder Convenience-Variablen fest.
+Convenience-Variablen sind Variablen, die vollst￤ndig in FDB vorhanden sind. 
+Sie sind nicht Teil Ihres Programms.
+Convenience-Variablen weisen ein vorangestelltes Dollarzeichen ($) auf und 
+k￶nnen einen beliebigen Namen haben, wenn dieser keinen Konflikt mit einem 
+vorhandenen Variablennamen verursacht.  Beispiel: $myVar.  
+Convenience-Variablen werden auch zur Steuerung verschiedener Aspekte von FDB 
+verwendet.  
+
+FDB verwendet folgende Convenience-Variablen:
+$listsize          - Anzahl der anzuzeigenden Quellzeilen f￼r ﾄlistﾓ
+$columnwrap        - Nummer der Spalte, bei der die Ausgabe umbrochen werden 
+                     soll
+$infostackshowthis - Wenn 0, wird ﾄthisﾓ nicht in der Stapelablaufverfolgung 
+                     angezeigt
+$invokegetters     - Wenn 0, verhindert dies, dass FDB Getter-Funktionen ausl￶st
+$bpnum             - Die Nummer des letzten definierten Haltepunkts
+$displayattributes - Wenn 1, zeigt ﾄprint var.ﾓ alle Attribute der Mitglieder 
+von ﾄvarﾓ an (z.ﾠB. ﾄprivateﾓ, ﾄstaticﾓ)
+
+Beispiele:
+  set i = 3
+    Legt die Variable ﾄiﾓ auf die Zahl 3 fest.
+  set employee.name = "Susan"
+    Legt die Variable ﾄemployee.nameﾓ auf die Zeichenfolge ﾄSusanﾓ fest.
+  set $myVar = 20
+    Legt die Convenience-Variable ﾄ$myVarﾓ auf die Zahl 20 fest.
+
+[show]
+
+Generischer Befehl zum Anzeigen von Informationen zum Status von FDB.
+Liste der untergeordneten ﾄshowﾓ-Befehle:
+show break (sh b)       Position und Ursache der Ausf￼hrungsunterbrechung
+show directories (sh d) Nach Quelldateien zu durchsuchende Ordner
+show files (sh f)       Zieldateien und -pfade
+show functions (sh fu)  Informationen ￼ber die Zuordnung von Funktion und Zeile 
+show locations (sh l)   Haltepunktpositionen
+show memory (sh m)      Aktuelle Speichernutzung
+show net (sh n)         Meldungsstatistiken f￼r den Player 
+show properties (sh p)  Werte der Eigenschaften
+show uri (sh u)         Player-URI f￼r diese Sitzung 
+show variable (sh v)    Abrufen der unformatierten Variablen
+Geben Sie ﾄhelp showﾓ gefolgt vom Namen eines untergeordneten ﾄshowﾓ-Befehls 
+ein, um die vollst￤ndige Dokumentation zum entsprechenden Befehl zu erhalten.
+
+[show break]
+
+Zeigt den Versatz innerhalb der SWF-Datei an, bei dem das Programm angehalten 
+wurde.
+
+[show directories]
+
+Zeigt den aktuellen Suchpfad zum Auffinden von Quelldateien an.
+
+[show files]
+
+Zeigt Pfad- und Dateinamen f￼r alle Zieldateien an.
+
+[show functions]
+
+Zeigt Informationen f￼r die Zuordnung von Funktion und Zeilennummer an.
+Beispiele:
+  show functions .
+    Zeigt Zuordnungsinformationen f￼r alle Funktionen in der aktuellen Datei an.
+  show functions myapp.mxml
+    Zeigt Zuordnungsinformationen f￼r alle Funktionen in ﾄmyapp.mxmlﾓ an.
+  show functions #3
+    Zeigt Zuordnungsinformationen f￼r alle Funktionen in Datei 3 an.
+  show functions
+    Zeigt Zuordnungsinformationen f￼r alle Funktionen in allen Dateien an.
+Geben Sie zum Anzeigen von Dateinamen und -nummern ﾄinfo sourcesﾓ oder ﾄinfo 
+filesﾓ ein.
+Abgek￼rzte Dateinamen sind zul￤ssig, wenn sie eindeutig sind.
+
+[show locations]
+
+Zeigt eine Liste der Positionen an, die f￼r jeden Haltepunkt festgelegt wurden.
+
+[show memory]
+
+Zeigt Java VM-Speicherstatistiken an.
+
+[show net]
+
+Zeigt Informationen zu Meldungen an, die an Flash Player gesendet oder von 
+Flash Player empfangen wurden.
+
+[show properties]
+
+Zeigt eine Liste der im Debugger verwendeten Convenience-Variablen an. 
+
+[show uri]
+
+Zeigt die URI an, die der Player f￼r diese Sitzung gesendet hat.
+
+[show variable]
+
+Zeigt den Wert eines Mitglieds einer Variablen an.  Es sind zwei Parameter 
+erforderlich: der erste ist die numerische Variablen-ID, der zweite ist der 
+Name der Eigenschaft f￼r die Variable.  Die Convenience-Variable 
+ﾄ$invokegettersﾓ ermittelt, ob die Getter-Funktion f￼r Eigenschaften, sofern 
+vorhanden, ausgel￶st wird.
+Beispiel:
+    show variable 1 __proto__
+
+[show ?]
+
+Nicht definierter ﾄshowﾓ-Befehl. Versuchen Sie es mit ﾄhelp showﾓ.
+
+[source]
+
+Liest FDB-Befehle aus einer Datei und f￼hrt sie aus.
+  source mycommands.txt
+  source mydir\mycommands.txt
+  source c:\mydir\mycommands.txt
+    Liest ﾄmycommands.txtﾓ und f￼hrt die FDB-Befehle darin aus.
+    Die Datei mit den Befehlen kann entweder
+	relativ zum aktuellen Ordner (siehe Befehl ﾄpwdﾓ)
+	oder mit einem absoluten Pfad angegeben werden.
+Die Datei .fdbinit wird beim Starten von FDB automatisch in dieser Weise 
+gelesen.
+Nur der aktuelle Ordner wird nach .fdbinit durchsucht. Dies bedeutet, dass das 
+Einrichten mehrerer .fdbinit-Dateien f￼r verschiedene Projekte zul￤ssig ist.
+
+[step]
+
+Durchl￤uft das Programm schrittweise (Step) bis zum Erreichen einer anderen 
+Quellzeile
+Beispiele:
+  step
+    Ein Step-Vorgang.
+  step 3
+    3 Step-Vorg￤nge bzw. bis zum Anhalten des Programms aus einem anderen Grund.
+
+[tutorial]
+
+Zeigt eine ￜbung zur Verwendung von FDB an.
+Dieser Befehl hat keine Argumente.
+
+[Tutorial]
+
+Eine typische FDB-Sitzung:
+Starten einer Anwendung mit ﾄrunﾓ
+Anzeigen von Dateinamen mit ﾄinfo sourcesﾓ
+Auflisten einer Datei mit ﾄlistﾓ
+Setzen von Haltepunkten mit ﾄbreakﾓ
+Ausf￼hren des Programms mit ﾄcontinueﾓ bis zum Erreichen eines Haltepunkts
+ￜberpr￼fen des Programmstatus mit ﾄwhereﾓ, ﾄprintﾓ und ﾄinfo localsﾓ
+Ausf￼hren einzelner Anweisungen mit ﾄnextﾓ, ﾄstepﾓ und ﾄfinishﾓ
+Fortsetzen der Ausf￼hrung mit ﾄcontinueﾓ
+Beenden von FDB mit ﾄquitﾓ
+
+[undisplay]
+
+Entfernt mindestens einen automatisch angezeigten Ausdruck.
+Beispiele:
+  undisplay
+    Entfernt alle automatisch angezeigten Ausdr￼cke.
+  undisplay 2 7
+    Entfernt die automatisch angezeigten Ausdr￼cke 2 und 7.
+Geben Sie zum Anzeigen der Liste automatisch angezeigter Ausdr￼cke und ihrer 
+Nummern ﾄinfo displayﾓ ein.
+
+[up]
+
+W￤hlt den Stapelrahmen aus, der diesen aufgerufen hat, und gibt ihn aus.
+Die darauf folgenden Befehle ﾄinfo argumentsﾓ und ﾄinfo localsﾓ zeigen die 
+lokalen Variablen und Argumente des ausgew￤hlten Rahmens an.
+Weitere Informationen finden Sie unter ﾄdownﾓ und ﾄframeﾓ.
+
+[viewswf]
+
+Legt einen Filter f￼r eine Dateiliste (d.ﾠh. ﾄinfo filesﾓ und ﾄinfo sourcesﾓ) 
+basierend auf dem SWF-Namen fest oder l￶scht einen solchen Filter. 
+Sind keine Parameter eingestellt, werden alle Dateien angezeigt.  Ist dieselbe 
+Datei in einer oder mehreren SWF-Dateien vorhanden, zeigt die Liste nur die 
+erste Instanz der Datei an.  Verwenden Sie f￼r den Zugriff auf weitere 
+Instanzen der Datei die Nummer der Datei (z.ﾠB. ﾄlist #192ﾓ). Sie k￶nnen den 
+hier beschriebenen Befehl auch in Verbindung mit einem Parameter (siehe unten) 
+zum Anzeigen von Dateien einer bestimmten SWF-Datei benutzen.  Ist nur ein 
+Parameter angegeben (der durch den Befehl ﾄinfo swfsﾓ angezeigte Name der 
+SWF-Datei), dann werden in der Dateiliste nur die Dateien aus der angegebenen 
+SWF-Datei aufgef￼hrt.  
+Dateien von anderen SWF-Dateien werden nicht angezeigt.  Dieser Befehl betrifft 
+auch Befehle, die eine Datei als Parameter akzeptieren (z.ﾠB. ﾄbreakﾓ).
+Beispiel:
+  viewswf myApp.mxml.swf
+    Es werden nur Dateien aus ﾄmyApp.mxml.swfﾓ angezeigt.
+  viewswf 
+    Es werden alle Dateien aus allen SWF-Dateien angezeigt.
+ 
+[watch]
+
+F￼gt einen Beobachtungspunkt f￼r eine gegebene Variable hinzu. Die Ausf￼hrung 
+des Debuggers wird angehalten, wenn sich der Wert der entsprechenden Variablen 
+￤ndert.
+Beispiel:
+  watch foo
+
+[what]
+
+Zeigt den Kontext an, in dem eine Variable aufgel￶st wird. 
+
+[where]
+
+Ablaufverfolgung des Stapels.
+
+[zzz]
+
+((( Keep this unused topic at the end of the file    )))
+((( so that the next-to-last one is parsed properly. )))

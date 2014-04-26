@@ -1,0 +1,886 @@
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+
+This file contains the text displayed by the 'help' command in fdb.
+
+It is divided into "topics". For example, when an fdb user types
+'help break', the [break] topic below is displayed.
+
+The first and last lines of each topic should be blank.
+They don't get displayed in fdb; they are here only
+to make this file more easily readable.
+
+Help text should be formatted to not wrap
+when displayed on an 80-character-wide console.
+The following line is 80 characters wide.
+
+--------------------------------------------------------------------------------
+
+[?]
+
+Niet-gedefinieerde opdracht. Voer alleen "help" in voor een lijst met alle 
+fdb-opdrachten.
+
+[break]
+
+Een onderbrekingspunt instellen op de opgegeven regel of functie.
+Voorbeelden:
+  break 87
+    Hiermee wordt een onderbrekingspunt ingesteld op regel 87 van het huidige 
+    bestand.
+  break myapp.mxml:56
+    Hiermee wordt een onderbrekingspunt ingesteld op regel 56 van myapp.mxml.
+  break #3:29
+    Hiermee wordt een onderbrekingspunt ingesteld op regel 29 van bestand #3.
+  break doThis
+    Hiermee wordt een onderbrekingspunt ingesteld bij de functie doThis() in 
+    het huidige bestand.
+  break myapp.mxml:doThat
+    Hiermee wordt een onderbrekingspunt ingesteld bij de functie doThat() in 
+    het bestand myapp.mxml.
+  break #3:doOther
+    Hiermee wordt een onderbrekingspunt ingesteld bij de functie doOther() in 
+    bestand #3.
+  break
+   Hiermee wordt een onderbrekingspunt ingesteld op het uitvoeradres in het 
+   stackframe. Dit is handig voor onderbreking bij terugkeer naar een 
+   stackframe.
+Voer "info sources" of "info files" in voor een overzicht van bestandsnamen en 
+nummers.
+Voer "info functions" in voor functienamen.
+Afgekorte bestandsnamen en functienamen worden geaccepteerd als ze eenduidig 
+zijn.
+Bij opgave van een regelnummer wordt aan het begin van de code voor die regel 
+onderbroken.
+Bij opgave van een functie wordt aan het begin van de code voor die functie 
+onderbroken.
+Zie "commands" en "condition" voor meer controle over onderbrekingspunten.
+
+[bt]
+
+Backtrace van de stack.
+
+[catch]
+
+Stoppen wanneer er een uitzondering optreedt.  Dit heeft alleen gevolgen voor 
+afgevangen uitzonderingen, ofwel uitzonderingen die door een "catch"-blok 
+worden verwerkt.  Niet-afgevangen uitzonderingen stoppen altijd in het
+foutopsporingsprogramma.
+
+Gebruik de opdracht "verwijderen" om een catch-punt te verwijderen.
+
+Voorbeelden:
+  catch *
+    Hiermee wordt gestopt bij elke uitzondering die er optreedt.
+  catch ReferenceError
+    Hiermee wordt gestopt wanneer er een ReferenceError optreedt, al dan niet 
+    afgevangen.
+
+[cf]
+
+De naam en het nummer van het huidige bestand weergeven of het huidige bestand 
+veranderen.
+Voorbeelden:
+  cf
+    Hiermee wordt de naam en het nummer van het huidige bestand weergegeven.
+  cf myapp.mxml
+    Hiermee wordt het huidige bestand veranderd in myapp.mxml.
+  cf #29
+    Hiermee wordt het huidige bestand veranderd in bestand #29.
+Voer "info sources" of "info files" in voor een overzicht van bestandsnamen en 
+nummers.
+Afgekorte bestandsnamen worden geaccepteerd als ze eenduidig zijn.
+Wanneer u een bestand met "list" vermeldt, wordt dat bestand eveneens het 
+huidige bestand.
+
+[clear]
+
+Een onderbrekingspunt op een opgegeven regel of bij een functie wissen.
+Voorbeelden:
+  clear 87
+    Hiermee wordt het onderbrekingspunt op regel 87 uit het huidige bestand 
+    gewist.
+  clear myapp.mxml:56
+    Hiermee wordt het onderbrekingspunt op regel 56 van myapp.mxml gewist.
+  clear #3:29
+    Hiermee wordt het onderbrekingspunt op regel 29 van bestand #3 gewist.
+  clear doThis
+    Hiermee wordt het onderbrekingspunt bij de functie doThis() uit het huidige 
+    bestand gewist.
+  clear myapp.mxml:doThat
+    Hiermee wordt het onderbrekingspunt bij de functie doThat() uit het bestand 
+    myapp.mxml gewist.
+  clear #3:doOther
+    Hiermee wordt het onderbrekingspunt bij de functie doOther() uit bestand #3 
+    gewist.
+  clear
+    Hiermee wordt het onderbrekingspunt op de huidige regel uit het huidige 
+    bestand gewist. 
+Voer "info sources" of "info files" in voor een overzicht van bestandsnamen en 
+nummers.
+Voer "info functions" in voor functienamen.
+Afgekorte bestandsnamen en functienamen worden geaccepteerd als ze eenduidig 
+zijn.
+Als het regelnummer is opgegeven, worden alle onderbrekingspunten van die regel 
+verwijderd.
+Als een functie is opgegeven, worden onderbrekingspunten aan het begin van de 
+functie verwijderd.
+
+[continue]
+
+De uitvoering voortzetten nadat gestopt is bij het onderbrekingspunt.
+Deze opdracht heeft geen argumenten.
+
+[condition]
+
+
+Nummer N van onderbrekingspunt opgeven om alleen te onderbreken als COND 
+waar is.
+Deze opdracht kan gebruikt worden als 'condition N COND' waarbij N een geheel 
+getal is en COND een expressie die telkens wanneer onderbrekingspunt N bereikt 
+wordt, moet worden geëvalueerd.
+
+[commands]
+
+Opdrachten instellen die moeten worden uitgevoerd wanneer een onderbrekingspunt 
+wordt bereikt.
+Geef het nummer van het onderbrekingspunt als argument op na "commands".
+Zonder argument is het beoogde onderbrekingspunt het laatst ingestelde.
+De opdrachten zelf volgen vanaf de volgende regel.
+Typ een regel die "end" bevat om het einde van de opdrachten aan te geven.
+Voer "silent" in als eerste regel om het onderbrekingspunt stil te maken; dit 
+betekent dat er behalve dat wat de opdrachten weergeven, geen uitvoer wordt 
+weergegeven.
+Voorbeeld:
+  (fdb) commands
+  Typ opdrachten die moeten worden uitgevoerd bij het bereiken van 
+  onderbrekingspunt 1, één per regel.
+  Eindig met een regel die alleen "end" bevat.
+  >w
+  >end
+
+[delete]
+
+Een of meer onderbrekingspunten verwijderen.
+Voorbeelden:
+  delete
+    Hiermee worden alle onderbrekingspunten verwijderd.
+  delete 2 5
+    Hiermee worden de onderbrekingspunten #2 en #5 verwijderd.
+Voer "info breakpoints" in als u de nummers van de onderbrekingspunten wilt 
+zien.
+
+[directory]
+
+De lijst met mappen waarin fdb naar bronbestanden zoekt, wijzigen.
+
+Voorbeelden:
+
+  directory
+    Hiermee wordt de standaardlijst hersteld, bestaande uit de map waarin het 
+    bronbestand is gecompileerd naar objectcode, gevolgd door de huidige 
+    werkmap.
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+    Hiermee wordt de opgegeven map toegevoegd aan het begin van de lijst met 
+    mappen waarin naar de bron wordt gezocht.  Bij het zoeken naar de bron voor 
+    de klasse mypackage.MyClass zal het foutopsporingsprogramma bijvoorbeeld 
+    zoeken naar zowel C:\MySource\mypackage\MyClass.as als 
+    C:\MySource\MyClass.as.
+
+  directory C:\Dir1;C:\Dir2    (Windows -- gebruik ';' als scheidingsteken)
+  directory /Dir1:/Dir2        (Mac -- gebruik ':' als scheidingsteken)
+    Hiermee worden verschillende mappen toegevoegd aan het begin van de lijst 
+    met mappen waarin naar de bron wordt gezocht.
+
+Gebruik "show directories" voor een overzicht van de huidige lijst.
+
+[disable]
+
+Een of meer onderbrekingspunten of automatisch weergegeven expressies 
+uitschakelen.
+Voorbeelden:
+  disable
+  disable breakpoints
+    Hiermee worden alle onderbrekingspunten uitgeschakeld.
+  disable 2 5
+  disable breakpoints 2 5
+    Hiermee worden de onderbrekingspunten #2 en #5 uitgeschakeld.
+  disable display
+    Hiermee worden alle automatisch weergegeven expressies uitgeschakeld.
+  disable display 1 3
+    Hiermee worden automatisch weergegeven expressies #1 en #3 uitgeschakeld.
+Voer "info breakpoints" in als u de nummers van de onderbrekingspunten wilt 
+zien.
+Voer "info display" in als u de nummers van de automatisch weergegeven 
+expressies wilt zien.
+
+[disassemble]
+
+(Alleen ActionScript 2; wordt niet ondersteund bij de foutopsporing van 
+ActionScript 3)
+
+Disassembleer een opgegeven deel van de broncode.
+De standaardinstelling is de huidige regel in de lijst.
+De ondersteunde argumenten zijn dezelfde als bij de lijstopdracht
+Voorbeelden:
+  disassemble 87
+    Hiermee wordt regel 87 in het huidige bestand gedisassembleerd.
+  disassemble 87 102
+    Hiermee worden de regels 87 tot 102 in het huidige bestand 
+    gedisassembleerd.
+  disassemble doThis
+      Hiermee wordt de functie doThis() in het huidige bestand gedisassembleerd.
+Behalve eenvoudige regelnummers zoals hierboven kunt u ook op andere manieren 
+regels opgeven:
+   myapp.mxml
+      Regel 1 in myapp.mxml.
+   myapp.mxml:doThat
+      De eerste regel van de functie doThat() in myapp.mxml.
+   myapp.mxml:56
+      Regel 56 in myapp.mxml.
+   #3
+      Regel 1 in bestand #3.
+   #3:doOther
+      De regel in bestand #3 waar de functie doOther() begint.
+   #3:29
+      Regel 29 in bestand #3.
+
+[display]
+
+Een expressie toevoegen aan de lijst met automatisch weergegeven expressies.
+Voorbeeld:
+  display employee.name
+    Voeg 'employee.name' toe aan de lijst met automatisch weergegeven 
+    expressies.
+    Telkens wanneer fdb stopt, wordt de waarde van employee.name weergegeven.
+Het argument voor deze opdracht is hetzelfde als dat voor 'print'.
+Voer "info display" in als u de lijst en de nummers van de automatisch 
+weergegeven expressies wilt zien.
+
+[down]
+
+Het stackframe selecteren dat hierdoor wordt aangeroepen en deze afdrukken.
+De volgende opdrachten 'info arguments' en 'info locals' tonen de lokale 
+variabelen en argumenten van het geselecteerde frame.
+Zie 'up' en 'frame' 
+
+[enable]
+
+Een of meer onderbrekingspunten of automatisch weergegeven expressies 
+inschakelen.
+Voorbeelden:
+  enable
+  enable breakpoints
+    Hiermee worden alle onderbrekingspunten ingeschakeld.
+  enable 2 5
+  enable breakpoints 2 5
+    Hiermee worden de onderbrekingspunten #2 en #5 ingeschakeld.
+  enable display
+    Hiermee worden alle automatisch weergegeven expressies ingeschakeld.
+  enable display 1 3
+    Hiermee worden automatisch weergegeven expressies #1 en #3 ingeschakeld.
+Voer "info breakpoints" in als u de nummers van de onderbrekingspunten wilt 
+zien.
+Voer "info display" in als u de nummers van de automatisch weergegeven 
+expressies wilt zien.
+
+[file]
+
+Een toepassing opgeven waarin u fouten wilt opsporen zonder deze te starten.
+Voorbeelden:
+  file http://www.mysite.com/myapp.mxml
+    Geef een MXML-toepassing op om fouten in op te sporen.
+  file myapp.swf
+    Geef een lokaal SWF-bestand in de huidige map op voor foutopsporing.
+    In dit geval moet myapp.swd (het bestand dat de foutopsporingsinformatie 
+    bevat) ook in de huidige map staan.
+Met deze opdracht wordt de toepassing echter niet gestart; daarvoor gebruikt u 
+de opdracht 'run' zonder argumenten.
+In plaats van 'file <doel>' en 'run' te gebruiken, kunt u de toepassing waarin 
+u fouten wilt opsporen ook opgeven als argument van 'run':
+  run http://mysite.com/myapp.mxml
+  run myapp.swf
+U kunt de toepassing waarin u fouten wilt opsporen ook opgeven als argument van 
+een opdrachtregel bij het starten van fdb:
+  fdb http://www.mysite.com/myapp.mxml
+  fdb myapp.swf
+In dit geval hoeft u 'file' of 'run' niet te gebruiken.
+Als u 'run' invoert zonder een toepassing op te geven waarin u de fouten wilt 
+opsporen, wacht fdb tot een toepassing er verbinding mee maakt.
+
+[finish]
+
+Uitvoering voortzetten totdat de huidige functie terugkeert.
+Deze opdracht heeft geen argumenten.
+
+[frame]
+
+Een bepaald stackframe selecteren en afdrukken.
+Deze optie heeft als optioneel argument een framenummer.
+Zonder argument is de standaardactie terugkeren naar het huidige topframe 
+(d.w.z. frame 0).
+Voorbeelden:
+  frame 4
+  frame
+De volgende opdrachten 'info arguments' en 'info locals' tonen de lokale 
+variabelen en argumenten van het geselecteerde frame.
+Zie 'up', 'down' en 'bt' 
+
+[handle]
+
+Aangeven hoe fdb een fout in Flash Player moet afhandelen.
+Voorbeelden:
+  handle recursion_limit stop
+    Als de fout recursion_limit zich voordoet, toont fdb een bericht en stopt 
+    alsof het om een onderbrekingspunt gaat.
+  handle all print nostop
+    Als er een willekeurige fout optreedt, toont fdb een bericht zonder te 
+    stoppen.
+Het eerste argument is een foutnaam of 'all'.
+Overige argumenten zijn handelingen die betrekking hebben op die fout.
+Voer 'info handle' in voor foutnamen.
+Acties zijn print/noprint en stop/nostop.
+'print' betekent een bericht weergeven als er een fout optreedt.
+'stop' betekent teruggaan naar het foutopsporingsprogramma als deze fout 
+optreedt. Impliceert 'print'.
+
+[help]
+
+Nieuw bij fdb? Voer 'tutorial' in voor basisinfo.
+Lijst met fdb-opdrachten:
+bt (bt)             Een backtrace van alle stackframes weergeven
+break (b)           Een onderbrekingspunt instellen op een opgegeven regel of 
+                    bij een functie
+catch (ca)          Stoppen wanneer er een uitzondering optreedt
+cf (cf)             De naam en het nummer van het huidige bestand weergeven
+clear (cl)          Een onderbrekingspunt van een opgegeven regel of functie 
+                    wissen
+condition (cond)    Een voorwaardelijke expressie toevoegen aan of verwijderen 
+                    van een onderbrekingspunt
+continue (c)        Uitvoering voortzetten nadat gestopt is bij het 
+                    onderbrekingspunt
+commands (com)      Hiermee worden opdrachten ingesteld die worden uitgevoerd 
+                    wanneer het onderbrekingspunt bereikt wordt
+delete (d)          Alle onderbrekingspunten of automatisch weergegeven 
+                    expressies verwijderen
+directory (dir)     Een map toevoegen aan het zoekpad voor bronbestanden
+disable (disab)     Alle onderbrekingspunten of automatisch weergegeven 
+                    expressies uitschakelen
+disassemble (disas) Bronregels of functies disassembleren
+display (disp)      Een automatisch weergegeven expressie toevoegen
+enable (e)          Alle onderbrekingspunten of automatisch weergegeven 
+                    expressies inschakelen
+file (fil)          De toepassing opgeven waarin fouten moeten worden 
+                    opgespoord.
+finish (f)          Uitvoering voortzetten totdat de huidige functie terugkeert
+handle (han)        Opgeven hoe een fout moet worden verwerkt
+help (h)            Help weergeven voor fdb-opdrachten
+home (ho)           De locatie van de lijst instellen op het punt waar de 
+                    uitvoering is gestopt
+info (i)            Informatie weergeven over het programma waarin fouten 
+                    worden opgespoord
+kill (k)            Uitvoering stoppen van het programma waarin fouten worden 
+                    opgespoord
+list (l)            De opgegeven functie of regel weergeven
+next (n)            Stapsgewijs programma
+print (p)           De waarde van variabele EXP weergeven
+pwd (pw)            De werkmap weergeven
+quit (q)            Fdb afsluiten
+run (r)             Het programma starten waarin de fouten zijn opgespoord
+set (se)            De waarde van een variabele instellen
+source (so)         Fdb-opdrachten lezen vanuit een bestand
+step (s)            Stap voor stap het programma doorlopen totdat er een andere 
+                    bronregel bereikt wordt
+tutorial (t)        Een zelfstudie over het gebruik van fdb weergeven
+undisplay (u)       Een automatisch weergegeven expressie verwijderen
+viewswf (v)         Een filter instellen voor de bestandsweergave op basis van 
+                    swf of deze verwijderen
+watch (wa)          Een controlepunt toevoegen aan een gegeven variabele
+what (wh)           De context van een variabele weergeven
+where (w)           Gelijk aan bt
+Typ 'help' gevolgd door de naam van de opdracht voor de volledige documentatie.
+
+[home]
+
+De locatie van de lijst instellen op het punt waar de uitvoering is gestopt.
+
+[info]
+
+Generieke opdracht voor het weergeven van informatie over het programma waarin 
+fouten worden opgespoord.
+Lijst met subopdrachten voor informatie:
+info arguments (i a)    Argumentvariabelen van het huidige stackframe
+info breakpoints (i b)  Status van onderbrekingspunten die door gebruiker 
+                        kunnen worden ingesteld
+info display (i d)      Een lijst met automatisch weergegeven expressies tonen
+info files (i f)        Namen van doelen en bestanden waarin fouten worden 
+                        opgespoord
+info functions (i fu)   Alle functienamen
+info handle (i h)       Hoe verwerkt u een fout
+info locals (i l)       Lokale variabelen van het huidige stackframe
+info scopechain (i sc)  Bereikketen van het huidige stackframe
+info sources (i so)     Bronbestanden in het programma
+info stack (i s)        Backtrace van de stack
+info swfs (i sw)        Lijst met swf's in deze sessie
+info targets(i t)       Toepassing waarin fouten worden opgespoord
+info variables (i v)    Alle globale en statische namen van variabelen
+Typ 'help info' gevolgd door de naam van de subopdracht voor de volledige 
+documentatie.
+
+[info arguments]
+
+Argumenten van het huidige stackframe weergeven.
+
+[info breakpoints]
+
+De status van alle onderbrekingspunten en controlepunten weergeven.
+De kolom Type geeft één van de volgende punten aan:
+   breakpoint   - normaal onderbrekingspunt
+   watchpoint   - controlepunt
+De kolom Disp bevat een van de waarden 'keep', 'del' of 'dis' om de verwerking 
+van het onderbrekingspunt aan te geven nadat dit is bereikt. 'dis' betekent dat 
+het onderbrekingspunt wordt uitgeschakeld en 'del' betekent dat het wordt 
+gewist.  
+De kolommen 'Address' en 'What' geven respectievelijk het adres en het 
+bestand/regelnummer aan. 
+
+[info display]
+
+Een lijst met automatisch weergegeven expressies en hun nummers tonen.
+
+[info files]
+
+Namen en nummers van de bestanden weergeven voor de toepassing waarin fouten 
+worden opgespoord, waaronder bronbestanden, framework-bestanden en automatisch 
+gegenereerde bestanden.
+Voorbeelden:
+  info files
+    Hiermee wordt een alfabetisch overzicht weergegeven, gerangschikt op categorie
+  info files my
+  info files my*
+    Hiermee wordt een alfabetisch overzicht weergegeven van alle bestanden 
+    waarvan de namen met "my" beginnen.
+  info files *.as
+    Hiermee wordt een alfabetisch overzicht weergegeven van alle bestanden 
+    waarvan de namen op ".as" eindigen.
+  info files *foo*
+    Hiermee wordt een alfabetisch overzicht weergegeven van alle bestanden 
+    waarvan de naam "foo" bevat. 
+Bestanden worden weergegeven in de indeling naam#N, waarbij N het 
+bestandsnummer is.
+In veel opdrachten kunt u #N in plaats van een bestandsnaam gebruiken.
+
+[info functions]
+
+Functienamen weergeven
+Voorbeelden:
+  info functions .
+    Hiermee worden alle functies in het huidige bestand weergegeven.
+  info functions myapp.mxml
+    Hiermee worden alle functies in myapp.mxml weergegeven.
+  info functions #3
+    Hiermee worden alle functies in bestand #3 weergegeven.
+  info functions
+    Hiermee worden alle functies in alle bestanden weergegeven.
+Voer "info sources" of "info files" in voor een overzicht van bestandsnamen en 
+nummers.
+Afgekorte bestandsnamen worden geaccepteerd als ze eenduidig zijn.
+
+[info handle]
+
+Aangeven wat fdb doet als er een fout in Flash Player optreedt.
+Voorbeelden:
+  info handle
+    Hiermee wordt aangegeven hoe fdb alle fouten afhandelt.
+  info handle recursion_limit
+    Hiermee wordt aangegeven hoe fdb de fout recursion_limit afhandelt.
+
+[info locals]
+
+Lokale variabelen van het huidige stackframe weergeven.
+
+[info scopechain]
+
+De bereikketen van het huidige stackframe weergeven.  De bereikketen is de 
+lijst met objecten die wordt doorzocht als Flash Player een symboolnaam 
+probeert op te halen.
+
+[info sources]
+
+Namen en nummers van de bronbestanden weergeven voor de toepassing waarin 
+fouten worden opgespoord. Framework-bestanden en automatisch gegenereerde 
+bestanden worden uitgesloten.
+Bestanden worden weergegeven in de indeling naam#N, waarbij N het 
+bestandsnummer is.
+In veel opdrachten kunt u #N in plaats van een bestandsnaam gebruiken.
+
+[info stack]
+
+Backtrace van de stack.
+
+[info swfs]
+
+Swf's weergeven die in de opsporingssessie bekend zijn.  Zie de opdracht 
+'viewswf' voor details over hoe het bestandsoverzicht kan worden gefilterd aan 
+de hand van de swf-naam. 
+
+[info targets]
+
+De URL (http: of file:) weergeven van de toepassing waarin fouten worden 
+opgespoord.
+
+[info variables]
+
+De namen en waarden van alle globale en statische variabelen weergeven.
+
+[info ?]
+
+Opdracht niet-gedefinieerde info. Probeer 'help info'.
+
+[kill]
+
+Het uitvoeren van het programma waarin fouten worden opgespoord, beëindigen.
+Deze opdracht heeft geen argumenten.
+
+[list]
+
+Coderegels vermelden in een bronbestand.
+Voorbeelden:
+  list
+    Hiermee worden tien extra regels weergegeven in het huidige bestand achter 
+    of rond de vorige lijst.
+  list -
+    Hiermee worden de tien regels weergegeven in het huidige bestand voor een 
+    eerdere lijst.
+  list 87
+    Hiermee worden tien regels weergegeven in het huidige bestand rond regel 87.
+  list 87 102
+    Hiermee worden de regels 87 tot 102 weergegeven in het huidige bestand.
+Behalve eenvoudige regelnummers zoals hierboven kunt u ook op zeven andere 
+manieren regels opgeven:
+  doThis
+      De eerste regel van de functie doThis() in het huidige bestand.
+   myapp.mxml
+      Regel 1 in myapp.mxml.
+   myapp.mxml:doThat
+      De eerste regel van de functie doThat() in myapp.mxml.
+   myapp.mxml:56
+      Regel 56 in myapp.mxml.
+   #3
+      Regel 1 in bestand #3.
+   #3:doOther
+      De regel in bestand #3 waar de functie doOther() begint.
+   #3:29
+      Regel 29 in bestand #3.
+Voer "info sources" of "info files" in voor een overzicht van bestandsnamen en 
+nummers.
+Voer "info functions" in voor functienamen.
+Afgekorte bestandsnamen en functienamen worden geaccepteerd als ze eenduidig 
+zijn.
+Wanneer u een bestand in de lijst vermeldt, wordt dat bestand het huidige 
+bestand. (Zie de opdracht 'cf'.)
+
+[next]
+
+Stap voor stap door het programma gaan om de aanroepen van subroutines te 
+doorlopen.
+  next
+    Ga één stap verder.
+  next 3
+    Ga drie stappen verder of tot het programma om een andere reden stopt.
+Net als bij de opdracht 'step' gaat u door totdat er geen subroutines meer 
+worden aangeroepen. Als dat toch gebeurt, wordt de aanroep als één instructie 
+verwerkt.
+
+[print]
+
+De waarde van variabelen of expressies weergeven.
+Voorbeelden:
+  print i
+    Hiermee wordt de waarde van 'i' weergegeven.
+  print employee.name
+    Hiermee wordt de waarde van 'employee.name' weergegeven.
+  print employee
+    Hiermee wordt de waarde van het Object 'employee' weergegeven.
+    Dit geeft mogelijk iets weer als [Object 10378].
+  print employee.
+    Hiermee worden de waarden van alle eigenschappen van het Object 'employee' 
+    weergegeven.
+  print *employee
+    Hiermee worden de waarden van alle eigenschappen van het Object 'employee' 
+    weergegeven.
+    Voorvoegsel * operator is het alternatief voor achtervoegsel . operator.
+  print #10378.
+    Hiermee worden de waarden van alle eigenschappen van Object #10378 
+    weergegeven.
+De toegankelijke variabelen zijn die in de lexicale omgeving van het 
+geselecteerde stackframe en die waarvan het bereik globaal of een volledig 
+bestand is.
+
+[pwd]
+
+De huidige werkmap weergeven.
+Dit is de map vanwaaruit fdb is gestart; het is niet mogelijk om deze binnen 
+fdb te wijzigen. Het argument voor 'run' en 'source' kan worden opgegeven voor 
+deze map.
+Deze opdracht heeft geen argumenten.
+
+[quit]
+
+Fdb afsluiten.
+Deze opdracht heeft geen argumenten.
+
+[run]
+
+Een foutopsporingssessie starten.
+Voorbeelden:
+  run http://www.mysite.com/myapp.mxml
+    Hiermee wordt de opgegeven MXML-toepassing uitgevoerd.
+  run myapp.swf
+  run mydir\myapp.swf
+  run c:\mydir\myapp.swf
+    Hiermee wordt het lokale SWF-bestand myapp.swf dat kan worden opgegeven, 
+    uitgevoerd hetzij met betrekking tot de huidige map (zie de opdracht 'pwd')
+    of door een absoluut pad te gebruiken. In deze gevallen moet myapp.swd (het 
+    bestand dat de opsporingsinformatie bevat) ook in dezelfde map staan als 
+    myapp.swf.
+  run
+    Voer de toepassing uit die eerder is opgegeven met de opdracht 'file'.
+    Als er geen toepassing is opgegeven, wacht fdb totdat er een toepassing 
+    verbinding mee maakt en treedt er een time-out op als dit niet gebeurt.
+'run' start de toepassing in een browser of zelfstandige Flash Player.
+Zodra de toepassing start, maakt deze contact met fdb zodat u bijvoorbeeld 
+onderbrekingspunten in kunt stellen.
+
+Op de Macintosh is de enige ondersteunde vorm van de opdracht, 'run' zonder 
+argumenten.  Daarna moet u Flash Player handmatig starten.
+
+[set]
+
+De waarde van een variabele of een convenience-variabele instellen.
+Convenience-variabelen zijn variabelen die geheel binnen fdb bestaan; ze maken 
+geen deel uit van uw programma.
+Convenience-variabelen worden voorafgegaan door '$' en kunnen allerlei namen 
+hebben, zolang deze niet strijdig zijn met de bestaande variabele.  
+Bijvoorbeeld $myVar.  Convenience-variabelen worden ook gebruikt om de 
+verschillende aspecten van fdb te bepalen.  
+
+fdb gebruikt de volgende convenience-variabelen.
+$listsize          - aantal bronregels die 'list' toont
+$columnwrap        - kolomnummer op basis waarvan uitvoer omloopt
+$infostackshowthis - indien 0, wordt 'this' niet getoond in de stackbacktrace
+$invokegetters     - indien 0, wordt voorkomen dat fdb getter-functies activeert
+$bpnum             - het nummer van het laatst gedefinieerde onderbrekingspunt
+$displayattributes - indien 1, toont 'print var.' alle attributen van leden van 
+                     'var' (zoals private, static)
+
+Voorbeelden:
+  set i = 3
+    Hiermee wordt de variabele 'i' ingesteld op het getal 3.
+  set employee.name = "Susan"
+    Hiermee wordt de variabele 'employee.name' ingesteld op de tekenreeks 
+    "Susan".
+  set $myVar = 20
+    Hiermee de convenience-variabele '$myVar' ingesteld op het getal 20
+
+[show]
+
+Generieke opdracht voor het weergeven van informatie over de staat van fdb.
+Lijst met subopdrachten voor weergave:
+show break (sh b)       Locatie en reden voor tijdelijk onderbroken uitvoering
+show directories (sh d) Mappen die op bronbestanden moeten worden doorzocht
+show files (sh f)       Doelbestanden en -paden
+show functions (sh fu)  Informatie over toewijzen van functieregels 
+show locations (sh l)   Locaties van onderbrekingspunten
+show memory (sh m)      Huidig geheugengebruik
+show net (sh n)         Berichtstatistieken van Player 
+show properties (sh p)  Waarden van eigenschappen
+show uri (sh u)         URI van Player voor deze sessie 
+show variable (sh v)    Ophalen van onbewerkte variabelen
+Typ 'help show' gevolgd door de naam van de subopdracht voor de volledige 
+documentatie.
+
+[show break]
+
+De offset in de swf weergeven waarvoor het programma is gestopt
+
+[show directories]
+
+Het huidige zoekpad weergeven voor het zoeken naar bronbestanden.
+
+[show files]
+
+Het pad en de bestandsnaam voor alle doelbestanden weergeven.
+
+[show functions]
+
+Informatie weergegeven over de toewijzing functie-naar-regelnummer.
+Voorbeelden:
+  show functions .
+    Hiermee wordt toewijzingsinformatie weergegeven voor alle functies in het 
+    huidige bestand.
+  show functions myapp.mxml
+    Hiermee wordt toewijzingsinformatie weergegeven voor alle functies in 
+    myapp.mxml.
+  show functions #3
+    Hiermee wordt toewijzingsinformatie weergegeven voor alle functies in 
+    bestand #3.
+  show functions
+    Hiermee wordt toewijzingsinformatie weergegeven voor alle functies in alle 
+    bestanden.
+Voer "info sources" of "info files" in voor een overzicht van bestandsnamen en 
+nummers.
+Afgekorte bestandsnamen worden geaccepteerd als ze eenduidig zijn.
+
+[show locations]
+
+De lijst met locaties weergeven die zijn ingesteld voor elk onderbrekingspunt.
+
+[show memory]
+
+Java VM-geheugenstatistieken weergeven.
+
+[show net]
+
+Informatie weergeven over berichten die zijn verzonden naar en ontvangen van 
+Flash Player.
+
+[show properties]
+
+Een lijst met convenience-variabelen weergeven die binnen het 
+foutopsporingsprogramma worden gebruikt. 
+
+[show uri]
+
+De URI weergeven die de Player voor deze sessie heeft verzonden.
+
+[show variable]
+
+De waarde van een lid van een variabele weergeven.  Twee parameters zijn 
+verplicht. De eerste is de numerieke id van de variabele, de tweede de naam van 
+de eigenschap op de variabele.  De convenience-variabele $invokegetters wordt 
+gebruikt om te bepalen of de eigenschappen-getter, aangenomen dat deze bestaat, 
+wordt gestart of niet.
+Voorbeeld:
+    show variable 1 __proto__
+
+[show ?]
+
+Niet-gedefinieerde opdracht. Probeer 'help show'.
+
+[source]
+
+Fdb-opdrachten uit een bestand lezen en uitvoeren.
+  source mycommands.txt
+  source mydir\mycommands.txt
+  source c:\mydir\mycommands.txt
+    Hiermee wordt mycommands.txt gelezen en worden de fdb-opdrachten uitgevoerd 
+    die hierin staan.
+    Het bestand dat de opdrachten bevat, kan worden opgegeven met
+	betrekking tot de huidige map (zie de opdracht 'pwd')
+	of door een absoluut pad te gebruiken.
+Het bestand .fdbinit wordt automatisch op deze manier gelezen als fdb start.
+Alleen in de huidige map wordt naar .fdbinit gezocht. Dat houdt in dat u voor 
+verschillende projecten ook verschillende .fdbinit-bestanden kunt maken.
+
+[step]
+
+De stappen van het programma volgen totdat er een andere bronregel wordt 
+bereikt.
+Voorbeelden:
+  step
+    Ga één stap verder.
+  step 3
+    Ga drie stappen verder of tot het programma om een andere reden stopt.
+
+[tutorial]
+
+Een zelfstudie over het gebruik van fdb weergeven.
+Deze opdracht heeft geen argumenten.
+
+[Tutorial]
+
+Een gebruikelijke fdb-sessie:
+Start een toepassing met 'run'.
+Bekijk bestandsnamen met 'info sources'.
+Toon een lijst van een bestand met 'list'.
+Stel onderbrekingspunten in met  'break'.
+Voer het programma uit met 'continue' totdat een onderbrekingspunt is bereikt.
+Onderzoek de staat van het programma met 'where', 'print', 'info locals'.
+Voer individuele instructies uit met 'next', 'step' en 'finish'.
+Hervat de uitvoering met 'continue'.
+Verlaat fdb met 'quit'.
+
+[undisplay]
+
+Een of meer automatisch weergegeven expressies verwijderen.
+Voorbeelden:
+  undisplay
+    Hiermee worden alle automatisch weergegeven expressies verwijderd.
+  undisplay 2 7
+    Hiermee worden automatisch weergegeven expressies #2 en #3 verwijderd.
+Gebruik "info display" als u de lijst en de nummers van de automatisch 
+weergegeven expressies wilt zien.
+
+[up]
+
+Het stackframe dat deze heeft aangeroepen selecteren en weergeven.
+Volgende opdrachten 'info arguments' en 'info locals' tonen
+de lokale variabelen en argumenten van het geselecteerde frame.
+Zie 'down' en 'frame'
+
+[viewswf]
+
+Het filter instellen voor de bestandslijst (zoals 'info files' en 'info 
+sources') op basis van de swf-naam of deze verwijderen. 
+Zonder parameters worden alle bestanden getoond.  Als hetzelfde bestand in een 
+of meer swf-bestanden voorkomt, toont de lijst alleen het eerste exemplaar van 
+het bestand.  Als u andere exemplaren van het bestand wilt openen, moet u het 
+nummer van het bestand gebruiken (bijvoorbeeld 'list #192') of deze opdracht 
+met een parameter gebruiken (zie hieronder) om bestanden van een specifieke swf 
+te tonen.  Met een enkele parameter, de swf-naam zoals getoond door de opdracht 
+'info swfs', verschijnen alleen de bestanden van de opgegeven swf in de lijst.  
+Bestanden van andere swf's worden niet getoond.  Deze opdracht heeft ook 
+gevolgen voor opdrachten die een bestand als parameter accepteren (zoals 
+'break').
+Voorbeeld:
+  viewswf myApp.mxml.swf
+    Hiermee worden alleen bestanden van myApp.mxml.swf getoond.
+  viewswf 
+    Alle bestanden van alle swf's weergeven.
+ 
+[watch]
+
+Een controlepunt toevoegen aan een gegeven variabele. Het 
+foutopsporingsprogramma stopt als de waarde van de variabele verandert.
+Voorbeeld:
+  watch foo
+
+[what]
+
+De context weergeven waarin een variabele wordt opgelost. 
+
+[where]
+
+Backtrace van de stack.
+
+[zzz]
+
+((( Keep this unused topic at the end of the file    )))
+((( so that the next-to-last one is parsed properly. )))

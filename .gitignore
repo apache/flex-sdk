@@ -81,6 +81,8 @@ ipch/
 obj/
 [Bb]in
 [Dd]ebug*/
+!debugger/
+modules/debugger/classes/
 [Rr]elease*/
 Ankh.NoLoad
 

@@ -1,0 +1,828 @@
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+
+This file contains the text displayed by the 'help' command in fdb.
+
+It is divided into "topics". For example, when an fdb user types
+'help break', the [break] topic below is displayed.
+
+The first and last lines of each topic should be blank.
+They don't get displayed in fdb; they are here only
+to make this file more easily readable.
+
+Help text should be formatted to not wrap
+when displayed on an 80-character-wide console.
+The following line is 80 characters wide.
+
+--------------------------------------------------------------------------------
+
+[?]
+
+Undefined command. Do just 'help' to see a list of all fdb commands.
+
+[break]
+
+Set breakpoint at specified line or function.
+Examples:
+  break 87
+    Sets a breakpoint at line 87 of the current file.
+  break myapp.mxml:56
+    Sets a breakpoint at line 56 of myapp.mxml.
+  break #3:29
+    Sets a breakpoint at line 29 of file #3.
+  break doThis
+    Sets a breakpoint at function doThis() in the current file.
+  break myapp.mxml:doThat
+    Sets a breakpoint at function doThat() in file myapp.mxml.
+  break #3:doOther
+    Sets a breakpoint at function doOther() in file #3.
+  break
+   Sets a breakpoint at the current execution address in the
+   current stack frame. This is useful for breaking on return
+   to a stack frame.
+To see file names and numbers, do 'info sources' or 'info files'.
+To see function names, do 'info functions'.
+Abbreviated file names and function names are accepted if unambiguous.
+If line number is specified, break at start of code for that line.
+If function is specified, break at start of code for that function.
+See 'commands' and 'condition' for further breakpoint control.
+
+[bt]
+
+Backtrace of the stack.
+
+[catch]
+
+Halt when an exception is thrown.  This only affects caught
+exceptions -- that is, exceptions that are going to be handled
+by a "catch" block.  Uncaught exceptions always halt in the
+debugger.
+
+Use the "delete" command to delete a catchpoint.
+
+Examples:
+  catch *
+    Halts when any exception is thrown.
+  catch ReferenceError
+    Halts whenever a ReferenceError is thrown, whether
+    caught or uncaught.
+
+[cf]
+
+Display the name and number of the current file
+or change the current file.
+Examples:
+  cf
+    Displays the name and number of the current file.
+  cf myapp.mxml
+    Changes the current file to myapp.mxml.
+  cf #29
+    Changes the current file to file #29.
+To see file names and numbers, do 'info sources' or 'info files'.
+Abbreviated file names are accepted if unambiguous.
+Listing a file with 'list' also makes that file the current file.
+
+[clear]
+
+Clear breakpoint at specified line or function.
+Examples:
+  clear 87
+    Clears the breakpoint at line 87 of the current file.
+  clear myapp.mxml:56
+    Clears the breakpoint at line 56 of myapp.mxml.
+  clear #3:29
+    Clears the breakpoint at line 29 of file #3.
+  clear doThis
+    Clears the breakpoint at function doThis() in the current file.
+  clear myapp.mxml:doThat
+    Clears the breakpoint at function doThat() in file myapp.mxml.
+  clear #3:doOther
+    Clears the breakpoint at function doOther() in file #3.
+  clear
+    Clears breakpoint of the current line in the current file. 
+To see file names and numbers, do 'info sources' or 'info files'.
+To see function names, do 'info functions'.
+Abbreviated file names and function names are accepted if unambiguous.
+If line number is specified, all breakpoints in that line are cleared.
+If function is specified, breakpoints at beginning of function are cleared.
+
+[continue]
+
+Continue execution after stopping at breakpoint.
+This command takes no arguments.
+
+[condition]
+
+
+Specify breakpoint number N to break only if COND is true.
+Usage is `condition N COND', where N is an integer and COND is an
+expression to be evaluated whenever breakpoint N is reached.
+
+[commands]
+
+Set commands to be executed when a breakpoint is hit.
+Give breakpoint number as argument after `commands`.
+With no argument, the targeted breakpoint is the last one set.
+The commands themselves follow starting on the next line.
+Type a line containing "end" to indicate the end of them.
+Give "silent" as the first line to make the breakpoint silent;
+then no output is printed when it is hit, except what the commands print.
+Example:
+  (fdb) commands
+  Type commands for when breakpoint 1 is hit, one per line.
+  End with a line saying just 'end'.
+  >w
+  >end
+
+[connect]
+
+Connect to the debugging player listening on a port.
+The only player that currently listens for debug connections
+is mobile specific, others always connect.
+
+Examples:
+  connect
+    Connect to the debug player listening on port 7936.
+  connect 7938
+    Connect to the debug player listening on port 7938.
+    
+[worker]
+
+Set the active worker to which subsequent debugger 
+commands are sent to. Use info workers to query the
+list of workers. id of the main thread is 0.
+
+Examples:
+  worker 3
+    Set the active worker to worker with id 3        
+
+[delete]
+
+Delete one or more breakpoints.
+Examples:
+  delete
+    Deletes all breakpoints.
+  delete 2 5
+    Deletes breakpoints #2 and #5.
+To see breakpoint numbers, do 'info breakpoints'.
+
+[directory]
+
+Modify the list of directories in which fdb searches for source files.
+
+Examples:
+
+  directory
+    Restores list to the default, which is the directory in which the source
+    file was compiled into object code, followed by the current working
+    directory.
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+    Adds the specified directory to the beginning of the list of directories
+    which will be searched for source.  When looking for the source for class
+    mypackage.MyClass, for example, the debugger would look for both
+    C:\MySource\mypackage\MyClass.as and C:\MySource\MyClass.as.
+
+  directory C:\Dir1;C:\Dir2    (Windows -- use ';' as separator)
+  directory /Dir1:/Dir2        (Mac -- use ':' as separator)
+    Adds several directories to the beginning of the list of directories
+    which will be searched for source.
+
+To see the current list, do 'show directories'.
+
+[disable]
+
+Disable one or more breakpoints or auto-display expressions.
+Examples:
+  disable
+  disable breakpoints
+    Disables all breakpoints.
+  disable 2 5
+  disable breakpoints 2 5
+    Disables breakpoints #2 and #5.
+  disable display
+    Disables all auto-display expressions.
+  disable display 1 3
+    Disables auto-display expressions #1 and #3.
+To see breakpoint numbers, do 'info breakpoints'.
+To see auto-display expression numbers, do 'info display'.
+
+[disassemble]
+
+(ActionScript 2 only; not supported when debugging ActionScript 3)
+
+Disassemble a specified portion of source code.
+The default is the current listing line.
+Arguments supported are the same as with the list command
+Examples:
+  disassemble 87
+    Disassembles line 87 in the current file.
+  disassemble 87 102
+    disassembles lines 87 to 102 in current file.
+  disassemble doThis
+      Disassembles the function doThis() in the current file.
+In addition to using simple line numbers as above, you can specify lines
+in additional ways:
+   myapp.mxml
+      Line 1 in myapp.mxml.
+   myapp.mxml:doThat
+      The first line of function doThat() in myapp.mxml.
+   myapp.mxml:56
+      Line 56 in myapp.mxml.
+   #3
+      Line 1 in file #3.
+   #3:doOther
+      The line in file #3 where the function doOther() begins.
+   #3:29
+      Line 29 in file #3.
+
+[display]
+
+Add an expression to the list of auto-display expressions.
+Example:
+  display employee.name
+    Add 'employee.name' to the list of auto-display expressions.
+    Every time fdb stops, the value of employee.name will be displayed.
+The argument for this command is similar to that for 'print'.
+To see the list of auto-display expressions and their numbers,
+do 'info display'.
+
+[down]
+
+Select and print stack frame called by this one.
+Subsequent 'info arguments' and 'info locals' commands will display
+the locals and arguments of the selected frame.
+See 'up' and 'frame' 
+
+[enable]
+
+Enable one or more breakpoints or auto-display expressions.
+Examples:
+  enable
+  enable breakpoints
+    Enables all breakpoints.
+  enable 2 5
+  enable breakpoints 2 5
+    Enables breakpoints #2 and #5.
+  enable display
+    Enables all auto-display expressions.
+  enable display 1 3
+    Enables auto-display expressions #1 and #3.
+To see breakpoint numbers, do 'info breakpoints'.
+To see auto-display expression numbers, do 'info display'.
+
+[file]
+
+Specify an application to be debugged, without starting it.
+Examples:
+  file http://www.mysite.com/myapp.mxml
+    Specify an MXML application to be debugged.
+  file myapp.swf
+    Specify a local SWF file to be debugged, in the current directory.
+    In this case myapp.swd (the file containing the debugging information)
+    must also exist in the current directory.
+This command does not actually cause the application to start;
+use the 'run' command with no argument to start debugging the application.
+Instead of using 'file <target>' and then 'run', you can simply specify the
+application to be debugged as an argument of 'run':
+  run http://mysite.com/myapp.mxml
+  run myapp.swf
+You can also specify the application to be debugged
+as a command-line argument when you start fdb:
+  fdb http://www.mysite.com/myapp.mxml
+  fdb myapp.swf
+In this case you do not need to use either 'file' or 'run'.
+If you 'run' without specifying an application to debug,
+fdb will wait for any application to connect to it.
+
+[finish]
+
+Execute until current function returns.
+This command takes no arguments.
+
+[frame]
+
+Select and print a particular stack frame.
+This command takes an optional argument, a frame number.
+If no argument is provided default is to return
+to the current top frame (i.e. frame 0).
+Examples:
+  frame 4
+  frame
+Subsequent 'info arguments' and 'info locals' commands will display
+the locals and arguments of the selected frame.
+See 'up' and 'down' and 'bt' 
+
+[handle]
+
+Specify how fdb should handle a fault in the Flash Player.
+Examples:
+  handle recursion_limit stop
+    When a recursion_limit fault occurs, display message in fdb
+    and stop as if at breakpoint.
+  handle all print nostop
+    When any kind of fault occurs, display message in fdb but don't stop.
+First argument is a fault name or 'all'.
+Additional arguments are actions that apply to that fault.
+To see fault names, do 'info handle'.
+Actions are print/noprint and stop/nostop.
+'print' means print a message if this fault happens.
+'stop' means reenter debugger if this fault happens. Implies 'print'.
+
+[help]
+
+New to fdb? Do 'tutorial' for basic info.
+List of fdb commands:
+bt (bt)             Print backtrace of all stack frames
+break (b)           Set breakpoint at specified line or function
+catch (ca)          Halt when an exception is thrown
+cf (cf)             Display the name and number of the current file
+clear (cl)          Clear breakpoint at specified line or function
+condition (cond)    Apply/remove conditional expression to a breakpoint
+connect (con)       Connect to debug player
+continue (c)        Continue execution after stopping at breakpoint
+commands (com)      Sets commands to execute when breakpoint hit
+delete (d)          Delete breakpoints or auto-display expressions
+directory (dir)     Add a directory to the search path for source files
+disable (disab)     Disable breakpoints or auto-display expressions
+disassemble (disas) Disassemble source lines or functions
+display (disp)      Add an auto-display expressions
+enable (e)          Enable breakpoints or auto-display expressions
+file (fil)          Specify application to be debugged.
+finish (f)          Execute until current function returns
+handle (han)        Specify how to handle a fault
+help (h)            Display help on fdb commands
+home (ho)           Set listing location to where execution is halted
+info (i)            Display information about the program being debugged
+kill (k)            Kill execution of program being debugged
+list (l)            List specified function or line
+next (n)            Step program
+print (p)           Print value of variable EXP
+pwd (pw)            Print working directory
+quit (q)            Exit fdb
+run (r)             Start debugged program
+set (se)            Set the value of a variable
+source (so)         Read fdb commands from a file
+step (s)            Step program until it reaches a different source line
+tutorial (t)        Display a tutorial on how to use fdb
+undisplay (u)       Remove an auto-display expression
+viewswf (v)         Set or clear filter for file listing based on swf
+watch (wa)          Add a watchpoint on a given variable
+what (wh)           Displays the context of a variable
+where (w)           Same as bt
+worker (wo)         Set active worker
+Type 'help' followed by command name for full documentation.
+
+[home]
+
+Set the listing location to where execution is halted.
+
+[info]
+
+Generic command for showing things about the program being debugged.
+List of info subcommands:
+info arguments (i a)    Argument variables of current stack frame
+info breakpoints (i b)  Status of user-settable breakpoints
+info display (i d)      Display list of auto-display expressions
+info files (i f)        Names of targets and files being debugged
+info functions (i fu)   All function names
+info handle (i h)       How to handle a fault
+info locals (i l)       Local variables of current stack frame
+info scopechain (i sc)  Scope chain of current stack frame
+info sources (i so)     Source files in the program
+info stack (i s)        Backtrace of the stack
+info swfs (i sw)        List of swfs in this session
+info targets(i t)       Application being debugged
+info variables (i v)    All global and static variable names
+info workers (i w)      List all workers
+Type 'help info' followed by info subcommand name for full documentation.
+
+[info arguments]
+
+Display arguments of current stack frame.
+
+[info breakpoints]
+
+Display status of all breakpoints and watchpoints.
+The Type column indicates one of:
+   breakpoint   - normal breakpoint
+   watchpoint   - watchpoint
+The Disp column contains one of 'keep', 'del', or 'dis' to indicate
+the disposition of the breakpoint after it gets hit. 'dis' means that the
+breakpoint will be disabled, while 'del' means it will be deleted.  
+The 'Address' and 'What' columns indicate the address and file/line
+number respectively. 
+
+[info display]
+
+Display list of auto-display expressions and their numbers.
+
+[info files]
+
+Display names and numbers of the files for the application being debugged,
+including source files, framework files and autogenerated files.
+Examples:
+  info files
+    Lists all files, alphabetically by category
+  info files my
+  info files my*
+    Lists all files whose names start with "my", alphabetically.
+  info files *.as
+    Lists all files whose names end with ".as", alphabetically.
+  info files *foo*
+    Lists all files whose names contain "foo", alphabetically. 
+Files are displayed in name#N format, where N is the file number.
+In many commands you can use #N in place of a file name.
+
+[info functions]
+
+Display function names.
+Examples:
+  info functions .
+    Display all functions in the current file.
+  info functions myapp.mxml
+    Display all functions in myapp.mxml.
+  info functions #3
+    Displays all functions in file #3.
+  info functions
+    Displays all functions in all files.
+To see file names and numbers, do 'info sources' or 'info files'.
+Abbreviated file names are accepted if unambiguous.
+
+[info handle]
+
+Display what fdb does when a fault occurs in the Flash Player.
+Examples:
+  info handle
+    Display how fdb handles all faults.
+  info handle recursion_limit
+    Display how fdb handles a recursion_limit fault.
+
+[info locals]
+
+Dislpay local variables of current stack frame.
+
+[info scopechain]
+
+Display the scope chain of the current stack frame.  The scope chain is
+the list of objects that is searched when the Flash player is trying
+to resolve a symbol name.
+
+[info sources]
+
+Display names and numbers of the source files for the application being
+debugged. Framework files and autogenerated files are not included.
+Files are displayed in name#N format, where N is the file number.
+In many commands you can use #N in place of a file name.
+
+[info stack]
+
+Backtrace of the stack.
+
+[info swfs]
+
+Display swfs that are known to the debugging session.  See
+the command 'viewswf' for details on how the file listing
+can be filtered based on swf name. 
+
+[info targets]
+
+Display the URL (http: or file:) of the application being debugged.
+
+[info variables]
+
+Display all global and static variable names and values.
+
+[info workers]
+
+Display all workers that have been started.
+
+[info ?]
+
+Undefined info command. Try 'help info'.
+
+[kill]
+
+Kill execution of program being debugged.
+This command takes no arguments.
+
+[list]
+
+List lines of code in a source file.
+Examples:
+  list
+    Lists ten more lines in current file after or around previous listing.
+  list -
+    Lists the ten lines in current file before a previous listing.
+  list 87
+    Lists ten lines in current file around line 87.
+  list 87 102
+    Lists lines 87 to 102 in current file.
+In addition to using simple line numbers as above, you can specify lines
+in seven additional ways:
+  doThis
+      The first line of function doThis() in the current file.
+   myapp.mxml
+      Line 1 in myapp.mxml.
+   myapp.mxml:doThat
+      The first line of function doThat() in myapp.mxml.
+   myapp.mxml:56
+      Line 56 in myapp.mxml.
+   #3
+      Line 1 in file #3.
+   #3:doOther
+      The line in file #3 where the function doOther() begins.
+   #3:29
+      Line 29 in file #3.
+To see file names and numbers, do 'info sources' or 'info files'.
+To see function names, do 'info functions'.
+Abbreviated file names and function names are accepted if unambiguous.
+Listing a file makes that file the current file. (See 'cf' command.)
+
+[next]
+
+Step program, proceeding through subroutine calls.
+  next
+    Step once.
+  next 3
+    Step 3 times, or until the program stops for another reason.
+Like the 'step' command as long as subroutine calls do not happen;
+when they do, the call is treated as one instruction.
+
+[print]
+
+Print value of variable or expression.
+Examples:
+  print i
+    Print the value of 'i'.
+  print employee.name
+    Print the value of 'employee.name'.
+  print employee
+    Print the value of the 'employee' Object.
+    This may simplay display something like [Object 10378].
+  print employee.
+    Print the values of all the properties of the 'employee' Object.
+  print *employee
+    Print the values of all the properties of the 'employee' Object.
+    The prefix * operator is the prefix alternative to the postfix . operator.
+  print #10378.
+    Print the values of all the properties of Object #10378.
+Variables accessible are those of the lexical environment of the selected
+stack frame, plus all those whose scope is global or an entire file.
+
+[pwd]
+
+Print the current working directory.
+This is the directory from which fdb was launched; it cannot be
+changed within fdb. The argument for 'run' and 'source' can be
+specified relative to this directory.
+This command takes no arguments.
+
+[quit]
+
+Exit fdb.
+This command takes no arguments.
+
+[run]
+
+Start a debugging session.
+Examples:
+  run http://www.mysite.com/myapp.mxml
+    Runs the specified MXML application.
+  run myapp.swf
+  run mydir\myapp.swf
+  run c:\mydir\myapp.swf
+    Runs the local SWF file myapp.swf, which can be specified
+	either relative to the current directory (see 'pwd' command)
+	or using an absolute path. In these cases, myapp.swd
+    (the file containing the debugging information) must also
+    exist in the same directory as myapp.swf.
+  run
+    Run the application previously specified by the 'file' command.
+    If no application has been specified, fdb will wait for one
+    to connect to it, and time out if none does so.
+'run' will start the application in a browser or standalone Flash Player.
+As soon as the application starts, it will break into fdb so that you can
+set breakpoints, etc.
+
+On the Macintosh, the only supported form of the command is 'run' with no
+arguments.  You must then manually launch the Flash player.
+
+[set]
+
+Set the value of a variable or a convenience variable.
+Convenience variables are variables that exist entirely 
+within fdb; they are not part of your program.
+Convenience variables are prefixed with '$' and can 
+be any name that does not conflict with any existing
+variable.  For example, $myVar.  Convenience variables
+are also used to control various aspects of fdb.  
+
+The following convenience variables are used by fdb.
+$listsize          - number of source lines to display for 'list'
+$columnwrap        - column number on which output will wrap
+$infostackshowthis - if 0, does not display 'this' in stack backtrace
+$invokegetters     - if 0, prevents fdb from firing getter functions
+$bpnum             - the last defined breakpoint number
+$displayattributes - if 1, 'print var.' displays all attributes of members
+                     of 'var' (e.g. private, static)
+
+Examples:
+  set i = 3
+    Sets the variable 'i' to the number 3.
+  set employee.name = "Susan"
+    Sets the variable 'employee.name' to the string "Susan".
+  set $myVar = 20
+    Sets the convenience variable '$myVar' to the number 20
+
+[show]
+
+Generic command for showing things about the state of fdb.
+List of show subcommands:
+show break (sh b)       Suspended execution location and reason
+show directories (sh d) Directories to be searched for source files
+show files (sh f)       Target files and paths
+show functions (sh fu)  Function line mapping information 
+show locations (sh l)   Breakpoint locations
+show memory (sh m)      Current memory usage
+show net (sh n)         Player message statistics 
+show properties (sh p)  Values of properties
+show uri (sh u)         Player's URI for this session 
+show variable (sh v)    Raw variable retrieval
+Type 'help show' followed by show subcommand name for full documentation.
+
+[show break]
+
+Display the offset within the SWF on which the program has halted
+
+[show directories]
+
+Display current search path for finding source files.
+
+[show files]
+
+Display path and file name for all of the target files
+
+[show functions]
+
+Display function-to-line-number mapping information.
+Examples:
+  show functions .
+    Shows mapping information for all functions in the current file.
+  show functions myapp.mxml
+    Shows mapping information for all functions in myapp.mxml.
+  show functions #3
+    Shows mapping information for all functions in file #3.
+  show functions
+    Shows mapping information for all functions in all files.
+To see file names and numbers, do 'info sources' or 'info files'.
+Abbreviated file names are accepted if unambiguous.
+
+[show locations]
+
+Displays the list of locations that are set for each breakpoint
+
+[show memory]
+
+Display Java VM memory statistics.
+
+[show net]
+
+Display information about messages that have been sent to,
+and received from, the Flash Player.
+
+[show properties]
+
+Displays a list of convenience variables used within debugger 
+
+[show uri]
+
+Display the URI that the player has sent for this session.
+
+[show variable]
+
+Display the value of a members of a variable.  Two parameters are
+required; the first is the numeric variable identifier, the second
+is the name of property on the variable.  The convenience variable
+$invokegetters is used to determine whether the property getter,
+assuming it exists, will be fired or not.
+Example:
+    show variable 1 __proto__
+
+[show ?]
+
+Undefined show command. Try 'help show'.
+
+[source]
+
+Read fdb commands from a file and execute them.
+  source mycommands.txt
+  source mydir\mycommands.txt
+  source c:\mydir\mycommands.txt
+    Reads mycommands.txt and executes the fdb commands in it.
+    The file containing the commands can be specified either
+	relative to the current directory (see 'pwd' command)
+	or using an absolute path.
+The file .fdbinit is read automatically in this way when fdb is started.
+Only the current directory is searched for .fdbinit. This means that
+you can have set up multiple .fdbinit files for different projects.
+
+[step]
+
+Step program until it reaches a different source line.
+Examples:
+  step
+    Step once.
+  step 3
+    Step 3 times, or until the program stops for another reason.
+
+[tutorial]
+
+Display a tutorial on how to use fdb.
+This command takes no arguments.
+
+[Tutorial]
+
+A typical fdb session:
+Start an application with 'run'.
+View file names with 'info sources'.
+List a file with 'list'.
+Set breakpoints with 'break'.
+Execute program with 'continue' until a breakpoint is hit.
+Examine state of program with 'where', 'print', 'info locals'.
+Execute individual statements with 'next', 'step', and 'finish'.
+Resume execution with 'continue'.
+Quit fdb with 'quit'.
+
+[undisplay]
+
+Remove one or more auto-display expressions.
+Examples:
+  undisplay
+    Remove all auto-display expressions.
+  undisplay 2 7
+    Remove auto-display expressions #2 and #7.
+To see the list of auto-display expressions and their numbers,
+do 'info display'.
+
+[up]
+
+Select and print stack frame that called this one.
+Subsequent 'info arguments' and 'info locals' commands will display
+the locals and arguments of the selected frame.
+See 'down' and 'frame'
+
+[viewswf]
+
+Sets or clears filter for file listing (i.e. 'info files' 
+and 'info sources'), based on swf name. 
+Without any parameters, all files will be shown.  If the same
+file exists in one or more swfs, the listing will only display
+the first instance of the file.  To access other instances
+of the file, use the file's number (e.g. 'list #192') or
+use this command with a parameter (see below) to display files
+from a specific swf.  With a single parameter, the swf name
+as displayed by the 'info swfs' command, only the files from
+the specified swf will be displayed in the file listing.  
+Files from other swfs will not be shown.  This command also 
+affects commands that accept a file as a parameter (e.g. 'break')
+Example:
+  viewswf myApp.mxml.swf
+    Only files from myApp.mxml.swf will be displayed.
+  viewswf 
+    All files from all swfs will be displayed.
+ 
+[watch]
+
+Add a watchpoint on a given variable. The debugger will halt
+execution when the variable's value changes.
+Example:
+  watch foo
+
+[what]
+
+Displays the context in which a variable is resolved. 
+
+[where]
+
+Backtrace of the stack.
+
+[zzz]
+
+((( Keep this unused topic at the end of the file    )))
+((( so that the next-to-last one is parsed properly. )))

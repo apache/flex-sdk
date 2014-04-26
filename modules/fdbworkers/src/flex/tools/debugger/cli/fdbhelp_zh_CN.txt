@@ -1,0 +1,791 @@
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+
+
+This file contains the text displayed by the 'help' command in fdb.
+
+It is divided into "topics". For example, when an fdb user types
+'help break', the [break] topic below is displayed.
+
+The first and last lines of each topic should be blank.
+They don't get displayed in fdb; they are here only
+to make this file more easily readable.
+
+Help text should be formatted to not wrap
+when displayed on an 80-character-wide console.
+The following line is 80 characters wide.
+
+
+--------------------------------------------------------------------------------
+
+[?]
+
+未定义的命令。只需执行“help”即可查看所有 fdb 命令的列表。
+
+[break]
+
+在指定行或函数处设置断点。
+示例:
+  break 87
+    在当前文件的第 87 行处设置断点。
+  break myapp.mxml:56
+    在 myapp.mxml 的第 56 行处设置断点。
+  break #3:29
+    在文件 #3 的第 29 行处设置断点。
+  break doThis
+    在当前文件中的函数 doThis() 处设置断点。
+  break myapp.mxml:doThat
+    在文件 myapp.mxml 中的函数 doThat() 处设置断点。
+  break #3:doOther
+    在文件 #3 中的函数 doOther() 处设置断点。
+  break
+    在当前堆栈帧中的当前执行地址处设置断点。这有助于返回到
+    堆栈帧时中断。
+要查看文件名和编号，请执行“info sources”或“info files”。
+要查看函数名称，请执行“info functions”。
+可接受缩略文件名和函数名称（如果意义明确）。
+如果指定了行号，则在该行的代码开头处中断。
+如果指定了函数，则在该函数的代码开头处中断。
+有关更多断点控制，请参阅“commands”和“condition”。
+
+[bt]
+
+堆栈的向后跟踪。
+
+[catch]
+
+引发异常时终止。这仅会影响捕获的异常（即，将由“catch”块处理的异常）。
+未捕获的异常始终在调试器中保持终止。
+
+使用“delete”命令可删除捕获点。
+
+示例:
+  catch *
+    引发任何异常时终止。
+  catch ReferenceError
+    任何时候引发 ReferenceError 即会终止，不管是否已捕获。
+
+[cf]
+
+显示当前文件的名称和编号，或更改当前文件。
+示例:
+  cf
+    显示当前文件的名称和编号。
+  cf myapp.mxml
+    将当前文件更改为 myapp.mxml。
+  cf #29
+    将当前文件更改为文件 #29。
+要查看文件名和编号，请执行“info sources”或“info files”。
+可接受缩略文件名（如果意义明确）。
+使用“list”列出文件同时会使该文件成为当前文件。
+
+[clear]
+
+在指定行或函数处清除断点。
+示例:
+  clear 87
+    在当前文件的第 87 行处清除断点。
+  clear myapp.mxml:56
+    在 myapp.mxml 的第 56 行处清除断点。
+  clear #3:29
+    在文件 #3 的第 29 行处清除断点。
+  clear doThis
+    在当前文件中的函数 doThis() 处清除断点。
+  clear myapp.mxml:doThat
+    在文件 myapp.mxml 中的函数 doThat() 处清除断点。
+  clear #3:doOther
+    在文件 #3 中的函数 doOther() 处清除断点。
+  clear
+    清除当前文件中当前行的断点。
+要查看文件名和编号，请执行“info sources”或“info files”。
+要查看函数名称，请执行“info functions”。
+可接受缩略文件名和函数名称（如果意义明确）。
+如果指定了行号，则会清除该行中的所有断点。
+如果指定了函数，则会清除函数开头处的断点。
+
+[continue]
+
+在断点处停止后继续执行。
+此命令不使用任何参数。
+
+[condition]
+
+
+仅当 COND 为 true 时，指定要中断的断点编号 N。
+用法为“condition N COND”，其中 N 是一个整数，COND 是达到断点 N 时
+的求值表达式。
+
+[commands]
+
+设置遇到断点时要执行的命令。
+提供断点编号作为“commands”之后的参数。
+不使用任何参数，目标断点是设置的最后一个断点。
+命令本身接着在下一行上启动。
+在命令行中键入“end”表示结束该命令。
+提供“silent”作为第一行以使断点为静默；然后遇到它时不会显示任何输出
+（除了命令输出的内容之外）。
+示例:
+  (fdb) 命令
+  遇到断点 1 时键入命令，一条命令占一行。
+  以只有“end”的行作为结束。
+  >w
+  >end
+
+
+[connect]
+
+连接到侦听某个端口的调试播放器。
+当前侦听调试连接的唯一播放器
+是手机专用的，其他的始终保持连接。
+
+例如：
+  connect
+连接到侦听端口 7936 的调试播放器。
+  connect 7938
+连接到侦听端口 7938 的调试播放器。
+    
+[worker]
+
+将活动的 Worker 设置为随后的调试器 
+命令发送到的目标。使用 info workers 查询
+Worker 列表。主线程 ID 为 0。
+
+例如：
+  worker 3
+将活动的 Worker 设置为 ID 为 3 的 Worker        
+
+[delete]
+
+删除一个或多个断点。
+示例:
+  delete
+    删除所有断点。
+  delete 2 5
+    删除断点 #2 和 #5。
+要查看断点编号，请执行“info breakpoints”。
+
+[directory]
+
+修改 fdb 搜索源文件的目录列表。
+
+示例:
+
+  directory
+    将列表恢复为默认值，该默认值为将源文件编译成对象代码的目录，
+    后面跟着当前工作目录。
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+    将指定目录添加到目录列表的开头，将在该列表中搜索源。例如，为
+    类 mypackage.MyClass 查找源时，调试器会查找
+    C:\MySource\mypackage\MyClass.as 和
+    C:\MySource\MyClass.as。
+
+  directory C:\Dir1;C:\Dir2    (Windows -- 将 ';' 用作分隔符)
+  directory /Dir1:/Dir2        (Mac -- 将 ':' 用作分隔符)
+    将若干个目录添加到目录列表的开头，将在该列表中搜索源。
+
+要查看当前列表，请执行“show directories”。
+
+[disable]
+
+禁用一个或多个断点或自动显示表达式。
+示例:
+  disable
+  disable breakpoints
+    禁用所有断点。
+  disable 2 5
+  disable breakpoints 2 5
+    禁用断点 #2 和 #5。
+  disable display
+    禁用所有自动显示表达式。
+  disable display 1 3
+    禁用自动显示表达式 #1 和 #3。
+要查看断点编号，请执行“info breakpoints”。
+要查看自动显示表达式编号，请执行“info display”。
+
+[disassemble]
+
+（仅 ActionScript 2；调试 ActionScript 3 时不支持）
+
+反汇编源代码的指定部分。
+默认为当前列表行。
+支持的参数与使用“list”命令支持的参数相同。示例:
+  disassemble 87
+    反汇编当前文件中的第 87 行。
+  disassemble 87 102
+    反汇编当前文件中的第 87 行到第 102 行。
+  disassemble doThis
+      反汇编当前文件中的函数 doThis()。
+除如上使用简单行号之外，还可以使用另外方式指定行:
+   myapp.mxml
+      myapp.mxml 中的第 1 行。
+   myapp.mxml:doThat
+      myapp.mxml 中的函数 doThat() 的第一行。
+   myapp.mxml:56
+      myapp.mxml 中的第 56 行。
+   #3
+      文件 #3 中的第 1 行。
+   #3:doOther
+      在文件 #3 中函数 doOther() 开头处的行。
+   #3:29
+      文件 #3 中的第 29 行。
+
+[display]
+
+将表达式添加到自动显示表达式列表。
+示例:
+  display employee.name
+    将“employee.name”添加到自动显示表达式列表。
+    每次 fdb 停止时，将显示 employee.name 的值。
+此命令的参数与“print”的参数类似。
+要查看自动显示表达式及其编号的列表，请执行“info display”。
+
+[down]
+
+选中并输出由此命令调用的堆栈帧。
+后续的“info arguments”和“info locals”命令将显示选定帧的局部变量和参数。
+请参阅“up”和“frame”。
+
+[enable]
+
+启用一个或多个断点或自动显示表达式。
+示例:
+  enable
+  enable breakpoints
+    启用所有断点。
+  enable 2 5
+  enable breakpoints 2 5
+    启用断点 #2 和 #5。
+  enable display
+    启用所有自动显示表达式。
+  enable display 1 3
+    启用自动显示表达式 #1 和 #3。
+要查看断点编号，请执行“info breakpoints”。
+要查看自动显示表达式编号，请执行“info display”。
+
+[file]
+
+指定要调试的应用程序，而不启动它。
+示例:
+  file http://www.mysite.com/myapp.mxml
+    指定要调试的 MXML 应用程序。
+  file myapp.swf
+    指定当前目录中要调试的本地 SWF 文件。
+    这种情况下，当前目录中必须也有 myapp.swd（包含调试信息的文件）。
+此命令实际上不会引起应用程序启动；使用不带参数的“run”命令开始调试
+应用程序。
+不需要先使用“file <target>”然后使用“run”，只需将要调试的应用程序
+指定为“run”的参数即可:
+  run http://mysite.com/myapp.mxml
+  run myapp.swf
+也可以指定，在启动 fdb 时以命令行参数的方式调试应用程序:
+  fdb http://www.mysite.com/myapp.mxml
+  fdb myapp.swf
+这种情况下不需要使用“file”或“run”。
+如果使用“run”而未指定要调试的应用程序，则 fdb 将等待任何应用程序
+以连接到它。
+
+[finish]
+
+执行，直到当前函数返回为止。
+此命令不使用任何参数。
+
+[frame]
+
+选中并输出特定堆栈帧。
+此命令使用一个可选参数（一个帧编号）。
+如果未提供参数，则默认为返回到当前顶部帧（即，帧 0）。
+示例:
+  frame 4
+  frame
+后续的“info arguments”和“info locals”命令将显示选定帧的局部变量和参数。
+请参阅“up”、“down”和“bt”。
+
+[handle]
+
+指定 fdb 应如何处理 Flash Player 中的故障。
+示例:
+  handle recursion_limit stop
+    发生 recursion_limit 故障时，会在 fdb 中显示消息并停止（就好像在断点处）。
+  handle all print nostop
+    发生任何种类的故障时，都会在 fdb 中显示消息但不停止。
+第一个参数是故障名称或“all”。
+其它参数是应用到该故障的操作。
+要查看故障名称，请执行“info handle”。
+操作有 print/noprint 和 stop/nostop。
+“print”意味着发生此故障时输出一条消息。
+“stop”意味着发生此故障时重新进入调试器。包含“print”。
+
+[help]
+
+您是第一次使用 fdb 吗? 请执行“tutorial”获取基本信息。
+fdb 命令的列表:
+bt (bt)             输出所有堆栈帧的向后跟踪
+break (b)           在指定行或函数处设置断点
+catch (ca)          引发异常时终止
+cf (cf)             显示当前文件的名称和编号
+clear (cl)          在指定行或函数处清除断点
+condition (cond)    将条件表达式应用到断点或删除断点的条件表达式
+connect (con)       连接到 debug player
+continue (c)        在断点处停止后继续执行
+commands (com)      设置遇到断点时要执行的命令
+delete (d)          删除断点或自动显示表达式
+directory (dir)     将目录添加到源文件的搜索路径
+disable (disab)     禁用断点或自动显示表达式
+disassemble (disas) 反汇编源行或函数
+display (disp)      添加自动显示表达式
+enable (e)          启用断点或自动显示表达式
+file (fil)          指定要调试的应用程序
+finish (f)          执行，直到当前函数返回为止
+handle (han)        指定如何处理故障
+help (h)            显示关于 fdb 命令的帮助
+home (ho)           设置终止执行的列表位置
+info (i)            显示关于正在调试的程序的信息
+kill (k)            停止正在调试的程序的执行
+list (l)            列出指定函数或行
+next (n)            单步执行程序
+print (p)           输出变量表达式的值
+pwd (pw)            输出工作目录
+quit (q)            退出 fdb
+run (r)             启动调试的程序
+set (se)            设置变量的值
+source (so)         从文件读取 fdb 命令
+step (s)            单步执行程序，直到遇到其它源行为止
+tutorial (t)        显示关于如何使用 fdb 的教程
+undisplay (u)       删除自动显示表达式
+viewswf (v)         为基于 swf 的文件列表设置或清除过滤器
+watch (wa)          在给定变量上添加观察点
+what (wh)           显示变量的上下文
+where (w)           与 bt 相同
+worker (wo)         设置活动的 Worker
+键入“help”并后跟命令名可查看完整文档。
+
+[home]
+
+设置终止执行的列表位置。
+
+[info]
+
+用于显示关于正在调试的程序事项的通用命令。
+“info”子命令的列表:
+info arguments (i a)    当前堆栈帧的参数变量
+info breakpoints (i b)  用户可设置的断点的状态
+info display (i d)      显示自动显示表达式列表
+info files (i f)        正在调试的目标和文件的名称
+info functions (i fu)   所有函数名称
+info handle (i h)       如何处理故障
+info locals (i l)       当前堆栈帧的局部变量
+info scopechain (i sc)  当前堆栈帧的作用域链
+info sources (i so)     程序中的源文件
+info stack (i s)        堆栈的向后跟踪
+info swfs (i sw)        此会话中的 swf 列表
+info targets(i t)       正在调试的应用程序
+info variables (i v)    所有全局和静态变量名称
+info workers (i w)      列出所有 Worker
+键入“help info”并后跟“info”子命令名可查看完整文档。
+
+[info arguments]
+
+显示当前堆栈帧的参数。
+
+[info breakpoints]
+
+显示所有断点和观察点的状态。
+Type 列指示以下各项之一:
+   breakpoint   - 正常断点
+   watchpoint   - 观察点
+Disp 列包含“keep”、“del”或“dis”之一以指示遇到它之后断点的处置。
+“dis”意味着将禁用断点，而“del”意味着将删除断点。
+“Address”列和“What”列分别指示地址和文件/行号。
+
+[info display]
+
+显示自动显示表达式及其编号的列表。
+
+[info files]
+
+显示正在调试的应用程序的文件名称和编号，包括源文件、framework 文件
+和自动生成的文件。
+示例:
+  info files
+    按类别以字母顺序列出所有文件
+  info files my
+  info files my*
+    按字母顺序列出名称以“my”开头的所有文件。
+  info files *.as
+    按字母顺序列出名称以“.as”结尾的所有文件。
+  info files *foo*
+    按字母顺序列出名称包含“foo”的所有文件。
+会按 name#N 格式显示文件，其中 N 是文件编号。
+在许多命令中可以使用 #N 代替文件名。
+
+[info functions]
+
+显示函数名称。
+示例:
+  info functions .
+    显示当前文件中的所有函数。
+  info functions myapp.mxml
+    显示 myapp.mxml 中的所有函数。
+  info functions #3
+    显示文件 #3 中的所有函数。
+  info functions
+    显示所有文件中的所有函数。
+要查看文件名和编号，请执行“info sources”或“info files”。
+可接受缩略文件名（如果意义明确）。
+
+[info handle]
+
+显示在 Flash Player 中发生故障时 fdb 执行的操作。
+示例:
+  info handle
+    显示 fdb 如何处理所有故障。
+  info handle recursion_limit
+    显示 fdb 如何处理 recursion_limit 故障。
+
+[info locals]
+
+显示当前堆栈帧的局部变量。
+
+[info scopechain]
+
+显示当前堆栈帧的作用域链。作用域链是当 Flash Player 尝试解析符号
+名称时搜索的对象列表。
+
+[info sources]
+
+显示正在调试的应用程序的源文件的名称和编号。不包括 Framework 文件和
+自动生成的文件。
+会按 name#N 格式显示文件，其中 N 是文件编号。
+在许多命令中可以使用 #N 代替文件名。
+
+[info stack]
+
+堆栈的向后跟踪。
+
+[info swfs]
+
+显示对于调试会话为已知的 swf。有关如何基于 swf 名称过滤文件列表的
+详细信息，请参阅命令“viewswf”。
+
+[info targets]
+
+显示正在调试的应用程序的 URL（http: 或 file:）。
+
+[info variables]
+
+显示所有全局变量名称和值以及所有静态变量名称和值。
+
+[info workers]
+
+显示已经启动的所有 Worker。
+[info ?]
+
+未定义的“info”命令。请尝试“help info”。
+
+[kill]
+
+停止正在调试的程序的执行。
+此命令不使用任何参数。
+
+[list]
+
+列出源文件中的代码行。
+示例:
+  list
+    再列出当前文件中在先前列表之后或附近的 10 行。
+  list -
+    列出当前文件中在先前列表之前的 10 行。
+  list 87
+    列出当前文件中在第 87 行附近的 10 行。
+  list 87 102
+    列出当前文件中的第 87 行到第 102 行。
+除如上使用简单行号之外，还可以使用另外七种方式指定行:
+  doThis
+      当前文件中函数 doThis() 的第一行。
+   myapp.mxml
+      myapp.mxml 中的第 1 行。
+   myapp.mxml:doThat
+      myapp.mxml 中的函数 doThat() 的第一行。
+   myapp.mxml:56
+      myapp.mxml 中的第 56 行。
+   #3
+      文件 #3 中的第 1 行。
+   #3:doOther
+      在文件 #3 中函数 doOther() 开头处的行。
+   #3:29
+      文件 #3 中的第 29 行。
+要查看文件名和编号，请执行“info sources”或“info files”。
+要查看函数名称，请执行“info functions”。
+可接受缩略文件名和函数名称（如果意义明确）。
+列出文件会使该文件成为当前文件。（请参阅“cf”命令。）
+
+[next]
+
+单步执行程序，通过子例程调用继续。
+  next
+    单步执行一次。
+  next 3
+    单步执行 3 次，或者直到程序由于其它原因而停止为止。
+只要不发生子例程调用，就像“step”命令一样；当发生子例程调用时，
+会将该调用视为一个指令。
+
+[print]
+
+输出变量或表达式的值。
+示例:
+  print i
+    输出“i”的值。
+  print employee.name
+    输出“employee.name”的值。
+  print employee
+    输出“employee”对象的值。
+    这可能只会显示类似 [对象 10378] 的内容。
+  print employee.
+    输出“employee”对象的所有属性的值。
+  print *employee
+    输出“employee”对象的所有属性的值。
+    前缀 * 运算符是后缀 . 运算符的前缀替代项。
+  print #10378.
+    输出对象 #10378 的所有属性的值。
+可访问变量是选定堆栈帧的词法环境的那些变量，加上作用域为全局或
+整个文件的所有变量。
+
+[pwd]
+
+输出当前工作目录。
+这是启动 fdb 的目录；无法在 fdb 内更改它。可以相对于此目录指定“run”和
+“source”的参数。
+此命令不使用任何参数。
+
+[quit]
+
+退出 fdb。
+此命令不使用任何参数。
+
+[run]
+
+启动调试会话。
+示例:
+  run http://www.mysite.com/myapp.mxml
+    运行指定的 MXML 应用程序。
+  run myapp.swf
+  run mydir\myapp.swf
+  run c:\mydir\myapp.swf
+    运行本地 SWF 文件 myapp.swf，可以相对于当前目录（请参阅“pwd”命令）
+    或通过使用绝对路径指定该文件。这些情况下，myapp.swd（包含调试
+    信息的文件）也必须与	myapp.swf 位于同一目录中。
+  run
+    运行先前由“file”命令指定的应用程序。
+    如果未指定任何应用程序，则 fdb 将等待一个应用程序以连接到它，
+    且在等不到时将超时。
+“run”将在浏览器中或独立 Flash Player 中启动应用程序。
+只要应用程序一启动，它将打断 fdb 以便您设置断点等等。
+
+在 Macintosh 上，该命令唯一支持的形式是不使用任何参数的“run”。
+接着必须手动启动 Flash player。
+
+[set]
+
+设置变量或快捷变量的值。
+快捷变量是完全位于 fdb 内的变量；它们并非您的程序的组成部分。
+快捷变量的前缀为“$”，快捷变量可以是不与任何现有变量冲突的任何名称。
+例如，$myVar。
+快捷变量还可用于控制 fdb 的各个方面。
+
+以下快捷变量供 fdb 使用。
+$listsize          - 对于“list”要显示的源行的数量
+$columnwrap        - 在其上输出将换行的列编号
+$infostackshowthis - 若为 0，则在堆栈向后跟踪中不显示“this”
+$invokegetters     - 若为 0，则禁止 fdb 启动 getter 函数
+$bpnum             - 最后一个定义的断点编号
+$displayattributes - 若为 1，则“print var.”会显示“var”的成员的所有属性（例如，
+                     private、static）
+
+示例:
+  set i = 3
+    将变量“i”设置为数字 3。
+  set employee.name = "Susan"
+    将变量“employee.name”设置为字符串 "Susan"。
+  set $myVar = 20
+    将快捷变量“$myVar”设置为数字 20。
+
+[show]
+
+用于显示关于 fdb 的状态的事项的通用命令。
+“show”子命令的列表:
+show break (sh b)       已暂停执行的位置和原因
+show directories (sh d) 用于搜索源文件的目录
+show files (sh f)       目标文件和路径
+show functions (sh fu)  函数行映射信息
+show locations (sh l)   断点位置
+show memory (sh m)      当前内存使用情况
+show net (sh n)         Player 消息统计数据
+show properties (sh p)  属性值
+show uri (sh u)         此会话的 Player 的 URI
+show variable (sh v)    原始变量检索
+键入“help show”并后跟“show”子命令名可查看完整文档。
+
+[show break]
+
+显示程序终止所在的 SWF 内的偏移。
+
+[show directories]
+
+显示用于查找源文件的当前搜索目录。
+
+[show files]
+
+显示所有目标文件的路径和文件名。
+
+[show functions]
+
+显示函数到行号映射信息。
+示例:
+  show functions .
+    显示当前文件中所有函数的映射信息。
+  show functions myapp.mxml
+    显示 myapp.mxml 中所有函数的映射信息。
+  show functions #3
+    显示文件 #3 中所有函数的映射信息。
+  show functions
+    显示所有文件中所有函数的映射信息。
+要查看文件名和编号，请执行“info sources”或“info files”。
+可接受缩略文件名（如果意义明确）。
+
+[show locations]
+
+显示为每个断点设置的位置列表。
+
+[show memory]
+
+显示 Java VM 内存统计数据。
+
+[show net]
+
+显示关于已发送到 Flash Player 和已从 Flash Player 接收到的消息的信息。
+
+[show properties]
+
+显示在调试器内使用的快捷变量的列表。
+
+[show uri]
+
+显示 Player 已为此会话发送的 URI。
+
+[show variable]
+
+显示变量的成员的值。需要两个参数；第一个是数字变量标识符，第二个是
+变量上属性的名称。快捷变量 $invokegetters 用于确定是否将启动
+属性 getter（假定它存在）。
+示例:
+    show variable 1 __proto__
+
+[show ?]
+
+未定义“的show”命令。请尝试“help show”。
+
+[source]
+
+从文件读取 fdb }令并g行它们。
+  source mycommands.txt
+  source mydir\mycommands.txt
+  source c:\mydir\mycommands.txt
+    读取 mycommands.txt 并执行其中的 fdb 命令。
+    可以相对于当前目录（请参阅“pwd”命令）或通过使用绝对路径指定
+    包含命令的文件。
+启动 fdb 时，会使用此方式自动读取文件 .fdbinit。
+仅在当前目录中搜索 .fdbinit。这意味着您可以为不同的项目设置
+多个 .fdbinit 文件。
+
+[step]
+
+单步执行程序，直到遇到其它源行为止。
+示例:
+  step
+    单步执行一次。
+  step 3
+    单步执行 3 次，或者直到程序由于其它原因而停止为止。
+
+[tutorial]
+
+显示关于如何使用 fdb 的教程。
+此命令不使用任何参数。
+
+[Tutorial]
+
+典型的 fdb 会话:
+使用“run”启动应用程序。
+使用“info sources”查看文件名。
+使用“list”列出文件。
+使用“break”设置断点。
+使用“continue”执行程序，直到遇到断点为止。
+使用“where”、“print”、“info locals”检查程序的状态。
+使用“next”、“step”和“finish”执行各个语句。
+使用“continue”继续执行。
+使用“quit”退出 fdb。
+
+[undisplay]
+
+删除一个或多个自动显示表达式。
+示例:
+  undisplay
+    删除所有自动显示表达式。
+  undisplay 2 7
+    删除自动显示表达式 #2 和 #7。
+要查看自动显示表达式及其编号的列表，请执行“info display”。
+
+[up]
+
+选中并输出调用此命令的堆栈帧。
+后续的“info arguments”和“info locals”命令将显示选定帧的局部变量和参数。
+请参阅“down”和“frame”。
+
+[viewswf]
+
+为基于 swf 名称的文件列表（即，“info files”和“info sources”）设置或清除
+过滤器。不使用任何参数，将显示所有文件。如果在一个或多个 swf 中存在
+同一文件，则该列表将仅显示该文件的第一个实例。要访问该文件的其它实例，
+请使用文件的编号（例如，“list #192”），或将此命令与一个参数一起使用
+（如下所示）以显示来自某个特定 swf 的文件。使用单个参数
+（就像“info swfs”命令所显示的 swf 名称），在文件列表中将仅显示
+来自指定 swf 的文件。将不会显示来自其它 swf 的文件。此命令还会影响
+将文件视为参数的命令（例如，“break”）。示例:
+  viewswf myApp.mxml.swf
+    将仅显示来自 myApp.mxml.swf 的文件。
+  viewswf
+    将显示来自所有 swf 的所有文件。
+
+[watch]
+
+在给定变量上添加观察点。当变量的值改变时，调试器将终止执行。
+示例:
+  watch foo
+
+[what]
+
+显示解析变量的上下文。
+
+[where]
+
+堆栈的向后跟踪。
+
+[zzz]
+
+((( Keep this unused topic at the end of the file    )))
+((( so that the next-to-last one is parsed properly. )))

@@ -1,0 +1,872 @@
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+
+This file contains the text displayed by the 'help' command in fdb.
+
+It is divided into "topics". For example, when an fdb user types
+'help break', the [break] topic below is displayed.
+
+The first and last lines of each topic should be blank.
+They don't get displayed in fdb; they are here only
+to make this file more easily readable.
+
+Help text should be formatted to not wrap
+when displayed on an 80-character-wide console.
+The following line is 80 characters wide.
+
+--------------------------------------------------------------------------------
+
+[?]
+
+Comando non definito. Immettere solo "help" per visualizzare l'elenco di tutti 
+i comandi di fdb.
+
+[break]
+
+Imposta un breakpoint in corrispondenza della riga o della funzione specificata.
+Esempi:
+  break 87
+    Imposta un breakpoint alla riga 87 del file corrente.
+  break myapp.mxml:56
+    Imposta un breakpoint alla riga 56 del file myapp.mxml.
+  break #3:29
+    Imposta un breakpoint alla riga 29 del file numero 3.
+  break doThis
+    Imposta un breakpoint in corrispondenza della funzione doThis() del file 
+    corrente.
+  break myapp.mxml:doThat
+    Imposta un breakpoint in corrispondenza della funzione doThat() del file 
+    myapp.mxml.
+  break #3:doOther
+    Imposta un breakpoint in corrispondenza della funzione doOther() del file 
+    numero 3.
+  break
+   Imposta un breakpoint nell'indirizzo di esecuzione corrente in 
+   corrispondenza del frame dello stack corrente. È utile per inserire 
+   un'interruzione nei punti di ritorno al frame dello stack.
+Per visualizzare i nomi e i numeri dei file, immettere "info sources" o "info 
+files".
+Per visualizzare i nomi delle funzioni, immettere "info functions".
+Sono accettati i nomi abbreviati di file e funzioni a condizione che non siano 
+ambigui.
+Se viene specificato un numero di riga, l'interruzione avviene all'inizio del 
+codice di tale riga.
+Se viene specificata una funzione, l'interruzione avviene all'inizio del codice 
+di tale funzione.
+Per altre opzioni di controllo dei breakpoint, vedere "commands" e "condition".
+
+[bt]
+
+Back trace dello stack.
+
+[catch]
+
+Interrompe l'esecuzione quando viene generata un'eccezione. Vale solo per le 
+eccezioni rilevate, vale a dire le eccezioni che vengono gestite da un blocco 
+"catch". Le eccezioni non rilevate interrompono sempre l'esecuzione nel 
+debugger.
+
+Utilizzare il comando "delete" per eliminare un punto di intercettazione.
+
+Esempi:
+  catch *
+    Interrompe l'esecuzione quando viene generata qualsiasi eccezione.
+  catch ReferenceError
+    Interrompe l'esecuzione quando viene generato un ReferenceError, sia 
+    intercettato che non.
+
+[cf]
+
+Visualizza il nome e il numero del file corrente o cambia il file corrente.
+Esempi:
+  cf
+    Visualizza il nome e il numero del file corrente.
+  cf myapp.mxml
+    Cambia il file corrente in myapp.mxml.
+  cf #29
+    Cambia il file corrente nel file numero 29.
+Per visualizzare i nomi e i numeri dei file, immettere "info sources" o "info 
+files".
+Sono accettati i nomi abbreviati di file a condizione che non siano ambigui.
+Un file diventa il file corrente anche quando viene elencato con "list".
+
+[clear]
+
+Rimuove il breakpoint in corrispondenza della riga o della funzione specificata.
+Esempi:
+  clear 87
+    Rimuove il breakpoint alla riga 87 del file corrente.
+  clear myapp.mxml:56
+    Rimuove il breakpoint alla riga 56 del file myapp.mxml.
+  clear #3:29
+    Rimuove il breakpoint alla riga 29 del file numero 3.
+  clear doThis
+    Rimuove il breakpoint in corrispondenza della funzione doThis() del file 
+    corrente.
+  clear myapp.mxml:doThat
+    Rimuove il breakpoint in corrispondenza della funzione doThat() del file 
+    myapp.mxml.
+  clear #3:doOther
+    Rimuove il breakpoint in corrispondenza della funzione doOther() del file 
+    numero 3.
+  clear
+    Rimuove il breakpoint nella riga corrente del file corrente. 
+Per visualizzare i nomi e i numeri dei file, immettere "info sources" o "info 
+files".
+Per visualizzare i nomi delle funzioni, immettere "info functions".
+Sono accettati i nomi abbreviati di file e funzioni a condizione che non siano 
+ambigui.
+Se si specifica il numero di riga, tutti i breakpoint in quella riga vengono 
+eliminati.
+Se si specifica una funzione, i breakpoint all'inizio della funzione vengono 
+eliminati.
+
+[continue]
+
+Continua l'esecuzione dopo l'arresto al breakpoint.
+Questo comando non utilizza argomenti.
+
+[condition]
+
+
+Specifica che il breakpoint numero N deve interrompere l'esecuzione solo se 
+COND è vero.
+Utilizzo: "condition N COND", dove N è un numero intero e COND un'espressione 
+da valutare tutte le volte che viene raggiunto il breakpoint N.
+
+[commands]
+
+Imposta i comandi da eseguire quando viene rilevato un breakpoint.
+Fornire il numero del breakpoint come argomento dopo "commands".
+Senza argomento, il breakpoint di destinazione è quello impostato per ultimo.
+I comandi seguono a partire dalla riga successiva.
+Digitare una riga contenente "end" per indicare la fine dei comandi.
+Immettere "silent" come prima riga per rendere invisibile il breakpoint; in 
+questo modo, quando viene rilevato il breakpoint non viene stampato nulla, 
+tranne l'output dei comandi.
+Esempio:
+  (fdb) commands
+  Digitare i comandi da eseguire quando viene rilevato il breakpoint 1, uno per 
+  riga.
+  Terminare con una riga contenente solo "end".
+  >w
+  >end
+
+[delete]
+
+Elimina uno o più breakpoint.
+Esempi:
+  delete
+    Elimina tutti i breakpoint.
+  delete 2 5
+    Elimina i breakpoint numero 2 e 5.
+Per visualizzare il numero dei breakpoint, immettere "info breakpoints".
+
+[directory]
+
+Modifica l'elenco delle directory in cui fdb cerca i file di origine.
+
+Esempi:
+
+  directory
+    Ripristina l'elenco predefinito, vale a dire la directory in cui il file di 
+    origine è stato compilato in codice oggetto, seguita dalla directory di 
+    lavoro corrente.
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+    
+Aggiunge la directory specificata all'inizio dell'elenco delle directory in cui 
+cercare l'origine.
+  Quando si cerca l'origine della classe mypackage.MyClass, ad esempio, il 
+  debugger cerca sia C:\MySource\mypackage\MyClass.as che 
+  C:\MySource\MyClass.as.
+
+  directory C:\Dir1;C:\Dir2    (Windows  Utilizzare ";" come separatore)
+  directory /Dir1:/Dir2        (Mac  Utilizzare ":" come separatore)
+    Aggiunge numerose directory all'inizio dell'elenco delle directory in cui 
+    cercare l'origine.
+
+Per vedere l'elenco corrente, immettere "show directories".
+
+[disable]
+
+Disabilita uno o più breakpoint o espressioni a visualizzazione automatica.
+Esempi:
+  disable
+  disable breakpoints
+    Disabilita tutti i breakpoint.
+  disable 2 5
+  disable breakpoints 2 5
+    Disabilita i breakpoint numero 2 e 5.
+  disable display
+    Disabilita tutte le espressioni a visualizzazione automatica.
+  disable display 1 3
+    Disabilita le espressioni a visualizzazione automatica numero 1 e 3.
+Per visualizzare il numero dei breakpoint, immettere "info breakpoints".
+Per visualizzare il numero delle espressioni a visualizzazione automatica, 
+immettere "info display".
+
+[disassemble]
+
+(Solo per ActionScript 2; non supportato quando si esegue il debug di ActionScript 3)
+
+Disassembla una porzione specifica di codice sorgente.
+La porzione predefinita è la riga dell'elenco corrente.
+Gli argomenti supportati sono gli stessi del comando "list".
+Esempi:
+  disassemble 87
+    Disassembla la riga 87 del file corrente.
+  disassemble 87 102
+    Disassembla dalla riga 87 alla 102 del file corrente.
+  disassemble doThis
+      Disassembla la funzione doThis() nel file corrente.
+Oltre a utilizzare numeri di riga semplici come negli esempi precedenti, 
+è possibile specificare le righe in altri modi:
+   myapp.mxml
+      La riga 1 del file myapp.mxml.
+   myapp.mxml:doThat
+      La prima riga della funzione doThat() del file myapp.mxml.
+   myapp.mxml:56
+      
+La riga 56 del file myapp.mxml.
+   #3
+      La riga 1 del file numero 3.
+   #3:doOther
+      La riga del file numero 3 in cui inizia la funzione doOther().
+   #3:29
+      La riga 29 del file numero 3.
+
+[display]
+
+Aggiunge un'espressione all'elenco delle espressioni a visualizzazione 
+automatica.
+Esempio:
+  display employee.name
+    Aggiunge "employee.name" all'elenco delle espressioni a visualizzazione 
+    automatica.
+    Ogni volta che fdb si arresta viene visualizzato il valore di employee.name.
+L'argomento di questo comando è simile a quello di "print".
+Per visualizzare l'elenco delle espressioni a visualizzazione automatica e del 
+numero corrispondente, immettere "info display".
+
+[down]
+
+Seleziona e stampa il frame dello stack chiamato da questo comando.
+I successivi comandi "info arguments" e "info locals" visualizzano le variabili 
+locali e gli argomenti del frame selezionato.
+Vedere "up" e "frame" 
+
+[enable]
+
+Abilita uno o più breakpoint o espressioni a visualizzazione automatica.
+Esempi:
+  enable
+  enable breakpoints
+    Abilita tutti i breakpoint.
+  enable 2 5
+  enable breakpoints 2 5
+    Abilita i breakpoint numero 2 e 5.
+  enable display
+    Abilita tutte le espressioni a visualizzazione automatica.
+  enable display 1 3
+    Abilita le espressioni a visualizzazione automatica numero 1 e 3.
+Per visualizzare il numero dei breakpoint, immettere "info breakpoints".
+Per visualizzare il numero delle espressioni a visualizzazione automatica, 
+immettere "info display".
+
+[file]
+
+Specifica l'applicazione di cui eseguire il debug, senza avviarla.
+Esempi:
+  file http://www.mysite.com/myapp.mxml
+    Specifica un'applicazione MXML di cui eseguire il debug.
+  file myapp.swf
+    Specifica un file SWF locale, nella directory corrente, di cui eseguire il 
+    debug.
+    In questo caso, nella directory corrente deve esistere anche il file 
+    myapp.swd (il file che contiene le informazioni di debug).
+Questo comando non avvia l'applicazione; per iniziare il debug 
+dell'applicazione, utilizzare il comando "run" senza argomenti.
+Invece di utilizzare "file <destinazione>" e quindi "run", è possibile 
+specificare l'applicazione di cui eseguire il debug come argomento di "run":
+  run http://mysite.com/myapp.mxml
+  run myapp.swf
+È inoltre possibile specificare l'applicazione di cui eseguire il debug come 
+argomento della riga di comando quando si avvia fdb:
+  fdb http://www.mysite.com/myapp.mxml
+  fdb myapp.swf
+In questo caso non è necessario utilizzare "file" o "run".
+Se si utilizza "run" senza specificare l'applicazione di cui eseguire il debug, 
+fdb attende che un'applicazione si connetta ad esso.
+
+[finish]
+
+Continua l'esecuzione fino a quando ritorna la funzione corrente.
+Questo comando non utilizza argomenti.
+
+[frame]
+
+Seleziona e stampa un frame dello stack specifico.
+Questo comando utilizza un argomento facoltativo: il numero di un frame.
+Se non viene fornito l'argomento, per impostazione predefinita torna al frame 
+superiore corrente, vale a dire il frame 0.
+Esempi:
+  frame 4
+  frame
+I successivi comandi "info arguments" e "info locals" visualizzano le variabili 
+locali e gli argomenti del frame selezionato.
+Vedere "up", "down" e "bt" 
+
+[handle]
+
+Specifica come fdb deve gestire un errore di Flash Player.
+Esempi:
+  handle recursion_limit stop
+    Quando si verifica un errore relativo al limite di ricorsività, visualizza 
+    un messaggio in fdb e si arresta come se fosse arrivato a un breakpoint.
+  handle all print nostop
+    Quando si verifica un qualsiasi tipo di errore, visualizza un messaggio in 
+    fdb ma non si arresta.
+Il primo argomento è il nome di un frame o "all".
+Gli argomenti aggiuntivi sono azioni da applicare all'errore.
+Per visualizzare i nomi degli errori, immettere "info handle".
+Le azioni sono "print"/"noprint" e "stop"/"nostop".
+"print" consente di stampare un messaggio se si verifica questo errore.
+"stop" consente di attivare di nuovo il debugger se si verifica questo errore. 
+Implica "print".
+
+[help]
+
+Non avete dimestichezza con fdb? Immettete "tutorial" per visualizzare 
+informazioni di base.
+Elenco dei comandi di fdb:
+bt (bt)             Stampa il back trace di tutte i frame dello stack
+break (b)           Imposta un breakpoint in corrispondenza della riga o della 
+                    funzione specificata
+catch (ca)          Interrompe l'esecuzione quando viene generata un'eccezione
+cf (cf)             Visualizza il nome e il numero del file corrente
+clear (cl)          Rimuove il breakpoint in corrispondenza della riga o della 
+                    funzione specificata
+condition (cond)    Applica/rimuove un'espressione condizionale a/da un 
+                    breakpoint
+continue (c)        Continua l'esecuzione dopo l'arresto nel breakpoint
+commands (com)      Imposta i comandi da eseguire quando viene rilevato un 
+                    breakpoint
+delete (d)          Elimina breakpoint o espressioni a visualizzazione 
+                    automatica
+directory (dir)     Aggiunge una directory al percorso di ricerca dei file di 
+                    origine
+disable (disab)     Disabilita breakpoint o espressioni a visualizzazione 
+                    automatica
+disassemble (disas) Disassembla righe o funzioni di origine
+display (disp)      Aggiunge espressioni a visualizzazione automatica
+enable (e)          Abilita breakpoint o espressioni a visualizzazione 
+                    automatica
+file (fil)          Specifica l'applicazione di cui eseguire il debug
+finish (f)          Continua l'esecuzione fino a quando ritorna la funzione 
+                    corrente
+handle (han)        Specifica come gestire un errore
+help (h)            Visualizza la guida sui comandi di fdb
+home (ho)           Imposta la posizione dell'elenco sul punto in cui viene 
+                    sospesa l'esecuzione
+info (i)            Visualizza informazioni sul programma di cui si sta 
+                    eseguendo il debug
+kill (k)            Interrompe l'esecuzione del programma di cui si sta 
+                    eseguendo il debug
+list (l)            Elenca la funzione o la riga specificata
+next (n)            Analizza il programma passo a passo
+print (p)           Stampa il valore della variabile EXP
+pwd (pw)            Stampa la directory di lavoro
+quit (q)            Esce da fdb
+run (r)             Avvia il programma di cui si è eseguito il debug
+set (se)            Imposta il valore di una variabile
+source (so)         Legge comandi di fdb da un file
+step (s)            Analizza il programma passo a passo fino a quando arriva a 
+                    una riga di origine diversa
+tutorial (t)        Visualizza un'esercitazione su come utilizzare fdb
+undisplay (u)       Rimuove un'espressione a visualizzazione automatica
+viewswf (v)         Imposta o reimposta il filtro per elencare i file swf
+watch (wa)          Aggiunge un punto di controllo in una variabile specificata
+what (wh)           Visualizza il contesto di una variabile
+where (w)           Uguale a "bt"
+Digitare "help" seguito dal nome del comando per visualizzare la documentazione 
+completa.
+
+[home]
+
+Imposta la posizione dell'elenco sul punto in cui viene sospesa l'esecuzione.
+
+[info]
+
+Comando generico per visualizzare informazioni sul programma di cui si sta 
+eseguendo il debug.
+Elenco dei sottocomandi di "info":
+info arguments (i a)    Variabili dell'argomento del frame dello stack corrente
+info breakpoints (i b)  Stato dei breakpoint impostabili dall'utente
+info display (i d)      Visualizza l'elenco delle espressioni a visualizzazione 
+                        automatica
+info files (i f)        Nomi delle destinazioni e dei file di cui si sta 
+                        eseguendo il debug
+info functions (i fu)   Tutti i nomi delle funzioni
+info handle (i h)       Come gestire un errore
+info locals (i l)       Variabili locali del frame dello stack corrente
+info scopechain (i sc)  Catena di ambito del frame dello stack corrente
+info sources (i so)     File di origine del programma
+info stack (i s)        Back trace dello stack
+info swfs (i sw)        Elenco dei file swf di questa sessione
+info targets(i t)       Applicazione di cui si sta eseguendo il debug
+info variables (i v)    Tutti i nomi delle variabili globali e statiche
+Digitare "help info" seguito dal nome del sottocomando di "info" per 
+visualizzare la documentazione completa.
+
+[info arguments]
+
+Visualizza gli argomenti del frame dello stack corrente.
+
+[info breakpoints]
+
+Visualizza lo stato di tutti i breakpoint e punti di controllo.
+La colonna "Type" indica:
+   breakpoint   - breakpoint normale
+   watchpoint   - punto di controllo
+La colonna "Disp" contiene "keep", "del" o "dis" per indicare cosa avverrà del 
+breakpoint dopo che viene rilevato. "dis" significa che il breakpoint verrà 
+disabilitato e "del" che verrà eliminato.  
+Le colonne "Address" e "What" indicano l'indirizzo e il numero di file/riga 
+rispettivamente. 
+
+[info display]
+
+Visualizza l'elenco delle espressioni a visualizzazione automatica e i relativi 
+numeri.
+
+[info files]
+
+Visualizza i nomi e i numeri dei file dell'applicazione di cui si sta eseguendo 
+il debug, inclusi i file di origine, i file dei framework e i file generati 
+automaticamente.
+Esempi:
+  info files
+    Elenca in ordine alfabetico tutti i file divisi per categoria
+  info files my
+  info files my*
+    Elenca in ordine alfabetico tutti i file il cui nome inizia con "my".
+  info files *.as
+    Elenca in ordine alfabetico tutti i file il cui nome termina con ".as".
+  info files *foo*
+    Elenca in ordine alfabetico tutti i file il cui nome contiene "foo". 
+I file vengono visualizzati nel formato nome#N, dove N è il numero del file.
+In molti comandi è possibile utilizzare #N al posto del nome del file.
+
+[info functions]
+
+Visualizza i nomi delle funzioni.
+Esempi:
+  info functions .
+    Visualizza tutte le funzioni nel file corrente.
+  info functions myapp.mxml
+    Visualizza tutte le funzioni nel file myapp.mxml.
+  info functions #3
+    Visualizza tutte le funzioni nel file numero 3.
+  info functions
+    Visualizza tutte le funzioni in tutti i file.
+Per visualizzare i nomi e i numeri dei file, immettere "info sources" o "info 
+files".
+Sono accettati i nomi abbreviati di file a condizione che non siano ambigui.
+
+[info handle]
+
+Visualizza le operazioni effettuate da fdb quando si verifica un errore in 
+Flash Player.
+Esempi:
+  info handle
+    Visualizza il modo in cui fdb gestisce tutti gli errori.
+  info handle recursion_limit
+    Visualizza il modo in cui fdb gestisce un errore relativo al limite di 
+    ricorsività.
+
+[info locals]
+
+Visualizza le variabili locali del frame dello stack corrente.
+
+[info scopechain]
+
+Visualizza la catena di ambito del frame dello stack corrente. La catena di 
+ambito è l'elenco degli oggetti in cui viene effettuata la ricerca quando Flash 
+Player cerca di risolvere il nome di un simbolo.
+
+[info sources]
+
+Visualizza i nomi e i numeri dei file di origine dell'applicazione di cui si 
+sta eseguendo il debug. I file dei framework e i file generati automaticamente 
+non sono inclusi.
+I file vengono visualizzati nel formato nome#N, dove N è il numero del file.
+In molti comandi è possibile utilizzare #N al posto del nome del file.
+
+[info stack]
+
+Back trace dello stack.
+
+[info swfs]
+
+Visualizza i file swf noti alla sessione di debug. Per maggiori informazioni su 
+come filtrare l'elenco dei file in base al nome di file swf, vedere il comando 
+"viewswf". 
+
+[info targets]
+
+Visualizza l'URL (http: o file:) dell'applicazione sottoposta a debug.
+
+[info variables]
+
+Visualizza tutti i nomi e i valori delle variabili globali e statiche.
+
+[info ?]
+
+Comando per ottenere informazioni non definito. Provare con "help info".
+
+[kill]
+
+Interrompe l'esecuzione del programma di cui si sta eseguendo il debug
+Questo comando non utilizza argomenti.
+
+[list]
+
+Elenca righe di codice di un file di origine.
+Esempi:
+  list
+    Elenca altre dieci righe del file corrente dopo o attorno all'elenco 
+    precedente.
+  list -
+    Elenca le dieci righe del file corrente prima di un elenco precedente.
+  list 87
+    Elenca dieci righe del file corrente attorno alla riga 87.
+  list 87 102
+    Elenca dalla riga 87 alla 102 del file corrente.
+Oltre a utilizzare numeri di riga semplici come negli esempi precedenti, è 
+possibile specificare le righe in altri sette modi:
+  doThis
+      La prima riga della funzione doThis() del file corrente.
+   myapp.mxml
+      La riga 1 del file myapp.mxml.
+   myapp.mxml:doThat
+      La prima riga della funzione doThat() del file myapp.mxml.
+   myapp.mxml:56
+      La riga 56 del file myapp.mxml.
+   #3
+      La riga 1 del file numero 3.
+   #3:doOther
+      La riga del file numero 3 in cui inizia la funzione doOther().
+   #3:29
+      La riga 29 del file numero 3.
+Per visualizzare i nomi e i numeri dei file, immettere "info sources" o "info 
+files".
+Per visualizzare i nomi delle funzioni, immettere "info functions".
+Sono accettati i nomi abbreviati di file e funzioni a condizione che non siano 
+ambigui.
+Un file diventa il file corrente quando viene elencato. Vedere il comando "cf".
+
+[next]
+
+Analizza il programma passo a passo, passando attraverso le chiamate delle 
+subroutine.
+  next
+    Avanza di un passo
+  next 3
+    Avanza di tre passi o fino a quando il programma si interrompe per un altro 
+    motivo.
+Come il comando "step", se non avvengono chiamate delle subroutine: quando ciò 
+avviene, la chiamata viene trattata come un'istruzione.
+
+[print]
+
+Stampa il valore della variabile o dell'espressione
+Esempi:
+  print i
+    Stampa il valore di "i".
+  print employee.name
+    Stampa il valore di "employee.name".
+  print employee
+    Stampa il valore dell'oggetto "employee".
+    Potrebbe visualizzare semplicemente qualcosa del tipo [Object 10378].
+  print employee.
+    Stampa i valori di tutte le proprietà dell'oggetto "employee".
+  print *employee
+    Stampa i valori di tutte le proprietà dell'oggetto "employee".
+    L'operatore * in forma prefissa è il prefisso alternativo dell'operatore . 
+    in forma suffissa.
+  print #10378.
+    Stampa i valori di tutte le proprietà dell'oggetto numero 10378.
+Le variabili accessibili sono quelle dell'ambiente lessicale del frame dello 
+stack selezionato, oltre a quelle con ambito globale o costituito da un file 
+intero.
+
+[pwd]
+
+Stampa la directory di lavoro corrente.
+Si tratta della directory dalla quale è stato avviato fdb; non è possibile 
+modificarla da fdb. È possibile specificare l'argomento di "run" e "source" in 
+relazione a questa directory.
+Questo comando non utilizza argomenti.
+
+[quit]
+
+Esce da fdb.
+Questo comando non utilizza argomenti.
+
+[run]
+
+Avvia una sessione di debug.
+Esempi:
+  run http://www.mysite.com/myapp.mxml
+    Esegue l'applicazione MXML specificata.
+  run myapp.swf
+  run mydir\myapp.swf
+  run c:\mydir\myapp.swf
+    Esegue il file SWF myapp.swf locale che può essere specificato in relazione 
+    alla directory corrente (vedere il comando "pwd") oppure utilizzando un 
+    percorso assoluto. In questi casi, nella stessa directory in cui risiede il 
+    file myapp.swf deve esistere anche il file myapp.swd (il file che contiene 
+    le informazioni di debug).
+  run
+    Esegue l'applicazione specificata in precedenza dal comando "file".
+    Se non è stata specificata alcuna applicazione, fdb attenderà per un 
+    determinato periodo che se ne connetta una.
+Il comando "run" avvia l'applicazione in un browser o nella versione autonoma 
+di Flash Player.
+Appena avviata, l'applicazione si connette a fdb per consentire all'utente di 
+impostare breakpoint e così via.
+
+In Macintosh è supportato solo il formato "run" senza argomenti. È quindi 
+necessario avviare Flash Player manualmente.
+
+[set]
+
+Imposta il valore di una variabile o di una variabile di convenienza.
+Le variabili di convenienza esistono solo in fdb e non fanno parte del 
+programma utilizzato.
+Le variabili di convenienza hanno il prefisso "$" e possono essere costituite 
+da qualsiasi nome che non sia in conflitto con le variabili esistenti. Ad 
+esempio, $myVar. Le variabili di convenienza vengono utilizzate inoltre per 
+controllare vari aspetti di fdb.  
+
+Le seguenti variabili di convenienza vengono utilizzate da fdb.
+$listsize          - numero di righe di origine da visualizzare con il comando 
+                     "list"
+$columnwrap        - numero di colonna in cui mandare a capo l'output
+$infostackshowthis - se si utilizza il valore 0, non visualizza "this" nel back 
+                     trace dello stack
+$invokegetters     - se si utilizza il valore 0, impedisce a fdb di attivare 
+                     funzioni getter
+$bpnum             - il numero del breakpoint definito per ultimo
+$displayattributes - se si utilizza il valore 1, "print var." visualizza tutti 
+                     gli attributi dei membri di "var" (ad esempio, "private" e 
+                     "static")
+
+Esempi:
+  set i = 3
+    Imposta la variabile "i" sul numero 3.
+  set employee.name = "Susan"
+    Imposta la variabile "employee.name" sulla stringa "Susan".
+  set $myVar = 20
+    Imposta la variabile di convenienza "'$myVar" sul numero 20.
+
+[show]
+
+Comando generico per visualizzare informazioni sullo stato di fdb.
+Elenco dei sottocomandi di "show":
+show break (sh b)       Posizione e causa della sospensione dell'esecuzione
+show directories (sh d) Directory in cui cercare i file di origine
+show files (sh f)       File e percorsi di destinazione
+show functions (sh fu)  Informazioni sulla mappatura delle righe delle funzioni 
+show locations (sh l)   Posizioni dei breakpoint
+show memory (sh m)      Utilizzo corrente della memoria
+show net (sh n)         Statistiche sui messaggi di Player 
+show properties (sh p)  Valori delle proprietà
+show uri (sh u)         URI di Player per la sessione attuale 
+show variable (sh v)    Recupero delle variabili non elaborate
+Digitare "help show" seguito dal nome del sottocomando di "show" per 
+visualizzare la documentazione completa.
+
+[show break]
+
+Visualizza l'offset nel file SWF nel quale si è arrestato il programma.
+
+[show directories]
+
+Visualizza il percorso corrente in cui cercare i file di origine.
+
+[show files]
+
+Visualizza il percorso e il nome di tutti i file di destinazione.
+
+[show functions]
+
+Visualizza informazioni sulla mappatura fra funzione e numero di riga.
+Esempi:
+  show functions .
+    Visualizza informazioni sulla mappatura di tutte le funzioni nel file 
+    corrente.
+  show functions myapp.mxml
+    Visualizza informazioni sulla mappatura di tutte le funzioni nel file 
+    myapp.mxml.
+  show functions #3
+    Visualizza informazioni sulla mappatura di tutte le funzioni nel file 
+    numero 3.
+  show functions
+    Visualizza informazioni sulla mappatura di tutte le funzioni in tutti i 
+    file.
+Per visualizzare i nomi e i numeri dei file, immettere "info sources" o "info 
+files".
+Sono accettati i nomi abbreviati di file a condizione che non siano ambigui.
+
+[show locations]
+
+Visualizza l'elenco delle posizioni impostate per ogni breakpoint
+
+[show memory]
+
+Visualizza statistiche sulla memoria relative a Java VM.
+
+[show net]
+
+Visualizza informazioni sui messaggi inviati e ricevuti da Flash Player.
+
+[show properties]
+
+Visualizza l'elenco delle variabili di convenienza utilizzate nel debugger 
+
+[show uri]
+
+Visualizza l'URI inviato da Player per questa sessione.
+
+[show variable]
+
+Visualizza il valore dei membri di una variabile. Sono necessari due parametri: 
+il primo è l'identificatore della variabile numerica e il secondo è il nome 
+della proprietà della variabile. La variabile di convenienza $invokegetters 
+viene utilizzata per determinare se la funzione di richiamo della proprietà, 
+presumendo che esista, verrà attivata oppure no.
+Esempio:
+    show variable 1 __proto__
+
+[show ?]
+
+Comando "show" non definito. Provare con "help show".
+
+[source]
+
+Legge comandi di fdb da un file e li esegue.
+  source mycommands.txt
+  source mydir\mycommands.txt
+  source c:\mydir\mycommands.txt
+    Legge il file mycommands.txt ed esegue i comandi di fdb che contiene.
+    È possibile specificare il file che contiene i comandi
+	in relazione alla directory corrente (vedere il comando "pwd")
+	oppure utilizzando un percorso assoluto.
+Quando si avvia fdb, il file .fdbinit viene letto automaticamente con questo 
+metodo.
+Il file .fdbinit viene cercato solo nella directory corrente. Pertanto è 
+possibile impostare vari file .fdbinit per progetti diversi.
+
+[step]
+
+Analizza il programma passo a passo fino a quando arriva a una riga di origine 
+diversa.
+Esempi:
+  step
+    Avanza di un passo
+  step 3
+    Avanza di tre passi o fino a quando il programma si interrompe per un altro 
+motivo.
+
+[tutorial]
+
+Visualizza un'esercitazione su come utilizzare fdb.
+Questo comando non utilizza argomenti.
+
+[Tutorial]
+
+Sessione fdb tipica:
+Avviare un'applicazione con "run".
+Visualizzare i nomi dei file con "info sources".
+Elencare un file con "list".
+Impostare breakpoint con "break".
+Eseguire il programma con "continue" fino a quando viene rilevato un breakpoint.
+Esaminare lo stato del programma con "where", "print", "info locals".
+Eseguire istruzioni individuali con "next", "step" e "finish".
+Riprendere l'esecuzione con "continue".
+Uscire da fdb con "quit".
+
+[undisplay]
+
+Rimuove una o più espressioni a visualizzazione automatica.
+Esempi:
+  undisplay
+    Rimuove tutte le espressioni a visualizzazione automatica.
+  undisplay 2 7
+    Rimuove le espressioni a visualizzazione automatica numero 2 e 7.
+Per visualizzare l'elenco delle espressioni a visualizzazione automatica e del 
+numero corrispondente, immettere "info display".
+
+[up]
+
+Seleziona e stampa il frame dello stack che ha chiamato questo frame dello 
+stack.
+I successivi comandi "info arguments" e "info locals" visualizzano
+le variabili locali e gli argomenti del frame selezionato.
+Vedere "down" e "frame"
+
+[viewswf]
+
+Imposta o reimposta il filtro per elencare i file (ad esempio, "info files" e 
+"info sources") in base al nome swf. 
+Se non si utilizzano parametri vengono visualizzati tutti i file. Se lo stesso 
+file esiste in uno o più file swf, nell'elenco viene inserita solo la prima 
+istanza del file. Per accedere ad altre istanze del file, utilizzare il numero 
+del file (ad esempio, "list #192") oppure utilizzare questo comando con un 
+parametro (vedere più avanti) per visualizzare i file di un file swf specifico. 
+Se si utilizza un solo parametro, il nome swf visualizzato con il comando "info 
+swfs", nell'elenco vengono visualizzati solo i file del file swf specificato. 
+I file di altri file swf non vengono visualizzati. Questo comando influisce 
+anche sui comandi che accettano un file come parametro (ad esempio "break").
+Esempio:
+  viewswf myApp.mxml.swf
+    Vengono visualizzati solo i file di myApp.mxml.swf.
+  viewswf 
+    Vengono visualizzati tutti i file di tutti i file swf.
+ 
+[watch]
+
+Aggiunge un punto di controllo in una variabile specificata. Il debugger 
+interrompe l'esecuzione quando cambia il valore della variabile.
+Esempio:
+  watch foo
+
+[what]
+
+Visualizza il contesto in cui viene risolta una variabile. 
+
+[where]
+
+Back trace dello stack.
+
+[zzz]
+
+((( Keep this unused topic at the end of the file    )))
+((( so that the next-to-last one is parsed properly. )))

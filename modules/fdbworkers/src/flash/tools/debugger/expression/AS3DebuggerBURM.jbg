@@ -1,0 +1,269 @@
+package flash.tools.debugger.expression;
+
+header
+{
+	/*
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+		AS3DebuggerBURM.java is a Bottom-Up Rewrite Machine for ActionScript 3.0.
+
+		A BURM recognizes patterns of nodes within an tree (in this case, an
+		abstract syntax tree for AS 3.0 expressions) and performs rule-based reduction
+		on them (in this case producing DebuggerValues).
+
+		AS3DebuggerBURM.java is generated from AS3DebuggerBURM.jbg using JBurg, an open-source
+		Java implementation of a Bottom-Up Rewrite Generator.
+
+		The most important entry point of this class is burm(),
+		which is called by the code generator.
+	*/
+
+    import static com.adobe.flash.abc3.ABCConstants.*;
+    import static com.adobe.flash.compiler.tree.ASTNodeID.*;
+
+    import com.adobe.flash.compiler.constants.IASLanguageConstants;
+    import com.adobe.flash.compiler.exceptions.BURMAbortException;
+    import com.adobe.flash.compiler.problems.*;
+    import com.adobe.flash.compiler.internal.semantics.AS3SemanticUtils;
+    import com.adobe.flash.compiler.tree.ASTNodeID;
+    import com.adobe.flash.compiler.tree.as.IASNode;
+    import com.adobe.flash.compiler.tree.as.ITryNode;
+}
+
+INodeType IASNode;
+OpcodeType ASTNodeID;
+
+/*
+ *  The I-node type is IASNode, and it has its own adapter.
+ */
+INodeAdapter com.adobe.flash.compiler.internal.codegen.as.IASNodeAdapter;
+
+//  Generate Java output.
+Language java;
+
+// Return type of all the reductions
+ReturnType Object;
+
+/**
+ *  This is a name to use in an expression context.
+ *
+ *  TODO: What type should this be?
+ */
+ReturnType name = Object;
+
+ReturnType decl_name = Object;
+
+/**
+ *  Qualified name - this acts the same as a name above, but is built a little differently.
+ */
+ReturnType qualifiedName = Object;
+ReturnType qualifiedNamePart = Object;
+
+/**
+ *  This is a name used in a type annotation context, such as 'Foo' in:
+ *      var x : Foo;
+ *  It is a Binding, as type annotations must always be resolved.
+ *  A type_name also allows '*', which can't happen in a general expression context.
+ */
+ReturnType type_name = Object;
+
+/**
+ *  This is a name used in a new context, such as 'Foo' in:
+ *      new Foo();
+ *  We can do additional analysis when the new expression resolves to a Type, which
+ *  is why we have a special name for the new expression.
+ */
+ReturnType new_type_name = Object;
+
+ReturnType dottedNamePart = String;
+
+ReturnType non_resolving_identifier = String;
+
+ReturnType runtime_name_expression = Object;
+ReturnType multinameL = Object;
+ReturnType e4x_literal = String;
+
+ReturnType integer_constant = Integer;
+ReturnType uint_constant = Long;
+ReturnType double_constant = Double;
+ReturnType string_constant = String;
+ReturnType boolean_constant = Boolean;
+ReturnType float_constant = Float;
+
+ReturnType numeric_constant = Number;
+
+ReturnType constant_value = Object;
+
+/**
+ * Value to use to indicate a cost that is not feasible
+ */
+JBurg.Constant ERROR_TRAP = 268435456;
+
+{
+    final static boolean NEED_VALUE = true;
+    final static boolean DISCARD_VALUE = false;
+
+
+    /**
+     *  The reducer has all the implementation
+     *  logic for the rewrite; the BURM constructed
+     *  by this specification drives that logic.
+     */
+    AS3DebuggerReducer reducer;
+
+
+    /*
+     *  **  Cost functions  **
+     * Cost functions are Java code that returns an int value.
+     * The value is used to compute the cost of a particular
+     * candidate reduction. The BURM searches for the lowest
+     * total cost sequence of reductions to transform the input
+     * AST into a value, so low values mean "good cost," higher
+     * values mean "less desirable."   The total cost of a reduction
+     * is always strictly less than Integer.MAX_VALUE; a cost of
+     * Integer.MAX_VALUE tells the pattern matcher that the
+     * reduction is not feasible.
+     */
+
+
+    /**
+     *  @return "feasible" if the reducer can reduce this to a dotted name.
+     */
+    int isDottedName(IASNode iNode)
+    {
+       return reducer.isDottedName(iNode);
+    }
+
+    /**
+     *  @return "feasible" if the reducer can reduce this to a package name.
+     */
+    int isPackageName(IASNode iNode)
+    {
+       return reducer.isPackageName(iNode);
+    }
+
+    /**
+     *  @return "feasible" if this node's qualifier is a compile-time constant.
+     */
+    int qualifierIsCompileTimeConstant(IASNode iNode)
+    {
+       return reducer.qualifierIsCompileTimeConstant(iNode);
+    }
+
+    /**
+     *  @return "feasible" if this node can be resolved to a compile-time constant.
+     */
+    int isCompileTimeConstant(IASNode iNode)
+    {
+       return reducer.isCompileTimeConstant(iNode);
+    }
+
+    /**
+     *  @return "feasible" if this function call node can be resolved to a compile-time constant function.
+     */
+    int isCompileTimeConstantFunction(IASNode iNode)
+    {
+       return reducer.isCompileTimeConstantFunction(iNode);
+    }
+
+    /**
+     *  @return "feasible" if this binary node has at least one expression that is
+     *          of type "float".
+     */
+    int isFloatBinOp(IASNode iNode)
+    {
+       return reducer.isFloatBinOp(iNode);
+    }
+
+    /**
+     *  @return "feasible" if this node is for 'new Array()'.
+     */
+    int isEmptyArrayConstructor(IASNode iNode)
+    {
+        return reducer.isEmptyArrayConstructor(iNode);
+    }
+
+    /**
+     *  @return "feasible" if this node is for 'new Object()'.
+     */
+    int isEmptyObjectConstructor(IASNode iNode)
+    {
+        return reducer.isEmptyObjectConstructor(iNode);
+    }
+
+    /**
+     * @return "feasible" if this node resolves to a type definition.
+     */
+    int isKnownType(IASNode iNode)
+    {
+        return reducer.isKnownType(iNode);
+    }
+
+    /**
+     * @return "feasible" if the type parameter resolves to a type definition.
+     */
+    int parameterTypeIsConstant(IASNode iNode)
+    {
+        return reducer.parameterTypeIsConstant(iNode);
+    }
+
+    /**
+     *  recordError is a convenience method for error reductions;
+     *  it adds a problem to the current set of problems and
+     */
+    Object recordError(ICompilerProblem problem)
+    {
+        return new Object();
+    }
+
+    int isIntLiteral(IASNode iNode)
+    {
+        return reducer.isIntLiteral(iNode);
+    }
+
+    int isUintLiteral(IASNode iNode)
+    {
+        return reducer.isUintLiteral(iNode);
+    }
+
+    int isDoubleLiteral(IASNode iNode)
+    {
+        return reducer.isDoubleLiteral(iNode);
+    }
+
+    int isFloatLiteral(IASNode iNode)
+    {
+        return reducer.isDoubleLiteral(iNode);
+    }
+
+}
+
+/*
+ *  Error recovery routine: deduce what we can from the problem
+ *  tree, then abort this BURM with an exception that the caller
+ *  can catch and ignore.
+ */
+DefaultErrorHandler
+{
+    BURMAbortException.abort();
+}
+
+/*
+ *  Patterns and rules are stored in their own, shareable file.
+ */
+JBurg.include "../../compiler/com.adobe.flash.compiler/src/com/adobe/flash/compiler/internal/codegen/as3/AS3Patterns.jbg"
+JBurg.include "AS3DebuggerRules.jbg"

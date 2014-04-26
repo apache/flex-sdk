@@ -1,0 +1,821 @@
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+
+This file contains the text displayed by the 'help' command in fdb.
+
+It is divided into "topics". For example, when an fdb user types
+'help break', the [break] topic below is displayed.
+
+The first and last lines of each topic should be blank.
+They don't get displayed in fdb; they are here only
+to make this file more easily readable.
+
+Help text should be formatted to not wrap
+when displayed on an 80-character-wide console.
+The following line is 80 characters wide.
+
+--------------------------------------------------------------------------------
+
+[?]
+
+Comando no definido. Escriba 'help' para ver una lista de todos los comandos 
+fdb.
+
+[break]
+
+Establecer punto de corte en función o línea especificada.
+Ejemplos:
+  break 87
+    Establece un punto de corte en la línea 87 del archivo actual.
+  break myapp.mxml:56
+    Establece un punto de corte en la línea 56 de myapp.mxml.
+  break #3:29
+    Establece un punto de corte en la línea 29 del archivo 3.
+  break doThis
+    Establece un punto de corte en la función doThis() del archivo actual.
+  break myapp.mxml:doThat
+    Establece un punto de corte en la función doThat() del archivo myapp.mxml.
+  break #3:doOther
+    Establece un punto de corte en la función doOther() del archivo 3.
+  break
+   Establece un punto de corte en la dirección de ejecución actual en marco de 
+   pila actual. Es útil para cortes al regresar a un marco de pila.
+Para ver números y nombres de archivo, escriba 'info sources' o 'info files'.
+Para ver nombres de función, escriba 'info functions'.
+Se aceptan nombres de archivo y función abreviados siempre que no sean ambiguos.
+Si se especifica número de línea, corte al inicio de código para esa línea.
+Si se especifica función, corte al inicio de código para esa función.
+Para más información sobre control de punto de corte, consulte 'commands' y 
+'condition'.
+
+[bt]
+
+Seguimiento regresivo de pila.
+
+[catch]
+
+Detener al emitirse una excepción.  Esto sólo afecta a excepciones detectadas 
+que se vayan a controlar mediante un bloque "catch".  Las excepciones no 
+detectadas siempre se detienen en el depurador.
+
+Use el comando "delete" para borrar un punto de detección.
+
+Ejemplos:
+  catch *
+    Se detiene al emitirse una excepción.
+  catch ReferenceError
+    Se detiene siempre que se produce una excepción ReferenceError, tanto si se 
+    detecta como si no.
+
+[cf]
+
+Mostrar el nombre y el número del archivo actual o cambiar el archivo actual.
+Ejemplos:
+  cf
+    Muestra el nombre y el número del archivo actual.
+  cf myapp.mxml
+    
+Cambia el archivo actual a myapp.mxml.
+  cf #29
+    Cambia el archivo actual a archivo 29.
+Para ver números y nombres de archivo, escriba 'info sources' o 'info files'.
+Se aceptan nombres de archivo abreviados siempre que no sean ambiguos.
+Si un archivo se define con 'list' también se convierte en actual.
+
+[clear]
+
+Borrar punto de corte en función o línea especificada.
+Ejemplos:
+  clear 87
+    Borra el punto de corte en la línea 87 del archivo actual.
+  clear myapp.mxml:56
+    Borra el punto de corte en la línea 56 de myapp.mxml.
+  clear #3:29
+    Borra el punto de corte en la línea 29 del archivo 3.
+  clear doThis
+    Borra el punto de corte en la función doThis() del archivo actual.
+  clear myapp.mxml:doThat
+    Borra el punto de corte en la función doThat() del archivo myapp.mxml.
+  clear #3:doOther
+    Borra el punto de corte en la función doOther() del archivo 3.
+  clear
+    Borra el punto de corte de la línea actual en el archivo actual. 
+Para ver números y nombres de archivo, escriba 'info sources' o 'info files'.
+Para ver nombres de función, escriba 'info functions'.
+Se aceptan nombres de archivo y función abreviados siempre que no sean ambiguos.
+Si se especifica número de línea, se borran todos los puntos de corte de esa 
+línea.
+Si se especifica función, se borran los puntos de corte al principio de la 
+función.
+
+[continue]
+
+Continuar ejecución tras detención en punto de corte.
+Este comando no admite argumentos.
+
+[condition]
+
+
+Especificar número N de punto de corte para corte sólo si COND es true.
+El uso es `condition N COND', donde N es un número entero y COND es una 
+expresión que se debe evaluar siempre que se alcanza el punto de corte N.
+
+[commands]
+
+Establecer comandos que ejecutar al llegar a un punto de corte.
+Indicar número de punto de corte como argumento tras `commands`.
+Sin argumento, el punto de corte relevante es el último establecido.
+Le siguen los comandos propiamente dichos, en la línea siguiente.
+Escriba una línea que contenga "end" para indicar el fin de los comandos.
+Indique "silent" como la primera línea para que el punto de corte sea 
+silencioso; de ese modo no se imprime nada al llegar al punto, a excepción de 
+lo que imprimen los comandos.
+Ejemplo:
+  (fdb) commands
+  Escriba comandos para cuando se alcance el punto de corte 1, uno por línea.
+  Termine con una línea que diga simplemente 'end'.
+  >w
+  >end
+
+[delete]
+
+Eliminar uno o varios puntos de corte.
+Ejemplos:
+  delete
+    Elimina todos los puntos de corte.
+  delete 2 5
+    Elimina los puntos de corte 2 y 5.
+Para ver números de punto de corte, escriba 'info breakpoints'.
+
+[directory]
+
+Modificar la lista de directorios en los que fdb buscará archivos de origen.
+
+Ejemplos:
+
+  directory
+    Restaura el directorio predeterminado de la lista; éste es el directorio en 
+    que el archivo de origen se ha compilado en código de objeto, seguido del 
+    directorio de trabajo actual.
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+    Añade el directorio especificado al principio de la lista de directorios en 
+    que realizar las búsquedas de origen.  Por ejemplo, al buscar el origen de 
+    mypackage.MyClass, el depurador examinará tanto 
+    C:\MySource\mypackage\MyClass.as como C:\MySource\MyClass.as.
+
+  directory C:\Dir1;C:\Dir2    (Windows: usar ';' como separador)
+  directory /Dir1:/Dir2        (Mac: usar ':' como separador)
+    Añade varios directorios al principio de la lista de directorios en que 
+    realizar las búsquedas de origen.
+
+Para ver la lista actual, escriba 'show directories'.
+
+[disable]
+
+Desactivar uno o más puntos de corte o expresiones de visualización automática.
+Ejemplos:
+  disable
+  disable breakpoints
+    Desactiva todos los puntos de corte.
+  disable 2 5
+  disable breakpoints 2 5
+    Desactiva los puntos de corte 2 y 5.
+  disable display
+    Desactiva todas las expresiones de visualización automática.
+  disable display 1 3
+    Desactiva las expresiones de visualización automática 1 y 3.
+Para ver números de punto de corte, escriba 'info breakpoints'.
+Para ver números de expresiones de visualización automática, escriba 'info 
+display'.
+
+[disassemble]
+
+(ActionScript 2 sólo; no funciona al depurar ActionScript 3)
+
+Desensamblar una porción específica de código fuente.
+El valor predeterminado es la línea de lista actual.
+Los argumentos aceptados son los mismos que con el comando de lista
+Ejemplos:
+  disassemble 87
+    Desensambla la línea 87 en el archivo actual.
+  disassemble 87 102
+    Desensambla las líneas de la 87 a la 102 en el archivo actual.
+  disassemble doThis
+      Desensambla la función doThis() del archivo actual.
+Además de usar simplemente números de línea como arriba, puede especificar 
+líneas de otros modos:
+   myapp.mxml
+      Línea 1 en myapp.mxml.
+   myapp.mxml:doThat
+      La primera línea de la función doThat() en myapp.mxml.
+   myapp.mxml:56
+      Línea 56 en myapp.mxml.
+   #3
+      Línea 1 en el archivo 3.
+   #3:doOther
+      La línea del archivo 3 en que comienza la función doOther().
+   #3:29
+      Línea 29 en el archivo 3.
+
+[display]
+
+Añade una expresión a la lista de expresiones de visualización automática.
+Ejemplo:
+  display employee.name
+    Añadir 'employee.name' a la lista de expresiones de visualización 
+    automática.
+    Cada vez que fdb se detenga, se mostrará el valor de employee.name.
+El argumento para este comando es similar al usado para 'print'.
+Para ver la lista de expresiones de visualización automática y sus números, 
+escriba 'info display'.
+
+[down]
+
+Seleccionar e imprimir marco de pila llamado por este comando.
+Los comandos 'info arguments' y 'info locals' posteriores mostrarán las 
+variables locales y los argumentos del marco seleccionado.
+Consulte 'up' y 'frame' 
+
+[enable]
+
+Activar uno o más puntos de corte o expresiones de visualización automática.
+Ejemplos:
+  enable
+  enable breakpoints
+    Activa todos los puntos de corte.
+  enable 2 5
+  enable breakpoints 2 5
+    Activa los puntos de corte 2 y 5.
+  enable display
+    Activa todas las expresiones de visualización automática.
+  enable display 1 3
+    Activa las expresiones de visualización automática 1 y 3.
+Para ver números de punto de corte, escriba 'info breakpoints'.
+Para ver números de expresiones de visualización automática, escriba 'info 
+display'.
+
+[file]
+
+Especificar una aplicación que depurar, pero sin iniciarla.
+Ejemplos:
+  file http://www.mysite.com/myapp.mxml
+    Especificar una aplicación MXML que depurar.
+  file myapp.swf
+    Especificar un archivo SWF local que depurar, en el directorio actual.
+    En este caso myapp.swd (el archivo que contiene la información de 
+    depuración) también debe existir en el directorio actual.
+Este comando no inicia la aplicación; use el comando 'run' sin argumentos para 
+iniciar la depuración de la aplicación.
+En lugar de usar 'file <target>' y luego 'run', puede especificar la aplicación 
+que depurar como argumento de 'run':
+  run http://mysite.com/myapp.mxml
+  run myapp.swf
+También puede especificar la aplicación que depurar como argumento de línea de 
+comandos al iniciar fdb:
+  fdb http://www.mysite.com/myapp.mxml
+  fdb myapp.swf
+En este caso no es preciso usar 'file' ni 'run'.
+Si usa 'run' sin especificar una aplicación que depurar, fdb esperará a que se 
+conecte una aplicación cualquiera.
+
+[finish]
+
+Ejecutar hasta la devolución de la función actual.
+Este comando no admite argumentos.
+
+[frame]
+
+Seleccionar e imprimir un marco de pila concreto.
+Este comando admite un argumento opcional, un número de marco.
+Si no se suministra un argumento, se regresa de modo predeterminado al marco 
+superior actual (es decir frame 0).
+Ejemplos:
+  frame 4
+  frame
+Los comandos 'info arguments' e 'info locals' posteriores mostrarán las 
+variables locales y los argumentos del marco seleccionado.
+Consulte 'up', 'down' y 'bt' 
+
+[handle]
+
+Especificar la gestión de fallas por parte de fdb en Flash Player.
+Ejemplos:
+  handle recursion_limit stop
+    Cuando se produce una falla de tipo recursion_limit, mostrar mensaje en fdb 
+    y detener como si hubiera punto de corte.
+  handle all print nostop
+    Cuando se produce cualquier tipo de falla, mostrar mensaje en fdb pero no 
+    detener.
+El primer argumento es un nombre de falla o 'all'.
+Los argumentos adicionales son acciones aplicables a esa falla.
+Para ver nombres de falla, escriba 'info handle'.
+Las acciones son print/noprint y stop/nostop.
+'print' significa imprimir un mensaje si se produce esta falla.
+'stop' significa reactivar el depurador si se produce esta falla. Implica 
+'print'.
+
+[help]
+
+¿No ha usado fdb antes? Escriba 'tutorial' para obtener información básica.
+Lista de comandos fdb:
+bt (bt)             Imprimir seguimiento regresivo de todos los marcos de pila
+break (b)           Establecer punto de corte en función o línea especificada
+catch (ca)          Detener al emitirse una excepción
+cf (cf)             Mostrar el nombre y el número del archivo actual
+clear (cl)          Borrar punto de corte en función o línea especificada
+condition (cond)    Aplicar/eliminar expresión condicional a un punto de corte
+continue (c)        Continuar ejecución tras detención en punto de corte
+commands (com)      Establece comandos que ejecutar al llegar a un punto de 
+                    corte
+delete (d)          Eliminar puntos de corte o expresiones de visualización 
+                    automática
+directory (dir)     Agregar un directorio a una ruta de búsqueda de archivos de 
+                    origen
+disable (disab)     Desactivar puntos de corte o expresiones de visualización 
+                    automática
+disassemble (disas) Desensamblar funciones o líneas de origen
+display (disp)      Agregar una expresión de visualización automática
+enable (e)          Activar puntos de corte o expresiones de visualización 
+                    automática
+file (fil)          Especificar una aplicación que depurar
+finish (f)          Ejecutar hasta la devolución de la función actual
+handle (han)        Especificar cómo gestionar una falla
+help (h)            Mostrar ayuda para comandos fdb
+home (ho)           Establecer ubicación de lista en que detener ejecución
+info (i)            Mostrar información sobre el programa que se está depurando
+kill (k)            Cerrar el programa que se está depurando
+list (l)            Listar línea o función especificada
+next (n)            Avanzar programa
+print (p)           Imprimir valor de variable EXP
+pwd (pw)            Imprimir directorio de trabajo
+quit (q)            Cerrar fdb
+run (r)             Iniciar programa depurado
+set (se)            Establecer el valor de una variable
+source (so)         Leer comandos fdb de un archivo
+step (s)            Avanzar programa hasta llegar a una línea de origen 
+                    diferente
+tutorial (t)        Mostrar tutorial de uso de fdb
+undisplay (u)       Eliminar una expresión de visualización automática
+viewswf (v)         Establecer o borrar filtro para listado de archivos según 
+                    swf
+watch (wa)          Agregar punto de observación a una variable
+what (wh)           Muestra el contexto de una variable
+where (w)           Igual que bt
+Escriba 'help' seguido de un nombre de comando para acceder a información 
+exhaustiva.
+
+[home]
+
+Establecer ubicación de lista en que detener ejecución.
+
+[info]
+
+Comando genérico para mostrar datos sobre el programa que se está depurando.
+Lista de subcomandos de información:
+info arguments (i a)    Variables de argumento de marco de pila actual
+info breakpoints (i b)  Estado de puntos de corte definibles por usuario
+info display (i d)      Mostrar lista de expresiones de visualización automática
+info files (i f)        Nombres de objetivos y archivos que se van a depurar
+info functions (i fu)   Todos los nombres de función
+info handle (i h)       Cómo gestionar una falla
+info locals (i l)       Variables locales de marco de pila actual
+info scopechain (i sc)  Cadena de ámbito de marco de pila actual
+info sources (i so)     Archivos de origen en el programa
+info stack (i s)        Seguimiento regresivo de pila
+info swfs (i sw)        Lista de swf en esta sesión
+info targets(i t)       Aplicación que se está depurando
+info variables (i v)    Todos los nombres de variables estáticas y globales
+Escriba 'help info' seguido de un nombre de subcomando info para acceder a 
+información exhaustiva.
+
+[info arguments]
+
+Mostrar argumento de marco de pila actual.
+
+[info breakpoints]
+
+Mostrar estado de todos los puntos de corte y puntos de observación.
+La columna Type indica uno de estos valores:
+   breakpoint   - punto de corte normal
+   watchpoint   - punto de observación
+La columna Disp contendrá 'keep', 'del' o 'dis' para indicar la disposición del 
+punto de corte al llegar a él. 'dis' significa que el punto de corte se 
+desactivará; 'del' significa que se eliminará.  
+Las columnas 'Address' y 'What' indican la dirección y el número de 
+archivo/línea respectivamente. 
+
+[info display]
+
+Mostrar lista de expresiones de visualización automática y sus números.
+
+[info files]
+
+Mostrar nombres y números de archivos para la aplicación que se está depurando, 
+incluidos archivos de origen, framework y generados automáticamente.
+Ejemplos:
+  info files
+    Lista todos los archivos por orden alfabético y categoría
+  info files my
+  info files my*
+    Lista por orden alfabético todos los archivos cuyos nombres empiezan por 
+    "my".
+  info files *.as
+    Lista por orden alfabético todos los archivos cuyos nombres acaban en ".as".
+  info files *foo*
+    Lista por orden alfabético todos los archivos cuyos nombres contienen "foo".
+Los archivos se muestran con el formato nombre#N, donde N es el número de 
+archivo.
+En muchos comandos se puede usar #N en lugar de un nombre de archivo.
+
+[info functions]
+
+Mostrar nombres de función.
+Ejemplos:
+  info functions .
+    Mostrar todas las funciones en el archivo actual.
+  info functions myapp.mxml
+    Mostrar todas las funciones en myapp.mxml.
+  info functions #3
+    Mostrar todas las funciones en el archivo 3.
+  info functions
+    Mostrar todas las funciones en todos los archivos.
+Para ver números y nombres de archivo, escriba 'info sources' o 'info files'.
+Se aceptan nombres de archivo abreviados siempre que no sean ambiguos.
+
+[info handle]
+
+Mostrar qué hace fdb cuando se produce una falla en Flash Player.
+Ejemplos:
+  info handle
+    Mostrar qué hace fdb para gestionar fallas.
+  info handle recursion_limit
+    Mostrar qué hace fdb para gestionar una falla recursion_limit.
+
+[info locals]
+
+Mostrar variables locales de marco de pila actual.
+
+[info scopechain]
+
+Mostrar la cadena de ámbito del marco de pila actual.  La cadena de ámbito es 
+la lista de objetos en que se realiza una búsqueda cuando Flash Player intenta 
+resolver un nombre de símbolo.
+
+[info sources]
+
+Mostrar nombres y números de archivos de origen para la aplicación que se está 
+depurando. No se incluyen archivos framework ni generados automáticamente.
+Los archivos se muestran con el formato nombre#N, donde N es el número de 
+archivo.
+En muchos comandos se puede usar #N en lugar de un nombre de archivo.
+
+[info stack]
+
+Seguimiento regresivo de pila.
+
+[info swfs]
+
+Mostrar swf conocidos para la sesión de depuración.  Consulte lo referente al 
+comando 'viewswf' para averiguar cómo filtrar la lista de archivos por nombre 
+swf. 
+
+[info targets]
+
+Mostrar la URL (http: o archivo:) de la aplicación que se está depurando.
+
+[info variables]
+
+Todos los valores y nombres de variables estáticas y globales
+
+[info ?]
+
+Comando info no definido. Escriba 'help info'.
+
+[kill]
+
+Cerrar el programa que se está depurando.
+Este comando no admite argumentos.
+
+[list]
+
+Listar líneas de código en un archivo de origen.
+Ejemplos:
+  list
+    Lista diez o más líneas en el archivo actual, después o alrededor de 
+    listado previo.
+  list -
+    Lista las diez líneas del archivo actual anteriores a un listado previo.
+  list 87
+    Lista las diez líneas del archivo actual alrededor de la línea 87.
+  list 87 102
+    Lista las líneas de la 87 a la 102 en el archivo actual.
+Además de usar simplemente números de línea como arriba, puede especificar 
+líneas de otros siete modos:
+  doThis
+      La primera línea de la función doThis() del archivo actual.
+   myapp.mxml
+      Línea 1 en myapp.mxml.
+   myapp.mxml:doThat
+      La primera línea de la función doThat() en myapp.mxml.
+   myapp.mxml:56
+      Línea 56 en myapp.mxml.
+   #3
+      Línea 1 en el archivo 3.
+   #3:doOther
+      La línea del archivo 3 en que comienza la función doOther().
+   #3:29
+      Línea 29 en el archivo 3.
+Para ver números y nombres de archivo, escriba 'info sources' o 'info files'.
+Para ver nombres de función, escriba 'info functions'.
+Se aceptan nombres de archivo y función abreviados siempre que no sean ambiguos.
+Si un archivo se incluye en una lista, el archivo se convierte en actual. 
+Consulte el comando 'cf'.
+
+[next]
+
+Avanzar programa, a través de llamadas de subrutina.
+  next
+    Avanzar una vez.
+  next 3
+    Avanzar 3 veces o hasta que el programa se detenga por otra razón.
+Al igual que el comando 'step', mientras no se produzcan llamadas de subrutina. 
+Al producirse, la llamada se interpreta como instrucción.
+
+[print]
+
+Imprimir valor de expresión variable.
+Ejemplos:
+  print i
+    Imprimir el valor de 'i'.
+  print employee.name
+    Imprimir el valor de 'employee.name'.
+  print employee
+    Imprimir el valor del objeto 'employee'.
+    Esto puede mostrar simplemente algo como [Object 10378].
+  print employee.
+    Imprimir los valores de todas las propiedades del objeto 'employee'.
+  print *employee
+    Imprimir los valores de todas las propiedades del objeto 'employee'.
+    El operador de prefijo * es el prefijo alternativo a . (operador sufijo).
+  print #10378.
+    Imprimir los valores de todas las propiedades del objeto 10378.
+Son accesibles las variables del entorno léxico del marco de pila seleccionado, 
+y también las de ámbito global o de un archivo entero.
+
+[pwd]
+
+Imprimir el directorio de trabajo actual.
+Éste es el directorio desde el que se ha iniciado fdb; no se puede cambiar 
+dentro de fdb. El argumento para 'run' y 'source' se puede especificar con 
+relación a este directorio.
+Este comando no admite argumentos.
+
+[quit]
+
+Cerrar fdb.
+Este comando no admite argumentos.
+
+[run]
+
+Iniciar una sesión de depuración.
+Ejemplos:
+  run http://www.mysite.com/myapp.mxml
+    Ejecuta la aplicación MXML especificada.
+  run myapp.swf
+  run mydir\myapp.swf
+  run c:\mydir\myapp.swf
+    Ejecuta el archivo SWF local myapp.swf, que se puede especificar con 
+    relación al directorio actual (consulte el comando 'pwd') o usando una ruta 
+    absoluta. En estos casos, myapp.swd (el archivo que contiene la información 
+    de depuración) también debe existir en el mismo directorio que myapp.swf.
+  run
+    Ejecutar la aplicación previamente especificada por el comando 'file'.
+    Si no se ha especificado ninguna aplicación, fdb esperará hasta que se 
+    conecte una; de no haber ninguna conexión, agotará el tiempo de espera.
+'run' iniciará la aplicación en una ventana de explorador o un reproductor 
+Flash Player autónomo.
+En cuanto empiece, la aplicación entrará en fdb para permitir establecer puntos 
+de corte, etc.
+
+En sistemas Macintosh, el comando 'run' sólo se puede usar sin argumentos.  
+A continuación, Flash Player se debe iniciar manualmente.
+
+[set]
+
+Establecer el valor de una variable o una variable de conveniencia.
+Las variables de conveniencia existen únicamente dentro de fdb; no son parte de 
+su programa.
+Dichas variables tienen el prefijo '$' y un nombre cualquiera, siempre y cuando 
+no coincida con un variable existente.  Por ejemplo, $myVar.  Las variables de 
+conveniencia también se usan para controlar varios aspectos de fdb.  
+
+A continuación se citan las variables de conveniencia usadas por fdb.
+$listsize          - número de líneas de origen que mostrar para 'list'
+$columnwrap        - número de columna en que se ajustará la salida
+$infostackshowthis - si 0, no muestra 'this' en seguimiento regresivo de pila
+$invokegetters     - si 0, fdb no podrá activar funciones de captador
+$bpnum             - el último número de punto de corte definido
+$displayattributes - si 1, 'print var.' muestra todos los atributos de miembros 
+                     de 'var' (p. ej. private, static)
+
+Ejemplos:
+  set i = 3
+    Establece la variable 'i' como 3.
+  set employee.name = "Susan"
+    Establece la variable 'employee.name' como cadena "Susan".
+  set $myVar = 20
+    Establece la variable de conveniencia $myVar' como 20.
+
+[show]
+
+Comando genérico para mostrar datos sobre el estado de fdb.
+Lista de subcomandos show:
+show break (sh b)       Ubicación y razón de ejecución suspendida
+show directories (sh d) Directorios en que buscar archivos de origen
+show files (sh f)       Archivos y rutas de destino
+show functions (sh fu)  Información de asignación de líneas de función 
+show locations (sh l)   Ubicaciones de punto de corte
+show memory (sh m)      Uso de memoria actual
+show net (sh n)         Estadísticas de mensaje del reproductor 
+show properties (sh p)  Valores de propiedades
+show uri (sh u)         URI de reproductor para esta sesión 
+show variable (sh v)    Recuperación de variable sin formato
+Escriba 'help show' seguido de un nombre de subcomando show para acceder a 
+información exhaustiva.
+
+[show break]
+
+Mostrar el desfase dentro del archivo SWF en que se ha detenido el programa
+
+[show directories]
+
+Mostrar la ruta de búsqueda actual para encontrar archivos de origen.
+
+[show files]
+
+Mostrar la ruta y el nombre de archivo de todos los archivos de destino
+
+[show functions]
+
+Mostrar información de asignación de función a número de línea.
+Ejemplos:
+  show functions .
+    Muestra información de asignación para todas las funciones en el archivo 
+    actual.
+  show functions myapp.mxml
+    Muestra información de asignación para todas las funciones en el myapp.mxml.
+  show functions #3
+    Muestra información de asignación para todas las funciones en el archivo 3.
+  show functions
+    Muestra información de asignación para todas las funciones en todos los 
+    archivos.
+Para ver números y nombres de archivo, escriba 'info sources' o 'info files'.
+Se aceptan nombres de archivo abreviados siempre que no sean ambiguos.
+
+[show locations]
+
+Muestra la lista de ubicaciones definidas para cada punto de corte
+
+[show memory]
+
+Muestra estadísticas de memoria de Java VM.
+
+[show net]
+
+Muestra información de mensajes enviados a o procedentes de Flash Player.
+
+[show properties]
+
+Muestra una lista variables de conveniencia usadas dentro del depurador 
+
+[show uri]
+
+Muestra el URI enviado por el reproductor para esta sesión.
+
+[show variable]
+
+Muestra el valor de un miembro de una variable.  Se requieren dos parámetros; 
+el primero es el identificador de variable numérico, el segundo es el nombre de 
+propiedad en la variable.  La variable de conveniencia $invokegetters se usa 
+para determinar si se activará o no el captador de propiedad (en caso de 
+existir).
+Ejemplo:
+    show variable 1 __proto__
+
+[show ?]
+
+Comando show no definido. Escriba 'help show'.
+
+[source]
+
+Leer comandos fdb de un archivo y ejecutarlos.
+  source mycommands.txt
+  source mydir\mycommands.txt
+  source c:\mydir\mycommands.txt
+    Lee mycommands.txt y ejecuta los comandos fdb en él.
+    El archivo que contiene los comandos se puede especificar
+	con relación al directorio actual (consulte el comando 'pwd')
+	o usando una ruta absoluta.
+El archivo .fdbinit se lee automáticamente de este modo cuando se inicia fdb.
+La búsqueda de .fdbinit sólo se realiza en el directorio actual. Esto significa 
+que puede tener varios archivos .fdbinit para distintos proyectos.
+
+[step]
+
+Avanzar programa hasta llegar a una línea de origen diferente.
+Ejemplos:
+  step
+    Avanzar una vez.
+  step 3
+    Avanzar 3 veces o hasta que el programa se detenga por otra razón.
+
+[tutorial]
+
+Mostrar tutorial de uso de fdb.
+Este comando no admite argumentos.
+
+[Tutorial]
+
+Una sesión fdb estándar:
+Iniciar una aplicación con 'run'.
+Ver nombres de archivo con 'info sources'.
+Listar un archivo con 'list'.
+Establecer puntos de corte con 'break'.
+Ejecutar programa con 'continue' hasta llegar a un punto de corte.
+Examinar el estado del programa con 'where', 'print', 'info locals'.
+Ejecutar una instrucción individual con 'next', 'step' y 'finish'.
+Reanudar la ejecución con 'continue'.
+Cerrar fdb con 'quit'.
+
+[undisplay]
+
+Quitar una o más expresiones de visualización automática.
+Ejemplos:
+  undisplay
+    Quitar todas las expresiones de visualización automática.
+  undisplay 2 7
+    Quitar las expresiones de visualización automática 2 y 7.
+Para ver la lista de expresiones de visualización automática y sus números, 
+escriba 'info display'.
+
+[up]
+
+Seleccionar e imprimir marco de pila que ha llamado a este.
+Los comandos 'info arguments' e 'info locals' posteriores mostrarán
+las variables locales y los argumentos del marco seleccionado.
+Consulte 'down' y 'frame'
+
+[viewswf]
+
+Establece o borra filtro para listado de archivos (es decir, 'info files' e 
+'info sources'), por nombre de swf. 
+Si no hay parámetros, se mostrarán todos los archivos.  Si hay un mismo archivo 
+en uno o varios swfs, el listado sólo mostrará el primer caso de dicho archivo. 
+Para acceder a otros casos del archivo, use el número de éste (p.ej. 'list 
+#192') o use este comando con un parámetro (véase más abajo) para mostrar 
+archivos de un swf específico.  Con un solo parámetro, el nombre swf tal y como 
+se muestra en el comando 'info swfs', sólo se mostrarán en el listado de 
+archivos los archivos del swf especificado.  
+No se mostrarán archivos de otros swf.  Este comando también afecta a comandos 
+que aceptan un archivo como parámetro (p. ej. 'break')
+Ejemplo:
+  viewswf myApp.mxml.swf
+    Sólo se mostrarán archivos de myApp.mxml.swf.
+  viewswf 
+    Se mostrarán todos los archivos de todos los swf.
+ 
+[watch]
+
+Agregar punto de observación a una variable. El depurador detendrá la ejecución 
+cuando cambie el valor de la variable.
+Ejemplo:
+  watch foo
+
+[what]
+
+Muestra el contexto en que se resuelve una variable. 
+
+[where]
+
+Seguimiento regresivo de pila.
+
+[zzz]
+
+((( Keep this unused topic at the end of the file    )))
+((( so that the next-to-last one is parsed properly. )))

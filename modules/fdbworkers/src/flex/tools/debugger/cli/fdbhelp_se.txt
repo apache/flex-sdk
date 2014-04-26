@@ -1,0 +1,806 @@
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+
+This file contains the text displayed by the 'help' command in fdb.
+
+It is divided into "topics". For example, when an fdb user types
+'help break', the [break] topic below is displayed.
+
+The first and last lines of each topic should be blank.
+They don't get displayed in fdb; they are here only
+to make this file more easily readable.
+
+Help text should be formatted to not wrap
+when displayed on an 80-character-wide console.
+The following line is 80 characters wide.
+
+--------------------------------------------------------------------------------
+
+[?]
+
+Kommandot är inte definierat. Ange help om du vill se en lista över alla 
+fdb-kommandon.
+
+[break]
+
+Används för att infoga brytpunkt vid den angivna raden eller funktionen.
+Exempel:
+  break 87
+    En brytpunkt infogas vid rad 87 i den aktuella filen.
+  break myapp.mxml:56
+    En brytpunkt infogas vid rad 56 i myapp.mxml.
+  break #3:29
+    En brytpunkt infogas vid rad 29 i fil #3.
+  break doThis
+    En brytpunkt infogas vid funktionen doThis() i den aktuella filen.
+  break myapp.mxml:doThat
+    En brytpunkt infogas vid funktionen doThis() i den aktuella filen.
+  break #3:doOther
+    En brytpunkt infogas vid funktionen doOther() i fil #3.
+  break
+   En brytpunkt infogas vid den aktuella körningens adress i aktuell stackram. 
+   Detta kan vara användbart vid brytning för återgång till stackram.
+Ange info sources eller info files om du vill se alla filnamn och filnummer.
+Ange info functions om du vill se alla funktionsnamn.
+Det går att ange förkortningar av namn och funktionsnamn så länge dessa inte är 
+tvetydiga.
+Om radnumret anges bryts koden vid inledningen av den raden.
+Om funktionen anges bryts koden vid inledningen av den raden.
+Information om vidare brytpunktskontroll finns under commands och condition.
+
+[bt]
+
+Används för att bakåtspåra genom stacken.
+
+[catch]
+
+Används för att stoppa körningen när ett undantag inträffar.  Detta påverkar 
+endast catch-undantag, det vill säga undantag som behandlas med catch-block.  
+Andra undantag leder alltid till att felsökaren stoppas.
+
+Du tar bort catch-punkter med kommandot delete.
+
+Exempel:
+  catch *
+    Körningen stoppas när något undantag inträffar.
+  catch ReferenceError
+    Körningen stoppas när ett ReferenceError inträffar, oavsett om det är 
+    catch-fel eller inte.
+
+[cf]
+
+Används för att visa eller ändra den aktuella filens namn och nummer.
+Exempel:
+  cf
+    Den aktuella filens namn och nummer visas.
+  cf myapp.mxml
+    Namnet på den aktuella filen ändras till myapp.mxml.
+  cf #29
+    Numret på den aktuella filen ändras till #29.
+Ange info sources eller info files om du vill se alla filnamn och filnummer.
+Det går att ange förkortningar av filnamn så länge dessa inte är tvetydiga.
+När du visar en fil med kommandot list blir den filen aktuell.
+
+[clear]
+
+Används för att ta bort brytpunkt vid den angivna raden eller funktionen.
+Exempel:
+  clear 87
+    En brytpunkt vid rad 87 tas bort från den aktuella filen.
+  clear myapp.mxml:56
+    En brytpunkt vid rad 56 tas bort från myapp.mxml.
+  clear #3:29
+    En brytpunkt vid rad 29 tas bort från fil #3.
+  clear doThis
+    En brytpunkt vid funktionen doThis() tas bort från den aktuella filen.
+  clear myapp.mxml:doThat
+    En brytpunkt vid funktionen doThis() tas bort från den aktuella filen.
+  clear #3:doOther
+    En brytpunkt vid funktionen doOther() tas bort från fil #3.
+  clear
+    En brytpunkt tas bort från den aktuella raden i den aktuella filen. 
+Ange info sources eller info files om du vill se alla filnamn och filnummer.
+Ange info functions om du vill se alla funktionsnamn.
+Det går att ange förkortningar av namn och funktionsnamn så länge dessa inte är 
+tvetydiga.
+Om du anger ett nummer tas alla brytpunkter på den raden bort.
+Om en funktion anges, tas alla brytpunkter i början av funktionen bort.
+
+[continue]
+
+Används för att fortsätta körningen efter brytpunkt.
+Du kan inte ange argument för det här kommandot.
+
+[condition]
+
+
+Används för att ställa in så att brytpunktsnumret N endast träder i kraft om 
+VILLKOR är sant.
+Syntaxen är condition N VILLKOR där N står för ett heltal och COND är ett 
+uttryck som ska kontrolleras när brytpunkten N nås.
+
+[commands]
+
+Används för att ange kommandon som ska köras när en viss brytpunkt nås.
+Numret på brytpunkten anges som argument efter "commands".
+Om inga argument anges används den brytpunkt som infogades senast.
+Kommandona anges med början på nästa rad.
+Skriv en rad som innehåller end för att ange slutet på dem.
+Ange silent på den första raden om brytpunkten ska vara tyst, vilket innebär 
+att inga utdata visas när brytpunkten nås (förutom texten från kommandot). 
+Exempel:
+  (fdb) commands
+  Ange kommandon (ett på varje rad) som ska utföras när brytpunkt 1 nås.
+  Avsluta med raden end.
+  >w
+  >end
+
+[delete]
+
+Används för att ta bort en eller flera brytpunkter.
+Exempel:
+  delete
+    Alla brytpunkter tas bort.
+  delete 2 5
+    Brytpunkterna #2 och #5 tas bort.
+Ange info breakpoint om du vill se alla brytpunktsnummer.
+
+[directory]
+
+Ändra listan över kataloger som används vid sökning efter källfiler i fdb.
+
+Exempel:
+
+  directory
+    Listan återställs till standardinställningarna, det vill säga den katalog 
+    där källfilen kompilerades till objektskod samt den aktuella 
+    arbetskatalogen.
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+    Den angivna katalogen läggs till i början av listan över kataloger som 
+    används vid sökning efter källfiler.  När det exempelvis gäller källfilerna 
+    till klassen mypackage.MyClass söks både C:\MySource\mypackage\MyClass.as 
+    samt C:\MySource\MyClass.as igenom.
+
+  directory C:\Dir1;C:\Dir2    (Använd semikolon som avgränsare i Windows)
+  directory /Dir1:/Dir2        (Använd semikolon som avgränsare på Mac-datorer)
+    Flera kataloger läggs till i början av listan över kataloger som används 
+    vid sökning efter källfiler.
+
+Ange show directories om du vill se den aktuella listan.
+
+[disable]
+
+Används för att inaktivera en eller flera brytpunkter eller uttryck som visas 
+automatiskt.
+Exempel:
+  disable
+  disable breakpoints
+    Alla brytpunkter inaktiveras.
+  disable 2 5
+  disable breakpoints 2 5
+    Brytpunkterna #2 och #5 inaktiveras.
+  disable display
+    Alla uttryck som visas automatiskt inaktiveras.
+  disable display 1 3
+    Uttrycken #1 och #3, som visas automatiskt, inaktiveras.
+Ange info breakpoint om du vill se alla brytpunktsnummer.
+Ange info display om du vill se alla rader för uttryck som visas automatiskt.
+
+[disassemble]
+
+(Gäller endast för felsökning av ActionScrip 2 och inte av ActionScript 3) 
+
+En angiven del av källkoden disassembleras.
+Som standard används den aktuella listraden.
+Det finns stöd för samma argument som för list-kommandot
+Exempel:
+  disassemble 87
+    Raden 87 disassembleras i den aktuella filen.
+  disassemble 87 102
+    Raderna 87102 disassembleras i den aktuella filen.
+  disassemble doThis
+      Funktionen doThis() disassembleras i en aktuella filen.
+Du kan även kombinera radnummer med fil- och funktionsnamn på följande sätt:
+   myapp.mxml
+      Rad 1 i myapp.mxml.
+   myapp.mxml:doThat
+      Den första raden i funktionen doThat() i myapp.mxml.
+   myapp.mxml:56
+      Rad 56 i myapp.mxml.
+   #3
+      Rad 1 i fil #3.
+   #3:doOther
+      Raden som funktionen doOther() börjar på i fil #3.
+   #3:29
+      Rad 29 i fil #3.
+
+[display]
+
+Lägg till ett uttryck i listan över uttryck som visas automatiskt.
+Exempel:
+  display employee.name
+    Lägg till employee.name i listan över uttryck som visas automatiskt.
+    Varje gång fdb stoppas visas värdet för employee.name.
+Argumentet för det här kommandot liknar argumentet för print.
+Ange info display om du vill se alla uttryck som visas automatiskt och 
+motsvarande rader.
+
+[down]
+
+Används för att välja och visa stackramen som anropas.
+Om "info arguments" och "info locals" därefter anges, visas de lokala 
+variablerna och argumenten för den valda ramen.
+Mer information finns i up och frame 
+
+[enable]
+
+Används för att aktivera en eller flera brytpunkter eller uttryck som visas 
+automatiskt.
+Exempel:
+  enable
+  enable breakpoints
+    Alla brytpunkter aktiveras.
+  enable 2 5
+  enable breakpoints 2 5
+    Brytpunkterna #2 och #5 aktiveras.
+  enable display
+    Alla uttryck som visas automatiskt aktiveras.
+  enable display 1 3
+    Uttrycken #1 och #3, som visas automatiskt, aktiveras.
+Ange info breakpoint om du vill se alla brytpunktsnummer.
+Ange info display om du vill se alla rader för uttryck som visas automatiskt.
+
+[file]
+
+Används för att ange ett program som ska felsökas utan att detta startas.
+Exempel:
+  file http://www.mysite.com/myapp.mxml
+    Ange ett MXML-program som ska felsökas.
+  file myapp.swf
+    Ange en lokal swf-fil som ska felsökas i den aktuella katalogen. 
+    I det här fallet måste även filen myapp.swd (som innehåller information om 
+    felsökningen) finnas i den aktuella katalogen.
+Programmet startar inte när du anger kommandot. Om du vill starta programmet 
+skriver du "run" utan argument.
+Istället för att använda file <mål> och därefter run kan du ange vilket 
+program som ska felsökas i form av ett argument till run.
+  run http://mysite.com/myapp.mxml
+  run myapp.swf
+Du kan också ange vilket program som ska felsökas via ett kommandoradsargument 
+när du startar fdb:
+  fdb http://www.mysite.com/myapp.mxml
+  fdb myapp.swf
+Du behöver varken använda file eller run i det här fallet.
+Om du skriver run utan att ange vilket program som ska felsökas väntar fdb på 
+att ett program ska anslutas.
+
+[finish]
+
+Kör fram tills den aktuella funktionen returneras.
+Du kan inte ange argument för det här kommandot.
+
+[frame]
+
+Används för att välja och visa en viss stackram.
+I det här kommandot kan ramnumret anges som valfritt argument.
+Om inget argument anges sker en återgång till den aktuella toppramen (d.v.s. 
+ram 0).
+Exempel:
+  frame 4
+  frame
+Om "info arguments" och "info locals" därefter anges, visas de lokala 
+variablerna och argumenten för den valda ramen.
+Mer information finns i up, down och bt 
+
+[handle]
+
+Används för att bestämma hur fdb ska hantera fel Flash Player.
+Exempel:
+  handle recursion_limit stop
+    När felet recursion_limit inträffas visas ett meddelande i fdb och 
+    körningen stoppas, på samma sätt som vid en brytpunkt.
+  handle all print nostop
+    När ett fel (oavsett typ) inträffar visas ett meddelande i fdb utan att 
+    körningen stoppas.
+Det första argumentet är antingen namnet på felet eller all.
+Ytterligare argument anger åtgärder som vidtas när felet inträffar.
+Ange info handle om du vill se namnen på alla fel.
+Följande åtgärder kan anges: print/noprint samt stop/nostop.
+print innebär att ett meddelande visas när felet inträffar.
+stop innebär att felsökaren startar på nytt när felet inträffar. Innebär 
+print.
+
+[help]
+
+Har du inte använt fdb tidigare? Ange tutorial om du vill få grundläggande 
+information.
+Lista över fdb-kommandon:
+bt (bt)             Visa bakåtspårning av alla stackramar
+break (b)           Infoga en brytpunkt vid den angivna raden eller funktionen
+catch (ca)          Stoppa körningen när ett undantag inträffar
+cf (cf)             Visa den aktuella filens namn och nummer
+clear (cl)          Ta bort brytpunkt vid den angivna raden eller funktionen
+condition (cond)    Lägg till/ta bort ett villkorat uttryck vid en brytpunkt
+continue (c)        Fortsätt körningen efter brytpunkten.
+commands (com)      Ange kommandon som ska köras när brytpunkten nås.
+delete (d)          Ta bort brytpunkter och uttryck som visas automatiskt
+directory (dir)     En katalog läggs till i sökvägen för källfiler
+disable (disab)     Brytpunkter och uttryck som visas automatiskt inaktiveras
+disassemble (disas) Källrader och källfunktioner diassembleras
+display (disp)      Lägg till ett uttryck som visas automatiskt
+enable (e)          Aktivera brytpunkter och uttryck som visas automatiskt
+file (fil)          Ange programmet som ska felsökas
+finish (f)          Fortsätt körningen till dess att den aktuella funktionen 
+                    returneras
+handle (han)        Ange hur fel ska behandlas
+help (h)            Visa hjälp för fdb-kommandon
+home (ho)           Ange platsen för listan till den plats som körningen stoppas 
+                    på
+info (i)            Visa information om programmet som felsöks
+kill (k)            Skickar kill till programmet som felsöks
+list (l)            Visa angiven funktion eller rad
+next (n)            Gå igenom programmet stegvis
+print (p)           Visa värdet på variabeln EXP
+pwd (pw)            Visa arbetskatalogen
+quit (q)            Avsluta fdb
+run (r)             Starta det felsökta programmet
+set (se)            Ange värdet på en variabel
+source (so)         Läs in fdb-kommandon från en fil
+step (s)            Stega igenom programmet tills det når en annan källrad
+tutorial (t)        Visa en vägledning om hur fdb används
+undisplay (u)       Ta bort ett uttryck som visas automatiskt
+viewswf (v)         Ange eller ta bort ett filter för hur filerna visas utifrån 
+                    swf
+watch (wa)          Lägg till en bevakningspunkt för en viss variabel
+what (wh)           Visa sammanhanget för en viss variabel
+where (w)           Fungerar som bt
+Ange help följt av namnet på kommandot om du vill ha fullständig information.
+
+[home]
+
+Används för att ange platsen för listan till den plats som körningen stoppas på
+
+[info]
+
+Detta generiska kommando används för att visa mer information om programmet som 
+felsöks.
+Lista över underkommandon som används med info:
+info arguments (i a)    Argumentvariabler i den aktuella stackramen
+info breakpoints (i b)  Status för brytpunkterna som kan definieras av 
+                        användaren
+info display (i d)      Visa en lista över uttryck som visas automatiskt
+info files (i f)        Namn på mål och filer som felsöks
+info functions (i fu)   Alla funktionsnamn
+info handle (i h)       Visar hur ett fel behandlas
+info locals (i l)       Lokala variabler i den aktuella stackramen
+info scopechain (i sc)  Omfångskedja i den aktuella stackramen
+info sources (i so)     Källfiler i programmet
+info stack (i s)        Bakåtspårning genom stacken
+info swfs (i sw)        Lista över swf-filer i den här sessionen
+info targets(i t)       Programmet som felsöks
+info variables (i v)    Namn på alla globala och statiska variabler
+Ange help info följt av namnet på underkommandot om du vill ha fullständig 
+information.
+
+[info arguments]
+
+Används för att visa argument i den aktuella stackramen.
+
+[info breakpoints]
+
+Används för att visa status för alla brytpunkter och bevakningspunkter.
+Type-kolumnen kan antingen indikera:
+   breakpoint   - normal brytpunkt
+   watchpoint   - bevakningspunkt
+I Disp-kolumnen visas antingen keep, del eller dis, vilket visar vad som 
+händer med brytpunkten när den nås. dis innebär att brytpunkten inaktiveras 
+och del att den tas bort.  
+I kolumnerna Address och What visas adressen och fil-/radnumret. 
+
+[info display]
+
+Används för att visa en lista över uttryck som visas automatiskt.
+
+[info files]
+
+Används för att visa namn och nummer för filer i programmet som felsöks. Detta 
+innefattar källfiler, ramverksfiler och filer som skapats automatiskt.
+Exempel:
+  info files
+    Alla filer visas (alfabetiskt efter kategori)
+  info files my
+  info files my*
+    Alla filer med namn som inleds med my visas alfabetiskt.
+  info files *.as
+    Alla filer med namn som slutar på .as visas alfabetiskt.
+  info files *foo*
+    Alla filer som innehåller foo i namnet visas alfabetiskt. 
+Filer visas i formatet namn#N, där N står för filnumret.
+Du kan använda #N följt av en filnamn i många kommandon.
+
+[info functions]
+
+Används för att visa funktionsnamnen.
+Exempel:
+  info functions .
+    Visa alla funktioner i den aktuella filen.
+  info functions myapp.mxml
+    Visa alla funktioner i myapp.mxml.
+  info functions #3
+    Alla funktioner i filen #3 visas.
+  info functions
+    Alla funktioner i alla filer visas.
+Ange info sources eller info files om du vill se alla filnamn och filnummer.
+Det går att ange förkortningar av filnamn så länge dessa inte är tvetydiga.
+
+[info handle]
+
+Används för att visa hur fdb hanterar fel som inträffar i Flash Player.
+Exempel:
+  info handle
+    Visar hur fdb hanterar alla fel.
+  info handle recursion_limit
+    Visar hur fdb hanterar recursion_limit-fel.
+
+[info locals]
+
+Används för att visa lokala variabler i den aktuella stackramen.
+
+[info scopechain]
+
+Omfångskedjan för den aktuella stackramen visas.  Med omfångskedjan menas 
+listan över objekt som genomsöks vid matchning av symbolnamn i Flash Player.
+
+[info sources]
+
+Används för att visa namn och nummer för källfilerna till programmet som 
+felsöks. Ramverksfiler och filer som skapas automatiskt omfattas inte.
+Filer visas i formatet namn#N, där N står för filnumret.
+Du kan använda #N följt av en filnamn i många kommandon.
+
+[info stack]
+
+Används för att bakåtspåra genom stacken.
+
+[info swfs]
+
+Används för att visa swf-filer som är kända för felsökningssessionen.  Mer 
+information om hur du kan filtrera listan över filer utifrån swf-namnen finns 
+under kommandot viewswf. 
+
+[info targets]
+
+Används för att visa URL:en (http: eller file:) för programmet som felsöks.
+
+[info variables]
+
+Används för att visa alla globala och statiska variabelnamn och -värden.
+
+[info ?]
+
+Info-kommandot är inte definierat. Prova med help info.
+
+[kill]
+
+Används för att skicka kill till programmet som felsöks
+Du kan inte ange argument för det här kommandot.
+
+[list]
+
+Används för att visa kodraden i en källfil.
+Exempel:
+  list
+    Visar tio ytterligare rader i den aktuella filen (efter eller omkring det 
+    som tidigare visats i listan).
+  list -
+    Visar tio rader före det som tidigare visats i den aktuella filen.
+  list 87
+    Visar tio rader omkring rad 87 i den aktuella filen.
+  list 87 102
+    Visar raderna 87102 i den aktuella filen.
+Du kan kombinera radnummer med fil- och funktionsnamn på följande sju sätt:
+  doThis
+      Första raden i funktionen doThis() i den aktuella filen.
+   myapp.mxml
+      Rad 1 i myapp.mxml.
+   myapp.mxml:doThat
+      Den första raden i funktionen doThat() i myapp.mxml.
+   myapp.mxml:56
+      Rad 56 i myapp.mxml.
+   #3
+      Rad 1 i fil #3.
+   #3:doOther
+      Raden som funktionen doOther() börjar på i fil #3.
+   #3:29
+      Rad 29 i fil #3.
+Ange info sources eller info files om du vill se alla filnamn och filnummer.
+Ange info functions om du vill se alla funktionsnamn.
+Det går att ange förkortningar av namn och funktionsnamn så länge dessa inte är 
+tvetydiga.
+När du visar en viss fil blir den filen aktuell. (Se kommandot cf.)
+
+[next]
+
+Används för att stega igenom programmet, via subrutinsanrop.
+  next
+    Stega en gång.
+  next 3
+    Stega 3 gånger eller tills programmet stoppas av någon annan anledning.
+Gäller (precis som för step) så länge inga subrutinsanrop sker. När de sker 
+räknas de som en instruktion.
+
+[print]
+
+Används för att visa värdet på en variabel eller ett uttryck.
+Exempel:
+  print i
+    Värdet på i visas.
+  print employee.name
+    Värden på employee.name visas.
+  print employee
+    Värdet på objektet employee visas.
+    Det kan exempelvis leda till att [Object 10378] visas.
+  print employee.
+    Värdet på alla egenskaper som tillhör objektet employee visas.
+  print *employee
+    Värdet på alla egenskaper som tillhör objektet employee visas.
+    Prefixoperatorn * är ett prefixalternativ till postfixoperatorn ..
+  print #10378.
+    Värdet på alla egenskaper som tillhör objektet #10378 visas.
+De variabler i den lexikala miljön i den valda stackramen är tillgängliga, 
+liksom de med omfånget global eller med en hel fil som omfång.
+
+[pwd]
+
+Den aktuella arbetskatalogen visas,
+det vill säga katalogen som fdb startades från. Det går inte att ändra 
+arbetskatalogen från fdb. Det går inte att ange argument för run och source 
+relativt den här katalogen.
+Du kan inte ange argument för det här kommandot.
+
+[quit]
+
+Används för att avsluta fdb.
+Du kan inte ange argument för det här kommandot.
+
+[run]
+
+Används för att påbörja en felsökning.
+Exempel:
+  run http://www.mysite.com/myapp.mxml
+    Det angivna MXML-programmet körs.
+  run myapp.swf
+  run mydir\myapp.swf
+  run c:\mydir\myapp.swf
+    Den lokala swf-filen myapp.swf (som kan anges) körs, antingen från den 
+    aktuella katalogen (se kommandot pwd) eller via en absolut sökväg. Om så 
+    är fallet måste filen myapp.swd (som innehåller information om 
+    felsökningen) finnas i samma katalog som myapp.swf.
+  run
+    Används för att köra programmet som tidigare angavs via kommandot file.
+    Om inget program har angetts väntar fdb på att ett program ska anslutas. Om 
+    så inte sker uppstår timeout.
+Program som startas via run körs i en webbläsare eller fristående Flash 
+Player.
+När programmet har startats körs fdb, som bland annat ger dig möjlighet att 
+ange brytpunkter.
+
+På Mac-datorer finns det endast stöd för run utan argument.  Du måste i så 
+fall starta Flash Player manuellt.
+
+[set]
+
+Används för att definiera värdet på en variabel eller bekvämlighetsvariabel.
+Bekvämlighetsvariabler används endast inom fdb och finns inte i ditt program.
+De har prefixet $ och kan ha valfritt namn, förutsatt att det inte finns 
+någon befintlig variabel med det namnet.  Exempelvis $myVar.  
+Bekvämlighetsvariabler används dessutom för att styra andra aspekter av fdb.  
+
+Följande bekvämlighetsvariabler används inom fdb:
+$listsize           antal källkodsrader som ska visas för list.
+$columnwrap         kolumnrad på vilken utdata börjar om
+$infostackshowthis  vid 0 visas inte this i stackens bakåtspårning
+$invokegetters      vid 0 kan inte fdb skicka getter-funktioner
+$bpnum              det senaste brytpunktsnumret som angetts
+$displayattributes  vid noll visar print var alla attribut till medlemmar av 
+                     var (exempelvis private eller static).
+
+Exempel:
+  set i = 3
+    Variabeln i anges som 3.
+  set employee.name = "Susan"
+    Variabeln employee.name anges som strängen Susan.
+  set $myVar = 20
+    Bekvämlighetsvariabeln $myVar anges som 20.
+
+[show]
+
+Detta generiska kommando används för att visa statusinformation om fdb.
+Lista över underkommandon till show:
+show break (sh b)       Platsen för och anledningen till pausad körning
+show directories (sh d) Kataloger som ska genomsökas för källfiler
+show files (sh f)       Målfiler och målsökvägar
+show functions (sh fu)  Information om funktionens radmappning 
+show locations (sh l)   Brytpunkternas platser
+show memory (sh m)      Aktuell minnesanvändning
+show net (sh n)         Meddelandestatistik för Player 
+show properties (sh p)  Egenskapsvärden
+show uri (sh u)         Player-URI för den aktuella sessionen 
+show variable (sh v)    Hämtning av raw-variabel
+Ange help show följt av namnet på underkommandot om du vill ha fullständig 
+information.
+
+[show break]
+
+Används för att visa förskjutning där programkörningen stannande i swf-filen
+
+[show directories]
+
+Används för att visa den aktuella sökvägen som används för källkodsfiler.
+
+[show files]
+
+Används för att visa sökväg för och namn på alla målfiler
+
+[show functions]
+
+Används för att visa vilken funktion som mappats till vilket radnummer.
+Exempel:
+  show functions .
+    Mappningsinformation för alla funktioner i den aktuella filen visas.
+  show functions myapp.mxml
+    Mappningsinformation för alla funktioner i myapp.mxml visas.
+  show functions #3
+    Mappningsinformation för alla funktioner i fil #3 visas.
+  show functions
+    Mappningsinformation för alla funktioner i alla filer visas.
+Ange info sources eller info files om du vill se alla filnamn och filnummer.
+Det går att ange förkortningar av filnamn så länge dessa inte är tvetydiga.
+
+[show locations]
+
+Används för att visa alla platser som har angetts för varje brytpunkt.
+
+[show memory]
+
+Används för att visa minnesstatistik för Java VM.
+
+[show net]
+
+Används för att visa information om meddelanden som har skickats till och 
+tagits emot från Flash Player.
+
+[show properties]
+
+Används för att visa alla bekvämlighetsvariabler som används i felsökaren. 
+
+[show uri]
+
+Används för att visa URI som Flash Player har skickat för den här sessionen.
+
+[show variable]
+
+Används för att visa alla medlemmar som tillhör en viss variabel.  Två 
+parametrar måste anges: först det numeriska värde som identifierar variabeln 
+och därefter variabelns egenskapsnamn.  Bekvämlighetsvariabeln $invokegetters 
+används för att bestämma huruvida egenskapen getter ska köras eller inte 
+(förutsatt att den finns).
+Exempel:
+    show variable 1 __proto__
+
+[show ?]
+
+Show-kommandot är inte definierat. Prova med help show.
+
+[source]
+
+Används för att först läsa in och därefter utföra fdb-kommandon från en fil.
+  source mycommands.txt
+  source mydir\mycommands.txt
+  source c:\mydir\mycommands.txt
+    Filen mycommands.txt läses in och kommandona utförs.
+    Filen med kommandon kan antingen anges
+	från den aktuella katalogen (se kommandot pwd) 
+	eller via en absolut sökväg.
+Filen .fdbinit läses in på det här sättet när fdb startas.
+Det är endast den aktuella katalogen som söks igenom efter .fdbinit. Du måste 
+alltså skapa en separat .fdbinit-fil för varje projekt.
+
+[step]
+
+Används för att stega igenom programmet tills det når en annan källkodsrad.
+Exempel:
+  step
+    Stega en gång.
+  step 3
+    Stega 3 gånger eller tills programmet stoppas av någon annan anledning.
+
+[tutorial]
+
+Används för att visa en vägledning om hur fdb används.
+Du kan inte ange argument för det här kommandot.
+
+[Tutorial]
+
+Exempel på en typisk fdb-session:
+Starta ett program med run.
+Visa filnamnen med info sources.
+Visa en fil med list.
+Ange brytpunkter med break.
+Kör programmet tills en brytpunkt nås med continue.
+Granska programmets status med where, print och info locals.
+Utför enskilda kommandon med next, step och finish.
+Återuppta körningen med continue.
+Avsluta fdb med quit.
+
+[undisplay]
+
+Används för att ta bort ett eller flera uttryck.
+Exempel:
+  undisplay
+    Ta bort alla uttryck som visas automatiskt.
+  undisplay 2 7
+    Används för att ta bort uttrycken #2 och #7 som visas automatiskt.
+Ange info display om du vill se alla uttryck som visas automatiskt och 
+motsvarande rader.
+
+[up]
+
+Används för att välja och visa stackramen som anropas.
+Om du därefter anger info arguments och info locals visas
+lokala variabler och argument som hör till den valda ramen.
+Se down och frame.
+
+[viewswf]
+
+Används för att ställa in och rensa filter som bestämmer hur filer ska visas 
+(t.ex. info files och info sources) utifrån swf-namnen. 
+Om inga parametrar anges visas alla filer.  Om samma fil finns i en eller flera 
+swf-filer visas endast den första filinstansen.  Om du vill komma åt andra 
+filinstanser anger du filnumret (t.ex. list #192) eller använder kommandot 
+med parametern (se nedan) för att visa filer från en viss swf-fil.  Om en 
+parameter anges visas endast filerna från en angiven swf-fil i fillistan (via 
+kommandot info swfs).  
+Filer från andra swf-filer visas inte.  Kommandot påverkar även kommandon som 
+tar en fil som parameter (t.ex. break).
+Exempel:
+  viewswf myApp.mxml.swf
+    Endast filer från myApp.mxml.swf visas.
+  viewswf 
+    Alla filer från alla swf-filer visas.
+ 
+[watch]
+
+Används förr att lägga till en bevakningspunkt för en viss variabel. Felsökaren 
+stoppar körningen när variabelns värde ändras.
+Exempel:
+  watch foo
+
+[what]
+
+Visar sammanhanget vari en variabel matchas. 
+
+[where]
+
+Används för att bakåtspåra genom stacken.
+
+[zzz]
+
+((( Keep this unused topic at the end of the file    )))
+((( so that the next-to-last one is parsed properly. )))

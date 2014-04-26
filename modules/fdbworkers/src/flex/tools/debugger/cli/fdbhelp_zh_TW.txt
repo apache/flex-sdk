@@ -1,0 +1,752 @@
+    
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+    
+          http://www.apache.org/licenses/LICENSE-2.0
+    
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+
+此檔案包含在 fdb 中使用「help」指令所顯示的文字。
+
+它會分成幾個「主題」。例如，當 fdb 使用者輸入「help break」時，下方的 [break] 主
+題就會顯示。
+
+每個主題的第一行和最後一行都應該保留空白。
+這兩行不會在 fdb 中顯示；在此處僅用於讓這個檔案更容易閱讀。
+
+說明文字顯示在 80 個字元寬的主控台時，不應該格式化為自動換行。
+以下行寬度為 80 個字元。
+
+--------------------------------------------------------------------------------
+
+[?]
+
+未定義的指令。請僅執行「help」來查看所有 fdb 指令的清單。
+
+[break]
+
+將中斷點設定在指定的行或函數。
+範例：
+  break 87
+    將中斷點設定在目前檔案的第 87 行。
+  break myapp.mxml:56
+    將中斷點設定在 myapp.mxml 的第 56 行。
+  break #3:29
+    將中斷點設定在檔案 #3 的第 29 行。
+  break doThis
+    在中斷點設定在目前檔案的函數 doThis()。
+  break myapp.mxml:doThat
+    將中斷點設定在檔案 myapp.mxml 的函數 doThat()。
+  break #3:doOther
+    將中斷點設定在檔案 #3 的函數 doOther()。
+  break
+   將中斷點設定在目前堆疊框架的目前執行位址。這有助於對返回到堆疊框架執行中斷
+   作業。
+若要查看檔案名稱和號碼，請執行「info sources」或「info files」。
+若要查看函數名稱，請執行「info functions」。
+採用縮寫形式的檔案名稱和函數名稱若都很明確，則可以接受。
+如果指定了行號，請在該行的程式碼的開頭處中斷。
+如果指定了函數，請在該函數的程式碼的開頭處中斷。
+請參閱「commands」和「condition」，以瞭解進一步的中斷點控制。
+
+[bt]
+
+堆疊的回溯追蹤。
+
+[catch]
+
+擲出例外狀況時中止。這只會影響捕捉到的例外狀況，即由「catch」區塊處理的例外狀況。
+在除錯程式中，未捕捉到的例外狀況一律會中止。
+
+使用「delete」指令來刪除捕捉點。
+
+範例：
+  catch *
+    擲出任何的例外狀況時中止。
+  catch ReferenceError
+    只要擲出 ReferenceError，無論是否到捕捉，均會中止。
+
+[cf]
+
+顯示目前檔案的名稱和號碼，或是變更目前的檔案。
+範例：
+  cf
+    顯示目前檔案的名稱和號碼。
+  cf myapp.mxml
+    將目前的檔案變更為 myapp.mxml。
+  cf #29
+    將目前的檔案變更為檔案 #29。
+若要查看檔案名稱和號碼，請執行「info sources」或「info files」。
+採用縮寫形式的檔案名稱若都很明確，則可以接受。
+使用「list」列出檔案也會使該檔案成為目前的檔案。
+
+[clear]
+
+清除指定的行或函數的中斷點。
+範例：
+  clear 87
+    清除目前檔案第 87 行的中斷點。
+  clear myapp.mxml:56
+    清除 myapp.mxml 第 56 行的中斷點。
+  clear #3:29
+    清除檔案 #3 第 29 行的中斷點。
+  clear doThis
+    清除目前檔案中的函數 doThis() 的中斷點。
+  clear myapp.mxml:doThat
+    清除檔案 myapp.mxml 的函數 doThat() 的中斷點。
+  clear #3:doOther
+    清除檔案 #3 的函數 doOther() 的中斷點。
+  clear
+    清除目前檔案中的目前行的中斷點。
+若要查看檔案名稱和號碼，請執行「info sources」或「info files」。
+若要查看函數名稱，請執行「info functions」。
+採用縮寫形式的檔案名稱和函數名稱若都很明確，則可以接受。
+如果指定了行號，會清除該行中的所有中斷點。
+如果指定了函數，會清除函數開頭處的中斷點。
+
+[continue]
+
+在中斷點處停止之後繼續執行。
+此指令不使用任何引數。
+
+[condition]
+
+
+僅在 COND 為 true 時，指定要中斷的中斷點號碼 N。
+用法為「condition N COND」，其中 N 是整數，COND 是每次到達中斷點 N 時所
+要求值的運算式。
+
+[commands]
+
+設定到達中斷點時所要執行的指令。
+提供中斷點號碼作為「commands」後面的引數。
+如果未使用引數，目標中斷點即上次所設定的中斷點。
+指令本身會跟在下一行開頭之後。
+輸入包含「end」的行來代表行的結尾。
+提供「silent」作為第一行，以使中斷點處於無訊息狀態；因此，到達中斷點時，除了
+指令所列印的內容，將不會列印輸出。
+範例：
+  (fdb) 指令
+  輸入到達中斷點 1 時要使用的指令，一行一個指令。
+  使用僅包含「end」的行來結束。
+  >w
+  >end
+
+[delete]
+
+刪除一或多個中斷點。
+範例：
+  delete
+    刪除所有中斷點。
+  delete 2 5
+    刪除中斷點 #2 和 #5。
+若要查看中斷點號碼，請執行「info breakpoints」。
+
+[directory]
+
+修改 fdb 搜尋原始檔案所在目錄的清單。
+
+範例：
+
+  directory
+    將清單還原成預設值，即原始檔案編譯成物件程式碼的目錄，後面跟隨目前的工作目錄。
+
+  directory C:\MySource        (Windows)
+  directory /MySource          (Mac)
+    將指定的目錄加入將搜尋其來源的目錄清單開頭。例如，尋找類別
+    mypackage.MyClass 的來源時，除錯程式會同時尋找
+    C:\MySource\mypackage\MyClass.as 和 C:\MySource\MyClass.as。
+
+  directory C:\Dir1;C:\Dir2    (Windows -- 使用「;」作為分隔符號)
+  directory /Dir1:/Dir2        (Mac -- 使用「:」作為分隔符號)
+    將數個目錄加入將搜尋其來源的目錄清單開頭。
+
+若要查看目前清單，請執行「show directories」。
+
+[disable]
+
+停用一或多個中斷點或自動顯示的運算式。
+範例：
+  disable
+  disable breakpoints
+    停用所有中斷點。
+  disable 2 5
+  disable breakpoints 2 5
+    停用中斷點 #2 和 #5。
+  disable display
+    停用所有自動顯示的運算式。
+  disable display 1 3
+    停用自動顯示的運算式 #1 和 #3。
+若要查看中斷點號碼，請執行「info breakpoints」。
+若要查看自動顯示的運算式號碼，請執行「info display」。
+
+[disassemble]
+
+(僅限 ActionScript 2；對 ActionScript 3 執行除錯時不支援)
+
+分解原始程式碼的指定部分。
+預設為目前的清單行。
+支援的引數與 list 指令相同。範例：
+  disassemble 87
+    分解目前檔案中的第 87 行。
+  disassemble 87 102
+    分解目前檔案中的第 87 到 102 行。
+  disassemble doThis
+      分解目前檔案中的函數 doThis()。
+除了使用如上的簡單行號外，您還可以使用其他方式指定行：
+   myapp.mxml
+      myapp.mxml 中的第 1 行。
+   myapp.mxml:doThat
+      myapp.mxml 中的第一行函數 doThat()。
+   myapp.mxml:56
+      myapp.mxml 中的第 56 行。
+   #3
+      檔案 #3 中的第 1 行。
+   #3:doOther
+      檔案 #3 中函數 Other() 開始所在的行。
+   #3:29
+      檔案 #3 中的第 29 行。
+
+[display]
+
+將運算式加入自動顯示的運算式清單。
+範例：
+  display employee.name
+    將「employee.name」加入自動顯示的運算式清單。
+    每次 fdb 停止時，就會顯示 employee.name 的值。
+此指令的引數類似於「print」的引數。
+若要查看自動顯示的運算式及其號碼的清單，請執行「info display」。
+
+[down]
+
+選取並列印這一個項目所呼叫的堆疊框架。
+後續的「info arguments」和「info locals」指令將顯示所選框架的區域函數和引數。
+請參閱「up」和「frame」
+
+[enable]
+
+啟用一或多個中斷點或自動顯示的運算式。
+範例：
+  enable
+  enable breakpoints
+    啟用所有中斷點。
+  enable 2 5
+  enable breakpoints 2 5
+    啟用中斷點 #2 和 #5。
+  enable display
+    啟用所有自動顯示的運算式。
+  enable display 1 3
+    啟用自動顯示的運算式 #1 和 #3。
+若要查看中斷點號碼，請執行「info breakpoints」。
+若要查看自動顯示的運算式號碼，請執行「info display」。
+
+[file]
+
+指定要除錯的應用程式，但不啟動它。
+範例：
+  file http://www.mysite.com/myapp.mxml
+    指定要除錯的 MXML 應用程式。
+  file myapp.swf
+    指定要在目前目錄中除錯的本機 SWF 檔案。
+    在此情況下，myapp.swd (含有除錯資訊的檔案) 必須也存在於目前目錄中。
+此指令不會真的使應用程式啟動；請使用不含引數的「run」指令，來啟動對應用程式的
+除錯。
+代替使用「file <target>」後接著使用「run」，可以僅指定要除錯的應用程式做為「run」
+的引數：
+  run http://mysite.com/myapp.mxml
+  run myapp.swf
+您也可以在啟動 fdb 時，指定要除
+  錯的應用程式做為指令行引數：
+  fdb http://www.mysite.com/myapp.mxml
+  fdb myapp.swf
+在此情況下，您不需要使用
+  「file」或「run」。
+如果使用「run」時未指定要除錯的程式，fdb 將會等待任何應用程式與之連線。
+
+[finish]
+
+在目前的函數返回之前一直執行。
+此指令不使用任何引數。
+
+[frame]
+
+選取並列印特定的堆疊框架。
+此指令會使用可選引數，即框架號碼。
+如果未提供引數，預設為返回到目前的頂層框架 (即框架 0)。
+範例：
+  frame 4
+  frame
+後續的「info arguments」和「info locals」指令將顯示所選框架的區域函數和引數。
+請參閱「up」、「down」和「bt」
+
+[handle]
+
+指定 fdb 應該以何種方式處理 Flash Player 中的錯誤。
+範例：
+  handle recursion_limit stop
+    發生 recursion_limit 錯誤時，在 fdb 中顯示訊息並停止，就像是在中斷點一樣。
+  handle all print nostop
+    發生任何類型的錯誤時，在 fdb 中顯示訊息，但不停止。
+第一個引數是錯誤名稱或「all」。
+其他引數是套用至該錯誤的動作。
+若要查看錯誤名稱，請執行「info handle」。
+動作為 print/noprint 和 stop/nostop。
+「print」代表發生此錯誤時列印訊息。
+「stop」代表發生此錯誤時重新進入除錯程式。意謂「print」。
+
+[help]
+
+使用 fdb 的新手? 執行「tutorial」以取得基本資訊。
+fdb 指令清單：
+bt (bt)             列印所有堆疊框架的回溯追蹤
+break (b)           將中斷點設定在指定的行或函數
+catch (ca)          擲出例外狀況時中止
+cf (cf)             顯示目前檔案的名稱和號碼
+clear (cl)          清除指定的行或函數的中斷點
+condition (cond)    在中斷點套用/移除條件式運算式
+continue (c)        在中斷點處停止之後繼續執行
+commands (com)      設定到達中斷點時要執行的指令
+delete (d)          刪除中斷點或自動顯示的運算式
+directory (dir)     將目錄加入原始檔案的搜尋路徑
+disable (disab)     停用中斷點或自動顯示的運算式
+disassemble (disas) 分解來源行或函數
+display (disp)      加入自動顯示的運算式
+enable (e)          啟用中斷點或自動顯示的運算式
+file (fil)          指定要除錯的應用程式
+finish (f)          在目前的函數返回之前一直執行
+handle (han)        指定錯誤的處理方式
+help (h)            顯示有關 fdb 指令的說明
+home (ho)           將清單位置設定為執行的中止位置
+info (i)            顯示有關正在除錯之程式的資訊
+kill (k)            終止執行正在除錯的程式
+list (l)            列出指定函數或行
+next (n)            執行程式單步作業
+print (p)           列印變數 EXP 的值
+pwd (pw)            列印工作目錄
+quit (q)            結束 fdb
+run (r)             啟動已除錯的程式
+set (se)            設定變數的值
+source (so)         從檔案讀取 fdb 指令
+step (s)            執行程式單步作業，直到到達不同的來源行
+tutorial (t)        顯示如何使用 fdb 的教學課程
+undisplay (u)       移除自動顯示的運算式
+viewswf (v)         根據 swf 設定或清除檔案清單的過濾器
+watch (wa)          在指定變數上加入監視點
+what (wh)           顯示變數的上下文
+where (w)           與 bt 相同
+輸入「help」，後面跟隨指令名稱以取得完整文件。
+
+[home]
+
+將清單位置設定為執行的中止位置。
+
+[info]
+
+用於顯示正在除錯的程式相關資訊的一般指令。
+info 子指令的清單：
+info arguments (i a)    目前堆疊框架的引數變數
+info breakpoints (i b)  使用者可設定之中斷點的狀態
+info display (i d)      顯示自動顯示的運算式清單
+info files (i f)        正在除錯的目標和檔案名稱
+info functions (i fu)   所有函數名稱
+info handle (i h)       錯誤的處理方式
+info locals (i l)       目前堆疊框架的區域變數
+info scopechain (i sc)  目前堆疊框架的範圍鏈結
+info sources (i so)     程式中的原始檔案
+info stack (i s)        堆疊的回溯追蹤
+info swfs (i sw)        此工作階段中的 swf 清單
+info targets(i t)       正在除錯的應用程式
+info variables (i v)    所有全域和靜態變數名稱
+輸入「help info」，後面跟隨 info 子指令名稱以取得完整文件。
+
+[info arguments]
+
+顯示目前堆疊框架的引數。
+
+[info breakpoints]
+
+顯示所有中斷點和監視點的狀態。
+「類型」欄指示下列其中一項：
+   breakpoint   - 一般中斷點
+   watchpoint   - 監視點
+「處理」欄包含「keep」、
+   「del」或「dis」其中一項，用於指示到達中斷點後，對中斷點的處理方式。「dis」
+   代表將停用中斷點，「del」則代表將刪除中斷點。
+「Address」和「What」欄分別代表位址和檔案/行號。
+
+[info display]
+
+顯示自動顯示的運算式及其號碼的清單
+
+[info files]
+
+顯示正在除錯的應用程式檔案名稱和數目，包括原始檔案、架構檔案和自動產生的檔案。
+範例：
+  info files
+    依類別字母順序列出所有檔案
+  info files my
+  info files my*
+    依字母順序列出其名稱以「my」開頭的所有檔案。
+  info files *.as
+    依字母順序列出其名稱以「.as」結尾的所有檔案。
+  info files *foo*
+    依字母順序列出其名稱含有「foo」的所有檔案。
+檔案會以 name#N 格式顯示，其中 N 為檔案號碼。
+在許多指令中，您都可以使用 #N 取代檔案名稱。
+
+[info functions]
+
+顯示函數名稱。
+範例：
+  info functions .
+    顯示目前檔案中的所有函數。
+  info functions myapp.mxml
+    顯示 myapp.mxml 中的所有函數。
+  info functions #3
+    顯示檔案 #3 中的所有函數。
+  info functions
+    顯示所有檔案中的全部函數。
+若要查看檔案名稱和號碼，請執行「info sources」或「info files」。
+採用縮寫形式的檔案名稱若都很明確，則可以接受。
+
+[info handle]
+
+顯示 Flash Player 發生錯誤時，fdb 會執行的動作。
+範例：
+  info handle
+    顯示 fdb 處理所有錯誤的方式。
+  info handle recursion_limit
+    顯示 fdb 處理 recursion_limit 錯誤的方式。
+
+[info locals]
+
+顯示目前堆疊框架的區域變數。
+
+[info scopechain]
+
+顯示目前堆疊框架的範圍鏈結。範圍鏈結是 Flash Player 嘗試解決符號名稱時會搜尋的物
+件清單。
+
+[info sources]
+
+顯示正在除錯的應用程式原始檔案名稱和數目。架構檔案和自動產生的檔案不包括在內。
+檔案會以 name#N 格式顯示，其中 N 為檔案號碼。
+在許多指令中，您都可以使用 #N 取代檔案名稱。
+
+[info stack]
+
+堆疊的回溯追蹤。
+
+[info swfs]
+
+顯示除錯工作階段已知的 swf。如需如何根據 swf 名稱過濾檔案清單的詳細資訊，請參閱
+指令「viewswf」。
+
+[info targets]
+
+顯示正在除錯的應用程式的 URL (http: 或 file:)。
+
+[info variables]
+
+顯示所有全域和靜態變數名稱和值。
+
+[info ?]
+
+未定義的 info 指令。請嘗試使用「help info」。
+
+[kill]
+
+終止執行正在除錯的程式。
+此指令不使用任何引數。
+
+[list]
+
+列出原始檔案中的多行程式碼。
+範例：
+  list
+    列出目前檔案中上一個清單之後或前後的另外十行。
+  list -
+    列出目前檔案中上一個清單之前的十行。
+  list 87
+    列出目前檔案中第 87 行前後十行。
+  list 87 102
+    列出目前檔案中的第 87 到 102 行。
+除了使用如上的簡單行號以外，您還可以使用 7 種方式指定行：
+  doThis
+      目前檔案中的第 1 行函數 doThis()。
+   myapp.mxml
+      myapp.mxml 中的第 1 行。
+   myapp.mxml:doThat
+      myapp.mxml 中的第一行函數 doThat()。
+   myapp.mxml:56
+      myapp.mxml 中的第 56 行。
+   #3
+      檔案 #3 中的第 1 行。
+   #3:doOther
+      檔案 #3 中函數 Other() 開始所在的行。
+   #3:29
+      檔案 #3 中的第 29 行。
+若要查看檔案名稱和號碼，請執行「info sources」或「info files」。
+若要查看函數名稱，請執行「info functions」。
+採用縮寫形式的檔案名稱和函數名稱若都很明確，則可以接受。
+列出某個檔案時，會使該檔案成為目前的檔案。(請參閱「cf」指令。)
+
+[next]
+
+執行程式單步作業，將繼續執行所有副常式呼叫。
+  next
+    執行單步作業一次。
+  next 3
+    執行單步作業 3 次，或直到程式因其他原因而停止。
+只要副常式呼叫不發生，就跟「step」指令相同；如果發生，會將呼叫視為一個指示。
+
+[print]
+
+列印變數或運算式的值。
+範例：
+  print i
+    列印「i」的值。
+  print employee.name
+    列印「employee.name」的值。
+  print employee
+    列印「employee」物件的值。
+    這可能只會顯示類似 [Object 10378] 的內容。
+  print employee.
+    列印「employee」物件的所有屬性值。
+  print *employee
+    列印「employee」物件的所有屬性值。
+    前置 * 運算子是後置 . 運算子的前置替代項。
+  print #10378.
+    列印物件 #10378 的所有屬性值。
+可存取的變數是所選堆疊框架的語彙環境變數，加上範圍為全域或整個檔案的所有變數。
+
+[pwd]
+
+列印目前的工作目錄。
+此為從其啟動 fdb 的目錄；在 fdb 中無法加以變更。可相對於此目錄指定「run」和
+「source」的引數。
+此指令不使用任何引數。
+
+[quit]
+
+結束 fdb。
+此指令不使用任何引數。
+
+[run]
+
+開始除錯工作階段。
+範例：
+  run http://www.mysite.com/myapp.mxml
+    執行指定的 MXML 應用程式。
+  run myapp.swf
+  run mydir\myapp.swf
+  run c:\mydir\myapp.swf
+    執行本機 SWF 檔案 myapp.swf，可相對於目前目錄 (請參閱「pwd」指令) 或使用絕對
+    路徑指定該檔案。在許多情況下，myapp.swd (含有除錯資訊的檔案) 必須也存在於與
+	myapp.swf 相同的目錄中。
+  run
+    執行之前使用「file」指令所指定的應用程式。
+    如果未指定任何應用程式，fdb 會等待應用程式與之連線，如果沒有應用程式與之連線，
+    將會逾時。
+「run」將會在瀏覽器或獨立 Flash Play 中啟動應用程式。
+應用程式一啟動，就會進入 fdb，讓您可以設定中斷點等。
+
+在 Macintosh 上，唯一支援的指令格式為不加引數的「run」。您必須接著手動啟動
+Flash player。
+
+[set]
+
+設定變數或便利變數的值。
+便利變數是完全存在於 fdb 中的變數；不屬於您程式的一部分。
+便利變數的開頭是「$」，可以是與任何現有變數不衝突的任何名稱。例如，$myVar。便
+利變數也可用於控制 fdb 的各個層面。
+
+fdb 使用下列便利變數。
+$listsize          - 「list」顯示的來源行數
+$columnwrap        - 輸出將自動換行的欄號
+$infostackshowthis - 若為 0，在堆疊回溯追蹤中將不顯示「this」
+$invokegetters     - 若為 0，將阻止 fdb 啟動 getter 函數
+$bpnum             - 最後一個已定義的中斷點號碼
+$displayattributes - 若為 1，「print var.」會顯示「var」成員的所有屬性 (如
+                     private、static)
+
+範例：
+  set i = 3
+    將變數「i」設定為數字 3。
+  set employee.name = "Susan"
+    將變數「employee.name」設定為字串「Susan」。
+  set $myVar = 20
+    將便利變數「$myVar」設定為數字 20
+
+[show]
+
+用於顯示 fdb 狀態相關資訊的一般指令。
+show 子指令的清單：
+show break (sh b)       暫停的執行位置及原因
+show directories (sh d) 要搜尋原始檔案的目錄
+show files (sh f)       目標檔案和路徑
+show functions (sh fu)  函數行對應資訊
+show locations (sh l)   中斷點位置
+show memory (sh m)      目前的記憶體使用量
+show net (sh n)         播放程式訊息統計
+show properties (sh p)  屬性值
+show uri (sh u)         此工作階段的播放程式 URI
+show variable (sh v)    原始變數擷取
+輸入「help show」，後面接著 show 子指令名稱以取得完整文件。
+
+[show break]
+
+顯示 SWF 內程式中止位置的位移
+
+[show directories]
+
+顯示用於尋找原始檔案的目前搜尋路徑。
+
+[show files]
+
+顯示所有目標檔案的路徑和檔案名稱
+
+[show functions]
+
+顯示函數到行號的對應資訊。
+範例：
+  show functions .
+    顯示目前檔案中所有函數的對應資訊。
+  show functions myapp.mxml
+    顯示 myapp.mxml 中所有函數的對應資訊。
+  show functions #3
+    顯示檔案 #3 中所有函數的對應資訊。
+  show functions
+    顯示所有檔案中所有函數的對應資訊。
+若要查看檔案名稱和號碼，請執行「info sources」或「info files」。
+採用縮寫形式的檔案名稱若都很明確，則可以接受。
+
+[show locations]
+
+顯示針對每個中斷點所設定的位置清單。
+
+[show memory]
+
+顯示 Java VM 記憶體統計。
+
+[show net]
+
+顯示傳送至 Flash Player 及接收自 Flash Player 的訊息相關資訊。
+
+[show properties]
+
+顯示用於除錯程式中的便利變數清單
+
+[show uri]
+
+顯示播放程式針對此工作階段所傳送的 URI。
+
+[show variable]
+
+顯示變數成員的值。需要使用兩個參數；第一個是數值變數識別名稱，第二個是變數的屬性
+名稱。便利變數
+$invokegetters 用於決定屬性 getter (假定其存在時) 是否啟動。
+範例：
+    show variable 1 __proto__
+
+[show ?]
+
+未定義的 show 指令。請嘗試使用「help show」。
+
+[source]
+
+從檔案讀取 fdb 指令，並加以執行。
+  source mycommands.txt
+  source mydir\mycommands.txt
+  source c:\mydir\mycommands.txt
+    讀取 mycommands.txt 並在其中執行 fdb 指令。
+    您可以相對於目前目錄 (請參閱「pwd」指令) 或使用絕對路徑指定含有指令的檔案。
+啟動 fdb 時會自動以此方式讀取檔案 .fdbinit。
+僅會在目前的目錄中搜尋 .fdbinit。這意味著，您可以針對不同專案設定多個 .fdbinit 檔
+案。
+
+[step]
+
+執行程式單步作業，直到到達不同的來源行。
+範例：
+  step
+    執行單步作業一次。
+  step 3
+    執行單步作業 3 次，或直到程式因其他原因而停止。
+
+[tutorial]
+
+顯示如何使用 fdb 的教學課程。
+此指令不使用任何引數。
+
+[Tutorial]
+
+典型的 fdb 工作階段：
+使用「run」啟動應用程式。
+使用「info sources」檢視檔案名稱。
+使用「list」列出檔案。
+使用「break」設定中斷點。
+使用「continue」執行程式，直到到達中斷點為止。
+使用「where」、「print」或「info locals」檢查程式的狀態。
+使用「next」、「step」和「finish」執行個別陳述式。
+使用「continue」繼續執行。
+使用「quit」結束 fdb。
+
+[undisplay]
+
+移除一或多個自動顯示的運算式。
+範例：
+  undisplay
+    移除所有自動顯示的運算式。
+  undisplay 2 7
+    移除自動顯示的運算式 #2 和 #7。
+若要查看自動顯示的運算式及其號碼的清單，請執行「info display」。
+
+[up]
+
+選取並列印呼叫這一個項目的堆疊框架。
+後續的「info arguments」和「info locals」指令將顯示所選框架的區域函數和引數。
+請參閱「down」和「frame」
+
+[viewswf]
+
+根據 swf 名稱設定或清除檔案清單 (即「info files」和「info sources」) 的過濾器。
+若無任何參數，將會顯示所有檔案。如果一或多個 swf 中存在相同的檔案，清單只會顯示
+檔案的第一個實體。若要存取檔案的其它實體，請使用檔案號碼 (例如，「list #192」)
+或使用此指令搭配參數 (請參閱下文) 來顯示特定 swf 中的檔案。搭配單一參數，使用
+「info swfs」指令顯示 swf 名稱時，在檔案清單中只會顯示指定 swf 中的檔案。
+不會顯示其它 swf 中的檔案。此指令也會影響接受檔案作為參數 (例如，「break」) 的指
+令。例如：
+  viewswf myApp.mxml.swf
+    將僅顯示 myApp.mxml.swf 中的檔案。
+  viewswf
+    將顯示所有 swf 中的全部檔案。
+
+[watch]
+
+在指定變數上加入監視點。當變數值變更時，除錯程式將會中止執行。
+範例：
+  watch foo
+
+[what]
+
+顯示解析變數所在的上下文。
+
+[where]
+
+堆疊的回溯追蹤。
+
+[zzz]
+
+((( 將這個未使用的主題保留在檔案結尾處    )))
+((( 以便倒數第二個主題能正確剖析。)))
+
