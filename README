@@ -172,15 +172,15 @@ Install Prerequisites
          be set correctly and you will get compile errors.
 
     *3) The Adobe AIR integration kit for Windows can be downloaded from:
-           http://airdownload.adobe.com/air/win/download/4.0/AdobeAIRSDK.zip
+           http://airdownload.adobe.com/air/win/download/13.0/AdobeAIRSDK.zip
 
          The Adobe AIR integration kit for Mac can be downloaded from:
-            http://airdownload.adobe.com/air/mac/download/4.0/AdobeAIRSDK.tbz2
+            http://airdownload.adobe.com/air/mac/download/13.0/AdobeAIRSDK.tbz2
 
           The Adobe AIR integration kit for Linux can be downloaded from:
             http://airdownload.adobe.com/air/lin/download/2.6/AdobeAIRSDK.tbz2
 
-        This version of Apache Flex was certified for use with AIR 4.0, and
+        This version of Apache Flex was certified for use with AIR 13.0, and
         should be compatible with other versions of AIR newer than 3.1. However
         it hasn't been fully tested on AIR 3.2, 3.3, 3.5, 3.6 or 3.7.
 
@@ -229,6 +229,7 @@ Install Prerequisites
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_8.swc
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_9.swc
             http://download.macromedia.com/get/flashplayer/updaters/12/playerglobal12_0.swc
+            http://download.macromedia.com/get/flashplayer/updaters/13/playerglobal13_0.swc
 
         These can be used with Apache Flex but not all have not been fully
         tested.
@@ -294,7 +295,8 @@ Other Locale Support
         de_CH	en_AU	en_US	fr_CH	ja_JP	nl_NL	ru_RU	zh_TW
         de_DE	en_CA	es_ES	fr_FR	ko_KR	pt_BR	sv_SE
 
-    The Apache Flex SDK has only been tested for the en_US locale, however there    is unlikely to be any issues with a SDK compiled for another locales.
+    The Apache Flex SDK has only been tested for the en_US locale, however there
+    is unlikely to be any issues with a SDK compiled for another locales.
 
 Adobe Flash Player Version Support
 ----------------------------------
