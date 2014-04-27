@@ -70,10 +70,12 @@ FLEX-34133  ADG RTE in columnHeaderWordWrap
 FLEX-34132  DataGrid columns with no dataField specified give "[object Object]"
 FLEX-34125  CheckAllPlayerGlobals script in ide folder is missing Windows implementation
 FLEX-34117  Button: Small gap in the corner
+F:EX-34098  Deleteing/Replacing Surrogate-Pair string causes RTE in TLF
 FLEX-34057  RTE on pasting empty data after Excel operation
-FLEX-34031  RTE at TextClipboard#importToScrap()
+FLEX-34013  RTE at TextClipboard#importToScrap()
 FLEX-33994  Need a way to distinguish phone and tablet target devices through css
 FLEX-33948  Add touch behaviour to spark DropDownList classes
+FLEX-33423  We can input text over than maxChars when we use "Insert" mode.
 FLEX-33421  Broken metadata RequiresLicense
 FLEX-33350  CallOutButton for Web (desktop / not AIR)
 
