@@ -14,20 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package flash.tools.debugger.events;
 
+import flash.tools.debugger.Isolate;
+
 /**
- * Signals that the player has spent far too long in a piece of ActionScript
+ * IsolateExitEvent is received when the player stops
+ * a worker.
+ * @author anirudhs
  */
-public class ScriptTimeoutFault extends FaultEvent
-{
-	public ScriptTimeoutFault(int isolateId) {
-		super(isolateId);
+public class IsolateExitEvent extends DebugEvent {
+	
+	/* The isolate that exited */
+	public Isolate isolate;
+	
+	public IsolateExitEvent() {
+		isolate = null;
 	}
-
-	public final static String name = "script_timeout";  //$NON-NLS-1$
-
-	@Override
-	public String name() { return name; }	
+	
+	public IsolateExitEvent(Isolate t) {
+		isolate = t;
+	}
 }

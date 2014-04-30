@@ -14,20 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package flash.tools.debugger.concrete;
 
-package flash.tools.debugger.events;
+public class PlayerSessionIsolateStatus {
 
-/**
- * Signals that the player has spent far too long in a piece of ActionScript
- */
-public class ScriptTimeoutFault extends FaultEvent
-{
-	public ScriptTimeoutFault(int isolateId) {
-		super(isolateId);
-	}
-
-	public final static String name = "script_timeout";  //$NON-NLS-1$
-
-	@Override
-	public String name() { return name; }	
+	/**
+	 * Corresponding to playersession::m_isHalted, but for isolate.
+	 */
+	public boolean m_isHalted;
 }

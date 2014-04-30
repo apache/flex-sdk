@@ -1,20 +1,18 @@
 /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package flex.tools.debugger.cli;
@@ -41,15 +39,17 @@ public class VariableFacade implements Variable
 	long		m_context;
 	String		m_name;
 	String		m_path;
+	int m_isolateId;
 
-	public VariableFacade(Variable v, long context)		{ init(context, v, null); }
-	public VariableFacade(long context, String name)	{ init(context, null, name); }
+	public VariableFacade(Variable v, long context, int m_isolateId)		{ init(context, v, null, m_isolateId); }
+	public VariableFacade(long context, String name, int m_isolateId)	{ init(context, null, name, m_isolateId); }
 
-	void init(long context, Variable v, String name)
+	void init(long context, Variable v, String name, int isolateId)
 	{
 		m_var = v;
 		m_context = context;
 		m_name = name;
+		m_isolateId = isolateId;
 	}
 
 	/**
@@ -67,8 +67,9 @@ public class VariableFacade implements Variable
 	public boolean		hasValueChanged(Session s)				{ return m_var.hasValueChanged(s); }
 	public FaultEvent setValue(Session s, int type, String value) throws NotSuspendedException, NoResponseException, NotConnectedException
 	{
-		return ((PlayerSession)s).setScalarMember(m_context, getQualifiedName(), type, value);
+		return ((PlayerSession)s).setScalarMember(m_context, getQualifiedName(), type, value, m_var.getIsolateId());
 	}
+	@Override
 	public String		toString()								{ return (m_var == null) ? m_name : m_var.toString(); }
 	public String		getPath()								{ return m_path; }
 	public void			setPath(String path)					{ m_path = path; }
@@ -81,6 +82,10 @@ public class VariableFacade implements Variable
 	/**
 	 * Our lone get context (i.e. parent) interface 
 	 */
-	public int			getContext()									{ return (int)m_context; }
+	public long			getContext()									{ return m_context; }
 	public Variable		getVariable()									{ return m_var; }
+	@Override
+	public int getIsolateId() {
+		return m_isolateId;
+	}
 }

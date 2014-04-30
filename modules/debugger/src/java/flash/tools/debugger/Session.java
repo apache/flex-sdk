@@ -346,7 +346,7 @@ public interface Session
 	 * to the end of the list.
 	 *
 	 * @param v the variable, upon whose member, the watch is to be placed.
-	 * @param varName is the mmeber name upon which the watch
+	 * @param memberName is the mmeber name upon which the watch
 	 * should be placed.  This variable name may NOT contain the dot ('.')
 	 * character and MUST be a member of v.
 	 * @param kind access type that will trigger the watchpoint to fire --
@@ -367,8 +367,6 @@ public interface Session
 	 *
 	 * @param watch
 	 *            the watch to enable or disable
-	 * @param enabled
-	 *            whether to enable it or disable it
 	 * @throws NotSupportedException
 	 * @throws NotConnectedException
 	 * @throws NoResponseException
@@ -548,4 +546,59 @@ public interface Session
 	 * PREF_SOCKET_TIMEOUT and helps in detecting broken connections.
 	 */
 	public Exception getDisconnectCause();
+
+	/**
+	 * Set an exception breakpoint. Returns true if succeeded.
+	 * @param exceptionClass
+	 * @return
+	 * @throws NoResponseException
+	 * @throws NotConnectedException
+	 */
+	public boolean setExceptionBreakpoint(String exceptionClass) throws NoResponseException, NotConnectedException;
+
+	/**
+	 * Clears an exception breakpoint. Returns true if succeeded.
+	 * @param exceptionClass
+	 * @return
+	 * @throws NoResponseException
+	 * @throws NotConnectedException
+	 */
+	public boolean clearExceptionBreakpoint(String exceptionClass) throws NoResponseException, NotConnectedException;
+
+	// Concurrency begin
+
+	/**
+	 * Returns whether the target player supports concurrency.
+	 * @see #setActiveIsolate(Value)
+	 */
+	public boolean supportsConcurrency();
+
+	/**
+	 * Get an array of all workers that the debugger knows of.
+	 */
+	public Isolate[] getWorkers();
+
+	/**
+	 * Ask the player again for a list of all workers. Use this
+	 * method with caution as it will also reset all state about
+	 * workers that the debugger is aware of.
+	 */
+	public Isolate[] refreshWorkers() throws  NotSupportedException, NotSuspendedException, NoResponseException, NotConnectedException;
+
+	/**
+	 * Return the worker specific session object that can be used
+	 * to communicate with that worker.
+	 */
+	public IsolateSession getWorkerSession(int isolateId);
+
+	/**
+	 *
+	 * Sets the ILauncher instance which is associated with this session.
+	 * ILauncher instance is used to terminate the process at the end of the debugging session.
+	 *
+	 * @param launcher
+	 * 				ILauncher instance used to launch & terminate the process.
+	 */
+	public void setLauncher(ILauncher launcher);
+
 }

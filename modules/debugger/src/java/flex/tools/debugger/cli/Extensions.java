@@ -1,5 +1,4 @@
 /*
- *
  *  Licensed to the Apache Software Foundation (ASF) under one or more
  *  contributor license agreements.  See the NOTICE file distributed with
  *  this work for additional information regarding copyright ownership.
@@ -14,7 +13,6 @@
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
- *
  */
 
 package flex.tools.debugger.cli;
@@ -49,7 +47,7 @@ import flash.util.FieldFormat;
 
 /**
  * Extensions class is a singleton that contains
- * every cli method that does not conform to the 
+ * every cli method that does not conform to the
  * API.  Thus we can easily remove these features
  * from the cli if the implementation does not
  * support these calls.
@@ -121,7 +119,7 @@ public class Extensions
 				arg = cli.nextToken();
 				int id = arg.equals(".") ? cli.propertyGet(DebugCLI.LIST_MODULE) : cli.parseFileArg(-1, arg); //$NON-NLS-1$
 
-				DModule m = (DModule)fileInfo.getFile(id);
+				DModule m = (DModule)fileInfo.getFile(id, cli.getActiveIsolateId());
                 m.lineMapping(sb);
 			}
 			else
@@ -214,16 +212,17 @@ public class Extensions
 	 */
 	public static void doShowBreak(DebugCLI cli) throws NotConnectedException
 	{
-		cli.waitTilHalted();
+		int isolateId = cli.getActiveIsolateId();
+		cli.waitTilHalted(isolateId);
 		try
 		{
 			Session session = cli.getSession();
 			StringBuilder sb = new StringBuilder();
-			if (session.isSuspended())
+			if (session.getWorkerSession(isolateId).isSuspended())
 			{
 				sb.append(getLocalizationManager().getLocalizedTextString("stopped")); //$NON-NLS-1$
 				sb.append(' ');
-				appendBreakInfo(cli, sb, true);
+				appendBreakInfo(cli, sb, true, isolateId);
 			}
 			else
 				sb.append(getLocalizationManager().getLocalizedTextString("key24")); //$NON-NLS-1$
@@ -237,7 +236,7 @@ public class Extensions
 	}
 
 	// Extended low level break information
-	public static void appendBreakInfo(DebugCLI cli, StringBuilder sb, boolean includeFault) throws NotConnectedException
+	public static void appendBreakInfo(DebugCLI cli, StringBuilder sb, boolean includeFault, int isolateId) throws NotConnectedException
 	{
 		Session session = cli.getSession();
 		FileInfoCache fileInfo = cli.getFileCache();
@@ -247,7 +246,7 @@ public class Extensions
 		int index = ((PlayerSession)session).getSuspendActionIndex();
 
 		SwfInfo info = null;
-		try { info = fileInfo.getSwfs()[index]; } catch(ArrayIndexOutOfBoundsException oobe) {}
+		try { info = fileInfo.getSwfs(isolateId)[index]; } catch(ArrayIndexOutOfBoundsException oobe) {}
 		if (info != null)
 		{
 			Map<String, String> args = new HashMap<String, String>();
@@ -274,7 +273,8 @@ public class Extensions
 	// Raw direct call to Player
 	public static void doShowVariable(DebugCLI cli) throws PlayerDebugException
 	{
-		cli.waitTilHalted();
+		int isolateId = cli.getActiveIsolateId();
+		cli.waitTilHalted(isolateId);
 		try
 		{
 			// an integer followed by a variable name
@@ -285,8 +285,8 @@ public class Extensions
 			StringBuilder sb = new StringBuilder();
 			sb.append(name);
 			sb.append(" = "); //$NON-NLS-1$
-			Value v = ((PlayerSession)session).getValue(id, name);
-            cli.m_exprCache.appendVariableValue(sb, v);
+			Value v = ((PlayerSession)session).getValue(id, name, isolateId);
+            cli.m_exprCache.appendVariableValue(sb, v, isolateId);
 			cli.out( sb.toString() );
 		}
 		catch(NullPointerException npe)
@@ -300,14 +300,15 @@ public class Extensions
 		/* currentXXX may NOT be invalid! */
 		int currentModule = cli.propertyGet(DebugCLI.LIST_MODULE);
 		int currentLine = cli.propertyGet(DebugCLI.LIST_LINE);
- 
+		int currentIsolate = cli.propertyGet(DebugCLI.LIST_WORKER);
+
 		String arg1 = null;
 		int module1 = currentModule;
 		int line1 = currentLine;
- 
+
 		String arg2 = null;
 		int line2 = currentLine;
- 
+
  		boolean functionNamed = false;
 		int numLines = 0;
  		try
@@ -324,11 +325,11 @@ public class Extensions
 				}
 				else
 				{
-					int[] result = cli.parseLocationArg(currentModule, currentLine, arg1);
+					int[] result = cli.parseLocationArg(currentModule, currentLine, arg1, currentIsolate);
 					module1 = result[0];
 					line2 = line1 = result[1];
  					functionNamed = (result[2] == 0) ? false : true;
- 
+
 					if (cli.hasMoreTokens())
 					{
 						arg2 = cli.nextToken();
@@ -339,22 +340,23 @@ public class Extensions
  			else
  			{
  				// since no parms test for valid location if none use players concept of where we stopped
- 				if( fileInfo.getFile(currentModule) == null)
+ 				if( fileInfo.getFile(currentModule, currentIsolate) == null)
  				{
+ 					int isolateId = cli.getActiveIsolateId();
  					//here we simply use the players concept of suspsend
- 					DSuspendInfo info = ((PlayerSession)session).getSuspendInfo();
+ 					DSuspendInfo info = ((PlayerSession)session).getSuspendInfoIsolate(isolateId);
  					int at = info.getOffset();
  					int which = info.getActionIndex();
  					int until = info.getNextOffset();
  					if (info.getReason() == SuspendReason.Unknown)
  						throw new SuspendedException();
- 
- 					SwfInfo swf = fileInfo.getSwfs()[which];
+
+ 					SwfInfo swf = fileInfo.getSwfs(isolateId)[which];
  					outputAssembly(cli, (DSwfInfo)swf, at, until);
  					throw new AmbiguousException(getLocalizationManager().getLocalizedTextString("key27")); //$NON-NLS-1$
  				}
- 			}			
- 
+ 			}
+
  			/**
  			 * Check for a few error conditions, otherwise we'll write a listing!
  			 */
@@ -366,15 +368,15 @@ public class Extensions
  			{
  				SourceFile file = fileInfo.getFile(module1);
  				numLines = file.getLineCount();
- 
+
  				// pressing return is ok, otherwise throw the exception
  				if (line1 > numLines && arg1 != null)
  					throw new IndexOutOfBoundsException();
- 
+
  				/* if no arg2 then user list a single line */
  				if (arg2 == null)
  					line2 = line1;
- 
+
  				/* adjust our range of lines to ensure we conform */
  				if (line1 < 1)
  				{
@@ -382,19 +384,19 @@ public class Extensions
  					line2 += -(line1 - 1);
  					line1 = 1;
  				}
- 
+
  				if (line2 > numLines)
  					line2 = numLines;
- 
+
 				//			    System.out.println("1="+module1+":"+line1+",2="+module2+":"+line2+",num="+numLines+",half="+half);
- 
+
  				/* nothing to display */
  				if (line1 > line2)
  					throw new IndexOutOfBoundsException();
- 
+
  				/* now dump the mixed source / assembly */
- 				// now lets find which swf this in 
- 				DSwfInfo swf = (DSwfInfo)fileInfo.swfForFile(file);
+ 				// now lets find which swf this in
+ 				DSwfInfo swf = (DSwfInfo)fileInfo.swfForFile(file, cli.getActiveIsolateId());
  				ActionLocation lStart = null;
  				ActionLocation lEnd = null;
  

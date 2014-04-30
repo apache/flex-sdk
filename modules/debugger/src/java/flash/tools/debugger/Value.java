@@ -1,20 +1,18 @@
 /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package flash.tools.debugger;
@@ -32,6 +30,7 @@ public interface Value
 	 * A special object representing ActionScript's "undefined" value.
 	 */
 	public static final Object UNDEFINED = new Object() {
+		@Override
 		public String toString() {
 			return "undefined";  //$NON-NLS-1$
 		}
@@ -119,7 +118,7 @@ public interface Value
 	 * The class name of the value. This isn't actually very useful, and should
 	 * probably go away; it had more relevant in ActionScript 2, when the return
 	 * value from this function could have been any one of the strings returned
-	 * by {@link DVariable#classNameFor(long, boolean)}.
+	 * by {@link flash.tools.debugger.concrete.DVariable#classNameFor(long, boolean)}.
 	 * 
 	 * In the AS3 world, the only possible return values from this function are:
 	 * 
@@ -137,12 +136,12 @@ public interface Value
 	 * regarding the variable.  They are bitfields identified
 	 * as VariableAttribute.xxx
 	 * 
-	 * @see VariableAttribute
+	 * @see flash.tools.debugger.VariableAttribute
 	 */
 	public int			getAttributes();
 
 	/**
-	 * @see VariableAttribute
+	 * @see flash.tools.debugger.VariableAttribute
 	 */
 	public boolean		isAttributeSet(int variableAttribute);
 
@@ -185,9 +184,9 @@ public interface Value
 	/**
 	 * Returns all child members of this variable.  Can only be called for
 	 * variables of type Object or MovieClip.
-	 * @throws NotConnectedException 
-	 * @throws NoResponseException 
-	 * @throws NotSuspendedException 
+	 * @throws flash.tools.debugger.NotConnectedException
+	 * @throws flash.tools.debugger.NoResponseException
+	 * @throws flash.tools.debugger.NotSuspendedException
 	 */
 	public Variable[]	getMembers(Session s) throws NotSuspendedException, NoResponseException, NotConnectedException;
 
@@ -197,9 +196,9 @@ public interface Value
 	 * @param s the session
 	 * @param name just a varname name, without its namespace (see <code>getName()</code>)
 	 * @return the specified child member, or null if there is no such child.
-	 * @throws NotConnectedException 
-	 * @throws NoResponseException 
-	 * @throws NotSuspendedException 
+	 * @throws flash.tools.debugger.NotConnectedException
+	 * @throws flash.tools.debugger.NoResponseException
+	 * @throws flash.tools.debugger.NotSuspendedException
 	 */
 	public Variable     getMemberNamed(Session s, String name) throws NotSuspendedException, NoResponseException, NotConnectedException;
 
@@ -207,9 +206,9 @@ public interface Value
 	 * Returns the number of child members of this variable.  If called for
 	 * a variable which has a simple type such as integer or string,
 	 * returns zero.
-	 * @throws NotConnectedException 
-	 * @throws NoResponseException 
-	 * @throws NotSuspendedException 
+	 * @throws flash.tools.debugger.NotConnectedException
+	 * @throws flash.tools.debugger.NoResponseException
+	 * @throws flash.tools.debugger.NotSuspendedException
 	 */
 	public int			getMemberCount(Session s) throws NotSuspendedException, NoResponseException, NotConnectedException;
 
@@ -248,4 +247,9 @@ public interface Value
 	 * @param name Variable name.
 	 */
 	public Variable[] getPrivateInheritedMemberNamed(String name);
+	
+	/**
+	 * Get the worker id of the isolate to which this value belongs.
+	 */
+	public int getIsolateId();
 }

@@ -1,20 +1,18 @@
 /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package flash.tools.debugger.concrete;
@@ -27,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import flash.tools.debugger.Isolate;
 import flash.tools.debugger.NoResponseException;
 import flash.tools.debugger.NotConnectedException;
 import flash.tools.debugger.NotSuspendedException;
@@ -42,16 +41,16 @@ import flash.tools.debugger.expression.Context;
  */
 public class DValue implements Value
 {
-	/** @see VariableType */
+	/** @see flash.tools.debugger.VariableType */
 	private int			m_type;
 
-	/** @see Variable#getTypeName() */
+	/** @see flash.tools.debugger.Variable#getTypeName() */
 	private String		m_typeName;
 
-	/** @see Variable#getClassName() */
+	/** @see flash.tools.debugger.Variable#getClassName() */
 	private String		m_className;
 
-	/** @see ValueAttribute */
+	/** @see flash.tools.debugger.ValueAttribute */
 	private int			m_attribs;
 
 	/** Maps "varname" (without its namespace) to a Variable */
@@ -96,6 +95,21 @@ public class DValue implements Value
 	
 	/** Maps duplicate private "varname" to a list of Variable objects */
 	private Map<String, List<DVariable>> m_inheritedPrivates;
+	
+	private int m_isolateId;
+
+
+    /**
+     * Create a top-level variable which has no parent.  This may be used for
+     * _global, _root, stack frames, etc.
+     *
+     * @param id the ID of the variable
+     */
+    public DValue(long id)
+    {
+        init(VariableType.UNKNOWN, null, null, 0, new Long(id));
+        setIsolateId(0);
+    }
 
 
 	/**
@@ -104,9 +118,10 @@ public class DValue implements Value
 	 *
 	 * @param id the ID of the variable
 	 */
-	public DValue(long id)
+	public DValue(long id, int isolateId)
 	{
 		init(VariableType.UNKNOWN, null, null, 0, new Long(id));
+		setIsolateId(isolateId);
 	}
 
 	/**
@@ -121,10 +136,13 @@ public class DValue implements Value
 	 *            for an Object or MovieClip, this should be a Long which contains the
 	 *            ID of this variable.  For a variable of any other type, such as integer
 	 *            or string, this should be the value of the variable.
+	 * @param isolateId
+	 * 			  the worker to which this value belongs
 	 */
-	public DValue(int type, String typeName, String className, int attribs, Object value)
+	public DValue(int type, String typeName, String className, int attribs, Object value, int isolateId)
 	{
 		init(type, typeName, className, attribs, value);
+		setIsolateId(isolateId);
 	}
 
 	/**
@@ -133,18 +151,18 @@ public class DValue implements Value
 	 * There is nothing special about these objects -- it would be just as legitimate for
 	 * anyone who wants a Value for a primitive to make their own subclass of Value.
 	 */
-	public static DValue forPrimitive(Object primitiveValue)
+	public static DValue forPrimitive(Object primitiveValue, int isolateId)
 	{
 		if (primitiveValue == null)
-			return new DValue(VariableType.NULL, "null", "", 0, primitiveValue); //$NON-NLS-1$ //$NON-NLS-2$
+			return new DValue(VariableType.NULL, "null", "", 0, primitiveValue, isolateId); //$NON-NLS-1$ //$NON-NLS-2$
 		else if (primitiveValue == Value.UNDEFINED)
-			return new DValue(VariableType.UNDEFINED, "undefined", "", 0, primitiveValue); //$NON-NLS-1$ //$NON-NLS-2$
+			return new DValue(VariableType.UNDEFINED, "undefined", "", 0, primitiveValue, isolateId); //$NON-NLS-1$ //$NON-NLS-2$
 		else if (primitiveValue instanceof Boolean)
-			return new DValue(VariableType.BOOLEAN, "Boolean", "", 0, primitiveValue); //$NON-NLS-1$ //$NON-NLS-2$
+			return new DValue(VariableType.BOOLEAN, "Boolean", "", 0, primitiveValue, isolateId); //$NON-NLS-1$ //$NON-NLS-2$
 		else if (primitiveValue instanceof Double)
-			return new DValue(VariableType.NUMBER, "Number", "", 0, primitiveValue); //$NON-NLS-1$ //$NON-NLS-2$
+			return new DValue(VariableType.NUMBER, "Number", "", 0, primitiveValue, isolateId); //$NON-NLS-1$ //$NON-NLS-2$
 		else if (primitiveValue instanceof String)
-			return new DValue(VariableType.STRING, "String", "", 0, primitiveValue); //$NON-NLS-1$ //$NON-NLS-2$
+			return new DValue(VariableType.STRING, "String", "", 0, primitiveValue, isolateId); //$NON-NLS-1$ //$NON-NLS-2$
 		assert false;
 		return null;
 	}
@@ -167,6 +185,15 @@ public class DValue implements Value
 		m_members = null;
 		m_inheritedPrivates = null;
 		m_nonProtoId = getId();
+		m_isolateId = Isolate.DEFAULT_ID;
+	}
+	
+	public int getIsolateId() {
+		return m_isolateId;
+	}
+	
+	public void setIsolateId(int isolateid) {
+		m_isolateId = isolateid;
 	}
 
 	/*
@@ -281,9 +308,9 @@ public class DValue implements Value
 	/**
 	 * WARNING: this call will initiate a call to the session to obtain the members
 	 * the first time around.
-	 * @throws NotConnectedException
-	 * @throws NoResponseException
-	 * @throws NotSuspendedException
+	 * @throws flash.tools.debugger.NotConnectedException
+	 * @throws flash.tools.debugger.NoResponseException
+	 * @throws flash.tools.debugger.NotSuspendedException
 	 */
 	private void obtainMembers(Session s) throws NotSuspendedException, NoResponseException, NotConnectedException
 	{
@@ -298,8 +325,8 @@ public class DValue implements Value
 			long id = getId();
 			if (id != Value.UNKNOWN_ID)
 			{
-				if (((PlayerSession)s).getRawValue(id) == this)
-					((PlayerSession)s).obtainMembers(id);
+				if (((PlayerSession)s).getRawValue(id, m_isolateId) == this)
+					((PlayerSession)s).obtainMembers(id, m_isolateId);
 				if (m_members != null)
 				{
 					Iterator<DVariable> iter = m_members.values().iterator();
@@ -483,8 +510,9 @@ public class DValue implements Value
 
 	/**
 	 * Necessary for expression evaluation.
-	 * @see Context#lookup(Object)
+	 * @see flash.tools.debugger.expression.Context#lookup(Object)
 	 */
+	@Override
 	public String toString() { return getValueAsString(); }
 
 	public Variable[] getPrivateInheritedMembers() {

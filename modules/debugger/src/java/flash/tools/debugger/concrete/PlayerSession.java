@@ -1,20 +1,18 @@
 /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package flash.tools.debugger.concrete;
@@ -42,7 +40,11 @@ import java.util.regex.Pattern;
 import flash.tools.debugger.AIRLaunchInfo;
 import flash.tools.debugger.Frame;
 import flash.tools.debugger.IDebuggerCallbacks;
+import flash.tools.debugger.ILauncher;
 import flash.tools.debugger.InProgressException;
+import flash.tools.debugger.Isolate;
+import flash.tools.debugger.IsolateController;
+import flash.tools.debugger.IsolateSession;
 import flash.tools.debugger.Location;
 import flash.tools.debugger.NoResponseException;
 import flash.tools.debugger.NotConnectedException;
@@ -71,7 +73,7 @@ import flash.tools.debugger.expression.PlayerFaultException;
 import flash.util.Trace;
 
 
-public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
+public class PlayerSession implements Session, DProtocolNotifierIF, Runnable, IsolateController
 {
 	public static final int MAX_STACK_DEPTH = 256;
 	public static final long MAX_TERMINATE_WAIT_MILLIS = 10000;
@@ -88,10 +90,16 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	private volatile boolean m_isHalted; // WARNING -- accessed from multiple threads
 	private volatile boolean m_incoming; // WARNING -- accessed from multiple threads
 	private volatile boolean m_lastResponse;  // whether there was a reponse from the last message to the Player
+	private volatile HashMap<Integer, PlayerSessionIsolateStatus> m_isolateStatus = new HashMap<Integer, PlayerSessionIsolateStatus>();
+	
 	private int				m_watchTransactionTag;
 	private Boolean			m_playerCanCallFunctions;
 	private Boolean			m_playerSupportsWatchpoints;
 	private Boolean			m_playerCanBreakOnAllExceptions;
+	private Boolean			m_playerSupportsConcurrency;
+	private Boolean			m_playerSupportsWideLine;
+	
+	private ILauncher launcher;
 
 	/**
 	 * The URL that was launched, or <code>null</code> if not known.  Note:
@@ -109,11 +117,16 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	static volatile boolean	m_debugMsgFileOn;	// debug ONLY for file dump; turned on with "set $debug_message_file = 1"
 	volatile int			m_debugMsgFileSize;	// debug ONLY for file dump; controlled with "set $debug_message_file_size = NNN"
 
+	//FIXME: Make this concurrency aware
 	/**
 	 * A simple cache of previous "is" and "instanceof" queries, in order to
 	 * avoid having to send redundant messages to the player.
 	 */
 	private Map<String, Boolean> m_evalIsAndInstanceofCache = new HashMap<String, Boolean>();
+	
+	private volatile int m_lastPreIsolate = Isolate.DEFAULT_ID;
+	
+	private final Map<Integer, IsolateSession> m_isolateSessions;
 
 	private static final String DEBUG_MESSAGES = "$debug_messages"; //$NON-NLS-1$
 	private static final String DEBUG_MESSAGE_SIZE = "$debug_message_size"; //$NON-NLS-1$
@@ -123,7 +136,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	private static final String CONSOLE_ERRORS = "$console_errors"; //$NON-NLS-1$
 
 	private static final String FLASH_PREFIX = "$flash_"; //$NON-NLS-1$
-
+	
 	PlayerSession(Socket s, DProtocol proto, DManager manager, IDebuggerCallbacks debuggerCallbacks)
 	{
 		m_isConnected = false;
@@ -140,6 +153,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		m_watchTransactionTag = 1;  // number that is sent for each watch transaction that occurs
 		m_playerCanCallFunctions = null;
 		m_debuggerCallbacks = debuggerCallbacks;
+		m_isolateSessions = Collections.synchronizedMap(new HashMap<Integer, IsolateSession>());
 	}
 	
 	private static PlayerSession createFromSocketHelper(Socket s, IDebuggerCallbacks debuggerCallbacks, DProtocol proto) throws IOException
@@ -156,7 +170,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 * @param s
 	 * @param debuggerCallbacks
 	 * @return
-	 * @throws IOException
+	 * @throws java.io.IOException
 	 */
 	public static PlayerSession createFromSocket(Socket s, IDebuggerCallbacks debuggerCallbacks) throws IOException
 	{
@@ -172,7 +186,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 * @param debuggerCallbacks
 	 * @param sessionManager
 	 * @return
-	 * @throws IOException
+	 * @throws java.io.IOException
 	 */
 	public static PlayerSession createFromSocketWithOptions(Socket s, IDebuggerCallbacks debuggerCallbacks, SessionManager sessionManager) throws IOException
 	{
@@ -298,6 +312,24 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 
 		return m_isHalted;
 	}
+	
+	/*
+	 * @see flash.tools.debugger.Session#isIsolateSuspended()
+	 */
+	public boolean isWorkerSuspended(int isolateId) throws NotConnectedException
+	{
+		if (isolateId == Isolate.DEFAULT_ID)
+			return isSuspended();
+		
+		if (!isConnected())
+			throw new NotConnectedException();
+		
+		if (m_isolateStatus.containsKey(isolateId)) {
+			return m_isolateStatus.get(isolateId).m_isHalted;
+		}
+		
+		return false;
+	}
 
 	/**
 	 * Start up the session listening for incoming messages on the socket
@@ -328,10 +360,17 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		sendSwfloadNotify();
 		sendGetterTimeout();
 		sendSetterTimeout();
-		boolean responded = sendSquelch(true);
+		boolean responded = sendSquelch(true, Isolate.DEFAULT_ID);
 
 		// now note in our preferences whether get is working or not.
 		setPreference(SessionManager.PLAYER_SUPPORTS_GET, playerSupportsGet() ? 1 : 0);
+		if (supportsConcurrency()) {
+			sendConcurrentDebugger();
+		}
+		
+		if (supportsWideLineNumbers()) {
+			sendWideLineDebugger();
+		}
 
 		// Spawn a background thread which fetches the SWF and SWD
 		// from the Player and uses them to build function name tables
@@ -444,7 +483,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 *            AppleScript via "item 1 or argv", "item 2 of argv", etc.
 	 * @return any text which was sent to stdout by /usr/bin/osascript, with the
 	 *         trailing \n already removed
-	 * @throws IOException
+	 * @throws java.io.IOException
 	 */
 	private String executeAppleScript(String appleScriptFilename, String[] argv) throws IOException
 	{
@@ -591,7 +630,15 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 			{
 				try
 				{
-					m_debuggerCallbacks.terminateDebugTarget(m_process);
+					//if a launcher is set for handling the launcher operations then use it.
+					if(null != launcher)
+					{
+						m_debuggerCallbacks.terminateDebugTarget(m_process,launcher);
+					}
+					else
+					{
+						m_debuggerCallbacks.terminateDebugTarget(m_process);
+					}
 				}
 				catch (IOException e)
 				{
@@ -655,12 +702,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public void resume() throws NotSuspendedException, NotConnectedException, NoResponseException
 	{
-		// send a continue message then return
-		if (!isSuspended())
-			throw new NotSuspendedException();
-
-		if (!simpleRequestResponseMessage(DMessage.OutContinue, DMessage.InContinue))
-			throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
+		resumeWorker(Isolate.DEFAULT_ID);
 	}
 
 	/*
@@ -668,21 +710,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public void suspend() throws SuspendedException, NotConnectedException, NoResponseException
 	{
-		// send a halt message
-		int wait = getPreference(SessionManager.PREF_SUSPEND_WAIT);
- 		int every = 50; // wait this long for a response.  The lower the number the more aggressive we are!
-
-		if (isSuspended())
-			throw new SuspendedException();
-
-		while (!isSuspended() && wait > 0)
-		{
-			simpleRequestResponseMessage(DMessage.OutStopDebug, DMessage.InBreakAtExt, every);
-			wait -= every;
-		}
-
-		if (!isSuspended())
-			throw new NoResponseException(wait);
+		suspendWorker(Isolate.DEFAULT_ID);
 	}
 
 	/**
@@ -690,18 +718,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public DSuspendInfo getSuspendInfo()
 	{
-		DSuspendInfo info = m_manager.getSuspendInfo();
-		if (info == null)
-		{
-			// request break information
-			if (simpleRequestResponseMessage(DMessage.OutGetBreakReason, DMessage.InBreakReason))
-				info = m_manager.getSuspendInfo();
-
-			// if we still can't get any info from the manager...
-			if (info == null)
-				info = new DSuspendInfo();  // empty unknown break information
-		}
-		return info;
+		return getSuspendInfoIsolate(Isolate.DEFAULT_ID);
 	}
 
 	/**
@@ -745,25 +762,19 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public SwfInfo[] getSwfs() throws NoResponseException
 	{
-		if (m_manager.getSwfInfoCount() == 0)
-		{
-			// need to help out on the first one since the player
-			// doesn't send it
-			requestSwfInfo(0);
-		}
-		SwfInfo[] swfs = m_manager.getSwfInfos();
-		return swfs;
+		return getSwfsWorker(Isolate.DEFAULT_ID);
 	}
 
 	/**
 	 * Request information on a particular swf, used by DSwfInfo
 	 * to fill itself correctly
 	 */
-	public void requestSwfInfo(int at) throws NoResponseException
+	public void requestSwfInfo(int at, int isolateId) throws NoResponseException
 	{
 		// nope don't have it...might as well go out and ask for all of them.
 		DMessage dm = DMessageCache.alloc(4);
 		dm.setType( DMessage.OutSwfInfo );
+		dm.setTargetIsolate(isolateId);
 		dm.putWord(at);
 		dm.putWord(0);  // rserved
 
@@ -803,15 +814,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public void stepInto() throws NotSuspendedException, NoResponseException, NotConnectedException
 	{
-		if (isSuspended())
-		{
-			// send a step-into message and then wait for the Flash player to tell us that is has
-			// resumed execution
-			if (!simpleRequestResponseMessage(DMessage.OutStepInto, DMessage.InContinue))
-				throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
-		}
-		else
-			throw new NotSuspendedException();
+		stepIntoWorker(Isolate.DEFAULT_ID);
 	}
 
 	/*
@@ -819,15 +822,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public void stepOut() throws NotSuspendedException, NoResponseException, NotConnectedException
 	{
-		if (isSuspended())
-		{
-			// send a step-out message and then wait for the Flash player to tell us that is has
-			// resumed execution
-			if (!simpleRequestResponseMessage(DMessage.OutStepOut, DMessage.InContinue))
-				throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
-		}
-		else
-			throw new NotSuspendedException();
+		stepOutWorker(Isolate.DEFAULT_ID);
 	}
 
 	/*
@@ -835,15 +830,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public void stepOver() throws NotSuspendedException, NoResponseException, NotConnectedException
 	{
-		if (isSuspended())
-		{
-			// send a step-over message and then wait for the Flash player to tell us that is has
-			// resumed execution
-			if (!simpleRequestResponseMessage(DMessage.OutStepOver, DMessage.InContinue))
-				throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
-		}
-		else
-			throw new NotSuspendedException();
+		stepOverWorker(Isolate.DEFAULT_ID);
 	}
 
 	/*
@@ -869,13 +856,14 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
      * @param lineNbr
      * @return
      */
-    public void requestFunctionNames(int moduleId, int lineNbr) throws VersionException, NoResponseException
+    public void requestFunctionNames(int moduleId, int lineNbr, int isolateId) throws VersionException, NoResponseException
     {
         // only player 9 supports this message
         if (m_manager.getVersion() >= 9)
         {
             DMessage dm = DMessageCache.alloc(8);
             dm.setType(DMessage.OutGetFncNames);
+            dm.setTargetIsolate(isolateId);
             dm.putDWord(moduleId);
             dm.putDWord(lineNbr);
 
@@ -891,9 +879,9 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	/**
 	 * From a given file identifier return a source file object
 	 */
-	public SourceFile getFile(int fileId)
+	public SourceFile getFile(int fileId, int isolateId)
 	{
-		return m_manager.getSource(fileId);
+		return m_manager.getSource(fileId, isolateId);
 	}
 
 	/**
@@ -901,7 +889,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public Location[] getBreakpointList()
 	{
-		return m_manager.getBreakpoints();
+		return m_manager.getBreakpoints(Isolate.DEFAULT_ID);
 	}
 
 	/*
@@ -909,25 +897,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public Location setBreakpoint(int fileId, int lineNum) throws NoResponseException, NotConnectedException
 	{
-		/* send the message to the player and await a response */
-		Location l = null;
-		int bp = DLocation.encodeId(fileId, lineNum);
-
-		DMessage dm = DMessageCache.alloc(8);
-		dm.setType(DMessage.OutSetBreakpoints);
-		dm.putDWord(1);
-		dm.putDWord(bp);
-
-		boolean gotResponse = simpleRequestResponseMessage(dm, DMessage.InSetBreakpoint);
-		if(gotResponse)
-		{
-			/* even though we think we got an answer check that the breakpoint was added */
-			l = m_manager.getBreakpoint(bp);
-		}
-		else
-			throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
-
-		return l;
+		return setBreakpointWorker(fileId, lineNum, Isolate.DEFAULT_ID);
 	}
 
 	/*
@@ -940,18 +910,30 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		int fileId = source.getId();
 		int lineNum = local.getLine();
 		int bp = DLocation.encodeId(fileId, lineNum);
-		Location l = m_manager.getBreakpoint(bp);
+		int isolateId = local.getIsolateId();
+		Location l = null;
+		l = m_manager.getBreakpoint(bp, isolateId);
+		
 		if (l != null)
 		{
 			/* send the message */
-			DMessage dm = DMessageCache.alloc(8);
+			int wideLineSize = 0;
+			if (supportsWideLineNumbers())
+				wideLineSize = 4;
+			DMessage dm = DMessageCache.alloc(8 + wideLineSize);
 			dm.setType(DMessage.OutRemoveBreakpoints);
+			dm.setTargetIsolate(isolateId);
 			dm.putDWord(1);
-			dm.putDWord(bp);
+			if (!supportsWideLineNumbers())
+				dm.putDWord(bp);
+			else {
+				dm.putDWord(fileId);
+				dm.putDWord(lineNum);
+			}
 			sendMessage(dm);
 
 			/* no callback from the player so we remove it ourselves */
-			m_manager.removeBreakpoint(bp);
+			m_manager.removeBreakpoint(bp, isolateId);
 		}
 		return l;
 	}
@@ -961,10 +943,18 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public Watch[] getWatchList() throws NoResponseException, NotConnectedException
 	{
-		return m_manager.getWatchpoints();
+		return getWatchListWorker(Isolate.DEFAULT_ID);
+	}
+	
+	/*
+	 * @see flash.tools.debugger.Session#getWatchList()
+	 */
+	public Watch[] getWatchListWorker(int isolateId) throws NoResponseException, NotConnectedException
+	{
+			return m_manager.getWatchpoints(isolateId);
 	}
 
-	private Watch setWatch(long varId, String memberName, int kind) throws NoResponseException, NotConnectedException, NotSupportedException
+	private Watch setWatch(long varId, String memberName, int kind, int isolateId) throws NoResponseException, NotConnectedException, NotSupportedException
 	{
 		// we really have two cases here, one where we add a completely new
 		// watchpoint and the other where we modify an existing one.
@@ -973,32 +963,32 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		Watch w = null;
 		int tag = m_watchTransactionTag++;
 
-		if (addWatch(varId, memberName, kind, tag))
+		if (addWatch(varId, memberName, kind, tag, isolateId))
 		{
 			// good that we got a response now let's check that
 			// it actually worked.
-			int count = m_manager.getWatchpointCount();
+			int count = m_manager.getWatchpointCount(isolateId);
 			if (count > 0)
 			{
-				DWatch lastWatch = m_manager.getWatchpoint(count-1);
+				DWatch lastWatch = m_manager.getWatchpoint(count-1, isolateId);
 				if (lastWatch.getTag() == tag)
 					w = lastWatch;
 			}
 		}
 		return w;
 	}
-
+	
 	/*
 	 * @see flash.tools.debugger.Session#setWatch(flash.tools.debugger.Variable, java.lang.String, int)
 	 */
 	public Watch setWatch(Value v, String memberName, int kind) throws NoResponseException, NotConnectedException, NotSupportedException
 	{
-		return setWatch(v.getId(), memberName, kind);
+		return setWatch(v.getId(), memberName, kind, v.getIsolateId());
 	}
 
 	public Watch setWatch(Watch watch) throws NoResponseException, NotConnectedException, NotSupportedException
 	{
-		return setWatch(watch.getValueId(), watch.getMemberName(), watch.getKind());
+		return setWatch(watch.getValueId(), watch.getMemberName(), watch.getKind(), watch.getIsolateId());
 	}
 
 	/*
@@ -1006,17 +996,17 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public Watch clearWatch(Watch watch) throws NoResponseException, NotConnectedException
 	{
-		Watch[] list = getWatchList();
+		Watch[] list = getWatchListWorker(watch.getIsolateId());
 		Watch w = null;
-		if ( removeWatch(watch.getValueId(), watch.getMemberName()) )
+		if ( removeWatch(watch.getValueId(), watch.getMemberName(), watch.getIsolateId()) )
 		{
 			// now let's first check the size of the list, it
 			// should now be one less
-			if (m_manager.getWatchpointCount() < list.length)
+			if (m_manager.getWatchpointCount(watch.getIsolateId()) < list.length)
 			{
 				// ok we made a change. So let's compare list and see which
 				// one went away
-				Watch[] newList = getWatchList();
+				Watch[] newList = getWatchListWorker(watch.getIsolateId());
 				for(int i=0; i<newList.length; i++)
 				{
 					// where they differ is the missing one
@@ -1040,29 +1030,34 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public Variable[] getVariableList() throws NotSuspendedException, NoResponseException, NotConnectedException, VersionException
 	{
+		return getVariableListWorker(Isolate.DEFAULT_ID);
+	}
+	
+	public Variable[] getVariableListWorker(int isolateId) throws NotSuspendedException, NoResponseException, NotConnectedException, VersionException
+	{
 		// make sure the player has stopped and send our message awaiting a response
-		if (!isSuspended())
+		if (!isWorkerSuspended(isolateId))
 			throw new NotSuspendedException();
 
-		requestFrame(0);  // our 0th frame gets our local context
+		requestFrame(0, isolateId);  // our 0th frame gets our local context
 
 		// now let's request all of the special variables too
-		getValue(Value.GLOBAL_ID);
-		getValue(Value.THIS_ID);
-		getValue(Value.ROOT_ID);
+		getValueWorker(Value.GLOBAL_ID, isolateId);
+		getValueWorker(Value.THIS_ID, isolateId);
+		getValueWorker(Value.ROOT_ID, isolateId);
 
 		// request as many levels as we can get
 		int i = 0;
 		Value v = null;
 		do
 		{
-			v = getValue(Value.LEVEL_ID-i);
+			v = getValueWorker(Value.LEVEL_ID-i, isolateId);
 		}
 		while( i++ < 128 && v != null);
 
 		// now that we've primed the DManager we can request the base variable whose
 		// children are the variables that are available
-		v = m_manager.getValue(Value.BASE_ID);
+		v = m_manager.getValue(Value.BASE_ID, isolateId);
 		if (v == null)
 			throw new VersionException();
 		return v.getMembers(this);
@@ -1073,33 +1068,34 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public Frame[] getFrames() throws NotConnectedException
 	{
-		return m_manager.getFrames();
+		return m_manager.getFrames(Isolate.DEFAULT_ID);
 	}
 
 	/**
 	 * Asks the player to return information regarding our current context which includes
 	 * this pointer, arguments for current frame, locals, etc.
 	 */
-	public void requestFrame(int depth) throws NotSuspendedException, NoResponseException, NotConnectedException
+	public void requestFrame(int depth, int isolateId) throws NotSuspendedException, NoResponseException, NotConnectedException
 	{
 		if (playerSupportsGet())
 		{
-			if (!isSuspended())
+			if (!isWorkerSuspended(isolateId))
 				throw new NotSuspendedException();
 
 			int timeout = getPreference(SessionManager.PREF_CONTEXT_RESPONSE_TIMEOUT);
 
 			DMessage dm = DMessageCache.alloc(4);
 			dm.setType(DMessage.OutGetFrame);
+			dm.setTargetIsolate(isolateId);
 			dm.putDWord(depth);  // depth of zero
 			if (!simpleRequestResponseMessage(dm,  DMessage.InFrame, timeout)) {
 				throw new NoResponseException(timeout);
 			}
 
-			pullUpActivationObjectVariables(depth);
+			pullUpActivationObjectVariables(depth, isolateId);
 		}
 	}
-
+	
 	/**
 	 * The compiler sometimes creates special local variables called
 	 * "activation objects."  When it decides to do this (e.g. if the
@@ -1115,10 +1111,12 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 *
 	 * @param depth the depth of the stackframe we are fixing; 0 is topmost
 	 */
-	private void pullUpActivationObjectVariables(int depth) throws NotSuspendedException, NoResponseException, NotConnectedException
+	private void pullUpActivationObjectVariables(int depth, int isolateId) throws NotSuspendedException, NoResponseException, NotConnectedException
 	{
-		DValue frame = m_manager.getValue(Value.BASE_ID-depth);
-		DStackContext context = m_manager.getFrame(depth);		
+		DValue frame = m_manager.getValue(Value.BASE_ID-depth, isolateId);
+		if (frame == null)
+			return;
+		DStackContext context = m_manager.getFrame(depth, isolateId);		
 		DVariable[] frameVars = (DVariable[]) frame.getMembers(this);
 		Map<String, DVariable> varmap = new LinkedHashMap<String, DVariable>(frameVars.length); // preserves order
 		List<DVariable> activationObjects = new ArrayList<DVariable>();
@@ -1198,28 +1196,33 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public Value getValue(long valueId) throws NotSuspendedException, NoResponseException, NotConnectedException
 	{
+		return getValueWorker(valueId, Isolate.DEFAULT_ID);
+	}
+	
+	public Value getValueWorker(long valueId, int isolateId) throws NotSuspendedException, NoResponseException, NotConnectedException
+	{
 		DValue val = null;
 
-		if (!isSuspended())
+		if (!isWorkerSuspended(isolateId))
 			throw new NotSuspendedException();
 
 		// get it from cache if we can
-		val = m_manager.getValue(valueId);
+		val = m_manager.getValue(valueId, isolateId);
 
 		if (val == null)
 		{
 			// if a special variable, then we need to trigger a local frame call, otherwise just use id to get it
 			if (valueId < Value.UNKNOWN_ID)
 			{
-				requestFrame(0); // force our current frame to get populated, BASE_ID will be available
+				requestFrame(0, isolateId); // force our current frame to get populated, BASE_ID will be available
 			}
 			else if (valueId > Value.UNKNOWN_ID)
 			{
-				requestVariable(valueId, null);
+				requestVariable(valueId, null, isolateId);
 			}
 
 			// after all this we should have our variable cache'd so try again if it wasn't there the first time
-			val = m_manager.getValue(valueId);
+			val = m_manager.getValue(valueId, isolateId);
 		}
 
 		return val;
@@ -1228,9 +1231,9 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	/**
 	 * Returns the current value object for the given id; never requests it from the player.
 	 */
-	public Value getRawValue(long valueId)
+	public Value getRawValue(long valueId, int isolateId)
 	{
-		return m_manager.getValue(valueId);
+		return m_manager.getValue(valueId, isolateId);
 	}
 
 	/**
@@ -1239,26 +1242,26 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 * player (because it can't, of course).  Returns <code>null</code> if we don't have
 	 * a value for that id.
 	 */
-	public Value getPreviousValue(long valueId)
+	public Value getPreviousValue(long valueId, int isolateId)
 	{
-		return m_manager.getPreviousValue(valueId);
+		return m_manager.getPreviousValue(valueId, isolateId);
 	}
 
 	/**
 	 * Launches a request to obtain all the members of the specified variable, and
 	 * store them in the variable which would be returned by
-	 * {@link DManager#getVariable(long)}.
+	 * {@link flash.tools.debugger.concrete.DManager#getVariable(long)}.
 	 *
 	 * @param valueId id of variable whose members we want; underlying Variable must
 	 * already be known by the PlayerSessionManager.
 	 *
-	 * @throws NoResponseException
-	 * @throws NotConnectedException
-	 * @throws NotSuspendedException
+	 * @throws flash.tools.debugger.NoResponseException
+	 * @throws flash.tools.debugger.NotConnectedException
+	 * @throws flash.tools.debugger.NotSuspendedException
 	 */
-	void obtainMembers(long valueId) throws NoResponseException, NotConnectedException, NotSuspendedException
+	void obtainMembers(long valueId, int isolateId) throws NoResponseException, NotConnectedException, NotSuspendedException
 	{
-		if (!isSuspended())
+		if (!isWorkerSuspended(isolateId))
 			throw new NotSuspendedException();
 
 		// Get it from cache.  Normally, this should never fail; however, in
@@ -1266,17 +1269,22 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		// that a thread has called this even after a different thread has
 		// single-stepped, so that the original variable is no longer valid.
 		// So, we'll check for a null return value.
-		DValue v = m_manager.getValue(valueId);
+		DValue v = m_manager.getValue(valueId, isolateId);
 
 		if (v != null && !v.membersObtained())
 		{
-			requestVariable(valueId, null, false, true);
+			requestVariable(valueId, null, false, true, isolateId);
 		}
 	}
 
 	public Value getGlobal(String name) throws NotSuspendedException, NoResponseException, NotConnectedException
 	{
-		Value v = getValue(0, name);
+		return getGlobalWorker(name, Isolate.DEFAULT_ID);
+	}
+	
+	public Value getGlobalWorker(String name, int isolateId) throws NotSuspendedException, NoResponseException, NotConnectedException
+	{
+		Value v = getValue(0, name, isolateId);
 
 		if (v==null || v.getType() == VariableType.UNDEFINED)
 			return null;
@@ -1297,27 +1305,27 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 * paragraph was written for AS2; __proto__ doesn't exist
 	 * in AS3.  TODO: revise this paragraph]
 	 */
-	public Value getValue(long varId, String name) throws NotSuspendedException, NoResponseException, NotConnectedException
+	public Value getValue(long varId, String name, int isolateId) throws NotSuspendedException, NoResponseException, NotConnectedException
 	{
 		Value v = null;
-		if (isSuspended())
+		if (isWorkerSuspended(isolateId))
 		{
 			int fireGetter = getPreference(SessionManager.PREF_INVOKE_GETTERS);
 
 			// disable children attaching to parent variables and clear our
 			// most recently seen variable
-			m_manager.clearLastVariable();
-			m_manager.enableChildAttach(false);
+			m_manager.clearLastVariable(isolateId);
+			m_manager.enableChildAttach(false, isolateId);
 
 			try
 			{
-				requestVariable(varId, name, (fireGetter != 0), false);
+				requestVariable(varId, name, (fireGetter != 0), false, isolateId);
 
-				DVariable lastVariable = m_manager.lastVariable();
+				DVariable lastVariable = m_manager.lastVariable(isolateId);
 				if (lastVariable != null)
 					v = lastVariable.getValue();
 				else
-					v = DValue.forPrimitive(Value.UNDEFINED);
+					v = DValue.forPrimitive(Value.UNDEFINED, isolateId);
 			}
 			catch (NoResponseException e)
 			{
@@ -1333,11 +1341,11 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 					// because in every other case, this function does not add members to
 					// existing objects.  Need to revisit this.
 					v = new DValue(VariableType.STRING, "String", "String", ValueAttribute.IS_EXCEPTION, //$NON-NLS-1$ //$NON-NLS-2$
-							e.getLocalizedMessage());
+							e.getLocalizedMessage(), isolateId);
 					if (varId != 0) {
-						DVariable var = new DVariable(name, (DValue)v);
-						m_manager.enableChildAttach(true);
-						m_manager.addVariableMember(varId, var);
+						DVariable var = new DVariable(name, (DValue)v, isolateId);
+						m_manager.enableChildAttach(true, isolateId);
+						m_manager.addVariableMember(varId, var, isolateId);
 					}
 				}
 				else
@@ -1348,7 +1356,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 			finally
 			{
 				// reset our attach flag, so that children attach to parent variables.
-				m_manager.enableChildAttach(true);
+				m_manager.enableChildAttach(true, isolateId);
 			}
 		}
 		else
@@ -1357,9 +1365,9 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		return v;
 	}
 
-	private void requestVariable(long id, String name) throws NoResponseException, NotConnectedException, NotSuspendedException
+	private void requestVariable(long id, String name, int isolateId) throws NoResponseException, NotConnectedException, NotSuspendedException
 	{
-		requestVariable(id, name, false, false);
+		requestVariable(id, name, false, false, isolateId);
 	}
 
 	/**
@@ -1369,22 +1377,24 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 * @param args the args to the function
 	 * @return the return value of the function
 	 */
-	private Value callFunction(Value thisValue, boolean isConstructor, String funcname, Value[] args) throws PlayerDebugException
+	private Value callFunction(Value thisValue, boolean isConstructor, String funcname, Value[] args, int isolateId) throws PlayerDebugException
 	{
-		if (!isSuspended())
+		if (!isWorkerSuspended(isolateId))
 			throw new NotSuspendedException();
 
-		if (!playerCanCallFunctions())
+		if (!playerCanCallFunctions(isolateId))
 			throw new NotSupportedException(PlayerSessionManager.getLocalizationManager().getLocalizedTextString("functionCallsNotSupported")); //$NON-NLS-1$
 
 		// name = getRawMemberName(id, name);
 
-		m_manager.clearLastFunctionCall();
+		m_manager.clearLastFunctionCall(isolateId);
 
 		DMessage dm = buildCallFunctionMessage(isConstructor, thisValue, funcname, args);
 
+		dm.setTargetIsolate(isolateId);
+		
 		// make sure any exception during the setter gets held onto
-		m_manager.beginPlayerCodeExecution();
+		m_manager.beginPlayerCodeExecution(isolateId);
 
 		// TODO wrong timeout
 		int timeout = getPreference(SessionManager.PREF_GETVAR_RESPONSE_TIMEOUT);
@@ -1393,16 +1403,16 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		boolean result = simpleRequestResponseMessage(dm, DMessage.InCallFunction, timeout);
 
 		// tell manager we're done; ignore returned FaultEvent
-		m_manager.endPlayerCodeExecution();
+		m_manager.endPlayerCodeExecution(isolateId);
 
 		if (!result)
 			throw new NoResponseException(timeout);
 
-		DVariable lastFunctionCall = m_manager.lastFunctionCall();
+		DVariable lastFunctionCall = m_manager.lastFunctionCall(isolateId);
 		if (lastFunctionCall != null)
 			return lastFunctionCall.getValue();
 		else
-			return DValue.forPrimitive(Value.UNDEFINED);
+			return DValue.forPrimitive(Value.UNDEFINED, isolateId);
 	}
 
 	/*
@@ -1410,12 +1420,17 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 */
 	public Value callFunction(Value thisValue, String funcname, Value[] args) throws PlayerDebugException
 	{
-		Value retval = callPseudoFunction(thisValue, funcname, args);
+		return callFunctionWorker(thisValue, funcname, args, Isolate.DEFAULT_ID);
+	}
+	
+	public Value callFunctionWorker(Value thisValue, String funcname, Value[] args, int isolateId) throws PlayerDebugException
+	{
+		Value retval = callPseudoFunction(thisValue, funcname, args, isolateId);
 		if (retval != null) {
 			return retval;
 		}
 
-		return callFunction(thisValue, false, funcname, args);
+		return callFunction(thisValue, false, funcname, args, isolateId);
 	}
 
 	/**
@@ -1423,10 +1438,10 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 * $obj(), and if so, handles that directly rather than calling the player.  Returns
 	 * null if the function being called is not a pseudofunction.
 	 */
-	private Value callPseudoFunction(Value thisValue, String funcname, Value[] args) throws PlayerDebugException{
+	private Value callPseudoFunction(Value thisValue, String funcname, Value[] args, int isolateId) throws PlayerDebugException{
 		if (thisValue.getType() == VariableType.UNDEFINED || thisValue.getType() == VariableType.NULL) {
 			if ("$obj".equals(funcname)) { //$NON-NLS-1$
-				return callObjPseudoFunction(args);
+				return callObjPseudoFunction(args, isolateId);
 			}
 		}
 
@@ -1437,25 +1452,30 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 * Handles a call to the debugger pseudofunction $obj() -- e.g. $obj(1234) returns
 	 * a pointer to the object with id 1234.
 	 */
-	private Value callObjPseudoFunction(Value[] args) throws PlayerDebugException {
+	private Value callObjPseudoFunction(Value[] args, int isolateId) throws PlayerDebugException {
 		if (args.length != 1) {
-			return DValue.forPrimitive(DValue.UNDEFINED);
+			return DValue.forPrimitive(DValue.UNDEFINED, isolateId);
 		}
 		double arg = ECMA.toNumber(this, args[0]);
 		long id = (long) arg;
 		if (id != arg) {
-			return DValue.forPrimitive(DValue.UNDEFINED);
+			return DValue.forPrimitive(DValue.UNDEFINED, isolateId);
 		}
-		DValue value = m_manager.getValue(id);
+		DValue value = m_manager.getValue(id, isolateId);
 		if (value == null) {
-			return DValue.forPrimitive(DValue.UNDEFINED);
+			return DValue.forPrimitive(DValue.UNDEFINED, isolateId);
 		}
 		return value;
 	}
 
 	public Value callConstructor(String funcname, Value[] args) throws PlayerDebugException
 	{
-		return callFunction(DValue.forPrimitive(null), true, funcname, args);
+		return callConstructorWorker(funcname, args, Isolate.DEFAULT_ID);
+	}
+	
+	public Value callConstructorWorker(String funcname, Value[] args, int isolateId) throws PlayerDebugException
+	{
+		return callFunction(DValue.forPrimitive(null, isolateId), true, funcname, args, isolateId);
 	}
 
 	private DMessage buildCallFunctionMessage(boolean isConstructor, Value thisValue, String funcname, Value[] args)
@@ -1504,17 +1524,19 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		return dm;
 	}
 
-	private void requestVariable(long id, String name, boolean fireGetter, boolean alsoGetChildren) throws NoResponseException, NotConnectedException, NotSuspendedException
+	private void requestVariable(long id, String name, boolean fireGetter, boolean alsoGetChildren, int isolateId) throws NoResponseException, NotConnectedException, NotSuspendedException
 	{
-		if (!isSuspended())
+		if (!isWorkerSuspended(isolateId))
 			throw new NotSuspendedException();
 
-		name = getRawMemberName(id, name);
+		name = getRawMemberName(id, name, isolateId);
 
 		DMessage dm = buildOutGetMessage(id, name, fireGetter, alsoGetChildren);
 
+		dm.setTargetIsolate(isolateId);
+		
 		// make sure any exception during the setter gets held onto
-		m_manager.beginPlayerCodeExecution();
+		m_manager.beginPlayerCodeExecution(isolateId);
 
 		int timeout = getPreference(SessionManager.PREF_GETVAR_RESPONSE_TIMEOUT);
 		timeout += 500; // give the player enough time to raise its timeout exception
@@ -1522,7 +1544,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		boolean result = simpleRequestResponseMessage(dm, DMessage.InGetVariable, timeout);
 
 		// tell manager we're done; ignore returned FaultEvent
-		m_manager.endPlayerCodeExecution();
+		m_manager.endPlayerCodeExecution(isolateId);
 
 		if (!result)
 			throw new NoResponseException(timeout);
@@ -1559,9 +1581,9 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		return dm;
 	}
 
-	public FaultEvent setScalarMember(long varId, String memberName, int type, String value) throws NotSuspendedException, NoResponseException, NotConnectedException
+	public FaultEvent setScalarMember(long varId, String memberName, int type, String value, int isolateId) throws NotSuspendedException, NoResponseException, NotConnectedException
 	{
-		if (!isSuspended())
+		if (!isWorkerSuspended(isolateId))
 			throw new NotSuspendedException();
 
 		// If the varId is that of a stack frame, then we need to check whether that
@@ -1574,26 +1596,26 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		if (varId <= Value.BASE_ID && varId > Value.LEVEL_ID)
 		{
 			int depth = (int) (Value.BASE_ID - varId);
-			DStackContext context = m_manager.getFrame(depth);
+			DStackContext context = m_manager.getFrame(depth,isolateId);
 			DVariable activationObject = context.getActivationObject();
 			if (activationObject != null)
 				varId = activationObject.getValue().getId();
 		}
 
-		memberName = getRawMemberName(varId, memberName);
+		memberName = getRawMemberName(varId, memberName, isolateId);
 
 		// see if it is our any of our special variables
-		FaultEvent faultEvent = requestSetVariable( isPseudoVarId(varId) ? 0 : varId, memberName, type, value);
+		FaultEvent faultEvent = requestSetVariable( isPseudoVarId(varId) ? 0 : varId, memberName, type, value, isolateId);
 
 		// now that we sent it out, we need to clear our variable cache
 		// if it is our special context then mark the frame as stale.
-		if (isPseudoVarId(varId) && m_manager.getFrameCount() > 0)
+		if (isPseudoVarId(varId) && m_manager.getFrameCount(isolateId) > 0)
 		{
-			m_manager.getFrame(0).markStale();
+			m_manager.getFrame(0, isolateId).markStale();
 		}
 		else
 		{
-			DValue parent = m_manager.getValue(varId);
+			DValue parent = m_manager.getValue(varId,isolateId);
 			if (parent != null)
 				parent.removeAllMembers();
 		}
@@ -1624,11 +1646,11 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 * and second cases, we may need to fully resolve it so that the Player
 	 * will recognize it.
 	 */
-	private String getRawMemberName(long parentValueId, String memberName)
+	private String getRawMemberName(long parentValueId, String memberName, int isolateId)
 	{
 		if (memberName != null)
 		{
-			DValue parent = m_manager.getValue(parentValueId);
+			DValue parent = m_manager.getValue(parentValueId, isolateId);
 			if (parent != null)
 			{
 				int doubleColon = memberName.indexOf("::"); //$NON-NLS-1$
@@ -1644,19 +1666,20 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	/**
 	 * @return null for success, or fault event if a setter in the player threw an exception
 	 */
-	private FaultEvent requestSetVariable(long id, String name, int t, String value) throws NoResponseException
+	private FaultEvent requestSetVariable(long id, String name, int t, String value, int isolateId) throws NoResponseException
 	{
 		// convert type to typeName
 		String type = DVariable.typeNameFor(t);
 		DMessage dm = buildOutSetMessage(id, name, type, value);
+		dm.setTargetIsolate(isolateId);
 		FaultEvent faultEvent = null;
 //		System.out.println("setmsg id="+id+",name="+name+",t="+type+",value="+value);
 
 		// make sure any exception during the setter gets held onto
-		m_manager.beginPlayerCodeExecution();
+		m_manager.beginPlayerCodeExecution(isolateId);
 
 		// turn off squelch so we can hear the response
-		sendSquelch(false);
+		sendSquelch(false, isolateId);
 
 		int timeout = getPreference(SessionManager.PREF_GETVAR_RESPONSE_TIMEOUT);
 
@@ -1664,13 +1687,13 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 			throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
 
 		// turn it back on
-		sendSquelch(true);
+		sendSquelch(true, isolateId);
 
 		// tell manager we're done, and get exception if any
-		faultEvent = m_manager.endPlayerCodeExecution();
+		faultEvent = m_manager.endPlayerCodeExecution(isolateId);
 
 		// hammer the variable cache and context array
-		m_manager.freeValueCache();
+		m_manager.freeValueCache(isolateId);
 		return faultEvent;
 	}
 
@@ -1729,21 +1752,22 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 
 	/**
 	 * Adds a watchpoint on the given expression
-	 * @throws NotConnectedException
-	 * @throws NoResponseException
-	 * @throws NotSupportedException
-	 * @throws NotSuspendedException
+	 * @throws flash.tools.debugger.NotConnectedException
+	 * @throws flash.tools.debugger.NoResponseException
+	 * @throws flash.tools.debugger.NotSupportedException
+	 * @throws flash.tools.debugger.NotSuspendedException
 	 */
-	public boolean addWatch(long varId, String varName, int type, int tag) throws NoResponseException, NotConnectedException, NotSupportedException
+	public boolean addWatch(long varId, String varName, int type, int tag, int isolateId) throws NoResponseException, NotConnectedException, NotSupportedException
 	{
 		// TODO check for NoResponse, NotConnected
 
-		if (!supportsWatchpoints())
+		if (!supportsWatchpoints(isolateId))
 			throw new NotSupportedException(PlayerSessionManager.getLocalizationManager().getLocalizedTextString("watchpointsNotSupported")); //$NON-NLS-1$
 
-		varName = getRawMemberName(varId, varName);
+		varName = getRawMemberName(varId, varName, isolateId);
 		DMessage dm = DMessageCache.alloc(4+DMessage.getSizeofPtr()+DMessage.getStringLength(varName)+1);
 		dm.setType(DMessage.OutAddWatch2);
+		dm.setTargetIsolate(isolateId);
 		dm.putPtr(varId);
 		try { dm.putString(varName); } catch(UnsupportedEncodingException uee) { dm.putByte((byte)'\0'); }
 		dm.putWord(type);
@@ -1756,13 +1780,13 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 
 	/**
 	 * Removes a watchpoint on the given expression
-	 * @throws NotConnectedException
-	 * @throws NoResponseException
-	 * @throws NotSuspendedException
+	 * @throws flash.tools.debugger.NotConnectedException
+	 * @throws flash.tools.debugger.NoResponseException
+	 * @throws flash.tools.debugger.NotSuspendedException
 	 */
-	public boolean removeWatch(long varId, String memberName) throws NoResponseException, NotConnectedException
+	public boolean removeWatch(long varId, String memberName, int isolateId) throws NoResponseException, NotConnectedException
 	{
-		memberName = getRawMemberName(varId, memberName);
+		memberName = getRawMemberName(varId, memberName, isolateId);
 		DMessage dm = DMessageCache.alloc(DMessage.getSizeofPtr()+DMessage.getStringLength(memberName)+1);
 		dm.setType(DMessage.OutRemoveWatch2);
 		dm.putPtr(varId);
@@ -1782,6 +1806,17 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		dm.setType(message);
 		sendMessage(dm);
 	}
+	
+	/**
+	 * Send a message that contains no data
+	 */
+	void sendMessageIsolate(int message, int isolateId)
+	{
+		DMessage dm = DMessageCache.alloc(0);
+		dm.setTargetIsolate(isolateId);
+		dm.setType(message);
+		sendMessage(dm);
+	}
 
 	/**
 	 * Send a fully formed message and release it when done
@@ -1790,6 +1825,26 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	{
 		try
 		{
+			if (dm.getType() != DMessage.OutSetActiveIsolate) {
+				int isolate = dm.getTargetIsolate();
+				if (isolate != getActiveIsolate().getId()) {
+					DMessage dm1 = DMessageCache.alloc(4);
+					dm1.setTargetIsolate(isolate);
+					dm1.setType(DMessage.OutSetActiveIsolate);
+					dm1.putDWord(isolate);
+
+					/* Use sendMessage here to avoid waiting for a response. 
+					 * The assumption is that once the message is sent, subsequent
+					 * messages are for that isolate regardless of the player confirming
+					 * it. With this change, performance has improved considerably; player
+					 * debugger has not gone out of sync since the ProcessTag messages
+					 * flood issue was resolved. */
+					sendMessage(dm1);
+
+					m_manager.setActiveIsolate(m_manager.getIsolate(isolate));
+
+				}
+			}
 			m_protocol.txMessage(dm);
 
 			if (m_debugMsgOn || m_debugMsgFileOn)
@@ -1806,15 +1861,15 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		DMessageCache.free(dm);
 	}
 
-
 	/**
 	 * Tell the player to shut-up
 	 */
-	boolean sendSquelch(boolean on)
+	boolean sendSquelch(boolean on, int isolateId)
 	{
 		boolean responded;
 		DMessage dm = DMessageCache.alloc(4);
 		dm.setType(DMessage.OutSetSquelch);
+		dm.setTargetIsolate(isolateId);
 		dm.putDWord( on ? 1 : 0);
 		responded = simpleRequestResponseMessage(dm, DMessage.InSquelch);
 		return responded;
@@ -1899,6 +1954,23 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 
 		sendOptionMessage(option, value);
 	}
+	
+	void sendConcurrentDebugger()
+	{
+		String option = "concurrent_debugger"; //$NON-NLS-1$
+		String value = "on"; //$NON-NLS-1$
+
+		sendOptionMessage(option, value);
+	}
+	
+	void sendWideLineDebugger()
+	{
+		String option = "wide_line_debugger"; //$NON-NLS-1$
+		String value = "on"; //$NON-NLS-1$
+
+		sendOptionMessage(option, value);
+		m_manager.setWideLines(true);
+	}
 
 	void sendOptionMessage(String option, String value)
 	{
@@ -1913,27 +1985,66 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 
 	public boolean supportsWatchpoints()
 	{
+		return supportsWatchpoints(Isolate.DEFAULT_ID);
+	}
+	
+	public boolean supportsWatchpoints(int isolateId)
+	{
 		if (m_playerSupportsWatchpoints == null)
-			m_playerSupportsWatchpoints = new Boolean(getOption("can_set_watchpoints", false)); //$NON-NLS-1$
+			m_playerSupportsWatchpoints = new Boolean(getOption("can_set_watchpoints", false, isolateId)); //$NON-NLS-1$
 		return m_playerSupportsWatchpoints.booleanValue();
 	}
 
 	public boolean playerCanBreakOnAllExceptions()
 	{
+		return playerCanBreakOnAllExceptions(Isolate.DEFAULT_ID);
+	}
+	
+	public boolean playerCanBreakOnAllExceptions(int isolateId)
+	{
 		if (m_playerCanBreakOnAllExceptions == null)
-			m_playerCanBreakOnAllExceptions = new Boolean(getOption("can_break_on_all_exceptions", false)); //$NON-NLS-1$
+			m_playerCanBreakOnAllExceptions = new Boolean(getOption("can_break_on_all_exceptions", false, isolateId)); //$NON-NLS-1$
 		return m_playerCanBreakOnAllExceptions.booleanValue();
+	}
+	
+	public boolean supportsConcurrency(int isolateId)
+	{
+		if (m_playerSupportsConcurrency == null)
+			m_playerSupportsConcurrency = new Boolean(getOption("concurrent_player", false, isolateId)); //$NON-NLS-1$
+		return m_playerSupportsConcurrency.booleanValue();
+	}
+	
+	public boolean supportsConcurrency()
+	{
+		return supportsConcurrency(Isolate.DEFAULT_ID);
+	}
+	
+	public boolean supportsWideLineNumbers()
+	{
+		return supportsWideLineNumbers(Isolate.DEFAULT_ID);
+	}
+	
+	public boolean supportsWideLineNumbers(int isolateId)
+	{
+		if (m_playerSupportsWideLine == null)
+			m_playerSupportsWideLine = new Boolean(getOption("wide_line_player", false, isolateId)); //$NON-NLS-1$
+		return m_playerSupportsWideLine.booleanValue();
 	}
 
 	public boolean playerCanTerminate()
 	{
-		return getOption("can_terminate", false); //$NON-NLS-1$
+		return getOption("can_terminate", false, Isolate.DEFAULT_ID); //$NON-NLS-1$
 	}
 
 	public boolean playerCanCallFunctions()
 	{
+		return playerCanCallFunctions(Isolate.DEFAULT_ID);
+	}
+	
+	public boolean playerCanCallFunctions(int isolateId)
+	{
 		if (m_playerCanCallFunctions == null)
-			m_playerCanCallFunctions = new Boolean(getOption("can_call_functions", false)); //$NON-NLS-1$
+			m_playerCanCallFunctions = new Boolean(getOption("can_call_functions", false, isolateId)); //$NON-NLS-1$
 		return m_playerCanCallFunctions.booleanValue();
 	}
 
@@ -1945,10 +2056,10 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 *            the name of the option
 	 * @return its value, or null
 	 */
-	public boolean getOption(String optionName, boolean defaultValue)
+	public boolean getOption(String optionName, boolean defaultValue, int isolateId)
 	{
 		boolean retval = defaultValue;
-		String optionValue = getOption(optionName, null);
+		String optionValue = getOption(optionName, null, isolateId);
 
 		if (optionValue != null)
 			retval = Boolean.valueOf(optionValue).booleanValue();
@@ -1964,18 +2075,37 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	 *            the name of the option
 	 * @return its value, or null
 	 */
-	public String getOption(String optionName, String defaultValue)
+	public String getOption(String optionName, String defaultValue, int isolateId)
 	{
 		String optionValue = defaultValue;
 
 		int msgSize = DMessage.getStringLength(optionName)+1;  // add 1 for trailing null of string
 
 		DMessage dm = DMessageCache.alloc(msgSize);
+		dm.setTargetIsolate(isolateId);
 		dm.setType(DMessage.OutGetOption);
 		try { dm.putString(optionName); } catch(UnsupportedEncodingException uee) { dm.putByte((byte)'\0'); }
 		if (simpleRequestResponseMessage(dm, DMessage.InOption))
 			optionValue = m_manager.getOption(optionName);
 		return optionValue;
+	}
+	
+	long getMessageInCount(DMessageCounter counter, long isolate, int msgType) {
+		if (isolate == Isolate.DEFAULT_ID) {
+			return counter.getInCount(msgType);
+		}
+		else {
+			return counter.getIsolateInCount(isolate, msgType);
+		}
+	}
+	
+	Object getMessageInLock(DMessageCounter counter, long isolate) {
+		if (isolate == Isolate.DEFAULT_ID) {
+			return counter.getInLock();
+		}
+		else {
+			return counter.getIsolateInLock(isolate);
+		}
 	}
 
 	/**
@@ -1989,12 +2119,15 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	{
 		boolean response = false;
 
+		//FIXME: Check if timeout needs to adjust to the isolate switching
+		// delay
 		// use default or user supplied timeout
 		timeout = (timeout > 0) ? timeout : getPreference(SessionManager.PREF_RESPONSE_TIMEOUT);
 
 		// note the number of messages of this type before our send
 		DMessageCounter msgCounter = getMessageCounter();
-		long num = msgCounter.getInCount(msgType);
+		int isolate = msg.getTargetIsolate();
+		long num = getMessageInCount(msgCounter, isolate, msgType);
 		long expect = num+1;
 
 		// send the message
@@ -2005,21 +2138,24 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 
 		// now wait till we see a message come in
 		m_incoming = false;
-		synchronized (msgCounter.getInLock())
+		synchronized (getMessageInLock(msgCounter, isolate))
 		{
-			while( (expect > msgCounter.getInCount(msgType)) &&
+			while( (expect > getMessageInCount(msgCounter, isolate, msgType)) &&
 					System.currentTimeMillis() < startTime + timeout &&
 					isConnected())
 			{
 				// block until the message counter tells us that some message has been received
 				try
 				{
-					msgCounter.getInLock().wait(timeout);
+					getMessageInLock(msgCounter, isolate).wait(timeout);
 				}
 				catch (InterruptedException e)
 				{
 					// this should never happen
 					e.printStackTrace();
+					//FIXME: Will resetting the interrupted status here
+					//cause any problems?
+//		            Thread.currentThread().interrupt();
 				}
 
 				// if we see incoming messages, then we should reset our timeout
@@ -2034,7 +2170,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 			}
 		}
 
-		if (msgCounter.getInCount(msgType) >= expect)
+		if (getMessageInCount(msgCounter, isolate, msgType) >= expect)
 			response = true;
 		else if (timeout <= 0 && Trace.error)
 			Trace.trace("Timed-out waiting for "+DMessage.inTypeName(msgType)+" response to message "+msg.outToString()); //$NON-NLS-1$ //$NON-NLS-2$
@@ -2047,8 +2183,31 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 
 	// use default timeout
 	boolean simpleRequestResponseMessage(DMessage msg, int msgType) 	{ return simpleRequestResponseMessage(msg, msgType, -1); 	}
+	
+	boolean simpleRequestResponseMessageIsolate(DMessage msg, int msgType, int isolateId) 	{ 
+		return simpleRequestResponseMessageIsolate(msg, msgType, -1, isolateId); 			
+	}
+	
+	boolean simpleRequestResponseMessageIsolate(DMessage msg, int msgType, int timeout, int isolateId)
+	{
+		msg.setTargetIsolate(isolateId);
+		return simpleRequestResponseMessage(msg, msgType, timeout);
+	}
+	
 	boolean simpleRequestResponseMessage(int msg, int msgType)			{ return simpleRequestResponseMessage(msg, msgType, -1); 	}
+	
+	boolean simpleRequestResponseMessageIsolate(int msg, int msgType, int isolateId) { 
+		return simpleRequestResponseMessageIsolate(msg, msgType, -1, isolateId);
+	}
 
+	boolean simpleRequestResponseMessageIsolate(int msg, int msgType, int timeout, int isolateId)
+	{
+		DMessage dm = DMessageCache.alloc(0);
+		dm.setType(msg);
+		dm.setTargetIsolate(isolateId);
+		return simpleRequestResponseMessage(dm, msgType, timeout);
+	}
+	
 	// Convenience function
 	boolean simpleRequestResponseMessage(int msg, int msgType, int timeout)
 	{
@@ -2096,6 +2255,12 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	{
 		switch (msg.getType())
 		{
+		case DMessage.InIsolate:
+
+				m_lastPreIsolate = (int)msg.getDWord();
+			
+			break;
+		
 			case DMessage.InAskBreakpoints:
 			case DMessage.InBreakAt:
 			case DMessage.InBreakAtExt:
@@ -2105,7 +2270,10 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 				// event queue, which the host debugger may immediately process;
 				// if the debugger calls back to the Session, the Session must be
 				// correctly marked as halted.
-				m_isHalted = true;
+				if (m_lastPreIsolate == Isolate.DEFAULT_ID)
+					m_isHalted = true;
+				else
+					updateHaltIsolateStatus(m_lastPreIsolate, true);
 				break;
 			}
 		}
@@ -2132,23 +2300,31 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 			case DMessage.InProcessTag:
 			{
 				// need to send a response to this message to keep the player going
-				sendMessage(DMessage.OutProcessedTag);
+				sendMessageIsolate(DMessage.OutProcessedTag, msg.getTargetIsolate());
 				break;
 			}
 
 			case DMessage.InContinue:
 			{
-				m_isHalted = false;
+				if (msg.getTargetIsolate() == Isolate.DEFAULT_ID)
+					m_isHalted = false;
+				else {
+					updateHaltIsolateStatus(msg.getTargetIsolate(), false);
+				}
 				break;
 			}
 
 			case DMessage.InOption:
 			{
-				String s = msg.getString();
-				String v = msg.getString();
+				//workers inherit options, so only store options
+				//from main thread.
+				if (msg.getTargetIsolate() == Isolate.DEFAULT_ID) {
+					String s = msg.getString();
+					String v = msg.getString();
 
-				// add it to our properties, for DEBUG purposes only
-				m_prefs.put(s, v);
+					// add it to our properties, for DEBUG purposes only
+					m_prefs.put(s, v);
+				}
 				break;
 			}
 
@@ -2156,7 +2332,12 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 			case DMessage.InScript:
 			case DMessage.InRemoveScript:
 			{
+				//FIXME: Clear this cache only for affected
+				//workers. Right now, the key contains worker
+				//id, so we are safe. But we unnecessarily flush
+				//the queue.
 				m_evalIsAndInstanceofCache.clear();
+				
 				m_incoming = true;
 				break;
 			}
@@ -2179,7 +2360,18 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		m_lastResponse = true;
 	}
 
-    /**
+    private void updateHaltIsolateStatus(int targetIsolate, boolean value) {
+    	if (!m_isolateStatus.containsKey(targetIsolate)) {
+    		PlayerSessionIsolateStatus status = new PlayerSessionIsolateStatus();
+    		status.m_isHalted = value;
+    		m_isolateStatus.put(targetIsolate, status);    		
+    	}
+    	else {
+    		m_isolateStatus.get(targetIsolate).m_isHalted = value;
+    	}
+	}
+
+	/**
      * A background thread which wakes up periodically and fetches the SWF and SWD
      * from the Player for new movies that have loaded.  It then uses these to create
 	 * an instance of MovieMetaData (a class shared with the Profiler) from which
@@ -2191,108 +2383,114 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
     public void run()
     {
     	long last = 0;
-		while(isConnected())
-		{
-			// try every 250ms
-			try { Thread.sleep(250); } catch(InterruptedException ie) {}
+    	while(isConnected())
+    	{
+    		// try every 250ms
+    		try { Thread.sleep(250); } catch(InterruptedException ie) {}
 
-			try
-			{
-				// let's make sure that the traffic level is low before
-				// we do our requests.
-				long current = m_protocol.messagesReceived();
-				long delta = last - current;
-				last = current;
+    		try
+    		{
+    			// let's make sure that the traffic level is low before
+    			// we do our requests.
+    			long current = m_protocol.messagesReceived();
+    			long delta = last - current;
+    			last = current;
 
-				// if the last message that went out was not responded to
-				// or we are not suspended and have high traffic
-				// then wait for later.
-				if (!m_lastResponse || (!isSuspended() && delta > 5))
-					throw new NotSuspendedException();
+    			// if the last message that went out was not responded to
+    			// or we are not suspended and have high traffic
+    			// then wait for later.
+    			if (!m_lastResponse || (!isSuspended() && delta > 5))
+    				throw new NotSuspendedException();
 
-				// we are either suspended or low enough traffic
+    			// we are either suspended or low enough traffic
 
-				// get the list of swfs we have
-				int count = m_manager.getSwfInfoCount();
-				for(int i=0; i<count; i++)
-				{
-					DSwfInfo info = m_manager.getSwfInfo(i);
+    			// get the list of swfs we have
+    			for (Isolate isolate : m_manager.getIsolates()) {
+    				int isolateId = isolate.getId();
+    				if (isolateId != Isolate.DEFAULT_ID && !isWorkerSuspended(isolateId) && delta > 5) {
+    					throw new NotSuspendedException();
+    				}
+    				int count = m_manager.getSwfInfoCount(isolateId);
+    				for(int i=0; i<count; i++)
+    				{
+    					DSwfInfo info = m_manager.getSwfInfo(i, isolateId);
 
-					// no need to process if it's been removed
-					if (info == null || info.isUnloaded() || info.isPopulated() || (info.getVmVersion() > 0) )
-						continue;
+    					// no need to process if it's been removed
+    					if (info == null || info.isUnloaded() || info.isPopulated() || (info.getVmVersion() > 0) )
+    						continue;
 
-					// see if the swd has been loaded, throws exception if unable to load it.
-					// Also triggers a callback into the info object to freshen its contents
-					// if successful
-					info.getSwdSize(this);
+    					// see if the swd has been loaded, throws exception if unable to load it.
+    					// Also triggers a callback into the info object to freshen its contents
+    					// if successful
+    					//FIXME: remove sysout
+    					info.getSwdSize(this);
+    					// check since our vm version info could get updated in between.
+    					if (info.getVmVersion() > 0)
+    					{
+    						// mark it populated if we haven't already done so
+    						info.setPopulated();
+    						continue;
+    					}
 
-                    // check since our vm version info could get updated in between.
-                    if (info.getVmVersion() > 0)
-                    {
-                        // mark it populated if we haven't already done so
-                        info.setPopulated();
-                        continue;
-                    }
+    					// so by this point we know that we've got good swd data,
+    					// or we've made too many attempts and gave up.
+    					if (!info.isSwdLoading() && !info.isUnloaded())
+    					{
+    						// now load the swf, if we haven't already got it
+    						if (info.getSwf() == null && !info.isUnloaded())
+    							info.setSwf(requestSwf(i));
 
-					// so by this point we know that we've got good swd data,
-					// or we've made too many attempts and gave up.
-					if (!info.isSwdLoading() && !info.isUnloaded())
-					{
-						// now load the swf, if we haven't already got it
-						if (info.getSwf() == null && !info.isUnloaded())
-							info.setSwf(requestSwf(i));
+    						// only get the swd if we haven't got it
+    						if (info.getSwd() == null && !info.isUnloaded())
+    							info.setSwd(requestSwd(i));
 
-						// only get the swd if we haven't got it
-						if (info.getSwd() == null && !info.isUnloaded())
-							info.setSwd(requestSwd(i));
+    						try
+    						{
+    							// now go populate the functions tables...
+    							if (!info.isUnloaded())
+    								info.parseSwfSwd(m_manager);
+    						}
+    						catch(Throwable e)
+    						{
+    							// oh this is not good and means that we should probably
+    							// give up.
+    							if (Trace.error)
+    							{
+    								Trace.trace("Error while parsing swf/swd '"+info.getUrl()+"'. Giving up and marking it processed"); //$NON-NLS-1$ //$NON-NLS-2$
+    								e.printStackTrace();
+    							}
 
-						try
-						{
-							// now go populate the functions tables...
-							if (!info.isUnloaded())
-								info.parseSwfSwd(m_manager);
-						}
-						catch(Throwable e)
-						{
-							// oh this is not good and means that we should probably
-							// give up.
-							if (Trace.error)
-							{
-								Trace.trace("Error while parsing swf/swd '"+info.getUrl()+"'. Giving up and marking it processed"); //$NON-NLS-1$ //$NON-NLS-2$
-								e.printStackTrace();
-							}
-
-							info.setPopulated();
-						}
-					}
-				}
-			}
-			catch(InProgressException ipe)
-			{
-				// swd is still loading so give us a bit of
-				// time and then come back and try again
-			}
-			catch(NoResponseException nre)
-			{
-				// timed out on one of our requests so don't bother
-				// continuing right now,  try again later
-			}
-			catch(NotSuspendedException nse)
-			{
-				// probably want to wait until we are halted before
-				// doing this heavy action
-			}
-			catch(Exception e)
-			{
-				// maybe not good
-				if (Trace.error)
-				{
-					Trace.trace("Exception in background swf/swd processing thread"); //$NON-NLS-1$
-					e.printStackTrace();
-				}
-			}
-		}
+    							info.setPopulated();
+    						}
+    					}
+    				}
+    			}
+    		}
+    		catch(InProgressException ipe)
+    		{
+    			// swd is still loading so give us a bit of
+    			// time and then come back and try again
+    		}
+    		catch(NoResponseException nre)
+    		{
+    			// timed out on one of our requests so don't bother
+    			// continuing right now,  try again later
+    		}
+    		catch(NotSuspendedException nse)
+    		{
+    			// probably want to wait until we are halted before
+    			// doing this heavy action
+    		}
+    		catch(Exception e)
+    		{
+    			// maybe not good
+    			if (Trace.error)
+    			{
+    				Trace.trace("Exception in background swf/swd processing thread"); //$NON-NLS-1$
+    				e.printStackTrace();
+    			}
+    		}
+    	}
     }
 
 	byte[] requestSwf(int index) throws NoResponseException
@@ -2341,8 +2539,9 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	{
 		try
 		{
-			if (m_debugMsgOn)
+			if (m_debugMsgOn) {
 				System.out.println( (in) ? dm.inToString(m_debugMsgSize) : dm.outToString(m_debugMsgSize) );
+			}
 
 			if (m_debugMsgFileOn)
 			{
@@ -2356,6 +2555,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 
 	// i/o for tracing
     java.io.Writer m_trace;
+	
 
 	java.io.Writer traceFile() throws IOException
 	{
@@ -2369,7 +2569,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 
 				// java properties dump
 				java.util.Properties props = System.getProperties();
-				props.list(new java.io.PrintWriter(m_trace));
+				props.list(new PrintWriter(m_trace));
 
 				m_trace.write(s_newline);
 
@@ -2403,61 +2603,90 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 	}
 
 	public void breakOnCaughtExceptions(boolean b) throws NotSupportedException, NoResponseException {
-		if (!playerCanBreakOnAllExceptions())
+		breakOnCaughtExceptions(b, Isolate.DEFAULT_ID);
+	}
+	
+	public void breakOnCaughtExceptions(boolean b, int isolateId) throws NotSupportedException, NoResponseException {
+		if (!playerCanBreakOnAllExceptions(isolateId))
 			throw new NotSupportedException(PlayerSessionManager.getLocalizationManager().getLocalizedTextString("exceptionBreakpointsNotSupported")); //$NON-NLS-1$
 
 		DMessage dm = DMessageCache.alloc(1);
 		dm.setType(DMessage.OutPassAllExceptionsToDebugger);
 		dm.putByte((byte)(b ? 1 : 0));
-		sendMessage(dm);
+		dm.setTargetIsolate(isolateId);
+		/* TODO: Verify that sendMessage below is a bug */
+//		sendMessage(dm);
 		if (!simpleRequestResponseMessage(dm, DMessage.InPassAllExceptionsToDebugger))
 			throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
 	}
 
+
 	public boolean evalIs(Value value, Value type) throws PlayerDebugException, PlayerFaultException
 	{
-		return evalIsOrInstanceof(BinaryOp.Is, value, type);
+		return evalIsOrInstanceof(BinaryOp.Is, value, type, Isolate.DEFAULT_ID);
 	}
 
 	public boolean evalIs(Value value, String type) throws PlayerDebugException, PlayerFaultException
 	{
-		return evalIsOrInstanceof(BinaryOp.Is, value, type);
+		return evalIsOrInstanceof(BinaryOp.Is, value, type, Isolate.DEFAULT_ID);
 	}
 
 	public boolean evalInstanceof(Value value, Value type) throws PlayerDebugException, PlayerFaultException
 	{
-		return evalIsOrInstanceof(BinaryOp.Instanceof, value, type);
+		return evalIsOrInstanceof(BinaryOp.Instanceof, value, type, Isolate.DEFAULT_ID);
 	}
 
 	public boolean evalInstanceof(Value value, String type) throws PlayerDebugException, PlayerFaultException
 	{
-		return evalIsOrInstanceof(BinaryOp.Instanceof, value, type);
+		return evalIsOrInstanceof(BinaryOp.Instanceof, value, type, Isolate.DEFAULT_ID);
+	}
+	
+	// isolate version
+	
+	public boolean evalIsWorker(Value value, Value type, int isolateId) throws PlayerDebugException, PlayerFaultException
+	{
+		return evalIsOrInstanceof(BinaryOp.Is, value, type, isolateId);
 	}
 
-	private boolean evalIsOrInstanceof(BinaryOp op, Value value, Value type) throws PlayerDebugException, PlayerFaultException
+	public boolean evalIsWorker(Value value, String type, int isolateId) throws PlayerDebugException, PlayerFaultException
 	{
-		String key = value.getTypeName() + " " + op + " " + type.getTypeName(); //$NON-NLS-1$ //$NON-NLS-2$
+		return evalIsOrInstanceof(BinaryOp.Is, value, type, isolateId);
+	}
+
+	public boolean evalInstanceofWorker(Value value, Value type, int isolateId) throws PlayerDebugException, PlayerFaultException
+	{
+		return evalIsOrInstanceof(BinaryOp.Instanceof, value, type, isolateId);
+	}
+
+	public boolean evalInstanceofWorker(Value value, String type, int isolateId) throws PlayerDebugException, PlayerFaultException
+	{
+		return evalIsOrInstanceof(BinaryOp.Instanceof, value, type, isolateId);
+	}
+
+	private boolean evalIsOrInstanceof(BinaryOp op, Value value, Value type, int isolateId) throws PlayerDebugException, PlayerFaultException
+	{
+		String key = value.getTypeName() + " " + op + " " + type.getTypeName() + " " + String.valueOf(isolateId); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		Boolean retval = m_evalIsAndInstanceofCache.get(key);
 		if (retval == null)
 		{
-			retval = new Boolean(ECMA.toBoolean(evalBinaryOp(op, value, type)));
+			retval = new Boolean(ECMA.toBoolean(evalBinaryOp(op, value, type, isolateId)));
 			m_evalIsAndInstanceofCache.put(key, retval);
 		}
 
 		return retval.booleanValue();
 	}
 
-	private boolean evalIsOrInstanceof(BinaryOp op, Value value, String type) throws PlayerDebugException, PlayerFaultException
+	private boolean evalIsOrInstanceof(BinaryOp op, Value value, String type, int isolateId) throws PlayerDebugException, PlayerFaultException
 	{
-		String key = value.getTypeName() + " " + op + " " + type; //$NON-NLS-1$ //$NON-NLS-2$
+		String key = value.getTypeName() + " " + op + " " + type + " " + String.valueOf(isolateId); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		Boolean retval = m_evalIsAndInstanceofCache.get(key);
 		if (retval == null)
 		{
-			Value typeval = getGlobal(type);
+			Value typeval = getGlobalWorker(type, isolateId);
 			if (typeval == null)
 				retval = Boolean.FALSE;
 			else
-				retval = new Boolean(ECMA.toBoolean(evalBinaryOp(op, value, typeval)));
+				retval = new Boolean(ECMA.toBoolean(evalBinaryOp(op, value, typeval, isolateId)));
 			m_evalIsAndInstanceofCache.put(key, retval);
 		}
 
@@ -2466,19 +2695,19 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 
 	public boolean evalIn(Value property, Value object) throws PlayerDebugException, PlayerFaultException
 	{
-		return ECMA.toBoolean(evalBinaryOp(BinaryOp.In, property, object));
+		return ECMA.toBoolean(evalBinaryOp(BinaryOp.In, property, object, Isolate.DEFAULT_ID));
 	}
 
 	public Value evalAs(Value value, Value type) throws PlayerDebugException, PlayerFaultException {
-		return evalBinaryOp(BinaryOp.As, value, type);
+		return evalBinaryOp(BinaryOp.As, value, type, Isolate.DEFAULT_ID);
 	}
 
-	private Value evalBinaryOp(BinaryOp op, Value lhs, Value rhs) throws PlayerDebugException, PlayerFaultException
+	private Value evalBinaryOp(BinaryOp op, Value lhs, Value rhs, int isolateId) throws PlayerDebugException, PlayerFaultException
 	{
-		if (!isSuspended())
+		if (!isWorkerSuspended(isolateId))
 			throw new NotSuspendedException();
 
-		if (!playerCanCallFunctions())
+		if (!playerCanCallFunctions(isolateId))
 		{
 			Map<String,String> parameters = new HashMap<String,String>();
 			parameters.put("operator", op.getName()); //$NON-NLS-1$
@@ -2489,10 +2718,11 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		int id = (int) (Math.random() * 65536); // good 'nuff
 		DMessage dm = buildBinaryOpMessage(id, op, lhs, rhs);
 
-		m_manager.clearLastBinaryOp();
+		dm.setTargetIsolate(isolateId);
+		m_manager.clearLastBinaryOp(isolateId);
 
 		// make sure any exception gets held onto
-		m_manager.beginPlayerCodeExecution();
+		m_manager.beginPlayerCodeExecution(isolateId);
 
 		// TODO wrong timeout
 		int timeout = getPreference(SessionManager.PREF_GETVAR_RESPONSE_TIMEOUT);
@@ -2501,20 +2731,20 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 		boolean result = simpleRequestResponseMessage(dm, DMessage.InBinaryOp, timeout);
 
 		// tell manager we're done; ignore returned FaultEvent
-		m_manager.endPlayerCodeExecution();
+		m_manager.endPlayerCodeExecution(isolateId);
 
 		if (!result)
 			throw new NoResponseException(timeout);
 
-		DVariable lastBinaryOp = m_manager.lastBinaryOp();
+		DVariable lastBinaryOp = m_manager.lastBinaryOp(isolateId);
 		Value v;
 		if (lastBinaryOp != null)
 			v = lastBinaryOp.getValue();
 		else
-			v = DValue.forPrimitive(Value.UNDEFINED);
+			v = DValue.forPrimitive(Value.UNDEFINED, isolateId);
 
 		if (v.isAttributeSet(ValueAttribute.IS_EXCEPTION))
-			throw new PlayerFaultException(new ExceptionFault(v.getValueAsString(), false, v));
+			throw new PlayerFaultException(new ExceptionFault(v.getValueAsString(), false, v, isolateId));
 
 		return v;
 	}
@@ -2558,6 +2788,282 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable
 			return m_protocol.getDisconnectCause();
 		
 		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see flash.tools.debugger.Session#refreshIsolates()
+	 */
+	public Isolate[] refreshWorkers() throws NotSupportedException,
+			NotSuspendedException, NoResponseException, NotConnectedException {
+		if (!supportsConcurrency()) {
+			throw new NotSupportedException(PlayerSessionManager.getLocalizationManager().getLocalizedTextString("concurrencyNotSupported")); //$NON-NLS-1$
+		}
+		if (!isSuspended())
+			throw new NotSuspendedException();
+		
+		boolean response = simpleRequestResponseMessage(DMessage.OutIsolateEnumerate, DMessage.InIsolateEnumerate);
+		
+		if (response) {
+			return m_manager.getIsolates();
+		}
+		return null;
+	}
+
+	private Isolate getActiveIsolate() {
+		return m_manager.getActiveIsolate();
+	}
+
+	@Override
+	public Isolate[] getWorkers() {
+		return m_manager.getIsolates();
+	}
+
+	@Override
+	public void resumeWorker(int isolateId) throws NotSuspendedException,
+			NotConnectedException, NoResponseException {
+		if (!isWorkerSuspended(isolateId))
+			throw new NotSuspendedException();
+
+		if (!simpleRequestResponseMessageIsolate(DMessage.OutContinue, DMessage.InContinue, isolateId))
+			throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
+	}
+
+	@Override
+	public int suspendReasonWorker(int isolateId) throws NotConnectedException {
+		DSuspendInfo info = getSuspendInfoIsolate(isolateId);
+		return info.getReason();
+	}
+	
+	public DSuspendInfo getSuspendInfoIsolate(int isolateId)
+	{
+		DSuspendInfo info = m_manager.getSuspendInfo(isolateId);
+		if (info == null)
+		{
+			if (simpleRequestResponseMessageIsolate(DMessage.OutGetBreakReason, DMessage.InBreakReason, isolateId))
+				info = m_manager.getSuspendInfo(isolateId);
+
+			// if we still can't get any info from the manager...
+			if (info == null)
+				info = new DSuspendInfo();  // empty unknown break information
+		}
+		return info;
+	}
+
+	@Override
+	public void stepContinueWorker(int isolateId)
+			throws NotSuspendedException, NoResponseException,
+			NotConnectedException {
+		if (!isWorkerSuspended(isolateId))
+			throw new NotSuspendedException();
+
+		// send a step-continue message and then wait for the Flash player to tell us that is has
+		// resumed execution
+		if (!simpleRequestResponseMessageIsolate(DMessage.OutStepContinue, DMessage.InContinue, isolateId))
+			throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
+	}
+
+	@Override
+	public Location setBreakpointWorker(int fileId, int lineNum, int isolateId)
+			throws NoResponseException, NotConnectedException {
+		/* send the message to the player and await a response */
+		Location l = null;
+		int bp = DLocation.encodeId(fileId, lineNum);
+		int wideLineSize = 0;
+		if (supportsWideLineNumbers())
+			wideLineSize = 4;
+		DMessage dm = DMessageCache.alloc(8 + wideLineSize);
+		dm.setType(DMessage.OutSetBreakpoints);
+		dm.putDWord(1);
+		if (!supportsWideLineNumbers())
+			dm.putDWord(bp);
+		else {
+			dm.putDWord(fileId);
+			dm.putDWord(lineNum);
+		}
+
+		boolean gotResponse = simpleRequestResponseMessageIsolate(dm, DMessage.InSetBreakpoint, isolateId);
+		if(gotResponse)
+		{
+			/* even though we think we got an answer check that the breakpoint was added */
+			l = m_manager.getBreakpoint(bp, isolateId);
+		}
+		else
+			throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
+
+		return l;
+	}
+
+	@Override
+	public Frame[] getFramesWorker(int isolateId) throws NotConnectedException {
+		return m_manager.getFrames(isolateId);		
+	}
+
+	@Override
+	public SwfInfo[] getSwfsWorker(int isolateId) throws NoResponseException {
+		int swfCount = 0;
+		swfCount = m_manager.getSwfInfoCount(isolateId);
+		if (swfCount == 0)
+		{
+			// need to help out on the first one since the player
+			// doesn't send it
+			requestSwfInfo(0, isolateId);
+		}
+		//SwfInfo[] swfs = m_manager.getSwfInfos();
+		
+		ArrayList<SwfInfo> swfList = new ArrayList<SwfInfo>(); 
+
+		for ( SwfInfo info : m_manager.getSwfInfos(isolateId) ) {
+			swfList.add(info);
+		}
+
+		return swfList.toArray(new SwfInfo[0]);
+	}
+
+	@Override
+	public void stepIntoWorker(int isolateId) throws NotSuspendedException,
+			NoResponseException, NotConnectedException {
+		if (isWorkerSuspended(isolateId))
+		{
+			// send a step-into message and then wait for the Flash player to tell us that is has
+			// resumed execution
+			if (!simpleRequestResponseMessageIsolate(DMessage.OutStepInto, DMessage.InContinue, isolateId))
+				throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
+		}
+		else
+			throw new NotSuspendedException();
+		
+	}
+
+	@Override
+	public void stepOutWorker(int isolateId) throws NotSuspendedException,
+			NoResponseException, NotConnectedException {
+		if (isWorkerSuspended(isolateId))
+		{
+			// send a step-out message and then wait for the Flash player to tell us that is has
+			// resumed execution
+			if (!simpleRequestResponseMessageIsolate(DMessage.OutStepOut, DMessage.InContinue, isolateId))
+				throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
+		}
+		else
+			throw new NotSuspendedException();
+		
+	}
+
+	@Override
+	public void stepOverWorker(int isolateId) throws NotSuspendedException,
+			NoResponseException, NotConnectedException {
+		if (isWorkerSuspended(isolateId))
+		{
+			// send a step-over message and then wait for the Flash player to tell us that is has
+			// resumed execution
+			if (!simpleRequestResponseMessageIsolate(DMessage.OutStepOver, DMessage.InContinue, isolateId))
+				throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
+		}
+		else
+			throw new NotSuspendedException();
+		
+	}
+
+	public boolean evalInWorker(Value property, Value object, int isolateId) throws PlayerDebugException, PlayerFaultException
+	{
+		return ECMA.toBoolean(evalBinaryOp(BinaryOp.In, property, object, isolateId));
+	}
+
+	public Value evalAsWorker(Value value, Value type, int isolateId) throws PlayerDebugException, PlayerFaultException {
+		return evalBinaryOp(BinaryOp.As, value, type, isolateId);
+	}
+
+	@Override
+	public void suspendWorker(int isolateId) throws SuspendedException,
+			NotConnectedException, NoResponseException {
+		// send a halt message
+		int wait = getPreference(SessionManager.PREF_SUSPEND_WAIT);
+ 		int every = 50; // wait this long for a response.  The lower the number the more aggressive we are!
+
+		if (isWorkerSuspended(isolateId))
+			throw new SuspendedException();
+
+		while (!isWorkerSuspended(isolateId) && wait > 0)
+		{
+			simpleRequestResponseMessageIsolate(DMessage.OutStopDebug, DMessage.InBreakAtExt, every, isolateId);
+			wait -= every;
+		}
+
+		if (!isWorkerSuspended(isolateId))
+			throw new NoResponseException(wait);	
+	}
+
+	@Override
+	public IsolateSession getWorkerSession(int isolateId) {
+		if (m_isolateSessions.containsKey(isolateId)) {
+			return m_isolateSessions.get(isolateId);
+		}
+		else {
+			IsolateSession workerSession = new IsolatePlayerSession(isolateId, this);
+			m_isolateSessions.put(isolateId, workerSession);
+			return workerSession;
+		}
+		
+	}
+	
+	public boolean setExceptionBreakpoint(String exceptionClass) throws NoResponseException, NotConnectedException {
+		return setExceptionBreakpointWorker(exceptionClass, Isolate.DEFAULT_ID);
+	}
+	
+	public boolean setExceptionBreakpointWorker(String exceptionClass, int isolateId) throws NoResponseException, NotConnectedException {
+		int messageSize = DMessage.getStringLength(exceptionClass) + 1;
+		
+		DMessage dm = DMessageCache.alloc(messageSize);
+		dm.setType(DMessage.OutSetExceptionBreakpoint);
+		dm.setTargetIsolate(isolateId);
+		try {
+			dm.putString(exceptionClass);
+		} catch (UnsupportedEncodingException e) {
+			// couldn't write out the string, so just terminate it and complete anyway
+			dm.putByte((byte)'\0');
+		}
+
+		boolean gotResponse = simpleRequestResponseMessageIsolate(dm, DMessage.InSetExceptionBreakpoint, isolateId);
+		if(gotResponse)
+		{
+			return true;
+		}
+		else
+			throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
+
+	}
+	
+	@Override
+	public boolean clearExceptionBreakpoint(String exceptionClass) throws NoResponseException, NotConnectedException {
+		return clearExceptionBreakpointWorker(exceptionClass, Isolate.DEFAULT_ID);
+	}
+
+	@Override
+	public boolean clearExceptionBreakpointWorker(String exceptionClass, int isolateId) throws NoResponseException, NotConnectedException {
+		int messageSize = DMessage.getStringLength(exceptionClass) + 1;
+		DMessage dm = DMessageCache.alloc(messageSize);
+		dm.setType(DMessage.OutRemoveExceptionBreakpoint);
+		dm.setTargetIsolate(isolateId);
+		try {
+			dm.putString(exceptionClass);
+		} catch (UnsupportedEncodingException e) {
+			// couldn't write out the string, so just terminate it and complete anyway
+			dm.putByte((byte)'\0');
+		}
+
+		boolean gotResponse = simpleRequestResponseMessageIsolate(dm, DMessage.InRemoveExceptionBreakpoint, isolateId);
+		if(gotResponse)
+		{
+			return true;
+		}
+		else
+			throw new NoResponseException(getPreference(SessionManager.PREF_RESPONSE_TIMEOUT));
+
+	}
+
+	@Override
+	public void setLauncher(ILauncher launcher) {
+		this.launcher = launcher;
 	}
 
 }
