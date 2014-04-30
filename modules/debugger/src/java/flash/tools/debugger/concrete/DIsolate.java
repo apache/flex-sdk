@@ -14,20 +14,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package flash.tools.debugger.concrete;
 
-package flash.tools.debugger.events;
+import flash.tools.debugger.Isolate;
 
 /**
- * Signals that the player has spent far too long in a piece of ActionScript
+ * Concrete implementation of an Isolate.
+ * @author anirudhs
  */
-public class ScriptTimeoutFault extends FaultEvent
-{
-	public ScriptTimeoutFault(int isolateId) {
-		super(isolateId);
+public class DIsolate implements Isolate {
+
+	/** Isolate object behind the primordial or main thread (always exists) */
+	public static final DIsolate DEFAULT_ISOLATE = new DIsolate(Isolate.DEFAULT_ID);
+	
+	private int id;
+	
+	public DIsolate(int id) {
+		this.id = id;
+	}
+	
+	/* (non-Javadoc)
+	 * @see flash.tools.debugger.Isolate#getId()
+	 */
+	@Override
+	public int getId() {
+		return id;
 	}
 
-	public final static String name = "script_timeout";  //$NON-NLS-1$
-
 	@Override
-	public String name() { return name; }	
+	public String toString() {		
+		return "Worker " + getId(); //$NON-NLS-1$
+	}	
+
 }

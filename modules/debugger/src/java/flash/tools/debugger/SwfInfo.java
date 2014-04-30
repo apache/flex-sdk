@@ -104,4 +104,9 @@ public interface SwfInfo
 	 * @since Version 2
 	 */
 	public boolean containsSource(SourceFile f);
+
+	/**
+	 * Return the worker ID to which this SWF belongs.
+	 */
+	public int getIsolateId();
 }

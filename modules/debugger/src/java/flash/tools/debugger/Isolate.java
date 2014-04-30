@@ -14,20 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package flash.tools.debugger.events;
+package flash.tools.debugger;
 
 /**
- * Signals that the player has spent far too long in a piece of ActionScript
+ * The Isolate object uniquely identifies a "Worker" in ActionScript.
+ * Workers are conceptually similar to Threads, but their implementation
+ * closely follows more that of a web worker than an actual OS Thread.
+ * 
+ * By default there is a default isolate object with id DEFAULT_ID.
+ * @author anirudhs
+ *
  */
-public class ScriptTimeoutFault extends FaultEvent
-{
-	public ScriptTimeoutFault(int isolateId) {
-		super(isolateId);
-	}
-
-	public final static String name = "script_timeout";  //$NON-NLS-1$
-
-	@Override
-	public String name() { return name; }	
+public interface Isolate {
+	
+	public static final int DEFAULT_ID = 1;
+	
+	/**
+	 * Get the unique integer ID associated with the
+	 * worker. This is Isolate.DEFAULT_ID for the
+	 * primordial. 
+	 * @return unique integer ID
+	 */
+	public int getId();
+	
 }

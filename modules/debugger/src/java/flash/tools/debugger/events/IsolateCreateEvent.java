@@ -14,20 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package flash.tools.debugger.events;
 
+import flash.tools.debugger.Isolate;
+
 /**
- * Signals that the player has spent far too long in a piece of ActionScript
+ * IsolateCreateEvent is received when the player
+ * creates a worker.
+ * @author anirudhs
  */
-public class ScriptTimeoutFault extends FaultEvent
-{
-	public ScriptTimeoutFault(int isolateId) {
-		super(isolateId);
+public class IsolateCreateEvent extends DebugEvent {
+	
+	/* The isolate that was created */
+	public Isolate isolate;
+	
+	public IsolateCreateEvent() {
+		isolate = null;
 	}
-
-	public final static String name = "script_timeout";  //$NON-NLS-1$
-
-	@Override
-	public String name() { return name; }	
+	
+	public IsolateCreateEvent(Isolate t) {
+		isolate = t;
+	}
 }

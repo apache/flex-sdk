@@ -1,20 +1,18 @@
 /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package flash.tools.debugger.concrete;
@@ -22,6 +20,7 @@ package flash.tools.debugger.concrete;
 import java.lang.ArrayIndexOutOfBoundsException;
 import java.io.UnsupportedEncodingException;
 
+import flash.tools.debugger.Isolate;
 import flash.util.FieldFormat;
 import flash.util.Trace;
 
@@ -96,9 +95,16 @@ public class DMessage
     public static final int InWatch2					= 55;
     public static final int InPassAllExceptionsToDebugger = 56;
     public static final int InBinaryOp					= 57;
+    public static final int InIsolateCreate				= 58;
+    public static final int InIsolateExit   			= 59;
+    public static final int InIsolateEnumerate			= 60;
+    public static final int InSetActiveIsolate			= 61;
+    public static final int InIsolate			        = 62;
+    public static final int InSetExceptionBreakpoint	= 63;
+    public static final int InRemoveExceptionBreakpoint	= 64;
     // If you add another message here, adjust the following line
     // and add a new case to the inTypeName() method below.
-	public static final int InSIZE						= InBinaryOp + 1;	 /* last ID used +1 */
+	public static final int InSIZE						= InRemoveExceptionBreakpoint + 1;	 /* last ID used +1 */
 
 	/**
 	 * This set of constants defines the message types SENT to the player from our
@@ -152,9 +158,13 @@ public class DMessage
     public static final int OutRemoveWatch2				= 50; // 32-bit id; used for as3
     public static final int OutPassAllExceptionsToDebugger = 51;
     public static final int OutBinaryOp					= 52;
+    public static final int OutIsolateEnumerate			= 53;
+    public static final int OutSetActiveIsolate         = 54;
+    public static final int OutSetExceptionBreakpoint   = 55;
+    public static final int OutRemoveExceptionBreakpoint= 56;
     // If you add another message here, adjust the following line
     // and add a new case to the outTypeName() method below.
-	public static final int OutSIZE						= OutBinaryOp + 1;	 /* last ID used +1 */
+	public static final int OutSIZE						= OutRemoveExceptionBreakpoint + 1;	 /* last ID used +1 */
 
 	/**
 	 * Enums originally extracted from shared_tcserver/tcparser.h; these correspond
@@ -203,12 +213,15 @@ public class DMessage
 	/* Debugging only: The number of bytes from the input that we have formatted into m_debugFormatted */
 	private int m_debugFormattedThroughIndex;
 
+	private int m_targetIsolate;
+	
 	/* used by our cache to create empty DMessages */
 	public DMessage(int size)
 	{
 		m_content = new byte[size];
 		m_debugFormatted = new StringBuilder();
 		m_debugFormattedThroughIndex = 0;
+		m_targetIsolate = Isolate.DEFAULT_ID;
 		clear();
 	}
 
@@ -220,7 +233,9 @@ public class DMessage
 	public int    getSize()				{ return (m_content == null) ? 0 : m_content.length; }
 	public int    getRemaining()		{ return getSize()-m_index; }
 	public int    getPosition()			{ return m_index; }
+	public int getTargetIsolate()      { return m_targetIsolate; }
 	public void   setType(int t)		{ m_type = t; }
+	public void setTargetIsolate(int id) {m_targetIsolate = id;}
 
 	/**
 	 * Gets pointer size (in bytes) expected by the Flash player; either
@@ -256,6 +271,7 @@ public class DMessage
 	public void clear()
 	{
 		setType(-1);
+		setTargetIsolate(Isolate.DEFAULT_ID);
 		m_debugFormatted.setLength(0);
 		m_debugFormattedThroughIndex = 0;
 		reset();
@@ -752,6 +768,34 @@ public class DMessage
             case InBinaryOp:
             	s = "InBinaryOp"; //$NON-NLS-1$
             	break;
+            	
+            case InIsolateCreate:
+            	s = "InIsolateCreate"; //$NON-NLS-1$
+            	break;
+            	
+            case InIsolateExit:
+            	s = "InIsolateExit"; //$NON-NLS-1$
+            	break;
+            	
+            case InIsolateEnumerate:
+            	s = "InIsolateEnumerate"; //$NON-NLS-1$
+            	break;
+            	
+            case InSetActiveIsolate:
+            	s = "InSetActiveIsolate"; //$NON-NLS-1$
+            	break;
+            	
+            case InIsolate:
+            	s = "InIsolate"; //$NON-NLS-1$
+            	break;
+            	
+            case InSetExceptionBreakpoint:
+            	s = "InSetExceptionBreakpoint"; //$NON-NLS-1$
+            	break;
+            	
+            case InRemoveExceptionBreakpoint:
+            	s = "InRemoveExceptionBreakpoint"; //$NON-NLS-1$
+            	break;
 		}
 		return s;
 	}
@@ -949,6 +993,23 @@ public class DMessage
             case OutBinaryOp:
             	s = "OutBinaryOp"; //$NON-NLS-1$
             	break;
+            	
+            case OutIsolateEnumerate:
+            	s = "OutIsolateEnumerate"; //$NON-NLS-1$
+            	break;
+            	
+            case OutSetActiveIsolate:
+            	s = "OutSetActiveIsolate"; //$NON-NLS-1$
+            	break;
+            	
+            case OutSetExceptionBreakpoint:
+            	s = "OutSetExceptionBreakpoint"; //$NON-NLS-1$
+            	break;
+            	
+            case OutRemoveExceptionBreakpoint:
+            	s = "OutRemoveExceptionBreakpoint"; //$NON-NLS-1$
+            	break;
+            	
 		}
    		return s;
 	}

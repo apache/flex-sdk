@@ -14,20 +14,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package flash.tools.debugger;
 
-package flash.tools.debugger.events;
+import java.io.IOException;
 
 /**
- * Signals that the player has spent far too long in a piece of ActionScript
+ * A ILauncher which handles the launching of the URI or the command.
+ * 
+ * ILauncher is to provide more flexibility to handle the Player launch in different platforms.
+ * 
+ * @author ugs
+ *
  */
-public class ScriptTimeoutFault extends FaultEvent
-{
-	public ScriptTimeoutFault(int isolateId) {
-		super(isolateId);
-	}
+public interface ILauncher {
 
-	public final static String name = "script_timeout";  //$NON-NLS-1$
+	/**
+	 * Launches the debug target. 
+	 * 
+	 * @param cmd - Launch URL and other arguments
+	 * @return A handle to the process.
+	 * 
+	 * @throws java.io.IOException
+	 */
+	public Process launch(String[] cmd) throws IOException;
 
-	@Override
-	public String name() { return name; }	
+	/**
+	 * Terminate the process started by launch method.
+	 * @param process - process started by launch.
+	 * @throws java.io.IOException
+	 */
+	public void terminate(Process process) throws IOException;
+	
+	
 }

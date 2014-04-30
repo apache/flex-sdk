@@ -420,7 +420,7 @@ class DebuggerEvaluator implements Evaluator
 
 		flash.tools.debugger.Value thisObject = cx.toValue();
 		if (thisObject == null)
-			thisObject = DValue.forPrimitive(null);
+			thisObject = DValue.forPrimitive(null, 0);
 
 		flash.tools.debugger.Value[] valueArgs = new flash.tools.debugger.Value[args.length];
 		for (int i = 0; i < args.length; ++i) {
@@ -432,7 +432,7 @@ class DebuggerEvaluator implements Evaluator
 			 */
 			flash.tools.debugger.Value tempValue = cx.toValue(args[i]);
 			if ( tempValue == null ) {
-				tempValue = DValue.forPrimitive(null);
+				tempValue = DValue.forPrimitive(null, 0);
 			}
 			valueArgs[i] = tempValue;	
 		}			
@@ -774,7 +774,7 @@ class DebuggerEvaluator implements Evaluator
 					flash.tools.debugger.Value xml1 = session.callFunction(v1, "toXMLString", new flash.tools.debugger.Value[0]); //$NON-NLS-1$
 					flash.tools.debugger.Value xml2 = session.callFunction(v2, "toXMLString", new flash.tools.debugger.Value[0]); //$NON-NLS-1$
 					String allXML = xml1.getValueAsString() + xml2.getValueAsString();
-					flash.tools.debugger.Value allXMLValue = DValue.forPrimitive(allXML);
+					flash.tools.debugger.Value allXMLValue = DValue.forPrimitive(allXML, 0);
 					flash.tools.debugger.Value retval = session.callConstructor("XMLList", new flash.tools.debugger.Value[] { allXMLValue }); //$NON-NLS-1$
 					return new DebuggerValue(retval);
 				}
@@ -785,8 +785,8 @@ class DebuggerEvaluator implements Evaluator
 			}
 			else
 			{
-				v1 = ECMA.toPrimitive(session, v1, null);
-				v2 = ECMA.toPrimitive(session, v2, null);
+				v1 = ECMA.toPrimitive(session, v1, null, 0);
+				v2 = ECMA.toPrimitive(session, v2, null, 0);
 				if (v1.getType() == VariableType.STRING || v2.getType() == VariableType.STRING)
 				{
 					return new DebuggerValue(ECMA.toString(session, v1) + ECMA.toString(session, v2));
