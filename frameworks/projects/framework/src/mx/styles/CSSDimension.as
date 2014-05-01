@@ -30,7 +30,8 @@ import mx.utils.ObjectUtil;
  * cm : centimeter
  * pt : point
  * dp :  device independent pixel ( 1 pix at about 160 DPI )
- *
+ * </p>
+ * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0
  *  @productversion Flex 4.13

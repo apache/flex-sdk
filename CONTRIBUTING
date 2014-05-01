@@ -34,16 +34,16 @@ Contributing
 Mailing Lists
 =============
 
-	The two main mailing list are the user list for discussing how to code in
-	Flex and any issues you run into and the dev list for discussing ongoing
-	development of the SDK.
-	
-	You can subscribe to the mailing lists by sending an email to:
-	users-subscribe@flex.apache.org
-	dev-subscribe@flex.apache.org
-	
-	Note that both mailing lists have are mid-high volume lists.
-	
+    The two main mailing list are the user list for discussing how to code in
+    Flex and any issues you run into and the dev list for discussing ongoing
+    development of the SDK.
+    
+    You can subscribe to the mailing lists by sending an email to:
+    users-subscribe@flex.apache.org
+    dev-subscribe@flex.apache.org
+    
+    Note that both mailing lists have are mid-high volume lists.
+    
     For those who prefer forums:
     http://s.apache.org/flex-users-forum
     http://s.apache.org/flex-dev-forum
@@ -63,17 +63,17 @@ Reporting Bugs
     - Screen shots
     - Small sample application showing the issue
     - Steps on how to reproduce the issue
-    	 
+         
     Please search through JIRA before submitting new bugs. It may be that the
     bug you've found has already been reported.
 
 Getting the code
 ================
 
-	The Apache FLex SDK code is stored in a git repository.
+    The Apache FLex SDK code is stored in a git repository.
     https://cwiki.apache.org/confluence/display/FLEX/1.+Setting+up+the+SDK
 
-	To check out:
+    To check out:
     git clone https://git-wip-us.apache.org/repos/asf/flex-sdk.git sdk
     cd sdk
     git checkout develop
