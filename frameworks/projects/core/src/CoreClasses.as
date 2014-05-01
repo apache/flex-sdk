@@ -35,6 +35,7 @@ internal class CoreClasses
 	import mx.core.BitmapAsset; BitmapAsset;
 	import mx.core.ByteArrayAsset; ByteArrayAsset;
 	import mx.core.ButtonAsset; ButtonAsset;
+    import mx.core.DebuggableWorker; DebuggableWorker;
 	import mx.core.FontAsset; FontAsset;
 	import mx.core.FlexLoader; FlexLoader;
 	import mx.core.IFlexModule; IFlexModule;
