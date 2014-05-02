@@ -41,6 +41,7 @@ application-dpi=240.
 
 global
 {
+	primaryAccentColor: #33B5E5;
 	fontFamily: RobotoRegular;
 	fontWeight: "normal";
 	fontSize: 24;
@@ -98,6 +99,16 @@ ButtonBar
 	skinClass: ClassReference("spark.skins.android4.ButtonBarSkin");
 	fontFamily: RobotoBold;
 	fontWeight: "bold";
+}
+
+Callout
+{
+    backgroundColor: #484848;
+    contentBackgroundColor: #FFFFFF;
+    gap: 12;
+    skinClass: ClassReference("spark.skins.android4.CalloutSkin");
+    borderThickness: 0;
+    borderColor: 0;
 }
 
 CheckBox
