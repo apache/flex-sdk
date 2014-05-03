@@ -474,12 +474,18 @@ public class FileInfoCache implements Comparator<SourceFile>
 
         return yes;
     }
+
     /**
      * Return a array of SourceFiles whose names match
      * the specified string. The array is sorted by name.
-	 * The input can be mx.controls.xxx which will
+     * The input can be mx.controls.xxx which will
      */
     public SourceFile[] getFiles(String matchString)
+    {
+        return getFiles(matchString, -1);
+    }
+
+    public SourceFile[] getFiles(String matchString, int isolateId)
     {
         boolean doStartsWith = false;
         boolean doIndexOf = false;
@@ -513,7 +519,7 @@ public class FileInfoCache implements Comparator<SourceFile>
             doStartsWith = true;
         }
 
-		SourceFile[] files = getFileList();
+		SourceFile[] files = isolateId > -1 ? getFileList(isolateId) : getFileList();
         ArrayList<SourceFile> fileList = new ArrayList<SourceFile>();
         int n = files.length;
 		int exactHitAt = -1;
