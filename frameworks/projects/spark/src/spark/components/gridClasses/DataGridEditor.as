@@ -513,7 +513,7 @@ public class DataGridEditor
     {
         // trace("destroyItemEditor");
         if (grid.root)
-            grid.systemManager.addEventListener(Event.DEACTIVATE, deactivateHandler, false, 0, true);
+            grid.systemManager.removeEventListener(Event.DEACTIVATE, deactivateHandler);
         
         grid.systemManager.getSandboxRoot().
             removeEventListener(MouseEvent.MOUSE_DOWN, sandBoxRoot_mouseDownHandler, true);
@@ -532,6 +532,7 @@ public class DataGridEditor
             
             o.removeEventListener(KeyboardEvent.KEY_DOWN, editor_keyDownHandler);
             o.removeEventListener(FocusEvent.FOCUS_OUT, editor_focusOutHandler);
+            o.removeEventListener(Event.REMOVED_FROM_STAGE, editor_removedFromStageHandler);
             o.removeEventListener(FocusEvent.KEY_FOCUS_CHANGE, editor_keyFocusChangeHandler);
             addRemoveFlexEventEnterListener(DisplayObject(o), false);
             
@@ -673,7 +674,7 @@ public class DataGridEditor
             var editor:IEventDispatcher = itemEditorInstance ? itemEditorInstance : editedItemRenderer;
             
             editor.addEventListener(FocusEvent.FOCUS_OUT, editor_focusOutHandler);
-            
+			editor.addEventListener(Event.REMOVED_FROM_STAGE, editor_removedFromStageHandler);
             // listen for keyStrokes on the itemEditorInstance (which lets the grid supervise for ESC/ENTER)
             editor.addEventListener(KeyboardEvent.KEY_DOWN, editor_keyDownHandler);
             editor.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, editor_keyFocusChangeHandler, false, 1000);
@@ -1570,6 +1571,23 @@ public class DataGridEditor
         }
     }
     
+    /**
+     *  @private
+     *  Closes the itemEditorInstance if the focus is outside of the data grid.
+     */
+    private function editor_removedFromStageHandler(event:Event):void
+	{
+		if (itemEditorInstance || editedItemRenderer)
+		{
+			// If we can't save the data, say, because the data was invalid, 
+			// then cancel the save.
+			if (!dataGrid.endItemEditorSession())
+			{
+				dataGrid.endItemEditorSession(true);
+			}
+		}
+	}
+	
     /**
      *  @private
      *  Closes the itemEditorInstance if the focus is outside of the data grid.

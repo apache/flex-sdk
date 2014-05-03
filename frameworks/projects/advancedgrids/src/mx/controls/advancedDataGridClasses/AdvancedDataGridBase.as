@@ -1693,12 +1693,15 @@ public class AdvancedDataGridBase extends AdvancedListBase implements IFontConte
      */
     mx_internal function columnHeaderWordWrap(c:AdvancedDataGridColumn):Boolean
     {
-        if (c.headerWordWrap == true)
-            return true;
-        if (c.headerWordWrap == false)
-            return false;
-
-        return headerWordWrap;
+		if (c)
+		{
+			if (c.headerWordWrap === undefined)
+				return headerWordWrap;
+			else
+				return c.headerWordWrap;
+		}
+		
+		return headerWordWrap;
     }
 
     /**
@@ -1711,10 +1714,13 @@ public class AdvancedDataGridBase extends AdvancedListBase implements IFontConte
      */
     mx_internal function columnWordWrap(c:AdvancedDataGridColumn):Boolean
     {
-        if (c.wordWrap == true)
-            return true;
-        if (c.wordWrap == false)
-            return false;
+		if (c)
+		{
+			if (c.wordWrap === undefined)
+				return wordWrap;
+			else
+				return c.wordWrap;
+		}
 
         return wordWrap;
     }

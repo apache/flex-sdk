@@ -48,6 +48,8 @@ public class MxmlConfiguration
     //
     // 'compiler.mxml.compatibility-version' option
     //
+	public static final int VERSION_4_13 = 0x040d0000;
+	public static final int VERSION_4_12_1 = 0x040c0001;
 	public static final int VERSION_4_12 = 0x040c0000;
 	public static final int VERSION_4_11 = 0x040b0000;
 	public static final int VERSION_4_10 = 0x040a0000;
@@ -60,7 +62,7 @@ public class MxmlConfiguration
     public static final int VERSION_3_0 = 0x03000000;
     public static final int VERSION_2_0_1 = 0x02000001;
     public static final int VERSION_2_0 = 0x02000000;
-    public static final int CURRENT_VERSION = VERSION_4_12;
+    public static final int CURRENT_VERSION = VERSION_4_12_1;
     public static final int EARLIEST_MAJOR_VERSION = 3;
     public static final int LATEST_MAJOR_VERSION = 4;
     public static final int LATEST_MINOR_VERSION = 12;

@@ -57,7 +57,7 @@
         /**
          *  @private
          */
-        override public function get contentItems():Array {return contentFill};
+        override public function get contentItems():Array {return contentFill; }
         
         /**
          *  @private

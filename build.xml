@@ -569,6 +569,7 @@
                 <include name="NOTICE"/>
                 <include name="README"/>
                 <include name="RELEASE_NOTES"/>
+            	<include name="CONTRIBUTING"/>
             </fileset>
         </copy>
          

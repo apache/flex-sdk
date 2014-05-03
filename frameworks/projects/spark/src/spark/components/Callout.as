@@ -1555,7 +1555,7 @@ public class Callout extends SkinnablePopUpContainer
             direction = ArrowDirection.DOWN;
         }
 
-        return direction
+        return direction;
     }
 
     /**

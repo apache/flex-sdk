@@ -31,6 +31,8 @@ internal class MobileComponentsClasses
  *  For example, Button does not have a reference to ButtonSkin,
  *  but ButtonSkin needs to be in framework.swc along with Button.
  */
+
+    import spark.utils.PlatformMobileHelper;  PlatformMobileHelper;
     import spark.preloaders.SplashScreen; SplashScreen;
     import spark.components.supportClasses.StyleableStageText; StyleableStageText;
     import spark.components.supportClasses.ScrollableStageText; ScrollableStageText;

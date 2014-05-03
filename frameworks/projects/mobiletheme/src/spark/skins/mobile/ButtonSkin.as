@@ -111,7 +111,7 @@ public class ButtonSkin extends ButtonSkinBase
 				downBorderSkin = spark.skins.mobile640.assets.Button_down;
 				
 				layoutGap = 20;
-				layoutCornerEllipseSize = 40;
+				layoutCornerEllipseSize = 28;
 				layoutPaddingLeft = 40;
 				layoutPaddingRight = 40;
 				layoutPaddingTop = 40;
@@ -129,7 +129,7 @@ public class ButtonSkin extends ButtonSkinBase
 				downBorderSkin = spark.skins.mobile480.assets.Button_down;
 				
 				layoutGap = 14;
-				layoutCornerEllipseSize = 30;
+				layoutCornerEllipseSize = 20;
 				layoutPaddingLeft = 30;
 				layoutPaddingRight = 30;
 				layoutPaddingTop = 30;
@@ -146,7 +146,7 @@ public class ButtonSkin extends ButtonSkinBase
                 downBorderSkin = spark.skins.mobile320.assets.Button_down;
                 
                 layoutGap = 10;
-                layoutCornerEllipseSize = 20;
+                layoutCornerEllipseSize = 10;
                 layoutPaddingLeft = 20;
                 layoutPaddingRight = 20;
                 layoutPaddingTop = 20;
@@ -163,7 +163,7 @@ public class ButtonSkin extends ButtonSkinBase
 				downBorderSkin = spark.skins.mobile240.assets.Button_down;
 				
 				layoutGap = 7;
-				layoutCornerEllipseSize = 15;
+				layoutCornerEllipseSize = 8;
 				layoutPaddingLeft = 15;
 				layoutPaddingRight = 15;
 				layoutPaddingTop = 15;

@@ -84,7 +84,7 @@ public class ActionBarButtonSkinBase extends ButtonSkin
 				layoutPaddingBottom = 20;
 				layoutPaddingLeft = 40;
 				layoutPaddingRight = 40;
-				measuredDefaultWidth = 2012;
+				measuredDefaultWidth = 212;
 				measuredDefaultHeight = 172;
 				break;
 			}

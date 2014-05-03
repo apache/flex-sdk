@@ -1381,7 +1381,7 @@ internal class ItemAccInfo
         if (int(childID) <= 0)
             return true;
         if (!dataGrid.dataProvider || !dataGrid.columns)
-            return true
+            return true;
         if (childID > maxChildID)
             return true;
         return false;

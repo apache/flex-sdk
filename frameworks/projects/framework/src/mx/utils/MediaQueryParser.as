@@ -19,9 +19,18 @@
 
 package mx.utils
 {
+import flash.events.Event;
+import flash.events.EventDispatcher;
 import flash.system.Capabilities;
 import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
+import mx.managers.ISystemManager;
+import mx.managers.SystemManagerGlobals;
+import mx.styles.CSSDimension;
+import mx.styles.CSSOSVersion;
+import mx.styles.IStyleManager2;
+import mx.styles.StyleManager;
+
 use namespace mx_internal;
 
 [ExcludeClass]
@@ -31,13 +40,23 @@ use namespace mx_internal;
  *  Parser for CSS Media Query syntax.  Not a full-fledged parser.
  *  Doesn't report syntax errors, assumes you have your attributes
  *  and identifiers spelled correctly, etc.
+ *  Media query parser now supports os-version selectors such as X, X.Y or X.Y.Z
+ *  Note that version with 2 or 3 parts must be  quoted
+Examples:
+ (os-platform: "ios") AND (min-os-version: 7)
+ (os-platform: "android") AND (min-os-version: "4.1.2")
+
+ non standard selectors:
+ -flex-device-diagonal
+ -flex-min-device-diagonal
+
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.2
  *  @playerversion AIR 2.6
  *  @productversion Flex 4.5
  */ 
-public class MediaQueryParser
+public class MediaQueryParser  extends EventDispatcher
 {
     /**
      *  @private
@@ -101,11 +120,21 @@ public class MediaQueryParser
         {
             if (moduleFactory.info()["applicationDPI"] != null)
                 applicationDpi = moduleFactory.info()["applicationDPI"];
+            if (moduleFactory is ISystemManager){
+                sm = ISystemManager(moduleFactory);
+                if (sm.stage)
+                    sm.stage.addEventListener(Event.RESIZE, stage_resizeHandler, false);
+            }
         }
         osPlatform = getPlatform();
-        osVersion = getOSVersion(osPlatform);
+        osVersion = getOSVersion();
+        // compute device  DPI
+        deviceDPI = Capabilities.screenDPI;
+        // compute width, height and diagonal
+        computeDeviceDimensions( );
+
     }
-    
+
     /**
      *  Queries that were true
      */
@@ -115,6 +144,18 @@ public class MediaQueryParser
      *  Queries that were false
      */
     mx_internal var badQueries:Object = {};
+
+    /**
+     * system manager for the MQP to compute device dimensions
+     */
+    private var sm: ISystemManager;
+
+    /** flags are set if device-width / device height are used in any media query.
+     * This is an optimization, so that   we know when it's necessary to regenerate styles
+     * */
+    private var usesDeviceWidth: Boolean = false ;
+    private var usesDeviceHeight: Boolean =false;
+    private var usesDeviceDiagonal: Boolean = false;
     
     /**
      *  @private
@@ -291,49 +332,68 @@ public class MediaQueryParser
             
             // break into two pieces
             var parts:Array = expr.split(":");
+            var key: String = parts[0];
             var min:Boolean = false;
             var max:Boolean = false;
+            var flex: Boolean = false;
+
+            // process custom  selectors
+            if (key.indexOf("-flex-") == 0){
+                 flex =true;
+                key = key.substr(6);
+            }
+
             // look for min
-            if (parts[0].indexOf("min-") == 0)
+            if (key.indexOf("min-") == 0)
             {
                 min = true;
-                parts[0] = parts[0].substr(4);
+                key = key.substr(4);
             }
             // look for max
-            else if (parts[0].indexOf("max-") == 0)
+            else if (key.indexOf("max-") == 0)
             {
                 max = true;
-                parts[0] = parts[0].substr(4);
+                key = key.substr(4);
             }
-            // collapse hypens into camelcase
-            if (parts[0].indexOf("-") > 0)
-                parts[0] = deHyphenate(parts[0]);
+            // collapse hypens into camelcase ;
+            if (key.indexOf("-") > 0)
+                key = deHyphenate(key, flex);
+
+            if ( key == "deviceWidth")
+                 usesDeviceWidth = true;
+            else if (key  =="deviceHeight" )
+               usesDeviceHeight = true;
+            else if (key == "flexDeviceDiagonal")
+                usesDeviceDiagonal = true;
+
             // if only one part, then it only matters that this property exists
             if (parts.length == 1)
             {
-                if (!(parts[0] in this))
+                if (!(key in this))
                     return false;
             }
             // if two parts, then make sure the property exists and value matches
             if (parts.length == 2)
             {
                 // if property doesn't exist, then bail
-                if (!(parts[0] in this))
+                if (!(key in this))
                     return false;
+                var value: Object = normalize(parts[1], this[key]) ;
+                var cmp: int = compareValues(this[key], value) ;
                 // handle min (we don't check if min is allowed for this property)
                 if (min)
                 {
-                    if (this[parts[0]] < normalize(parts[1], typeof(this[parts[0]])))
-                        return false;
+                   if (cmp < 0)
+                       return false;
                 }
                 // handle max (we don't check if min is allowed for this property)
                 else if (max)
                 {
-                    if (this[parts[0]] > normalize(parts[1], typeof(this[parts[0]])))
+                    if (cmp > 0)
                         return false;
                 }
                 // bail if the value doesn't match
-                else if (this[parts[0]] != normalize(parts[1], typeof(this[parts[0]])))
+                else if (cmp != 0)
                 {
                     return false;
                 }
@@ -344,8 +404,9 @@ public class MediaQueryParser
         return true;
     }
     
-    // strip off metrics (maybe convert metrics some day)
-    private function normalize(s:String, type:String):Object
+    // strip off  unit if currentValue is Number or int
+    //  now supports versions (X.Y.Z) and numbers with units
+    private function normalize(s:String, currentValue: Object ):Object
     {
         var index:int;
         
@@ -356,7 +417,7 @@ public class MediaQueryParser
         // for the numbers we currently handle, we
         // might find dpi or ppi on it, that we just strip off.
         // We don't handle dpcm yet.
-        if (type == "number")
+        if (currentValue is Number)
         {
             index = s.indexOf("dpi");
             if (index != -1)
@@ -365,37 +426,85 @@ public class MediaQueryParser
             }
             return Number(s);
         }
-        else if (type == "int")
+        else if (currentValue is int)
         {
             return int(s);
         }
-        else if (type == "string")
-        {
-            // strip quotes of strings
-            if (s.indexOf('"') == 0)
-            {
-                if (s.lastIndexOf('"') == s.length - 1)
-                    s = s.substr(1, s.length - 2);
-                else
-                    s = s.substr(1);
-            }
+        // string or CSS value
+        // strip quotes of strings
+        if (s.indexOf('"') == 0) {
+            if (s.lastIndexOf('"') == s.length - 1)
+                s = s.substr(1, s.length - 2);
+            else
+                s = s.substr(1);
         }
-        
+        //  string , return
+         if (currentValue is String)
+        {
+             return s;
+        }
+        else if (currentValue is CSSOSVersion) {
+            return new CSSOSVersion(s) ;
+        }
+        else if (currentValue is CSSDimension) {
+              var matches: Array = s.match(/([\d\.]+)(in|cm|dp|pt|px|)$/);    // decimal number following by either units or no unit
+             if (matches!= null && matches.length == 3) {
+                 var unit: String =  matches[2];
+                 var refDPI: Number = unit == CSSDimension.UNIT_DP ? applicationDpi : deviceDPI ; // DPI use applicationDPI  for conversion
+                 return new CSSDimension(Number(matches[1]), refDPI,unit );
+             }
+             else {
+                 throw new Error("Unknown unit in css media query:" + s); //TODO NLS Error message
+                 return s;
+             }
+
+         }
         return s;
     }
-    
+
+    /**  @private
+     * Compares current value with test values, using currentValue type to determine comparison function
+     *  accepts number, int, string and CSSOSVersion.
+     *  Will accept LexicalUnit in the future
+     *
+     * @param currentValue
+     * @param testValue
+     * @return   -1 if currentValue < testValue, 1 if currentValue > testValue and 0 if equal
+     */
+    private function compareValues ( currentValue: Object, testValue: Object): int
+    {
+        if (currentValue is CSSOSVersion)
+           return CSSOSVersion(currentValue).compareTo(CSSOSVersion(testValue))  ;
+        else if (currentValue is CSSDimension)
+            return CSSDimension(currentValue).compareTo(CSSDimension(testValue));
+        else // scalar compare operators
+           if ( currentValue == testValue)
+              return 0;
+           else if ( currentValue < testValue)
+             return -1;
+           else
+             return 1;
+    }
+
     // collapse "-" to camelCase
-    private function deHyphenate(s:String):String
+    private function deHyphenate(s:String, flex: Boolean):String
     {
         var i:int = s.indexOf("-");
+        var part: String;
+        var c: String;
+
         while (i > 0)
         {
-            var part:String = s.substr(i + 1);
+             part = s.substr(i + 1);
             s = s.substr(0, i);
-            var c:String = part.charAt(0);
-            c = c.toUpperCase();
+            c = (part.charAt(0)).toUpperCase();
             s += c + part.substr(1);
             i = s.indexOf("-");
+        }
+        // if flex, camel case and prefix with flex
+        if (flex){
+            c = (s.charAt(0)).toUpperCase();
+            s = "flex" + c + s.substr(1);
         }
         return s;
     }
@@ -415,46 +524,82 @@ public class MediaQueryParser
     }
 
     /** @private
-     * extract OS version information from os
-     * os is typically a non-numeric string (such as Windows,  iPhone OS, Android, etc...)  followed by a number.
-     * if no number is found, OS version is set to 0.
-     * os on ADL will return the host OS and not the device OS.
-     * That why we need to check for a specific sequence for iOS and Android
+     * returns a CSSOSVersion suitable for MediaQueryParser for the current device operating system version.
      * */
-    private function getOSVersion(osPlatform:String):Number {
-        //TODO (mamsellem)  retrieve  os version for Android, reading  system/build.prop
-        var os: String = Capabilities.os;
-        var osMatch: Array;
-		
-        if (osPlatform == "ios")
-		{
-            osMatch = os.match(/iPhone OS\s([\d\.]+)/);
-        }
-        else
-		{
-            osMatch = os.match(/[A-Za-z\s]+([\d\.]+)/);
-        }
-		
-		return osMatch ? convertVersionStringToNumber(osMatch[1]) : 0.0;
+    private function getOSVersion():CSSOSVersion {
+		return  new CSSOSVersion(Platform.osVersion) ;
     }
 
-    /** @private  converts string version such as "X" or "X.Y" or "X.Y.Z" into a number.
-     * minor version parts are normalized to 100  so that eg. X.1 < X.10
-     * so "7.1" return 7.01 and "7.12" return 7.12
-  */
-    private function convertVersionStringToNumber(versionString: String): Number
-	{
-        var versionParts: Array = versionString.split(".");
-        var version: Number = 0;
-        var scale: Number = 1;
-		
-        for each (var part: String in versionParts) {
-            version += Number(part) * scale;
-            scale /= 100;
+    /** @private recompute device dimension
+     *
+     * @return true if any dimension that is used in media queries has changed, and styles need to be regenerated
+     *   we ignore changes to deviceDiagonal on purpose, so that only changing
+     */
+    private function computeDeviceDimensions(): Boolean
+    {
+        if (sm) {
+            var w: Number = sm.stage.stageWidth;
+            var h: Number = sm.stage.stageHeight;
+            var diag: Number = Math.sqrt(w * w + h * h);
+
+           // we need to update styles if device-width is used and has changed or device-height is used and has changed
+            // for example after switching orientation or going fullscreen
+            // we ignore changes to device diagonal on purpose
+
+            var needToUpdateStyles: Boolean = (usesDeviceWidth && w != deviceWidth.pixelValue)     || (usesDeviceHeight && h != deviceHeight.pixelValue) ;
+
+            deviceWidth = new CSSDimension(w, deviceDPI);
+            deviceHeight = new CSSDimension(h, deviceDPI);
+            flexDeviceDiagonal = new CSSDimension(  diag, deviceDPI );
+
+           return needToUpdateStyles;
         }
-		
-        return version;
+        return false;
     }
+
+    private function stage_resizeHandler(event: Event): void
+    {
+        if (computeDeviceDimensions())  {
+            // reinit query cache then reload styles
+            goodQueries = {};
+            badQueries = {};
+            reinitApplicationStyles();
+        }
+
+    }
+
+    private function reinitApplicationStyles( ):void {
+
+        var styleManager: IStyleManager2 = StyleManager.getStyleManager(sm);
+
+        styleManager.stylesRoot = null;
+        styleManager.initProtoChainRoots();
+
+        var sms: Array = SystemManagerGlobals.topLevelSystemManagers;
+        var n: int = sms.length;
+        var i: int;
+
+        // Type as Object to avoid dependency on SystemManager.
+        var sm: ISystemManager;
+        var cm: Object;
+
+            // Regenerate all the proto chains
+            // for all objects in the application.
+            for (i = 0; i < n; i++) {
+                sm = sms[i];
+                cm = sm.getImplementation("mx.managers::ISystemManagerChildManager");
+                cm.regenerateStyleCache(true);
+            }
+
+        for (i = 0; i < n; i++) {
+            sm = sms[i];
+            cm = sm.getImplementation("mx.managers::ISystemManagerChildManager");
+            cm.notifyStyleChangeInChildren(null, true);      // all styles
+        }
+    }
+
+    /* real device DPI, use for converting physical units */
+    private var deviceDPI: Number ;
 
     // the type of the media
     public var type:String = "screen";
@@ -466,8 +611,31 @@ public class MediaQueryParser
     public var osPlatform:String;
 
     // the platform os version of the media
-    public var osVersion: Number;
-    
-}
+    public var osVersion: CSSOSVersion;
+
+    /**
+     * Physical device width.
+     * matches "device-width" selector.
+     */
+    [Bindable]
+    public var deviceWidth: CSSDimension ;
+
+    /**
+     * Physical device height.
+     * matches "device-height" selector
+     */
+    [Bindable]
+    public var deviceHeight: CSSDimension;
+
+    /**
+     *  Physical device diagonal.
+     *  matches  "-flex-device-diagonal" selector
+     *  prefixed by "-flex" because it's not W3C standard
+     *
+     */
+    public var flexDeviceDiagonal: CSSDimension;
 
 }
+}
+
+

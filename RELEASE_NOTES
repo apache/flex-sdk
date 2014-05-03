@@ -1,3 +1,84 @@
+Apache Flex 4.12.1
+=================
+
+Apache Flex 4.12.1 is an update to Apache Flex 4.12. 
+
+Known Issues
+_____________
+
+Adobe Flash Builder Integration
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
+when generating the .mxml file for a new project that uses Apache Flex SDK
+4.10.0 or later Spark Application, Flash Builder will incorrectly insert the
+attribute:
+
+	layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
+
+http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
+
+
+Differences from Apache Flex 4.12 include:
+
+AIR and Flash Player support
+------------------------------
+ - Support Flash Player 13.0
+ - Support for AIR 13.0
+
+SDK Changes
+-------------
+- Extended mobile media query support
+
+Compiler Changes
+------------------
+- Fix issue with 3rd party license components not working
+
+Bug Fixes
+----------
+ Below is a complete list of all the bug fixes that have been included since
+ the last full release, Apache Flex 4.12.0.
+ If you would like specific information about any of the items below, go to
+ https://issues.apache.org and search for the JIRA Issue Number by using the
+ Quick Search.  Details of the bug and its fix will be included on the
+ resulting page.
+
+JIRA Issue Number and Summary                                                                                        
+-------------------------------------------------------------------------------------------------------------------
+FLEX-34231  StageText displays wrong text
+FLEX-34230  StageText skins prevents garbage collection of component with TextInputs and TextAreas
+FLEX-34229  DataGridEditor doesn't remove the Event.DEACTIVATE listener on destroyItemEditor()
+FLEX-34228  spark datagrid syntax
+FLEX-34216  GridItemEditor's save() method is still called despite the grid not being on stage anymore
+FLEX-34209  DateFormatter's parseDateTime method doesn't handle AM PM properly when time is in the 12 PM hour
+FLEX-34200  ResourceModuleProxy doesn't load properly
+FLEX-34189  ActionBar button is too big in 640 DPI
+FLEX-34145  Mobile Theme: TextInput with layoutDirection="rtl" becomes mirror on focus out.
+FLEX-34142  Can not change the color of the header with the property headerStyleName (MobileGridColumn)
+FLEX-34141  softkeyboardActivate events are not dispatched in Flex 4.12 on iOS
+FLEX-34139  Missing 120DPI Skin References
+FLEX-34133  ADG RTE in columnHeaderWordWrap
+FLEX-34132  DataGrid columns with no dataField specified give "[object Object]"
+FLEX-34125  CheckAllPlayerGlobals script in ide folder is missing Windows implementation
+FLEX-34117  Button: Small gap in the corner
+FLEX-34098  Deleteing/Replacing Surrogate-Pair string causes RTE in TLF
+FLEX-34057  RTE on pasting empty data after Excel operation
+FLEX-34013  RTE at TextClipboard#importToScrap()
+FLEX-33994  Need a way to distinguish phone and tablet target devices through css
+FLEX-33948  Add touch behaviour to spark DropDownList classes
+FLEX-33423  We can input text over than maxChars when we use "Insert" mode.
+FLEX-33421  Broken metadata RequiresLicense
+FLEX-33350  CallOutButton for Web (desktop / not AIR)
+
 Apache Flex 4.12
 =================
 

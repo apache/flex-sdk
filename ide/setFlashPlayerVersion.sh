@@ -220,7 +220,7 @@ do
 
 	if [ ${FLASH_VERSION} = "13.0" ]
 	then
-		updateSWFVersion 23 "${configFile}"
+		updateSWFVersion 24 "${configFile}"
 	fi
 		
 	if [ ${FLASH_VERSION} = "12.0" ]

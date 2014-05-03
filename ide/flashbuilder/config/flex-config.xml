@@ -110,7 +110,7 @@
          <namespace>
             <uri>http://flex.apache.org/experimental/ns</uri>
             <manifest>experimental-manifest.xml</manifest>
-         </namespace>     
+         </namespace>
       </namespaces>
 
       <!-- Enable post-link SWF optimization. -->
@@ -352,76 +352,76 @@
       <url>string</url>
    </runtime-shared-libraries>
    -->
-	
-	<!-- runtime-shared-library-path: specifies a SWC or directory to link against and an RSL URL to load with optional failover URLs -->  
+
+	<!-- runtime-shared-library-path: specifies a SWC or directory to link against and an RSL URL to load with optional failover URLs -->
       <!-- Framework SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/framework.swc</path-element>
-		<rsl-url>framework_4.12.0.0.swf</rsl-url>
+		<rsl-url>framework_4.13.0.0.swf</rsl-url>
 	</runtime-shared-library-path>
-	  
+
 	  <!-- TextLayout SWC -->
-	<!-- 
+	<!--
 	    Even though there is no textLayout rsl leave this in so that in a FlashBuilder
 	    Flex Library project, FlashBuilder will allow "Link Type" to be external.
     -->
     <runtime-shared-library-path>
 		<path-element>libs/textLayout.swc</path-element>
-		<rsl-url>textLayout_4.12.0.0.swf</rsl-url>
+		<rsl-url>textLayout_4.13.0.0.swf</rsl-url>
 	</runtime-shared-library-path>
-    
+
       <!-- Spark SWC-->
    	<runtime-shared-library-path>
 		<path-element>libs/spark.swc</path-element>
-		<rsl-url>spark_4.12.0.0.swf</rsl-url>
+		<rsl-url>spark_4.13.0.0.swf</rsl-url>
 	</runtime-shared-library-path>
-	
+
       <!-- Sparkskins SWC-->
    	<runtime-shared-library-path>
 		<path-element>libs/sparkskins.swc</path-element>
-		<rsl-url>sparkskins_4.12.0.0.swf</rsl-url>
+		<rsl-url>sparkskins_4.13.0.0.swf</rsl-url>
 	</runtime-shared-library-path>
-	 
+
 	  <!-- RPC SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/rpc.swc</path-element>
-		<rsl-url>rpc_4.12.0.0.swf</rsl-url>
+		<rsl-url>rpc_4.13.0.0.swf</rsl-url>
 	</runtime-shared-library-path>
-    	
+
       <!-- Charts SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/charts.swc</path-element>
-		<rsl-url>charts_4.12.0.0.swf</rsl-url>
+		<rsl-url>charts_4.13.0.0.swf</rsl-url>
 	</runtime-shared-library-path>
 
       <!-- Spark_dmv SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/spark_dmv.swc</path-element>
-		<rsl-url>spark_dmv_4.12.0.0.swf</rsl-url>
+		<rsl-url>spark_dmv_4.13.0.0.swf</rsl-url>
 	</runtime-shared-library-path>
 
       <!-- OSMF SWC -->
-	<!-- 
+	<!--
 	    Even though there is no OSMF rsl leave this in so that in a FlashBuilder
 	    Flex Library project, FlashBuilder will allow "Link Type" to be external.
     -->
     <runtime-shared-library-path>
-		<path-element>libs/osmf.swc</path-element>
-		<rsl-url>osmf_4.12.0.0.swf</rsl-url>
+		<path-element>libs/OSMF.swc</path-element>
+		<rsl-url>osmf_4.13.0.0.swf</rsl-url>
 	</runtime-shared-library-path>
-      
+
       <!-- MX SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/mx/mx.swc</path-element>
-		<rsl-url>mx_4.12.0.0.swf</rsl-url>
+		<rsl-url>mx_4.13.0.0.swf</rsl-url>
 	</runtime-shared-library-path>
-   
+
       <!-- Advancedgrids SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/advancedgrids.swc</path-element>
-		<rsl-url>advancedgrids_4.12.0.0.swf</rsl-url>
+		<rsl-url>advancedgrids_4.13.0.0.swf</rsl-url>
 	</runtime-shared-library-path>
-	
+
 	<!-- static-link-runtime-shared-libraries: statically link the libraries specified by the -runtime-shared-libraries-path option.-->
 	<static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
 
@@ -443,5 +443,5 @@
       <creator>Apache Software Foundation</creator>
       <language>en_US</language>
    </metadata>
-   
+
 </flex-config>
