@@ -3858,7 +3858,7 @@ public class DebugCLI implements Runnable, SourceLocator {
     }
 
     private int parseFileName(String partialFileName) throws NoMatchException, AmbiguousException {
-        SourceFile[] sourceFiles = m_fileInfo.getFiles(partialFileName);
+        SourceFile[] sourceFiles = m_fileInfo.getFiles(partialFileName, m_activeIsolate);
         int nSourceFiles = sourceFiles.length;
 
         if (nSourceFiles == 0) {
