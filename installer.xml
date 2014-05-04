@@ -43,8 +43,8 @@
     <property file="${FLEX_HOME}/installer.properties/en_US.properties"/>
     <property name="download.dir" value="${FLEX_HOME}/in"/>
     
-    <property name="air.sdk.version" value="3.9"/>
-    <property name="flash.sdk.version" value="11.9"/>
+    <property name="air.sdk.version" value="13.0"/>
+    <property name="flash.sdk.version" value="13.0"/>
     
     <property name="xml.properties" value="http://flex.apache.org/installer/sdk-installer-config-4.0.xml" />
     
@@ -102,7 +102,7 @@
         </not>
     </condition>
     
-    <condition property="java.home" value="${env.JAVA_HOME}" >
+    <condition property="java.home" value="${env.JAVA_HOME}">
         <and>
             <available file="${env.JAVA_HOME}" type="dir" />
             <not>
@@ -111,7 +111,7 @@
         </and>
     </condition>
 
-    <target name="get-data" >
+    <target name="get-data">
         <property name="do-not-cache-next-get" value="true" />
         <get src="${xml.properties}" dest="${basedir}/sdk-installer-config-4.0.xml" />
         <xmlproperty file="${basedir}/sdk-installer-config-4.0.xml" semanticAttributes="true" collapseAttributes="true"/>
@@ -263,11 +263,11 @@
         
     </target>
 
-    <target name="air-get-check" >
+    <target name="air-get-check">
         <available file="${download.dir}/${air.sdk.url.file}" property="air.downloaded" />
     </target>
         
-    <target name="air-get" depends="air-get-check" unless="air.downloaded" >
+    <target name="air-get" depends="air-get-check" unless="air.downloaded">
         <echo>${AIRDownloadEcho} ${air.sdk.url.path}/${air.sdk.url.file}</echo>
         <get src="${air.sdk.url.path}/${air.sdk.url.file}"
             dest="${download.dir}/${air.sdk.url.file}"
@@ -307,13 +307,13 @@
         <untar compression="bzip2" src="${download.dir}/${air.sdk.url.file}" dest="${download.dir}/airsdk" />-->
         <mkdir dir="${download.dir}/airsdk" />
         <move file="${download.dir}/${air.sdk.url.file}" todir="${download.dir}/airsdk" />
-        <exec executable="bunzip2" dir="${download.dir}/airsdk" >
+        <exec executable="bunzip2" dir="${download.dir}/airsdk">
             <arg value="${air.sdk.url.file}" />
         </exec>
         <echo file="${basedir}/airtar.properties">air.tar.name=${air.sdk.url.file}</echo>
         <replace file="${basedir}/airtar.properties" token="tbz2" value="tar" />
         <property file="${basedir}/airtar.properties" />
-        <exec executable="tar" dir="${download.dir}/airsdk" >
+        <exec executable="tar" dir="${download.dir}/airsdk">
             <arg value="-xvf" />
             <arg value="${air.tar.name}" />
         </exec>
