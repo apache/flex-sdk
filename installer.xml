@@ -43,9 +43,6 @@
     <property file="${FLEX_HOME}/installer.properties/en_US.properties"/>
     <property name="download.dir" value="${FLEX_HOME}/in"/>
     
-    <property name="air.sdk.version" value="13.0"/>
-    <property name="flash.sdk.version" value="13.0"/>
-    
     <property name="xml.properties" value="http://flex.apache.org/installer/sdk-installer-config-4.0.xml" />
     
     <condition property="platform" value="mac">
@@ -91,17 +88,6 @@
         <isset property="installer" />
     </condition>
     
-    <condition property="flash.version.changed" value="true">
-        <not>
-            <equals arg1="${playerglobal.version}" arg2="${flash.sdk.version}" />
-        </not>
-    </condition>
-    <condition property="air.version.changed" value="true">
-        <not>
-            <equals arg1="${air.version}" arg2="${air.sdk.version}" />
-        </not>
-    </condition>
-    
     <condition property="java.home" value="${env.JAVA_HOME}">
         <and>
             <available file="${env.JAVA_HOME}" type="dir" />
@@ -116,6 +102,26 @@
         <get src="${xml.properties}" dest="${basedir}/sdk-installer-config-4.0.xml" />
         <xmlproperty file="${basedir}/sdk-installer-config-4.0.xml" semanticAttributes="true" collapseAttributes="true"/>
         <xmlproperty file="${basedir}/flex-sdk-description.xml" semanticAttributes="true" collapseAttributes="true"/>
+        <condition property="air.sdk.version" value="${config.airsdk.linux.versions.default}">
+            <equals arg1="${platform}" arg2="linux" />
+        </condition>
+        <condition property="air.sdk.version" value="${config.airsdk.windows.versions.default}">
+            <equals arg1="${platform}" arg2="windows" />
+        </condition>
+        <condition property="air.sdk.version" value="${config.airsdk.mac.versions.default}">
+            <equals arg1="${platform}" arg2="mac" />
+        </condition>
+        <property name="flash.sdk.version" value="${config.flashsdk.versions.default}"/>
+        <condition property="flash.version.changed" value="true">
+            <not>
+                <equals arg1="${playerglobal.version}" arg2="${flash.sdk.version}" />
+            </not>
+        </condition>
+        <condition property="air.version.changed" value="true">
+            <not>
+                <equals arg1="${air.version}" arg2="${air.sdk.version}" />
+            </not>
+        </condition>
         <property name="air.sdk.url.path.ref" value="air.sdk.path.${platform}.${air.sdk.version}" />
         <property name="air.sdk.url.path" refid="${air.sdk.url.path.ref}" />
         <property name="air.sdk.url.file.ref" value="air.sdk.file.${platform}.${air.sdk.version}" />
@@ -494,6 +500,8 @@
                 <include name="swfobject/swfobject.js"/>
             </patternset>
         </unzip>
+        <mkdir dir="${FLEX_HOME}/frameworks/javascript/fabridge/samples/fabridge/swfobject" />
+        <copy file="${FLEX_HOME}/templates/swfobject/swfobject.js" todir="${FLEX_HOME}/frameworks/javascript/fabridge/samples/fabridge/swfobject" />
     </target>
     
     <!-- osmf (Version 2.0) -->
@@ -630,6 +638,9 @@
             <replacefilter token="{airHome}/frameworks/libs"
             value="libs"/>
         </replace>
+        <copy file="${FLEX_HOME}/frameworks/flex-config.xml" todir="${FLEX_HOME}/ide/flashbuilder/config" overwrite="true" />
+        <copy file="${FLEX_HOME}/frameworks/air-config.xml" todir="${FLEX_HOME}/ide/flashbuilder/config" overwrite="true" />
+        <copy file="${FLEX_HOME}/frameworks/airmobile-config.xml" todir="${FLEX_HOME}/ide/flashbuilder/config" overwrite="true" />
     </target>
     
     <target name="fixup-config-files-version" if="flash.version.changed">
