@@ -115,6 +115,7 @@
         <property name="do-not-cache-next-get" value="true" />
         <get src="${xml.properties}" dest="${basedir}/sdk-installer-config-4.0.xml" />
         <xmlproperty file="${basedir}/sdk-installer-config-4.0.xml" semanticAttributes="true" collapseAttributes="true"/>
+        <xmlproperty file="${basedir}/flex-sdk-description.xml" semanticAttributes="true" collapseAttributes="true"/>
         <property name="air.sdk.url.path.ref" value="air.sdk.path.${platform}.${air.sdk.version}" />
         <property name="air.sdk.url.path" refid="${air.sdk.url.path.ref}" />
         <property name="air.sdk.url.file.ref" value="air.sdk.file.${platform}.${air.sdk.version}" />
@@ -135,6 +136,7 @@
     </target>
     
     <target name="install" depends="get-data,check-binary,ask-licenses,get-third-party-files,fixup-config-files" description="Converts binary package to IDE compatible folder">
+        <delete dir="${download.dir}" />
         <echo>${install.complete.echo}</echo>
     </target>
     
@@ -330,8 +332,18 @@
             <param name="destdir" value="${FLEX_HOME}" />
         </antcall>
         <antcall target="mac-copy-file">
+            <param name="srcdir" value="." />
+            <param name="filename" value="airsdk.xml"/>
+            <param name="destdir" value="${FLEX_HOME}" />
+        </antcall>
+        <antcall target="mac-copy-file">
             <param name="srcdir" value="bin" />
             <param name="filename" value="adl"/>
+            <param name="destdir" value="${FLEX_HOME}/bin" />
+        </antcall>
+        <antcall target="mac-copy-file">
+            <param name="srcdir" value="bin" />
+            <param name="filename" value="adt"/>
             <param name="destdir" value="${FLEX_HOME}/bin" />
         </antcall>
         <antcall target="mac-copy-file">
@@ -386,6 +398,14 @@
         </antcall>
         <antcall target="mac-copy-dir">
             <param name="srcdir" value="templates/air" />
+            <param name="destdir" value="${FLEX_HOME}/templates" />
+        </antcall>
+        <antcall target="mac-copy-dir">
+            <param name="srcdir" value="templates/extensions" />
+            <param name="destdir" value="${FLEX_HOME}/templates" />
+        </antcall>
+        <antcall target="mac-copy-dir">
+            <param name="srcdir" value="templates/sdk" />
             <param name="destdir" value="${FLEX_HOME}/templates" />
         </antcall>
     </target>
@@ -494,9 +514,15 @@
 
         <mkdir dir="${basedir}/frameworks/libs/"/>
         <get src="http://downloads.sourceforge.net/project/osmf.adobe/OSMF%202.0%20Release%20%28final%20source%2C%20ASDocs%2C%20pdf%20guides%20and%20release%20notes%29/OSMF.swc"
-        dest="${basedir}/frameworks/libs/OSMF.swc"
+        dest="${basedir}/frameworks/libs/osmf.swc"
         verbose="false"/>
         
+        <unzip src="${basedir}/frameworks/libs/osmf.swc" dest="${download.dir}">
+            <patternset>
+                <include name="library.swf"/>
+            </patternset>
+        </unzip>
+        <copy file="${download.dir}/library.swf" tofile="${FLEX_HOME}/frameworks/rsls/osmf_${flex-sdk-description.version}.${flex-sdk-description.build}.swf" />
     </target>
 
     <!-- fontswf -->
