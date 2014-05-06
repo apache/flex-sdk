@@ -501,7 +501,7 @@
             </patternset>
         </unzip>
         <mkdir dir="${FLEX_HOME}/frameworks/javascript/fabridge/samples/fabridge/swfobject" />
-        <copy file="${FLEX_HOME}/templates/swfobject/swfobject.js" todir="${FLEX_HOME}/frameworks/javascript/fabridge/samples/fabridge/swfobject" />
+        <copy file="${FLEX_HOME}/templates/swfobject/swfobject.js" tofile="${FLEX_HOME}/frameworks/javascript/fabridge/samples/fabridge/swfobject/swfobject.js" />
     </target>
     
     <!-- osmf (Version 2.0) -->
