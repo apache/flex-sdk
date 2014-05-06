@@ -638,9 +638,9 @@
             <replacefilter token="{airHome}/frameworks/libs"
             value="libs"/>
         </replace>
-        <copy file="${FLEX_HOME}/frameworks/flex-config.xml" todir="${FLEX_HOME}/ide/flashbuilder/config" overwrite="true" />
-        <copy file="${FLEX_HOME}/frameworks/air-config.xml" todir="${FLEX_HOME}/ide/flashbuilder/config" overwrite="true" />
-        <copy file="${FLEX_HOME}/frameworks/airmobile-config.xml" todir="${FLEX_HOME}/ide/flashbuilder/config" overwrite="true" />
+        <copy file="${FLEX_HOME}/frameworks/flex-config.xml" tofile="${FLEX_HOME}/ide/flashbuilder/config/flex-config.xml" overwrite="true" />
+        <copy file="${FLEX_HOME}/frameworks/air-config.xml" tofile="${FLEX_HOME}/ide/flashbuilder/config/air-config.xml" overwrite="true" />
+        <copy file="${FLEX_HOME}/frameworks/airmobile-config.xml" tofile="${FLEX_HOME}/ide/flashbuilder/config/airmobile-config.xml" overwrite="true" />
     </target>
     
     <target name="fixup-config-files-version" if="flash.version.changed">
